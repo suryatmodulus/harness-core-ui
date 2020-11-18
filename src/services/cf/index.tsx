@@ -1200,7 +1200,7 @@ export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
     void
   >
     verb="POST"
-    path={`/admin/feature-flags`}
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1237,7 +1237,7 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     void,
     FeatureFlagRequestRequestBody,
     void
-  >('POST', `/admin/feature-flags`, { base: getConfig('cf'), ...props })
+  >('POST', `/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface GetAllFeatureFlagsQueryParams {
   /**
@@ -1288,7 +1288,7 @@ export const GetAllFeatureFlags = (props: GetAllFeatureFlagsProps) => (
     GetAllFeatureFlagsQueryParams,
     void
   >
-    path={`/admin/feature-flags`}
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1315,7 +1315,7 @@ export const useGetAllFeatureFlags = (props: UseGetAllFeatureFlagsProps) =>
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetAllFeatureFlagsQueryParams,
     void
-  >(`/admin/feature-flags`, { base: getConfig('cf'), ...props })
+  >(`/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface GetFeatureFlagQueryParams {
   /**
@@ -1354,7 +1354,7 @@ export const GetFeatureFlag = ({ identifier, ...props }: GetFeatureFlagProps) =>
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
   >
-    path={`/admin/feature-flags/${identifier}`}
+    path={`/admin/features/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1382,7 +1382,7 @@ export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagPro
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
-  >((paramsInPath: GetFeatureFlagPathParams) => `/admin/feature-flags/${paramsInPath.identifier}`, {
+  >((paramsInPath: GetFeatureFlagPathParams) => `/admin/features/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -1438,7 +1438,7 @@ export const ModifyFeatureFlag = ({ identifier, ...props }: ModifyFeatureFlagPro
     ModifyFeatureFlagPathParams
   >
     verb="PUT"
-    path={`/admin/feature-flags/${identifier}`}
+    path={`/admin/features/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1478,7 +1478,7 @@ export const useModifyFeatureFlag = ({ identifier, ...props }: UseModifyFeatureF
     ModifyFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
     ModifyFeatureFlagPathParams
-  >('PUT', (paramsInPath: ModifyFeatureFlagPathParams) => `/admin/feature-flags/${paramsInPath.identifier}`, {
+  >('PUT', (paramsInPath: ModifyFeatureFlagPathParams) => `/admin/features/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -1516,7 +1516,7 @@ export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/feature-flags`}
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1545,7 +1545,7 @@ export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
     DeleteFeatureFlagQueryParams,
     string,
     void
-  >('DELETE', `/admin/feature-flags`, { base: getConfig('cf'), ...props })
+  >('DELETE', `/admin/features`, { base: getConfig('cf'), ...props })
 
 export type CreateTargetProps = Omit<
   MutateProps<

@@ -26,7 +26,7 @@ export default function EventSvg({
   } else if (verificationResult === 'VERIFICATION_PASSED') {
     pathProps.fill = '#ffffff'
     pathProps.stroke = '#86DD29'
-  } else if (verificationResult === 'VERIFICATION_FAILED') {
+  } else if (verificationResult === 'VERIFICATION_FAILED' || verificationResult === 'ERROR') {
     pathProps.fill = '#ffffff'
     pathProps.stroke = '#F45858'
   }

@@ -160,7 +160,7 @@ export default function ActivitiesTimelineView({
             )}
           </Container>
         </TimelineTooltip>
-        {!selectedEventIndex && (
+        {selectedEventIndex === -1 && (
           <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>{`${items.length} Events`}</Text>
         )}
       </Container>

@@ -25,7 +25,7 @@ export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldown
         })}
       >{`${i18n.dashboard} /`}</Link>
       <Container className={styles.headerWrap}>
-        <Icon size={30} name="nav-cd" />
+        <Icon size={30} name="cd-main" />
         <Text font={{ size: 'medium', weight: 'bold' }}>{props.deploymentTag}</Text>
         <Text margin={{ right: 'small', left: 'small' }}>{i18n.environments}:</Text>
         <Text font={{ weight: 'bold' }}>{props?.environments?.join(', ')}</Text>

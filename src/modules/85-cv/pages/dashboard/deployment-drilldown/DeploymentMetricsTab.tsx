@@ -39,9 +39,18 @@ export default function DeploymentMetricsTab({
 }: DeploymentMetricsTabProps) {
   return (
     <div className={classnames(styles.metricsTab, styles.panel)}>
-      <MetricAnalysisFilter
-        onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
-      />
+      <Container className={styles.timeFilterAndBar}>
+        <MetricAnalysisFilter
+          onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
+        />
+        {data?.resource?.deploymentTimeRange && (
+          <TimelineBar
+            className={styles.timelineBar}
+            startDate={data?.resource?.deploymentTimeRange.startTime as number}
+            endDate={data?.resource?.deploymentTimeRange.endTime as number}
+          />
+        )}
+      </Container>
       {data?.resource?.pageResponse?.content?.length === 0 && !isLoading && (
         <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
       )}
@@ -63,13 +72,6 @@ export default function DeploymentMetricsTab({
           itemCount={data.resource.pageResponse.totalItems as number}
           pageIndex={data.resource.pageResponse.pageIndex}
           gotoPage={goToPage}
-        />
-      )}
-      {data?.resource?.deploymentTimeRange && (
-        <TimelineBar
-          className={styles.timelineBar}
-          startDate={data?.resource?.deploymentTimeRange.startTime as number}
-          endDate={data?.resource?.deploymentTimeRange.endTime as number}
         />
       )}
     </div>

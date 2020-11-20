@@ -68,10 +68,14 @@
   flex-direction: column;
   min-height: 0;
   margin-top: var(--spacing-xsmall);
+  .timeFilterAndBar {
+    display: flex;
+  }
   .timelineBar {
+    flex: 1;
     border-top: 1px solid var(--grey-200);
     padding-top: var(--spacing-small);
-    margin-left: 210px;
+    margin-left: var(--spacing-small) !important;
   }
 }
 

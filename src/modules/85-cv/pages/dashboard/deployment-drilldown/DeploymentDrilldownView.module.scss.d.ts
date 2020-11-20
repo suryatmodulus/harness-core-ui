@@ -12,6 +12,7 @@ declare const styles: {
   readonly filters: string
   readonly timeseriesList: string
   readonly metricsTab: string
+  readonly timeFilterAndBar: string
   readonly timelineBar: string
   readonly noDataCard: string
   readonly showMore: string

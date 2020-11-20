@@ -538,64 +538,68 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             class="metricsTab panel"
           >
             <div
-              class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+              class="StyledProps---font--2ipy StyledProps---main--1Wws timeFilterAndBar"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws filterOptionContainer"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws main"
               >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
-                >
-                  FILTER
-                </p>
                 <div
-                  class="bp3-popover-wrapper filterByOptions Select---main--1QpB bp3-fill"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws filterOptionContainer"
                 >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-small--3cA6"
+                  >
+                    FILTER
+                  </p>
                   <div
-                    class="bp3-popover-target"
+                    class="bp3-popover-wrapper filterByOptions Select---main--1QpB bp3-fill"
                   >
                     <div
-                      class="bp3-input-group bp3-small"
+                      class="bp3-popover-target"
                     >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        placeholder="Search..."
-                        style="padding-right: 0px;"
-                        type="text"
-                        value="Anomalous metrics"
-                      />
-                      <span
-                        class="bp3-input-action"
+                      <div
+                        class="bp3-input-group bp3-small"
                       >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Anomalous metrics"
+                        />
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
-                          icon="caret-down"
+                          class="bp3-input-action"
                         >
-                          <svg
-                            data-icon="caret-down"
-                            height="14"
-                            viewBox="0 0 16 16"
-                            width="14"
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-xsmall---5eB"
+                            icon="caret-down"
                           >
-                            <desc>
-                              caret-down
-                            </desc>
-                            <path
-                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <input
+                  class="filterInput"
+                  placeholder="Search"
+                />
               </div>
-              <input
-                class="filterInput"
-                placeholder="Search"
-              />
             </div>
             <div
               class="StyledProps---font--2ipy StyledProps---main--1Wws timeseriesList"

@@ -54,10 +54,16 @@ export default function BlueGreenVerificationChart({
             interactionKind={PopoverInteractionKind.HOVER}
             content={
               <Container>
-                <Text font={{ size: 'small', weight: 'bold' }}>{cell.hostName}</Text>
+                <Text color={Color.GREY_300} font={{ size: 'small', weight: 'bold' }}>
+                  {cell.hostName}
+                </Text>
                 <Container margin={{ top: 'small' }}>
-                  <Text font={{ size: 'small' }}>{cell.anomalousMetricsCount} anomalous metrics</Text>
-                  <Text font={{ size: 'small' }}>{cell.anomalousLogClustersCount} anomalous log clusters</Text>
+                  <Text color={Color.GREY_300} font={{ size: 'small' }}>
+                    {cell.anomalousMetricsCount} anomalous metrics
+                  </Text>
+                  <Text color={Color.GREY_300} font={{ size: 'small' }}>
+                    {cell.anomalousLogClustersCount} anomalous log clusters
+                  </Text>
                 </Container>
               </Container>
             }

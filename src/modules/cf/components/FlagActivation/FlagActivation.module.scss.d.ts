@@ -6,5 +6,7 @@ declare const styles: {
   readonly testFlagDialogContainer: string
   readonly tabContainer: string
   readonly tabContainerTestFlagBtn: string
+  readonly editContainer: string
+  readonly editBtnsGroup: string
 }
 export default styles

@@ -1,8 +1,8 @@
 .flag-container {
   width: 30% !important;
   padding: var(--spacing-xlarge) !important;
-  border-top-right-radius: var(--spacing-xsmall);
-  box-shadow: 10px 0 5px -2px var(--grey-300);
+  border-top-right-radius: var(--spacing-xlarge);
+  box-shadow: 8px 0 5px -2px var(--grey-200);
   z-index: 1;
   height: 100%;
 }

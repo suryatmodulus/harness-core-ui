@@ -13,7 +13,7 @@ import {
   ModalErrorHandler
 } from '@wings-software/uikit'
 import cx from 'classnames'
-import type { FeatureFlag } from 'services/cf'
+import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from './common/InputDescOptional'
 import i18n from './FlagWizard.i18n'
@@ -24,7 +24,7 @@ interface FlagElemVariationsProps {
   testFlagClicked: boolean
   onTestFlag: () => void
   flagTypeOptions: SelectOption[]
-  onWizardStepSubmit: (data: FeatureFlag) => void
+  onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
   // FIXME: Check for the right type
   setModalErrorHandler: Dispatch<SetStateAction<any>>
@@ -116,8 +116,8 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         initialValues={{
           kind: FlagTypeVariations.booleanFlag,
           variations: [
-            { identifier: 'true', name: '', description: '', value: true },
-            { identifier: 'false', name: '', description: '', value: false }
+            { identifier: 'true', name: '', description: '', value: 'true' },
+            { identifier: 'false', name: '', description: '', value: 'false' }
           ],
           defaultOnVariation: '',
           defaultOffVariation: '',
@@ -130,7 +130,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
             // When user clicks on third optional step, load it's component
             return nextStep?.({ ...prevStepData, ...vals })
           }
-          const data: FeatureFlag = { ...prevStepData, ...vals, project: projectIdentifier }
+          const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
           onWizardStepSubmit(data)
         }}
       >

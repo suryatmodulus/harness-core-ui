@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
-import { useCreateFeatureFlag, FeatureFlag } from 'services/cf'
+import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
 import { useRouteParams } from 'framework/exports'
 import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
 import { useToaster } from '@common/exports'
@@ -33,7 +33,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { showError } = useToaster()
 
   const {
-    params: { projectIdentifier, orgIdentifier }
+    params: { projectIdentifier, orgIdentifier, environmentIdentifier }
   } = useRouteParams()
 
   const history = useHistory()
@@ -48,7 +48,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     setTestFlagClicked(true)
   }
 
-  const onWizardStepSubmit = async (formData: FeatureFlag | undefined): Promise<void> => {
+  const onWizardStepSubmit = async (formData: FeatureFlagRequestRequestBody | undefined): Promise<void> => {
     modalErrorHandler?.hide()
 
     try {
@@ -69,7 +69,8 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           routeCFFeatureFlagsDetail.url({
             orgIdentifier: orgIdentifier as string,
             projectIdentifier: projectIdentifier as string,
-            featureFlagIdentifier: formData.identifier
+            featureFlagIdentifier: formData.identifier,
+            environmentIdentifier: (environmentIdentifier ?? 'production') as string
           })
         )
       } else {

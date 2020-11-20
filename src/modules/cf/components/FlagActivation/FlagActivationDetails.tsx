@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { isEqual, zip } from 'lodash-es'
 import {
   Color,
   Layout,
@@ -21,9 +22,10 @@ import moment from 'moment'
 import { Menu, Dialog, Classes } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { FieldArray } from 'formik'
-import type { FeatureFlagResponseResponse } from 'services/cf'
+import { Feature, usePatchFeatureFlag, Variation } from 'services/cf'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from '../../components/CreateFlagWizard/common/InputDescOptional'
+import patch from '../../utils/instructions'
 import i18n from './FlagActivationDetails.i18n'
 import css from './FlagActivationDetails.module.scss'
 
@@ -41,48 +43,87 @@ const editCardCollapsedProps = {
 }
 
 interface FlagActivationDetailsProps {
-  singleFlag: FeatureFlagResponseResponse | null
+  singleFlag: Feature | undefined | null
+  refetchFlag: () => void
 }
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
-  const { singleFlag } = props
+  const { singleFlag, refetchFlag } = props
 
   const [editOpenedMenu, setEditOpenedMenu] = useState(false)
   const [showPrerequisites, setShowPrerequisites] = useState(false)
   const [listPrerequisites, setListPrequisites] = useState<ListPrerequisitesOptionElement[]>([])
   const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
+  const { mutate: submitPatch } = usePatchFeatureFlag({
+    identifier: singleFlag?.identifier as string,
+    queryParams: {
+      project: singleFlag?.project as string,
+      environment: singleFlag?.envProperties?.environment as string
+    }
+  })
 
   const history = useHistory()
 
-  const isBooleanFlag = singleFlag?.data?.kind === FlagTypeVariations.booleanFlag
+  const isBooleanFlag = singleFlag?.kind === FlagTypeVariations.booleanFlag
 
   const setDefaultFlags = (): void => {
     let localVars: SelectOption[] = []
-    if (singleFlag?.data?.variations.length) {
+    if (singleFlag?.variations.length) {
       // FIXME: Check the TS error about incompatible types
-      localVars = singleFlag.data.variations.map(elem => {
+      localVars = singleFlag?.variations.map(elem => {
         return { label: elem.identifier as string, value: elem.value as any }
       })
     }
     setEditDefaultValuesModal(localVars)
   }
 
-  const [openModalEditVariations, hideModalEditVariations] = useModalHook(
-    () => (
+  const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => {
+    const initialValues = {
+      variations: singleFlag?.variations,
+      defaultOnVariation: singleFlag?.defaultOnVariation,
+      defaultOffVariation: singleFlag?.defaultOffVariation
+    }
+
+    const handleSubmit = (values: typeof initialValues) => {
+      const { variations, defaultOffVariation, defaultOnVariation } = values
+
+      if (!isEqual(variations, initialValues.variations)) {
+        patch.feature.addAllInstructions(
+          zip(variations, initialValues.variations)
+            .filter(([cur, prev]) => !isEqual(cur, prev))
+            .map(tuple => tuple[0] as NonNullable<Variation>)
+            .map(patch.creators.updateVariation)
+        )
+      }
+      if (!isEqual(defaultOffVariation, initialValues.defaultOffVariation)) {
+        patch.feature.addInstruction(patch.creators.setDefaultOffVariation(defaultOffVariation as string))
+      }
+      if (!isEqual(defaultOnVariation, initialValues.defaultOnVariation)) {
+        patch.feature.addInstruction(patch.creators.setDefaultOnVariation(defaultOnVariation as string))
+      }
+
+      patch.feature
+        .onPatchAvailable(data => {
+          submitPatch(data)
+            .then(() => {
+              patch.feature.reset()
+              refetchFlag()
+            })
+            .catch(() => {
+              patch.feature.reset()
+            })
+        })
+        .onEmptyPatch(hideModalEditVariations)
+    }
+
+    return (
       <Dialog onClose={hideModalEditVariations} title={''} isOpen={true} style={{ width: '800px' }}>
         <Layout.Vertical padding={{ left: 'xlarge', right: 'large' }}>
           <Heading level={2} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
             {i18n.editVariations.editVariationHeading}
           </Heading>
           <Container>
-            <Formik
-              initialValues={{
-                variations: singleFlag?.data?.variations,
-                defaultOnVariation: singleFlag?.data?.defaultOnVariation,
-                defaultOffVariation: singleFlag?.data?.defaultOffVariation
-              }}
-              onSubmit={vals => alert(JSON.stringify(vals, null, 2))}
-            >
+            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
               {formikProps => (
                 <Form>
                   <Layout.Vertical>
@@ -95,7 +136,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName="variations[0].description"
                               inputPlaceholder={''}
-                              isOpen={singleFlag?.data?.variations[0].description ? true : false}
+                              isOpen={singleFlag?.variations[0].description ? true : false}
                             />
                           </Layout.Horizontal>
                           <Layout.Horizontal className={css.variationsContainer}>
@@ -104,7 +145,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName="variations[1].description"
                               inputPlaceholder={''}
-                              isOpen={singleFlag?.data?.variations[1].description ? true : false}
+                              isOpen={singleFlag?.variations[1].description ? true : false}
                             />
                           </Layout.Horizontal>
                         </>
@@ -126,7 +167,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                               text={i18n.descOptional}
                               inputName={`variations.${index}.description`}
                               inputPlaceholder={i18n.editVariations.variationAbout}
-                              isOpen={singleFlag?.data?.variations[index].description ? true : false}
+                              isOpen={singleFlag?.variations[index].description ? true : false}
                             />
                           </Layout.Horizontal>
                         ))
@@ -183,9 +224,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           </Container>
         </Layout.Vertical>
       </Dialog>
-    ),
-    [editDefaultValuesModal]
-  )
+    )
+  }, [editDefaultValuesModal])
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => (
     <Dialog title={i18n.addPrerequisites.addPrerequisitesHeading} onClose={hideModalPrerequisites} isOpen={true}>
@@ -207,7 +247,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 {arrayHelpers => {
                   return (
                     <>
-                      {formikProps.values.prerequisitesDialog.map((_, i) => (
+                      {formikProps.values.prerequisitesDialog.map((__, i) => (
                         <Layout.Horizontal flex key={i}>
                           <FormInput.Select
                             name={`prerequisitesDialog.${i}.prerequisitesFlag`}
@@ -245,59 +285,107 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     </Dialog>
   ))
 
-  const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => (
-    <Dialog onClose={hideEditDetailsModal} isOpen={true} title={''}>
-      <Formik
-        initialValues={{
-          name: singleFlag?.data?.name,
-          description: singleFlag?.data?.description,
-          tags: singleFlag?.data?.tags?.map(elem => elem.name),
-          permanent: singleFlag?.data?.permanent
-        }}
-        onSubmit={vals => alert(JSON.stringify(vals, null, 2))}
-      >
-        {() => (
-          <Form>
-            <Layout.Vertical className={css.editDetailsModalContainer}>
-              <Text>{i18n.editDetails.editDetailsHeading}</Text>
+  const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
+    const initialValues = {
+      name: singleFlag?.name,
+      description: singleFlag?.description,
+      tags: singleFlag?.tags?.map(elem => elem.name),
+      permanent: singleFlag?.permanent
+    }
 
-              <FormInput.Text name="name" label={i18n.nameLabel} />
+    // TODO: Uncomment when tags are ready on Backend
+    // const getTag = (tagName: string) => singleFlag?.tags?.find(tag => tag.name === tagName)
 
-              <FormInput.TextArea name="description" label={i18n.descOptional} />
+    const handleSubmit = (values: typeof initialValues) => {
+      const { name, description, tags, permanent } = values
+      if (name !== initialValues.name) {
+        patch.feature.addInstruction(patch.creators.updateName(name as string))
+      }
 
-              <FormInput.TagInput
-                name="tags"
-                label={i18n.editDetails.tags}
-                items={[]}
-                labelFor={nameTag => nameTag as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{ showAddTagButton: true, allowNewTag: true }}
-              />
+      if (description !== initialValues.description) {
+        patch.feature.addInstruction(patch.creators.updateDescription(description as string))
+      }
 
-              <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
-                <FormInput.CheckBox
-                  name="permanent"
-                  label={i18n.editDetails.permaFlag}
-                  className={css.checkboxEditDetails}
+      if (!isEqual(tags, initialValues.tags)) {
+        // TODO: Uncomment when tags are ready on Backend
+        // initialValues.tags
+        //   ?.filter(tag => tags?.includes(tag))
+        //   .map(getTag)
+        //   .forEach((tag: any) => {
+        //     patch.feature.addInstruction(patch.creators.removeTag(tag.name, tag.value))
+        //   })
+        // tags
+        //   ?.filter((tag: any) => !initialValues.tags?.includes(tag))
+        //   .forEach((tag: any) => {
+        //     console.log(tag)
+        //     patch.feature.addInstruction(patch.creators.addTag(tag, tag))
+        //   })
+      }
+
+      if (permanent !== initialValues.permanent) {
+        // TODO: not implemented on backend yet
+      }
+
+      patch.feature
+        .onPatchAvailable(data => {
+          submitPatch(data)
+            .then(() => {
+              patch.feature.reset()
+              refetchFlag()
+            })
+            .catch(() => {
+              patch.feature.reset()
+            })
+        })
+        .onEmptyPatch(hideEditDetailsModal)
+    }
+
+    return (
+      <Dialog onClose={hideEditDetailsModal} isOpen={true} title={''}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+          {() => (
+            <Form>
+              <Layout.Vertical className={css.editDetailsModalContainer}>
+                <Text>{i18n.editDetails.editDetailsHeading}</Text>
+
+                <FormInput.Text name="name" label={i18n.nameLabel} />
+
+                <FormInput.TextArea name="description" label={i18n.descOptional} />
+
+                <FormInput.TagInput
+                  name="tags"
+                  label={i18n.editDetails.tags}
+                  items={[]}
+                  labelFor={nameTag => nameTag as string}
+                  itemFromNewTag={newTag => newTag}
+                  tagInputProps={{ showAddTagButton: true, allowNewTag: true }}
                 />
-                <Text
-                  icon="info-sign"
-                  iconProps={{ color: Color.BLUE_500, size: 12 }}
-                  tooltip="To be added..."
-                  tooltipProps={{ isDark: true }}
-                />
-              </Layout.Horizontal>
 
-              <Layout.Horizontal>
-                <Button intent="primary" text={i18n.save} type="submit" />
-                <Button minimal text={i18n.cancel} onClick={hideEditDetailsModal} />
-              </Layout.Horizontal>
-            </Layout.Vertical>
-          </Form>
-        )}
-      </Formik>
-    </Dialog>
-  ))
+                <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
+                  <FormInput.CheckBox
+                    name="permanent"
+                    label={i18n.editDetails.permaFlag}
+                    className={css.checkboxEditDetails}
+                  />
+                  <Text
+                    icon="info-sign"
+                    iconProps={{ color: Color.BLUE_500, size: 12 }}
+                    tooltip="To be added..."
+                    tooltipProps={{ isDark: true }}
+                  />
+                </Layout.Horizontal>
+
+                <Layout.Horizontal>
+                  <Button intent="primary" text={i18n.save} type="submit" />
+                  <Button minimal text={i18n.cancel} onClick={hideEditDetailsModal} />
+                </Layout.Horizontal>
+              </Layout.Vertical>
+            </Form>
+          )}
+        </Formik>
+      </Dialog>
+    )
+  })
 
   return (
     <>
@@ -334,16 +422,16 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
       <Container>
         <Heading color={Color.BLACK} margin={{ bottom: 'medium' }}>
-          {singleFlag?.data?.name}
+          {singleFlag?.name}
         </Heading>
-        <Text margin={{ bottom: 'medium' }}>{singleFlag?.data?.description}</Text>
+        <Text margin={{ bottom: 'medium' }}>{singleFlag?.description}</Text>
         <Text font={{ size: 'small' }}>
           <span style={{ backgroundColor: 'var(--blue-300)', padding: 'var(--spacing-xsmall)', borderRadius: '7px' }}>
-            {singleFlag?.data?.identifier}
+            {singleFlag?.identifier}
           </span>
         </Text>
         <Container className={css.tagsFlagActivationDetails}>
-          {singleFlag?.data?.tags?.map((elem, i) => (
+          {singleFlag?.tags?.map((elem, i) => (
             <Text
               key={`flagDetails-${i}`}
               background={Color.GREY_300}
@@ -363,7 +451,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 {i18n.created}
               </Text>
               <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {moment(singleFlag?.data?.createdAt).format('MMMM D, YYYY hh:mm A')}
+                {moment(singleFlag?.createdAt).format('MMMM D, YYYY hh:mm A')}
               </Text>
             </Layout.Horizontal>
             <Layout.Horizontal flex>
@@ -371,7 +459,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                 {i18n.modified}
               </Text>
               <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {moment(singleFlag?.data?.modifiedAt).format('MMMM D, YYYY hh:mm A')}
+                {moment(singleFlag?.modifiedAt).format('MMMM D, YYYY hh:mm A')}
               </Text>
             </Layout.Horizontal>
           </Layout.Vertical>
@@ -413,11 +501,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               margin={{ bottom: 'medium' }}
               padding={{ bottom: 'xsmall' }}
             >
-              {singleFlag?.data?.kind === FlagTypeVariations.booleanFlag ? i18n.boolean : i18n.multivariate} (
-              {singleFlag?.data?.variations.length} variations)
+              {singleFlag?.kind === FlagTypeVariations.booleanFlag ? i18n.boolean : i18n.multivariate} (
+              {singleFlag?.variations.length} variations)
             </Text>
-            <Text margin={{ bottom: 'medium' }}>{singleFlag?.data?.defaultOnVariation}</Text>
-            <Text>{singleFlag?.data?.defaultOffVariation}</Text>
+            <Text margin={{ bottom: 'medium' }}>{singleFlag?.defaultOnVariation}</Text>
+            <Text>{singleFlag?.defaultOffVariation}</Text>
           </Layout.Vertical>
         </Layout.Vertical>
 

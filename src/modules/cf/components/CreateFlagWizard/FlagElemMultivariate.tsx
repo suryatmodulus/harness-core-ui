@@ -14,7 +14,7 @@ import {
   ModalErrorHandler
 } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
-import type { FeatureFlag } from 'services/cf'
+import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
 import InputDescOptional from './common/InputDescOptional'
 import i18n from './FlagWizard.i18n'
@@ -26,7 +26,7 @@ interface FlagElemVariationsProps {
   testFlagClicked: boolean
   onTestFlag: () => void
   flagTypeOptions: SelectOption[]
-  onWizardStepSubmit: (data: FeatureFlag) => void
+  onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
   // FIXME: Check for the right type
   setModalErrorHandler: Dispatch<SetStateAction<any>>
@@ -133,7 +133,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
           if (testFlagClicked) {
             return nextStep?.({ ...prevStepData, ...vals })
           }
-          const data: FeatureFlag = { ...prevStepData, ...vals, project: projectIdentifier }
+          const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
           onWizardStepSubmit(data)
         }}
       >

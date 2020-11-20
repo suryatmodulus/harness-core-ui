@@ -37,17 +37,19 @@ export const routeCFFeatureFlags: Route<{ orgIdentifier: string; projectIdentifi
 export const routeCFFeatureFlagsDetail: Route<{
   orgIdentifier: string
   projectIdentifier: string
+  environmentIdentifier: string
   featureFlagIdentifier: string
 }> = {
   module: ModuleName.CF,
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
-  path: '/cf/feature-flags/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags/:featureFlagIdentifier',
+  path:
+    '/cf/feature-flags/orgs/:orgIdentifier/projects/:projectIdentifier/features/:featureFlagIdentifier/environments/:environmentIdentifier',
   title: i18n.featureFlags,
   pageId: 'cf-feature-flags-detail',
-  url: ({ orgIdentifier, projectIdentifier, featureFlagIdentifier }) =>
+  url: ({ orgIdentifier, projectIdentifier, environmentIdentifier, featureFlagIdentifier }) =>
     routeURL(
       routeCFFeatureFlagsDetail,
-      `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
+      `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}/features/${featureFlagIdentifier}/environments/${environmentIdentifier}`
     ),
   component: React.lazy(() => import('modules/cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'))
 }

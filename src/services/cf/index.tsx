@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
+
 import { getConfig } from '../config'
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export interface HealthResponse {
   healthy?: boolean
 }
@@ -21,9 +19,9 @@ export interface Tag {
 }
 
 export interface Project {
-  name?: string
+  name: string
   description?: string
-  identifier?: string
+  identifier: string
   tags?: Tag[]
 }
 
@@ -40,16 +38,33 @@ export interface Error {
   message: string
 }
 
+export interface ApiKey {
+  name: string
+  apiKey: string
+  identifier: string
+}
+
+export type ApiKeys = ApiKey[]
+
 export interface Environment {
-  name?: string
+  name: string
   description?: string
-  identifier?: string
-  project?: string
+  identifier: string
+  project: string
+  apiKeys: ApiKeys
   tags?: Tag[]
 }
 
 export interface Environments {
   environments?: Environment[]
+}
+
+export interface Pagination {
+  version?: number
+  pageCount: number
+  itemCount: number
+  pageSize: number
+  pageIndex: number
 }
 
 export interface Prerequisite {
@@ -59,37 +74,97 @@ export interface Prerequisite {
 
 export interface Variation {
   identifier: string
-  value: string | number | boolean | { [key: string]: any }
+  value: string
   name?: string
   description?: string
 }
 
-export interface FeatureFlag {
+export interface VariationMap {
+  variation: string
+  targets?: string[]
+  targetSegments?: string[]
+}
+
+export interface Clause {
+  id: string
+  attribute: string
+  op: string
+  value: string[]
+  negate: boolean
+}
+
+export interface WeightedVariation {
+  variation: string
+  weight: number
+}
+
+export interface Distribution {
+  bucketBy: string
+  variations: WeightedVariation[]
+}
+
+export interface Serve {
+  distribution?: Distribution
+  variation?: string
+}
+
+export interface ServingRule {
+  ruleId: string
+  priority: number
+  clauses: Clause[]
+  serve: Serve
+}
+
+export type FeatureState = 'on' | 'off'
+
+export interface Feature {
+  project: string
+  identifier: string
   prerequisites?: Prerequisite[]
   name: string
   description?: string
-  identifier: string
-  owner?: string
-  createdAt?: number
-  modifiedAt?: number
+  owner?: string[]
   kind: 'boolean' | 'int' | 'string' | 'json'
-  archived?: boolean
+  archived: boolean
   variations: Variation[]
+  defaultOnVariation: string
+  defaultOffVariation: string
+  permanent: boolean
+  envProperties?: {
+    environment: string
+    variationMap?: VariationMap[]
+    rules?: ServingRule[]
+    state: FeatureState
+    defaultServe: Serve
+    offVariation: string
+    createdAt: number
+    modifiedAt: number
+    version?: number
+  }
+  createdAt: number
+  modifiedAt: number
   tags?: Tag[]
-  defaultOnVariation?: string
-  defaultOffVariation?: string
-  permanent?: boolean
-  version?: number
-  project: string
 }
 
-export interface FeatureFlags {
-  version?: number
-  pageCount: number
-  itemCount: number
-  pageSize: number
-  pageIndex: number
-  features: FeatureFlag[]
+export type Features = Pagination & {
+  features?: Feature[]
+}
+
+export type PatchInstruction = {
+  /**
+   * The name of the modification you would like to perform on a resource.
+   */
+  kind: string
+  parameters: { [key: string]: any }
+}[]
+
+export interface PatchOperation {
+  comment?: string
+  /**
+   * Time of execution in unix epoch milliseconds when the scheduled changes will be applied
+   */
+  executionTime?: number
+  instructions: PatchInstruction
 }
 
 export interface Target {
@@ -107,13 +182,6 @@ export interface Targets {
   pageSize?: number
   pageIndex?: number
   targets?: Target[]
-}
-
-export interface Clause {
-  attribute?: string
-  op?: string
-  value?: string | number | number | boolean | {}[]
-  negate?: boolean
 }
 
 export interface TargetSegment {
@@ -146,60 +214,18 @@ export interface TargetSegments {
   targetsegments?: TargetSegment[]
 }
 
-export type FeatureFlagState = 'on' | 'off'
-
-export interface VariationToTargetMap {
-  variation?: string
-  targets?: string[]
-  targetSegments?: string[]
-}
-
-export interface WeightedVariation {
-  variation?: string
-  weight?: number
-}
-
-export interface Distribution {
-  bucketBy?: string
-  variations?: WeightedVariation[]
-}
-
-export type Serve = Distribution | string
-
-export interface ServingRule {
-  order: number
-  clauses: Clause[]
-  serve: Serve
-}
-
-export interface FeatureFlagActivation {
-  feature: string
-  environment: string
-  identifier?: string
-  state: FeatureFlagState
-  variationToTargetMap?: VariationToTargetMap[]
-  rules?: ServingRule[]
-  defaultServe: Serve
-  offVariation: string
-  createdAt?: number
-  modifiedAt?: number
-  version?: number
-  project: string
-}
-
-export interface FeatureFlagActivations {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  pageIndex?: number
-  featureFlagActivations?: FeatureFlagActivation[]
-}
-
 export interface ProjectRequestRequestBody {
   identifier: string
   name: string
   description?: string
   tags?: Tag[]
+}
+
+export interface APIKeyRequestRequestBody {
+  identifier: string
+  name: string
+  environment: string
+  project: string
 }
 
 export interface EnvironmentRequestRequestBody {
@@ -210,7 +236,23 @@ export interface EnvironmentRequestRequestBody {
   tags?: Tag[]
 }
 
-export type FeatureFlagRequestRequestBody = FeatureFlag
+export type FeatureFlagRequestRequestBody = {
+  project: string
+  prerequisites?: Prerequisite[]
+  name: string
+  description?: string
+  identifier: string
+  owner?: string
+  kind: 'boolean' | 'int' | 'string' | 'json'
+  archived: boolean
+  variations: Variation[]
+  tags?: Tag[]
+  defaultOnVariation: string
+  defaultOffVariation: string
+  permanent: boolean
+}
+
+export type FeatureFlagPatchRequestRequestBody = PatchOperation
 
 export type TargetRequestRequestBody = Target
 
@@ -231,16 +273,7 @@ export interface TargetSegmentRequestRequestBody {
   rules?: Clause[]
 }
 
-export interface FeatureFlagActivationRequestRequestBody {
-  feature: string
-  state: FeatureFlagState
-  variationToTargetMap?: VariationToTargetMap[]
-  rules?: ServingRule[]
-  defaultServe: Serve
-  offVariation: string
-  project: string
-  environment: string
-}
+export type TargetSegmentPatchRequestRequestBody = PatchOperation
 
 /**
  * OK
@@ -296,10 +329,10 @@ export interface ProjectResponseResponse {
  * OK
  */
 export interface EnvironmentsResponseResponse {
-  status?: Status
-  data?: Environments
+  status: Status
+  data: Environments
   metaData?: { [key: string]: any }
-  correlationId?: string
+  correlationId: string
 }
 
 /**
@@ -315,9 +348,9 @@ export interface EnvironmentResponseResponse {
 /**
  * OK
  */
-export interface FeatureFlagsResponseResponse {
+export interface FeaturesResponseResponse {
   status?: Status
-  data?: FeatureFlags
+  data?: Features
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -325,9 +358,9 @@ export interface FeatureFlagsResponseResponse {
 /**
  * OK
  */
-export interface FeatureFlagResponseResponse {
+export interface FeatureResponseResponse {
   status?: Status
-  data?: FeatureFlag
+  data?: Feature
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -372,33 +405,13 @@ export interface TargetSegmentResponseResponse {
   correlationId?: string
 }
 
-/**
- * OK
- */
-export interface FeatureFlagActivationsResponseResponse {
-  status?: Status
-  data?: FeatureFlagActivations
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-/**
- * OK
- */
-export interface FeatureFlagActivationResponseResponse {
-  status?: Status
-  data?: FeatureFlagActivation
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type GetHealthStatusProps = Omit<GetProps<HealthResponse, void, void, void>, 'path'>
 
 /**
  * Request basic health status.
  */
 export const GetHealthStatus = (props: GetHealthStatusProps) => (
-  <Get<HealthResponse, void, void, void> path={`/health`} base={getConfig('cf')} {...props} />
+  <Get<HealthResponse, void, void, void> path="/health" base={getConfig('cf')} {...props} />
 )
 
 export type UseGetHealthStatusProps = Omit<UseGetProps<HealthResponse, void, void, void>, 'path'>
@@ -442,7 +455,7 @@ export const CreateProject = (props: CreateProjectProps) => (
     void
   >
     verb="POST"
-    path={`/admin/projects`}
+    path="/admin/projects"
     base={getConfig('cf')}
     {...props}
   />
@@ -526,7 +539,7 @@ export const GetAllProjects = (props: GetAllProjectsProps) => (
     GetAllProjectsQueryParams,
     void
   >
-    path={`/admin/projects`}
+    path="/admin/projects"
     base={getConfig('cf')}
     {...props}
   />
@@ -585,7 +598,7 @@ export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
     void,
     GetProjectPathParams
   >
-    path={`/admin/projects/${identifier}`}
+    path="/admin/projects/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -660,7 +673,7 @@ export const ModifyProject = ({ identifier, ...props }: ModifyProjectProps) => (
     ModifyProjectPathParams
   >
     verb="PUT"
-    path={`/admin/projects/${identifier}`}
+    path="/admin/projects/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -729,7 +742,7 @@ export const DeleteProject = (props: DeleteProjectProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/projects`}
+    path="/admin/projects"
     base={getConfig('cf')}
     {...props}
   />
@@ -759,6 +772,145 @@ export const useDeleteProject = (props: UseDeleteProjectProps) =>
     string,
     void
   >('DELETE', `/admin/projects`, { base: getConfig('cf'), ...props })
+
+export type AddAPIKeyProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    void,
+    APIKeyRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Add an API Key to environment.
+ *
+ * Used to create a key in an environment.
+ */
+export const AddAPIKey = (props: AddAPIKeyProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    void,
+    APIKeyRequestRequestBody,
+    void
+  >
+    verb="POST"
+    path="/admin/apikey"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseAddAPIKeyProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    void,
+    APIKeyRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Add an API Key to environment.
+ *
+ * Used to create a key in an environment.
+ */
+export const useAddAPIKey = (props: UseAddAPIKeyProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    void,
+    APIKeyRequestRequestBody,
+    void
+  >('POST', `/admin/apikey`, { base: getConfig('cf'), ...props })
+
+export interface DeleteApiKeyQueryParams {
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type DeleteApiKeyProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteApiKeyQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete APIKey
+ *
+ * Used to delete an APIKey
+ */
+export const DeleteApiKey = (props: DeleteApiKeyProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteApiKeyQueryParams,
+    string,
+    void
+  >
+    verb="DELETE"
+    path="/admin/apikey"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseDeleteApiKeyProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteApiKeyQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete APIKey
+ *
+ * Used to delete an APIKey
+ */
+export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteApiKeyQueryParams,
+    string,
+    void
+  >('DELETE', `/admin/apikey`, { base: getConfig('cf'), ...props })
 
 export type CreateEnvironmentProps = Omit<
   MutateProps<
@@ -793,7 +945,7 @@ export const CreateEnvironment = (props: CreateEnvironmentProps) => (
     void
   >
     verb="POST"
-    path={`/admin/environments`}
+    path="/admin/environments"
     base={getConfig('cf')}
     {...props}
   />
@@ -881,7 +1033,7 @@ export const GetAllEnvironments = (props: GetAllEnvironmentsProps) => (
     GetAllEnvironmentsQueryParams,
     void
   >
-    path={`/admin/environments`}
+    path="/admin/environments"
     base={getConfig('cf')}
     {...props}
   />
@@ -947,7 +1099,7 @@ export const GetEnvironment = ({ identifier, ...props }: GetEnvironmentProps) =>
     GetEnvironmentQueryParams,
     GetEnvironmentPathParams
   >
-    path={`/admin/environments/${identifier}`}
+    path="/admin/environments/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1029,7 +1181,7 @@ export const ModifyEnvironment = ({ identifier, ...props }: ModifyEnvironmentPro
     ModifyEnvironmentPathParams
   >
     verb="PUT"
-    path={`/admin/environments/${identifier}`}
+    path="/admin/environments/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1105,7 +1257,7 @@ export const DeleteEnvironment = (props: DeleteEnvironmentProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/environments`}
+    path="/admin/environments"
     base={getConfig('cf')}
     {...props}
   />
@@ -1150,7 +1302,7 @@ export type StreamProps = Omit<GetProps<void, void, void, StreamPathParams>, 'pa
  */
 export const Stream = ({ identifier, ...props }: StreamProps) => (
   <Get<void, void, void, StreamPathParams>
-    path={`/stream/environments/${identifier}`}
+    path="/stream/environments/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1200,7 +1352,7 @@ export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
     void
   >
     verb="POST"
-    path={`/admin/features`}
+    path="/admin/features"
     base={getConfig('cf')}
     {...props}
   />
@@ -1239,7 +1391,11 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     void
   >('POST', `/admin/features`, { base: getConfig('cf'), ...props })
 
-export interface GetAllFeatureFlagsQueryParams {
+export interface GetAllFeaturesQueryParams {
+  /**
+   * Environment
+   */
+  environment: string
   /**
    * Project
    */
@@ -1266,54 +1422,54 @@ export interface GetAllFeatureFlagsQueryParams {
   sortByField?: string
 }
 
-export type GetAllFeatureFlagsProps = Omit<
+export type GetAllFeaturesProps = Omit<
   GetProps<
-    FeatureFlagsResponseResponse,
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsQueryParams,
+    GetAllFeaturesQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Retrieve feature flags.
+ * Retrieve all feature activations.
  *
- * Used to retrieve certain feature flags for certain project
+ * Used to retrieve all feature activations for certain account id.
  */
-export const GetAllFeatureFlags = (props: GetAllFeatureFlagsProps) => (
+export const GetAllFeatures = (props: GetAllFeaturesProps) => (
   <Get<
-    FeatureFlagsResponseResponse,
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsQueryParams,
+    GetAllFeaturesQueryParams,
     void
   >
-    path={`/admin/features`}
+    path="/admin/features"
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllFeatureFlagsProps = Omit<
+export type UseGetAllFeaturesProps = Omit<
   UseGetProps<
-    FeatureFlagsResponseResponse,
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsQueryParams,
+    GetAllFeaturesQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Retrieve feature flags.
+ * Retrieve all feature activations.
  *
- * Used to retrieve certain feature flags for certain project
+ * Used to retrieve all feature activations for certain account id.
  */
-export const useGetAllFeatureFlags = (props: UseGetAllFeatureFlagsProps) =>
+export const useGetAllFeatures = (props: UseGetAllFeaturesProps) =>
   useGet<
-    FeatureFlagsResponseResponse,
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsQueryParams,
+    GetAllFeaturesQueryParams,
     void
   >(`/admin/features`, { base: getConfig('cf'), ...props })
 
@@ -1322,6 +1478,10 @@ export interface GetFeatureFlagQueryParams {
    * Project
    */
   project: string
+  /**
+   * Environment
+   */
+  environment: string
 }
 
 export interface GetFeatureFlagPathParams {
@@ -1333,7 +1493,7 @@ export interface GetFeatureFlagPathParams {
 
 export type GetFeatureFlagProps = Omit<
   GetProps<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
@@ -1349,12 +1509,12 @@ export type GetFeatureFlagProps = Omit<
  */
 export const GetFeatureFlag = ({ identifier, ...props }: GetFeatureFlagProps) => (
   <Get<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
   >
-    path={`/admin/features/${identifier}`}
+    path="/admin/features/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1362,7 +1522,7 @@ export const GetFeatureFlag = ({ identifier, ...props }: GetFeatureFlagProps) =>
 
 export type UseGetFeatureFlagProps = Omit<
   UseGetProps<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
@@ -1378,7 +1538,7 @@ export type UseGetFeatureFlagProps = Omit<
  */
 export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagProps) =>
   useGet<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
@@ -1388,97 +1548,101 @@ export const useGetFeatureFlag = ({ identifier, ...props }: UseGetFeatureFlagPro
     ...props
   })
 
-export interface ModifyFeatureFlagQueryParams {
+export interface PatchFeatureFlagQueryParams {
   /**
    * Project
    */
   project: string
+  /**
+   * Environment
+   */
+  environment: string
 }
 
-export interface ModifyFeatureFlagPathParams {
+export interface PatchFeatureFlagPathParams {
   /**
    * Unique identifier for the object in the API.
    */
   identifier: string
 }
 
-export type ModifyFeatureFlagProps = Omit<
+export type PatchFeatureFlagProps = Omit<
   MutateProps<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyFeatureFlagQueryParams,
-    FeatureFlagRequestRequestBody,
-    ModifyFeatureFlagPathParams
+    PatchFeatureFlagQueryParams,
+    FeatureFlagPatchRequestRequestBody,
+    PatchFeatureFlagPathParams
   >,
   'path' | 'verb'
 > &
-  ModifyFeatureFlagPathParams
+  PatchFeatureFlagPathParams
 
 /**
- * Modify feature flag.
+ * Modify feature flag using instructions.
  *
  * Used to modify feature flag with certain id and account id.
  */
-export const ModifyFeatureFlag = ({ identifier, ...props }: ModifyFeatureFlagProps) => (
+export const PatchFeatureFlag = ({ identifier, ...props }: PatchFeatureFlagProps) => (
   <Mutate<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyFeatureFlagQueryParams,
-    FeatureFlagRequestRequestBody,
-    ModifyFeatureFlagPathParams
+    PatchFeatureFlagQueryParams,
+    FeatureFlagPatchRequestRequestBody,
+    PatchFeatureFlagPathParams
   >
-    verb="PUT"
-    path={`/admin/features/${identifier}`}
+    verb="PATCH"
+    path="/admin/features/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseModifyFeatureFlagProps = Omit<
+export type UsePatchFeatureFlagProps = Omit<
   UseMutateProps<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyFeatureFlagQueryParams,
-    FeatureFlagRequestRequestBody,
-    ModifyFeatureFlagPathParams
+    PatchFeatureFlagQueryParams,
+    FeatureFlagPatchRequestRequestBody,
+    PatchFeatureFlagPathParams
   >,
   'path' | 'verb'
 > &
-  ModifyFeatureFlagPathParams
+  PatchFeatureFlagPathParams
 
 /**
- * Modify feature flag.
+ * Modify feature flag using instructions.
  *
  * Used to modify feature flag with certain id and account id.
  */
-export const useModifyFeatureFlag = ({ identifier, ...props }: UseModifyFeatureFlagProps) =>
+export const usePatchFeatureFlag = ({ identifier, ...props }: UsePatchFeatureFlagProps) =>
   useMutate<
-    FeatureFlagResponseResponse,
+    FeatureResponseResponse,
     | BadRequestResponse
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyFeatureFlagQueryParams,
-    FeatureFlagRequestRequestBody,
-    ModifyFeatureFlagPathParams
-  >('PUT', (paramsInPath: ModifyFeatureFlagPathParams) => `/admin/features/${paramsInPath.identifier}`, {
+    PatchFeatureFlagQueryParams,
+    FeatureFlagPatchRequestRequestBody,
+    PatchFeatureFlagPathParams
+  >('PATCH', (paramsInPath: PatchFeatureFlagPathParams) => `/admin/features/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -1516,7 +1680,7 @@ export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/features`}
+    path="/admin/features"
     base={getConfig('cf')}
     {...props}
   />
@@ -1580,7 +1744,7 @@ export const CreateTarget = (props: CreateTargetProps) => (
     void
   >
     verb="POST"
-    path={`/admin/targets`}
+    path="/admin/targets"
     base={getConfig('cf')}
     {...props}
   />
@@ -1672,7 +1836,7 @@ export const GetAllTargets = (props: GetAllTargetsProps) => (
     GetAllTargetsQueryParams,
     void
   >
-    path={`/admin/targets`}
+    path="/admin/targets"
     base={getConfig('cf')}
     {...props}
   />
@@ -1742,7 +1906,7 @@ export const GetTarget = ({ identifier, ...props }: GetTargetProps) => (
     GetTargetQueryParams,
     GetTargetPathParams
   >
-    path={`/admin/targets/${identifier}`}
+    path="/admin/targets/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1830,7 +1994,7 @@ export const ModifyTarget = ({ identifier, ...props }: ModifyTargetProps) => (
     ModifyTargetPathParams
   >
     verb="PUT"
-    path={`/admin/targets/${identifier}`}
+    path="/admin/targets/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -1912,7 +2076,7 @@ export const DeleteTarget = (props: DeleteTargetProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/targets`}
+    path="/admin/targets"
     base={getConfig('cf')}
     {...props}
   />
@@ -1976,7 +2140,7 @@ export const CreateTargetSegment = (props: CreateTargetSegmentProps) => (
     void
   >
     verb="POST"
-    path={`/admin/target-segments`}
+    path="/admin/target-segments"
     base={getConfig('cf')}
     {...props}
   />
@@ -2068,7 +2232,7 @@ export const GetAllTargetSegments = (props: GetAllTargetSegmentsProps) => (
     GetAllTargetSegmentsQueryParams,
     void
   >
-    path={`/admin/target-segments`}
+    path="/admin/target-segments"
     base={getConfig('cf')}
     {...props}
   />
@@ -2138,7 +2302,7 @@ export const GetTargetSegment = ({ identifier, ...props }: GetTargetSegmentProps
     GetTargetSegmentQueryParams,
     GetTargetSegmentPathParams
   >
-    path={`/admin/target-segments/${identifier}`}
+    path="/admin/target-segments/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
@@ -2172,7 +2336,7 @@ export const useGetTargetSegment = ({ identifier, ...props }: UseGetTargetSegmen
     ...props
   })
 
-export interface ModifyTargetSegmentQueryParams {
+export interface PatchTargetSegmentQueryParams {
   /**
    * Project
    */
@@ -2183,14 +2347,14 @@ export interface ModifyTargetSegmentQueryParams {
   environment: string
 }
 
-export interface ModifyTargetSegmentPathParams {
+export interface PatchTargetSegmentPathParams {
   /**
    * Unique identifier for the object in the API.
    */
   identifier: string
 }
 
-export type ModifyTargetSegmentProps = Omit<
+export type PatchTargetSegmentProps = Omit<
   MutateProps<
     TargetSegmentResponseResponse,
     | BadRequestResponse
@@ -2199,20 +2363,20 @@ export type ModifyTargetSegmentProps = Omit<
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyTargetSegmentQueryParams,
-    TargetSegmentRequestRequestBody,
-    ModifyTargetSegmentPathParams
+    PatchTargetSegmentQueryParams,
+    TargetSegmentPatchRequestRequestBody,
+    PatchTargetSegmentPathParams
   >,
   'path' | 'verb'
 > &
-  ModifyTargetSegmentPathParams
+  PatchTargetSegmentPathParams
 
 /**
- * Modify target segment.
+ * Patch target segment.
  *
  * Used to modify target segment with certain id and account id.
  */
-export const ModifyTargetSegment = ({ identifier, ...props }: ModifyTargetSegmentProps) => (
+export const PatchTargetSegment = ({ identifier, ...props }: PatchTargetSegmentProps) => (
   <Mutate<
     TargetSegmentResponseResponse,
     | BadRequestResponse
@@ -2221,18 +2385,18 @@ export const ModifyTargetSegment = ({ identifier, ...props }: ModifyTargetSegmen
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyTargetSegmentQueryParams,
-    TargetSegmentRequestRequestBody,
-    ModifyTargetSegmentPathParams
+    PatchTargetSegmentQueryParams,
+    TargetSegmentPatchRequestRequestBody,
+    PatchTargetSegmentPathParams
   >
-    verb="PUT"
-    path={`/admin/target-segments/${identifier}`}
+    verb="PATCH"
+    path="/admin/target-segments/${identifier}"
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseModifyTargetSegmentProps = Omit<
+export type UsePatchTargetSegmentProps = Omit<
   UseMutateProps<
     TargetSegmentResponseResponse,
     | BadRequestResponse
@@ -2241,20 +2405,20 @@ export type UseModifyTargetSegmentProps = Omit<
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyTargetSegmentQueryParams,
-    TargetSegmentRequestRequestBody,
-    ModifyTargetSegmentPathParams
+    PatchTargetSegmentQueryParams,
+    TargetSegmentPatchRequestRequestBody,
+    PatchTargetSegmentPathParams
   >,
   'path' | 'verb'
 > &
-  ModifyTargetSegmentPathParams
+  PatchTargetSegmentPathParams
 
 /**
- * Modify target segment.
+ * Patch target segment.
  *
  * Used to modify target segment with certain id and account id.
  */
-export const useModifyTargetSegment = ({ identifier, ...props }: UseModifyTargetSegmentProps) =>
+export const usePatchTargetSegment = ({ identifier, ...props }: UsePatchTargetSegmentProps) =>
   useMutate<
     TargetSegmentResponseResponse,
     | BadRequestResponse
@@ -2263,10 +2427,10 @@ export const useModifyTargetSegment = ({ identifier, ...props }: UseModifyTarget
     | NotFoundResponse
     | ConflictResponse
     | InternalServerErrorResponse,
-    ModifyTargetSegmentQueryParams,
-    TargetSegmentRequestRequestBody,
-    ModifyTargetSegmentPathParams
-  >('PUT', (paramsInPath: ModifyTargetSegmentPathParams) => `/admin/target-segments/${paramsInPath.identifier}`, {
+    PatchTargetSegmentQueryParams,
+    TargetSegmentPatchRequestRequestBody,
+    PatchTargetSegmentPathParams
+  >('PATCH', (paramsInPath: PatchTargetSegmentPathParams) => `/admin/target-segments/${paramsInPath.identifier}`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -2308,7 +2472,7 @@ export const DeleteTargetSegment = (props: DeleteTargetSegmentProps) => (
     void
   >
     verb="DELETE"
-    path={`/admin/target-segments`}
+    path="/admin/target-segments"
     base={getConfig('cf')}
     {...props}
   />
@@ -2338,388 +2502,3 @@ export const useDeleteTargetSegment = (props: UseDeleteTargetSegmentProps) =>
     string,
     void
   >('DELETE', `/admin/target-segments`, { base: getConfig('cf'), ...props })
-
-export type CreateFeatureFlagActivationProps = Omit<
-  MutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create feature flag activation.
- *
- * Used to create feature flag activation.
- */
-export const CreateFeatureFlagActivation = (props: CreateFeatureFlagActivationProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/admin/feature-flag-activations`}
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseCreateFeatureFlagActivationProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create feature flag activation.
- *
- * Used to create feature flag activation.
- */
-export const useCreateFeatureFlagActivation = (props: UseCreateFeatureFlagActivationProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    void
-  >('POST', `/admin/feature-flag-activations`, { base: getConfig('cf'), ...props })
-
-export interface GetAllFeatureFlagsActivationQueryParams {
-  /**
-   * Environment
-   */
-  environment: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * PageNumber
-   */
-  pageNumber?: number
-  /**
-   * PageSize
-   */
-  pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
-  /**
-   * SortOrder
-   */
-  sortOrder?: 'ASCENDING' | 'DESCENDING'
-  /**
-   * SortByField
-   */
-  sortByField?: string
-}
-
-export type GetAllFeatureFlagsActivationProps = Omit<
-  GetProps<
-    FeatureFlagActivationsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsActivationQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Retrieve all feature flag activations.
- *
- * Used to retrieve all feature flag activations for certain account id.
- */
-export const GetAllFeatureFlagsActivation = (props: GetAllFeatureFlagsActivationProps) => (
-  <Get<
-    FeatureFlagActivationsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsActivationQueryParams,
-    void
-  >
-    path={`/admin/feature-flag-activations`}
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetAllFeatureFlagsActivationProps = Omit<
-  UseGetProps<
-    FeatureFlagActivationsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsActivationQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Retrieve all feature flag activations.
- *
- * Used to retrieve all feature flag activations for certain account id.
- */
-export const useGetAllFeatureFlagsActivation = (props: UseGetAllFeatureFlagsActivationProps) =>
-  useGet<
-    FeatureFlagActivationsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeatureFlagsActivationQueryParams,
-    void
-  >(`/admin/feature-flag-activations`, { base: getConfig('cf'), ...props })
-
-export interface GetFeatureFlagActivationQueryParams {
-  /**
-   * Environment
-   */
-  environment: string
-  /**
-   * Project
-   */
-  project: string
-}
-
-export interface GetFeatureFlagActivationPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type GetFeatureFlagActivationProps = Omit<
-  GetProps<
-    FeatureFlagActivationResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetFeatureFlagActivationQueryParams,
-    GetFeatureFlagActivationPathParams
-  >,
-  'path'
-> &
-  GetFeatureFlagActivationPathParams
-
-/**
- * Retrieve feature flag activation.
- *
- * Used to retrieve certain feature flag activation for certain id, environment and account id.
- */
-export const GetFeatureFlagActivation = ({ identifier, ...props }: GetFeatureFlagActivationProps) => (
-  <Get<
-    FeatureFlagActivationResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetFeatureFlagActivationQueryParams,
-    GetFeatureFlagActivationPathParams
-  >
-    path={`/admin/feature-flag-activations/${identifier}`}
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetFeatureFlagActivationProps = Omit<
-  UseGetProps<
-    FeatureFlagActivationResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetFeatureFlagActivationQueryParams,
-    GetFeatureFlagActivationPathParams
-  >,
-  'path'
-> &
-  GetFeatureFlagActivationPathParams
-
-/**
- * Retrieve feature flag activation.
- *
- * Used to retrieve certain feature flag activation for certain id, environment and account id.
- */
-export const useGetFeatureFlagActivation = ({ identifier, ...props }: UseGetFeatureFlagActivationProps) =>
-  useGet<
-    FeatureFlagActivationResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetFeatureFlagActivationQueryParams,
-    GetFeatureFlagActivationPathParams
-  >(
-    (paramsInPath: GetFeatureFlagActivationPathParams) => `/admin/feature-flag-activations/${paramsInPath.identifier}`,
-    { base: getConfig('cf'), pathParams: { identifier }, ...props }
-  )
-
-export interface ModifyFeatureFlagActivationPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type ModifyFeatureFlagActivationProps = Omit<
-  MutateProps<
-    FeatureFlagActivationResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    ModifyFeatureFlagActivationPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyFeatureFlagActivationPathParams
-
-/**
- * Modify feature flag activation.
- *
- * Used to modify feature flag activation for certain id, environment and account id.
- */
-export const ModifyFeatureFlagActivation = ({ identifier, ...props }: ModifyFeatureFlagActivationProps) => (
-  <Mutate<
-    FeatureFlagActivationResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    ModifyFeatureFlagActivationPathParams
-  >
-    verb="PUT"
-    path={`/admin/feature-flag-activations/${identifier}`}
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseModifyFeatureFlagActivationProps = Omit<
-  UseMutateProps<
-    FeatureFlagActivationResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    ModifyFeatureFlagActivationPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyFeatureFlagActivationPathParams
-
-/**
- * Modify feature flag activation.
- *
- * Used to modify feature flag activation for certain id, environment and account id.
- */
-export const useModifyFeatureFlagActivation = ({ identifier, ...props }: UseModifyFeatureFlagActivationProps) =>
-  useMutate<
-    FeatureFlagActivationResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    void,
-    FeatureFlagActivationRequestRequestBody,
-    ModifyFeatureFlagActivationPathParams
-  >(
-    'PUT',
-    (paramsInPath: ModifyFeatureFlagActivationPathParams) =>
-      `/admin/feature-flag-activations/${paramsInPath.identifier}`,
-    { base: getConfig('cf'), pathParams: { identifier }, ...props }
-  )
-
-export interface DeleteFeatureFlagActivationQueryParams {
-  /**
-   * Environment
-   */
-  environment: string
-  /**
-   * Project
-   */
-  project: string
-}
-
-export type DeleteFeatureFlagActivationProps = Omit<
-  MutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagActivationQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete feature flag activation.
- *
- * Used to delete feature flag activation for certain id, environment and account id.
- */
-export const DeleteFeatureFlagActivation = (props: DeleteFeatureFlagActivationProps) => (
-  <Mutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagActivationQueryParams,
-    string,
-    void
-  >
-    verb="DELETE"
-    path={`/admin/feature-flag-activations`}
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseDeleteFeatureFlagActivationProps = Omit<
-  UseMutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagActivationQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete feature flag activation.
- *
- * Used to delete feature flag activation for certain id, environment and account id.
- */
-export const useDeleteFeatureFlagActivation = (props: UseDeleteFeatureFlagActivationProps) =>
-  useMutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagActivationQueryParams,
-    string,
-    void
-  >('DELETE', `/admin/feature-flag-activations`, { base: getConfig('cf'), ...props })

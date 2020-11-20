@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   Color,
@@ -10,32 +10,28 @@ import {
   Button,
   FlexExpander,
   Select,
-  Popover
+  Popover,
+  SelectOption
 } from '@wings-software/uikit'
 import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
-import type { CellProps, Renderer, Column } from 'react-table'
+import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import moment from 'moment'
 import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
-import { useGetAllFeatureFlags, FeatureFlag, useDeleteFeatureFlag } from 'services/cf'
+import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
 import { useRouteParams } from 'framework/exports'
 import { Page } from '@common/exports'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
+import { useEnvironments } from '../../hooks/environment'
 import i18n from './CFFeatureFlagsPage.i18n'
 import css from './CFFeatureFlagsPage.module.scss'
 
-// TODO: Change with actual values
-const itemsSelect = [
-  { label: 'Production', value: 'production' },
-  { label: 'Development', value: 'development' }
-]
-
 type CustomColumn<T extends object> = Column<T>
 
-const RenderColumnFlag: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
+const RenderColumnFlag: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
 
   return (
@@ -79,7 +75,7 @@ const RenderColumnFlag: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
   )
 }
 
-const RenderColumnDetails: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
+const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
 
   return (
@@ -99,7 +95,7 @@ const RenderColumnDetails: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
+const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
 
   return (
@@ -113,7 +109,7 @@ const RenderColumnStatus: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
   )
 }
 
-const RenderColumnResults: Renderer<CellProps<FeatureFlag>> = () => {
+const RenderColumnResults: Renderer<CellProps<Feature>> = () => {
   // const data = row.original
 
   {
@@ -128,11 +124,16 @@ const RenderColumnResults: Renderer<CellProps<FeatureFlag>> = () => {
   )
 }
 
-const RenderColumnOwners: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
+const RenderColumnOwners: Renderer<CellProps<Feature>> = ({ row }) => {
   const data = row.original
 
   return (
-    <Text tooltip={data.owner} tooltipProps={{ isDark: true }} flex style={{ justifyContent: 'flex-start' }}>
+    <Text
+      tooltip={data?.owner?.join(',')}
+      tooltipProps={{ isDark: true }}
+      flex
+      style={{ justifyContent: 'flex-start' }}
+    >
       {/* FIXME: Check with BE */}
       {/* <img src="" alt={data.owner} /> */}
       <Icon name="main-user" size={20} style={{ position: 'relative', zIndex: 1 }} />
@@ -148,7 +149,12 @@ const RenderColumnOwners: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
   )
 }
 
-const RenderColumnEdit: Renderer<CellProps<FeatureFlag>> = ({ row, column }) => {
+interface ColumnMenuProps {
+  cell: Cell<Feature>
+  environment?: string
+}
+
+const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
   const { showError } = useToaster()
 
@@ -193,6 +199,7 @@ const RenderColumnEdit: Renderer<CellProps<FeatureFlag>> = ({ row, column }) => 
       routeCFFeatureFlagsDetail.url({
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string,
+        environmentIdentifier: environment as string,
         featureFlagIdentifier: data.identifier
       })
     )
@@ -244,19 +251,33 @@ const CFFeatureFlagsPage: React.FC = () => {
   const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
 
+  const [environment, setEnvironment] = useState<SelectOption | null>(null)
+
   const { showError } = useToaster()
 
   const {
     params: { projectIdentifier }
   } = useRouteParams()
 
-  const { data: flagList, loading, error, refetch } = useGetAllFeatureFlags({
+  const { data: environments, loading: envsLoading, error: envsError } = useEnvironments(projectIdentifier as string)
+
+  const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     queryParams: {
-      project: projectIdentifier as string
+      project: projectIdentifier as string,
+      environment: environment?.value as string
     }
   })
 
-  const columns: CustomColumn<FeatureFlag>[] = useMemo(
+  useEffect(() => {
+    if (!envsLoading) {
+      setEnvironment(environments?.length > 0 ? environments[0] : null)
+    }
+  }, [environments.length, envsLoading])
+
+  const error = flagsError || envsError
+  const loading = flagsLoading || envsLoading
+
+  const columns: CustomColumn<Feature>[] = useMemo(
     () => [
       {
         Header: i18n.featureFlag.toUpperCase(),
@@ -294,9 +315,11 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: '',
         // TODO: Check for the accessor field
-        accessor: 'version',
+        accessor: row => row.envProperties?.version,
         width: '5%',
-        Cell: RenderColumnEdit,
+        Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
+          return <RenderColumnEdit cell={cell} environment={environment?.value as string} />
+        },
         disableSortBy: true,
         refetch
       }
@@ -322,7 +345,11 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   // TODO: Show more meaningful error
   if (error) {
-    showError('Error on back-end')
+    showError(error)
+  }
+
+  const onEnvChange = (item: SelectOption) => {
+    setEnvironment(item)
   }
 
   return (
@@ -337,7 +364,13 @@ const CFFeatureFlagsPage: React.FC = () => {
 
             <ExpandingSearchInput name="findFlag" placeholder={i18n.searchInputFlag} className={css.ffPageBtnsSearch} />
 
-            <Select items={itemsSelect} className={css.ffPageBtnsSelect} inputProps={{ placeholder: i18n.selectEnv }} />
+            <Select
+              items={environments}
+              className={css.ffPageBtnsSelect}
+              inputProps={{ placeholder: i18n.selectEnv }}
+              onChange={onEnvChange}
+              value={environment}
+            />
 
             {/* TODO: Filters length/count should be displayed next to the button, check with BE */}
             <Button
@@ -361,7 +394,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
           <Layout.Vertical className={css.ffTableContainer}>
             {/* TODO: Pagination needs to be communicated with BE */}
-            <Table<FeatureFlag>
+            <Table<Feature>
               columns={columns}
               data={flagList?.data?.features || []}
               pagination={{

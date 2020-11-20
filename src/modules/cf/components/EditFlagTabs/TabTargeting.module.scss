@@ -1,3 +1,11 @@
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-black {
+  color: var(--black);
+}
+
 .default-rules-heading-mt {
   margin-top: var(--spacing-xxlarge) !important;
 }
@@ -6,6 +14,8 @@
   padding: var(--spacing-large) !important;
   margin-bottom: var(--spacing-xxlarge) !important;
   border: 1px solid var(--grey-200);
+  border-radius: 10px;
+  box-shadow: 0px 1px 5px -4px var(--black);
 }
 
 .edit-container {
@@ -93,4 +103,12 @@
   :global(.bp3-form-group) {
     margin: 0 !important;
   }
+}
+
+.circle {
+  height: 12px;
+  width: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }

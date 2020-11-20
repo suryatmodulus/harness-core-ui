@@ -1,6 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly textUppercase: string
+  readonly textBlack: string
   readonly defaultRulesHeadingMt: string
   readonly defaultRulesContainer: string
   readonly editContainer: string
@@ -13,5 +15,6 @@ declare const styles: {
   readonly requestContainer: string
   readonly requestInnerContainer: string
   readonly requestServeContainer: string
+  readonly circle: string
 }
 export default styles

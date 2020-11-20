@@ -1,5 +1,10 @@
 export default {
   defaultRules: 'Default Rules',
+  customRules: {
+    header: 'Custom Rules (Serve specific targets differently)',
+    serveVartiation: 'Serve variation to Target',
+    onRequest: 'On Request, check for condition and serve variation'
+  },
   save: 'Save',
   saveChange: 'Save Changes',
   cancel: 'Cancel',
@@ -20,5 +25,14 @@ export default {
   },
   tabActivity: {
     placeholder: 'placeholder'
+  },
+  operators: {
+    startsWith: 'starts with',
+    endsWith: 'ends with',
+    match: 'match',
+    contains: 'contains',
+    equal: 'equal',
+    equalSensitive: 'equal (sensitive)',
+    in: 'in'
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Color,
   Layout,
@@ -9,22 +9,33 @@ import {
   FormikForm as Form,
   FormInput,
   useModalHook,
-  SelectOption
+  SelectOption,
+  Card,
+  Select,
+  MultiSelect,
+  MultiSelectOption,
+  TextInput
 } from '@wings-software/uikit'
 import { sumBy } from 'lodash-es'
-import { FieldArray } from 'formik'
+import { assoc } from 'lodash/fp'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
-import type { FeatureFlagActivation, Variation } from 'services/cf'
+import type { Feature, Variation } from 'services/cf'
+import type { ClauseData } from '../../utils/instructions'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
 
+const randomColor = ['cyan', 'blue', 'lime', 'yellow', 'green', 'black']
+
 interface TabTargetingProps {
-  targetData: FeatureFlagActivation | undefined
-  defaultOnVariation: string | undefined
-  defaultOffVariation: string | undefined
-  variations: Variation[] | undefined
+  formikProps: any
+  editing: boolean
+  refetch: any
+  targetData: Feature
   isBooleanTypeFlag?: boolean
+  projectIdentifier: string
+  environmentIdentifier: string
+  setEditing: Function
 }
 
 interface PercentageValues {
@@ -34,18 +45,18 @@ interface PercentageValues {
 }
 
 const TodoTargeting: React.FC<TabTargetingProps> = props => {
-  // TODO: Only for DEV
-  const randomColor = ['blue', 'red', 'yellow', 'green', 'cyan', 'black']
+  const { formikProps, targetData, editing, setEditing } = props
 
-  const { defaultOnVariation, defaultOffVariation, isBooleanTypeFlag, variations } = props
+  const [, /*isEditOn*/ setIsEditOn] = useState<boolean>(editing)
+  const [isEditRulesOn, setEditRulesOn] = useState(false)
+  // const [isServeTargetOn, setIsServeTargetOn] = useState(false)
 
-  const [isEditOn, setIsEditOn] = useState(false)
-  const [isServeTargetOn, setIsServeTargetOn] = useState(false)
-  const [percentageRollout, setPercentageRollout] = useState(false)
-  const [percentageValues, setPercentageValues] = useState<PercentageValues[] | undefined>([])
-  const [percentageError, setPercentageError] = useState(false)
+  useEffect(() => {
+    setIsEditOn(editing)
+    if (!editing && isEditRulesOn) setEditRulesOn(false)
+  }, [editing])
 
-  const [onOpenTargetModal, hideTargetModal] = useModalHook(() => (
+  const [, /*onOpenTargetModal*/ hideTargetModal] = useModalHook(() => (
     <Dialog onClose={hideTargetModal} title="" isOpen={true}>
       <Layout.Vertical>
         <Text>
@@ -69,29 +80,116 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
   ))
 
   const onEditBtnHandler = (): void => {
-    setIsEditOn(!isEditOn)
+    setEditRulesOn(!isEditRulesOn)
+    setEditing(true)
   }
 
-  const onCancelEditHandler = (): void => {
-    setIsEditOn(false)
-    setIsServeTargetOn(false)
-    setIsServeTargetOn(false)
-  }
-  const onServeTarget = (): void => {
-    setIsServeTargetOn(true)
-  }
+  // const onServeTarget = (): void => {
+  //   setIsServeTargetOn(true)
+  // }
 
-  const onPercentageRollout = (inputSelectPercentage: SelectOption): void => {
-    const variationsToPercentage = variations?.map(elem => {
-      return { id: elem.identifier, value: 50, color: randomColor[Math.floor(Math.random() * randomColor.length)] }
-    })
-    if (inputSelectPercentage.value === 'percentage') {
-      setPercentageRollout(true)
-      setPercentageValues(variationsToPercentage)
+  return (
+    <Layout.Vertical>
+      <Container style={{ marginLeft: 'auto' }}>
+        {!isEditRulesOn && <Button text={i18n.tabTargeting.editRules} icon="edit" onClick={onEditBtnHandler} />}
+      </Container>
+      <Layout.Vertical>
+        <DefaultRulesView formikProps={formikProps} editing={isEditRulesOn} variations={targetData.variations} />
+      </Layout.Vertical>
+      <Layout.Vertical>
+        <CustomRulesView editing={isEditRulesOn} target={targetData} />
+      </Layout.Vertical>
+    </Layout.Vertical>
+  )
+}
+
+export default TodoTargeting
+
+interface DefaultRulesProps {
+  editing: boolean
+  variations: Variation[]
+  formikProps: any
+}
+
+const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, formikProps }) => {
+  const [percentageView, setPercentageView] = useState<boolean>(false)
+
+  const variationItems = variations.map<SelectOption>(elem => ({
+    label: elem.name as string,
+    value: elem.value as string
+  }))
+
+  const onDefaultONChange = (item: SelectOption) => {
+    if (item.value === 'percentage') {
+      setPercentageView(true)
     } else {
-      setPercentageRollout(false)
+      setPercentageView(false)
     }
   }
+
+  return (
+    <>
+      <Text
+        font={{ weight: 'bold' }}
+        color={Color.BLACK}
+        margin={{ bottom: 'medium' }}
+        className={cx(editing && css.defaultRulesHeadingMt)}
+      >
+        {i18n.defaultRules}
+      </Text>
+      <Container className={css.defaultRulesContainer}>
+        <Layout.Horizontal margin={{ bottom: 'small' }} style={{ alignItems: 'baseline' }}>
+          <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
+          <Container>
+            {editing ? (
+              <FormInput.Select
+                name="defaultOnVariation"
+                items={[
+                  ...variationItems,
+                  {
+                    label: 'Percentage rollout',
+                    value: 'percentage'
+                  }
+                ]}
+                onChange={onDefaultONChange}
+              />
+            ) : (
+              <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.defaultOnVariation}</Text>
+            )}
+
+            {percentageView && <PercentageRollout variations={variations} />}
+          </Container>
+        </Layout.Horizontal>
+
+        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+          <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
+          {editing ? (
+            <FormInput.Select name="defaultOffVariation" items={variationItems} onChange={formikProps.handleChange} />
+          ) : (
+            <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.defaultOffVariation}</Text>
+          )}
+        </Layout.Horizontal>
+      </Container>
+    </>
+  )
+}
+
+interface PercentageRolloutProps {
+  variations: Variation[]
+}
+
+const PercentageRollout: React.FC<PercentageRolloutProps> = ({ variations }) => {
+  const [percentageValues, setPercentageValues] = useState<PercentageValues[] | undefined>([])
+  const [percentageError, setPercentageError] = useState(false)
+
+  // variations length minimum is 2
+  const variationsToPercentage = variations?.map((elem, i) => {
+    return {
+      id: elem.identifier,
+      value: 100 / variations?.length,
+      color: randomColor[i]
+    }
+  })
 
   const changeColorWidthSlider = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
     const percentageThreshold = 100
@@ -116,366 +214,219 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
     }
   }
 
+  useEffect(() => {
+    setPercentageValues(variationsToPercentage)
+  }, [])
+
   return (
-    <>
-      <Layout.Vertical>
-        <Container style={{ marginLeft: 'auto' }}>
-          {!isEditOn && <Button text={i18n.tabTargeting.editRules} icon="edit" onClick={onEditBtnHandler} />}
-        </Container>
-        <Layout.Vertical>
-          <Text
-            font={{ weight: 'bold' }}
-            color={Color.BLACK}
-            margin={{ bottom: 'medium' }}
-            className={cx(isEditOn && css.defaultRulesHeadingMt)}
-          >
-            {i18n.defaultRules}
-          </Text>
-          {isEditOn ? (
-            // Show components when we are IN editing
-            <Container className={css.editContainer}>
-              <Formik
-                initialValues={{
-                  variationsTargets: [{ name: '', targets: [] as string[] }],
-                  variationRequest: [],
-                  variationRequestInner: []
-                }}
-                onSubmit={vals => {
-                  alert(JSON.stringify(vals, null, 2))
-                }}
-              >
-                {formikProps => (
-                  <Form>
-                    <Container>
-                      {/* TODO: Work in progress */}
-                      {isBooleanTypeFlag ? (
-                        <>
-                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                            <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                            <FormInput.Select
-                              name="1"
-                              items={[
-                                { label: 'trueBoolean', value: 'trueBoolean' },
-                                { label: 'Percentage Rollout', value: 'percentage' }
-                              ]}
-                              onChange={elem => onPercentageRollout(elem)}
-                            />
-                          </Layout.Horizontal>
-                          {percentageRollout && (
-                            <Container>
-                              <div
-                                style={{
-                                  borderRadius: '10px',
-                                  border: '1px solid #ccc',
-                                  width: '300px',
-                                  height: '15px',
-                                  display: 'flex'
-                                }}
-                              >
-                                {percentageValues?.map(elem => (
-                                  <span
-                                    key={elem.id}
-                                    style={{
-                                      width: `${elem.value}%`,
-                                      backgroundColor: elem.color,
-                                      display: 'inline-block',
-                                      height: '13px'
-                                    }}
-                                  />
-                                ))}
-                              </div>
-                              <Container>
-                                {variations?.map((elem, i) => (
-                                  <Layout.Horizontal key={`${elem.identifier}-${i}`} margin={{ bottom: 'small' }}>
-                                    <Text margin={{ right: 'medium' }} width="100px">
-                                      {elem.identifier}
-                                    </Text>
-                                    <input
-                                      type="number"
-                                      onChange={e => changeColorWidthSlider(e, elem.identifier)}
-                                      style={{ width: '50px', marginRight: '10px' }}
-                                      defaultValue={50}
-                                      min={0}
-                                      max={100}
-                                    />
-                                    <Text icon="percentage" iconProps={{ color: Color.GREY_300 }} />
-                                  </Layout.Horizontal>
-                                ))}
-                                {percentageError && <Text intent="danger">Cannot set above 100%</Text>}
-                              </Container>
-                            </Container>
-                          )}
-                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                            <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
-                            <FormInput.Select
-                              name="2"
-                              items={[
-                                { label: 'falseBoolean', value: 'falseBoolean' },
-                                { label: 'Percentage Rollout', value: 'percentage' }
-                              ]}
-                            />
-                          </Layout.Horizontal>
-                        </>
-                      ) : (
-                        <>
-                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                            <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                            <FormInput.Select name="3" items={[{ label: 'multi', value: 'multi' }]} />
-                          </Layout.Horizontal>
-                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                            <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
-                            <FormInput.Select name="4" items={[{ label: 'multi', value: 'multi' }]} />
-                          </Layout.Horizontal>
-                        </>
-                      )}
-                    </Container>
-
-                    <Container>
-                      <Text font={{ weight: 'bold' }} color={Color.BLACK} margin={{ bottom: 'large', top: 'large' }}>
-                        {i18n.tabTargeting.customRules}
-                      </Text>
-
-                      <Layout.Vertical style={{ padding: '1px' }}>
-                        <Container margin={{ bottom: 'small' }}>
-                          {isServeTargetOn ? (
-                            <Container className={css.editServeVariationTargetContainer}>
-                              <Text margin={{ bottom: 'medium' }} color={Color.BLACK}>
-                                {i18n.tabTargeting.serveVariationToTarget}
-                              </Text>
-                              <FieldArray name="variationsTargets">
-                                {arrayProps => {
-                                  return (
-                                    <>
-                                      {formikProps?.values?.variationsTargets.map((elem, index) => (
-                                        <Layout.Horizontal
-                                          key={`serve-${index}`}
-                                          className={css.editCustomRuleTargetContainer}
-                                        >
-                                          <Container>
-                                            <Text>{i18n.tabTargeting.serve}</Text>
-
-                                            {/* FIXME: Should fix items array from BE */}
-                                            <FormInput.Select
-                                              name={`variationsTargets.${index}.name`}
-                                              items={[{ label: '1', value: '1' }]}
-                                            />
-
-                                            <Text margin={{ right: 'small' }}>{i18n.tabTargeting.toTarget}</Text>
-
-                                            {elem.targets.map((elemT, indexT, arr) => (
-                                              <Layout.Horizontal key={`target-${indexT}`} margin={{ right: 'small' }}>
-                                                <Text>{elemT}</Text>
-                                                <Text>
-                                                  {arr.length} {i18n.total}
-                                                </Text>
-                                              </Layout.Horizontal>
-                                            ))}
-
-                                            <Button
-                                              icon="add"
-                                              iconProps={{ size: 20 }}
-                                              minimal
-                                              intent="primary"
-                                              onClick={onOpenTargetModal}
-                                              margin={{ right: 'small' }}
-                                            />
-
-                                            {/* TODO: Here we should add Popover component */}
-                                            <Text icon="more" />
-                                          </Container>
-
-                                          <Button
-                                            icon="trash"
-                                            iconProps={{ size: 20 }}
-                                            minimal
-                                            onClick={() => {
-                                              arrayProps.remove(index)
-                                            }}
-                                            className={css.editCustomRuleDeleteBtn}
-                                          />
-                                        </Layout.Horizontal>
-                                      ))}
-                                      <Button
-                                        minimal
-                                        intent="primary"
-                                        icon="small-plus"
-                                        text={i18n.tabTargeting.add}
-                                        onClick={() => {
-                                          arrayProps.push({ name: '', targets: [] as string[] })
-                                        }}
-                                      />
-                                    </>
-                                  )
-                                }}
-                              </FieldArray>
-                            </Container>
-                          ) : null}
-                          {!isServeTargetOn && (
-                            <Button
-                              text={i18n.tabTargeting.serveVariationToTarget}
-                              intent="primary"
-                              minimal
-                              icon="small-plus"
-                              onClick={onServeTarget}
-                            />
-                          )}
-                        </Container>
-
-                        <Container>
-                          {/* Outer formik array - on request */}
-                          <FieldArray name="variationRequest">
-                            {arrayProps => {
-                              return (
-                                <>
-                                  {formikProps?.values?.variationRequest.map((_, index) => (
-                                    <Layout.Vertical key={index} className={css.requestContainerWrapper}>
-                                      <Layout.Vertical margin={{ bottom: 'small' }}>
-                                        <Layout.Horizontal className={css.requestContainer}>
-                                          <Container>
-                                            <Text>{i18n.tabTargeting.onRequest}</Text>
-
-                                            <FormInput.Select name="TODO_1" items={[{ label: '2', value: '2' }]} />
-
-                                            <FormInput.Select name="TODO_2" items={[{ label: '2', value: '2' }]} />
-
-                                            <FormInput.Select name="TODO_3" items={[{ label: '2', value: '2' }]} />
-                                          </Container>
-
-                                          <Button
-                                            icon="trash"
-                                            iconProps={{ size: 20 }}
-                                            minimal
-                                            onClick={() => {
-                                              arrayProps.remove(index)
-                                            }}
-                                          />
-                                        </Layout.Horizontal>
-
-                                        {/* Inner formik array - on request serve */}
-                                        <Container>
-                                          <FieldArray name="variationRequestInner">
-                                            {arrayPropsInner => {
-                                              return (
-                                                <>
-                                                  {formikProps?.values?.variationRequestInner.map(
-                                                    (_Inner, indexInner) => (
-                                                      <Layout.Horizontal
-                                                        key={`inner-${indexInner}`}
-                                                        className={css.requestInnerContainer}
-                                                      >
-                                                        <Text>{i18n.and.toLowerCase()}</Text>
-
-                                                        <FormInput.Select
-                                                          name="TODO_4"
-                                                          items={[{ label: '2', value: '2' }]}
-                                                          style={{ marginRight: 'var(--spacing-small)' }}
-                                                        />
-
-                                                        <FormInput.Select
-                                                          name="TODO_5"
-                                                          items={[{ label: '2', value: '2' }]}
-                                                          style={{ marginRight: 'var(--spacing-small)' }}
-                                                        />
-
-                                                        <FormInput.Select
-                                                          name="TODO_6"
-                                                          items={[{ label: '2', value: '2' }]}
-                                                        />
-
-                                                        <Button
-                                                          icon="minus"
-                                                          iconProps={{ color: Color.ORANGE_400 }}
-                                                          minimal
-                                                          onClick={() => {
-                                                            arrayPropsInner.remove(index)
-                                                          }}
-                                                        />
-                                                      </Layout.Horizontal>
-                                                    )
-                                                  )}
-
-                                                  <Button
-                                                    intent="primary"
-                                                    minimal
-                                                    icon="add"
-                                                    iconProps={{ color: Color.BLUE_500 }}
-                                                    onClick={() => {
-                                                      arrayPropsInner.push({})
-                                                    }}
-                                                  />
-                                                </>
-                                              )
-                                            }}
-                                          </FieldArray>
-                                        </Container>
-                                      </Layout.Vertical>
-
-                                      <Layout.Horizontal className={css.requestServeContainer}>
-                                        <Text>{i18n.tabTargeting.serve.toLowerCase()}</Text>
-
-                                        <FormInput.Select name="" items={[{ label: '2', value: '2' }]} />
-                                      </Layout.Horizontal>
-                                    </Layout.Vertical>
-                                  ))}
-                                  <Button
-                                    text={i18n.tabTargeting.onRequestVariation}
-                                    intent="primary"
-                                    minimal
-                                    icon="small-plus"
-                                    onClick={() => {
-                                      arrayProps.push({})
-                                    }}
-                                    margin={{ top: 'small' }}
-                                  />
-                                </>
-                              )
-                            }}
-                          </FieldArray>
-                        </Container>
-                      </Layout.Vertical>
-                    </Container>
-                  </Form>
-                )}
-              </Formik>
-              <Layout.Horizontal className={css.editBtnsGroup}>
-                <Button
-                  intent="primary"
-                  text={i18n.saveChange}
-                  margin={{ right: 'small' }}
-                  onClick={() => alert('To be implemented...')}
-                />
-                <Button minimal text={i18n.cancel} onClick={onCancelEditHandler} />
-              </Layout.Horizontal>
-            </Container>
-          ) : (
-            // Show components when we are NOT in editing
-            <Layout.Vertical>
-              <Container className={css.defaultRulesContainer}>
-                <Layout.Horizontal margin={{ bottom: 'medium' }}>
-                  <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                  <Text>{defaultOnVariation}</Text>
-                </Layout.Horizontal>
-
-                <Layout.Horizontal>
-                  <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                  <Text>{defaultOffVariation}</Text>
-                </Layout.Horizontal>
-              </Container>
-
-              {/* TODO: When there is some data for custom rules, show them below */}
-              {/* <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'large' }}>
-                {i18n.tabTargeting.customRules}
+    <Container>
+      <div
+        style={{
+          borderRadius: 'var(--spacing-medium)',
+          border: '1px solid var(--grey-300)',
+          width: '300px',
+          height: '15px',
+          display: 'flex',
+          overflow: 'hidden'
+        }}
+      >
+        {percentageValues?.map(elem => (
+          <span
+            key={elem.id}
+            style={{
+              width: `${elem.value}%`,
+              backgroundColor: elem.color,
+              display: 'inline-block',
+              height: '13px'
+            }}
+          />
+        ))}
+      </div>
+      <Container margin={{ top: 'small' }}>
+        {percentageValues?.length &&
+          variations?.map((elem, i) => (
+            <Layout.Horizontal
+              key={`${elem.identifier}-${i}`}
+              margin={{ bottom: 'small' }}
+              style={{ alignItems: 'baseline' }}
+            >
+              <span
+                className={css.circle}
+                style={{ backgroundColor: percentageValues[i].color, marginRight: '10px' }}
+              ></span>
+              <Text margin={{ right: 'medium' }} width="100px" className={css.textUppercase}>
+                {elem.identifier}
               </Text>
-
-              <Container></Container>
-
-              <Container></Container> */}
-            </Layout.Vertical>
-          )}
-        </Layout.Vertical>
-      </Layout.Vertical>
-    </>
+              <input
+                type="number"
+                onChange={e => changeColorWidthSlider(e, elem.identifier)}
+                style={{ width: '50px', marginRight: 'var(--spacing-medium)' }}
+                defaultValue={50}
+                min={0}
+                max={100}
+              />
+              <Text icon="percentage" iconProps={{ color: Color.GREY_300 }} />
+            </Layout.Horizontal>
+          ))}
+        {percentageError && <Text intent="danger">Cannot set above 100%</Text>}
+      </Container>
+    </Container>
   )
 }
 
-export default TodoTargeting
+interface RuleData {
+  ruleId?: string
+  serve: string
+  clauses: ClauseData[]
+}
+
+interface ClauseRowProps {
+  label: string
+  attribute: string
+  operator: SelectOption
+  values: string[]
+  hasDelete: boolean
+  onOperatorChange: (op: string) => void
+  onAttributeChange: (attr: string) => void
+  onValuesChange: (values: string[]) => void
+  onAddNewRow: () => void
+  onRemoveRow: () => void
+}
+
+const operators = [
+  { label: i18n.operators.startsWith, value: 'starts_with' },
+  { label: i18n.operators.endsWith, value: 'ends_with' },
+  { label: i18n.operators.match, value: 'match' },
+  { label: i18n.operators.contains, value: 'contains' },
+  { label: i18n.operators.equal, value: 'equal' },
+  { label: i18n.operators.equalSensitive, value: 'equal_sensitive' },
+  { label: i18n.operators.in, value: 'in' }
+]
+
+const findOperatorOption = (value: string) => operators.find(x => x.value === value) || operators[0]
+
+const createOpt = (x: string) => ({ label: x, value: x })
+const emptyClause = () => ({
+  op: operators[0].value,
+  attribute: '',
+  values: []
+})
+
+const ClauseRow: React.FC<ClauseRowProps> = props => {
+  const {
+    label,
+    attribute,
+    operator,
+    values,
+    hasDelete,
+    onAttributeChange,
+    onOperatorChange,
+    onValuesChange,
+    onAddNewRow,
+    onRemoveRow
+  } = props
+  const valueOpts = values.map(createOpt)
+  const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
+  const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
+  const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
+
+  return (
+    <Layout.Horizontal>
+      <Text>{label}</Text>
+      <TextInput id="attribute" value={attribute} onChange={handleAttrChange} />
+      <Select value={operator} items={operators} onChange={handleOperatorChange} />
+      <MultiSelect value={valueOpts} items={valueOpts} onChange={handleValuesChange} />
+      <Button intent="primary" icon="plus" round onClick={onAddNewRow} />
+      {hasDelete && <Button intent="danger" icon="delete" round onClick={onRemoveRow} />}
+    </Layout.Horizontal>
+  )
+}
+
+interface RuleCardProps {
+  rule: RuleData
+  onChange: (rule: RuleData) => void
+}
+
+const RuleCard: React.FC<RuleCardProps> = ({ rule, onChange }) => {
+  const handleClauseChange = (idx: number, field: string) => (value: any) => {
+    onChange({
+      ...rule,
+      clauses: assoc(idx, assoc(field, value, rule.clauses[idx]), rule.clauses)
+    })
+  }
+
+  const handleAddNewRow = () => {
+    onChange({
+      ...rule,
+      clauses: [...rule.clauses, emptyClause()]
+    })
+  }
+
+  const handleRemove = (idx: number) => () => {
+    onChange({
+      ...rule,
+      clauses: rule.clauses.filter((_, index) => index !== idx)
+    })
+  }
+
+  return (
+    <Card>
+      <Layout.Vertical>
+        {rule.clauses.map((clause, idx) => (
+          <ClauseRow
+            key={idx}
+            hasDelete={idx !== 0}
+            label={idx === 0 ? 'Request on' : 'and'}
+            attribute={clause.attribute}
+            operator={findOperatorOption(clause.op)}
+            values={clause.values}
+            onOperatorChange={handleClauseChange(idx, 'op')}
+            onAttributeChange={handleClauseChange(idx, 'attribute')}
+            onValuesChange={handleClauseChange(idx, 'values')}
+            onAddNewRow={handleAddNewRow}
+            onRemoveRow={handleRemove(idx)}
+          />
+        ))}
+      </Layout.Vertical>
+    </Card>
+  )
+}
+
+const CustomRulesView: React.FC<any> = ({ editing }) => {
+  const [tempRules, setTempRules] = useState<RuleData[]>([])
+  const emptyRule: () => RuleData = () => ({
+    serve: '',
+    clauses: [emptyClause()]
+  })
+
+  // eslint-disable-next-line
+  const handleOnRequest = () => {
+    setTempRules([...tempRules, emptyRule()])
+  }
+
+  const handleRuleChange = (index: number) => (newData: RuleData) => {
+    setTempRules([...tempRules.slice(0, index), newData, ...tempRules.slice(index + 1)])
+  }
+
+  return (
+    <>
+      <Text
+        font={{ weight: 'bold' }}
+        color={Color.BLACK}
+        margin={{ bottom: 'medium' }}
+        className={cx(editing && css.defaultRulesHeadingMt)}
+      >
+        {i18n.customRules.header}
+      </Text>
+      <Text margin={{ bottom: 'medium' }} color={Color.AQUA_500}>
+        + {i18n.customRules.serveVartiation}
+      </Text>
+      {tempRules.length > 0 &&
+        tempRules.map((rule, idx) => <RuleCard key={idx} rule={rule} onChange={handleRuleChange(idx)} />)}
+      {/* Intentional onClick returning reference to handler to pass typecheck*/}
+      <Text color={Color.AQUA_500} onClick={() => handleOnRequest}>
+        + {i18n.customRules.onRequest}
+      </Text>
+    </>
+  )
+}

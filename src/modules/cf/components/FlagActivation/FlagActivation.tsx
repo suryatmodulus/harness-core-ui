@@ -17,11 +17,11 @@ import {
   FormikForm as Form
 } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
-import { Feature, FeatureState, Distribution, usePatchFeatureFlag } from 'services/cf'
+import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve } from 'services/cf'
 import FlagElemTest from '../../components/CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
-import patch from '../../utils/instructions'
+import patch, { ClauseData } from '../../utils/instructions'
 import i18n from './FlagActivation.i18n'
 import css from './FlagActivation.module.scss'
 
@@ -38,8 +38,9 @@ interface FlagActivationProps {
 interface Values {
   [key: string]: any
   state: string
-  defaultOnVariation: string | Distribution
-  defaultOffVariation: string
+  offVariation: string
+  defaultServe: Serve
+  customRules: ServingRule[]
 }
 
 export enum envActivation {
@@ -69,7 +70,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
   const onChangeSwitchEnv = (_: string, formikProps: any): void => {
     toggleFlag()
-
     formikProps.setFieldValue(
       'state',
       editEnvActivation === envActivation.activeOff ? envActivation.activeOn : envActivation.activeOff
@@ -83,31 +83,95 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
   const initialValues: Values = {
     state: flagData?.envProperties?.state as string,
-    defaultOnVariation: flagData?.defaultOnVariation as string,
-    defaultOffVariation: flagData?.defaultOffVariation as string
+    onVariation: flagData?.envProperties?.defaultServe.variation
+      ? flagData?.envProperties?.defaultServe.variation
+      : flagData?.envProperties?.defaultServe.distribution
+      ? 'percentage'
+      : flagData?.defaultOnVariation,
+    offVariation: flagData?.envProperties?.offVariation as string,
+    defaultServe: flagData?.envProperties?.defaultServe as Serve,
+    customRules: flagData?.envProperties?.rules ?? []
   }
 
-  const onSaveChanges = (values: any): void => {
+  const onSaveChanges = (values: Values): void => {
     if (values.state !== initialValues.state) {
-      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values.state))
+      patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
     }
-    if (!isEqual(values.defaultOffVariation, initialValues.defaultOffVariation)) {
-      patch.feature.addInstruction(patch.creators.setDefaultOffVariation(values.defaultOffVariation as string))
+    if (!isEqual(values.offVariation, initialValues.offVariation)) {
+      patch.feature.addInstruction(patch.creators.updateOffVariation(values.offVariation as string))
     }
-    if (!isEqual(values.defaultOnVariation, initialValues.defaultOnVariation)) {
-      patch.feature.addInstruction(patch.creators.setDefaultOnVariation(values.defaultOnVariation as string))
+    if (!isEqual(values.onVariation, initialValues.onVariation)) {
+      if (values.onVariation !== 'percentage') {
+        patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
+      }
     }
 
-    patch.feature.onPatchAvailable(data => {
-      patchFeature(data)
-        .then(() => {
-          patch.feature.reset()
-          refetchFlag()
+    if (!isEqual(values.defaultServe, initialValues.defaultServe)) {
+      patch.feature.addInstruction(
+        patch.creators.updateDefaultServeByBucket(
+          values.defaultServe.distribution?.bucketBy || '',
+          values.defaultServe.distribution?.variations || []
+        )
+      )
+    }
+    if (!isEqual(values.customRules, initialValues.customRules)) {
+      const toClauseData = (c: Clause): ClauseData => ({
+        attribute: c.attribute as string,
+        op: c.op,
+        value: c.value
+      })
+
+      patch.feature.addAllInstructions(
+        initialValues.customRules
+          .filter(rule => !values.customRules.find(r => r.ruleId === rule.ruleId))
+          .map(r => patch.creators.removeRule(r.ruleId))
+      )
+
+      patch.feature.addAllInstructions(
+        values.customRules
+          .filter(rule => !rule.ruleId)
+          .map(rule => patch.creators.addRule(rule.priority, rule.serve, rule.clauses.map(toClauseData)))
+      )
+
+      values.customRules
+        .filter(rule => rule.ruleId)
+        .map(rule => [initialValues.customRules.find(r => r.ruleId === rule.ruleId), rule])
+        .filter(([initial, current]) => !isEqual(initial, current))
+        .map(([initial, current]) => {
+          current?.clauses
+            .filter(c => !c.id)
+            .forEach(c => patch.feature.addInstruction(patch.creators.addClause(current.ruleId, toClauseData(c))))
+
+          initial?.clauses
+            .filter(c => !current?.clauses.find(cl => cl.id === c.id))
+            .forEach(c => patch.feature.addInstruction(patch.creators.removeClause(initial.ruleId, c.id)))
+
+          initial?.clauses
+            .reduce((acc: any, prev) => {
+              const currentValue = current?.clauses.find(c => c.id === prev.id)
+              if (currentValue && !isEqual(prev, currentValue)) {
+                return [...acc, [prev, currentValue]]
+              }
+              return acc
+            }, [])
+            .forEach(([c, updated]: [Clause, Clause]) =>
+              patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
+            )
         })
-        .catch(() => {
-          patch.feature.reset()
-        })
-    })
+    }
+
+    patch.feature
+      .onPatchAvailable(data => {
+        patchFeature(data)
+          .then(() => {
+            patch.feature.reset()
+            refetchFlag()
+          })
+          .catch(() => {
+            patch.feature.reset()
+          })
+      })
+      .onEmptyPatch(() => setEditing(false))
   }
 
   const [openModalTestFlag, hideModalTestFlag] = useModalHook(() => (

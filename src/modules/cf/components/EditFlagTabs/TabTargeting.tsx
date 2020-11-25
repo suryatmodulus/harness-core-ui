@@ -14,14 +14,14 @@ import {
   Select,
   MultiSelect,
   MultiSelectOption,
-  TextInput
+  TextInput,
+  Icon
 } from '@wings-software/uikit'
 import { sumBy } from 'lodash-es'
 import { assoc } from 'lodash/fp'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
-import type { Feature, Variation } from 'services/cf'
-import type { ClauseData } from '../../utils/instructions'
+import type { Distribution, WeightedVariation, Clause, Feature, Serve, Variation } from 'services/cf'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
 
@@ -47,16 +47,13 @@ interface PercentageValues {
 const TodoTargeting: React.FC<TabTargetingProps> = props => {
   const { formikProps, targetData, editing, setEditing } = props
 
-  const [, /*isEditOn*/ setIsEditOn] = useState<boolean>(editing)
   const [isEditRulesOn, setEditRulesOn] = useState(false)
-  // const [isServeTargetOn, setIsServeTargetOn] = useState(false)
 
   useEffect(() => {
-    setIsEditOn(editing)
     if (!editing && isEditRulesOn) setEditRulesOn(false)
   }, [editing])
 
-  const [, /*onOpenTargetModal*/ hideTargetModal] = useModalHook(() => (
+  const [, hideTargetModal] = useModalHook(() => (
     <Dialog onClose={hideTargetModal} title="" isOpen={true}>
       <Layout.Vertical>
         <Text>
@@ -84,20 +81,23 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
     setEditing(true)
   }
 
-  // const onServeTarget = (): void => {
-  //   setIsServeTargetOn(true)
-  // }
-
   return (
     <Layout.Vertical>
       <Container style={{ marginLeft: 'auto' }}>
         {!isEditRulesOn && <Button text={i18n.tabTargeting.editRules} icon="edit" onClick={onEditBtnHandler} />}
       </Container>
       <Layout.Vertical>
-        <DefaultRulesView formikProps={formikProps} editing={isEditRulesOn} variations={targetData.variations} />
+        <DefaultRulesView
+          formikProps={formikProps}
+          editing={isEditRulesOn}
+          defaultOnVariation={targetData.defaultOnVariation}
+          bucketBy={targetData.envProperties?.defaultServe.distribution?.bucketBy}
+          weightedVariations={targetData.envProperties?.defaultServe.distribution?.variations}
+          variations={targetData.variations}
+        />
       </Layout.Vertical>
       <Layout.Vertical>
-        <CustomRulesView editing={isEditRulesOn} target={targetData} />
+        {isEditRulesOn && <CustomRulesView formikProps={formikProps} target={targetData} />}
       </Layout.Vertical>
     </Layout.Vertical>
   )
@@ -107,11 +107,20 @@ export default TodoTargeting
 
 interface DefaultRulesProps {
   editing: boolean
+  bucketBy?: string
+  defaultOnVariation: string
   variations: Variation[]
+  weightedVariations?: WeightedVariation[]
   formikProps: any
 }
 
-const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, formikProps }) => {
+const DefaultRulesView: React.FC<DefaultRulesProps> = ({
+  editing,
+  bucketBy,
+  variations,
+  weightedVariations,
+  formikProps
+}) => {
   const [percentageView, setPercentageView] = useState<boolean>(false)
 
   const variationItems = variations.map<SelectOption>(elem => ({
@@ -126,6 +135,10 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, fo
       setPercentageView(false)
     }
   }
+
+  useEffect(() => {
+    setPercentageView(formikProps.values.onVariation === 'percentage')
+  }, [formikProps.values.onVariation])
 
   return (
     <>
@@ -143,7 +156,7 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, fo
           <Container>
             {editing ? (
               <FormInput.Select
-                name="defaultOnVariation"
+                name="onVariation"
                 items={[
                   ...variationItems,
                   {
@@ -154,19 +167,29 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, fo
                 onChange={onDefaultONChange}
               />
             ) : (
-              <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.defaultOnVariation}</Text>
+              <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.onVariation}</Text>
             )}
 
-            {percentageView && <PercentageRollout variations={variations} />}
+            {percentageView && (
+              <PercentageRollout
+                editing={editing}
+                bucketBy={bucketBy}
+                variations={variations}
+                weightedVariations={weightedVariations || []}
+                onSetPercentageValues={(value: Distribution) => {
+                  formikProps.setFieldValue('defaultServe', { distribution: value })
+                }}
+              />
+            )}
           </Container>
         </Layout.Horizontal>
 
         <Layout.Horizontal style={{ alignItems: 'baseline' }}>
           <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
           {editing ? (
-            <FormInput.Select name="defaultOffVariation" items={variationItems} onChange={formikProps.handleChange} />
+            <FormInput.Select name="offVariation" items={variationItems} onChange={formikProps.handleChange} />
           ) : (
-            <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.defaultOffVariation}</Text>
+            <Text className={cx(css.textUppercase, css.textBlack)}>{formikProps.values.offVariation}</Text>
           )}
         </Layout.Horizontal>
       </Container>
@@ -175,18 +198,29 @@ const DefaultRulesView: React.FC<DefaultRulesProps> = ({ editing, variations, fo
 }
 
 interface PercentageRolloutProps {
+  editing: boolean
+  bucketBy?: string
   variations: Variation[]
+  weightedVariations: WeightedVariation[]
+  onSetPercentageValues(value: Distribution): void
 }
 
-const PercentageRollout: React.FC<PercentageRolloutProps> = ({ variations }) => {
-  const [percentageValues, setPercentageValues] = useState<PercentageValues[] | undefined>([])
+const PercentageRollout: React.FC<PercentageRolloutProps> = ({
+  editing,
+  bucketBy,
+  weightedVariations,
+  variations,
+  onSetPercentageValues
+}) => {
+  const [bucketByValue, setBucketByValue] = useState<string>(bucketBy || 'identifier')
+  const [percentageValues, setPercentageValues] = useState<PercentageValues[]>([])
   const [percentageError, setPercentageError] = useState(false)
 
-  // variations length minimum is 2
   const variationsToPercentage = variations?.map((elem, i) => {
+    const weightedVariation = weightedVariations.find(wvElem => wvElem.variation === elem.identifier)
     return {
       id: elem.identifier,
-      value: 100 / variations?.length,
+      value: weightedVariation?.weight || 100 / variations?.length,
       color: randomColor[i]
     }
   })
@@ -218,12 +252,33 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({ variations }) => 
     setPercentageValues(variationsToPercentage)
   }, [])
 
+  useEffect(() => {
+    onSetPercentageValues({
+      bucketBy: bucketByValue,
+      variations: percentageValues.map(elem => ({
+        variation: elem.id,
+        weight: elem.value
+      }))
+    })
+  }, [bucketByValue, percentageValues])
+
   return (
     <Container>
+      <Layout.Horizontal margin={{ bottom: editing ? 'small' : 'medium' }} style={{ alignItems: 'baseline' }}>
+        <Text margin={{ right: 'small' }}>Bucket by</Text>
+        {editing ? (
+          <TextInput
+            defaultValue={bucketByValue}
+            onChange={(ev: React.ChangeEvent<HTMLInputElement>) => setBucketByValue(ev.target.value)}
+          />
+        ) : (
+          <Text>{bucketByValue}</Text>
+        )}
+      </Layout.Horizontal>
       <div
         style={{
-          borderRadius: 'var(--spacing-medium)',
-          border: '1px solid var(--grey-300)',
+          borderRadius: '10px',
+          border: '1px solid #ccc',
           width: '300px',
           height: '15px',
           display: 'flex',
@@ -244,27 +299,28 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({ variations }) => 
       </div>
       <Container margin={{ top: 'small' }}>
         {percentageValues?.length &&
-          variations?.map((elem, i) => (
-            <Layout.Horizontal
-              key={`${elem.identifier}-${i}`}
-              margin={{ bottom: 'small' }}
-              style={{ alignItems: 'baseline' }}
-            >
+          percentageValues?.map((elem, i) => (
+            <Layout.Horizontal key={`${elem.id}-${i}`} margin={{ bottom: 'small' }} style={{ alignItems: 'baseline' }}>
               <span
                 className={css.circle}
                 style={{ backgroundColor: percentageValues[i].color, marginRight: '10px' }}
               ></span>
               <Text margin={{ right: 'medium' }} width="100px" className={css.textUppercase}>
-                {elem.identifier}
+                {elem.id}
               </Text>
-              <input
-                type="number"
-                onChange={e => changeColorWidthSlider(e, elem.identifier)}
-                style={{ width: '50px', marginRight: 'var(--spacing-medium)' }}
-                defaultValue={50}
-                min={0}
-                max={100}
-              />
+              {editing ? (
+                <input
+                  type="number"
+                  onChange={e => changeColorWidthSlider(e, elem.id)}
+                  style={{ width: '50px', marginRight: '10px' }}
+                  value={elem.value}
+                  min={0}
+                  max={100}
+                />
+              ) : (
+                <Text>{elem.value}</Text>
+              )}
+
               <Text icon="percentage" iconProps={{ color: Color.GREY_300 }} />
             </Layout.Horizontal>
           ))}
@@ -273,24 +329,11 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({ variations }) => 
     </Container>
   )
 }
-
 interface RuleData {
   ruleId?: string
-  serve: string
-  clauses: ClauseData[]
-}
-
-interface ClauseRowProps {
-  label: string
-  attribute: string
-  operator: SelectOption
-  values: string[]
-  hasDelete: boolean
-  onOperatorChange: (op: string) => void
-  onAttributeChange: (attr: string) => void
-  onValuesChange: (values: string[]) => void
-  onAddNewRow: () => void
-  onRemoveRow: () => void
+  serve: Serve
+  clauses: Clause[]
+  priority: number
 }
 
 const operators = [
@@ -303,14 +346,27 @@ const operators = [
   { label: i18n.operators.in, value: 'in' }
 ]
 
-const findOperatorOption = (value: string) => operators.find(x => x.value === value) || operators[0]
-
-const createOpt = (x: string) => ({ label: x, value: x })
-const emptyClause = () => ({
+const emptyClause = (): Clause => ({
+  id: '',
   op: operators[0].value,
   attribute: '',
-  values: []
+  value: [],
+  negate: false
 })
+
+interface ClauseRowProps {
+  label: string
+  attribute: string
+  operator: SelectOption
+  values: string[]
+  isLast: boolean
+  isSingleClause: boolean
+  onOperatorChange: (op: string) => void
+  onAttributeChange: (attr: string) => void
+  onValuesChange: (values: string[]) => void
+  onAddNewRow: () => void
+  onRemoveRow: () => void
+}
 
 const ClauseRow: React.FC<ClauseRowProps> = props => {
   const {
@@ -318,41 +374,115 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
     attribute,
     operator,
     values,
-    hasDelete,
+    isLast,
+    isSingleClause,
     onAttributeChange,
     onOperatorChange,
     onValuesChange,
     onAddNewRow,
     onRemoveRow
   } = props
-  const valueOpts = values.map(createOpt)
+
+  const valueOpts = values.map((x: string) => ({ label: x, value: x }))
   const handleAttrChange = (e: React.ChangeEvent<HTMLInputElement>) => onAttributeChange(e.target.value)
   const handleOperatorChange = (data: SelectOption) => onOperatorChange(data.value as string)
   const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
 
+  const actions = [
+    <Icon
+      key="delete-icon-0"
+      name="delete"
+      style={{ visibility: isSingleClause ? 'hidden' : 'visible' }}
+      size={24}
+      color={Color.ORANGE_500}
+      onClick={onRemoveRow}
+    />,
+    <Icon
+      key="add-icon-1"
+      name="add"
+      style={{ visibility: isSingleClause || isLast ? 'visible' : 'hidden' }}
+      size={24}
+      color={Color.BLUE_500}
+      onClick={onAddNewRow}
+    />
+  ]
+  if (isSingleClause) {
+    actions.reverse()
+  }
+
+  const height = '36px'
+
   return (
-    <Layout.Horizontal>
-      <Text>{label}</Text>
-      <TextInput id="attribute" value={attribute} onChange={handleAttrChange} />
-      <Select value={operator} items={operators} onChange={handleOperatorChange} />
-      <MultiSelect value={valueOpts} items={valueOpts} onChange={handleValuesChange} />
-      <Button intent="primary" icon="plus" round onClick={onAddNewRow} />
-      {hasDelete && <Button intent="danger" icon="delete" round onClick={onRemoveRow} />}
+    <Layout.Horizontal spacing="xsmall">
+      <Text
+        color={Color.GREY_350}
+        font="normal"
+        style={{ display: 'flex', height, alignItems: 'center', justifyContent: 'flex-end', minWidth: '80px' }}
+      >
+        {label}
+      </Text>
+      <div style={{ flex: '1' }}>
+        <TextInput style={{ height }} id="attribute" value={attribute} onChange={handleAttrChange} />
+      </div>
+      <div style={{ flex: '0.8' }}>
+        <Select inputProps={{ style: { height } }} value={operator} items={operators} onChange={handleOperatorChange} />
+      </div>
+      <div style={{ flex: '1.5' }}>
+        <MultiSelect
+          fill
+          className={css.valueMultiselect}
+          tagInputProps={{ className: css.valueMultiselect, inputProps: { className: css.valueMultiselect } }}
+          items={valueOpts}
+          value={valueOpts}
+          onChange={handleValuesChange}
+        />
+      </div>
+      <Layout.Horizontal flex={{ align: 'center-center' }} spacing="small">
+        {actions}
+      </Layout.Horizontal>
     </Layout.Horizontal>
   )
 }
 
 interface RuleCardProps {
   rule: RuleData
+  variations: Variation[]
+  onDelete: () => void
   onChange: (rule: RuleData) => void
 }
 
-const RuleCard: React.FC<RuleCardProps> = ({ rule, onChange }) => {
+const RuleCard: React.FC<RuleCardProps> = ({ rule, variations, onDelete, onChange }) => {
+  const percentageRollout = { label: 'a rollout percentage', value: 'percentage' }
+  const variationOps = variations
+    .map((v: Variation) => ({ label: v.identifier, value: v.identifier }))
+    .concat([percentageRollout])
+  const currentServe = rule.serve.distribution
+    ? percentageRollout
+    : variationOps.find((v: SelectOption) => v.value === rule.serve.variation)
   const handleClauseChange = (idx: number, field: string) => (value: any) => {
     onChange({
       ...rule,
       clauses: assoc(idx, assoc(field, value, rule.clauses[idx]), rule.clauses)
     })
+  }
+
+  const handleServeChange = (data: SelectOption) => {
+    if (data.value === 'percentage') {
+      onChange({
+        ...rule,
+        serve: {
+          distribution: {
+            bucketBy: '',
+            variations: []
+          }
+        }
+      })
+    } else {
+      onChange({
+        ...rule,
+        serve: { variation: data.value as string }
+      })
+    }
   }
 
   const handleAddNewRow = () => {
@@ -369,44 +499,117 @@ const RuleCard: React.FC<RuleCardProps> = ({ rule, onChange }) => {
     })
   }
 
+  const handleRolloutChange = (data: any) => {
+    onChange({
+      ...rule,
+      serve: { distribution: data }
+    })
+  }
+
   return (
-    <Card>
-      <Layout.Vertical>
-        {rule.clauses.map((clause, idx) => (
-          <ClauseRow
-            key={idx}
-            hasDelete={idx !== 0}
-            label={idx === 0 ? 'Request on' : 'and'}
-            attribute={clause.attribute}
-            operator={findOperatorOption(clause.op)}
-            values={clause.values}
-            onOperatorChange={handleClauseChange(idx, 'op')}
-            onAttributeChange={handleClauseChange(idx, 'attribute')}
-            onValuesChange={handleClauseChange(idx, 'values')}
-            onAddNewRow={handleAddNewRow}
-            onRemoveRow={handleRemove(idx)}
-          />
-        ))}
-      </Layout.Vertical>
-    </Card>
+    <Layout.Vertical margin="medium">
+      <Layout.Horizontal spacing="small">
+        <Card style={{ width: '100%' }}>
+          <Layout.Vertical spacing="medium">
+            {rule.clauses.map((clause, idx) => (
+              <ClauseRow
+                key={idx}
+                isLast={idx === rule.clauses.length - 1}
+                isSingleClause={rule.clauses.length === 1}
+                label={idx === 0 ? i18n.tabTargeting.onRequest : i18n.and.toLocaleLowerCase()}
+                attribute={clause?.attribute || ''}
+                operator={operators.find(x => x.value === clause.op) || operators[0]}
+                values={clause.value}
+                onOperatorChange={handleClauseChange(idx, 'op')}
+                onAttributeChange={handleClauseChange(idx, 'attribute')}
+                onValuesChange={handleClauseChange(idx, 'value')}
+                onAddNewRow={handleAddNewRow}
+                onRemoveRow={handleRemove(idx)}
+              />
+            ))}
+            <Layout.Horizontal spacing="xsmall">
+              <Text
+                color={Color.GREY_350}
+                font="normal"
+                style={{
+                  display: 'flex',
+                  height: '36px',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  minWidth: '80px'
+                }}
+              >
+                {i18n.tabTargeting.serve.toLocaleLowerCase()}
+              </Text>
+              <div style={{ flexGrow: 0 }}>
+                <Select
+                  value={currentServe}
+                  items={variationOps}
+                  inputProps={{ style: { height: '36px' } }}
+                  onChange={handleServeChange}
+                />
+              </div>
+            </Layout.Horizontal>
+            {currentServe?.value === 'percentage' && (
+              <div style={{ paddingLeft: '94px' }}>
+                <PercentageRollout
+                  editing={true}
+                  variations={variations}
+                  weightedVariations={rule.serve.distribution?.variations || []}
+                  onSetPercentageValues={handleRolloutChange}
+                />
+              </div>
+            )}
+          </Layout.Vertical>
+        </Card>
+        <Icon name="trash" margin={{ top: 'xlarge' }} size={24} color={Color.GREY_300} onClick={onDelete} />
+      </Layout.Horizontal>
+    </Layout.Vertical>
   )
 }
 
-const CustomRulesView: React.FC<any> = ({ editing }) => {
-  const [tempRules, setTempRules] = useState<RuleData[]>([])
-  const emptyRule: () => RuleData = () => ({
-    serve: '',
-    clauses: [emptyClause()]
+interface CustomRulesViewProps {
+  formikProps: any
+  target: Feature
+}
+
+const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target }) => {
+  const emptyRule = (priority = -1): RuleData => ({
+    serve: { variation: '' },
+    clauses: [emptyClause()],
+    priority
   })
 
-  // eslint-disable-next-line
+  const initialRules =
+    target?.envProperties?.rules
+      ?.map(sr => {
+        return {
+          ruleId: sr.ruleId,
+          serve: sr.serve,
+          clauses: sr.clauses,
+          priority: sr.priority
+        } as RuleData
+      })
+      .sort((a, b) => a.priority - b.priority) || []
+  const [tempRules, setTempRules] = useState<RuleData[]>(initialRules)
+
+  const getPriority = () => tempRules.reduce((max, next) => (max < next.priority ? next.priority : max), 0) + 100
+
   const handleOnRequest = () => {
-    setTempRules([...tempRules, emptyRule()])
+    setTempRules([...tempRules, emptyRule(getPriority())])
   }
 
   const handleRuleChange = (index: number) => (newData: RuleData) => {
     setTempRules([...tempRules.slice(0, index), newData, ...tempRules.slice(index + 1)])
   }
+
+  const handleDeleteRule = (index: number) => () => {
+    setTempRules([...tempRules.slice(0, index), ...tempRules.slice(index + 1)])
+  }
+
+  useEffect(() => {
+    formikProps.setFieldValue('customRules', tempRules)
+  }, [tempRules])
 
   return (
     <>
@@ -414,7 +617,7 @@ const CustomRulesView: React.FC<any> = ({ editing }) => {
         font={{ weight: 'bold' }}
         color={Color.BLACK}
         margin={{ bottom: 'medium' }}
-        className={cx(editing && css.defaultRulesHeadingMt)}
+        className={css.defaultRulesHeadingMt}
       >
         {i18n.customRules.header}
       </Text>
@@ -422,9 +625,16 @@ const CustomRulesView: React.FC<any> = ({ editing }) => {
         + {i18n.customRules.serveVartiation}
       </Text>
       {tempRules.length > 0 &&
-        tempRules.map((rule, idx) => <RuleCard key={idx} rule={rule} onChange={handleRuleChange(idx)} />)}
-      {/* Intentional onClick returning reference to handler to pass typecheck*/}
-      <Text color={Color.AQUA_500} onClick={() => handleOnRequest}>
+        tempRules.map((rule, idx) => (
+          <RuleCard
+            key={idx}
+            rule={rule}
+            variations={target.variations}
+            onDelete={handleDeleteRule(idx)}
+            onChange={handleRuleChange(idx)}
+          />
+        ))}
+      <Text color={Color.AQUA_500} onClick={handleOnRequest}>
         + {i18n.customRules.onRequest}
       </Text>
     </>

@@ -33,12 +33,19 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   }, [environments.length, envsLoading, environmentIdentifier])
 
   const { data: singleFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
+    lazy: true,
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
       environment: environmentOption?.value as string
     }
   })
+
+  useEffect(() => {
+    if (environmentOption) {
+      refetch()
+    }
+  }, [environmentOption])
 
   const onEnvChange = (item: SelectOption) => {
     history.push(

@@ -49,9 +49,9 @@ export type ApiKeys = ApiKey[]
 export interface Environment {
   name: string
   description?: string
-  identifier: string
-  project: string
-  apiKeys: ApiKeys
+  identifier?: string
+  project?: string
+  apiKeys?: ApiKeys
   tags?: Tag[]
 }
 
@@ -87,7 +87,7 @@ export interface VariationMap {
 
 export interface Clause {
   id: string
-  attribute: string
+  attribute?: string
   op: string
   value: string[]
   negate: boolean
@@ -144,6 +144,7 @@ export interface Feature {
   createdAt: number
   modifiedAt: number
   tags?: Tag[]
+  version?: any
 }
 
 export type Features = Pagination & {
@@ -244,12 +245,12 @@ export type FeatureFlagRequestRequestBody = {
   identifier: string
   owner?: string
   kind: 'boolean' | 'int' | 'string' | 'json'
-  archived: boolean
+  archived?: boolean
   variations: Variation[]
   tags?: Tag[]
-  defaultOnVariation: string
-  defaultOffVariation: string
-  permanent: boolean
+  defaultOnVariation?: string
+  defaultOffVariation?: string
+  permanent?: boolean
 }
 
 export type FeatureFlagPatchRequestRequestBody = PatchOperation

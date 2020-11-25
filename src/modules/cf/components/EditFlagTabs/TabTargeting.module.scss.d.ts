@@ -16,5 +16,6 @@ declare const styles: {
   readonly requestInnerContainer: string
   readonly requestServeContainer: string
   readonly circle: string
+  readonly valueMultiselect: string
 }
 export default styles

@@ -247,6 +247,8 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   )
 }
 
+const defaultEnv = { label: 'production', value: 'production' }
+
 const CFFeatureFlagsPage: React.FC = () => {
   const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   const [isDrawerOpened, setIsDrawerOpened] = useState(false)
@@ -262,6 +264,7 @@ const CFFeatureFlagsPage: React.FC = () => {
   const { data: environments, loading: envsLoading, error: envsError } = useEnvironments(projectIdentifier as string)
 
   const { data: flagList, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
+    lazy: true,
     queryParams: {
       project: projectIdentifier as string,
       environment: environment?.value as string
@@ -269,8 +272,14 @@ const CFFeatureFlagsPage: React.FC = () => {
   })
 
   useEffect(() => {
+    if (environment) {
+      refetch()
+    }
+  }, [environment])
+
+  useEffect(() => {
     if (!envsLoading) {
-      setEnvironment(environments?.length > 0 ? environments[0] : null)
+      setEnvironment(environments?.length > 0 ? environments[0] : defaultEnv)
     }
   }, [environments.length, envsLoading])
 
@@ -315,7 +324,7 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: '',
         // TODO: Check for the accessor field
-        accessor: row => row.envProperties?.version,
+        accessor: 'version',
         width: '5%',
         Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
           return <RenderColumnEdit cell={cell} environment={environment?.value as string} />

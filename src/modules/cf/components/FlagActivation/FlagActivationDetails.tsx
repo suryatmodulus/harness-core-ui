@@ -86,7 +86,6 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
     const handleSubmit = (values: typeof initialValues) => {
       const { variations, defaultOffVariation, defaultOnVariation } = values
-
       if (!isEqual(variations, initialValues.variations)) {
         patch.feature.addAllInstructions(
           zip(variations, initialValues.variations)

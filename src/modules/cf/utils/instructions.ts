@@ -1,5 +1,5 @@
 import { zipObject } from 'lodash-es'
-import type { Distribution, PatchOperation, Prerequisite, Variation, WeightedVariation } from 'services/cf'
+import type { Distribution, PatchOperation, Prerequisite, Serve, Variation, WeightedVariation } from 'services/cf'
 
 type PatchKind =
   | 'updateName'
@@ -59,11 +59,12 @@ export interface SegmentToVariationParams {
 export interface ClauseData {
   attribute: string
   op: string
-  values: string[]
+  value: string[]
+  [key: string]: any
 }
 export interface AddRuleParams {
-  order: number
-  serve: string
+  priority: number
+  serve: Serve
   clauses: ClauseData[]
 }
 export interface RemoveRuleParams {
@@ -121,23 +122,23 @@ type UnaryInstructionCreator<A, B extends ParameterType> = (a: A) => Instruction
 type BinaryInstructionCreator<A, B, C extends ParameterType> = (a: A, b: B) => Instruction<C>
 type TernaryInstructionCreator<A, B, C, D extends ParameterType> = (a: A, b: B, c: C) => Instruction<D>
 
-const shape = <A = any>(...keys: string[]) => (...values: any[]) => zipObject(keys, values) as A
+export const shape = <A = any>(...keys: string[]) => (...values: any[]) => zipObject(keys, values) as A
 const identity = <T>(a: T) => a
-const unaryInstructionCreator = <A, B extends ParameterType>(
+export const unaryInstructionCreator = <A, B extends ParameterType>(
   kind: PatchKind,
   parameterBuilder: UnaryParameterBuilder<A, B>
 ): UnaryInstructionCreator<A, B> => (arg: A) => ({
   kind,
   parameters: parameterBuilder(arg)
 })
-const binaryInstructionCreator = <A, B, C extends ParameterType>(
+export const binaryInstructionCreator = <A, B, C extends ParameterType>(
   kind: PatchKind,
   parameterBuilder: BinaryParameterBuilder<A, B, C>
 ): BinaryInstructionCreator<A, B, C> => (a: A, b: B) => ({
   kind,
   parameters: parameterBuilder(a, b)
 })
-const ternaryInstructionCreator = <A, B, C, D extends ParameterType>(
+export const ternaryInstructionCreator = <A, B, C, D extends ParameterType>(
   kind: PatchKind,
   parameterBuilder: TernaryParameterBuilder<A, B, C, D>
 ): TernaryInstructionCreator<A, B, C, D> => (a: A, b: B, c: C) => ({
@@ -231,10 +232,10 @@ const clearVariationTargetMapping: (variation: string) => Instruction<VariationP
   shape<VariationParam>('variation')
 )
 const addRule: (
-  order: number,
-  serve: string,
+  priority: number,
+  serve: Serve,
   clauses: ClauseData[]
-) => Instruction<AddRuleParams> = ternaryInstructionCreator('addRule', shape('order', 'serve', 'clauses'))
+) => Instruction<AddRuleParams> = ternaryInstructionCreator('addRule', shape('priority', 'serve', 'clauses'))
 const removeRule: (ruleID: string) => Instruction<RemoveRuleParams> = unaryInstructionCreator(
   'removeRule',
   shape('ruleID')
@@ -250,7 +251,7 @@ const removeClause: (ruleID: string, clauseID: string) => Instruction<RemoveClau
 const updateClause: (
   ruleID: string,
   clauseID: string,
-  clause: ClauseData[]
+  clause: ClauseData
 ) => Instruction<UpdateClauseParams> = ternaryInstructionCreator('updateClause', shape('ruleID', 'clauseID', 'clause'))
 const reorderRules: (rules: string[]) => Instruction<ReorderRulesParams> = unaryInstructionCreator(
   'reorderRules',

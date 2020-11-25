@@ -1,5 +1,4 @@
 import type { SelectOption } from '@wings-software/uikit'
-
 import { useGetAllEnvironments } from 'services/cf'
 
 export const useEnvironments = (projectIdentifier: string) => {

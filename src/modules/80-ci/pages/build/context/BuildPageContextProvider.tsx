@@ -126,7 +126,7 @@ export const BuildPageContextProvider: React.FC = props => {
     orgIdentifier,
     projectIdentifier,
     buildIdentifier,
-    selectedStageOption?.label || '',
+    state.selectedStageIdentifier || '',
     state.selectedStepIdentifier || '',
     !!logsToken && isStepRunning && !!selectedStageOption && !!state.selectedStepIdentifier
   )
@@ -143,7 +143,7 @@ export const BuildPageContextProvider: React.FC = props => {
         orgIdentifier,
         projectIdentifier,
         buildIdentifier,
-        selectedStageOption?.label || '',
+        state.selectedStageIdentifier || '',
         state.selectedStepIdentifier || '',
         setLogs
       )

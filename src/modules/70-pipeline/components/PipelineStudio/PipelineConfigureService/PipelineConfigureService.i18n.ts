@@ -1,6 +1,5 @@
 export default {
-  titlePartOne: 'Configure',
-  titlePartTwo: 'Service',
+  title: 'Configure Dependency',
 
   revertToDefaultConfiguration: 'Revert to Default Configuration',
   verifyingConnection: 'Verifying connection...',

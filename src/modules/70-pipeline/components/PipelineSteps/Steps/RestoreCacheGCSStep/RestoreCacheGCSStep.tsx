@@ -201,13 +201,13 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
               <FormInput.TextArea name="description" label={getString('description')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.gcpConnectorLabell')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
                   type="Gcp"
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
+                  placeholder={loading ? getString('loading') : getString('select')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -218,7 +218,7 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.gcpConnectorLabell')}</Text>
+                        <Text>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -231,7 +231,7 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyPlaceholder')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('keyLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.key" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.key) === MultiTypeInputType.RUNTIME && (
@@ -239,7 +239,7 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
                     value={formValues.spec.key as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.keyPlaceholder')}</Text>
+                        <Text>{getString('keyLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.key"

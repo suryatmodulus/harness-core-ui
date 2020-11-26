@@ -259,7 +259,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 <FormMultiTypeConnectorField
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
+                  placeholder={loading ? getString('loading') : getString('select')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -304,7 +304,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
               </div>
               <FormInput.TagInput
                 name="spec.tags"
-                label={getString('pipelineSteps.tagsLabel')}
+                label={getString('tagsLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -371,13 +371,13 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.labels[${index}].key`}
-                          placeholder={getString('pipelineSteps.keyPlaceholder')}
+                          placeholder={getString('keyLabel')}
                           style={{ flexGrow: 1 }}
                         />
                         <FormInput.MultiTextInput
                           label=""
                           name={`spec.labels[${index}].value`}
-                          placeholder={getString('pipelineSteps.valuePlaceholder')}
+                          placeholder={getString('valueLabel')}
                           style={{ flexGrow: 1 }}
                         />
                         {getMultiTypeFromValue(formValues.spec.labels[index].value) === MultiTypeInputType.RUNTIME && (
@@ -385,7 +385,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                             value={formValues.spec.labels[index].value as string}
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
+                                <Text>{getString('valueLabel')}</Text>
                               </Layout.Horizontal>
                             }
                             variableName={`spec.labels[${index}].value`}
@@ -425,13 +425,13 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.buildArgs[${index}].key`}
-                          placeholder={getString('pipelineSteps.keyPlaceholder')}
+                          placeholder={getString('keyLabel')}
                           style={{ flexGrow: 1 }}
                         />
                         <FormInput.MultiTextInput
                           label=""
                           name={`spec.buildArgs[${index}].value`}
-                          placeholder={getString('pipelineSteps.valuePlaceholder')}
+                          placeholder={getString('valueLabel')}
                           style={{ flexGrow: 1 }}
                         />
                         {getMultiTypeFromValue(formValues.spec.buildArgs[index].value) ===
@@ -440,7 +440,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                             value={formValues.spec.buildArgs[index].value as string}
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
+                                <Text>{getString('valueLabel')}</Text>
                               </Layout.Horizontal>
                             }
                             variableName={`spec.buildArgs[${index}].value`}

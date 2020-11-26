@@ -10,8 +10,8 @@ import { PipelineVariables } from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
-import { PipelineAddService } from '../PipelineAddService/PipelineAddService'
 import { PipelineConfigureService } from '../PipelineConfigureService/PipelineConfigureService'
+import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -106,7 +106,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
-      {type === DrawerTypes.AddService && <PipelineAddService />}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <PipelineConfigureService
           step={data.stepConfig.node}
@@ -117,7 +116,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               addService(pipelineStage?.stage.spec.dependencies, {
                 identifier: item.identifier,
                 name: item.name,
-                type: item.type,
+                type: StepType.Dependency,
                 spec: item.spec
               })
               updatePipelineView({

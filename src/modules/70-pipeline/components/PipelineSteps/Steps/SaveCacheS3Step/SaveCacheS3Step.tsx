@@ -206,7 +206,7 @@ const SaveCacheS3StepWidget: React.FC<SaveCacheS3StepWidgetProps> = ({ initialVa
                   type="Aws"
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
+                  placeholder={loading ? getString('loading') : getString('select')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -230,7 +230,7 @@ const SaveCacheS3StepWidget: React.FC<SaveCacheS3StepWidgetProps> = ({ initialVa
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyPlaceholder')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('keyLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.key" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.key) === MultiTypeInputType.RUNTIME && (
@@ -238,7 +238,7 @@ const SaveCacheS3StepWidget: React.FC<SaveCacheS3StepWidgetProps> = ({ initialVa
                     value={formValues.spec.key as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.keyPlaceholder')}</Text>
+                        <Text>{getString('keyLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.key"

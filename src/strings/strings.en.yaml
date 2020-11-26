@@ -37,6 +37,14 @@ global:
   typeLabel: Type
   variableLabel: 'Variable'
   variableNameLabel: Variable Name
+  imageLabel: Image
+  environment: 'Environment'
+  addEnvironment: '+ Add Environment'
+  entryPointsLabel: 'Entry Points'
+  addEntryPoint: '+ Add Entry Point'
+  argumentsLabel: 'Arguments'
+  addArgument: '+ Add Argument'
+  dependencyNameLabel: 'Dependency Name'
   skipGitCloneLabel: Skip Git Clone
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
@@ -167,6 +175,7 @@ global:
         valueCell: 'VALUE'
         addVariable: '+ Add Variable'
         addCustomVariableDialogTitle: 'Add Custom Variable'
+        variableNamePlaceholder: 'Name'
         textType: 'Text'
         secretType: 'Secret'
       infraSpecifications:

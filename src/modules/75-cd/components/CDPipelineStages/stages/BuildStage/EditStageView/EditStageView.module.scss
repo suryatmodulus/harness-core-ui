@@ -37,3 +37,11 @@
   padding-top: var(--spacing-medium);
   margin-top: var(--spacing-medium);
 }
+
+.predefinedValue {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  padding-left: var(--spacing-medium);
+}

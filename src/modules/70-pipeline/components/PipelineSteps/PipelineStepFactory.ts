@@ -5,7 +5,6 @@ import { ShellScriptStep } from './Steps/ShellScriptStep/ShellScriptStep'
 import { StepGroupStep } from './Steps/StepGroupStep/StepGroupStep'
 import { CustomVariables } from './Steps/CustomVariables/CustomVariables'
 import { KubernetesInfraSpec } from './Steps/KubernetesInfraSpec/KubernetesInfraSpec'
-import { RedisService } from './Steps/RedisService/RedisService'
 import { RunStep } from './Steps/RunStep/RunStep'
 import { PluginStep } from './Steps/PluginStep/PluginStep'
 import { GCRStep } from './Steps/GCRStep/GCRStep'
@@ -17,6 +16,7 @@ import { RestoreCacheS3Step } from './Steps/RestoreCacheS3Step/RestoreCacheS3Ste
 import { DockerHubStep } from './Steps/DockerHubStep/DockerHubStep'
 import { GCSStep } from './Steps/GCSStep/GCSStep'
 import { S3Step } from './Steps/S3Step/S3Step'
+import { Dependency } from './Steps/Dependency/Dependency'
 
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
@@ -43,7 +43,6 @@ factory.registerStep(new RestoreCacheS3Step())
 factory.registerStep(new DockerHubStep())
 factory.registerStep(new GCSStep())
 factory.registerStep(new S3Step())
-// build services
-factory.registerStep(new RedisService())
+factory.registerStep(new Dependency())
 
 export default factory

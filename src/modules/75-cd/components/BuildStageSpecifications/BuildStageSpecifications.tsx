@@ -215,25 +215,23 @@ export default function BuildStageSpecifications(): JSX.Element {
               <>
                 <div className={cx(css.section, css.noPadTop)}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
-                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('pipeline-stages.build.stageSpecifications.stageDetails')}
-                    </Text>
+                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('stageDetails')}</Text>
                   </Layout.Vertical>
                   <FormikForm>
                     <Layout.Horizontal spacing="medium">
                       <FormInput.InputWithIdentifier
                         inputName="name"
-                        inputLabel={getString('pipeline-stages.build.stageSpecifications.stageNameLabel')}
+                        inputLabel={getString('stageNameLabel')}
                         inputGroupProps={{
                           className: css.fields,
-                          placeholder: getString('pipeline-stages.build.stageSpecifications.stageNamePlaceholder')
+                          placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder')
                         }}
                       />
                       <div className={css.addDataLinks}>
                         {!isDescriptionVisible && !formValues.description && (
                           <Button
                             minimal
-                            text={getString('pipeline-stages.build.stageSpecifications.addDescription')}
+                            text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
                             icon="plus"
                             onClick={() => setDescriptionVisible(true)}
                           />
@@ -241,7 +239,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                         {!isTagsVisible && !formValues.tags && (
                           <Button
                             minimal
-                            text={getString('pipeline-stages.build.stageSpecifications.addTags')}
+                            text={getString('pipelineSteps.build.stageSpecifications.addTags')}
                             icon="plus"
                             onClick={() => setTagsVisible(true)}
                           />
@@ -258,11 +256,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('pipeline-stages.build.stageSpecifications.removeLabel')}
+                          {getString('pipelineSteps.build.stageSpecifications.removeLabel')}
                         </span>
                         <FormInput.TextArea
                           name="description"
-                          label={getString('pipeline-stages.build.stageSpecifications.descriptionLabel')}
+                          label={getString('pipelineSteps.build.stageSpecifications.descriptionLabel')}
                         />
                       </div>
                     )}
@@ -276,11 +274,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('pipeline-stages.build.stageSpecifications.removeLabel')}
+                          {getString('pipelineSteps.build.stageSpecifications.removeLabel')}
                         </span>
                         <FormInput.TagInput
-                          name={getString('pipeline-stages.build.stageSpecifications.addTags')}
-                          label={getString('pipeline-stages.build.stageSpecifications.tagsLabel')}
+                          name={getString('pipelineSteps.build.stageSpecifications.addTags')}
+                          label={getString('pipelineSteps.build.stageSpecifications.tagsLabel')}
                           items={[]}
                           labelFor={name => name as string}
                           itemFromNewTag={newTag => newTag}
@@ -302,7 +300,7 @@ export default function BuildStageSpecifications(): JSX.Element {
 
                     <Switch
                       checked={formValues.skipGitClone}
-                      label={getString('pipeline-stages.build.stageSpecifications.skipGitCloneLabel')}
+                      label={getString('skipGitCloneLabel')}
                       onChange={e => setFieldValue('skipGitClone', e.currentTarget.checked)}
                     />
                   </FormikForm>
@@ -311,12 +309,12 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('pipeline-stages.build.stageSpecifications.workspaceAndSharedPaths')}
+                      {getString('pipelineSteps.build.stageSpecifications.workspaceAndSharedPaths')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm className={css.fields}>
                     <Text margin={{ bottom: 'xsmall' }}>
-                      {getString('pipeline-stages.build.stageSpecifications.workspace')}
+                      {getString('pipelineSteps.build.stageSpecifications.workspace')}
                     </Text>
                     <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                       <FormInput.MultiTextInput label="" name={'workspace'} style={{ flexGrow: 1 }} />
@@ -325,7 +323,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           value={formValues.workspace as string}
                           type={
                             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                              <Text>{getString('pipeline-stages.build.stageSpecifications.workspace')}</Text>
+                              <Text>{getString('pipelineSteps.build.stageSpecifications.workspace')}</Text>
                             </Layout.Horizontal>
                           }
                           variableName={'workspace'}
@@ -338,7 +336,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                     </div>
 
                     <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                      {getString('pipeline-stages.build.stageSpecifications.sharedPaths')}
+                      {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                     </Text>
                     <FieldArray
                       name="sharedPaths"
@@ -356,7 +354,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                   value={formValues.sharedPaths[index] as string}
                                   type={
                                     <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                      <Text>{getString('pipeline-stages.build.stageSpecifications.sharedPaths')}</Text>
+                                      <Text>{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}</Text>
                                     </Layout.Horizontal>
                                   }
                                   variableName={`sharedPaths[${index}]`}
@@ -380,7 +378,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           <Button
                             intent="primary"
                             minimal
-                            text={getString('pipeline-stages.build.stageSpecifications.addSharedPath')}
+                            text={getString('pipelineSteps.build.stageSpecifications.addSharedPath')}
                             onClick={() => push('')}
                           />
                         </div>
@@ -391,7 +389,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('pipeline-stages.build.stageSpecifications.variablesDetails')}
+                      {getString('pipelineSteps.build.stageSpecifications.variablesDetails')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm>
@@ -403,11 +401,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                             <>
                               <div className={css.variablesGrid}>
                                 <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('pipeline-stages.build.stageSpecifications.variablesCell')}
+                                  {getString('pipelineSteps.build.stageSpecifications.variablesCell')}
                                   <Icon name="pipeline-variables" margin={{ left: 'small' }} />
                                 </Text>
                                 <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('pipeline-stages.build.stageSpecifications.valueCell')}
+                                  {getString('pipelineSteps.build.stageSpecifications.valueCell')}
                                 </Text>
                               </div>
                               <div className={css.box}>
@@ -501,15 +499,13 @@ export default function BuildStageSpecifications(): JSX.Element {
                             className={css.addVariable}
                             intent="primary"
                             minimal
-                            text={getString('pipeline-stages.build.stageSpecifications.addVariable')}
+                            text={getString('pipelineSteps.build.stageSpecifications.addVariable')}
                             onClick={() => openDialog()}
                           />
                           {isDialogOpen && (
                             <Dialog
                               isOpen={true}
-                              title={getString(
-                                'pipeline-stages.build.stageSpecifications.addCustomVariableDialogTitle'
-                              )}
+                              title={getString('pipelineSteps.build.stageSpecifications.addCustomVariableDialogTitle')}
                               onClose={closeDialog}
                             >
                               <Formik
@@ -546,31 +542,25 @@ export default function BuildStageSpecifications(): JSX.Element {
                                       <FormikForm>
                                         <FormInput.Text
                                           name="name"
-                                          label={getString(
-                                            'pipeline-stages.build.stageSpecifications.variableNameLabel'
-                                          )}
+                                          label={getString('variableNameLabel')}
                                           placeholder={getString(
-                                            'pipeline-stages.build.stageSpecifications.variableNamePlaceholder'
+                                            'pipelineSteps.build.stageSpecifications.variableNamePlaceholder'
                                           )}
                                         />
                                         <FormInput.Select
                                           name="type"
                                           items={[
                                             {
-                                              label: getString('pipeline-stages.build.stageSpecifications.textType'),
+                                              label: getString('pipelineSteps.build.stageSpecifications.textType'),
                                               value: VariableTypes.Text
                                             },
                                             {
-                                              label: getString('pipeline-stages.build.stageSpecifications.secretType'),
+                                              label: getString('pipelineSteps.build.stageSpecifications.secretType'),
                                               value: VariableTypes.Secret
                                             }
                                           ]}
-                                          label={getString(
-                                            'pipeline-stages.build.stageSpecifications.variableTypeLabel'
-                                          )}
-                                          placeholder={getString(
-                                            'pipeline-stages.build.stageSpecifications.variableTypePlaceholder'
-                                          )}
+                                          label={getString('typeLabel')}
+                                          placeholder={getString('typeLabel')}
                                         />
                                       </FormikForm>
                                     </div>

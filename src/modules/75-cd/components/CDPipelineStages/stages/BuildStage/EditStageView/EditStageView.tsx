@@ -1,5 +1,15 @@
 import React from 'react'
-import { Text, Container, Formik, FormikForm, FormInput, Collapse, Button, Switch } from '@wings-software/uikit'
+import {
+  Text,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Collapse,
+  Button,
+  Switch,
+  TextInput
+} from '@wings-software/uikit'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
@@ -42,6 +52,9 @@ interface CodeBase2 {
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChange }): JSX.Element => {
   const { getString } = useStrings()
+
+  const [connectionType, setConnectionType] = React.useState('')
+  const [connectorUrl, setConnectorUrl] = React.useState('')
 
   const {
     state: {
@@ -102,16 +115,13 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: Yup.string().required(getString('pipeline-stages.build.create.stageNameRequiredError')),
+        name: Yup.string().required(getString('pipelineSteps.build.create.stageNameRequiredError')),
         ...(!ciCodebase2 &&
           !values.skipGitClone && {
-            connectorRef: Yup.mixed().required(getString('pipeline-stages.build.create.connectorRequiredError')),
-            repositoryName: Yup.string()
-              .matches(
-                /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                getString('pipeline-stages.build.create.repositoryUrlWrongUrlError')
-              )
-              .required(getString('pipeline-stages.build.create.repositoryUrlRequiredError'))
+            connectorRef: Yup.mixed().required(getString('pipelineSteps.build.create.connectorRequiredError')),
+            ...(connectionType === 'Account' && {
+              repositoryName: Yup.string().required(getString('pipelineSteps.build.create.repositoryUrlRequiredError'))
+            })
           })
       })
     )
@@ -125,10 +135,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const handleSubmit = (values: Values): void => {
     if (data) {
       // TODO: Add Codebase verification
-      if (!values.skipGitClone && values.connectorRef && values.repositoryName) {
+      if (!values.skipGitClone && values.connectorRef) {
         pipeline.ciCodebase = ({
           connectorRef: values.connectorRef.value,
-          repositoryName: values.repositoryName
+          ...(values.repositoryName && { repositoryName: values.repositoryName })
         } as unknown) as CodeBase
         updatePipeline(pipeline)
       }
@@ -149,7 +159,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     isOpen: false,
     isRemovable: false,
     className: 'collapse',
-    heading: getString('pipeline-stages.build.create.description')
+    heading: getString('description')
   }
 
   return (
@@ -170,9 +180,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 iconProps={{ size: 16 }}
                 margin={{ bottom: 'medium' }}
               >
-                {getString('pipeline-stages.build.create.aboutYourStage')}
+                {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <FormInput.InputWithIdentifier inputLabel={getString('pipeline-stages.build.create.stageNameLabel')} />
+              <FormInput.InputWithIdentifier inputLabel={getString('stageNameLabel')} />
               <div className={css.collapseDiv}>
                 <Collapse
                   {...collapseProps}
@@ -182,17 +192,17 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 </Collapse>
               </div>
               <Switch
-                label={getString('pipeline-stages.build.create.skipGitCloneLabel')}
+                label={getString('skipGitCloneLabel')}
                 onChange={e => formikProps.setFieldValue('skipGitClone', e.currentTarget.checked)}
               />
               <Text font="xsmall" padding={{ left: 'large' }}>
                 <Button
                   icon="info"
                   minimal
-                  tooltip={getString('pipeline-stages.build.create.skipGitCloneHelperTextDetails')}
+                  tooltip={getString('pipelineSteps.build.create.skipGitCloneHelperTextDetails')}
                   iconProps={{ size: 8 }}
                 />
-                {getString('pipeline-stages.build.create.skipGitCloneHelperText')}
+                {getString('pipelineSteps.build.create.skipGitCloneHelperText')}
               </Text>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Git Clone step */}
               {!ciCodebase && !formikProps.values.skipGitClone && (
@@ -203,24 +213,25 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     iconProps={{ size: 18 }}
                     margin={{ bottom: 'medium' }}
                   >
-                    {getString('pipeline-stages.build.create.configureCodebase')}
+                    {getString('pipelineSteps.build.create.configureCodebase')}
                   </Text>
                   <Text margin={{ bottom: 'medium' }}>
-                    {getString('pipeline-stages.build.create.configureCodebaseHelperText')}
+                    {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
                   </Text>
                   <ConnectorReferenceField
                     name="connectorRef"
                     type="Git"
                     selected={formikProps.values.connectorRef}
-                    label={getString('pipeline-stages.build.create.connectorLabel')}
-                    placeholder={
-                      loading ? getString('loading') : getString('pipeline-stages.build.create.connectorPlaceholder')
-                    }
+                    label={getString('pipelineSteps.build.create.connectorLabel')}
+                    placeholder={loading ? getString('loading') : getString('select')}
                     disabled={loading}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
                     onChange={(value, scope) => {
+                      setConnectionType(value.spec.connectionType)
+                      setConnectorUrl(value.spec.url)
+
                       formikProps.setFieldValue('connectorRef', {
                         label: value.name || '',
                         value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
@@ -228,17 +239,33 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                       })
                     }}
                   />
-                  <FormInput.Text
-                    label={getString('pipeline-stages.build.create.repositoryUrlLabel')}
-                    name="repositoryName"
-                    style={{ flexGrow: 1 }}
-                  />
+                  {connectionType === 'Repo' ? (
+                    <>
+                      <Text margin={{ bottom: 'xsmall' }}>
+                        {getString('pipelineSteps.build.create.repositoryUrlLabel')}
+                      </Text>
+                      <TextInput name="repositoryName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
+                    </>
+                  ) : (
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryUrlLabel')}
+                      name="repositoryName"
+                      inputGroup={{
+                        leftElement: (
+                          <div className={css.predefinedValue}>
+                            {connectorUrl[connectorUrl.length - 1] === '/' ? connectorUrl : connectorUrl + '/'}
+                          </div>
+                        )
+                      }}
+                      style={{ flexGrow: 1 }}
+                    />
+                  )}
                 </div>
               )}
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('pipeline-stages.build.create.setupStage')}
+                text={getString('pipelineSteps.build.create.setupStage')}
                 onClick={() => formikProps.submitForm()}
                 margin={{ top: 'small' }}
               />

@@ -7,7 +7,7 @@ export enum StepType {
   KubernetesInfraSpec = 'KubernetesInfraSpec',
   K8sRollingDeploy = 'K8sRollingDeploy',
   CustomVariable = 'Custom_Variable',
-  Redis = 'service',
+  Dependency = 'dependency',
   Plugin = 'plugin',
   Run = 'run',
   GCR = 'buildAndPushGCR',

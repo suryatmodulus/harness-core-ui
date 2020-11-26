@@ -24,6 +24,7 @@ import {
   STATIC_SERVICE_GROUP_NAME
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
+import { StepType as StepsStepType } from '../../PipelineSteps/PipelineStepInterface'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import {
   CanvasWidget,
@@ -195,7 +196,20 @@ const ExecutionGraph = (): JSX.Element => {
             updatePipelineView({
               ...pipelineView,
               isDrawerOpened: true,
-              drawerData: { type: DrawerTypes.AddService }
+              drawerData: {
+                type: DrawerTypes.ConfigureService,
+                data: {
+                  stepConfig: {
+                    node: {
+                      type: StepsStepType.Dependency,
+                      name: name,
+                      identifier: generateRandomString(name)
+                    },
+                    addOrEdit: 'add',
+                    isStepGroup: false
+                  }
+                }
+              }
             })
           } else {
             updatePipelineView({

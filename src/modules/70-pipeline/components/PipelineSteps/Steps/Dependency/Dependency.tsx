@@ -7,13 +7,15 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Layout
+  Layout,
+  IconName
 } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
 import * as yup from 'yup'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/exports'
 import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -24,15 +26,15 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import i18n from './CommonService.i18n'
 import { PipelineStep } from '../../PipelineStep'
-import { convertFromUIModel, convertToUIModel } from './CommonServiceUtils'
+import { convertFromUIModel, convertToUIModel } from './DependencyUtils'
+import { StepType } from '../../PipelineStepInterface'
 
-import css from './CommonService.module.scss'
+import css from './Dependency.module.scss'
 
 // TODO: TDO
-export type CommonServiceInfo = ServiceSpecType & {
-  image: string
+export type DependencyInfo = ServiceSpecType & {
+  image?: string
   connectorRef?: string
   environment?: { [key: string]: string }
   entrypoint?: string[]
@@ -51,22 +53,20 @@ export interface ServiceSpecType {
 }
 
 // TODO: TDO
-export interface CommonServiceData {
+export interface DependencyData {
   identifier: string
-  type: string
   name?: string
-  spec: CommonServiceInfo
+  spec: DependencyInfo
 }
 
 // Interface for the form
-export interface CommonServiceDataUI {
+export interface DependencyDataUI {
   identifier: string
-  type: string
   name?: string
-  spec: CommonServiceInfoUI
+  spec: DependencyInfoUI
 }
 
-export type CommonServiceInfoUI = ServiceSpecType & {
+export type DependencyInfoUI = ServiceSpecType & {
   [key: string]: any
 }
 
@@ -97,13 +97,15 @@ const validationSchema = yup.object().shape({
     .required()
 })
 
-interface CommonServiceWidgetProps {
-  initialValues: CommonServiceData
-  onUpdate?: (data: CommonServiceData) => void
+interface DependencyWidgetProps {
+  initialValues: DependencyData
+  onUpdate?: (data: DependencyData) => void
   stepViewType?: StepViewType
 }
 
-const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const DependencyWidget: React.FC<DependencyWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+  const { getString } = useStrings()
+
   const {
     state: {
       pipelineView,
@@ -173,11 +175,11 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
   }
 
   return (
-    <Formik<CommonServiceDataUI>
+    <Formik<DependencyDataUI>
       enableReinitialize={true}
       initialValues={values}
       validationSchema={validationSchema}
-      onSubmit={(_values: CommonServiceDataUI) => {
+      onSubmit={(_values: DependencyDataUI) => {
         const schemaValues = convertFromUIModel(_values)
         onUpdate?.(schemaValues)
       }}
@@ -189,15 +191,15 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                inputLabel={i18n.dependencyNameLabel}
+                inputLabel={getString('dependencyNameLabel')}
               />
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
                   type={'' as any}
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}
+                  placeholder={loading ? getString('loading') : getString('select')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -208,7 +210,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                     value={formValues.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{i18n.connectorLabel}</Text>
+                        <Text>{getString('pipelineSteps.connectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -221,7 +223,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{i18n.imageLabel}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('imageLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.image" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.image) === MultiTypeInputType.RUNTIME && (
@@ -229,7 +231,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                     value={formValues.spec.image as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{i18n.imageLabel}</Text>
+                        <Text>{getString('imageLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.image"
@@ -243,44 +245,44 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {i18n.optionalConfiguration}
+                {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.environment}</Text>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('environment')}</Text>
               <FieldArray
                 name="spec.environment"
                 render={({ push, remove }) => (
-                  <>
-                    {formValues.spec.environment.map((_environment: string, index: number) => (
-                      <div className={css.fieldsGroup} key={index}>
-                        <FormInput.Text
-                          name={`spec.environment[${index}].key`}
-                          placeholder={i18n.environmentKeyPlaceholder}
-                          style={{ flexGrow: 1 }}
-                        />
-                        <FormInput.MultiTextInput
-                          label=""
-                          name={`spec.environment[${index}].value`}
-                          placeholder={i18n.environmentValuePlaceholder}
-                          style={{ flexGrow: 1 }}
-                        />
-                        {getMultiTypeFromValue(formValues.spec.environment[index].value) ===
-                          MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.spec.environment[index].value as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{i18n.environmentValuePlaceholder}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={`spec.environment[${index}].value`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.environment[${index}].value`, value)}
+                  <div>
+                    {formValues.spec.environment.length > 0 &&
+                      formValues.spec.environment.map((_environment: string, index: number) => (
+                        <div className={css.fieldsGroup} key={index}>
+                          <FormInput.Text
+                            name={`spec.environment[${index}].key`}
+                            placeholder={getString('keyLabel')}
+                            style={{ flexGrow: 1 }}
                           />
-                        )}
+                          <FormInput.MultiTextInput
+                            label=""
+                            name={`spec.environment[${index}].value`}
+                            placeholder={getString('valueLabel')}
+                            style={{ flexGrow: 1 }}
+                          />
+                          {getMultiTypeFromValue(formValues.spec.environment[index].value) ===
+                            MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={formValues.spec.environment[index].value as string}
+                              type={
+                                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                  <Text>{getString('valueLabel')}</Text>
+                                </Layout.Horizontal>
+                              }
+                              variableName={`spec.environment[${index}].value`}
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => setFieldValue(`spec.environment[${index}].value`, value)}
+                            />
+                          )}
 
-                        {formValues.spec.environment.length > 1 && (
                           <Button
                             intent="primary"
                             icon="ban-circle"
@@ -288,86 +290,143 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                             minimal
                             onClick={() => remove(index)}
                           />
-                        )}
-                      </div>
-                    ))}
+                        </div>
+                      ))}
                     <Button
                       intent="primary"
                       minimal
-                      text={i18n.addEnvironment}
+                      text={getString('addEnvironment')}
                       onClick={() => push({ key: '', value: '' })}
                       margin={{ bottom: 'medium' }}
                     />
-                  </>
+                  </div>
                 )}
               />
-              <FormInput.TagInput
+              <Text margin={{ bottom: 'xsmall' }}>{getString('entryPointsLabel')}</Text>
+              <FieldArray
                 name="spec.entrypoint"
-                label={i18n.entryPointsLabel}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
+                render={({ push, remove }) => (
+                  <div>
+                    {formValues.spec.entrypoint.length > 0 &&
+                      formValues.spec.entrypoint.map((_entrypoint: string, index: number) => (
+                        <div className={css.fieldsGroup} key={index}>
+                          <FormInput.MultiTextInput
+                            label=""
+                            name={`spec.entrypoint[${index}]`}
+                            style={{ flexGrow: 1 }}
+                          />
+                          {getMultiTypeFromValue(formValues.spec.entrypoint[index]) === MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={formValues.spec.entrypoint[index] as string}
+                              type={
+                                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                  <Text>{getString('entryPointsLabel')}</Text>
+                                </Layout.Horizontal>
+                              }
+                              variableName={`spec.entrypoint[${index}]`}
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => setFieldValue(`spec.entrypoint[${index}]`, value)}
+                            />
+                          )}
+
+                          <Button
+                            intent="primary"
+                            icon="ban-circle"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            onClick={() => remove(index)}
+                          />
+                        </div>
+                      ))}
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={getString('addEntryPoint')}
+                      onClick={() => push('')}
+                      margin={{ bottom: 'medium' }}
+                    />
+                  </div>
+                )}
               />
-              <FormInput.TagInput
+              <Text margin={{ bottom: 'xsmall' }}>{getString('argumentsLabel')}</Text>
+              <FieldArray
                 name="spec.args"
-                label={i18n.argumentsLabel}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
+                render={({ push, remove }) => (
+                  <div>
+                    {formValues.spec.args.length > 0 &&
+                      formValues.spec.args.map((_arg: string, index: number) => (
+                        <div className={css.fieldsGroup} key={index}>
+                          <FormInput.MultiTextInput label="" name={`spec.args[${index}]`} style={{ flexGrow: 1 }} />
+                          {getMultiTypeFromValue(formValues.spec.args[index]) === MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={formValues.spec.args[index] as string}
+                              type={
+                                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                  <Text>{getString('argumentsLabel')}</Text>
+                                </Layout.Horizontal>
+                              }
+                              variableName={`spec.args[${index}]`}
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => setFieldValue(`spec.args[${index}]`, value)}
+                            />
+                          )}
+
+                          <Button
+                            intent="primary"
+                            icon="ban-circle"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            onClick={() => remove(index)}
+                          />
+                        </div>
+                      ))}
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={getString('addArgument')}
+                      onClick={() => push('')}
+                      margin={{ bottom: 'medium' }}
+                    />
+                  </div>
+                )}
               />
               <div>
                 <Text>
-                  {i18n.setContainerResources}
-                  <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
+                  {getString('pipelineSteps.setContainerResources')}
+                  <Button icon="question" minimal tooltip={getString('pipelineSteps.setContainerResourcesTooltip')} />
                 </Text>
                 <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                   <div>
                     <FormInput.Text
                       name="spec.limitMemory"
                       inputGroup={{ type: 'number', min: 0 }}
-                      label={i18n.limitMemoryLabel}
-                      placeholder={i18n.limitMemoryPlaceholder}
+                      label={getString('pipelineSteps.limitMemoryLabel')}
+                      placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
                     />
                     <Text font="xsmall" margin={{ top: 'small' }}>
-                      {i18n.limitMemoryExample}
+                      {getString('pipelineSteps.limitMemoryExample')}
                     </Text>
                   </div>
                   <FormInput.Select
                     name="spec.limitMemoryUnits"
                     items={[
-                      { label: i18n.limitMemoryUnitMiLabel, value: LimitMemoryUnits.Mi },
-                      { label: i18n.limitMemoryUnitGiLabel, value: LimitMemoryUnits.Gi }
+                      { label: getString('pipelineSteps.limitMemoryUnitMiLabel'), value: LimitMemoryUnits.Mi },
+                      { label: getString('pipelineSteps.limitMemoryUnitGiLabel'), value: LimitMemoryUnits.Gi }
                     ]}
                   />
                   <div>
                     <FormInput.Text
                       name="spec.limitCPU"
                       inputGroup={{ type: 'number', min: 0 }}
-                      label={i18n.limitCPULabel}
-                      placeholder={i18n.limitCPUPlaceholder}
+                      label={getString('pipelineSteps.limitCPULabel')}
+                      placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
                     />
                     <Text font="xsmall" margin={{ top: 'small' }}>
-                      {i18n.limitCPUExample}
+                      {getString('pipelineSteps.limitCPUExample')}
                     </Text>
                   </div>
                 </div>
@@ -379,10 +438,10 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                 onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"
-                text={isEdit ? i18n.save : i18n.add}
+                text={isEdit ? getString('save') : getString('add')}
                 margin={{ right: 'xxlarge' }}
               />
-              <Button text={i18n.cancel} minimal onClick={handleCancelClick} />
+              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )
@@ -391,12 +450,22 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
   )
 }
 
-export abstract class CommonService extends PipelineStep<CommonServiceData> {
+export class Dependency extends PipelineStep<DependencyData> {
   renderStep(
-    initialValues: CommonServiceData,
-    onUpdate?: (data: CommonServiceData) => void,
+    initialValues: DependencyData,
+    onUpdate?: (data: DependencyData) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
-    return <CommonServiceWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return <DependencyWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+  }
+
+  protected type = StepType.Dependency
+  // TODO: Add i18n support
+  protected stepName = 'Dependency'
+  protected stepIcon: IconName = 'dependency-step'
+
+  protected defaultValues: DependencyData = {
+    identifier: '',
+    spec: {}
   }
 }

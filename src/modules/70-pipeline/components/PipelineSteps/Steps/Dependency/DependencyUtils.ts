@@ -1,26 +1,21 @@
 import { isEmpty } from 'lodash-es'
-import type { CommonServiceData, CommonServiceDataUI } from './CommonService'
+import type { DependencyData, DependencyDataUI } from './Dependency'
 
-export function convertToUIModel(data: CommonServiceData): CommonServiceDataUI {
+export function convertToUIModel(data: DependencyData): DependencyDataUI {
   const environment = Object.keys(data.spec.environment || {}).map(key => ({
     key: key,
     value: data.spec.environment![key]
   }))
 
-  if (environment.length === 0) {
-    environment.push({ key: '', value: '' })
-  }
-
   return {
     identifier: data.identifier,
     name: data.name,
-    type: data.type,
     spec: {
       image: data.spec.image,
       connectorRef: data.spec.connectorRef,
       environment: environment,
-      entrypoint: data.spec.entrypoint,
-      args: data.spec.args,
+      entrypoint: data.spec.entrypoint || [],
+      args: data.spec.args || [],
       limitMemory: data.spec?.resources?.limit?.memory, //?.match(/\d+/g)?.join(''),
       limitMemoryUnits: 'Mi', //?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
       limitCPU: data.spec?.resources?.limit?.cpu
@@ -28,7 +23,7 @@ export function convertToUIModel(data: CommonServiceData): CommonServiceDataUI {
   }
 }
 
-export function convertFromUIModel(data: CommonServiceDataUI): CommonServiceData {
+export function convertFromUIModel(data: DependencyDataUI): DependencyData {
   const environment: { [key: string]: string } = {}
   data.spec.environment.forEach((pair: { key: string; value: string }) => {
     // skip empty
@@ -42,10 +37,9 @@ export function convertFromUIModel(data: CommonServiceDataUI): CommonServiceData
     connectorRef = data.spec.connectorRef?.value || data.spec.connectorRef
   }
 
-  const schemaValues: CommonServiceData = {
+  const schemaValues: DependencyData = {
     identifier: data.identifier,
     name: data.name,
-    type: data.type,
     spec: {
       image: data.spec.image,
       ...(connectorRef && { connectorRef }),

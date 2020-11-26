@@ -58,12 +58,9 @@ export const PipelineConfigureService: React.FC<PipelineConfigureServiceProps> =
               onClick={handleBackClick}
             />
             <Heading className={css.title} level={2}>
-              {`${i18n.titlePartOne} ${step.name} ${i18n.titlePartTwo}`}
+              {i18n.title}
             </Heading>
           </div>
-          <Button intent="primary" minimal>
-            {i18n.revertToDefaultConfiguration}
-          </Button>
         </div>
 
         <StepWidget factory={stepsFactory} initialValues={step} onUpdate={onSubmit} type={step.type} />

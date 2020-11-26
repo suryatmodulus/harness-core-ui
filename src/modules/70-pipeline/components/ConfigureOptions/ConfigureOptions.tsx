@@ -228,7 +228,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                           {!fetchValues ? (
                             <FormInput.TagInput
                               className={css.secondColumn}
-                              label={getString('configureOptions.allowedValuesHelp')}
+                              label={getString('allowedValues')}
                               name="allowedValues"
                               items={[]}
                               labelFor={name => (typeof name === 'string' ? name : '')}
@@ -239,7 +239,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                                 showAddTagButton: false,
                                 showClearAllButton: true,
                                 allowNewTag: true,
-                                placeholder: getString('enterTags'),
+                                placeholder: getString('configureOptions.enterTags'),
                                 getTagProps: () => ({ intent: 'primary', minimal: true })
                               }}
                             />

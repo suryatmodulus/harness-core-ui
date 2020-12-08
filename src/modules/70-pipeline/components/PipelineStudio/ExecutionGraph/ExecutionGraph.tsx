@@ -462,16 +462,16 @@ const ExecutionGraph = (): JSX.Element => {
         if (!data.stage.spec.execution.rollbackSteps && stageType === 'Deployment') {
           data.stage.spec.execution.rollbackSteps = []
         }
-        if (!data.stage.spec.dependencies) {
+        if (!data.stage.spec.dependencies && stageType === 'ci') {
           data.stage.spec.dependencies = []
+          getServiceState(data.stage.spec.dependencies, state.stepStates)
         }
         getStepsState(data.stage.spec.execution, state.stepStates)
-        getServiceState(data.stage.spec.dependencies, state.stepStates)
         setState(prevState => ({
           ...prevState,
           stepsData: data.stage.spec.execution,
           stepStates: state.stepStates,
-          servicesData: data.stage.spec.dependencies
+          servicesData: data.stage.spec.dependencies || []
         }))
       } else if (data?.stage) {
         if (!data.stage.spec) {

@@ -66,7 +66,7 @@ export default {
       cf: 'Continuous Features',
       linkcd: 'Create New pipeline',
       linkcv: 'Add New Data Sources',
-      linkci: 'TBD',
+      linkci: 'Create New pipeline',
       linkce: 'TBD',
       linkcf: 'TBD',
       modulecd: 'CD',

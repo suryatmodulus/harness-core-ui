@@ -99,7 +99,7 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
           <Link
-            to={routes.toCDPipelineStudio({
+            to={routes.toCIPipelineStudio({
               orgIdentifier,
               projectIdentifier,
               pipelineIdentifier: '-1',

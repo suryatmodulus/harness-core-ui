@@ -985,9 +985,9 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Integration
           </p>
           <a
-            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/ci/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
-            TBD
+            Create New pipeline
           </a>
         </div>
         <div

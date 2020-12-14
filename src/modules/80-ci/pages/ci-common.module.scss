@@ -17,20 +17,20 @@
     /**
      * Switch style (override)
      */
-    span[class*='bp3-control-indicator'] {
+    /*span[class*='bp3-control-indicator'] {
       width: 26px !important;
-      height: 16px !important;
+      //height: 16px !important;
       background: var(--white) !important;
 
       &:before {
         left: 2px !important;
         top: 2px;
       }
-    }
+    }*/
 
-    input:checked ~ span[class*='bp3-control-indicator']::before {
+    /*input:checked ~ span[class*='bp3-control-indicator']::before {
       left: calc(100% - var(--switch-height) - 1px) !important;
-    }
+    }*/
 
     /** 
      * Scrollbar style 

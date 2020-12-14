@@ -16,13 +16,19 @@ import i18n from './api2ui.i18n'
 // TODO: random icons used; replace them with right one
 export enum MapStageTypeIconName {
   INTEGRATION_STAGE_STEP = 'integration',
-  PUBLISH = 'publish-step',
-  RUN = 'run-step',
-  GIT_CLONE = 'git-clone-step',
-  SAVE_CACHE = 'save-cache-step',
-  RESTORE_CACHE = 'restore-cache-step',
-  REDIS = 'service-redis',
-  MONGO = 'service-mongodb'
+  publishArtifacts = 'publish-step',
+  plugin = 'plugin-step',
+  run = 'run-step',
+  buildAndPushGCR = 'gcr-step',
+  buildAndPushECR = 'ecr-step',
+  saveCacheGCS = 'save-cache-step',
+  restoreCacheGCS = 'restore-cache-step',
+  saveCacheS3 = 'save-cache-step',
+  restoreCacheS3 = 'restore-cache-step',
+  buildAndPushDockerHub = 'docker-hub-step',
+  uploadToGCS = 'gcs-step',
+  uploadToS3 = 'service-service-s3',
+  uploadToArtifactory = 'service-artifactory'
 }
 
 export interface ServiceDependency {
@@ -233,7 +239,7 @@ function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<ItemData
     name: vertex.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
-    icon: stageType2IconName(vertex.stepType as string),
+    icon: stageType2IconName(vertex?.stepParameters?.type as string),
     data: { step: vertex }
   }
 
@@ -248,7 +254,7 @@ function addServiceToArray(service: ServiceDependency, arr: ExecutionPipelineNod
     name: service.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[service.status as keyof typeof ExecutionPipelineItemStatus],
-    icon: 'custom-service',
+    icon: 'dependency-step',
     data: { service: service }
   }
 

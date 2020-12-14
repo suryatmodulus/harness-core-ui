@@ -10,6 +10,7 @@ declare const styles: {
   readonly defaultRightToolbarContainer: string
   readonly stepDetails: string
   readonly stepInfo: string
+  readonly stepHeader: string
   readonly stepLogs: string
   readonly floatingShowStepDetailsButton: string
   readonly floatingStepPanel: string

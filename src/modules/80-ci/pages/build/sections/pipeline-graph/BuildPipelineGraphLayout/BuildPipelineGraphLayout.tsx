@@ -43,10 +43,10 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
             <Container className={css.floatingStepPanel}>
               <Layout.Vertical className={css.stepDetails}>
                 <Container className={css.stepInfo}>
-                  <Layout.Horizontal>
+                  <div className={css.stepHeader}>
                     {stepTitle}
-                    <Container className={css.floatingRightToolbarContainer}>{changeLayout}</Container>
-                  </Layout.Horizontal>
+                    <div className={css.floatingRightToolbarContainer}>{changeLayout}</div>
+                  </div>
                   <Tabs id={`ciStepTabs`}>
                     {stepTabs.map((item, idx) => {
                       return <Tab id={`ciStepTab_${idx}`} title={item.title} key={idx} panel={item.content}></Tab>
@@ -118,10 +118,10 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
               <Pane className={css.stepDetailsPane}>
                 <Layout.Vertical className={css.stepDetails}>
                   <Container className={css.stepInfo}>
-                    <Layout.Horizontal>
+                    <div className={css.stepHeader}>
                       {stepTitle}
-                      <Container className={css.defaultRightToolbarContainer}>{changeLayout}</Container>
-                    </Layout.Horizontal>
+                      <div className={css.floatingRightToolbarContainer}>{changeLayout}</div>
+                    </div>
                     <Tabs id={`ciStepTabs`}>
                       {stepTabs.map((item, idx) => {
                         return <Tab id={`ciStepTab_${idx}`} title={item.title} key={idx} panel={item.content}></Tab>

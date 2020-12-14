@@ -83,7 +83,9 @@
     padding-left: var(--spacing-medium) !important;
     padding-right: var(--spacing-medium) !important;
   }
-  > *:first-child {
+
+  .step-header {
+    display: flex;
     padding-top: var(--spacing-medium) !important;
     font-weight: bold;
   }
@@ -112,11 +114,11 @@
   background: var(--white) !important;
   border-radius: 5px;
   border: 1px solid var(--grey-300);
+}
 
-  .floating-right-toolbar-container {
-    margin-left: auto !important;
-    white-space: nowrap !important;
-  }
+.floating-right-toolbar-container {
+  margin-left: auto !important;
+  white-space: nowrap !important;
 }
 
 .details-container {

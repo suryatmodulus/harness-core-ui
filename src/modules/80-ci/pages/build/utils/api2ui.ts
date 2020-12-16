@@ -169,7 +169,7 @@ export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined
       const vertex = graphVertexMap[stageEdgeId]
 
       const stageItem: ExecutionPipelineItem<ItemData> = {
-        identifier: vertex.uuid as string,
+        identifier: vertex.identifier as string,
         name: vertex.name as string,
         type: ExecutionPipelineNodeType.NORMAL,
         status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],

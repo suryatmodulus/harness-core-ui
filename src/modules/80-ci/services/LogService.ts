@@ -15,8 +15,8 @@ export interface Logs {
   logLine: string
 }
 
-const apiEndpoint = 'https://qb.harness.io/gateway/log-service/blob'
-const streamEndpoint = 'https://qb.harness.io/gateway/log-service/stream'
+const apiEndpoint = '/log-service/blob'
+const streamEndpoint = '/log-service/stream'
 
 /**
  * Get Logs from blob

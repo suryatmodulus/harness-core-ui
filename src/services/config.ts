@@ -1,4 +1,5 @@
 import SessionToken from 'framework/utils/SessionToken'
+import { mapKeys } from 'lodash-es'
 import qs from 'qs'
 
 export const getConfig = (str: string): string => {
@@ -143,7 +144,10 @@ const getHeaders = (headers: RequestInit['headers'] = {}): RequestInit['headers'
   }
 
   // add/overwrite passed headers
-  Object.assign(retHeaders, headers)
+  Object.assign(
+    retHeaders,
+    mapKeys(headers, (_value, key) => key.toLowerCase())
+  )
 
   return retHeaders
 }

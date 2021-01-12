@@ -103,7 +103,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
       startTime: finalStartTime,
       analysisStartTime: historyStartTime ? startTime : finalStartTime,
       endTime,
-      dataSourceType: selectedMonitoringSource,
+      datasourceType: selectedMonitoringSource,
       filter
     }),
     [

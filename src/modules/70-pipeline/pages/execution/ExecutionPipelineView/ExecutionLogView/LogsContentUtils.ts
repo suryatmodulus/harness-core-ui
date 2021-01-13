@@ -119,7 +119,7 @@ function isStatusSmellsLikeActive(
 const logBlobPromise = (
   props: GetUsingFetchProps<string, void, LogBlobQueryParams, void>,
   signal?: RequestInit['signal']
-) => getUsingFetch<string, void, LogBlobQueryParams, void>(getConfig('logs-service'), `/blob`, props, signal)
+) => getUsingFetch<string, void, LogBlobQueryParams, void>(getConfig('log-service'), `/blob`, props, signal)
 
 /**
  * Get Logs from blob
@@ -130,7 +130,7 @@ export async function getLogsFromBlob(
 ): Promise<Line[]> {
   return logBlobPromise(
     {
-      queryParams: pick(queryParams, ['key', 'accountId']) as LogBlobQueryParams,
+      queryParams: pick(queryParams, ['key', 'accountID']) as LogBlobQueryParams,
       requestOptions: { headers: { 'X-Harness-Token': queryParams['X-Harness-Token'] } }
     },
     signal

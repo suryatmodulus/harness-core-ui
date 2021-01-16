@@ -3,7 +3,11 @@ import { isEmpty } from 'lodash-es'
 import { useExecutionLayoutContext, ExecutionStageDiagram } from '@pipeline/exports'
 import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from '@pipeline/exports'
 import type { GraphLayoutNode } from 'services/pipeline-ng'
-import { processLayoutNodeMap, ProcessLayoutNodeMapResponse } from '@pipeline/utils/executionUtils'
+import {
+  getIconFromStageModule,
+  processLayoutNodeMap,
+  ProcessLayoutNodeMapResponse
+} from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import css from './ExecutionGraph.module.scss'
 
@@ -17,7 +21,7 @@ const processExecutionData = (
       item.parallel.forEach(node => {
         parallel.push({
           item: {
-            icon: 'pipeline-deploy',
+            icon: getIconFromStageModule(node?.module),
             identifier: node?.nodeUuid || /* istanbul ignore next */ '',
             name: node?.nodeIdentifier || /* istanbul ignore next */ '',
             status: node?.status as any,
@@ -31,7 +35,7 @@ const processExecutionData = (
       const cdStage = item.stage
       items.push({
         item: {
-          icon: 'pipeline-deploy',
+          icon: getIconFromStageModule(cdStage?.module),
           identifier: cdStage?.nodeUuid || /* istanbul ignore next */ '',
           name: cdStage?.nodeIdentifier || /* istanbul ignore next */ '',
           status: cdStage?.status as any,

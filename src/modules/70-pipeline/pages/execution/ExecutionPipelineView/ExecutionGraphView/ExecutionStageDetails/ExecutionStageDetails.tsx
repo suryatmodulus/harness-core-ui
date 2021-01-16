@@ -3,7 +3,7 @@ import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { ExecutionNode, ExecutionGraph } from 'services/pipeline-ng'
-import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import { ExecutionPathParams, getIconFromStageModule, LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
@@ -141,8 +141,8 @@ const processNodeData = (
         }
       })
     } else {
-      if (nodeData?.stepType === 'LITE_ENGINE_TASK') {
-        // NOTE: LITE_ENGINE_TASK contains information about dependencies
+      if (nodeData?.stepType === LITE_ENGINE_TASK) {
+        // NOTE: liteEngineTask contains information about dependencies
         const serviceDependencyList: ServiceDependency[] = ((nodeData as any)?.outcomes as any)?.find(
           (_item: any) => !!_item.serviceDependencyList
         )?.serviceDependencyList
@@ -297,7 +297,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
     label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
     value: item[1].nodeUuid || /* istanbul ignore next */ '',
-    icon: { name: 'pipeline-deploy' },
+    icon: { name: getIconFromStageModule(item[1].module) },
     disabled: item[1].status === 'NotStarted'
   }))
   const { executionIdentifier } = useParams<ExecutionPathParams>()
@@ -340,7 +340,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedStage={{
             label: stage?.nodeIdentifier || /* istanbul ignore next */ '',
             value: stage?.nodeUuid || /* istanbul ignore next */ '',
-            icon: { name: 'pipeline-deploy' }
+            icon: { name: getIconFromStageModule(stage?.module) }
           }}
           stageSelectionOptions={stagesOptions}
           onChangeStageSelection={(item: StageOptions) => {

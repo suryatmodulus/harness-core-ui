@@ -430,6 +430,7 @@ global:
     triggerType: # text for trigger types
       MANUAL: Manually
       WEBHOOK: Webhook
+    stepLogs: 'Step Logs'
   pipeline-triggers:
     aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
     addNewTrigger: Add New Trigger

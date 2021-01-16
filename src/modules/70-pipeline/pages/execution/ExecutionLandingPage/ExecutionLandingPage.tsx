@@ -18,7 +18,8 @@ import {
   getPipelineStagesMap,
   ExecutionPathParams,
   getRunningStageForPipeline,
-  getRunningStep
+  getRunningStep,
+  LITE_ENGINE_TASK
 } from '@pipeline/utils/executionUtils'
 import { useQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
@@ -37,9 +38,9 @@ export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
 // TODO: remove 'any' once DTO is ready
 /** Add dependency services to nodeMap */
 const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any }): void => {
-  const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === 'LITE_ENGINE_TASK')
+  const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
-    // NOTE: LITE_ENGINE_TASK contains information about dependency services
+    // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
       ((liteEngineTask as any)?.outcomes as any)?.find((_item: any) => !!_item.serviceDependencyList)
         ?.serviceDependencyList || []
@@ -50,7 +51,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
       nodeMap[(service as any).identifier] = service
     })
 
-    // 2. add Initialize (Initialize step is LITE_ENGINE_TASK step)
+    // 2. add Initialize (Initialize step is liteEngineTask step)
     // override step name
     liteEngineTask.name = 'Initialize'
     nodeMap[liteEngineTask.uuid] = liteEngineTask
@@ -100,7 +101,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   // combine steps and dependencies(ci stage)
   const allNodeMap = React.useMemo(() => {
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
-    // NOTE: add dependencies from "LITE_ENGINE_TASK" (ci stage)
+    // NOTE: add dependencies from "liteEngineTask" (ci stage)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
     return nodeMap
   }, [data?.data?.executionGraph?.nodeMap])

@@ -23,7 +23,7 @@ export const useLogsStream = (
     maxNumberOfLogs: -1,
     throttleTime: 1000
   }
-): { logs: Line[]; setEnableStreaming: (enable: boolean) => void } => {
+): { logs: Line[]; setEnableStreaming: (enable: boolean) => void; isStreamingActive: boolean } => {
   const [logs, setLogs] = React.useState<Line[]>([])
   const [enableStreaming, setEnableStreaming] = React.useState(false)
 
@@ -84,5 +84,5 @@ export const useLogsStream = (
     }
   }, [queryVars?.key, enableStreaming])
 
-  return { logs, setEnableStreaming }
+  return { logs, setEnableStreaming, isStreamingActive: enableStreaming }
 }

@@ -2,6 +2,7 @@ import { pick } from 'lodash-es'
 import { getConfig, getUsingFetch, GetUsingFetchProps } from 'services/config'
 import type { Line, LogBlobQueryParams, LogStreamQueryParams } from 'services/logs'
 import type { ExecutionNode, GraphLayoutNode, ProgressData } from 'services/pipeline-ng'
+import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 
 export interface LogsContentSection {
   enableLogLoading: boolean
@@ -55,8 +56,8 @@ export function createLogSection(
     }
 
     let key
-    // NOTE: exception for Initialize/LITE_ENGINE_TASK
-    if (step?.stepType === 'LITE_ENGINE_TASK') {
+    // NOTE: exception for Initialize/liteEngineTask
+    if (step?.stepType === LITE_ENGINE_TASK) {
       // TODO: DTO
       const taskObj = (step?.executableResponses?.find(item => item['task']) as any)?.task
       key = taskObj?.units?.[0]
@@ -164,7 +165,7 @@ Rules:
 | 'Suspended'    // do not load logs 
 */
 
-function isStatusRunningLike(status: 'Running' | string | undefined): boolean {
+export function isStatusRunningLike(status: 'Running' | string | undefined): boolean {
   return status === 'Running' || status === 'Paused'
 }
 

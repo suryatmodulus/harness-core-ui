@@ -45,11 +45,32 @@
 
 .logContent {
   height: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background: var(--black-color-1) !important;
 
-  grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 50px;
+  > div:nth-child(2) {
+    flex-grow: 1;
+  }
+
+  :global {
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: var(--grey-600);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      opacity: 0.6;
+    }
+  }
 }
 
 .logViewer {
@@ -72,6 +93,9 @@
   background: var(--blue-500);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  p {
+    color: var(--white) !important;
+  }
   // padding: 5px;
 }
 

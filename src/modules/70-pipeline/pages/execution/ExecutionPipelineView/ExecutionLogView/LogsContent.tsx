@@ -6,7 +6,13 @@ import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import LogsHeader from './LogsHeader'
 import Summary from './Summary'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
-import { createLogSection, getLogsFromBlob, getStageType, LogsContentSection } from './LogsContentUtils'
+import {
+  createLogSection,
+  getLogsFromBlob,
+  getStageType,
+  isStatusRunningLike,
+  LogsContentSection
+} from './LogsContentUtils'
 import { fetchLogsAccessToken } from '../../TokenService'
 import { useLogsStream } from '../../LogsStreamHook'
 
@@ -51,20 +57,17 @@ const LogsContent = (props: LogsContentProps) => {
   const stage = pipelineStagesMap.get(selectedStageId)
   const step = allNodeMap[selectedStepId]
 
-  useEffect(() => {
-    setTouched(false)
-    setLatestSelectedIdx(-1)
-  }, [(step as any)?.identifier]) // TODO: remove any once TDO is updated
-
   // get token for accessing logs
   useEffect(() => {
     /*getTokenPromise({ queryParams: { accountID: accountId } }).then((token: any) => {
       setLogsToken(token)
     })*/
     // TODO: temporary until PMS is available
-    fetchLogsAccessToken(accountId).then((token: any) => {
-      setLogsToken(token)
-    })
+    if (!logsToken) {
+      fetchLogsAccessToken(accountId).then((token: any) => {
+        setLogsToken(token)
+      })
+    }
   }, [])
 
   // get logs sections
@@ -83,23 +86,21 @@ const LogsContent = (props: LogsContentProps) => {
     latestSelectedIdx
   )
 
-  // set initial log arrays
   useEffect(() => {
-    if (logsSectionsModel.length !== logsPerSection.length) {
-      setLogsPerSection(new Array(logsSectionsModel.length))
+    setTouched(false)
+    setLatestSelectedIdx(-1)
+    setLogsPerSection([])
+    setOpenPanelArr([])
+    if (isStreamingActive) {
+      setEnableStreaming(false)
     }
-  }, [logsSectionsModel])
+  }, [step?.uuid])
 
   // find active logs
   const activeLoadingSection = logsSectionsModel.find(item => item.enableLogLoading)
 
-  // close all sections
-  useEffect(() => {
-    setOpenPanelArr(() => Array.from({ length: logsSectionsModel.length }, () => false))
-  }, [logsSectionsModel.length])
-
   // setup logs stream
-  const { logs: streamLogs, setEnableStreaming } = useLogsStream(activeLoadingSection?.queryVars)
+  const { logs: streamLogs, setEnableStreaming, isStreamingActive } = useLogsStream(activeLoadingSection?.queryVars)
   // add stream logs to section
   useEffect(() => {
     if (loadingIndex > -1) {
@@ -107,6 +108,14 @@ const LogsContent = (props: LogsContentProps) => {
       setLogsPerSection([...logsPerSection])
     }
   }, [streamLogs])
+  // turn off stream when stream is open and step change status to not running
+  useEffect(() => {
+    if (isStreamingActive && !isStatusRunningLike(step?.status)) {
+      setEnableStreaming(false)
+      setLoadingIndex(-1)
+    }
+  }, [step?.status])
+
   // load logs
   useEffect(() => {
     if (activeLoadingSection) {
@@ -133,11 +142,15 @@ const LogsContent = (props: LogsContentProps) => {
             setLogsPerSection(logsPerSectionNew)
             setLoadingIndex(-1)
           })
-          break
+          return () => {
+            controller.abort()
+          }
         }
         case 'stream': {
           setEnableStreaming(true)
-          break
+          return () => {
+            setEnableStreaming(false)
+          }
         }
       }
     }
@@ -146,7 +159,11 @@ const LogsContent = (props: LogsContentProps) => {
   useEffect(() => {
     // NOTE: auto open loading section and close other if user is not interacted with logs
     if (!touched && activeLoadingSection && activeLoadingSection?.sectionIdx > -1) {
-      setOpenPanelArr(_openPanelArr => _openPanelArr.map((_, idx) => idx === activeLoadingSection?.sectionIdx))
+      //setTimeout(() => {
+      const openPanelArrNew = [...openPanelArr]
+      openPanelArrNew[activeLoadingSection?.sectionIdx] = true
+      setOpenPanelArr(openPanelArrNew)
+      //}, 50)
     }
   }, [loadingIndex, touched])
 
@@ -162,13 +179,6 @@ const LogsContent = (props: LogsContentProps) => {
     sethighlightInd(highlightInd - 1)
   }
 
-  const logContentForSection = (sectionIdx: number): string => {
-    if (logsPerSection[sectionIdx]) {
-      return logsPerSection[sectionIdx]
-    }
-    return ''
-  }
-
   return (
     <section className={css.logContent}>
       <LogsHeader
@@ -180,7 +190,6 @@ const LogsContent = (props: LogsContentProps) => {
         redirectToLogView={props.redirectToLogView}
       />
       <MultiLogsViewer
-        rows={props.rows || 20}
         loadingIndex={loadingIndex}
         numberOfLogSections={logsSectionsModel.length}
         titleForSection={sectionIndex => {
@@ -192,7 +201,12 @@ const LogsContent = (props: LogsContentProps) => {
         rightElementForSection={() => {
           return <span /> //TODO: unit execution time: <Text color={Color.GREY_100}>2m 38s</Text>
         }}
-        logContentForSection={logContentForSection}
+        logContentForSection={(sectionIdx: number) => {
+          if (logsPerSection[sectionIdx]) {
+            return logsPerSection[sectionIdx]
+          }
+          return ''
+        }}
         searchDir={searchDir}
         highlightedIndex={highlightInd}
         searchText={searchText}

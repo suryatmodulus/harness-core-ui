@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import moment from 'moment'
 
 import { useHistory, useParams } from 'react-router-dom'
 import { MenuItem } from '@blueprintjs/core'
 
 import { Container, Icon, Text, Button } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
+import { useStrings } from 'framework/exports'
 import { useUpdateQueryParams } from '@common/hooks'
+import { DurationI18n, timeDelta } from '@common/exports'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import routes from '@common/RouteDefinitions'
 
 import type { ExecutionNode } from 'services/cd-ng'
 import type { ExecutionGraph } from 'services/pipeline-ng'
-import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import { ExecutionPathParams, getIconFromStageModule } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import LogsContent from './LogsContent'
@@ -45,9 +46,11 @@ interface TreeProps {
 }
 
 export default function ExecutionLogView(): React.ReactElement {
+  const { getString } = useStrings()
   const {
     pipelineExecutionDetail,
     selectedStageId: autoSelectedStageId,
+    selectedStepId,
     pipelineStagesMap,
     queryParams
   } = useExecutionContext()
@@ -65,8 +68,10 @@ export default function ExecutionLogView(): React.ReactElement {
   useEffect(() => {
     if (queryParams.step) {
       setSelectedNode(queryParams.step)
+    } else {
+      setSelectedNode(selectedStepId)
     }
-  }, [])
+  }, [selectedStepId])
 
   if (!pipelineExecutionDetail) {
     return <div />
@@ -113,7 +118,12 @@ export default function ExecutionLogView(): React.ReactElement {
     if (startTs && endTs) {
       return (
         <Text font={{ size: 'small' }} className={css.timeDiff}>
-          {moment(moment(node.endTs).diff(moment(node.startTs))).format('S')}s
+          {(() => {
+            const delta = timeDelta(node?.startTs || 0, node?.endTs || 0)
+            return node?.startTs && node?.endTs
+              ? DurationI18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)
+              : '-'
+          })()}
         </Text>
       )
     }
@@ -121,7 +131,7 @@ export default function ExecutionLogView(): React.ReactElement {
 
   // TODO: do we need this logic inside UI?
   const isNodeVisible = (_node: ExecutionNode) => {
-    return true //['LITE_ENGINE_TASK'].indexOf(node.stepType!) === -1
+    return true //['liteEngineTask'].indexOf(node.stepType!) === -1
   }
 
   // TODO: do we need this logic inside UI?
@@ -207,7 +217,7 @@ export default function ExecutionLogView(): React.ReactElement {
             minimal
             rightIcon="chevron-down"
             text={pipelineStagesMap.get(selectedStageId)?.nodeIdentifier}
-            icon="geolocation"
+            icon={getIconFromStageModule(pipelineStagesMap.get(selectedStageId)?.module)}
             iconProps={{
               size: 20,
               background: 'linear-gradient(147.14deg, #73DFE7 6.95%, #0095F7 93.05%)'
@@ -301,7 +311,7 @@ export default function ExecutionLogView(): React.ReactElement {
       <Container className={css.logsContainer}>
         <TreeNode node={stageIds[0]} isRootNode={true} level={0} />
 
-        <LogsContent rows={30} header="Step Logs" />
+        <LogsContent header={getString('execution.stepLogs')} key={selectedStepId} />
       </Container>
     )
   }

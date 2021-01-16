@@ -3,7 +3,7 @@ import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { ExecutionNode } from 'services/cd-ng'
-import { String } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import { DurationI18n, timeDelta } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
@@ -23,6 +23,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const delta = timeDelta(step?.startTs || 0, step?.endTs || 0)
   const params = useParams<PipelineType<ExecutionPathParams>>()
 
+  const { getString } = useStrings()
   const history = useHistory()
   const redirectToLogView = (): void => {
     const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId, module } = params
@@ -70,7 +71,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           </tr>*/}
         </tbody>
       </table>
-      <LogsContent rows={7} header="Step Logs" redirectToLogView={redirectToLogView} />
+      <LogsContent header={getString('execution.stepLogs')} redirectToLogView={redirectToLogView} />
     </div>
   )
 }

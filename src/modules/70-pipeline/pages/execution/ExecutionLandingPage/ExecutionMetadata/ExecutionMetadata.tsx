@@ -204,7 +204,7 @@ export default function ExecutionMetadata(): React.ReactElement {
       ) : null}
       {HAS_CI ? <ExecutionMetadataSection title="BUILD" entries={ciEntries} delimiter={true} /> : null}
       {HAS_CD ? <ExecutionMetadataSection title="DEPLOYMENT" entries={cdEntries} delimiter={true} /> : null}
-      <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />
+      {/* TODO: hide TBD <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />*/}
     </div>
   )
 }

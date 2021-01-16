@@ -216,21 +216,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
       </header>
       <div
         class="main"
-      >
-        <div
-          class="main"
-        >
-          <div
-            class="entry"
-          >
-            <span
-              class="title"
-            >
-              TRIGGER
-            </span>
-          </div>
-        </div>
-      </div>
+      />
       <div
         class="main"
       >

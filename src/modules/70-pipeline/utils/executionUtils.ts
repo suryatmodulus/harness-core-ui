@@ -1,6 +1,9 @@
+import type { IconName } from '@wings-software/uicore'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionSuccess, isExecutionCompletedWithBadState, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
+
+export const LITE_ENGINE_TASK = 'liteEngineTask'
 
 /**
  * @deprecated use import { ExecutionPathProps } from '@common/interfaces/RouteInterfaces' instead
@@ -197,4 +200,15 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
   }
 
   return null
+}
+
+export function getIconFromStageModule(stageModule: 'cd' | 'ci' | string | undefined): IconName {
+  switch (stageModule) {
+    case 'cd':
+      return 'pipeline-deploy'
+    case 'ci':
+      return 'pipeline-build'
+    default:
+      return 'pipeline-deploy'
+  }
 }

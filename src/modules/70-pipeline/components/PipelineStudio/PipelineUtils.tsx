@@ -233,7 +233,7 @@ export const getPipelineTree = (
         })
       } /* istanbul ignore else */ else if (data.stage) {
         stages.childNodes?.push(
-          getStageTree(data.stage, classes, { ...options, template: options.template?.stages[index]?.stage })
+          getStageTree(data.stage, classes, { ...options, template: options.template?.stages?.[index]?.stage })
         )
       }
     })

@@ -14,7 +14,7 @@ import routes from '@common/RouteDefinitions'
 
 import type { ExecutionNode } from 'services/cd-ng'
 import type { ExecutionGraph } from 'services/pipeline-ng'
-import { ExecutionPathParams, getIconFromStageModule } from '@pipeline/utils/executionUtils'
+import { ExecutionPathParams, getIconFromStageModule, NonSelectableNodes } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import LogsContent from './LogsContent'
@@ -136,7 +136,7 @@ export default function ExecutionLogView(): React.ReactElement {
 
   // TODO: do we need this logic inside UI?
   const hasNodeLogs = (node: ExecutionNode) => {
-    return ['NG_SECTION', 'NG_FORK'].indexOf(node.stepType!) === -1
+    return NonSelectableNodes.indexOf(node.stepType!) === -1
   }
 
   const renderNodeDetails = (nodeId: string) => {

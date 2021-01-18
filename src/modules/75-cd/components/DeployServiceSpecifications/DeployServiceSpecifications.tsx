@@ -248,10 +248,10 @@ export default function DeployServiceSpecifications(): JSX.Element {
   }
   React.useEffect(() => {
     if (isEmpty(stage?.stage?.spec)) {
-      if (stage.stage.type === getString('deploymentText')) {
+      if (stage.stage?.type === getString('deploymentText')) {
         let hasDeploymentStages = false
         for (let index = 0; index < stageIndex; index++) {
-          if (stages[index].stage.type === getString('deploymentText')) {
+          if (stages[index].stage?.type === getString('deploymentText')) {
             hasDeploymentStages = true
           }
         }

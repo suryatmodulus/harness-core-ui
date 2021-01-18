@@ -7,6 +7,8 @@ import { PageSpinner } from '@common/components'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import type { ResponseJsonNode } from 'services/cd-ng'
 
+import css from './ExecutionInputsView.module.scss'
+
 interface ExecutionInputsViewInterface {
   mockData?: ResponseJsonNode
 }
@@ -16,14 +18,28 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
     PipelineType<ExecutionPathProps>
   >()
 
-  const { data: inputSetYaml, loading } = useGetInputsetYaml({
+  const { data, loading } = useGetInputsetYaml({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
     }
   })
+
+  const [inputSetYaml, setInputSetYaml] = React.useState('')
+  React.useEffect(() => {
+    if (data) {
+      ;((data as unknown) as Response).text().then(str => {
+        setInputSetYaml(str)
+      })
+    }
+  }, [data])
 
   // React.useEffect(() => {
   //   if (query.executionId && query.executionId !== null) {
@@ -36,15 +52,17 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
   }
 
   return (
-    <RunPipelineForm
-      pipelineIdentifier={pipelineIdentifier}
-      orgIdentifier={orgIdentifier}
-      projectIdentifier={projectIdentifier}
-      accountId={accountId}
-      module={module}
-      inputSetYAML={inputSetYaml || ''}
-      executionView
-      mockData={props.mockData}
-    />
+    <div className={css.main}>
+      <RunPipelineForm
+        pipelineIdentifier={pipelineIdentifier}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        accountId={accountId}
+        module={module}
+        inputSetYAML={inputSetYaml || ''}
+        executionView
+        mockData={props.mockData}
+      />
+    </div>
   )
 }

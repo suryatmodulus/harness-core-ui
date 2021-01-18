@@ -3,54 +3,58 @@
 exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main pipelineHeader StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
-  >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium"
-    >
-      Pipeline
-    </p>
-  </div>
-  <div
-    class="OverlaySpinner--overlaySpinner"
+    class="main"
   >
     <div
-      class="Layout--horizontal StyledProps--main content StyledProps--padding-bottom-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main pipelineHeader StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium"
+      >
+        Pipeline
+      </p>
+    </div>
+    <div
+      class="OverlaySpinner--overlaySpinner"
     >
       <div
-        class="inputsetGrid"
+        class="Layout--horizontal StyledProps--main content StyledProps--padding-bottom-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
       >
         <div
-          class="treeSidebar"
+          class="inputsetGrid"
         >
           <div
-            class="container"
+            class="treeSidebar"
           >
             <div
-              class="bp3-tree"
+              class="container"
             >
-              <ul
-                class="bp3-tree-node-list bp3-tree-root"
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <form
-            class="FormikForm--main"
-          >
-            <div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+                class="bp3-tree"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                >
-                  No Runtime input in pipeline
-                </p>
+                <ul
+                  class="bp3-tree-node-list bp3-tree-root"
+                />
               </div>
             </div>
-          </form>
+          </div>
+          <div>
+            <form
+              class="FormikForm--main"
+            >
+              <div>
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    No Runtime input in pipeline
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

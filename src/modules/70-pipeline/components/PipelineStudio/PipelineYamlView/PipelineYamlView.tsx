@@ -66,7 +66,7 @@ const PipelineYamlView: React.FC = () => {
           height={'calc(100vh - 200px)'}
           invocationMap={stepsFactory.getInvocationMap()}
           showSnippetSection={true}
-          schema={pipelineSchema?.data}
+          schema={{} || pipelineSchema?.data}
           snippets={snippetMetaData?.data?.yamlSnippets}
         />
       )}

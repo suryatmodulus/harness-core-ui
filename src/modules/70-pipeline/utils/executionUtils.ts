@@ -5,6 +5,8 @@ import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph } from '
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
 
+export const NonSelectableNodes: string[] = ['NG_SECTION', 'NG_FORK', 'DEPLOYMENT_STAGE_STEP']
+
 /**
  * @deprecated use import { ExecutionPathProps } from '@common/interfaces/RouteInterfaces' instead
  */
@@ -195,7 +197,7 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
     if (typeof step === 'string') return step
   }
 
-  if (isExecutionRunning(node.status)) {
+  if (isExecutionRunning(node.status) && !NonSelectableNodes.includes(node.stepType || '')) {
     return currentNodeId
   }
 

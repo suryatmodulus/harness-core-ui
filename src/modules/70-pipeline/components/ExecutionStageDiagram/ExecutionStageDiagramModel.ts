@@ -76,7 +76,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage
-      startX += verticalStepGroup ? this.gap / 2 : this.gap
+      startX += this.gap
       const isSelected = selectedStageId === stage.identifier
       const statusProps = getStatusProps(stage.status)
       let nodeRender = this.getNodeFromId(stage.identifier)
@@ -155,7 +155,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               showPorts: !verticalStepGroup
             })
           this.addNode(emptyNodeStart)
-          newX += this.gap
+          newX += verticalStepGroup ? this.gap / 2 : this.gap
           emptyNodeStart.setPosition(newX, newY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -201,7 +201,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               showPorts: !verticalStepGroup
             })
           this.addNode(emptyNodeEnd)
-          startX += this.gap
+          startX += verticalStepGroup ? this.gap / 2 : this.gap
           emptyNodeEnd.setPosition(startX, startY)
           prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -228,7 +228,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           diagramContainerHeight,
           prevNodes,
           showEndNode,
-          groupStage
+          groupStage,
+          verticalStepGroup
         )
       }
       return { startX, startY, prevNodes }
@@ -283,7 +284,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
         }
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
-          startX = startX + (node.group?.verticalStepGroup ? this.gap / 2 : this.gap)
+          startX += this.gap
           stepGroupLayer.endNode.setPosition(startX, startY)
           showEndNode &&
             prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {

@@ -229,6 +229,18 @@ const processNodeData = (
   return items
 }
 
+/** count children without LITE_ENGINE_TASK */
+const hasChildren = (children?: string[], graph?: ExecutionGraph): boolean => {
+  return children
+    ? children.filter(id => {
+        return !(
+          graph?.nodeMap?.[id]?.stepType === LITE_ENGINE_TASK &&
+          graph?.nodeAdjacencyListMap?.[id]?.nextIds?.length === 0
+        )
+      }).length > 0
+    : false
+}
+
 const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNode<ExecutionNode>> => {
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
 
@@ -241,7 +253,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.NG_SECTION && !isEmpty(nodeAdjacencyListMap[nodeId].children)) {
+        if (nodeData.stepType === StepTypes.NG_SECTION && hasChildren(nodeAdjacencyListMap[nodeId].children, graph)) {
           const icon = factory.getStepIcon(nodeData?.stepType || '')
           items.push({
             group: {

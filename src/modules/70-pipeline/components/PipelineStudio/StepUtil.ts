@@ -34,7 +34,7 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
       responseStep = item
     } else if (item.parallel) {
       return ((item.parallel as unknown) as StepElement[]).forEach((node: ExecutionWrapper) => {
-        if (node.step.identifier === stepId) {
+        if (node.step?.identifier === stepId) {
           responseStep = node
         }
       })

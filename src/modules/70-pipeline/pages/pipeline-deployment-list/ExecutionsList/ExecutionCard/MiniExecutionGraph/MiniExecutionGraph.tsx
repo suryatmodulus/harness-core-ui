@@ -6,7 +6,7 @@ import { startCase, sortBy, throttle } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 
 import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 import { processLayoutNodeMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
@@ -135,6 +135,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     failedStagesCount,
     status,
     totalStagesCount,
+    layoutNodeMap,
     executionErrorInfo,
     pipelineIdentifier = '',
     planExecutionId = ''
@@ -231,8 +232,9 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
       projectIdentifier,
       executionIdentifier: planExecutionId
     })
-
-    history.push(`${path}?stage=${stageId}`)
+    if (!isExecutionNotStarted(layoutNodeMap?.[stageId]?.status)) {
+      history.push(`${path}?stage=${stageId}`)
+    }
   }
 
   return (

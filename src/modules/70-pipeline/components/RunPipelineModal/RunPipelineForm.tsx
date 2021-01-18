@@ -99,6 +99,11 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
 
+  React.useEffect(() => {
+    if (inputSetYAML) {
+      setCurrentPipeline(parse(inputSetYAML))
+    }
+  }, [inputSetYAML])
   const { openNestedPath } = useNestedAccordion()
   const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }

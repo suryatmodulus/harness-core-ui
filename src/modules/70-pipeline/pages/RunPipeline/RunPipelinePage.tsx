@@ -18,14 +18,19 @@ export default function RunPipelinePage(): React.ReactElement {
   >()
   const query = useQueryParams<Record<string, string>>()
 
-  const { data: inputSetYaml, refetch, loading } = useGetInputsetYaml({
+  const { data, refetch, loading } = useGetInputsetYaml({
     planExecutionId: query.executionId,
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId
     },
-    lazy: true
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
   })
 
   React.useEffect(() => {
@@ -33,6 +38,15 @@ export default function RunPipelinePage(): React.ReactElement {
       refetch()
     }
   }, [query.executionId])
+
+  const [inputSetYaml, setInputSetYaml] = React.useState('')
+  React.useEffect(() => {
+    if (data) {
+      ;((data as unknown) as Response).text().then(str => {
+        setInputSetYaml(str)
+      })
+    }
+  }, [data])
 
   const getInputSetSelected = (): InputSetValue[] => {
     if (query && query.inputSetType) {

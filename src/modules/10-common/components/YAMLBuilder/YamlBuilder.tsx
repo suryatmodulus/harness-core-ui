@@ -123,7 +123,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     needEditorReset,
     onEnableEditMode,
     theme = 'LIGHT',
-    yamlSanityConfig
+    yamlSanityConfig,
+    skipValidation = false
   } = props
   setUpEditor(theme)
   const params = useParams()
@@ -238,7 +239,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   const verifyYAML = (currentYaml: string): void => {
     try {
-      if (schema && currentYaml) {
+      if (schema && currentYaml && !skipValidation) {
         validateYAMLWithSchema(currentYaml, getSchemaWithLanguageSettings(schema))
           .then((errors: Diagnostic[]) => {
             if (errors && Array.isArray(errors) && errors.length > 0) {

@@ -40,6 +40,7 @@ export interface YamlBuilderProps {
   snippets?: YamlSnippetMetaData[]
   onSnippetCopy?: (identifier: string) => Promise<void>
   snippetYaml?: string
+  skipValidation?: boolean
 }
 
 export interface CompletionItemInterface {

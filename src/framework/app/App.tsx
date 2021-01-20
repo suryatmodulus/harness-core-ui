@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import SessionToken from 'framework/utils/SessionToken'
@@ -8,6 +8,7 @@ import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import RouteDestinations from 'modules/RouteDestinations'
+import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 
 import '@common/services'
@@ -22,7 +23,7 @@ interface AppProps {
   strings: Record<string, any>
 }
 
-function App(props: AppProps): React.ReactElement {
+function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
@@ -66,6 +67,14 @@ function App(props: AppProps): React.ReactElement {
   )
 }
 
+function AppWithoutAuthentication(): React.ReactElement {
+  return (
+    <AppErrorBoundary>
+      <RouteDestinationsWithoutAuth />
+    </AppErrorBoundary>
+  )
+}
+
 ;(async () => {
   const lang: LangLocale = 'en'
 
@@ -73,16 +82,20 @@ function App(props: AppProps): React.ReactElement {
 
   ReactDOM.render(
     <HashRouter>
-      <Route
-        path={[
-          // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
-          '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
-          '/account/:accountId',
-          '/*'
-        ]}
-      >
-        <App strings={strings} />
-      </Route>
+      <Switch>
+        <Route
+          path={[
+            // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
+            '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
+            '/account/:accountId'
+          ]}
+        >
+          <AppWithAuthentication strings={strings} />
+        </Route>
+        <Route path="/">
+          <AppWithoutAuthentication />
+        </Route>
+      </Switch>
     </HashRouter>,
     document.getElementById('react-root')
   )

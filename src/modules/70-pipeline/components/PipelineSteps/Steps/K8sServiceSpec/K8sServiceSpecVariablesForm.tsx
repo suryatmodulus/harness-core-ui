@@ -1,6 +1,7 @@
 import React from 'react'
 import { NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
+import { isEmpty, omit } from 'lodash-es'
 import type { ServiceSpec } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, YamlProperties } from 'services/pipeline-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -51,7 +52,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
 
   return (
     <React.Fragment>
-      {artifacts ? (
+      {artifacts && !isEmpty(omit(variablesData?.artifacts, 'uuid')) ? (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
@@ -61,23 +62,27 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             variablesData?.artifacts && (
               <>
                 <div className={css.artifactHeader}>Primary Artifact</div>
-                <VariableRow
-                  data={metadataMap[(primaryArtifactVariables?.connectorRef as unknown) as string].yamlProperties}
-                  value={initialValues.artifacts?.primary?.spec?.connectorRef}
-                />
-                <VariableRow
-                  data={metadataMap[(primaryArtifactVariables?.imagePath as unknown) as string].yamlProperties}
-                  value={initialValues.artifacts?.primary?.spec?.imagePath}
-                />
+                {primaryArtifactVariables?.connectorRef && (
+                  <VariableRow
+                    data={metadataMap[(primaryArtifactVariables?.connectorRef as unknown) as string]?.yamlProperties}
+                    value={initialValues.artifacts?.primary?.spec?.connectorRef}
+                  />
+                )}
+                {primaryArtifactVariables?.imagePath && (
+                  <VariableRow
+                    data={metadataMap[(primaryArtifactVariables?.imagePath as unknown) as string]?.yamlProperties}
+                    value={initialValues.artifacts?.primary?.spec?.imagePath}
+                  />
+                )}
                 {primaryArtifactVariables?.tag && (
                   <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.tag as unknown) as string].yamlProperties}
+                    data={metadataMap[(primaryArtifactVariables?.tag as unknown) as string]?.yamlProperties}
                     value={initialValues.artifacts?.primary?.spec?.tag}
                   />
                 )}
                 {primaryArtifactVariables?.tagRegex && (
                   <VariableRow
-                    data={metadataMap[(primaryArtifactVariables?.tagRegex as unknown) as string].yamlProperties}
+                    data={metadataMap[(primaryArtifactVariables?.tagRegex as unknown) as string]?.yamlProperties}
                     value={initialValues.artifacts?.primary?.spec?.tagRegex}
                   />
                 )}
@@ -87,22 +92,22 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                   sidecarArtifactVariables?.map(({ sidecar }, index) => (
                     <div key={index}>
                       <VariableRow
-                        data={metadataMap[(sidecar?.spec?.connectorRef as unknown) as string].yamlProperties}
+                        data={metadataMap[(sidecar?.spec?.connectorRef as unknown) as string]?.yamlProperties}
                         value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef}
                       />
                       <VariableRow
-                        data={metadataMap[(sidecar?.spec?.imagePath as unknown) as string].yamlProperties}
+                        data={metadataMap[(sidecar?.spec?.imagePath as unknown) as string]?.yamlProperties}
                         value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath}
                       />
                       {sidecar?.spec?.tag && (
                         <VariableRow
-                          data={metadataMap[(sidecar?.spec?.tag as unknown) as string].yamlProperties}
+                          data={metadataMap[(sidecar?.spec?.tag as unknown) as string]?.yamlProperties}
                           value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag}
                         />
                       )}
                       {sidecar?.spec?.tagRegex && (
                         <VariableRow
-                          data={metadataMap[(sidecar?.spec?.tagRegex as unknown) as string].yamlProperties}
+                          data={metadataMap[(sidecar?.spec?.tagRegex as unknown) as string]?.yamlProperties}
                           value={initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.tagRegex}
                         />
                       )}
@@ -113,7 +118,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           }
         />
       ) : null}
-      {manifests ? (
+      {manifests && !isEmpty(omit(manifestsVariables, 'uuid')) ? (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
@@ -126,25 +131,25 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                   <div key={index}>
                     <VariableRow
                       data={
-                        metadataMap[(manifest?.spec?.store?.spec?.connectorRef as unknown) as string].yamlProperties
+                        metadataMap[(manifest?.spec?.store?.spec?.connectorRef as unknown) as string]?.yamlProperties
                       }
                       value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.connectorRef}
                     />
                     <VariableRow
-                      data={metadataMap[(manifest?.spec?.store?.spec?.branch as unknown) as string].yamlProperties}
+                      data={metadataMap[(manifest?.spec?.store?.spec?.branch as unknown) as string]?.yamlProperties}
                       value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.branch}
                     />
                     {
                       <VariableRow
                         data={
-                          metadataMap[(manifest?.spec?.store?.spec?.gitFetchType as unknown) as string].yamlProperties
+                          metadataMap[(manifest?.spec?.store?.spec?.gitFetchType as unknown) as string]?.yamlProperties
                         }
                         value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.gitFetchType}
                       />
                     }
                     {manifest?.spec?.store?.spec?.paths && (
                       <VariableRow
-                        data={metadataMap[(manifest?.spec?.store?.spec?.paths as unknown) as string].yamlProperties}
+                        data={metadataMap[(manifest?.spec?.store?.spec?.paths as unknown) as string]?.yamlProperties}
                         value={initialValues.manifests?.[index]?.manifest?.spec?.store?.spec?.paths?.join(' , ')}
                       />
                     )}

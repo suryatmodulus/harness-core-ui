@@ -287,45 +287,43 @@ const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProp
 }) => {
   const infraVariables = variablesData?.infrastructureDefinition?.spec
 
-  return (
-    infraVariables && (
-      <>
-        <div className={variableCss.variableListTable} key="connectorRef">
-          <>
-            <CopyText textToCopy={metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.fqn || ''}>
-              {toVariableStr(metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.localName || '')}
-            </CopyText>
-            <Text>String</Text>
-            <Text lineClamp={2} width={280}>
-              {initialValues.connectorRef}
-            </Text>
-          </>
+  return infraVariables ? (
+    <>
+      <div className={variableCss.variableListTable} key="connectorRef">
+        <div>
+          <CopyText textToCopy={metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.fqn || ''}>
+            {toVariableStr(metadataMap?.[infraVariables?.connectorRef]?.yamlProperties?.localName || '')}
+          </CopyText>
+          <Text>String</Text>
+          <Text lineClamp={2} width={280}>
+            {initialValues.connectorRef}
+          </Text>
         </div>
-        <div className={variableCss.variableListTable} key="namespace">
-          <>
-            <CopyText textToCopy={metadataMap?.[infraVariables?.namespace]?.yamlProperties?.fqn || ''}>
-              {toVariableStr(metadataMap?.[infraVariables?.namespace]?.yamlProperties?.localName || '')}
-            </CopyText>
-            <Text>String</Text>
-            <Text lineClamp={2} width={280}>
-              {initialValues.namespace}
-            </Text>
-          </>
-        </div>
-        <div className={variableCss.variableListTable} key="releaseName">
-          <>
-            <CopyText textToCopy={metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.fqn || ''}>
-              {toVariableStr(metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.localName || '')}
-            </CopyText>
-            <Text>String</Text>
-            <Text lineClamp={2} width={280}>
-              {initialValues.releaseName}
-            </Text>
-          </>
-        </div>
-      </>
-    )
-  )
+      </div>
+      <div className={variableCss.variableListTable} key="namespace">
+        <>
+          <CopyText textToCopy={metadataMap?.[infraVariables?.namespace]?.yamlProperties?.fqn || ''}>
+            {toVariableStr(metadataMap?.[infraVariables?.namespace]?.yamlProperties?.localName || '')}
+          </CopyText>
+          <Text>String</Text>
+          <Text lineClamp={2} width={280}>
+            {initialValues.namespace}
+          </Text>
+        </>
+      </div>
+      <div className={variableCss.variableListTable} key="releaseName">
+        <>
+          <CopyText textToCopy={metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.fqn || ''}>
+            {toVariableStr(metadataMap?.[infraVariables?.releaseName]?.yamlProperties?.localName || '')}
+          </CopyText>
+          <Text>String</Text>
+          <Text lineClamp={2} width={280}>
+            {initialValues.releaseName}
+          </Text>
+        </>
+      </div>
+    </>
+  ) : null
 }
 
 interface K8SDirectInfrastructureStep extends K8SDirectInfrastructure {

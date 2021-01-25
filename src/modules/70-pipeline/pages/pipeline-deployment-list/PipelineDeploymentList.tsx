@@ -100,7 +100,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
 
   const fetchExecutions = React.useCallback(
-    async (params?: GetListOfExecutionsQueryParams, _formData?: PipelineExecutionFilterProperties): Promise<void> => {
+    async (params?: GetListOfExecutionsQueryParams, formData?: PipelineExecutionFilterProperties): Promise<void> => {
       setInitLoading(true)
       try {
         cancel()
@@ -109,7 +109,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           {
             filterType: 'PipelineExecution'
           },
-          _formData
+          isObjectEmpty(formData || {}) ? appliedFilter?.filterProperties : formData
         ) as PipelineExecutionFilterProperties
         const { status, data } = await fetchListOfExecutions(filter, { queryParams: params })
         if (status === 'SUCCESS') {

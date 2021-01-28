@@ -71,7 +71,12 @@ const BuildInfo: React.FC<BuildInfoProps> = props => {
               </span>
             </Link>
             <Link href={buildData?.pullRequest?.link} target="_blank">
-              {getString('execution.prSymbol')} {buildData?.pullRequest?.id}
+              {getString('execution.prSymbol')}{' '}
+              {typeof buildData?.pullRequest?.id === 'string' || typeof buildData?.pullRequest?.id === 'number'
+                ? buildData?.pullRequest?.id
+                : buildData?.pullRequest?.id?.['$numberLong']
+                ? buildData?.pullRequest?.id?.['$numberLong']
+                : ''}
             </Link>
             <span className={css.pullRequestStatus}>{buildData?.pullRequest?.state}</span>
             {lastCommit ? (

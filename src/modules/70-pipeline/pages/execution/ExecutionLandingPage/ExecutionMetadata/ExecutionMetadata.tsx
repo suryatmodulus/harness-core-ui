@@ -99,6 +99,14 @@ export default function ExecutionMetadata(): React.ReactElement {
                 </span>
               </Link>
               <Link href={ciBuildData?.pullRequest?.link} target="_blank" className={css.pullRequestLink}>
+                {getString('execution.prSymbol')}
+                {typeof ciBuildData?.pullRequest?.id === 'string' || typeof ciBuildData?.pullRequest?.id === 'number'
+                  ? ciBuildData?.pullRequest?.id
+                  : ciBuildData?.pullRequest?.id?.['$numberLong']
+                  ? ciBuildData?.pullRequest?.id?.['$numberLong']
+                  : ''}
+              </Link>
+              <Link href={ciBuildData?.pullRequest?.link} target="_blank" className={css.pullRequestLink}>
                 {getString('execution.prSymbol')} {ciBuildData?.pullRequest?.id}
               </Link>
               <span className={css.pullRequestStatus}>{ciBuildData?.pullRequest?.state}</span>

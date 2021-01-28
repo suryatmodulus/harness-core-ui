@@ -132,6 +132,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               name={`variables[${index}].value`}
                               label=""
                               multiTextInputProps={{
+                                defaultValueToReset: '',
                                 textProps: {
                                   disabled: !initialValues.canAddVariable,
                                   type: variable.type === VariableTypes.Number ? 'number' : 'text'

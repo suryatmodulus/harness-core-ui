@@ -6,6 +6,7 @@ import { getConfig, getUsingFetch, GetUsingFetchProps } from 'services/config'
 import type { Line, LogBlobQueryParams, LogStreamQueryParams } from 'services/logs'
 import type { ExecutionNode, GraphLayoutNode } from 'services/pipeline-ng'
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 
 export enum LogsStatus {
   Running = 'RUNNING',
@@ -100,6 +101,7 @@ export function createLogSection(
     const taskObj = (step?.executableResponses?.[0]?.taskChain as any) || (step?.executableResponses?.[0]?.task as any)
     const logKeys = taskObj?.logKeys || []
     const sectionTitles = taskObj?.units || []
+    const isStepCompleted = isExecutionComplete(step?.status)
 
     // NOTE: second element for progress
     const taskId =
@@ -129,13 +131,13 @@ export function createLogSection(
         sectionTitle: function logTitle(sectionIdx: number) {
           const status = nameStatusMap.get(sectionTitles[sectionIdx]) as LogsStatus
           return (
-            <Text icon={getLogStatusIcon(status)} iconProps={getLogStatusIconProps(status)}>
+            <Text icon={getLogStatusIcon(isStepCompleted, status)} iconProps={getLogStatusIconProps(status)}>
               {sectionTitles[idx] || ''}
             </Text>
           )
         },
         sectionIdx: idx,
-        sourceType: currentRunningIdx === idx ? 'stream' : 'blob',
+        sourceType: currentRunningIdx === idx && !isStepCompleted ? 'stream' : 'blob',
         queryVars: {
           accountID: `${accountId}`,
           key,
@@ -157,12 +159,12 @@ export function getLogStatusIconProps(status?: LogsStatus): Omit<IconProps, 'nam
     return { padding: { right: 'medium' } }
   }
 }
-export function getLogStatusIcon(status?: LogsStatus): IconName | undefined {
+export function getLogStatusIcon(isStepCompleted: boolean, status?: LogsStatus): IconName | undefined {
   if (status === LogsStatus.Failure) {
     return 'circle-cross'
   } else if (status === LogsStatus.Paused) {
     return 'pause'
-  } else if (status === LogsStatus.Running) {
+  } else if (status === LogsStatus.Running && !isStepCompleted) {
     return 'spinner'
   } else if (status) {
     return 'tick-circle'

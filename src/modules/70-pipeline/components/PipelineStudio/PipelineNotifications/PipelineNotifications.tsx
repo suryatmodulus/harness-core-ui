@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { get, isNil } from 'lodash-es'
 import produce from 'immer'
 import { String } from 'framework/exports'
 import NotificationTable from '@pipeline/components/Notifications/NotificationTable'
@@ -46,6 +46,10 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
             } else if (action === Actions.Added && notification) {
               updatePipeline(
                 produce(pipeline, draft => {
+                  if (isNil((draft as any).notificationRules)) {
+                    ;(draft as any).notificationRules = []
+                  }
+                  notification.enabled = true
                   ;(draft as any).notificationRules.unshift(notification)
                 })
               ).then(() => {

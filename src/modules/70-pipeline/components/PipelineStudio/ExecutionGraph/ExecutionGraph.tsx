@@ -9,6 +9,7 @@ import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components
 import { useToaster } from '@common/exports'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { ExecutionStepModel } from './ExecutionStepModel'
+import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import i18n from './ExecutionGraph.i18n'
 import {
   addStepOrGroup,
@@ -23,9 +24,9 @@ import {
   StepType,
   getDependencyFromNode,
   DependenciesWrapper,
-  isCustomGeneratedString,
-  defaultStepState,
-  defaultStepGroupState
+  getDefaultStepState,
+  getDefaultStepGroupState,
+  getDefaultDependencyServiceState
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -459,12 +460,17 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
 
   const stepGroupUpdated = React.useCallback(
     stepOrGroup => {
-      if (stepOrGroup.identifier && !isCustomGeneratedString(stepOrGroup.identifier)) {
+      if (stepOrGroup.identifier) {
         const newStateMap = new Map<string, StepState>([...state.states])
         if (stepOrGroup.steps) {
-          newStateMap.set(stepOrGroup.identifier, defaultStepState)
+          newStateMap.set(stepOrGroup.identifier, getDefaultStepGroupState())
         } else {
-          newStateMap.set(stepOrGroup.identifier, defaultStepGroupState)
+          newStateMap.set(
+            stepOrGroup.identifier,
+            stepOrGroup.type === PipelineStepType.Dependency
+              ? getDefaultDependencyServiceState()
+              : getDefaultStepState()
+          )
         }
         setState(prev => ({ ...prev, states: newStateMap }))
       }

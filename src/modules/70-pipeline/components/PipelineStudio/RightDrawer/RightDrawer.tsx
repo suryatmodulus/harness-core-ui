@@ -200,19 +200,21 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onUpdate={item => {
             if (data.stepConfig?.addOrEdit === 'add') {
               const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
-              addService(pipelineStage?.stage.spec.serviceDependencies, {
+              const newServiceData = {
                 identifier: item.identifier,
                 name: item.name,
                 type: StepType.Dependency,
                 ...(item.description && { description: item.description }),
                 spec: item.spec
-              })
+              }
+              addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
               updatePipeline(pipeline)
               updatePipelineView({
                 ...pipelineView,
                 isDrawerOpened: false,
                 drawerData: { type: DrawerTypes.ConfigureService }
               })
+              data.stepConfig?.onUpdate?.(newServiceData)
             } else if (data.stepConfig?.addOrEdit === 'edit') {
               const node = data?.stepConfig?.node
               if (node) {

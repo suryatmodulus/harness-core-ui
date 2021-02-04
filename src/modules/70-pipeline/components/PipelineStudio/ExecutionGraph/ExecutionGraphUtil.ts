@@ -60,16 +60,22 @@ export interface StepState {
   inheritedSG?: number
 }
 
-export const defaultStepGroupState: StepState = {
+export const getDefaultStepGroupState = (): StepState => ({
   isSaved: true,
   isStepGroupCollapsed: false,
   isStepGroupRollback: false,
   isStepGroup: true,
   isRollback: false,
   stepType: StepType.STEP_GROUP
-}
+})
 
-export const defaultStepState: StepState = { isSaved: true, isStepGroup: false, stepType: StepType.STEP }
+export const getDefaultStepState = (): StepState => ({ isSaved: true, isStepGroup: false, stepType: StepType.STEP })
+
+export const getDefaultDependencyServiceState = (): StepState => ({
+  isSaved: true,
+  isStepGroup: false,
+  stepType: StepType.SERVICE
+})
 
 export type StepStateMap = Map<string, StepState>
 
@@ -256,7 +262,7 @@ export const getDependenciesState = (services: DependenciesWrapper[], mapState: 
   })
 
   services.forEach((service: DependenciesWrapper) => {
-    mapState.set(service.identifier, defaultStepState)
+    mapState.set(service.identifier, getDefaultDependencyServiceState())
   })
 }
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
@@ -286,7 +292,7 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
     node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
       getStepsState(step, mapState)
     })
-    mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || defaultStepGroupState)
+    mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
   }
 }
 

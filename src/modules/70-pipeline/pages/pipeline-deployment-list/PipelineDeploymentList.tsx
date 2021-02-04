@@ -46,7 +46,7 @@ import {
 import ExecutionsFilterForm from './ExecutionsFilterForm/ExecutionsFilterForm'
 import css from './PipelineDeploymentList.module.scss'
 
-const pollingIntervalInMilliseconds = 500_000
+const pollingIntervalInMilliseconds = 5_000
 export interface PipelineDeploymentListProps {
   onRunPipeline(): void
 }
@@ -87,7 +87,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   const fetchExecutions = React.useCallback(
     async (params?: GetListOfExecutionsQueryParams, formData?: PipelineExecutionFilterProperties): Promise<void> => {
-      setInitLoading(true)
       try {
         cancel()
         setError(null)
@@ -109,14 +108,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         }
       }
     },
-    [fetchListOfExecutions, showError, cancel]
+    [fetchListOfExecutions, showError, cancel, appliedFilter?.filterProperties]
   )
 
   useEffect(() => {
     if (appliedFilter !== undefined) {
       fetchExecutions(defaultQueryParamsForExecutions, appliedFilter?.filterProperties || {})
     }
-  }, [appliedFilter])
+  }, [appliedFilter?.filterProperties])
 
   useEffect(() => {
     cancel()

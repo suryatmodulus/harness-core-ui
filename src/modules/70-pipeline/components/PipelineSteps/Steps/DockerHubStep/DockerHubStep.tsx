@@ -21,7 +21,7 @@ import { inputSetViewValidateFieldsConfig } from './DockerHubStepFunctionConfigs
 
 export interface DockerHubStepSpec {
   connectorRef: string
-  registry: string
+  repo: string
   tags: MultiTypeListType
   dockerfile?: string
   context?: string
@@ -83,7 +83,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     type: StepType.DockerHub as string,
     spec: {
       connectorRef: '',
-      registry: '',
+      repo: '',
       tags: []
     }
   }

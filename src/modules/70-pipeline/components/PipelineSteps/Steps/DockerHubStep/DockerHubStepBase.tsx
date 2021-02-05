@@ -125,7 +125,7 @@ export const DockerHubStepBase = (
                   style={{ marginBottom: 0 }}
                 />
                 <MultiTypeTextField
-                  name="spec.registry"
+                  name="spec.repo"
                   label={
                     <Text margin={{ top: 'small' }}>
                       {getString('dockerRegistry')}

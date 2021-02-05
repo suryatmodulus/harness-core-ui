@@ -295,7 +295,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.registry-2"
+                data-id="spec.repo-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -310,7 +310,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     >
                       <input
                         class="bp3-input"
-                        name="spec.registry"
+                        name="spec.repo"
                         type="text"
                         value="Repository"
                       />
@@ -2446,7 +2446,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.registry-2"
+                data-id="spec.repo-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -2465,7 +2465,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                         <input
                           class="bp3-input"
                           disabled=""
-                          name="spec.registry"
+                          name="spec.repo"
                           placeholder="<+input>"
                           type="text"
                           value="<+input>"
@@ -4001,7 +4001,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="spec.registry-2"
+                data-id="spec.repo-2"
                 style="margin-bottom: 0px; flex-grow: 1;"
               >
                 
@@ -4016,7 +4016,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     >
                       <input
                         class="bp3-input"
-                        name="spec.registry"
+                        name="spec.repo"
                         type="text"
                         value=""
                       />
@@ -5492,11 +5492,11 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.registry-1"
+          data-id="spec.repo-1"
         >
           <label
             class="bp3-label"
-            for="spec.registry"
+            for="spec.repo"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -5547,7 +5547,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                name="spec.registry"
+                name="spec.repo"
                 type="text"
                 value=""
               />
@@ -6500,7 +6500,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
       <div
         class="text"
       >
-        step.dockerHub.spec.registry
+        step.dockerHub.spec.repo
       </div>
       <div
         class="bp3-popover-wrapper btnWrapper"

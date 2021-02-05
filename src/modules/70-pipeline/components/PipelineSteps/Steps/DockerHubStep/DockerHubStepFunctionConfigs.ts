@@ -15,7 +15,7 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.ConnectorRef
   },
   {
-    name: 'spec.registry',
+    name: 'spec.repo',
     type: TransformValuesTypes.Text
   },
   {
@@ -81,7 +81,7 @@ export const editViewValidateFieldsConfig = [
     isRequired: true
   },
   {
-    name: 'spec.registry',
+    name: 'spec.repo',
     type: ValidationFieldTypes.Text,
     label: 'dockerRegistry',
     isRequired: true
@@ -122,7 +122,7 @@ export const inputSetViewValidateFieldsConfig = [
     isRequired: true
   },
   {
-    name: 'spec.registry',
+    name: 'spec.repo',
     type: ValidationFieldTypes.Text,
     label: 'dockerRegistry',
     isRequired: true

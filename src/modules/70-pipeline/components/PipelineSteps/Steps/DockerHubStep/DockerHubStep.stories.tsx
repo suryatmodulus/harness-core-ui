@@ -52,7 +52,7 @@ DockerHubStep.args = {
     timeout: '10s',
     spec: {
       connectorRef: 'account.connectorRef',
-      registry: 'Repository',
+      repo: 'Repository',
       tags: ['tag1', 'tag2', 'tag3'],
       dockerfile: 'Dockerfile',
       context: 'Context',
@@ -90,7 +90,7 @@ DockerHubStep.args = {
     timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
-      registry: RUNTIME_INPUT_VALUE,
+      repo: RUNTIME_INPUT_VALUE,
       tags: RUNTIME_INPUT_VALUE,
       dockerfile: RUNTIME_INPUT_VALUE,
       context: RUNTIME_INPUT_VALUE,
@@ -114,7 +114,7 @@ DockerHubStep.args = {
     timeout: RUNTIME_INPUT_VALUE,
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
-      registry: RUNTIME_INPUT_VALUE,
+      repo: RUNTIME_INPUT_VALUE,
       tags: RUNTIME_INPUT_VALUE,
       dockerfile: RUNTIME_INPUT_VALUE,
       context: RUNTIME_INPUT_VALUE,
@@ -152,10 +152,10 @@ DockerHubStep.args = {
           localName: 'step.dockerHub.spec.connectorRef'
         }
       },
-      'step-registry': {
+      'step-repo': {
         yamlProperties: {
-          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.registry',
-          localName: 'step.dockerHub.spec.registry'
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.repo',
+          localName: 'step.dockerHub.spec.repo'
         }
       },
       'step-tags': {
@@ -221,7 +221,7 @@ DockerHubStep.args = {
       timeout: 'step-timeout',
       spec: {
         connectorRef: 'step-connectorRef',
-        registry: 'step-registry',
+        repo: 'step-repo',
         tags: 'step-tags',
         dockerfile: 'step-dockerfile',
         context: 'step-context',

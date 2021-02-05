@@ -44,10 +44,10 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           disabled={readonly}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.registry) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(template?.spec?.repo) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.registry`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.repo`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('dockerRegistry')}

@@ -459,7 +459,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           )
           if (isRemove && dropNode) {
             if (!current.parent && current.stage) {
-              const index = pipeline.stages?.indexOf(current.stage) || -1
+              const index = pipeline.stages?.indexOf(current.stage) ?? -1
               if (index > -1) {
                 // Remove current Stage also and make it parallel
                 pipeline?.stages?.splice(index, 1)

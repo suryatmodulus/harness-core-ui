@@ -67,22 +67,25 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
 
   // update feature flags in context
   useEffect(() => {
-    const featureFlagsMap = fromPairs(
-      featureFlags?.resource?.map(flag => {
-        return [flag.name, !!flag.enabled]
-      })
-    )
+    // TODO: Handle better if fetching feature flags fails
+    if (featureFlags) {
+      const featureFlagsMap = fromPairs(
+        featureFlags?.resource?.map(flag => {
+          return [flag.name, !!flag.enabled]
+        })
+      )
 
-    // don't redirect on local because it goes into infinite loop
-    // because there may be no current gen to go to
-    if (!__DEV__ && !featureFlagsMap['NEXT_GEN_ENABLED']) {
-      window.location.href = window.location.pathname.replace(/\/ng\//, '/')
+      // don't redirect on local because it goes into infinite loop
+      // because there may be no current gen to go to
+      if (!__DEV__ && !featureFlagsMap['NEXT_GEN_ENABLED']) {
+        window.location.href = window.location.pathname.replace(/\/ng\//, '/')
+      }
+
+      setState(prevState => ({
+        ...prevState,
+        featureFlags: featureFlagsMap
+      }))
     }
-
-    setState(prevState => ({
-      ...prevState,
-      featureFlags: featureFlagsMap
-    }))
   }, [featureFlags])
 
   React.useEffect(() => {

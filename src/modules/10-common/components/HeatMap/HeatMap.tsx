@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Color, Container, Text } from '@wings-software/uicore'
-import { Popover, PopoverInteractionKind } from '@blueprintjs/core'
+import { Classes, Popover, PopoverInteractionKind } from '@blueprintjs/core'
+import cx from 'classnames'
 import isUndefined from 'lodash/isUndefined'
 import classnames from 'classnames'
 import { getColorStyle } from './ColorUtils'
@@ -11,6 +12,7 @@ export interface SerieConfig {
   data: Array<any>
 }
 
+export type OnCellClick = { cell: any; series: SerieConfig; isSelected: boolean; onDismiss: () => void }
 export interface HeatMapProps {
   series: Array<SerieConfig> | SerieConfig
   minValue: number
@@ -22,11 +24,21 @@ export interface HeatMapProps {
    * or to limit the row sizes.
    */
   rowSize?: number
-  onCellClick?(cell: any, serie: any): void
-  renderTooltip?(cell: any): JSX.Element | null
+  onCellClick?(cell?: any, serie?: any): void
+  renderTooltip?(info: OnCellClick): JSX.Element | null
   labelsWidth?: number
   className?: string
   cellClassName?: string
+}
+
+export interface HeatMapCellProps {
+  color?: string
+  colorClassName?: string
+  className?: string
+  popoverDisabled: boolean
+  popoverContent?: JSX.Element | null
+  isSelected?: boolean
+  onClick?: () => void
 }
 
 export enum CellStatusValues {
@@ -58,8 +70,9 @@ export default function HeatMap({
   labelsWidth = 125,
   className,
   cellClassName
-}: HeatMapProps) {
+}: HeatMapProps): JSX.Element {
   const series = Array.isArray(seriesProp) ? seriesProp : [seriesProp]
+  const [selectedCell, setSelectedCell] = useState<any>()
   let rowLimit: number
   if (!isUndefined(rowSize)) {
     rowLimit = rowSize
@@ -83,6 +96,10 @@ export default function HeatMap({
 
   const showLabels = series.some(serie => !isUndefined(serie.name))
 
+  useEffect(() => {
+    setSelectedCell(null)
+  }, [seriesProp])
+
   return (
     <Container className={classnames(styles.heatMap, className)}>
       {series.map((serie, serieIndex) => (
@@ -95,19 +112,37 @@ export default function HeatMap({
             </span>
           )}
           <div className={styles.rowValues}>
-            {serie.data.map(
-              (cell, index) =>
-                index < rowLimit && (
-                  <HeatMapCell
-                    key={index}
-                    popoverDisabled={!renderTooltip}
-                    popoverContent={renderTooltip && renderTooltip(cell)}
-                    onClick={() => onCellClick && onCellClick(cell, serie)}
-                    {...mapColor(cell)}
-                    className={cellClassName}
-                  />
-                )
-            )}
+            {serie.data.map((cell, index) => {
+              if (index >= rowLimit) {
+                return null
+              }
+              const isSelected =
+                selectedCell?.startTime === cell.startTime &&
+                selectedCell?.endTime === cell.endTime &&
+                serie.name === selectedCell.category
+              return (
+                <HeatMapCell
+                  key={index}
+                  isSelected={isSelected}
+                  popoverDisabled={!renderTooltip}
+                  popoverContent={renderTooltip?.({
+                    cell,
+                    series: serie,
+                    isSelected,
+                    onDismiss: () => {
+                      onCellClick?.()
+                      setSelectedCell(undefined)
+                    }
+                  })}
+                  onClick={() => {
+                    onCellClick?.(cell, serie)
+                    setSelectedCell({ ...cell, category: serie.name })
+                  }}
+                  {...mapColor(cell)}
+                  className={cx(selectedCell && !isSelected ? styles.opaqueSquare : undefined, cellClassName)}
+                />
+              )
+            })}
             {serie.data.length < rowLimit &&
               new Array(rowLimit - serie.data.length)
                 .fill(null)
@@ -132,19 +167,38 @@ export function HeatMapCell({
   className,
   popoverDisabled = false,
   popoverContent,
-  onClick
-}: any) {
+  onClick,
+  isSelected
+}: HeatMapCellProps): JSX.Element {
+  const [isOpen, setIsOpen] = useState<boolean | undefined>(isSelected ? true : undefined)
+  useEffect(() => {
+    if (isSelected && !isOpen) {
+      setIsOpen(true)
+    } else if (!isSelected && isOpen) {
+      setIsOpen(false)
+    }
+  }, [isSelected])
   return (
     <Container onClick={onClick} className={classnames(styles.cell, className)}>
       <Popover
-        className={styles.cellContentWrapper}
+        className={cx(styles.cellContentWrapper, Classes.DARK)}
         disabled={popoverDisabled}
-        content={popoverContent}
-        interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}
+        content={popoverContent || <Container />}
+        interactionKind={PopoverInteractionKind.HOVER}
         modifiers={PopoverModifies}
+        isOpen={isOpen}
+        onInteraction={() => {
+          if (isSelected === false) {
+            setIsOpen(undefined)
+          }
+        }}
+        lazy
         boundary="window"
       >
-        <Container className={classnames(styles.cellInner, colorClassName)} background={color} />
+        <Container>
+          <Container className={classnames(styles.cellInner, colorClassName)} background={color} />
+          {isSelected && <Container height={17} width={17} className={styles.selectedSquare} />}
+        </Container>
       </Popover>
     </Container>
   )

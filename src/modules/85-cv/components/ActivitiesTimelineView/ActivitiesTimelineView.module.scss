@@ -13,6 +13,17 @@
     right: 10px;
     top: 15px;
   }
+  .shadedRegion {
+    position: absolute;
+    height: 100%;
+    background-color: #effbff !important;
+  }
+
+  .changeText {
+    position: absolute;
+    top: 10px;
+    color: var(--black) !important;
+  }
 }
 .eventItem {
   display: flex;
@@ -27,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  // cursor: zoom-in;
+  cursor: pointer;
   // Don't remove - it is important position and width stay like this
   // so the items are correctly aligned
   position: absolute;

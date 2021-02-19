@@ -126,7 +126,7 @@ $moreIconWidth: 16px;
 .panel {
   box-shadow: 0px 1px 2px 1px var(--grey-300);
   border-radius: 2px;
-  padding: var(--spacing-medium) !important;
+  padding: var(--spacing-small) !important;
   margin-bottom: var(--spacing-large) !important;
   background-color: var(--white) !important;
   min-height: 70px;
@@ -144,10 +144,11 @@ $moreIconWidth: 16px;
       margin-top: 0;
     }
   }
-  .activitiesTimelineViewPanel {
-    padding-right: calc(var(--spacing-medium) + #{$moreIconWidth}) !important;
-  }
   .postDeploymentMetrics {
+    position: relative;
+    .filter {
+      margin-right: var(--spacing-xsmall) !important;
+    }
     .filtersAndStatusBar {
       display: flex;
       .timelineBar {

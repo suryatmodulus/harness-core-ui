@@ -8,6 +8,6 @@ export default {
   minutesRemaining: 'minutes remaining',
   cumulative: 'Cumulative',
   risk: 'Risk',
-  riskBeforeChanges: 'Risk Before Changes',
-  riskAfterChanges: 'Risk After Changes'
+  riskBeforeChanges: 'Risk Before Change',
+  riskAfterChanges: 'Risk After Change'
 }

@@ -1,5 +1,5 @@
 export default {
-  noDataText: 'No activities!',
+  noDataText: 'No changes!',
   retry: 'Retry',
   hours: 'hours',
   beforeChange: 'BEFORE CHANGE'

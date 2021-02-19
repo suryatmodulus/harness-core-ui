@@ -9,12 +9,31 @@
 
 .heatmapTooltip {
   padding: var(--spacing-small) !important;
+  .resetButton {
+    padding: var(--spacing-xsmall) var(--spacing-small) !important;
+    border: 1px solid var(--blue-600);
+    margin: 0 auto !important;
+    width: 105px;
+    margin-bottom: var(--spacing-xsmall) !important;
+    border-radius: 10px;
+    text-align: center;
+    font-size: var(--font-size-small) !important;
+    cursor: pointer;
+  }
+  .tooltipTimestamp {
+    padding-bottom: var(--spacing-xsmall) !important;
+    border-bottom: 1px solid var(--grey-250);
+    margin-bottom: var(--spacing-xsmall) !important;
+    text-align: center;
+  }
   .overallScoreContent {
     display: flex;
     align-items: center;
-    justify-content: center;
     > p:first-child {
       margin-right: var(--spacing-small) !important;
+    }
+    .overallRiskScore {
+      margin-left: var(--spacing-xsmall) !important;
     }
   }
 }

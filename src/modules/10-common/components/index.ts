@@ -16,7 +16,6 @@ import SnippetSection from './SnippetSection/SnippetSection'
 import Table from './Table/Table'
 import TagsPopover from './TagsPopover/TagsPopover'
 import { TimeAgo } from './TimeAgo/TimeAgo'
-import TimelineView from './TimelineView/TimelineView'
 import { useToaster } from './Toaster/useToaster'
 import { UserLabel } from './UserLabel/UserLabel'
 import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextArea/MultiTypeTextArea'
@@ -46,7 +45,6 @@ export {
   Table,
   TagsPopover,
   TimeAgo,
-  TimelineView,
   useToaster,
   MultiTypeTextArea,
   MultiTypeRadioGroup,

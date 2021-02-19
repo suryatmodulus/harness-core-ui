@@ -14,38 +14,36 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
     class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="StyledProps--font StyledProps--main timelineHeader"
-    >
-      <div
-        class="StyledProps--font StyledProps--main headerSideContent"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
-        >
-          Activity Timeline
-        </p>
-      </div>
-      <div
-        class="headerBar"
-      >
-        <div
-          class="StyledProps--font StyledProps--main headerPrimaryMsg"
-        />
-        <div
-          class="StyledProps--font StyledProps--main headerSecondaryMsg"
-        />
-      </div>
-    </div>
-    <div
       class="timelineView timelineView"
     >
+      <div
+        class="timelineBar timelineViewBar"
+        style="margin-left: 200px;"
+      >
+        <div
+          class="timelineBarItem"
+        >
+          XX:YY
+        </div>
+        <div
+          class="timelineBarItem"
+        >
+          XX:YY
+        </div>
+        <div
+          class="timelineBarItem"
+          style="flex: 0 0px; visibility: hidden;"
+        >
+          XX:YY
+        </div>
+      </div>
       <div
         class="timelineRow timelineRow"
         style="height: 50px;"
       >
         <div
           class="StyledProps--font StyledProps--main nameWrapper"
-          style="width: 215px;"
+          style="width: 200px;"
         >
           <div
             class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
@@ -104,57 +102,42 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
             <div
               class="StyledProps--font StyledProps--main eventBatch"
             >
-              <span
-                class="bp3-popover-wrapper"
+              <div
+                class="StyledProps--font StyledProps--main itemsGroup"
               >
-                <span
-                  class="bp3-popover-target"
+                <svg
+                  class=""
+                  fill="none"
+                  height="16"
+                  style="top: 0px; left: 0px; z-index: 3;"
+                  viewBox="0 0 18 16"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main itemsGroup"
-                    tabindex="0"
-                  >
-                    <svg
-                      class=""
-                      fill="none"
-                      height="16"
-                      style="top: 0px; left: 0px; z-index: 3;"
-                      viewBox="0 0 18 16"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#ffffff"
-                        stroke="#86DD29"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                    <svg
-                      class=""
-                      fill="none"
-                      height="16"
-                      style="top: -2px; left: 4px; z-index: 2;"
-                      viewBox="0 0 18 16"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#ffffff"
-                        stroke="#86DD29"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                  </div>
-                </span>
-              </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-xsmall"
-                style="--text-line-clamp: 1; width: 70px;"
-              >
-                2 Events
-              </p>
+                  <path
+                    d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
+                    fill="#ffffff"
+                    stroke="#86DD29"
+                    stroke-width="1.5"
+                  />
+                </svg>
+                <svg
+                  class=""
+                  fill="none"
+                  height="16"
+                  style="top: -2px; left: 4px; z-index: 2;"
+                  viewBox="0 0 18 16"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
+                    fill="#ffffff"
+                    stroke="#86DD29"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
           <div
@@ -164,73 +147,58 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
             <div
               class="StyledProps--font StyledProps--main eventBatch"
             >
-              <span
-                class="bp3-popover-wrapper"
+              <div
+                class="StyledProps--font StyledProps--main itemsGroup"
               >
-                <span
-                  class="bp3-popover-target"
+                <svg
+                  class=""
+                  fill="none"
+                  height="16"
+                  style="top: 0px; left: 0px; z-index: 3;"
+                  viewBox="0 0 18 16"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main itemsGroup"
-                    tabindex="0"
-                  >
-                    <svg
-                      class=""
-                      fill="none"
-                      height="16"
-                      style="top: 0px; left: 0px; z-index: 3;"
-                      viewBox="0 0 18 16"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#ffffff"
-                        stroke="#F45858"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                    <svg
-                      class=""
-                      fill="none"
-                      height="16"
-                      style="top: -2px; left: 4px; z-index: 2;"
-                      viewBox="0 0 18 16"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#ffffff"
-                        stroke="#86DD29"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                    <svg
-                      class=""
-                      fill="none"
-                      height="16"
-                      style="top: -4px; left: 8px; z-index: 1;"
-                      viewBox="0 0 18 16"
-                      width="18"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#ffffff"
-                        stroke="#F45858"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                  </div>
-                </span>
-              </span>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-xsmall"
-                style="--text-line-clamp: 1; width: 70px;"
-              >
-                3 Events
-              </p>
+                  <path
+                    d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
+                    fill="#ffffff"
+                    stroke="#F45858"
+                    stroke-width="1.5"
+                  />
+                </svg>
+                <svg
+                  class=""
+                  fill="none"
+                  height="16"
+                  style="top: -2px; left: 4px; z-index: 2;"
+                  viewBox="0 0 18 16"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
+                    fill="#ffffff"
+                    stroke="#86DD29"
+                    stroke-width="1.5"
+                  />
+                </svg>
+                <svg
+                  class=""
+                  fill="none"
+                  height="16"
+                  style="top: -4px; left: 8px; z-index: 1;"
+                  viewBox="0 0 18 16"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
+                    fill="#ffffff"
+                    stroke="#F45858"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -241,7 +209,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
       >
         <div
           class="StyledProps--font StyledProps--main nameWrapper"
-          style="width: 215px;"
+          style="width: 200px;"
         >
           <div
             class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
@@ -285,7 +253,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
       >
         <div
           class="StyledProps--font StyledProps--main nameWrapper"
-          style="width: 215px;"
+          style="width: 200px;"
         >
           <div
             class="StyledProps--font StyledProps--main timelineViewLabel StyledProps--padding-medium StyledProps--background-grey200"
@@ -319,27 +287,6 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
         <div
           class="rowItems rowItems"
         />
-      </div>
-      <div
-        class="timelineBar timelineViewBar"
-        style="margin-left: 215px;"
-      >
-        <div
-          class="timelineBarItem"
-        >
-          XX:YY
-        </div>
-        <div
-          class="timelineBarItem"
-        >
-          XX:YY
-        </div>
-        <div
-          class="timelineBarItem"
-          style="flex: 0 0px; visibility: hidden;"
-        >
-          XX:YY
-        </div>
       </div>
     </div>
   </div>

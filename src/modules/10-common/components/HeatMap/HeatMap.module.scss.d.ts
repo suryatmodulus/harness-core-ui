@@ -5,8 +5,10 @@ declare const styles: {
   readonly heatMapRow: string
   readonly nameWrapper: string
   readonly rowValues: string
+  readonly opaqueSquare: string
+  readonly cellInner: string
   readonly cell: string
   readonly cellContentWrapper: string
-  readonly cellInner: string
+  readonly selectedSquare: string
 }
 export default styles

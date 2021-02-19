@@ -4,6 +4,7 @@ import { Classes } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import moment from 'moment'
 import classnames from 'classnames'
+import { TimeBasedShadedRegion, TimeBasedShadedRegionProps } from '../TimeBasedShadedRegion/TimeBasedShadedRegion'
 import { TimelineBar, TimelineBarProps } from './TimelineBar'
 import styles from './TimelineView.module.scss'
 
@@ -32,6 +33,7 @@ export interface TimelineViewProps {
   hideTimelineBar?: boolean
   rowHeight?: number
   timelineBarProps?: Omit<TimelineBarProps, 'startDate' | 'endDate'>
+  shadedRegionProps?: Omit<TimeBasedShadedRegionProps, 'parentRef'>
 }
 
 export default function TimelineView({
@@ -46,12 +48,14 @@ export default function TimelineView({
   labelsWidth = 125,
   hideTimelineBar = false,
   rowHeight = 50,
-  timelineBarProps
-}: TimelineViewProps) {
+  timelineBarProps,
+  shadedRegionProps
+}: TimelineViewProps): JSX.Element {
   const start = moment(startTime)
   const end = moment(endTime)
   const distance = end.diff(start)
   const ref = useRef<HTMLDivElement>(null)
+  const timelineRowRef = useRef<HTMLDivElement>(null)
   const [rowWidth, setRowWidth] = useState(0)
 
   const leftPosition = (itemStartDate: any) => (100 * itemStartDate.diff(start)) / distance
@@ -91,9 +95,17 @@ export default function TimelineView({
   }, [rows, rowWidth])
 
   const showLabels = rowsInternal.some(row => !isUndefined(row.name))
-
   return (
     <div className={classnames(styles.timelineView, 'timelineView', className)} ref={ref}>
+      {!hideTimelineBar && (
+        <TimelineBar
+          style={showLabels ? { marginLeft: labelsWidth, marginBottom: 'var(--spacing-small)' } : undefined}
+          className={styles.timelineViewBar}
+          {...timelineBarProps}
+          startDate={startTime}
+          endDate={endTime}
+        />
+      )}
       {rowsInternal.map((row, rowIndex) => (
         <div key={rowIndex} className={classnames(styles.timelineRow, 'timelineRow')} style={{ height: rowHeight }}>
           {showLabels && (
@@ -107,6 +119,7 @@ export default function TimelineView({
               'rowItems',
               loading ? classnames(styles.loading, Classes.SKELETON) : undefined
             )}
+            ref={rowIndex === 0 ? timelineRowRef : undefined}
           >
             {row.data.map((item, itemIndex) => (
               <Container
@@ -128,15 +141,7 @@ export default function TimelineView({
           </div>
         </div>
       ))}
-      {!hideTimelineBar && (
-        <TimelineBar
-          style={showLabels ? { marginLeft: labelsWidth } : undefined}
-          className={styles.timelineViewBar}
-          {...timelineBarProps}
-          startDate={startTime}
-          endDate={endTime}
-        />
-      )}
+      {shadedRegionProps && <TimeBasedShadedRegion {...shadedRegionProps} parentRef={timelineRowRef?.current} />}
     </div>
   )
 }

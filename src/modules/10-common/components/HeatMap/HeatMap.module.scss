@@ -14,13 +14,20 @@
       flex: 1;
       display: flex;
       justify-content: space-between;
+
+      .opaqueSquare {
+        .cellInner {
+          opacity: 0.3;
+        }
+        &:hover .cellInner {
+          opacity: 1 !important;
+        }
+      }
+
       .cell {
         min-width: 13px;
         max-width: 15px;
         cursor: pointer;
-        &:hover {
-          opacity: 0.6;
-        }
         :global(.bp3-popover-wrapper) {
           display: block;
           :global(.bp3-popover-target) {
@@ -38,6 +45,22 @@
             right: 0;
             top: 0;
             bottom: 0;
+            &:hover {
+              opacity: 0.6;
+            }
+          }
+
+          .selectedSquare {
+            position: absolute;
+            left: 0;
+            top: 0;
+            left: -3px;
+            top: -3px;
+            border-radius: 3px;
+            border: 2px solid var(--blue-600);
+            &:hover {
+              opacity: 1;
+            }
           }
         }
       }

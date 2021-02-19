@@ -2,7 +2,6 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
-import { Classes } from '@blueprintjs/core'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
@@ -182,6 +181,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
   test('Ensure modal opens after click on a heat map cell', async () => {
     const useGetHeatmapSpy = jest.spyOn(cvService, 'useGetHeatmap')
     const refetchMock = jest.fn()
+    const onClickHeatMapCellMock = jest.fn()
     useGetHeatmapSpy.mockReturnValue({
       data: MockData,
       refetch: refetchMock as unknown
@@ -195,7 +195,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
           orgIdentifier: '1234_ORG'
         }}
       >
-        <ServiceHeatMap startTime={1604451600000} endTime={1604471400000} />
+        <ServiceHeatMap startTime={1604451600000} endTime={1604471400000} onClickHeatMapCell={onClickHeatMapCellMock} />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
@@ -209,23 +209,28 @@ describe('Unit tests for Service Heatmap componnt', () => {
 
     // click on green square with risk score 0 for infrastructure
     fireEvent.click(heatmapCells[29])
-    await waitFor(() => expect(document.body.querySelector(`.${Classes.DIALOG}`)).not.toBeNull())
-    expect(document.body.querySelector('[class*="categoryAndRiskScore"]')).not.toBeNull()
-    expect(document.body.querySelector('[class*="riskInfo"] p')?.innerHTML).toEqual('Performance')
-    expect(document.body.querySelector('[class*="largeTile"] p[class*="riskScore"]')?.innerHTML).toEqual('90')
+    await waitFor(() => expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000))
+    let stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
+    expect(stickyTooltip).not.toBeNull()
+    expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
+      '12/18/2020 9:00 am - 12/19/2020 12:00 am'
+    )
 
-    // click on a cell and empty square for Infrastructure
-    fireEvent.click(heatmapCells[50])
-    await waitFor(() => expect(document.body.querySelector(`.${Classes.DIALOG}`)).not.toBeNull())
-    expect(document.body.querySelector('[class*="categoryAndRiskScore"]')).not.toBeNull()
-    expect(document.body.querySelector('[class*="riskInfo"] p')?.innerHTML).toEqual('Infrastructure')
-    expect(document.body.querySelector('[class*="largeTile"] p[class*="riskScore"]')?.innerHTML).toBe('')
+    const resetButton = document.body.querySelector('[class*="resetButton"]')
+    if (!resetButton) {
+      throw Error('Reset button was not rendered.')
+    }
 
-    // click on a heatap square with score 0 Errors
-    fireEvent.click(heatmapCells[143])
-    await waitFor(() => expect(document.body.querySelector(`.${Classes.DIALOG}`)).not.toBeNull())
-    expect(document.body.querySelector('[class*="categoryAndRiskScore"]')).not.toBeNull()
-    expect(document.body.querySelector('[class*="riskInfo"] p')?.innerHTML).toEqual('Errors')
-    expect(document.body.querySelector('[class*="largeTile"] p[class*="riskScore"]')?.innerHTML).toBe('0')
+    fireEvent.click(resetButton)
+    await waitFor(() => expect(document.body.querySelector('[class*="heatmapTooltip"]')).toBeNull())
+
+    // click on another square with time range in the same day
+    fireEvent.click(heatmapCells[27])
+    await waitFor(() => expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000))
+    stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
+    expect(stickyTooltip).not.toBeNull()
+    expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
+      '12/17/2020 3:00 am - 6:00 pm'
+    )
   })
 })

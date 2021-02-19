@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { Container, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
-import TimelineView, { TimelineViewProps } from '@common/components/TimelineView/TimelineView'
+import TimelineView, { TimelineViewProps } from '@cv/components/TimelineView/TimelineView'
 import type { ActivityDashboardDTO } from 'services/cv'
+import { useStrings } from 'framework/exports'
 import { PredefinedLabels } from './TimelineViewLabel'
 import { EventDetailsForChange } from '../EventDetailsForChange/EventDetailsForChange'
-import { TimelineTooltip } from './TimelineTooltip'
-import ActivitiesTimelineHeader from './ActivitiesTimelineHeader'
 import EventSvg from './EventSvg'
 import styles from './ActivitiesTimelineView.module.scss'
 
@@ -49,7 +48,11 @@ function generateEventsToPlot(items: EventData[], selected?: EventData): EventDa
       failedEvents.push(item)
     } else if (item.verificationResult === 'VERIFICATION_PASSED') {
       passedEvents.push(item)
-    } else if (item.verificationResult === 'IN_PROGRESS' || item.verificationResult === 'NOT_STARTED') {
+    } else if (
+      item.verificationResult === 'IN_PROGRESS' ||
+      item.verificationResult === 'NOT_STARTED' ||
+      item.verificationResult === 'IGNORED'
+    ) {
       inProgressEvents.push(item)
     }
   }
@@ -80,6 +83,7 @@ function generateEventsToPlot(items: EventData[], selected?: EventData): EventDa
       currentBucketIndex = (currentBucketIndex + 1) % buckets.length
     }
   }
+
   result.sort((a, b) => a.startTime - b.startTime)
   return result
 }
@@ -94,10 +98,11 @@ export default function ActivitiesTimelineView({
   otherChanges = [],
   timelineViewProps,
   className
-}: ActivitiesTimelineViewProps) {
+}: ActivitiesTimelineViewProps): JSX.Element {
   const [selectedEvent, setSelectedEvent] = useState<EventData | undefined>()
   const [zoomRange, setZoomRange] = useState<{ startTime: number; endTime: number } | undefined>()
   const [selectedActivities, setSelectedActivities] = useState<undefined | EventData[]>(undefined)
+  const { getString } = useStrings()
 
   // const zoomIn = (items: Array<EventData>) => {
   //   let zoomStartTime = items[0].startTime
@@ -115,17 +120,12 @@ export default function ActivitiesTimelineView({
 
   const renderItem = (item: EventData) => {
     return (
-      <Container className={styles.eventItem} /*onClick={() => setSelectedActivities([item])}*/>
-        <TimelineTooltip items={[item]}>
-          <EventSvg
-            selected={item === selectedEvent || item === preselectedEvent}
-            item={item}
-            onSelect={canSelect ? setSelectedEvent : undefined}
-          />
-        </TimelineTooltip>
-        <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>
-          {item.name}
-        </Text>
+      <Container className={styles.eventItem} onClick={() => setSelectedActivities([item])}>
+        <EventSvg
+          selected={item === selectedEvent || item === preselectedEvent}
+          item={item}
+          onSelect={canSelect ? setSelectedEvent : undefined}
+        />
       </Container>
     )
   }
@@ -146,27 +146,22 @@ export default function ActivitiesTimelineView({
     }
     return (
       <Container className={styles.eventBatch} style={aditionalStyles}>
-        <TimelineTooltip items={items}>
-          <Container /*onClick={() => setSelectedActivities(items)}*/ className={styles.itemsGroup}>
-            {itemsToRender.map((item: EventData, index: number) =>
-              index + 1 > MAX_STACKED_EVENTS ? null : (
-                <EventSvg
-                  key={index}
-                  selected={item === selectedEvent || item === preselectedEvent}
-                  style={{
-                    top: -index * 2,
-                    left: index * HORIZONTAL_STACK_OFFSET,
-                    zIndex: MAX_STACKED_EVENTS - index
-                  }}
-                  item={item}
-                />
-              )
-            )}
-          </Container>
-        </TimelineTooltip>
-        {selectedEventIndex === -1 && (
-          <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>{`${items.length} Events`}</Text>
-        )}
+        <Container onClick={() => setSelectedActivities(items)} className={styles.itemsGroup}>
+          {itemsToRender.map((item: EventData, index: number) =>
+            index + 1 > MAX_STACKED_EVENTS ? null : (
+              <EventSvg
+                key={index}
+                selected={item === selectedEvent || item === preselectedEvent}
+                style={{
+                  top: -index * 2,
+                  left: index * HORIZONTAL_STACK_OFFSET,
+                  zIndex: MAX_STACKED_EVENTS - index
+                }}
+                item={item}
+              />
+            )
+          )}
+        </Container>
       </Container>
     )
   }
@@ -184,12 +179,13 @@ export default function ActivitiesTimelineView({
           onClick={zoomOut}
         ></Button>
       )}
-      {(canSelect || preselectedEvent) && (
+      {/* {(canSelect || preselectedEvent) && (
         <ActivitiesTimelineHeader selectedItem={selectedEvent || (zoomRange ? undefined : preselectedEvent)} />
-      )}
+      )} */}
+      {preselectedEvent && <Text className={styles.changeText}>{getString('changes')}</Text>}
       <TimelineView
         {...selectedRange}
-        labelsWidth={215}
+        labelsWidth={200}
         rows={[
           {
             name: PredefinedLabels.deployments,

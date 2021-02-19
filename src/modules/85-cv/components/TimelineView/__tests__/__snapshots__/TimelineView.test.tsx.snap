@@ -6,6 +6,10 @@ exports[`TimelineView matches snapshot 1`] = `
     class="timelineView timelineView"
   >
     <div
+      class="timelineBar timelineViewBar"
+      style="margin-left: 125px;"
+    />
+    <div
       class="timelineRow timelineRow"
       style="height: 50px;"
     >
@@ -34,10 +38,6 @@ exports[`TimelineView matches snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="timelineBar timelineViewBar"
-      style="margin-left: 125px;"
-    />
   </div>
 </div>
 `;

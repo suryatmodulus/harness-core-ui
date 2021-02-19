@@ -23,8 +23,8 @@ declare const styles: {
   readonly progressBar: string
   readonly panel: string
   readonly postDeploymentView: string
-  readonly activitiesTimelineViewPanel: string
   readonly postDeploymentMetrics: string
+  readonly filter: string
   readonly filtersAndStatusBar: string
   readonly seriesRow: string
   readonly frequencyChart: string

@@ -25,7 +25,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Risk Before Changes
+        Risk Before Change
       </p>
       <div
         class="StyledProps--font StyledProps--main"
@@ -41,7 +41,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Risk After Changes
+        Risk After Change
       </p>
       <div
         class="StyledProps--font StyledProps--main"

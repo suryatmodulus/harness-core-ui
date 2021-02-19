@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
+import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import i18n from './MetricAnalysisFilter.i18n'
 import css from './MetricAnalysisFilter.module.scss'
@@ -25,16 +26,17 @@ interface MetricAnalysisFilterProps {
   defaultFilterValue?: SelectOption
   onFilterDebounceTime?: number
   onFilter?: (filterValue: string) => void
+  className?: string
 }
 
 export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Element {
-  const { onChangeFilter, defaultFilterValue, onFilter, onFilterDebounceTime } = props
+  const { onChangeFilter, defaultFilterValue, onFilter, onFilterDebounceTime, className } = props
   const [selectedOption, setSelectedOption] = useState(defaultFilterValue || FILTER_OPTIONS[0])
   const [, setDebouncedFunc] = useState<typeof debounce | undefined>()
   const [filterValue, setFilterValue] = useState<string | undefined>()
 
   return (
-    <Container className={css.main}>
+    <Container className={cx(css.main, className)}>
       <Container className={css.filterOptionContainer}>
         <Text color={Color.BLACK} font={{ size: 'small' }}>
           {i18n.filterText}

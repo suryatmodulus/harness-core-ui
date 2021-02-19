@@ -6,8 +6,8 @@ export default {
     riskAfterChange: 'Risk After Change'
   },
   viewAllActivities: 'View All',
-  noActivitiesMessaging: 'No activities were found',
-  noActivitiesButtonText: 'Create activities',
+  noActivitiesMessaging: 'No changes were found',
+  noActivitiesButtonText: 'Create changes',
   retryText: 'Retry',
   verificationProgressText: {
     verification: 'verification',

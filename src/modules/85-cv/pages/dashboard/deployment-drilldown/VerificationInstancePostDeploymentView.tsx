@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Tabs, Tab, Text, Pagination, useModalHook, Color, Icon } from '@wings-software/uicore'
+import { Container, Tabs, Tab, Text, Pagination } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
-import MonacoEditor from 'react-monaco-editor'
-
-import { Dialog, IDialogProps } from '@blueprintjs/core'
-
 import { ActivitiesFlagBorder } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ActivitiesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
-import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
-import {
-  useGetActivityMetrics,
-  useGetActivityVerificationResult,
-  useGetActivityLogs,
-  useGetActivityDetails
-} from 'services/cv'
-import { PageError } from '@common/components/Page/PageError'
-
+import { useGetActivityMetrics, useGetActivityVerificationResult, useGetActivityLogs } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EventDetailsForChange } from '@cv/components/EventDetailsForChange/EventDetailsForChange'
 import { VerificationActivityRiskCard } from '@cv/components/VerificationActivityRiskCard/VerificationActivityRiskCard'
+import { TimeBasedShadedRegion } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
   MetricAnalysisFilter,
@@ -35,16 +25,8 @@ import {
 import i18n from './DeploymentDrilldownView.i18n'
 import { ActivityLogAnalysisFrequencyChart } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import styles from './DeploymentDrilldownView.module.scss'
-const bpDialogProps: IDialogProps = {
-  isOpen: true,
-  usePortal: true,
-  autoFocus: true,
-  canEscapeKeyClose: true,
-  canOutsideClickClose: true,
-  enforceFocus: true,
-  title: '',
-  style: { width: 900, height: 570 }
-}
+
+const TIME_SERIES_ROW_HEIGHT = 64
 export interface VerificationInstacePostDeploymentViewProps {
   selectedActivityId: string
   activityStartTime: number
@@ -59,6 +41,8 @@ interface MetricsTabProps {
   startTime: number
   endTime: number
   selectedActivityStartTime?: number
+  shadedRegionEndTime?: number
+  shadedRegionStartTime?: number
 }
 
 interface LogsTabProps {
@@ -66,43 +50,6 @@ interface LogsTabProps {
   environmentIdentifier: string
   startTime: number
   endTime: number
-}
-
-function KubernetesEvents({ selectedActivityId }: { selectedActivityId: string }): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { error: eventsError, loading: eventsLoading, data: eventsData, refetch } = useGetActivityDetails({
-    activityId: selectedActivityId,
-    queryParams: { projectIdentifier, orgIdentifier, accountId }
-  })
-  if (eventsError?.message) {
-    return <PageError message={eventsError.message} onClick={() => refetch()} />
-  }
-
-  if (eventsLoading) {
-    return (
-      <Container className={styles.eventsLoading}>
-        <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
-      </Container>
-    )
-  }
-
-  return (
-    <Container className={styles.eventsEditor}>
-      <MonacoEditor
-        language="json"
-        height={570}
-        value={JSON.stringify(eventsData?.data, null, 4)?.replace(/\\n/g, '\r\n')}
-        options={
-          {
-            readOnly: true,
-            wordBasedSuggestions: false,
-            fontFamily: "'Roboto Mono', monospace",
-            fontSize: 13
-          } as any
-        }
-      />
-    </Container>
-  )
 }
 
 export function VerificationInstancePostDeploymentView({
@@ -122,14 +69,7 @@ export function VerificationInstancePostDeploymentView({
       accountId
     }
   })
-  const [openModal, closeModal] = useModalHook(
-    () => (
-      <Dialog {...bpDialogProps} isOpen={true} onClose={closeModal} title={activityWithRisks?.resource?.activityName}>
-        <KubernetesEvents selectedActivityId={selectedActivityId} />
-      </Dialog>
-    ),
-    [selectedActivityId, activityWithRisks?.resource?.activityName]
-  )
+
   useEffect(() => {
     if (activityWithRisks?.resource) {
       onActivityLoaded?.(activityWithRisks.resource)
@@ -141,18 +81,32 @@ export function VerificationInstancePostDeploymentView({
       {showEventDetails && (
         <EventDetailsForChange
           onCloseCallback={() => setShowEventDetails(false)}
-          selectedActivityId={selectedActivityId}
+          selectedActivityInfo={{ selectedActivityId, selectedActivityType: activityWithRisks?.resource?.activityType }}
         />
       )}
-      <VerificationActivityRiskCard onClickKubernetesEvent={() => openModal()} activityWithRisks={activityWithRisks} />
+      <VerificationActivityRiskCard
+        onClickKubernetesEvent={() => setShowEventDetails(true)}
+        activityWithRisks={activityWithRisks}
+      />
       {!!rangeStartTime && !!rangeEndTime && (
         <>
-          <Container className={classnames(styles.panel, styles.activitiesTimelineViewPanel)}>
+          <Container className={styles.panel}>
             <ActivitiesTimelineViewSection
               environmentIdentifier={environmentIdentifier}
               selectedActivityId={selectedActivityId}
               startTime={rangeStartTime}
               endTime={rangeEndTime}
+              timelineViewProps={{
+                shadedRegionProps: {
+                  shadedRegionEndTime: rangeEndTime,
+                  shadedRegionStartTime: rangeStartTime + 2 * 60 * 60 * 1000,
+                  startTime: rangeStartTime,
+                  endTime: rangeEndTime,
+                  height: '92%',
+                  top: 10,
+                  leftOffset: 200
+                }
+              }}
             />
           </Container>
           <Tabs id="tabs1">
@@ -166,6 +120,8 @@ export function VerificationInstancePostDeploymentView({
                     environmentIdentifier={environmentIdentifier}
                     startTime={rangeStartTime}
                     endTime={rangeEndTime}
+                    shadedRegionStartTime={rangeStartTime + 2 * 60 * 60 * 1000}
+                    shadedRegionEndTime={rangeEndTime}
                     selectedActivityStartTime={activityStartTime}
                   />
                 </Container>
@@ -192,7 +148,7 @@ export function VerificationInstancePostDeploymentView({
   )
 }
 
-export function mapMetricsData(res: any, startTime: number, endTime: number, activityStartTime: number) {
+export function mapMetricsData(res: any, startTime: number, endTime: number) {
   return res?.resource?.content.map((item: any) => ({
     transactionName: item.groupName,
     metricName: item.metricName,
@@ -205,9 +161,7 @@ export function mapMetricsData(res: any, startTime: number, endTime: number, act
             data: item.metricDataList.map((val: any) => ({
               x: val.timestamp,
               y: val.value
-            })),
-            zoneAxis: 'x',
-            zones: getSeriesZones(item.metricDataList)
+            }))
           }
         ]
       }
@@ -215,18 +169,11 @@ export function mapMetricsData(res: any, startTime: number, endTime: number, act
     chartOptions: {
       chart: {
         height: 50,
-        spacing: [5, 0, 5, 12]
+        spacing: [5, 0, 5, 0]
       },
       xAxis: {
         min: startTime,
-        max: endTime,
-        plotBands: [
-          {
-            color: 'var(--blue-200)',
-            from: activityStartTime,
-            to: endTime
-          }
-        ]
+        max: endTime
       }
     }
   }))
@@ -258,9 +205,11 @@ function MetricsTab({
   environmentIdentifier,
   startTime,
   endTime,
-  selectedActivityStartTime
-}: MetricsTabProps) {
+  shadedRegionEndTime,
+  shadedRegionStartTime
+}: MetricsTabProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const [timeSeriesRowRef, setTimeSeriesRowRef] = useState<HTMLDivElement | null>(null)
   const [metricsData, setMetricsData] = useState<Array<TimeseriesRowProps>>()
   const [anomalousOnly, setAnomalousOnly] = useState(true)
   const { data, refetch, loading } = useGetActivityMetrics({
@@ -277,7 +226,7 @@ function MetricsTab({
     },
     resolve: res => {
       if (res?.resource?.content) {
-        setMetricsData(mapMetricsData(res, startTime, endTime, selectedActivityStartTime as number))
+        setMetricsData(mapMetricsData(res, startTime, endTime))
       }
       return res
     }
@@ -298,9 +247,10 @@ function MetricsTab({
   return (
     <Container className={styles.postDeploymentMetrics}>
       <Container className={styles.filtersAndStatusBar}>
-        <Container width={215}>
-          <MetricAnalysisFilter onChangeFilter={val => setAnomalousOnly(val === MetricAnalysisFilterType.ANOMALOUS)} />
-        </Container>
+        <MetricAnalysisFilter
+          onChangeFilter={val => setAnomalousOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
+          className={styles.filter}
+        />
         <TimelineBar className={styles.timelineBar} startDate={startTime} endDate={endTime} />
       </Container>
       {!data?.resource?.content?.length && !loading && (
@@ -311,6 +261,7 @@ function MetricsTab({
           key={`${mData.transactionName}${mData.metricName}${index}`}
           className={styles.seriesRow}
           {...mData}
+          setChartDivRef={setTimeSeriesRowRef}
         />
       ))}
       <ActivitiesFlagBorder />
@@ -324,11 +275,23 @@ function MetricsTab({
         />
       )) ||
         null}
+      {shadedRegionEndTime && shadedRegionStartTime && !loading && data?.resource?.content?.length && (
+        <TimeBasedShadedRegion
+          shadedRegionEndTime={shadedRegionEndTime}
+          shadedRegionStartTime={shadedRegionStartTime}
+          startTime={startTime}
+          endTime={endTime}
+          top={8}
+          leftOffset={210}
+          parentRef={timeSeriesRowRef}
+          height={data.resource.content.length * TIME_SERIES_ROW_HEIGHT}
+        />
+      )}
     </Container>
   )
 }
 
-function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: LogsTabProps) {
+function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: LogsTabProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [logsData, setLogsData] = useState<LogAnalysisRowData[]>([])
   const { data, refetch, loading } = useGetActivityLogs({

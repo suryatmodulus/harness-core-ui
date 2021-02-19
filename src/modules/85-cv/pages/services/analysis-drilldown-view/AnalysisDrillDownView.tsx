@@ -5,7 +5,7 @@ import type { DatasourceTypeDTO } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { CVAnalysisTabs } from '@cv/components/CVAnalysisTabs/CVAnalysisTabs'
 import i18n from './AnalysisDrillDownView.i18n'
-import { MetricAnalysisView } from './MetricAnalysisView/MetricAnalysisView'
+import { MetricAnalysisView, MetricAnalysisViewProps } from './MetricAnalysisView/MetricAnalysisView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
 import css from './AnalysisDrillDownView.module.scss'
 
@@ -18,6 +18,7 @@ export interface AnalysisDrillDownViewProps {
   environmentIdentifier?: string
   serviceIdentifier?: string
   asModal?: boolean
+  shadedRegionForMetricProps?: MetricAnalysisViewProps['shadedRegionProps']
 }
 
 export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element | null {
@@ -29,7 +30,8 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     environmentIdentifier,
     serviceIdentifier,
     historyStartTime,
-    asModal
+    asModal,
+    shadedRegionForMetricProps
   } = props
 
   const [selectedMetric, setSelectedMetric] = useState<DatasourceTypeDTO['dataSourceType'] | undefined>()
@@ -57,6 +59,7 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
             showHistorySelection={asModal}
             environmentIdentifier={environmentIdentifier}
             serviceIdentifier={serviceIdentifier}
+            shadedRegionProps={shadedRegionForMetricProps}
           />
         }
         logAnalysisView={

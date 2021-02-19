@@ -3,7 +3,7 @@
   .labels {
     background-color: var(--grey-200) !important;
     padding: var(--spacing-medium) !important;
-    width: 200px;
+    width: 194px;
     border-radius: 2px;
     > div {
       display: flex;
@@ -37,6 +37,9 @@
       }
       .verticalMoreIcon {
         transform: rotate(90deg);
+        position: relative;
+        left: 7px;
+        z-index: 2;
         cursor: pointer;
         &:hover {
           color: var(--blue-350) !important;

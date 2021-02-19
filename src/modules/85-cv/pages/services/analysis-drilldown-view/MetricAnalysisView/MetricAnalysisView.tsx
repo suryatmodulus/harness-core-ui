@@ -11,16 +11,22 @@ import {
   DatasourceTypeDTO
 } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import {
+  TimeBasedShadedRegion,
+  TimeBasedShadedRegionProps
+} from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { FILTER_OPTIONS, MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'
 import { categoryNameToCategoryType } from '../../CVServicePageUtils'
 import css from './MetricAnalysisView.module.scss'
 
-interface MetricAnalysisViewProps {
+const TIME_SERIES_ROW_HEIGHT = 65
+
+export interface MetricAnalysisViewProps {
   startTime: number
   endTime: number
   categoryName?: string
@@ -30,6 +36,7 @@ interface MetricAnalysisViewProps {
   selectedMonitoringSource?: DatasourceTypeDTO['dataSourceType']
   historyStartTime?: number
   showHistorySelection?: boolean
+  shadedRegionProps?: Omit<TimeBasedShadedRegionProps, 'parentRef' | 'height'>
 }
 
 export function generatePointsForTimeSeries(
@@ -87,10 +94,12 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
     environmentIdentifier,
     serviceIdentifier,
     showHistorySelection,
-    selectedMonitoringSource
+    selectedMonitoringSource,
+    shadedRegionProps
   } = props
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [filter, setFilter] = useState<string | undefined>()
+  const [timeSeriesRowRef, setTimeSeriesRowRef] = useState<HTMLDivElement | null>(null)
   const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({
@@ -209,6 +218,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />
       )}
+
       {loadingAllMetricData || loadingAnomalousData ? (
         <Container className={css.loading}>
           <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
@@ -226,6 +236,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
               transactionName={groupName}
               analysisData={metricDataList}
               displaySelectedTimeRange={showHistorySelection}
+              setTimeSeriesRowRef={setTimeSeriesRowRef}
             />
           ) : null
         })
@@ -243,6 +254,13 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
               refetchAllMetricData({ queryParams: { ...queryParams, page: selectedPageIndex } })
             }
           }}
+        />
+      )}
+      {shadedRegionProps && !loadingAllMetricData && !loadingAnomalousData && (
+        <TimeBasedShadedRegion
+          {...shadedRegionProps}
+          parentRef={timeSeriesRowRef}
+          height={content?.length * TIME_SERIES_ROW_HEIGHT + 60}
         />
       )}
     </Container>

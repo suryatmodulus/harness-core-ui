@@ -2,7 +2,10 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly eventVerifications: string
+  readonly mainContent: string
+  readonly drawerHeading: string
+  readonly activityList: string
+  readonly backToChangeList: string
   readonly selectedActivity: string
   readonly activityItem: string
   readonly activityTotal: string
@@ -11,6 +14,7 @@ declare const styles: {
   readonly heading: string
   readonly changeSourceDetails: string
   readonly changeSummary: string
+  readonly viewJson: string
   readonly summaryRow: string
   readonly keyValPair: string
   readonly key: string
@@ -21,7 +25,11 @@ declare const styles: {
   readonly type: string
   readonly reason: string
   readonly message: string
+  readonly deploymentInfo: string
+  readonly harnessEntity: string
+  readonly deploymentContent: string
   readonly eventsEditor: string
-  readonly eventsLoading: string
+  readonly contentSpinner: string
+  readonly contentError: string
 }
 export default styles

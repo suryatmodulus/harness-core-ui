@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act, waitFor } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import ActivitiesTimelineView, { MockedActivitiesTimelineView, ActivitiesFlagBorder } from '../ActivitiesTimelineView'
 
 jest.mock('moment', () => {
@@ -26,21 +27,27 @@ describe('ActivitiesTimelineView', () => {
     jest.resetAllMocks()
   })
   test('matches snapshot', () => {
-    const { container } = render(<MockedActivitiesTimelineView />)
+    const { container } = render(
+      <TestWrapper>
+        <MockedActivitiesTimelineView />
+      </TestWrapper>
+    )
     expect(container).toMatchSnapshot()
   })
 
   test('renders batch correctly, and can zoom-in', () => {
     const { container } = render(
-      <ActivitiesTimelineView
-        startTime={1602590400000}
-        endTime={1602604800000}
-        canSelect
-        deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1002', verificationResult: 'VERIFICATION_FAILED' }
-        ]}
-      />
+      <TestWrapper>
+        <ActivitiesTimelineView
+          startTime={1602590400000}
+          endTime={1602604800000}
+          canSelect
+          deployments={[
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1002', verificationResult: 'VERIFICATION_FAILED' }
+          ]}
+        />
+      </TestWrapper>
     )
     expect(container.querySelector('.eventBatch')).toBeDefined()
     const oldBarLabelsCount = container.querySelector('.timelineBar')?.children.length
@@ -52,14 +59,16 @@ describe('ActivitiesTimelineView', () => {
 
   test('can select activity', () => {
     const { container } = render(
-      <ActivitiesTimelineView
-        startTime={1602590400000}
-        endTime={1602604800000}
-        canSelect
-        deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
-        ]}
-      />
+      <TestWrapper>
+        <ActivitiesTimelineView
+          startTime={1602590400000}
+          endTime={1602604800000}
+          canSelect
+          deployments={[
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
+          ]}
+        />
+      </TestWrapper>
     )
     act(() => {
       fireEvent.click(container.querySelector('.eventItem svg')!)
@@ -74,17 +83,19 @@ describe('ActivitiesTimelineView', () => {
 
   test('Ensure correct icons are rendered when each event type stacking is done', async () => {
     const { container } = render(
-      <ActivitiesTimelineView
-        startTime={1602590400000}
-        endTime={1602604800000}
-        canSelect
-        deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'NOT_STARTED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
-        ]}
-      />
+      <TestWrapper>
+        <ActivitiesTimelineView
+          startTime={1602590400000}
+          endTime={1602604800000}
+          canSelect
+          deployments={[
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'NOT_STARTED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
+          ]}
+        />
+      </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
@@ -98,17 +109,19 @@ describe('ActivitiesTimelineView', () => {
 
   test('Ensure correct icons are rendered when two event types stacking is done', async () => {
     const { container } = render(
-      <ActivitiesTimelineView
-        startTime={1602590400000}
-        endTime={1602604800000}
-        canSelect
-        deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
-        ]}
-      />
+      <TestWrapper>
+        <ActivitiesTimelineView
+          startTime={1602590400000}
+          endTime={1602604800000}
+          canSelect
+          deployments={[
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
+          ]}
+        />
+      </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
@@ -122,17 +135,19 @@ describe('ActivitiesTimelineView', () => {
 
   test('Ensure correct icons are rendered when only 1 event types stacking is done', async () => {
     const { container } = render(
-      <ActivitiesTimelineView
-        startTime={1602590400000}
-        endTime={1602604800000}
-        canSelect
-        deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
-        ]}
-      />
+      <TestWrapper>
+        <ActivitiesTimelineView
+          startTime={1602590400000}
+          endTime={1602604800000}
+          canSelect
+          deployments={[
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+            { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
+          ]}
+        />
+      </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())

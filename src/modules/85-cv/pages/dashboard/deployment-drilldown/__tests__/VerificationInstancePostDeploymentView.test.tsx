@@ -132,6 +132,13 @@ jest.mock('react-monaco-editor', () => (props: any) => (
   </Container>
 ))
 
+jest.mock('@cv/components/EventDetailsForChange/EventDetailsForChange', () => ({
+  ...(jest.requireActual('@cv/components/EventDetailsForChange/EventDetailsForChange') as object),
+  EventDetailsForChange: function MockEventDetails() {
+    return <Container className="eventDetails" />
+  }
+}))
+
 describe('VerificationInstancePostDeploymentView', () => {
   test('mapMetricsData works correctly', () => {
     const data = mapMetricsData(
@@ -158,13 +165,11 @@ describe('VerificationInstancePostDeploymentView', () => {
         }
       },
       1605541814220,
-      1605542294220,
-      1605542114220
+      1605542294220
     )
     expect(data[0].transactionName).toEqual('testGroupName')
     expect(data[0].metricName).toEqual('testMetricName')
     expect(get(data[0], 'seriesData[0].series[0].type')).toEqual('line')
-    expect(get(data[0], 'chartOptions.xAxis.plotBands[0].from')).toEqual(1605542114220)
   })
 
   test('getSeriesZones works correctly', () => {
@@ -187,7 +192,7 @@ describe('VerificationInstancePostDeploymentView', () => {
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useGetActivityDetails').mockReturnValue({
+    jest.spyOn(cvService, 'useGetEventDetails').mockReturnValue({
       data: MockDetailsData
     } as UseGetReturn<any, any, any, any>)
 
@@ -208,44 +213,7 @@ describe('VerificationInstancePostDeploymentView', () => {
       throw Error('button was not rendered')
     }
     fireEvent.click(button)
-    await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
-  })
-
-  test('Ensure kubernetes eveents modal shows error when there is error', async () => {
-    jest.spyOn(cvService, 'useGetActivityVerificationResult').mockReturnValue({
-      data: MockData
-    } as UseGetReturn<any, any, any, any>)
-
-    const refetchMock = jest.fn()
-    jest.spyOn(cvService, 'useGetActivityDetails').mockReturnValue({
-      error: { message: 'mockError' },
-      refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
-
-    const { container } = render(
-      <TestWrapper>
-        <VerificationInstancePostDeploymentView
-          selectedActivityId="1234_activity_id"
-          activityStartTime={(undefined as unknown) as number}
-          durationMs={15}
-          environmentIdentifier="1234_envIdentifier"
-        />
-      </TestWrapper>
-    )
-
-    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    const button = container.querySelector('[class*="kubernetesButton"]')
-    if (!button) {
-      throw Error('button was not rendered')
-    }
-    fireEvent.click(button)
-    await waitFor(() => expect(document.body.querySelectorAll('.bp3-dialog-container button').length).toBe(2))
-    const retryButton = document.body.querySelectorAll('.bp3-dialog-container button')[1]
-    if (!retryButton) {
-      throw Error('Retry button was not rendered.')
-    }
-    fireEvent.click(retryButton)
-    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(document.body.querySelector('.eventDetails')).not.toBeNull())
   })
 
   test('Ensure that logs tab is rendered properly', async () => {
@@ -253,7 +221,7 @@ describe('VerificationInstancePostDeploymentView', () => {
       data: MockData
     } as UseGetReturn<any, any, any, any>)
 
-    jest.spyOn(cvService, 'useGetActivityDetails').mockReturnValue({
+    jest.spyOn(cvService, 'useGetEventDetails').mockReturnValue({
       error: { message: 'mockError' },
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)

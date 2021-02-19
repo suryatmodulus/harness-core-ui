@@ -51,6 +51,7 @@ export default function ActivitesTimelineViewSection({
             startTime: activityStartTime,
             name: activityName,
             activityId,
+            activityType,
             verificationResult: verificationStatus
           }
           switch (activityType) {

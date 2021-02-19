@@ -35,10 +35,12 @@ allowpaths:
   - /activity/deployment-activity-verifications-popover-summary/{deploymentTag}
   - /activity/recent-activity-verifications
   - /activity/{activityId}/activity-risks
+  - /activity/{activityId}/deployment-activity-summary
   - /activity/list
   - /setup/status
   - /kubernetes/namespaces
   - /kubernetes/workloads
+  - /kubernetes/event-details
   - /alert
   - /alert/list
   - /alert/{identifier}

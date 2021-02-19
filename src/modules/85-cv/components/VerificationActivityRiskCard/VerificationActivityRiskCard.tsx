@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, Link } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import cx from 'classnames'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetActivityVerificationResult, RestResponseActivityVerificationResultDTO } from 'services/cv'
@@ -11,13 +12,19 @@ import css from './VerificationActivityRiskCard.module.scss'
 interface VerificationActivityRiskCardProps {
   activityWithRisks?: RestResponseActivityVerificationResultDTO | null
   onClickKubernetesEvent?: () => void
+  navigationUrlOnCardClick?: string
 }
 
 export function VerificationActivityRiskCard(props: VerificationActivityRiskCardProps): JSX.Element {
-  const { activityWithRisks, onClickKubernetesEvent } = props
+  const { activityWithRisks, onClickKubernetesEvent, navigationUrlOnCardClick } = props
   const { getString } = useStrings()
+  const history = useHistory()
+  const onClickCard = navigationUrlOnCardClick ? () => history.push(navigationUrlOnCardClick) : undefined
   return (
-    <Container className={css.main}>
+    <Container
+      className={cx(css.main, navigationUrlOnCardClick ? css.highlightOnHover : undefined)}
+      onClick={() => onClickCard?.()}
+    >
       <CVProgressBar
         value={activityWithRisks?.resource?.progressPercentage}
         status={activityWithRisks?.resource?.status}
@@ -46,9 +53,11 @@ export function VerificationActivityRiskCard(props: VerificationActivityRiskCard
 }
 
 export function VerificationActivityRiskCardWithApi({
-  selectedActivityId
+  selectedActivityId,
+  navigateToURLOnCardClick
 }: {
   selectedActivityId?: string
+  navigateToURLOnCardClick?: string
 }): JSX.Element {
   const { accountId } = useParams<ProjectPathProps>()
   const { data: activityWithRisks, refetch } = useGetActivityVerificationResult({
@@ -62,5 +71,10 @@ export function VerificationActivityRiskCardWithApi({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedActivityId])
 
-  return <VerificationActivityRiskCard activityWithRisks={activityWithRisks} />
+  return (
+    <VerificationActivityRiskCard
+      activityWithRisks={activityWithRisks}
+      navigationUrlOnCardClick={navigateToURLOnCardClick}
+    />
+  )
 }

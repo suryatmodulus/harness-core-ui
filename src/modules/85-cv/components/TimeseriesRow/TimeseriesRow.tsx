@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import { Container, Text, Icon, Color, useModalHook, Button } from '@wings-software/uicore'
 import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
 import HighchartsReact from 'highcharts-react-official'
@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import moment from 'moment'
 import merge from 'lodash-es/merge'
 import { Popover, Menu, MenuItem, Dialog } from '@blueprintjs/core'
-import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { useStrings } from 'framework/exports'
 import styles from './TimeseriesRow.module.scss'
 
@@ -24,6 +24,7 @@ export interface TimeseriesRowProps {
   chartOptions?: Highcharts.Options
   withContextMenu?: boolean
   className?: string
+  setChartDivRef?: (element: HTMLDivElement | null) => void
 }
 
 const FONT_SIZE_SMALL: FontProps = {
@@ -36,10 +37,13 @@ export default function TimeseriesRow({
   seriesData,
   className,
   chartOptions,
-  withContextMenu = true
-}: TimeseriesRowProps) {
+  withContextMenu = true,
+  setChartDivRef
+}: TimeseriesRowProps): JSX.Element {
   const { getString } = useStrings()
   const showDetails = useTimeseriesDetailsModal(transactionName, metricName)
+  const chartingRowRef = useRef<HTMLDivElement>(null)
+
   const rows = useMemo(() => {
     return seriesData?.map(data => ({
       name: data.name,
@@ -47,6 +51,10 @@ export default function TimeseriesRow({
       options: merge(chartsConfig(data.series), chartOptions, data.chartOptions)
     }))
   }, [seriesData, chartOptions])
+  useEffect(() => {
+    setChartDivRef?.(chartingRowRef?.current)
+  }, [chartingRowRef])
+
   return (
     <Container className={classnames(styles.timeseriesRow, className)}>
       <Container className={styles.labels}>
@@ -67,9 +75,9 @@ export default function TimeseriesRow({
           <React.Fragment key={index}>
             {data.name && <Text>{data.name}</Text>}
             <Container className={styles.chartRow}>
-              <Container className={styles.chartContainer}>
+              <div className={styles.chartContainer} ref={chartingRowRef}>
                 <HighchartsReact highcharts={Highcharts} options={data.options} />
-              </Container>
+              </div>
               {withContextMenu && (
                 <Popover
                   content={
@@ -195,7 +203,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
       backgroundColor: 'transparent',
       height: 40,
       type: 'line',
-      spacing: [5, 2, 5, 2]
+      spacing: [5, 0, 5, 0]
     },
     credits: undefined,
     title: {

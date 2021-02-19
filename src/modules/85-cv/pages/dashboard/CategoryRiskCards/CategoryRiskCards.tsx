@@ -8,6 +8,7 @@ import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
@@ -50,6 +51,18 @@ interface OverallRiskScoreCard {
 
 highchartsMore(Highcharts)
 gauge(Highcharts)
+
+export function riskScoreToRiskLabel(riskScore?: number): string {
+  if (!isNumber(riskScore)) return ''
+  if (riskScore >= 0 && riskScore <= 29) {
+    return 'Low'
+  }
+  if (riskScore >= 30 && riskScore < 70) {
+    return 'Medium'
+  }
+
+  return 'High'
+}
 
 function getOverallRisk(data: CategoryRiskCardsProps['data']): number {
   const riskValues: CategoryRisk[] = Object.values(data?.resource?.categoryRisks || [])
@@ -108,7 +121,7 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
 
 export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   const { className, overallRiskScore } = props
-  const { orgIdentifier = '', projectIdentifier = '', accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
   return overallRiskScore === -1 ? (
@@ -156,11 +169,11 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
 
 export function CategoryRiskCardsWithApi(props: CategoryRiskCardsWithApiProps): JSX.Element {
   const { environmentIdentifier, serviceIdentifier, className } = props
-  const { orgIdentifier = '', projectIdentifier = '', accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data, error, loading } = useGetCategoryRiskMap({
     queryParams: {
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string,
+      orgIdentifier,
+      projectIdentifier,
       accountId,
       envIdentifier: environmentIdentifier,
       serviceIdentifier

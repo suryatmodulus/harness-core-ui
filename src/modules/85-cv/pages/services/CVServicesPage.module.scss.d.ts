@@ -6,7 +6,7 @@ declare const styles: {
   readonly serviceHeader: string
   readonly serviceBody: string
   readonly rangeSelector: string
-  readonly serviceHeatMap: string
+  readonly servicePageHeatMap: string
   readonly serviceActivityTimeline: string
   readonly timelineBarStyle: string
   readonly categoryRiskCard: string

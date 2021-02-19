@@ -17,7 +17,9 @@
 
       .rangeSelector {
         width: 92px;
-        margin-right: var(--spacing-large);
+        float: right;
+        position: relative;
+        top: 18px;
         :global {
           .bp3-input {
             border: none;
@@ -30,19 +32,17 @@
         }
       }
 
-      .serviceHeatMap {
-        background-color: var(--white);
-        padding: var(--spacing-small);
-        border-radius: 3px;
-        box-shadow: var(--cardsShadow);
+      .servicePageHeatMap {
+        clear: right;
+        margin-bottom: var(--spacing-xlarge) !important;
       }
 
       .serviceActivityTimeline {
         background-color: var(--white) !important;
+        margin-bottom: var(--spacing-xlarge) !important;
         border-radius: 3px;
         box-shadow: var(--cardsShadow);
         padding: var(--spacing-small) !important;
-        margin-bottom: var(--spacing-xlarge) !important;
         .timelineBarStyle {
           margin-right: var(--spacing-small) !important;
         }

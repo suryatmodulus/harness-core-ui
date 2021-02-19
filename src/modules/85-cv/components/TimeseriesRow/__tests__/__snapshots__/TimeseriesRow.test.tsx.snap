@@ -56,7 +56,7 @@ exports[`TimeseriesRow matches snapshot 1`] = `
         class="StyledProps--font StyledProps--main chartRow"
       >
         <div
-          class="StyledProps--font StyledProps--main chartContainer"
+          class="chartContainer"
         >
           <div />
         </div>
@@ -148,7 +148,7 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
         class="StyledProps--font StyledProps--main chartRow"
       >
         <div
-          class="StyledProps--font StyledProps--main chartContainer"
+          class="chartContainer"
         >
           <div />
         </div>

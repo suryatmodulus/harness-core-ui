@@ -3,12 +3,13 @@ import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-softwa
 import moment from 'moment'
 import { isNumber } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import HeatMap, { CellStatusValues, SerieConfig } from '@common/components/HeatMap/HeatMap'
+import cx from 'classnames'
+import HeatMap, { CellStatusValues, SerieConfig, OnCellClick } from '@common/components/HeatMap/HeatMap'
 import { HeatMapDTO, useGetHeatmap } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
+import { riskScoreToRiskLabel } from '@cv/pages/dashboard/CategoryRiskCards/CategoryRiskCards'
 import { useStrings } from 'framework/exports'
-import useAnalysisDrillDownView from '../analysis-drilldown-view/useAnalysisDrillDownView'
 import i18n from './ServiceHeatMap.i18n'
 import css from './Service_Heatmap.module.scss'
 
@@ -17,6 +18,8 @@ interface ServiceHeatMapProps {
   endTime: number
   environmentIdentifier?: string
   serviceIdentifier?: string
+  onClickHeatMapCell?: (startTime?: number, endTime?: number) => void
+  className?: string
 }
 
 const HeatMapTitleTextProps: TextProps = {
@@ -24,17 +27,53 @@ const HeatMapTitleTextProps: TextProps = {
   font: { size: 'small' }
 }
 
-function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
+function generateTimestampForTooltip(startTime?: number, endTime?: number): string {
+  if (!startTime || !endTime) {
+    return ''
+  }
+
+  const startTimeMoment = moment(startTime)
+  const endTimeMoment = moment(endTime)
+
+  if (startTimeMoment.day() === endTimeMoment.day()) {
+    return `${startTimeMoment.format('M/D/YYYY')} ${startTimeMoment.format('h:mm a')} - ${endTimeMoment.format(
+      'h:mm a'
+    )}`
+  }
+
+  return `${startTimeMoment.format('M/D/YYYY h:mm a')} - ${endTimeMoment.format('M/D/YYYY h:mm a')}`
+}
+
+function HeatMapTooltip({ cell, series, isSelected, onDismiss }: OnCellClick): JSX.Element {
+  const { getString } = useStrings()
+  const riskScore = generateTimestampForTooltip(cell?.startTime, cell?.endTime)
+  const tooltipText = !isNumber(cell?.riskScore)
+    ? getString('cv.noAnalysis')
+    : `${riskScoreToRiskLabel(cell?.riskScore)} ${series?.name ?? ''} ${getString('cv.riskScore')}`
   return cell ? (
     <Container className={css.heatmapTooltip}>
+      {isSelected && (
+        <Text
+          color={Color.WHITE}
+          className={css.resetButton}
+          onClick={e => {
+            e.stopPropagation()
+            onDismiss()
+          }}
+        >
+          {getString('closeSelection')}
+        </Text>
+      )}
       {cell.startTime && cell.endTime && (
-        <Text>{`${moment(cell.startTime).format('M/D/YYYY h:mm a')} - ${moment(cell.endTime).format(
-          'M/D/YYYY h:mm a'
-        )}`}</Text>
+        <Text color={Color.GREY_250} font={{ size: 'small' }} className={css.tooltipTimestamp}>
+          {riskScore}
+        </Text>
       )}
       <Container className={css.overallScoreContent}>
-        <Text font={{ size: 'small' }}>{i18n.heatMapTooltipText.overallRiskScore}</Text>
-        <RiskScoreTile riskScore={isNumber(cell?.riskScore) ? Math.floor(cell.riskScore * 100) : -1} isSmall />
+        <RiskScoreTile riskScore={isNumber(cell?.riskScore) ? Math.floor(cell.riskScore * 100) : -1} />
+        <Text font={{ size: 'small' }} className={css.overallRiskScore} color={Color.GREY_250}>
+          {tooltipText}
+        </Text>
       </Container>
     </Container>
   ) : (
@@ -60,8 +99,7 @@ function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[]): string {
 }
 
 export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element {
-  const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
-  const { openDrillDown } = useAnalysisDrillDownView()
+  const { serviceIdentifier, environmentIdentifier, startTime, endTime, className, onClickHeatMapCell } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
@@ -69,10 +107,6 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
     Performance: getString('performance'),
     Errors: getString('errors'),
     Infrastructure: getString('infrastructureText')
-  }
-  const translationToCategoryName = (value: string) => {
-    const entry = Object.entries(categoryNames).find(([_, text]) => text === value)
-    return entry && entry[0]
   }
 
   const { loading: loadingHeatmap, refetch: getHeatmap, data: rawHeatMapData } = useGetHeatmap({ lazy: true })
@@ -101,14 +135,14 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
         endTimeMs: endTime
       }
     })
-  }, [projectIdentifier, startTime, endTime, serviceIdentifier, environmentIdentifier])
+  }, [projectIdentifier, orgIdentifier, accountId, startTime, endTime, serviceIdentifier, environmentIdentifier])
 
   const heatMapSize = useMemo(() => {
     return Math.max(...heatmapData.map(({ data }) => data.length)) || 48
   }, [heatmapData])
 
   return (
-    <Container className={css.main}>
+    <Container className={cx(css.main, className)}>
       <Text {...HeatMapTitleTextProps} color={Color.BLACK}>
         {`${i18n.heatmapSectionTitleText} ${getHeatmapCellTimeRange(heatmapData?.[0]?.data)}`}
       </Text>
@@ -120,20 +154,13 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
           labelsWidth={205}
           className={css.serviceHeatMap}
           mapValue={mapHeatmapValue}
-          renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}
+          renderTooltip={cellInfo => <HeatMapTooltip {...cellInfo} />}
           cellShapeBreakpoint={0.5}
-          onCellClick={(cell: HeatMapDTO, rowData) => {
-            if (cell.startTime && cell.endTime) {
-              openDrillDown({
-                categoryRiskScore: isNumber(cell.riskScore) ? Math.floor(cell.riskScore * 100) : -1,
-                analysisProps: {
-                  startTime: cell.startTime,
-                  endTime: cell.endTime,
-                  categoryName: translationToCategoryName(rowData?.name),
-                  environmentIdentifier,
-                  serviceIdentifier
-                }
-              })
+          onCellClick={(cell: HeatMapDTO) => {
+            if (cell?.startTime && cell?.endTime) {
+              onClickHeatMapCell?.(cell.startTime, cell.endTime)
+            } else {
+              onClickHeatMapCell?.()
             }
           }}
           rowSize={heatMapSize}

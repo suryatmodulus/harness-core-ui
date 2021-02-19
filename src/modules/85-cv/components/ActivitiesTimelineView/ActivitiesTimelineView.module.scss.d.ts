@@ -3,6 +3,8 @@
 declare const styles: {
   readonly main: string
   readonly resetZoomButton: string
+  readonly shadedRegion: string
+  readonly changeText: string
   readonly eventItem: string
   readonly eventBatch: string
   readonly itemsGroup: string

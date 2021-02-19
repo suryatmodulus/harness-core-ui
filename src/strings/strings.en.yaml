@@ -69,7 +69,9 @@ clickHere: ' click here '
 blueGreen: BlueGreen
 primary: Primary
 canary: Canary
-changes: 'Changes'
+changes: Changes
+change: Change
+events: Events
 details: Details
 test: Test
 enable: Enable
@@ -280,6 +282,7 @@ selectProduct: 'Select Product'
 selectApplication: 'Select Application'
 selectProject: 'Select a Project'
 selectResource: Select Resource
+closeSelection: 'Close Selection'
 mapApplications: 'Map Applications to Harness Services'
 lastSevenDays: 'last 7 days'
 total: 'Total'
@@ -1361,6 +1364,8 @@ cv:
   verificationErrored: 'Verification errored'
   getRiskAssessment: 'Get risk assessment'
   setup: 'Setup Continuous Verification'
+  riskScore: 'Risk Score'
+  noAnalysis: 'No Analysis'
   overviewPage:
     recentChangeVerifications: 'Recent Change Verifications'
   riskCardTooltip:

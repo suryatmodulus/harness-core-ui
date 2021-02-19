@@ -8,3 +8,10 @@
     font-size: var(--font-size-small);
   }
 }
+
+.highlightOnHover {
+  cursor: pointer;
+  &:hover {
+    background-color: var(--blue-200) !important;
+  }
+}

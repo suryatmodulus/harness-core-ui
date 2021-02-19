@@ -1,7 +1,7 @@
 export default {
   heatmapSectionTitleText: 'Risk Timeline',
   affectedMetrics: 'Affected Metrics',
-  activityTimeline: 'Activity Timeline',
+  activityTimeline: 'Change Timeline',
   noDataText: {
     noServicesConfigured: 'No services have been configured',
     goBackToDataSourcePage: 'Go to Monitoring Source Page'

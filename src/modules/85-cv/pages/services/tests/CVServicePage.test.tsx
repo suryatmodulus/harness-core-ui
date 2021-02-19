@@ -12,7 +12,16 @@ import CVServicesPage from '../CVServicesPage'
 jest.mock('@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection', () => () => (
   <Container className="drilldownview" />
 ))
-jest.mock('../ServiceHeatMap/ServiceHeatMap', () => () => <Container className="service-heatmap" />)
+jest.mock('../ServiceHeatMap/ServiceHeatMap', () => (props: any) => (
+  <Container className="service-heatmap" onClick={() => props.onClickHeatMapCell(1613584152777, 1613585038139)} />
+))
+
+jest.mock('../analysis-drilldown-view/AnalysisDrillDownView', () => ({
+  ...(jest.requireActual('../analysis-drilldown-view/AnalysisDrillDownView') as object),
+  AnalysisDrillDownView: function MockDrillDown() {
+    return <Container className="timeseriesCharts" />
+  }
+}))
 
 const TEST_PATH = routes.toCVServices({ ...accountPathProps, ...projectPathProps })
 const pathParams = {
@@ -45,7 +54,7 @@ describe('Unit tests for CV service page', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
-    expect(getByText('No analysis!')).not.toBeNull()
+    expect(getByText('No category based risk assessment')).not.toBeNull()
   })
 
   test('Ensure that when an error is encountered the error message is displayed', async () => {
@@ -114,7 +123,7 @@ describe('Unit tests for CV service page', () => {
     expect(useGetCategoryRiskMapSpy).toHaveBeenCalledTimes(3)
   })
 
-  test('Ensure that when time range drop down values are selected, either heatmap or metrics view is rendered', async () => {
+  test('Ensure that when time range drop down values are selected, and a heatmap cell is clicked the timeseries is rendered', async () => {
     const useGetEnvServiceRiskSpy = jest.spyOn(cvService, 'useGetEnvServiceRisks')
     const useGetCategoryRiskMapSpy = jest.spyOn(cvService, 'useGetCategoryRiskMap')
     useGetEnvServiceRiskSpy.mockReturnValue({
@@ -156,7 +165,7 @@ describe('Unit tests for CV service page', () => {
     expect(getAllByText('100').length).toBe(2)
 
     expect(container.querySelector('[class*="drilldownview"]')).not.toBeNull()
-    expect(container.querySelector('[class*="service-heatmap"]')).toBeNull()
+    expect(container.querySelector('[class*="service-heatmap"]')).not.toBeNull()
 
     const dropdown = container.querySelector('[class*="bp3-icon-caret-down"]')
     if (!dropdown) {
@@ -170,10 +179,17 @@ describe('Unit tests for CV service page', () => {
       expect(twelveHourOptions).not.toBeNull()
     })
 
-    fireEvent.click(getByText('12 Hours'))
-    await waitFor(() => {
-      expect(container.querySelector('[class*="rangeSelector"] input')?.getAttribute('value')).toEqual('12 Hours')
-      expect(container.querySelector('[class*="service-heatmap"]')).not.toBeNull()
-    })
+    fireEvent.click(getByText('7 Days'))
+    await waitFor(() =>
+      expect(container.querySelector('[class*="rangeSelector"] input')?.getAttribute('value')).toEqual('7 Days')
+    )
+
+    const heatMap = container.querySelector('[class*="service-heatmap"]')
+    if (!heatMap) {
+      throw Error('heat map was not rendered.')
+    }
+
+    fireEvent.click(heatMap)
+    await waitFor(() => expect(container.querySelector('[class*="timeseriesCharts"]')).not.toBeNull())
   })
 })

@@ -16,16 +16,12 @@ import ServiceHeatMap from './ServiceHeatMap/ServiceHeatMap'
 import styles from './CVServicesPage.module.scss'
 
 const RangeOptions = [
-  { label: i18n.timeRangeLabels.fiveMinutes, value: 5 },
-  { label: i18n.timeRangeLabels.fifteenMinutes, value: 15 },
-  { label: i18n.timeRangeLabels.oneHour, value: 60 },
-  { label: i18n.timeRangeLabels.fourHours, value: 4 * 60 },
   { label: i18n.timeRangeLabels.twelveHours, value: 12 * 60 },
   { label: i18n.timeRangeLabels.oneDay, value: 24 * 60 },
   { label: i18n.timeRangeLabels.sevenDays, value: 7 * 24 * 60 },
   { label: i18n.timeRangeLabels.thirtyDays, value: 30 * 24 * 60 }
 ]
-const DEFAULT_RANGE = RangeOptions[3]
+const DEFAULT_RANGE = RangeOptions[0]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 const TimelineViewProps = {
   labelsWidth: 210,
@@ -64,13 +60,16 @@ export default function CVServicesPage(): JSX.Element {
     serviceIdentifier?: string
     environmentIdentifier?: string
   }>({})
-  const [heatMapAndTimeSeriesInput, setInput] = useState<
+  const [heatMapAndActivityTimelineInput, setInput] = useState<
     Pick<AnalysisDrillDownViewProps, 'startTime' | 'endTime' | 'environmentIdentifier' | 'serviceIdentifier'>
   >({
     startTime: startTime || 0,
     endTime: endTime || 0,
     ...selectedService
   })
+  const [timeSeriesAndActivityTimelineInput, setScopedInput] = useState<
+    Pick<AnalysisDrillDownViewProps, 'startTime' | 'endTime'> | undefined
+  >()
   const history = useHistory()
 
   const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
@@ -99,7 +98,6 @@ export default function CVServicesPage(): JSX.Element {
     setIsServiceEmpty(false)
   }, [accountId, projectIdentifier, orgIdentifier])
 
-  const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
   return (
     <>
       <Page.Header title={getString('services').toLocaleUpperCase()} toolbar={<Container></Container>} />
@@ -134,10 +132,7 @@ export default function CVServicesPage(): JSX.Element {
           <Container className={styles.content}>
             <CategoryRiskCards className={styles.categoryRiskCard} data={categoryRiskData} />
             <Container className={styles.serviceBody}>
-              <Container flex>
-                <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                  {i18n.activityTimeline}
-                </Text>
+              <Container>
                 <Select
                   defaultSelectedItem={DEFAULT_RANGE}
                   items={RangeOptions}
@@ -150,22 +145,70 @@ export default function CVServicesPage(): JSX.Element {
                       endTime
                     )
                     setRange({ selectedValue: value as number, startTime: updatedStartTime, endTime: updatedEndTime })
-                    setInput({ ...selectedService, startTime: updatedStartTime, endTime: updatedEndTime })
+                    setInput({
+                      ...selectedService,
+                      startTime: updatedStartTime,
+                      endTime: updatedEndTime
+                    })
+                    setScopedInput(undefined)
                   }}
                 />
+                <ServiceHeatMap
+                  {...heatMapAndActivityTimelineInput}
+                  className={styles.servicePageHeatMap}
+                  onClickHeatMapCell={(cellStartTime, cellEndTime) =>
+                    setScopedInput(
+                      cellStartTime && cellEndTime
+                        ? {
+                            startTime: cellStartTime - 2 * 60 * 60 * 1000,
+                            endTime: cellEndTime
+                          }
+                        : undefined
+                    )
+                  }
+                />
               </Container>
+              <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
+                {i18n.activityTimeline}
+              </Text>
               <ActivitesTimelineViewSection
-                startTime={heatMapAndTimeSeriesInput.startTime}
-                endTime={heatMapAndTimeSeriesInput.endTime}
+                startTime={timeSeriesAndActivityTimelineInput?.startTime || heatMapAndActivityTimelineInput.startTime}
+                endTime={timeSeriesAndActivityTimelineInput?.endTime || heatMapAndActivityTimelineInput.endTime}
                 environmentIdentifier={selectedService?.environmentIdentifier}
                 serviceIdentifier={selectedService?.serviceIdentifier}
                 className={styles.serviceActivityTimeline}
-                timelineViewProps={TimelineViewProps}
+                timelineViewProps={{
+                  ...TimelineViewProps,
+                  shadedRegionProps: timeSeriesAndActivityTimelineInput
+                    ? {
+                        shadedRegionEndTime: timeSeriesAndActivityTimelineInput.endTime,
+                        shadedRegionStartTime: timeSeriesAndActivityTimelineInput.startTime + 2 * 60 * 60 * 1000,
+                        startTime: timeSeriesAndActivityTimelineInput.startTime,
+                        endTime: timeSeriesAndActivityTimelineInput.endTime,
+                        height: '90%',
+                        top: 8,
+                        leftOffset: 215
+                      }
+                    : undefined
+                }}
               />
-              {isTimeRangeMoreThan4Hours ? (
-                <ServiceHeatMap {...heatMapAndTimeSeriesInput} />
-              ) : (
-                <AnalysisDrillDownView {...heatMapAndTimeSeriesInput} />
+              {timeSeriesAndActivityTimelineInput && (
+                <AnalysisDrillDownView
+                  {...heatMapAndActivityTimelineInput}
+                  {...timeSeriesAndActivityTimelineInput}
+                  shadedRegionForMetricProps={
+                    timeSeriesAndActivityTimelineInput
+                      ? {
+                          shadedRegionEndTime: timeSeriesAndActivityTimelineInput.endTime,
+                          shadedRegionStartTime: timeSeriesAndActivityTimelineInput.startTime + 2 * 60 * 60 * 1000,
+                          startTime: timeSeriesAndActivityTimelineInput.startTime,
+                          endTime: timeSeriesAndActivityTimelineInput.endTime,
+                          top: 8,
+                          leftOffset: 210
+                        }
+                      : undefined
+                  }
+                />
               )}
             </Container>
           </Container>

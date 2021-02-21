@@ -7,6 +7,7 @@ import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRan
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import {
+  FILTER_OPTIONS,
   MetricAnalysisFilter,
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
@@ -19,6 +20,7 @@ const moment = extendMoment(require('moment')) // eslint-disable-line
 export interface DeploymentMetricsTabProps {
   data: RestResponseTransactionMetricInfoSummaryPageDTO | null
   goToPage(val: number): void
+  anomalousMetricsOnly?: boolean
   onAnomalousMetricsOnly(val: boolean): void
   isLoading: boolean
 }
@@ -34,6 +36,7 @@ export interface TransactionRowProps {
 export default function DeploymentMetricsTab({
   data,
   goToPage,
+  anomalousMetricsOnly,
   onAnomalousMetricsOnly,
   isLoading
 }: DeploymentMetricsTabProps) {
@@ -41,6 +44,7 @@ export default function DeploymentMetricsTab({
     <div className={classnames(styles.metricsTab, styles.panel)}>
       <Container className={styles.timeFilterAndBar}>
         <MetricAnalysisFilter
+          defaultFilterValue={anomalousMetricsOnly ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
           onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
         />
         {data?.resource?.deploymentTimeRange && (

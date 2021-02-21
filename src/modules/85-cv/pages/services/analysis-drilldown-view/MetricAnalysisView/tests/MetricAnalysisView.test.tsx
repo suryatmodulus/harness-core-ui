@@ -102,10 +102,10 @@ describe('Unit tests for Metric Analysis view', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    await waitFor(() => expect(anomalousRefetch).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
     expect(container.querySelector('[class*="noDataCard"]')).not.toBeNull()
 
-    // switch from anomalous to non anomalous view
+    // switch from non anomalous to anomalous view
     const caretDown = container.querySelector('[data-icon="caret-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
@@ -118,8 +118,8 @@ describe('Unit tests for Metric Analysis view', () => {
       throw Error('Menu item was not rendered.')
     }
 
-    fireEvent.click(menuItem[1])
-    await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
+    fireEvent.click(menuItem[0])
+    await waitFor(() => expect(anomalousRefetch).toHaveBeenCalledTimes(1))
     expect(container.querySelector('[class*="noDataCard"]')).not.toBeNull()
   })
 
@@ -129,13 +129,13 @@ describe('Unit tests for Metric Analysis view', () => {
     const anomalousRefetch = jest.fn()
     const nonAnomalousRefetch = jest.fn()
     useGetMetricDataSpy.mockReturnValue({
-      data: { resource: { content: [] } },
+      data: MockAnomalousData,
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
 
     useGetAnomalousMetricDashboardData.mockReturnValue({
-      data: MockAnomalousData,
+      data: { resource: { content: [] } },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
@@ -155,7 +155,7 @@ describe('Unit tests for Metric Analysis view', () => {
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
 
-    // switch from anomalous to non-anomalous view
+    // switch from non anomalous to anomalous view
     const caretDown = container.querySelector('[data-icon="caret-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
@@ -168,17 +168,17 @@ describe('Unit tests for Metric Analysis view', () => {
       throw Error('Menu item was not rendered.')
     }
 
-    useGetMetricDataSpy.mockReturnValue({
+    useGetAnomalousMetricDashboardData.mockReturnValue({
       error: { message: 'mockErrorMessage' },
-      refetch: nonAnomalousRefetch as any,
+      refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
-    fireEvent.click(menuItem[1])
-    await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
+    fireEvent.click(menuItem[0])
+    await waitFor(() => expect(anomalousRefetch).toHaveBeenCalledTimes(1))
     await waitFor(() => expect(getByText('mockErrorMessage')).not.toBeNull())
 
     fireEvent.click(getByText('Retry'))
-    await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(2))
+    await waitFor(() => expect(anomalousRefetch).toHaveBeenCalledTimes(2))
   })
 
   test('Ensure that filter sticks to selected value after error happens', async () => {
@@ -187,13 +187,13 @@ describe('Unit tests for Metric Analysis view', () => {
     const anomalousRefetch = jest.fn()
     const nonAnomalousRefetch = jest.fn()
     useGetMetricDataSpy.mockReturnValue({
-      data: { resource: [] },
+      data: MockAnomalousData,
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
 
     useGetAnomalousMetricDashboardData.mockReturnValue({
-      data: MockAnomalousData,
+      data: { resource: [] },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
@@ -213,7 +213,7 @@ describe('Unit tests for Metric Analysis view', () => {
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
 
-    // switch from anomalous to non-anomalous view
+    // switch from non anomalous to anomalous view
     const caretDown = container.querySelector('[data-icon="caret-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
@@ -226,19 +226,19 @@ describe('Unit tests for Metric Analysis view', () => {
       throw Error('Menu item was not rendered.')
     }
 
-    useGetMetricDataSpy.mockReturnValue({
+    useGetAnomalousMetricDashboardData.mockReturnValue({
       error: { message: 'mockErrorMessage' },
-      refetch: nonAnomalousRefetch as any,
+      refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
-    fireEvent.click(menuItem[1])
+    fireEvent.click(menuItem[0])
     await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
     expect(getByText('mockErrorMessage')).not.toBeNull()
 
     // return a value so error disappears and filter drop down is rendered
-    useGetMetricDataSpy.mockReturnValue({
+    useGetAnomalousMetricDashboardData.mockReturnValue({
       data: MockAnomalousData,
-      refetch: anomalousRefetch as any,
+      refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
     } as UseGetReturn<any, any, any, any>)
 
@@ -257,6 +257,6 @@ describe('Unit tests for Metric Analysis view', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
-    expect(container.querySelector(`input[value="${FILTER_OPTIONS[1].label}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value="${FILTER_OPTIONS[0].label}"]`)).not.toBeNull()
   })
 })

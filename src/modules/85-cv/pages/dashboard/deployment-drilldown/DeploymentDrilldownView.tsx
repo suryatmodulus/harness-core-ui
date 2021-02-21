@@ -16,7 +16,7 @@ export default function DeploymentDrilldownView(): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams()
   const location = useLocation()
   const { showError } = useToaster()
-  const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
+  const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(false)
   const [selectedTab, setSelectedTab] = useState<TabIdentifier>(TabIdentifier.METRICS_TAB)
   const [verificationInstance, setVerificationInstance] = useState<
     DeploymentVerificationJobInstanceSummary | undefined

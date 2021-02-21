@@ -127,7 +127,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
       filter
     ]
   )
-  const [isViewingAnomalousData, setMetricDataView] = useState(true)
+  const [isViewingAnomalousData, setMetricDataView] = useState(false)
   const [needsRefetch, setNeedsRefetch] = useState(true)
 
   const {

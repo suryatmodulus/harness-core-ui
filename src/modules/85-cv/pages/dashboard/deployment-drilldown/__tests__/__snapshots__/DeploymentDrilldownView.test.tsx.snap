@@ -532,7 +532,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Anomalous metrics"
+                          value="All metrics"
                         />
                         <span
                           class="bp3-input-action"

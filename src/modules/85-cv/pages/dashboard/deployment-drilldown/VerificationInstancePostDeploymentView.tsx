@@ -12,8 +12,10 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EventDetailsForChange } from '@cv/components/EventDetailsForChange/EventDetailsForChange'
 import { VerificationActivityRiskCard } from '@cv/components/VerificationActivityRiskCard/VerificationActivityRiskCard'
 import { TimeBasedShadedRegion } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
+import { transformAnalysisDataToChartSeries } from '@cv/components/TimeseriesRow/TimeSeriesRowUtils'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
+  FILTER_OPTIONS,
   MetricAnalysisFilter,
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
@@ -26,7 +28,7 @@ import i18n from './DeploymentDrilldownView.i18n'
 import { ActivityLogAnalysisFrequencyChart } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import styles from './DeploymentDrilldownView.module.scss'
 
-const TIME_SERIES_ROW_HEIGHT = 64
+const TIME_SERIES_ROW_HEIGHT = 58
 export interface VerificationInstacePostDeploymentViewProps {
   selectedActivityId: string
   activityStartTime: number
@@ -152,20 +154,7 @@ export function mapMetricsData(res: any, startTime: number, endTime: number) {
   return res?.resource?.content.map((item: any) => ({
     transactionName: item.groupName,
     metricName: item.metricName,
-    seriesData: [
-      {
-        series: [
-          {
-            type: 'line',
-            color: 'var(--green-500)',
-            data: item.metricDataList.map((val: any) => ({
-              x: val.timestamp,
-              y: val.value
-            }))
-          }
-        ]
-      }
-    ],
+    seriesData: transformAnalysisDataToChartSeries(item.metricDataList),
     chartOptions: {
       chart: {
         height: 50,
@@ -211,7 +200,7 @@ function MetricsTab({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [timeSeriesRowRef, setTimeSeriesRowRef] = useState<HTMLDivElement | null>(null)
   const [metricsData, setMetricsData] = useState<Array<TimeseriesRowProps>>()
-  const [anomalousOnly, setAnomalousOnly] = useState(true)
+  const [anomalousOnly, setAnomalousOnly] = useState(false)
   const { data, refetch, loading } = useGetActivityMetrics({
     activityId,
     queryParams: {
@@ -248,6 +237,7 @@ function MetricsTab({
     <Container className={styles.postDeploymentMetrics}>
       <Container className={styles.filtersAndStatusBar}>
         <MetricAnalysisFilter
+          defaultFilterValue={anomalousOnly ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
           onChangeFilter={val => setAnomalousOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
           className={styles.filter}
         />
@@ -284,7 +274,7 @@ function MetricsTab({
           top={8}
           leftOffset={210}
           parentRef={timeSeriesRowRef}
-          height={data.resource.content.length * TIME_SERIES_ROW_HEIGHT}
+          height={data.resource.content.length * TIME_SERIES_ROW_HEIGHT + 63}
         />
       )}
     </Container>

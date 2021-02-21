@@ -173,6 +173,7 @@ export default function VerificationInstanceView({
           data={timeseriesData}
           goToPage={goToTimeseriesPage}
           isLoading={timeseriesLoading}
+          anomalousMetricsOnly={anomalousMetricsOnly}
           onAnomalousMetricsOnly={onAnomalousMetricsOnly}
         />
       )}

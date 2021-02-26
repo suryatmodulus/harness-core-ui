@@ -26,7 +26,6 @@ import {
   useCreateInputSetForPipeline,
   useGetInputSetForPipeline,
   useUpdateInputSetForPipeline,
-  Failure,
   InputSetResponse,
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
@@ -133,12 +132,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const history = useHistory()
-  const {
-    refetch: refetchTemplate,
-    data: template,
-    loading: loadingTemplate,
-    error: errorTemplate
-  } = useGetTemplateFromPipeline({
+  const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     lazy: true
   })
@@ -148,43 +142,29 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [formErrors, setFormErrors] = React.useState<{}>({})
   const { showSuccess, showError } = useToaster()
 
-  const { data: inputSetResponse, refetch, loading: loadingInputSet, error: errorInputSet } = useGetInputSetForPipeline(
-    {
-      queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
-      inputSetIdentifier: inputSetIdentifier || '',
-      lazy: true
-    }
-  )
+  const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    inputSetIdentifier: inputSetIdentifier || '',
+    lazy: true
+  })
 
   const [mergeTemplate, setMergeTemplate] = React.useState<string>()
   const { openNestedPath } = useNestedAccordion()
-  const {
-    mutate: mergeInputSet,
-    loading: loadingMerge,
-    error: errorMergeInputSet
-  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+  const { mutate: mergeInputSet, loading: loadingMerge } = useGetMergeInputSetFromPipelineTemplateWithListInput({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
   })
 
-  const {
-    mutate: createInputSet,
-    error: createInputSetError,
-    loading: createInputSetLoading
-  } = useCreateInputSetForPipeline({
+  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
-  const {
-    mutate: updateInputSet,
-    error: updateInputSetError,
-    loading: updateInputSetLoading
-  } = useUpdateInputSetForPipeline({
+  const { mutate: updateInputSet, loading: updateInputSetLoading } = useUpdateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
-  const { data: pipeline, loading: loadingPipeline, error: errorPipeline, refetch: refetchPipeline } = useGetPipeline({
+  const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -215,9 +195,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       refetch({ pathParams: { inputSetIdentifier: inputSetIdentifier } })
       refetchTemplate()
       refetchPipeline()
-      mergeInputSet({ inputSetReferences: [inputSetIdentifier] }).then(response => {
-        setMergeTemplate(response.data?.pipelineYaml)
-      })
+      mergeInputSet({ inputSetReferences: [inputSetIdentifier] })
+        .then(response => {
+          setMergeTemplate(response.data?.pipelineYaml)
+        })
+        .catch(e => {
+          showError(e?.data?.message || e?.message)
+        })
     } else {
       refetchTemplate()
       refetchPipeline()
@@ -274,34 +258,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             }
           }
           history.goBack()
-        } catch (_e) {
-          // showError(e?.message || i18n.commonError)
+        } catch (e) {
+          showError(e?.data?.message || e?.message || i18n.commonError)
         }
       }
     },
     [isEdit, updateInputSet, createInputSet, showSuccess, showError]
   )
 
-  /* istanbul ignore else */
-  if (
-    errorInputSet ||
-    errorPipeline ||
-    errorTemplate ||
-    createInputSetError ||
-    updateInputSetError ||
-    errorMergeInputSet
-  ) {
-    /* istanbul ignore next */
-    showError(
-      (errorInputSet as Failure)?.message ||
-        (errorPipeline?.data as Failure)?.message ||
-        (errorTemplate?.data as Failure)?.message ||
-        (createInputSetError?.data as Failure)?.message ||
-        (updateInputSetError?.data as Failure)?.message ||
-        (errorMergeInputSet?.data as Failure)?.message ||
-        i18n.commonError
-    )
-  }
   const handleSelectionChange = (id: string): void => {
     setSelectedTreeNodeId(id)
     openNestedPath(id)
@@ -409,7 +373,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             onClick={e => {
                               e.preventDefault()
                               if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
-                                formikProps.submitForm()
+                                handleSubmit(formikProps.values)
                               }
                             }}
                             text={i18n.save}

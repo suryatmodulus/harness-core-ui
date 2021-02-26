@@ -22,8 +22,8 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
       <div className={css.createNewCards}>
         {stages.map(stage => (
           <React.Fragment key={stage.type}>
-            <div>
-              {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
+            {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
+              <div>
                 <Card
                   data-testid={`stage-${stage.type}`}
                   onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
@@ -40,9 +40,9 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                 >
                   <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
                 </Card>
-              ) : null}
-              <div className={css.cardTitle}>{stage.name}</div>
-            </div>
+                <div className={css.cardTitle}>{stage.name}</div>
+              </div>
+            ) : null}
           </React.Fragment>
         ))}
       </div>

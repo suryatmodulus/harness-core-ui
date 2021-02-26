@@ -12,6 +12,7 @@ export default {
   inputSetSaved: 'Input Set Saved',
   notifyOnlyMe: 'Notify only me',
   skipPreFlightCheck: 'Skip pre-flight check',
+  preFlightCheckModalHeading: 'Pre-flight check',
   noRuntimeInput: 'No Runtime input in pipeline',
   pipelineRunSuccessFully: 'Pipeline started successfully',
   runPipelineFailed: 'Failed to run pipeline'

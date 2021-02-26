@@ -26,7 +26,6 @@ import {
   usePostPipelineExecuteWithInputSetYaml,
   useGetTemplateFromPipeline,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
-  Failure,
   getInputSetForPipelinePromise,
   useCreateInputSetForPipeline,
   useGetYamlSchema
@@ -111,10 +110,10 @@ function RunPipelineFormBasic({
     }
   }, [inputSetYAML])
   const { openNestedPath } = useNestedAccordion()
-  const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
+  const { data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
-  const { data: pipelineResponse, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
+  const { data: pipelineResponse, loading: loadingPipeline } = useGetPipeline({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
@@ -133,8 +132,10 @@ function RunPipelineFormBasic({
   }, [template?.data?.inputSetTemplateYaml])
 
   React.useEffect(() => {
-    setCurrentPipeline(merge(yamlTemplate, currentPipeline || {}) as { pipeline: NgPipeline })
-  }, [yamlTemplate])
+    setCurrentPipeline(
+      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
+    )
+  }, [template?.data?.inputSetTemplateYaml])
 
   React.useEffect(() => {
     setSelectedInputSets(inputSetSelected)
@@ -144,11 +145,15 @@ function RunPipelineFormBasic({
     if (template?.data?.inputSetTemplateYaml) {
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
-          const data = await mergeInputSet({
-            inputSetReferences: selectedInputSets.map(item => item.value as string)
-          })
-          if (data?.data?.pipelineYaml) {
-            setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
+          try {
+            const data = await mergeInputSet({
+              inputSetReferences: selectedInputSets.map(item => item.value as string)
+            })
+            if (data?.data?.pipelineYaml) {
+              setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
+            }
+          } catch (e) {
+            showError(e?.data?.message || e?.message)
           }
         }
         fetchData()
@@ -176,19 +181,11 @@ function RunPipelineFormBasic({
     pipelineIdentifier
   ])
 
-  const {
-    mutate: mergeInputSet,
-    loading: loadingUpdate,
-    error: errorMergeInputSet
-  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+  const { mutate: mergeInputSet, loading: loadingUpdate } = useGetMergeInputSetFromPipelineTemplateWithListInput({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
   })
 
-  const {
-    mutate: createInputSet,
-    error: createInputSetError,
-    loading: createInputSetLoading
-  } = useCreateInputSetForPipeline({
+  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -314,15 +311,6 @@ function RunPipelineFormBasic({
     return <PageSpinner />
   }
 
-  if (errorPipeline || errorTemplate || createInputSetError || errorMergeInputSet) {
-    showError(
-      (errorTemplate?.data as Failure)?.message ||
-        (errorPipeline?.data as Failure)?.message ||
-        (errorMergeInputSet?.data as Failure)?.message ||
-        (createInputSetError?.data as Failure)?.message ||
-        i18n.commonError
-    )
-  }
   const handleSelectionChange = (id: string): void => {
     setSelectedTreeNodeId(id)
     openNestedPath(id)
@@ -357,7 +345,12 @@ function RunPipelineFormBasic({
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
           if (values && yamlTemplate && pipeline) {
-            errors = debouncedValidatePipeline(values as NgPipeline, yamlTemplate, pipeline, getString) as any
+            errors = debouncedValidatePipeline(
+              values as NgPipeline,
+              parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+              pipeline,
+              getString
+            ) as any
           }
           setFormErrors(errors)
           return errors
@@ -455,13 +448,17 @@ function RunPipelineFormBasic({
                             >
                               <Formik
                                 onSubmit={input => {
-                                  createInputSet(stringify({ inputSet: input }) as any).then(response => {
-                                    if (response.data?.errorResponse) {
-                                      showError(i18n.inputSetSavedError)
-                                    } else {
-                                      showSuccess(i18n.inputSetSaved)
-                                    }
-                                  })
+                                  createInputSet(stringify({ inputSet: input }) as any)
+                                    .then(response => {
+                                      if (response.data?.errorResponse) {
+                                        showError(i18n.inputSetSavedError)
+                                      } else {
+                                        showSuccess(i18n.inputSetSaved)
+                                      }
+                                    })
+                                    .catch(e => {
+                                      showError(e?.data?.message || e?.message)
+                                    })
                                 }}
                                 validationSchema={Yup.object().shape({
                                   name: Yup.string().trim().required(i18n.nameIsRequired)

@@ -198,7 +198,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
         }
         // TODO: only apply for CI as its schema is implemented
         if (module === 'ci') {
-          if (yamlHandler.getYAMLValidationErrorMap().size > 0) {
+          if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
             setYamlError(true)
             return
           }

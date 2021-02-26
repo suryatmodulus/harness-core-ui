@@ -44,7 +44,16 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
         label: pipelineIdentifier !== DefaultNewPipelineId ? pipeline?.data?.name || '' : getString('pipelineStudio')
       }
     ],
-    []
+    [
+      accountId,
+      getString,
+      module,
+      orgIdentifier,
+      pipeline?.data?.name,
+      pipelineIdentifier,
+      project?.name,
+      projectIdentifier
+    ]
   )
   return (
     <>

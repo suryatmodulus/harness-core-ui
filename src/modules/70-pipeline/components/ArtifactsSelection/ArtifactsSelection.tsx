@@ -185,7 +185,9 @@ export default function ArtifactsSelection({
     if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.primary', null)
     }
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', {})
+    } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }
 
   const getSidecarPath = (): any => {
@@ -216,7 +218,7 @@ export default function ArtifactsSelection({
     } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
   }
 
-  const artifacts = getArtifactsPath() || {}
+  const artifacts = getArtifactsPath()
 
   const primaryArtifact = getPrimaryArtifactPath()
 
@@ -404,7 +406,6 @@ export default function ArtifactsSelection({
         sideCarArtifact.splice(sidecarIndex, 1, { sidecar: sideCarObject })
       }
     }
-
     updatePipeline(pipeline)
     hideConnectorModal()
   }
@@ -639,7 +640,7 @@ export default function ArtifactsSelection({
 
         <Layout.Vertical>
           <section>
-            {primaryArtifact && (
+            {primaryArtifact && Object.keys(primaryArtifact).length > 0 && (
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
@@ -778,7 +779,7 @@ export default function ArtifactsSelection({
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical>
-        {!primaryArtifact && overrideSetIdentifier.length === 0 && (
+        {(!primaryArtifact || !Object.keys(primaryArtifact).length) && overrideSetIdentifier.length === 0 && (
           <div className={css.rowItem}>
             <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />

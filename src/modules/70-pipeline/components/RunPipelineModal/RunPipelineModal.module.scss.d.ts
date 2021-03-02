@@ -14,5 +14,6 @@ declare const styles: {
   readonly cardCard: string
   readonly inputSetcard: string
   readonly errorHeader: string
+  readonly preFlightCheckModal: string
 }
 export default styles

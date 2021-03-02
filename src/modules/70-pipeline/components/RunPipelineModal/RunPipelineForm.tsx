@@ -264,8 +264,24 @@ function RunPipelineFormBasic({
 
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
     return (
-      <Dialog isOpen onClose={hidePreflightCheckModal} title={i18n.preFlightCheckModalHeading}>
-        <PreFlightCheckModal />
+      <Dialog
+        className={css.preFlightCheckModal}
+        isOpen
+        onClose={hidePreflightCheckModal}
+        title={i18n.preFlightCheckModalHeading}
+      >
+        <PreFlightCheckModal
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          pipelineIdentifier={pipelineIdentifier}
+          inputSetPipelineYaml={inputSetYAML}
+          onCloseButtonClick={hidePreflightCheckModal}
+          onContinuePipelineClick={() => {
+            hidePreflightCheckModal()
+            handleRunPipeline(currentPipeline?.pipeline)
+          }}
+        />
       </Dialog>
     )
   }, [])
@@ -274,6 +290,7 @@ function RunPipelineFormBasic({
     async (valuesPipeline?: NgPipeline) => {
       if (!skipPreFlightCheck) {
         // Not skipping pre-flight check - open the new modal
+
         showPreflightCheckModal()
         return
       }

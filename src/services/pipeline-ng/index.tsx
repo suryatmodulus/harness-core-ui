@@ -6017,6 +6017,20 @@ export type GetExecutionDetailProps = Omit<
 > &
   GetExecutionDetailPathParams
 
+export interface GetPreFlightCheckPathParams {
+  preFlightCheckId: string
+}
+export type UseGetPreFlightCheckRequestProps = Omit<
+  GetProps<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetExecutionDetailQueryParams,
+    GetPreFlightCheckPathParams
+  >,
+  'path'
+> &
+  GetPreFlightCheckPathParams
+
 /**
  * Gets Execution Detail
  */
@@ -6046,6 +6060,15 @@ export const useGetExecutionDetail = ({ planExecutionId, ...props }: UseGetExecu
   useGet<ResponsePipelineExecutionDetail, Failure | Error, GetExecutionDetailQueryParams, GetExecutionDetailPathParams>(
     (paramsInPath: GetExecutionDetailPathParams) => `/pipelines/execution/${paramsInPath.planExecutionId}`,
     { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Gets Preflight Response
+ */
+export const useGetPreFlightCheckResponse = ({ preFlightCheckId, ...props }: UseGetPreFlightCheckRequestProps) =>
+  useGet<ResponsePipelineExecutionDetail, Failure | Error, GetExecutionDetailQueryParams, GetPreFlightCheckPathParams>(
+    (paramsInPath: GetPreFlightCheckPathParams) => `/pipelines/execute/getPreflightCheckResponse`,
+    { base: getConfig('pipeline/api'), pathParams: { preFlightCheckId }, ...props }
   )
 
 /**

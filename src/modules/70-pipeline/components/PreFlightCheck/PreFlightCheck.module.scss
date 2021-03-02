@@ -1,0 +1,49 @@
+.progressBar {
+}
+
+.preFlightCheckContainer {
+  padding: var(--spacing-medium) !important;
+}
+
+.divider {
+  width: 1px;
+  border: 1px solid var(--grey-300);
+}
+
+.sectionLabelText {
+  cursor: pointer;
+}
+
+.sectionsWrapper {
+  margin-top: var(--spacing-large) !important;
+  min-height: 150px;
+}
+
+.rowCell {
+  width: 33%;
+}
+
+.sectionPanelWrapper {
+  width: 70% !important;
+}
+
+.sectionLabelsWrapper {
+  width: 30% !important;
+}
+
+.footerSpaceBetween {
+  justify-content: space-between;
+  margin: var(--spacing-medium) 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-xxlarge);
+}
+
+.footerSmallText {
+  font-size: smaller !important;
+  width: 200px;
+  margin-left: var(--spacing-large) !important;
+}

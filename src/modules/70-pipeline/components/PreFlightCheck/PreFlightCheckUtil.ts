@@ -15,13 +15,13 @@ export const preFlightDummyResponseProgress = {
     pipelineInputResponse: [
       {
         errorInfo: {
-          summary: 'su',
+          summary: 'summary',
           description: 'des',
           causes: [],
           resolution: []
         },
         status: 'FAILURE',
-        fqn: 'somefqn',
+        fqn: 'pipeline.sevice.artifact.buildNo',
         stageName: 'stageName 2',
         stepName: 'stepName 2'
       }

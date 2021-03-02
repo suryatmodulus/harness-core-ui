@@ -107,6 +107,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               }
               data?.stepConfig?.onUpdate?.(item)
               updatePipeline(pipeline)
+
+              if (stageType === 'CI') {
+                updatePipelineView({
+                  ...pipelineView,
+                  isDrawerOpened: false,
+                  drawerData: { type: DrawerTypes.StepConfig }
+                })
+              }
             }
           }}
           isStepGroup={data.stepConfig.isStepGroup}

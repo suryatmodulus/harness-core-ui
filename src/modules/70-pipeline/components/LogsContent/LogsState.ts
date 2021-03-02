@@ -9,7 +9,7 @@ import {
   isExecutionRunning,
   isExecutionRunningLike
 } from '@pipeline/utils/statusHelpers'
-import type { MultiLogsViewerData, LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
+import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -25,10 +25,18 @@ export enum ActionType {
   ToggleSection = 'ToggleSection'
 }
 
-export interface LogSectionData extends MultiLogsViewerData {
+export interface LogSectionData {
+  title: React.ReactNode
+  data: string
+  startTime?: number
+  endTime?: number
+  id: string
+  status: LogViewerAccordionStatus
+  isOpen?: boolean
   logKey: string
   dataSource: 'blob' | 'stream'
   unitStatus: LogViewerAccordionStatus
+  manuallyToggled?: boolean
 }
 
 export interface CreateSectionsPayload extends ExecutionPathProps {
@@ -63,6 +71,7 @@ export interface State {
 
 const LOG_TYPE_LENGTH = 4
 const TIMESTAMP_LENGTH = 24
+const NON_MUTATE_STATES: LogViewerAccordionStatus[] = ['LOADING', 'QUEUED']
 
 export function reducer<T extends ActionType>(state: State, action: Action<T>): State {
   switch (action.type) {
@@ -181,17 +190,22 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             ? unitProgress?.status || 'NOT_STARTED'
             : getStatusforUnitLegacy(unit, i)
 
+          const currentStatus = state.dataMap[unit]?.status
+          const manuallyToggled = !!state.dataMap[unit]?.manuallyToggled
+          const isRunning = isExecutionRunning(unitStatus)
+
           acc[unit] = {
             title: unit,
             id: unit,
             data: isSameStep ? state.dataMap[unit]?.data || '' : '',
             logKey: logKeys[i],
-            isOpen: isSameStep ? state.dataMap[unit]?.isOpen : false,
-            status: isSameStep ? state.dataMap[unit]?.status : unitStatus,
+            isOpen: isSameStep && manuallyToggled ? state.dataMap[unit]?.isOpen : isRunning,
+            manuallyToggled: isSameStep ? manuallyToggled : false,
+            status: isSameStep && NON_MUTATE_STATES.includes(currentStatus) && isRunning ? currentStatus : unitStatus,
             unitStatus,
             startTime: unitProgress?.startTime,
             endTime: unitProgress?.endTime,
-            dataSource: isExecutionRunning(unitStatus) ? 'stream' : 'blob'
+            dataSource: isRunning ? 'stream' : 'blob'
           }
 
           return acc
@@ -247,7 +261,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
     case ActionType.UpdateSectionData: {
       const payload = (action as Action<ActionType.UpdateSectionData>).payload
 
-      if (state.dataMap[payload.id].data === payload.data) return state
+      if (state.dataMap[payload.id]?.data === payload.data) return state
 
       return produce(state, draft => {
         const unit = state.dataMap[payload.id]
@@ -297,6 +311,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
       const payload = (action as Action<ActionType.ToggleSection>).payload
       return produce(state, draft => {
         set(draft.dataMap[payload], 'isOpen', !state.dataMap[payload].isOpen)
+        set(draft.dataMap[payload], 'manuallyToggled', true)
       })
     }
     default:

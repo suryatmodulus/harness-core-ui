@@ -28,12 +28,16 @@ export function useLogsStream(): UseLogsStreamReturn {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledSetLog = React.useCallback(throttle(setLog, 2000), [setLog])
 
+  const closeStream = React.useCallback(() => {
+    eventSource.current?.close()
+    throttledSetLog.cancel()
+    eventSource.current = null
+  }, [throttledSetLog])
+
   const startStream = React.useCallback(
     (props: UseLogsStreamProps): void => {
-      if (eventSource.current) {
-        eventSource.current.close()
-        eventSource.current = null
-      }
+      closeStream()
+      setLog('')
 
       let cache = ''
 
@@ -63,14 +67,8 @@ export function useLogsStream(): UseLogsStreamReturn {
         }
       }
     },
-    [throttledSetLog]
+    [throttledSetLog, closeStream]
   )
-
-  const closeStream = React.useCallback(() => {
-    eventSource.current?.close()
-    throttledSetLog.cancel()
-    eventSource.current = null
-  }, [throttledSetLog])
 
   return { log, startStream, closeStream, unitId }
 }

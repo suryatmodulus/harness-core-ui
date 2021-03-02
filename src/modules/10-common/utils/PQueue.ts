@@ -1,10 +1,11 @@
 export type PromiseThunk = (signal: AbortSignal) => Promise<unknown>
+import { v4 as uuid } from 'uuid'
 
 export class PQueue {
   private queue: Array<() => void> = []
   private runningCount = 0
   private concurrency = Infinity
-  private controller = new AbortController()
+  private controllerMap = new Map<string, AbortController>()
 
   constructor(concurrency?: number) {
     if (typeof concurrency === 'number' && concurrency >= 1) {
@@ -16,13 +17,18 @@ export class PQueue {
     return new Promise((resolve, reject) => {
       const run = (): void => {
         this.runningCount++
-        fn(this.controller.signal).then(
+        const uid = uuid()
+        const controller = new AbortController()
+        this.controllerMap.set(uid, controller)
+        fn(controller.signal).then(
           (value: unknown) => {
             resolve(value)
+            this.controllerMap.delete(uid)
             this.runningCount--
             this.next()
           },
           (err: Error) => {
+            this.controllerMap.delete(uid)
             if (err instanceof DOMException && err.name === 'AbortError') {
               // do nothing
             } else {
@@ -43,7 +49,10 @@ export class PQueue {
   }
 
   cancel(): void {
-    this.controller.abort()
+    this.controllerMap.forEach(controller => {
+      controller.abort()
+    })
+    this.controllerMap.clear()
   }
 
   private next(): void {

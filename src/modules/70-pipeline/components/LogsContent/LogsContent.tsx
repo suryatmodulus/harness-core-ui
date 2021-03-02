@@ -13,6 +13,7 @@ import {
 } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { getStageType } from '@pipeline/utils/executionUtils'
 import { PQueue } from '@common/utils/PQueue'
+import { useDeepCompareEffect } from '@common/hooks'
 
 import { useLogsStream } from './useLogsStream'
 import { reducer, ActionType, State, Action } from './LogsState'
@@ -64,7 +65,6 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       }
 
       dispatch({ type: ActionType.FetchingSectionData, payload: id })
-
       const data = ((await logBlobPromise(
         {
           queryParams: {
@@ -87,15 +87,22 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   }
 
   React.useEffect(() => {
+    // use the existing token if present
+    if (logsToken) {
+      logsTokenRef.current = logsToken
+    }
+
+    // if `logsToken` is not present, `tokenData` is fetched
+    // as we set the lazy flag based on it's presence
     if (tokenData) {
       setLogsToken(tokenData)
       logsTokenRef.current = tokenData
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenData])
+  }, [tokenData, logsToken])
 
   // This fetches data for sections
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     state.units.forEach(unit => {
       const section = state.dataMap[unit]
       if (section && section.status === 'LOADING') {
@@ -106,7 +113,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           startStream({
             queryParams: {
               accountId,
-              key: section.logKey
+              key: encodeURIComponent(section.logKey)
             },
             headers: {
               'X-Harness-Token': logsTokenRef.current,

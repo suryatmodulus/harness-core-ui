@@ -32,6 +32,7 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -69,7 +70,7 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-
+  const isFlowControlEnabled = useFeatureFlag('FLOW_CONTROL')
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>()
 
@@ -276,16 +277,18 @@ export const RightBar = (): JSX.Element => {
         iconProps={{ size: 20 }}
         text={getString('notifications')}
       />
-      <Button
-        className={cx(css.iconButton, css.flowControlIcon, {
-          [css.selected]: type === DrawerTypes.PipelineVariables
-        })}
-        onClick={() => {}} //eslint-disable-line
-        font={{ weight: 'semi-bold', size: 'xsmall' }}
-        icon="settings"
-        iconProps={{ size: 20 }}
-        text={getString('flowControl')}
-      />
+      {isFlowControlEnabled && (
+        <Button
+          className={cx(css.iconButton, css.flowControlIcon, {
+            [css.selected]: type === DrawerTypes.PipelineVariables
+          })}
+          onClick={() => {}} //eslint-disable-line
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon="settings"
+          iconProps={{ size: 20 }}
+          text={getString('flowControl')}
+        />
+      )}
 
       <Button
         className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}

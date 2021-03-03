@@ -35,7 +35,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
         _stageObj.name = StateRef.current?.name
         _stageObj.identifier = StateRef.current?.identifier
         _stageObj.description = StateRef.current?.description
-        _stageObj.variables = StateRef.current?.variables
+        _stageObj.variables = StateRef.current?.variables || []
         _stageObj.skipCondition = StateRef.current?.skipCondition
       }
 
@@ -53,7 +53,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
             name: values?.name,
             identifier: values?.identifier,
             description: values?.description,
-            variables: values?.variables,
+            variables: values?.variables || [],
             skipCondition: values?.skipCondition
           })
         }}

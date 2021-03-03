@@ -189,6 +189,7 @@ export interface ServiceStatsResponse {
 
 export interface InstanceBasedRoutingData {
   filter_text?: string
+  scale_group?: ASGMinimal
 }
 
 export interface HealthCheck {
@@ -233,7 +234,6 @@ export interface RoutingRule {
 export interface RoutingData {
   instance?: InstanceBasedRoutingData
   ports?: PortConfig[]
-  lb?: string
 }
 
 export interface ServiceSavings {
@@ -398,6 +398,39 @@ export interface CFTResponse {
   response?: {
     path?: string
   }
+}
+
+export interface ASGResourceFilterBody {
+  /**
+   * String representation of TOML filter
+   */
+  Text?: string
+}
+
+export interface TargetGroupMinimal {
+  id?: string
+  name?: string
+  port?: number
+  protocol?: string
+}
+
+export interface ASGMinimal {
+  id?: string
+  name?: string
+  desired?: number
+  min?: number
+  max?: number
+  cloud_account_id?: string
+  provider_name?: string
+  target_groups?: TargetGroupMinimal[]
+  region?: string
+  availability_zones?: string[]
+  status?: string
+  meta?: { [key: string]: any }
+}
+
+export interface AllASGResponse {
+  response?: ASGMinimal[]
 }
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
@@ -2021,5 +2054,54 @@ export const useGetCloudFormationTemplate = ({
   useGet<CFTResponse, void, void, GetCloudFormationTemplatePathParams>(
     (paramsInPath: GetCloudFormationTemplatePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/cft_path`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface GetAllASGsQueryParams {
+  cloud_account_id: string
+}
+
+export interface GetAllASGsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type GetAllASGsProps = Omit<
+  MutateProps<AllASGResponse, void, GetAllASGsQueryParams, ASGResourceFilterBody, GetAllASGsPathParams>,
+  'path' | 'verb'
+> &
+  GetAllASGsPathParams
+
+/**
+ * Get all auto scaling groups
+ *
+ * Get all auto scaling groups satisfying the given filter
+ */
+export const GetAllASGs = ({ org_id, project_id, account_id, ...props }: GetAllASGsProps) => (
+  <Mutate<AllASGResponse, void, GetAllASGsQueryParams, ASGResourceFilterBody, GetAllASGsPathParams>
+    verb="POST"
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/scaling_groups"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllASGsProps = Omit<
+  UseMutateProps<AllASGResponse, void, GetAllASGsQueryParams, ASGResourceFilterBody, GetAllASGsPathParams>,
+  'path' | 'verb'
+> &
+  GetAllASGsPathParams
+
+/**
+ * Get all auto scaling groups
+ *
+ * Get all auto scaling groups satisfying the given filter
+ */
+export const useGetAllASGs = ({ org_id, project_id, account_id, ...props }: UseGetAllASGsProps) =>
+  useMutate<AllASGResponse, void, GetAllASGsQueryParams, ASGResourceFilterBody, GetAllASGsPathParams>(
+    'POST',
+    (paramsInPath: GetAllASGsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/scaling_groups`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

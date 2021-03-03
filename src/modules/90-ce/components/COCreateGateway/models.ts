@@ -1,7 +1,8 @@
-import type { HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
+import type { HealthCheck, PortConfig, ServiceDep, ServiceMetadata, ASGMinimal } from 'services/lw'
 
 interface Instance {
-  filterText: string
+  filterText?: string
+  scale_group?: ASGMinimal // eslint-disable-line
 }
 interface CloudAccount {
   id: string
@@ -10,8 +11,8 @@ interface CloudAccount {
 
 interface Routing {
   instance: Instance
-  lb: string
-  ports: PortConfig[]
+  lb?: string
+  ports?: PortConfig[]
 }
 
 interface ServiceOpts {

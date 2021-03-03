@@ -49,42 +49,60 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   })
   const onSave = async (): Promise<void> => {
     try {
-      const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
-      await assignFilterTags({
-        Text: `id = [${instanceIDs}]` // eslint-disable-line
-      })
+      const { gatewayDetails } = props
+      const asgBased = gatewayDetails.routing.instance && gatewayDetails.routing.instance.scale_group != undefined
+      if (!asgBased) {
+        const instanceIDs = gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
+        await assignFilterTags({
+          Text: `id = [${instanceIDs}]` // eslint-disable-line
+        })
+      }
       const gateway: Service = {
-        name: props.gatewayDetails.name,
+        name: gatewayDetails.name,
         org_id: orgIdentifier, // eslint-disable-line
         project_id: projectIdentifier, // eslint-disable-line
         account_identifier: accountId, // eslint-disable-line
-        fulfilment: props.gatewayDetails.fullfilment,
+        fulfilment: gatewayDetails.fullfilment,
         kind: 'instance',
-        cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-        idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
-        custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
+        cloud_account_id: gatewayDetails.cloudAccount.id, // eslint-disable-line
+        idle_time_mins: gatewayDetails.idleTimeMins, // eslint-disable-line
+        custom_domains: gatewayDetails.customDomains ? gatewayDetails.customDomains : [], // eslint-disable-line
         // eslint-disable-next-line
-        health_check: props.gatewayDetails.healthCheck,
+        health_check: gatewayDetails.healthCheck,
         routing: {
           instance: {
             filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
           },
-          ports: props.gatewayDetails.routing.ports,
-          lb: undefined
+          ports: gatewayDetails.routing.ports
         },
         opts: {
           preserve_private_ip: false, // eslint-disable-line
           always_use_private_ip: false // eslint-disable-line
         },
-        metadata: props.gatewayDetails.metadata,
-        disabled: props.gatewayDetails.disabled,
-        match_all_subdomains: props.gatewayDetails.matchAllSubdomains, // eslint-disable-line
-        access_point_id: props.gatewayDetails.accessPointID // eslint-disable-line
+        metadata: gatewayDetails.metadata,
+        disabled: gatewayDetails.disabled,
+        match_all_subdomains: gatewayDetails.matchAllSubdomains, // eslint-disable-line
+        access_point_id: gatewayDetails.accessPointID // eslint-disable-line
       }
-      if (props.gatewayDetails.id) {
-        gateway.id = props.gatewayDetails.id
+      if (asgBased) {
+        gateway.routing = {
+          instance: {
+            scale_group: gatewayDetails.routing.instance.scale_group // eslint-disable-line
+          },
+          ports: gatewayDetails.routing.ports
+        }
+      } else {
+        gateway.routing = {
+          instance: {
+            filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
+          },
+          ports: gatewayDetails.routing.ports
+        }
       }
-      const result = await saveGateway({ service: gateway, deps: props.gatewayDetails.deps, apply_now: false }) // eslint-disable-line
+      if (gatewayDetails.id) {
+        gateway.id = gatewayDetails.id
+      }
+      const result = await saveGateway({ service: gateway, deps: gatewayDetails.deps, apply_now: false }) // eslint-disable-line
       if (result.response) {
         history.push(
           routes.toCECORules({

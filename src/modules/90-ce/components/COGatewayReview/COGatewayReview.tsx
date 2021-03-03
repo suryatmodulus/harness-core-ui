@@ -142,7 +142,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
             <Label className={css.labelNormal}>{i18n.routing}</Label>
             <Table<PortConfig>
-              data={props.gatewayDetails.routing.ports}
+              data={props.gatewayDetails.routing.ports || []}
               className={css.instanceTable}
               bpTableProps={{}}
               columns={[

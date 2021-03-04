@@ -298,7 +298,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
         }, '')
 
         // update status only for blob data
-        if (unit.dataSource === 'blob') {
+        if (unit?.dataSource === 'blob') {
           set(draft.dataMap[payload.id], 'status', unit.unitStatus)
         }
 

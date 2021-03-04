@@ -347,6 +347,7 @@ mapApplications: 'Map Applications to Harness Services'
 lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
+delegateSelectorOptional: Delegate (Optional)
 editCredentials: Edit Credentials
 createProject: '+ Create Project'
 pickProject: Pick a project and drill down to see your information.

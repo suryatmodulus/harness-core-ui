@@ -34,6 +34,7 @@ export interface InstanceDetails {
   tags?: string
   launch_time?: string // eslint-disable-line
   status: string
+  vpc: string
   metadata?: { [key: string]: any }
 }
 export interface GatewayDetails {

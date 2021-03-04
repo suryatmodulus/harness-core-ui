@@ -1000,6 +1000,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "vpc",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": ["ListAccessPoints"],
@@ -2413,6 +2425,22 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "dns": {
+          "type": "object",
+          "properties": {
+            "route53": {
+              "type": "object",
+              "properties": {
+                "hosted_zone_id": {
+                  "type": "string"
+                }
+              }
+            },
+            "others": {
+              "type": "string"
+            }
           }
         }
       }

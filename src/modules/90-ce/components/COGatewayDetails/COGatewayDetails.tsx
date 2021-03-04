@@ -7,9 +7,9 @@ import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
 import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import { useSaveService, Service, useAttachTags } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import i18n from './COGatewayDetails.i18n'
 import css from './COGatewayDetails.module.scss'
 interface COGatewayDetailsProps {
   previousTab: () => void
@@ -18,10 +18,12 @@ interface COGatewayDetailsProps {
 }
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
+  const { getString } = useStrings()
   const { showError } = useToaster()
   const [selectedTabId, setSelectedTabId] = useState<string>('configuration')
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
+  const [saveInProgress, setSaveInProgress] = useState<boolean>(false)
   const tabs = ['configuration', 'setupAccess', 'review']
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -49,6 +51,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   })
   const onSave = async (): Promise<void> => {
     try {
+      setSaveInProgress(true)
       const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
       await assignFilterTags({
         Text: `id = [${instanceIDs}]` // eslint-disable-line
@@ -95,6 +98,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         )
       }
     } catch (e) {
+      setSaveInProgress(false)
       showError(e.data?.message || e.message)
     }
   }
@@ -124,9 +128,9 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const getNextButtonText = (): string => {
     const tabIndex = tabs.findIndex(t => t == selectedTabId)
     if (tabIndex == tabs.length - 1) {
-      return 'Save Rule'
+      return getString('ce.co.autoStoppingRule.save')
     }
-    return 'Next'
+    return getString('next')
   }
   return (
     <Container style={{ overflow: 'scroll', maxHeight: '100vh', backgroundColor: 'var(--white)' }}>
@@ -134,12 +138,8 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Setup'
-          },
-          {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Autostopping Rules'
+            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+            label: getString('ce.co.breadCrumb.rules')
           },
           {
             url: '',
@@ -158,7 +158,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 ) : (
                   <Icon name="symbol-circle" className={css.symbol} size={16} />
                 )}
-                <Text className={css.tabTitle}>1. {i18n.configuration}</Text>
+                <Text className={css.tabTitle}>1. {getString('ce.co.autoStoppingRule.configuration.pageName')}</Text>
               </Layout.Horizontal>
             }
             panel={
@@ -179,7 +179,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 ) : (
                   <Icon name="symbol-circle" className={css.symbol} size={16} />
                 )}
-                <Text className={css.tabTitle}>2. {i18n.setupAccess}</Text>
+                <Text className={css.tabTitle}>2. {getString('ce.co.autoStoppingRule.setupAccess.pageName')}</Text>
               </Layout.Horizontal>
             }
             panel={
@@ -200,7 +200,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 ) : (
                   <Icon name="symbol-circle" className={css.symbol} size={16} />
                 )}
-                <Text className={css.tabTitle}>3. {i18n.review}</Text>
+                <Text className={css.tabTitle}>3. {getString('review')}</Text>
               </Layout.Horizontal>
             }
             panel={<COGatewayReview gatewayDetails={props.gatewayDetails} setSelectedTabId={setSelectedTabId} />}
@@ -222,9 +222,12 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           disabled={
             (selectedTabId == tabs[0] && !validConfig) ||
             (selectedTabId == tabs[1] && !validAccessSetup) ||
-            (selectedTabId == tabs[2] && (!validAccessSetup || !validConfig))
+            (selectedTabId == tabs[2] && (!validAccessSetup || !validConfig)) ||
+            saveInProgress
           }
+          loading={saveInProgress}
         />
+        {saveInProgress ? <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} /> : null}
       </Layout.Horizontal>
     </Container>
   )

@@ -2,6 +2,7 @@ import React from 'react'
 import type { CellProps } from 'react-table'
 import { Heading, Container, Layout, Label, Text, Table, Color, Icon, IconName, Button } from '@wings-software/uicore'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
+import { useStrings } from 'framework/exports'
 import type { PortConfig } from 'services/lw'
 import i18n from './COGatewayReview.i18n'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
@@ -33,6 +34,7 @@ function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
   )
 }
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
+  const { getString } = useStrings()
   return (
     <Layout.Horizontal spacing="large" padding="large" className={css.page}>
       <Container width="20%">
@@ -52,7 +54,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
         <Layout.Vertical spacing="large" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
           <Layout.Horizontal>
             <Heading level={2} style={{ alignSelf: 'center' }}>
-              {i18n.configurationDetails}
+              {getString('ce.co.autoStoppingRule.review.configDetails')}
             </Heading>
             <Button
               intent="primary"
@@ -152,7 +154,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
                 },
                 {
                   accessor: 'port',
-                  Header: 'LISTON PORT',
+                  Header: 'LISTEN PORT',
                   width: '16.5%',
                   Cell: TableCell,
                   disableSortBy: true

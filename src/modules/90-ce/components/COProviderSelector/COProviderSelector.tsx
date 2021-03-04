@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
+import { useStrings } from 'framework/exports'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
 import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import COHelpSidebar from '../COHelpSidebar/COHelpSidebar'
-import i18n from './COProviderSelector.i18n'
 import css from './COProviderSelector.module.scss'
 
 interface COProviderSelectorProps {
@@ -43,26 +43,30 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { getString } = useStrings()
   return (
     <>
       <Breadcrumbs
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Setup'
+            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+            label: getString('ce.co.breadCrumb.rules')
           },
           {
-            url: routes.toCECODashboard({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Autostopping Rules'
+            url: '',
+            label: props.gatewayDetails.name || ''
           }
         ]}
       />
-      <COFixedDrawer topMargin={35} content={<COHelpSidebar pageName={'provider-selector'} sectionName={''} />} />
+      <COFixedDrawer
+        topMargin={35}
+        content={<COHelpSidebar pageName={'provider-selector'} activeSectionNames={[]} />}
+      />
       <Container style={{ margin: '0 auto', paddingTop: 100, paddingLeft: 50 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Heading className={css.title}>{i18n.title}</Heading>
-          <Heading level={2}>{i18n.description}</Heading>
+          <Heading className={css.title}>{getString('ce.co.autoStoppingRule.providerSelector.title')}</Heading>
+          <Heading level={2}>{getString('ce.co.autoStoppingRule.providerSelector.description')}</Heading>
           <Layout.Vertical spacing="small">
             <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
               <CardSelect

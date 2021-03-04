@@ -11,6 +11,7 @@ import {
   useAllServiceResources,
   useRouteDetails
 } from 'services/lw'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams()
@@ -40,7 +41,8 @@ export const CECOEditGatewayPage: React.FC = () => {
         type: item.type ? item.type : '',
         tags: '',
         launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
-        status: item.status ? item.status : ''
+        status: item.status ? item.status : '',
+        vpc: item.metadata ? item.metadata['VpcID'] : ''
       }
     })
     const gwDetails: GatewayDetails = {
@@ -51,6 +53,7 @@ export const CECOEditGatewayPage: React.FC = () => {
       filter: service.routing?.instance?.filter_text as string,
       kind: service.kind,
       healthCheck: service.health_check as HealthCheck,
+      hostName: service.host_name,
       routing: {
         instance: {
           filterText: service.routing?.instance?.filter_text as string
@@ -92,7 +95,11 @@ export const CECOEditGatewayPage: React.FC = () => {
           setGatewayDetails={setGatewayDetails}
           previousTab={() => undefined}
         />
-      ) : null}
+      ) : (
+        <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+          <PageSpinner />
+        </div>
+      )}
     </>
   )
 }

@@ -19,6 +19,7 @@ import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import { getRelativeTime } from '../COGatewayList/Utils'
 import css from './COAcessPointList.module.scss'
@@ -43,7 +44,7 @@ function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 }
 
 function DNSCell(tableProps: CellProps<AccessPoint>): JSX.Element {
-  return <Text lineClamp={3}>{tableProps.row.original.metadata ? 'Route 53' : 'Others'}</Text>
+  return <Text lineClamp={3}>{tableProps.row.original.metadata?.dns?.route53 ? 'Route 53' : 'Others'}</Text>
 }
 function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
@@ -167,7 +168,6 @@ const COAccessPointList: React.FC = () => {
         <CreateAccessPointWizard
           accessPoint={row.original}
           closeModal={hideModal}
-          setAccessPoint={() => undefined}
           refreshAccessPoints={() => undefined}
           isEditMod={true}
         />
@@ -275,7 +275,7 @@ const COAccessPointList: React.FC = () => {
             </>
             <Page.Body className={css.pageContainer}>
               <Table<AccessPoint>
-                data={allAccessPoints}
+                data={allAccessPoints || []}
                 className={css.table}
                 columns={[
                   {
@@ -341,7 +341,11 @@ const COAccessPointList: React.FC = () => {
               />
             </Page.Body>
           </>
-        ) : null}
+        ) : (
+          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+            <PageSpinner />
+          </div>
+        )}
       </>
     </Container>
   )

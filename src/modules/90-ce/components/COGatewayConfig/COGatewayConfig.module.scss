@@ -73,8 +73,9 @@
 }
 .page {
   overflow: scroll;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 86px);
   margin-left: var(--spacing-xlarge) !important;
+  padding-bottom: 72px !important;
 }
 .instanceSelection {
   background: 'var(--grey-100)';

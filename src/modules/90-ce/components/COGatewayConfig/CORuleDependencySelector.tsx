@@ -14,15 +14,20 @@ const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
   const [serviceList, setServiceList] = useState<SelectOption[]>([])
 
   useEffect(() => {
-    const services: SelectOption[] =
-      props.allServices
-        .filter(x => x.id != props.service_id)
-        .map(r => {
-          return {
-            label: r.name as string,
-            value: r.id as number
-          }
-        }) || []
+    if (!props.allServices) {
+      setServiceList([])
+      return
+    }
+    const services: SelectOption[] = !props.allServices
+      ? []
+      : props.allServices
+          .filter(x => x.id != props.service_id)
+          .map(r => {
+            return {
+              label: r.name as string,
+              value: r.id as number
+            }
+          }) || []
     setServiceList(services)
   }, [props.allServices])
   function updateDependency(index: number, column: string, value: number) {

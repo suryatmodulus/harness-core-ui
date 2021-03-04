@@ -228,3 +228,11 @@ export function getTimestamp(t: string, format: string): string {
 export function getFulfilmentIcon(fulfilment: string): string {
   return fulfilment == 'spot' ? spotIcon : odIcon
 }
+
+export function cleanupForHostName(name: string): string {
+  const toReplace = [' ', '.', ',']
+  toReplace.forEach(l => {
+    name = name.split(l).join('-')
+  })
+  return name
+}

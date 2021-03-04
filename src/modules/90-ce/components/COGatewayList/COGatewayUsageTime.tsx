@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Color } from '@wings-software/uicore'
+import { Text, Color, ModalErrorHandler, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
+import { useStrings } from 'framework/exports'
 import { Service, SessionReportRow, useGatewaySessionReport } from 'services/lw'
 import { getTimestamp } from './Utils'
 import css from './COGatewayList.module.scss'
@@ -64,10 +65,13 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
   const { orgIdentifier } = useParams<{
     orgIdentifier: string
   }>()
+  const { getString } = useStrings()
   const { mutate: getSessionReport } = useGatewaySessionReport({
     org_id: orgIdentifier // eslint-disable-line
   })
   const [sessionReportRows, setSessionReportRows] = useState<SessionReportRow[]>([])
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
   useEffect(() => {
     if (!props.service) return
     loadSessionReport()
@@ -85,35 +89,42 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
         setSessionReportRows(result.response.rows)
       }
     } catch (e) {
-      //   modalErrorHandler?.showDanger(e.data?.message || e.message)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
   return (
     <Page.Body className={css.pageContainer}>
-      <Table<SessionReportRow>
-        data={sessionReportRows}
-        className={css.table}
-        columns={[
-          {
-            accessor: 'start',
-            Header: 'Started At',
-            width: '35%',
-            Cell: TableCell
-          },
-          {
-            accessor: 'end',
-            Header: 'Ended At',
-            width: '35%',
-            Cell: TableCell
-          },
-          {
-            accessor: 'hours',
-            Header: 'Duration',
-            width: '30%',
-            Cell: DurationCell
-          }
-        ]}
-      />
+      <ModalErrorHandler bind={setModalErrorHandler} />
+      {sessionReportRows.length ? (
+        <Table<SessionReportRow>
+          data={sessionReportRows}
+          className={css.table}
+          columns={[
+            {
+              accessor: 'start',
+              Header: 'Started At',
+              width: '35%',
+              Cell: TableCell
+            },
+            {
+              accessor: 'end',
+              Header: 'Ended At',
+              width: '35%',
+              Cell: TableCell
+            },
+            {
+              accessor: 'hours',
+              Header: 'Duration',
+              width: '30%',
+              Cell: DurationCell
+            }
+          ]}
+        />
+      ) : (
+        <Text style={{ alignSelf: 'center', fontSize: 'var(--font-size-medium)', padding: 'var(--spacing-large)' }}>
+          {getString('ce.co.noData')}
+        </Text>
+      )}
     </Page.Body>
   )
 }

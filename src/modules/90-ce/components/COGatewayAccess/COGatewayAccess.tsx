@@ -29,7 +29,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
-  const [selectedHelpTextSection, setSelectedHelpTextSection] = useState<string>('')
+  const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const selectTab = (tabId: string) => {
     setSelectedTabId(tabId)
   }
@@ -80,7 +80,15 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     <Container className={css.page}>
       <COFixedDrawer
         topMargin={86}
-        content={<COHelpSidebar pageName={selectedHelpText} sectionName={selectedHelpTextSection} />}
+        content={
+          <COHelpSidebar
+            key={selectedHelpTextSections.join()}
+            pageName={selectedHelpText}
+            activeSectionNames={selectedHelpTextSections}
+            customDomain={props.gatewayDetails.customDomains?.join(',')}
+            hostName={props.gatewayDetails.hostName}
+          />
+        }
       />
       <Layout.Vertical spacing="large" padding="medium" style={{ marginLeft: '10px' }}>
         <Layout.Vertical spacing="small" padding="medium">
@@ -112,16 +120,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 defaultChecked={accessDetails.dnsLink.selected}
               />
               <Checkbox
-                label="RDP"
-                className={css.checkbox}
-                onChange={val => {
-                  accessDetails.rdp.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-                defaultChecked={accessDetails.rdp.selected}
-              />
-              <Checkbox
-                label="SSH"
+                label="SSH / RDP"
                 onChange={val => {
                   accessDetails.ssh.selected = val.currentTarget.checked
                   setAccessDetails(Object.assign({}, accessDetails))
@@ -130,7 +129,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 defaultChecked={accessDetails.ssh.selected}
               />
             </Layout.Vertical>
-            <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
+            {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox
                 label="Background Tasks"
                 className={css.checkbox}
@@ -149,7 +148,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   setAccessDetails(Object.assign({}, accessDetails))
                 }}
               />
-            </Layout.Vertical>
+            </Layout.Vertical> */}
           </Layout.Horizontal>
         </Layout.Vertical>
         <Container className={css.setupTab}>
@@ -161,13 +160,13 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 panel={
                   <DNSLinkSetup
                     gatewayDetails={props.gatewayDetails}
-                    setHelpTextSection={setSelectedHelpTextSection}
+                    setHelpTextSections={setSelectedHelpTextSections}
                     setGatewayDetails={props.setGatewayDetails}
                   />
                 }
               ></Tab>
             ) : null}
-            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH'} panel={<SSHSetup />}></Tab> : null}
+            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH / RDP'} panel={<SSHSetup />}></Tab> : null}
             {accessDetails.ipaddress.selected ? <Tab id="ip" title={'IP Address'} panel={<IPSetup />}></Tab> : null}
             {accessDetails.rdp.selected ? <Tab id="rdp" title={'RDP'} panel={<IPSetup />}></Tab> : null}
             {accessDetails.backgroundTasks.selected ? (

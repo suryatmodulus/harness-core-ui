@@ -6,5 +6,6 @@ declare const styles: {
   readonly setupTab: string
   readonly fixedDrawer: string
   readonly page: string
+  readonly centerAlignedRadio: string
 }
 export default styles

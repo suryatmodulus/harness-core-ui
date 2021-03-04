@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, FormikForm, Layout, Text } from '@wings-software/uicore'
+import { Formik, FormikForm, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
@@ -23,7 +23,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     // }
   })
   return (
-    <Layout.Vertical spacing="medium">
+    <div>
       <Formik
         initialValues={{
           gatewayName: props.gatewayDetails.name,
@@ -59,13 +59,13 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           cloudAccount: Yup.string().trim().required('Cloud Account is required field')
         })}
       ></Formik>
-      <Text
+      <span
         onClick={() => openConnectorModal(false, 'CEAws')}
         style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
       >
         {['+', i18n.new, props.gatewayDetails.provider.name, i18n.connector].join(' ')}
-      </Text>
-    </Layout.Vertical>
+      </span>
+    </div>
   )
 }
 

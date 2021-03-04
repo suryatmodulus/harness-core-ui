@@ -15,7 +15,8 @@ const COFixedDrawer: React.FC<COFixedDrawerProps> = props => {
         right: 0,
         position: 'fixed',
         zIndex: 20,
-        backgroundColor: 'var(--white)'
+        backgroundColor: 'var(--white)',
+        overflowY: 'scroll'
       }}
     >
       {props.content}

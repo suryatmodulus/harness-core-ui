@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { Classes, Drawer, Menu, Position } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   AllResourcesOfAccountResponse,
   Service,
@@ -59,7 +60,14 @@ interface AnimatedGraphicContainerProps {
 function IconCell(tableProps: CellProps<Service>): JSX.Element {
   return (
     <Layout.Horizontal spacing="medium">
-      <img className={css.fulFilmentIcon} src={tableProps.value == 'spot' ? spotIcon : odIcon} alt="" aria-hidden />
+      <img
+        className={css.fulFilmentIcon}
+        src={tableProps.value == 'spot' ? spotIcon : odIcon}
+        alt=""
+        width={'20px'}
+        height={'19px'}
+        aria-hidden
+      />
       <Text lineClamp={3} color={Color.GREY_500}>
         {tableProps.value}
       </Text>
@@ -181,15 +189,12 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading, error: healthError } = useHealthOfService({
+    const { data, loading } = useHealthOfService({
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
       debounce: 300
     })
-    if (healthError) {
-      showError(`could not load health for rule ${tableProps.row.original.name}`)
-    }
     const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
@@ -346,6 +351,14 @@ const COGatewayList: React.FC = () => {
   })
   if (error) {
     showError(error.data || error.message)
+  }
+
+  if (loading) {
+    return (
+      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+        <PageSpinner />
+      </div>
+    )
   }
 
   return (

@@ -11,9 +11,7 @@ import {
   Heading,
   StepProps,
   SelectOption,
-  Icon,
-  Color,
-  Text
+  Icon
 } from '@wings-software/uicore'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import {
@@ -28,9 +26,9 @@ import {
   useAllSecurityGroups,
   useAllVPCs,
   useCreateAccessPoint,
-  useGetAccessPoint,
-  useMapToDNS
+  useGetAccessPoint
 } from 'services/lw'
+import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 
@@ -38,20 +36,22 @@ interface Props extends StepProps<any> {
   name: string
   accessPoint: AccessPoint
   closeModal: () => void
-  setAccessPoint: (ap: AccessPoint) => void
   refreshAccessPoints: () => void
+  setAccessPoint?: (ap: AccessPoint) => void
   isEditMod?: boolean
+  isRuleCreationMode?: boolean
 }
 interface CreateAccessPointWizardProps {
   accessPoint: AccessPoint
   closeModal: () => void
-  setAccessPoint: (ap: AccessPoint) => void
+  setAccessPoint?: (ap: AccessPoint) => void
   refreshAccessPoints: () => void
   isEditMod?: boolean
+  isRuleCreationMode?: boolean
 }
 
 interface MapToProviderProps {
-  accessPointID: string
+  accessPoint: AccessPoint
 }
 const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -69,32 +69,20 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     },
     lazy: true
   })
-  const { prevStepData } = props
-  const mapToDNSProps = prevStepData as MapToProviderProps
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
   const [dnsProvider, setDNSProvider] = useState<string>('route53')
-  const [mappedToDNS, setMappedToDNS] = useState<boolean>(false)
 
-  const { showError } = useToaster()
-  const { mutate: mapToDNS, loading: maptoDNSLoading } = useMapToDNS({
+  const { showError, showSuccess } = useToaster()
+  const { previousStep } = props
+  const { getString } = useStrings()
+  const [accessPointStatusInProgress, setaccessPointStatusInProgress] = useState<boolean>(false)
+  const [accessPointID, setAccessPointID] = useState<string>()
+  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    access_point_id: mapToDNSProps.accessPointID // eslint-disable-line
+    access_point_id: props.accessPoint.id as string, //eslint-disable-line
+    lazy: true
   })
-  const onMapToDNS = async (selectedZone: string): Promise<void> => {
-    try {
-      await mapToDNS({
-        dns_provider: dnsProvider, // eslint-disable-line
-        details: {
-          hosted_zone_id: selectedZone // eslint-disable-line
-        }
-      })
-      setMappedToDNS(true)
-    } catch (e) {
-      setMappedToDNS(false)
-      showError(e.data?.message || e.message)
-    }
-  }
   useEffect(() => {
     if (hostedZonesLoading) return
     if (hostedZones?.response?.length == 0) {
@@ -112,23 +100,62 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
   useEffect(() => {
     if (dnsProvider == 'route53') loadHostedZones()
   }, [dnsProvider])
+  useEffect(() => {
+    if (accessPointStatusInProgress && accessPointID) {
+      if (!accessPointStatusLoading) {
+        if (accessPointData?.response?.status == 'errored') {
+          setaccessPointStatusInProgress(false)
+          showError('could not create access point')
+        } else if (accessPointData?.response?.status == 'created') {
+          setaccessPointStatusInProgress(false)
+          // props.setAccessPoint(accessPointData?.response as AccessPoint)
+          showSuccess('Access Point Created Succesfully')
+          props.refreshAccessPoints()
+          props.setAccessPoint?.(accessPointData?.response)
+          props.closeModal()
+        } else {
+          const timerId = window.setTimeout(() => {
+            refetch()
+          }, 1000)
+          return () => {
+            window.clearTimeout(timerId)
+          }
+        }
+      }
+    }
+  }, [accessPointData, refetch, accessPointStatusLoading, accessPointID])
+
+  const { mutate: createAccessPoint } = useCreateAccessPoint({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier // eslint-disable-line
+  })
+
+  const onSave = async (): Promise<void> => {
+    setaccessPointStatusInProgress(true)
+    try {
+      const result = await createAccessPoint(props.accessPoint) // eslint-disable-line
+      if (result.response) {
+        props.accessPoint.id = result.response.id
+        setAccessPointID(result.response.id)
+      }
+    } catch (e) {
+      showError(e.data?.message || e.message)
+    }
+  }
   return (
     <Layout.Vertical style={{ minHeight: '640px', width: '55%' }} padding="large" spacing="large">
       <Heading level={2}>{props.name}</Heading>
       <Formik
         initialValues={{
-          customURL: '',
-          publicallyAccessible: 'no',
-          dnsProvider: 'route53',
-          route53Account: '',
-          accessPoint: ''
+          dnsProvider: props.accessPoint.metadata?.dns?.route53 ? 'route53' : 'others',
+          route53Account: props.accessPoint.metadata?.dns?.route53?.hosted_zone_id // eslint-disable-line
         }}
-        onSubmit={values => {
-          onMapToDNS(values.route53Account)
+        onSubmit={_ => {
+          onSave()
         }}
         render={formik => (
           <FormikForm>
-            <Layout.Vertical spacing="medium">
+            <Layout.Vertical spacing="medium" height="640px">
               <RadioGroup
                 inline={true}
                 name="dnsProvider"
@@ -136,6 +163,19 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
                 onChange={e => {
                   formik.setFieldValue('dnsProvider', e.currentTarget.value)
                   setDNSProvider(e.currentTarget.value)
+                  if (props.accessPoint.metadata) {
+                    if (e.currentTarget.value == 'route53') {
+                      props.accessPoint.metadata.dns = {
+                        route53: {
+                          hosted_zone_id: '' // eslint-disable-line
+                        }
+                      }
+                    } else {
+                      props.accessPoint.metadata.dns = {
+                        others: ''
+                      }
+                    }
+                  }
                 }}
                 selectedValue={formik.values.dnsProvider}
               >
@@ -151,44 +191,55 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
                     items={hostedZonesList}
                     onChange={e => {
                       formik.setFieldValue('route53Account', e.value)
+                      if (props.accessPoint.metadata) {
+                        props.accessPoint.metadata.dns = {
+                          route53: {
+                            hosted_zone_id: e.value as string // eslint-disable-line
+                          }
+                        }
+                      }
                     }}
                     style={{ width: '80%' }}
+                    disabled={hostedZonesLoading || hostedZonesList.length == 0}
                   />
-                  {mappedToDNS ? (
-                    <Layout.Horizontal spacing="small" style={{ alignSelf: 'center' }}>
-                      <Icon name="tick" color={Color.GREEN_500} />
-                      <Text color={Color.GREEN_500}>Verified</Text>
-                    </Layout.Horizontal>
-                  ) : (
-                    <Button
-                      intent="primary"
-                      text="Verify"
-                      style={{ alignSelf: 'center' }}
-                      onClick={formik.submitForm}
-                      loading={maptoDNSLoading}
-                      disabled={maptoDNSLoading}
-                    />
-                  )}
                 </Layout.Horizontal>
               ) : null}
             </Layout.Vertical>
+            <Layout.Horizontal spacing="medium" style={{ position: 'absolute', bottom: 0 }}>
+              <Button
+                text={getString('previous')}
+                icon="chevron-left"
+                onClick={_ =>
+                  previousStep?.({
+                    accessPoint: props.accessPoint
+                  })
+                }
+                disabled={accessPointStatusInProgress}
+              />
+
+              <Button
+                intent="primary"
+                text={getString('ce.co.accessPoint.create')}
+                onClick={formik.submitForm}
+                disabled={accessPointStatusInProgress}
+              ></Button>
+              {accessPointStatusInProgress ? (
+                <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />
+              ) : null}
+            </Layout.Horizontal>
           </FormikForm>
         )}
+        validationSchema={Yup.object().shape({
+          route53Account: Yup.string().when(['dnsProvider'], {
+            is: dns => dns == 'route53',
+            then: Yup.string().required('Connector is a required field')
+          })
+        })}
       ></Formik>
-      <Button
-        intent="primary"
-        text="Finish"
-        onClick={() => {
-          props.closeModal()
-        }}
-        style={{ position: 'absolute', bottom: 'var(--spacing-medium)', width: '10%' }}
-      ></Button>
     </Layout.Vertical>
   )
 }
 const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
-  const { showSuccess, showError } = useToaster()
-
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -202,56 +253,9 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const [selectedCloudAccount, setSelectedCloudAccount] = useState<string>(props.accessPoint.cloud_account_id as string)
   const [selectedRegion, setSelectedRegion] = useState<string>(props.accessPoint.region as string)
   const [selectedVpc, setSelectedVpc] = useState<string>(props.accessPoint.vpc as string)
-  const [accessPointStatusInProgress, setaccessPointStatusInProgress] = useState<boolean>(false)
-
-  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    access_point_id: accessPoint.id as string, //eslint-disable-line
-    lazy: true
-  })
+  const { getString } = useStrings()
   const { nextStep } = props
-  useEffect(() => {
-    if (props.isEditMod) {
-      return
-    }
-    if (!accessPointStatusLoading && accessPoint.id) {
-      if (accessPointData?.response?.status == 'errored') {
-        setaccessPointStatusInProgress(false)
-        showError('could not create access point')
-      } else if (accessPointData?.response?.status == 'created') {
-        setaccessPointStatusInProgress(false)
-        props.setAccessPoint(accessPointData?.response as AccessPoint)
-        showSuccess('Access Point Created Succesfully')
-        props.refreshAccessPoints()
-        nextStep?.({
-          accessPointID: accessPointData?.response.id as string
-        })
-      } else {
-        const timerId = window.setTimeout(() => {
-          refetch()
-        }, 1000)
-        return () => {
-          window.clearTimeout(timerId)
-        }
-      }
-    }
-  }, [accessPointData, refetch, accessPointStatusLoading, accessPoint])
-  const { mutate: createAccessPoint } = useCreateAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
-  })
-  const onSave = async (): Promise<void> => {
-    setaccessPointStatusInProgress(true)
-    try {
-      const result = await createAccessPoint(accessPoint) // eslint-disable-line
-      if (result.response) {
-        setAccessPoint(result.response as AccessPoint)
-      }
-    } catch (e) {
-      showError(e.data?.message || e.message)
-    }
-  }
+
   const { data: regions, loading: regionsLoading } = useAllRegions({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -260,25 +264,27 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       cloud_account_id: selectedCloudAccount // eslint-disable-line
     }
   })
-  const { data: vpcs, loading: vpcsLoading } = useAllVPCs({
+  const { data: vpcs, loading: vpcsLoading, refetch: vpcsReload } = useAllVPCs({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       cloud_account_id: selectedCloudAccount // eslint-disable-line
-    }
+    },
+    lazy: true
   })
-  const { data: certificates, loading: certificatesLoading } = useAllCertificates({
+  const { data: certificates, loading: certificatesLoading, refetch: certificatesReload } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
       region: selectedRegion
-    }
+    },
+    lazy: true
   })
-  const { data: securityGroups, loading: sgsLoading } = useAllSecurityGroups({
+  const { data: securityGroups, loading: sgsLoading, refetch: sgsReload } = useAllSecurityGroups({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -286,7 +292,8 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       region: selectedRegion,
       vpc_id: selectedVpc, // eslint-disable-line
       cloud_account_id: selectedCloudAccount // eslint-disable-line
-    }
+    },
+    lazy: true
   })
   useEffect(() => {
     if (regions?.response?.length == 0) {
@@ -301,6 +308,15 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       }) || []
     setRegionOptions(loaded)
   }, [regions])
+  useEffect(() => {
+    if (selectedRegion) {
+      vpcsReload()
+      certificatesReload()
+    }
+  }, [selectedRegion])
+  useEffect(() => {
+    if (selectedVpc) sgsReload()
+  }, [selectedVpc])
   useEffect(() => {
     if (vpcs?.response?.length == 0) {
       return
@@ -361,30 +377,34 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
           certificate: accessPoint.metadata?.certificate_id // eslint-disable-line
         }}
         onSubmit={_ => {
-          onSave()
+          nextStep?.({
+            accessPoint: accessPoint
+          })
         }}
         render={formik => (
           <FormikForm>
-            <Layout.Vertical spacing="medium">
-              <ConnectorReferenceField
-                name="cloudConnector"
-                placeholder={'Select Cloud Account'}
-                selected={accessPoint.cloud_account_id as ConnectorReferenceFieldProps['selected']} // eslint-disable-line
-                onChange={(record, scope) => {
-                  props.accessPoint.cloud_account_id = record?.identifier // eslint-disable-line
-                  setAccessPoint(props.accessPoint)
-                  setSelectedCloudAccount(props.accessPoint.cloud_account_id as string) // eslint-disable-line
-                  formik.setFieldValue('cloudConnector', {
-                    label: record.name || '',
-                    value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${record.identifier}`,
-                    scope: scope
-                  })
-                }}
-                accountIdentifier={accountId}
-                label="Select Cloud Connector"
-                category={'CLOUD_COST'}
-                disabled={props.isEditMod}
-              />
+            <Layout.Vertical spacing="medium" height="640px">
+              {!props.isRuleCreationMode ? (
+                <ConnectorReferenceField
+                  name="cloudConnector"
+                  placeholder={'Select Cloud Account'}
+                  selected={accessPoint.cloud_account_id as ConnectorReferenceFieldProps['selected']} // eslint-disable-line
+                  onChange={(record, scope) => {
+                    props.accessPoint.cloud_account_id = record?.identifier // eslint-disable-line
+                    setAccessPoint(props.accessPoint)
+                    setSelectedCloudAccount(props.accessPoint.cloud_account_id as string) // eslint-disable-line
+                    formik.setFieldValue('cloudConnector', {
+                      label: record.name || '',
+                      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${record.identifier}`,
+                      scope: scope
+                    })
+                  }}
+                  accountIdentifier={accountId}
+                  label="Select Cloud Connector"
+                  category={'CLOUD_COST'}
+                  disabled={props.isEditMod}
+                />
+              ) : null}
               <FormInput.Text
                 name="accessPointName"
                 label={'Enter Access Point Domain name'}
@@ -397,19 +417,21 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 }}
                 disabled={props.isEditMod}
               />
-              <FormInput.Select
-                name="accessPointRegion"
-                label={'Select region to install Access Point'}
-                placeholder={'Select region'}
-                items={regionOptions}
-                onChange={e => {
-                  props.accessPoint.region = e.value as string
-                  setAccessPoint(props.accessPoint)
-                  setSelectedRegion(props.accessPoint.region)
-                  formik.setFieldValue('accessPointRegion', e.value)
-                }}
-                disabled={regionsLoading || regionOptions.length == 0 || props.isEditMod}
-              />
+              {!props.isRuleCreationMode ? (
+                <FormInput.Select
+                  name="accessPointRegion"
+                  label={'Select region to install Access Point'}
+                  placeholder={'Select region'}
+                  items={regionOptions}
+                  onChange={e => {
+                    props.accessPoint.region = e.value as string
+                    setAccessPoint(props.accessPoint)
+                    setSelectedRegion(props.accessPoint.region)
+                    formik.setFieldValue('accessPointRegion', e.value)
+                  }}
+                  disabled={regionsLoading || regionOptions.length == 0 || props.isEditMod}
+                />
+              ) : null}
               <FormInput.Select
                 name="certificate"
                 label={'Select a certificate'}
@@ -422,19 +444,21 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 }}
                 disabled={certificatesLoading || certificateOptions.length == 0}
               />
-              <FormInput.Select
-                name="vpc"
-                label={'Select VPC'}
-                placeholder={'Select VPC'}
-                items={vpcOptions}
-                onChange={e => {
-                  formik.setFieldValue('vpc', e.value)
-                  props.accessPoint.vpc = e.value as string
-                  setAccessPoint(props.accessPoint)
-                  setSelectedVpc(props.accessPoint.vpc)
-                }}
-                disabled={vpcsLoading || vpcOptions.length == 0 || props.isEditMod}
-              />
+              {!props.isRuleCreationMode ? (
+                <FormInput.Select
+                  name="vpc"
+                  label={'Select VPC'}
+                  placeholder={'Select VPC'}
+                  items={vpcOptions}
+                  onChange={e => {
+                    formik.setFieldValue('vpc', e.value)
+                    props.accessPoint.vpc = e.value as string
+                    setAccessPoint(props.accessPoint)
+                    setSelectedVpc(props.accessPoint.vpc)
+                  }}
+                  disabled={vpcsLoading || vpcOptions.length == 0 || props.isEditMod}
+                />
+              ) : null}
               <FormInput.MultiSelect
                 name="securityGroups"
                 label={'Select Security groups'}
@@ -455,10 +479,9 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
               />
               <Button
                 intent="primary"
-                text="Create Access Point"
+                text={getString('ce.co.accessPoint.proceed')}
                 onClick={formik.submitForm}
-                loading={accessPointStatusInProgress}
-                disabled={accessPointStatusInProgress}
+                style={{ position: 'absolute', bottom: 0 }}
               ></Button>
             </Layout.Vertical>
           </FormikForm>
@@ -482,9 +505,9 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
         name="Create access point"
         accessPoint={props.accessPoint}
         closeModal={props.closeModal}
-        setAccessPoint={props.setAccessPoint}
         refreshAccessPoints={props.refreshAccessPoints}
         isEditMod={props.isEditMod}
+        isRuleCreationMode={props.isRuleCreationMode}
       />
       <MapToProvider
         name="Map the domain"

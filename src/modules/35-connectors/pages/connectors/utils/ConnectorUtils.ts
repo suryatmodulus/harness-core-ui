@@ -497,7 +497,6 @@ export const setupAWSFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     accessKey:
       connectorInfo.spec.credential.spec?.accessKey || connectorInfo.spec.credential.spec?.accessKeyRef
         ? {

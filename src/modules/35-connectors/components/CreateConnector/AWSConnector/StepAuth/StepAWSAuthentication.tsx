@@ -1,35 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router'
-import {
-  Layout,
-  Button,
-  Formik,
-  FormInput,
-  Text,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
-  FormikForm as Form,
-  StepProps,
-  Color
-} from '@wings-software/uicore'
+import { Layout, Button, Formik, FormInput, Text, FormikForm as Form, StepProps, Color } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'
 import {
-  buildAWSPayload,
   DelegateTypes,
   SecretReferenceInterface,
   setupAWSFormData
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { PageSpinner, DelegateSelectors } from '@common/components'
-import { useToaster } from '@common/exports'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO,
-  AwsCredential
-} from 'services/cd-ng'
+import { PageSpinner } from '@common/components'
+import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO, AwsCredential } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 
@@ -40,8 +20,10 @@ interface StepAWSAuthenticationProps extends ConnectorInfoDTO {
 
 interface AWSAuthenticationProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
+  setIsDelegateRequired: (isRequired: boolean) => void
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
@@ -55,7 +37,6 @@ interface AWSFormInterface {
   crossAccountAccess: boolean
   crossAccountRoleArn: string
   externalId: string
-  delegateSelectors: Array<string>
 }
 
 const defaultInitialFormData: AWSFormInterface = {
@@ -64,53 +45,15 @@ const defaultInitialFormData: AWSFormInterface = {
   secretKeyRef: undefined,
   crossAccountAccess: false,
   crossAccountRoleArn: '',
-  externalId: '',
-  delegateSelectors: []
+  externalId: ''
 }
 
 const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AWSAuthenticationProps> = props => {
-  const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { showSuccess } = useToaster()
+  const { prevStepData, nextStep, setIsDelegateRequired } = props
+  const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
-  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
-
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      setLoadConnector(false)
-      props.onConnectorCreated(response.data)
-      props.setIsEditMode(true)
-      showSuccess(`Connector '${prevStepData?.name}' created successfully`)
-      nextStep?.({ ...prevStepData, ...stepData } as StepAWSAuthenticationProps)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      setLoadConnector(false)
-      props.onConnectorCreated(response.data)
-      showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
-      nextStep?.({ ...prevStepData, ...stepData } as StepAWSAuthenticationProps)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(props.isEditMode)
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
@@ -118,7 +61,6 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
         if (props.connectorInfo) {
           setupAWSFormData(props.connectorInfo as any, accountId).then(data => {
             setInitialValues(data as AWSFormInterface)
-            setDelegateSelectors(data.delegateSelectors)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -127,6 +69,15 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
       }
     }
   }, [loadingConnectorSecrets])
+
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    props.setFormData?.(formData)
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepAWSAuthenticationProps)
+  }
+
+  const handleDelegateTypeChange = useCallback((event: React.FormEvent<HTMLInputElement>) => {
+    setIsDelegateRequired((event.target as HTMLInputElement).value === DelegateTypes.DELEGATE_IN_CLUSTER)
+  }, [])
 
   return loadingConnectorSecrets ? (
     <PageSpinner />
@@ -141,12 +92,6 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
-          // Enable when delegateSelector adds form validation
-          // delegateSelector: Yup.string().when('delegateType', {
-          //   is: DelegateTypes.DELEGATE_IN_CLUSTER,
-          //   then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
-          // }),
-
           accessKey: Yup.string()
             .nullable()
             .when('delegateType', {
@@ -163,27 +108,10 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
             then: Yup.string().trim().required(getString('connectors.aws.validation.crossAccountRoleArn'))
           })
         })}
-        onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            delegateSelectors,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildAWSPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-
             <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formDataAws}>
               <FormInput.RadioGroup
                 name="delegateType"
@@ -195,6 +123,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                   }
                 ]}
                 className={css.radioGroup}
+                onChange={handleDelegateTypeChange}
               />
               {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
                 <Layout.Vertical width={'56%'}>
@@ -209,22 +138,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                   <SecretInput name="secretKeyRef" label={getString('connectors.aws.secretKey')} />
                 </Layout.Vertical>
               ) : (
-                <>
-                  <Text font="medium" color={Color.BLACK} margin={{ bottom: 'small' }}>
-                    {getString('delegate.DelegateselectionLabel')}
-                  </Text>
-                  <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
-                  <DelegateSelectors
-                    className={css.formInput}
-                    fill
-                    allowNewTag={false}
-                    placeholder={getString('delegate.DelegateselectionPlaceholder')}
-                    selectedItems={delegateSelectors}
-                    onChange={data => {
-                      setDelegateSelectors(data as Array<string>)
-                    }}
-                  ></DelegateSelectors>
-                </>
+                <></>
               )}
 
               <Layout.Vertical spacing="small">
@@ -256,17 +170,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="awsBackButton"
               />
-              <Button
-                type="submit"
-                intent={'primary'}
-                text={getString('saveAndContinue')}
-                disabled={
-                  (DelegateTypes.DELEGATE_IN_CLUSTER === formikProps.values.delegateType &&
-                    delegateSelectors.length === 0) ||
-                  loadConnector
-                }
-                rightIcon="chevron-right"
-              />
+              <Button type="submit" intent={'primary'} text={getString('saveAndContinue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

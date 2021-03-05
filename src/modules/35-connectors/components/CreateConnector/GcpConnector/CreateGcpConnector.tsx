@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildGcpPayload, DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import GcpAuthentication from './StepAuth/GcpAuthentication'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
+  const isEditModeAndDelegateSelected =
+    props.isEditMode &&
+    (props?.connectorInfo as ConnectorInfoDTO)?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+  const [isDelegateRequired, setIsDelegateRequired] = useState(isEditModeAndDelegateSelected)
   const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
+  const delegateStepName = isDelegateRequired
+    ? getString('delegate.DelegateName')
+    : getString('delegateSelectorOptional')
 
   return (
     <>
@@ -29,6 +39,15 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
         <GcpAuthentication
           name={getString('details')}
           {...commonProps}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+          setIsDelegateRequired={setIsDelegateRequired}
+        />
+        <DelegateSelectorStep
+          name={delegateStepName}
+          {...commonProps}
+          buildPayload={buildGcpPayload}
+          hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
         />

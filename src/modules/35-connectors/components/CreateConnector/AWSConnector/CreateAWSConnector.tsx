@@ -21,6 +21,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
   const delegateStepName = isDelegateRequired
     ? getString('delegate.DelegateName')
     : getString('delegateSelectorOptional')
+
   return (
     <>
       <StepWizard
@@ -46,6 +47,7 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
           name={delegateStepName}
           {...commonProps}
           buildPayload={buildAWSPayload}
+          hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
         />

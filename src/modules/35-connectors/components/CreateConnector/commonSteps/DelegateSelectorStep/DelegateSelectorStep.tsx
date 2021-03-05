@@ -34,6 +34,7 @@ interface BuildPayloadProps {
 
 interface DelegateSelectorProps {
   buildPayload: (data: BuildPayloadProps) => ConnectorRequestBody
+  hideModal: () => void
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
@@ -43,7 +44,9 @@ interface DelegateSelectorProps {
   projectIdentifier: string
 }
 
-const defaultInitialFormData: { delegateSelectors: Array<string> } = {
+type InitialFormData = { delegateSelectors: Array<string> }
+
+const defaultInitialFormData: InitialFormData = {
   delegateSelectors: []
 }
 
@@ -56,7 +59,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
-  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
@@ -66,9 +69,13 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       const response = await createConnector(data)
       setLoadConnector(false)
       props.onConnectorCreated(response.data)
-      props.setIsEditMode(true)
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
-      nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
+      if (!delegateSelectors.length && stepData.skipDefaultValidation) {
+        props.hideModal()
+      } else {
+        nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
+        props.setIsEditMode(true)
+      }
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -83,7 +90,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       setLoadConnector(false)
       props.onConnectorCreated(response.data)
       showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
-      nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
+      if (!delegateSelectors.length && stepData.skipDefaultValidation) {
+        props.hideModal()
+      } else {
+        nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
+      }
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
@@ -91,9 +102,9 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   }
 
   useEffect(() => {
-    const delegate = (props.connectorInfo || {})?.spec?.credential?.spec?.delegateSelectors || []
+    const delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.delegateSelectors || []
     if (props.isEditMode) {
-      setInitialValues(delegate)
+      setInitialValues({ delegateSelectors: delegate })
       setDelegateSelectors(delegate)
     }
   }, [])

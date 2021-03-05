@@ -109,12 +109,7 @@ const buildAuthTypePayload = (formData: FormData) => {
 }
 
 export const getSpecForDelegateType = (formData: FormData) => {
-  const type = formData?.delegateType
-  if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
-    return {
-      delegateSelectors: formData?.delegateSelectors
-    }
-  } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+  if (formData?.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     return {
       masterUrl: formData?.masterUrl,
       auth: {
@@ -134,10 +129,14 @@ export const buildKubPayload = (formData: FormData) => {
     identifier: formData?.identifier,
     tags: formData?.tags,
     type: Connectors.KUBERNETES_CLUSTER,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       credential: {
         type: formData?.delegateType,
-        spec: getSpecForDelegateType(formData)
+        spec: {
+          ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+          ...getSpecForDelegateType(formData)
+        }
       }
     }
   }
@@ -177,6 +176,7 @@ export const buildGithubPayload = (formData: FormData) => {
     identifier: formData.identifier,
     tags: formData?.tags,
     type: Connectors.GITHUB,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       type: formData.urlType,
       url: formData.url,
@@ -220,6 +220,7 @@ export const buildGitlabPayload = (formData: FormData) => {
     identifier: formData.identifier,
     tags: formData?.tags,
     type: Connectors.GITLAB,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       type: formData.urlType,
       url: formData.url,
@@ -263,6 +264,7 @@ export const buildBitbucketPayload = (formData: FormData) => {
     identifier: formData.identifier,
     tags: formData?.tags,
     type: Connectors.BITBUCKET,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       type: formData.urlType,
       url: formData.url,
@@ -451,8 +453,7 @@ export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accou
     clientKeyCertificate: await setSecretField(authdata?.clientCertRef, scopeQueryParams),
     clientKeyPassphrase: await setSecretField(authdata?.clientKeyPassphraseRef, scopeQueryParams),
     clientKeyCACertificate: await setSecretField(authdata?.caCertRef, scopeQueryParams),
-    clientKeyAlgo: authdata?.clientKeyAlgo,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || []
+    clientKeyAlgo: authdata?.clientKeyAlgo
   }
 }
 
@@ -481,7 +482,6 @@ export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountI
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
-    delegateSelectors: connectorInfo.spec.credential?.spec?.delegateSelectors || [],
     password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams)
   }
 
@@ -611,6 +611,7 @@ export const buildAWSPayload = (formData: FormData) => {
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
     type: Connectors.AWS,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       credential: {
         type: formData.delegateType,
@@ -736,6 +737,7 @@ export const buildGcpPayload = (formData: FormData) => {
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
     type: Connectors.GCP,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       credential: {
         type: formData?.delegateType,
@@ -763,6 +765,7 @@ export const buildGitPayload = (formData: FormData) => {
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
     type: Connectors.GIT,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       connectionType: formData.urlType,
       url: formData.url,

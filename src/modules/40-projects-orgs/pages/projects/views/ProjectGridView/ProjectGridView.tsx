@@ -32,7 +32,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
             />
           )}
           keyOf={(projectDTO: ProjectAggregateDTO) =>
-            projectDTO.projectResponse.project.identifier + projectDTO.projectResponse.project.orgIdentifier
+            projectDTO.projectResponse.project.identifier || '' + projectDTO.projectResponse.project.orgIdentifier
           }
         />
       </Container>

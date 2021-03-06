@@ -33,7 +33,7 @@ export default function CESideNav(): React.ReactElement {
           } else {
             history.push(
               routes.toCECORules({
-                projectIdentifier: data.identifier,
+                projectIdentifier: data.identifier as string,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
               })

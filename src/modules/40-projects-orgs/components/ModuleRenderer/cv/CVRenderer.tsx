@@ -24,7 +24,7 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
           history.push(
             routes.toCVProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
+              projectIdentifier: data.identifier as string,
               accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )

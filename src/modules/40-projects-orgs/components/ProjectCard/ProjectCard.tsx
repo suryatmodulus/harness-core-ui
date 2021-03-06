@@ -59,7 +59,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   return (
     <Card
       className={cx(css.projectCard, props.className)}
-      data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
+      data-testid={`project-card-${data.identifier || '' + data.orgIdentifier}`}
     >
       <Container padding="xlarge" className={css.projectInfo}>
         {!isPreview ? (
@@ -88,7 +88,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             !isPreview &&
               history.push({
                 pathname: routes.toProjectDetails({
-                  projectIdentifier: data.identifier,
+                  projectIdentifier: data.identifier as string,
                   orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                   accountId: data.accountIdentifier || /* istanbul ignore next */ ''
                 })

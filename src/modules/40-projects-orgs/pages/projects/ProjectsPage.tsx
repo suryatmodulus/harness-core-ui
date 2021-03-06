@@ -56,13 +56,13 @@ const ProjectsListPage: React.FC = () => {
     ...(orgsData?.data?.content?.map(org => {
       org.organization.identifier === orgId
         ? (orgFilter = {
-            label: org.organization.name,
-            value: org.organization.identifier
+            label: org.organization.name as string,
+            value: org.organization.identifier as string
           })
         : null
       return {
-        label: org.organization.name,
-        value: org.organization.identifier
+        label: org.organization.name as string,
+        value: org.organization.identifier as string
       }
     }) || [])
   ]

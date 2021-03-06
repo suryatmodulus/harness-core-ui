@@ -74,7 +74,7 @@ const OrganizationsPage: React.FC = () => {
               data={org}
               editOrg={() => openOrganizationModal(org.organizationResponse.organization)}
               inviteCollab={() =>
-                openCollaboratorModal({ orgIdentifier: org.organizationResponse.organization.identifier })
+                openCollaboratorModal({ orgIdentifier: org.organizationResponse.organization.identifier as string })
               }
               reloadOrgs={() => refetch()}
               onClick={() =>

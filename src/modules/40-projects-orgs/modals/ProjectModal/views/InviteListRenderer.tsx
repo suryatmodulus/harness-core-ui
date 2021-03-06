@@ -86,7 +86,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   {i18n.newProjectWizard.Collaborators.roleAssigned}
                 </Text>
                 <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
-                  {user.role.name}
+                  {user.role?.name}
                 </Text>
               </Layout.Horizontal>
             </Layout.Vertical>

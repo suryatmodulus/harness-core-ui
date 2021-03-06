@@ -38,7 +38,7 @@ export default function CISideNav(): React.ReactElement {
           } else {
             history.push(
               routes.toCIProjectOverview({
-                projectIdentifier: data.identifier,
+                projectIdentifier: data.identifier as string,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
               })

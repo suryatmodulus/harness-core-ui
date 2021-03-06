@@ -32,7 +32,7 @@ const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module, refet
         { project: data },
         {
           pathParams: {
-            identifier: data.identifier
+            identifier: data.identifier as string
           },
           queryParams: {
             accountIdentifier: accountId,

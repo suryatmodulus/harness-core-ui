@@ -137,7 +137,7 @@ const ResourceGroupDetails: React.FC = () => {
                 },
                 {
                   url: '#',
-                  label: resourceGroup.name
+                  label: resourceGroup.name as string
                 }
               ]}
             />

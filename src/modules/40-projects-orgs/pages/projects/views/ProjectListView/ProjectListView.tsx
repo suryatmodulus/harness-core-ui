@@ -136,7 +136,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
             e.stopPropagation()
             setMenuOpen(true)
           }}
-          data-testid={`menu-${data.identifier + data.orgIdentifier}`}
+          data-testid={`menu-${data.identifier || '' + data.orgIdentifier}`}
         />
         <ContextMenu
           project={data}
@@ -228,7 +228,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       onRowClick={project => {
         history.push(
           routes.toProjectDetails({
-            projectIdentifier: project.projectResponse.project.identifier,
+            projectIdentifier: project.projectResponse.project.identifier as string,
             orgIdentifier: project.projectResponse.project.orgIdentifier || '',
             accountId: accountId || ''
           })

@@ -38,8 +38,8 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     orgData?.data?.content?.map(org => {
       if (org.harnessManaged) defaultOrg = org.organization.identifier
       return {
-        label: org.organization.name,
-        value: org.organization.identifier
+        label: org.organization.name as string,
+        value: org.organization.identifier as string
       }
     }) || []
 

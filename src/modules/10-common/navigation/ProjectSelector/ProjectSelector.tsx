@@ -79,7 +79,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
                 routes.toProjectDetails({
                   accountId,
                   orgIdentifier: selectedProject.orgIdentifier as string,
-                  projectIdentifier: selectedProject.identifier
+                  projectIdentifier: selectedProject.identifier as string
                 })
               )
           }}

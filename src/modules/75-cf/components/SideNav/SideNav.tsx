@@ -22,7 +22,7 @@ export default function CFSideNav(): React.ReactElement {
           updateAppStore({ selectedProject: data })
           history.push(
             routes.toCFFeatureFlags({
-              projectIdentifier: data.identifier,
+              projectIdentifier: data.identifier as string,
               orgIdentifier: data.orgIdentifier || '',
               accountId
             })

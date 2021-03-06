@@ -103,16 +103,16 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const users: SelectOption[] =
     userData?.data?.content?.map(user => {
       return {
-        label: user.name,
-        value: user.email
+        label: user.name as string,
+        value: user.email as string
       }
     }) || []
 
   const roles: SelectOption[] =
     roleData?.data?.map(roleOption => {
       return {
-        label: roleOption.name,
-        value: roleOption.name
+        label: roleOption.name as string,
+        value: roleOption.name as string
       }
     }) || []
 

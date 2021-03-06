@@ -67,7 +67,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCVProjectOverview({
-        projectIdentifier: project.identifier,
+        projectIdentifier: project.identifier as string,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
       })
@@ -79,7 +79,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCFFeatureFlags({
-        projectIdentifier: project.identifier,
+        projectIdentifier: project.identifier as string,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
       })
@@ -90,7 +90,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCIProjectOverview({
-        projectIdentifier: project.identifier,
+        projectIdentifier: project.identifier as string,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
       })
@@ -101,7 +101,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCECORules({
-        projectIdentifier: project.identifier,
+        projectIdentifier: project.identifier as string,
         orgIdentifier: project.orgIdentifier as string,
         accountId: project.accountIdentifier as string
       })

@@ -161,7 +161,7 @@ const RoleDetails: React.FC = () => {
         <Layout.Horizontal className={css.body}>
           <Container className={css.resourceList}>
             <Layout.Vertical flex spacing="small">
-              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
+              {resourceGroups?.data?.resourceTypes?.map(({ name: resourceType }) => {
                 const resourceHandler = RbacFactory.getResourceTypeHandler(resourceType as ResourceType)
                 return (
                   resourceHandler && (
@@ -197,7 +197,7 @@ const RoleDetails: React.FC = () => {
                   <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
                 </Layout.Horizontal>
               </Layout.Horizontal>
-              {resourceGroups?.data?.resourceTypes.map(({ name: resourceType }) => {
+              {resourceGroups?.data?.resourceTypes?.map(({ name: resourceType }) => {
                 return (
                   <div
                     key={resourceType}

@@ -23,7 +23,7 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
           history.push(
             routes.toCFProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
+              projectIdentifier: data.identifier as string,
               accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )

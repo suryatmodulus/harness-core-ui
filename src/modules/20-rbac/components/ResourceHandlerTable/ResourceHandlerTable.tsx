@@ -14,7 +14,7 @@ interface ResourceHandlerTableProps<T extends ResourceHandlerTableData> {
 }
 
 interface ResourceHandlerTableData {
-  identifier: string
+  identifier?: string
 }
 
 const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
@@ -33,14 +33,14 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
         Cell: ({ row }: CellProps<T>) => {
           return (
             <Checkbox
-              defaultChecked={selectedData.includes(row.original.identifier)}
+              defaultChecked={selectedData.includes(row.original.identifier || '')}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
                 if (event.currentTarget.checked) {
-                  onSelectChange([...selectedData, row.original.identifier])
+                  onSelectChange([...selectedData, row.original.identifier || ''])
                 } else {
                   onSelectChange(
                     produce(selectedData, draft => {
-                      draft?.splice(draft.indexOf(row.original.identifier), 1)
+                      draft?.splice(draft.indexOf(row.original.identifier || ''), 1)
                     })
                   )
                 }

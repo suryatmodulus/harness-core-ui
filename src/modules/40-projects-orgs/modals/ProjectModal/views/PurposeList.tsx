@@ -137,7 +137,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()
   const { mutate: updateProject } = usePutProject({
-    identifier: projectData.identifier,
+    identifier: projectData.identifier as string,
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: projectData.orgIdentifier
@@ -231,7 +231,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
               getModuleLinks(
                 module,
                 projectData.orgIdentifier || /* istanbul ignore next */ '',
-                projectData.identifier,
+                projectData.identifier as string,
                 projectData.accountIdentifier || /* istanbul ignore next */ ''
               )
             )

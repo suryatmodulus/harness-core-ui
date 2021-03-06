@@ -69,7 +69,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
       await updateProject(
         { project: values },
         {
-          pathParams: { identifier: values.identifier },
+          pathParams: { identifier: values.identifier as string },
           queryParams: {
             accountIdentifier: accountId,
             orgIdentifier: values.orgIdentifier

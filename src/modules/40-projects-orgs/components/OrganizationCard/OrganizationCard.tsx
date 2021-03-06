@@ -44,8 +44,10 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {
-          const deleted = await deleteOrg(data.identifier, { headers: { 'content-type': 'application/json' } })
-          /* istanbul ignore else */ if (deleted) showSuccess(i18n.successMessage(data.name))
+          const deleted = await deleteOrg(data.identifier as string, {
+            headers: { 'content-type': 'application/json' }
+          })
+          /* istanbul ignore else */ if (deleted) showSuccess(i18n.successMessage(data.name as string))
           reloadOrgs?.()
         } catch (err) {
           showError(err)

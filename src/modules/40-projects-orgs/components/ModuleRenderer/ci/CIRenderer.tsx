@@ -23,7 +23,7 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
           history.push(
             routes.toCIProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-              projectIdentifier: data.identifier,
+              projectIdentifier: data.identifier as string,
               accountId: data.accountIdentifier || /* istanbul ignore next */ ''
             })
           )

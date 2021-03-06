@@ -15,7 +15,7 @@ const openDialog = jest.fn()
 const routeParams = {
   accountId: projectWithModules.accountIdentifier || '',
   orgIdentifier: projectWithModules.orgIdentifier || '',
-  projectIdentifier: projectWithModules.identifier
+  projectIdentifier: projectWithModules.identifier || ''
 }
 describe('Context Menu test', () => {
   let container: HTMLElement

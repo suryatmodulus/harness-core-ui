@@ -173,7 +173,7 @@ const ProjectDetails: React.FC = () => {
                     <ModuleListCard
                       module={module as ModuleName}
                       key={module}
-                      projectIdentifier={projectData.identifier}
+                      projectIdentifier={projectData.identifier as string}
                       orgIdentifier={projectData.orgIdentifier || ''}
                       accountId={projectData.accountIdentifier || ''}
                     />

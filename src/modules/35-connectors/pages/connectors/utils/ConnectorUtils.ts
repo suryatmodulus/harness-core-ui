@@ -680,6 +680,7 @@ export const buildDockerPayload = (formData: FormData) => {
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
     type: Connectors.DOCKER,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
       providerType: formData.dockerProviderType,
@@ -785,6 +786,7 @@ export const buildNexusPayload = (formData: FormData) => {
     type: Connectors.NEXUS,
 
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       nexusServerUrl: formData?.nexusServerUrl,
       version: formData?.nexusVersion,
@@ -809,6 +811,7 @@ export const buildArtifactoryPayload = (formData: FormData) => {
   const savedData = {
     type: Connectors.ARTIFACTORY,
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
     spec: {
       artifactoryServerUrl: formData?.artifactoryServerUrl,
       auth: {
@@ -827,6 +830,36 @@ export const buildArtifactoryPayload = (formData: FormData) => {
 
   return { connector: savedData }
 }
+
+export const buildAppDynamicsPayload = (formData: FormData, accountId: string) => ({
+  connector: {
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    type: Connectors.APP_DYNAMICS,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+    spec: {
+      username: formData.username,
+      accountname: formData.accountName,
+      passwordRef: formData.password.referenceString,
+      controllerUrl: formData.url,
+      accountId
+    }
+  }
+})
+
+export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
+  connector: {
+    ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
+    type: Connectors.SPLUNK,
+    ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+    spec: {
+      username: formData.username,
+      accountname: formData.accountName,
+      passwordRef: formData.passwordRef.referenceString,
+      splunkUrl: formData.url,
+      accountId
+    }
+  }
+})
 
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {

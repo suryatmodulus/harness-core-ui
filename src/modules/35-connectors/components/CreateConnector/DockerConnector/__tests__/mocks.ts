@@ -4,14 +4,15 @@ export const dockerMock: ConnectorInfoDTO = {
   name: 'docker3',
   description: 'devConnector description',
   identifier: 'devConnector',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
+  delegateSelectors: ['dummyDelegateSelector'],
   tags: {},
   type: 'DockerRegistry',
   spec: {
     dockerRegistryUrl: 'url-v3',
     providerType: 'DockerHub',
-    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.b13' } }
+    auth: { type: 'UsernamePassword', spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.b13' } }
   }
 }
 

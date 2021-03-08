@@ -38,6 +38,7 @@ describe('Stepk8ClusterDetails', () => {
           name="credentials"
           isEditMode={false}
           connectorInfo={{ name: 'nameK8s', identifier: 'id', type: 'K8sCluster', spec: {} } as any}
+          setIsDelegateRequired={noop}
         />
       </TestWrapper>
     )
@@ -73,6 +74,7 @@ describe('Stepk8ClusterDetails', () => {
           {...commonProps}
           name="credentials"
           isEditMode={true}
+          setIsDelegateRequired={noop}
           connectorInfo={
             {
               name: 'dummyname',
@@ -110,6 +112,7 @@ describe('Stepk8ClusterDetails', () => {
           {...commonProps}
           name="credentials"
           isEditMode={true}
+          setIsDelegateRequired={noop}
           connectorInfo={
             {
               name: 'dummy2',
@@ -144,6 +147,7 @@ describe('Stepk8ClusterDetails', () => {
           {...commonProps}
           name="credentials"
           isEditMode={true}
+          setIsDelegateRequired={noop}
           connectorInfo={
             {
               name: 'dmhgjdgj',
@@ -190,6 +194,7 @@ describe('Stepk8ClusterDetails', () => {
           {...commonProps}
           name="credentials"
           isEditMode={true}
+          setIsDelegateRequired={noop}
           connectorInfo={
             {
               name: 'dmhgjdgj',

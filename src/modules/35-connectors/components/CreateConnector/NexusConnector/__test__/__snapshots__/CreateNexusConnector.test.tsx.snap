@@ -96,6 +96,21 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -435,6 +450,21 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -466,7 +496,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   class="StyledProps--font StyledProps--main formRow"
                 >
                   <div
-                    class="bp3-form-group urlInput"
+                    class="bp3-form-group bp3-intent-danger urlInput"
                     data-id="nexusServerUrl-0"
                   >
                     <label
@@ -483,7 +513,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -494,10 +524,15 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                           value=""
                         />
                       </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Nexus URL is required
+                      </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group versionInput"
+                    class="bp3-form-group bp3-intent-danger versionInput"
                     data-id="nexusVersion-1"
                   >
                     <label
@@ -520,7 +555,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                           class="bp3-popover-target"
                         >
                           <div
-                            class="bp3-input-group"
+                            class="bp3-input-group bp3-intent-danger"
                           >
                             <input
                               autocomplete="off"
@@ -556,6 +591,11 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                             </span>
                           </div>
                         </div>
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Version is required
                       </div>
                     </div>
                   </div>
@@ -626,7 +666,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   class="StyledProps--font StyledProps--main formWrapper"
                 >
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="usernamefieldType-3"
                   >
                     <div
@@ -715,10 +755,15 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                           </div>
                         </div>
                       </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Username is a required field
+                      </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="null-6"
                   >
                     <div
@@ -773,6 +818,11 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                             </div>
                           </span>
                         </button>
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Password is a required field
                       </div>
                     </div>
                   </div>
@@ -941,6 +991,21 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1255,6 +1320,21 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"

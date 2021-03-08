@@ -86,6 +86,13 @@ describe('Create AWS connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    const delegateSelector = container.querySelector('[data-name="DelegateSelectors"]')
+    expect(delegateSelector).toBeTruthy()
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
       connector: {
         ...mockConnector.data.connector,
@@ -131,8 +138,12 @@ describe('Create AWS connector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-    // step 2
-    const tagElm = queryByText(container, 'primary')
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    const tagElm = queryByText(container, 'dummyDelegateSelector')
     expect(tagElm).toBeTruthy()
 
     //updating connector

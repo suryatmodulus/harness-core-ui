@@ -14,15 +14,23 @@ const mockIdentifierValidate: ResponseBoolean = {
   correlationId: ''
 }
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  onClose: noop,
+  onSuccess: noop
+}
+
 describe('Create Splunk connector Wizard', () => {
   test('should render form', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateSplunkConnector
-          accountId="dummyAccountId"
-          orgIdentifier="dummyOrgId"
-          projectIdentifier="dummyProjectId"
-          onClose={noop}
+          {...commonProps}
+          isEditMode={false}
+          connectorInfo={undefined}
           onConnectorCreated={noop}
           mockIdentifierValidate={mockIdentifierValidate}
         />

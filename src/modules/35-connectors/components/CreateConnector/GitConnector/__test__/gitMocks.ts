@@ -4,16 +4,16 @@ export const usernamePassword: ConnectorInfoDTO = {
   name: 'dumyGit',
   identifier: 'dumyGit',
   description: '',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
+  delegateSelectors: ['dummyDelegateSelector'],
   tags: {},
   type: 'Git',
   spec: {
     url: 'dumyGitUrl',
     type: 'Http',
     connectionType: 'Account',
-    spec: { username: 'dev', passwordRef: 'account.connectorPass' },
-    gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
+    spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.connectorPass' }
   }
 }
 

@@ -11,6 +11,7 @@ export const mockConnector = {
       projectIdentifier: undefined,
       tags: {},
       type: 'Aws',
+      delegateSelectors: ['dummyDelegateSelector'],
       spec: {
         credential: {
           crossAccountAccess: { crossAccountRoleArn: 'mock URN', externalId: 'externalId' },
@@ -39,8 +40,13 @@ export const awsWithDelegate = {
       projectIdentifier: undefined,
       tags: {},
       type: 'Aws',
+      delegateSelectors: ['dummyDelegateSelector'],
       spec: {
-        credential: { crossAccountAccess: null, type: 'InheritFromDelegate', spec: { delegateSelectors: ['primary'] } }
+        credential: {
+          crossAccountAccess: null,
+          type: 'InheritFromDelegate',
+          spec: { delegateSelectors: ['dummyDelegateSelector'] }
+        }
       }
     },
     createdAt: 1613481338947,

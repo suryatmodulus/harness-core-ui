@@ -4,10 +4,11 @@ export const encryptedKeyMock: ConnectorInfoDTO = {
   name: 'devConnector',
   identifier: 'devConnector',
   description: 'devConnector description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Gcp',
+  delegateSelectors: ['dummyDelegateSelector'],
   spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.s15656' } } }
 }
 

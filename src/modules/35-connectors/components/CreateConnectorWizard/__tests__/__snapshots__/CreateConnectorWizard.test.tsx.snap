@@ -86,6 +86,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -425,6 +440,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -732,6 +762,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
             class="StepWizard--number"
           >
             3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1102,6 +1147,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -1424,6 +1484,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -1740,6 +1815,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
             class="StepWizard--number"
           >
             4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2091,6 +2181,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -2409,6 +2514,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
             class="StepWizard--number"
           >
             3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3034,6 +3154,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
             class="StepWizard--number"
           >
             3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate (Optional)
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"

@@ -23,7 +23,8 @@ const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -158,31 +159,13 @@ describe('Create Gitlab connector Wizard', () => {
       clickSubmit(container)
     })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'connector description',
-        identifier: 'asasas',
-        name: 'GitlabWorking',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          type: 'Account',
-          url: 'https://gitlab.com/dev',
-          authentication: {
-            type: 'Ssh',
-            spec: { sshKeyRef: 'account.gitlabPassword' }
-          },
-          apiAccess: {
-            type: 'Token',
-            spec: {
-              tokenRef: 'account.gitlabPassword'
-            }
-          }
-        },
-        tags: {},
-        type: 'Gitlab'
-      }
+      connector: sshAuthWithAPIAccessToken
     })
   })
 
@@ -213,25 +196,13 @@ describe('Create Gitlab connector Wizard', () => {
       clickSubmit(container)
     })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'connector description',
-        identifier: 'asasas',
-        name: 'GitlabWorking',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          type: 'Account',
-          url: 'https://gitlab.com/dev',
-          authentication: {
-            type: 'Http',
-            spec: { type: 'UsernamePassword', spec: { passwordRef: 'account.gitlabPassword', username: 'dev' } }
-          }
-        },
-        tags: {},
-        type: 'Gitlab'
-      }
+      connector: usernamePassword
     })
   })
 

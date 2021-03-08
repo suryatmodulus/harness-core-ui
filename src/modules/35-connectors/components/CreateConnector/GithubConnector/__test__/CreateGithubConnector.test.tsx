@@ -32,7 +32,8 @@ jest.mock('services/portal', () => ({
   useGetDelegatesStatus: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -187,37 +188,17 @@ describe('Create Github connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'connector before demo',
-        identifier: 'asasas',
-        name: 'GithubWorking1',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          type: 'Account',
-          url: 'https://github.com/dev',
-          authentication: {
-            type: 'Http',
-            spec: { type: 'UsernameToken', spec: { tokenRef: 'account.githubPassword', username: 'dev' } }
-          },
-          apiAccess: {
-            type: 'GithubApp',
-            spec: {
-              applicationId: '1234',
-              installationId: '1234',
-              privateKeyRef: 'account.githubPassword'
-            }
-          }
-        },
-        tags: {},
-        type: 'Github'
-      }
+      connector: usernameTokenWithAPIAccessGithubApp
     })
   })
 
-  test('should form for edit http and authtype username-token with API access', async () => {
+  test.only('should form for edit http and authtype username-token with API access', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
@@ -241,31 +222,13 @@ describe('Create Github connector Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        name: 'GithubWorking1',
-        identifier: 'asasas',
-        description: 'connector before demo',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        tags: {},
-        type: 'Github',
-        spec: {
-          url: 'https://github.com/dev',
-          authentication: {
-            type: 'Http',
-            spec: {
-              type: 'UsernameToken',
-              spec: { username: 'dev', tokenRef: 'account.githubPassword' }
-            }
-          },
-          apiAccess: {
-            type: 'GithubApp',
-            spec: { installationId: '1234', applicationId: '1234', privateKeyRef: 'account.githubPassword' }
-          },
-          type: 'Account'
-        }
-      }
+      connector: usernameTokenWithAPIAccessToken
     })
   })
 

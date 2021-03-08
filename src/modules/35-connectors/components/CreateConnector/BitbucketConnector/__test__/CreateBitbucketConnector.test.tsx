@@ -28,7 +28,8 @@ const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -159,25 +160,13 @@ describe('Create Bitbucketconnector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'Bitbucket description',
-        identifier: 'BitbucketWorking',
-        name: 'BitbucketWorking',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          type: 'Account',
-          url: 'https://github.com/dev',
-          authentication: {
-            type: 'Http',
-            spec: { type: 'UsernamePassword', spec: { passwordRef: 'account.githubPassword', username: 'dev' } }
-          }
-        },
-        tags: {},
-        type: 'Bitbucket'
-      }
+      connector: usernamePassword
     })
   })
 
@@ -208,32 +197,13 @@ describe('Create Bitbucketconnector Wizard', () => {
       clickSubmit(container)
     })
 
+    await act(async () => {
+      clickSubmit(container)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'Bitbucket description',
-        identifier: 'BitbucketWorking',
-        name: 'BitbucketWorking',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          type: 'Account',
-          url: 'https://github.com/dev',
-          authentication: {
-            type: 'Http',
-            spec: { type: 'UsernamePassword', spec: { passwordRef: 'account.githubPassword', username: 'dev' } }
-          },
-          apiAccess: {
-            type: 'UsernamePassword',
-            spec: {
-              tokenRef: 'account.githubPassword',
-              username: 'dev'
-            }
-          }
-        },
-        tags: {},
-        type: 'Bitbucket'
-      }
+      connector: usernameTokenWithAPIAccess
     })
   })
 

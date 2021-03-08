@@ -19,7 +19,8 @@ const commonProps = {
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -70,32 +71,30 @@ describe('Create GCP connector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-    // step 2
-    expect(queryByText(container, 'Specify credentials here')).toBeDefined()
+
+    expect(queryByText(container, 'Specify credentials here')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
-    //updating connector
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    // updating connector
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    const delegateSelector = container.querySelector('[data-name="DelegateSelectors"]')
+    expect(delegateSelector).toBeTruthy()
+
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: 'devConnector description',
-        identifier: 'devConnector',
-        name: 'dummy name',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          credential: {
-            spec: {
-              secretKeyRef: 'account.s15656'
-            },
-            type: 'ManualConfig'
-          }
-        },
-        tags: {},
-        type: 'Gcp'
+        ...encryptedKeyMock,
+        name: 'dummy name'
       }
     })
   })

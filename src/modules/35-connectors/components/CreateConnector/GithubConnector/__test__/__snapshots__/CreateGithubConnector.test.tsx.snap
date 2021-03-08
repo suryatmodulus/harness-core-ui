@@ -94,6 +94,21 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -429,6 +444,21 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -782,6 +812,21 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1248,6 +1293,21 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1601,6 +1661,21 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1885,6 +1960,21 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2215,6 +2305,21 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2689,6 +2794,21 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -2993,7 +3113,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="GitHub App"
+                              value="Personal Access Token"
                             />
                             <span
                               class="bp3-input-action"
@@ -3026,131 +3146,64 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                 </div>
                 <div
                   class="StyledProps--font StyledProps--main"
+                  style="width: 52%;"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main formRow"
+                    class="bp3-form-group"
+                    data-id="null-7"
                   >
                     <div
-                      class="bp3-form-group"
-                      data-id="installationId-7"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="installationId"
-                      >
-                        GitHub Installation ID
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="bp3-input-group"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="installationId"
-                            type="text"
-                            value="1234"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bp3-form-group"
-                      data-id="applicationId-8"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="applicationId"
-                      >
-                        GitHub Application ID
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="bp3-input-group"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="applicationId"
-                            type="text"
-                            value="1234"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main formRow"
-                  >
-                    <div
-                      class="bp3-form-group"
-                      data-id="null-9"
+                      class="bp3-form-content"
                     >
                       <div
-                        class="bp3-form-content"
+                        class="Layout--vertical StyledProps--main"
                       >
-                        <div
-                          class="Layout--vertical StyledProps--main"
+                        <label
+                          class="bp3-label"
                         >
-                          <label
-                            class="bp3-label"
+                          Personal Access Token
+                        </label>
+                        <button
+                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          data-testid="apiAccessToken"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
                           >
-                            GitHub Private Key
-                          </label>
-                          <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                            data-testid="privateKey"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-button-text"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                              style="align-items: center; width: 100%;"
                             >
-                              <div
-                                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                                style="align-items: center; width: 100%;"
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
+                                style="height: 12px;"
                               >
-                                <span
-                                  class="bp3-icon StyledProps--main"
-                                  data-icon="key-main"
-                                  style="height: 12px;"
+                                <svg
+                                  height="24"
+                                  width="24"
                                 >
-                                  <svg
-                                    height="24"
-                                    width="24"
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
                                   >
-                                    <g
-                                      fill="none"
-                                      stroke="#1C1C28"
-                                      stroke-width="0.5"
-                                    >
-                                      <path
-                                        d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                      />
-                                      <path
-                                        d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                      />
-                                    </g>
-                                  </svg>
-                                </span>
-                                <span>
-                                  githubPassword
-                                </span>
-                              </div>
-                            </span>
-                          </button>
-                        </div>
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <span>
+                                githubPassword
+                              </span>
+                            </div>
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -3354,6 +3407,21 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate (Optional)
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"

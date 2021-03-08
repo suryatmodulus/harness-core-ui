@@ -16,6 +16,15 @@ const mockIdentifierValidate: cdService.ResponseBoolean = {
   correlationId: ''
 }
 
+jest.mock('services/portal', () => ({
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatus: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+}))
+
 jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
   <Container className="secret-mock">
     <FormInput.Text name="password" />
@@ -135,11 +144,16 @@ describe('Create AppD connector Wizard', () => {
       value: 'dsf-auto'
     })
 
-    const submitButton = document.body.querySelector('button[type="submit"]')
+    const submitButton = container.querySelector('button[type="submit"]')
     if (!submitButton) {
       throw Error('submit button is not rendered.')
     }
-    fireEvent.click(submitButton)
+    await act(async () => {
+      fireEvent.click(submitButton)
+    })
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
     await waitFor(() => expect(onSuccessMock).toHaveBeenCalledWith({}))
   })
 
@@ -204,6 +218,10 @@ describe('Create AppD connector Wizard', () => {
     })
 
     await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
 
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)

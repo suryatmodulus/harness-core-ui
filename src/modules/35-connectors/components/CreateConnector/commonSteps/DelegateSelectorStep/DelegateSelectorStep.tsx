@@ -34,14 +34,11 @@ interface BuildPayloadProps {
 
 interface DelegateSelectorProps {
   buildPayload: (data: BuildPayloadProps) => ConnectorRequestBody
-  hideModal: () => void
+  hideModal?: () => void
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode?: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
   customHandleCreate?: (
     data: ConnectorConfigDTO,
     stepData: StepProps<ConnectorConfigDTO> & DelegateSelectorProps
@@ -79,7 +76,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       props.onConnectorCreated?.(response.data)
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       if (!delegateSelectors.length && stepData.skipDefaultValidation) {
-        props.hideModal()
+        props.hideModal?.()
       } else {
         nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
         props.setIsEditMode?.(true)
@@ -99,7 +96,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       props.onConnectorCreated?.(response.data)
       showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
       if (!delegateSelectors.length && stepData.skipDefaultValidation) {
-        props.hideModal()
+        props.hideModal?.()
       } else {
         nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
       }

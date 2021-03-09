@@ -110,9 +110,6 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
           isEditMode={isEditMode}
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           buildPayload={buildSplunkPayload}
         />
         <VerifyOutOfClusterDelegate

@@ -37,7 +37,8 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
         <StepNexusAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
         <DelegateSelectorStep
           name={getString('delegateSelectorOptional')}
-          {...commonProps}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           buildPayload={buildNexusPayload}
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}

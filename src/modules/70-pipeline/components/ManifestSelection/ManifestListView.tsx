@@ -13,6 +13,8 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import { Connectors } from '@connectors/constants'
 import { getIconByType } from '@connectors/exports'
+import { buildGitPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
@@ -271,6 +273,13 @@ const ManifestListView = ({
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
+        />
+        <DelegateSelectorStep
+          name={getString('delegateSelectorOptional')}
+          isEditMode={isEditMode}
+          setIsEditMode={setIsEditMode}
+          buildPayload={buildGitPayload}
+          connectorInfo={undefined}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

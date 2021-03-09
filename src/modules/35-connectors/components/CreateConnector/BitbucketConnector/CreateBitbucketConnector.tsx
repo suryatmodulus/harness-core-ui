@@ -49,7 +49,8 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
       />
       <DelegateSelectorStep
         name={getString('delegateSelectorOptional')}
-        {...commonProps}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         buildPayload={buildBitbucketPayload}
         hideModal={props.onClose}
         onConnectorCreated={props.onSuccess}

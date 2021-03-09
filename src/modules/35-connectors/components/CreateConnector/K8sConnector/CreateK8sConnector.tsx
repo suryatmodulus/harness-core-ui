@@ -51,7 +51,8 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
       />
       <DelegateSelectorStep
         name={delegateStepName}
-        {...commonProps}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         buildPayload={buildKubPayload}
         onConnectorCreated={props.onSuccess}
         connectorInfo={props.connectorInfo}

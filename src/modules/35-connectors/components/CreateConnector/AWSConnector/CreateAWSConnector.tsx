@@ -45,7 +45,8 @@ const CreateAWSConnector: React.FC<CreateConnectorModalProps> = props => {
         />
         <DelegateSelectorStep
           name={delegateStepName}
-          {...commonProps}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           buildPayload={buildAWSPayload}
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}

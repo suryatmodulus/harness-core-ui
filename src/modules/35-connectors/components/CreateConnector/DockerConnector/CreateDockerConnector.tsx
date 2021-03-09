@@ -47,7 +47,8 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         />
         <DelegateSelectorStep
           name={getString('delegateSelectorOptional')}
-          {...commonProps}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           buildPayload={buildDockerPayload}
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}

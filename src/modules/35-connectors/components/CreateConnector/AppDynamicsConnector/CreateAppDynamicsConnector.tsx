@@ -20,9 +20,9 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import styles from './CreateAppDynamicsConnector.module.scss'
-import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 interface CreateAppDynamicsConnectorProps extends CreateConnectorModalProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
@@ -96,9 +96,6 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
           isEditMode={props.isEditMode}
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           buildPayload={buildAppDynamicsPayload}
         />
         <VerifyOutOfClusterDelegate

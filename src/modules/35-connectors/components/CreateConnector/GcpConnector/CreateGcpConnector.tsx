@@ -45,7 +45,8 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
         />
         <DelegateSelectorStep
           name={delegateStepName}
-          {...commonProps}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
           buildPayload={buildGcpPayload}
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}

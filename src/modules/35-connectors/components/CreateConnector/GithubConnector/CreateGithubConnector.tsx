@@ -45,7 +45,8 @@ const CreateGithubConnector = (props: CreateConnectorModalProps): JSX.Element =>
       <StepGithubAuthentication name={getString('credentials')} {...commonProps} onConnectorCreated={props.onSuccess} />
       <DelegateSelectorStep
         name={getString('delegateSelectorOptional')}
-        {...commonProps}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         buildPayload={buildGithubPayload}
         hideModal={props.onClose}
         onConnectorCreated={props.onSuccess}

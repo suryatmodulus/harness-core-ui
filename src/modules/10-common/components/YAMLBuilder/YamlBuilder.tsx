@@ -15,7 +15,7 @@ import SplitPane from 'react-split-pane'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import cx from 'classnames'
-import { scalarOptions, stringify } from 'yaml'
+import { scalarOptions, stringify, defaultOptions } from 'yaml'
 import { Tag, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
@@ -55,6 +55,7 @@ import {
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
+defaultOptions.indent = 4
 
 const getTheme = (theme: Theme) => (theme === 'DARK' ? EDITOR_BASE_DARK_THEME : EDITOR_BASE_LIGHT_THEME)
 

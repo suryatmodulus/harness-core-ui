@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEqual, isEqualWith } from 'lodash-es'
+import { isEqual, isEqualWith, isNil } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
@@ -16,6 +16,9 @@ import css from './PipelineYamlView.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) => {
+  if (isNil(prevProps.schema) && !isNil(nextProps.schema)) {
+    return false
+  }
   return isEqualWith(nextProps, prevProps, (_arg1, _arg2, key) => {
     if (['existingJSON', 'onExpressionTrigger', 'onSnippetCopy', 'schema'].indexOf(key as string) > -1) {
       return true

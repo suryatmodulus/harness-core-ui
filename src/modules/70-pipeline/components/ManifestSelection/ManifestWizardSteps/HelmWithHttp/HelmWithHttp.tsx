@@ -89,7 +89,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         identifier: formData.identifier,
         spec: {
           store: {
-            type: formData?.store,
+            type: 'Http',
             spec: {
               connectorRef: formData?.connectorRef
             }

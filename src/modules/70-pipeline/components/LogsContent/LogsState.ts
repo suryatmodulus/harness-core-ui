@@ -223,12 +223,12 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             key = units[0]
           } else {
             // find and open the first failed section
-            const failedUnit = units.find((unit: string) => isExecutionFailed(dataMap[unit].unitStatus))
+            const failedUnit = units.find((unit: string) => isExecutionFailed(dataMap[unit]?.unitStatus))
             key = failedUnit || null
           }
         } else {
           // open the running section
-          const runningUnit = findLast([...progressMap.keys()], unit => isExecutionRunning(dataMap[unit].unitStatus))
+          const runningUnit = findLast([...progressMap.keys()], unit => isExecutionRunning(dataMap[unit]?.unitStatus))
           key = runningUnit || null
         }
 

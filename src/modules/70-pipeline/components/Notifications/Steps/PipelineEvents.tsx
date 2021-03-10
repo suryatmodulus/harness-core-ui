@@ -63,11 +63,18 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
   const { getString } = useStrings()
   const initialValues: PipelineEventsFormData = { types: {} }
   const types: Required<PipelineEventsFormData>['types'] = {}
+
+  const getStageOption = (stageId: string) => {
+    return stagesOptions?.find(item => item.value === stageId)
+  }
+
   prevStepData?.pipelineEvents?.map(event => {
     const type = event.type
     if (type) {
       types[type] = true
-      if (event.forStages?.length) initialValues[type] = event.forStages
+      if (event.forStages?.length) {
+        initialValues[type] = event.forStages.map(stageId => getStageOption(stageId)).filter(item => !!item)
+      }
     }
   })
 
@@ -85,7 +92,8 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
             })
             .map(value => {
               const dataToSubmit: PipelineEvent = { type: value as PipelineEventType }
-              if (values[value]?.length) dataToSubmit['forStages'] = values[value]
+              if (values[value]?.length)
+                dataToSubmit['forStages'] = values[value].map((item: { value: string }) => item.value)
               return dataToSubmit
             })
 

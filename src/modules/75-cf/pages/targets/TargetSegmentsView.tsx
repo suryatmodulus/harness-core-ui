@@ -141,7 +141,7 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
       },
       {
         Header: getString('cf.segments.targetDefinition').toLocaleUpperCase(),
-        accessor: () => 'Not yet implemented',
+        accessor: () => '',
         width: '30%'
       },
       {

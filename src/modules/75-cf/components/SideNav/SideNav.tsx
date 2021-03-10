@@ -14,6 +14,8 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cf'
   const { updateAppStore } = useAppStore()
+  const isDev = location.hostname === 'localhost' || location.hostname === 'qb.harness.io'
+
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -34,8 +36,12 @@ export default function CFSideNav(): React.ReactElement {
           <SidebarLink label="Feature Flags" to={routes.toCFFeatureFlags(params)} />
           <SidebarLink label="Targets" to={routes.toCFTargets(params)} />
           <SidebarLink label="Environments" to={routes.toCFEnvironments(params)} />
-          <SidebarLink label="Builds" to={routes.toDeployments({ ...params, module })} />
-          <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
+          {isDev && (
+            <>
+              <SidebarLink label="Executions" to={routes.toDeployments({ ...params, module })} />
+              <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
+            </>
+          )}
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

@@ -72,6 +72,15 @@ export const savePipeline = (
   pipeline: PipelineInfoConfig,
   isEdit = false
 ): Promise<Failure | undefined> => {
+  // we need to do this due to https://github.com/eemeli/yaml/issues/239
+  // can remove it once fixed
+  const body = stringify(
+    JSON.parse(
+      JSON.stringify({
+        pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
+      })
+    )
+  )
   return isEdit
     ? putPipelinePromise({
         pipelineIdentifier: pipeline.identifier,
@@ -80,9 +89,7 @@ export const savePipeline = (
           projectIdentifier: params.projectIdentifier,
           orgIdentifier: params.orgIdentifier
         },
-        body: stringify({
-          pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
-        }) as any,
+        body: body as any,
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(response => {
         if (typeof response === 'string') {
@@ -92,9 +99,7 @@ export const savePipeline = (
         }
       })
     : createPipelinePromise({
-        body: stringify({
-          pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
-        }) as any,
+        body: body as any,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
           projectIdentifier: params.projectIdentifier,

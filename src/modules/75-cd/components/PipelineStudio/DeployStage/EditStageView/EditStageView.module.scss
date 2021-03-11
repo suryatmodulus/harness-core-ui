@@ -16,6 +16,9 @@
 }
 .navigationButtons {
   margin-bottom: 60px;
+  &.createModal {
+    margin-bottom: 0px;
+  }
 }
 .squareCard {
   width: 64px;

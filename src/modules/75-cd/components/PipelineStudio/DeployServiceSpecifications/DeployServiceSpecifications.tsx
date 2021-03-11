@@ -231,7 +231,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }
   React.useEffect(() => {
-    if (stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
+    if (
+      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
+      !stage?.stage?.spec.serviceConfig?.useFromStage
+    ) {
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
@@ -491,7 +494,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     stepViewType={StepViewType.Edit}
                   />
                 </Layout.Horizontal>
-                <div className={css.navigationButtons}>{props.children}</div>
+                <div className={cx(css.navigationButtons, css.overrides)}>{props.children}</div>
               </div>
             </div>
           </>

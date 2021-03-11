@@ -5,6 +5,7 @@ declare const styles: {
   readonly labelBold: string
   readonly grid: string
   readonly navigationButtons: string
+  readonly createModal: string
   readonly squareCard: string
   readonly stageCreate: string
   readonly btnSetup: string

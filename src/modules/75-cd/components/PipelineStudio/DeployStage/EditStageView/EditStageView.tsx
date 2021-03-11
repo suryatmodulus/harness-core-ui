@@ -118,6 +118,7 @@ export const EditStageView: React.FC<EditStageView> = ({
     ],
     []
   )
+
   return (
     <div className={cx(css.stageSection, { [css.editStageGrid]: context, [css.createStageGrid]: !context })}>
       {context && <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />}
@@ -323,7 +324,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             />
           </Accordion>
         )}
-        <div className={css.navigationButtons}>{children}</div>
+        <div className={cx(css.navigationButtons, { [css.createModal]: !context })}>{children}</div>
       </div>
     </div>
   )

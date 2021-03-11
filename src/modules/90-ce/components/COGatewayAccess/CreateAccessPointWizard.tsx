@@ -13,6 +13,7 @@ import {
   SelectOption,
   Icon
 } from '@wings-software/uicore'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { AccessPoint, useAllHostedZones, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
 import { useStrings } from 'framework/exports'
@@ -92,7 +93,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
       if (!accessPointStatusLoading) {
         if (accessPointData?.response?.status == 'errored') {
           setaccessPointStatusInProgress(false)
-          showError('could not create access point')
+          showError(
+            'could not create access point' + !_isEmpty(accessPointData?.response?.metadata?.error)
+              ? `\n ${accessPointData?.response?.metadata?.error}`
+              : ''
+          )
         } else if (accessPointData?.response?.status == 'created') {
           setaccessPointStatusInProgress(false)
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
@@ -122,8 +127,12 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     try {
       const result = await createAccessPoint(props.accessPoint) // eslint-disable-line
       if (result.response) {
-        props.accessPoint.id = result.response.id
-        setAccessPointID(result.response.id)
+        if (!_isEmpty(result.response?.metadata?.error)) {
+          showError(result.response?.metadata?.error)
+        } else {
+          props.accessPoint.id = result.response.id
+          setAccessPointID(result.response.id)
+        }
       }
     } catch (e) {
       showError(e.data?.message || e.message)

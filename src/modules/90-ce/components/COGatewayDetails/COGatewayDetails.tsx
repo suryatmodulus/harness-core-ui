@@ -99,7 +99,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       }
     } catch (e) {
       setSaveInProgress(false)
-      showError(e.data?.message || e.message)
+      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
     }
   }
   const nextTab = (): void => {

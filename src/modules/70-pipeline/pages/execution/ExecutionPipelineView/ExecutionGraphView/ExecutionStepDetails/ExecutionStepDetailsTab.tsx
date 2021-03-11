@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { timeToDisplayText } from '@wings-software/uicore'
 import type { ExecutionNode } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
@@ -9,6 +9,7 @@ import routes from '@common/RouteDefinitions'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
+import { isExecutionFailed, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import LogsContentOld from '../../ExecutionLogView/LogsContent'
 import css from './ExecutionStepDetails.module.scss'
 
@@ -40,12 +41,16 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
     history.push(`${logUrl}?view=log`)
   }
 
+  const errorMessage = step?.failureInfo?.errorMessage || step.executableResponses?.[0]?.skipTask?.message
+  const isFailed = isExecutionFailed(step.status)
+  const isSkipped = isExecutionSkipped(step.status)
+
   return (
     <div className={css.detailsTab}>
-      {step?.failureInfo && !isEmpty(step.failureInfo) ? (
-        <div className={css.errorMsg}>
+      {errorMessage ? (
+        <div className={cx(css.errorMsg, { [css.error]: isFailed, [css.warn]: isSkipped })}>
           <String className={css.title} stringID="errorSummaryText" tagName="div" />
-          <p>{step?.failureInfo?.errorMessage}</p>
+          <p>{errorMessage}</p>
         </div>
       ) : null}
       <table className={css.detailsTable}>

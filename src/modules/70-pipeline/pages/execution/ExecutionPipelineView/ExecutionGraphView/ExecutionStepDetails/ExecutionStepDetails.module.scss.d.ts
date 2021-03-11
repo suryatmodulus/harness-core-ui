@@ -8,6 +8,8 @@ declare const styles: {
   readonly tabs: string
   readonly detailsTab: string
   readonly errorMsg: string
+  readonly error: string
+  readonly warn: string
   readonly detailsTable: string
   readonly ioTab: string
   readonly ioRow: string

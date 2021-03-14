@@ -1,0 +1,120 @@
+.preFlightCheckContainer {
+  padding: var(--spacing-medium) !important;
+
+  :global {
+    .bp3-progress-bar.bp3-intent-success .bp3-progress-meter {
+      animation: none !important;
+      background: var(--green-500) !important;
+    }
+    .bp3-progress-bar.bp3-intent-danger .bp3-progress-meter {
+      animation: none !important;
+      background: var(--red-500) !important;
+    }
+  }
+}
+
+.divider {
+  width: 1px;
+  border: 1px solid var(--grey-300);
+}
+
+.sectionLabelText {
+  cursor: pointer;
+}
+
+.sectionsWrapper {
+  margin-top: var(--spacing-large) !important;
+  min-height: 150px;
+}
+
+.rowCell {
+  width: 33%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.rowCellx2 {
+  width: 66%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sectionPanelWrapper {
+  width: 70% !important;
+  height: 250px;
+  overflow: auto;
+
+  :global {
+    .Accordion--accordion {
+      margin: 0 !important;
+    }
+    .Accordion--chevron {
+      display: none !important;
+    }
+    .Accordion--summary {
+      padding: 0px !important;
+      > div {
+        width: 100%;
+      }
+    }
+    .Accordion--summary::before {
+      display: none !important;
+    }
+    .Accordion--details {
+      margin-top: var(--spacing-medium);
+      padding: 0 !important;
+    }
+  }
+}
+
+.sectionLabelsWrapper {
+  width: 30% !important;
+}
+
+.footerSpaceBetween {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--spacing-medium) 0 0 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-xxlarge);
+}
+
+.footerSmallText {
+  font-size: smaller !important;
+  width: 200px;
+  margin-left: var(--spacing-large) !important;
+}
+
+.locationPopover {
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-800) !important;
+    }
+    .bp3-popover-content {
+      overflow: hidden;
+    }
+  }
+}
+
+.locationPopoverContent {
+  background: var(--grey-800) !important;
+  padding: var(--spacing-medium) !important;
+
+  .row {
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--white) !important;
+  }
+}
+
+.errorPanel {
+  border-radius: 2px;
+  border-left: 2px solid #ff3838;
+  background: #ffe7e7 !important;
+  padding: var(--spacing-small) var(--spacing-medium) !important;
+}

@@ -1,0 +1,98 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineInputWrapperResponse": {
+      "status": "FAILURE",
+      "label": "Verifying pipeline inputs",
+      "pipelineInputResponse": [
+        {
+          "success": true,
+          "fqn": "test.steps.step1.url",
+          "stageName": "s1",
+          "stepName": "step1"
+        },
+        {
+          "errorInfo": {
+            "summary": "Summary",
+            "description": "Description",
+            "causes": [
+              {
+                "cause": "No value provided for runtime input"
+              }
+            ],
+            "resolution": "Resolution"
+          },
+          "success": false,
+          "fqn": "pipeline.stages.s2.execution.steps.step2.url",
+          "stageName": "s2",
+          "stepName": "step2"
+        },
+        {
+          "success": true,
+          "fqn": "pipeline.stages.s3.execution.steps.step3.url",
+          "stageName": "s3",
+          "stepName": "step3"
+        }
+      ]
+    },
+    "connectorWrapperResponse": {
+      "checkResponses": [
+        {
+          "connectorIdentifier": "Connector1",
+          "fqn": "pipeline.stages.s1.infrastructure.connectorRef",
+          "stageName": "Stage 1",
+          "stepName": "Step 1",
+          "status": "SUCCESS"
+        },
+        {
+          "connectorIdentifier": "Connector2",
+          "errorInfo": {
+            "summary": "Summary",
+            "description": "Description",
+            "causes": [
+              {
+                "cause": "Connector not reachable"
+              }
+            ],
+            "resolution": "Resolution"
+          },
+          "fqn": "pipeline.stages.s2.infrastructure.connectorRef",
+          "stageName": "Stage 1",
+          "stepName": "Step 1",
+          "status": "FAILURE"
+        },
+        {
+          "connectorIdentifier": "Connector3",
+          "errorInfo": {
+            "summary": "Summary",
+            "description": "Description",
+            "causes": [
+              {
+                "cause": "Connector not reachable"
+              },
+              {
+                "cause": "Connector not reachable 2"
+              }
+            ],
+            "resolution": [{ "resolution": "resolution 1" }, { "resolution": "resolution 2" }]
+          },
+          "fqn": "pipeline.stages.s3.infrastructure.connectorRef",
+          "stageName": "Stage 1",
+          "stepName": "Step 1",
+          "status": "FAILURE"
+        },
+        {
+          "connectorIdentifier": "Connector1",
+          "fqn": "pipeline.stages.s4.infrastructure.connectorRef",
+          "stageName": "Stage 4",
+          "stepName": "Step 4",
+          "status": "SUCCESS"
+        }
+      ],
+      "status": "FAILURE",
+      "label": "Verifying connectors"
+    },
+    "status": "FAILURE"
+  },
+  "correlationId": "07c3ae33-e8c6-4c00-84ca-8833ab90e4fa"
+}

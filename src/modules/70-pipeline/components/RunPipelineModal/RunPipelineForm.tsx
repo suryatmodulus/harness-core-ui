@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Classes, ITreeNode, Tooltip, Intent, Dialog } from '@blueprintjs/core'
 import {
   Button,
@@ -50,8 +50,8 @@ import StagesTree, { stagesTreeNodeClasses } from '../StagesThree/StagesTree'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
-import { PreFlightCheckModal } from '../PreFlightCheck/PreFlightCheckModal'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 const debouncedValidatePipeline = debounce(validatePipeline, 300)
@@ -262,6 +262,8 @@ function RunPipelineFormBasic({
     )
   }, [formErrors])
 
+  const valuesPipelineRef = useRef<NgPipeline>()
+
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
     return (
       <Dialog
@@ -271,6 +273,8 @@ function RunPipelineFormBasic({
         title={i18n.preFlightCheckModalHeading}
       >
         <PreFlightCheckModal
+          pipeline={valuesPipelineRef.current}
+          module={module}
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
@@ -279,7 +283,7 @@ function RunPipelineFormBasic({
           onCloseButtonClick={hidePreflightCheckModal}
           onContinuePipelineClick={() => {
             hidePreflightCheckModal()
-            handleRunPipeline(currentPipeline?.pipeline)
+            handleRunPipeline(valuesPipelineRef.current, true)
           }}
         />
       </Dialog>
@@ -287,16 +291,18 @@ function RunPipelineFormBasic({
   }, [])
 
   const handleRunPipeline = React.useCallback(
-    async (valuesPipeline?: NgPipeline) => {
-      if (!skipPreFlightCheck) {
-        // Not skipping pre-flight check - open the new modal
+    async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
+      valuesPipelineRef.current = valuesPipeline
 
+      if (!skipPreFlightCheck && !forceSkipFlightCheck) {
+        // Not skipping pre-flight check - open the new modal
         showPreflightCheckModal()
         return
       }
+
       try {
         const response = await runPipeline(
-          !isEmpty(valuesPipeline) ? (stringify({ pipeline: valuesPipeline }) as any) : ''
+          !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
         )
         const data = response.data
         if (response.status === 'SUCCESS') {

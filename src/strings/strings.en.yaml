@@ -231,6 +231,7 @@ finish: Finish
 continue: Continue
 addPipeline: + Pipeline
 cancel: Cancel
+close: Close
 duplicate: Duplicate
 errors: Errors
 loading: Loading...
@@ -812,6 +813,20 @@ pipeline-notifications:
   slackuserGroups: Notify the Slack Channels associated with these user groups
   pagerDutykey: PagerDuty Key (Optional)
   pagerDutyuserGroups: Notify these user groups
+pre-flight-check:
+  possibleCauses: 'Possible causes:'
+  resolution: 'Resolution:'
+  gettingConnectorResult: 'Getting connector results'
+  couldNotVerifyConnectors: 'Could not verify connectors'
+  connectorLocationInPipeline: 'Connector location in the pipeline'
+  stepColon: 'Step:'
+  stageColon: 'Stage:'
+  couldNotVerifyInputSets: Could not verify input sets
+  gettingResults: Getting results
+  continueToRunPipeline: Continue to run pipeline
+  skipCheckBtn: Skip pre-flight check
+  skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
+
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
   addNewTrigger: Add New Trigger

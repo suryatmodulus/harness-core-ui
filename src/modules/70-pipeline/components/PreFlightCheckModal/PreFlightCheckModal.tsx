@@ -1,0 +1,490 @@
+import React, { useEffect, useState } from 'react'
+import { stringify } from 'yaml'
+import { isEmpty } from 'lodash-es'
+import { Link } from 'react-router-dom'
+import { PopoverInteractionKind, Position, ProgressBar } from '@blueprintjs/core'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import { Accordion, Button, Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
+import type { NgPipeline } from 'services/cd-ng'
+import {
+  ConnectorCheckResponse,
+  PipelineInputResponse,
+  PreFlightDTO,
+  PreFlightEntityErrorInfo,
+  startPreflightCheckPromise,
+  useGetPreflightCheckResponse
+} from 'services/pipeline-ng'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
+import {
+  //preFlightDummyResponseFailure,
+  //preFlightDummyResponseProgress,
+  preFlightDummyResponseSuccess
+} from './PreFlightCheckUtil'
+
+import css from './PreFlightCheckModal.module.scss'
+
+enum Section {
+  CONNECTORS = 'CONNECTORS',
+  INPUT_SET = 'INPUT_SET'
+}
+
+const getIconProps = (status?: string): IconProps => {
+  if (status === 'IN_PROGRESS') {
+    return { color: Color.GREY_400, name: 'pending' }
+  } else if (status === 'FAILURE') {
+    return { color: Color.RED_500, name: 'small-cross' }
+  }
+  return { color: Color.GREEN_500, name: 'small-tick' }
+}
+
+const getStatusMessage = (status?: string): string => {
+  if (status === 'IN_PROGRESS') {
+    return 'in progress'
+  } else if (status === 'FAILURE') {
+    return 'failure'
+  }
+  return 'success'
+}
+
+const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
+  return (
+    <Text className={css.rowCell} inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
+      {getStatusMessage(status)}
+    </Text>
+  )
+}
+
+interface SectionLabelsProps {
+  selectedSection: Section
+  setSelectedSection: (section: Section) => void
+  preFlightCheckData?: PreFlightDTO
+}
+
+const SectionLabels: React.FC<SectionLabelsProps> = ({ selectedSection, setSelectedSection, preFlightCheckData }) => {
+  const inputSetStatus = preFlightCheckData?.pipelineInputWrapperResponse?.status
+  const inputSetLabel = preFlightCheckData?.pipelineInputWrapperResponse?.label
+
+  const connectorStatus = preFlightCheckData?.connectorWrapperResponse?.status
+  const connectorLabel = preFlightCheckData?.connectorWrapperResponse?.label
+
+  const inputSetIconProps = getIconProps(inputSetStatus)
+  const connectorsIconProps = getIconProps(connectorStatus)
+
+  return (
+    <Layout.Vertical spacing="xlarge" className={css.sectionLabelsWrapper}>
+      <Text
+        inline
+        font={{ weight: selectedSection === Section.INPUT_SET ? 'bold' : 'light' }}
+        iconProps={inputSetIconProps}
+        icon={inputSetIconProps.name}
+        className={css.sectionLabelText}
+        onClick={() => setSelectedSection(Section.INPUT_SET)}
+      >
+        {inputSetLabel}
+      </Text>
+      <Text
+        inline
+        font={{ weight: selectedSection === Section.CONNECTORS ? 'bold' : 'light' }}
+        iconProps={connectorsIconProps}
+        icon={connectorsIconProps.name}
+        className={css.sectionLabelText}
+        onClick={() => setSelectedSection(Section.CONNECTORS)}
+      >
+        {connectorLabel}
+      </Text>
+    </Layout.Vertical>
+  )
+}
+
+interface ErrorPanelProps {
+  errorInfo?: PreFlightEntityErrorInfo
+}
+
+const ErrorPanel: React.FC<ErrorPanelProps> = ({ errorInfo }) => {
+  const { getString } = useStrings()
+
+  return (
+    <Container className={css.errorPanel}>
+      <h3>{getString('errorSummaryText')}</h3>
+      <Container margin={{ bottom: 'medium' }}>
+        <Text>{errorInfo?.summary}</Text>
+        <Text>{errorInfo?.description}</Text>
+      </Container>
+      {errorInfo?.causes && errorInfo?.causes.length > 0 && (
+        <Container margin={{ bottom: 'medium' }}>
+          <Text>{getString('pre-flight-check.possibleCauses')}</Text>
+          {errorInfo?.causes?.map((cause, idx) => (
+            <Text key={idx}>{cause.cause}</Text>
+          ))}
+        </Container>
+      )}
+      {errorInfo?.resolution && errorInfo?.resolution?.length > 0 && (
+        <Container margin={{ bottom: 'medium' }}>
+          <Text>{getString('pre-flight-check.resolution')}</Text>
+          {errorInfo?.resolution?.map((res, idx) => (
+            <Text key={idx}>{res.resolution}</Text>
+          ))}
+        </Container>
+      )}
+    </Container>
+  )
+}
+
+interface ConnectorsSectionProps {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  module: Module
+  preFlightCheckData?: PreFlightDTO
+}
+
+const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
+  pipelineIdentifier,
+  module,
+  preFlightCheckData
+}) => {
+  const { getString } = useStrings()
+
+  const data = preFlightCheckData?.connectorWrapperResponse?.checkResponses
+  const status = preFlightCheckData?.connectorWrapperResponse?.status
+
+  // TODO: check this logic
+  if (status === 'IN_PROGRESS' && isEmpty(data)) {
+    return <Text>{getString('pre-flight-check.gettingConnectorResult')}</Text>
+  }
+  if (status === 'SUCCESS' && isEmpty(data)) {
+    // No connectors to verify
+    return <Text intent="success">{getString('success')}</Text>
+  }
+  if (status === 'FAILURE' && isEmpty(data)) {
+    // No connectors to verify
+    return <Text intent="danger">{getString('pre-flight-check.couldNotVerifyConnectors')}</Text>
+  }
+
+  const getDetails = (row: ConnectorCheckResponse) => (
+    <Layout.Horizontal spacing="large" key={row.fqn}>
+      <Text className={css.rowCell}>{row.connectorIdentifier}</Text>
+      <span className={css.rowCell}>
+        {getString('idLabel')}
+        <Popover
+          boundary={'window'}
+          position={Position.TOP}
+          interactionKind={PopoverInteractionKind.HOVER}
+          portalClassName={css.locationPopover}
+          modifiers={{ preventOverflow: { enabled: false } }}
+        >
+          <Link
+            target={'_blank'}
+            to={`${routes.toPipelineStudio({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier,
+              module
+            })}?stage=${row.stepName}&step=${row.stepName}`}
+          >
+            {row.connectorIdentifier}
+          </Link>
+          <Container className={css.locationPopoverContent}>
+            <Text className={css.row}>{getString('pre-flight-check.connectorLocationInPipeline')}</Text>
+            <Text className={css.row}>
+              <strong>{getString('pre-flight-check.stageColon')}</strong> {row.stageName}
+            </Text>
+            <Text className={css.row}>
+              <strong>{getString('pre-flight-check.stepColon')}</strong> {row.stepName}
+            </Text>
+          </Container>
+        </Popover>
+      </span>
+      <RowStatus status={row.status} />
+    </Layout.Horizontal>
+  )
+
+  return (
+    <Layout.Vertical spacing="large">
+      {data?.map(row => {
+        return row.status === 'FAILURE' ? (
+          <Accordion>
+            <Accordion.Panel
+              id={row.connectorIdentifier || ''}
+              details={<ErrorPanel errorInfo={row.errorInfo} />}
+              summary={getDetails(row)}
+            ></Accordion.Panel>
+          </Accordion>
+        ) : (
+          getDetails(row)
+        )
+      })}
+    </Layout.Vertical>
+  )
+}
+
+interface InputSetsSectionProps {
+  preFlightCheckData?: PreFlightDTO
+}
+
+const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData }) => {
+  const { getString } = useStrings()
+
+  const data = preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse
+  const status = preFlightCheckData?.pipelineInputWrapperResponse?.status
+
+  // TODO: check this logic
+  if (status === 'IN_PROGRESS' && isEmpty(data)) {
+    return <Text>{getString('pipeline-notification.gettingResults')}</Text>
+  }
+  if (status === 'SUCCESS' && isEmpty(data)) {
+    // No connectors to verify
+    return <Text intent="success">{getString('success')}</Text>
+  }
+  if (status === 'FAILURE' && isEmpty(data)) {
+    // No connectors to verify
+    return <Text intent="danger">{getString('pipeline-notification.couldNotVerifyInputSets')}</Text>
+  }
+
+  const getDetails = (row: PipelineInputResponse) => (
+    <Layout.Horizontal spacing="large" key={row.fqn}>
+      <Text className={css.rowCellx2}>{row.fqn}</Text>
+      <RowStatus status={row.success ? 'SUCCESS' : 'FAILURE'} />
+    </Layout.Horizontal>
+  )
+
+  return (
+    <Layout.Vertical spacing="large">
+      {data?.map(row => {
+        return row.success === false ? (
+          <Accordion>
+            <Accordion.Panel
+              id={row.fqn || ''}
+              details={<ErrorPanel errorInfo={row.errorInfo} />}
+              summary={getDetails(row)}
+            ></Accordion.Panel>
+          </Accordion>
+        ) : (
+          getDetails(row)
+        )
+      })}
+    </Layout.Vertical>
+  )
+}
+
+interface SectionPanelProps {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  module: Module
+  selectedSection: Section
+  preFlightCheckData?: PreFlightDTO
+}
+
+const SectionPanel: React.FC<SectionPanelProps> = ({
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
+  pipelineIdentifier,
+  module,
+  selectedSection,
+  preFlightCheckData
+}) => {
+  return (
+    <div className={css.sectionPanelWrapper}>
+      {selectedSection === Section.CONNECTORS ? (
+        <ConnectorsSection
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          pipelineIdentifier={pipelineIdentifier}
+          module={module}
+          preFlightCheckData={preFlightCheckData}
+        />
+      ) : (
+        <InputSetsSection preFlightCheckData={preFlightCheckData} />
+      )}
+    </div>
+  )
+}
+
+interface PreFlightCheckSectionsProps {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  module: Module
+  preFlightCheckData?: PreFlightDTO
+}
+const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps> = ({
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
+  pipelineIdentifier,
+  module,
+  preFlightCheckData
+}) => {
+  const [selectedSection, setSelectedSection] = useState(Section.INPUT_SET)
+  return (
+    <Layout.Horizontal spacing="medium" className={css.sectionsWrapper}>
+      <SectionLabels
+        selectedSection={selectedSection}
+        setSelectedSection={setSelectedSection}
+        preFlightCheckData={preFlightCheckData}
+      />
+      <div className={css.divider} />
+      <SectionPanel
+        accountId={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        pipelineIdentifier={pipelineIdentifier}
+        module={module}
+        selectedSection={selectedSection}
+        preFlightCheckData={preFlightCheckData}
+      />
+    </Layout.Horizontal>
+  )
+}
+
+interface PreFlightCheckFooter {
+  preFlightCheckData?: PreFlightDTO
+  onContinuePipelineClick: () => void
+  onCloseButtonClick: () => void
+}
+
+const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
+  preFlightCheckData,
+  onContinuePipelineClick,
+  onCloseButtonClick
+}) => {
+  const { getString } = useStrings()
+
+  // If the check is complete
+  if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
+    return (
+      <div className={css.footerSpaceBetween}>
+        <Button text={getString('close')} onClick={() => onCloseButtonClick()} />
+        <Button
+          text={getString('pre-flight-check.continueToRunPipeline')}
+          minimal
+          intent="primary"
+          onClick={() => onContinuePipelineClick()}
+        />
+      </div>
+    )
+  }
+  return (
+    <div className={css.footer}>
+      <Button text={getString('pre-flight-check.skipCheckBtn')} onClick={() => onContinuePipelineClick()} />
+      <Text className={css.footerSmallText}>{getString('pre-flight-check.skipCheckInfo')}</Text>
+    </div>
+  )
+}
+
+export const POLL_INTERVAL = 3 /* sec */ * 1000 /* ms */
+
+export interface PreFlightCheckModalProps {
+  pipeline?: NgPipeline
+  module: Module
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  onCloseButtonClick: () => void
+  onContinuePipelineClick: () => void
+  inputSetPipelineYaml?: string
+}
+
+export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
+  pipeline,
+  module,
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
+  pipelineIdentifier,
+  // inputSetPipelineYaml, TODO: check this
+  onCloseButtonClick,
+  onContinuePipelineClick
+}) => {
+  const [preFlightCheckId, setPreFlightCheckId] = useState('')
+
+  useEffect(() => {
+    startPreflightCheckPromise({
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        pipelineIdentifier
+      },
+      body: stringify({ pipeline }) as any
+    }).then(response => {
+      // TODO: when API is ready
+      setPreFlightCheckId(response.data || '')
+    })
+  }, [])
+
+  const { data: preFlightCheck, refetch } = useGetPreflightCheckResponse({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      preflightCheckId: preFlightCheckId
+    },
+    lazy: true,
+    debounce: 500,
+    mock: { data: preFlightDummyResponseSuccess, loading: false } // TODO
+  })
+
+  // Setting up the polling
+  useEffect(() => {
+    if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
+      const timerId = window.setTimeout(() => {
+        refetch({ mock: { data: preFlightDummyResponseSuccess, loading: false } })
+      }, POLL_INTERVAL)
+
+      return () => {
+        window.clearTimeout(timerId)
+      }
+    }
+  }, [preFlightCheckId, preFlightCheck, refetch])
+
+  const getChecksCount = (preFlightCheckData?: PreFlightDTO) => {
+    const checkCount = { total: 0, progress: 0, failed: 0 }
+    preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse?.forEach(item => {
+      checkCount.total++
+      if (item.success === false) checkCount.failed++
+    })
+    preFlightCheckData?.connectorWrapperResponse?.checkResponses?.forEach(item => {
+      checkCount.total++
+      if (item.status === 'IN_PROGRESS') checkCount.progress++
+      if (item.status === 'FAILURE') checkCount.failed++
+    })
+
+    return checkCount
+  }
+
+  const checkCounts = getChecksCount(preFlightCheck?.data)
+  const progressValue = 1 - (1 / checkCounts.total) * checkCounts.progress
+
+  return (
+    <Container className={css.preFlightCheckContainer} padding="medium">
+      <ProgressBar intent={preFlightCheck?.data?.status === 'FAILURE' ? 'danger' : 'success'} value={progressValue} />
+      <PreFlightCheckSections
+        accountId={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        pipelineIdentifier={pipelineIdentifier}
+        module={module}
+        preFlightCheckData={preFlightCheck?.data}
+      />
+      <PreFlightCheckFooter
+        preFlightCheckData={preFlightCheck?.data}
+        onContinuePipelineClick={onContinuePipelineClick}
+        onCloseButtonClick={onCloseButtonClick}
+      />
+    </Container>
+  )
+}

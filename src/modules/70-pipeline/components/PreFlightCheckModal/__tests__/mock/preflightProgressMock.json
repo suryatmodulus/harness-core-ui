@@ -1,0 +1,41 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineInputWrapperResponse": {
+      "status": "SUCCESS",
+      "label": "Verifying pipeline inputs",
+      "pipelineInputResponse": [
+        {
+          "success": true,
+          "fqn": "test.steps.step1.url",
+          "stageName": "s1",
+          "stepName": "step1"
+        }
+      ]
+    },
+    "connectorWrapperResponse": {
+      "checkResponses": [
+        {
+          "connectorIdentifier": "Connector1",
+
+          "fqn": "pipeline.stages.s1.infrastructure.connectorRef",
+          "stageName": "Stage 1",
+          "stepName": "Step 1",
+          "status": "SUCCESS"
+        },
+        {
+          "connectorIdentifier": "Connector1",
+
+          "fqn": "pipeline.stages.s2.infrastructure.connectorRef",
+          "stageName": "Stage 2",
+          "stepName": "Step 2",
+          "status": "IN_PROGRESS"
+        }
+      ],
+      "status": "IN_PROGRESS",
+      "label": "Verifying connectors"
+    },
+    "status": "IN_PROGRESS"
+  },
+  "correlationId": "07c3ae33-e8c6-4c00-84ca-8833ab90e4fa"
+}

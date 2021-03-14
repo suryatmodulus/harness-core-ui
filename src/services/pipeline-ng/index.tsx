@@ -6067,7 +6067,7 @@ export const useGetExecutionDetail = ({ planExecutionId, ...props }: UseGetExecu
  */
 export const useGetPreFlightCheckResponse = ({ preFlightCheckId, ...props }: UseGetPreFlightCheckRequestProps) =>
   useGet<ResponsePipelineExecutionDetail, Failure | Error, GetExecutionDetailQueryParams, GetPreFlightCheckPathParams>(
-    (paramsInPath: GetPreFlightCheckPathParams) => `/pipelines/execute/getPreflightCheckResponse`,
+    (_paramsInPath: GetPreFlightCheckPathParams) => `/pipelines/execute/getPreflightCheckResponse`,
     { base: getConfig('pipeline/api'), pathParams: { preFlightCheckId }, ...props }
   )
 

@@ -18,8 +18,8 @@ import {
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import {
-  preFlightDummyResponseFailure
-  //preFlightDummyResponseProgress,
+  //preFlightDummyResponseFailure
+  preFlightDummyResponseProgress
   //preFlightDummyResponseSuccess
 } from './PreFlightCheckUtil'
 
@@ -50,7 +50,7 @@ const getStatusMessage = (status?: string): string => {
 
 const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
   return (
-    <Text className={css.status} inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
+    <Text inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
       {getStatusMessage(status)}
     </Text>
   )
@@ -396,7 +396,9 @@ const HeadLine: React.FC<HeadLineProps> = ({ errorCount }) => {
   return (
     <Layout.Horizontal className={css.headLine}>
       <span className={css.title}>{getString('pre-flight-check.preFlightCheckTitle')}</span>
-      <span className={css.error}>{getString('pre-flight-check.errorFoundCounter', { errorCount })}</span>
+      {errorCount > 0 ? (
+        <span className={css.error}>{getString('pre-flight-check.errorFoundCounter', { errorCount })}</span>
+      ) : null}
     </Layout.Horizontal>
   )
 }
@@ -450,14 +452,14 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
     },
     lazy: true,
     debounce: 500,
-    mock: { data: preFlightDummyResponseFailure, loading: false } // TODO
+    mock: { data: preFlightDummyResponseProgress, loading: false } // TODO
   })
 
   // Setting up the polling
   useEffect(() => {
     if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
       const timerId = window.setTimeout(() => {
-        refetch({ mock: { data: preFlightDummyResponseFailure, loading: false } })
+        refetch({ mock: { data: preFlightDummyResponseProgress, loading: false } })
       }, POLL_INTERVAL)
 
       return () => {

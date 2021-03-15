@@ -8,7 +8,6 @@ declare const styles: {
   readonly divider: string
   readonly sectionLabelText: string
   readonly sectionsWrapper: string
-  readonly status: string
   readonly sectionPanelWrapper: string
   readonly sectionLabelsWrapper: string
   readonly footerSpaceBetween: string

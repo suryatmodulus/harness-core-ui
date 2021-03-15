@@ -136,7 +136,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
         setAccessPointID(result.response.id)
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
     }
   }
   return (

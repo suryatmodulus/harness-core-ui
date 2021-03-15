@@ -11,6 +11,21 @@
       background: var(--red-500) !important;
     }
   }
+
+  .inputFqn {
+    width: 260px;
+    display: block !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+  }
+
+  .connectorName {
+    width: 130px;
+  }
+
+  .connectorID {
+    width: 130px;
+  }
 }
 
 .divider {
@@ -27,18 +42,8 @@
   min-height: 150px;
 }
 
-.rowCell {
-  width: 33%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.rowCellx2 {
-  width: 66%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+.status {
+  width: 120px;
 }
 
 .sectionPanelWrapper {
@@ -51,12 +56,12 @@
       margin: 0 !important;
     }
     .Accordion--chevron {
-      display: none !important;
+      // display: none !important;
     }
     .Accordion--summary {
       padding: 0px !important;
       > div {
-        width: 100%;
+        //width: initial;
       }
     }
     .Accordion--summary::before {
@@ -116,5 +121,20 @@
   border-radius: 2px;
   border-left: 2px solid #ff3838;
   background: #ffe7e7 !important;
-  padding: var(--spacing-small) var(--spacing-medium) !important;
+  padding: var(--spacing-xsmall) var(--spacing-medium) !important;
+}
+
+.headLine {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 var(--spacing-medium) 0 !important;
+
+  .title {
+    font-weight: bold;
+  }
+
+  .error {
+    font-weight: bold;
+    color: var(--red-500);
+  }
 }

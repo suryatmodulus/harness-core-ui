@@ -814,6 +814,8 @@ pipeline-notifications:
   pagerDutykey: PagerDuty Key (Optional)
   pagerDutyuserGroups: Notify these user groups
 pre-flight-check:
+  preFlightCheckTitle: 'Pre-flight check'
+  errorFoundCounter: '{{errorCount}} error found'
   possibleCauses: 'Possible causes:'
   resolution: 'Resolution:'
   gettingConnectorResult: 'Getting connector results'

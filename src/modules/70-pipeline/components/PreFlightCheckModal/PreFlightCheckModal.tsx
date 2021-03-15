@@ -18,9 +18,9 @@ import {
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import {
-  //preFlightDummyResponseFailure,
+  preFlightDummyResponseFailure
   //preFlightDummyResponseProgress,
-  preFlightDummyResponseSuccess
+  //preFlightDummyResponseSuccess
 } from './PreFlightCheckUtil'
 
 import css from './PreFlightCheckModal.module.scss'
@@ -50,7 +50,7 @@ const getStatusMessage = (status?: string): string => {
 
 const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
   return (
-    <Text className={css.rowCell} inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
+    <Text className={css.status} inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
       {getStatusMessage(status)}
     </Text>
   )
@@ -169,8 +169,8 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
 
   const getDetails = (row: ConnectorCheckResponse) => (
     <Layout.Horizontal spacing="large" key={row.fqn}>
-      <Text className={css.rowCell}>{row.connectorIdentifier}</Text>
-      <span className={css.rowCell}>
+      <Text className={css.connectorName}>{row.connectorIdentifier}</Text>
+      <span className={css.connectorId}>
         {getString('idLabel')}
         <Popover
           boundary={'window'}
@@ -250,7 +250,9 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
 
   const getDetails = (row: PipelineInputResponse) => (
     <Layout.Horizontal spacing="large" key={row.fqn}>
-      <Text className={css.rowCellx2}>{row.fqn}</Text>
+      <Text className={css.inputFqn} lineClamp={1}>
+        {row.fqn}
+      </Text>
       <RowStatus status={row.success ? 'SUCCESS' : 'FAILURE'} />
     </Layout.Horizontal>
   )
@@ -384,7 +386,22 @@ const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
   )
 }
 
-export const POLL_INTERVAL = 3 /* sec */ * 1000 /* ms */
+interface HeadLineProps {
+  errorCount: number
+}
+
+const HeadLine: React.FC<HeadLineProps> = ({ errorCount }) => {
+  const { getString } = useStrings()
+
+  return (
+    <Layout.Horizontal className={css.headLine}>
+      <span className={css.title}>{getString('pre-flight-check.preFlightCheckTitle')}</span>
+      <span className={css.error}>{getString('pre-flight-check.errorFoundCounter', { errorCount })}</span>
+    </Layout.Horizontal>
+  )
+}
+
+export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
 export interface PreFlightCheckModalProps {
   pipeline?: NgPipeline
@@ -395,7 +412,6 @@ export interface PreFlightCheckModalProps {
   pipelineIdentifier: string
   onCloseButtonClick: () => void
   onContinuePipelineClick: () => void
-  inputSetPipelineYaml?: string
 }
 
 export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
@@ -405,7 +421,6 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
   orgIdentifier,
   projectIdentifier,
   pipelineIdentifier,
-  // inputSetPipelineYaml, TODO: check this
   onCloseButtonClick,
   onContinuePipelineClick
 }) => {
@@ -435,14 +450,14 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
     },
     lazy: true,
     debounce: 500,
-    mock: { data: preFlightDummyResponseSuccess, loading: false } // TODO
+    mock: { data: preFlightDummyResponseFailure, loading: false } // TODO
   })
 
   // Setting up the polling
   useEffect(() => {
     if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
       const timerId = window.setTimeout(() => {
-        refetch({ mock: { data: preFlightDummyResponseSuccess, loading: false } })
+        refetch({ mock: { data: preFlightDummyResponseFailure, loading: false } })
       }, POLL_INTERVAL)
 
       return () => {
@@ -471,6 +486,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
 
   return (
     <Container className={css.preFlightCheckContainer} padding="medium">
+      <HeadLine errorCount={checkCounts.failed} />
       <ProgressBar intent={preFlightCheck?.data?.status === 'FAILURE' ? 'danger' : 'success'} value={progressValue} />
       <PreFlightCheckSections
         accountId={accountId}

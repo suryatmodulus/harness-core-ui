@@ -6,6 +6,20 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
     class="StyledProps--font StyledProps--main preFlightCheckContainer StyledProps--padding-medium"
   >
     <div
+      class="Layout--horizontal StyledProps--main headLine"
+    >
+      <span
+        class="title"
+      >
+        Pre-flight check
+      </span>
+      <span
+        class="error"
+      >
+        0 error found
+      </span>
+    </div>
+    <div
       class="bp3-progress-bar bp3-intent-success"
     >
       <div
@@ -78,12 +92,12 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCell"
+              class="StyledProps--font StyledProps--main connectorName"
             >
               Connector1
             </p>
             <span
-              class="rowCell"
+              class="connectorId"
             >
               ID: 
               <span
@@ -104,7 +118,7 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
               </span>
             </span>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -133,12 +147,12 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCell"
+              class="StyledProps--font StyledProps--main connectorName"
             >
               Connector1
             </p>
             <span
-              class="rowCell"
+              class="connectorId"
             >
               ID: 
               <span
@@ -159,7 +173,7 @@ exports[`PreflightCheck click on section title open correct section 1`] = `
               </span>
             </span>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -216,6 +230,20 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
     class="StyledProps--font StyledProps--main preFlightCheckContainer StyledProps--padding-medium"
   >
     <div
+      class="Layout--horizontal StyledProps--main headLine"
+    >
+      <span
+        class="title"
+      >
+        Pre-flight check
+      </span>
+      <span
+        class="error"
+      >
+        0 error found
+      </span>
+    </div>
+    <div
       class="bp3-progress-bar bp3-intent-success"
     >
       <div
@@ -288,12 +316,13 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               test.steps.step1.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -349,6 +378,20 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
   <div
     class="StyledProps--font StyledProps--main preFlightCheckContainer StyledProps--padding-medium"
   >
+    <div
+      class="Layout--horizontal StyledProps--main headLine"
+    >
+      <span
+        class="title"
+      >
+        Pre-flight check
+      </span>
+      <span
+        class="error"
+      >
+        3 error found
+      </span>
+    </div>
     <div
       class="bp3-progress-bar bp3-intent-danger"
     >
@@ -427,12 +470,13 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               test.steps.step1.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -476,12 +520,13 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main rowCellx2"
+                      class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+                      style="--text-line-clamp: 1;"
                     >
                       pipeline.stages.s2.execution.steps.step2.url
                     </p>
                     <span
-                      class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+                      class="StyledProps--font StyledProps--main status StyledProps--inline"
                       style="display: inline-flex; align-items: center;"
                     >
                       <span
@@ -526,12 +571,13 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               pipeline.stages.s3.execution.steps.step3.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -592,6 +638,20 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
   <div
     class="StyledProps--font StyledProps--main preFlightCheckContainer StyledProps--padding-medium"
   >
+    <div
+      class="Layout--horizontal StyledProps--main headLine"
+    >
+      <span
+        class="title"
+      >
+        Pre-flight check
+      </span>
+      <span
+        class="error"
+      >
+        0 error found
+      </span>
+    </div>
     <div
       class="bp3-progress-bar bp3-intent-success"
     >
@@ -665,12 +725,13 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               test.steps.step1.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -726,6 +787,20 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
   <div
     class="StyledProps--font StyledProps--main preFlightCheckContainer StyledProps--padding-medium"
   >
+    <div
+      class="Layout--horizontal StyledProps--main headLine"
+    >
+      <span
+        class="title"
+      >
+        Pre-flight check
+      </span>
+      <span
+        class="error"
+      >
+        0 error found
+      </span>
+    </div>
     <div
       class="bp3-progress-bar bp3-intent-success"
     >
@@ -804,12 +879,13 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               test.steps.step1.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -838,12 +914,13 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               pipeline.stages.s2.execution.steps.step2.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span
@@ -872,12 +949,13 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main rowCellx2"
+              class="StyledProps--font Text--lineclamp StyledProps--main inputFqn"
+              style="--text-line-clamp: 1;"
             >
               pipeline.stages.s3.execution.steps.step3.url
             </p>
             <span
-              class="StyledProps--font StyledProps--main rowCell StyledProps--inline"
+              class="StyledProps--font StyledProps--main status StyledProps--inline"
               style="display: inline-flex; align-items: center;"
             >
               <span

@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Accordion,
   Layout,
   Button,
   Text,
@@ -14,17 +15,23 @@ import {
 import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
+import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { FormMultiTypeCheckboxField } from '@common/components'
+
 import { String, useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
-import type { ManifestDataType } from '../ManifestInterface'
+import type { ManifestDetailDataType } from '../ManifestInterface'
+// import { GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
+import { ManifestDataType } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const gitFetchTypes = [
   { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
@@ -33,12 +40,16 @@ const gitFetchTypes = [
 
 interface ManifestDetailsPropType {
   stepName: string
-  initialValues: any
-  handleSubmit: (data: any) => void
+  expressions: string[]
+  initialValues: ManifestConfig
+  selectedManifest: string
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsPropType> = ({
   stepName,
+  selectedManifest,
+  expressions,
   initialValues,
   handleSubmit,
   prevStepData,
@@ -85,14 +96,18 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
+  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
 
-  const getInitialValues = (): ManifestDataType => {
+  // const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
+
+  const getInitialValues = (): ManifestDetailDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
+        skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         paths:
           typeof specValues.paths === 'string'
             ? specValues.paths
@@ -105,11 +120,16 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      paths: [{ path: '', uuid: uuid('', nameSpace()) }]
+      paths: [{ path: '', uuid: uuid('', nameSpace()) }],
+      skipResourceVersioning: false
+      // repoName:
+      //   prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo
+      //     ? prevStepData?.connectorRef?.connector?.spec?.url
+      //     : ''
     }
   }
 
-  const submitFormData = (formData: any): void => {
+  const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj = {
       manifest: {
         identifier: formData.identifier,
@@ -121,14 +141,18 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               gitFetchType: formData?.gitFetchType,
               branch: formData?.branch,
               commitId: formData?.commitId,
+              // repoName: formData?.repoName,
               paths:
                 typeof formData?.paths === 'string'
                   ? formData?.paths
-                  : formData?.paths.map((path: { path: string }) => path.path)
+                  : formData?.paths?.map((path: { path: string }) => path.path)
             }
           }
         }
       }
+    }
+    if (selectedManifest === ManifestDataType.K8sManifest) {
+      ;(manifestObj.manifest.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }
     handleSubmit(manifestObj)
   }
@@ -166,10 +190,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           })
         }}
       >
-        {(formik: {
-          setFieldValue: (a: string, b: string) => void
-          values: { gitFetchType: string; branch: string; paths: { path: string; uuid: string }[] }
-        }) => (
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: ManifestDetailDataType }) => (
           <Form>
             <div className={css.manifestDetailsForm}>
               <FormInput.Text
@@ -177,21 +198,47 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 label={i18n.STEP_TWO.manifestId}
                 placeholder={i18n.STEP_ONE.idPlaceholder}
               />
+              {/* {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo && (
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.Text
+                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                    disabled
+                    name="repoName"
+                    style={{ width: '370px' }}
+                  />
+                </div>
+              )}
+
+              {prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Account && (
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <div>
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      name="repoName"
+                      style={{ width: '370px' }}
+                    />
+                  </div>
+
+                  <div
+                    style={{ marginLeft: 'var(--spacing-small)' }}
+                  >{`${prevStepData?.connectorRef?.connector?.spec?.url}/${formik.values?.repoName}`}</div>
+                </div>
+              )} */}
               <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
-              <div>
+
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
                   <FormInput.MultiTextInput
+                    multiTextInputProps={{ expressions }}
                     label={i18n.STEP_TWO.branchLabel}
                     placeholder={i18n.STEP_TWO.branchPlaceholder}
                     name="branch"
-                    className={cx({
-                      [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
-                    })}
+                    style={{ width: '370px' }}
                   />
                 )}
                 {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formik.values?.branch}
+                    value={formik.values?.branch as string}
                     type="String"
                     variableName="branch"
                     showRequiredField={false}
@@ -201,14 +248,28 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   />
                 )}
               </div>
-
-              {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                <FormInput.MultiTextInput
-                  label={i18n.STEP_TWO.commitLabel}
-                  placeholder={i18n.STEP_TWO.commitPlaceholder}
-                  name="commitId"
-                />
-              )}
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                  <FormInput.MultiTextInput
+                    multiTextInputProps={{ expressions }}
+                    label={i18n.STEP_TWO.commitLabel}
+                    placeholder={i18n.STEP_TWO.commitPlaceholder}
+                    name="commitId"
+                    style={{ width: '370px' }}
+                  />
+                )}
+                {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik.values?.commitId as string}
+                    type="String"
+                    variableName="commitId"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik.setFieldValue('commitId', value)}
+                  />
+                )}
+              </div>
 
               <MultiTypeFieldSelector
                 defaultValueToReset={defaultValueToReset}
@@ -227,7 +288,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   name="paths"
                   render={arrayHelpers => (
                     <Layout.Vertical>
-                      {formik.values?.paths?.map((path: { path: string; uuid: string }, index) => (
+                      {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
                         <Layout.Horizontal
                           key={path.uuid}
                           flex={{ distribution: 'space-between' }}
@@ -255,6 +316,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                               name={`paths[${index}].path`}
                               style={{ width: '330px' }}
                               multiTextInputProps={{
+                                expressions,
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                               }}
                             />
@@ -277,6 +339,39 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   )}
                 />
               </MultiTypeFieldSelector>
+              {!!(selectedManifest === ManifestDataType.K8sManifest) && (
+                <Accordion
+                  activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                  className={css.advancedStepOpen}
+                >
+                  <Accordion.Panel
+                    id={getString('advancedTitle')}
+                    addDomId={true}
+                    summary={getString('advancedTitle')}
+                    details={
+                      <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+                        <FormMultiTypeCheckboxField
+                          name="skipResourceVersioning"
+                          label={getString('skipResourceVersion')}
+                          multiTypeTextbox={{ expressions }}
+                          className={cx(css.checkbox, css.halfWidth)}
+                        />
+                        <Tooltip
+                          position="top"
+                          content={
+                            <div className={css.tooltipContent}>
+                              {getString('manifestType.helmSkipResourceVersion')}{' '}
+                            </div>
+                          }
+                          className={css.tooltip}
+                        >
+                          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                        </Tooltip>
+                      </Layout.Horizontal>
+                    }
+                  />
+                </Accordion>
+              )}
             </div>
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>

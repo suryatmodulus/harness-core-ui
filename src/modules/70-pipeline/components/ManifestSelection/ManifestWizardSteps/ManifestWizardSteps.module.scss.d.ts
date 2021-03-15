@@ -22,5 +22,10 @@ declare const styles: {
   readonly squareCard: string
   readonly disabled: string
   readonly manifestIcon: string
+  readonly advancedStepOpen: string
+  readonly checkbox: string
+  readonly halfWidth: string
+  readonly tooltip: string
+  readonly tooltipContent: string
 }
 export default styles

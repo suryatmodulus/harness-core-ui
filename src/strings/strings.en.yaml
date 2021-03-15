@@ -182,6 +182,7 @@ sidecarsText: '{{$.sidecar}}s'
 manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
+chartPath: Chart Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -1244,6 +1245,8 @@ activityHistory:
   failedActivity: Failed Activity
   heartbeatFailure: Heart beat Failure
 manifestType:
+  manifestIdentifier: Manifest Identifier
+  manifestPlaceholder: Give name to your manifest config
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'

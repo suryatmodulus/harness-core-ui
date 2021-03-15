@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Text,
   Accordion,
@@ -13,10 +13,12 @@ import {
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
+import cx from 'classnames'
 import { get } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -26,8 +28,9 @@ import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface HelmWithHttpPropType {
   stepName: string
-  initialValues: any
-  handleSubmit: (data: any) => void
+  expressions: string[]
+  initialValues: ManifestConfig
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const commandFlagOptionsV2 = [
@@ -44,11 +47,11 @@ const commandFlagOptionsV3 = [
 const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType> = ({
   stepName,
   prevStepData,
+  expressions,
   initialValues,
   handleSubmit,
   previousStep
 }) => {
-  const [defaultHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion || 'V2')
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
 
@@ -80,8 +83,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
     }
   }
-  const submitFormData = (formData: any): void => {
-    const manifestObj: any = {
+  const submitFormData = (formData: HelmWithHTTPDataType & { store?: string; connectorRef?: string }): void => {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -99,11 +102,12 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       }
     }
     if (formData?.commandFlags[0].commandType) {
-      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
         flag: commandFlag.flag
       }))
     }
+
     handleSubmit(manifestObj)
   }
 
@@ -133,33 +137,82 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           })
         }}
       >
-        {(formik: { setFieldValue: (a: string, b: string) => void; values: any }) => (
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: HelmWithHTTPDataType }) => (
           <Form>
             <div className={helmcss.helmGitForm}>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <FormInput.MultiTextInput
-                  name="chartName"
-                  label={getString('manifestType.http.chartName')}
-                  placeholder={getString('manifestType.http.chartNamePlaceHolder')}
-                  className={helmcss.halfWidth}
-                />
-                <FormInput.MultiTextInput
-                  name="chartVersion"
-                  label={getString('manifestType.http.chartVersion')}
-                  placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
-                  className={helmcss.halfWidth}
-                />
-                <FormInput.Select
-                  name="helmVersion"
-                  label={getString('helmVersion')}
-                  items={helmVersions}
-                  className={helmcss.halfWidth}
-                  onChange={version => {
-                    setHelmVersion(version.value)
-                  }}
-                />
-              </Layout.Vertical>
-              <Accordion activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}>
+              <Layout.Horizontal flex spacing="huge">
+                <div className={helmcss.halfWidth}>
+                  <FormInput.Text
+                    name="identifier"
+                    label={getString('manifestType.manifestIdentifier')}
+                    placeholder={getString('manifestType.manifestPlaceholder')}
+                  />
+                </div>
+                <div
+                  className={cx(helmcss.halfWidth, {
+                    [helmcss.runtimeInput]:
+                      getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME
+                  })}
+                >
+                  <FormInput.MultiTextInput
+                    name="chartName"
+                    multiTextInputProps={{ expressions }}
+                    label={getString('manifestType.http.chartName')}
+                    placeholder={getString('manifestType.http.chartNamePlaceHolder')}
+                  />
+                  {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.chartName as string}
+                      type="String"
+                      variableName="chartName"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('chartName', value)}
+                    />
+                  )}
+                </div>
+              </Layout.Horizontal>
+
+              <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
+                <div
+                  className={cx(helmcss.halfWidth, {
+                    [helmcss.runtimeInput]:
+                      getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME
+                  })}
+                >
+                  <FormInput.MultiTextInput
+                    name="chartVersion"
+                    multiTextInputProps={{ expressions }}
+                    label={getString('manifestType.http.chartVersion')}
+                    placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
+                  />
+                  {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.chartVersion}
+                      type="String"
+                      variableName="chartVersion"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('chartVersion', value)}
+                    />
+                  )}
+                </div>
+
+                <div className={helmcss.halfWidth}>
+                  <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
+                </div>
+              </Layout.Horizontal>
+
+              <Accordion
+                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                className={cx({
+                  [helmcss.advancedStepOpen]: isActiveAdvancedStep
+                })}
+              >
                 <Accordion.Panel
                   id={getString('advancedTitle')}
                   addDomId={true}
@@ -167,7 +220,10 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   details={
                     <HelmAdvancedStepSection
                       formik={formik}
-                      commandFlagOptions={defaultHelmVersion === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3}
+                      expressions={expressions}
+                      commandFlagOptions={
+                        formik.values?.helmVersion === 'V2' ? commandFlagOptionsV2 : commandFlagOptionsV3
+                      }
                     />
                   }
                 />

@@ -2086,6 +2086,8 @@ ce:
         enableTitle: 'Enable Rule {{name}}'
         enableDialogText: 'Are you sure you want to enable?'
         disable: 'Disable'
+        deleteServiceTitle: 'Delete Rule {{name}}'
+        deleteDialogText: 'Are you sure you want to delete?'
 
     accessPoint:
       create: 'Create Access Point'

@@ -15,6 +15,7 @@ import {
 } from 'services/lw'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
+import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
@@ -26,6 +27,8 @@ import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
   service: { data: Service; index: number } | null | undefined
   handleServiceToggle: (type: 'SUCCESS' | 'FAILURE', data: Service | any, index?: number) => void
+  handleServiceDeletion: (type: 'SUCCESS' | 'FAILURE', data: Service | any) => void
+  handleServiceEdit: (_service: Service) => void
 }
 
 function getBarChartOptions(
@@ -150,6 +153,13 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
       props.handleServiceToggle('SUCCESS', updatedServiceData, props.service?.index),
     onFailure: error => props.handleServiceToggle('FAILURE', error)
   })
+  const { triggerDelete } = useDeleteServiceHook({
+    orgIdentifier,
+    projectIdentifier,
+    serviceData: props.service?.data as Service,
+    onSuccess: (_data: Service) => props.handleServiceDeletion('SUCCESS', _data),
+    onFailure: err => props.handleServiceDeletion('FAILURE', err)
+  })
 
   if (resourceError) {
     showError(`could not load resources for rule`)
@@ -185,8 +195,12 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           <Layout.Horizontal spacing="large" width="50%" className={css.headerLayout}>
             <Layout.Horizontal flex spacing="large">
               <Switch checked={!props.service?.data.disabled} onChange={() => triggerToggle()}></Switch>
-              <Icon name="edit" style={{ marginBottom: '10px' }}></Icon>
-              <Icon name="trash" style={{ marginBottom: '10px' }}></Icon>
+              <Icon
+                name="edit"
+                style={{ marginBottom: '10px' }}
+                onClick={() => props.handleServiceEdit(props.service?.data as Service)}
+              ></Icon>
+              <Icon name="trash" style={{ marginBottom: '10px' }} onClick={() => triggerDelete()}></Icon>
             </Layout.Horizontal>
           </Layout.Horizontal>
         </Layout.Horizontal>

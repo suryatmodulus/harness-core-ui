@@ -1336,6 +1336,41 @@
             "description": "Invalid status value"
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["deleteService"],
+        "summary": "Service Deletion",
+        "description": "Deletes a service",
+        "operationId": "DeleteService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
       }
     },
     "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/tag": {

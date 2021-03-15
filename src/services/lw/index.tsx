@@ -1681,6 +1681,47 @@ export const useRouteDetails = ({ org_id, project_id, service_id, ...props }: Us
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
   )
 
+export interface DeleteServicePathParams {
+  org_id: string
+  project_id: string
+}
+
+export type DeleteServiceProps = Omit<MutateProps<void, void, void, number, DeleteServicePathParams>, 'path' | 'verb'> &
+  DeleteServicePathParams
+
+/**
+ * Service Deletion
+ *
+ * Deletes a service
+ */
+export const DeleteService = ({ org_id, project_id, ...props }: DeleteServiceProps) => (
+  <Mutate<void, void, void, number, DeleteServicePathParams>
+    verb="DELETE"
+    path="/orgs/${org_id}/projects/${project_id}/services"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteServiceProps = Omit<
+  UseMutateProps<void, void, void, number, DeleteServicePathParams>,
+  'path' | 'verb'
+> &
+  DeleteServicePathParams
+
+/**
+ * Service Deletion
+ *
+ * Deletes a service
+ */
+export const useDeleteService = ({ org_id, project_id, ...props }: UseDeleteServiceProps) =>
+  useMutate<void, void, void, number, DeleteServicePathParams>(
+    'DELETE',
+    (paramsInPath: DeleteServicePathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
+  )
+
 export interface AttachTagsQueryParams {
   cloud_account_id: string
   tagKey: string

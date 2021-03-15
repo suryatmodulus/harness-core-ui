@@ -35,6 +35,7 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -189,7 +190,7 @@ const COGatewayList: React.FC = () => {
   })
 
   useEffect(() => {
-    setTableData(servicesData?.response || tableData)
+    setTableData(servicesData?.response || [])
   }, [servicesData?.response])
 
   if (error) {
@@ -372,10 +373,22 @@ const COGatewayList: React.FC = () => {
       onSuccess: (updatedServiceData: Service) => onServiceStateToggle('SUCCESS', updatedServiceData, row.index),
       onFailure: err => onServiceStateToggle('FAILURE', err)
     })
+    const { triggerDelete } = useDeleteServiceHook({
+      orgIdentifier,
+      projectIdentifier,
+      serviceData: row.original,
+      onSuccess: (_data: Service) => onServiceDeletion('SUCCESS', _data),
+      onFailure: err => onServiceDeletion('FAILURE', err)
+    })
 
     const handleToggleRuleClick = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation()
       triggerToggle()
+    }
+
+    const handleDeleteRuleClick = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation()
+      triggerDelete()
     }
 
     return (
@@ -407,29 +420,13 @@ const COGatewayList: React.FC = () => {
             <Menu.Item
               icon="edit"
               text="Edit"
-              onClick={() =>
-                history.push(
-                  routes.toCECOEditGateway({
-                    orgIdentifier: row.original.org_id as string,
-                    projectIdentifier: row.original.project_id as string,
-                    accountId: row.original.account_identifier as string,
-                    gatewayIdentifier: row.original.id?.toString() as string
-                  })
-                )
-              }
+              onClick={() => handleServiceEdit(row.original)}
               // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
               //   e.stopPropagation()
               //   alert('you are editing')
               // }}
             />
-            <Menu.Item
-              icon="trash"
-              text="Delete"
-              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                e.stopPropagation()
-                alert('you are deleting')
-              }}
-            />
+            <Menu.Item icon="trash" text="Delete" onClick={handleDeleteRuleClick} />
           </Menu>
         </Popover>
       </Layout.Horizontal>
@@ -453,6 +450,29 @@ const COGatewayList: React.FC = () => {
       showError(data)
     }
   }
+
+  const onServiceDeletion = (type: 'SUCCESS' | 'FAILURE', data: Service | any) => {
+    if (type === 'SUCCESS') {
+      showSuccess(`Rule ${data.name} deleted successfully`)
+      if (isDrawerOpen) {
+        setIsDrawerOpen(false)
+        setSelectedService(null)
+      }
+      refetchServices()
+    } else {
+      showError(data)
+    }
+  }
+
+  const handleServiceEdit = (_service: Service) =>
+    history.push(
+      routes.toCECOEditGateway({
+        orgIdentifier: _service.org_id as string,
+        projectIdentifier: _service.project_id as string,
+        accountId: _service.account_identifier as string,
+        gatewayIdentifier: _service.id?.toString() as string
+      })
+    )
 
   return (
     <Container background={Color.WHITE} height="100vh">
@@ -522,7 +542,12 @@ const COGatewayList: React.FC = () => {
                   overflowY: 'scroll'
                 }}
               >
-                <COGatewayAnalytics service={selectedService} handleServiceToggle={onServiceStateToggle} />
+                <COGatewayAnalytics
+                  service={selectedService}
+                  handleServiceToggle={onServiceStateToggle}
+                  handleServiceDeletion={onServiceDeletion}
+                  handleServiceEdit={handleServiceEdit}
+                />
               </Drawer>
               <>
                 <Layout.Horizontal padding="large">

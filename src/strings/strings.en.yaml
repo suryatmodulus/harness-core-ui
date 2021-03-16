@@ -216,6 +216,7 @@ identifier: 'Identifier'
 name: Name
 add: Add
 overview: Overview
+references: References
 reinstall: Reinstall
 edit: Edit
 delete: Delete

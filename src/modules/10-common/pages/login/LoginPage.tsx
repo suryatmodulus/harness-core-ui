@@ -43,9 +43,9 @@ const LoginPage: React.FC = () => {
       })
 
       const json = await response.json()
-
       AppStorage.set('token', json.resource.token)
       AppStorage.set('acctId', json.resource.defaultAccountId)
+      AppStorage.set('lastTokenSetTime', +new Date())
 
       history.push(routes.toProjects({ accountId: json.resource.defaultAccountId }))
     } catch (e) {

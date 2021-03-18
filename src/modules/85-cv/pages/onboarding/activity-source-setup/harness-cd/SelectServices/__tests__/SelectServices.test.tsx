@@ -95,7 +95,7 @@ describe('Select Services', () => {
       },
       queryParams: {
         appId: ['1234_appId'],
-        limit: '5',
+        limit: '7',
         offset: '0',
         'search[0]': [
           {
@@ -186,6 +186,7 @@ describe('Select Services', () => {
             appName: 'someApp',
             id: 'uuid1',
             name: 'Archive',
+            selected: true,
             service: {
               label: 'bvhj',
               value: 'bvhj'

@@ -108,7 +108,7 @@ describe('SelectEnvironment', () => {
       },
       queryParams: {
         appId: ['appId'],
-        limit: '5',
+        limit: '7',
         offset: '0',
         'search[0]': [
           {
@@ -201,6 +201,9 @@ describe('SelectEnvironment', () => {
     fireEvent.click(submitButton)
     await waitFor(() =>
       expect(onSubmitMock).toHaveBeenCalledWith({
+        applications: {
+          appId: 'appName'
+        },
         environments: {
           'kODJb5-uuid': {
             appId: 'appId',
@@ -210,7 +213,8 @@ describe('SelectEnvironment', () => {
               value: 'ndbhjdh'
             },
             id: 'kODJb5-uuid',
-            name: 'Test Env'
+            name: 'Test Env',
+            selected: true
           }
         }
       })

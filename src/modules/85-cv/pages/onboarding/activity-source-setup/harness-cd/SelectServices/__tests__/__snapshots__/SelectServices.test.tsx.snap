@@ -457,7 +457,7 @@ exports[`Select Services render services for application 1`] = `
             <span
               class="bp3-button-text"
             >
-              10
+              8
             </span>
           </button>
         </div>

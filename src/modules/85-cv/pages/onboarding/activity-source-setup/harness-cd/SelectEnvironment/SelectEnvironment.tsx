@@ -20,7 +20,7 @@ import {
 import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import css from './SelectEnvironment.module.scss'
 
-const PAGE_LIMIT = 5
+const PAGE_LIMIT = 7
 export interface SelectEnvironmentProps {
   initialValues?: any
   onSubmit?: (data: any) => void
@@ -41,9 +41,25 @@ interface TableData {
   environment?: SelectOption
 }
 
+function initializeSelectedEnvironments(environments: { [key: string]: TableData }): Map<string, TableData> {
+  if (!environments) {
+    return new Map()
+  }
+
+  const envs = new Map<string, TableData>()
+  for (const environmentId of Object.keys(environments)) {
+    envs.set(environmentId, environments[environmentId])
+  }
+
+  return envs
+}
+
 const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const { getString } = useStrings()
-  const [tableData, setTableData] = useState<Array<TableData>>()
+  const [tableData, setTableData] = useState<TableData[]>([])
+  const [selectedEnvironments, setSelectedEnvironments] = useState<Map<string, TableData>>(
+    initializeSelectedEnvironments(props.initialValues.environments)
+  )
   const [environmentOptions, setEnvironmentOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [validationText, setValidationText] = useState<undefined | string>()
@@ -86,15 +102,14 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
-      const env = props.initialValues.environments ?? {}
       const formatData = (data?.resource as any)?.response?.map((item: Environment) => {
         return {
           name: item.name,
           id: item.uuid,
           appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
-          selected: !!env[String(item.uuid)],
-          environment: env[String(item.uuid)]?.environment ?? {}
+          selected: selectedEnvironments.has(item.uuid),
+          environment: selectedEnvironments.get(item.uuid)?.environment ? { label: item.name, value: item.uuid } : {}
         }
       })
 
@@ -102,19 +117,18 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
     }
   }, [(data?.resource as any)?.response])
 
-  const onUpdateData = (index: number, value: object) => {
-    setTableData(old =>
-      old?.map((row, i) => {
-        if (index === i) {
-          return {
-            ...row,
-            ...value
-          }
-        } else {
-          return row
-        }
-      })
-    )
+  const onUpdateData = (value: TableData) => {
+    setSelectedEnvironments(old => {
+      const newMap = new Map(old || [])
+      const hasItem = newMap.has(value.id || '')
+      if (value.selected) {
+        newMap.set(value.id, value)
+      } else if (!value.selected && hasItem) {
+        newMap.delete(value.id)
+      }
+
+      return newMap
+    })
   }
 
   if (loading) {
@@ -126,21 +140,15 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   }
 
   const onNext = () => {
-    const environments = tableData?.reduce((acc: any, curr) => {
-      if (curr.selected && curr.environment) {
-        acc[curr.id] = {
-          id: curr.id,
-          name: curr.name,
-          appId: curr.appId,
-          appName: curr.appName,
-          environment: curr.environment
+    if (selectedEnvironments?.size) {
+      setValidationText(undefined)
+      const newlySelectedEnvironments: { [key: string]: TableData } = {}
+      for (const env of selectedEnvironments) {
+        if (env[1]?.environment?.value) {
+          newlySelectedEnvironments[env[0]] = env[1]
         }
       }
-      return acc
-    }, {})
-    if (Object.keys(environments).length) {
-      setValidationText(undefined)
-      props.onSubmit?.({ environments })
+      props.onSubmit?.({ ...props.initialValues, environments: newlySelectedEnvironments })
     } else {
       setValidationText(getString('cv.activitySources.harnessCD.validation.environmentValidation'))
     }
@@ -157,7 +165,11 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
         appliedFilter={filter}
       />
       <Table<TableData>
-        onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+        onRowClick={(rowData, index) => {
+          tableData[index] = { ...rowData, selected: !rowData.selected }
+          onUpdateData(tableData[index])
+          setTableData([...tableData])
+        }}
         columns={[
           {
             Header: getString('cv.activitySources.harnessCD.harnessApps'),
@@ -170,9 +182,11 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                   <input
                     style={{ cursor: 'pointer' }}
                     type="checkbox"
-                    checked={rowData.selected}
+                    checked={selectedEnvironments.has(rowData.id || '')}
                     onChange={e => {
-                      onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                      tableData[tableProps.row.index] = { ...rowData, selected: e.target.checked }
+                      onUpdateData(tableData[tableProps.row.index])
+                      setTableData([...tableData])
                     }}
                   />
                   <Text color={Color.BLACK}>{rowData.appName}</Text>
@@ -210,11 +224,18 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                     item={value}
                     options={environmentOptions}
                     onSelect={val => {
-                      onUpdateData(row.index, { environment: val })
+                      tableData[row.index] = { ...row.original, environment: val }
+                      onUpdateData(tableData[row.index])
+                      setTableData([...tableData])
                     }}
                     onNewCreated={(val: EnvironmentResponseDTO) => {
                       setEnvironmentOptions([{ label: val.name, value: val.identifier }, ...environmentOptions])
-                      onUpdateData(row.index, { environment: { label: val.name, value: val.identifier } })
+                      tableData[row.index] = {
+                        ...row.original,
+                        environment: { label: val.name as string, value: val.identifier as string }
+                      }
+                      setTableData([...tableData])
+                      onUpdateData(tableData[row.index])
                     }}
                   />
                 </Layout.Horizontal>

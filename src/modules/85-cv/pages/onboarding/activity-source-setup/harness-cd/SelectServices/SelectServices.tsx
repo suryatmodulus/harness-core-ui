@@ -30,7 +30,7 @@ import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SelectServices.module.scss'
 
-const PAGE_LIMIT = 5
+const PAGE_LIMIT = 7
 
 export interface SelectServicesProps {
   initialValues?: any
@@ -91,9 +91,25 @@ export function transformToSavePayload(data: any): CDActivitySourceDTO {
   }
 }
 
+function initializeSelectedServices(services: { [key: string]: TableData }): Map<string, TableData> {
+  if (!services) {
+    return new Map()
+  }
+
+  const envs = new Map<string, TableData>()
+  for (const serviceId of Object.keys(services)) {
+    envs.set(serviceId, services[serviceId])
+  }
+
+  return envs
+}
+
 const SelectServices: React.FC<SelectServicesProps> = props => {
   const { getString } = useStrings()
-  const [tableData, setTableData] = useState<Array<TableData>>()
+  const [tableData, setTableData] = useState<TableData[]>([])
+  const [selectedServices, setSelectedServices] = useState<Map<string, TableData>>(
+    initializeSelectedServices(props.initialValues.services)
+  )
   const [serviceOptions, setServiceOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [validationText, setValidationText] = useState<undefined | string>()
@@ -143,15 +159,14 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
-      const services = props.initialValues.services ?? {}
       const formatData = (data?.resource as any)?.response?.map((item: Service) => {
         return {
           name: item.name,
           id: item.uuid,
           appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
-          selected: !!services[String(item.uuid)],
-          service: services[String(item.uuid)]?.service ?? ''
+          selected: selectedServices.has(item.uuid),
+          service: selectedServices.get(item.uuid)?.service ? { label: item.name, value: item.uuid } : ''
         }
       })
 
@@ -159,19 +174,18 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     }
   }, [(data?.resource as any)?.response])
 
-  const onUpdateData = (index: number, value: object) => {
-    setTableData(old =>
-      old?.map((row, i) => {
-        if (index === i) {
-          return {
-            ...row,
-            ...value
-          }
-        } else {
-          return row
-        }
-      })
-    )
+  const onUpdateData = (value: TableData) => {
+    setSelectedServices(old => {
+      const newMap = new Map(old || [])
+      const hasItem = newMap.has(value.id || '')
+      if (value.selected) {
+        newMap.set(value.id, value)
+      } else if (!value.selected && hasItem) {
+        newMap.delete(value.id)
+      }
+
+      return newMap
+    })
   }
 
   if (loading) {
@@ -183,23 +197,20 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   }
 
   const onNext = async () => {
-    const services = tableData?.reduce((acc: any, curr) => {
-      if (curr.selected && curr.service) {
-        acc[curr.id] = {
-          id: curr.id,
-          name: curr.name,
-          appId: curr.appId,
-          appName: curr.appName,
-          service: curr.service
+    if (selectedServices?.size) {
+      const newlySelectedServices: { [key: string]: TableData } = {}
+      for (const service of selectedServices) {
+        if (service[1]?.service?.value) {
+          newlySelectedServices[service[0]] = service[1]
         }
       }
-      return acc
-    }, {})
-
-    if (Object.keys(services).length) {
-      props.onSubmit?.({ services, type: 'HarnessCD_1.0', sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE })
+      props.onSubmit?.({
+        services: newlySelectedServices,
+        type: 'HarnessCD_1.0',
+        sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE
+      })
       setValidationText(undefined)
-      const savePayload = transformToSavePayload({ ...props.initialValues, services })
+      const savePayload = transformToSavePayload({ ...props.initialValues, services: newlySelectedServices })
       try {
         await mutate(savePayload)
         history.push(
@@ -231,7 +242,11 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
         appliedFilter={filter}
       />
       <Table<TableData>
-        onRowClick={(rowData, index) => onUpdateData(index, { selected: !rowData.selected })}
+        onRowClick={(rowData, index) => {
+          tableData[index] = { ...rowData, selected: !rowData.selected }
+          onUpdateData(tableData[index])
+          setTableData([...tableData])
+        }}
         columns={[
           {
             Header: getString('cv.activitySources.harnessCD.harnessApps'),
@@ -245,9 +260,11 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                   <input
                     style={{ cursor: 'pointer' }}
                     type="checkbox"
-                    checked={rowData.selected}
+                    checked={selectedServices.has(rowData.id || '')}
                     onChange={e => {
-                      onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                      tableData[tableProps.row.index] = { ...rowData, selected: e.target.checked }
+                      onUpdateData(tableData[tableProps.row.index])
+                      setTableData([...tableData])
                     }}
                   />
                   <Text lineClamp={1} width="95%" color={Color.BLACK}>
@@ -288,10 +305,19 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                   <ServiceSelectOrCreate
                     item={value}
                     options={serviceOptions}
-                    onSelect={val => onUpdateData(row.index, { service: val })}
+                    onSelect={val => {
+                      tableData[row.index] = { ...row.original, service: val }
+                      onUpdateData(tableData[row.index])
+                      setTableData([...tableData])
+                    }}
                     onNewCreated={(val: ServiceResponseDTO) => {
                       setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
-                      onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
+                      tableData[row.index] = {
+                        ...row.original,
+                        service: { label: val.name as string, value: val.identifier as string }
+                      }
+                      setTableData([...tableData])
+                      onUpdateData(tableData[row.index])
                     }}
                   />
                 </Layout.Horizontal>

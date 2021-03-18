@@ -166,7 +166,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
           appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
           selected: selectedServices.has(item.uuid),
-          service: selectedServices.get(item.uuid)?.service ? { label: item.name, value: item.uuid } : ''
+          service: selectedServices.get(item.uuid)?.service ?? ''
         }
       })
 

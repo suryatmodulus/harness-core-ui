@@ -109,7 +109,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
           appName: props.initialValues.applications[String(item.appId)],
           appId: item.appId,
           selected: selectedEnvironments.has(item.uuid),
-          environment: selectedEnvironments.get(item.uuid)?.environment ? { label: item.name, value: item.uuid } : {}
+          environment: selectedEnvironments.get(item.uuid)?.environment || {}
         }
       })
 

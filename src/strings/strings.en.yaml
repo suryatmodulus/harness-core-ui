@@ -2093,6 +2093,7 @@ resourceGroup:
   builtInResourceGroup: 'Built in resource-group'
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
+  searchWithResourceGroupName: 'Search by Name'
 ce:
   headingText: 'Continuous Efficiency'
   homepage:

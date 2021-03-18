@@ -117,7 +117,7 @@ const ResourceGroupDetails: React.FC = () => {
 
   if (!resourceGroup)
     return <Page.NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroupFound')} />
-
+  const selectedResourceMapKeysList = Array.from(selectedResourcesMap.keys())
   return (
     <>
       <Page.Header
@@ -196,14 +196,16 @@ const ResourceGroupDetails: React.FC = () => {
           >
             <ResourceTypeList
               onResourceSelectionChange={onResourceSelectionChange}
-              preSelectedResourceList={Array.from(selectedResourcesMap.keys())}
+              preSelectedResourceList={selectedResourceMapKeysList}
               disableAddingResources={isHarnessManaged}
             />
           </Container>
           <Container
             padding="xlarge"
             onDrop={event => {
-              onResourceSelectionChange(event.dataTransfer.getData('text/plain') as ResourceType, true)
+              if (event.dataTransfer.getData('text/plain')) {
+                onResourceSelectionChange(event.dataTransfer.getData('text/plain') as ResourceType, true)
+              }
               event.preventDefault()
               event.stopPropagation()
             }}
@@ -220,15 +222,15 @@ const ResourceGroupDetails: React.FC = () => {
               </Layout.Vertical>
             )}
             <Layout.Vertical spacing="small" height="100%">
-              {Array.from(selectedResourcesMap.keys()).length === 0 && (
+              {selectedResourceMapKeysList.length === 0 && (
                 <Page.NoDataCard
                   message={getString('resourceGroup.dragAndDropData')}
                   icon="drag-handle-horizontal"
                   iconSize={100}
                 ></Page.NoDataCard>
               )}
-              {Array.from(selectedResourcesMap.keys()).length !== 0 &&
-                Array.from(selectedResourcesMap.keys()).map(resourceType => {
+              {selectedResourceMapKeysList.length !== 0 &&
+                selectedResourceMapKeysList.map(resourceType => {
                   const resourceValues = selectedResourcesMap.get(resourceType)
                   return (
                     resourceValues && (

@@ -13,7 +13,7 @@ const ResourceGroups: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   // TODO: search functionality to be done
-  const [searchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const defaultQueryParams = {
     pageIndex: page,
@@ -46,7 +46,12 @@ const ResourceGroups: React.FC = () => {
         }
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput placeholder={getString('usersPage.search')} />
+            <ExpandingSearchInput
+              placeholder={getString('resourceGroup.searchWithResourceGroupName')}
+              onChange={(text: string) => {
+                setSearchTerm(text)
+              }}
+            />
           </Layout.Horizontal>
         }
       />

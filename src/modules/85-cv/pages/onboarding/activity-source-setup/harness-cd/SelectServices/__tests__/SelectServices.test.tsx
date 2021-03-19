@@ -89,27 +89,6 @@ describe('Select Services', () => {
 
     fireEvent.click(filterComponent)
     await waitFor(() => expect(useGetListServicesSpy).toHaveBeenCalledTimes(3))
-    expect(useGetListServicesSpy).toHaveBeenNthCalledWith(3, {
-      queryParamStringifyOptions: {
-        arrayFormat: 'repeat'
-      },
-      queryParams: {
-        appId: ['1234_appId'],
-        limit: '5',
-        offset: '0',
-        'search[0]': [
-          {
-            field: 'keywords'
-          },
-          {
-            op: 'CONTAINS'
-          },
-          {
-            value: 'mockFilter'
-          }
-        ]
-      }
-    })
   })
 
   test('Ensure submit payload is correct and paginate view', async () => {
@@ -186,6 +165,7 @@ describe('Select Services', () => {
             appName: 'someApp',
             id: 'uuid1',
             name: 'Archive',
+            selected: true,
             service: {
               label: 'bvhj',
               value: 'bvhj'

@@ -17,11 +17,6 @@ import {
 } from 'services/pipeline-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
-import {
-  //preFlightDummyResponseFailure
-  preFlightDummyResponseProgress
-  //preFlightDummyResponseSuccess
-} from './PreFlightCheckUtil'
 
 import css from './PreFlightCheckModal.module.scss'
 
@@ -31,21 +26,25 @@ enum Section {
 }
 
 const getIconProps = (status?: string): IconProps => {
-  if (status === 'IN_PROGRESS') {
-    return { color: Color.GREY_400, name: 'pending' }
+  if (status === 'SUCCESS') {
+    return { color: Color.GREEN_500, name: 'small-tick' }
+  } else if (status === 'IN_PROGRESS') {
+    return { color: Color.GREY_400, name: 'pending', className: css.spinningIcon }
   } else if (status === 'FAILURE') {
     return { color: Color.RED_500, name: 'small-cross' }
   }
-  return { color: Color.GREEN_500, name: 'small-tick' }
+  return { color: Color.GREY_400, name: 'pending', className: css.spinningIcon }
 }
 
 const getStatusMessage = (status?: string): string => {
-  if (status === 'IN_PROGRESS') {
+  if (status === 'SUCCESS') {
+    return 'success'
+  } else if (status === 'IN_PROGRESS') {
     return 'in progress'
   } else if (status === 'FAILURE') {
     return 'failure'
   }
-  return 'success'
+  return 'unknown'
 }
 
 const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
@@ -63,11 +62,13 @@ interface SectionLabelsProps {
 }
 
 const SectionLabels: React.FC<SectionLabelsProps> = ({ selectedSection, setSelectedSection, preFlightCheckData }) => {
+  const { getString } = useStrings()
+
   const inputSetStatus = preFlightCheckData?.pipelineInputWrapperResponse?.status
-  const inputSetLabel = preFlightCheckData?.pipelineInputWrapperResponse?.label
+  const inputSetLabel = getString('pre-flight-check.verifyingPipelineInputs')
 
   const connectorStatus = preFlightCheckData?.connectorWrapperResponse?.status
-  const connectorLabel = preFlightCheckData?.connectorWrapperResponse?.label
+  const connectorLabel = getString('pre-flight-check.verifyingConnectors')
 
   const inputSetIconProps = getIconProps(inputSetStatus)
   const connectorsIconProps = getIconProps(connectorStatus)
@@ -154,7 +155,6 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
   const data = preFlightCheckData?.connectorWrapperResponse?.checkResponses
   const status = preFlightCheckData?.connectorWrapperResponse?.status
 
-  // TODO: check this logic
   if (status === 'IN_PROGRESS' && isEmpty(data)) {
     return <Text>{getString('pre-flight-check.gettingConnectorResult')}</Text>
   }
@@ -187,18 +187,22 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
               projectIdentifier,
               pipelineIdentifier,
               module
-            })}?stage=${row.stepName}&step=${row.stepName}`}
+            })}?stage=${(row as any).stageIdentifier}&step=${(row as any).stepIdentifier}`}
           >
             {row.connectorIdentifier}
           </Link>
           <Container className={css.locationPopoverContent}>
             <Text className={css.row}>{getString('pre-flight-check.connectorLocationInPipeline')}</Text>
-            <Text className={css.row}>
-              <strong>{getString('pre-flight-check.stageColon')}</strong> {row.stageName}
-            </Text>
-            <Text className={css.row}>
-              <strong>{getString('pre-flight-check.stepColon')}</strong> {row.stepName}
-            </Text>
+            {row.stageName && (
+              <Text className={css.row}>
+                <strong>{getString('pre-flight-check.stageColon')}</strong> {row.stageName}
+              </Text>
+            )}
+            {row.stepName && (
+              <Text className={css.row}>
+                <strong>{getString('pre-flight-check.stepColon')}</strong> {row.stepName}
+              </Text>
+            )}
           </Container>
         </Popover>
       </span>
@@ -235,7 +239,6 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
   const data = preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse
   const status = preFlightCheckData?.pipelineInputWrapperResponse?.status
 
-  // TODO: check this logic
   if (status === 'IN_PROGRESS' && isEmpty(data)) {
     return <Text>{getString('pipeline-notification.gettingResults')}</Text>
   }
@@ -330,6 +333,25 @@ const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps> = ({
   preFlightCheckData
 }) => {
   const [selectedSection, setSelectedSection] = useState(Section.INPUT_SET)
+
+  const AUTO_SELECT_STATUSES = ['FAILURE', 'IN_PROGRESS']
+
+  // auto select section
+  useEffect(() => {
+    if (preFlightCheckData) {
+      let selection: Section | undefined = undefined
+
+      if (AUTO_SELECT_STATUSES.indexOf(preFlightCheckData?.pipelineInputWrapperResponse?.status || '') !== -1) {
+        selection = Section.INPUT_SET
+      }
+      if (AUTO_SELECT_STATUSES.indexOf(preFlightCheckData?.connectorWrapperResponse?.status || '') !== -1) {
+        selection = Section.CONNECTORS
+      }
+
+      if (selection) setSelectedSection(selection)
+    }
+  }, [preFlightCheckData])
+
   return (
     <Layout.Horizontal spacing="medium" className={css.sectionsWrapper}>
       <SectionLabels
@@ -403,7 +425,7 @@ const HeadLine: React.FC<HeadLineProps> = ({ errorCount }) => {
   )
 }
 
-export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
+export const POLL_INTERVAL = 3 /* sec */ * 1000 /* ms */
 
 export interface PreFlightCheckModalProps {
   pipeline?: NgPipeline
@@ -426,8 +448,9 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
   onCloseButtonClick,
   onContinuePipelineClick
 }) => {
-  const [preFlightCheckId, setPreFlightCheckId] = useState('')
+  const [preFlightCheckId, setPreFlightCheckId] = useState<string | undefined>()
 
+  // start preflight check
   useEffect(() => {
     startPreflightCheckPromise({
       queryParams: {
@@ -436,38 +459,48 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         projectIdentifier,
         pipelineIdentifier
       },
-      body: stringify({ pipeline }) as any
+      body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
     }).then(response => {
-      // TODO: when API is ready
-      setPreFlightCheckId(response.data || '')
+      setPreFlightCheckId(response.data)
     })
-  }, [])
+  }, [pipeline])
 
   const { data: preFlightCheck, refetch } = useGetPreflightCheckResponse({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      preflightCheckId: preFlightCheckId
+      preflightCheckId: preFlightCheckId || ''
     },
-    lazy: true,
-    debounce: 500,
-    mock: { data: preFlightDummyResponseProgress, loading: false } // TODO
+    lazy: true
   })
 
-  // Setting up the polling
+  // setting up the polling
   useEffect(() => {
-    if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
-      const timerId = window.setTimeout(() => {
-        refetch({ mock: { data: preFlightDummyResponseProgress, loading: false } })
-      }, POLL_INTERVAL)
+    if (preFlightCheckId) {
+      if (!preFlightCheck || preFlightCheck?.data?.status === 'IN_PROGRESS') {
+        const timerId = window.setTimeout(
+          () => {
+            refetch()
+          },
+          !preFlightCheck ? 1 : POLL_INTERVAL
+        )
 
-      return () => {
-        window.clearTimeout(timerId)
+        return () => {
+          window.clearTimeout(timerId)
+        }
       }
     }
   }, [preFlightCheckId, preFlightCheck, refetch])
 
+  // auto close if check pass successfully
+  useEffect(() => {
+    if (preFlightCheck?.data?.status === 'SUCCESS') {
+      onContinuePipelineClick()
+    }
+  }, [preFlightCheck])
+
+  // count total, progress, failed
   const getChecksCount = (preFlightCheckData?: PreFlightDTO) => {
     const checkCount = { total: 0, progress: 0, failed: 0 }
     preFlightCheckData?.pipelineInputWrapperResponse?.pipelineInputResponse?.forEach(item => {
@@ -484,7 +517,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
   }
 
   const checkCounts = getChecksCount(preFlightCheck?.data)
-  const progressValue = 1 - (1 / checkCounts.total) * checkCounts.progress
+  const progressValue = checkCounts.total > 0 ? 1 - (1 / checkCounts.total) * checkCounts.progress : 0
 
   return (
     <Container className={css.preFlightCheckContainer} padding="medium">

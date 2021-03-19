@@ -20,5 +20,7 @@ declare const styles: {
   readonly headLine: string
   readonly title: string
   readonly error: string
+  readonly spinningIcon: string
+  readonly spin: string
 }
 export default styles

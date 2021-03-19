@@ -828,6 +828,8 @@ pre-flight-check:
   continueToRunPipeline: Continue to run pipeline
   skipCheckBtn: Skip pre-flight check
   skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
+  verifyingPipelineInputs: Verifying pipeline inputs
+  verifyingConnectors: Verifying connectors
 
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.

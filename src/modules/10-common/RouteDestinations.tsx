@@ -22,6 +22,10 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
+ const RedirectToSecretDetailHome = () => {
+  const { accountId,projectIdentifier, orgIdentifier,secretId,module} = useParams();
+  return <Redirect to={routes.toSecretDetailsOverview({accountId,projectIdentifier, orgIdentifier,secretId,module})}/>
+}
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
   subtitle: 'ACCOUNT',
@@ -57,3 +61,4 @@ export default (
     </Route>
   </>
 )
+export {RedirectToSecretDetailHome}

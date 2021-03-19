@@ -7,6 +7,10 @@ import { accountPathProps, orgPathProps, secretPathProps } from '@common/utils/r
 
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import {RedirectToSecretDetailHome} from '@common/RouteDestinations'
+import SeceretsActivity from '@secrets/pages/secretsActivity/SecretsActivity'
+import SeceretsReferences from '@secrets/pages/secretsReferences/SecretsReferences'
+import SecretsDetailHomePage from '@secrets/pages/secretsDetailHomePage/SecretsDetailHomePage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
@@ -53,7 +57,53 @@ export default (
       ]}
       exact
     >
-      <SecretDetails />
+      <RedirectToSecretDetailHome />
+      
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps }),
+        routes.toSecretDetailsOverview({
+          ...accountPathProps,
+          ...orgPathProps,
+          ...secretPathProps
+        })
+      ]}
+      exact
+    >
+      <SecretsDetailHomePage>
+        <SecretDetails /></SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toSecretDetailsReferences({ ...accountPathProps, ...secretPathProps }),
+        routes.toSecretDetailsReferences({
+          ...accountPathProps,
+          ...orgPathProps,
+          ...secretPathProps
+        })
+      ]}
+      exact
+    >
+      <SecretsDetailHomePage>
+        <SeceretsReferences /></SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[
+        routes.toSecretDetailsActivity({ ...accountPathProps, ...secretPathProps }),
+        routes.toSecretDetailsActivity({
+          ...accountPathProps,
+          ...orgPathProps,
+          ...secretPathProps
+        })
+      ]}
+      exact
+    >
+      <SecretsDetailHomePage>
+        <SeceretsActivity /></SecretsDetailHomePage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}

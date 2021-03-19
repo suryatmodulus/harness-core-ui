@@ -36,6 +36,10 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import SeceretsActivity from '@secrets/pages/secretsActivity/SecretsActivity'
+import SeceretsReferences from '@secrets/pages/secretsReferences/SecretsReferences'
+import SecretsDetailHomePage from '@secrets/pages/secretsDetailHomePage/SecretsDetailHomePage'
+import {RedirectToSecretDetailHome} from '@common/RouteDestinations'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
@@ -228,10 +232,53 @@ export default (
       path={routes.toCDResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...modulePathProps
       })}
     >
+      <RedirectToSecretDetailHome/>
+       </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toSecretDetailsOverview({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretsDetailHomePage>
       <SecretDetails />
+      </SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toSecretDetailsReferences({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretsDetailHomePage>
+      <SeceretsReferences />
+      </SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toSecretDetailsActivity({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretsDetailHomePage>
+      <SeceretsActivity/>
+      </SecretsDetailHomePage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

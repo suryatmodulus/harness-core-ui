@@ -259,8 +259,8 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
   ),
   toCDResourcesSecretDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, secretId }: ProjectPathProps & SecretsPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
+    ({ orgIdentifier, projectIdentifier, secretId, module }: ProjectPathProps & SecretsPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
   ),
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -302,8 +302,7 @@ const routes = {
       sourceRepo,
       module
     }: PipelineType<TriggerPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
-        (triggerType && sourceRepo && `?triggerType=${triggerType}&sourceRepo=${sourceRepo}`) || ''
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${(triggerType && sourceRepo && `?triggerType=${triggerType}&sourceRepo=${sourceRepo}`) || ''
       }`
   ),
   toPipelineDeploymentList: withAccountId(
@@ -493,8 +492,8 @@ const routes = {
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
   ),
   toCIAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
+    ({ projectIdentifier, orgIdentifier, module }: ProjectPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
 
   /********************************************************************************************************************/
@@ -580,8 +579,8 @@ const routes = {
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
   ),
   toCFAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
+    ({ projectIdentifier, orgIdentifier, module }: ProjectPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
   toCFAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -736,8 +735,8 @@ const routes = {
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
   ),
   toCVAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
+    ({ projectIdentifier, orgIdentifier, module }: ProjectPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
   toCVAdminAccessControl: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -824,7 +823,89 @@ const routes = {
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
   toCustomDasboardHome: withAccountId(() => '/dashboards/home'),
-  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)
+  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`),
+
+  toSecretDetailsOverview: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      secretId,
+      module
+
+    }: Partial<ProjectPathProps & OrgPathProps & SecretsPathProps & ModulePathParams>) => {
+      let returnUrl: string = '';
+
+      if (module) {
+        returnUrl = `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}/overview`
+
+      }
+      else if (!projectIdentifier && !orgIdentifier) {
+        returnUrl = `/admin/resources/secrets/${secretId}/overview`
+      }
+      else if (!projectIdentifier && orgIdentifier) {
+        returnUrl = `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}/overview`
+      }
+      else if (projectIdentifier && orgIdentifier) {
+        returnUrl = `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets/${secretId}/overview`
+      }
+      return returnUrl;
+
+    }
+  ),
+  toSecretDetailsReferences: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      secretId,
+      module
+
+    }: Partial<ProjectPathProps & OrgPathProps & SecretsPathProps & ModulePathParams>) => {
+      let returnUrl: string = '';
+
+      if (module) {
+        returnUrl = `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}/references`
+
+      }
+      else if (!projectIdentifier && !orgIdentifier) {
+        returnUrl = `/admin/resources/secrets/${secretId}/references`
+      }
+      else if (!projectIdentifier && orgIdentifier) {
+        returnUrl = `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}/references`
+      }
+      else if (projectIdentifier && orgIdentifier) {
+        returnUrl = `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets/${secretId}/references`
+      }
+      return returnUrl;
+
+    }
+  ),
+  toSecretDetailsActivity: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      secretId,
+      module
+
+    }: Partial<ProjectPathProps & OrgPathProps & SecretsPathProps & ModulePathParams>) => {
+      let returnUrl: string = '';
+
+      if (module) {
+        returnUrl = `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}/activity`
+
+      }
+      else if (!projectIdentifier && !orgIdentifier) {
+        returnUrl = `/admin/resources/secrets/${secretId}/activity`
+      }
+      else if (!projectIdentifier && orgIdentifier) {
+        returnUrl = `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}/activity`
+      }
+      else if (projectIdentifier && orgIdentifier) {
+        returnUrl = `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets/${secretId}/activity`
+      }
+      return returnUrl;
+
+    }
+  )
 }
 
 export default routes

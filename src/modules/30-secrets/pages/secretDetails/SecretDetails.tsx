@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams} from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import cx from 'classnames'
 import { omit, without } from 'lodash-es'
-import { Layout, Text, Color, Container, Button } from '@wings-software/uicore'
+import { Layout,Container, Button } from '@wings-software/uicore'
 
 import {
   useGetSecretV2,
@@ -23,7 +23,6 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import routes from '@common/RouteDefinitions'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
@@ -40,10 +39,6 @@ enum Mode {
   YAML
 }
 
-interface OptionalIdentifiers {
-  orgIdentifier?: string
-  accountId: string
-}
 
 interface SecretDetailsProps {
   mockSecretDetails?: UseGetMockData<ResponseSecretResponseWrapper>
@@ -52,18 +47,8 @@ interface SecretDetailsProps {
   mockPassphrase?: ResponseSecretResponseWrapper
 }
 
-const getConnectorsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routes.toOrgResourcesConnectors({ orgIdentifier, accountId })
-  return routes.toResourcesConnectors({ accountId })
-}
-
-const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routes.toOrgResourcesSecretsListing({ orgIdentifier, accountId })
-  return routes.toResourcesSecretsListing({ accountId })
-}
-
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams();
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()
@@ -120,7 +105,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
-  useDocumentTitle([getString('resources'), getString('secrets'), secretData?.secret.name || ''])
+  useDocumentTitle([getString('resources'), getString('secrets'), getString('overview')])
 
   useEffect(() => {
     setSecretData(data?.data)
@@ -191,25 +176,25 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
     openDialog()
   }
 
-  if (loading) return <PageSpinner />
-  if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
-  if (!secretData) return <div>{getString('noData')}</div>
+  // if (loading) return <PageSpinner />
+  // if (error) return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  // if (!secretData) return <div>{getString('noData')}</div>
 
   return (
     <>
       <PageHeader
-        title={
-          <Layout.Vertical>
-            <div>
-              <Link to={getConnectorsUrl({ orgIdentifier, accountId })}>{i18n.linkResources}</Link> /{' '}
-              <Link to={getSecretsUrl({ orgIdentifier, accountId })}>{i18n.linkSecrets}</Link>
-            </div>
-            <Text font={{ size: 'medium' }} color={Color.BLACK}>
-              {data?.data?.secret.name || 'Secret Details'}
-            </Text>
-          </Layout.Vertical>
-        }
+       size="standard"
+        title={getString('overview')}
       />
+      {loading ? (
+        <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+          <PageSpinner />
+        </div>
+      ) : error ? (
+        <div style={{ paddingTop: '200px' }}>
+         <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+        </div>
+      ):secretData? (
       <Container padding={{ top: 'large', left: 'huge', right: 'huge' }}>
         <Container padding={{ bottom: 'large' }}>
           {edit ? null : (
@@ -278,7 +263,11 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
           //View in Visual Mode
           <ViewSecretDetails secret={secretData} />
         )}
-      </Container>
+      </Container>) : (
+        <Container flex={{ align: 'center-center' }} padding="xxlarge">
+         { getString('noData')}
+        </Container>
+      )}
     </>
   )
 }

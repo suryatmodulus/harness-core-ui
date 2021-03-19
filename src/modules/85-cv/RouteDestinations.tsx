@@ -9,7 +9,8 @@ import {
   projectPathProps,
   connectorPathProps,
   secretPathProps,
-  verificationPathProps
+  verificationPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
@@ -31,6 +32,10 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import SeceretsActivity from '@secrets/pages/secretsActivity/SecretsActivity'
+import SeceretsReferences from '@secrets/pages/secretsReferences/SecretsReferences'
+import SecretsDetailHomePage from '@secrets/pages/secretsDetailHomePage/SecretsDetailHomePage'
+import {RedirectToSecretDetailHome} from '@common/RouteDestinations'
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
 import ResourcesPage from '@cv/pages/Resources/ResourcesPage'
 import { useAppStore, ModuleName } from 'framework/exports'
@@ -275,12 +280,54 @@ export default (
       path={routes.toCVAdminResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...modulePathProps
       })}
     >
-      <SecretDetails />
+      <RedirectToSecretDetailHome />
     </RouteWithLayout>
-
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toSecretDetailsOverview({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+       <SecretsDetailHomePage>
+      <SecretDetails />
+      </SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toSecretDetailsReferences({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+     <SecretsDetailHomePage>
+      <SeceretsReferences />
+      </SecretsDetailHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toSecretDetailsActivity({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretsDetailHomePage>
+      <SeceretsActivity />
+      </SecretsDetailHomePage>
+    </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

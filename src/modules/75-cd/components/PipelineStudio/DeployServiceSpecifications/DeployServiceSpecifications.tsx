@@ -30,6 +30,7 @@ import {
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
+import type { DeplymentTypes } from './DeployServiceHelper'
 import css from './DeployServiceSpecifications.module.scss'
 const setupMode = {
   PROPAGATE: 'PROPAGATE',
@@ -44,6 +45,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       name: getString('serviceDeploymentTypes.kubernetes'),
       icon: 'service-kubernetes',
       enabled: true
+    },
+    {
+      name: 'Helm',
+      icon: 'service-helm',
+      enabled: false
     },
     {
       name: getString('serviceDeploymentTypes.amazonEcs'),
@@ -81,12 +87,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       enabled: false
     }
   ]
-  const [setupModeType, setSetupMode] = React.useState('')
-  const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
-  const [isConfigVisible, setConfigVisibility] = React.useState(false)
-  const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
+
+  const [setupModeType, setSetupMode] = useState('')
+  const [checkedItems, setCheckedItems] = useState({ overrideSetCheckbox: false })
+  const [isConfigVisible, setConfigVisibility] = useState(false)
+  const [selectedPropagatedState, setSelectedPropagatedState] = useState<SelectOption>()
+  const [deploymentType, setDeploymentType] = useState(supportedDeploymentTypes[0].name)
   const [canPropagate, setCanPropagate] = React.useState(false)
-  const scrollRef = React.useRef<HTMLDivElement | null>(null)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const previousStageList: { label: string; value: string }[] = []
   const {
@@ -332,6 +340,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setSetupMode(setupMode.DIFFERENT)
     })
   }
+  const handleDeploymentTypeChange = (selected: DeplymentTypes): void => {
+    if (selected === deploymentType) {
+      setDeploymentType('')
+    } else {
+      setDeploymentType(selected)
+    }
+  }
 
   return (
     <>
@@ -428,18 +443,29 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
                     <div key={type.name} className={css.squareCardContainer}>
                       <Card
-                        disabled={!type.enabled}
+                        disabled={deploymentType !== '' && deploymentType !== type.name}
                         interactive={true}
-                        selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                        selected={type.name === deploymentType}
+                        cornerSelected={type.name === deploymentType}
+                        className={cx(
+                          { [css.disabled]: deploymentType !== '' && deploymentType !== type.name },
+                          css.squareCard
+                        )}
+                        onClick={() => {
+                          if (deploymentType === '' || deploymentType === type.name) {
+                            handleDeploymentTypeChange(type.name as DeplymentTypes)
+                          }
+                        }}
                       >
                         <Icon name={type.icon as IconName} size={26} height={26} />
                       </Card>
                       <Text
                         style={{
                           fontSize: '12px',
-                          color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                          color:
+                            deploymentType !== '' && deploymentType !== type.name
+                              ? 'var(--grey-350)'
+                              : 'var(--grey-900)',
                           textAlign: 'center'
                         }}
                       >

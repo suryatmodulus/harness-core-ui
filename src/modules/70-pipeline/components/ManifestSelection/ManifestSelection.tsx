@@ -32,6 +32,7 @@ export default function ManifestSelection({
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
+  console.log('stage', stage)
   const getManifestList = React.useCallback(() => {
     if (isPropagating) {
       return get(stage, 'stage.spec.service.stageOverrides.manifests', [])

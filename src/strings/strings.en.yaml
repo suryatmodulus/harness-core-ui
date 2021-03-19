@@ -1249,6 +1249,7 @@ pipelineSteps:
       manifestType: MANIFEST TYPE
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
+  configurationType: 'Configuration Type'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
   gitFetchType: 'Git Fetch Type'
@@ -1389,6 +1390,8 @@ pipelineSteps:
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
   provisionerIdentifierRequired: 'Provisioner Identifier is required.'
+  configurationTypeRequired: 'Configuration Type is required.'
+  provisionerIdentifier: 'Provisioner Identifier'
   lessThanZero: 'Instance cannot be less than zero.'
   morethanHundred: 'Instance cannot be more than 100.'
   instancesRequired: 'Instance is required.'

@@ -57,9 +57,9 @@ const LoginPage: React.FC = () => {
       setLoading(false)
       if (response.ok) {
         const json = await response.json()
-
         AppStorage.set('token', json.resource.token)
         AppStorage.set('acctId', json.resource.defaultAccountId)
+        AppStorage.set('lastTokenSetTime', +new Date())
 
         // this is naive redirect for now
         if (returnUrl) {

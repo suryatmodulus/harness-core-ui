@@ -107,10 +107,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
           })
         )
         // note: without setTimeout does not redirect properly after save
-        setTimeout(() => location.reload(), 250)
+        fetchPipeline(true, true, newPipelineId)
+      } else {
+        fetchPipeline(true, true)
       }
-
-      fetchPipeline(true, true)
     } else {
       showError(response?.message || getString('errorWhileSaving'))
     }

@@ -37,9 +37,7 @@ export default function VerificationStatusBar({
       <Container className={styles.main}>
         <Container className={classnames(styles.column, styles.statusGroup)}>
           <Text color={Color.BLACK}>{`${i18n.verification} ${mapStatus(status, remainingTimeMs)}`}</Text>
-          <Text color={Color.GREY_400} font={{ size: 'small' }}>
-            {`${i18n.startedOn}: ${moment(startTime).format('MMM D, h:mm:ss a')}`}
-          </Text>
+          <Text style={{ fontSize: 12 }}>{`${i18n.startedOn}: ${moment(startTime).format('MMM D, h:mm:ss a')}`}</Text>
         </Container>
         <Container className={classnames(styles.column, styles.risksGroup)}>
           <Text>{i18n.riskBeforeChanges}</Text>

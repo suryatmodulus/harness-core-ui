@@ -35,6 +35,8 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import css from './DeployEnvStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -77,7 +79,9 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           name: Yup.string()
             .trim()
             .required(getString?.('fieldRequired', { field: 'Environment' })),
-          type: Yup.string().required(getString?.('fieldRequired', { field: 'Type' }))
+
+          type: Yup.string().required(getString?.('fieldRequired', { field: 'Type' })),
+          ...IdentifierValidation()
         })}
       >
         {formikProps => (

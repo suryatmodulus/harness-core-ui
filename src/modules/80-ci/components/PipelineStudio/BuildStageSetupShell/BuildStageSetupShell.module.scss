@@ -1,141 +1,131 @@
 .setupShell {
-  justify-content: space-between;
-  flex-direction: column;
   position: relative;
   height: 100%;
   background: var(--white);
-  .tabsContainer {
-    background: white;
-    & > :global(.bp3-tabs > .bp3-tab-panel) {
-      height: calc(100%);
-      overflow-y: auto;
-    }
-    &.tab-execution {
-      :global(.bp3-tab-panel) {
-        $bg-color: #f6fcff;
-        $dot-color: #bbc1c4;
-
-        $dot-size: 1px;
-        $dot-space: 10px;
-        background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
-          linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
-        background-size: $dot-space $dot-space;
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-      }
-    }
-    :global {
-      .bp3-tab {
-        margin: 10px 0 10px 0 !important;
-        min-width: 140px;
-        padding: 0 var(--spacing-medium);
-        text-align: center;
-      }
-
-      .bp3-tab-list {
-        background: white;
-        position: fixed;
-        width: 100%;
-        border-bottom: 0;
-        z-index: 1;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
-        > [icon='chevron-right'] {
-          margin-right: var(--spacing-small) !important;
-        }
-      }
-      .bp3-tab-panel {
-        position: absolute;
-        padding-top: 50px;
-        width: 100%;
-        // height: calc(100vh);
-        z-index: 0;
-        // overflow: scroll;
-        // margin: 20px 0;
-      }
-      .bp3-tab[aria-selected='true'] {
-        color: var(--grey-400);
-        padding: 0 var(--spacing-large);
-      }
-      .bp3-tab[aria-selected='false'] {
-        color: var(--grey-400);
-      }
-    }
-    .tab {
-      :global {
-        .bp3-popover-wrapper,
-        .bp3-popover-wrapper > .bp3-popover-target {
-          display: block !important;
-        }
-
-        span.bp3-icon:not([icon='warning-sign']) {
-          margin-right: var(--spacing-small);
-          path {
-            fill: var(--grey-400);
-          }
-        }
-      }
-    }
+  overflow: hidden;
+  & > :global(.bp3-tabs > .bp3-tab-list) {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding-right: var(--spacing-xxxlarge);
   }
 
-  // .footer {
-  //   position: fixed;
-  //   display: block !important;
-  //   bottom: 0px;
-  //   width: 100% !important;
-  //   background-color: var(--white) !important;
-  //   z-index: 1;
-  //   box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
-  // }
-}
+  .fullHeight {
+    height: 100%;
+  }
+  &.tab-execution {
+    :global(.bp3-tab-panel) {
+      $bg-color: #f6fcff;
+      $dot-color: #bbc1c4;
 
-.stageDropdown {
-  :global {
-    .bp3-popover-open {
-      :local(.stageDropdownButtonCaret) {
-        transform: rotate(180deg);
-      }
+      $dot-size: 1px;
+      $dot-space: 10px;
+
+      background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
+        linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+      background-size: $dot-space $dot-space;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
     }
   }
-}
-
-.stageDropdownButton {
-  display: flex !important;
-  width: calc(100% + var(--spacing-large) * 2);
-  margin-left: calc(var(--spacing-large) / -1) !important;
-  margin-right: calc(var(--spacing-large) / -1) !important;
-
   :global {
-    .bp3-button-text {
-      display: flex;
+    .bp3-tabs {
+      height: 100%;
+    }
+    .bp3-tab {
+      margin: 10px 0 10px 0 !important;
+      min-width: 140px;
+      padding: 0 var(--spacing-medium);
+      text-align: center;
+    }
+    .bp3-tab-list {
+      background: white;
+      width: 100%;
+      border-bottom: 0;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
       align-items: center;
+      > [icon='chevron-right'] {
+        margin-right: var(--spacing-small) !important;
+      }
+    }
+    .bp3-tab-panel {
+      width: 100%;
+      height: 100%;
+    }
+    .bp3-tab[aria-selected='true'] {
+      color: var(--grey-400);
+    }
+    .bp3-tab[aria-selected='false'] {
+      color: var(--grey-400);
     }
   }
-  svg[data-icon='warning-sign'] {
-    path {
-      fill: var(--orange-500) !important;
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    :global {
+      span.bp3-icon {
+        margin-right: var(--spacing-small);
+        path {
+          fill: var(--grey-400);
+        }
+      }
     }
   }
-}
 
-.stageDropdownOptions {
-  text-align: left;
-  display: block !important;
-  width: 100%;
-
-  button.bp3-button {
-    border: none !important;
+  .spacer {
+    flex: 1 1 auto;
   }
 
-  span:first-child {
-    margin-right: var(--spacing-small);
+  .skipCondition {
+    position: relative;
+    margin-right: 0 !important;
+    margin-left: auto !important;
+
+    /* Following hacky CSS is required in order to render the icon properly :( */
+    & > span svg :not(path) {
+      stroke: none !important;
+    }
+
+    & > span svg rect {
+      stroke: currentColor !important;
+    }
+
+    & > span svg path[fill='#DA291D'] {
+      fill: #da291d !important;
+    }
+
+    & > span svg path[fill='#000'] {
+      fill: #000 !important;
+    }
+
+    & > span svg path[fill='#fff'] {
+      fill: #fff !important;
+    }
+  }
+
+  .footer {
+    display: block !important;
+    width: 100% !important;
+    background-color: var(--white) !important;
   }
 }
+.stageDropDownTab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: var(--spacing-medium);
+  .stageDropDown {
+    text-align: left;
+    display: block !important;
+    width: 100%;
+    padding: var(--spacing-xsmall) 0 0 var(--spacing-small);
+    button.bp3-button {
+      border: none !important;
+    }
 
-.stageDropdownButtonCaret {
-  margin-right: 0 !important;
-
-  svg {
-    color: transparent !important;
+    span:first-child {
+      margin-right: var(--spacing-small);
+    }
   }
 }

@@ -9,35 +9,24 @@ import {
   FormInput,
   Formik,
   FormikForm as Form,
-  Button,
-  ModalErrorHandlerBinding,
-  ModalErrorHandler
+  Button
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import {
-  ConnectorInfoDTO,
-  ConnectorRequestBody,
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO
-} from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorConfigDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import {
-  buildKubPayload,
   DelegateTypes,
   setupKubFormData,
   SecretReferenceInterface,
   DelegateCardInterface
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
-import { DelegateSelectors } from '@common/components'
 import css from './Stepk8ClusterDetails.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
@@ -49,6 +38,7 @@ interface K8ClusterDetailsProps {
   hideModal: () => void
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
@@ -177,13 +167,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
 }
 
 const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8ClusterDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = props
-  const { showSuccess } = useToaster()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
-  const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
+  const { accountId, prevStepData, nextStep } = props
   const { getString } = useStrings()
 
   const DelegateCards: DelegateCardInterface[] = [
@@ -290,45 +274,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     })
   })
 
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      props.onConnectorCreated(response.data)
-      if (stepData.skipDefaultValidation) {
-        props.hideModal()
-      } else {
-        props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
-        props.setIsEditMode(true)
-      }
-    } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      props.onConnectorCreated(response.data)
-
-      if (stepData.skipDefaultValidation) {
-        props.hideModal()
-      } else {
-        props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
-      }
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
-
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
@@ -338,7 +283,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         if (props.connectorInfo) {
           setupKubFormData(props.connectorInfo, accountId).then(data => {
             setInitialValues(data as KubeFormInterface)
-            setDelegateSelectors(data.delegateSelectors)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -347,6 +291,10 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       }
     }
   }, [loadingConnectorSecrets])
+
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as Stepk8ClusterDetailsProps)
+  }
 
   return loadingConnectorSecrets ? (
     <PageSpinner />
@@ -361,30 +309,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
           ...props.prevStepData
         }}
         validationSchema={validationSchema}
-        onSubmit={(formData: KubeFormInterface) => {
-          const connectorData = {
-            ...props.prevStepData,
-            ...formData,
-            delegateSelectors,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-
-          const data = {
-            ...buildKubPayload(connectorData)
-          }
-
-          if (props.isEditMode) {
-            handleUpdate(data, formData)
-          } else {
-            handleCreate(data, formData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
             <Container className={css.clusterWrapper}>
-              <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
                   formikProps?.setFieldValue('delegateType', item.type)
@@ -441,22 +370,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                   />
                 </>
               ) : (
-                <>
-                  <Text font="medium" color={Color.BLACK} margin={{ bottom: 'small' }}>
-                    {getString('delegate.DelegateselectionLabel')}
-                  </Text>
-                  <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
-                  <DelegateSelectors
-                    className={css.delegateSelectors}
-                    fill
-                    allowNewTag={false}
-                    selectedItems={delegateSelectors}
-                    placeholder={getString('delegate.DelegateselectionPlaceholder')}
-                    onChange={data => {
-                      setDelegateSelectors(data as Array<string>)
-                    }}
-                  ></DelegateSelectors>
-                </>
+                <></>
               )}
             </Container>
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
@@ -471,11 +385,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                 intent="primary"
                 text={getString('saveAndContinue')}
                 rightIcon="chevron-right"
-                disabled={
-                  (DelegateTypes.DELEGATE_IN_CLUSTER === formikProps.values.delegateType &&
-                    delegateSelectors.length === 0) ||
-                  loadConnector
-                }
                 margin={{ left: 'medium' }}
               />
             </Layout.Horizontal>

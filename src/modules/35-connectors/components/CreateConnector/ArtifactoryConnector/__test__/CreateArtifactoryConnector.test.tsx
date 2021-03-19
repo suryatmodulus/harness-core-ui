@@ -19,7 +19,8 @@ const commonProps = {
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -50,6 +51,10 @@ describe('Create Artifactory connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     // match step 2
     expect(container).toMatchSnapshot()
   })
@@ -65,10 +70,11 @@ describe('Create Artifactory connector Wizard', () => {
         />
       </TestWrapper>
     )
+    const updatedName = 'dummy name'
     // editing connector name
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
+        target: { value: updatedName }
       })
     })
 
@@ -83,25 +89,15 @@ describe('Create Artifactory connector Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: 'connectorDescription',
-        identifier: 'ArtifactoryTest',
-        name: 'dummy name',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          artifactoryServerUrl: 'dummyRespositoryUrl',
-          auth: {
-            spec: {
-              passwordRef: 'account.connectorPass',
-              username: 'dev'
-            },
-            type: 'UsernamePassword'
-          }
-        },
-        tags: {},
-        type: 'Artifactory'
+        ...mockConnector,
+        name: updatedName
       }
     })
   })

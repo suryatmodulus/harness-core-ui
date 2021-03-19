@@ -2,13 +2,14 @@
 // this is an auto-generated file
 declare const styles: {
   readonly setupShell: string
-  readonly tabsContainer: string
+  readonly fullHeight: string
   readonly tabExecution: string
   readonly tab: string
-  readonly stageDropdown: string
-  readonly stageDropdownButtonCaret: string
-  readonly stageDropdownButton: string
-  readonly stageDropdownOptions: string
+  readonly spacer: string
+  readonly skipCondition: string
+  readonly footer: string
+  readonly stageDropDownTab: string
+  readonly stageDropDown: string
   readonly bp3Button: string
 }
 export default styles

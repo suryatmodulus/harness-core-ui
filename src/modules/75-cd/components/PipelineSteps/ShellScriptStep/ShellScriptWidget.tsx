@@ -8,11 +8,13 @@ import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/Abstract
 import type { StepViewType } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import type { ShellScriptFormData } from './shellScriptTypes'
 import BaseShellScript from './BaseShellScript'
 import ShellScriptInput from './ShellScriptInput'
 import ExecutionTarget from './ExecutionTarget'
 import ShellScriptOutput from './ShellScriptOutput'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 /**
@@ -34,6 +36,7 @@ export function ShellScriptWidget(
 
   const defaultSSHSchema = Yup.object().shape({
     name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
       shell: Yup.string().required(getString('validation.scriptTypeRequired')),
@@ -42,7 +45,8 @@ export function ShellScriptWidget(
           script: Yup.string().required(getString('validation.scriptTypeRequired'))
         })
       })
-    })
+    }),
+    ...IdentifierValidation()
   })
 
   const values: any = {

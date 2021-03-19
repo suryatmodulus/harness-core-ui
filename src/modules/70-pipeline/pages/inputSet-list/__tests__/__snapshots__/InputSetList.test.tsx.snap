@@ -12,7 +12,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -273,7 +273,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main runPipelineBtn StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -330,7 +330,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span
@@ -452,7 +452,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main runPipelineBtn StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main runPipelineBtn StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -509,7 +509,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main actionButton"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main actionButton"
                   type="button"
                 >
                   <span

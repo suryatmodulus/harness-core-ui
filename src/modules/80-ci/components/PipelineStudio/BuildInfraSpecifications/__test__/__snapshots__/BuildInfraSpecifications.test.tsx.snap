@@ -3,36 +3,61 @@
 exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main"
+    class="wrapper"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-      style="align-items: center;"
+      class="timelineSidebar"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-        style="width: 100%;"
+        class="timeline timeline-sidebar-main"
+      >
+        <ul>
+          <li
+            class="timelineItem active"
+            data-id="infrastructureDefinition"
+            id="timeline--infrastructureDefinition"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              style="--text-line-clamp: 1;"
+            >
+              Infrastructure Definition
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="sidebarToggle"
+      >
+        <span
+          class="sidebarToggleContent"
+        >
+          &lt;
+        </span>
+      </div>
+    </div>
+    <div
+      class="contentSection"
+    >
+      <div
+        class="OverlaySpinner--overlaySpinner"
       >
         <div
-          class="OverlaySpinner--overlaySpinner"
+          class="Layout--vertical StyledProps--main"
         >
           <div
-            class="section noPadTop"
+            class="tabHeading"
+            id="infrastructureDefinition"
           >
-            <div
-              class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                style="width: 220px;"
+            Where do you want the builds to run?
+          </div>
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
               >
-                Where do you want the builds to run?
-              </p>
-            </div>
-            <form
-              class="FormikForm--main"
-            >
-              <div>
                 <div
                   class="bp3-form-group"
                   data-id="null-0"
@@ -56,7 +81,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         class="bp3-popover-target bp3-popover-open"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container bp3-active"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container bp3-active"
                           style="width: 300px;"
                           type="button"
                         >
@@ -213,10 +238,13 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
+      <div
+        class="navigationButtons"
+      />
     </div>
   </div>
 </div>
@@ -225,36 +253,61 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
 exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main"
+    class="wrapper"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-      style="align-items: center;"
+      class="timelineSidebar"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-        style="width: 100%;"
+        class="timeline timeline-sidebar-main"
+      >
+        <ul>
+          <li
+            class="timelineItem active"
+            data-id="infrastructureDefinition"
+            id="timeline--infrastructureDefinition"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              style="--text-line-clamp: 1;"
+            >
+              Infrastructure Definition
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="sidebarToggle"
+      >
+        <span
+          class="sidebarToggleContent"
+        >
+          &lt;
+        </span>
+      </div>
+    </div>
+    <div
+      class="contentSection"
+    >
+      <div
+        class="OverlaySpinner--overlaySpinner"
       >
         <div
-          class="OverlaySpinner--overlaySpinner"
+          class="Layout--vertical StyledProps--main"
         >
           <div
-            class="section noPadTop"
+            class="tabHeading"
+            id="infrastructureDefinition"
           >
-            <div
-              class="Layout--vertical StyledProps--main specTabs StyledProps--flex"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                style="width: 220px;"
+            Where do you want the builds to run?
+          </div>
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
               >
-                Where do you want the builds to run?
-              </p>
-            </div>
-            <form
-              class="FormikForm--main"
-            >
-              <div>
                 <div
                   class="bp3-form-group"
                   data-id="null-0"
@@ -278,7 +331,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 300px;"
                           type="button"
                         >
@@ -435,10 +488,13 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
+      <div
+        class="navigationButtons"
+      />
     </div>
   </div>
 </div>

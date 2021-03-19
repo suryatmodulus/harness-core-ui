@@ -8,7 +8,7 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { responseProjectAggregateDTO, responseProjectAggregateDTOWithNoModules } from './ProjectPageMock'
 
 const routeParams = {
-  accountId: responseProjectAggregateDTO.data?.projectResponse.project.accountIdentifier || '',
+  accountId: 'testAcc',
   orgIdentifier: responseProjectAggregateDTO.data?.projectResponse.project.orgIdentifier || '',
   projectIdentifier: responseProjectAggregateDTO.data?.projectResponse.project.identifier || ''
 }

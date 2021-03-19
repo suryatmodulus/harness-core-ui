@@ -568,7 +568,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
               class="Layout--horizontal StyledProps--main main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -597,7 +597,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span

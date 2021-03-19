@@ -6,7 +6,7 @@ import css from './DynamicPopover.module.scss'
 
 export interface DynamicPopoverHandlerBinding<T> {
   show: (
-    ref: Element | PopperJS.VirtualElement,
+    ref: Element | PopperJS.VirtualElement | string,
     data?: T,
     options?: { darkMode?: boolean; useArrows?: boolean },
     onHideCallBack?: () => void
@@ -40,7 +40,13 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
         show: (ref, dataTemp, options, callback) => {
           setVisibility(true)
           setData(dataTemp)
-          setReferenceElement(ref)
+
+          if (typeof ref === 'string') {
+            setReferenceElement(document.querySelector(ref))
+          } else {
+            setReferenceElement(ref)
+          }
+
           if (options) {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
             typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)

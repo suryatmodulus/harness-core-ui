@@ -4,10 +4,8 @@ import {
   Button,
   Formik,
   Text,
-  ModalErrorHandler,
   FormikForm as Form,
   StepProps,
-  ModalErrorHandlerBinding,
   Container,
   CardSelect,
   Color,
@@ -18,15 +16,12 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
-  buildGcpPayload,
   DelegateTypes,
   DelegateCardInterface,
   SecretReferenceInterface,
   setupGCPFormData
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
-import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-import { useCreateConnector, useUpdateConnector } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { useStrings } from 'framework/exports'
@@ -36,6 +31,7 @@ interface GcrAuthenticationProps {
   name: string
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
   connectorInfo?: ConnectorInfoDTO | void
 }
@@ -51,12 +47,7 @@ interface GCPFormInterface {
 }
 const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { showSuccess } = useToaster()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { accountId } = useParams()
   const { getString } = useStrings()
 
   const defaultInitialFormData: GCPFormInterface = {
@@ -74,8 +65,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
     },
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('connectors.GCP.delegateInClusterInfo'),
-      disabled: true
+      info: getString('connectors.GCP.delegateInClusterInfo')
     }
   ]
 
@@ -94,35 +84,8 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
     }
   }, [loadingConnectorSecrets])
 
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData })
-      props.onConnectorCreated?.(response.data)
-      props.setIsEditMode(true)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData })
-      props.onConnectorCreated?.(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepConfigureProps)
   }
 
   return loadingConnectorSecrets ? (
@@ -138,32 +101,19 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
           ...props.prevStepData
         }}
         validationSchema={Yup.object().shape({
-          password: Yup.object().required(getString('validation.encryptedKey'))
+          password: Yup.object().when('delegateType', {
+            is: DelegateTypes.DELEGATE_OUT_CLUSTER,
+            then: Yup.object().required(getString('validation.encryptedKey'))
+          })
         })}
-        onSubmit={formData => {
-          const connectorData = {
-            ...prevStepData,
-            ...formData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildGcpPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data, formData)
-          } else {
-            handleCreate(data, formData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
             <Container className={css.clusterWrapper}>
-              <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
-                  DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType &&
-                    formikProps?.setFieldValue('delegateType', item.type)
+                  formikProps?.setFieldValue('delegateType', item.type)
                 }}
                 data={DelegateCards}
                 className={css.cardRow}
@@ -188,13 +138,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}
             </Container>
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('saveAndContinue')}
-              rightIcon="chevron-right"
-              disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
-            />
+            <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
           </Form>
         )}
       </Formik>

@@ -1,0 +1,28 @@
+.main {
+  box-shadow: 0px 0px 1.79261px rgb(40 41 61 / 4%), 0px 3.58522px 7.17043px rgb(96 97 112 / 16%);
+  border-radius: 4px;
+  .selectProductText {
+    color: var(--black) !important;
+    margin-top: var(--spacing-small) !important;
+  }
+  .productSelection {
+    padding: var(--spacing-large) !important;
+    label {
+      margin: var(--spacing-small) 0 !important;
+    }
+  }
+
+  .sourceIcon {
+    box-shadow: none !important;
+    height: 130px;
+    width: 130px;
+
+    &[class*='selected'] {
+      border: 2px solid var(--blue-600) !important;
+    }
+    > p {
+      margin-top: var(--spacing-small);
+      text-align: center;
+    }
+  }
+}

@@ -279,7 +279,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       Password
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="password"
                       type="button"
                     >
@@ -349,7 +349,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -379,7 +379,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -704,7 +704,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       Password
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="password"
                       type="button"
                     >
@@ -779,7 +779,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -809,7 +809,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -1134,7 +1134,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       Password
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="password"
                       type="button"
                     >
@@ -1209,7 +1209,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -1239,7 +1239,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -1554,7 +1554,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       Password
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="password"
                       type="button"
                     >
@@ -1624,7 +1624,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -1654,7 +1654,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -1877,7 +1877,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                       Service Account Token
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="serviceAccountToken"
                       type="button"
                     >
@@ -1947,7 +1947,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -1977,7 +1977,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -2206,7 +2206,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -2236,7 +2236,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span
@@ -2584,7 +2584,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         OIDC Password
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="oidcPassword"
                         type="button"
                       >
@@ -2648,7 +2648,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         OIDC Client ID
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="oidcCleintId"
                         type="button"
                       >
@@ -2707,7 +2707,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         OIDC Secret
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="oidcCleintSecret"
                         type="button"
                       >
@@ -2808,7 +2808,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               data-name="k8sBackButton"
               type="button"
             >
@@ -2838,7 +2838,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
               type="submit"
             >
               <span

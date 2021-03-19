@@ -7,7 +7,6 @@ import { createMockData } from '@projects-orgs/pages/projects/__tests__/ProjectP
 import ModuleEnableCard from '../ModuleEnableCard'
 
 const data: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',

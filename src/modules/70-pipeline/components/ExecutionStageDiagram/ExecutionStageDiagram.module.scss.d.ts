@@ -13,5 +13,6 @@ declare const styles: {
   readonly selectedLabel: string
   readonly fadeIn: string
   readonly stageItem: string
+  readonly stageButton: string
 }
 export default styles

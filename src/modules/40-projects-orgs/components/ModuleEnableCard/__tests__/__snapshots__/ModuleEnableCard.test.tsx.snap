@@ -71,7 +71,7 @@ exports[`Module Enable Card render and Enable 1`] = `
         15 min setup
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
         type="button"
       >
         <span
@@ -156,7 +156,7 @@ exports[`Module Enable Card render and Enable 2`] = `
         15 min setup
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
         type="button"
       >
         <span
@@ -241,7 +241,7 @@ exports[`Module Enable Card render and Enable 3`] = `
         15 min setup
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
         type="button"
       >
         <span
@@ -326,7 +326,7 @@ exports[`Module Enable Card render and Enable 4`] = `
         15 min setup
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
         type="button"
       >
         <span
@@ -411,7 +411,7 @@ exports[`Module Enable Card render and Enable 5`] = `
         15 min setup
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
         type="button"
       >
         <span

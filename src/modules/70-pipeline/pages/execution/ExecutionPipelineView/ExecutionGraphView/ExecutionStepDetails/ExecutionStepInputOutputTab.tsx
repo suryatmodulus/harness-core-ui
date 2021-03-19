@@ -39,7 +39,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
   return (
     <React.Fragment>
       {toPairs(props.data).map(([key, value]) => {
-        if (key.startsWith('_') || isNil(value) || isEmpty(value)) return null
+        if (key.startsWith('_') || isNil(value)) return null
 
         let newKey = `${props.prefix}.${key}`
 
@@ -48,12 +48,16 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         }
 
         if (isPlainObject(value)) {
+          if (isEmpty(value)) return null
+
           return (
             <Collapse key={key} title={startCase(key)}>
               <ExecutionStepInputOutputTabRow prefix={newKey} data={value} level={props.level + 1} />
             </Collapse>
           )
-        } else if (Array.isArray(value)) {
+        }
+
+        if (Array.isArray(value)) {
           if (value.every(e => typeof e === 'string')) {
             return (
               <div className={css.ioRow} key={key}>
@@ -79,16 +83,16 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
               })}
             </Collapse>
           )
-        } else {
-          return (
-            <div className={css.ioRow} key={key}>
-              <div data-fqn={newKey} className={css.key}>
-                <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
-              </div>
-              <div className={css.value}>{value}</div>
-            </div>
-          )
         }
+
+        return (
+          <div className={css.ioRow} key={key}>
+            <div data-fqn={newKey} className={css.key}>
+              <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+            </div>
+            <div className={css.value}>{value.toString()}</div>
+          </div>
+        )
       })}
     </React.Fragment>
   )
@@ -104,6 +108,14 @@ export interface ExecutionStepInputOutputTabProps {
 export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOutputTabProps): React.ReactElement {
   const { getString } = useStrings()
   const prefix = props.mode === 'output' ? `${props.baseFqn || ''}.output` : props.baseFqn || ''
+
+  if (!Array.isArray(props.data) || props.data.length === 0) {
+    return (
+      <div className={css.ioTab}>
+        {getString(props.mode === 'output' ? 'execution.iotab.noOutputText' : 'execution.iotab.noInputText')}
+      </div>
+    )
+  }
 
   return (
     <div className={css.ioTab}>

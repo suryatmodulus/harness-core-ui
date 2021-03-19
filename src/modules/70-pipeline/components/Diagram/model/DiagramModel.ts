@@ -166,7 +166,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     allowAdd = true,
     strokeDasharray = 0,
     color = 'var(--diagram-link)',
-    highestMidX?: number
+    maxLinePartLength?: { type: 'in' | 'out'; size: number }
   ): void {
     const inPort = node.getPort(PortName.In) || node.addInPort(PortName.In)
     const links = inPort.getLinks()
@@ -182,7 +182,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     if (!isConnectedToParent) {
       const parentPort = parent.getPort(PortName.Out) || parent.addOutPort(PortName.Out)
       if (parentPort && inPort) {
-        const link = new DefaultLinkModel({ allowAdd, strokeDasharray, color, midXAngle: highestMidX })
+        const link = new DefaultLinkModel({ allowAdd, strokeDasharray, color, maxLinePartLength: maxLinePartLength })
         link.setSourcePort(parentPort)
         link.setTargetPort(inPort)
         inPort.reportPosition()
@@ -197,7 +197,8 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     parents: DefaultNodeModel[],
     allowAdd = true,
     strokeDasharray = 0,
-    color = 'var(--diagram-link)'
+    color = 'var(--diagram-link)',
+    maxLinePartLength?: { type: 'in' | 'out'; size: number }
   ): void {
     let highestMidX = 0
     parents.forEach(parent => {
@@ -212,7 +213,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       }
     })
     parents.forEach(parent => {
-      this.connectedParentToNode(node, parent, allowAdd, strokeDasharray, color, highestMidX)
+      this.connectedParentToNode(node, parent, allowAdd, strokeDasharray, color, maxLinePartLength)
     })
   }
 

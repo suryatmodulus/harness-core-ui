@@ -16,7 +16,7 @@ exports[`PipelineModal List View render list view 1`] = `
       class="StyledProps--font StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
         type="button"
       >
         <span
@@ -48,11 +48,11 @@ exports[`PipelineModal List View render list view 1`] = `
       class="searchContainer"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
         data-name=""
       >
         <span
-          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+          class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
           icon="search"
         >
           <svg
@@ -133,7 +133,7 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -227,7 +227,7 @@ exports[`PipelineModal List View render list view 1`] = `
           style="width: 20%;"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span

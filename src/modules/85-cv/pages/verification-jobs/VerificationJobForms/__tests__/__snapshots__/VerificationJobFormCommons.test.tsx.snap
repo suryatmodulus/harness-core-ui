@@ -7,7 +7,7 @@ exports[`VerificationJobFormCommons formControllerBtn render 1`] = `
     style="display: flex; align-items: flex-end; justify-content: flex-end;"
   >
     <button
-      class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main"
+      class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main"
       disabled=""
       style="width: 120px;"
       tabindex="-1"

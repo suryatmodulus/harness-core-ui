@@ -13,7 +13,7 @@ const setMenuOpen = jest.fn()
 const openDialog = jest.fn()
 
 const routeParams = {
-  accountId: projectWithModules.accountIdentifier || '',
+  accountId: 'testAcc',
   orgIdentifier: projectWithModules.orgIdentifier || '',
   projectIdentifier: projectWithModules.identifier
 }

@@ -164,7 +164,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
           id="configureOptions"
           type="button"
         >
@@ -399,7 +399,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view for inputset 1`] = 
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span

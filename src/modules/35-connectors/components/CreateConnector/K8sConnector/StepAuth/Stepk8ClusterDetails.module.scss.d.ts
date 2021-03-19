@@ -11,7 +11,6 @@ declare const styles: {
   readonly authHeaderRow: string
   readonly authTypeSelect: string
   readonly authTitle: string
-  readonly delegateSelectors: string
   readonly formRow: string
   readonly formFieldWidth: string
   readonly applyFlex: string

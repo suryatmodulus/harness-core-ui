@@ -18,7 +18,7 @@ import type {
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
-import { FormInstanceDropdown } from '@common/components'
+import { FormInstanceDropdown, FormMultiTypeCheckboxField } from '@common/components'
 import { InstanceTypes } from '@common/constants/InstanceTypes'
 import {
   DurationInputFieldForInputSet,
@@ -31,6 +31,8 @@ import { useStrings, UseStringsReturn } from 'framework/exports'
 import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
@@ -68,12 +70,14 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
             instanceSelection: getInstanceDropdownSchema()
-          })
+          }),
+          ...IdentifierValidation()
         })}
       >
         {(formik: FormikProps<K8sScaleData>) => {
@@ -156,6 +160,12 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     />
                   )}
                 </div>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormMultiTypeCheckboxField
+                    name="spec.skipSteadyStateCheck"
+                    label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  />
+                </div>
               </Layout.Vertical>
             </>
           )
@@ -180,14 +190,6 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           disabled={readonly}
         />
       ) : null}
-      {getMultiTypeFromValue(template?.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          name={`${prefix}spec.skipDryRun`}
-          className={stepCss.checkbox}
-          label={getString('pipelineSteps.skipDryRun')}
-          disabled={readonly}
-        />
-      )}
       {(getMultiTypeFromValue(
         (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
       ) === MultiTypeInputType.RUNTIME ||
@@ -198,6 +200,14 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
           label={getString('pipelineSteps.instanceLabel')}
           name={`${prefix}spec.instanceSelection`}
           disabledType
+          disabled={readonly}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${prefix}spec.skipSteadyStateCheck`}
+          className={stepCss.checkbox}
+          label={getString('pipelineSteps.skipSteadyStateCheck')}
           disabled={readonly}
         />
       )}
@@ -308,8 +318,8 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     identifier: '',
     timeout: '10m',
     spec: {
-      skipDryRun: false,
       workload: '',
+      skipSteadyStateCheck: false,
       instanceSelection: { type: InstanceTypes.Instances, spec: { count: 0 } as any }
     }
   }

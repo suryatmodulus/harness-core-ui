@@ -25,31 +25,47 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
   className = '',
   tooltipPosition = 'top'
 }) => {
-  const zoomToFit = useCallback(() => {
-    engine.zoomToFit()
-    callback?.(CanvasButtonsActions.ZoomToFit)
-  }, [engine, callback])
+  const zoomToFit = useCallback(
+    e => {
+      e.stopPropagation()
+      engine.zoomToFit()
+      callback?.(CanvasButtonsActions.ZoomToFit)
+    },
+    [engine, callback]
+  )
 
-  const zoomReset = useCallback(() => {
-    engine.getModel().setZoomLevel(100)
-    engine.getModel().setOffset(0, 0)
-    engine.repaintCanvas()
-    callback?.(CanvasButtonsActions.ZoomToFit)
-  }, [engine, callback])
+  const zoomReset = useCallback(
+    e => {
+      e.stopPropagation()
+      engine.getModel().setZoomLevel(100)
+      engine.getModel().setOffset(0, 0)
+      engine.repaintCanvas()
+      callback?.(CanvasButtonsActions.ZoomToFit)
+    },
+    [engine, callback]
+  )
 
-  const zoomIn = useCallback(() => {
-    const zoomLevel = engine.getModel().getZoomLevel()
-    engine.getModel().setZoomLevel(zoomLevel + 20)
-    engine.repaintCanvas()
-    callback?.(CanvasButtonsActions.ZoomIn)
-  }, [engine, callback])
+  const zoomIn = useCallback(
+    e => {
+      e.stopPropagation()
+      const zoomLevel = engine.getModel().getZoomLevel()
+      engine.getModel().setZoomLevel(zoomLevel + 20)
+      engine.repaintCanvas()
+      callback?.(CanvasButtonsActions.ZoomIn)
+    },
+    [engine, callback]
+  )
 
-  const zoomOut = useCallback(() => {
-    const zoomLevel = engine.getModel().getZoomLevel()
-    engine.getModel().setZoomLevel(zoomLevel - 20)
-    engine.repaintCanvas()
-    callback?.(CanvasButtonsActions.ZoomOut)
-  }, [engine, callback])
+  const zoomOut = useCallback(
+    e => {
+      e.stopPropagation()
+      const zoomLevel = engine.getModel().getZoomLevel()
+      engine.getModel().setZoomLevel(zoomLevel - 20)
+      engine.repaintCanvas()
+      callback?.(CanvasButtonsActions.ZoomOut)
+    },
+    [engine, callback]
+  )
 
   return (
     <span className={cx(css.canvasButtons, className)}>

@@ -8,7 +8,6 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import PurposeList from '../PurposeList'
 
 const project: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',
@@ -42,7 +41,6 @@ describe('PurposeList test', () => {
     })
     expect(addModule).toHaveBeenCalledWith({
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -59,7 +57,6 @@ describe('PurposeList test', () => {
     })
     expect(addModule).toHaveBeenCalledWith({
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -76,7 +73,6 @@ describe('PurposeList test', () => {
     })
     expect(addModule).toHaveBeenCalledWith({
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -93,7 +89,6 @@ describe('PurposeList test', () => {
     })
     expect(addModule).toHaveBeenCalledWith({
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -110,7 +105,6 @@ describe('PurposeList test', () => {
     })
     expect(addModule).toHaveBeenCalledWith({
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',

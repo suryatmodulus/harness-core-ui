@@ -35,7 +35,7 @@ exports[`Test K8sApplyStep should render edit view 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -204,7 +204,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -285,7 +285,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -311,7 +311,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               </div>
               <span>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -391,7 +391,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -460,7 +460,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -639,7 +639,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             >
               <span>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -719,7 +719,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -774,7 +774,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
+        class="formGroup md"
       >
         <div
           class="bp3-form-group"
@@ -836,7 +836,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
 exports[`Test K8sApplyStep should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable topSpacingLarge"
   >
     <div
       class="main"
@@ -853,7 +853,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -900,7 +900,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >

@@ -48,6 +48,7 @@ interface CodebaseValues {
 }
 
 enum CodebaseStatuses {
+  ZeroState = 'zeroState',
   NotConfigured = 'notConfigured',
   Valid = 'valid',
   Invalid = 'invalid',
@@ -55,10 +56,11 @@ enum CodebaseStatuses {
 }
 
 const codebaseIcons: Record<CodebaseStatuses, IconName> = {
-  [CodebaseStatuses.NotConfigured]: 'execution-warning',
-  [CodebaseStatuses.Valid]: 'command-artifact-check',
-  [CodebaseStatuses.Invalid]: 'circle-cross',
-  [CodebaseStatuses.Validating]: 'steps-spinner'
+  [CodebaseStatuses.ZeroState]: 'codebase-zero-state',
+  [CodebaseStatuses.NotConfigured]: 'codebase-not-configured',
+  [CodebaseStatuses.Valid]: 'codebase-valid',
+  [CodebaseStatuses.Invalid]: 'codebase-invalid',
+  [CodebaseStatuses.Validating]: 'codebase-validating'
 }
 
 export const RightBar = (): JSX.Element => {
@@ -75,15 +77,7 @@ export const RightBar = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const isFlowControlEnabled = useFeatureFlag('FLOW_CONTROL')
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
-  const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>()
-
-  const ciStageExists = pipeline?.stages?.some?.(stage => {
-    if (stage?.stage?.type) {
-      return stage?.stage?.type === StageTypes.BUILD
-    } else {
-      return false
-    }
-  })
+  const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -146,74 +140,98 @@ export const RightBar = (): JSX.Element => {
     setConnectorUrl
   ])
 
-  React.useEffect(() => {
-    if (!codebase?.connectorRef) {
-      setCodebaseStatus(CodebaseStatuses.NotConfigured)
+  const { selectedProject } = useAppStore()
+
+  const ciStageExists = pipeline?.stages?.some?.(stage => {
+    if (stage?.stage?.type) {
+      return stage?.stage?.type === StageTypes.BUILD
     } else {
-      const validate = async () => {
-        setCodebaseStatus(CodebaseStatuses.Validating)
+      return false
+    }
+  })
 
-        const connectorResult = await getConnectorPromise({
-          identifier: connectorId,
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-            projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-          }
-        })
+  const isCodebaseEnabled =
+    typeof codebaseStatus !== 'undefined' &&
+    selectedProject?.modules &&
+    selectedProject.modules.indexOf?.('CI') > -1 &&
+    ciStageExists
 
-        if (connectorResult?.data?.connector?.spec.type === 'Account') {
-          try {
-            const response = await getTestGitRepoConnectionResultPromise({
-              identifier: connectorId,
-              queryParams: {
-                accountIdentifier: accountId,
-                orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-                projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
-                repoURL:
-                  (connectorResult?.data?.connector?.spec.url[connectorResult?.data?.connector?.spec.url.length - 1] ===
-                  '/'
-                    ? connectorResult?.data?.connector?.spec.url
-                    : connectorResult?.data?.connector?.spec.url + '/') + codebase?.repoName
-              },
-              body: undefined
-            })
+  const atLeastOneCloneCodebaseEnabled = pipeline?.stages?.some?.(stage => stage?.stage?.spec?.cloneCodebase)
 
-            if (response?.data?.status === 'SUCCESS') {
-              setCodebaseStatus(CodebaseStatuses.Valid)
-            } else {
+  React.useEffect(() => {
+    if (atLeastOneCloneCodebaseEnabled) {
+      if (!codebase?.connectorRef) {
+        setCodebaseStatus(CodebaseStatuses.NotConfigured)
+      } else {
+        const validate = async () => {
+          setCodebaseStatus(CodebaseStatuses.Validating)
+
+          const connectorResult = await getConnectorPromise({
+            identifier: connectorId,
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+              projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+            }
+          })
+
+          if (connectorResult?.data?.connector?.spec.type === 'Account') {
+            try {
+              const response = await getTestGitRepoConnectionResultPromise({
+                identifier: connectorId,
+                queryParams: {
+                  accountIdentifier: accountId,
+                  orgIdentifier:
+                    initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+                  projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
+                  repoURL:
+                    (connectorResult?.data?.connector?.spec.url[
+                      connectorResult?.data?.connector?.spec.url.length - 1
+                    ] === '/'
+                      ? connectorResult?.data?.connector?.spec.url
+                      : connectorResult?.data?.connector?.spec.url + '/') + codebase?.repoName
+                },
+                body: undefined
+              })
+
+              if (response?.data?.status === 'SUCCESS') {
+                setCodebaseStatus(CodebaseStatuses.Valid)
+              } else {
+                setCodebaseStatus(CodebaseStatuses.Invalid)
+              }
+            } catch (error) {
               setCodebaseStatus(CodebaseStatuses.Invalid)
             }
-          } catch (error) {
-            setCodebaseStatus(CodebaseStatuses.Invalid)
-          }
-        } else {
-          try {
-            const response = await getTestConnectionResultPromise({
-              identifier: connectorId,
-              queryParams: {
-                accountIdentifier: accountId,
-                orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-                projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-              },
-              body: undefined
-            })
+          } else {
+            try {
+              const response = await getTestConnectionResultPromise({
+                identifier: connectorId,
+                queryParams: {
+                  accountIdentifier: accountId,
+                  orgIdentifier:
+                    initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+                  projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+                },
+                body: undefined
+              })
 
-            if (response?.data?.status === 'SUCCESS') {
-              setCodebaseStatus(CodebaseStatuses.Valid)
-            } else {
+              if (response?.data?.status === 'SUCCESS') {
+                setCodebaseStatus(CodebaseStatuses.Valid)
+              } else {
+                setCodebaseStatus(CodebaseStatuses.Invalid)
+              }
+            } catch (error) {
               setCodebaseStatus(CodebaseStatuses.Invalid)
             }
-          } catch (error) {
-            setCodebaseStatus(CodebaseStatuses.Invalid)
           }
         }
-      }
 
-      validate()
+        validate()
+      }
+    } else {
+      setCodebaseStatus(CodebaseStatuses.ZeroState)
     }
-  }, [codebase?.connectorRef, codebase?.repoName])
-  const { selectedProject } = useAppStore()
+  }, [codebase?.connectorRef, codebase?.repoName, atLeastOneCloneCodebaseEnabled])
 
   const openCodebaseDialog = React.useCallback(() => {
     setIsCodebaseDialogOpen(true)
@@ -235,31 +253,30 @@ export const RightBar = (): JSX.Element => {
   ])
 
   const { getString } = useStrings()
+
   return (
     <div className={css.rightBar}>
-      {typeof codebaseStatus !== 'undefined' &&
-        selectedProject?.modules &&
-        selectedProject.modules.indexOf?.('CI') > -1 &&
-        ciStageExists && (
-          <Button
-            className={cx(css.iconButton, css.codebaseConfiguration, css[codebaseStatus])}
-            text={getString('codebase')}
-            font={{ weight: 'semi-bold', size: 'xsmall' }}
-            icon={codebaseIcons[codebaseStatus] as IconName}
-            iconProps={{ size: 20 }}
-            minimal
-            onClick={() => {
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.AddStep },
-                isSplitViewOpen: false,
-                splitViewData: {}
-              })
-              openCodebaseDialog()
-            }}
-          />
-        )}
+      {isCodebaseEnabled && (
+        <Button
+          className={cx(css.iconButton)}
+          text={getString('codebase')}
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon={codebaseIcons[codebaseStatus] as IconName}
+          iconProps={{ size: 20 }}
+          minimal
+          withoutCurrentColor
+          onClick={() => {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.AddStep },
+              isSplitViewOpen: false,
+              splitViewData: {}
+            })
+            openCodebaseDialog()
+          }}
+        />
+      )}
 
       <Button
         className={cx(css.iconButton, css.notificationsIcon, {

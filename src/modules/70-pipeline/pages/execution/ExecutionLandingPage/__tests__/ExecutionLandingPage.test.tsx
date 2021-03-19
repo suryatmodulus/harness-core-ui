@@ -24,6 +24,9 @@ jest.mock('services/pipeline-ng', () => ({
   })),
   useHandleInterrupt: jest.fn(() => ({
     mutate: jest.fn()
+  })),
+  useHandleStageInterrupt: jest.fn(() => ({
+    mutate: jest.fn()
   }))
 }))
 

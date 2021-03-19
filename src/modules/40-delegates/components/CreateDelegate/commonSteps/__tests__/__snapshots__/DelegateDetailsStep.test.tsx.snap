@@ -195,7 +195,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
           >
             If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: 
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-blue600"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue600"
               href="https://app.harness.io"
               rel="noreferrer noopener"
               role="button"
@@ -378,7 +378,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main continueBtn StyledProps--intent-primary"
+          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main continueBtn StyledProps--intent-primary"
           disabled=""
           id="step1ContinueButton"
           style="font-size: 14px;"
@@ -611,7 +611,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
           >
             If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: 
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-blue600"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue600"
               href="https://app.harness.io"
               rel="noreferrer noopener"
               role="button"
@@ -794,7 +794,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main continueBtn StyledProps--intent-primary"
+          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main continueBtn StyledProps--intent-primary"
           disabled=""
           id="step1ContinueButton"
           style="font-size: 14px;"

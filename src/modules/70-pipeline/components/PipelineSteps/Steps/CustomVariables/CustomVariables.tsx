@@ -8,7 +8,7 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Step } from '@pipeline/exports'
 
 import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
-import { listSecretsV2Promise, NGVariable, SecretResponseWrapper } from 'services/cd-ng'
+import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
@@ -16,7 +16,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { CustomVariableEditable, CustomVariableEditableExtraProps } from './CustomVariableEditable'
 import { CustomVariableInputSet, CustomVariableInputSetExtraProps } from './CustomVariableInputSet'
 import { CustomVariablesEditableStage } from './CustomVariablesEditableStage'
-import type { CustomVariablesData } from './CustomVariableEditable'
+import type { CustomVariablesData, NGVariable } from './CustomVariableEditable'
 import type { StepProps } from '../../PipelineStep'
 
 const logger = loggerFor(ModuleName.COMMON)
@@ -50,7 +50,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
       return (
         <CustomVariableInputSet
           initialValues={initialValues}
-          onUpdate={data => onUpdate?.(this.processData(data))}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           {...customStepProps}
         />
@@ -61,7 +61,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
       return (
         <CustomVariablesEditableStage
           initialValues={initialValues}
-          onUpdate={data => onUpdate?.(this.processData(data))}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           {...customStepProps}
         />
@@ -71,7 +71,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
     return (
       <CustomVariableEditable
         initialValues={initialValues}
-        onUpdate={data => onUpdate?.(this.processData(data))}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
         {...customStepProps}
       />
@@ -158,12 +158,13 @@ export class CustomVariables extends Step<CustomVariablesData> {
   > = new Map()
   protected defaultValues: CustomVariablesData = { variables: [] }
 
-  protected processData(data: CustomVariablesData): CustomVariablesData {
+  processFormData(data: CustomVariablesData): CustomVariablesData {
     return {
       ...data,
       variables: data.variables.map(row => ({
         name: row.name,
         type: row.type,
+        default: row.default ? (row.type === 'Number' ? parseFloat(row.default) : row.default) : undefined,
         value:
           row.type === 'Number' && getMultiTypeFromValue(row.value) === MultiTypeInputType.FIXED && row.value
             ? parseFloat(row.value)

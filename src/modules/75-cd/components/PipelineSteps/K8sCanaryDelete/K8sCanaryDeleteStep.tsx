@@ -21,6 +21,7 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface K8sCanaryDeleteStepData extends StepElementConfig {
@@ -61,7 +62,11 @@ function K8sCanaryDeleteWidget(
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
+
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+            getString('validation.timeout10SecMinimum')
+          ),
+          ...IdentifierValidation()
         })}
       >
         {(formik: FormikProps<K8sCanaryDeleteStepData>) => {

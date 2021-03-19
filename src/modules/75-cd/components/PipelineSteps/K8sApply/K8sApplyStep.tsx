@@ -35,6 +35,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sApplyData extends StepElementConfig {
@@ -112,7 +113,10 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
         initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+            getString('validation.timeout10SecMinimum')
+          ),
+          ...IdentifierValidation()
         })}
       >
         {(formik: FormikProps<K8sApplyFormData>) => {
@@ -195,10 +199,10 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                     />
                   )}
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField name="spec.skipDryRun" label={getString('pipelineSteps.skipDryRun')} />
                 </div>
-                <div className={stepCss.formGroup}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
                     label={getString('pipelineSteps.skipSteadyStateCheck')}
@@ -244,7 +248,14 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
 }
 
 const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
-  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+  return (
+    <VariablesListTable
+      className={stepCss.topSpacingLarge}
+      data={variablesData.spec}
+      originalData={initialValues.spec}
+      metadataMap={metadataMap}
+    />
+  )
 }
 
 const K8sApplyDeployWidgetWithRef = React.forwardRef(K8sApplyDeployWidget)

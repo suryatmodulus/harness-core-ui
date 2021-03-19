@@ -17,7 +17,7 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import css from './SelectApplication.module.scss'
 
 const PAGE_SIZE = 7
@@ -133,7 +133,11 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
       <Text margin={{ top: 'large', bottom: 'large' }} color={Color.BLACK}>
         {getString('cv.activitySources.harnessCD.application.infoText')}
       </Text>
-
+      <TableFilter
+        placeholder={getString('cv.activitySources.harnessCD.application.searchPlaceholder')}
+        appliedFilter={filter}
+        onFilter={setFilter}
+      />
       <Table<TableData>
         onRowClick={rowData => {
           onUpdateData({ ...rowData, selected: !selectedApps.has(rowData.id) })
@@ -167,13 +171,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
             disableSortBy: true
           },
           {
-            Header: (
-              <TableColumnWithFilter
-                columnName={getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
-                onFilter={filterValue => setFilter(filterValue)}
-                appliedFilter={filter}
-              />
-            ),
+            Header: getString('cv.activitySources.harnessCD.application.servicesToBeImported'),
             id: 'serviceCount',
             width: '60%',
             Cell: RenderColumnServicesCount,

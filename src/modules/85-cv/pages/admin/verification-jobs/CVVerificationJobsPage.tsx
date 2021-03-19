@@ -179,9 +179,7 @@ export default function CVVerificationJobsPage() {
               Header: getString('execution.triggerType.WEBHOOK'),
               width: '33%',
               Cell: function WebHookCellWrapper(props: CellProps<VerificationJobDTO>) {
-                return props.row.original?.defaultJob ? (
-                  <Text color={Color.BLACK}>{getString('na')}</Text>
-                ) : (
+                return (
                   <WebHookCell
                     {...props}
                     onDelete={() => onDelete(props.row.original?.identifier)}

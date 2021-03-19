@@ -81,7 +81,7 @@ const OrganizationsPage: React.FC = () => {
                 history.push(
                   routes.toOrganizationDetails({
                     orgIdentifier: org.organizationResponse.organization.identifier as string,
-                    accountId: org.organizationResponse.organization.accountIdentifier || ''
+                    accountId
                   })
                 )
               }

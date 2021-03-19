@@ -15,7 +15,6 @@ import Collaborators from '../Collaborators'
 import { invitesMockData } from './InvitesMockData'
 
 const project: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',

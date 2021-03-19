@@ -7,6 +7,7 @@ import cx from 'classnames'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { useStrings } from 'framework/exports'
+import type { ExecutionWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -93,22 +94,63 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
+  const onSubmitStep = (item: ExecutionWrapper): void => {
+    const node = data?.stepConfig?.node
+    if (node) {
+      // Add/replace values only if they are presented
+      if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
+      if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
+      if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
+      if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+      if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+      if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
+
+      // Delete values if they were already added and now removed
+      if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
+      if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
+      if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+      if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
+        delete node.failureStrategies
+
+      if (item.spec && item.tab !== TabTypes.Advanced) {
+        node.spec = { ...item.spec }
+      }
+      data?.stepConfig?.onUpdate?.(item)
+      updatePipeline(pipeline)
+
+      // TODO: temporary fix for FF
+      // can be removed once the unified solution across modules is implemented
+      if (stageType === StageTypes.FEATURE) {
+        updatePipelineView({
+          ...pipelineView,
+          isDrawerOpened: false,
+          drawerData: { type: DrawerTypes.StepConfig }
+        })
+      }
+    }
+  }
+
   return (
     <Drawer
       onClose={async e => {
         e?.persist()
 
-        if (
-          // this will not check for form validation when cross icon is clicked to close the modal
-          !(e?.type === 'click' && (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button')) &&
-          formikRef.current
-        ) {
-          // please do not remove the await below.
-          // This is required for errors to be populated correctly
-          await formikRef.current.submitForm()
+        if (formikRef.current) {
+          if (
+            // this will not check for form validation when cross icon is clicked to close the modal
+            e?.type === 'click' &&
+            (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
+            formikRef.current.getValues()
+          ) {
+            onSubmitStep(formikRef.current.getValues())
+          } else {
+            // please do not remove the await below.
+            // This is required for errors to be populated correctly
+            await formikRef.current.submitForm()
 
-          if (!isEmpty(formikRef.current.getErrors())) {
-            return
+            if (!isEmpty(formikRef.current.getErrors())) {
+              return
+            }
           }
         }
 
@@ -150,42 +192,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           ref={formikRef}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={item => {
-            const node = data?.stepConfig?.node
-            if (node) {
-              // Add/replace values only if they are presented
-              if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
-              if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
-              if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
-              if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
-              if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
-              if (item.failureStrategies && item.tab === TabTypes.Advanced)
-                node.failureStrategies = item.failureStrategies
-
-              // Delete values if they were already added and now removed
-              if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
-              if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
-              if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
-              if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
-                delete node.failureStrategies
-
-              if (item.spec && item.tab !== TabTypes.Advanced) {
-                node.spec = { ...item.spec }
-              }
-              data?.stepConfig?.onUpdate?.(item)
-              updatePipeline(pipeline)
-
-              // TODO: temporary fix for FF
-              // can be removed once the unified solution across modules is implemented
-              if (stageType === StageTypes.FEATURE) {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: false,
-                  drawerData: { type: DrawerTypes.StepConfig }
-                })
-              }
-            }
-          }}
+          onChange={onSubmitStep}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
         />

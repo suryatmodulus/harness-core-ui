@@ -112,6 +112,21 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -299,7 +314,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -470,6 +485,21 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -622,7 +652,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -652,7 +682,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -836,6 +866,21 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1047,7 +1092,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -1122,7 +1167,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -1152,7 +1197,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1320,6 +1365,21 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1472,7 +1532,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1502,7 +1562,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1691,6 +1751,21 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1743,7 +1818,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           SSH Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="sshKey"
                           type="button"
                         >
@@ -1818,7 +1893,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -1848,7 +1923,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2034,6 +2109,21 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -2235,7 +2325,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2305,7 +2395,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -2335,7 +2425,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2521,6 +2611,21 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -2722,7 +2827,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2967,7 +3072,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                           Personal Access Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="accessToken"
                           type="button"
                         >
@@ -3016,7 +3121,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="bitbucketBackButton"
                   type="button"
                 >
@@ -3046,7 +3151,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

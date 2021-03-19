@@ -37,17 +37,15 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
     return map
   }, [pipelineExecution])
   const items = showMore && length > SERVICES_LIMIT ? serviceIdentifiers : serviceIdentifiers?.slice(0, SERVICES_LIMIT)
-  function toggle(): void {
+
+  function toggle(e: React.MouseEvent<Element>): void {
+    e.preventDefault()
+    e.stopPropagation()
     setShowMore(status => !status)
   }
 
-  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-
   return (
-    <div className={css.servicesDeployed} onClick={killEvent}>
+    <div className={css.servicesDeployed}>
       <String
         tagName="div"
         className={css.serviceLabel}

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for SetupSourceCardHeader Ensure card renders passed in props correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main emptyCardHeader"
+  >
+    <div
+      class="StyledProps--font StyledProps--main content"
+    >
+      <p
+        class="StyledProps--font StyledProps--main main"
+      >
+        Step 2 of 2
+      </p>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main mainHeading"
+        level="2"
+      >
+        Main Heading
+      </h2>
+      <p
+        class="StyledProps--font StyledProps--main subHeading"
+      >
+        SubHeading
+      </p>
+    </div>
+    <hr
+      class="headingDivider"
+    />
+  </div>
+</div>
+`;

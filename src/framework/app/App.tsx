@@ -13,6 +13,7 @@ import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
+import { StringsContext, StringsMap } from 'framework/strings/StringsContext'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
 import '@common/services'
@@ -21,15 +22,17 @@ import './App.scss'
 FocusStyleManager.onlyShowFocusOnTabs()
 
 // pick current path, but remove `/ng/`
-const LOGIN_PAGE_URL = `${window.location.pathname.replace(/\/ng\//, '/')}#/login`
+const getLoginPageURL = (): string => {
+  const redirectUrl = encodeURIComponent(window.location.href)
 
+  return `${window.location.pathname.replace(/\/ng\//, '/')}#/login?returnUrl=${redirectUrl}`
+}
 // set up Immer
 setAutoFreeze(false)
 enableMapSet()
 
 interface AppProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  strings: Record<string, any>
+  strings: StringsMap
 }
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
@@ -47,7 +50,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = LOGIN_PAGE_URL
+      window.location.href = getLoginPageURL()
     }
   }, [token])
 
@@ -61,29 +64,33 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
           // check response body to confirm invalid token
           // response.json().then(body => {
           //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
-          window.location.href = LOGIN_PAGE_URL
+          window.location.href = getLoginPageURL()
           // }
           // })
         }
       }}
     >
-      <AppStoreProvider strings={props.strings}>
-        <AppErrorBoundary>
-          <PermissionsProvider>
-            <RouteDestinations />
-          </PermissionsProvider>
-        </AppErrorBoundary>
-      </AppStoreProvider>
+      <StringsContext.Provider value={props.strings}>
+        <AppStoreProvider>
+          <AppErrorBoundary>
+            <PermissionsProvider>
+              <RouteDestinations />
+            </PermissionsProvider>
+          </AppErrorBoundary>
+        </AppStoreProvider>
+      </StringsContext.Provider>
     </RestfulProvider>
   )
 }
 
-function AppWithoutAuthentication(): React.ReactElement {
+function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider base="/">
-      <AppErrorBoundary>
-        <RouteDestinationsWithoutAuth />
-      </AppErrorBoundary>
+      <StringsContext.Provider value={props.strings}>
+        <AppErrorBoundary>
+          <RouteDestinationsWithoutAuth />
+        </AppErrorBoundary>
+      </StringsContext.Provider>
     </RestfulProvider>
   )
 }
@@ -107,7 +114,7 @@ function AppWithoutAuthentication(): React.ReactElement {
           <AppWithAuthentication strings={strings} />
         </Route>
         <Route path="/">
-          <AppWithoutAuthentication />
+          <AppWithoutAuthentication strings={strings} />
         </Route>
       </Switch>
     </HashRouter>,

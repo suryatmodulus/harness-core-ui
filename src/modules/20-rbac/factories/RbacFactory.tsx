@@ -11,7 +11,7 @@ export interface RbacResourceModalProps {
 export interface ResourceHandler {
   icon: IconName
   label: string
-  addResourceModalBody: (props: RbacResourceModalProps) => React.ReactElement
+  addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
 }
 
 class RbacFactory {

@@ -53,7 +53,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
       </p>
     </div>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
       style="position: absolute; top: 50px; right: 50px;"
       type="button"
     >

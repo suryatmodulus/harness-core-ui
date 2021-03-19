@@ -2,15 +2,12 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
+import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { NameIdDescriptionTags } from '@common/components'
 import type { FormikForNameIdDescriptionTags } from '../NameIdDescriptionTagsConstants'
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 const onEditInitialValues: FormikForNameIdDescriptionTags = {
@@ -25,15 +22,15 @@ const onEditInitialValues: FormikForNameIdDescriptionTags = {
 function WrapperComponent(props: { initialValues: FormikForNameIdDescriptionTags }): JSX.Element {
   const { initialValues } = props || {}
   return (
-    <Formik initialValues={initialValues} onSubmit={() => undefined}>
-      {formikProps => (
-        <FormikForm>
-          <StringsContext.Provider value={defaultAppStoreTestData}>
+    <TestWrapper>
+      <Formik initialValues={initialValues} onSubmit={() => undefined}>
+        {formikProps => (
+          <FormikForm>
             <NameIdDescriptionTags formikProps={formikProps} />
-          </StringsContext.Provider>
-        </FormikForm>
-      )}
-    </Formik>
+          </FormikForm>
+        )}
+      </Formik>
+    </TestWrapper>
   )
 }
 

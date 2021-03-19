@@ -27,9 +27,9 @@ export default function ActivityVerifications(): JSX.Element {
   const { getString } = useStrings()
   const { data, loading } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
-      accountId: accountId as string,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string,
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
       size: 5
     } as any // Size not supported ?
   })

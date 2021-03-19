@@ -25,6 +25,7 @@ Properties to define for each step based on different view type:
   - use `React.forwardRef` and set formik ref for step
   - icon
   - name
+  - processFormData: Define in every step if you want post process data
 
 - Other Steps
   - stepPaletteVisible = false

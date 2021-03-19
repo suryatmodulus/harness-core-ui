@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for StepLabel Ensure that label colors are correct when step 2 of 2 is provided 1`] = `
+<div>
+  <p
+    class="StyledProps--font StyledProps--main main"
+  >
+    Step 2 of 2
+  </p>
+</div>
+`;

@@ -6,7 +6,7 @@ exports[`Test Connection render test connection 1`] = `
     class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
       type="button"
     >
       <span
@@ -25,7 +25,7 @@ exports[`Test Connection render test connection verify out of cluster  1`] = `
     class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
       type="button"
     >
       <span
@@ -44,7 +44,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
     class="Layout--vertical StyledProps--main"
   >
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
       type="button"
     >
       <span

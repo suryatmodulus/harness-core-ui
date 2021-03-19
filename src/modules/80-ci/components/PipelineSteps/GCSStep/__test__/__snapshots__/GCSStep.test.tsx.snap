@@ -87,7 +87,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -132,7 +132,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -261,7 +261,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -353,7 +353,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -454,7 +454,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -546,7 +546,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -726,7 +726,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -900,7 +900,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -986,7 +986,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -1025,7 +1025,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -1110,7 +1110,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -1148,7 +1148,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -1233,7 +1233,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -1280,7 +1280,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -1365,7 +1365,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -1402,7 +1402,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -1498,7 +1498,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -1594,7 +1594,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -1642,7 +1642,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -1725,7 +1725,7 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -1865,7 +1865,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -1910,7 +1910,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -2039,7 +2039,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2131,7 +2131,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2232,7 +2232,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2324,7 +2324,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -2504,7 +2504,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -2610,7 +2610,7 @@ exports[`GCS Step InputSet View InputSet View should not render any fields 1`] =
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -2651,7 +2651,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2689,7 +2689,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                   style="width: 560px;"
                   type="button"
                 >
@@ -2795,7 +2795,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2859,7 +2859,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2923,7 +2923,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2979,7 +2979,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -3100,7 +3100,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -3155,7 +3155,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -3187,7 +3187,7 @@ exports[`GCS Step InputSet View InputSet View should render properly 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -3220,7 +3220,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3267,7 +3267,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3314,7 +3314,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3361,7 +3361,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3408,7 +3408,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3455,7 +3455,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3502,7 +3502,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -3549,7 +3549,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >

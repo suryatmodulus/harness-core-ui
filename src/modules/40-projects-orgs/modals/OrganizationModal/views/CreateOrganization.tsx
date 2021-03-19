@@ -27,7 +27,6 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
       'identifier',
       'tags'
     ])
-    ;(dataToSubmit as Organization)['accountIdentifier'] = accountId
     try {
       await createOrganization(
         { organization: dataToSubmit },

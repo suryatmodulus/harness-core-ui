@@ -10,13 +10,7 @@ export const getSelectedResourcesMap = (
   resourceSelectorList?.map(resourceSelector => {
     if (resourceSelector.type === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
       map.set(resourceSelector.resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
-    else {
-      if (map.has(resourceSelector.resourceType)) {
-        const resources = map.get(resourceSelector.resourceType)
-        if (typeof resources === 'string') map.set(resourceSelector.resourceType, [resourceSelector.identifier])
-        else if (resources) map.set(resourceSelector.resourceType, [...resources, resourceSelector.identifier])
-      }
-    }
+    else map.set(resourceSelector.resourceType, resourceSelector.identifiers)
   })
 
   return map

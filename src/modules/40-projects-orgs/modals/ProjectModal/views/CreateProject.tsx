@@ -52,7 +52,6 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       'identifier',
       'tags'
     ])
-    ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     ;(dataToSubmit as Project)['modules'] = values.modules || []
     try {
       await createProject(

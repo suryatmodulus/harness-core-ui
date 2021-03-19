@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, Color, Icon, Layout, Text } from '@wings-software/uicore'
-import i18n from './Permissions.i18n'
+import { useStrings } from 'framework/exports'
 import css from './PermissionCard.module.scss'
 
 interface PermissionCardProps {
@@ -13,6 +13,7 @@ interface PermissionCardProps {
 
 const PermissionCard: React.FC<PermissionCardProps> = props => {
   const { preTitle, title, description, enabled, onSelect } = props
+  const { getString } = useStrings()
   return (
     <Card elevation={0} className={css.card}>
       <Layout.Horizontal spacing="small">
@@ -31,7 +32,7 @@ const PermissionCard: React.FC<PermissionCardProps> = props => {
       <Layout.Horizontal spacing="xxlarge" style={{ float: 'right' }}>
         {!enabled && (
           <Button font={{ size: 'small', weight: 'semi-bold' }} className={css.enable} onClick={onSelect}>
-            {i18n.enable}
+            {getString('enable')}
           </Button>
         )}
         {enabled && (
@@ -41,7 +42,7 @@ const PermissionCard: React.FC<PermissionCardProps> = props => {
             onClick={onSelect}
             rightIcon="small-tick"
           >
-            {i18n.enabled}
+            {getString('enabledLabel')}
           </Button>
         )}
       </Layout.Horizontal>

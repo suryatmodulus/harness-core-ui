@@ -11,6 +11,7 @@ import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
+import { StringsContext } from 'framework/strings/StringsContext'
 
 import './testUtils.scss'
 
@@ -36,7 +37,6 @@ export interface TestWrapperProps {
   pathParams?: Record<string, string | number>
   queryParams?: Record<string, unknown>
   defaultAppStoreValues?: Partial<AppStoreContextProps>
-  strings?: Record<string, unknown[]>
   projects?: Project[]
   enableBrowserView?: boolean
 }
@@ -102,31 +102,31 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   // }, [path, pathParams, queryParams])
 
   return (
-    <AppStoreContext.Provider
-      value={{
-        strings,
-        featureFlags: {},
-        permissions: [],
-        updateAppStore: () => void 0,
-        ...defaultAppStoreValues
-      }}
-    >
-      <Router history={history}>
-        <ModalProvider>
-          <RestfulProvider base="/">
-            <BrowserView enable={props.enableBrowserView}>
-              <Switch>
-                <Route exact path={path}>
-                  {props.children}
-                </Route>
-                <Route>
-                  <NotFound />
-                </Route>
-              </Switch>
-            </BrowserView>
-          </RestfulProvider>
-        </ModalProvider>
-      </Router>
-    </AppStoreContext.Provider>
+    <StringsContext.Provider value={strings}>
+      <AppStoreContext.Provider
+        value={{
+          featureFlags: {},
+          updateAppStore: () => void 0,
+          ...defaultAppStoreValues
+        }}
+      >
+        <Router history={history}>
+          <ModalProvider>
+            <RestfulProvider base="/">
+              <BrowserView enable={props.enableBrowserView}>
+                <Switch>
+                  <Route exact path={path}>
+                    {props.children}
+                  </Route>
+                  <Route>
+                    <NotFound />
+                  </Route>
+                </Switch>
+              </BrowserView>
+            </RestfulProvider>
+          </ModalProvider>
+        </Router>
+      </AppStoreContext.Provider>
+    </StringsContext.Provider>
   )
 }

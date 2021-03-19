@@ -23,7 +23,7 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { getConfig } from 'services/config'
 
@@ -36,7 +36,6 @@ import {
   useValidationErrors,
   ApplicationRecord
 } from '../AppDOnboardingUtils'
-import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './MapApplications.module.scss'
 
 export interface MapApplicationsProps {
@@ -182,6 +181,16 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   }, [accountId, selectedAppName, pageIndex, PAGE_SIZE, textFilter])
 
+  useEffect(() => {
+    if (metricPacks?.resource?.length) {
+      Object.keys(state || {}).forEach(app => {
+        if (!state[app]?.metricPacks) {
+          state[app] = { ...state[app], metricPacks: metricPacks.resource } as ApplicationRecord
+        }
+      })
+    }
+  }, [metricPacks])
+
   const onValidateTier = async (appName: string, tierName: string) => {
     if (state[appName]?.metricPacks?.length) {
       onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
@@ -303,7 +312,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
           }}
         />
         <Container className={styles.content}>
-          <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
+          <Text font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
             {getString('cv.monitoringSources.appD.mapApplicationsToEnv')}
           </Text>
           <Container className={styles.mappingDetails}>
@@ -312,7 +321,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
             <Text icon="harness">{stepData?.applications[selectedAppName!]?.environment}</Text>
           </Container>
           <Container className={styles.metricPacks}>
-            <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
+            <Text font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
               {getString('metricPacks')}
             </Text>
             <Container margin={{ bottom: 'small' }}>
@@ -330,10 +339,19 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
             </Container>
             {renderError(`${selectedAppName}.metricPacks`)}
           </Container>
-          <Text color={Color.GREY_350} font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
+          <Text font={{ size: 'medium' }} margin={{ bottom: 'large' }}>
             {getString('cv.monitoringSources.appD.mapTiersToServices')}
           </Text>
           {loadingTiers && <PageSpinner />}
+          <TableFilter
+            // className={styles.columnHeaderWithFilter}
+            appliedFilter={textFilter}
+            onFilter={val => {
+              setPageIndex(0)
+              setTextFilter(val)
+            }}
+            placeholder={getString('cv.monitoringSources.appD.searchTiersPlaceHolder')}
+          />
           <Table<AppDynamicsTier>
             columns={[
               {
@@ -368,37 +386,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               },
               {
                 id: '3',
-                Header: (
-                  <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
-                    {getString('cv.monitoringSources.appD.validation').toLocaleUpperCase()}
-                  </Text>
-                ),
-                width: '30%',
-                disableSortBy: true,
-                accessor: 'name',
-                Cell: function ValidationCellWrapper({ value: tierName }: CellProps<AppDynamicsTier>) {
-                  return (
-                    <ValidationCell
-                      tier={state[selectedAppName]?.tiers?.[tierName]}
-                      onValidateTier={() => onValidateTier(selectedAppName, tierName)}
-                      onShowValidationResult={val => setValidationResult(val)}
-                    />
-                  )
-                }
-              },
-              {
-                id: '4',
-                Header: (
-                  <TableColumnWithFilter
-                    className={styles.columnHeaderWithFilter}
-                    appliedFilter={textFilter}
-                    onFilter={val => {
-                      setPageIndex(0)
-                      setTextFilter(val)
-                    }}
-                    columnName={getString('cv.monitoringSources.appD.mappingToHarnessService')}
-                  />
-                ),
+                Header: getString('cv.monitoringSources.appD.mappingToHarnessService'),
                 width: '40%',
                 disableSortBy: true,
                 accessor: 'name',
@@ -414,6 +402,26 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                       }}
                       options={serviceOptions}
                       onUpdateOptions={setServiceOptions}
+                    />
+                  )
+                }
+              },
+              {
+                id: '4',
+                Header: (
+                  <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
+                    {getString('cv.monitoringSources.appD.validation').toLocaleUpperCase()}
+                  </Text>
+                ),
+                width: '30%',
+                disableSortBy: true,
+                accessor: 'name',
+                Cell: function ValidationCellWrapper({ value: tierName }: CellProps<AppDynamicsTier>) {
+                  return (
+                    <ValidationCell
+                      tier={state[selectedAppName]?.tiers?.[tierName]}
+                      onValidateTier={() => onValidateTier(selectedAppName, tierName)}
+                      onShowValidationResult={val => setValidationResult(val)}
                     />
                   )
                 }
@@ -475,20 +483,6 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
             </Container>
           )}
         </Container>
-        <InfoPanel>
-          <InfoPanelItem
-            label={getString('cv.monitoringSources.appD.infoPanel.applications')}
-            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
-          />
-          <InfoPanelItem
-            label={getString('metricPacks')}
-            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
-          />
-          <InfoPanelItem
-            label={getString('cv.monitoringSources.appD.infoPanel.tiers')}
-            text={getString('cv.monitoringSources.appD.infoPanel.applicationsDesc')}
-          />
-        </InfoPanel>
       </Container>
       {validationResult && (
         <MetricsVerificationModal

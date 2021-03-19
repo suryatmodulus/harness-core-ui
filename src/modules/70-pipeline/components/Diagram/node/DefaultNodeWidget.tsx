@@ -170,7 +170,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           setDragging(false)
         }}
       >
-        {/* Only add the icon style if the stage is not skipped. 
+        {/* Only add the icon style if the stage is not skipped.
         Otherwise, the deploymet icon becomes transparent and we do not see it when the stage is skipped. */}
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} style={options.iconStyle} />}
         <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
@@ -228,13 +228,15 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         <div
           onClick={e => {
             setAddClicked(true)
+            setVisibilityOfAdd(true)
             onAddNodeClick(e, props.node, setAddClicked)
           }}
           className={css.addNode}
+          data-nodeid="add-parallel"
           style={{
             width: options.width,
             height: options.height,
-            visibility: showAdd ? 'visible' : 'hidden',
+            opacity: showAdd ? 1 : 0,
             marginLeft: (126 - (options.width || 64)) / 2
           }}
         >

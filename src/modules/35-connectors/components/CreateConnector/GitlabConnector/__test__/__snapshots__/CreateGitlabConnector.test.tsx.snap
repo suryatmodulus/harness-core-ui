@@ -119,6 +119,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -306,7 +321,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -484,6 +499,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -636,7 +666,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -666,7 +696,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -857,6 +887,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1068,7 +1113,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -1143,7 +1188,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="gitlabBackButton"
                   type="button"
                 >
@@ -1173,7 +1218,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1348,6 +1393,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1500,7 +1560,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                     data-name="commonGitBackButton"
                     type="button"
                   >
@@ -1530,7 +1590,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     </span>
                   </button>
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1726,6 +1786,21 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1778,7 +1853,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           SSH Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="sshKey"
                           type="button"
                         >
@@ -1853,7 +1928,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="gitlabBackButton"
                   type="button"
                 >
@@ -1883,7 +1958,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2071,6 +2146,21 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StepWizard--number"
         >
           4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2277,7 +2367,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2347,7 +2437,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="gitlabBackButton"
                   type="button"
                 >
@@ -2377,7 +2467,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -2570,6 +2660,21 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -2622,7 +2727,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                           SSH Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="sshKey"
                           type="button"
                         >
@@ -2776,7 +2881,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                           Personal Access Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="apiAccessToken"
                           type="button"
                         >
@@ -2826,7 +2931,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="gitlabBackButton"
                   type="button"
                 >
@@ -2856,7 +2961,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

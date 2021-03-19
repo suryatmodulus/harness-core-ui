@@ -57,7 +57,7 @@ const ProjectDetails: React.FC = () => {
   const onDeleted = (): void => {
     history.push(routes.toProjects({ accountId }))
   }
-  const openDialog = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
+  const { openDialog } = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
   useDocumentTitle([getString('projectsText'), projectData?.name || ''])
 
   useEffect(() => {
@@ -175,7 +175,7 @@ const ProjectDetails: React.FC = () => {
                       key={module}
                       projectIdentifier={projectData.identifier}
                       orgIdentifier={projectData.orgIdentifier || ''}
-                      accountId={projectData.accountIdentifier || ''}
+                      accountId={accountId}
                     />
                   ))
                 ) : (

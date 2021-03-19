@@ -10,7 +10,7 @@ export default {
   noActivitiesButtonText: 'Create changes',
   retryText: 'Retry',
   verificationProgressText: {
-    verification: 'verification',
+    verification: 'Verification',
     passed: 'passed',
     failed: 'failed',
     riskScore: 'Risk score',

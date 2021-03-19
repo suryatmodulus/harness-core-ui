@@ -3,10 +3,10 @@ import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings, String } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { ConnectorDataType, ConnectorRefLabelType } from '../ArtifactInterface'
+import { getArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ConnectorRefSteps.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -20,6 +20,7 @@ interface ConnectorRefStepsProps {
   types: Array<ConnectorInfoDTO['type']>
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   newConnectorSteps?: any
+  expressions: string[]
   labels: ConnectorRefLabelType
   selectedArtifact: ConnectorInfoDTO['type']
   changeArtifactType: (data: ConnectorInfoDTO['type']) => void
@@ -30,6 +31,7 @@ interface ConnectorRefStepsProps {
 const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   types,
   labels,
+  expressions,
   selectedArtifact,
   changeArtifactType,
   handleViewChange,
@@ -42,13 +44,13 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   const { getString } = useStrings()
 
   const onStepChange = (arg: StepChangeData<any>): void => {
-    if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep) {
+    if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep && arg.nextStep <= 2) {
       handleViewChange(false)
     }
   }
 
   const renderSubtitle = (): JSX.Element => {
-    const stringId = getConnectorTitleIdByType(selectedArtifact)
+    const stringId = getArtifactTitleIdByType(selectedArtifact)
     return (
       <div className={css.subtitle} style={{ display: 'flex' }}>
         <Icon size={26} {...iconsProps} />
@@ -68,6 +70,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
       <ArtifactConnector
         name={getString('connectors.artifactRepository')}
         stepName={labels.secondStepName}
+        expressions={expressions}
         handleViewChange={() => handleViewChange(true)}
         initialValues={connectorData}
         connectorType={selectedArtifact}

@@ -58,11 +58,11 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     class="expandSearch"
                   >
                     <div
-                      class="bp3-input-group ui-search-box ExpandingSearchInput--main "
+                      class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
                       data-name=""
                     >
                       <span
-                        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+                        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
                         icon="search"
                       >
                         <svg
@@ -417,7 +417,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 style="justify-content: flex-end;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span

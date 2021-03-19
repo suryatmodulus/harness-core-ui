@@ -20,7 +20,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -143,7 +143,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -214,7 +214,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -335,7 +335,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >

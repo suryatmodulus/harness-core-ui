@@ -103,10 +103,12 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                         {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
                           <ConfigureOptions
                             value={variable.value as string}
+                            defaultValue={variable.default}
                             type={variable.type || /* istanbul ignore next */ 'String'}
                             variableName={variable.name || /* istanbul ignore next */ ''}
-                            onChange={value => {
+                            onChange={(value, defaultValue) => {
                               setFieldValue(`variables[${index}].value`, value)
+                              setFieldValue(`variables[${index}].default`, defaultValue)
                             }}
                           />
                         ) : null}

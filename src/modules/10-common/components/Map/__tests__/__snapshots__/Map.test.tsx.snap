@@ -144,7 +144,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     data-testid="remove-test-[0]"
                     style="margin-top: 4px;"
                     type="button"
@@ -169,7 +169,7 @@ exports[`<Map /> tests Should render properly 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-test"
               type="button"
             >

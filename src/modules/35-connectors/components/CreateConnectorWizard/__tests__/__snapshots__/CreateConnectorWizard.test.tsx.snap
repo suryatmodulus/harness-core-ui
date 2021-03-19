@@ -86,331 +86,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Test Connection
-          </p>
-        </div>
-      </div>
-      <div
-        class="StepWizard--stepDetails"
-      >
-         
-        <div
-          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
-        >
-          <div
-            class="heading"
-          >
-            Overview
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
-          >
-            <div
-              class="OverlaySpinner--overlaySpinner"
-            >
-              <form
-                class="FormikForm--main"
-              >
-                <div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                    style="min-height: 460px;"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main main formElm"
-                    >
-                      <div
-                        class="InputWithIdentifier--txtNameContainer"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="bp3-popover-wrapper"
-                          >
-                            <span
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                                tabindex="0"
-                              >
-                                <span
-                                  class="bp3-editable-text-content"
-                                  style="height: 1px; line-height: 1px; min-width: 0;"
-                                />
-                              </div>
-                            </span>
-                          </span>
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main"
-                            icon="edit"
-                            style="vertical-align: middle;"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            Name
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                type="text"
-                                value=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      >
-                        <label
-                          class="Label--main"
-                          style="font-size: 13px;"
-                        >
-                          Description
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="description-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      >
-                        <label
-                          class="Label--main"
-                          style="font-size: 13px;"
-                        >
-                          Tags
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="tags-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main"
-                  >
-                    <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
-                      type="submit"
-                    >
-                      <span
-                        class="bp3-button-text"
-                      >
-                        <span>
-                          Save and Continue
-                        </span>
-                      </span>
-                      <span
-                        class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                        icon="chevron-right"
-                      >
-                        <svg
-                          data-icon="chevron-right"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            chevron-right
-                          </desc>
-                          <path
-                            d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET 1`] = `
-<div>
-  <div
-    class="createConnectorWizard"
-  >
-    <div
-      class="StepWizard--main StepWizard--navBar"
-    >
-      <div
-        class="StepWizard--navBarList"
-      >
-        <span
-          class="StepWizard--header"
-        >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="bitbucket-new"
-          >
-            <svg
-              fill="none"
-              height="50"
-              width="50"
-            >
-              <g
-                clip-path="url(#bitbucket-new_svg__clip0)"
-                fill="#fff"
-              >
-                <path
-                  d="M20.835 0C9.397 0 0 3.062 0 6.94c0 1.02 2.451 15.513 3.472 21.229.41 2.654 7.15 6.328 17.362 6.328 10.212 0 16.748-3.674 17.36-6.328 1.022-5.716 3.473-20.208 3.473-21.229C41.464 3.062 32.272 0 20.835 0zm0 29.802c-3.677 0-6.536-2.858-6.536-6.532s2.86-6.532 6.536-6.532c3.676 0 6.535 2.858 6.535 6.532 0 3.47-2.859 6.532-6.535 6.532zm0-20.82c-7.353 0-13.277-1.225-13.277-2.858s5.924-2.858 13.277-2.858c7.352 0 13.276 1.225 13.276 2.858S28.187 8.98 20.835 8.98z"
-                />
-                <path
-                  d="M35.91 33.68c-.41 0-.613.204-.613.204S30.19 37.967 21 37.967c-9.192 0-14.298-4.083-14.298-4.083s-.408-.204-.613-.204c-.408 0-.817.204-.817.817v.204c.817 4.286 1.43 7.348 1.43 7.757.613 3.061 6.74 5.511 14.093 5.511s13.48-2.45 14.093-5.511c0-.409.613-3.47 1.43-7.757v-.204c.204-.409 0-.817-.408-.817zm-15.075-7.348a3.267 3.267 0 10-3.268-3.266 3.267 3.267 0 003.268 3.266z"
-                />
-              </g>
-              <defs>
-                <clippath
-                  id="bitbucket-new_svg__clip0"
-                >
-                  <path
-                    d="M0 0h41.67v48H0z"
-                    fill="#fff"
-                  />
-                </clippath>
-              </defs>
-            </svg>
-          </span>
-        </span>
-        <span
-          class="StepWizard--title StepWizard--header"
-        >
-          Bitbucket Connector
-        </span>
-        <div
-          class="StepWizard--navStep StepWizard--activeStep"
-        >
-          <span
-            class="StepWizard--number"
-          >
-            1
-          </span>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-            style="--text-line-clamp: 2; width: 240px;"
-          >
-            Overview
-          </p>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-            style="--text-line-clamp: 2; width: 240px;"
-          >
-            
-          </p>
-        </div>
-        <div
-          class="StepWizard--navStep"
-        >
-          <span
-            class="StepWizard--number"
-          >
-            2
-          </span>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-            style="--text-line-clamp: 2; width: 240px;"
-          >
-            Details
-          </p>
-        </div>
-        <div
-          class="StepWizard--navStep"
-        >
-          <span
-            class="StepWizard--number"
-          >
-            3
-          </span>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-            style="--text-line-clamp: 2; width: 240px;"
-          >
-            Credentials
+            Delegate selection
           </p>
         </div>
         <div
@@ -607,7 +283,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -649,7 +325,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
 </div>
 `;
 
-exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`] = `
+exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET 1`] = `
 <div>
   <div
     class="createConnectorWizard"
@@ -664,30 +340,42 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
           class="StepWizard--header"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
-            data-icon="service-dockerhub"
+            class="bp3-icon StyledProps--main"
+            data-icon="bitbucket-new"
           >
             <svg
-              height="37"
-              viewBox="0 0 14 10"
-              width="37"
+              fill="none"
+              height="50"
+              width="50"
             >
-              <path
-                d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
-              />
-              <path
-                d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
-              />
-              <path
-                d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
-              />
+              <g
+                clip-path="url(#bitbucket-new_svg__clip0)"
+                fill="#fff"
+              >
+                <path
+                  d="M20.835 0C9.397 0 0 3.062 0 6.94c0 1.02 2.451 15.513 3.472 21.229.41 2.654 7.15 6.328 17.362 6.328 10.212 0 16.748-3.674 17.36-6.328 1.022-5.716 3.473-20.208 3.473-21.229C41.464 3.062 32.272 0 20.835 0zm0 29.802c-3.677 0-6.536-2.858-6.536-6.532s2.86-6.532 6.536-6.532c3.676 0 6.535 2.858 6.535 6.532 0 3.47-2.859 6.532-6.535 6.532zm0-20.82c-7.353 0-13.277-1.225-13.277-2.858s5.924-2.858 13.277-2.858c7.352 0 13.276 1.225 13.276 2.858S28.187 8.98 20.835 8.98z"
+                />
+                <path
+                  d="M35.91 33.68c-.41 0-.613.204-.613.204S30.19 37.967 21 37.967c-9.192 0-14.298-4.083-14.298-4.083s-.408-.204-.613-.204c-.408 0-.817.204-.817.817v.204c.817 4.286 1.43 7.348 1.43 7.757.613 3.061 6.74 5.511 14.093 5.511s13.48-2.45 14.093-5.511c0-.409.613-3.47 1.43-7.757v-.204c.204-.409 0-.817-.408-.817zm-15.075-7.348a3.267 3.267 0 10-3.268-3.266 3.267 3.267 0 003.268 3.266z"
+                />
+              </g>
+              <defs>
+                <clippath
+                  id="bitbucket-new_svg__clip0"
+                >
+                  <path
+                    d="M0 0h41.67v48H0z"
+                    fill="#fff"
+                  />
+                </clippath>
+              </defs>
             </svg>
           </span>
         </span>
         <span
           class="StepWizard--title StepWizard--header"
         >
-          Docker Registry
+          Bitbucket Connector
         </span>
         <div
           class="StepWizard--navStep StepWizard--activeStep"
@@ -732,6 +420,36 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
             class="StepWizard--number"
           >
             3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Credentials
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -919,7 +637,334 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      type="submit"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          Save and Continue
+                        </span>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                        icon="chevron-right"
+                      >
+                        <svg
+                          data-icon="chevron-right"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            chevron-right
+                          </desc>
+                          <path
+                            d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`] = `
+<div>
+  <div
+    class="createConnectorWizard"
+  >
+    <div
+      class="StepWizard--main StepWizard--navBar"
+    >
+      <div
+        class="StepWizard--navBarList"
+      >
+        <span
+          class="StepWizard--header"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+            data-icon="service-dockerhub"
+          >
+            <svg
+              height="37"
+              viewBox="0 0 14 10"
+              width="37"
+            >
+              <path
+                d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+              />
+              <path
+                d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+              />
+              <path
+                d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
+              />
+            </svg>
+          </span>
+        </span>
+        <span
+          class="StepWizard--title StepWizard--header"
+        >
+          Docker Registry
+        </span>
+        <div
+          class="StepWizard--navStep StepWizard--activeStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            1
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Overview
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            2
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Details
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Test Connection
+          </p>
+        </div>
+      </div>
+      <div
+        class="StepWizard--stepDetails"
+      >
+         
+        <div
+          class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+        >
+          <div
+            class="heading"
+          >
+            Overview
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+          >
+            <div
+              class="OverlaySpinner--overlaySpinner"
+            >
+              <form
+                class="FormikForm--main"
+              >
+                <div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="min-height: 460px;"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main main formElm"
+                    >
+                      <div
+                        class="InputWithIdentifier--txtNameContainer"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                tabindex="0"
+                              >
+                                <span
+                                  class="bp3-editable-text-content"
+                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                />
+                              </div>
+                            </span>
+                          </span>
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main"
+                            icon="edit"
+                            style="vertical-align: middle;"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            Name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          Description
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                            data-name="edit"
+                            data-testid="description-edit"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          Tags
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                            data-name="edit"
+                            data-testid="tags-edit"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <button
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -1102,6 +1147,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -1284,7 +1344,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -1424,6 +1484,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -1606,7 +1681,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -1745,6 +1820,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -1927,7 +2017,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -2091,6 +2181,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            5
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -2273,7 +2378,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -2414,6 +2519,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
             Test Connection
           </p>
         </div>
@@ -2596,7 +2716,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -2904,7 +3024,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -3034,6 +3154,21 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
             class="StepWizard--number"
           >
             3
+          </span>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+            style="--text-line-clamp: 2; width: 240px;"
+          >
+            Delegate selection
+          </p>
+        </div>
+        <div
+          class="StepWizard--navStep"
+        >
+          <span
+            class="StepWizard--number"
+          >
+            4
           </span>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3221,7 +3356,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span

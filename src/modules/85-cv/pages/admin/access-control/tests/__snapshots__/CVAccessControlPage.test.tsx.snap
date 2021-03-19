@@ -15,7 +15,7 @@ exports[`Unit tests for CVAccessControlPage Ensure page renders 1`] = `
       class="StyledProps--font StyledProps--main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -97,7 +97,7 @@ exports[`Unit tests for CVAccessControlPage Ensure page renders 1`] = `
           No data found. Click the button below to create a new item.
         </h2>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span

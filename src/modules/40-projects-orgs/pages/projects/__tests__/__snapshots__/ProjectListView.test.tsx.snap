@@ -353,7 +353,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-testtestOrg"
                 type="button"
               >
@@ -663,7 +663,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-Online_BankingCisco_Meraki"
                 type="button"
               >
@@ -937,7 +937,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-PortalCisco_Meraki"
                 type="button"
               >
@@ -1139,7 +1139,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-Project_1Cisco_Prime"
                 type="button"
               >
@@ -1380,7 +1380,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-Project_DemoCisco_Prime"
                 type="button"
               >
@@ -1798,7 +1798,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-Drone_Data_SupplierHarness"
                 type="button"
               >
@@ -2072,7 +2072,7 @@ exports[`Project List render 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="menu-SwaggerHarness"
                 type="button"
               >

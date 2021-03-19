@@ -22,7 +22,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
                 type="button"
               >
                 <span
@@ -1182,7 +1182,7 @@ exports[`Project Card Functionality Test Click on CE 1`] = `
     <div
       data-testid="location"
     >
-      /account/kmpySmUISimoRrJL6NL73w/ce/home
+      /account/testAcc/ce/home
     </div>
   </div>
 </div>
@@ -1633,7 +1633,7 @@ exports[`Project Card test initializes ok  1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
                 type="button"
               >
                 <span

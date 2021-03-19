@@ -1,9 +1,9 @@
 export default {
   activityVerificationsColumns: {
     deployments: 'Deployments',
-    preProd: 'Pre Production Tests',
+    preProd: 'Pre Production',
     prodDeployment: 'Production Deployment',
-    postDeployment: 'Post Deployment'
+    postDeployment: 'Post-Production Deployment'
   },
   verificationResultText: {
     verificationNotStarted: 'Not started',

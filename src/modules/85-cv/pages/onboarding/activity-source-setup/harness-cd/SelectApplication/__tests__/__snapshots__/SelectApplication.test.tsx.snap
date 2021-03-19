@@ -8,8 +8,11 @@ exports[`SelectApplication render 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Delivery applications. Select which applications and services you’d like to import over to your current project.
+      Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.
     </p>
+    <div
+      class="StyledProps--font StyledProps--main filterComponent"
+    />
     <div
       class="table"
     >
@@ -23,7 +26,7 @@ exports[`SelectApplication render 1`] = `
           role="columnheader"
           style="width: 40%;"
         >
-          HARNESS CD 1.0 APPLICATION
+          HARNESS FIRSTGEN APPLICATION
         </div>
         <div
           class="cell"
@@ -31,9 +34,7 @@ exports[`SelectApplication render 1`] = `
           role="columnheader"
           style="width: 60%;"
         >
-          <div
-            class="StyledProps--font StyledProps--main filterComponent"
-          />
+          HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
         </div>
       </div>
       <div
@@ -273,7 +274,7 @@ exports[`SelectApplication render 1`] = `
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -302,7 +303,7 @@ exports[`SelectApplication render 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span

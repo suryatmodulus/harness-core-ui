@@ -3,13 +3,13 @@
   :global {
     .bp3-tab-list {
       margin: 0 auto !important;
-      width: 240px;
+      width: 260px;
       border-bottom: none;
       [data-tab-id='tabId1'] {
         margin-left: var(--spacing-large);
       }
       .bp3-tab {
-        font-size: var(--font-size-xsmall);
+        font-size: 12px;
         &[aria-selected='true'] {
           color: var(--blue-500);
         }
@@ -30,7 +30,7 @@
       color: var(--black);
       margin-right: var(--spacing-medium) !important;
       position: relative;
-      font-size: var(--font-size-small) !important;
+      font-size: 12px !important;
       top: 10px;
       word-break: break-word;
       width: 120px;
@@ -46,12 +46,12 @@
     grid-template-rows: auto;
 
     .dataTitle {
-      font-size: var(--font-size-small) !important;
+      font-size: 12px !important;
       font-weight: 600;
     }
 
     .smallFont {
-      font-size: var(--font-size-xsmall) !important;
+      font-size: var(--font-size-small) !important;
       white-space: nowrap;
     }
 

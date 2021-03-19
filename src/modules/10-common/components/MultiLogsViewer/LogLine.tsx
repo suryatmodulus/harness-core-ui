@@ -2,12 +2,37 @@ import React from 'react'
 import cx from 'classnames'
 import { ansiToJson } from 'anser'
 import { memoize } from 'lodash-es'
+import { renderToString } from 'react-dom/server'
+
+import './ansi-colors.scss'
 
 import type { LineData } from './types'
 import css from './MultiLogsViewer.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/camelcase
 export const memoizedAnsiToJson = memoize((str: string) => ansiToJson(str, { use_classes: true }))
+
+export function highlightedTextToReactNode(text: string): React.ReactElement {
+  return React.createElement('span', {
+    dangerouslySetInnerHTML: { __html: text }
+  })
+}
+
+export function reactNodeToString(reactNode: React.ReactNode): string {
+  let string = ''
+  if (typeof reactNode === 'string') {
+    string = reactNode
+  } else if (typeof reactNode === 'number') {
+    string = reactNode.toString()
+  } else if (reactNode instanceof Array) {
+    reactNode.forEach(function (child) {
+      if (React.isValidElement(child)) {
+        string += reactNodeToString(child.props.children)
+      }
+    })
+  }
+  return string
+}
 
 export interface LogLineChunkProps {
   data: LineData[]
@@ -17,8 +42,8 @@ export interface LogLineChunkProps {
 }
 
 // adopted from https://github.com/nteract/ansi-to-react/blob/master/src/index.ts
-function linkifyText(content: string): React.ReactNode[] {
-  const nodes: React.ReactNode[] = []
+function linkifyText(content: string): string {
+  const nodes: string[] = []
   const LINK_REGEX = /(\s+|^)(https?:\/\/(?:www\.|(?!www))[^\s.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/g
 
   let index = 0
@@ -34,9 +59,11 @@ function linkifyText(content: string): React.ReactNode[] {
     }
 
     nodes.push(
-      <a key={index} href={url} target="_blank" rel="noreferrer noopener">
-        {url}
-      </a>
+      renderToString(
+        <a key={index} href={url} target="_blank" rel="noreferrer noopener">
+          {url}
+        </a>
+      )
     )
 
     index = LINK_REGEX.lastIndex
@@ -46,7 +73,7 @@ function linkifyText(content: string): React.ReactNode[] {
     nodes.push(content.substring(index))
   }
 
-  return nodes
+  return nodes.join('')
 }
 
 export interface LogLineProps {
@@ -79,7 +106,7 @@ export function LogLine(props: LogLineProps): React.ReactElement {
               )}
               key={`${row.content}_${i}`}
             >
-              {linkifyText(row.content)}
+              {highlightedTextToReactNode(linkifyText(row.content))}
             </span>
           )
         })}

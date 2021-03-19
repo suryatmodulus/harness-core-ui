@@ -48,7 +48,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main clone StyledProps--inline"
+                        class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main clone StyledProps--inline"
                         disabled=""
                         tabindex="-1"
                         type="button"
@@ -111,7 +111,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class=""
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main toEnd StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main toEnd StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -183,7 +183,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--inline"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--inline"
               disabled=""
               tabindex="-1"
               type="submit"
@@ -281,7 +281,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -305,7 +305,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -417,7 +417,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -441,7 +441,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -553,7 +553,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -577,7 +577,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -679,7 +679,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -699,7 +699,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                       type="button"
                     >
                       <span
@@ -749,7 +749,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--inline"
+                class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--inline"
                 disabled=""
                 tabindex="-1"
                 type="button"

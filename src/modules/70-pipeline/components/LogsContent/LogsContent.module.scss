@@ -49,4 +49,31 @@
     padding: 15px;
     font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
   }
+
+  .searchInput {
+    input[type='search'] {
+      color: white;
+      border: none;
+
+      &:focus {
+        padding-right: 165px !important;
+      }
+    }
+  }
+
+  .searchHasInput {
+    input[type='search'] {
+      padding-right: 165px !important;
+    }
+  }
+
+  .searchContainer {
+    flex-grow: 1;
+    max-width: 330px;
+    margin-left: auto;
+  }
+
+  .selectedSearchResult {
+    background-color: #f48024;
+  }
 }

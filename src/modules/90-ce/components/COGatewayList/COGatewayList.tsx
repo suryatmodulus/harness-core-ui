@@ -35,6 +35,8 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useStrings } from 'framework/exports'
+import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -170,6 +172,7 @@ const AnimatedGraphicContainer: React.FC<AnimatedGraphicContainerProps> = props 
 }
 
 const COGatewayList: React.FC = () => {
+  const { getString } = useStrings()
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -189,7 +192,7 @@ const COGatewayList: React.FC = () => {
   })
 
   useEffect(() => {
-    setTableData(servicesData?.response || tableData)
+    setTableData(servicesData?.response || [])
   }, [servicesData?.response])
 
   if (error) {
@@ -326,7 +329,7 @@ const COGatewayList: React.FC = () => {
                   style={{
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
                   }}
                   onClick={e => {
                     e.stopPropagation()
@@ -344,7 +347,7 @@ const COGatewayList: React.FC = () => {
                   style={{
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
-                    color: tableProps.row.original.disabled ? textColor.disable : 'inherit'
+                    color: tableProps.row.original.disabled ? textColor.disable : '#0278D5'
                   }}
                   onClick={e => {
                     e.stopPropagation()
@@ -372,10 +375,22 @@ const COGatewayList: React.FC = () => {
       onSuccess: (updatedServiceData: Service) => onServiceStateToggle('SUCCESS', updatedServiceData, row.index),
       onFailure: err => onServiceStateToggle('FAILURE', err)
     })
+    const { triggerDelete } = useDeleteServiceHook({
+      orgIdentifier,
+      projectIdentifier,
+      serviceData: row.original,
+      onSuccess: (_data: Service) => onServiceDeletion('SUCCESS', _data),
+      onFailure: err => onServiceDeletion('FAILURE', err)
+    })
 
     const handleToggleRuleClick = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation()
       triggerToggle()
+    }
+
+    const handleDeleteRuleClick = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.stopPropagation()
+      triggerDelete()
     }
 
     return (
@@ -407,29 +422,13 @@ const COGatewayList: React.FC = () => {
             <Menu.Item
               icon="edit"
               text="Edit"
-              onClick={() =>
-                history.push(
-                  routes.toCECOEditGateway({
-                    orgIdentifier: row.original.org_id as string,
-                    projectIdentifier: row.original.project_id as string,
-                    accountId: row.original.account_identifier as string,
-                    gatewayIdentifier: row.original.id?.toString() as string
-                  })
-                )
-              }
+              onClick={() => handleServiceEdit(row.original)}
               // onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
               //   e.stopPropagation()
               //   alert('you are editing')
               // }}
             />
-            <Menu.Item
-              icon="trash"
-              text="Delete"
-              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                e.stopPropagation()
-                alert('you are deleting')
-              }}
-            />
+            <Menu.Item icon="trash" text="Delete" onClick={handleDeleteRuleClick} />
           </Menu>
         </Popover>
       </Layout.Horizontal>
@@ -454,6 +453,29 @@ const COGatewayList: React.FC = () => {
     }
   }
 
+  const onServiceDeletion = (type: 'SUCCESS' | 'FAILURE', data: Service | any) => {
+    if (type === 'SUCCESS') {
+      showSuccess(`Rule ${data.name} deleted successfully`)
+      if (isDrawerOpen) {
+        setIsDrawerOpen(false)
+        setSelectedService(null)
+      }
+      refetchServices()
+    } else {
+      showError(data)
+    }
+  }
+
+  const handleServiceEdit = (_service: Service) =>
+    history.push(
+      routes.toCECOEditGateway({
+        orgIdentifier: _service.org_id as string,
+        projectIdentifier: _service.project_id as string,
+        accountId: _service.account_identifier as string,
+        gatewayIdentifier: _service.id?.toString() as string
+      })
+    )
+
   return (
     <Container background={Color.WHITE} height="100vh">
       {!loading && _isEmpty(tableData) ? (
@@ -463,7 +485,7 @@ const COGatewayList: React.FC = () => {
             links={[
               {
                 url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
-                label: 'Autostopping Rules'
+                label: getString('ce.co.breadCrumb.rules')
               }
             ]}
           />
@@ -478,13 +500,11 @@ const COGatewayList: React.FC = () => {
             {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
             <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
-              AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
-              only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
-              orchestrated spot instances without any worry of spot interruptions. <Link href="/">Learn more</Link>
+              {getString('ce.co.landingPageText')} <Link href="/">Learn more</Link>
             </Text>
             <Button
               intent="primary"
-              text="New Autostopping Rule"
+              text={getString('ce.co.newAutoStoppingRule')}
               icon="plus"
               onClick={() =>
                 history.push(
@@ -502,7 +522,7 @@ const COGatewayList: React.FC = () => {
         <>
           {
             <>
-              <Page.Header title="Autostopping Rules" className={css.header} />
+              <Page.Header title={getString('ce.co.breadCrumb.rules')} className={css.header} />
               <Drawer
                 autoFocus={true}
                 enforceFocus={true}
@@ -522,14 +542,19 @@ const COGatewayList: React.FC = () => {
                   overflowY: 'scroll'
                 }}
               >
-                <COGatewayAnalytics service={selectedService} handleServiceToggle={onServiceStateToggle} />
+                <COGatewayAnalytics
+                  service={selectedService}
+                  handleServiceToggle={onServiceStateToggle}
+                  handleServiceDeletion={onServiceDeletion}
+                  handleServiceEdit={handleServiceEdit}
+                />
               </Drawer>
               <>
                 <Layout.Horizontal padding="large">
                   <Layout.Horizontal width="55%">
                     <Button
                       intent="primary"
-                      text="New Autostopping Rule"
+                      text={getString('ce.co.newAutoStoppingRule')}
                       icon="plus"
                       onClick={() =>
                         history.push(

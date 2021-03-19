@@ -1,5 +1,5 @@
 export default {
-  heading: 'Monitoring Source Type',
-  name: 'Name your monitoring source',
+  heading: 'Monitoring Source',
+  name: 'Name your Monitoring Source',
   selectConnector: 'Select connector'
 }

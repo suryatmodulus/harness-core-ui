@@ -1,0 +1,23 @@
+.mainHeading {
+  color: var(--black) !important;
+  font-weight: 500 !important;
+  margin-top: var(--spacing-small) !important;
+  margin-bottom: var(--spacing-xsmall) !important;
+}
+.subHeading {
+  font-size: var(--font-size-small) !important;
+}
+
+.emptyCardHeader {
+  background-color: var(--white);
+  .content {
+    padding: var(--spacing-large) !important;
+  }
+  .headingDivider {
+    border-color: var(--grey-300) !important;
+    border: 0;
+    background-color: var(--grey-300) !important;
+    height: 1px;
+    margin: 0 !important;
+  }
+}

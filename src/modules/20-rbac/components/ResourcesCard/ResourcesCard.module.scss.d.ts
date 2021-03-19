@@ -7,5 +7,6 @@ declare const styles: {
   readonly radioBtn: string
   readonly limitAccessCell: string
   readonly addResourceBtn: string
+  readonly staticResource: string
 }
 export default styles

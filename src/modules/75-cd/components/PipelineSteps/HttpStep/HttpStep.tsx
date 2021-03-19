@@ -151,7 +151,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     }
   }
 
-  private processFormData(data: HttpStepFormData): HttpStepData {
+  processFormData(data: HttpStepFormData): HttpStepData {
     return {
       ...data,
       spec: {

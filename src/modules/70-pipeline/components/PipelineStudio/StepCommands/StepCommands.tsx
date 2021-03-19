@@ -8,6 +8,8 @@ import { useStrings } from 'framework/exports'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 
+import type { ExecutionWrapper } from 'services/cd-ng'
+import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -15,6 +17,7 @@ export type StepFormikRef<T = unknown> = {
   isDirty(): FormikProps<T>['dirty'] | undefined
   submitForm: FormikProps<T>['submitForm']
   getErrors(): FormikProps<T>['errors']
+  getValues(): ExecutionWrapper
 }
 
 export type StepCommandsRef<T = unknown> =
@@ -79,6 +82,15 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
         : activeTab === StepCommandTabs.Advanced && advancedConfRef.current
         ? advancedConfRef.current.errors
         : {}
+    },
+    getValues() {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const stepObj = stepsFactory.getStep(step.type) as PipelineStep<any>
+      return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
+        ? (stepObj.processFormData(stepRef.current.values) as ExecutionWrapper)
+        : activeTab === StepCommandTabs.Advanced && advancedConfRef.current
+        ? (advancedConfRef.current.values as ExecutionWrapper)
+        : ({} as ExecutionWrapper)
     }
   }))
 

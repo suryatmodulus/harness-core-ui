@@ -25,7 +25,7 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                   type="button"
                 >
                   <span
@@ -69,7 +69,7 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
             style="width: 100%;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-test"
               type="button"
             >

@@ -192,7 +192,7 @@ exports[`Test Barrier Step should render inputSet view 1`] = `
           {}
         </pre>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -235,7 +235,7 @@ exports[`Test Barrier Step should render inputSet view and test validation 1`] =
           {}
         </pre>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span

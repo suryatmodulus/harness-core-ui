@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'mustache'
 import { get } from 'lodash-es'
 
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useStringsContext } from './StringsContext'
 
 export interface UseStringsReturn {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,7 +10,7 @@ export interface UseStringsReturn {
 }
 
 export function useStrings(): UseStringsReturn {
-  const { strings } = useAppStore()
+  const strings = useStringsContext()
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

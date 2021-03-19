@@ -150,7 +150,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main edit StyledProps--intent-primary"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main edit StyledProps--intent-primary"
             type="button"
           >
             <span

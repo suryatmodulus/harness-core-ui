@@ -7,7 +7,7 @@ import cx from 'classnames'
 import { useGetWorkloads } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
 import {
   EnvironmentResponseDTO,
@@ -206,6 +206,11 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
 
   return (
     <>
+      <TableFilter
+        onFilter={namespaceSubstring => setFilterAndPageOffset({ pageOffset: 0, filteredWorkload: namespaceSubstring })}
+        appliedFilter={filteredWorkload}
+        placeholder={getString('cv.activitySources.kubernetes.searchWorkloadPlaceholder')}
+      />
       <Table<WorkloadInfo>
         className={css.workloadTable}
         data={tableData || []}
@@ -288,14 +293,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
             }
           },
           {
-            Header: (
-              <TableColumnWithFilter
-                onFilter={namespaceSubstring =>
-                  setFilterAndPageOffset({ pageOffset: 0, filteredWorkload: namespaceSubstring })
-                }
-                columnName={getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToEnvironment')}
-              />
-            ),
+            Header: getString('cv.activitySources.kubernetes.workloadToServiceTableColumns.mapToEnvironment'),
             accessor: 'environmentIdentifier',
             width: '35%',
             disableSortBy: true,

@@ -3,7 +3,7 @@ import type { CellProps } from 'react-table'
 
 import { Text, Table, Color, Container, ExpandingSearchInput, Layout, Checkbox } from '@wings-software/uicore'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
-import i18n from './COInstanceSelector.i18n'
+import { useStrings } from 'framework/exports'
 import css from './COInstanceSelector.module.scss'
 
 interface COInstanceSelectorprops {
@@ -33,6 +33,7 @@ function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
 const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
   const selectedInstances: InstanceDetails[] = props.selectedInstances
   const instances: InstanceDetails[] = props.instances
+  const { getString } = useStrings()
   function TableCheck(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
       <Checkbox
@@ -70,44 +71,44 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
               },
               {
                 accessor: 'name',
-                Header: i18n.name,
+                Header: getString('ce.co.instanceSelector.name'),
                 width: '16.5%',
                 Cell: NameCell
               },
               {
                 accessor: 'ipv4',
-                Header: i18n.ipAddress,
+                Header: getString('ce.co.instanceSelector.ipAddress'),
                 width: '16.5%',
                 Cell: TableCell,
                 disableSortBy: true
               },
               {
                 accessor: 'region',
-                Header: i18n.region,
+                Header: getString('pipelineSteps.regionLabel'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
                 accessor: 'type',
-                Header: i18n.type,
+                Header: getString('typeLabel'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
                 accessor: 'tags',
-                Header: i18n.tags,
+                Header: getString('tagsLabel'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
                 accessor: 'launch_time',
-                Header: i18n.launchTime,
+                Header: getString('ce.co.instanceSelector.launchTime'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
                 accessor: 'status',
-                Header: i18n.status,
+                Header: getString('status'),
                 width: '16.5%',
                 Cell: TableCell
               }

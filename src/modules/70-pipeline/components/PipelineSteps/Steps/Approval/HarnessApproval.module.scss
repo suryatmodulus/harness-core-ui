@@ -1,0 +1,38 @@
+.execHistoryCheckbox {
+  margin-left: var(--spacing-xlarge) !important;
+  :global {
+    label {
+      padding-left: 0 !important;
+    }
+  }
+}
+
+.approvalMessage {
+  :global {
+    textarea {
+      min-height: 50px;
+      max-height: 120px;
+    }
+  }
+}
+
+.headerRow,
+.responseMappingRow {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 30px;
+  column-gap: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  align-items: center;
+
+  :global(.bp3-form-group) {
+    margin: 0;
+  }
+
+  .label {
+    color: var(--grey-400);
+  }
+
+  :global(.bp3-icon-trash) {
+    color: var(--grey-400) !important;
+  }
+}

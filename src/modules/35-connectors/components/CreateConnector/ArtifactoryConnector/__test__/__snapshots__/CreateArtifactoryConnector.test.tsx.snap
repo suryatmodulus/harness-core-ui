@@ -101,6 +101,21 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -336,7 +351,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -385,7 +400,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="artifactoryBackButton"
                   type="button"
                 >
@@ -415,7 +430,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -531,6 +546,21 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -720,7 +750,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -862,6 +892,21 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -893,7 +938,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                   class="StyledProps--font StyledProps--main formRow"
                 >
                   <div
-                    class="bp3-form-group urlInput"
+                    class="bp3-form-group bp3-intent-danger urlInput"
                     data-id="artifactoryServerUrl-0"
                   >
                     <label
@@ -910,7 +955,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -920,6 +965,11 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                           type="text"
                           value=""
                         />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Artifactory URL is required
                       </div>
                     </div>
                   </div>
@@ -990,7 +1040,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                   class="StyledProps--font StyledProps--main formWrapper"
                 >
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="usernamefieldType-2"
                   >
                     <div
@@ -1079,10 +1129,15 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                           </div>
                         </div>
                       </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Username is a required field
+                      </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="null-5"
                   >
                     <div
@@ -1097,7 +1152,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -1138,6 +1193,11 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                           </span>
                         </button>
                       </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        Password is a required field
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1146,7 +1206,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="artifactoryBackButton"
                   type="button"
                 >
@@ -1176,7 +1236,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

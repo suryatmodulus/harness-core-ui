@@ -104,3 +104,12 @@
     margin-top: var(--spacing-large);
   }
 }
+
+.skipVersioning {
+  :global {
+    .bp3-form-group {
+      position: relative;
+      left: var(--spacing-xlarge);
+    }
+  }
+}

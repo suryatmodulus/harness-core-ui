@@ -1,62 +1,76 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon } from '@wings-software/uicore'
+import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon, Heading } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { getIconByType } from '@connectors/exports'
-import type { ManifestStepInitData } from '../ManifestInterface'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
+import { getManifestIconByType, getManifestStoreTitle, ManifestToConnectorMap } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
   stepName: string
+  expressions: string[]
   newConnectorLabel: string
-  manifestStoreTypes: Array<ConnectorInfoDTO['type']>
+  manifestStoreTypes: Array<ManifestStores>
   initialValues: ManifestStepInitData
-  handleViewChange: (selectedStore: ConnectorInfoDTO['type']) => void
+  handleConnectorViewChange: () => void
+  handleStoreChange: (store: ManifestStores) => void
 }
 
 const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropType> = ({
-  handleViewChange,
+  handleConnectorViewChange,
+  handleStoreChange,
   stepName,
   manifestStoreTypes,
   initialValues,
   previousStep,
+  expressions,
   prevStepData,
   nextStep,
   newConnectorLabel
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
 
-  const [selectedManifest, setSelectedManifest] = useState(initialValues.store)
+  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
 
-  const submitFirstStep = async (formData: any): Promise<void> => {
-    nextStep?.({ ...formData })
+  const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
+    nextStep?.({ ...formData, store: selectedManifest })
   }
-
-  const handleOptionSelection = (selected: ConnectorInfoDTO['type']): void => {
+  const handleOptionSelection = (selected: ManifestStores): void => {
     if (selected === selectedManifest) {
       setSelectedManifest('')
+      handleStoreChange('' as ManifestStores)
     } else {
       setSelectedManifest(selected)
+      handleStoreChange(selected)
     }
   }
 
+  const getInitialValues = useCallback((): ManifestStepInitData => {
+    const initValues = { ...initialValues }
+
+    if (prevStepData?.connectorRef) {
+      initValues.connectorRef = prevStepData?.connectorRef
+      handleStoreChange(selectedManifest)
+    }
+    if (selectedManifest !== initValues.store) {
+      initValues.connectorRef = ''
+    }
+    return initValues
+  }, [selectedManifest])
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {stepName}
-      </Text>
+      </Heading>
 
-      <Layout.Horizontal spacing="xxlarge">
+      <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
         {manifestStoreTypes.map(store => (
           <div key={store} className={css.squareCardContainer}>
             <Card
@@ -71,7 +85,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 }
               }}
             >
-              <Icon name={getIconByType(store)} size={26} />
+              <Icon name={getManifestIconByType(store)} size={26} />
             </Card>
             <Text
               style={{
@@ -80,19 +94,20 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 textAlign: 'center'
               }}
             >
-              {getString(getConnectorTitleIdByType(store))}
+              {getString(getManifestStoreTitle(store))}
             </Text>
           </div>
         ))}
       </Layout.Horizontal>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
           connectorRef: Yup.string().trim().required(getString('validation.gitServerRequired'))
         })}
         onSubmit={formData => {
           submitFirstStep({ ...formData, store: selectedManifest })
         }}
+        enableReinitialize={true}
       >
         {() => (
           <Form>
@@ -110,7 +125,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     width={400}
                     multiTypeProps={{ expressions }}
                     isNewConnectorLabelVisible={false}
-                    type={selectedManifest as ConnectorInfoDTO['type']}
+                    type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
                   />
                   <Button
@@ -120,7 +135,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     className={css.addNewManifest}
                     icon="plus"
                     onClick={() => {
-                      handleViewChange(selectedManifest as ConnectorInfoDTO['type'])
+                      handleConnectorViewChange()
                       nextStep?.({ ...prevStepData, store: selectedManifest })
                     }}
                   />
@@ -130,7 +145,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
             <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
               <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                disabled={!selectedManifest}
+              />
             </Layout.Horizontal>
           </Form>
         )}

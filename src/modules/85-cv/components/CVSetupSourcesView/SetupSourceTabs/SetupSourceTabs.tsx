@@ -8,7 +8,7 @@ import { CVObjectStoreNames, useIndexedDBHook } from '@cv/hooks/IndexedDBHook/In
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SetupSourceTabs.module.scss'
 
-type TabStatus = 'SUCCESS' | 'WARNING' | 'ERROR'
+type TabStatus = 'SUCCESS' | 'WARNING' | 'ERROR' | 'NO_STATUS'
 
 type TabInfo = {
   tabStatus?: TabStatus
@@ -24,7 +24,8 @@ export interface SetupSourceTabsProps<T> {
 export interface SetupSourceTabsProviderProps<T> {
   sourceData: T
   tabsInfo?: TabInfo[]
-  onSwitchTab: (updatedData: any, newTabIndex: number, updatedTabsInfo: TabInfo[]) => Promise<void>
+  onPrevious: (updatedData: T, updatedTabInfo?: TabInfo) => Promise<void>
+  onNext: (updatedData: T, updatedTabInfo?: TabInfo) => Promise<void>
   children: React.ReactNode
 }
 
@@ -42,21 +43,33 @@ type CachedSetupObject = {
   verificationJobs?: CachedSourceObject[]
 }
 
+type UseSetupSourceTabsHookReturnValues = {
+  isInitializingDB: boolean
+  sourceData: any
+  tabsInfo: TabInfo[]
+  activeTabIndex: number
+  onSwitchTab: (updatedData: any, newTabIndex: number, updatedTabInfo?: TabInfo) => Promise<void>
+  onPrevious: (updatedData: any, updatedTabInfo?: TabInfo) => Promise<void>
+  onNext: (updatedData: any, updatedTabInfo?: TabInfo) => Promise<void>
+}
+
 export const SetupSourceTabsContext = createContext<{
   tabsInfo?: TabInfo[]
   sourceData: any
-  onSwitchTab: (updatedData: any, newTabIndex: number, updatedTabsInfo: TabInfo[]) => Promise<void>
+  onNext: (updatedData: any, updatedTabInfo?: TabInfo) => Promise<void>
+  onPrevious: (updatedData: any, updatedTabInfo?: TabInfo) => Promise<void>
 }>({
   tabsInfo: [],
   sourceData: {},
-  onSwitchTab: () => Promise.resolve()
+  onNext: () => Promise.resolve(),
+  onPrevious: () => Promise.resolve()
 })
 
 function initializeTabsInfo(tabTitles: string[]): TabInfo[] {
   const tabsInfo: TabInfo[] = []
   tabTitles?.forEach(tabTitle => {
     if (tabTitle?.length) {
-      tabsInfo.push({ tabStatus: 'SUCCESS' })
+      tabsInfo.push({ tabStatus: 'NO_STATUS' })
     }
   })
   return tabsInfo
@@ -132,7 +145,7 @@ export function buildObjectToStore(
   return objectToStore
 }
 
-function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]) {
+function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): UseSetupSourceTabsHookReturnValues {
   const [{ activeTabIndex, sourceData, tabsInfo }, setTabsState] = useState({
     activeTabIndex: 0,
     sourceData: data,
@@ -145,10 +158,10 @@ function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]) {
     clearStroreList: [CVObjectStoreNames.ONBOARDING_SOURCES]
   })
 
-  async function onSwitchTab<T>(updatedData: T, newTabIndex: number, updatedTabsInfo: TabInfo[]): Promise<void> {
+  async function onSwitchTab<T>(updatedData: T, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
     if (!dbInstance) return
 
-    if (newTabIndex >= updatedTabsInfo.length - 1) {
+    if (newTabIndex >= tabsInfo.length - 1) {
       dbInstance.get(CVObjectStoreNames.SETUP, indexedDBEntryKey)?.then(async (savedData: CachedSetupObject) => {
         try {
           await Promise.all([
@@ -164,7 +177,10 @@ function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]) {
         }
       })
     } else {
-      setTabsState({ activeTabIndex: newTabIndex, sourceData: updatedData as any, tabsInfo: updatedTabsInfo })
+      setTabsState(currentState => {
+        if (updatedTabInfo) currentState.tabsInfo[activeTabIndex] = updatedTabInfo
+        return { activeTabIndex: newTabIndex, sourceData: updatedData as any, tabsInfo: [...currentState.tabsInfo] }
+      })
       try {
         await dbInstance.put(CVObjectStoreNames.ONBOARDING_SOURCES, {
           sourceID: indexedDBEntryKey,
@@ -197,7 +213,15 @@ function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]) {
     if (data) setTabsState(previousState => ({ ...previousState, tabsData: data }))
   }, [data])
 
-  return { isInitializingDB, sourceData, tabsInfo, activeTabIndex, onSwitchTab }
+  return {
+    isInitializingDB,
+    sourceData,
+    tabsInfo,
+    activeTabIndex,
+    onSwitchTab,
+    onPrevious: (updatedData, updatedTabInfo) => onSwitchTab(updatedData, activeTabIndex - 1, updatedTabInfo),
+    onNext: (updatedData, updatedTabInfo) => onSwitchTab(updatedData, activeTabIndex + 1, updatedTabInfo)
+  }
 }
 
 export function SetupSourceTabsProvider<T>(props: SetupSourceTabsProviderProps<T>): JSX.Element {
@@ -207,19 +231,19 @@ export function SetupSourceTabsProvider<T>(props: SetupSourceTabsProviderProps<T
 
 export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element {
   const { data, tabTitles, children, determineMaxTab } = props
-  const { sourceData, tabsInfo, activeTabIndex, onSwitchTab } = useSetupSourceTabsHook(
+  const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(
     data,
     initializeTabsInfo(tabTitles)
   )
   const maxEnabledTab = determineMaxTab(sourceData)
   const updatedChildren = useMemo(() => (Array.isArray(children) ? children : [children]), [children])
   return (
-    <SetupSourceTabsProvider sourceData={sourceData} tabsInfo={tabsInfo} onSwitchTab={onSwitchTab}>
+    <SetupSourceTabsProvider sourceData={sourceData} onPrevious={onPrevious} onNext={onNext}>
       <Container className={css.tabWrapper}>
         <Tabs
           id="setup-sources"
           selectedTabId={activeTabIndex}
-          onChange={(newTabId: number) => onSwitchTab(sourceData, newTabId, tabsInfo)}
+          onChange={(newTabId: number) => onSwitchTab(sourceData, newTabId)}
         >
           {updatedChildren.map((child, index) => (
             <Tab

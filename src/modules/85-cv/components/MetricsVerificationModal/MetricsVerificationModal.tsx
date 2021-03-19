@@ -7,6 +7,7 @@ import type {
   AppdynamicsValidationResponse,
   AppdynamicsMetricValueValidationResponse
 } from '@wings-software/swagger-ts/definitions'
+import { useStrings } from 'framework/exports'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 import i18n from './MetricsVerificationModal.i18n'
 
@@ -51,7 +52,6 @@ const modalPropsLight: IDialogProps = {
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: true,
-  title: 'Metric Pack Verification',
   className: Classes.DIALOG,
   style: { width: 900, height: 570 }
 }
@@ -205,8 +205,14 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
     [guid]
   )
   const onHideCallback = useCallback(() => onHide(), [onHide])
+  const { getString } = useStrings()
   return (
-    <Dialog {...modalPropsLight} onClose={onHideCallback} className={css.main}>
+    <Dialog
+      {...modalPropsLight}
+      onClose={onHideCallback}
+      className={css.main}
+      title={getString('cv.monitoringSources.appD.metricsVerificationModalTitle')}
+    >
       {!displayCallLog ? (
         <Tabs id="tabsId1">
           <Tab

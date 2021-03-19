@@ -2,13 +2,11 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
 import * as pipelineNg from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import {
   GetSourceRepoToEventResponse,
   GetActionsListResponse,
@@ -38,9 +36,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {

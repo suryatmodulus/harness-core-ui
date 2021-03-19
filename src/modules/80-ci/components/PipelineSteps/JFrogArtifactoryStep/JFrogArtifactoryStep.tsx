@@ -1,5 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import get from 'lodash-es/get'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
@@ -7,10 +9,15 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
 import { inputSetViewValidateFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
+import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+
+const logger = loggerFor(ModuleName.CI)
 
 export interface JFrogArtifactoryStepSpec {
   connectorRef: string
@@ -57,6 +64,8 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap = new Map()
+    this.invocationMap.set(/^.+step\.spec\.connectorRef$/, this.getConnectorList.bind(this))
   }
 
   protected type = StepType.JFrogArtifactory
@@ -72,6 +81,26 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
       target: '',
       sourcePath: ''
     }
+  }
+
+  protected async getConnectorList(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.JFrogArtifactory) {
+        return getConnectorSuggestions(params, ['Artifactory'])
+      }
+    }
+    return []
   }
 
   validateInputSet(

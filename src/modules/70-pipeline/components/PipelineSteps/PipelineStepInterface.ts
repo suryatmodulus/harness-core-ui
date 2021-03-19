@@ -1,7 +1,6 @@
 export enum StepType {
   HTTP = 'Http',
   SHELLSCRIPT = 'ShellScript',
-  APPROVAL = 'Approval',
   Barrier = 'Barrier',
   K8sRollingRollback = 'K8sRollingRollback',
   K8sBlueGreenDeploy = 'K8sBlueGreenDeploy',
@@ -33,5 +32,7 @@ export enum StepType {
   JFrogArtifactory = 'ArtifactoryUpload',
   RunTests = 'RunTests',
   HelmDeploy = 'HelmDeploy',
-  HelmRollback = 'HelmRollback'
+  HelmRollback = 'HelmRollback',
+  HarnessApproval = 'HarnessApproval',
+  JiraApproval = 'JiraApproval'
 }

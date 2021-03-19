@@ -321,7 +321,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main scrollLeft"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main scrollLeft"
       style="display: none;"
       type="button"
     >
@@ -346,7 +346,7 @@ exports[`<MiniExecutionGraph /> tests snapshot test 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main scrollRight"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main scrollRight"
       style="display: none;"
       type="button"
     >

@@ -7,5 +7,6 @@ declare const styles: {
   readonly mappingDetails: string
   readonly metricPacks: string
   readonly columnHeaderWithFilter: string
+  readonly serviceSelect: string
 }
 export default styles

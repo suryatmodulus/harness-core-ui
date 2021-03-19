@@ -18,9 +18,9 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
-jest.mock('@cv/components/TableColumnWithFilter/TableColumnWithFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableColumnWithFilter/TableColumnWithFilter') as object),
-  TableColumnWithFilter: function MockTableColumnWithFilter(props: any) {
+jest.mock('@cv/components/TableFilter/TableFilter', () => ({
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  TableFilter: function MockTableColumnWithFilter(props: any) {
     return <Container className="filter" onClick={() => props.onFilter('solo-dolo')} />
   }
 }))

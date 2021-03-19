@@ -79,7 +79,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -115,7 +115,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -224,7 +224,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -260,7 +260,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -395,7 +395,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -431,7 +431,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="link"
         rel="noreferrer noopener"
         role="button"
@@ -452,7 +452,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         OPEN
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"
@@ -587,7 +587,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
             href="javascript:void()"
             role="button"
             tabindex="0"
@@ -623,7 +623,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         </span>
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="link"
         rel="noreferrer noopener"
         role="button"
@@ -644,7 +644,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         OPEN
       </span>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="javascript:void()"
         role="button"
         tabindex="0"

@@ -42,7 +42,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
       orgIdentifier,
       searchTerm: searchParam,
       page,
-      size: 10
+      size: 5
     },
     mock: mockData
   })
@@ -50,7 +50,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
   const fetchPipelines = React.useCallback(async () => {
     cancel()
     setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
-  }, [reloadPipelines, cancel])
+  }, [cancel])
 
   React.useEffect(() => {
     cancel()

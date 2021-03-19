@@ -2,42 +2,38 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { Formik, FormikForm, Button } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import { getValidationSchema } from '../utils/TriggersWizardPageUtils'
 import WebhookConditionsPanel from '../views/WebhookConditionsPanel'
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
   return (
-    <Formik
-      enableReinitialize={true}
-      initialValues={initialValues}
-      validationSchema={getValidationSchema(result.current.getString)}
-      onSubmit={jest.fn()}
-    >
-      {formikProps => {
-        return (
-          <TestWrapper>
+    <TestWrapper>
+      <Formik
+        enableReinitialize={true}
+        initialValues={initialValues}
+        validationSchema={getValidationSchema(result.current.getString)}
+        onSubmit={jest.fn()}
+      >
+        {formikProps => {
+          return (
             <FormikForm>
               <WebhookConditionsPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
               <Button text="Submit" className="submitButton" type="submit" />
             </FormikForm>
-          </TestWrapper>
-        )
-      }}
-    </Formik>
+          )
+        }}
+      </Formik>
+    </TestWrapper>
   )
 }
 

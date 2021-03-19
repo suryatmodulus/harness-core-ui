@@ -5,24 +5,20 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import i18n from '../ArtifactsSelection.i18n'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactConnectorProps {
   handleViewChange: () => void
   name?: string
+  expressions: string[]
   stepName: string
   newConnectorLabel: string
   initialValues: ConnectorDataType
   connectorType: ConnectorInfoDTO['type']
 }
-const primarySchema = Yup.object().shape({
-  connectorId: Yup.string().trim().required(i18n.validation.connectorId)
-})
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
   const {
@@ -33,16 +29,21 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     initialValues,
     stepName,
     name,
+    expressions,
     connectorType,
     newConnectorLabel
   } = props
+
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
+
+  const primarySchema = Yup.object().shape({
+    connectorId: Yup.string().trim().required(getString('validation.artifactServerRequired'))
+  })
 
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
-  const { expressions } = useVariablesExpression()
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
@@ -77,12 +78,12 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     <ConfigureOptions
                       value={(formik.values.connectorId as unknown) as string}
                       type={connectorType}
-                      variableName="dockerConnector"
+                      variableName="connectorId"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => {
-                        formik.setFieldValue('imagePath', value)
+                        formik.setFieldValue('connectorId', value)
                       }}
                     />
                   </div>

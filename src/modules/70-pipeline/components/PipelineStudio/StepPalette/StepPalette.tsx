@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, Color, Container } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
-import { get, cloneDeep, uniqBy } from 'lodash-es'
+import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { getConfig } from 'services/config'
@@ -25,6 +25,27 @@ import buildStageSteps from './mock/buildStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
 import { StageTypes } from '../Stages/StageTypes'
 import css from './StepPalette.module.scss'
+
+export const getAllStepsCountForPalette = (originalData: StepCategory[]): number => {
+  let count = 0
+  originalData.forEach((data: StepCategory) => {
+    const { stepCategories, stepsData } = data
+    if (isEmpty(stepCategories)) {
+      /*
+        Ex - Kuberneters -> No nested categories -> add all the steps
+      */
+      count += stepsData ? stepsData.length : 0
+    } else {
+      /**
+        Ex - Utilities -> ested categories -> add all steps of each category
+      */
+      stepCategories?.forEach((category: StepCategory) => {
+        count += category.stepsData ? category.stepsData.length : 0
+      })
+    }
+  })
+  return count
+}
 
 // TODO: This should be removed once the DTO is available
 const useGetFeatureSteps = (props: UseGetStepsProps) => {
@@ -96,10 +117,24 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
-  const { module } = useParams<{ module: string }>()
+  const { module, accountId } = useParams<{ module: string; accountId: string }>()
   const serviceDefinitionType = get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
 
-  const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { category: serviceDefinitionType, module } })
+  const Message = ({ stepsDataLoading }: { stepsDataLoading: boolean }) => {
+    const message = stepsDataLoading
+      ? getString('stepPalette.loadingSteps')
+      : isEmpty(stepCategories)
+      ? getString('stepPalette.noSearchResultsFound')
+      : ''
+    // Only render this section if we're loading or if we do not have any steps
+    return message ? (
+      <section style={{ paddingTop: '50%', justifyContent: 'center', textAlign: 'center' }}>{message}</section>
+    ) : null
+  }
+
+  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
+    queryParams: { category: serviceDefinitionType, module, accountId }
+  })
   const { getString } = useStrings()
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
@@ -190,11 +225,9 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 />
               </div>
             </Layout.Horizontal>
-            {stepCategories && stepCategories.length === 0 && (
-              <section style={{ paddingTop: '50%', justifyContent: 'center', textAlign: 'center' }}>
-                {getString('stepPalette.noSearchResultsFound')}
-              </section>
-            )}
+
+            <Message stepsDataLoading={stepsDataLoading} />
+
             {stepCategories?.map((stepCategory: StepCategory) => {
               const categorySteps: JSX.Element[] = []
               /* istanbul ignore else */ if (stepCategory?.stepsData) {
@@ -325,7 +358,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
               className={css.showAllBtn}
             >
               <Text color={Color.WHITE} style={{ fontSize: 11, fontWeight: 'bold' }}>
-                {getString('stepPalette.showAllSteps')} ({originalData?.length})
+                {getString('stepPalette.showAllSteps')} ({getAllStepsCountForPalette(originalData)})
               </Text>
             </section>
           </section>

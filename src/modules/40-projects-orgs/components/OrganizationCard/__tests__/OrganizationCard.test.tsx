@@ -7,7 +7,6 @@ import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/Org
 const organization: OrganizationAggregateDTO = {
   organizationResponse: {
     organization: {
-      accountIdentifier: 'dummy2',
       identifier: 'bfvbfkbvf',
       name: 'bfvbfkbvf',
       description: 'ddsadsad',

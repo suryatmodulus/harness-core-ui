@@ -232,7 +232,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
                 module,
                 projectData.orgIdentifier || /* istanbul ignore next */ '',
                 projectData.identifier,
-                projectData.accountIdentifier || /* istanbul ignore next */ ''
+                accountId
               )
             )
           )}

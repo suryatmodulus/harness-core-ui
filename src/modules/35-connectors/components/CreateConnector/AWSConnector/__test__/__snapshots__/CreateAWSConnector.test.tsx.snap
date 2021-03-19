@@ -90,6 +90,21 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -253,7 +268,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -379,6 +394,21 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -568,7 +598,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -712,6 +742,21 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -899,7 +944,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                           Secret Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="secretKeyRef"
                           type="button"
                         >
@@ -973,7 +1018,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="awsBackButton"
                   type="button"
                 >
@@ -1003,7 +1048,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1126,6 +1171,21 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1290,7 +1350,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1434,6 +1494,21 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1621,7 +1696,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                           Secret Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="secretKeyRef"
                           type="button"
                         >
@@ -1756,7 +1831,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="awsBackButton"
                   type="button"
                 >
@@ -1786,7 +1861,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

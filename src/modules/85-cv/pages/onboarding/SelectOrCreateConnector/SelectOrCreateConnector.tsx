@@ -29,8 +29,8 @@ export interface ConnectorSelectionProps {
   value?: SelectOption
   disableConnector?: boolean
   createConnectorText: string
-  connectToMonitoringSourceText: string
-  firstTimeSetupText: string
+  connectToMonitoringSourceText?: string
+  firstTimeSetupText?: string
   onSuccess?: UseCreateConnectorModalProps['onSuccess']
 }
 
@@ -126,10 +126,12 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
 
   return (
     <Layout.Vertical spacing="xsmall">
-      <Text>{connectToMonitoringSourceText}</Text>
-      <Text color={Color.GREY_350} font={{ size: 'small' }}>
-        {firstTimeSetupText}
-      </Text>
+      {connectToMonitoringSourceText && <Text>{connectToMonitoringSourceText}</Text>}
+      {firstTimeSetupText && (
+        <Text color={Color.GREY_350} font={{ size: 'small' }}>
+          {firstTimeSetupText}
+        </Text>
+      )}
       <Layout.Horizontal spacing="medium">{renderContent()}</Layout.Horizontal>
     </Layout.Vertical>
   )

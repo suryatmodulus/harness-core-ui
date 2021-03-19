@@ -219,7 +219,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
       class="bp3-dialog-footer"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -232,7 +232,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
       </button>
           
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -413,7 +413,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   tabindex="0"
                   type="button"
                 >
@@ -459,7 +459,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
       class="bp3-dialog-footer"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -472,7 +472,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
       </button>
           
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -738,7 +738,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   tabindex="0"
                   type="button"
                 >
@@ -802,7 +802,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
       class="bp3-dialog-footer"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -815,7 +815,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
       </button>
           
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -1078,7 +1078,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
       class="bp3-dialog-footer"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -1091,7 +1091,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
       </button>
           
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span

@@ -6,12 +6,17 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  ExpressionInput
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { ShellScriptMonacoField } from '@cd/components/PipelineSteps/ShellScriptStep/ShellScriptMonaco'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -127,7 +132,7 @@ export const RunTestsStepBase = (
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
                 width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                  getMultiTypeFromValue(formik?.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
                 }
                 name="spec.connectorRef"
                 placeholder={getString('select')}
@@ -229,32 +234,80 @@ export const RunTestsStepBase = (
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="spec.preCommand"
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('preCommandLabel')}
-                    <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                placeholder={getString('commandPlaceholder')}
-                multiTypeTextArea={{ expressions }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="spec.postCommand"
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('postCommandLabel')}
-                    <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                placeholder={getString('commandPlaceholder')}
-                multiTypeTextArea={{ expressions }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              />
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)} style={{ marginBottom: 'var(--spacing-small)' }}>
+                <MultiTypeFieldSelector
+                  name="spec.preCommand"
+                  label={
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('preCommandLabel')}
+                      <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
+                    </Text>
+                  }
+                  defaultValueToReset=""
+                  allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+                  expressionRender={() => {
+                    return (
+                      <ExpressionInput
+                        value={formik?.values?.spec?.preCommand || ''}
+                        name="spec.preCommand"
+                        items={expressions}
+                        onChange={value => formik?.setFieldValue('spec.preCommand', value)}
+                      />
+                    )
+                  }}
+                  style={{ flexGrow: 1, marginBottom: 0 }}
+                >
+                  <ShellScriptMonacoField name="spec.preCommand" scriptType="Bash" />
+                </MultiTypeFieldSelector>
+                {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik?.values?.spec?.preCommand as string}
+                    type={getString('string')}
+                    variableName="spec.preCommand"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik?.setFieldValue('spec.preCommand', value)}
+                  />
+                )}
+              </div>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)} style={{ marginBottom: 'var(--spacing-small)' }}>
+                <MultiTypeFieldSelector
+                  name="spec.postCommand"
+                  label={
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('postCommandLabel')}
+                      <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
+                    </Text>
+                  }
+                  defaultValueToReset=""
+                  allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+                  expressionRender={() => {
+                    return (
+                      <ExpressionInput
+                        value={formik?.values?.spec?.postCommand || ''}
+                        name="spec.postCommand"
+                        items={expressions}
+                        onChange={value => formik?.setFieldValue('spec.postCommand', value)}
+                      />
+                    )
+                  }}
+                  style={{ flexGrow: 1, marginBottom: 0 }}
+                >
+                  <ShellScriptMonacoField name="spec.postCommand" scriptType="Bash" />
+                </MultiTypeFieldSelector>
+                {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik?.values?.spec?.postCommand as string}
+                    type={getString('string')}
+                    variableName="spec.postCommand"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik?.setFieldValue('spec.postCommand', value)}
+                  />
+                )}
+              </div>
               <MultiTypeList
                 name="spec.reportPaths"
                 placeholder={getString('pipelineSteps.reportPathsPlaceholder')}

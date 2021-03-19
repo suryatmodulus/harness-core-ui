@@ -3,6 +3,7 @@ import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uicor
 import { useStrings } from 'framework/exports'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { ValidationStatus, TierRecord } from '../AppDOnboardingUtils'
+import css from './MapApplications.module.scss'
 
 interface ValidationCellProps {
   tier?: TierRecord
@@ -79,6 +80,7 @@ export const ServiceCell = ({ value, disabled, onSelect, options = [], onUpdateO
       onSelect={opt => {
         onSelect(opt.value as string)
       }}
+      className={css.serviceSelect}
     />
   )
 }

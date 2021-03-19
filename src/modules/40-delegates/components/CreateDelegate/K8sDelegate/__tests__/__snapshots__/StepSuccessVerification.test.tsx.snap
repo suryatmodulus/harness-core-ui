@@ -88,7 +88,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
           type="button"
         >
           <span
@@ -111,7 +111,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-right-small"
       id="stepReviewScriptBackButton"
       type="button"
     >
@@ -141,7 +141,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
       type="button"
     >
       <span
@@ -242,7 +242,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
           type="button"
         >
           <span
@@ -265,7 +265,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-right-small"
       id="stepReviewScriptBackButton"
       type="button"
     >
@@ -295,7 +295,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--padding-small"
       type="button"
     >
       <span

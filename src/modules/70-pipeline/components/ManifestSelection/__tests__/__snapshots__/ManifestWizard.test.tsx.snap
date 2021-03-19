@@ -96,7 +96,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
           class="Layout--horizontal StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main saveBtn StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
             type="submit"
           >
             <span
@@ -227,7 +227,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           class="Layout--horizontal StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main saveBtn StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
             type="submit"
           >
             <span

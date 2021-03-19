@@ -25,7 +25,8 @@
   }
 
   &:hover .closeNode {
-    visibility: initial;
+    opacity: 1;
+    pointer-events: initial;
   }
 
   .secondaryIcon {
@@ -65,7 +66,9 @@
   .closeNode {
     position: absolute;
     top: 0;
-    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
     display: flex;
     justify-content: center;
     left: -19px;
@@ -79,6 +82,7 @@
     z-index: 1;
     cursor: pointer;
   }
+
   .addNode {
     border: 1px dashed var(--diagram-add-node-color);
     border-radius: 8px;
@@ -87,6 +91,7 @@
     align-items: center;
     cursor: pointer;
     margin: 0 auto;
+    transition: opacity 0.2s ease-in-out;
     box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
   }
 }

@@ -35,7 +35,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -49,7 +49,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -82,7 +82,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -243,6 +243,44 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                     name=""
                     type="checkbox"
                     value="StageRollback"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  class="strategyIcon"
+                >
+                  <div
+                    class="icon"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-delete StyledProps--main"
+                      icon="delete"
+                    >
+                      <svg
+                        data-icon="delete"
+                        height="22"
+                        viewBox="0 0 20 20"
+                        width="22"
+                      >
+                        <desc>
+                          delete
+                        </desc>
+                        <path
+                          d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span>
+                    Ignore Failure
+                  </span>
+                  <input
+                    data-testid="failure-strategy-ignore"
+                    name=""
+                    type="checkbox"
+                    value="Ignore"
                   />
                 </label>
               </li>
@@ -409,7 +447,7 @@ exports[`<FailureStratergyPanel /> tests initial render with no data 1`] = `
             class="tabs"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -493,7 +531,7 @@ exports[`<FailureStratergyPanel /> tests removing a strategy works 1`] = `
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -507,7 +545,7 @@ exports[`<FailureStratergyPanel /> tests removing a strategy works 1`] = `
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -540,7 +578,7 @@ exports[`<FailureStratergyPanel /> tests removing a strategy works 1`] = `
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -701,6 +739,44 @@ exports[`<FailureStratergyPanel /> tests removing a strategy works 1`] = `
                     name=""
                     type="checkbox"
                     value="StageRollback"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  class="strategyIcon"
+                >
+                  <div
+                    class="icon"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-delete StyledProps--main"
+                      icon="delete"
+                    >
+                      <svg
+                        data-icon="delete"
+                        height="22"
+                        viewBox="0 0 20 20"
+                        width="22"
+                      >
+                        <desc>
+                          delete
+                        </desc>
+                        <path
+                          d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <span>
+                    Ignore Failure
+                  </span>
+                  <input
+                    data-testid="failure-strategy-ignore"
+                    name=""
+                    type="checkbox"
+                    value="Ignore"
                   />
                 </label>
               </li>
@@ -873,7 +949,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Abort" 1`] = `
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -887,7 +963,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Abort" 1`] = `
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -920,7 +996,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Abort" 1`] = `
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -1117,7 +1193,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Ignore" 1`] = `
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -1131,7 +1207,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Ignore" 1`] = `
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -1164,7 +1240,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "Ignore" 1`] = `
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -1361,7 +1437,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "MarkAsSuccess" 1`] = 
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -1375,7 +1451,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "MarkAsSuccess" 1`] = 
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -1408,7 +1484,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "MarkAsSuccess" 1`] = 
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -1605,7 +1681,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StageRollback" 1`] = 
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -1619,7 +1695,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StageRollback" 1`] = 
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -1652,7 +1728,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StageRollback" 1`] = 
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >
@@ -1849,7 +1925,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StepGroupRollback" 1`
                 class="stepListItem"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main stepListBtn StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
                   data-selected="true"
                   data-testid="failure-strategy-step-0"
                   type="button"
@@ -1863,7 +1939,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StepGroupRollback" 1`
               </li>
             </ul>
             <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-failure-strategy"
               type="button"
             >
@@ -1896,7 +1972,7 @@ exports[`<FailureStratergyPanel /> tests simple strategy: "StepGroupRollback" 1`
             </button>
           </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             data-testid="remove-failure-strategy"
             type="button"
           >

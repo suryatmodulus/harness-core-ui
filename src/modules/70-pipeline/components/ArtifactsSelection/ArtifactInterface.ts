@@ -1,3 +1,4 @@
+import type { ArtifactConfig } from 'services/cd-ng'
 export interface ArtifactsSelectionProps {
   isForOverrideSets?: boolean
   isForPredefinedSets?: boolean
@@ -6,7 +7,7 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type CreationType = 'Dockerhub' | 'Gcr'
+export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
 export interface OrganizationCreationType {
   type: CreationType
 }
@@ -14,26 +15,26 @@ export enum TagTypes {
   Value = 'value',
   Regex = 'regex'
 }
-
 export interface ConnectorDataType {
   connectorId: string | undefined
 }
 export interface ImagePathTypes {
   identifier: string
   imagePath: string
-  tag: string
-  tagRegex: string
+  tag: any
+  tagRegex: any
   tagType: TagTypes
   registryHostname?: string
-  region?: string
+  region?: any
 }
 
 export interface ImagePathProps {
   key: string
   name: string
+  expressions: string[]
   context: number
   initialValues: ImagePathTypes
-  handleSubmit: (data: any) => void
+  handleSubmit: (data: ArtifactConfig) => void
 }
 
 export interface ConnectorRefLabelType {

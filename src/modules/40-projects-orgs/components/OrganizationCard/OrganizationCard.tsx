@@ -128,7 +128,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   inviteCollab?.()
                 }}
               />
-              <Text font="small">{`${orgMembers?.length} ${getString('members')}`}</Text>
+              <Text font="small">{`${orgMembers?.length || 0} ${getString('members')}`}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         </Layout.Vertical>

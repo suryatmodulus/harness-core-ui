@@ -85,6 +85,21 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -269,7 +284,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -413,6 +428,21 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -442,7 +472,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 style="width: 56%;"
               >
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="dockerRegistryUrl-0"
                 >
                   <label
@@ -459,7 +489,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-input-group"
+                      class="bp3-input-group bp3-intent-danger"
                     >
                       <input
                         autocomplete="off"
@@ -469,6 +499,11 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         type="text"
                         value=""
                       />
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Docker Registry URL is required
                     </div>
                   </div>
                 </div>
@@ -604,7 +639,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="usernamefieldType-3"
                 >
                   <div
@@ -693,10 +728,15 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         </div>
                       </div>
                     </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Username is a required field
+                    </div>
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="null-6"
                 >
                   <div
@@ -711,7 +751,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         Password
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -752,6 +792,11 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                         </span>
                       </button>
                     </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Password is a required field
+                    </div>
                   </div>
                 </div>
               </div>
@@ -759,7 +804,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="dockerBackButton"
                   type="button"
                 >
@@ -789,7 +834,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -907,6 +952,21 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1071,7 +1131,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1210,6 +1270,21 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1513,7 +1588,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                         Password
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -1561,7 +1636,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="dockerBackButton"
                   type="button"
                 >
@@ -1591,7 +1666,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

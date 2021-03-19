@@ -191,7 +191,7 @@ describe('Project Page List', () => {
       expect(
         getByTestId('location').innerHTML.endsWith(
           routes.toProjectDetails({
-            accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier,
+            accountId: 'testAcc',
             orgIdentifier: projectPageMock.data.data.content[0].projectResponse.project.orgIdentifier,
             projectIdentifier: projectPageMock.data.data.content[0].projectResponse.project.identifier
           })
@@ -206,7 +206,7 @@ describe('Project Page List', () => {
       expect(
         getByTestId('location').innerHTML.endsWith(
           routes.toProjectsGetStarted({
-            accountId: projectPageMock.data.data.content[0].projectResponse.project.accountIdentifier
+            accountId: 'testAcc'
           })
         )
       ).toBeTruthy()

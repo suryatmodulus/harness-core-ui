@@ -1,7 +1,10 @@
 import React from 'react'
 import { Tabs } from '@blueprintjs/core'
+import { Button } from '@wings-software/uicore'
+
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
+
 import ExecutionStepDetailsTab from './ExecutionStepDetailsTab'
 import ExecutionStepInputOutputTab from './ExecutionStepInputOutputTab'
 
@@ -9,10 +12,11 @@ import css from './ExecutionStepDetails.module.scss'
 
 export interface ExecutionStepDetailsProps {
   selectedStep: string
+  closeDetails(): void
 }
 
 export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): React.ReactElement {
-  const { selectedStep } = props
+  const { selectedStep, closeDetails } = props
   const { allNodeMap } = useExecutionContext()
 
   const step = allNodeMap?.[selectedStep] || {}
@@ -21,7 +25,10 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
     <div className={css.main}>
       <div className={css.header}>
         <div className={css.title}>Step: {step.name}</div>
-        <ExecutionLayout.Toggle />
+        <div className={css.actions}>
+          <ExecutionLayout.Toggle />
+          <Button minimal icon="cross" onClick={closeDetails} />
+        </div>
       </div>
       <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
         <Tabs.Tab id="details" title="Details" panel={<ExecutionStepDetailsTab step={step} />} />

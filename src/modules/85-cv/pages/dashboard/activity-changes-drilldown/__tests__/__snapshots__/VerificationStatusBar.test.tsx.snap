@@ -14,7 +14,8 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
         Verification in-progress (1 minutes remaining)
       </p>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
+        class="StyledProps--font StyledProps--main"
+        style="font-size: 12px;"
       >
         Started On: XX:YY
       </p>
@@ -71,7 +72,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
         Risk
       </p>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main"
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
         type="button"
       >
         <span

@@ -18,7 +18,7 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
             class=""
           >
             <button
-              class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               type="button"
             >
               <span
@@ -115,8 +115,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -156,8 +156,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -198,8 +198,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>
@@ -234,8 +234,8 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
               <span
                 class="StyledProps--font StyledProps--main duration StyledProps--inline"
               >
-                0
-                ms
+                 
+                
               </span>
             </div>
           </li>

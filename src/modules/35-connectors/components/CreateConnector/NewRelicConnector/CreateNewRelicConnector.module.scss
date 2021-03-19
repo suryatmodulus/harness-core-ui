@@ -1,0 +1,20 @@
+.credentials {
+  .newRelicTitle {
+    color: var(--black) !important;
+    margin-bottom: var(--spacing-large) !important;
+    font-size: 18px !important;
+  }
+  .heading {
+    color: var(--black) !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    margin-bottom: var(--spacing-small) !important;
+  }
+  .subHeading {
+    width: 70%;
+    margin-bottom: var(--spacing-xlarge) !important;
+  }
+  .form {
+    width: 60%;
+  }
+}

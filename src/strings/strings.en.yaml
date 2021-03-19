@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 common:
   addVariable: Add Variable
@@ -2090,3 +2091,2266 @@ ce:
       proceed: 'Proceed'
 logs:
   noLogsText: 'No logs found'
+=======
+---
+common:
+  addVariable: Add Variable
+  editVariable: Edit variable
+  editVariableType: Edit variable type
+  removeThisVariable: Remove This Variable
+  durationPrefix: 'Duration: '
+harness: Harness # Name of the company
+signUp:
+  signIn: 'Sign In'
+  signUp: 'Sign Up'
+  ssoButton: 'Single Sign-On'
+  message:
+    primary: 'Sign up for an account'
+    secondary: 'and get ship done'
+  form:
+    namePlaceholder: 'John Smith'
+    emailLabel: 'Email'
+    emailPlaceholder: 'email@work.com'
+    companyLabel: 'Company'
+    companyPlaceholder: 'Your Company'
+    passwordPlaceholder: '6+ characters'
+  oAuth:
+    signup: 'or sign up with'
+    signin: 'or login with'
+  disclaimer:
+    initial: 'By signing up you agree to our '
+    privacyPolicy: 'Privacy Policy'
+    middle: ' and our '
+    terms: 'Terms of Use'
+  noAccount: 'No Account?'
+featureFlagsText: Feature Flags
+flag: Flag
+continuousFeatures: Continuous Features
+featureNA: This feature is not available as of now
+logView: Log View
+projectsText: Projects
+enterNamePlaceholder: Enter name
+orgsText: Organizations
+getStarted: Get Started
+projectLabel: Project
+orgLabel: Organization
+editPipeline: Edit Pipeline
+craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
+users: Users
+roles: Roles
+newRole: New Role
+editRole: Edit Role
+userGroups: User Groups
+created: Created
+resourceGroups: Resource Groups
+modules: Modules
+account: 'Account'
+repository: 'Repository'
+location: LOCATION
+artifactRepository: ARTIFACT REPOSITORY
+more: '+{{number}} more'
+yes: 'Yes'
+no: 'No'
+restart: 'Restart'
+invalidText: Invalid
+noData: No Data
+members: Members
+wip: Work in progress
+tagRegex: Tag Regex
+of: of
+step: Step
+parallelSteps: Parallel Steps
+stepGroup: Step Group
+changeHistory: Change History
+entity: Entity
+lastTested: Last Tested
+lastUpdated: Last Updated
+lastConnectionSuccess: Last time connection is successful
+lastActivity: last activity
+noDetails: No details found
+connectivityStatus: Connectivity Status
+lastStatusCheckAt: 'Last status check at '
+lastSuccessfulStatusCheckAt: 'Last successful status check at '
+noReferencesData: 'There are no references of this Connector.'
+connectorCreated: Connector Created
+fieldRequired: '{{field}} is a required field'
+deploymentText: Deployment
+deploymentTypeText: Deployment Type
+cloudCostsText: Cloud Costs
+changeVerificationText: Change Verifications
+deploymentsText: Deployments
+dockerRegistry: 'Docker Registry'
+executionText: Execution
+executionsText: Executions
+executionHeaderText: Execution History
+runPipelineText: Run
+rollbackLabel: Rollback
+noConnectorFound: No Connector Found
+saveConnectorSuccess: Connector saved successfully
+resources: 'Resources'
+kubernetesText: Kubernetes
+kubernetesDirectText: Kubernetes Direct
+connector: Connector
+cloudProviders: Cloud Providers
+artifactRepositories: Artifact Repositories
+codeRepositories: Code Repositories
+ticketingSystems: Ticketing Systems
+monitoringAndLoggingSystems: Monitoring and Logging Systems
+secretManagers: Secret Managers
+connection: Connection
+refrencedBy: Referenced by
+activityHistoryLabel: Activity History
+connectionMode: Connection Mode
+credType: Credential Type
+secrets: 'Secrets'
+secretDetails: 'Secret Details'
+noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
+noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
+newConnector: 'New Connector'
+thisConnectorIsSavedAs: 'This Connector is saved as'
+errorTitle: Something went wrong...
+errorSubtitle: This error has been reported and we are looking into it with high priority.
+errorHelp: to continue, this will remove all unsaved changes.
+errorTag: Error fetching tags
+deleteError: This resource could not be deleted
+please: Please
+clickHere: ' click here '
+blueGreen: BlueGreen
+primary: Primary
+canary: Canary
+changes: Changes
+change: Change
+events: Events
+details: Details
+test: Test
+enable: Enable
+runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
+packagesLabel: Packages
+packagesInfo: 'List of source code package prefixes separated by comma. E.g. com.company., io.company., migrations.'
+testAnnotationsLabel: Test Annotations
+testAnnotationsInfo: 'List of test annotations used in unit testing. They should be separated by comma. Any method annotated with this will be treated as test method. The defaults are: org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test'
+runOnlySelectedTestsLabel: Run only selected tests
+buildToolLabel: Build Tool
+buildToolInfo: Build automation tool
+languageLabel: Language
+languageInfo: The programming language of the source code to build
+reset: Reset
+archiveFormat: Archive Format
+archiveFormatInfo: Select archive format. Default is tar
+failIfKeyNotFound: Fail If Key Doesn’t exist
+override: Override Cache
+pathStyle: Path Style
+risk: Risk
+error: Error
+active: Active
+inactive: Inactive
+health: Health
+changeSource: Change Source
+monitoringSource: Monitoring Source
+sensitivity: Sensitivity
+pipelines: Pipelines
+pipelineBreadcrumb: '{{$.pipelines}}: Pipeline Studio'
+performance: Performance
+quality: quality
+infrastructureText: Infrastructure
+infrastructureTypeText: Infrastructure Type
+update: Update
+visual: VISUAL
+yaml: YAML
+invalidYaml: YAML is invalid. Please fix the issues to proceed.
+editDetails: Edit Details
+verificationJobs: Verification Jobs
+abort: Abort
+conditions: Conditions
+gitBranch: Git Branch
+gitTag: Git Tag
+tbd: TBD
+applyChanges: Apply Changes
+createViaYaml: Create via YAML Builder
+notifications: Notifications
+numberOfServices: 'Number of Services'
+saveAndPublish: Save and Publish
+unsavedChanges: Unsaved changes
+status: Status
+filePaths: File Paths
+submit: Submit
+previous: Previous
+startTime: Start time
+services: Services
+artifacts: Artifacts
+manifests: Manifests
+environments: Environments
+servicesWithCount: '{{ $.services }} ({{ count }})'
+buildText: Build
+pipeline: Pipeline
+pipelineStudio: Pipeline Studio
+stages: Stages
+buildsText: Builds
+newService: New Service
+editService: Edit Service
+newEnvironment: New Environment
+editEnvironment: Edit Environment
+envType: Environment Type
+production: Production
+nonProduction: Non Production
+primaryArtifactText: Primary Artifact
+artifactDisplay: '{{image}} (tag: #{{tag}})'
+noArtifact: No Artifact
+sidecarArtifactText: Sidecar Artifact
+sidecar: Sidecar
+sidecarsText: '{{$.sidecar}}s'
+manifestsText: Manifest
+variablesText: Variables
+fileFolderPathText: File/Folder Path
+chartPath: Chart Path
+pluginPath: Plugin Path
+addFileText: + Add File
+lastExecutionTs: 'Last Run'
+lastRunAtDate: '{{$.lastExecutionTs}}: '
+lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
+emptyDeployments: _ _ _ _ _ _
+recentActivity: Recent Activity
+newUser: New User
+allNotificationFormat: All Notification Format
+lastUpdatedSort: '{{$.lastUpdated}}'
+AZ09: A - Z, 0 - 9
+ZA90: Z - A, 9 - 0
+addOverrideSet: + Add Predefined Set
+newArtifactServer: New Artifact Server
+clickToCopy: Click to copy
+copiedToClipboard: Copied to clipboard
+multipleFilesHelpText:
+  'Multiple files can be overlaid together. They are applied in the order specified - first one gets
+  applied first, and the subsequent ones get layered in the order and overrides any previously
+  specified values.'
+errorSummaryText: Error Summary
+errorDetails: Error Details
+and: 'And'
+na: N/A
+all: All
+plus: +
+passed: Passed
+failed: Failed
+success: Success
+inProgress: In Progress
+todo: TODO - implement this
+identifier: 'Identifier'
+name: Name
+add: Add
+overview: Overview
+reinstall: Reinstall
+edit: Edit
+delete: Delete
+archive: Archive
+select: Select
+selectStage: Select a stage
+verify: Verify
+done: Done
+save: Save
+back: Back
+next: Next
+finish: Finish
+continue: Continue
+addPipeline: + Pipeline
+cancel: Cancel
+duplicate: Duplicate
+errors: Errors
+loading: Loading...
+confirm: Confirm
+confirmation: Confirmation
+retry: Retry
+search: Search
+deleted: deleted
+showAll: Show All
+source: Source
+kind: Kind
+reason: Reason
+message: Message
+viewJSON: View JSON
+creationTimestamp: Creation Timestamp
+categories: Categories
+plaintext: Plaintext
+encryptedFile: Encrypted File
+encrypted: Encrypted
+newNotification: New Notification
+editNotification: Edit Notification
+addNotification: + Add Notification
+noSearchResultsFoundPeriod: No results found.
+createOrSelectSecret: Create or Select a Secret
+description: Description
+recentlyUsed: Recently Used
+applications: Applications
+stageDetails: Stage Details
+stageOverview: Stage Overview
+stageNameLabel: Stage Name
+stageName: 'Stage: {{ name }}'
+tagsLabel: Tags
+tagLabel: Tag
+tagsInfo: Specify one or more tags for the Docker image
+whatToDeploy: What would you like to deploy?
+removeLabel: 'remove'
+keyLabel: Key
+valueLabel: Value
+commandLabel: Command
+preCommandLabel: PreCommand
+preCommandInfo: Commands used for setting up the environment before running the tests
+postCommandLabel: PostCommand
+postCommandInfo: Commands used for cleaning up the environment after running the tests
+consoleView: Console View
+commandInfo: Posix shell script executed inside the container. The script is invoked as if it were the container’s entrypoint
+commandPlaceholder: |
+  npm install
+  npm test
+repositoryUrlLabel: Repository URL
+UrlLabel: URL
+methodLabel: Method
+requestBodyLabel: Request Body
+assertionLabel: Assertion
+outputLabel: Output
+typeLabel: Type
+variableLabel: 'Variable'
+variableNameLabel: Variable Name
+imageLabel: Image
+imagePlaceholder: maven:3.6.3-jdk-8
+pluginImagePlaceholder: plugins/slack
+pluginImageInfo: The name of the Plugin Docker image. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries
+dependencyImagePlaceholder: mysql:5
+imageInfo: The name of the Docker image to use to run commands on. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries.
+imageNameLabel: Image Name
+imageNameInfo: The image's name. It can be different than the image's local name.
+encryptedKeyLabel: Encrypted Key
+environment: 'Environment'
+environmentVariables: 'Environment Variables'
+environmentVariablesInfo: Environment variables injected into the container to be used in the “command” property
+dependencyEnvironmentVariablesInfo: Environment variables injected into the container
+service: 'Service'
+plusAdd: '+ Add'
+idLabel: 'ID: {{id}}'
+nameLabel: 'Name: {{name}}'
+descriptionLabel: 'Description: {{description}}'
+launchStudio: Launch Studio
+viewExecutions: View Executions
+entryPointLabel: 'Entry Point'
+entryPointInfo: Overrides the image ENTRYPOINT
+argsLabel: 'Arguments'
+argsInfo: Overrides the image COMMAND
+dependencyNameLabel: 'Dependency Name'
+cloneCodebaseLabel: 'Clone Codebase'
+allowedValues: 'Allowed values'
+serviceAccount: Service Account
+usernamePassword: 'Username and Password'
+usernameToken: 'Username and Token'
+kerberos: 'Kerberos'
+secureToken: 'Secure Token'
+anonymous: 'Anonymous (no credentials required)'
+saveAndContinue: 'Save and Continue'
+errorWhileSaving: 'Error occurred saving'
+codebase: 'Codebase'
+addressErrorFields: 'Please address all error fields before submitting.'
+invalidYamlText: 'You have provided an invalid or empty yaml, please provide a valid yaml for the pipeline'
+metricPacks: 'Metric Packs'
+review: 'Review'
+enabledLabel: 'Enabled'
+activity: 'Activity'
+store: Store
+helmVersion: Helm Version
+executionStrategy:
+  strategies:
+    blueGreen: With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.
+    rolling: In a Rolling Deployment Strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.
+    canary: In a Canary Deployment, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.
+    default: With a blank canvas, you get to orchestrate your deployment with any combination of steps from the palette. It allows maximum flexibility - only recommended for advanced users.
+  preview: 'Preview'
+  strategyType: 'Common'
+selectProduct: 'Select Product'
+selectApplication: 'Select Application'
+selectProject: 'Select a Project'
+selectResource: Select Resource
+closeSelection: 'Close Selection'
+mapApplications: 'Map Applications to Harness Services'
+mapApplicationsToEnvs: Map Applications to Harness Environments
+lastSevenDays: 'last 7 days'
+total: 'Total'
+credentials: Credentials
+delegateSelection: Delegation Selection
+editCredentials: Edit Credentials
+createProject: '+ Create Project'
+pickProject: Pick a project and drill down to see your information.
+orSelectExisting: Or select an existing project
+stageConfirmationText: 'Are you sure you want to delete stage "{{ name }} [Id: {{id}}]"?'
+deletePipelineStage: 'Delete Pipeline Stage.'
+deleteStageSuccess: 'Pipeline Stage Successfully removed.'
+deleteStageFailure: 'Pipeline Stage cannot be removed.'
+repositoryType: 'Repository Type'
+selectServer: 'Select Server'
+stepPalette:
+  title: 'Step Library'
+  subTitle: 'All Steps'
+  noSearchResultsFound: 'No results found. Please try another step name.'
+  loadingSteps: Loading steps...
+  selectStep: 'Select a Step'
+  library: 'Library'
+  others: 'Others'
+  infrastructureProvisioners: 'Infrastructure Provisioners'
+  showAllSteps: 'Show All Steps'
+  searchPlaceholder: 'Search Step'
+cd:
+  continuousIntegration: 'Continuous Delivery'
+  dashboard:
+    subHeading: Let Harness take your software release process to the next level with Continuous Delivery
+    learnMore: Learn more about Continuous Delivery
+    createProject: '{{$.ci.dashboard.createProject}}'
+    orSelectExisting: '{{$.orSelectExisting}}'
+orgDetails:
+  accessControlDescription: Manage users, create user groups and assign roles to your team. Fine tune your permissions with custom roles.
+  governanceDescription: Precision control over all your Harness resources.
+  resourcesDescription: Manage connectors, secrets, delegates, templates here. Setup account level Git Experience here.
+  gitSyncDescription: Connect to your Git repository and track your changes
+createSecretYAML:
+  create: Create
+  newSecret: New Secret
+  createSecret: Create Secret from YAML
+  secretCreated: Secret created successfully
+  invalidSecret: Invalid Secret configuration
+formValidation:
+  name: 'Name can only contain alphanumerics, _ and -'
+filters:
+  filterVisibility: Who can view and edit the filter?
+  name: Filter Name
+  visibileToOnlyMe: Only me
+  visibleToEveryone: Everyone
+  apply: Apply
+  clearAll: Clear All
+  newFilter: New Filter
+  typeFilterName: Type filter name
+  nameRequired: filter name cannot be empty
+  visibilityRequired: filter visibility needs to be specified
+  deleteFilterForUser: Deleting a private filter will remove it from your saved filter list. This action can not be undone.
+  deleteFilterForEveryone: Deleting a shared filter will remove it for all users who has access to the project. This action can not be undone.
+  confirmDelete: Confirm Deletion
+  filterDeleted: filter deleted.
+  filterDuplicated: filter duplicated.
+  selectFilter: Select a saved filter
+  invalidSelection: Invalid selection
+  visibilityTitle: This filter is visible to only me.
+  invalidCriteria: Invalid or no filter criteria specified.
+  noDataFound: No data found as per the applied filter(s).
+  noFilterFound: No filter found.
+  executions:
+    pipelineName: Pipeline Name
+    buildType: Build Type
+    pullOrMergeRequest: Pull Request / Merge Request
+    tagPlaceholder: Enter tag
+    selectBuildTypeLabel: Select a build type
+customText: '{{text}}'
+adminLabel: 'Admin'
+collaboratorsLabel: 'Collaborators'
+viewDetails: 'View Details'
+startedAt: 'Started at:'
+endedAt: 'Ended at:'
+duration: 'Duration:'
+skipped: 'Step has been skipped.'
+skipCondition: 'Skip condition:'
+skipConditionValidation: 'Skip condition is required.'
+learnMore: Learn more
+clipboardCopySuccess: Successfully copied to clipboard
+clipboardCopyFail: Copy to clipboard has failed
+skipConditionsTitle: Skip Conditions
+skipConditionTitle: Skip Condition
+skipConditionLabel: If the JEXL condition evaluates to true, skip this step
+skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stage
+skipResourceVersion: 'Skip Resource Versioning'
+skipConditionHelpText: |
+  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+  Examples:
+  <+steps.step1.output.result> == “success”
+  <+environment.name> != “QA”
+skipConditionText: |
+  In the JEXL expression, you could use any of the pipeline variables - including the output of any previous stages.
+
+  Examples:
+  <+steps.step1.output.result> == “success”
+  <+environment.name> != “QA”
+selectStrategy: Select a Strategy
+failureStrategy:
+  title: Failure Strategy
+  helpText: |
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
+  defaultStageText: |
+    On all errors other than those specified in failure strategies defined here, perform action:
+failureTypeSelectLabel: On failure of type
+performAction: Perform Action
+failureStrategies:
+  fieldLabels:
+    retryCountLabel: Retry count
+    retryIntervalsLabel: Retry intervals
+    onTimeoutLabel: Post timeout action
+    onRetryFailureLabel: Post retry failure action
+  strategiesLabel:
+    Ignore: Ignore Failure
+    StageRollback: Rollback Stage
+    StepGroupRollback: Rollback Step Group
+    ManualIntervention: Manual Intervention
+    MarkAsSuccess: Mark As Success
+  errorTypeLabels:
+    Authentication: Authentication Errors
+    Authorization: Authorization Errors
+    Connectivity: Connectivity Errors
+    Timeout: Timeout Errors
+    Verification: Verification Errors
+    DelegateProvisioning: Delegate Provisioning Errors
+    AnyOther: Any Other
+  validation:
+    errorsRequired: At least one failure type is required
+    errorsMinimum: '{{ $.failureStrategies.validation.errorsRequired }}'
+    actionRequired: Action is required
+    retryCountInteger: Retry Count must be a positive integer
+    retryCountRequired: Retry Count is required
+    retryCountMinimum: Retry Count must be greater or equal to 1
+    retryIntervalRequired: Retry Interval is Required
+    retryIntervalMinimum: At least one retry interval is Required
+    timeoutRequired: Timeout is required
+    onRetryFailureRequired: Retry failure action is required
+    onTimeoutRequired: Timeout failure action is required
+
+preRequisitesTitle: Pre-requisites
+advancedTitle: Advanced
+responseMapping: Response Mapping
+scriptInputVariables: Script Input Variables
+scriptOutputVariables: Script Output Variables
+executionTarget: Execution Target
+basic: Basic
+stepConfiguration: Basics
+stepGroupConfiguration: Step Group Configuration
+image: 'Image:'
+createdAt: 'Created at:'
+username: 'Username'
+password: 'Password'
+navigationYamlErrorTitle: Invalid Yaml Detected
+navigationYamlError: You have provided an invalid yaml, navigating away will remove your changes
+navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
+navigationCheckTitle: 'Close without saving?'
+continueWithoutSavingTitle: Continue without saving?
+continueWithoutSavingText: 'You have unsaved changes. Are you sure you want to continue without saving?'
+inputSetsText: 'Input Sets'
+projectDescription: 'A Harness project allows you to logically group pipelines, corresponding environments and services.'
+addProject: '+ Add Project'
+noProjects: 'No Projects Found'
+noRoles: No Roles Found
+string: 'String'
+number: 'Number'
+secretType: 'Secret'
+list: 'List'
+map: 'Map'
+HTTP: 'HTTP'
+HTTPS: 'HTTPS'
+SSH: 'SSH'
+SSH_KEY: 'SSH Key'
+version: Version
+goToHome: Go To Home
+governance: 'Governance'
+generalSettings: 'General Settings'
+accessControl: 'Access Control'
+noPermission: You don't have permission to perform this action
+gitSync: 'Git Sync'
+templateLibrary: 'Template Library'
+generic_errors:
+  INVITE_EXPIRED: This invite link has expired
+
+gitFetchTypes: [{ label: 'Latest from Branch' }, { label: 'Specific Commit ID' }]
+snippets:
+  copyToClipboard: Copy to Clipboard
+  copied: Copied!
+fetching: Fetching
+somethingWentWrong: Something went wrong
+saveChanges: Save Changes
+projectSelector:
+  placeholder: 'Start typing to search'
+script: 'Script'
+inline: 'Inline'
+upload: 'Upload'
+remote: 'Remote'
+stepType: 'Step Type'
+scriptType: 'Script Type'
+shellScriptStep: 'Shell Script'
+executeScript: 'Where would you like to execute the script?'
+targetHost: 'Target Host'
+workingDirectory: 'Working Directory'
+exportScript: 'You can export script outputs as variables which can be used later in the pipeline.'
+sshConnector: 'SSH Connection Attribute'
+addOutputVar: 'Add Output Variable'
+addInputVar: 'Add Input Variable'
+inputValue: Input Value
+inputName: Input Name
+outputValue: Output Value
+outputName: Output Name
+notificationMethod: Notification Method
+pipelines-studio:
+  addStep: Add step
+  dependenciesGroupTitle: Dependencies
+  addDependency: Add service dependency (optional)
+  pipelineUpdated: Pipeline Updated
+  publishPipeline: 'Pipeline published successfully'
+  errorWhileSaving: Error occurred saving pipeline
+  pipelineUpdatedError: Pipeline is updated in the backend by someone so do you want to take the latest pipeline, this may you loose the local pipeline saved?
+inputTypes:
+  FIXED: Fixed value
+  RUNTIME: Runtime input
+  EXPRESSION: Expression
+roleForm:
+  createSuccess: Role created succesfully
+  updateSuccess: Role updated succesfully
+roleDetails:
+  permissionUpdatedSuccess: Permissions updated succesfully
+  updateRolePermissions: Update Role permissions
+  noDataText: You have no Roles. Click the button below to create a new one.
+barriers:
+  syncBarriers: Synchronization Barriers
+  flowControl: Flow Control
+  addBarrier: + Add Barrier
+
+roleCard:
+  confirmDelete: Are you sure you want to delete the Role '{{name}}'?
+  confirmDeleteTitle: 'Delete Role'
+  successMessage: Role '{{name}}' is deleted succesfully
+addResourceModal:
+  selectedText: Selected {{name}} ({{number}})
+projectCard:
+  clone: 'Clone'
+  projectName: 'Project Name'
+  confirmDelete: Deleting the Project '{{name}}' would mean that you are also deleting all the resources associated with it. Are you sure you want to delete the Project?
+  confirmDeleteTitle: 'Delete Project'
+  successMessage: 'Project {{projectName}} is deleted'
+  cdRendererText: 'Deployments in last 7 days'
+  cvRendererText: 'Verifications in last 7 days'
+  ciRendererText: 'Builds in last 7 days'
+  cfRendererText: 'Feature Flags in last 7 days'
+  ceRendererText: 'Cost Savings in last 7 days'
+
+collaborators:
+  roleLabel: 'Role :'
+ssh:
+  sshCredential: 'SSH Credential'
+  createmessageSuccess: 'Execution Credential created successfully'
+  editmessageSuccess: 'Execution Credential updated successfully'
+secretManager:
+  createmessageSuccess: 'Secrets Manager created successfully'
+  editmessageSuccess: 'Secrets Manager updated successfully'
+secret:
+  titleCreateText: 'Add new Encrypted Text'
+  titleCreateFile: 'Add new Encrypted File'
+  titleEditText: 'Edit Encrypted Text'
+  titleEditFile: 'Edit Encrypted File'
+  inlineSecret: 'Inline Secret Value'
+  referenceSecret: 'Reference Secret'
+  secretCreated: Secret Created
+  secretActivity: Secret Activity
+  labelSecretName: 'Secret Name*'
+  labelSecretValue: 'Secret Value*'
+  labelSecretFile: 'Select File'
+  labelSecretReference: 'Reference Secret Identifier'
+  labelSecretsManager: 'Secrets Manager*'
+  saving: 'Saving'
+  messageSelectSM: 'Please select a Secret Manager'
+  placeholderSecretValue: 'Add your secret value'
+  placeholderSecretReference: 'Add the Identifier of the secret to reference'
+  validationName: 'Name is required'
+  validationNameChars: 'Name can only contain alphanumerics, _ and $'
+  validationValue: 'Value is required'
+  validationKms: 'Secret Manager is required'
+  validationIdentifier: 'ID is required'
+  labelText: 'Text'
+  labelFile: 'File'
+  labelSecretType: 'Secret type'
+usersPage:
+  search: Search by Name or Email
+instanceFieldOptions:
+  percentage: 'percentage'
+  instances: 'instances'
+  percentageText: '% Percentage'
+  instanceText: 'Instance Count'
+  percentagePlaceHolder: 'Percentage'
+  instanceHolder: 'Count'
+approvalStep:
+  message: 'Approval Message'
+  approvers: 'Approvers'
+  approverInputs: 'Inputs to be provided by approver'
+  includePipelineExecutionHistory: 'Include pipeline execution history'
+  userGroups: 'Groups'
+  minimumCount: 'Number of approvers that are required at this step'
+  disallowPipelineExecutor: 'Disallow the pipeline executor from approving the pipeline'
+  validation:
+    usersOrUserGroups: 'Please provide users or user groups for approval'
+    minimumCountOne: 'Minimum count cannot be less than one'
+    minimumCountRequired: 'Minimum count is required'
+delegate:
+  numberOfDelegates: 'Number of delegates'
+  delegateSizeUndefined: 'Delegate Size is undefined'
+  hostName: 'Hostname'
+  useExistingSelectors: 'Use existing delegate selectors'
+  verifyDelegateYamlCmnd: '$ kubectl apply -f harness-delegate.yaml'
+  delegateNameRequired: 'Delegate Name is Required.'
+  delegateSizeRequired: 'Delegate Size is Required.'
+  delegateConfigRequired: 'Delegate Configuration is Required.'
+  replicaText: 'Runs upto concurrent tasks Replicas='
+  configNameRequired: 'Delegate Configuration name is Required.'
+  successfullyUpdatedConfig: 'Successfully Updated Delegate Configuration'
+  totalMem: 'Total Mem'
+  totalCpu: 'Total CPU'
+  productionWorkloads: 'For Production Workloads'
+  delegateName: 'Delegate Name'
+  delegateType: 'Delegate Type'
+  delegateSize: 'Delegate Size'
+  delegateSizeLower: 'Delegate size'
+  delegateSizeLarge: 'Large'
+  delegateMEM: MEM
+  delegateCPU: CPU
+  delegateDISK: DISK
+  delegateSizeUpto: Runs upto concurrent tasks
+  delegatesConfigurations: Delegates Configurations
+  envTypes: Environment types
+  initScriptPlaceholder: Enter initialization script...
+  enterTags: Enter tags...
+  selectEnvType: Select environment types...
+  selectEnvs: Select environments...
+  pendingApproval: Pending Approval
+  connected: Connected
+  notConnected: Not Connected
+  newConfiguration: New Delegate Configuration
+  delegates: 'Delegates'
+  NEW_DELEGATE: 'New Delegate'
+  DelegateName: 'Delegate'
+  DelegateSelector: 'Delegate Selector'
+  DelegateselectionLabel: 'Delegate selection'
+  DelegateselectionConnectorText: 'Limit usage of this connector to the delegates which have the following tags'
+  DelegateselectionPlaceholder: 'Select or create the delegate selectors'
+  DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression, it does not include'
+  DelegateSelectorErrMsgSplChars: 'has invalid characters, the selector property cannot contain'
+  Delegate_Selector_placeholder: 'Add specific selectors or leave empty to target any delegate'
+  delegateTags: 'Delegate Tags'
+  ReturnToDelegates: 'Return to list of Delegates'
+  tagsFromDelegateConfig: 'Tags inherited from the delegate configuration'
+  delegateSpecificTags: 'Delegate Specific Tags'
+  delegateTagDescription:
+    'You can use delegate tags to control if this delegate can be used for executing certain steps in
+    a pipeline'
+  LastHeartBeat: 'Last HeartBeat'
+  delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
+  downloadScript: 'Download Script'
+  kubernetes:
+    prerequisites: 'Kubernetes Prerequisites'
+    prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart'
+    prerequisites_info2: 'If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: '
+    prerequisites_info3: 'Your Kubernetes cluster has unallocated resources required to run the Harness Delegate workload'
+    prerequisites_worload1: 'Small (runs upto 250 concurrent tasks) - 1GB memory, 0.25 CPU, 1GB disk'
+    prerequisites_worload2: 'Medium (runs upto 1000 concurrent tasks) - 4GB, 1 CPU, 10GB disk'
+    prerequisites_worload3: 'Large (runs upto 5000 concurrent tasks) - 16GB, 4 CPU, 25GB disk'
+    permissions_title: 'You will need the following Kubernetes permissions to install the delegate:'
+    permissions_info1: 'Permission to create namespace (For the Harness Delegate namespace)'
+    permissions_info2: 'Permission to create statefulsets (For the Harness Delegate Pod to be created)'
+    url: 'https:app.harness.io:443/'
+  stepOneWizard: 'Create Delegate'
+  reviewScript:
+    configProxySettings: 'Configure Proxy Settings'
+    descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh '
+  successVerification:
+    applyYAMLTitle: ' Apply YAML and verify connection'
+    description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
+    description2: 'Run the following command to apply the Harness delegate to your Kubernetes Cluster'
+    checkDelegateInstalled: Checking if the delegate is installed. It might take 1-2 minutes for the installation.
+    heartbeatReceived: Heartbeat received
+    delegateInitialized: Delegate initialized
+    delegateInstalled: Delegate Installed Successfully
+  delegateNotInstalled:
+    title: Delegate not installed
+    verifyField2: kubectl logs -f <harness-delegate> -n harness-delegate
+    verifyField3: kubectl describe pod_name -n harness-delegate
+    statusOfCluster: 'Check the status of your delegate on your cluster'
+    podCommand: 'kubectl describe pod <your-delegate-pod> -n harness-delegate'
+    podComeUp: 'Did the pod <pod name> come up?'
+    eventErrorBlock: 'Do you see the error in the events block? If so what is the error?'
+    permissionError: 'Permission Error'
+    crashloopError: 'Crashloop BackOff'
+    pullError: 'ErrorImage Pull'
+    harnessErrorValidation: 'Do you see an error "Failed to connect to Harness Sass? or Manager?"'
+    contactHarness: 'Contact Harness Support'
+    tabs:
+      commonProblems:
+        title: Common Problems
+        hereIsWhatYouCanDo: Here is what you can do
+        troubleshoot: Troubleshoot
+        checkTheDelegateLogs: Check the Delegate Logs
+        description1:
+          If the pod is not up, in your cluster you see the delegate pod in a CrashLoopBackOff:Kubernetes CLuster
+          Resources are not available. Check the Kubernetes Cluster Resources (CPU, Memory)
+        description2: If the Delegate didn’t reach a healthy state
+        checkEndPoint: Check the Health Check Endpoint in the Delegate. Search YAML for healthCheckEndpoint
+      troubleshooting: Troubleshooting
+  cardData:
+    docker:
+      text: 'Runs Harness Delegate as a Docker container on any Linux or Mac.'
+      value: 'serviceDockerhub'
+      icon: 'service-dockerhub'
+      name: 'Docker'
+    kubernetes:
+      text: 'Runs Harness Delegate as a workload on your Kubernetes Cluster.'
+      value: 'serviceKubernetes'
+      icon: 'service-kubernetes'
+    amazonECS:
+      text: 'Runs Harness Delegate as an Amazon process.'
+      value: 'serviceLinux'
+      icon: 'service-linux'
+      name: 'Amazon ECS'
+    linux:
+      text: 'Runs Harness Delegate as a Linux process.'
+      value: 'ecs'
+      icon: 'service-ecs'
+      name: 'Linux'
+  delegateConfigurations: 'Delegate Configurations'
+  delegateConfiguration: 'Delegate Configuration'
+  CONFIGURATION_NAME: 'Delegate Configuration Name'
+  Scope: 'Scope'
+  ScopeDescription: 'Limit the delegate to perform tasks related to the following environments'
+  Init_Script: 'Initialization Script'
+  deleteDelegate: 'Delete Delegate'
+  questionDeleteDelegate: 'Are you sure you want to delete this Delegate?'
+  deleteDelegateConfiguration: 'Delete Delegate Configuration'
+  deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
+  deleteDelegateConfigurationSuccess: 'Delegate Configuration {{ profileName }} deleted'
+execution:
+  pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
+  pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
+  latestCommit: 'Latest commit:'
+  latestNCommits: 'Last {{numberOfCommits}} commits:'
+  prSymbol: '#'
+  triggerType: # text for trigger types
+    MANUAL: Manually
+    WEBHOOK: Webhook
+  stepLogs: Step Logs
+  consoleLogs: Console Logs
+  actions:
+    resume: Resume Pipeline
+    rerun: Re-run Pipeline
+    pause: Pause Pipeline
+    abort: Abort Pipeline
+    downloadLogs: Download logs
+  actionMessages:
+    abortedMessage: Pipeline has been aborted successfully
+    pausedMessage: Pipeline has been paused successfully
+    resumedMessage: Pipeline has been resumed successfully
+  iotab:
+    noInputText: No input found for current step
+    noOutputText: No output found for current step
+pipeline-notifications:
+  nameOftheRule: Name of the Rule
+  notificationName: Give your notification a name
+  pipelineEvents: Pipeline Events
+  selectPipelineEvents: Select Pipeline Events
+  selectStagesPlaceholder: 'Select stages'
+  notificationMethod: '{{$.notificationMethod}}'
+  emailRecipients: Type emails of your recipients
+  emailUserGroups: Email all members of these user groups
+  slackwebhookUrl: Slack Webhook URL (Optional)
+  slackuserGroups: Notify the Slack Channels associated with these user groups
+  pagerDutykey: PagerDuty Key (Optional)
+  pagerDutyuserGroups: Notify these user groups
+pipeline-triggers:
+  aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
+  addNewTrigger: Add New Trigger
+  triggersLabel: 'Triggers'
+  triggersSubLabel: 'All Trigger Types'
+  searchPlaceholder: 'Search Triggers'
+  noTriggersFound: 'No Triggers Found'
+  newTrigger: + New Trigger
+  pipelineExecutionInput: Pipeline Execution Input
+  lastExecutionDetails: Last Execution Details
+  lastExecutionAt: 'Last execution at'
+  showAllTriggers: 'Show all Triggers'
+  onNewWebhookTitle: 'On New Webhook'
+  onNewArtifactTitle: 'On New Artifact/Manifest'
+  onNewArtifactLabel: 'On New artifact'
+  newArtifactLabel: 'New Artifact'
+  newManifestLabel: 'New Manifest'
+  onScheduleLabel: 'On Schedule'
+  scheduledLabel: 'Scheduled'
+  triggerConfigurationLabel: 'Trigger Configuration'
+  pipelineInputLabel: 'Pipeline Input'
+  updateTrigger: 'Update trigger'
+  createTrigger: 'Create trigger'
+  deleteTrigger: 'Delete Trigger'
+  confirmDelete: 'Are you sure you want to delete trigger' # followed by name
+  pageNotFound: 'Page not found'
+  triggerLabel: 'Trigger'
+  lastActivationLabel: 'LAST ACTIVATION'
+  enableLabel: 'ENABLE'
+  activityActivation: '{{numActivations}} Activations in'
+  activityDays: 'Last {{numDays}} days'
+  copyAsUrl: 'Copy as Webhook URL'
+  copyAsCurl: 'Copy as cURL Command'
+  cannotParseTriggersData: 'Cannot parse trigger data'
+  cannotParseInputValues: 'Cannot parse pipeline input values'
+  validation:
+    triggerName: 'Trigger Name is required.'
+    identifier: 'Identifier is required.'
+    event: 'Event is required.'
+    connector: 'Connector is required.'
+    repoName: 'Repository Name is required for Connector with Account URL Type.'
+    actions: 'Actions is required.'
+    operator: 'Operator is required with Matches Value.'
+    matchesValue: 'Matches Value is required with Operator.'
+    payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
+    headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
+  toast:
+    successfulCreate: 'Successfully created {{name}}.'
+    successfulUpdate: 'Successfully updated {{name}}.'
+    toggleEnable: 'Successfully {{enabled}} {{name}}.'
+    webhookUrlCopied: 'Webhook URL is copied to clipboard.'
+    webhookCurlCopied: 'Webhook cURL Command is copied to clipboard.'
+  triggerConfigurationPanel:
+    title: 'Trigger Configuration: On New Webhook'
+    triggerName: 'Trigger Name'
+    listenOnNewWebhook: 'Listen on New Webhook'
+    payloadType: 'Payload Type'
+    event: 'Event'
+    actions: Actions
+    anyActions: Any Actions
+    viewToken: 'View Token'
+    copyToken: 'Copy Token'
+    copiedToken: 'Successfully copied secure token'
+    regenerateToken: 'Regenerate Token'
+    regeneratedToken: 'Successfully regenerated secure token'
+    secureTokenRegenerateWarning: 'When the existing secure token is regenerated and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
+  conditionsPanel:
+    titleOptional: '(OPTIONAL)'
+    subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
+    branchConditions: 'Branch Conditions'
+    sourceBranch: 'Source Branch'
+    targetBranch: 'Target Branch'
+    branchName: 'Branch Name'
+    headerConditions: 'Header Conditions'
+    payloadConditions: 'Payload Conditions'
+    attribute: 'Attribute'
+    operator: 'Operator'
+    matchesValue: 'Matches Value'
+    jexlConditions: 'JEXL Conditions'
+  pipelineInputPanel:
+    noRuntimeInputs: 'No Runtime Inputs'
+repo-provider:
+  bitbucketLabel: BitBucket
+  customLabel: Custom
+  githubLabel: GitHub
+  gitlabLabel: GitLab
+executionStatus:
+  Failed: FAILED
+  Success: SUCCESS
+  Aborted: ABORTED
+  Error: ERROR
+  Paused: PAUSED
+  Pausing: PAUSING
+  Waiting: WAITING
+  Aborting: ABORTING
+  Running: RUNNING
+  Queued: QUEUED
+  Skipped: SKIPPED
+  Starting: STARTING
+  Rejected: REJECTED
+  Expired: EXPIRED
+  Suspended: SUSPENDED
+  NotStarted: NOT STARTED
+executionList:
+  servicesDeployedText: 'Services Deployed ({{size}})'
+moduleRenderer:
+  start: No modules enabled
+  newPipeLine: Create New Pipeline
+  viewPipelines: View Pipelines
+  setupChanges: Set Up Change Sources
+  monitoringSources: Set Up Monitoring Sources
+projectContextMenuRenderer:
+  gotoCV: 'Go to Continuous Verification'
+  gotoCD: 'Go to Continuous Delivery'
+  gotoCF: 'Go to Continuous Features'
+  gotoCI: 'Go to Continuous Integration'
+  gotoCE: 'Go to Continuous Efficiency'
+  invite: 'Invite Collaborators'
+pipelineSteps:
+  environmentTab:
+    specifyYourEnvironment: Specify your environment
+    selectEnvironment: '- Select Environment -'
+    newEnvironment: + New Environment
+    environmentIsRequired: Environment is a required field
+  serviceTab:
+    specifyYourService: Specify your service
+    selectService: '- Select Service -'
+    newService: + New Service
+    serviceIsRequired: Service is a required field
+    aboutYourService: About the Service
+    artifactList:
+      addSidecar: + Add Sidecar
+      addPrimary: + Add Primary Artifact
+    manifestList:
+      manifestFormat: MANIFEST FORMAT
+      manifestStore: STORE
+      addManifest: + Add Manifest/Config File
+  deleteNamespace: 'Delete namespace'
+  stepNameLabel: '{{ $.name }}'
+  connectorLabel: 'Container Registry'
+  connectorInfo: 'Container Registry to use to download the image use to run commands on'
+  dependencyConnectorInfo: Container Registry to use to pull the service dependency image from
+  gcrConnectorInfo: GCP connector to use for uploading the image to GCR
+  ecrConnectorInfo: AWS connector to use for uploading the image to ECR
+  s3ConnectorInfo: AWS connector to use for uploading the artifact(s) to S3
+  gcsConnectorInfo: GCP connector to use for uploading the artifact(s) to GCS
+  hostLabel: Host
+  hostPlaceholder: us.gcr.io
+  hostInfo: GCR Host
+  projectIDLabel: Project ID
+  projectIDInfo: GCR Project ID
+  cacheFromLabel: 'Cache From'
+  autoTagLabel: 'Auto-Tag'
+  autoTagSuffixLabel: 'Auto-Tag Suffix'
+  settingsLabel: 'Settings'
+  settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
+  dockerRegistryInfo: Docker registry. For example, "plugins/s3"
+  dockerfileLabel: 'Dockerfile'
+  dockerfileInfo: If not provided assumed to be in the root folder of the codebase
+  endpointLabel: 'Endpoint URL'
+  endpointPlaceholder: http://minio.company.com
+  endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
+  contextLabel: 'Context'
+  contextInfo: Either a path to a directory containing a Dockerfile, or a url to a git repository
+  labelsLabel: 'Labels'
+  labelsInfo: Use Labels to add metadata to the Docker image
+  regionLabel: 'Region'
+  regionPlaceholder: us-east-1
+  regionInfo: AWS Region
+  accountLabel: Account ID
+  accountInfo: AWS Account ID
+  reportPathsLabel: Report Paths
+  reportPathsInfo: Each path should lead to file(s) that stores results in the JUnit XML format.  Regex is supported.
+  reportPathsPlaceholder: /target/*.xml
+  buildArgsLabel: 'Build Arguments'
+  buildArgsInfo: Build-time variables
+  bucketLabel: 'Bucket'
+  bucketInfo: AWS Bucket
+  S3BucketInfo: S3 Bucket
+  GCSBucketInfo: GCS Bucket
+  targetLabel: 'Target'
+  artifactsTargetPlaceholder: path/in/bucket
+  targetInfo: Build the specified stage as defined inside the Dockerfile
+  artifactsTargetInfo: The path to store the cache in, relatively to the bucket. If not provided the cache will be save to [bucket]/[key]
+  jFrogArtifactoryTargetInfo: Repository name relative to the server URL in the connector. If pom.xml is not present then target should be full path to artifacts folder (groupID/artifactID/version)
+  outputVariablesLabel: 'Output Variables'
+  outputVariablesInfo: 'Output Variables can be used to expose Environment Variables to be used by other steps/stages of the pipeline'
+  sourcePathLabel: 'Source Path'
+  sourcePathInfo: Use regex to upload multiple files
+  optionalConfiguration: 'OPTIONAL CONFIGURATIONS'
+  pullLabel: 'Image Pull Policy'
+  pullInfo: |
+    Determine the pull policy of the Docker image:
+
+    The default behavior is downloading an image if it doesn’t exist in the local cache, unless the “latest” tag is used either explicitly or implicitly.
+
+    “If not exists” - only pull the image if not found in the local cache.
+
+    “always” - always pull the newest version of the image.
+
+    “never” - always use image from local cache, if available.
+  pullIfNotExistsLabel: 'If not exists'
+  pullNeverLabel: 'Never'
+  pullAlwaysLabel: 'Always'
+  sourcePathsLabel: 'Source Paths'
+  sourcePathsInfo: 'A list of files. Expressions are supported. For example: target/*.jar'
+  cacheSourcePathsInfo: A list of files/folders to cache
+  pomFileLabel: 'POM File'
+  pomFileInfo: Path to the pom.xml file
+  setContainerResources: 'Set container Resources'
+  setContainerResourcesTooltip: |
+    Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.
+
+    Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: G, M. You can also use the power-of-two equivalents: Gi, Mi.
+
+    Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
+  limitMemoryLabel: 'Limit Memory'
+  limitMemoryPlaceholder: '128Mi'
+  limitCPULabel: 'Limit CPU'
+  limitCPUPlaceholder: '0.2'
+  limitMemoryUnitMiLabel: Mi
+  limitMemoryUnitGiLabel: 'Gi'
+  limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
+  limitCPUExample: 'Ex: 1'
+  timeoutLabel: 'Timeout'
+  timeoutPlaceholder: '120s'
+  resourceNameLabel: 'Resource Name'
+  resourceNameValue: 'ResourceName'
+  releaseNameLabel: 'Release Name'
+  releaseNameValue: 'ReleaseName'
+  manifestPathLabel: 'Manifest Path'
+  manifestPathValue: 'ManifestPath'
+  deleteResourcesBy: 'Delete resources by'
+  deleteResourcesPlaceHolder: 'Specify resources to be delete'
+  manifestPathsPlaceHolder: 'Specify file paths'
+  deleteNamespaceWarning: 'Warning: Ensure that you are not deleting a namespace that is used by other deployments'
+  timeoutInfo: |
+    You can use:
+
+    w for weeks
+    d for days
+    h for hours
+    m for minutes
+    s for seconds
+    ms for milliseconds
+  instanceLabel: 'Instances'
+  typeName: 'instanceType'
+  awsConnectorLabel: AWS Connector
+  awsConnectorInfo: AWS connector to use for saving the cache to S3
+  restoreCacheAwsConnectorInfo: AWS connector to use for restoring the cache from S3
+  gcpConnectorLabel: GCP Connector
+  gcpConnectorInfo: GCP connector to use for saving the cache to GCS
+  restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
+  dockerHubConnectorLabel: Docker Connector
+  dockerHubConnectorInfo: Docker Connector to use for uploading the image
+  k8sRolloutDeploy: K8s Rollout Deploy
+  k8sApply: K8s Apply
+  k8sDelete: K8s Delete
+  k8sRolloutRollback: K8s Rolling Rollback
+  barrier: Barrier
+  k8sBGDeploy: 'K8s Blue Green Deploy'
+  k8sCanaryDeploy: 'K8s Canary Deploy'
+  k8sBGSwapServices: 'K8s Blue Green Swap Services'
+  K8sCanaryDelete: 'K8s Canary Delete'
+  k8sScale: 'K8s Scale'
+  skipDryRun: 'Skip Dry Run'
+  skipSteadyStateCheck: Skip Steady State Check
+  workload: 'Workload'
+  stepNameRequired: 'Step Name is required'
+  lessThanZero: 'Instance cannot be less than zero.'
+  morethanHundred: 'Instance cannot be more than 100.'
+  instancesRequired: 'Instance is required.'
+  methodIsRequired: Method is required
+  keyInfo: The key the cache will be identified by. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
+  restoreCacheKeyInfo: The key that can be used to restore this cache. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
+  build:
+    delete:
+      confirmDeleteTitle: 'Are you sure you want to remove this stage '
+      deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for following stages:'
+    create:
+      aboutYourStage: 'About Your Stage'
+      stageNameRequiredError: 'Stage Name is required'
+      cloneCodebaseHelperText: 'Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage'
+      stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
+      stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
+      configureCodebase: 'Configure Codebase'
+      configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
+      connectorRequiredError: 'Connector is required'
+      repositoryNameLabel: 'Repository Name'
+      repositoryNameRequiredError: 'Repository Name is required'
+      repositoryUrlWrongUrlError: 'Please enter valid URL'
+      repositoryUrlRequiredError: 'Repository URL is required'
+      setupStage: 'Set Up Stage'
+      buildStageName: Build / Test
+      buildStageDescription: Build your applications with blazing fast pipelines.
+
+    stageSpecifications:
+      stageNamePlaceholder: 'Enter your stage name'
+      variableNamePlaceholder: 'Enter Variable name'
+      sharedPaths: 'Shared Paths'
+      sharedPathsInfo: By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths
+      addSharedPath: '+ Path'
+      addDescription: 'description'
+      addTags: 'tags'
+      variablesCell: 'VARIABLES'
+      valueCell: 'VALUE'
+    infraSpecifications:
+      whereToRun: Where do you want the builds to run?
+      propagate: 'Propagate from an existing stage'
+      newConfiguration: 'New Configuration'
+      newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
+      namespace: 'Namespace'
+  deploy:
+    errors:
+      notags: No tags found with given Image Path
+    create:
+      multipleServices: Multiple Services
+      deployStageName: Deploy
+      deployStageDescription: Use this stage to deploy services, functions or execute workloads
+    inputSet:
+      imagePath: 'Image Path'
+      artifactServer: 'Artifact Server'
+      branch: 'Branch'
+    serviceSpecifications:
+      serviceDefinition: Service Definition
+      useFromStageLabel: 'Use from Stage'
+      propagate: 'Propagate from:'
+      deploymentTypes:
+        artifacts: '{{ $.artifacts }}'
+        manifests: '{{ $.manifests }}'
+    infrastructure:
+      infraDefinition: Infrastructure definition
+      selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
+      directConnection: Direct Connection
+      viaCloudProvider: Via Cloud Provider
+  feature:
+    create:
+      featureStageName: Feature Flag
+      featureStageDescription: Use this stage to roll out features or run a workflow.
+      specifyEnvironment: Specify the environment
+      whatIsFor: What is your flag used for?
+
+validation:
+  nameRequired: Name is a required field
+  stepNameRequired: Step Name is a required field
+  identifierRequired: Identifier is a required field
+  identifierDuplicate: Stage with same identifier already exists
+  connectorRefRequired: Container Registry is a required field
+  AWSConnectorRefRequired: AWS connector is a required field
+  GCPConnectorRefRequired: GCP connector is a required field
+  dockerHubConnectorRefRequired: Docker Connector is a required field
+  imageRequired: Image is a required field
+  commandRequired: Command is a required field
+  limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
+  keyRequired: Key is a required field
+  valueRequired: Value is a required field
+  validIdRegex: Identifier can only contain alphanumerics, _ and $
+  # Replace if validIdRegex will apply the same rules
+  validStepIdRegex: Identifier can only contain alphanumerics and _
+  validKeyRegex: Keys can only contain alphanumerics and _
+  validOutputVariableRegex: Output variables can only contain alphanumerics and _
+  validReportPathRegex: Report paths should end with .xml
+  validStepNameRegex: Step Name can only contain alphanumerics, spaces, _ and -
+  illegalIdentifier: 'Identifier must not be one of the following values: or, and, eq, ne, lt, gt, le, ge, div, mod, not, null, true, false, new, var, return'
+  uniqueStepAndServiceDependenciesId: Identifier should be unique across the steps and service dependencies
+  uniqueKeys: Keys should be unique
+  uniqueValues: Values should be unique
+  matchPattern: Invalid value, please look for info above to read more
+  duplicateIdError: 'Failed to create connector: {{ connectorName }}, there is a connector with identifier {{ connectorIdentifier }} that is already present or was soft deleted. Please provide a unique identifier name and try saving again.'
+  username: 'Username is a required field'
+  password: 'Password is a required field'
+  accountName: Account Name is a required field
+  authType: 'Auth type is required'
+  masterUrl: 'Master URL is required'
+  serviceAccountToken: 'Service Account Token is required'
+  OIDCIssuerUrl: 'OIDC Issuer URL is required'
+  OIDCUsername: 'OIDC username is required'
+  OIDCPassword: 'OIDC Password is required'
+  OIDCClientId: 'OIDC Client ID is required'
+  OIDCSecret: 'OIDC Secret is required'
+  clientKey: 'Client Key is required'
+  clientKeyPassphrase: 'Client Key passphrase is required'
+  clientCertificate: 'Client Certificate is required'
+  encryptedKey: 'Encrypted Key is required'
+  installationId: 'GitHub Installation ID is required'
+  applicationId: 'GitHub Application ID is required'
+  UrlRequired: URL is required
+  sshKey: SSH key is required
+  kerberosKey: Kerberos key is required
+  privateKey: 'GitHub Private Key is required'
+  accessToken: Access token is required
+  dockerRegistryUrl: 'Docker Registry URL is required'
+  helmRepoUrl: 'Helm Repo URL is required.'
+  jiraUrl: 'Jira Url is required.'
+  registryHostname: 'GCR Registry URL is required'
+  nexusServerURL: 'Nexus URL is required'
+  nexusVersion: 'Version is required'
+  artifactoryServerURL: 'Artifactory URL is required'
+  timeout10SecMinimum: 'Min Timeout is 10 Seconds'
+  tagsRequired: Tags is a required field
+  environmentVariablesRequired: Environment Variables is a required field
+  settingsRequired: Settings is a required field
+  labelsRequired: Labels is a required field
+  buildArgsRequired: Build Arguments is a required field
+  imageNameRequired: Image Name is a required field
+  regionRequired: Region is a required field
+  dockerRegistryRequired: Docker Registry is a required field
+  accountRequired: Account ID is a required field
+  repoRequired: Repository is a required field
+  bucketRequired: Bucket is a required field
+  sourcePathRequired: Source Path is a required field
+  targetRequired: Target is a required field
+  sourcePathsRequired: Source Paths is a required field
+  hostRequired: Host is a required field
+  projectIDRequired: Project ID is a required field
+  scriptTypeRequired: Script Type is required field
+  targethostRequired: 'Target host is required field'
+  workingDirRequired: 'Working Directory is required field'
+  sshConnectorRequired: 'Connector is required field'
+  gitServerRequired: 'Git server is a required field'
+  urlIsNotValid: 'URL is not valid'
+  notificationNameDuplicate: Notification with same name already exists
+  artifactServerRequired: Artifact Server is a required field
+
+yamlBuilder:
+  enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
+  lineNumberLabel: On line number
+  yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
+  snippets:
+    noSnippetsFound: No snippets found.
+activityHistory:
+  successfulActivity: Successful Activity
+  failedActivity: Failed Activity
+  heartbeatFailure: Heart beat Failure
+manifestType:
+  manifestIdentifier: Manifest Identifier
+  manifestPlaceholder: Give name to your manifest config
+  manifestSource: Manifest Source
+  manifestDetails: Manifest Details
+  manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
+  specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
+  specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
+  selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
+  helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
+  helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
+  helmCommandFlagLabel: Helm Command Flags (optional)
+  helmCommandType: Command Type
+  helmVersionRequired: 'Helm Version is required'
+  commandFlagRequired: 'Command Flag is required'
+  folderPathRequired: Folder Path is required
+  path: 'Path'
+  pluginPathRequired: Plugin Path is required
+  pathPlaceholder: Enter file path
+  bucketName: Bucket Name
+  http:
+    chartName: 'Helm Chart Name'
+    chartVersion: 'Helm Chart Version'
+    chartNameRequired: 'Chart Name is required'
+    chartNamePlaceHolder: 'Enter Chart Name'
+    chartVersionPlaceHolder: 'Enter Chart Version'
+    chartVersionRequired: 'Chart Version is required'
+connectors:
+  createNewConnector: Create New Connector
+  confirmDeleteTitle: Delete Connector
+  confirmDelete: Are you sure you want to delete the Connector
+  testInProgress: Test in progress
+  label: 'Connectors'
+  artifactRepository: ' {{ $.artifacts }} {{ $.repository }}'
+  artifactRepoType: '{{ $.artifacts }} {{$.repositoryType}}'
+  specifyArtifactRepoType: 'Specify {{ $.artifacts }} {{ $.repositoryType }}'
+  specifyArtifactRepo: 'Specify {{ $.artifacts }} {{ $.repository }}'
+  newArtifactRepository: 'New Artifact Repository Connector'
+  selectConnectorLabel: Select Artifact Repository Connector
+  stepThreeName: 'Test Connection'
+  stepFourName: 'Artifact Location'
+  name: 'Connector Name'
+  authTitle: 'Authentication'
+  updating: Updating connector
+  successfullCreate: 'Connector {{name}} created successfully'
+  successfullUpdate: 'Connector {{name}} updated successfully'
+  connectorNotFound: Connector not found.
+  createFromYaml: 'Create Connector from YAML'
+  successfullyCreated: 'Connector created successfully'
+  secretManagerDetails: 'Secret Manager Details'
+  gcrConnectorDetails: 'Google Container Registry Overview'
+  hashicorpVaultDetails: 'HashiCorp Vault Overview'
+  appDynamicsDetails: 'AppDynamics Connector Details'
+  splunkConnectorDetails: 'Splunk Connector Details'
+  newRelicConnectorDetails: New Relic Connector Details
+  title:
+    k8sCluster: 'Kubernetes Cluster'
+    gcpConnector: 'Google Cloud Provider'
+    helmConnector: 'Helm Repo Connector'
+    gitConnector: 'Git Connector'
+    githubConnector: 'GitHub Connector'
+    gitlabConnector: 'GitLab Connector'
+    bitbucketConnector: 'Bitbucket Connector'
+    hashicorpVault: 'HashiCorp Vault'
+    secretManager: 'Secret Manager'
+    appdynamics: 'AppDynamics connector'
+    splunk: 'Splunk connector'
+    aws: 'AWS Cloud Provider'
+    awsCodeCommit: 'AWS CodeCommit'
+    nexus: 'Nexus Repository'
+    artifactory: 'Artifactory Repository'
+  name_labels:
+    Kubernetes: 'Kubernetes Connector Name'
+    HttpHelmRepo: 'Helm Http Connector Name'
+    Git: 'Git Connector Name'
+    Github: 'GitHub Connector Name'
+    Gitlab: 'GitLab Connector Name'
+    Bitbucket: 'Bitbucket Connector Name'
+    Docker: 'Docker Connector Name'
+    GCP: 'GCP Connector Name'
+    AWS: 'AWS Connector Name'
+    ECR: ECR Connector Name'
+    Nexus: 'Nexus Connector Name'
+    Artifactory: 'Artifactory Connector Name'
+    SecretManager: 'Secret Manager Name'
+    AppDynamics: 'AppDynamics Connector Name'
+    Splunk: 'Splunk Connector Name'
+  testConnectionStep:
+    errorDetails: Click to view error details
+    noDelegate: Unable to get delegate information
+    executingOn: 'Executed on : '
+    verificationSuccessful: Verification successful
+    viewPermissions: View permissions required
+    installNewDelegate: Install new delegate
+    placeholderError: Test failed for the connector
+    url:
+      k8s: 'Master URL : '
+      docker: 'Docker Registry URL : '
+      artifactory: 'Artifactory Repository URL : '
+      nexus: 'Nexus Repository URL : '
+      splunk: 'Splunk URL : '
+      appD: 'Controller URL : '
+      vault: 'Vault URL : '
+      bitbucket: 'URL : '
+      gcr: 'GCR URL : '
+    validationText:
+      k8s: Validating the cluster authentication and permissions
+      docker: Validating the Docker Registry authentication and permissions
+      artifactory: Validating the Artifactory Repository authentication and permissions
+      nexus: Validating the Nexus Repository authentication and permissions
+      gcp: Validating the Google Cloud Provider authentication and permissions
+      gcr: Validating the Google Container Registry authentication and permissions
+      aws: Validating the AWS Cloud Provider authentication and permissions
+      appD: Validating the AppDynamics authentication and permissions
+      splunk: Validating the Splunk authentication and permissions
+      vault: Validating the HashiCorp Vault authentication and permissions
+      bitbucket: Validating the Bitbucket authentication and permissions
+      gitlab: Validating the GitLab authentication and permissions
+      github: Validating the GitHub authentication and permissions
+      git: Validating the Git authentication and permissions
+  httpHelm:
+    httpHelmRepoUrl: 'Helm Repo URL'
+  jira:
+    jiraUrl: 'Jira URL'
+  k8:
+    delegateOutClusterInfo: 'Specify master url and credentials'
+    delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
+    masterUrlLabel: 'Master URL'
+    serviceAccountToken: 'Service Account Token'
+    skipDefaultValidation: 'Skip default namespace validation'
+    OIDCIssuerUrl: OIDC Issuer URL
+    OIDCUsername: 'OIDC Username'
+    OIDCPassword: 'OIDC Password'
+    OIDCClientId: 'OIDC Client ID'
+    OIDCSecret: 'OIDC Secret'
+    OIDCScopes: 'OIDC Scopes (Optional)'
+    clientKey: 'Client Key'
+    clientKeyPassphrase: 'Client Key passphrase'
+    clientCertificate: 'Client Certificate'
+    clientKeyAlgorithm: 'Client Key Algorithm (optional)'
+    clientKeyCACertificate: 'CA Certificate (optional)'
+    placeholder:
+      masterUrl: '/url'
+    authLabels:
+      OIDC: 'OpenID Connect'
+      clientKeyCertificate: 'Client Key Certificate'
+  hashiCorpVault:
+    stepTwoName: 'HashiCorp Vault Details'
+    vaultUrl: 'Vault URL'
+    engineName: 'Secret Engine Name'
+    engineVersion: 'Secret Engine Version'
+    renewal: 'Renewal Interval (minutes)'
+    readOnly: 'Read Only'
+    default: 'Default'
+  nexus:
+    nexusServerUrl: 'Nexus Repository URL'
+  artifactory:
+    artifactoryServerUrl: 'Artifactory Repository URL'
+  GCP:
+    delegateOutClusterInfo: 'Specify credentials here'
+    delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+  ECR:
+    name: ECR
+    fullName: ECR Container Registry
+  GCR:
+    name: GCR
+    fullName: Google Container Registry
+    artifactServer: 'GCR Server'
+    stepTwoName: 'Google Container Registry Details'
+    registryHostname: 'GCR Registry URL'
+  GCS:
+    name: GCS
+    fullName: Google Cloud Storage
+  S3: S3
+  git:
+    branchName: 'Branch name'
+    urlType: 'URL Type'
+    connectionType: 'Connection Type'
+    gitAccountUrl: 'Git Account URL'
+    gitHubAccountUrl: 'GitHub Account URL'
+    gitLabAccountUrl: 'GitLab Account URL'
+    bitbucketAccountUrl: 'Bitbucket Account URL'
+    gitRepoUrl: 'Git Repository URL'
+    gitHubRepoUrl: 'GitHub Repository URL'
+    gitLabRepoUrl: 'GitLab Repository URL'
+    bitbucketRepoUrl: 'Bitbucket Repository URL'
+    gitHubUrlPlaceholder: 'https://www.github.com/account/'
+    gitHubUrlPlaceholderSSH: 'git@github.com:account/'
+    gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
+    gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
+    bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
+    bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
+    accessToken: 'Personal Access Token'
+    enableAPIAccess: 'Enable API access'
+    APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+    APIAuthentication: 'API Authentication'
+    gitHubApp: 'GitHub App'
+    installationId: 'GitHub Installation ID'
+    applicationId: 'GitHub Application ID'
+    privateKey: 'GitHub Private Key'
+  docker:
+    dockerRegistryURL: 'Docker Registry URL'
+    dockerProvideType: 'Provider Type'
+    dockerHub: 'DockerHub'
+    harbour: 'Harbour'
+    quay: 'Quay'
+    other: 'Other (Docker V2 compliant)'
+  helmRepo:
+    helmRepoUrl: 'Helm Repository URL'
+  aws:
+    awsAccessKey: AWS Access Key
+    accessKey: Access Key
+    secretKey: Secret Key
+    enableCrossAcc: Enable cross-account access
+    crossAccURN: Cross account role URN
+    externalId: External Id (Optional)
+    assumeIAMRole: Assume IAM role on delegate
+    validation:
+      delegateSelector: 'Delegate Tag is required'
+      secretKeyRef: 'Secret key is required'
+      accessKey: 'Access key is required'
+      crossAccountRoleArn: 'Role ARN is required'
+  awsCodeCommit:
+    repoUrl: 'AWS CodeCommit Repository URL'
+cf:
+  boolean: Boolean
+  multivariate: Multivariate
+  featureNotReady: This feature is not yet ready. Please check back later.
+  homepage:
+    slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
+    learnMore: Learn more about Feature Flags
+  clause:
+    operators:
+      startsWith: 'starts with'
+      endsWith: 'ends with'
+      match: 'match'
+      contains: 'contains'
+      equal: 'equals'
+      equalSensitive: 'equals (sensitive)'
+      in: 'in'
+      matchSegment: 'Match Segment'
+  shared:
+    individual: 'Individual'
+    segments: 'Segments'
+    environment: 'environment'
+  featureFlags:
+    percentageRollout: 'Percentage Rollout'
+    turnOnHeading: Turn ON Flag
+    turnOffHeading: Turn OFF Flag
+    turnOnMessage: 'Please confirm that you want to turn on <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+    turnOffMessage: 'Please confirm that you want to turn off <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+    defaultWillBeServed: '<strong>{{defaultVariation}}</strong> will be served.'
+    customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
+    defaultServedOn: '{{defaultVariation}} when flag is ON'
+    defaultServedOff: '{{defaultVariation}} when flag is OFF'
+    createdDate: 'Created: {{date}}'
+    modifiedDate: 'Modified: {{date}}'
+    prerequisites: Prerequisites
+    prerequisitesDesc: '(what’s required before enabling flags)'
+    ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
+    ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
+    bucketBy: Bucket by <strong>{{targetField}}</strong>
+    bucketOverflow: Cannot set above 100%
+    serveVariationToTarget: '+ Serve variation to Target'
+    serveVariationToTargetLabel: Serve Variation to Target
+    customRuleOnRequest: '+ On Request, check for condition and serve variation'
+    toTarget: to target
+    ifClause: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}'
+    ifClauseServe: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve'
+    ifClauseServePercentageRollout: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve <strong>percentage rollout</strong>'
+    andClause: '- and <strong>{{attribute}}</strong> {{operator}} {{values}}'
+    commaSeparator: ', '
+    serve: serve
+    servePercentageRollout: serve <strong>percentage rollout</strong>
+    deleteFlag: Delete Flag
+    deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
+    archiveFlag: Archive Flag
+    archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
+    deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
+    archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
+    flagOff: Flag Targeting is OFF
+    flagOn: Flag Targeting is ON
+    flagWillTurnOn: Turn flag on for this environment upon save
+    flagWillTurnOff: Turn flag off for this environment upon save
+  targets:
+    title: 'Targets'
+    ID: 'ID'
+    name: 'name'
+    targetSegment: 'Target Segment'
+    lastActivity: 'Last Activity'
+    createdDate: Created Date
+    create: 'Target(s)'
+    list: 'Add a target'
+    upload: 'Upload a list of targets'
+    enterName: 'Enter a Name'
+    enterValue: 'Enter a Value'
+    addTargets: 'Add Target(s)'
+    noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
+    noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
+  segments:
+    create: 'Segment'
+    targetDefinition: 'Target Definition'
+    usingSegment: 'Flags using this segment'
+    modalTitle: 'Create a Segment'
+    displayIcon: 'Display Icon'
+    uploadImage: 'Upload an image'
+    delete:
+      message: 'Are you sure you want to delete Segment: {{segmentName}}'
+      title: 'Delete Segment'
+  environments:
+    title: '{{ $.environments }}'
+    empty: 'There are currently no environments'
+    createdBy: 'Created by'
+    modifiedBy: 'Modified by'
+    adminEnvironments: 'Admin: Environments'
+    delete:
+      message: 'Are you sure you want to delete environment <strong>{{name}}</strong>?'
+      title: 'Delete Environment'
+    create:
+      title: 'Create an Environment'
+      description: 'An environment is the representation of your production or non-production infrastructure'
+      envTypeLabel: 'Environment type'
+      nameLabel: 'Name of your environment'
+    apiKeys:
+      addKeyTitle: Create SDK Key
+      message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
+      title: 'SDK Keys'
+      addKey: '+ Add Key'
+      clientType: 'Client'
+      clientId: 'Client ID'
+      serverType: 'Server'
+      deleteTitle: 'Confirm Key Delete'
+      deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
+      keyType: 'Key Type'
+      noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
+  auditLogs:
+    title: Audit Logs
+    last7days: Last 7 days
+    searchPlaceholder: Search Activity
+    viewEventSummary: View Event Summary
+    timePST: 'TIME (PST)'
+    user: USER
+    action: ACTION
+    moduleFF: 'Module: Feature Flags'
+    flagCreated: Feature activation created
+    segmentCreated: Segment created
+    flagUpdated: Feature activation updated
+    unknown: Unknown activity
+    empty: No activity found during this time.
+    eventSummary: Event Summary
+    createdMessageFF: 'created feature flag'
+    createdMessageFFUpdate: 'updated feature flag'
+    createdMessageSegment: 'created segment'
+    jsonDifference: JSON DIFFERENCE
+  noEnvironment:
+    title: No Environment Available
+    message: Create an environment and let’s start configuring the targeting rules of your flag
+cv:
+  continuousVerification: Continuous Verification
+  dashboard:
+    subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
+    learnMore: Learn more about Continuous Verification
+    createProject: '{{$.ci.dashboard.createProject}}'
+    notStarted: Not started
+  continuous: 'CONTINUOUS'
+  verification: 'VERIFICATION'
+  hostNamePlaceholder: '${host}'
+  harnessService: 'Harness Service'
+  harnessEnvironment: 'Harness Environment'
+  selectOrCreateEnv: 'Select or create an environment'
+  verificationErrored: 'Verification errored'
+  getRiskAssessment: 'Get risk assessment'
+  setup: 'Setup Continuous Verification'
+  riskScore: 'Risk Score'
+  noAnalysis: 'No Analysis'
+  overviewPage:
+    recentChangeVerifications: 'Recent Change Verifications'
+  riskCardTooltip:
+    header: Performance risk was computed based on metrics from your data providers
+    allServicesGreen: all services green
+  analysisScreens:
+    analysisTab:
+      metrics: 'Metrics'
+      logs: 'Logs'
+  navLinks:
+    activities: 'Activities'
+    dashboard: 'Dashboard'
+    adminSideNavLinks:
+      setup: 'Setup'
+      activitySources: 'Change Sources'
+      monitoringSources: 'Monitoring Sources'
+  changesPage:
+    changeSourceDetails: 'Change Source Details'
+    changeSummary: 'Change Summary'
+    eventCount: 'Event Count'
+    viewKubernetesEvents: 'View Kubernetes Change Summary'
+  admin:
+    mapsTo: maps to
+    notifications:
+      newNotification: 'New Notification Rule'
+      name: 'Name of the rule'
+      method: '{{$.notificationMethod}}'
+      createSuccess: Notification rule created succesfully
+      updateSuccess: 'Notification rule updated successfully'
+      deleteSuccess: 'Notification rule deleted succesfully'
+      create:
+        type: Notification Type
+        details: Detail
+        method: Configure Method
+        stepOne:
+          heading: Notification Rule Details
+          name: Give name to your notification rule
+        stepThree:
+          verification: Verification
+          headingOne: Select Condition for Notification
+          headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
+          notifyVerification: Notify on completed verifications
+          activityType: Activity Type
+          verificationStatus: Verification Statuses
+          notifyRisk: Notify on reaching service risk score threshold
+          preDeployment: Pre-Deployment
+          duringDeployment: During Deployment
+          postDeployment: Post-Deployment
+          infrastructureChange: Infrastructure Change
+          configChange: Config Change
+        validation:
+          type: Select a notification type
+    activitySources:
+      searchBoxPlaceholder: 'Search by Change Source name'
+      noDataMessage: 'No Change Sources onboarded'
+      addActivitySource: '+ Add Change Source(s)'
+      dialogDeleteContent: 'Are you sure you want to delete Change Source: '
+      dialogDeleteTitle: 'Delete Change Source'
+      tableColumnNames:
+        environments: 'Number of Environments'
+        createdOn: 'Created on'
+        lastUpdatedOn: 'Last Updated on'
+    monitoringSources:
+      searchPlaceholder: 'Search by name, environments, services'
+      newMonitoringSource: 'New Monitoring Source'
+      noDataMessage: 'No Monitoring Sources onboarded'
+      importStatus: 'Import Status'
+      importedOn: 'Imported On'
+      applicationsImported: '{{num}}/{{total}} applications imported'
+      environmentsImported: '{{num}}/{{total}} environments imported'
+      confirmDeleteTitle: Delete Monitoring Source
+      confirmDeleteContent: 'Are you sure you want to delete Monitoring Source: {{ name }}'
+    verificationJobs:
+      newVerificationJob: 'New Verification Job'
+      noDataMessage: 'No Verification Jobs to show'
+      jobTypes:
+        test: Test Verification
+        canary: Canary Verification
+        blueGreen: Blue Green Verification
+        health: Health Verification
+      confirmDeleteTitle: Delete Verification Job
+      confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
+  connectors:
+    connectorDetailsHeader: '{{type}} Connector Details'
+    addConnectorDetails: Add {{type}} Verification Provider
+    unableToCreateConnector: Unable to create connector
+    unableToUpdateConnector: Unable to update connector
+    appD:
+      controllerUrlValidation: Controller URL is a required field
+    newRelic:
+      subTitle: To add New Relic connector, you will need Pro or higher subscription level. Verification analysis is limited to Web Transaction only.
+      urlFieldLabel: New Relic URL
+      accountIdFieldLabel: Account Identifier
+      encryptedAPIKeyLabel: Encrypted API Key
+      urlValidation: New Relic URL is required.
+      accountIdValidation: New Relic Account ID is required.
+      encryptedKeyValidation: Encrypted API Key is required.
+      products:
+        fullStackObservability: 'Full Stack Observability: APM'
+  onboarding:
+    monitoringSources:
+      addMoreSources: Add more Monitoring Sources
+      addedStatus: You have added {{sourceCount}} Monitoring Source
+      defineMonitoringSource: Define your Monitoring Source
+      monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
+      specifyConnector: Specify your {{type}} connector
+      firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
+      selectConnector: Select your {{type}} connector
+      addConnector: + Add {{type}} connector
+      selectProduct: Select the {{type}} product that you would like to select {{entity}} from
+    activitySources:
+      addMoreSources: Add more Change Sources
+      addedStatus: You have added {{sourceCount}} Change Source
+    verificationJobs:
+      heading: Almost there
+      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
+      subHeading: Default health verification jobs are applied automatically.
+      createJobQues: Would you like to create a new verification job?
+      createJob: Create Job
+      keepGoing: Want to keep going...
+    progress:
+      heading: 'Your Progress'
+      mapServices: 'Map the above {{serviceLabel}} to a Monitoring Source.'
+      serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
+      servicesUsedInActivitySources: '{{serviceCount}} service is used in Change Sources.'
+      multiServicesUsedInActivitySources: '{{serviceCount}} services are used in Change Sources.'
+      serviceUsedInMonitoringSources: '{{serviceCount}} service is used in Monitoring Sources.'
+      multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in Monitoring Sources.'
+      servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
+      multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
+    selectProductScreen:
+      validationText:
+        name: 'Name is required.'
+        identifier: 'Identifier is required'
+        connectorRef: 'Connector Selection is required.'
+        validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
+        product: 'Product selection is required.'
+  selectCreateService: Select or create a service
+  monitoringSources:
+    mapMetricsToServices: 'Map Metrics to Harness Services'
+    appD:
+      envDescription: An Environment is the representation of your production or non-production infrastructure.
+      appDApplications: APPDYNAMICS APPLICATIONS
+      appDTier: APPDYNAMICS TIER
+      harnessEnv: HARNESS ENVIRONMENT
+      validationMsg: Services should be mapped uniquely to application services
+      mapApplicationsToEnv: Map the AppDynamics Application to a Harness Environment
+      mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
+      noAppsMsg: No Applications were found
+      noTiersMsg: No Tiers were found for selected application
+      mappingToHarnessService: MAPPING TO HARNESS SERVICE
+      mapToHarnessEnvironment: MAPPING TO HARNESS ENVIRONMENT
+      mappedToHarnessService: MAPPED TO HARNESS SERVICE
+      mappedToHarnessEnvironment: MAPPED TO HARNESS ENVIRONMENT
+      harnessServices: HARNESS SERVICES
+      status: STATUS
+      validation: VALIDATION
+      tiersMappedToServices: tiers mapped to services
+      errorsFound: errors found
+      verificationsInProgress: verifications in progress
+      noData: no data
+      metricsVerificationModalTitle: Metric Pack Connection Test
+      searchPlaceholderApplications: Search for Applications
+      validationsPassed: validations passed
+      validationsFailed: validations failed
+      validations:
+        selectApp: Please select application and its environment
+        selectTier: Please select tier and its service
+        selectMetricPack: Plese select metric packs
+      connectToMonitoringSource: 'Connect to your AppDynamics Monitoring Source'
+      firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
+      createConnectorText: '+ New AppDynamics Connector'
+      selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
+      product:
+        applicationMonitoring: 'Application Monitoring'
+        businessMonitoring: 'Business Performance Monitoring'
+        machineMonitoring: 'Machine Monitoring'
+        endUserMonitoring: 'End User Moniorting'
+      infoPanel:
+        mapDashboards: Map Dashboards to Harness Services
+        mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+        applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+        tiers: Tiers
+      searchTiersPlaceHolder: 'Search for Tiers'
+    gco:
+      connectToMonitoringSource: 'Connect to your Google Cloud Platform'
+      defaultName: 'My Google Cloud Operations Monitoring Source'
+      firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
+      createConnectorText: '+ New Google Cloud Platform Connector'
+      addManualInputQuery: '+ Manually input query'
+      selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
+      searchForDashboardsPlaceholder: Search for dashboards
+      product:
+        metrics: 'Cloud Metrics'
+      productValidationText: 'Google Cloud Operations feature is required.'
+      selectDashboardsPage:
+        noDataText: 'No Google Cloud Operation dashboards found.'
+        dashboardColumnName: 'Google Cloud Operation Dashboards'
+      manualInputQueryModal:
+        modalTitle: 'Add your Google Cloud Operations query'
+        subtitle1: 'Make sure your provide'
+        subtitle2: 'string for filtering in query.'
+        subtitle3: 'For example: '
+        exampleString: 'resource.label.\"pod_name\"=\"${host}\"".'
+        validation:
+          query: 'Query is required.'
+          metricName: 'Metric Name is required.'
+          uniqueMetricName: '{{metricName}} is an already taken metric name'
+      mapMetricsToServicesPage:
+        metricTagsLabel: 'Metric Tags'
+        metricNameLabel: 'Metric Name'
+        riskCategoryLabel: 'Risk Category'
+        manuallyInputQueriesLabel: 'Manually input queries'
+        viewQuery: 'View Query'
+        baselineDeviation: 'Deviation compared to baseline'
+        operationsQueryLabel: 'Operations query'
+        mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
+        querySpecifications: 'Query Specifications'
+        configureRiskProfile: 'Configure Risk Profile'
+        higherCounts: 'Higher counts = higher risk'
+        lowerCounts: 'Lower counts = lower risk'
+        enterQueryForValidation: Please enter a query.
+        validation:
+          mainSetupValidation: 'All fields for at least one metric must be filled completely.'
+          validJSON: Please provide valid json.
+          riskCategory: Risk Category is required.
+          env: Environment is required.
+          service: Service is required.
+          tags: Tags are required.
+          baseline: One selection is required.
+        noDataForQuery: 'No data for provided query.'
+      reviewPage:
+        mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
+        gcoMetrics: Google Cloud Operation metrics
+      tabName:
+        selectDashboards: 'Select Dashboards'
+  activitySources:
+    name: 'Name your Change Source'
+    harnessCD:
+      defaultName: 'My Harness CD'
+      select: 'Select your Change Source'
+      selectActivitySource: 'Select Change Source'
+      selectApplication: 'Select Applications'
+      selectEnvironment: 'Select Environments'
+      selectService: 'Select Services'
+      iconLabel: 'Harness FirstGen'
+      harnessApps: 'HARNESS FIRSTGEN APPLICATION'
+      application:
+        noData: 'No applications were found'
+        infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.'
+        servicesToBeImported: HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
+        searchPlaceholder: Search for FirstGen Applications
+      environment:
+        noData: 'No environments were found'
+        infoText: 'Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
+        harnessEnv: 'HARNESS FIRSTGEN ENVIRONMENTS'
+        env: 'HARNESS NEXTGEN ENVIRONMENTS'
+        searchPlaceholder: Search for FirstGen Environments
+      service:
+        noData: 'No services were found'
+        infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.'
+        harnessServices: 'HARNESS FIRSTGEN SERVICES'
+        services: 'HARNESS NEXTGEN SERVICES'
+        searchPlaceholder: Search for FirstGen Services
+      validation:
+        applicationValidation: At least one application must be selected.
+        serviceValidation: At least one service mapping must be selected.
+        environmentValidation: At least one environment mapping must be selected.
+    kubernetes:
+      tabNames:
+        - 'Select Kubernetes Connector'
+        - 'Select Kubernetes Namespace(s)'
+        - 'Map Workloads to Services'
+      namespaceMapping:
+        searchNamespacePlaceholder: Search for Namespaces
+      mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
+      noWorkloads: 'No workloads found.'
+      missingWorkloadMapping: Please add at least one workload mapping
+      searchWorkloadPlaceholder: Search for Workloads
+      workloadToServiceTableColumns:
+        workload: 'Kubernetes Workload'
+        mapToService: 'Map to Harness Service'
+        mapToEnvironment: 'Map to Harness Environment'
+      reviewPage:
+        heading: '{{namespaceCount}} Namespaces, {{workloadCount}} Workloads will be sourced into Harness CV'
+        reviewTableColumns:
+          namespace: 'KUBERNETES NAMESPACE'
+          workload: 'KUBERNETES WORKLOAD'
+          service: 'HARNESS SERVICE'
+  verificationJobs:
+    validation:
+      type: Please select Verification Job type
+      service: Please select a service
+      environment: Please select a environment
+      duration: Please select duration
+      dataSource: Please select a Monitoring Source
+      baseline: Please select a baseline
+      changeSource: Please select a Change Source
+    details:
+      name: Name of your job
+      tabName: Select Verification Job Type
+      heading: Create your verification job
+      verificationMonitoringSource: Verification Monitoring Sources (select multiple that apply)
+      selectType: Select the type of verification job
+      preDeploymentTests: Pre-Deployment Tests
+      productionDep: Production Deployments
+      postDeploymentTests: Post Deployment Tests
+    configure:
+      tabName: Configure Verification Job
+      heading: Verification Specification
+      preDepText: Create a new pre-deployment test verification job
+      prodDepText: Create a new production deployment verification job
+      postDepText: Create a new post-deployment test verification job
+configureOptions:
+  configureOptions: 'configure options'
+  defaultValue: 'Default value'
+  requiredDuringExecution: 'Required during execution'
+  validation: 'Validation'
+  none: 'None'
+  regex: 'Regex'
+  returnToBasic: 'return to basic'
+  jexlLabel: 'Values (JEXL Expression)'
+  values: 'Values'
+  enterTags: 'Enter values'
+  validationErrors:
+    regExIsRequired: 'Regex value is required'
+    regExNotValid: 'Regex value is not valid'
+    jexlExpressionRequired: 'JEXL Expression is required'
+    minOneAllowedValue: 'Minimum one allowed value'
+  notValidExpression: 'Not a valid input Expression'
+  advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
+ci:
+  continuousIntegration: 'Continuous Integration'
+  dashboard:
+    subHeading: Take your software build processes to the next level using our Harness Continuous Integration
+    learnMore: Learn more about Continuous Integration
+    createProject: Create Project
+  testsReports:
+    totalExecutedTest: Total Executed Tests
+    failedTests: Failed Tests
+    failureRate: Failure Rate
+    skipped: Skipped
+    failureMessage: Failure Message
+    stackTrace: Stack Trace
+    consoleOutput: Console Output
+    testSuite: 'Test Suite:'
+    duration: Duration
+    totalTests: Total Tests
+    testCaseName: TEST CASE NAME
+    className: CLASS NAME
+    result: RESULT
+    testCasesExecution: Test Cases Execution
+    showOnlyFailedTests: Show only failed tests
+    hangTight: Hang tight! Report is being generated...
+    nothing: Nothing here!
+    notfound: No tests were found to analyze.
+    willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
+    learnMore: Learn how to enable Unit test reporting
+    resultLabel: TEST CASE EXECUTION RESULT
+    sortBy: 'Sort by:'
+orgs:
+  searchPlaceHolder: 'Search Organizations by name and tags'
+  aboutTitle: 'About the Organization'
+  collaboratorsTitle: 'Invite Members'
+  confirmDelete: Deleting the Organization '{{name}}' would mean that you are also deleting all the projects and the resources associated with it. Are you sure you want to delete the Organization?
+pipeline-list:
+  aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
+  listStages: '{{ $.stages }}'
+  createPipeline: '+ Create Pipeline'
+  confirmDeleteTitle: Delete Pipeline
+  pipelineDeleted: Pipeline {{name}} deleted
+  confirmDelete: Are you sure want to delete pipeline {{name}}
+  readyToRun: Ready To Run
+variables:
+  copyVariableName: copy variable name
+  copyFqn: copy fully qualified name
+customVariables:
+  pipelineVariablesTitle: Pipeline Variables
+  pipelineVariablesDescription: Every aspect of the pipeline configuration is represented in pipeline variables and its corresponding values. These variables can be referenced within stages and step. Custom variables may be added whose values are prompted for during the execution of this pipeline
+  title: Custom Variables
+  variableAndType: '{{name}} [Type: {{type}}]'
+
+  # Custom Dashboards
+dashboards:
+  sideNav:
+    byHarness: 'BY HARNESS'
+    custom: 'CUSTOM'
+    noDashboard: 'No custom dashboard found'
+  homePage:
+    title: 'All Dashboards'
+    # addDashboard: 'Dashboard'
+  createModal:
+    stepOne: 'About the Dashboard'
+    # name: 'Name'
+    sampleTitle: 'Dashboard Title'
+    sampleDesc: 'Dashboard Description'
+    view: 'view'
+    fav: 'fav'
+    dataSource: 'Data Source'
+    namePlaceholder: 'Name your dashboard'
+    nameValidation: 'Dashboard name is a required field'
+    # description: 'Description'
+    descriptionPlaceholder: 'Provide dashboard purpose'
+    # submit: 'Submit'
+    submitFail: 'Dashboard creation failed, Please try again.'
+resourceGroup:
+  newResourceGroup: 'New Resource Group'
+  updateResourceGroupDialogTitle: 'Update Resource Group'
+  color: 'Color'
+  dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
+  resourceGroupColumn: 'Resource Group'
+  summary: 'Summary'
+  createSuccess: 'Resource Group created succesfully'
+  updateSuccess: 'Resource Group updated succesfully'
+  confirmDelete: 'Are you sure you want to delete {{name}} Resource Group'
+  confirmDeleteTitle: 'Delete Resource Group'
+  deletedMessage: 'Resource Group {{name}} deleted'
+  limitAccess: 'To limit access to specific set of {{name}} add to this list'
+  selectResourceGroup: 'Select Resource Group'
+  add: '+ Add {{name}}'
+  all: 'All {{name}}'
+  noResourceGroupTypes: 'No Resource Group types available'
+  builtInResourceGroup: 'Built in resource-group'
+  noResourceGroup: 'No Resource Group available'
+  noResourceGroupFound: 'No Resource Group Found'
+ce:
+  headingText: 'Continuous Efficiency'
+  homepage:
+    slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
+    learnMore: 'Learn more about Continuous Efficiency'
+  co:
+    autoStopping: 'AutoStopping'
+    newAutoStoppingRule: 'New AutoStopping Rule'
+    landingPageText:
+      'AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
+      only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
+      orchestrated spot instances without any worry of spot interruptions.'
+    breadCrumb:
+      rules: 'AutoStopping Rules'
+    noData: 'No data available. Please check after sometime'
+    autoStoppingRule:
+      helpText:
+        idleTime:
+          title: 'Idle Time'
+          description:
+            'Set the number of minutes you want AutoStopping to wait before optimizing idle instances. AutoStopping
+            will shut down (for on-demand) or snapshot and terminate (for spot) the instances after the idle time
+            period has elapsed.'
+        spotVsOD:
+          title: 'Spot vs On-Demand instances'
+          description:
+            'Your Linux on t3.2xlarge instance in US East (N. Virginia) region costs $240 on-demand and $72 on spot.
+            That’s 70% savings!'
+        readMore: 'Read More...'
+      providerSelector:
+        title: 'Let’s get you started'
+        description: 'Select the cloud account type'
+        helpText:
+          selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
+      configuration:
+        pageName: 'Configuration'
+      review:
+        configDetails: 'Configuration Details'
+      setupAccess:
+        pageName: 'Setup Access'
+        customDomain:
+          helpText: 'Specify the URL used to access the instances(Optional)'
+          noHostedZones: 'Custom domain does not match to any of the existing domains'
+        autogeneratedHelpText: 'This auto-generated URL to access the resources managed by this AutoStopping Rule.'
+        helpText:
+          dns:
+            info: 'Select DNS Link if the instances managed by this AutoStopping Rule are currently accessed by a URL.'
+            setup:
+              title: 'To create a DNS Link, you need to:'
+              step1:
+                title: 'Enter the URL currently used to access the instances'
+                description:
+                  'Domain name should be entered without prefixing the scheme. A rule can have multiple URLs. You can
+                  enter comma separated values into Custom URL to support multiple URLs.'
+              step2:
+                title: 'Select and Configure the DNS Provider'
+                description:
+                  ' You will need to map your publicly accessible URL to the host name generated by this Lightwing
+                  AutoStopping Rule. Select your DNS Provider from the list to proceed with the mapping.'
+              step3:
+                title: 'Select an Access Point'
+                description:
+                  'Since your URL is not publicly accessible, you will need to create a new Access Point or select
+                  from an existing one. This will enable the AutoStopping Rule to manage your resources from within
+                  your private network.'
+              mapToDNS:
+                title: 'To map your custom domain to hostname, you need to:'
+                description:
+                  ' Navigate to your DNS provider and create a CNAME record that points your Custom domain to the
+                  default domain(generated by Harness) for your Instances.'
+                step1: 'Add a CNAME record with your Custom domain, {{customDomain}} as the host'
+                step2: 'Point the record to your Harness domain, {{hostName}}'
+                step3: 'Save your settings. It may take a full day for the settings to propagate across the global
+                  Domain Name System.'
+          ssh:
+            info: 'A description of how SSH is used to access the Rule securely over an unsecured network.'
+            setup:
+              title: 'To SSH into instances, you need to:'
+              download: 'Download CLI'
+              description:
+                'Lightwing CLI allows you to access the resources managed by this AutoStopping Rule via SSH and RDP
+                while still allowing Lightwing to detect usage and idleness in order to perform the required
+                optimization actions as needed.'
+          rdp:
+            info: 'RDP provides you with a graphical interface to connect to another computer over a network connection.'
+          bgTasks:
+            info: 'Background tasks description of how it works in accessing gateways'
+          ip:
+            info: 'IP addresses if the instances managed by this AutoStopping Rule are currently accessed by an IP.'
+
+      save: 'Save Rule'
+      confirm:
+        disableTitle: 'Disable Rule {{name}}'
+        disableDialogText: 'Are you sure you want to disable?'
+        enableTitle: 'Enable Rule {{name}}'
+        enableDialogText: 'Are you sure you want to enable?'
+        disable: 'Disable'
+        deleteServiceTitle: 'Delete Rule {{name}}'
+        deleteDialogText: 'Are you sure you want to delete?'
+
+    accessPoint:
+      create: 'Create Access Point'
+      proceed: 'Proceed'
+      domainName: 'Access Point Domain name'
+      enterDomain: 'Enter {{$.ce.co.accessPoint.domainName}}'
+      cloudAccount: 'Cloud Account'
+      cloudConnector: 'Cloud Connector'
+      createNewALB: 'Create new ALB'
+      select:
+        account: 'Select {{$.ce.co.accessPoint.cloudAccount}}'
+        connector: 'Select {{$.ce.co.accessPoint.cloudConnector}}'
+        region: 'Select region'
+        regionToInstall: '{{$.ce.co.accessPoint.select.region}} to install Access Point'
+        existingALB: 'Select from existing ALBs'
+        certificate: 'Select Certificate'
+        aCertificate: 'Select a certificate'
+        vpc: 'Select VPC'
+        securityGroups: 'Select security groups'
+      validation:
+        connector: 'Connector is a required field'
+        name: 'Access point Name is a required field'
+        vpc: 'VPC is a required field'
+        subnets: 'Atleast 2 subnets are mandatory'
+        securityGroup: 'Atleast one security group is mandatory'
+      hostedZone:
+        noResult: 'Access point name does not match any of the existing domains'
+    ipAddressSetup:
+      'This is just placeholder text. You can customize the domain name for your AutoStopping Rule. Domain name
+      should be entered without prefixing the scheme.'
+    sshSetup: 'This is just placeholder text. You can customize the domain name for your AutoStopping Rule.
+      Domain name should be entered without prefixing the scheme. A Rule can have multiple URLs. You can enter comma
+      separated values into Custom domain field to support multiple URLs.'
+    gatewayAccess:
+      subtitle: 'Now that you have the Rule configured, you need to choose how you would like to access the instances.'
+      accessDescription: 'How would you want to access the instances'
+    instanceSelector:
+      name: 'Name and ID'
+      ipAddress: 'IP Address'
+      launchTime: 'Launch Time'
+    gatewayReview:
+      nameYourGateway: 'Name your Rule'
+      selectCloudAccount: 'Select Cloud account'
+      gatewayDetails: 'Rule Details'
+      configurationDetails: 'ConfigurationDetails'
+      idleTime: 'Idle time (mins)'
+      instanceType: 'Instance Type'
+      instance: 'Instance'
+      nameAndID: 'NAME AND ID'
+      ipAddress: 'IP ADDRESS'
+      region: 'REGION'
+      type: 'TYPE'
+      tags: 'TAGS'
+      launchTime: 'LAUNCH TIME'
+      routing: 'Routing'
+      listenProtocol: 'LISTEN PROTOCOL'
+      listenPort: 'LISTEN PORT'
+    gatewayBasics:
+      connect: 'Connect to your'
+      account: 'account'
+      select: 'Select your Cloud Account'
+      new: 'Link a new'
+
+logs:
+  noLogsText: 'No logs found'
+>>>>>>> c54b1505895d7ff4c219a06f94e7331298241303

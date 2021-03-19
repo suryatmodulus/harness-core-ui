@@ -4,14 +4,18 @@ export const mockConnector: ConnectorInfoDTO = {
   name: 'NexusTest',
   identifier: 'NexusTest',
   description: 'connectorDescription',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Nexus',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     nexusServerUrl: 'dummyRespositoryUrl',
     version: '2.x',
-    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.connectorPass' } }
+    auth: {
+      type: 'UsernamePassword',
+      spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.connectorPass' }
+    }
   }
 }
 

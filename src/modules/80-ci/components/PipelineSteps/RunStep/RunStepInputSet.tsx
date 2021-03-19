@@ -1,9 +1,11 @@
 import React from 'react'
 import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { FormGroup } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import Map from '@common/components/Map/Map'
+import { ShellScriptMonacoField } from '@cd/components/PipelineSteps/ShellScriptStep/ShellScriptMonaco'
 import List from '@common/components/List/List'
 // import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
@@ -68,18 +70,21 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
         />
       )}
       {getMultiTypeFromValue(template?.spec?.command) === MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
+        <FormGroup
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('commandLabel')}
               <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-        />
+        >
+          <ShellScriptMonacoField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
+            scriptType="Bash"
+            disabled={readonly}
+          />
+        </FormGroup>
       )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
         <List

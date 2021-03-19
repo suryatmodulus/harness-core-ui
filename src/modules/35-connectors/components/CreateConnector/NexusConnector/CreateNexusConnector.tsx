@@ -5,8 +5,10 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildNexusPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import StepNexusAuthentication from './StepAuth/StepNexusAuthentication'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
@@ -33,6 +35,15 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
           mock={props.mock}
         />
         <StepNexusAuthentication name={getString('details')} {...commonProps} onConnectorCreated={props.onSuccess} />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
+          buildPayload={buildNexusPayload}
+          hideModal={props.onClose}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+        />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
           isStep

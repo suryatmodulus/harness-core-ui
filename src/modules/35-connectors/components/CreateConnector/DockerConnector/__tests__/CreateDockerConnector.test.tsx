@@ -10,7 +10,8 @@ import { backButtonTest } from '../../commonTest'
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
@@ -50,6 +51,10 @@ describe('Create Docker Connector  Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     // match step 2
     expect(container).toMatchSnapshot()
   })
@@ -70,10 +75,11 @@ describe('Create Docker Connector  Wizard', () => {
         />
       </TestWrapper>
     )
+    const updatedName = 'dummy name'
     // editing connector name
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
+        target: { value: updatedName }
       })
     })
     expect(container).toMatchSnapshot()
@@ -89,20 +95,14 @@ describe('Create Docker Connector  Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
       connector: {
-        description: 'devConnector description',
-        identifier: 'devConnector',
-        name: 'dummy name',
-        orgIdentifier: 'testOrg',
-        projectIdentifier: 'test',
-        spec: {
-          auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.b13' } },
-          dockerRegistryUrl: 'url-v3',
-          providerType: 'DockerHub'
-        },
-        tags: {},
-        type: 'DockerRegistry'
+        ...dockerMock,
+        name: updatedName
       }
     })
   })

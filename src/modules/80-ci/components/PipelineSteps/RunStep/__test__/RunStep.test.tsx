@@ -8,6 +8,10 @@ import type { ResponseConnectorResponse } from 'services/cd-ng'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { RunStep } from '../RunStep'
 
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
+  return <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+})
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

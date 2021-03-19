@@ -20,11 +20,11 @@ import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import i18n from '../ManifestWizard.i18n'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
-import { helmVersions } from '../../Manifesthelper'
+import { GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -39,28 +39,63 @@ const commandFlagOptions = [
 ]
 interface HelmWithGITPropType {
   stepName: string
-  initialValues: any
-  handleSubmit: (data: any) => void
+  expressions: string[]
+  initialValues: ManifestConfig
+  handleSubmit: (data: ManifestConfigWrapper) => void
 }
 
 const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType> = ({
   stepName,
   initialValues,
   handleSubmit,
+  expressions,
   prevStepData,
   previousStep
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+  const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
+  const connectionType =
+    prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo ||
+    prevStepData?.urlType === GitRepoName.Repo
+      ? GitRepoName.Repo
+      : GitRepoName.Account
 
-  const getInitialValues = (): HelmWithGITDataType => {
+  const accountUrl =
+    connectionType === GitRepoName.Account
+      ? prevStepData?.connectorRef
+        ? prevStepData?.connectorRef?.connector?.spec?.url
+        : prevStepData?.url
+      : null
+
+  const getRepoName = (): string => {
+    let repoName = ''
+    if (prevStepData?.connectorRef) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.connectorRef?.connector?.spec?.url
+      } else {
+        repoName = initialValues?.spec?.store.spec.repoName || ''
+      }
+      return repoName
+    }
+
+    if (prevStepData?.identifier) {
+      if (connectionType === GitRepoName.Repo) {
+        repoName = prevStepData?.url
+      }
+    }
+    return repoName
+  }
+
+  const getInitialValues = React.useCallback((): HelmWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: specValues.paths?.[0],
+        folderPath: specValues.folderPath,
+        repoName: getRepoName(),
         helmVersion: initialValues.spec?.helmVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
@@ -76,15 +111,16 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      paths: '',
+      folderPath: '',
       helmVersion: 'V2',
       skipResourceVersioning: false,
-      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
+      commandFlags: [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }],
+      repoName: getRepoName()
     }
-  }
+  }, [])
 
-  const submitFormData = (formData: any): void => {
-    const manifestObj: any = {
+  const submitFormData = (formData: HelmWithGITDataType & { store?: string; connectorRef?: string }): void => {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -95,7 +131,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               gitFetchType: formData?.gitFetchType,
               branch: formData?.branch,
               commitId: formData?.commitId,
-              paths: [formData?.paths]
+              repoName: formData?.repoName,
+              folderPath: formData?.folderPath
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning,
@@ -104,11 +141,12 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       }
     }
     if (formData?.commandFlags[0].commandType) {
-      manifestObj.manifest.spec.commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
         flag: commandFlag.flag
       }))
     }
+
     handleSubmit(manifestObj)
   }
 
@@ -125,7 +163,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
             .notOneOf(StringUtils.illegalIdentifiers),
-          paths: Yup.string().trim().required(i18n.validation.filePath),
+          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
         })}
         onSubmit={formData => {
@@ -147,70 +185,143 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             <div className={helmcss.helmGitForm}>
               <FormInput.Text
                 name="identifier"
-                label={i18n.STEP_TWO.manifestId}
-                placeholder={i18n.STEP_ONE.idPlaceholder}
+                label={getString('manifestType.manifestIdentifier')}
+                placeholder={getString('manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
-              <Layout.Horizontal flex spacing="xxlarge" margin={{ top: 'small', bottom: 'small' }}>
+              {connectionType === GitRepoName.Repo && (
+                <div className={helmcss.halfWidth}>
+                  <FormInput.Text
+                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                    disabled
+                    name="repoName"
+                  />
+                </div>
+              )}
+
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
+                <div className={helmcss.halfWidth}>
+                  <div>
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      name="repoName"
+                      className={helmcss.repoName}
+                    />
+                  </div>
+                  <div
+                    style={{ marginBottom: 'var(--spacing-medium)' }}
+                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                </div>
+              )}
+              <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
                 </div>
 
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-                  <div className={helmcss.halfWidth}>
+                  <div
+                    className={cx(helmcss.halfWidth, {
+                      [helmcss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.branchLabel}
                       placeholder={i18n.STEP_TWO.branchPlaceholder}
+                      multiTextInputProps={{ expressions }}
                       name="branch"
-                      className={cx({
-                        [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
-                      })}
                     />
+                    {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.branch as string}
+                        type="String"
+                        variableName="branch"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('branch', value)}
+                      />
+                    )}
                   </div>
                 )}
-                {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values?.branch as string}
-                    type="String"
-                    variableName="branch"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => formik.setFieldValue('branch', value)}
-                  />
-                )}
+
                 {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                  <div className={helmcss.halfWidth}>
+                  <div
+                    className={cx(helmcss.halfWidth, {
+                      [helmcss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
                     <FormInput.MultiTextInput
                       label={i18n.STEP_TWO.commitLabel}
+                      multiTextInputProps={{ expressions }}
                       placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
+                    {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.commitId as string}
+                        type="String"
+                        variableName="commitId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('commitId', value)}
+                      />
+                    )}
                   </div>
                 )}
               </Layout.Horizontal>
 
-              <Layout.Horizontal flex spacing="xxlarge" margin={{ bottom: 'small' }}>
-                <div className={helmcss.halfWidth}>
+              <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
+                <div
+                  className={cx(helmcss.halfWidth, {
+                    [helmcss.runtimeInput]:
+                      getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME
+                  })}
+                >
                   <FormInput.MultiTextInput
-                    label={getString('fileFolderPathText')}
-                    placeholder={i18n.STEP_TWO.filePathPlaceholder}
-                    name="paths"
-                    multiTextInputProps={{
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
+                    label={getString('chartPath')}
+                    placeholder={getString('manifestType.pathPlaceholder')}
+                    name="folderPath"
+                    multiTextInputProps={{ expressions }}
                   />
+                  {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.folderPath as string}
+                      type="String"
+                      variableName="folderPath"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('folderPath', value)}
+                    />
+                  )}
                 </div>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
                 </div>
               </Layout.Horizontal>
-              <Accordion activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}>
+              <Accordion
+                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                className={cx({
+                  [helmcss.advancedStepOpen]: isActiveAdvancedStep
+                })}
+              >
                 <Accordion.Panel
                   id={getString('advancedTitle')}
                   addDomId={true}
                   summary={getString('advancedTitle')}
-                  details={<HelmAdvancedStepSection formik={formik} commandFlagOptions={commandFlagOptions} />}
+                  details={
+                    <HelmAdvancedStepSection
+                      expressions={expressions}
+                      formik={formik}
+                      commandFlagOptions={commandFlagOptions}
+                    />
+                  }
                 />
               </Accordion>
             </div>

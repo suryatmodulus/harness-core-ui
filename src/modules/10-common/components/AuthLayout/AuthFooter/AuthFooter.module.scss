@@ -1,0 +1,59 @@
+.lineMessage {
+  color: var(--grey-450);
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--grey-400);
+  line-height: 1px;
+  margin-top: 50px;
+
+  .message {
+    font-weight: normal;
+    font-size: var(--font-size-normal);
+    background: var(--white);
+    padding: 0 12px;
+  }
+}
+
+.oAuthIcons {
+  display: flex;
+  justify-content: space-between;
+
+  .iconContainer {
+    cursor: pointer;
+    background-color: var(--grey-200);
+    height: fit-content;
+    width: fit-content;
+    padding: 11px;
+    border-radius: 2px;
+  }
+}
+
+.disclaimer {
+  margin-top: 35px;
+  text-align: center;
+  font-size: var(--font-size-normal);
+
+  .externalLink {
+    color: var(--blue-500);
+  }
+}
+
+.ssoButton {
+  background-color: var(--grey-200) !important;
+  border-radius: 2px;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  margin-top: var(--spacing-large);
+  display: flex;
+  justify-content: center;
+
+  .icon {
+    color: var(--blue-500) !important;
+  }
+
+  .text {
+    width: 100%;
+    justify-content: center;
+  }
+}

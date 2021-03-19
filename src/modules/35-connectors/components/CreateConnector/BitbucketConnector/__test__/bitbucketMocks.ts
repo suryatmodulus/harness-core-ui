@@ -4,20 +4,20 @@ export const usernamePassword: ConnectorInfoDTO = {
   name: 'BitbucketWorking',
   identifier: 'BitbucketWorking',
   description: 'Bitbucket description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Bitbucket',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
         type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.githubPassword' }
       }
     },
-    apiAccess: null,
     type: 'Account'
   }
 }
@@ -48,22 +48,23 @@ export const usernameTokenWithAPIAccess: ConnectorInfoDTO = {
   name: 'BitbucketWorking',
   identifier: 'BitbucketWorking',
   description: 'Bitbucket description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Bitbucket',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
         type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.githubPassword' }
       }
     },
     apiAccess: {
       type: 'UsernamePassword',
-      spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
+      spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
     },
     type: 'Account'
   }

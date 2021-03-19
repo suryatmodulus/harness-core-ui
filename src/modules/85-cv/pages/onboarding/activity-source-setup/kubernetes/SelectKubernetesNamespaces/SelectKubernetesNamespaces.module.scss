@@ -13,6 +13,10 @@
     position: relative;
     top: 150px;
   }
+
+  .searchNamespaces {
+    margin-top: var(--spacing-small) !important;
+  }
 }
 
 .loading {

@@ -179,7 +179,7 @@ exports[`Test K8sRollingRollback Step should render inputSet view 1`] = `
           {}
         </pre>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -222,7 +222,7 @@ exports[`Test K8sRollingRollback Step should render inputSet view and test valid
           {}
         </pre>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -272,7 +272,7 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
                 tabindex="0"
                 type="button"
               >
@@ -319,7 +319,7 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
                 tabindex="0"
                 type="button"
               >

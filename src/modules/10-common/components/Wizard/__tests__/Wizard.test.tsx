@@ -7,14 +7,10 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getDefaultProps } from './mockConstants'
 import Wizard from '../Wizard'
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 describe('Wizard tests', () => {

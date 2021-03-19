@@ -143,6 +143,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-nexus'
     case Connectors.ARTIFACTORY:
       return 'service-artifactory'
+    case Connectors.Jira:
+      return 'service-jira'
     case Connectors.GCP:
     case 'Gcr':
       return 'service-gcp'

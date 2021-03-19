@@ -5,9 +5,11 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildDockerPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 interface CreateDockerConnectorProps {
   onClose: () => void
@@ -40,6 +42,15 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
         <StepDockerAuthentication
           name={getString('details')}
           {...commonProps}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+        />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
+          buildPayload={buildDockerPayload}
+          hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
         />

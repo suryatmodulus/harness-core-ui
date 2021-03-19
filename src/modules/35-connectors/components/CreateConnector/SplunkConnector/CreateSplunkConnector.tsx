@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
-import {
-  Layout,
-  Button,
-  Text,
-  StepWizard,
-  FormInput,
-  FormikForm,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding
-} from '@wings-software/uicore'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Layout, Button, Text, StepProps, StepWizard, FormInput, FormikForm } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useToaster } from '@common/exports'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
+import { useStrings } from 'framework/exports'
 import {
   useCreateConnector,
   ConnectorConfigDTO,
@@ -22,20 +14,24 @@ import {
   useUpdateConnector,
   ResponseBoolean
 } from 'services/cd-ng'
-import { Connectors } from '@connectors/constants'
+import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import type { FormData } from '@connectors/interfaces/ConnectorInterface'
+import {
+  buildSplunkPayload as _buildSplunkPayload,
+  SecretReferenceInterface,
+  setSecretField
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { PageSpinner } from '@common/components'
 import i18n from './CreateSplunkConnector.i18n'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import css from '../AppDynamicsConnector/CreateAppDynamicsConnector.module.scss'
 
-interface CreateSplunkConnectorProps {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  onClose: () => void
+interface CreateSplunkConnectorProps extends CreateConnectorModalProps {
   onConnectorCreated?: (data: ConnectorConfigDTO) => void | Promise<void>
   mockIdentifierValidate?: ResponseBoolean
 }
-interface ConnectionConfigProps {
+interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -43,10 +39,15 @@ interface ConnectionConfigProps {
   setFormData: (data: ConnectorConfigDTO | undefined) => void
   name: string
   previousStep?: () => void
-  nextStep?: () => void
-  handleCreate: (data: ConnectorConfigDTO) => Promise<void>
-  handleUpdate: (data: ConnectorConfigDTO) => Promise<void>
   isEditMode: boolean
+  connectorInfo?: ConnectorInfoDTO | void
+}
+
+interface SplunkFormInterface {
+  url: string
+  username: string
+  passwordRef: SecretReferenceInterface | void
+  accountId: string
 }
 
 export default function CreateSplunkConnector(props: CreateSplunkConnectorProps): JSX.Element {
@@ -54,58 +55,36 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestBody | undefined>()
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
+  const [successfullyCreated, setSuccessfullyCreated] = useState(false)
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
+  const isEditMode = props.isEditMode || successfullyCreated
 
-  const handleCreate = async (data: ConnectorConfigDTO): Promise<void> => {
-    const res = await createConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'Splunk',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          username: data.username,
-          accountname: data.accountName,
-          passwordRef: data.passwordRef.referenceString,
-          splunkUrl: data.url,
-          accountId: props.accountId
-        }
-      }
-    })
+  const handleSubmit = async (
+    payload: ConnectorConfigDTO,
+    prevData: ConnectorConfigDTO,
+    stepProps: StepProps<ConnectorConfigDTO>
+  ): Promise<ConnectorInfoDTO | undefined> => {
+    const res = await (isEditMode ? updateConnector : createConnector)(payload)
     if (res && res.status === 'SUCCESS') {
-      showSuccess(i18n.showSuccessCreated(data?.name || ''))
-      setConnectorResponse(res.data)
+      showSuccess(
+        isEditMode ? i18n.showSuccessUpdated(payload?.name || '') : i18n.showSuccessCreated(payload?.name || '')
+      )
+      if (res.data) {
+        setSuccessfullyCreated(true)
+        props.onConnectorCreated?.(res.data)
+        props.onSuccess?.(res.data)
+        setConnectorResponse(res.data)
+        stepProps?.nextStep?.(prevData)
+        props.setIsEditMode(true)
+      }
     } else {
       throw new Error(i18n.errorCreate)
     }
+    return res.data?.connector
   }
 
-  const handleUpdate = async (data: ConnectorConfigDTO): Promise<void> => {
-    const res = await updateConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'Splunk',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          username: data.username,
-          accountname: data.accountName,
-          passwordRef: data.passwordRef.referenceString,
-          splunkUrl: data.url,
-          accountId: props.accountId
-        }
-      }
-    })
-    if (res && res.status === 'SUCCESS') {
-      showSuccess(i18n.showSuccessUpdated(data?.name || ''))
-      setConnectorResponse(res.data)
-    } else {
-      throw new Error(i18n.errorUpdate)
-    }
-  }
+  const buildSplunkPayload = useCallback((data: FormData) => _buildSplunkPayload(data, props.accountId), [])
 
   return (
     <>
@@ -116,6 +95,8 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           setFormData={setFormData}
           formData={formData}
           mock={props.mockIdentifierValidate}
+          isEditMode={isEditMode}
+          connectorInfo={props.connectorInfo}
         />
         <ConnectionConfigStep
           accountId={props.accountId}
@@ -124,9 +105,18 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           name={i18n.wizardStepName.credentials}
           setFormData={setFormData}
           formData={formData}
-          handleCreate={handleCreate}
-          handleUpdate={handleUpdate}
           isEditMode={isEditMode}
+          connectorInfo={props.connectorInfo}
+        />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          customHandleCreate={handleSubmit}
+          customHandleUpdate={handleSubmit}
+          hideModal={props.onClose}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+          isEditMode={isEditMode}
+          buildPayload={buildSplunkPayload}
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
@@ -136,7 +126,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           isStep
           isLastStep
           type={Connectors.SPLUNK}
-          setIsEditMode={() => setIsEditMode(true)}
+          setIsEditMode={() => props.setIsEditMode(true)}
         />
       </StepWizard>
     </>
@@ -144,48 +134,56 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
 }
 
 export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { nextStep, prevStepData, connectorInfo } = props
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+  const [initialValues, setInitialValues] = useState<SplunkFormInterface>({
+    url: '',
+    username: '',
+    passwordRef: undefined,
+    accountId: ''
+  })
 
-  const handleFormSubmission = async (formData: ConnectorConfigDTO) => {
-    modalErrorHandler?.hide()
-    if (props.isEditMode) {
-      try {
-        await props.handleUpdate(formData)
-        props.nextStep?.()
-      } catch (error) {
-        modalErrorHandler?.showDanger(error?.data?.message)
-      }
-    } else {
-      try {
-        await props.handleCreate(formData)
-        props.nextStep?.()
-      } catch (error) {
-        modalErrorHandler?.showDanger(error?.data?.message)
-      }
-    }
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
   }
 
-  return (
+  useEffect(() => {
+    ;(async () => {
+      if (loadingConnectorSecrets) {
+        if (props.isEditMode) {
+          setInitialValues({
+            url: props.prevStepData?.spec?.splunkUrl || '',
+            username: props.prevStepData?.spec?.username || '',
+            passwordRef: await setSecretField((props.connectorInfo as ConnectorInfoDTO)?.spec?.passwordRef, {
+              accountIdentifier: props?.accountId,
+              projectIdentifier: props?.projectIdentifier,
+              orgIdentifier: props?.orgIdentifier
+            }),
+            accountId: props?.accountId || ''
+          })
+          setLoadingConnectorSecrets(false)
+        }
+      }
+    })()
+  }, [loadingConnectorSecrets])
+
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
     <Formik
       initialValues={{
-        url: props.formData?.url || '',
-        username: props.formData?.username || '',
-        passwordRef: props.formData?.passwordRef || '',
-        ...props.formData
+        ...initialValues,
+        ...props.prevStepData
       }}
       validationSchema={Yup.object().shape({
         url: Yup.string().trim().required(),
         username: Yup.string().trim().required(),
         passwordRef: Yup.string().trim().required()
       })}
-      onSubmit={formData => {
-        props.setFormData(formData)
-        handleFormSubmission(formData)
-      }}
+      onSubmit={handleSubmit}
     >
       {() => (
         <FormikForm className={css.connectionForm}>
-          <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Vertical spacing="large" className={css.appDContainer}>
             <Text font="medium">{i18n.connectionDetailsHeader}</Text>
             <FormInput.Text label={i18n.Url} name="url" />

@@ -17,6 +17,7 @@ import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { AccessPoint, useAllHostedZones, useListAccessPoints } from 'services/lw'
 import { useStrings } from 'framework/exports'
+import { useToaster } from '@common/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
@@ -41,6 +42,7 @@ interface DNSLinkSetupProps {
 }
 
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
+  const { showWarning } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -54,7 +56,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      region: 'us-east-1'
+      region: 'us-east-1',
+      domain: props.gatewayDetails.customDomains?.length ? props.gatewayDetails.customDomains[0] : ''
     },
     lazy: true
   })
@@ -78,7 +81,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
   const [dnsProvider, setDNSProvider] = useState<string>(
-    customDomainProviderDetails && customDomainProviderDetails.route53 ? 'route53' : 'others'
+    customDomainProviderDetails?.route53?.hosted_zone_id ? 'route53' : 'others'
   )
   const [generatedHostName, setGeneratedHostName] = useState<string>(
     (props.gatewayDetails.hostName as string) || 'Auto generated URL'
@@ -116,6 +119,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   useEffect(() => {
     if (hostedZonesLoading) return
     if (hostedZones?.response?.length == 0) {
+      if (props.gatewayDetails.customDomains?.length) {
+        showWarning(getString('ce.co.autoStoppingRule.setupAccess.customDomain.noHostedZones'))
+      }
       return
     }
     const loadedhostedZones: SelectOption[] =
@@ -126,7 +132,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }
       }) || []
     setHostedZonesList(loadedhostedZones)
-  }, [hostedZones?.response, hostedZonesLoading])
+  }, [hostedZones, hostedZonesLoading])
 
   useEffect(() => {
     if (dnsProvider == 'route53') loadHostedZones()
@@ -177,7 +183,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             <Layout.Vertical spacing="medium">
               <Layout.Horizontal spacing="small" style={{ paddingBottom: 'var(--spacing-small)' }}>
                 <Heading level={3} font={{ weight: 'light' }}>
-                  {getString('ce.co.autoStoppingRule.setupAccess.customDomainHelpText')}
+                  {getString('ce.co.autoStoppingRule.setupAccess.customDomain.helpText')}
                 </Heading>
                 <Icon name="info"></Icon>
               </Layout.Horizontal>

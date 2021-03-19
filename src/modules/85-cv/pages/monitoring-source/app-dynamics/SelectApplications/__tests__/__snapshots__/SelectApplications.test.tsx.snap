@@ -12,6 +12,43 @@ exports[`SelectApplications Matches snapshot 1`] = `
       class="StyledProps--font StyledProps--main mainPanel"
     >
       <div
+        class="StyledProps--font StyledProps--main main columnHeaderWithFilter"
+      >
+        <div
+          class="TextInput--main"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <span
+              class="bp3-icon bp3-icon-search StyledProps--main"
+              icon="search"
+            >
+              <svg
+                data-icon="search"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  search
+                </desc>
+                <path
+                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input"
+              placeholder="Search for Applications"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
         class="table table"
       >
         <div
@@ -44,46 +81,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             role="columnheader"
             style="width: 45%;"
           >
-            <div
-              class="StyledProps--font StyledProps--main columnHeaderWithFilter StyledProps--flex"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
-              >
-                HARNESS ENVIRONMENT
-              </p>
-              <div
-                class="bp3-input-group ui-search-box ExpandingSearchInput--main "
-                data-name=""
-              >
-                <span
-                  class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
-                  icon="search"
-                >
-                  <svg
-                    data-icon="search"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      search
-                    </desc>
-                    <path
-                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <input
-                  class="bp3-input "
-                  dir="auto"
-                  placeholder="Search"
-                  type="search"
-                  value=""
-                />
-              </div>
-            </div>
+            MAPPING TO HARNESS ENVIRONMENT
           </div>
         </div>
         <div
@@ -237,7 +235,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
         class="Layout--horizontal StyledProps--main main"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
           type="button"
         >
           <span
@@ -266,7 +264,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="submit"
         >
           <span
@@ -294,41 +292,6 @@ exports[`SelectApplications Matches snapshot 1`] = `
             </svg>
           </span>
         </button>
-      </div>
-    </div>
-    <div
-      class="StyledProps--font StyledProps--main infoPanel"
-    >
-      <div
-        class="StyledProps--font StyledProps--main infoPanelItem"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--margin-bottom-small"
-          style="display: flex; align-items: center;"
-        >
-          <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500 StyledProps--margin-right-medium"
-            data-icon="info"
-          >
-            <svg
-              height="16"
-              viewBox="0 0 12 12"
-              width="16"
-            >
-              <path
-                clip-rule="evenodd"
-                d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          Map Dashboards to Harness Services
-        </p>
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
-        </p>
       </div>
     </div>
   </div>

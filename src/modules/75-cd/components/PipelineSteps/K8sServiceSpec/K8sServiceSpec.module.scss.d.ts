@@ -17,5 +17,6 @@ declare const styles: {
   readonly serviceDefinition: string
   readonly accordionSummary: string
   readonly manifestVariablesTable: string
+  readonly skipVersioning: string
 }
 export default styles

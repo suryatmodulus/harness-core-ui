@@ -94,7 +94,7 @@ const displayDelegatesTagsSummary = (delegateSelectors: []): JSX.Element => {
 
 const getAWSDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
     : getConnectorDisplaySummaryLabel(
         'connectors.aws.accessKey',
         textRenderer(connector?.spec?.credential?.spec?.accessKeyRef || connector?.spec?.credential?.spec?.accessKey)
@@ -103,7 +103,7 @@ const getAWSDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string
 
 const getGCPDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
     : getConnectorDisplaySummaryLabel(
         'encryptedKeyLabel',
         textRenderer(connector?.spec?.credential?.spec?.secretKeyRef)
@@ -112,7 +112,7 @@ const getGCPDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string
 
 const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-    ? displayDelegatesTagsSummary(connector.spec.credential.spec?.delegateSelectors)
+    ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
     : getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.credential?.spec?.masterUrl))
 }
 
@@ -122,6 +122,8 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
       return getK8DisplaySummary(connector)
     case Connectors.HttpHelmRepo:
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.helmRepoUrl))
+    case Connectors.Jira:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.jiraUrl))
     case Connectors.GIT:
     case Connectors.GITHUB:
     case Connectors.GITLAB:

@@ -1,172 +1,20 @@
 import React from 'react'
 import { Icon, Button, Text } from '@wings-software/uicore'
-import { Popover, ResizeSensor, IPopoverProps } from '@blueprintjs/core'
+import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
-import { sortBy, throttle, get } from 'lodash-es'
-import { useHistory } from 'react-router-dom'
+import { throttle } from 'lodash-es'
 
-import { String } from 'framework/exports'
-import type { GraphLayoutNode, PipelineExecutionSummary } from 'services/pipeline-ng'
-import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap, getStageType } from '@pipeline/utils/executionUtils'
+import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
-import routes from '@common/RouteDefinitions'
-import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 
-import { Duration } from '@common/exports'
+import { StageNode, RunningIcon } from './StageNode'
+import { ParallelStageNode } from './ParallelStageNode'
 import css from './MiniExecutionGraph.module.scss'
 
-// Higher the number, Higher the Priority, Max 100.
-const StagePriority: Record<ExecutionStatus, number> = {
-  Success: 1,
-  Running: 2,
-  Failed: 20,
-  Expired: 18,
-  Aborted: 19,
-  Suspended: 17,
-  Queued: 0,
-  NotStarted: 0,
-  Paused: 24,
-  Waiting: 25,
-  Skipped: 15
-}
-
-function RunningIcon(): React.ReactElement {
-  return (
-    <div className={css.runningAnimation}>
-      <div />
-      <div />
-      <div />
-    </div>
-  )
-}
-
-export interface StageNodeProps extends Omit<IPopoverProps, 'content'> {
-  stage: GraphLayoutNode
-  onClick(stageId: string): void
-}
-
-export function StageNode({ stage, onClick, ...rest }: StageNodeProps): React.ReactElement {
-  const { moduleInfo, status } = stage || {}
-  const statusLower = status?.toLowerCase() || ''
-
-  const stageType = getStageType(stage)
-  const HAS_CD = stageType === 'cd'
-  const HAS_CI = stageType === 'ci'
-
-  return (
-    <Popover
-      position="top"
-      {...rest}
-      className={cx(css.stageWrapper, css[statusLower as keyof typeof css])}
-      targetClassName={css.stage}
-      targetTagName="div"
-      wrapperTagName="div"
-      targetProps={{ onClick: () => onClick(stage.nodeUuid || '') }}
-      interactionKind="hover"
-    >
-      {stage.status === 'Running' ? (
-        <RunningIcon />
-      ) : (
-        <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
-      )}
-      <div className={css.infoPopover}>
-        <div className={css.title}>{stage.nodeIdentifier}</div>
-        <ExecutionStatusLabel status={stage.status} />
-        {stage?.startTs && (
-          <Duration
-            padding={{ left: 'small' }}
-            durationText=" "
-            icon="time"
-            iconProps={{ size: 12 }}
-            startTime={stage?.startTs}
-            endTime={stage?.endTs}
-          />
-        )}
-        {HAS_CD ? (
-          <div className={css.section}>
-            <String tagName="div" className={css.sectionTitle} stringID="services" />
-            <div className={css.sectionData}>{get(stage.moduleInfo, 'cd.serviceInfo.displayName', '-')}</div>
-            <String tagName="div" className={css.sectionTitle} stringID="artifacts" />
-            <div className={css.sectionData}>
-              {moduleInfo?.cd?.serviceInfo?.artifacts?.primary ? (
-                <String
-                  tagName="div"
-                  stringID="artifactDisplay"
-                  useRichText
-                  vars={{
-                    image: moduleInfo.cd.serviceInfo.artifacts.primary.imagePath,
-                    tag: moduleInfo.cd.serviceInfo.artifacts.primary.tag
-                  }}
-                />
-              ) : (
-                <div>-</div>
-              )}
-              {(get(stage.moduleInfo, 'cd.serviceInfo.artifacts.sidecars', []) as any[]).map((row, i) => (
-                <String
-                  key={i}
-                  tagName="div"
-                  stringID="artifactDisplay"
-                  useRichText
-                  vars={{
-                    image: row.imagePath,
-                    tag: row.tag
-                  }}
-                />
-              ))}
-            </div>
-            <String tagName="div" className={css.sectionTitle} stringID="environments" />
-            <div className={css.sectionData}>{get(stage.moduleInfo, 'cd.infraExecutionSummary.name', '-')}</div>
-          </div>
-        ) : null}
-        {HAS_CI ? <div></div> : null}
-      </div>
-    </Popover>
-  )
-}
-
-export interface ParallelNodeProps {
-  stages: GraphLayoutNode[]
-  onClick(stageId: string): void
-}
-
-const STEP_DETAILS_LIMIT = 4
 const SCROLL_DELTA = 60
 const THROTTLE_TIME = 300
-
-export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement {
-  const { stages, onClick } = props
-  const sortedStages = sortBy(stages, stage => 100 - StagePriority[stage.status as ExecutionStatus])
-
-  return (
-    <Popover
-      interactionKind="hover"
-      minimal
-      position="bottom"
-      lazy
-      autoFocus={false}
-      enforceFocus={false}
-      className={css.parallelNodes}
-      wrapperTagName="div"
-      targetTagName="div"
-      targetClassName={css.ghostNodes}
-      popoverClassName={css.moreStages}
-      targetProps={{ 'data-stages': sortedStages.length } as any}
-      modifiers={{ offset: { offset: '0,8px' } }}
-    >
-      <StageNode stage={sortedStages[0]} onClick={onClick} />
-      <React.Fragment>
-        {sortedStages.slice(1, STEP_DETAILS_LIMIT).map((stage: GraphLayoutNode, i) => (
-          <StageNode key={i} stage={stage} onClick={onClick} />
-        ))}
-        {sortedStages.length > STEP_DETAILS_LIMIT ? (
-          <div className={css.extraCount}>+ {stages.length - STEP_DETAILS_LIMIT}</div>
-        ) : null}
-      </React.Fragment>
-    </Popover>
-  )
-}
 
 export interface MiniExecutionGraphProps extends ProjectPathProps, ModulePathParams {
   pipelineExecution: PipelineExecutionSummary
@@ -180,12 +28,10 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     failedStagesCount,
     status,
     totalStagesCount,
-    layoutNodeMap,
     executionErrorInfo,
     pipelineIdentifier = '',
     planExecutionId = ''
   } = pipelineExecution
-  const history = useHistory()
   const elements = React.useMemo(() => processLayoutNodeMap(pipelineExecution), [pipelineExecution])
   const graphRef = React.useRef<HTMLDivElement | null>(null)
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
@@ -221,9 +67,11 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
   )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleRightClick = React.useCallback(
+  const handleRightArrowClick = React.useCallback(
     throttle(
-      (): void => {
+      (e: React.SyntheticEvent<Element>): void => {
+        e.preventDefault()
+        e.stopPropagation()
         window.requestAnimationFrame(() => {
           if (graphRef.current && wrapperRef.current) {
             const graph = graphRef.current.getBoundingClientRect()
@@ -245,9 +93,11 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
   )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleLeftClick = React.useCallback(
+  const handleLeftArrowClick = React.useCallback(
     throttle(
-      (): void => {
+      (e: React.SyntheticEvent<Element>): void => {
+        e.preventDefault()
+        e.stopPropagation()
         window.requestAnimationFrame(() => {
           if (graphRef.current && wrapperRef.current) {
             const graph = graphRef.current.getBoundingClientRect()
@@ -268,37 +118,30 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     []
   )
 
-  function handleStageClick(stageId: string): void {
-    const path = routes.toExecutionPipelineView({
-      accountId,
-      module,
-      orgIdentifier,
-      pipelineIdentifier,
-      projectIdentifier,
-      executionIdentifier: planExecutionId
-    })
-    if (!isExecutionNotStarted(layoutNodeMap?.[stageId]?.status)) {
-      history.push(`${path}?stage=${stageId}`)
-    }
-  }
-
-  function killEvent(e: React.MouseEvent<HTMLDivElement>): void {
-    e.stopPropagation()
-    e.preventDefault()
-  }
-
   return (
     <ResizeSensor onResize={hideShowButtons}>
-      <div className={css.main} onClick={killEvent}>
+      <div className={css.main}>
         <div ref={wrapperRef} className={css.graphWrapper}>
           <div ref={graphRef} className={css.graph}>
             {(elements || []).map(({ stage, parallel }, i) => {
               if (parallel && Array.isArray(parallel)) {
-                return <ParallelStageNode key={i} stages={parallel} onClick={handleStageClick} />
+                return (
+                  <ParallelStageNode
+                    key={i}
+                    stages={parallel}
+                    {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
+                  />
+                )
               }
 
               if (stage) {
-                return <StageNode key={stage.nodeUuid} stage={stage} onClick={handleStageClick} />
+                return (
+                  <StageNode
+                    key={stage.nodeUuid}
+                    stage={stage}
+                    {...{ accountId, orgIdentifier, projectIdentifier, module, pipelineIdentifier, planExecutionId }}
+                  />
+                )
               }
 
               return null
@@ -311,7 +154,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
           className={css.scrollLeft}
           iconProps={{ size: 10 }}
           style={{ display: 'none' }}
-          onClick={handleLeftClick}
+          onClick={handleLeftArrowClick}
         />
         <Button
           minimal
@@ -319,7 +162,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
           className={css.scrollRight}
           iconProps={{ size: 10 }}
           style={{ display: 'none' }}
-          onClick={handleRightClick}
+          onClick={handleRightArrowClick}
         />
         <div className={css.stepCounts}>
           <div className={css.stepCount} data-status="success">

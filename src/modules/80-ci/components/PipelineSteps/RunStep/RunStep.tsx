@@ -1,5 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import get from 'lodash-es/get'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
@@ -14,10 +16,20 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
 import { inputSetViewValidateFieldsConfig } from './RunStepFunctionConfigs'
+import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+
+const logger = loggerFor(ModuleName.CI)
+
+const stepConnectorRegEx = /^.+step\.spec\.connectorRef$/
+const ciPropsConRegEx = /^pipeline\.properties\.ci\.codebase\.connectorRef$/
+const infrastructureConRegEx = /stage\.spec\.infrastructure\.spec\.connectorRef$/
+const serviceDepConRegEx = /stage\.spec\.serviceDependencies\.spec\.connectorRef$/
 
 export interface RunStepSpec {
   connectorRef: string
@@ -75,6 +87,14 @@ export class RunStep extends PipelineStep<RunStepData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap = new Map()
+    this.invocationMap.set(stepConnectorRegEx, this.getConnectorList.bind(this, undefined))
+    this.invocationMap.set(
+      ciPropsConRegEx,
+      this.getConnectorList.bind(this, ['Github', 'Gitlab', 'Bitbucket', 'Codecommit'])
+    )
+    this.invocationMap.set(infrastructureConRegEx, this.getConnectorList.bind(this, ['K8sCluster']))
+    this.invocationMap.set(serviceDepConRegEx, this.getConnectorList.bind(this, ['Gcp', 'Aws', 'DockerRegistry']))
   }
 
   protected type = StepType.Run
@@ -90,6 +110,30 @@ export class RunStep extends PipelineStep<RunStepData> {
       image: '',
       command: ''
     }
+  }
+
+  protected async getConnectorList(
+    connectorTypes: string[] | undefined,
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    if (connectorTypes?.length) {
+      return getConnectorSuggestions(params, connectorTypes)
+    }
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.Run || obj.type === StepType.Plugin) {
+        return getConnectorSuggestions(params, ['Gcp', 'Aws', 'DockerRegistry'])
+      }
+    }
+    return []
   }
 
   validateInputSet(data: RunStepData, template?: RunStepData, getString?: UseStringsReturn['getString']): object {

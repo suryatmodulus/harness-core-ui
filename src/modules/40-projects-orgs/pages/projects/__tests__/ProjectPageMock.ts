@@ -11,7 +11,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'testOrg',
               identifier: 'test',
               name: 'test',
@@ -28,7 +27,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Cisco_Meraki',
               identifier: 'Online_Banking',
               name: 'Online Banking',
@@ -44,7 +42,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Cisco_Meraki',
               identifier: 'Portal',
               name: 'Portal',
@@ -60,7 +57,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Cisco_Prime',
               identifier: 'Project_1',
               name: 'Project 1',
@@ -76,7 +72,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Cisco_Prime',
               identifier: 'Project_Demo',
               name: 'Project Demo',
@@ -92,7 +87,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Harness',
               identifier: 'Drone_Data_Supplier',
               name: 'Drone Data Supplier',
@@ -108,7 +102,6 @@ export const projectPageMock = {
         {
           projectResponse: {
             project: {
-              accountIdentifier: 'testAcc',
               orgIdentifier: 'Harness',
               identifier: 'Swagger',
               name: 'Swagger',
@@ -136,7 +129,6 @@ export const projectMockData = {
     status: 'SUCCESS',
     data: {
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -157,7 +149,6 @@ export const projectMockDataWithModules = {
     status: 'SUCCESS',
     data: {
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test',
@@ -178,7 +169,6 @@ export const OrgMockData = {
     status: 'SUCCESS',
     data: {
       organization: {
-        accountIdentifier: 'testAcc',
         identifier: 'testOrg',
         name: 'Org Name',
         description: 'Description',
@@ -196,7 +186,6 @@ export const createMockData = {
       status: 'SUCCESS',
       data: {
         project: {
-          accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
           orgIdentifier: 'testOrg',
           identifier: 'dummy_name',
           name: 'dummy name',
@@ -214,7 +203,6 @@ export const createMockData = {
 }
 
 export const projectWithModules: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',
@@ -229,7 +217,6 @@ export const responseProjectAggregateDTO: ResponseProjectAggregateDTO = {
   data: {
     projectResponse: {
       project: {
-        accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
         orgIdentifier: 'testOrg',
         identifier: 'dummy_name',
         name: 'dummy name',
@@ -240,7 +227,6 @@ export const responseProjectAggregateDTO: ResponseProjectAggregateDTO = {
       }
     },
     organization: {
-      accountIdentifier: 'testAcc',
       identifier: 'testOrg',
       name: 'Org Name',
       description: 'Description',
@@ -264,7 +250,6 @@ export const responseProjectAggregateDTOWithNoModules: ResponseProjectAggregateD
   data: {
     projectResponse: {
       project: {
-        accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
         orgIdentifier: 'testOrg',
         identifier: 'dummy_name',
         name: 'dummy name',
@@ -275,7 +260,6 @@ export const responseProjectAggregateDTOWithNoModules: ResponseProjectAggregateD
       }
     },
     organization: {
-      accountIdentifier: 'testAcc',
       identifier: 'testOrg',
       name: 'Org Name',
       description: 'Description',

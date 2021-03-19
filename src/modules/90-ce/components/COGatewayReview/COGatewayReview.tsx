@@ -4,7 +4,6 @@ import { Heading, Container, Layout, Label, Text, Table, Color, Icon, IconName, 
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { useStrings } from 'framework/exports'
 import type { PortConfig } from 'services/lw'
-import i18n from './COGatewayReview.i18n'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import css from './COGatewayReview.module.scss'
 interface COGatewayReviewProps {
@@ -40,10 +39,10 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
       <Container width="20%">
         <Layout.Vertical spacing="large">
           <Heading level={2} style={{ paddingTop: 'var(--spacing-small)', paddingBottom: 'var(--spacing-xmall)' }}>
-            {i18n.gatewayDetails}
+            {getString('ce.co.gatewayReview.gatewayDetails')}
           </Heading>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.selectCloudAccount}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.selectCloudAccount')}</Label>
             <Text>
               <Icon name={props.gatewayDetails.provider.icon as IconName} /> {props.gatewayDetails.cloudAccount.name}
             </Text>
@@ -65,15 +64,15 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             />
           </Layout.Horizontal>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.nameYourGateway}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.nameYourGateway')}</Label>
             <Text>{props.gatewayDetails.name}</Text>
           </Layout.Vertical>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.idleTime}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.idleTime')}</Label>
             <Text>{props.gatewayDetails.idleTimeMins}</Text>
           </Layout.Vertical>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.instanceType}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.instanceType')}</Label>
             <Layout.Horizontal spacing="small">
               <img
                 className={css.fulFilmentIcon}
@@ -85,7 +84,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             </Layout.Horizontal>
           </Layout.Vertical>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.instance}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.instance')}</Label>
             {props.gatewayDetails.selectedInstances.length ? (
               <Table<InstanceDetails>
                 data={props.gatewayDetails.selectedInstances}
@@ -140,7 +139,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             ) : null}
           </Layout.Vertical>
           <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{i18n.routing}</Label>
+            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.routing')}</Label>
             <Table<PortConfig>
               data={props.gatewayDetails.routing.ports}
               className={css.instanceTable}

@@ -4,28 +4,28 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export interface AccessCheckResponseDTO {
-  principal?: Principal
-  accessControlList?: AccessControlDTO[]
+export interface AccessCheckResponse {
+  principal?: HPrincipal
+  accessControlList?: AccessControl[]
 }
 
-export interface AccessControlDTO {
-  [key: string]: any
-}
-
-export type HAccessControlDTO = AccessControlDTO & {
+export interface AccessControl {
   permission?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  resourceScope?: ResourceScope
   resourceType?: string
   resourceIdentifier?: string
   accessible?: boolean
 }
 
-export interface Principal {
-  identifier: string
-  type: 'USER' | 'USER_GROUP' | 'API_KEY'
+export interface HPrincipal {
+  principalIdentifier?: string
+  principalType: 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE'
+}
+
+export interface ResourceScope {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface Response {
@@ -35,16 +35,11 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseAccessCheckResponseDTO {
+export interface ResponseAccessCheckResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: AccessCheckResponseDTO
+  data?: AccessCheckResponse
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export type UserPrincipal = Principal & {
-  principalIdentifier?: string
-  principalType?: 'USER' | 'USER_GROUP' | 'API_KEY'
 }
 
 export interface Failure {
@@ -290,6 +285,7 @@ export interface Failure {
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
   message?: string
   correlationId?: string
   errors?: ValidationError[]
@@ -543,30 +539,22 @@ export interface Error {
     | 'INSTANCE_STATS_MIGRATION_ERROR'
     | 'DEPLOYMENT_MIGRATION_ERROR'
     | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
   message?: string
   correlationId?: string
   detailedMessage?: string
 }
 
-export interface AccessCheckRequestDTO {
+export interface AccessCheckRequest {
   permissions?: PermissionCheck[]
-  principal: Principal
+  principal?: HPrincipal
 }
 
 export interface PermissionCheck {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  resourceScope: ResourceScope
   resourceType?: string
   resourceIdentifier?: string
   permission?: string
-}
-
-export interface ResponseString {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: string
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface Permission {
@@ -585,6 +573,13 @@ export interface PermissionResponse {
 export interface ResponseListPermissionResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PermissionResponse[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseSetString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -609,6 +604,11 @@ export interface PageRoleAssignmentResponse {
   empty?: boolean
 }
 
+export interface Principal {
+  identifier: string
+  type: 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE'
+}
+
 export interface ResponsePageRoleAssignmentResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageRoleAssignmentResponse
@@ -617,11 +617,10 @@ export interface ResponsePageRoleAssignmentResponse {
 }
 
 export interface RoleAssignment {
-  identifier: string
+  identifier?: string
   resourceGroupIdentifier: string
   roleIdentifier: string
   principal: Principal
-  harnessManaged?: boolean
   disabled?: boolean
 }
 
@@ -630,15 +629,16 @@ export interface RoleAssignmentResponse {
   scope: string
   createdAt?: number
   lastModifiedAt?: number
+  harnessManaged?: boolean
 }
 
 export interface RoleAssignmentFilter {
   resourceGroupFilter?: string[]
   roleFilter?: string[]
-  principalTypeFilter?: ('USER' | 'USER_GROUP' | 'API_KEY')[]
+  principalTypeFilter?: ('USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE')[]
   principalFilter?: Principal[]
-  managed?: boolean[]
-  disabled?: boolean[]
+  harnessManagedFilter?: boolean[]
+  disabledFilter?: boolean[]
 }
 
 export interface ResponseRoleAssignmentResponse {
@@ -648,9 +648,50 @@ export interface ResponseRoleAssignmentResponse {
   correlationId?: string
 }
 
-export interface ResponseRoleResponse {
+export interface ResponseListRoleAssignmentResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: RoleResponse
+  data?: RoleAssignmentResponse[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface BatchRoleAssignmentCreateRequest {
+  roleAssignments?: RoleAssignment[]
+}
+
+export interface ResponseRoleAssignmentValidationResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: RoleAssignmentValidationResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface RoleAssignmentValidationResponse {
+  principalValidationResult?: ValidationResult
+  roleValidationResult?: ValidationResult
+  resourceGroupValidationResult?: ValidationResult
+}
+
+export interface ValidationResult {
+  errorMessage?: string
+  valid?: boolean
+}
+
+export interface RoleAssignmentValidationRequestDTO {
+  roleAssignment: RoleAssignment
+  validatePrincipal?: boolean
+  validateRole?: boolean
+  validateResourceGroup?: boolean
+}
+
+export interface ResourceGroupDTO {
+  identifier?: string
+  name?: string
+}
+
+export interface ResponseRoleAssignmentAggregateResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: RoleAssignmentAggregateResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -666,12 +707,26 @@ export interface Role {
   }
 }
 
+export interface RoleAssignmentAggregateResponse {
+  roleAssignments?: RoleAssignment[]
+  scope?: string
+  roles?: RoleResponse[]
+  resourceGroups?: ResourceGroupDTO[]
+}
+
 export interface RoleResponse {
   role: Role
   scope: string
   harnessManaged?: boolean
   createdAt?: number
   lastModifiedAt?: number
+}
+
+export interface ResponseRoleResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: RoleResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface PageRoleResponse {
@@ -691,10 +746,21 @@ export interface ResponsePageRoleResponse {
   correlationId?: string
 }
 
+export interface ResponseString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
+
+export type RoleAssignmentRequestBody = RoleAssignment
+
 export type RoleRequestBody = Role
 
 export type GetAccessControlListProps = Omit<
-  MutateProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  MutateProps<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>,
   'path' | 'verb'
 >
 
@@ -702,7 +768,7 @@ export type GetAccessControlListProps = Omit<
  * Check for access to resources
  */
 export const GetAccessControlList = (props: GetAccessControlListProps) => (
-  <Mutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>
+  <Mutate<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>
     verb="POST"
     path="/acl"
     base={getConfig('authz/api')}
@@ -711,7 +777,7 @@ export const GetAccessControlList = (props: GetAccessControlListProps) => (
 )
 
 export type UseGetAccessControlListProps = Omit<
-  UseMutateProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  UseMutateProps<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>,
   'path' | 'verb'
 >
 
@@ -719,7 +785,7 @@ export type UseGetAccessControlListProps = Omit<
  * Check for access to resources
  */
 export const useGetAccessControlList = (props: UseGetAccessControlListProps) =>
-  useMutate<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>('POST', `/acl`, {
+  useMutate<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>('POST', `/acl`, {
     base: getConfig('authz/api'),
     ...props
   })
@@ -728,58 +794,13 @@ export const useGetAccessControlList = (props: UseGetAccessControlListProps) =>
  * Check for access to resources
  */
 export const getAccessControlListPromise = (
-  props: MutateUsingFetchProps<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>,
+  props: MutateUsingFetchProps<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseAccessCheckResponseDTO, Failure | Error, void, AccessCheckRequestDTO, void>(
+  mutateUsingFetch<ResponseAccessCheckResponse, Failure | Error, void, AccessCheckRequest, void>(
     'POST',
     getConfig('authz/api'),
     `/acl`,
-    props,
-    signal
-  )
-
-export interface TestACLQueryParams {
-  account?: string
-  org?: string
-  project?: string
-  resourceIdentifier?: string
-}
-
-export type TestACLProps = Omit<GetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
-
-/**
- * Test ACL
- */
-export const TestACL = (props: TestACLProps) => (
-  <Get<ResponseString, Failure | Error, TestACLQueryParams, void>
-    path="/acl/acl-test"
-    base={getConfig('authz/api')}
-    {...props}
-  />
-)
-
-export type UseTestACLProps = Omit<UseGetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
-
-/**
- * Test ACL
- */
-export const useTestACL = (props: UseTestACLProps) =>
-  useGet<ResponseString, Failure | Error, TestACLQueryParams, void>(`/acl/acl-test`, {
-    base: getConfig('authz/api'),
-    ...props
-  })
-
-/**
- * Test ACL
- */
-export const testACLPromise = (
-  props: GetUsingFetchProps<ResponseString, Failure | Error, TestACLQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseString, Failure | Error, TestACLQueryParams, void>(
-    getConfig('authz/api'),
-    `/acl/acl-test`,
     props,
     signal
   )
@@ -788,7 +809,6 @@ export interface GetPermissionListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  resourceType?: string
   scopeFilterDisabled?: boolean
 }
 
@@ -836,87 +856,56 @@ export const getPermissionListPromise = (
     signal
   )
 
-export interface GetFilteredRoleAssignmentListQueryParams {
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
+export interface GetPermissionResourceTypesListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  scopeFilterDisabled?: boolean
 }
 
-export type GetFilteredRoleAssignmentListProps = Omit<
-  MutateProps<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >,
-  'path' | 'verb'
+export type GetPermissionResourceTypesListProps = Omit<
+  GetProps<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>,
+  'path'
 >
 
 /**
- * Get Filtered Role Assignments
+ * Get All Resource Types for Permissions in a Scope
  */
-export const GetFilteredRoleAssignmentList = (props: GetFilteredRoleAssignmentListProps) => (
-  <Mutate<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >
-    verb="POST"
-    path="/roleassignments/filter"
+export const GetPermissionResourceTypesList = (props: GetPermissionResourceTypesListProps) => (
+  <Get<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>
+    path="/permissions/resourcetypes"
     base={getConfig('authz/api')}
     {...props}
   />
 )
 
-export type UseGetFilteredRoleAssignmentListProps = Omit<
-  UseMutateProps<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >,
-  'path' | 'verb'
+export type UseGetPermissionResourceTypesListProps = Omit<
+  UseGetProps<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>,
+  'path'
 >
 
 /**
- * Get Filtered Role Assignments
+ * Get All Resource Types for Permissions in a Scope
  */
-export const useGetFilteredRoleAssignmentList = (props: UseGetFilteredRoleAssignmentListProps) =>
-  useMutate<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >('POST', `/roleassignments/filter`, { base: getConfig('authz/api'), ...props })
+export const useGetPermissionResourceTypesList = (props: UseGetPermissionResourceTypesListProps) =>
+  useGet<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>(
+    `/permissions/resourcetypes`,
+    { base: getConfig('authz/api'), ...props }
+  )
 
 /**
- * Get Filtered Role Assignments
+ * Get All Resource Types for Permissions in a Scope
  */
-export const getFilteredRoleAssignmentListPromise = (
-  props: MutateUsingFetchProps<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >,
+export const getPermissionResourceTypesListPromise = (
+  props: GetUsingFetchProps<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponsePageRoleAssignmentResponse,
-    Failure | Error,
-    GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
-    void
-  >('POST', getConfig('authz/api'), `/roleassignments/filter`, props, signal)
+  getUsingFetch<ResponseSetString, Failure | Error, GetPermissionResourceTypesListQueryParams, void>(
+    getConfig('authz/api'),
+    `/permissions/resourcetypes`,
+    props,
+    signal
+  )
 
 export interface GetRoleAssignmentListQueryParams {
   pageIndex?: number
@@ -983,7 +972,13 @@ export interface CreateRoleAssignmentQueryParams {
 }
 
 export type CreateRoleAssignmentProps = Omit<
-  MutateProps<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>,
+  MutateProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -991,7 +986,13 @@ export type CreateRoleAssignmentProps = Omit<
  * Create Role Assignment
  */
 export const CreateRoleAssignment = (props: CreateRoleAssignmentProps) => (
-  <Mutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>
+  <Mutate<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    void
+  >
     verb="POST"
     path="/roleassignments"
     base={getConfig('authz/api')}
@@ -1004,7 +1005,7 @@ export type UseCreateRoleAssignmentProps = Omit<
     ResponseRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentQueryParams,
-    RoleAssignment,
+    RoleAssignmentRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1014,11 +1015,13 @@ export type UseCreateRoleAssignmentProps = Omit<
  * Create Role Assignment
  */
 export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
-  useMutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>(
-    'POST',
-    `/roleassignments`,
-    { base: getConfig('authz/api'), ...props }
-  )
+  useMutate<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    void
+  >('POST', `/roleassignments`, { base: getConfig('authz/api'), ...props })
 
 /**
  * Create Role Assignment
@@ -1028,7 +1031,7 @@ export const createRoleAssignmentPromise = (
     ResponseRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentQueryParams,
-    RoleAssignment,
+    RoleAssignmentRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -1037,9 +1040,183 @@ export const createRoleAssignmentPromise = (
     ResponseRoleAssignmentResponse,
     Failure | Error,
     CreateRoleAssignmentQueryParams,
-    RoleAssignment,
+    RoleAssignmentRequestBody,
     void
   >('POST', getConfig('authz/api'), `/roleassignments`, props, signal)
+
+export interface GetFilteredRoleAssignmentListQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetFilteredRoleAssignmentListProps = Omit<
+  MutateProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const GetFilteredRoleAssignmentList = (props: GetFilteredRoleAssignmentListProps) => (
+  <Mutate<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >
+    verb="POST"
+    path="/roleassignments/filter"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseGetFilteredRoleAssignmentListProps = Omit<
+  UseMutateProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const useGetFilteredRoleAssignmentList = (props: UseGetFilteredRoleAssignmentListProps) =>
+  useMutate<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', `/roleassignments/filter`, { base: getConfig('authz/api'), ...props })
+
+/**
+ * Get Filtered Role Assignments
+ */
+export const getFilteredRoleAssignmentListPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageRoleAssignmentResponse,
+    Failure | Error,
+    GetFilteredRoleAssignmentListQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', getConfig('authz/api'), `/roleassignments/filter`, props, signal)
+
+export interface UpdateRoleAssignmentQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface UpdateRoleAssignmentPathParams {
+  identifier: string
+}
+
+export type UpdateRoleAssignmentProps = Omit<
+  MutateProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateRoleAssignmentPathParams
+
+/**
+ * Update Role Assignment
+ */
+export const UpdateRoleAssignment = ({ identifier, ...props }: UpdateRoleAssignmentProps) => (
+  <Mutate<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  >
+    verb="PUT"
+    path="/roleassignments/${identifier}"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateRoleAssignmentProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateRoleAssignmentPathParams
+
+/**
+ * Update Role Assignment
+ */
+export const useUpdateRoleAssignment = ({ identifier, ...props }: UseUpdateRoleAssignmentProps) =>
+  useMutate<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  >('PUT', (paramsInPath: UpdateRoleAssignmentPathParams) => `/roleassignments/${paramsInPath.identifier}`, {
+    base: getConfig('authz/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Update Role Assignment
+ */
+export const updateRoleAssignmentPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentResponse,
+    Failure | Error,
+    UpdateRoleAssignmentQueryParams,
+    RoleAssignmentRequestBody,
+    UpdateRoleAssignmentPathParams
+  >('PUT', getConfig('authz/api'), `/roleassignments/${identifier}`, props, signal)
 
 export interface DeleteRoleAssignmentQueryParams {
   accountIdentifier?: string
@@ -1099,6 +1276,243 @@ export const deleteRoleAssignmentPromise = (
     props,
     signal
   )
+
+export interface CreateRoleAssignmentsQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type CreateRoleAssignmentsProps = Omit<
+  MutateProps<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Multiple Role Assignments
+ */
+export const CreateRoleAssignments = (props: CreateRoleAssignmentsProps) => (
+  <Mutate<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >
+    verb="POST"
+    path="/roleassignments/multi"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseCreateRoleAssignmentsProps = Omit<
+  UseMutateProps<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Multiple Role Assignments
+ */
+export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =>
+  useMutate<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >('POST', `/roleassignments/multi`, { base: getConfig('authz/api'), ...props })
+
+/**
+ * Create Multiple Role Assignments
+ */
+export const createRoleAssignmentsPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListRoleAssignmentResponse,
+    Failure | Error,
+    CreateRoleAssignmentsQueryParams,
+    BatchRoleAssignmentCreateRequest,
+    void
+  >('POST', getConfig('authz/api'), `/roleassignments/multi`, props, signal)
+
+export interface ValidateRoleAssignmentQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateRoleAssignmentProps = Omit<
+  MutateProps<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate Role Assignment
+ */
+export const ValidateRoleAssignment = (props: ValidateRoleAssignmentProps) => (
+  <Mutate<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >
+    verb="POST"
+    path="/roleassignments/validate"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseValidateRoleAssignmentProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate Role Assignment
+ */
+export const useValidateRoleAssignment = (props: UseValidateRoleAssignmentProps) =>
+  useMutate<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >('POST', `/roleassignments/validate`, { base: getConfig('authz/api'), ...props })
+
+/**
+ * Validate Role Assignment
+ */
+export const validateRoleAssignmentPromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentValidationResponse,
+    Failure | Error,
+    ValidateRoleAssignmentQueryParams,
+    RoleAssignmentValidationRequestDTO,
+    void
+  >('POST', getConfig('authz/api'), `/roleassignments/validate`, props, signal)
+
+export interface GetRoleAssignmentsAggregateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetRoleAssignmentsAggregateProps = Omit<
+  MutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const GetRoleAssignmentsAggregate = (props: GetRoleAssignmentsAggregateProps) => (
+  <Mutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >
+    verb="POST"
+    path="/roleassignments/aggregate"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseGetRoleAssignmentsAggregateProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const useGetRoleAssignmentsAggregate = (props: UseGetRoleAssignmentsAggregateProps) =>
+  useMutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', `/roleassignments/aggregate`, { base: getConfig('authz/api'), ...props })
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const getRoleAssignmentsAggregatePromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', getConfig('authz/api'), `/roleassignments/aggregate`, props, signal)
 
 export interface GetRoleQueryParams {
   accountIdentifier?: string
@@ -1289,7 +1703,6 @@ export interface GetRoleListQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  includeHarnessManaged?: boolean
 }
 
 export type GetRoleListProps = Omit<
@@ -1384,6 +1797,51 @@ export const createRolePromise = (
     'POST',
     getConfig('authz/api'),
     `/roles`,
+    props,
+    signal
+  )
+
+export interface TestACLQueryParams {
+  account?: string
+  org?: string
+  project?: string
+  resourceIdentifier?: string
+}
+
+export type TestACLProps = Omit<GetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
+
+/**
+ * Test ACL
+ */
+export const TestACL = (props: TestACLProps) => (
+  <Get<ResponseString, Failure | Error, TestACLQueryParams, void>
+    path="/acl/acl-test"
+    base={getConfig('authz/api')}
+    {...props}
+  />
+)
+
+export type UseTestACLProps = Omit<UseGetProps<ResponseString, Failure | Error, TestACLQueryParams, void>, 'path'>
+
+/**
+ * Test ACL
+ */
+export const useTestACL = (props: UseTestACLProps) =>
+  useGet<ResponseString, Failure | Error, TestACLQueryParams, void>(`/acl/acl-test`, {
+    base: getConfig('authz/api'),
+    ...props
+  })
+
+/**
+ * Test ACL
+ */
+export const testACLPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, TestACLQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, TestACLQueryParams, void>(
+    getConfig('authz/api'),
+    `/acl/acl-test`,
     props,
     signal
   )

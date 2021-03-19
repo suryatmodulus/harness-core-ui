@@ -22,7 +22,7 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
         Take your software build verification processes to the next level using our Harness Continuous Verifications
       </p>
       <a
-        class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
         href="https://ngdocs.harness.io/"
         rel="noreferrer noopener"
         role="button"

@@ -24,7 +24,8 @@ jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetDelegatesStatus: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -108,23 +109,13 @@ describe('Create Git connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledTimes(1)
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        name: 'dumyGit',
-        identifier: 'dumyGit',
-        description: '',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        tags: {},
-        type: 'Git',
-        spec: {
-          url: 'dumyGitUrl',
-          type: 'Http',
-          connectionType: 'Account',
-          spec: { username: 'dev', passwordRef: 'account.connectorPass' }
-        }
-      }
+      connector: usernamePassword
     })
   })
 

@@ -20,7 +20,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -200,7 +200,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -306,7 +306,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -486,7 +486,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >

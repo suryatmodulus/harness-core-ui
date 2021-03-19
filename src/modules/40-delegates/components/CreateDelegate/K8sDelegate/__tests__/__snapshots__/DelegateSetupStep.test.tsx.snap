@@ -319,7 +319,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
               class="Layout--horizontal StyledProps--main formFooter"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main backBtn footerBtn StyledProps--margin-right-small"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main backBtn footerBtn StyledProps--margin-right-small"
                 id="delegateSetupBackBtn"
                 type="button"
               >
@@ -349,7 +349,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main submitBtn footerBtn StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitBtn footerBtn StyledProps--intent-primary"
                 type="submit"
               >
                 <span

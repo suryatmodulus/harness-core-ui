@@ -148,7 +148,8 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                           label=""
                           multiTypeDurationProps={{
                             enableConfigureOptions: false,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                            defaultValueToReset: ''
                           }}
                         />
                         <Button minimal small icon="trash" onClick={handleRemove} data-testid="remove-retry-interval" />

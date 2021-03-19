@@ -12,6 +12,9 @@ import ExecutionActions from '../ExecutionActions'
 jest.mock('services/pipeline-ng', () => ({
   useHandleInterrupt: jest.fn(() => ({
     mutate: jest.fn()
+  })),
+  useHandleStageInterrupt: jest.fn(() => ({
+    mutate: jest.fn()
   }))
 }))
 
@@ -29,7 +32,8 @@ const pathParams = {
   projectIdentifier: 'TEST_PROJECT',
   pipelineIdentifier: 'TEST_PIPELINE',
   executionIdentifier: 'TEST_EXECUTION',
-  module: 'cd'
+  module: 'cd',
+  stageId: 'selectedStageId'
 }
 
 describe('<ExecutionActions /> tests', () => {
@@ -75,6 +79,7 @@ describe('<ExecutionActions /> tests', () => {
       loading: true,
       data: null
     }))
+
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
         <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />

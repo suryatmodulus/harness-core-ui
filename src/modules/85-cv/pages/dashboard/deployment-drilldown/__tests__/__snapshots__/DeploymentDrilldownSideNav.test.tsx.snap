@@ -154,7 +154,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
                 class="StyledProps--font StyledProps--main itemHeader"
               >
                 <p
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   style="width: 130px;"
                 />
                 <span
@@ -178,12 +178,12 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 Environment: undefined
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
                 Started on: XX:YY
               </p>

@@ -32,7 +32,7 @@ const determineMaxTab = (data: any): number => {
 }
 
 function MockComponentThatHitsSubmit(props: any): JSX.Element {
-  const { onSwitchTab, tabsInfo, sourceData } = useContext(SetupSourceTabsContext)
+  const { onNext, sourceData } = useContext(SetupSourceTabsContext)
   return (
     <Container>
       {sourceData && Object.keys(sourceData).length && (
@@ -40,7 +40,7 @@ function MockComponentThatHitsSubmit(props: any): JSX.Element {
       )}
       <Button
         onClick={() => {
-          onSwitchTab(props.switchData || { dolo: {} }, props.tab || 1, tabsInfo || [])
+          onNext(props.switchData || { dolo: {} }, { tabStatus: 'SUCCESS' })
         }}
         className="next"
       >

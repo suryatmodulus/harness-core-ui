@@ -9,7 +9,7 @@ exports[`Notification Table test render 1`] = `
       class="Layout--horizontal StyledProps--main headerActions StyledProps--flex"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         id="newNotificationBtn"
         type="button"
       >
@@ -264,7 +264,7 @@ exports[`Notification Table test render 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -407,7 +407,7 @@ exports[`Notification Table test render 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -561,7 +561,7 @@ exports[`Notification Table test render 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span

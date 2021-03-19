@@ -5,8 +5,6 @@ import {
   Formik,
   FormInput,
   Text,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
   FormikForm as Form,
   StepProps,
   Color,
@@ -16,19 +14,11 @@ import {
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  buildBitbucketPayload,
   SecretReferenceInterface,
   setupBitbucketFormData,
   GitConnectionType
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO
-} from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
@@ -46,6 +36,7 @@ interface BitbucketAuthenticationProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
@@ -127,12 +118,7 @@ const StepBitbucketAuthentication: React.FC<
   StepProps<StepBitbucketAuthenticationProps> & BitbucketAuthenticationProps
 > = props => {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
-  const { prevStepData, nextStep, onConnectorCreated, accountId, projectIdentifier, orgIdentifier } = props
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { prevStepData, nextStep, accountId } = props
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
@@ -142,38 +128,6 @@ const StepBitbucketAuthentication: React.FC<
       value: GitAuthTypes.USER_PASSWORD
     }
   ]
-
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      onConnectorCreated?.(data)
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepBitbucketAuthenticationProps)
-      props.onConnectorCreated(response.data)
-      props.setIsEditMode(true)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepBitbucketAuthenticationProps)
-      props.onConnectorCreated(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
@@ -189,6 +143,10 @@ const StepBitbucketAuthentication: React.FC<
       }
     }
   }, [loadingConnectorSecrets])
+
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepBitbucketAuthenticationProps)
+  }
 
   return loadingConnectorSecrets ? (
     <PageSpinner />
@@ -240,25 +198,10 @@ const StepBitbucketAuthentication: React.FC<
             otherwise: Yup.object().nullable()
           })
         })}
-        onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildBitbucketPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.stepFormWrapper}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <Container width={'52%'}>
@@ -295,13 +238,7 @@ const StepBitbucketAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="bitbucketBackButton"
               />
-              <Button
-                type="submit"
-                intent="primary"
-                text={getString('saveAndContinue')}
-                rightIcon="chevron-right"
-                disabled={loadConnector}
-              />
+              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

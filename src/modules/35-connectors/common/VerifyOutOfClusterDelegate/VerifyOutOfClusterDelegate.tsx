@@ -105,15 +105,19 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
     }
   }
 
-  return (
+  const value = props.url || getValue()
+
+  return value ? (
     <Layout.Horizontal padding={{ top: 'xsmall' }} spacing="xsmall">
       <Text color={Color.GREY_400} font={{ size: 'small' }} className={css.subHeading}>
         {getLabel()}
       </Text>
       <Text color={Color.GREY_600} font={{ size: 'small' }} className={css.subHeading} lineClamp={1} width={'600px'}>
-        {props.url || getValue()}
+        {value}
       </Text>
     </Layout.Horizontal>
+  ) : (
+    <></>
   )
 }
 

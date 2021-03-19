@@ -20,7 +20,6 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
   const { data, metadataMap, originalData, className } = props
 
   if (!data || !originalData || !metadataMap) return null
-
   return (
     <div className={cx(css.variablesListTable, className)}>
       {Object.entries(data || {}).map(([key, value]) => {

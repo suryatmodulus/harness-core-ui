@@ -46,12 +46,15 @@ interface DashboardInterface {
 
 const i18n: { [key: string]: string } = {
   'AWS Cost Dashboard':
-    'Analysis of your AWS cloud spend, including the total cost spend, projected cost spend, historical cost and forecast, trending services, most expensive services and current vs previous period spend',
+    'AWS Cost Dashboard allows you to view your AWS cloud costs at a glance, understand what is costing the most, and analyze cost trends',
   'GCP Cost Dashboard':
-    'Analysis of your GCP cloud spend, including the total cost spend, projected cost spend, historical cost and forecast, trending services, most expensive products and current vs previous period spend',
+    'GCP Cost Dashboard allows you to view your GCP cloud costs at a glance, understand what is costing the most, and analyze cost trends',
   'Cluster Cost Dashboard':
-    'Analysis of your cluster spend including: the total cost spend, projected cost spend, historical cost and forecast, trending resources, most expensive resources, current vs previous period spend, efficiency score and cost breakdown',
-  'Multi-cloud Cost Overview Dashboard': 'Total cost analysis of your GCP, AWS and or Azure accounts'
+    'Cluster Cost Dashboard allows you to view your cluster cloud costs at a glance, understand what is costing the most, and analyze cost trends',
+  'Multi-cloud Cost Overview Dashboard':
+    'Multi-cloud Cost Dashboard provides a unified view of your cloud cost data across the cloud environment',
+  'AWS Reservation Efficiency':
+    'AWS reservation efficiency report contains the detail of how reserved instances are utilized. It tracks your AWS usage across your AWS account and provides detail of how efficient is your reserved instance usage'
 }
 
 const FirstStep = (props: any): JSX.Element => {

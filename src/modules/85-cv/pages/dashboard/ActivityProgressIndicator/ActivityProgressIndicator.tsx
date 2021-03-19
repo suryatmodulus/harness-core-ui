@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import type { ActivityVerificationSummary } from 'services/cv'
 import i18n from './ActivityProgressIndicator.i18n'
@@ -13,8 +12,8 @@ interface ActivityProgressIndicatorProps {
   onClick?(e: React.MouseEvent<HTMLElement>): void
 }
 
-const XSMALL_FONT_SIZE: FontProps = {
-  size: 'xsmall'
+const SMALL_FONT_SIZE = {
+  fontSize: 12
 }
 
 export default function ActivityProgressIndicator(props: ActivityProgressIndicatorProps): JSX.Element {
@@ -43,7 +42,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   if (notStarted) {
     return (
       <Container className={cx(props.className, css.notStarted)}>
-        <Text font={XSMALL_FONT_SIZE}>{i18n.verificationNotStarted}</Text>
+        <Text style={SMALL_FONT_SIZE}>{i18n.verificationNotStarted}</Text>
         <CVProgressBar />
       </Container>
     )
@@ -65,20 +64,18 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
 
   return (
     <Container className={props.className} onClick={props.onClick}>
-      <Text color={progress === 100 ? undefined : Color.BLACK} font={XSMALL_FONT_SIZE}>
+      <Text color={progress === 100 ? undefined : Color.BLACK} style={SMALL_FONT_SIZE}>
         {progressDescription}
       </Text>
       <CVProgressBar status={aggregatedStatus} value={progressValue} />
       <Container flex>
         {startTime !== undefined && startTime !== null && (
-          <Text color={Color.GREY_300} font={XSMALL_FONT_SIZE}>
-            {`${i18n.startOn} ${new Date(startTime).toLocaleString()}`}
-          </Text>
+          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${i18n.startOn} ${new Date(
+            startTime
+          ).toLocaleString()}`}</Text>
         )}
         {duration !== undefined && duration !== null && (
-          <Text color={Color.GREY_300} font={XSMALL_FONT_SIZE}>
-            {`${duration} ${i18n.abbreviatedMinute}`}
-          </Text>
+          <Text color={Color.GREY_400} style={SMALL_FONT_SIZE}>{`${duration} ${i18n.abbreviatedMinute}`}</Text>
         )}
       </Container>
     </Container>

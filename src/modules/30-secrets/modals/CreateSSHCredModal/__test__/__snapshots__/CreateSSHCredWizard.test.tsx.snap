@@ -255,7 +255,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
                 class="Layout--horizontal StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -512,7 +512,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       class=""
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--inline StyledProps--font-small"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--inline StyledProps--font-small"
                         type="button"
                       >
                         <span
@@ -590,7 +590,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       Select or create a SSH Key File
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="key"
                       type="button"
                     >
@@ -649,7 +649,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       Passphrase (optional)
                     </label>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                       data-testid="encryptedPassphrase"
                       type="button"
                     >
@@ -726,7 +726,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   type="button"
                 >
                   <span
@@ -736,7 +736,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -965,7 +965,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
                   THIS URL WILL ONLY BE USED FOR VERIFICATION PROCESS
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-top-medium"
                   style="font-size: smaller;"
                   type="submit"
                 >

@@ -1,0 +1,796 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Jira Connector  Wizard Should render form 1`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="service-jira"
+        >
+          <svg
+            height="50"
+            viewBox="0 0 14 14"
+            width="50"
+          >
+            <lineargradient
+              id="service-jira_svg__a"
+            >
+              <stop
+                offset="0.18"
+                stop-color="#0052cc"
+              />
+              <stop
+                offset="1"
+                stop-color="#2684ff"
+              />
+            </lineargradient>
+            <lineargradient
+              gradientTransform="matrix(4.5 0 0 -7 1045.5 2440)"
+              gradientUnits="userSpaceOnUse"
+              id="service-jira_svg__b"
+              x1="-231.106"
+              x2="-231.372"
+              xlink:href="#service-jira_svg__a"
+              y1="348.167"
+              y2="347.754"
+            />
+            <lineargradient
+              gradientTransform="matrix(4.5 0 0 -7 1050 2447)"
+              gradientUnits="userSpaceOnUse"
+              id="service-jira_svg__c"
+              x1="-231.447"
+              x2="-231.182"
+              xlink:href="#service-jira_svg__a"
+              y1="347.979"
+              y2="348.392"
+            />
+            <path
+              d="M13.6 6.6l-6-6L7 0 2.5 4.5.4 6.6c-.2.2-.2.6 0 .8l4.1 4.1L7 14l4.5-4.5.1-.1 2-2c.2-.2.2-.6 0-.8zM7 9.1L4.9 7 7 4.9 9.1 7z"
+              fill="#2684ff"
+            />
+            <path
+              d="M7 4.9C5.6 3.6 5.6 1.4 7 0L2.5 4.5 4.9 7z"
+              fill="url(#service-jira_svg__b)"
+            />
+            <path
+              d="M9.1 7L7 9.1c1.4 1.4 1.4 3.6 0 4.9l4.5-4.5z"
+              fill="url(#service-jira_svg__c)"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Connector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+      >
+        <div
+          class="heading"
+        >
+          Overview
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+        >
+          <div
+            class="OverlaySpinner--overlaySpinner"
+          >
+            <form
+              class="FormikForm--main"
+            >
+              <div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main main formElm"
+                  >
+                    <div
+                      class="InputWithIdentifier--txtNameContainer"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ID
+                          :
+                        </p>
+                        <span
+                          class="bp3-popover-wrapper"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-editable-text InputWithIdentifier--idValue"
+                              tabindex="0"
+                            >
+                              <span
+                                class="bp3-editable-text-content"
+                                style="height: 1px; line-height: 1px; min-width: 0;"
+                              >
+                                dummy_name
+                              </span>
+                            </div>
+                          </span>
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
+                          icon="edit"
+                          style="vertical-align: middle;"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="bp3-form-group"
+                        data-id="name-0"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="name"
+                        >
+                          Name
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="name"
+                              type="text"
+                              value="dummy name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main"
+                        style="font-size: 13px;"
+                      >
+                        Description
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          data-name="edit"
+                          data-testid="description-edit"
+                          icon="edit"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main"
+                        style="font-size: 13px;"
+                      >
+                        Tags
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          data-name="edit"
+                          data-testid="tags-edit"
+                          icon="edit"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <button
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Jira Connector  Wizard Should render form 2`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="service-jira"
+        >
+          <svg
+            height="50"
+            viewBox="0 0 14 14"
+            width="50"
+          >
+            <lineargradient
+              id="service-jira_svg__a"
+            >
+              <stop
+                offset="0.18"
+                stop-color="#0052cc"
+              />
+              <stop
+                offset="1"
+                stop-color="#2684ff"
+              />
+            </lineargradient>
+            <lineargradient
+              gradientTransform="matrix(4.5 0 0 -7 1045.5 2440)"
+              gradientUnits="userSpaceOnUse"
+              id="service-jira_svg__b"
+              x1="-231.106"
+              x2="-231.372"
+              xlink:href="#service-jira_svg__a"
+              y1="348.167"
+              y2="347.754"
+            />
+            <lineargradient
+              gradientTransform="matrix(4.5 0 0 -7 1050 2447)"
+              gradientUnits="userSpaceOnUse"
+              id="service-jira_svg__c"
+              x1="-231.447"
+              x2="-231.182"
+              xlink:href="#service-jira_svg__a"
+              y1="347.979"
+              y2="348.392"
+            />
+            <path
+              d="M13.6 6.6l-6-6L7 0 2.5 4.5.4 6.6c-.2.2-.2.6 0 .8l4.1 4.1L7 14l4.5-4.5.1-.1 2-2c.2-.2.2-.6 0-.8zM7 9.1L4.9 7 7 4.9 9.1 7z"
+              fill="#2684ff"
+            />
+            <path
+              d="M7 4.9C5.6 3.6 5.6 1.4 7 0L2.5 4.5 4.9 7z"
+              fill="url(#service-jira_svg__b)"
+            />
+            <path
+              d="M9.1 7L7 9.1c1.4 1.4 1.4 3.6 0 4.9l4.5-4.5z"
+              fill="url(#service-jira_svg__c)"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Connector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--margin-small"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        >
+          Details
+        </p>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
+                style="width: 56%;"
+              >
+                <div
+                  class="bp3-form-group"
+                  data-id="jiraUrl-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="jiraUrl"
+                  >
+                    URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                    >
+                      <div
+                        class="bp3-input-group MultiTypeInput--input"
+                      >
+                        <input
+                          class="bp3-input"
+                          name="jiraUrl"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <span
+                        class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <button
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="fixed-input"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 9 9"
+                                width="12"
+                              >
+                                <path
+                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="usernamefieldType-1"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                    >
+                      <div
+                        class="label"
+                      >
+                        <label>
+                          Username
+                        </label>
+                        <div
+                          class="bp3-form-group labelSelect"
+                          data-id="usernamefieldType-2"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select--main bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="usernamefieldType"
+                                    placeholder="Search..."
+                                    style="padding-right: 0px;"
+                                    type="text"
+                                    value="Plaintext"
+                                  />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="bp3-form-group textCss"
+                      >
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="usernametextField"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-4"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                    >
+                      <label
+                        class="bp3-label"
+                      >
+                        Password
+                      </label>
+                      <button
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
+                        data-testid="passwordRef"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                            style="align-items: center; width: 100%;"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span>
+                              Create or Select a Secret
+                            </span>
+                          </div>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+              >
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  data-name="jiraBackButton"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                    icon="chevron-left"
+                  >
+                    <svg
+                      data-icon="chevron-left"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-left
+                      </desc>
+                      <path
+                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Back
+                  </span>
+                </button>
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save and Continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -11,6 +11,9 @@ exports[`Select Services render services for application 1`] = `
       The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.
     </p>
     <div
+      class="StyledProps--font StyledProps--main filterComponent"
+    />
+    <div
       class="table"
     >
       <div
@@ -23,7 +26,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 28%;"
         >
-          HARNESS CD 1.0 SERVICES
+          HARNESS FIRSTGEN APPLICATION
         </div>
         <div
           class="cell"
@@ -31,7 +34,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 28%;"
         >
-          HARNESS CD 1.0 APPLICATION
+          HARNESS FIRSTGEN SERVICES
         </div>
         <div
           class="cell"
@@ -39,9 +42,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 44%;"
         >
-          <div
-            class="StyledProps--font StyledProps--main filterComponent"
-          />
+          HARNESS NEXTGEN SERVICES
         </div>
       </div>
       <div
@@ -60,6 +61,20 @@ exports[`Select Services render services for application 1`] = `
               style="cursor: pointer;"
               type="checkbox"
             />
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 95%;"
+            />
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 28%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
             <span
               class="bp3-icon StyledProps--main"
               data-icon="cd-main"
@@ -103,16 +118,6 @@ exports[`Select Services render services for application 1`] = `
               Archive
             </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 28%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1; width: 95%;"
-          />
         </div>
         <div
           class="cell"
@@ -203,6 +208,20 @@ exports[`Select Services render services for application 1`] = `
               style="cursor: pointer;"
               type="checkbox"
             />
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1; width: 95%;"
+            />
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 28%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
             <span
               class="bp3-icon StyledProps--main"
               data-icon="cd-main"
@@ -246,16 +265,6 @@ exports[`Select Services render services for application 1`] = `
               Test Service
             </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 28%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1; width: 95%;"
-          />
         </div>
         <div
           class="cell"
@@ -354,7 +363,7 @@ exports[`Select Services render services for application 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -366,7 +375,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -376,7 +385,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -386,7 +395,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -396,7 +405,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -415,7 +424,7 @@ exports[`Select Services render services for application 1`] = `
                 class=""
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -442,13 +451,13 @@ exports[`Select Services render services for application 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
               class="bp3-button-text"
             >
-              10
+              8
             </span>
           </button>
         </div>
@@ -458,7 +467,7 @@ exports[`Select Services render services for application 1`] = `
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -487,7 +496,7 @@ exports[`Select Services render services for application 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span

@@ -1,18 +1,20 @@
 import React, { createContext, useContext, useState } from 'react'
 import { pick, values } from 'lodash-es'
-import { useParams } from 'react-router'
 import debounce from 'p-debounce'
 import produce from 'immer'
 
 import { deepCompareKeys } from '@blueprintjs/core/lib/esnext/common/utils'
-import { useGetAccessControlList, PermissionCheck, UserPrincipal, HAccessControlDTO } from 'services/rbac'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetAccessControlList, PermissionCheck, AccessControl } from 'services/rbac'
 
 type Permissions = Map<string, boolean>
 
+export interface PermissionRequestOptions {
+  skipCache?: boolean
+}
+
 export interface PermissionsContextProps {
   permissions: Permissions
-  requestPermission: (permissionRequest: PermissionCheck) => void
+  requestPermission: (permissionRequest: PermissionCheck, options?: PermissionRequestOptions) => void
   checkPermission: (permissionRequest: PermissionCheck) => boolean
   cancelRequest: (permissionRequest: PermissionCheck) => void
 }
@@ -48,7 +50,6 @@ const getStringKeyFromObjectValues = (permissionRequest: PermissionCheck, keys: 
 
 export function PermissionsProvider(props: React.PropsWithChildren<PermissionsProviderProps>): React.ReactElement {
   const { debounceWait = 50 } = props
-  const { accountId } = useParams<AccountPathProps>()
   const [permissions, setPermissions] = useState<Permissions>(new Map<string, boolean>())
 
   const { mutate: getPermissions } = useGetAccessControlList({})
@@ -58,10 +59,14 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
 
   // this function is called from `usePermission` hook for every resource user is interested in
   // collect all requests until `debounceWait` is triggered
-  async function requestPermission(permissionRequest: PermissionCheck): Promise<void> {
+  async function requestPermission(
+    permissionRequest: PermissionCheck,
+    options?: PermissionRequestOptions
+  ): Promise<void> {
+    const { skipCache = false } = options || {}
     // exit early if we already fetched this permission before
     // disabling this will disable caching, because it will make a fresh request and update in the store
-    if (permissions.has(getStringKeyFromObjectValues(permissionRequest, keysToCompare))) {
+    if (!skipCache && permissions.has(getStringKeyFromObjectValues(permissionRequest, keysToCompare))) {
       return
     }
 
@@ -72,11 +77,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
 
     // try to fetch the permissions after waiting for `debounceWait` ms
     const res = await debouncedGetPermissions({
-      permissions: pendingRequests,
-      principal: {
-        principalIdentifier: accountId,
-        principalType: 'USER'
-      } as UserPrincipal
+      permissions: pendingRequests
     })
 
     // clear pending requests after API call
@@ -86,9 +87,9 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
     setPermissions(oldPermissions => {
       return produce(oldPermissions, draft => {
         // find the current request in aggregated response
-        const hasAccess = !!res.data?.accessControlList?.find((perm: HAccessControlDTO) =>
+        const hasAccess = !!res.data?.accessControlList?.find((perm: AccessControl) =>
           deepCompareKeys(perm, permissionRequest, keysToCompare)
-        )?.hasAccess
+        )?.accessible
 
         // update current request in the map
         draft.set(getStringKeyFromObjectValues(permissionRequest, keysToCompare), hasAccess)

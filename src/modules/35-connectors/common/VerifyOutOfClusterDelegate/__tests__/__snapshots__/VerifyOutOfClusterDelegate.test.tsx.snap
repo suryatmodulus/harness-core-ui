@@ -15,19 +15,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         Test Connection
       </p>
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Controller URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
-      <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
         <div
@@ -100,7 +87,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -128,19 +115,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       >
         Test Connection
       </p>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Artifactory Repository URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
@@ -214,7 +188,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -242,19 +216,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       >
         Test Connection
       </p>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Docker Registry URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
@@ -328,7 +289,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -356,19 +317,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       >
         Test Connection
       </p>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Master URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
@@ -442,7 +390,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -470,19 +418,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       >
         Test Connection
       </p>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Master URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
       <div
         class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
       >
@@ -571,19 +506,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         Test Connection
       </p>
       <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Nexus Repository URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
-      <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
         <div
@@ -656,7 +578,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -684,19 +606,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       >
         Test Connection
       </p>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
-      >
-        <p
-          class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
-        >
-          Splunk URL : 
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
-          style="--text-line-clamp: 1; width: 600px;"
-        />
-      </div>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
       >
@@ -770,7 +679,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span

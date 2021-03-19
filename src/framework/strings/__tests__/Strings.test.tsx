@@ -4,17 +4,12 @@ import { render } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 
 import { String, useStrings } from '../String'
-import { AppStoreContext as StringsContext, AppStoreContextProps } from '../../AppStore/AppStoreContext'
+import { StringsContext, StringsMap } from '../StringsContext'
 
-const value: AppStoreContextProps = {
-  strings: {
-    a: { b: 'Test Value 1' },
-    harness: 'Harness',
-    test: '{{ $.a.b }}'
-  },
-  featureFlags: {},
-  permissions: [],
-  updateAppStore: jest.fn()
+const value: StringsMap = {
+  a: { b: 'Test Value 1' },
+  harness: 'Harness',
+  test: '{{ $.a.b }}'
 }
 describe('String tests', () => {
   test('renders strings with simple id', () => {
@@ -90,7 +85,7 @@ describe('useString tests', () => {
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('harness')).toBe(value.strings.harness)
+      expect(result.current.getString('harness')).toBe(value.harness)
     })
 
     test('works with nested values', () => {
@@ -99,7 +94,7 @@ describe('useString tests', () => {
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('a.b')).toBe(value.strings.a.b)
+      expect(result.current.getString('a.b')).toBe(value.a.b)
     })
 
     test('works with self reference values', () => {
@@ -108,7 +103,7 @@ describe('useString tests', () => {
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
-      expect(result.current.getString('test')).toBe(value.strings.a.b)
+      expect(result.current.getString('test')).toBe(value.a.b)
     })
 
     test('throws when key not found', () => {

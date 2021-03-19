@@ -61,3 +61,11 @@
 .centerAlignedRadio {
   align-self: center !important;
 }
+
+.radioFont {
+  :global {
+    label.bp3-control {
+      font-size: var(--font-size-normal) !important;
+    }
+  }
+}

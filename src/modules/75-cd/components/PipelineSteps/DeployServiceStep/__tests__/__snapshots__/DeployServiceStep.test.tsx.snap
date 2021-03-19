@@ -276,7 +276,7 @@ exports[`Test DeployService Step should render edit service view (service), then
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             data-id="service-save"
             type="button"
           >
@@ -452,7 +452,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             data-id="service-save"
             type="button"
           >

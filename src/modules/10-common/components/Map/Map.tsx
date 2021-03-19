@@ -16,6 +16,8 @@ export interface MapProps {
   formik?: FormikContext<any>
   disabled?: boolean
   style?: React.CSSProperties
+  keyLabel?: string
+  valueLabel?: string
 }
 
 function generateNewValue(): { id: string; key: string; value: string } {
@@ -117,7 +119,7 @@ export const Map = (props: MapProps): React.ReactElement => {
           return (
             <div className={cx(css.group, css.withoutAligning)} key={id}>
               <div style={{ flexGrow: 1 }}>
-                {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('keyLabel')}</Text>}
+                {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{props.keyLabel || getString('keyLabel')}</Text>}
                 <TextInput
                   value={key}
                   intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
@@ -129,7 +131,9 @@ export const Map = (props: MapProps): React.ReactElement => {
               </div>
 
               <div style={{ flexGrow: 1 }}>
-                {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('valueLabel')}</Text>}
+                {index === 0 && (
+                  <Text margin={{ bottom: 'xsmall' }}>{props.valueLabel || getString('valueLabel')}</Text>
+                )}
                 <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
                   <TextInput
                     value={valueValue}

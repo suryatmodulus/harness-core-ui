@@ -53,7 +53,6 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
       'identifier',
       'tags'
     ])
-    ;(dataToSubmit as Organization)['accountIdentifier'] = accountId
     try {
       await editOrganization(
         { organization: dataToSubmit },

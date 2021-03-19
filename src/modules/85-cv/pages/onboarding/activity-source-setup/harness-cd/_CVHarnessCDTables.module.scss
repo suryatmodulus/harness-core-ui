@@ -1,6 +1,10 @@
 .main {
   width: 60% !important;
   margin: 0 auto !important;
+
+  div[role='columnheader'] {
+    cursor: auto !important;
+  }
 }
 
 .loadingErrorNoData {

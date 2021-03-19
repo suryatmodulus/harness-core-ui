@@ -56,6 +56,21 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Verify connection
         </p>
       </div>
@@ -238,7 +253,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -353,6 +368,21 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Verify connection
         </p>
       </div>
@@ -381,7 +411,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                Controller URL
                  
                 <span
                   class="bp3-text-muted"
@@ -492,7 +522,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -502,7 +532,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="submit"
             >
               <span
@@ -593,6 +623,21 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Verify connection
         </p>
       </div>
@@ -621,7 +666,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="url"
               >
-                Url
+                Controller URL
                  
                 <span
                   class="bp3-text-muted"
@@ -674,7 +719,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  accountName is a required field
+                  Account Name is a required field
                 </div>
               </div>
             </div>
@@ -709,7 +754,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  username is a required field
+                  Username is a required field
                 </div>
               </div>
             </div>
@@ -737,7 +782,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    password is a required field
+                    Password is a required field
                   </div>
                 </div>
               </div>
@@ -747,7 +792,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -757,7 +802,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="submit"
             >
               <span

@@ -71,7 +71,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           </section>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main submitButton"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
           type="submit"
         >
           <span
@@ -359,7 +359,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           </section>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main submitButton"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
           type="submit"
         >
           <span

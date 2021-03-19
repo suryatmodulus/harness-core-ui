@@ -269,7 +269,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -793,7 +793,7 @@ exports[`Role Details Page render data 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span

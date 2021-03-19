@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
@@ -13,6 +13,8 @@ interface CFRendererProps {
 const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
+  const { accountId } = useParams()
+
   return (
     <Container
       border={{ top: true, color: Color.GREY_250 }}
@@ -24,7 +26,7 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
             routes.toCFProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
-              accountId: data.accountIdentifier || /* istanbul ignore next */ ''
+              accountId
             })
           )
       }}

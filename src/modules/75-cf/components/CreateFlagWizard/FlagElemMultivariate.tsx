@@ -51,7 +51,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     flagTypeOptions,
     prevStepData,
     previousStep,
-    nextStep,
+    // nextStep,
     onWizardStepSubmit,
     projectIdentifier,
     setModalErrorHandler,
@@ -251,7 +251,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                 loading={isLoadingCreateFeatureFlag}
               />
               <FlexExpander />
-              <Button
+              {/* <Button
                 type="submit"
                 text={i18n.varSettingsFlag.testFlagOption}
                 onClick={() => {
@@ -260,7 +260,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                 rightIcon="chevron-right"
                 minimal
                 className={css.testFfBtn}
-              />
+              /> */}
             </Layout.Horizontal>
           </Container>
         </Form>

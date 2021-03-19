@@ -79,7 +79,7 @@ describe('Http Step', () => {
   test('form produces correct data for fixed inputs', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByTestId, getByText } = render(
+    const { container, getByText } = render(
       <TestStepWidget
         initialValues={{}}
         type={StepType.HTTP}
@@ -90,13 +90,6 @@ describe('Http Step', () => {
     )
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
-    const addHeader = getByTestId('add-header')
-
-    act(() => {
-      fireEvent.click(addHeader)
-      // fireEvent.click(addHeader)
-      // fireEvent.click(addHeader)
-    })
 
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My Http Step' } })
     fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })

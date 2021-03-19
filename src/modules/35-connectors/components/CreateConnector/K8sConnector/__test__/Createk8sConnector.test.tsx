@@ -27,7 +27,8 @@ const updateConnector = jest.fn()
 const createConnector = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
+  useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({
@@ -37,6 +38,8 @@ jest.mock('services/cd-ng', () => ({
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
   useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
+
+const masterUrlComponentText = 'Specify master url and credentials'
 
 describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
@@ -74,7 +77,7 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     // step 2
-    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(queryByText(container, masterUrlComponentText)).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -82,32 +85,12 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'k8 descriptipn',
-        identifier: 'k8',
-        name: 'k87',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          credential: {
-            spec: {
-              auth: {
-                spec: {
-                  passwordRef: 'account.k8serviceToken',
-                  username: 'dev',
-                  usernameRef: undefined
-                },
-                type: 'UsernamePassword'
-              },
-              masterUrl: '/url7878'
-            },
-            type: 'ManualConfig'
-          }
-        },
-        tags: { k8: '' },
-        type: 'K8sCluster'
-      }
+      connector: usernamePassword
     })
   })
 
@@ -123,7 +106,7 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     // step 2
-    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(queryByText(container, masterUrlComponentText)).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -131,30 +114,12 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'k8 descriptipn',
-        identifier: 'k8',
-        name: 'k8Connector',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          credential: {
-            spec: {
-              auth: {
-                spec: {
-                  serviceAccountTokenRef: 'account.k8serviceToken'
-                },
-                type: 'ServiceAccount'
-              },
-              masterUrl: '/url'
-            },
-            type: 'ManualConfig'
-          }
-        },
-        tags: { k8: '' },
-        type: 'K8sCluster'
-      }
+      connector: serviceAccount
     })
   })
 
@@ -170,42 +135,18 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     // step 2
-    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(queryByText(container, masterUrlComponentText)).toBeTruthy()
     expect(container).toMatchSnapshot()
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
-      connector: {
-        description: 'k8 descriptipn',
-        identifier: 'k8Connector',
-        name: 'k8Connector',
-        orgIdentifier: '',
-        projectIdentifier: '',
-        spec: {
-          credential: {
-            spec: {
-              auth: {
-                spec: {
-                  oidcClientIdRef: 'account.clientKey',
-                  oidcIssuerUrl: 'issueUrl',
-                  oidcPasswordRef: 'clientPassphrase',
-                  oidcScopes: 'account',
-                  oidcSecretRef: 'org.k8certificate',
-                  oidcUsername: 'OIDC username ',
-                  oidcUsernameRef: undefined
-                },
-                type: 'OpenIdConnect'
-              },
-              masterUrl: '/url'
-            },
-            type: 'ManualConfig'
-          }
-        },
-        tags: { k8: '' },
-        type: 'K8sCluster'
-      }
+      connector: oidcMock
     })
   })
 
@@ -233,41 +174,19 @@ test('should form for edit authtype clientKey', async () => {
   })
 
   expect(container).toMatchSnapshot()
-  expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+  expect(queryByText(container, masterUrlComponentText)).toBeTruthy()
 
   //updating connector
   await act(async () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
   })
 
+  await act(async () => {
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+  })
+
   expect(updateConnector).toBeCalledWith({
-    connector: {
-      description: 'k8 descriptipn',
-      identifier: 'k8',
-      name: 'k8Connector',
-      orgIdentifier: '',
-      projectIdentifier: '',
-      spec: {
-        credential: {
-          spec: {
-            auth: {
-              spec: {
-                caCertRef: 'account.b12',
-                clientCertRef: 'account.b13',
-                clientKeyAlgo: null,
-                clientKeyPassphraseRef: 'account.k8serviceToken',
-                clientKeyRef: 'account.k8serviceToken'
-              },
-              type: 'ClientKeyCert'
-            },
-            masterUrl: '/url'
-          },
-          type: 'ManualConfig'
-        }
-      },
-      tags: { k8: '' },
-      type: 'K8sCluster'
-    }
+    connector: clientKeyMock
   })
   expect(container).toMatchSnapshot()
 })

@@ -7,7 +7,7 @@ import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
-import { debounce, truncate } from 'lodash-es'
+import { debounce, isEmpty, truncate } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
@@ -15,7 +15,7 @@ import SplitPane from 'react-split-pane'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
 import cx from 'classnames'
-import { scalarOptions, stringify } from 'yaml'
+import { scalarOptions, stringify, defaultOptions } from 'yaml'
 import { Tag, Icon } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
@@ -55,6 +55,7 @@ import {
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
+defaultOptions.indent = 4
 
 const getTheme = (theme: Theme) => (theme === 'DARK' ? EDITOR_BASE_DARK_THEME : EDITOR_BASE_LIGHT_THEME)
 
@@ -116,6 +117,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   setUpEditor(theme)
   const params = useParams()
   const [currentYaml, setCurrentYaml] = useState<string>('')
+  const [currentJSON, setCurrentJSON] = useState<object>()
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
   const [dynamicWidth, setDynamicWidth] = useState<number>(DEFAULT_EDITOR_HEIGHT)
 
@@ -180,8 +182,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   /* #region Bootstrap editor with schema */
 
   useEffect(() => {
-    verifyIncomingJSON(existingJSON)
-  }, [JSON.stringify(existingJSON)])
+    //for optimization, restrict setting value to editor if previous and current json inputs are the same.
+    //except when editor is reset/cleared, by setting empty json object as input
+    if (
+      (isEmpty(existingJSON) && isEmpty(currentJSON)) ||
+      JSON.stringify(existingJSON) !== JSON.stringify(currentJSON)
+    ) {
+      verifyIncomingJSON(existingJSON)
+      setCurrentJSON(existingJSON)
+    }
+  }, [existingJSON])
 
   useEffect(() => {
     if (schema) {
@@ -204,7 +214,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     setCurrentYaml(updatedYaml)
     yamlRef.current = updatedYaml
     verifyYAML(updatedYaml)
-    onChange?.(editorVersionRef.current ? editorVersionRef.current + 1 !== getEditorCurrentVersion() : false)
+    onChange?.(!(updatedYaml === ''))
   }, 500)
 
   const verifyYAML = (updatedYaml: string): void => {

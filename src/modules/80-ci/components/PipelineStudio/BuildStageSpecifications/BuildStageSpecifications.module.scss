@@ -1,3 +1,32 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  padding-bottom: 60px;
+}
+
+.content-section {
+  padding-left: 60px;
+  padding-right: 60px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.tabHeading {
+  font-size: var(--font-size-medium);
+  color: var(--black-color-3);
+  font-weight: 600;
+}
+
+.section-card {
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 14px;
+  &.shadow {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  }
+}
+
 .section {
   display: grid;
   grid-template-columns: 350px 1fr;
@@ -91,12 +120,12 @@
   width: 780px;
   border-radius: 4px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  background-color: var(--white);
   padding-top: var(--spacing-medium);
   padding-right: var(--spacing-xlarge);
   padding-bottom: var(--spacing-medium);
   padding-left: var(--spacing-xlarge);
   margin-top: var(--spacing-small);
-  margin-left: calc(var(--spacing-xlarge) / -1);
 }
 
 .row {
@@ -125,11 +154,6 @@
     margin-bottom: 0;
   }
 }
-
-.addVariable {
-  margin-left: calc(var(--spacing-xlarge) / -1) !important;
-}
-
 .editVariable {
   color: transparent !important;
 
@@ -168,4 +192,8 @@
 .predefinedValue {
   margin-top: calc(var(--spacing-small) / -1);
   margin-bottom: var(--spacing-medium);
+}
+
+.navigationButtons {
+  margin-bottom: 40px;
 }

@@ -202,12 +202,12 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
 
   return (
     <Container className={css.verificationProgress}>
-      <Text color={Color.BLACK} font={{ size: 'small' }}>
+      <Text color={Color.BLACK} style={{ fontSize: 12 }}>
         {progressStatus}
       </Text>
       <CVProgressBar value={progressPercentage} riskScore={overallRisk} />
       {activityStartTime && (
-        <Text color={Color.GREY_300} font={{ size: 'small' }}>{`${i18n.verificationProgressText.startedOn} ${new Date(
+        <Text style={{ fontSize: 12 }}>{`${i18n.verificationProgressText.startedOn} ${new Date(
           activityStartTime
         ).toLocaleString()}`}</Text>
       )}

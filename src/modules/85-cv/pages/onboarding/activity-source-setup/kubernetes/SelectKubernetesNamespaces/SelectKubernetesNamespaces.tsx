@@ -6,7 +6,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
+import { useStrings } from 'framework/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useGetNamespaces } from 'services/cv'
 import { PageSpinner, Table } from '@common/components'
@@ -55,6 +56,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
   const { onSubmit, onPrevious, data: propsData } = props
   const [selectedNamespaces, setSelectedNamespaces] = useState(new Set<string>(propsData?.selectedNamespaces || []))
   const [isValid, setIsValid] = useState(true)
+  const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [{ pageOffset, filteredNamespace }, setFilterAndPageOffset] = useState<{
     pageOffset: number
@@ -91,6 +93,14 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
         <Heading level="3" color={Color.BLACK}>
           {i18n.headingText}
         </Heading>
+        <TableFilter
+          appliedFilter={filteredNamespace}
+          onFilter={namespaceSubstring =>
+            setFilterAndPageOffset({ pageOffset: 0, filteredNamespace: namespaceSubstring })
+          }
+          className={css.searchNamespaces}
+          placeholder={getString('cv.activitySources.kubernetes.namespaceMapping.searchNamespacePlaceholder')}
+        />
         <Table<TableData>
           className={css.table}
           columns={[
@@ -118,17 +128,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
               disableSortBy: true
             },
             {
-              Header: function TableHeaderWrapper() {
-                return (
-                  <TableColumnWithFilter
-                    appliedFilter={filteredNamespace}
-                    onFilter={namespaceSubstring =>
-                      setFilterAndPageOffset({ pageOffset: 0, filteredNamespace: namespaceSubstring })
-                    }
-                    columnName={i18n.tableColumnName.kubernetesNamespace}
-                  />
-                )
-              },
+              Header: i18n.tableColumnName.kubernetesNamespace,
               accessor: 'namespace',
               width: '95%',
               Cell: NamespaceValue,

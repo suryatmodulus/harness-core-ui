@@ -3,7 +3,7 @@ import { Button, Card, Color, Container, Heading, Icon, Layout, StepProps, Text 
 import { useStrings } from 'framework/exports'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getArtifactIconByType, getArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactPropType {
@@ -42,7 +42,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 selected={item === selectedArtifactType}
                 onClick={() => handleOptionSelection(item)}
               >
-                <Icon name={getConnectorIconByType(item)} size={26} height={26} />
+                <Icon name={getArtifactIconByType(item)} size={26} height={26} />
               </Card>
               <Text
                 style={{
@@ -51,7 +51,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
                 }}
                 color={Color.BLACK_100}
               >
-                {getString(getConnectorTitleIdByType(item))}
+                {getString(getArtifactTitleIdByType(item))}
               </Text>
             </div>
           ))}

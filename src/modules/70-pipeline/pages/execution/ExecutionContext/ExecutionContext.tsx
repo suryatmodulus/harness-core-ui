@@ -14,6 +14,7 @@ export interface ExecutionContextParams {
   queryParams: ExecutionPageQueryParams
   logsToken: string
   setLogsToken: (token: string) => void
+  refetch?: (() => Promise<void>) | undefined
 }
 
 const ExecutionContext = createContext<ExecutionContextParams>({
@@ -25,7 +26,8 @@ const ExecutionContext = createContext<ExecutionContextParams>({
   loading: false,
   queryParams: {},
   logsToken: '',
-  setLogsToken: () => void 0
+  setLogsToken: () => void 0,
+  refetch: undefined
 })
 
 export default ExecutionContext

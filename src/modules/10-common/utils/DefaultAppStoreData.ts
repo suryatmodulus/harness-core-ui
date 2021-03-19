@@ -2,7 +2,6 @@ import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import type { Project } from 'services/cd-ng'
 
 export const project: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',
@@ -13,7 +12,6 @@ export const project: Project = {
 }
 export const defaultAppStoreValues: Pick<AppStoreContextProps, 'selectedProject' | 'featureFlags'> = {
   selectedProject: {
-    accountIdentifier: 'testAcc',
     orgIdentifier: 'testOrg',
     identifier: 'test',
     name: 'test',

@@ -66,7 +66,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
             return this.createError({
               message: requiredErrorMessage || `Instance is an required field"`
             })
-          } else if (value < 0 || !value) {
+          } else if (value < 0) {
             return this.createError({
               message: minimumErrorMessage || `Instances must be greater than or equal to 0`
             })
@@ -81,7 +81,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
             return this.createError({
               message: requiredErrorMessage || `Instance is a required field"`
             })
-          } else if (value < 0 || !value) {
+          } else if (value < 0) {
             return this.createError({
               message: minimumErrorMessage || `Percentage must be greater than or equal to 0`
             })

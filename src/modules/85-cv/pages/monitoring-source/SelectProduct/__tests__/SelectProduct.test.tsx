@@ -30,7 +30,7 @@ describe('SelectProduct', () => {
         <SelectProduct type="AppDynamics" onCompleteStep={() => noop} />
       </TestWrapper>
     )
-    await waitFor(() => queryByText(container, 'Monitoring Source Type'))
+    await waitFor(() => queryByText(container, 'Monitoring Source'))
     expect(getByText('AppDynamics')).toBeDefined()
     expect(getByText('+ New AppDynamics Connector')).toBeDefined()
     expect(container).toMatchSnapshot()
@@ -54,7 +54,7 @@ describe('SelectProduct', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Monitoring Source Type')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'Monitoring Source')).not.toBeNull())
     fireEvent.click(getByText('+ New Google Cloud Platform Connector'))
     await waitFor(() => expect(document.body.querySelector('[class*="StepWizard"]')).not.toBeNull())
 
@@ -89,7 +89,7 @@ describe('SelectProduct', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Monitoring Source Type')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'Monitoring Source')).not.toBeNull())
     fireEvent.click(getByText('Previous'))
 
     await waitFor(() =>

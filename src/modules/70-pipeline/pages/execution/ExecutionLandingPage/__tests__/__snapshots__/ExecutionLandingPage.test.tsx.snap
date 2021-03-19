@@ -177,6 +177,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
                
               
             </span>
+             
             <div
               class="main"
             >
@@ -187,7 +188,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--iconOnly StyledProps--main more"
+                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main more"
                     type="button"
                   >
                     <span

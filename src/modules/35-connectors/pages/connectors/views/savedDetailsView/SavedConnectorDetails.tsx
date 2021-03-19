@@ -261,6 +261,24 @@ const getDockerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
   ]
 }
 
+const getJiraSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'connectors.jira.jiraUrl',
+      value: connector?.spec?.jiraUrl
+    },
+
+    {
+      label: 'username',
+      value: connector?.spec?.username || connector?.spec?.usernameRef
+    },
+    {
+      label: 'password',
+      value: connector?.spec?.passwordRef
+    }
+  ]
+}
+
 const getHelmHttpSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
@@ -416,6 +434,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getKubernetesSchema(connector)
     case Connectors.GIT:
       return getGitSchema(connector)
+    case Connectors.Jira:
+      return getJiraSchema(connector)
     case Connectors.GITHUB:
     case Connectors.GITLAB:
     case Connectors.BITBUCKET:

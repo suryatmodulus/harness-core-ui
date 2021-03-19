@@ -6,13 +6,14 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import type { CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import GcrAuthentication from './StepAuth/GcrAuthentication'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
   const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
-
   return (
     <StepWizard
       icon={getConnectorIconByType('Gcr')}
@@ -27,6 +28,15 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         mock={props.mock}
       />
       <GcrAuthentication name={getString('connectors.GCR.stepTwoName')} {...commonProps} />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildGcpPayload}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onSuccess}
+        connectorInfo={props.connectorInfo}
+      />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}

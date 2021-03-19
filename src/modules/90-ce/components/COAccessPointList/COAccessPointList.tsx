@@ -7,12 +7,11 @@ import {
   Container,
   Button,
   ExpandingSearchInput,
-  Popover,
   useModalHook,
   Icon
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { Classes, Dialog, IconName, IDialogProps, Menu, Position } from '@blueprintjs/core'
+import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
 import { Page } from '@common/components/Page/Page'
@@ -159,55 +158,55 @@ const COAccessPointList: React.FC = () => {
     )
   }
 
-  function RenderColumnMenu(tableProps: CellProps<AccessPoint>): JSX.Element {
-    const row = tableProps.row
-    const data = row.original.id
-    const [menuOpen, setMenuOpen] = useState(false)
-    const [openModal, hideModal] = useModalHook(() => (
-      <Dialog onClose={hideModal} {...modalPropsLight}>
-        <CreateAccessPointWizard
-          accessPoint={row.original}
-          closeModal={hideModal}
-          refreshAccessPoints={() => undefined}
-          isEditMod={true}
-        />
-      </Dialog>
-    ))
-    return (
-      <Layout.Horizontal className={css.layout}>
-        <Popover
-          isOpen={menuOpen}
-          onInteraction={nextOpenState => {
-            setMenuOpen(nextOpenState)
-          }}
-          className={Classes.DARK}
-          position={Position.BOTTOM_RIGHT}
-        >
-          <Button
-            minimal
-            icon="Options"
-            iconProps={{ size: 24 }}
-            onClick={e => {
-              e.stopPropagation()
-              setMenuOpen(true)
-            }}
-            data-testid={`menu-${data}`}
-          />
-          <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item icon="edit" text="Edit" onClick={() => openModal()} />
-            <Menu.Item
-              icon="trash"
-              text="Delete"
-              onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-                e.stopPropagation()
-                alert('you are deleting')
-              }}
-            />
-          </Menu>
-        </Popover>
-      </Layout.Horizontal>
-    )
-  }
+  // function RenderColumnMenu(tableProps: CellProps<AccessPoint>): JSX.Element {
+  //   const row = tableProps.row
+  //   const data = row.original.id
+  //   const [menuOpen, setMenuOpen] = useState(false)
+  //   const [openModal, hideModal] = useModalHook(() => (
+  //     <Dialog onClose={hideModal} {...modalPropsLight}>
+  //       <CreateAccessPointWizard
+  //         accessPoint={row.original}
+  //         closeModal={hideModal}
+  //         refreshAccessPoints={() => undefined}
+  //         isEditMod={true}
+  //       />
+  //     </Dialog>
+  //   ))
+  //   return (
+  //     <Layout.Horizontal className={css.layout}>
+  //       <Popover
+  //         isOpen={menuOpen}
+  //         onInteraction={nextOpenState => {
+  //           setMenuOpen(nextOpenState)
+  //         }}
+  //         className={Classes.DARK}
+  //         position={Position.BOTTOM_RIGHT}
+  //       >
+  //         <Button
+  //           minimal
+  //           icon="Options"
+  //           iconProps={{ size: 24 }}
+  //           onClick={e => {
+  //             e.stopPropagation()
+  //             setMenuOpen(true)
+  //           }}
+  //           data-testid={`menu-${data}`}
+  //         />
+  //         <Menu style={{ minWidth: 'unset' }}>
+  //           <Menu.Item icon="edit" text="Edit" onClick={() => openModal()} />
+  //           <Menu.Item
+  //             icon="trash"
+  //             text="Delete"
+  //             onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  //               e.stopPropagation()
+  //               alert('you are deleting')
+  //             }}
+  //           />
+  //         </Menu>
+  //       </Popover>
+  //     </Layout.Horizontal>
+  //   )
+  // }
 
   const { data, error, loading } = useAllAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
@@ -329,14 +328,14 @@ const COAccessPointList: React.FC = () => {
                     Header: 'Last Activity'.toUpperCase(),
                     width: '20%',
                     Cell: ActivityCell
-                  },
-                  {
-                    id: 'menu',
-                    accessor: row => row.id,
-                    width: '5%',
-                    Cell: RenderColumnMenu,
-                    disableSortBy: true
                   }
+                  // {
+                  //   id: 'menu',
+                  //   accessor: row => row.id,
+                  //   width: '5%',
+                  //   Cell: RenderColumnMenu,
+                  //   disableSortBy: true
+                  // }
                 ]}
               />
             </Page.Body>

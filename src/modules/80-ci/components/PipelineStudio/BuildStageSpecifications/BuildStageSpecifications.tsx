@@ -12,7 +12,9 @@ import {
   Text,
   Popover,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Card,
+  Accordion
 } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
@@ -24,6 +26,7 @@ import { useStrings } from 'framework/exports'
 import { SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
+import Timeline from '@common/components/Timeline/Timeline'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import { PipelineContext } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -57,7 +60,26 @@ export const getSecretKey = (secret: SecretDTOV2): string =>
     secret.identifier
   }` || ''
 
-export default function BuildStageSpecifications(): JSX.Element {
+const TimelineNodes = [
+  {
+    label: 'Stage Details',
+    id: 'stageDetails'
+  },
+  {
+    label: 'Shared Paths',
+    id: 'sharedPaths'
+  },
+  {
+    label: 'Variables',
+    id: 'variables-panel'
+  },
+  {
+    label: 'Skip Conditions',
+    id: 'skipConditions-panel'
+  }
+]
+
+export default function BuildStageSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>({
@@ -88,6 +110,8 @@ export default function BuildStageSpecifications(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
+
   // const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
 
   // const [connectionType, setConnectionType] = React.useState(codebase?.repoName ? 'Account' : '')
@@ -114,6 +138,15 @@ export default function BuildStageSpecifications(): JSX.Element {
   //     refetch()
   //   }
   // }, [codebase?.connectorRef])
+
+  const onTimelineItemClick = (id: string) => {
+    const element = document.querySelector(`#${id}`)
+    if (scrollRef.current && element) {
+      const elementTop = element.getBoundingClientRect().top
+      const parentTop = scrollRef.current.getBoundingClientRect().top
+      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
+    }
+  }
 
   const getInitialValues = (): {
     identifier: string
@@ -290,66 +323,68 @@ export default function BuildStageSpecifications(): JSX.Element {
       secretsOptions.set(key, secret.name || '')
     }
   })
+
   return (
-    <Layout.Vertical>
-      <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
-        <Layout.Vertical width="100%" spacing="large">
-          <Formik
-            initialValues={getInitialValues()}
-            validationSchema={validationSchema}
-            validate={debounceHandleValidate}
-            onSubmit={values => logger.info(JSON.stringify(values))}
-          >
-            {({ values: formValues, setFieldValue }) => (
-              <>
-                <div className={cx(css.section, css.noPadTop)}>
-                  <Layout.Vertical flex={true} className={css.specTabs}>
-                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('stageDetails')}</Text>
-                  </Layout.Vertical>
-                  <FormikForm>
-                    <Layout.Horizontal spacing="medium">
-                      <FormInput.InputWithIdentifier
-                        inputName="name"
-                        inputLabel={getString('stageNameLabel')}
-                        inputGroupProps={{
-                          className: css.fields,
-                          placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder')
-                        }}
-                        isIdentifierEditable={false}
-                      />
-                      <div className={css.addDataLinks}>
-                        {!isDescriptionVisible && !formValues.description && (
-                          <Button
-                            minimal
-                            text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
-                            icon="plus"
-                            onClick={() => setDescriptionVisible(true)}
-                          />
-                        )}
-                      </div>
-                    </Layout.Horizontal>
+    <div className={css.wrapper}>
+      <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
 
-                    {(isDescriptionVisible || formValues.description) && (
-                      <div className={css.fields}>
-                        <span
-                          onClick={() => {
-                            setDescriptionVisible(false)
-                            setFieldValue('description', '')
-                          }}
-                          className={css.removeLink}
-                        >
-                          {getString('removeLabel')}
-                        </span>
-                        <FormInput.TextArea name={'description'} label={getString('description')} />
-                      </div>
-                    )}
-
-                    <Switch
-                      checked={formValues.cloneCodebase}
-                      label={getString('cloneCodebaseLabel')}
-                      onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+      <div className={css.contentSection} ref={scrollRef}>
+        <Formik
+          initialValues={getInitialValues()}
+          validationSchema={validationSchema}
+          validate={debounceHandleValidate}
+          onSubmit={values => logger.info(JSON.stringify(values))}
+        >
+          {({ values: formValues, setFieldValue }) => (
+            <>
+              <div className={css.tabHeading} id="stageDetails">
+                {getString('stageDetails')}
+              </div>
+              <Card className={cx(css.sectionCard, css.shadow)}>
+                <FormikForm>
+                  <Layout.Horizontal spacing="medium">
+                    <FormInput.InputWithIdentifier
+                      inputName="name"
+                      inputLabel={getString('stageNameLabel')}
+                      inputGroupProps={{
+                        className: css.fields,
+                        placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder')
+                      }}
+                      isIdentifierEditable={false}
                     />
-                    {/* {formValues.cloneCodebase && (
+                    <div className={css.addDataLinks}>
+                      {!isDescriptionVisible && !formValues.description && (
+                        <Button
+                          minimal
+                          text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
+                          icon="plus"
+                          onClick={() => setDescriptionVisible(true)}
+                        />
+                      )}
+                    </div>
+                  </Layout.Horizontal>
+
+                  {(isDescriptionVisible || formValues.description) && (
+                    <div className={css.fields}>
+                      <span
+                        onClick={() => {
+                          setDescriptionVisible(false)
+                          setFieldValue('description', '')
+                        }}
+                        className={css.removeLink}
+                      >
+                        {getString('removeLabel')}
+                      </span>
+                      <FormInput.TextArea name={'description'} label={getString('description')} />
+                    </div>
+                  )}
+
+                  <Switch
+                    checked={formValues.cloneCodebase}
+                    label={getString('cloneCodebaseLabel')}
+                    onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                  />
+                  {/* {formValues.cloneCodebase && (
                       <div className={cx(css.configureCodebase, css.fields)}>
                         <Text
                           font={{ size: 'medium', weight: 'semi-bold' }}
@@ -411,249 +446,253 @@ export default function BuildStageSpecifications(): JSX.Element {
                         )}
                       </div>
                     )} */}
-                  </FormikForm>
-                </div>
+                </FormikForm>
+              </Card>
 
-                <div className={css.section}>
-                  <Layout.Vertical flex={true} className={css.specTabs}>
-                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                    </Text>
-                  </Layout.Vertical>
-                  <FormikForm className={css.fields}>
-                    <MultiTypeList
-                      name="sharedPaths"
-                      multiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
-                            {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
-                          </Text>
-                        )
-                      }}
-                    />
-                  </FormikForm>
-                </div>
-
-                <div className={css.section}>
-                  <Layout.Vertical flex={true} className={css.specTabs}>
-                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('variablesText')}</Text>
-                  </Layout.Vertical>
-                  <FormikForm>
-                    <FieldArray
-                      name="variables"
-                      render={({ push, remove }) => (
-                        <>
-                          {formValues.variables.length > 0 && (
-                            <>
-                              <div className={css.variablesGrid}>
-                                <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('pipelineSteps.build.stageSpecifications.variablesCell')}
-                                  <Icon name="pipeline-variables" margin={{ left: 'small' }} />
-                                </Text>
-                                <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('pipelineSteps.build.stageSpecifications.valueCell')}
-                                </Text>
-                              </div>
-                              <div className={css.box}>
-                                {formValues.variables.map(({ name, type, value }, index) => (
-                                  <div className={cx(css.variablesGrid, css.row)} key={name}>
-                                    <Text color="black">{name}</Text>
-
-                                    <div>
-                                      {type === VariableTypes.Secret && (
-                                        <div className={css.secretContainer}>
-                                          {getMultiTypeFromValue(value) === MultiTypeInputType.FIXED && (
-                                            <div className={css.fixed}>
-                                              <Popover position={Position.BOTTOM}>
-                                                <div className={css.icon}>
-                                                  <Icon name="key-main" size={24} height={12} width={24} />{' '}
-                                                  <Icon name="chevron-down" size={14} />
-                                                </div>
-                                                <SecretReference
-                                                  type="SecretText"
-                                                  accountIdentifier={accountId}
-                                                  projectIdentifier={projectIdentifier}
-                                                  orgIdentifier={orgIdentifier}
-                                                  onSelect={secret => {
-                                                    setFieldValue(`variables[${index}].value`, getSecretKey(secret))
-                                                  }}
-                                                />
-                                              </Popover>
-                                            </div>
-                                          )}
-                                          <MultiTextInput
-                                            value={secretsOptions.get(value as string) || value}
-                                            name={`variables[${index}].value`}
-                                            textProps={{
-                                              disabled: true
-                                            }}
-                                            onChange={newValue => {
-                                              setFieldValue(`variables[${index}].value`, newValue)
-                                            }}
-                                            expressions={expressions}
-                                          />
-                                        </div>
-                                      )}
-
-                                      {type !== VariableTypes.Secret && (
-                                        <>
-                                          <FormInput.MultiTextInput
-                                            label=""
-                                            name={`variables[${index}].value`}
-                                            style={{ flexGrow: 1 }}
-                                            multiTextInputProps={{ expressions }}
-                                          />
-                                        </>
-                                      )}
-
-                                      {getMultiTypeFromValue(formValues.variables[index].value) ===
-                                        MultiTypeInputType.RUNTIME && (
-                                        <ConfigureOptions
-                                          value={formValues.variables[index].value as string}
-                                          type={
-                                            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                              <Text>{name}</Text>
-                                            </Layout.Horizontal>
-                                          }
-                                          variableName={`variables[${index}].value`}
-                                          showRequiredField={false}
-                                          showDefaultField={false}
-                                          showAdvanced={true}
-                                          onChange={newValue => setFieldValue(`variables[${index}].value`, newValue)}
-                                        />
-                                      )}
-
-                                      <Button
-                                        className={css.editVariable}
-                                        icon="Edit"
-                                        minimal
-                                        onClick={() => {
-                                          setSelectedVariable({ name, type, value })
-                                          openDialog()
-                                        }}
-                                      />
-                                      <Button icon="trash" minimal onClick={() => remove(index)} />
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </>
-                          )}
+              <div className={css.tabHeading} id="sharedPaths">
+                {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+              </div>
+              <Card className={cx(css.sectionCard, css.shadow)}>
+                <FormikForm className={css.fields}>
+                  <MultiTypeList
+                    name="sharedPaths"
+                    multiTextInputProps={{ expressions }}
+                    multiTypeFieldSelectorProps={{
+                      label: (
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                           <Button
-                            className={css.addVariable}
-                            intent="primary"
+                            icon="question"
                             minimal
-                            text={getString('common.addVariable')}
-                            onClick={() => openDialog()}
+                            tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
+                            iconProps={{ size: 14 }}
                           />
-                          {isDialogOpen && (
-                            <Dialog isOpen={true} title={getString('common.addVariable')} onClose={closeDialog}>
-                              <Formik
-                                initialValues={selectedVariable}
-                                validationSchema={yup.object().shape({
-                                  name: yup.string().trim().required(),
-                                  type: yup.string().trim().required()
-                                })}
-                                onSubmit={(values: { name: string; type: string }): void => {
-                                  const index = formValues.variables.findIndex(variable =>
-                                    isEqual(selectedVariable, variable)
-                                  )
+                        </Text>
+                      )
+                    }}
+                  />
+                </FormikForm>
+              </Card>
 
-                                  if (index === -1) {
-                                    push({
-                                      name: values.name,
-                                      type: values.type,
-                                      value: ''
-                                    })
-                                  } else {
-                                    setFieldValue(`variables[${index}]`, {
-                                      name: values.name,
-                                      type: values.type,
-                                      value: formValues.variables[index].value
-                                    })
-                                  }
+              <Accordion className={css.sectionCard} activeId="variables">
+                <Accordion.Panel
+                  id="variables"
+                  addDomId={true}
+                  summary={getString('variablesText')}
+                  details={
+                    <FormikForm>
+                      <FieldArray
+                        name="variables"
+                        render={({ push, remove }) => (
+                          <>
+                            {formValues.variables.length > 0 && (
+                              <>
+                                <div className={css.variablesGrid}>
+                                  <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
+                                    {getString('pipelineSteps.build.stageSpecifications.variablesCell')}
+                                    <Icon name="pipeline-variables" margin={{ left: 'small' }} />
+                                  </Text>
+                                  <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
+                                    {getString('pipelineSteps.build.stageSpecifications.valueCell')}
+                                  </Text>
+                                </div>
+                                <div className={css.box}>
+                                  {formValues.variables.map(({ name, type, value }, index) => (
+                                    <div className={cx(css.variablesGrid, css.row)} key={name}>
+                                      <Text color="black">{name}</Text>
 
-                                  closeDialog()
-                                }}
-                              >
-                                {({ submitForm }) => (
-                                  <>
-                                    <div className={Classes.DIALOG_BODY}>
-                                      <FormikForm>
-                                        <FormInput.Text
-                                          name="name"
-                                          label={getString('variableNameLabel')}
-                                          placeholder={getString('name')}
-                                        />
-                                        <FormInput.Select
-                                          name="type"
-                                          items={[
-                                            {
-                                              label: getString('string'),
-                                              value: VariableTypes.String
-                                            },
-                                            {
-                                              label: getString('secretType'),
-                                              value: VariableTypes.Secret
+                                      <div>
+                                        {type === VariableTypes.Secret && (
+                                          <div className={css.secretContainer}>
+                                            {getMultiTypeFromValue(value) === MultiTypeInputType.FIXED && (
+                                              <div className={css.fixed}>
+                                                <Popover position={Position.BOTTOM}>
+                                                  <div className={css.icon}>
+                                                    <Icon name="key-main" size={24} height={12} width={24} />{' '}
+                                                    <Icon name="chevron-down" size={14} />
+                                                  </div>
+                                                  <SecretReference
+                                                    type="SecretText"
+                                                    accountIdentifier={accountId}
+                                                    projectIdentifier={projectIdentifier}
+                                                    orgIdentifier={orgIdentifier}
+                                                    onSelect={secret => {
+                                                      setFieldValue(`variables[${index}].value`, getSecretKey(secret))
+                                                    }}
+                                                  />
+                                                </Popover>
+                                              </div>
+                                            )}
+                                            <MultiTextInput
+                                              value={secretsOptions.get(value as string) || value}
+                                              name={`variables[${index}].value`}
+                                              textProps={{
+                                                disabled: true
+                                              }}
+                                              onChange={newValue => {
+                                                setFieldValue(`variables[${index}].value`, newValue)
+                                              }}
+                                              expressions={expressions}
+                                            />
+                                          </div>
+                                        )}
+
+                                        {type !== VariableTypes.Secret && (
+                                          <>
+                                            <FormInput.MultiTextInput
+                                              label=""
+                                              name={`variables[${index}].value`}
+                                              style={{ flexGrow: 1 }}
+                                              multiTextInputProps={{ expressions }}
+                                            />
+                                          </>
+                                        )}
+
+                                        {getMultiTypeFromValue(formValues.variables[index].value) ===
+                                          MultiTypeInputType.RUNTIME && (
+                                          <ConfigureOptions
+                                            value={formValues.variables[index].value as string}
+                                            type={
+                                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                                <Text>{name}</Text>
+                                              </Layout.Horizontal>
                                             }
-                                          ]}
-                                          label={getString('typeLabel')}
-                                          placeholder={getString('typeLabel')}
+                                            variableName={`variables[${index}].value`}
+                                            showRequiredField={false}
+                                            showDefaultField={false}
+                                            showAdvanced={true}
+                                            onChange={newValue => setFieldValue(`variables[${index}].value`, newValue)}
+                                          />
+                                        )}
+
+                                        <Button
+                                          className={css.editVariable}
+                                          icon="Edit"
+                                          minimal
+                                          onClick={() => {
+                                            setSelectedVariable({ name, type, value })
+                                            openDialog()
+                                          }}
                                         />
-                                      </FormikForm>
+                                        <Button icon="trash" minimal onClick={() => remove(index)} />
+                                      </div>
                                     </div>
-                                    <div className={Classes.DIALOG_FOOTER}>
-                                      <Button
-                                        intent="primary"
-                                        text={selectedVariable.name ? getString('save') : getString('add')}
-                                        onClick={submitForm}
-                                      />{' '}
-                                      &nbsp; &nbsp;
-                                      <Button text={getString('cancel')} onClick={closeDialog} />
-                                    </div>
-                                  </>
-                                )}
-                              </Formik>
-                            </Dialog>
-                          )}
-                        </>
-                      )}
-                    />
-                  </FormikForm>
-                </div>
+                                  ))}
+                                </div>
+                              </>
+                            )}
+                            <Button
+                              intent="primary"
+                              minimal
+                              text={getString('common.addVariable')}
+                              onClick={() => openDialog()}
+                            />
+                            {isDialogOpen && (
+                              <Dialog isOpen={true} title={getString('common.addVariable')} onClose={closeDialog}>
+                                <Formik
+                                  initialValues={selectedVariable}
+                                  validationSchema={yup.object().shape({
+                                    name: yup.string().trim().required(),
+                                    type: yup.string().trim().required()
+                                  })}
+                                  onSubmit={(values: { name: string; type: string }): void => {
+                                    const index = formValues.variables.findIndex(variable =>
+                                      isEqual(selectedVariable, variable)
+                                    )
 
-                <div className={css.section}>
-                  <Layout.Vertical flex={true} className={css.specTabs}>
-                    <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('skipConditionsTitle')}</Text>
-                  </Layout.Vertical>
+                                    if (index === -1) {
+                                      push({
+                                        name: values.name,
+                                        type: values.type,
+                                        value: ''
+                                      })
+                                    } else {
+                                      setFieldValue(`variables[${index}]`, {
+                                        name: values.name,
+                                        type: values.type,
+                                        value: formValues.variables[index].value
+                                      })
+                                    }
 
-                  <FormikForm style={{ width: 300 }}>
-                    <FormInput.ExpressionInput
-                      items={expressions}
-                      name="skipCondition"
-                      label={getString('skipConditionLabel')}
-                    />
-                    <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
-                      {getString('skipConditionHelpText')}
-                      <br />
-                      <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
-                        {getString('learnMore')}
-                      </a>
-                    </Text>
-                  </FormikForm>
-                </div>
-              </>
-            )}
-          </Formik>
-        </Layout.Vertical>
-      </Layout.Vertical>
-    </Layout.Vertical>
+                                    closeDialog()
+                                  }}
+                                >
+                                  {({ submitForm }) => (
+                                    <>
+                                      <div className={Classes.DIALOG_BODY}>
+                                        <FormikForm>
+                                          <FormInput.Text
+                                            name="name"
+                                            label={getString('variableNameLabel')}
+                                            placeholder={getString('name')}
+                                          />
+                                          <FormInput.Select
+                                            name="type"
+                                            items={[
+                                              {
+                                                label: getString('string'),
+                                                value: VariableTypes.String
+                                              },
+                                              {
+                                                label: getString('secretType'),
+                                                value: VariableTypes.Secret
+                                              }
+                                            ]}
+                                            label={getString('typeLabel')}
+                                            placeholder={getString('typeLabel')}
+                                          />
+                                        </FormikForm>
+                                      </div>
+                                      <div className={Classes.DIALOG_FOOTER}>
+                                        <Button
+                                          intent="primary"
+                                          text={selectedVariable.name ? getString('save') : getString('add')}
+                                          onClick={submitForm}
+                                        />{' '}
+                                        &nbsp; &nbsp;
+                                        <Button text={getString('cancel')} onClick={closeDialog} />
+                                      </div>
+                                    </>
+                                  )}
+                                </Formik>
+                              </Dialog>
+                            )}
+                          </>
+                        )}
+                      />
+                    </FormikForm>
+                  }
+                />
+              </Accordion>
+
+              <Accordion className={css.sectionCard} activeId="skipConditions">
+                <Accordion.Panel
+                  id="skipConditions"
+                  addDomId={true}
+                  summary={getString('skipConditionsTitle')}
+                  details={
+                    <FormikForm style={{ width: 300 }}>
+                      <FormInput.ExpressionInput
+                        items={expressions}
+                        name="skipCondition"
+                        label={getString('skipConditionStageLabel')}
+                      />
+                      <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
+                        {getString('skipConditionText')}
+                        <br />
+                        <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
+                          {getString('learnMore')}
+                        </a>
+                      </Text>
+                    </FormikForm>
+                  }
+                />
+              </Accordion>
+            </>
+          )}
+        </Formik>
+        <div className={css.navigationButtons}>{children}</div>
+      </div>
+    </div>
   )
 }

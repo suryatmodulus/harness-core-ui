@@ -1,5 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import get from 'lodash-es/get'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
@@ -14,10 +16,15 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
 import { inputSetViewValidateFieldsConfig } from './DockerHubStepFunctionConfigs'
+import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+
+const logger = loggerFor(ModuleName.CI)
 
 export interface DockerHubStepSpec {
   connectorRef: string
@@ -71,6 +78,8 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap = new Map()
+    this.invocationMap.set(/^.+step\.spec\.connectorRef$/, this.getConnectorList.bind(this))
   }
 
   protected type = StepType.DockerHub
@@ -86,6 +95,26 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
       repo: '',
       tags: []
     }
+  }
+
+  protected async getConnectorList(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.DockerHub) {
+        return getConnectorSuggestions(params, ['DockerRegistry'])
+      }
+    }
+    return []
   }
 
   validateInputSet(

@@ -2,7 +2,9 @@ import React from 'react'
 import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import { FormGroup } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
+import { ShellScriptMonacoField } from '@cd/components/PipelineSteps/ShellScriptStep/ShellScriptMonaco'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import List from '@common/components/List/List'
@@ -154,32 +156,38 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
         />
       )}
       {getMultiTypeFromValue(template?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
+        <FormGroup
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('preCommandLabel')}
               <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-        />
+        >
+          <ShellScriptMonacoField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
+            scriptType="Bash"
+            disabled={readonly}
+          />
+        </FormGroup>
       )}
       {getMultiTypeFromValue(template?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
+        <FormGroup
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('postCommandLabel')}
               <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-        />
+        >
+          <ShellScriptMonacoField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
+            scriptType="Bash"
+            disabled={readonly}
+          />
+        </FormGroup>
       )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
         <List

@@ -25,7 +25,9 @@
         "spec": {
           "connectorRef": "account.KubernetesConnectorForAutomationTestasd",
           "namespace": "ng-testing",
-          "releaseName": "release-pipeline-1"
+          "releaseName": "release-pipeline-1",
+          "releaseNumber": 6,
+          "foo": true
         }
       },
       "environment": {

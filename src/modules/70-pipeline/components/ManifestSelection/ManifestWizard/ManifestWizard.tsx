@@ -3,13 +3,12 @@ import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import { useStrings } from 'framework/exports'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { Connectors } from '@connectors/constants'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'
 import ManifestStore from '../ManifestWizardSteps/ManifestStore'
 import { manifestTypeLabels } from '../Manifesthelper'
-import type { ManifestStepInitData, ManifestTypes } from '../ManifestInterface'
+import type { ManifestStepInitData, ManifestStores, ManifestTypes } from '../ManifestInterface'
 import css from './ManifestWizard.module.scss'
 
 interface StepChangeData<SharedObject> {
@@ -19,13 +18,15 @@ interface StepChangeData<SharedObject> {
 }
 
 interface ManifestWizardStepsProps {
-  handleViewChange: (isConnectorView: boolean, selectedStore: ConnectorInfoDTO['type']) => void
+  handleConnectorViewChange: (isConnectorView: boolean) => void
+  handleStoreChange: (store?: ManifestStores) => void
   initialValues: ManifestStepInitData
   types: Array<ManifestTypes>
-  manifestStoreTypes: Array<ConnectorInfoDTO['type']>
+  manifestStoreTypes: Array<ManifestStores>
   labels: ConnectorRefLabelType
   selectedManifest: ManifestTypes
   newConnectorView: boolean
+  expressions: string[]
   newConnectorSteps?: any
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   changeManifestType: (data: ManifestTypes) => void
@@ -33,9 +34,11 @@ interface ManifestWizardStepsProps {
 }
 
 export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
-  handleViewChange,
+  handleConnectorViewChange,
+  handleStoreChange,
   initialValues,
   types,
+  expressions,
   manifestStoreTypes,
   labels,
   selectedManifest,
@@ -48,8 +51,9 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   const { getString } = useStrings()
 
   const onStepChange = (arg: StepChangeData<any>): void => {
-    if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep) {
-      handleViewChange(false, Connectors.GIT)
+    if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep && arg.nextStep <= 2) {
+      handleConnectorViewChange(false)
+      handleStoreChange()
     }
   }
 
@@ -77,11 +81,11 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
       <ManifestStore
         name={getString('manifestType.manifestSource')}
         stepName={labels.secondStepName}
+        expressions={expressions}
         newConnectorLabel={labels.newConnector}
         manifestStoreTypes={manifestStoreTypes}
-        handleViewChange={selectedStore => {
-          handleViewChange(true, selectedStore)
-        }}
+        handleConnectorViewChange={() => handleConnectorViewChange(true)}
+        handleStoreChange={handleStoreChange}
         initialValues={initialValues}
       />
       {newConnectorView ? newConnectorSteps : null}

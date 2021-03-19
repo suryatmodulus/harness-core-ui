@@ -257,7 +257,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         data-name="eye-con"
                         tabindex="0"
                         type="button"
@@ -291,7 +291,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         data-name="copy"
                         tabindex="0"
                         type="button"
@@ -325,7 +325,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         data-name="regenerate-token"
                         tabindex="0"
                         type="button"
@@ -635,7 +635,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 324px;"
                           type="button"
                         >

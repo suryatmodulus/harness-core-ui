@@ -9,9 +9,7 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/exports'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import {
   GetSourceRepoToEventResponse,
@@ -43,9 +41,7 @@ jest.mock('clipboard-copy', () => jest.fn())
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {

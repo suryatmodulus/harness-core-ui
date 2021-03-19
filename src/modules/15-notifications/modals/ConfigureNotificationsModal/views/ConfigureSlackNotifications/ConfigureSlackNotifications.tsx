@@ -101,7 +101,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
               <FormikForm>
                 <FormInput.Text name={'webhookUrl'} label={i18n.labelWebhookUrl} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
-                  <Button minimal text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
+                  <Button text={i18n.buttonTest} onClick={() => handleTest(formik.values)} />
                   {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={css.green} /> : null}
                   {testStatus === TestStatus.FAILED ? <Icon name="cross" className={css.red} /> : null}
                 </Layout.Horizontal>

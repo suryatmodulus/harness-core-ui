@@ -42,7 +42,7 @@ const ChangeSourcesHarness = [
   {
     type: 'HarnessCD_1.0',
     icon: 'cd-main',
-    label: 'Harness CD 1.0',
+    label: 'Harness CD FirstGen',
     routeName: 'harness-cd',
     routeUrl: routes.toCVActivitySourceSetup
   }
@@ -179,7 +179,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           )}
         </div>
       </Container>
-      <Layout.Horizontal style={{ float: 'right' }} padding="small">
+      <Layout.Horizontal style={{ margin: 'auto', width: '70%' }}>
         <Text margin={{ right: 'xsmall' }}>{i18n.changeSource.noActivitySource}</Text>
 
         <Link
@@ -573,21 +573,23 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               </Layout.Vertical>
             </Container>
             <Layout.Horizontal spacing="medium">
-              <Button
-                text={getString('previous')}
-                icon="chevron-left"
-                onClick={() => {
-                  if (activeStep === Step.CHANGE_SOURCE) {
-                    history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
-                  } else if (activeStep === Step.MONITORING_SOURCE) {
-                    setActiveStep(Step.CHANGE_SOURCE)
-                    setChangeSource(Status.ACTIVE)
-                  } else if (activeStep === Step.VERIFICATION_JOBS) {
-                    setActiveStep(Step.MONITORING_SOURCE)
-                    setMonitoringSource(Status.ACTIVE)
-                  }
-                }}
-              />
+              {activeStep !== Step.CHANGE_SOURCE && (
+                <Button
+                  text={getString('previous')}
+                  icon="chevron-left"
+                  onClick={() => {
+                    if (activeStep === Step.CHANGE_SOURCE) {
+                      history.push(routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier }))
+                    } else if (activeStep === Step.MONITORING_SOURCE) {
+                      setActiveStep(Step.CHANGE_SOURCE)
+                      setChangeSource(Status.ACTIVE)
+                    } else if (activeStep === Step.VERIFICATION_JOBS) {
+                      setActiveStep(Step.MONITORING_SOURCE)
+                      setMonitoringSource(Status.ACTIVE)
+                    }
+                  }}
+                />
+              )}
               <Button
                 intent="primary"
                 disabled={activeStep === Step.MONITORING_SOURCE && !hasOnBoardedMonitoringSources}

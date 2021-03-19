@@ -9,7 +9,7 @@ exports[`Delegates Configurations Page render data 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
       <button
-        class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         disabled=""
         tabindex="-1"
         type="button"
@@ -46,7 +46,7 @@ exports[`Delegates Configurations Page render data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
           disabled=""
           tabindex="-1"
           type="button"
@@ -68,7 +68,7 @@ exports[`Delegates Configurations Page render data 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
           disabled=""
           tabindex="-1"
           type="button"
@@ -139,7 +139,7 @@ exports[`Delegates Configurations Page render data 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         style="transform: rotate(90deg);"
                         type="button"
                       >

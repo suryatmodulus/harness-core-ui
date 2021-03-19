@@ -45,6 +45,9 @@
       border-bottom: 0;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
       align-items: center;
+      > [icon='chevron-right'] {
+        margin-right: var(--spacing-small) !important;
+      }
     }
     .bp3-tab-panel {
       width: 100%;
@@ -52,13 +55,15 @@
     }
     .bp3-tab[aria-selected='true'] {
       color: var(--grey-400);
-      padding: 0 var(--spacing-large);
     }
     .bp3-tab[aria-selected='false'] {
       color: var(--grey-400);
     }
   }
   .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     :global {
       span.bp3-icon {
         margin-right: var(--spacing-small);

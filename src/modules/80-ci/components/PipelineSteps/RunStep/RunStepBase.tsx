@@ -6,15 +6,20 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  ExpressionInput
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { ShellScriptMonacoField } from '@cd/components/PipelineSteps/ShellScriptStep/ShellScriptMonaco'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -101,6 +106,7 @@ export const RunStepBase = (
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
                 multiTypeTextArea={{ expressions }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -116,7 +122,7 @@ export const RunStepBase = (
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
                 width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+                  getMultiTypeFromValue(formik?.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
                 }
                 name="spec.connectorRef"
                 placeholder={getString('select')}
@@ -124,12 +130,12 @@ export const RunStepBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 multiTypeProps={{ expressions }}
-                style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
                 name="spec.image"
                 label={
-                  <Text margin={{ top: 'small' }}>
+                  <Text>
                     {getString('imageLabel')}
                     <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
                   </Text>
@@ -137,20 +143,45 @@ export const RunStepBase = (
                 multiTextInputProps={{
                   placeholder: getString('imagePlaceholder')
                 }}
+                style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="spec.command"
-                label={
-                  <Text margin={{ top: 'small' }} style={{ display: 'flex', alignItems: 'center' }}>
-                    {getString('commandLabel')}
-                    <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
-                  </Text>
-                }
-                placeholder={getString('commandPlaceholder')}
-                style={{ marginBottom: 0 }}
-                multiTypeTextArea={{ expressions }}
-              />
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <MultiTypeFieldSelector
+                  name="spec.command"
+                  label={
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                      {getString('commandLabel')}
+                      <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
+                    </Text>
+                  }
+                  defaultValueToReset=""
+                  allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+                  expressionRender={() => {
+                    return (
+                      <ExpressionInput
+                        value={formik?.values?.spec?.command || ''}
+                        name="spec.command"
+                        items={expressions}
+                        onChange={value => formik?.setFieldValue('spec.command', value)}
+                      />
+                    )
+                  }}
+                  style={{ flexGrow: 1, marginBottom: 0 }}
+                >
+                  <ShellScriptMonacoField name="spec.command" scriptType="Bash" />
+                </MultiTypeFieldSelector>
+                {getMultiTypeFromValue(formik?.values?.spec?.command) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik?.values?.spec?.command as string}
+                    type={getString('string')}
+                    variableName="spec.command"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik?.setFieldValue('spec.command', value)}
+                  />
+                )}
+              </div>
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>

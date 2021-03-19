@@ -88,7 +88,6 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                           iconProps={{ size: 20 }}
                           minimal
                           data-testid={`remove-${name}-[${index}]`}
-                          style={{ marginTop: 4 }}
                           onClick={() => remove(index)}
                         />
                       </div>

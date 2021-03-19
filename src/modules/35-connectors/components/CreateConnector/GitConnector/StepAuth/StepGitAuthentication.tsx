@@ -1,32 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Layout,
-  Button,
-  Formik,
-  Text,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
-  FormikForm as Form,
-  StepProps,
-  Color,
-  Container
-} from '@wings-software/uicore'
+import { Layout, Button, Formik, Text, FormikForm as Form, StepProps, Color, Container } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  buildGitPayload,
   SecretReferenceInterface,
   setupGitFormData,
   GitConnectionType
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO
-} from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
@@ -43,6 +24,7 @@ interface GitAuthenticationProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
@@ -79,45 +61,9 @@ const RenderGitAuthForm: React.FC<FormikProps<GitFormInterface>> = props => {
 
 const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & GitAuthenticationProps> = props => {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
-  const { prevStepData, nextStep, accountId, projectIdentifier, orgIdentifier } = props
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { prevStepData, nextStep, accountId } = props
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
-
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepGitAuthenticationProps)
-      props.onConnectorCreated(response.data)
-      props.setIsEditMode(true)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepGitAuthenticationProps)
-      props.onConnectorCreated(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
@@ -133,6 +79,10 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
       }
     }
   }, [loadingConnectorSecrets])
+
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepGitAuthenticationProps)
+  }
 
   return loadingConnectorSecrets ? (
     <PageSpinner />
@@ -163,25 +113,10 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
             otherwise: Yup.object().nullable()
           })
         })}
-        onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildGitPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.stepFormWrapper} width={'52%'}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
@@ -197,13 +132,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gitBackButton"
               />
-              <Button
-                type="submit"
-                intent="primary"
-                text={getString('saveAndContinue')}
-                rightIcon="chevron-right"
-                disabled={loadConnector}
-              />
+              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

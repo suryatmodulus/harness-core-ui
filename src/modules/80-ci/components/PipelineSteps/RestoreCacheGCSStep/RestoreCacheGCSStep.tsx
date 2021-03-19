@@ -1,5 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import get from 'lodash-es/get'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
@@ -12,10 +14,15 @@ import type {
   MultiTypeArchiveFormatOption,
   MultiTypeSelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
 import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
 import { inputSetViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
+import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+
+const logger = loggerFor(ModuleName.CI)
 
 export interface RestoreCacheGCSStepSpec {
   connectorRef: string
@@ -60,6 +67,8 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap = new Map()
+    this.invocationMap.set(/^.+step\.spec\.connectorRef$/, this.getConnectorList.bind(this))
   }
 
   protected type = StepType.RestoreCacheGCS
@@ -76,6 +85,27 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
       key: ''
     }
   }
+
+  protected async getConnectorList(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.RestoreCacheGCS || obj.type === StepType.SaveCacheGCS || obj.type === StepType.GCR) {
+        return getConnectorSuggestions(params, ['Gcp'])
+      }
+    }
+    return []
+  }
+
   validateInputSet(
     data: RestoreCacheGCSStepData,
     template?: RestoreCacheGCSStepData,

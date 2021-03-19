@@ -3,17 +3,25 @@ import type { ResponseBoolean, ConnectorInfoDTO } from 'services/cd-ng'
 export const usernamePassword: ConnectorInfoDTO = {
   name: 'k87',
   identifier: 'k8',
-  description: 'k8 descriptipn',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  description: 'k8 description',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     credential: {
       type: 'ManualConfig',
       spec: {
         masterUrl: '/url7878',
-        auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.k8serviceToken' } }
+        auth: {
+          type: 'UsernamePassword',
+          spec: {
+            username: 'dev',
+            usernameRef: undefined,
+            passwordRef: 'account.k8serviceToken'
+          }
+        }
       }
     }
   }
@@ -22,12 +30,13 @@ export const usernamePassword: ConnectorInfoDTO = {
 export const serviceAccount: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8',
-  description: 'k8 descriptipn',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  description: 'k8 description',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     credential: {
       type: 'ManualConfig',
       spec: {
@@ -41,12 +50,13 @@ export const serviceAccount: ConnectorInfoDTO = {
 export const oidcMock: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8Connector',
-  description: 'k8 descriptipn',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  description: 'k8 description',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     credential: {
       type: 'ManualConfig',
       spec: {
@@ -70,12 +80,13 @@ export const oidcMock: ConnectorInfoDTO = {
 export const clientKeyMock: ConnectorInfoDTO = {
   name: 'k8Connector',
   identifier: 'k8',
-  description: 'k8 descriptipn',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  description: 'k8 description',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     credential: {
       type: 'ManualConfig',
       spec: {
@@ -99,8 +110,8 @@ export const backButtonMock: ConnectorInfoDTO = {
   name: 'dummy k8 name',
   identifier: 'dummyK8Identifier',
   description: 'dummy k8 description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: { k8: '' },
   type: 'K8sCluster',
   spec: {

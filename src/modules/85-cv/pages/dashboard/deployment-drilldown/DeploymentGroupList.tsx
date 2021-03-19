@@ -74,7 +74,9 @@ export default function DeploymentGroupList({ name, defaultOpen, items }: Deploy
           padding="small"
         >
           <Container className={styles.itemHeader}>
-            <Text width={130}>{item.name}</Text>
+            <Text width={130} color={Color.BLACK}>
+              {item.name}
+            </Text>
             <Icon
               margin={{ left: 'medium' }}
               size={12}
@@ -83,10 +85,8 @@ export default function DeploymentGroupList({ name, defaultOpen, items }: Deploy
               name={mapItemIcon(item.status)}
             />
           </Container>
-          <Text color={Color.GREY_300} font={{ size: 'xsmall' }}>{`Environment: ${item.environment}`}</Text>
-          <Text color={Color.GREY_300} font={{ size: 'xsmall' }}>
-            {`Started on: ${moment(item.startedOn).format('MMM D, YYYY h:mm A')}`}
-          </Text>
+          <Text font={{ size: 'small' }}>{`Environment: ${item.environment}`}</Text>
+          <Text font={{ size: 'small' }}>{`Started on: ${moment(item.startedOn).format('MMM D, YYYY h:mm A')}`}</Text>
         </Container>
       ))}
     </Collapse>

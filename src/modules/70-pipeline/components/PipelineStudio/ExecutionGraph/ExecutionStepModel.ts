@@ -1,5 +1,7 @@
 import { isEmpty } from 'lodash-es'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
+
+import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import {
   DiagramModel,
   CreateNewModel,
@@ -22,6 +24,7 @@ import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import i18n from './ExecutionGraph.i18n'
 
+const LINE_SEGMENT_LENGTH = 50
 export class ExecutionStepModel extends DiagramModel {
   constructor() {
     super({
@@ -157,10 +160,10 @@ export class ExecutionStepModel extends DiagramModel {
     getString?: (key: string, vars?: Record<string, any>) => string
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
-      const type = node?.step?.type || 'Approval'
+      const type = node?.step?.type || ExecutionPipelineNodeType.NORMAL
       startX += this.gap
       const nodeRender =
-        type === 'APPROVAL'
+        type === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
@@ -190,7 +193,8 @@ export class ExecutionStepModel extends DiagramModel {
             prevNode,
             !isParallelNode,
             isStepGroupNode ? 4 : 0,
-            isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
+            isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
+            { type: 'in', size: LINE_SEGMENT_LENGTH }
           )
         })
       }
@@ -260,9 +264,10 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               emptyNodeEnd,
               prevNode,
-              true,
+              false,
               isStepGroupNode ? 4 : 0,
-              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
+              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
+              { type: 'out', size: LINE_SEGMENT_LENGTH }
             )
           })
           prevNodes = [emptyNodeEnd]
@@ -303,7 +308,10 @@ export class ExecutionStepModel extends DiagramModel {
         nodeRender.setPosition(startX, startY)
         if (!isEmpty(prevNodes) && prevNodes) {
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
-            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode, 0)
+            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode, 0, undefined, {
+              type: 'in',
+              size: LINE_SEGMENT_LENGTH
+            })
           })
         }
         return { startX, startY, prevNodes: [nodeRender] }
@@ -329,7 +337,8 @@ export class ExecutionStepModel extends DiagramModel {
               prevNode,
               !isParallelNode,
               isStepGroupNode ? 4 : 0,
-              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
+              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
+              { type: 'in', size: LINE_SEGMENT_LENGTH }
             )
           })
           prevNodes = [stepGroupLayer.startNode]

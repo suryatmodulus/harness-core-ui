@@ -1,3 +1,4 @@
+import { delay } from 'lodash-es'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
@@ -224,29 +225,51 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
   return groupState
 }
 
-export const moveStageToFocus = (engine: DiagramEngine, identifier: string, focusOnVisibility?: boolean): void => {
+export const moveStageToFocusDelayed = (
+  engine: DiagramEngine,
+  identifier: string,
+  focusOnVisibility?: boolean,
+  resetZoom?: boolean
+): void => {
+  delay(() => moveStageToFocus(engine, identifier, focusOnVisibility, resetZoom), 1)
+}
+
+export const moveStageToFocus = (
+  engine: DiagramEngine,
+  identifier: string,
+  focusOnVisibility?: boolean,
+  resetZoom?: boolean
+): void => {
   const model = engine.getModel() as Diagram.DiagramModel
   const layer = model.getGroupLayer(identifier) || model.getNodeFromId(identifier)
   const canvas = engine.getCanvas()
   /* istanbul ignore else */ if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
-    let newOffsetX = 100
-    let offsetY = engine.getModel().getOffsetY()
+    const zoom = engine.getModel().getZoomLevel()
+    const s = (num: number) => num * (1 / (100 / zoom))
+    const offsetX = engine.getModel().getOffsetX()
+    const offsetY = engine.getModel().getOffsetY()
+    let newOffsetX = engine.getModel().getOffsetX()
+    let newOffsetY = engine.getModel().getOffsetY()
+
     const node = (engine.getModel() as Diagram.DiagramModel).getNodeFromId(identifier)
-    if (focusOnVisibility && node && rect.width < node.getPosition().x + node.width + 40) {
-      newOffsetX = (rect.width - node.width) * 0.8 - node.getPosition().x
+
+    if (focusOnVisibility && node && rect.width < offsetX + s(node.getPosition().x) + s(node.width) + s(40)) {
+      newOffsetX = (rect.width - s(node.width)) * 0.8 - s(node.getPosition().x)
     } else if (!focusOnVisibility) {
       if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-        newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
+        newOffsetX = rect.width * 0.2 - s(layer.startNode.getPosition().x)
       } else {
-        newOffsetX = rect.width * 0.2 - layer.getPosition().x
+        newOffsetX = rect.width * 0.2 - s(layer.getPosition().x)
       }
     }
-    if (node && rect.height < node.getPosition().y + node.height + 40) {
-      offsetY = (rect.height - node.height) * 0.8 - node.getPosition().y
+
+    if (node && rect.height < offsetY + s(node.getPosition().y) + s(node.height) + s(40)) {
+      newOffsetY = (rect.height - s(node.height)) * 0.7 - s(node.getPosition().y)
     }
-    engine.getModel().setOffset(newOffsetX, offsetY)
-    engine.getModel().setZoomLevel(100)
+
+    engine.getModel().setOffset(newOffsetX, newOffsetY)
+    engine.getModel().setZoomLevel(resetZoom ? 100 : zoom)
     engine.repaintCanvas()
   }
 }

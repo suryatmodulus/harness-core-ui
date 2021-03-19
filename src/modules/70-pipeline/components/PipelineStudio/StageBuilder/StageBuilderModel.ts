@@ -43,6 +43,7 @@ export class StageBuilderModel extends DiagramModel {
       const nodeRender = type?.isApproval
         ? new DiamondNodeModel({
             identifier: node.stage.identifier,
+            id: node.stage.identifier,
             customNodeStyle: {
               // Without this doesn't look straight
               marginTop: '2.5px',
@@ -60,6 +61,7 @@ export class StageBuilderModel extends DiagramModel {
           })
         : new DefaultNodeModel({
             identifier: node.stage.identifier,
+            id: node.stage.identifier,
             customNodeStyle: getCommonStyles(isSelected),
             name: node.stage.name,
             isInComplete: node.stage.name === EmptyStageName,
@@ -101,6 +103,7 @@ export class StageBuilderModel extends DiagramModel {
           const groupedNode = new GroupNodeModel({
             customNodeStyle: getCommonStyles(isSelected),
             identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
+            id: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
             name:
               parallelStageNames.length > 2
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`

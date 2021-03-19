@@ -5,8 +5,10 @@ import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonS
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import GcpAuthentication from './StepAuth/GcpAuthentication'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
@@ -29,6 +31,15 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
         <GcpAuthentication
           name={getString('details')}
           {...commonProps}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+        />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          isEditMode={props.isEditMode}
+          setIsEditMode={props.setIsEditMode}
+          buildPayload={buildGcpPayload}
+          hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
         />

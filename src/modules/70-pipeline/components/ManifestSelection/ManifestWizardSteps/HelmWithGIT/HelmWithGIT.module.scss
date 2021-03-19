@@ -2,16 +2,37 @@
   height: 100%;
   min-height: 400px;
   .halfWidth {
-    width: 50%;
+    width: 45%;
   }
   .helmAdvancedSteps {
-    margin-bottom: var(--spacing-large);
+    margin-bottom: 80px !important;
   }
   .commandFlags {
-    margin-top: var(--spacing-medium);
+    margin-top: var(--spacing-large);
+  }
+  .runtimeInput {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+  }
+  .advancedStepOpen {
+    min-height: 400px;
+  }
+  .repoName {
+    margin-bottom: 0 !important;
   }
 }
+
 .checkbox {
-  padding-left: var(--spacing-xlarge) !important;
-  margin-right: var(--spacing-medium) !important;
+  margin-right: var(--spacing-medium);
+  margin-bottom: 0 !important;
+}
+
+.tooltip {
+  > * {
+    width: 50%;
+  }
+}
+
+.tooltipContent {
+  width: 200px;
 }

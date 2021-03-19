@@ -4,9 +4,11 @@ import { pick } from 'lodash-es'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { buildKubPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
@@ -18,6 +20,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
     'orgIdentifier',
     'projectIdentifier'
   ])
+
   return (
     <StepWizard
       icon={getConnectorIconByType(Connectors.KUBERNETES_CLUSTER)}
@@ -36,6 +39,15 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         onConnectorCreated={props.onSuccess}
         hideModal={props.onClose}
         {...commonProps}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildKubPayload}
+        onConnectorCreated={props.onSuccess}
+        connectorInfo={props.connectorInfo}
+        hideModal={props.onClose}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

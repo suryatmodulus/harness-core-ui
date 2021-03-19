@@ -122,36 +122,7 @@ exports[`CVSetupPage check next and previous 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-              icon="chevron-left"
-            >
-              <svg
-                data-icon="chevron-left"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-left
-                </desc>
-                <path
-                  d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span
-              class="bp3-button-text"
-            >
-              Previous
-            </span>
-          </button>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -271,7 +242,7 @@ exports[`CVSetupPage check next and previous 1`] = `
                       <div
                         class="cardLabel"
                       >
-                        Harness CD 1.0
+                        Harness CD FirstGen
                       </div>
                     </div>
                   </div>
@@ -333,8 +304,8 @@ exports[`CVSetupPage check next and previous 1`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
-            style="float: right;"
+            class="Layout--horizontal StyledProps--main"
+            style="margin: auto; width: 70%;"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
@@ -342,7 +313,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -497,7 +468,7 @@ exports[`CVSetupPage check next and previous 2`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -526,7 +497,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -825,64 +796,7 @@ exports[`CVSetupPage check next and previous 3`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main"
-            disabled=""
-            tabindex="-1"
-            type="button"
-          >
-            <div
-              class="bp3-spinner bp3-button-spinner"
-            >
-              <div
-                class="bp3-spinner-animation"
-              >
-                <svg
-                  height="20"
-                  stroke-width="16.00"
-                  viewBox="-3.00 -3.00 106.00 106.00"
-                  width="20"
-                >
-                  <path
-                    class="bp3-spinner-track"
-                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
-                  />
-                  <path
-                    class="bp3-spinner-head"
-                    d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
-                    pathLength="280"
-                    stroke-dasharray="280 280"
-                    stroke-dashoffset="210"
-                  />
-                </svg>
-              </div>
-            </div>
-            <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-              icon="chevron-left"
-            >
-              <svg
-                data-icon="chevron-left"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-left
-                </desc>
-                <path
-                  d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span
-              class="bp3-button-text"
-            >
-              Previous
-            </span>
-          </button>
-          <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -1030,7 +944,7 @@ exports[`CVSetupPage check next and previous 3`] = `
                       <div
                         class="cardLabel"
                       >
-                        Harness CD 1.0
+                        Harness CD FirstGen
                       </div>
                     </div>
                   </div>
@@ -1092,8 +1006,8 @@ exports[`CVSetupPage check next and previous 3`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
-            style="float: right;"
+            class="Layout--horizontal StyledProps--main"
+            style="margin: auto; width: 70%;"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
@@ -1101,7 +1015,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -1242,36 +1156,7 @@ exports[`CVSetupPage render initial state 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-              icon="chevron-left"
-            >
-              <svg
-                data-icon="chevron-left"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  chevron-left
-                </desc>
-                <path
-                  d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span
-              class="bp3-button-text"
-            >
-              Previous
-            </span>
-          </button>
-          <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             type="button"
           >
             <span
@@ -1391,7 +1276,7 @@ exports[`CVSetupPage render initial state 1`] = `
                       <div
                         class="cardLabel"
                       >
-                        Harness CD 1.0
+                        Harness CD FirstGen
                       </div>
                     </div>
                   </div>
@@ -1453,8 +1338,8 @@ exports[`CVSetupPage render initial state 1`] = `
             </div>
           </div>
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--padding-small"
-            style="float: right;"
+            class="Layout--horizontal StyledProps--main"
+            style="margin: auto; width: 70%;"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
@@ -1462,7 +1347,7 @@ exports[`CVSetupPage render initial state 1`] = `
               Don’t have a Change Source? 
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
               href="javascript:void()"
               role="button"
               tabindex="0"

@@ -1,9 +1,8 @@
 import React from 'react'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
-import { Button, FormInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { Button, FormInput, MultiTextInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
-import { isNumber } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ShellScriptFormData, ShellScriptStepVariable } from './shellScriptTypes'
@@ -23,15 +22,11 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const updateInputFieldValue = (value: string | number, index: number, path: string): void => {
-    if (formValues.spec.environmentVariables && formValues.spec.environmentVariables[index].type === 'Number') {
-      value = parseInt(value as any)
-      if (isNaN(value)) {
-        setFieldValue(path, '')
-        return
-      }
-      if (isNumber(value)) {
-        setFieldValue(path, value)
-      }
+    if (formValues.spec.environmentVariables?.[index].type === 'Number') {
+      value = parseFloat(value as string)
+      setFieldValue(path, value)
+    } else {
+      setFieldValue(path, value)
     }
   }
 
@@ -55,13 +50,14 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                     name={`spec.environmentVariables[${i}].type`}
                     placeholder={getString('typeLabel')}
                   />
-                  <FormInput.MultiTextInput
+                  <MultiTextInput
                     name={`spec.environmentVariables[${i}].value`}
-                    multiTextInputProps={{
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                      expressions
+                    expressions={expressions}
+                    textProps={{
+                      type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text'
                     }}
-                    label=""
+                    allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                    value={formValues.spec.environmentVariables?.[i].value as string}
                     onChange={value =>
                       updateInputFieldValue(value as string | number, i, `spec.environmentVariables[${i}].value`)
                     }

@@ -148,7 +148,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                     class="StyledProps--font StyledProps--main itemHeader"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                       style="width: 130px;"
                     >
                       jobName
@@ -174,12 +174,12 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                     </span>
                   </div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
                     Environment: env
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300 StyledProps--font-size-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
                     Started on: Nov 9, 2020 8:54 PM
                   </p>
@@ -257,170 +257,6 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               passed
             </div>
           </div>
-          <div
-            class="StyledProps--font StyledProps--main"
-          >
-            <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-symbol-square StyledProps--main StyledProps--padding-right-xsmall"
-                icon="symbol-square"
-              >
-                <svg
-                  data-icon="symbol-square"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    symbol-square
-                  </desc>
-                  <path
-                    d="M12 3.01H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-8c0-.56-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Stop Deployment
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-refresh StyledProps--main StyledProps--padding-right-xsmall"
-                icon="refresh"
-              >
-                <svg
-                  data-icon="refresh"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    refresh
-                  </desc>
-                  <path
-                    d="M14.99 6.99c-.55 0-1 .45-1 1 0 3.31-2.69 6-6 6-1.77 0-3.36-.78-4.46-2h1.46c.55 0 1-.45 1-1s-.45-1-1-1h-4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-1.74a7.95 7.95 0 006 2.74c4.42 0 8-3.58 8-8 0-.55-.45-1-1-1zm0-7c-.55 0-1 .45-1 1v1.74a7.95 7.95 0 00-6-2.74c-4.42 0-8 3.58-8 8 0 .55.45 1 1 1s1-.45 1-1c0-3.31 2.69-6 6-6 1.77 0 3.36.78 4.46 2h-1.46c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Rollback
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-share StyledProps--main StyledProps--padding-right-xsmall"
-                icon="share"
-              >
-                <svg
-                  data-icon="share"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    share
-                  </desc>
-                  <path
-                    d="M10.99 13.99h-9v-9h4.76l2-2H.99c-.55 0-1 .45-1 1v11c0 .55.45 1 1 1h11c.55 0 1-.45 1-1V7.24l-2 2v4.75zm4-14h-5c-.55 0-1 .45-1 1s.45 1 1 1h2.59L7.29 7.28a1 1 0 00-.3.71 1.003 1.003 0 001.71.71l5.29-5.29V6c0 .55.45 1 1 1s1-.45 1-1V1c0-.56-.45-1.01-1-1.01z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Share
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled bp3-minimal StyledProps--font Button--button StyledProps--main"
-              disabled=""
-              tabindex="-1"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                data-icon="service-jira"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 14 14"
-                  width="16"
-                >
-                  <lineargradient
-                    id="service-jira_svg__a"
-                  >
-                    <stop
-                      offset="0.18"
-                      stop-color="#0052cc"
-                    />
-                    <stop
-                      offset="1"
-                      stop-color="#2684ff"
-                    />
-                  </lineargradient>
-                  <lineargradient
-                    gradientTransform="matrix(4.5 0 0 -7 1045.5 2440)"
-                    gradientUnits="userSpaceOnUse"
-                    id="service-jira_svg__b"
-                    x1="-231.106"
-                    x2="-231.372"
-                    xlink:href="#service-jira_svg__a"
-                    y1="348.167"
-                    y2="347.754"
-                  />
-                  <lineargradient
-                    gradientTransform="matrix(4.5 0 0 -7 1050 2447)"
-                    gradientUnits="userSpaceOnUse"
-                    id="service-jira_svg__c"
-                    x1="-231.447"
-                    x2="-231.182"
-                    xlink:href="#service-jira_svg__a"
-                    y1="347.979"
-                    y2="348.392"
-                  />
-                  <path
-                    d="M13.6 6.6l-6-6L7 0 2.5 4.5.4 6.6c-.2.2-.2.6 0 .8l4.1 4.1L7 14l4.5-4.5.1-.1 2-2c.2-.2.2-.6 0-.8zM7 9.1L4.9 7 7 4.9 9.1 7z"
-                    fill="#2684ff"
-                  />
-                  <path
-                    d="M7 4.9C5.6 3.6 5.6 1.4 7 0L2.5 4.5 4.9 7z"
-                    fill="url(#service-jira_svg__b)"
-                  />
-                  <path
-                    d="M9.1 7L7 9.1c1.4 1.4 1.4 3.6 0 4.9l4.5-4.5z"
-                    fill="url(#service-jira_svg__c)"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Create Ticket
-              </span>
-            </button>
-          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main"
@@ -457,7 +293,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             class="StyledProps--font StyledProps--main filters"
           >
             <div
-              class="bp3-tabs Tabs--main"
+              class="bp3-tabs Tabs--main Tabs--horizontal"
             >
               <div
                 class="bp3-tab-list"

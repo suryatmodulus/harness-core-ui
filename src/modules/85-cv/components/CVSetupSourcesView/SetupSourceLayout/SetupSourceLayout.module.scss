@@ -1,27 +1,35 @@
+$footer-cta-height: 50px;
+
 .main {
   height: 100%;
   .contentContainer {
     display: flex;
     height: 100%;
-    .leftPanel,
+    .leftPanel {
+      width: clamp(250px, 300px, 300px);
+    }
     .rightPanel {
-      width: clamp(250px, 350px, 350px);
+      width: 200px;
     }
     .content {
       flex: 1;
-      margin: var(--spacing-medium);
+      margin: $footer-cta-height var(--spacing-medium);
+      margin-bottom: 60px;
       overflow-y: scroll;
+      padding: 2px !important;
     }
   }
 }
 
 .footerCTA {
-  height: 50px;
+  height: $footer-cta-height;
   width: 100%;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+  background: var(--white) !important;
   display: flex;
   justify-self: flex-start;
   position: fixed;
+  left: 272px;
   bottom: 0;
   padding: var(--spacing-small) 0 !important;
 

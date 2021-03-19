@@ -3,25 +3,29 @@
 exports[`Delegate Selectors test snapshot testing 1`] = `
 <div>
   <div
-    class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
+    data-name="DelegateSelectors"
   >
     <div
-      class="bp3-popover-target"
+      class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
     >
       <div
-        class=""
+        class="bp3-popover-target"
       >
         <div
-          class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+          class=""
         >
           <div
-            class="bp3-tag-input-values"
+            class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
           >
-            <input
-              class="bp3-input-ghost bp3-multi-select-tag-input-input"
-              placeholder="Add specific selectors or leave empty to target any delegate"
-              value=""
-            />
+            <div
+              class="bp3-tag-input-values"
+            >
+              <input
+                class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                placeholder="Add specific selectors or leave empty to target any delegate"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -8,8 +8,11 @@ exports[`SelectEnvironment render 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.
+      Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.
     </p>
+    <div
+      class="StyledProps--font StyledProps--main filterComponent"
+    />
     <div
       class="table"
     >
@@ -21,17 +24,17 @@ exports[`SelectEnvironment render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 33%;"
+          style="width: 30%;"
         >
-          HARNESS CD 1.0 ENVIRONMENTS
+          HARNESS FIRSTGEN APPLICATION
         </div>
         <div
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 30%;"
+          style="width: 33%;"
         >
-          HARNESS CD 1.0 APPLICATION
+          HARNESS FIRSTGEN ENVIRONMENTS
         </div>
         <div
           class="cell"
@@ -39,9 +42,7 @@ exports[`SelectEnvironment render 1`] = `
           role="columnheader"
           style="width: 36%;"
         >
-          <div
-            class="StyledProps--font StyledProps--main filterComponent"
-          />
+          HARNESS NEXTGEN ENVIRONMENTS
         </div>
       </div>
       <div
@@ -51,7 +52,7 @@ exports[`SelectEnvironment render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 33%;"
+          style="width: 30%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -60,6 +61,21 @@ exports[`SelectEnvironment render 1`] = `
               style="cursor: pointer;"
               type="checkbox"
             />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+            >
+              appName
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
             <span
               class="bp3-icon StyledProps--main"
               data-icon="cd-main"
@@ -102,17 +118,6 @@ exports[`SelectEnvironment render 1`] = `
               Test Env
             </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            appName
-          </p>
         </div>
         <div
           class="cell"
@@ -211,7 +216,7 @@ exports[`SelectEnvironment render 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -223,7 +228,7 @@ exports[`SelectEnvironment render 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -233,7 +238,7 @@ exports[`SelectEnvironment render 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -243,7 +248,7 @@ exports[`SelectEnvironment render 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -253,7 +258,7 @@ exports[`SelectEnvironment render 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -272,7 +277,7 @@ exports[`SelectEnvironment render 1`] = `
                 class=""
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   type="button"
                 >
                   <span
@@ -299,13 +304,13 @@ exports[`SelectEnvironment render 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
               class="bp3-button-text"
             >
-              10
+              8
             </span>
           </button>
         </div>
@@ -315,7 +320,7 @@ exports[`SelectEnvironment render 1`] = `
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -344,7 +349,7 @@ exports[`SelectEnvironment render 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span

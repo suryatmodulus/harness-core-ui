@@ -1,20 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import {
-  StepWizard,
-  StepProps,
-  Layout,
-  Button,
-  Text,
-  FormInput,
-  FormikForm,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding
-} from '@wings-software/uicore'
+import React, { useState, useEffect, useCallback } from 'react'
+import { StepWizard, StepProps, Layout, Button, Text, FormInput, FormikForm } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useToaster } from '@common/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import { useStrings } from 'framework/exports'
 import {
   useCreateConnector,
   ConnectorConfigDTO,
@@ -27,6 +18,9 @@ import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtil
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { buildAppDynamicsPayload as _buildAppDynamicsPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { FormData } from '@connectors/interfaces/ConnectorInterface'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
@@ -39,9 +33,8 @@ export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
-  handleCreate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
-  handleUpdate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
   isEditMode: boolean
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo?: ConnectorInfoDTO | void
 }
 
@@ -49,59 +42,25 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
-  const handleCreate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
-    const res = await createConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'AppDynamics',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          username: data.username,
-          accountname: data.accountName,
-          passwordRef: data.password.referenceString,
-          controllerUrl: data.url,
-          accountId: props.accountId
-        }
-      }
-    })
+  const handleSubmit = async (
+    payload: ConnectorConfigDTO,
+    prevData: ConnectorConfigDTO,
+    stepProps: StepProps<ConnectorConfigDTO>
+  ): Promise<ConnectorInfoDTO | undefined> => {
+    const { isEditMode } = props
+    const res = await (isEditMode ? updateConnector : createConnector)(payload)
     if (res && res.status === 'SUCCESS') {
-      showSuccess(i18n.showSuccessCreated(data?.name || ''))
+      showSuccess(
+        isEditMode ? i18n.showSuccessUpdated(payload?.name || '') : i18n.showSuccessCreated(payload?.name || '')
+      )
       if (res.data) {
         setSuccessfullyCreated(true)
         props.onConnectorCreated?.(res.data)
         props.onSuccess?.(res.data)
-      }
-    } else {
-      throw new Error(i18n.errorCreate)
-    }
-    return res.data?.connector
-  }
-
-  const handleUpdate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
-    const res = await updateConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'AppDynamics',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          username: data.username,
-          accountname: data.accountName,
-          passwordRef: data.password.referenceString,
-          controllerUrl: data.url,
-          accountId: props.accountId
-        }
-      }
-    })
-    if (res && res.status === 'SUCCESS') {
-      showSuccess(i18n.showSuccessUpdated(data?.name || ''))
-      if (res.data) {
-        props.onConnectorCreated?.(res.data)
-        props.onSuccess?.(res.data)
+        stepProps?.nextStep?.(prevData)
+        props.setIsEditMode?.(true)
       }
     } else {
       throw new Error(i18n.errorCreate)
@@ -110,6 +69,10 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
   }
 
   const isEditMode = props.isEditMode || successfullyCreated
+  const buildAppDynamicsPayload = useCallback(
+    (formData: FormData) => _buildAppDynamicsPayload(formData, props.accountId),
+    []
+  )
 
   return (
     <>
@@ -126,10 +89,18 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           name={i18n.wizardStepName.credentials}
-          handleCreate={handleCreate}
-          handleUpdate={handleUpdate}
           isEditMode={isEditMode}
           connectorInfo={props.connectorInfo}
+        />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          customHandleCreate={handleSubmit}
+          customHandleUpdate={handleSubmit}
+          hideModal={props.onClose}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+          isEditMode={props.isEditMode}
+          buildPayload={buildAppDynamicsPayload}
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
@@ -145,8 +116,9 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
 }
 
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loadingSecrets, setLoadingSecrets] = useState(props.isEditMode)
+  const { getString } = useStrings()
+  const { nextStep, prevStepData, connectorInfo } = props
   const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
     url: '',
     accountName: '',
@@ -172,23 +144,8 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
     })()
   }, [])
 
-  const handleFormSubmission = async (formData: ConnectorConfigDTO) => {
-    modalErrorHandler?.hide()
-    if (props.isEditMode) {
-      try {
-        const res = await props.handleUpdate(formData)
-        props.nextStep?.({ ...(res || {}), ...formData })
-      } catch (error) {
-        modalErrorHandler?.showDanger(error?.data?.message)
-      }
-    } else {
-      try {
-        const res = await props.handleCreate(formData)
-        props.nextStep?.({ ...(res || {}), ...formData })
-      } catch (error) {
-        modalErrorHandler?.showDanger(error?.data?.message)
-      }
-    }
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
   }
 
   if (loadingSecrets) {
@@ -203,18 +160,15 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         ...props.prevStepData
       }}
       validationSchema={Yup.object().shape({
-        url: Yup.string().trim().required(),
-        accountName: Yup.string().trim().required(),
-        username: Yup.string().trim().required(),
-        password: Yup.string().trim().required()
+        url: Yup.string().trim().required(getString('cv.connectors.appD.controllerUrlValidation')),
+        accountName: Yup.string().trim().required(getString('validation.accountName')),
+        username: Yup.string().trim().required(getString('validation.username')),
+        password: Yup.string().trim().required(getString('validation.password'))
       })}
-      onSubmit={formData => {
-        handleFormSubmission(formData)
-      }}
+      onSubmit={handleSubmit}
     >
       {() => (
         <FormikForm className={styles.connectionForm}>
-          <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Vertical spacing="large" className={styles.appDContainer}>
             <Text font="medium">{i18n.connectionDetailsHeader}</Text>
             <FormInput.Text label={i18n.Url} name="url" />

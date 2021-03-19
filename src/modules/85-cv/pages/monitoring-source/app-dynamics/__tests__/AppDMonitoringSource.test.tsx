@@ -21,7 +21,7 @@ describe('AppDMonitoringSOurce', () => {
     )
     await waitFor(() => queryByText(container, 'Select Product'))
 
-    expect(getByText('Select Application')).toBeDefined()
+    expect(getByText('Map Applications to Harness Environments')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

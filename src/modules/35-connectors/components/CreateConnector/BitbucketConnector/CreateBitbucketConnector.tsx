@@ -5,6 +5,8 @@ import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { useStrings } from 'framework/exports'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import { buildBitbucketPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepBitbucketAuthentication from './StepAuth/StepBitbucketAuthentication'
@@ -44,6 +46,15 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
         name={getString('credentials')}
         {...commonProps}
         onConnectorCreated={props.onSuccess}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildBitbucketPayload}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onSuccess}
+        connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
         type={Connectors.BITBUCKET}

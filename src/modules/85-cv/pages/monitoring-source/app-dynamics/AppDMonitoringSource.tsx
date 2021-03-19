@@ -88,7 +88,7 @@ const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: RestResponseDSConfig | 
         },
         {
           id: 2,
-          title: getString('selectApplication'),
+          title: getString('mapApplicationsToEnvs'),
           component: (
             <SelectApplications
               stepData={{

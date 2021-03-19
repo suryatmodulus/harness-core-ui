@@ -19,7 +19,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               tabindex="0"
               type="button"
             >
@@ -51,7 +51,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               tabindex="0"
               type="button"
             >
@@ -86,7 +86,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -114,7 +114,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >

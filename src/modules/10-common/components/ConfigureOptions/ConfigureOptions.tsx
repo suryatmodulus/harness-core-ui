@@ -40,7 +40,7 @@ export enum Validation {
 export const AllowedExpression = 'allowedValues'
 export const RegexExpression = 'regex'
 // eslint-disable-next-line no-useless-escape
-export const RegExInputExpression = /^\<\+input\>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?$/
+export const RegExInputExpression = /^\<\+input\>\.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?$/
 const RegExpression = /jexl\((.*?)\)/
 const JEXL = 'jexl'
 
@@ -174,7 +174,11 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                       name="defaultValue"
                     />
                   ) : (
-                    <FormInput.Text label={getString('configureOptions.defaultValue')} name="defaultValue" />
+                    <FormInput.Text
+                      inputGroup={{ type: type === 'Number' ? 'number' : 'text' }}
+                      label={getString('configureOptions.defaultValue')}
+                      name="defaultValue"
+                    />
                   ))}
                 {showRequiredField && (
                   <FormInput.CheckBox
@@ -275,7 +279,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
         </Formik>
       </Dialog>
     )
-  }, [value, showDefaultField, variableName, type, showRequiredField, showAdvanced, fetchValues])
+  }, [value, showDefaultField, variableName, type, showRequiredField, showAdvanced, fetchValues, defaultValue, type])
 
   React.useEffect(() => {
     setInput(value)
@@ -284,9 +288,9 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   const closeModal = React.useCallback(
     (str?: string, defaultStr?: string, required?: boolean) => {
       hideModal()
-      onChange?.(str ?? input, defaultStr, required)
+      onChange?.(str ?? input, defaultStr ?? defaultValue, required)
     },
-    [hideModal, onChange, input]
+    [hideModal, onChange, input, defaultValue]
   )
 
   return (

@@ -15,7 +15,7 @@ import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
 type CustomColumn<T extends object> = Column<T>
-const PlaceholderCell: React.FC<{}> = () => <Text>TBD</Text>
+const PlaceholderCell: React.FC<{}> = () => <Text></Text>
 const TableCell: React.FC<{ value: any }> = ({ value }) => <Text>{value}</Text>
 
 type RowActions = { [P in 'onEdit' | 'onDelete']: (id: string) => void }
@@ -121,7 +121,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
             iconProps={{ size: 24 }}
             tooltip={
               <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />
+                <Menu.Item disabled icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />
                 <Menu.Item icon="cross" text={getString('delete')} onClick={handleInteraction('delete')} />
               </Menu>
             }
@@ -218,7 +218,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
     return () => {
       clear()
     }
-  }, [])
+  }, [clear])
 
   return (
     <>
@@ -242,7 +242,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
               columns={columnDefs}
               data={targets}
               pagination={pagination}
-              onRowClick={handleRowClick}
+              // onRowClick={handleRowClick}
             />
           </RowContext.Provider>
         )}

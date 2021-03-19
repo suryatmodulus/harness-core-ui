@@ -3,5 +3,6 @@
 declare const styles: {
   readonly manifestWizard: string
   readonly subtitle: string
+  readonly formGroup: string
 }
 export default styles

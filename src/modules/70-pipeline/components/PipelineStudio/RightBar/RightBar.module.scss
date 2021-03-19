@@ -56,32 +56,6 @@
   :global(.bp3-popover-wrapper) {
     text-align: center;
   }
-
-  .codebaseConfiguration {
-    &.notConfigured {
-      > span svg path:last-child {
-        // TODO: Replace color once it is available in UIKit
-        fill: #ff8800 !important;
-      }
-    }
-
-    &.valid {
-      > span svg path {
-        // TODO: Replace color once it is available in UIKit
-        fill: #06c270 !important;
-      }
-    }
-
-    &.invalid {
-      // TODO: Replace color once it is available in UIKit
-      color: #9293ab !important;
-    }
-
-    &.validating {
-      // DO NOT REMOVE
-      color: inherit;
-    }
-  }
 }
 .predefinedValue {
   font-size: 13px;

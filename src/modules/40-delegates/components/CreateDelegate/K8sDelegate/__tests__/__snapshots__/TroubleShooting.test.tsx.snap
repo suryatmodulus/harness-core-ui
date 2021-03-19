@@ -11,7 +11,7 @@ exports[`Create Common Problems Tab render data 1`] = `
       style="border-bottom: 0.5px solid #B0B1C4;"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -43,7 +43,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         Here is what you can do
       </p>
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -66,7 +66,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           Check the status of your delegate on your cluster
         </p>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -134,7 +134,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
           type="button"
         >
           <span
@@ -144,7 +144,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main noBtn"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main noBtn"
           type="button"
         >
           <span
@@ -170,7 +170,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
       style="border-bottom: 0.5px solid #B0B1C4;"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -202,7 +202,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         Here is what you can do
       </p>
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -225,7 +225,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
           Check the status of your delegate on your cluster
         </p>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           type="button"
         >
           <span
@@ -295,7 +295,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
       class="StyledProps--font StyledProps--main btnContainer"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main error"
         type="button"
       >
         <span
@@ -324,7 +324,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error addSpacing"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main error addSpacing"
         type="button"
       >
         <span
@@ -353,7 +353,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main error addSpacing"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main error addSpacing"
         type="button"
       >
         <span

@@ -17,7 +17,7 @@ exports[`<CopyText /> tests snapshot test 1`] = `
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
           tabindex="0"
           type="button"
         >

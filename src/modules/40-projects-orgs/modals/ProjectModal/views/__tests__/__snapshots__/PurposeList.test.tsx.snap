@@ -89,7 +89,7 @@ exports[`PurposeList test initializes ok  1`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CD"
                 type="button"
               >
@@ -170,7 +170,7 @@ exports[`PurposeList test initializes ok  1`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CV"
                 type="button"
               >
@@ -251,7 +251,7 @@ exports[`PurposeList test initializes ok  1`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CI"
                 type="button"
               >
@@ -332,7 +332,7 @@ exports[`PurposeList test initializes ok  1`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CE"
                 type="button"
               >
@@ -413,7 +413,7 @@ exports[`PurposeList test initializes ok  1`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 data-testid="CF"
                 type="button"
               >
@@ -531,7 +531,7 @@ exports[`PurposeList test initializes ok  2`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
@@ -630,7 +630,7 @@ exports[`PurposeList test initializes ok  2`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
@@ -729,7 +729,7 @@ exports[`PurposeList test initializes ok  2`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
@@ -828,7 +828,7 @@ exports[`PurposeList test initializes ok  2`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span
@@ -927,7 +927,7 @@ exports[`PurposeList test initializes ok  2`] = `
                 15 min setup
               </p>
               <button
-                class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enabled StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                 type="button"
               >
                 <span

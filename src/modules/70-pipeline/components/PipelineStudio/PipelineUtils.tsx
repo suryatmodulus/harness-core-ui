@@ -1,7 +1,11 @@
 import React from 'react'
+import * as Yup from 'yup'
 import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uicore'
 import get from 'lodash-es/get'
+import { StringUtils } from '@common/exports'
+import { useStrings } from 'framework/exports'
+
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 import i18n from './PipelineStudio.i18n'
 
@@ -13,6 +17,17 @@ export interface NodeClasses {
   primary?: string
   secondary?: string
   empty?: string
+}
+
+export const IdentifierValidation = () => {
+  const { getString } = useStrings()
+  return {
+    identifier: Yup.string()
+      .trim()
+      .required(getString('validation.identifierRequired'))
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+      .notOneOf(StringUtils.illegalIdentifiers)
+  }
 }
 
 const getStageTree = (
@@ -218,7 +233,7 @@ export const getPipelineTree = (
       className: classes.empty
     })
   }
-  /* istanbul ignore else */ if (pipeline.stages && pipeline.stages?.length > 0) {
+  /* istanbul ignore else */ if (pipeline.stages && pipeline.stages?.length > 0 && options.template?.stages) {
     const stages: ITreeNode = {
       id: 'Stages',
       hasCaret: true,
@@ -235,7 +250,7 @@ export const getPipelineTree = (
         data.parallel.forEach((nodeP: StageElementWrapper) => {
           nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes))
         })
-      } /* istanbul ignore else */ else if (data.stage) {
+      } /* istanbul ignore else */ else if (data.stage && options.template?.stages?.[index]?.stage) {
         stages.childNodes?.push(
           getStageTree(data.stage, classes, { ...options, template: options.template?.stages?.[index]?.stage })
         )

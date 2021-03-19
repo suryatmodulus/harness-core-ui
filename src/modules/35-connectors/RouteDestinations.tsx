@@ -29,9 +29,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
   icon: 'lock',
-  label: 'Connectors',
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: () => <></>
+  label: 'Connectors'
 })
 
 export default (

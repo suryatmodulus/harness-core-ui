@@ -12,8 +12,8 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useAppStore, useStrings } from 'framework/exports'
 
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
   ExecutionPathParams,
@@ -173,7 +173,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         loading,
         queryParams,
         logsToken,
-        setLogsToken
+        setLogsToken,
+        refetch
       }}
     >
       {loading && !data ? <PageSpinner /> : null}
@@ -235,7 +236,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                     endTime={pipelineExecutionSummary.endTs}
                     icon="hourglass"
                     durationText={' '}
-                  />
+                  />{' '}
                   <ExecutionActions
                     executionStatus={pipelineExecutionSummary.status}
                     refetch={refetch}

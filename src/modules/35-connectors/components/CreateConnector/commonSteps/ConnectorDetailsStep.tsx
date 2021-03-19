@@ -37,9 +37,15 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   mock?: ResponseBoolean
 }
 
+type Params = {
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
+}
+
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)

@@ -1,0 +1,54 @@
+[
+  {
+    "project": {
+      "accountIdentifier": "dummy",
+      "orgIdentifier": "default",
+      "identifier": "TestCiproject",
+      "name": "TestCiproject",
+      "color": "#0063F7",
+      "modules": ["CI", "CD"],
+      "description": "",
+      "tags": {},
+      "lastModifiedAt": 1607348985778
+    }
+  },
+  {
+    "project": {
+      "accountIdentifier": "dummy",
+      "orgIdentifier": "default",
+      "identifier": "test11",
+      "name": "test11",
+      "color": "#0063F7",
+      "modules": ["CD"],
+      "description": "",
+      "tags": {},
+      "lastModifiedAt": 1607075878518
+    }
+  },
+  {
+    "project": {
+      "accountIdentifier": "dummy",
+      "orgIdentifier": "default",
+      "identifier": "Project_1",
+      "name": "Project 1",
+      "color": "#0063F7",
+      "modules": [],
+      "description": "",
+      "tags": {},
+      "lastModifiedAt": 1607064454225
+    }
+  },
+  {
+    "project": {
+      "accountIdentifier": "dummy",
+      "orgIdentifier": "default",
+      "identifier": "fdfder32432",
+      "name": "fdfder32432",
+      "color": "#0063F7",
+      "modules": ["CD", "CF", "CE", "CI", "CV"],
+      "description": "",
+      "tags": {},
+      "lastModifiedAt": 1607060784209
+    }
+  }
+]

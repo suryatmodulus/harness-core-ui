@@ -5,13 +5,9 @@ import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { useStrings } from 'framework/exports'
-import { AppStoreContext as StringsContext } from 'framework/AppStore/AppStoreContext'
-import { defaultAppStoreTestData } from 'framework/utils/testUtils'
 import LogAnalysisView from '../LogAnalysisView'
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
-  <StringsContext.Provider value={defaultAppStoreTestData}>{children}</StringsContext.Provider>
-)
+const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 describe('Unit tests for log analysis view', () => {

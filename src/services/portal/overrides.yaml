@@ -1,5 +1,6 @@
 allowpaths:
   - '/setup/delegates.get'
+  - 'selection-logs/v2.get'
   - '/setup/delegates/status.get'
   - '/setup/delegates/status2.get'
   - '/setup/delegates/downloadUrl.get'

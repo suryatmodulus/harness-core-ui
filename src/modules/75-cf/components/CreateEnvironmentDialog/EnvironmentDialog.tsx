@@ -17,6 +17,7 @@ import {
   ButtonProps
 } from '@wings-software/uicore'
 import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
+import { EnvironmentRequestRequestBody, useCreateEnvironment as useCreateEnvironmentCF } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
@@ -54,6 +55,12 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
       accountId
     }
   })
+  const { mutate: createEnvCF } = useCreateEnvironmentCF({
+    queryParams: {
+      account: accountId,
+      org: orgIdentifier
+    }
+  })
 
   const envTypes = [
     {
@@ -87,8 +94,19 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
       tags: values.tags.length > 0 ? values.tags.reduce((acc, next) => ({ ...acc, [next]: next }), {}) : {}
     })
       .then(response => {
-        hideModal()
-        onCreate(response)
+        // Temporary workaround to send the same request to FF server
+        // TODO: Remove this createEnvCF when FF server is fixed
+        // @see https://harness.slack.com/archives/G01DJ6C0E1G/p1615324960021200
+        createEnvCF({
+          name: values.name,
+          identifier: values.identifier,
+          description: values.description,
+          project: projectIdentifier,
+          type: values.type
+        } as EnvironmentRequestRequestBody).then(() => {
+          hideModal()
+          onCreate(response)
+        })
       })
       .catch(error => {
         showError(get(error, 'data.message') || error?.message, 0)
@@ -97,7 +115,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
 
   useEffect(() => {
     return () => clear()
-  }, [])
+  }, [clear])
 
   const [openModal, hideModal] = useModalHook(() => {
     return (

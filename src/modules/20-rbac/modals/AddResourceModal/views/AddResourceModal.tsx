@@ -35,7 +35,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
           </Text>
         </Layout.Horizontal>
         <Container className={css.modal}>
-          {resourceHandler?.addResourceModalBody({
+          {resourceHandler?.addResourceModalBody?.({
             searchTerm,
             onSelectChange: items => {
               setSelectedItems(items)

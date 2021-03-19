@@ -24,6 +24,7 @@ export const allowedStrategiesAsPerStep: Record<Modes, Strategy[]> = {
   [Modes.STEP]: [
     Strategy.ManualIntervention,
     Strategy.StageRollback,
+    Strategy.Ignore,
     Strategy.Retry,
     Strategy.MarkAsSuccess,
     Strategy.Abort

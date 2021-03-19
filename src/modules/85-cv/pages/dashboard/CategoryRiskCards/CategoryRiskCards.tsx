@@ -111,9 +111,7 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
         </Text>
         <Container className={css.riskScoreContainer}>
           <RiskScoreTile riskScore={riskScore} />
-          <Text className={css.riskScoreText} color={Color.GREY_400}>
-            {i18n.riskScoreText}
-          </Text>
+          <Text className={css.riskScoreText}>{i18n.riskScoreText}</Text>
         </Container>
       </Container>
       <Container className={css.chartContainer}>
@@ -174,7 +172,7 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
         <Text font={{ weight: 'bold' }} color={Color.BLACK}>
           {i18n.overallText}
         </Text>
-        <Text font={{ size: 'xsmall' }} color={Color.GREY_250}>
+        <Text style={{ fontSize: 12 }} color={Color.GREY_250}>
           {i18n.riskScoreText}
         </Text>
       </Layout.Vertical>
@@ -242,9 +240,9 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
           startTimeEpoch &&
           new Date(endTimeEpoch).getTime() > 0 &&
           new Date(startTimeEpoch).getTime() > 0 && (
-            <Text font={{ size: 'small' }} color={Color.GREY_400}>{`${i18n.evaluationPeriodText} ${moment(
-              startTimeEpoch
-            ).format('MMM D, YYYY h:mma')} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
+            <Text style={{ fontSize: 12 }}>{`${i18n.evaluationPeriodText} ${moment(startTimeEpoch).format(
+              'MMM D, YYYY h:mma'
+            )} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
           )}
       </Container>
       <Container className={css.cardContainer}>

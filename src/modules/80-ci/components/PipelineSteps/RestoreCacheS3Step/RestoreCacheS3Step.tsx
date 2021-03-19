@@ -1,5 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import get from 'lodash-es/get'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
@@ -12,10 +14,15 @@ import type {
   MultiTypeArchiveFormatOption,
   MultiTypeSelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { RestoreCacheS3StepBaseWithRef } from './RestoreCacheS3StepBase'
 import { RestoreCacheS3StepInputSet } from './RestoreCacheS3StepInputSet'
 import { RestoreCacheS3StepVariables, RestoreCacheS3StepVariablesProps } from './RestoreCacheS3StepVariables'
 import { inputSetViewValidateFieldsConfig } from './RestoreCacheS3StepFunctionConfigs'
+import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+
+const logger = loggerFor(ModuleName.CI)
 
 export interface RestoreCacheS3StepSpec {
   connectorRef: string
@@ -63,6 +70,8 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this.invocationMap = new Map()
+    this.invocationMap.set(/^.+step\.spec\.connectorRef$/, this.getConnectorList.bind(this))
   }
 
   protected type = StepType.RestoreCacheS3
@@ -79,6 +88,26 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
       bucket: '',
       key: ''
     }
+  }
+
+  protected async getConnectorList(
+    path: string,
+    yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.RestoreCacheS3 || obj.type === StepType.SaveCacheS3 || obj.type === StepType.ECR) {
+        return getConnectorSuggestions(params, ['Aws'])
+      }
+    }
+    return []
   }
 
   validateInputSet(

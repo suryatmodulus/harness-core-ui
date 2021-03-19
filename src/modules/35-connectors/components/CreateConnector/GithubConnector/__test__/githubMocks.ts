@@ -36,7 +36,7 @@ export const backButtonMock: ConnectorInfoDTO = {
       type: 'Http',
       spec: {
         type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.githubPassword' }
       }
     },
     apiAccess: null,
@@ -48,17 +48,18 @@ export const usernameTokenWithAPIAccessGithubApp: ConnectorInfoDTO = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Github',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
         type: 'UsernameToken',
-        spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
       }
     },
     apiAccess: {
@@ -73,17 +74,18 @@ export const usernameTokenWithAPIAccessToken: ConnectorInfoDTO = {
   name: 'GithubWorking1',
   identifier: 'asasas',
   description: 'connector before demo',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Github',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://github.com/dev',
     authentication: {
       type: 'Http',
       spec: {
         type: 'UsernameToken',
-        spec: { username: 'dev', usernameRef: null, tokenRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
       }
     },
     apiAccess: {

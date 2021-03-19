@@ -7,11 +7,6 @@ declare const styles: {
   readonly notificationsIcon: string
   readonly flowControlIcon: string
   readonly variablesIcon: string
-  readonly codebaseConfiguration: string
-  readonly notConfigured: string
-  readonly valid: string
-  readonly invalid: string
-  readonly validating: string
   readonly predefinedValue: string
 }
 export default styles

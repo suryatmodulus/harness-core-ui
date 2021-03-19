@@ -21,7 +21,7 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                 type="button"
               >
                 <span
@@ -152,7 +152,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                 type="button"
               >
                 <span
@@ -222,7 +222,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                 type="button"
               >
                 <span
@@ -306,7 +306,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: Run
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                 type="button"
               >
                 <span

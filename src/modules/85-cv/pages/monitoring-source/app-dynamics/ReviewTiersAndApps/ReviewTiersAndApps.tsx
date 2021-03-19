@@ -187,9 +187,9 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
           },
           {
             id: '3',
-            Header: getString('cv.monitoringSources.appD.mapToHarnessEnvironment'),
+            Header: getString('cv.monitoringSources.appD.mappedToHarnessEnvironment'),
             accessor: 'environment',
-            width: '20%',
+            width: '25%',
             disableSortBy: true,
             Cell: function EnvironmentCell({ value }: CellProps<TableData>) {
               return <Text icon="harness">{value}</Text>
@@ -197,23 +197,16 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
           },
           {
             id: '4',
-            Header: getString('cv.monitoringSources.appD.harnessServices'),
-            width: '15%',
+            Header: getString('cv.monitoringSources.appD.mappedToHarnessService'),
+            width: '20%',
             disableSortBy: true,
             Cell: ServicesCell
           },
           {
             id: '5',
-            Header: getString('cv.monitoringSources.appD.status'),
-            accessor: 'status',
-            width: '15%',
-            disableSortBy: true
-          },
-          {
-            id: '6',
             Header: getString('cv.monitoringSources.appD.validation'),
             accessor: 'validationStatus',
-            width: '15%',
+            width: '20%',
             disableSortBy: true,
             Cell: ValidationCell
           }

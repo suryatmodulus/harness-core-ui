@@ -1,5 +1,7 @@
 .main {
   margin-left: var(--spacing-large);
+  display: flex;
+  align-items: center;
 
   & :global(.bp3-button) {
     height: 24px !important;

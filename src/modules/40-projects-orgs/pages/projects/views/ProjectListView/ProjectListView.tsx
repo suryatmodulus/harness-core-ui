@@ -116,7 +116,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
   const onDeleted = (): void => {
     ;(column as any).refetchProjects()
   }
-  const openDialog = useDeleteProjectDialog(data, onDeleted)
+  const { openDialog } = useDeleteProjectDialog(data, onDeleted)
 
   return (
     <Layout.Horizontal className={css.layout}>
@@ -230,7 +230,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
           routes.toProjectDetails({
             projectIdentifier: project.projectResponse.project.identifier,
             orgIdentifier: project.projectResponse.project.orgIdentifier || '',
-            accountId: accountId || ''
+            accountId
           })
         )
       }}

@@ -9,7 +9,7 @@ import { String } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
-import type { NGVariable } from 'services/cd-ng'
+import type { StringNGVariable } from 'services/cd-ng'
 import type { YamlProperties } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 import { CopyText } from '@common/components/CopyText/CopyText'
@@ -19,6 +19,8 @@ import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
+
+export type NGVariable = Partial<StringNGVariable>
 
 export interface CustomVariablesData {
   variables: Array<NGVariable & { new?: boolean }>
@@ -148,10 +150,12 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
                             <ConfigureOptions
                               value={variable.value as string}
+                              defaultValue={variable.default}
                               type={variable.type || /* istanbul ignore next */ 'String'}
                               variableName={variable.name || /* istanbul ignore next */ ''}
-                              onChange={value => {
+                              onChange={(value, defaultValue) => {
                                 setFieldValue(`variables[${index}].value`, value)
+                                setFieldValue(`variables[${index}].default`, defaultValue)
                               }}
                             />
                           ) : null}
@@ -161,7 +165,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                             <section className={css.actionButtons}>
                               <Button
                                 icon="edit"
-                                tooltip={<String stringID="common.editVariable" />}
+                                tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
                                 data-testid={`edit-variable-${index}`}
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
@@ -170,7 +174,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               <Button
                                 icon="trash"
                                 data-testid={`delete-variable-${index}`}
-                                tooltip={<String stringID="common.removeThisVariable" />}
+                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
                                 onClick={() => handleRemove(index)}
                               />
                             </section>

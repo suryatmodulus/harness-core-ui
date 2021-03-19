@@ -3,7 +3,7 @@ import { Button, Popover, ButtonProps } from '@wings-software/uicore'
 import { Menu, MenuItem } from '@blueprintjs/core'
 import { Link, useHistory } from 'react-router-dom'
 
-import { useHandleInterrupt } from 'services/pipeline-ng'
+import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -31,12 +31,19 @@ export interface ExecutionActionsProps {
     accountId: string
   }>
   refetch?(): Promise<void>
+  noMenu?: boolean
+  stageId?: string
 }
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
-  const { executionStatus, params } = props
+  const { executionStatus, params, noMenu, stageId } = props
   const { orgIdentifier, executionIdentifier, accountId, projectIdentifier, pipelineIdentifier, module } = params
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { mutate: stageInterrupt } = useHandleStageInterrupt({
+    planExecutionId: executionIdentifier,
+    nodeExecutionId: stageId!
+  })
   const { showSuccess } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
@@ -60,14 +67,25 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   async function abortPipleine(): Promise<void> {
     try {
-      await interrupt({} as never, {
-        queryParams: {
-          orgIdentifier,
-          accountIdentifier: accountId,
-          projectIdentifier,
-          interruptType: 'Abort'
-        }
-      })
+      if (stageId) {
+        await stageInterrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Abort'
+          }
+        })
+      } else {
+        await interrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Abort'
+          }
+        })
+      }
       // await refetch()
       showSuccess(getString('execution.actionMessages.abortedMessage'))
     } catch (_) {
@@ -77,14 +95,25 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   async function pausePipleine(): Promise<void> {
     try {
-      await interrupt({} as never, {
-        queryParams: {
-          orgIdentifier,
-          accountIdentifier: accountId,
-          projectIdentifier,
-          interruptType: 'Pause'
-        }
-      })
+      if (stageId) {
+        await stageInterrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Pause'
+          }
+        })
+      } else {
+        await interrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Pause'
+          }
+        })
+      }
       // await refetch()
       showSuccess(getString('execution.actionMessages.pausedMessage'))
     } catch (_) {
@@ -94,14 +123,25 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   async function resumePipleine(): Promise<void> {
     try {
-      await interrupt({} as never, {
-        queryParams: {
-          orgIdentifier,
-          accountIdentifier: accountId,
-          projectIdentifier,
-          interruptType: 'Resume'
-        }
-      })
+      if (stageId) {
+        await stageInterrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Resume'
+          }
+        })
+      } else {
+        await interrupt({} as never, {
+          queryParams: {
+            orgIdentifier,
+            accountIdentifier: accountId,
+            projectIdentifier,
+            interruptType: 'Resume'
+          }
+        })
+      }
       // await refetch()
       showSuccess(getString('execution.actionMessages.resumedMessage'))
     } catch (_) {
@@ -151,34 +191,36 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           {...commonButtonProps}
         />
       ) : null}
-      <Popover position="bottom-right" minimal>
-        <Button icon="more" {...commonButtonProps} className={css.more} />
-        <Menu>
-          <Link
-            className="bp3-menu-item"
-            to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
-          >
-            {getString('editPipeline')}
-          </Link>
-          <MenuItem text={getString('execution.actions.rerun')} disabled={!canRerun} onClick={reRunPipeline} />
-          <MenuItem
-            text={getString('execution.actions.pause')}
-            onClick={pausePipleine}
-            disabled={disableInCIModule || !canPause}
-          />
-          <MenuItem
-            text={getString('execution.actions.abort')}
-            onClick={abortPipleine}
-            disabled={disableInCIModule || !canAbort}
-          />
-          <MenuItem
-            text={getString('execution.actions.resume')}
-            onClick={resumePipleine}
-            disabled={disableInCIModule || !canResume}
-          />
-          <MenuItem text={getString('execution.actions.downloadLogs')} disabled />
-        </Menu>
-      </Popover>
+      {noMenu ? null : (
+        <Popover position="bottom-right" minimal>
+          <Button icon="more" {...commonButtonProps} className={css.more} />
+          <Menu>
+            <Link
+              className="bp3-menu-item"
+              to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
+            >
+              {getString('editPipeline')}
+            </Link>
+            <MenuItem text={getString('execution.actions.rerun')} disabled={!canRerun} onClick={reRunPipeline} />
+            <MenuItem
+              text={getString('execution.actions.pause')}
+              onClick={pausePipleine}
+              disabled={disableInCIModule || !canPause}
+            />
+            <MenuItem
+              text={getString('execution.actions.abort')}
+              onClick={abortPipleine}
+              disabled={disableInCIModule || !canAbort}
+            />
+            <MenuItem
+              text={getString('execution.actions.resume')}
+              onClick={resumePipleine}
+              disabled={disableInCIModule || !canResume}
+            />
+            <MenuItem text={getString('execution.actions.downloadLogs')} disabled />
+          </Menu>
+        </Popover>
+      )}
     </div>
   )
 }

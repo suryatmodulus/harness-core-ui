@@ -6,8 +6,8 @@
     flex-shrink: 1;
   }
   .mainPanel {
-    flex: 1;
     padding: var(--spacing-xxlarge) !important;
+    width: 72% !important;
     .table {
       flex-shrink: 0;
       flex-basis: 600px;

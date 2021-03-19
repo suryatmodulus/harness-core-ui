@@ -137,7 +137,7 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-disabled bp3-loading bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-disabled bp3-loading bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -251,7 +251,7 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout - toggle window works: Chil
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -347,7 +347,7 @@ exports[`<ExecutionLayout /> tests "FLOATING" Layout works 1`] = `
                 Step Details
               </span>
               <button
-                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="button"
               >
                 <span

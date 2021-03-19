@@ -9,7 +9,7 @@ exports[`ContextMenuActions matches snapshot 1`] = `
       class="bp3-popover-target"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
         type="button"
       >
         <span

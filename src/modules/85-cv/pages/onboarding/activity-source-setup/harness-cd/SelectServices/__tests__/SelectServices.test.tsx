@@ -23,9 +23,9 @@ jest.mock('framework/exports', () => ({
   })
 }))
 
-jest.mock('@cv/components/TableColumnWithFilter/TableColumnWithFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableColumnWithFilter/TableColumnWithFilter') as object),
-  TableColumnWithFilter: function MockComponent(props: any) {
+jest.mock('@cv/components/TableFilter/TableFilter', () => ({
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />
   }
 }))
@@ -95,7 +95,7 @@ describe('Select Services', () => {
       },
       queryParams: {
         appId: ['1234_appId'],
-        limit: '5',
+        limit: '7',
         offset: '0',
         'search[0]': [
           {
@@ -186,6 +186,7 @@ describe('Select Services', () => {
             appName: 'someApp',
             id: 'uuid1',
             name: 'Archive',
+            selected: true,
             service: {
               label: 'bvhj',
               value: 'bvhj'

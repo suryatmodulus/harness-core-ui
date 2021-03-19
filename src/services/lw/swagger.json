@@ -1336,6 +1336,41 @@
             "description": "Invalid status value"
           }
         }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["deleteService"],
+        "summary": "Service Deletion",
+        "description": "Deletes a service",
+        "operationId": "DeleteService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
       }
     },
     "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/tag": {
@@ -1446,6 +1481,12 @@
           "name": "Token",
           "in": "header",
           "required": true,
+          "type": "string"
+        },
+        {
+          "name": "domain",
+          "in": "query",
+          "required": false,
           "type": "string"
         }
       ],
@@ -1741,6 +1782,64 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ServiceDiagnosticsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/access_points/core": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accessPointCores"],
+        "summary": "Lists all resources that can be used as access point",
+        "description": "Lists all resources that can be used as access point. Eg : alb in the case of AWS account",
+        "operationId": "AccessPointCores",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AccessPointCoresResponse"
             }
           },
           "400": {
@@ -2512,6 +2611,9 @@
               "type": "string"
             }
           }
+        },
+        "albArn": {
+          "type": "string"
         }
       }
     },
@@ -2872,6 +2974,46 @@
             "message": {
               "type": "string"
             }
+          }
+        }
+      }
+    },
+    "ALBAccessPointCore": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "albARN": {
+          "type": "string"
+        },
+        "security_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vpc": {
+          "type": "string"
+        }
+      }
+    },
+    "AccessPointCore": {
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object",
+          "$ref": "#/definitions/ALBAccessPointCore"
+        }
+      }
+    },
+    "AccessPointCoresResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AccessPointCore"
           }
         }
       }

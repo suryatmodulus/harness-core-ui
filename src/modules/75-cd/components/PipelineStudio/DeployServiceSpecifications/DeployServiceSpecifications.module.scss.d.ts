@@ -4,6 +4,7 @@ declare const styles: {
   readonly serviceOverrides: string
   readonly heightStageOverrides: string
   readonly navigationButtons: string
+  readonly overrides: string
   readonly overFlowScroll: string
   readonly alignCenter: string
   readonly contentSection: string

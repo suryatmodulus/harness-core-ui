@@ -87,7 +87,7 @@ exports[`ConfigureNotifications Email 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   type="button"
                 >
                   <span
@@ -103,7 +103,7 @@ exports[`ConfigureNotifications Email 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -113,7 +113,7 @@ exports[`ConfigureNotifications Email 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -218,7 +218,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -265,7 +265,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -275,7 +275,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -393,7 +393,7 @@ exports[`ConfigureNotifications Slack 1`] = `
             style="align-items: center;"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span
@@ -440,7 +440,7 @@ exports[`ConfigureNotifications Slack 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
@@ -450,7 +450,7 @@ exports[`ConfigureNotifications Slack 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
               type="button"
             >
               <span

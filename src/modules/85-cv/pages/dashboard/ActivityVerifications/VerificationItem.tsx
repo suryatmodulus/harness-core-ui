@@ -117,18 +117,18 @@ function ItemTooltip(props: {
           {!props.isLoading && (
             <>
               <Container className={css.tooltipHeader}>
-                <Text color={Color.GREY_300} font={{ size: 'small' }}>
+                <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                   {props.tagName}
                 </Text>
-                <Text color={Color.GREY_400} font={{ size: 'small' }}>
+                <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                   {props.serviceName}
                 </Text>
               </Container>
               <Container className={css.tooltipSubHeader}>
-                <Text color={Color.GREY_400} font={{ size: 'small' }}>{`${
+                <Text color={Color.GREY_400} style={{ fontSize: 12 }}>{`${
                   props.contentData?.total ?? 0
                 } ${label}`}</Text>
-                <Text color={Color.GREY_400} font={{ size: 'small' }}>
+                <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                   {i18n.verificationTooltip.risk}
                 </Text>
               </Container>
@@ -136,20 +136,19 @@ function ItemTooltip(props: {
                 <Container key={index} className={css.tooltipItem}>
                   <Container className={css.tooltipItemContent}>
                     <Container className={css.tooltipNameGroup}>
-                      <Text color={Color.GREY_300} font={{ size: 'small' }}>
+                      <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                         {item.jobName}
                       </Text>
-                      <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
+                      <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                         {mapTooltipItemStatus(item.status, item.remainingTimeMs)}
                       </Text>
                     </Container>
                     <CVProgressBar status={item.status} value={item.progressPercentage} />
                     <Container className={css.tooltipDateGroup}>
-                      <Text color={Color.GREY_300} font={{ size: 'xsmall' }} style={{ marginRight: 2 }}>
+                      <Text color={Color.GREY_400} style={{ fontSize: 12, marginRight: 2 }}>
                         {i18n.verificationTooltip.startedOn}:
                       </Text>
-                      <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-                        {' '}
+                      <Text color={Color.GREY_400} style={{ fontSize: 12 }}>
                         {moment(item.startTime).format('MMM D, h:mm:ss a')}
                       </Text>
                     </Container>

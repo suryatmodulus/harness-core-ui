@@ -59,7 +59,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           </svg>
         </span>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           style="width: 200px;"
           type="button"
         >

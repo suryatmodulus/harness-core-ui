@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { ModuleName, useStrings } from 'framework/exports'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
@@ -36,13 +36,14 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
+  const { accountId } = useParams()
   const { getString } = useStrings()
   const history = useHistory()
   const onDeleted = (): void => {
     reloadProjects?.()
   }
   const [menuOpen, setMenuOpen] = useState(false)
-  const openDialog = useDeleteProjectDialog(data, onDeleted)
+  const { openDialog } = useDeleteProjectDialog(data, onDeleted)
 
   // const [canInvite] = usePermission(
   //   {
@@ -90,7 +91,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 pathname: routes.toProjectDetails({
                   projectIdentifier: data.identifier,
                   orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
-                  accountId: data.accountIdentifier || /* istanbul ignore next */ ''
+                  accountId
                 })
               })
           }}

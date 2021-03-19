@@ -111,7 +111,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
               class="Layout--horizontal StyledProps--main footer StyledProps--padding-xlarge"
             >
               <button
-                class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 disabled=""
                 tabindex="-1"
                 type="submit"
@@ -150,7 +150,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
               </button>
                  
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -656,7 +656,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                                                     style="width: 400px;"
                                                     type="button"
                                                   >
@@ -818,7 +818,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                     class="Layout--horizontal StyledProps--main footer StyledProps--padding-xlarge"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -829,7 +829,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                     </button>
                        
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                       type="button"
                     >
                       <span
@@ -1348,7 +1348,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
@@ -1462,7 +1462,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
@@ -1488,7 +1488,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         type="button"
                       >
                         <span
@@ -1506,7 +1506,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
               class="bp3-dialog-footer"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -1517,7 +1517,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
               </button>
                  
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span
@@ -2045,7 +2045,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                                                     style="width: 400px;"
                                                     type="button"
                                                   >
@@ -2209,7 +2209,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                     class="Layout--horizontal StyledProps--main footer StyledProps--padding-xlarge"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -2220,7 +2220,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                     </button>
                        
                     <button
-                      class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button StyledProps--main"
+                      class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main"
                       disabled=""
                       tabindex="-1"
                       type="button"
@@ -2612,7 +2612,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
@@ -2725,7 +2725,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                         type="button"
                       >
                         <span
@@ -2751,7 +2751,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                     </div>
                     <span>
                       <button
-                        class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                         disabled=""
                         tabindex="-1"
                         type="button"
@@ -2797,7 +2797,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
               class="bp3-dialog-footer"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -2808,7 +2808,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
               </button>
                  
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                 type="button"
               >
                 <span

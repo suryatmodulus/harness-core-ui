@@ -289,7 +289,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   disabled=""
                   tabindex="-1"
                   type="button"
@@ -358,7 +358,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -510,7 +510,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -569,7 +569,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -606,7 +606,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -725,7 +725,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -784,7 +784,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -821,7 +821,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -945,7 +945,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -1044,7 +1044,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -1081,7 +1081,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -1205,7 +1205,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -1322,7 +1322,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -1457,7 +1457,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -1516,7 +1516,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -1551,7 +1551,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -1709,7 +1709,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -1826,7 +1826,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 1`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -2220,7 +2220,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -2257,7 +2257,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -2409,7 +2409,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -2468,7 +2468,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -2505,7 +2505,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -2624,7 +2624,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -2683,7 +2683,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -2720,7 +2720,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -2844,7 +2844,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -2943,7 +2943,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -2980,7 +2980,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -3104,7 +3104,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -3221,7 +3221,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -3356,7 +3356,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -3415,7 +3415,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -3450,7 +3450,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -3608,7 +3608,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -3725,7 +3725,7 @@ exports[`Connectors List Test Click on Test button with result Failed api 2`] = 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -4080,7 +4080,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   disabled=""
                   tabindex="-1"
                   type="button"
@@ -4149,7 +4149,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -4301,7 +4301,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -4360,7 +4360,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -4397,7 +4397,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -4516,7 +4516,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -4575,7 +4575,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -4612,7 +4612,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -4736,7 +4736,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -4835,7 +4835,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -4872,7 +4872,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -4996,7 +4996,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -5113,7 +5113,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -5248,7 +5248,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -5307,7 +5307,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -5342,7 +5342,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -5500,7 +5500,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -5617,7 +5617,7 @@ exports[`Connectors List Test Click on Test button with result active 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -6003,7 +6003,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -6155,7 +6155,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -6214,7 +6214,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -6251,7 +6251,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -6370,7 +6370,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -6429,7 +6429,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -6466,7 +6466,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -6590,7 +6590,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -6689,7 +6689,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -6726,7 +6726,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -6850,7 +6850,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -6967,7 +6967,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -7102,7 +7102,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -7161,7 +7161,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -7196,7 +7196,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -7354,7 +7354,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -7471,7 +7471,7 @@ exports[`Connectors List Test Click on Test button with result active 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -7826,7 +7826,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   disabled=""
                   tabindex="-1"
                   type="button"
@@ -7895,7 +7895,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -8047,7 +8047,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -8106,7 +8106,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -8143,7 +8143,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -8262,7 +8262,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -8321,7 +8321,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -8358,7 +8358,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -8482,7 +8482,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -8581,7 +8581,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -8618,7 +8618,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -8742,7 +8742,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -8859,7 +8859,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -8994,7 +8994,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -9053,7 +9053,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -9088,7 +9088,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -9246,7 +9246,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -9363,7 +9363,7 @@ exports[`Connectors List Test Click on Test button with result error 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -9757,7 +9757,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -9794,7 +9794,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -9946,7 +9946,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -10005,7 +10005,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -10042,7 +10042,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -10161,7 +10161,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -10220,7 +10220,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -10257,7 +10257,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -10381,7 +10381,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -10480,7 +10480,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -10517,7 +10517,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -10641,7 +10641,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -10758,7 +10758,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -10893,7 +10893,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -10952,7 +10952,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -10987,7 +10987,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -11145,7 +11145,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -11262,7 +11262,7 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -11616,7 +11616,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -11653,7 +11653,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -11805,7 +11805,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -11864,7 +11864,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -11901,7 +11901,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -12020,7 +12020,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                 rel="noreferrer noopener"
                 role="button"
@@ -12079,7 +12079,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -12116,7 +12116,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -12240,7 +12240,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -12339,7 +12339,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             </p>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -12376,7 +12376,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -12500,7 +12500,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="www.docker.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -12617,7 +12617,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -12752,7 +12752,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="dbhgj"
                 rel="noreferrer noopener"
                 role="button"
@@ -12811,7 +12811,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
             />
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testBtn StyledProps--font-small"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
             type="button"
           >
             <span
@@ -12846,7 +12846,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span
@@ -13004,7 +13004,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                 :
               </span>
               <a
-                class="bp3-button StyledProps--font Button--button Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
                 href="sample.google.com"
                 rel="noreferrer noopener"
                 role="button"
@@ -13121,7 +13121,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 type="button"
               >
                 <span

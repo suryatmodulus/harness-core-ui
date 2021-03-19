@@ -115,7 +115,7 @@ exports[`Sidenav render 1`] = `
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        Builds
+        Executions
       </p>
     </a>
     <a

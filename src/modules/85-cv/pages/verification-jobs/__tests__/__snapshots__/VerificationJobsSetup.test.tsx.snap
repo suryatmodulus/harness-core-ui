@@ -41,7 +41,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
         class="tabWrapper"
       >
         <div
-          class="bp3-tabs Tabs--main"
+          class="bp3-tabs Tabs--main Tabs--horizontal"
         >
           <div
             class="bp3-tab-list"
@@ -707,7 +707,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                         class="Layout--horizontal StyledProps--main main"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                           type="button"
                         >
                           <span
@@ -736,7 +736,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                           </span>
                         </button>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                           type="submit"
                         >
                           <span

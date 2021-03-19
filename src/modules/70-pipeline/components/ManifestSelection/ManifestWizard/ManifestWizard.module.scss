@@ -18,3 +18,10 @@
   margin-top: var(--spacing-large);
   margin-left: var(--spacing-large);
 }
+
+.formGroup {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+  width: 100%;
+}

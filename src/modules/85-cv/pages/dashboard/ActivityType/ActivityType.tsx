@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, Icon, Text, Color } from '@wings-software/uicore'
-import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 const MAIN_CONTAINER_STYLE: React.CSSProperties = {
@@ -9,11 +8,8 @@ const MAIN_CONTAINER_STYLE: React.CSSProperties = {
 }
 
 const BUILD_CONTENT_TEXT_STYLES: React.CSSProperties = {
-  alignSelf: 'center'
-}
-
-const SMALL_FONT_SIZE: FontProps = {
-  size: 'small'
+  alignSelf: 'center',
+  fontSize: 12
 }
 
 interface ActivityChangesProps {
@@ -28,10 +24,10 @@ export default function ActivityType(props: ActivityChangesProps): JSX.Element {
     <Container style={MAIN_CONTAINER_STYLE}>
       <Icon size={30} style={{ ...BUILD_CONTENT_TEXT_STYLES, marginRight: 'var(--spacing-small)' }} {...iconProps} />
       <Container style={BUILD_CONTENT_TEXT_STYLES}>
-        <Text font={SMALL_FONT_SIZE} width={120} lineClamp={1}>
+        <Text width={120} lineClamp={1}>
           {buildName}
         </Text>
-        <Text font={SMALL_FONT_SIZE} width={120} lineClamp={1} color={Color.GREY_350}>
+        <Text width={120} lineClamp={1} color={Color.GREY_400}>
           {serviceName}
         </Text>
       </Container>

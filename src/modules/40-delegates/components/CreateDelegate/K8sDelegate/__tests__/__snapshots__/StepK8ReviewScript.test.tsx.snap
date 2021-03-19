@@ -19,7 +19,7 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          class="bp3-button bp3-outlined StyledProps--font Button--button Button--with-current-color StyledProps--main downloadButton"
           type="button"
         >
           <span
@@ -52,7 +52,7 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-right-small"
           id="stepReviewScriptBackButton"
           type="button"
         >
@@ -82,7 +82,7 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           id="stepReviewScriptContinueButton"
           type="submit"
         >
@@ -136,7 +136,7 @@ exports[`Create Step Review Script Delegate Click back button 1`] = `
         >
           If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
             href="https:app.harness.io:443"
             role="button"
             tabindex="0"
@@ -177,7 +177,7 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          class="bp3-button bp3-outlined StyledProps--font Button--button Button--with-current-color StyledProps--main downloadButton"
           type="button"
         >
           <span
@@ -210,7 +210,7 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-right-small"
           id="stepReviewScriptBackButton"
           type="button"
         >
@@ -240,7 +240,7 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           id="stepReviewScriptContinueButton"
           type="submit"
         >
@@ -294,7 +294,7 @@ exports[`Create Step Review Script Delegate Click continue button 1`] = `
         >
           If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
             href="https:app.harness.io:443"
             role="button"
             tabindex="0"
@@ -335,7 +335,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button bp3-outlined StyledProps--font Button--button StyledProps--main downloadButton"
+          class="bp3-button bp3-outlined StyledProps--font Button--button Button--with-current-color StyledProps--main downloadButton"
           type="button"
         >
           <span
@@ -368,7 +368,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-right-small"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-right-small"
           id="stepReviewScriptBackButton"
           type="button"
         >
@@ -398,7 +398,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
           id="stepReviewScriptContinueButton"
           type="submit"
         >
@@ -452,7 +452,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
         >
           If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in launch-harness-delegate.sh 
           <a
-            class="bp3-button StyledProps--font Button--button Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal"
             href="https:app.harness.io:443"
             role="button"
             tabindex="0"

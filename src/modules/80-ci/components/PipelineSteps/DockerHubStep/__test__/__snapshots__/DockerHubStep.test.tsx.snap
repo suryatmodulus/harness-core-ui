@@ -89,7 +89,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -134,7 +134,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -262,7 +262,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -369,7 +369,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -399,7 +399,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -498,9 +498,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -576,9 +575,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[1]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -654,9 +652,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[2]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -677,7 +674,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.tags"
                     type="button"
                   >
@@ -712,7 +709,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -804,7 +801,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -911,7 +908,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -941,7 +938,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -1081,9 +1078,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1192,9 +1188,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[1]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1303,9 +1298,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[2]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1328,7 +1322,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.labels"
                     type="button"
                   >
@@ -1369,7 +1363,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -1399,7 +1393,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -1539,9 +1533,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1650,9 +1643,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[1]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1761,9 +1753,8 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[2]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -1786,7 +1777,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.buildArgs"
                     type="button"
                   >
@@ -1812,7 +1803,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -1903,7 +1894,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -2083,7 +2074,7 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -2259,7 +2250,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2345,7 +2336,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -2383,7 +2374,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2468,7 +2459,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -2522,7 +2513,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             tabindex="0"
                             type="button"
                           >
@@ -2557,7 +2548,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -2598,7 +2589,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               id="configureOptions"
               type="button"
             >
@@ -2644,7 +2635,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2729,7 +2720,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -2767,7 +2758,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -2852,7 +2843,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -2906,7 +2897,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             tabindex="0"
                             type="button"
                           >
@@ -2941,7 +2932,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -2982,7 +2973,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               id="configureOptions"
               type="button"
             >
@@ -3035,7 +3026,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             tabindex="0"
                             type="button"
                           >
@@ -3070,7 +3061,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -3111,7 +3102,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               id="configureOptions"
               type="button"
             >
@@ -3148,7 +3139,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -3233,7 +3224,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 id="configureOptions"
                 type="button"
               >
@@ -3270,7 +3261,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -3366,7 +3357,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -3462,7 +3453,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -3510,7 +3501,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -3593,7 +3584,7 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   id="configureOptions"
                   type="button"
                 >
@@ -3735,7 +3726,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -3780,7 +3771,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                           style="width: 532px;"
                           type="button"
                         >
@@ -3908,7 +3899,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -4015,7 +4006,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -4045,7 +4036,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -4144,9 +4135,8 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       data-testid="remove-spec.tags-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -4167,7 +4157,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.tags"
                     type="button"
                   >
@@ -4202,7 +4192,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -4294,7 +4284,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -4401,7 +4391,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -4431,7 +4421,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -4571,9 +4561,8 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.labels-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -4596,7 +4585,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.labels"
                     type="button"
                   >
@@ -4637,7 +4626,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           tabindex="0"
                           type="button"
                         >
@@ -4667,7 +4656,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -4807,9 +4796,8 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                           data-testid="remove-spec.buildArgs-[0]"
-                          style="margin-top: 4px;"
                           type="button"
                         >
                           <span
@@ -4832,7 +4820,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     data-testid="add-spec.buildArgs"
                     type="button"
                   >
@@ -4858,7 +4846,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -4949,7 +4937,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -5129,7 +5117,7 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                       tabindex="0"
                       type="button"
                     >
@@ -5235,7 +5223,7 @@ exports[`DockerHub Step InputSet View should not render any fields 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -5276,7 +5264,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -5314,7 +5302,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                   style="width: 560px;"
                   type="button"
                 >
@@ -5420,7 +5408,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -5477,7 +5465,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -5526,7 +5514,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="remove-spec.tags-[0]"
                 style="margin-top: 4px;"
                 type="button"
@@ -5549,7 +5537,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               </button>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-spec.tags"
               type="button"
             >
@@ -5581,7 +5569,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -5645,7 +5633,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -5702,7 +5690,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -5781,7 +5769,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     data-testid="remove-spec.labels-[0]"
                     style="margin-top: 4px;"
                     type="button"
@@ -5806,7 +5794,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-spec.labels"
               type="button"
             >
@@ -5831,7 +5819,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   tabindex="0"
                   type="button"
                 >
@@ -5910,7 +5898,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     data-testid="remove-spec.buildArgs-[0]"
                     style="margin-top: 4px;"
                     type="button"
@@ -5935,7 +5923,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               data-testid="add-spec.buildArgs"
               type="button"
             >
@@ -5967,7 +5955,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -6022,7 +6010,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 tabindex="0"
                 type="button"
               >
@@ -6143,7 +6131,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     tabindex="0"
                     type="button"
                   >
@@ -6198,7 +6186,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -6230,7 +6218,7 @@ exports[`DockerHub Step InputSet View should render properly 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -6263,7 +6251,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6310,7 +6298,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6357,7 +6345,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6404,7 +6392,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6451,7 +6439,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6498,7 +6486,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6545,7 +6533,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6592,7 +6580,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6643,7 +6631,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6694,7 +6682,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6741,7 +6729,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >
@@ -6788,7 +6776,7 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
             tabindex="0"
             type="button"
           >

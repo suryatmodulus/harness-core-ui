@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Layout, Color, Text, Icon } from '@wings-software/uicore'
 import type { Project } from 'services/cd-ng'
@@ -17,6 +17,7 @@ interface ContextMenuProps {
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const history = useHistory()
+  const { accountId } = useParams()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 
@@ -55,9 +56,9 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCDProjectOverview({
-        orgIdentifier: project?.orgIdentifier as string,
-        projectIdentifier: project?.identifier as string,
-        accountId: project?.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+        projectIdentifier: project.identifier,
+        accountId
       })
     )
   }
@@ -68,8 +69,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     history.push(
       routes.toCVProjectOverview({
         projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier as string,
-        accountId: project.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+        accountId
       })
     )
   }
@@ -80,8 +81,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     history.push(
       routes.toCFFeatureFlags({
         projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier as string,
-        accountId: project.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+        accountId
       })
     )
   }
@@ -91,8 +92,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     history.push(
       routes.toCIProjectOverview({
         projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier as string,
-        accountId: project.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+        accountId
       })
     )
   }
@@ -102,8 +103,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     history.push(
       routes.toCECORules({
         projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier as string,
-        accountId: project.accountIdentifier as string
+        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+        accountId
       })
     )
   }

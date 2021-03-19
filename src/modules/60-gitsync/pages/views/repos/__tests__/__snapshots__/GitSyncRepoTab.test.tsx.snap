@@ -128,7 +128,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main unsetButtons StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -287,7 +287,7 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main unsetButtons StyledProps--intent-primary"
                 type="button"
               >
                 <span
@@ -379,7 +379,7 @@ exports[`Git Sync - repo tab rendering landing view 1`] = `
       class="StyledProps--font StyledProps--main repoContainer StyledProps--padding-medium"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-right-medium"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-right-medium"
         type="button"
       >
         <span
@@ -576,7 +576,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main unsetButtons StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main unsetButtons StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -610,7 +610,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
               class="StyledProps--font StyledProps--main editRepoContainer StyledProps--padding-medium"
             >
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main saveButton StyledProps--intent-primary StyledProps--margin-right-large"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveButton StyledProps--intent-primary StyledProps--margin-right-large"
                 type="submit"
               >
                 <span
@@ -620,7 +620,7 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main cancelButton StyledProps--intent-danger"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main cancelButton StyledProps--intent-danger"
                 type="button"
               >
                 <span

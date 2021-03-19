@@ -319,7 +319,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             data-id="environment-save"
             type="button"
           >
@@ -611,7 +611,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             data-id="environment-save"
             type="button"
           >

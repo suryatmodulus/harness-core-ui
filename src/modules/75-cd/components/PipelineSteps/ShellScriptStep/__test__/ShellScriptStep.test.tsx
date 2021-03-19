@@ -248,17 +248,11 @@ describe('Test Shell Script Step', () => {
       await fireEvent.click(getByText('Script Input Variables'))
 
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
-        target: { value: 'response.message' }
-      })
 
       await fireEvent.click(getByText('Add Input Variable'))
 
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
-        target: { value: 'response.message' }
-      })
 
       await fireEvent.click(getByText('Script Output Variables'))
 
@@ -293,18 +287,7 @@ describe('Test Shell Script Step', () => {
         executionTarget: {
           connectorRef: undefined
         },
-        environmentVariables: [
-          {
-            name: 'testInput1',
-            type: 'String',
-            value: 'response.message'
-          },
-          {
-            name: 'testInput2',
-            type: 'String',
-            value: 'response.message'
-          }
-        ],
+        environmentVariables: [],
         outputVariables: [
           {
             name: 'testOutput1',
@@ -348,17 +331,11 @@ describe('Test Shell Script Step', () => {
       await fireEvent.click(getByText('Script Input Variables'))
 
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
-        target: { value: 'response.message' }
-      })
 
       await fireEvent.click(getByText('Add Input Variable'))
 
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
       fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].value')!, {
-        target: { value: 'response.message' }
-      })
 
       await fireEvent.click(getByText('Execution Target'))
 
@@ -409,18 +386,7 @@ describe('Test Shell Script Step', () => {
           connectorRef: undefined,
           workingDirectory: './temp'
         },
-        environmentVariables: [
-          {
-            name: 'testInput1',
-            type: 'String',
-            value: 'response.message'
-          },
-          {
-            name: 'testInput2',
-            type: 'String',
-            value: 'response.message'
-          }
-        ],
+        environmentVariables: [],
         outputVariables: [
           {
             name: 'testOutput1',

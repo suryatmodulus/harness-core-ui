@@ -288,6 +288,7 @@ export interface AccessPointMeta {
     }
     others?: string
   }
+  albArn?: string
 }
 
 export interface AccessPoint {
@@ -414,6 +415,22 @@ export interface CFTResponse {
 
 export interface ServiceDiagnosticsResponse {
   response?: any[]
+}
+
+export interface ALBAccessPointCore {
+  name?: string
+  albARN?: string
+  security_groups?: string[]
+  vpc?: string
+}
+
+export interface AccessPointCore {
+  type?: string
+  details?: ALBAccessPointCore
+}
+
+export interface AccessPointCoresResponse {
+  response?: AccessPointCore[]
 }
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
@@ -1681,6 +1698,47 @@ export const useRouteDetails = ({ org_id, project_id, service_id, ...props }: Us
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
   )
 
+export interface DeleteServicePathParams {
+  org_id: string
+  project_id: string
+}
+
+export type DeleteServiceProps = Omit<MutateProps<void, void, void, number, DeleteServicePathParams>, 'path' | 'verb'> &
+  DeleteServicePathParams
+
+/**
+ * Service Deletion
+ *
+ * Deletes a service
+ */
+export const DeleteService = ({ org_id, project_id, ...props }: DeleteServiceProps) => (
+  <Mutate<void, void, void, number, DeleteServicePathParams>
+    verb="DELETE"
+    path="/orgs/${org_id}/projects/${project_id}/services"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteServiceProps = Omit<
+  UseMutateProps<void, void, void, number, DeleteServicePathParams>,
+  'path' | 'verb'
+> &
+  DeleteServicePathParams
+
+/**
+ * Service Deletion
+ *
+ * Deletes a service
+ */
+export const useDeleteService = ({ org_id, project_id, ...props }: UseDeleteServiceProps) =>
+  useMutate<void, void, void, number, DeleteServicePathParams>(
+    'DELETE',
+    (paramsInPath: DeleteServicePathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
+  )
+
 export interface AttachTagsQueryParams {
   cloud_account_id: string
   tagKey: string
@@ -1753,6 +1811,7 @@ export const useAttachTags = ({ org_id, project_id, account_id, ...props }: UseA
 export interface AllHostedZonesQueryParams {
   cloud_account_id: string
   region: string
+  domain?: string
 }
 
 export interface AllHostedZonesPathParams {
@@ -2099,4 +2158,52 @@ export const useGetServiceDiagnostics = ({
     (paramsInPath: GetServiceDiagnosticsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/${paramsInPath.service_id}/diagnostics`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, service_id }, ...props }
+  )
+
+export interface AccessPointCoresQueryParams {
+  cloud_account_id: string
+  region: string
+}
+
+export interface AccessPointCoresPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AccessPointCoresProps = Omit<
+  GetProps<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>,
+  'path'
+> &
+  AccessPointCoresPathParams
+
+/**
+ * Lists all resources that can be used as access point
+ *
+ * Lists all resources that can be used as access point. Eg : alb in the case of AWS account
+ */
+export const AccessPointCores = ({ org_id, project_id, account_id, ...props }: AccessPointCoresProps) => (
+  <Get<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/access_points/core"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAccessPointCoresProps = Omit<
+  UseGetProps<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>,
+  'path'
+> &
+  AccessPointCoresPathParams
+
+/**
+ * Lists all resources that can be used as access point
+ *
+ * Lists all resources that can be used as access point. Eg : alb in the case of AWS account
+ */
+export const useAccessPointCores = ({ org_id, project_id, account_id, ...props }: UseAccessPointCoresProps) =>
+  useGet<AccessPointCoresResponse, void, AccessPointCoresQueryParams, AccessPointCoresPathParams>(
+    (paramsInPath: AccessPointCoresPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/access_points/core`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )

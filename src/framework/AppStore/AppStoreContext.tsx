@@ -5,11 +5,6 @@ import { fromPairs } from 'lodash-es'
 import { Project, useGetProject } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import type { Permission } from 'services/rbac'
-// import { useGetPermissionList } from 'services/rbac'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StringsMap = Record<string, any>
 
 export type FeatureFlagMap = Record<string, boolean>
 
@@ -24,19 +19,11 @@ export interface AppStoreContextProps {
   /** feature flags */
   readonly featureFlags: FeatureFlagMap
 
-  /** strings for i18n */
-  readonly strings: StringsMap
-
-  /** all permission names */
-  readonly permissions: Permission[]
-
   updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void
 }
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
-  strings: {},
   featureFlags: {},
-  permissions: [],
   updateAppStore: () => void 0
 })
 
@@ -44,17 +31,16 @@ export function useAppStore(): AppStoreContextProps {
   return React.useContext(AppStoreContext)
 }
 
-export function AppStoreProvider(props: React.PropsWithChildren<{ strings: StringsMap }>): React.ReactElement {
+export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    featureFlags: {},
-    permissions: []
+    featureFlags: {}
   })
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
     accountId,
     pathParams: { accountId },
-    queryParams: { routingId: accountId } as any // BE accepts this queryParam, but not declared in swagger
+    queryParams: ({ routingId: accountId } as unknown) as void // BE accepts this queryParam, but not declared in swagger
   })
 
   const { refetch, data: project } = useGetProject({
@@ -65,20 +51,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
     },
     lazy: true
   })
-
-  // TODO: add flag to fetch all permissions, not just account scope, once BE supports it
-  // TODO: enable this when we actually start using permissions
-  // const { data: permissionsResponse } = useGetPermissionList({
-  //   queryParams: { accountIdentifier: accountId }
-  // })
-
-  // populate permissions
-  // useEffect(() => {
-  //   setState(prevState => ({
-  //     ...prevState,
-  //     permissions: permissionsResponse?.data?.map(perm => perm.permission) || []
-  //   }))
-  // }, [permissionsResponse])
 
   React.useEffect(() => {
     setState(prevState => ({
@@ -108,6 +80,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         featureFlags: featureFlagsMap
       }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featureFlags])
 
   React.useEffect(() => {
@@ -118,6 +91,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
         selectedProject: undefined
       }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
 
   function updateAppStore(data: Partial<Pick<AppStoreContextProps, 'selectedProject'>>): void {
@@ -131,7 +105,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<{ strings: Strin
     <AppStoreContext.Provider
       value={{
         ...state,
-        strings: props.strings,
         updateAppStore
       }}
     >

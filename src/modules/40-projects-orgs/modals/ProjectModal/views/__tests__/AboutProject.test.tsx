@@ -15,7 +15,6 @@ import StepProject from '../StepAboutProject'
 import EditProject from '../EditProject'
 
 const project: Project = {
-  accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
   name: 'test',
@@ -30,7 +29,6 @@ const projectMockData: UseGetMockData<ResponseProjectResponse> = {
     status: 'SUCCESS',
     data: {
       project: {
-        accountIdentifier: 'testAcc',
         orgIdentifier: 'testOrg',
         identifier: 'test',
         name: 'test modified',
@@ -50,7 +48,6 @@ const editOrgMockData: UseGetMockData<ResponseOrganizationResponse> = {
     status: 'SUCCESS',
     data: {
       organization: {
-        accountIdentifier: 'testAcc',
         identifier: 'testOrg',
         name: 'Org Name',
         description: 'Description',
@@ -68,7 +65,6 @@ const createMockData: UseMutateMockData<ResponseProjectResponse> = {
       status: 'SUCCESS',
       data: {
         project: {
-          accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
           orgIdentifier: 'default',
           identifier: 'dummy_name',
           name: 'dummy name',
@@ -91,7 +87,6 @@ const editMockData: UseMutateMockData<ResponseProjectResponse> = {
       status: 'SUCCESS',
       data: {
         project: {
-          accountIdentifier: 'testAcc',
           orgIdentifier: 'testOrg',
           identifier: 'test',
           name: 'dummy name',
@@ -152,7 +147,7 @@ describe('About Project test', () => {
     test('edit project ', async () => {
       const { container } = render(
         <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <EditProject identifier={project.identifier} orgIdentifier={project.accountIdentifier} />
+          <EditProject identifier={project.identifier} orgIdentifier={project.orgIdentifier} />
         </TestWrapper>
       )
       expect(queryByText(container, 'Edit Project')).toBeTruthy()

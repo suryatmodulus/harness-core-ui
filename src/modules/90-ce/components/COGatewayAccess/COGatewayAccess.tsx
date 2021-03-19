@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import DNSLinkSetup from './DNSLinkSetup'
-import i18n from './COGatewayAccess.i18n'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
@@ -16,6 +16,7 @@ interface COGatewayAccessProps {
   setGatewayDetails: (gw: GatewayDetails) => void
 }
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
+  const { getString } = useStrings()
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
     props.gatewayDetails.metadata.access_details // eslint-disable-line
       ? (props.gatewayDetails.metadata.access_details as ConnectionMetadata) // eslint-disable-line
@@ -94,17 +95,17 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">
             <Heading level={2} font={{ weight: 'semi-bold' }}>
-              {i18n.setupAccess}
+              {getString('ce.co.autoStoppingRule.setupAccess.pageName')}
             </Heading>
           </Layout.Horizontal>
           <Heading level={3} font={{ weight: 'light' }}>
-            {i18n.subtitle}
+            {getString('ce.co.gatewayAccess.subtitle')}
           </Heading>
         </Layout.Vertical>
         <Layout.Vertical spacing="small" padding="medium">
           <Layout.Horizontal spacing="small">
             <Heading level={3} font={{ weight: 'light' }}>
-              {i18n.accessDescription}
+              {getString('ce.co.gatewayAccess.accessDescription')}
             </Heading>
             <Icon name="info"></Icon>
           </Layout.Horizontal>

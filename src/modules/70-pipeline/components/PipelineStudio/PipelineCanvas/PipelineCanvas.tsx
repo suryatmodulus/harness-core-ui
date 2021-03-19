@@ -14,10 +14,9 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import type { Failure } from 'services/pipeline-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
-import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
@@ -32,7 +31,15 @@ export interface PipelineCanvasProps {
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, toPipelineStudio }): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache, fetchPipeline, view, setView } = React.useContext(PipelineContext)
+  const {
+    state,
+    updatePipeline,
+    deletePipelineCache,
+    fetchPipeline,
+    view,
+    setView,
+    updatePipelineView
+  } = React.useContext(PipelineContext)
 
   const { pipeline, isUpdated, isLoading, isInitialized, originalPipeline, yamlHandler, isBEPipelineUpdated } = state
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
@@ -70,22 +77,17 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   const [isYamlError, setYamlError] = React.useState(false)
 
   const saveAndPublish = React.useCallback(async () => {
-    let response: Failure | undefined
     let latestPipeline: NgPipeline = pipeline
+
     if (isYaml && yamlHandler) {
       latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
-    } else {
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
     }
+
+    const response = await savePipeline(
+      { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+      latestPipeline,
+      pipelineIdentifier !== DefaultNewPipelineId
+    )
 
     const newPipelineId = latestPipeline?.identifier
 
@@ -95,23 +97,17 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
         showSuccess(getString('pipelines-studio.publishPipeline'))
 
-        if (isYaml) {
-          history.replace(
-            toPipelineStudio({
-              projectIdentifier,
-              orgIdentifier,
-              pipelineIdentifier: newPipelineId,
-              accountId,
-              module
-            })
-          )
-        } else {
-          history.replace(
-            toPipelineStudio({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId, module })
-          )
-        }
+        history.replace(
+          toPipelineStudio({
+            projectIdentifier,
+            orgIdentifier,
+            pipelineIdentifier: newPipelineId,
+            accountId,
+            module
+          })
+        )
         // note: without setTimeout does not redirect properly after save
-        setTimeout(() => location.reload(), 250)
+        fetchPipeline(true, true, newPipelineId)
       } else {
         fetchPipeline(true, true)
       }
@@ -210,6 +206,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       }
     }
     setView(newView)
+    updatePipelineView({
+      splitViewData: {},
+      isDrawerOpened: false,
+      isSplitViewOpen: false,
+      drawerData: { type: DrawerTypes.AddStep }
+    })
   }
 
   if (isLoading) {
@@ -279,7 +281,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
             <div>
               <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
               <Text className={css.pipelineName}>{pipeline?.name}</Text>
-              <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
+              {isYaml ? null : <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />}
             </div>
           </div>
         </div>

@@ -152,7 +152,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     confirmButtonText: getString('confirm'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
-        setEditorContent({ connector: {} })
+        setEditorContent({})
         setHasConnectorChanged(false)
       }
     }

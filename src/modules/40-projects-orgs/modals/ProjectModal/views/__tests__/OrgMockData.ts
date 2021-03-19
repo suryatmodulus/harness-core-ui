@@ -10,7 +10,6 @@ export const orgMockData: ResponsePageOrganizationResponse = {
     content: [
       {
         organization: {
-          accountIdentifier: 'testAcc',
           identifier: 'testOrg',
           name: 'Org Name',
           description: 'Description',
@@ -19,7 +18,6 @@ export const orgMockData: ResponsePageOrganizationResponse = {
       },
       {
         organization: {
-          accountIdentifier: 'testAcc',
           identifier: 'default',
           name: 'default',
           description: 'default',

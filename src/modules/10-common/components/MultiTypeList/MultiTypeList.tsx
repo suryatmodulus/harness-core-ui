@@ -83,7 +83,6 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                       minimal
                       onClick={() => remove(index)}
                       data-testid={`remove-${name}-[${index}]`}
-                      style={{ marginTop: 4 }}
                     />
                   </div>
                 ))}

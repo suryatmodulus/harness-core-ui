@@ -197,7 +197,7 @@ exports[`Http Step edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -432,7 +432,7 @@ exports[`Http Step edit mode works 1`] = `
                             </div>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             data-testid="remove-header-0"
                             type="button"
                           >
@@ -458,7 +458,7 @@ exports[`Http Step edit mode works 1`] = `
                           </button>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                           data-testid="add-header"
                           type="button"
                         >
@@ -561,7 +561,7 @@ exports[`Http Step edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -655,7 +655,7 @@ exports[`Http Step edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -797,7 +797,7 @@ exports[`Http Step renders empty input sets 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -968,7 +968,7 @@ exports[`Http Step renders input sets 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -1178,7 +1178,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -1272,7 +1272,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -1410,7 +1410,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                             </div>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             data-testid="remove-header-0"
                             type="button"
                           >
@@ -1436,7 +1436,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                           </button>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                           data-testid="add-header"
                           type="button"
                         >
@@ -1539,7 +1539,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -1633,7 +1633,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                     id="configureOptions"
                     type="button"
                   >
@@ -2160,7 +2160,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                             </div>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                             data-testid="remove-header-0"
                             type="button"
                           >
@@ -2186,7 +2186,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                           </button>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                           data-testid="add-header"
                           type="button"
                         >

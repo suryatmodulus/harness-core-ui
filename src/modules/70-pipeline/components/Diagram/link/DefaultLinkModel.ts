@@ -27,7 +27,7 @@ export interface DefaultLinkModelOptions extends BaseModelOptions {
   curvyness?: number
   strokeDasharray?: number
   type?: string
-  midXAngle?: number
+  maxLinePartLength?: { type: 'in' | 'out'; size: number }
   allowAdd?: boolean
   testName?: string
   curve?: number
@@ -77,7 +77,13 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
       if (Math.abs(firstPoint.y - lastPoint.y) > 3 && this.options.curve) {
         const diameter = this.options.curve * 2
         const topToBottom = lastPoint.y - firstPoint.y > 0
-        const middlePoint = this.options.midXAngle || (firstPoint.x + lastPoint.x) / 2
+        let middlePoint = (firstPoint.x + lastPoint.x) / 2
+        if (this.options.maxLinePartLength) {
+          middlePoint =
+            this.options.maxLinePartLength.type === 'in'
+              ? firstPoint.x + this.options.maxLinePartLength.size
+              : lastPoint.x - this.options.maxLinePartLength.size
+        }
         const midX = new Point(middlePoint, firstPoint.y)
         const midX1 = new Point(midX.x - diameter, midX.y)
         const midX2 = topToBottom ? new Point(midX.x, midX.y + diameter) : new Point(midX.x, midX.y - diameter)

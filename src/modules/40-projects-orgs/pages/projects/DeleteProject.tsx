@@ -1,15 +1,20 @@
 import { Intent } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/exports'
 import { Project, useDeleteProject } from 'services/cd-ng'
 
 import i18n from './DeleteProject.i18n'
+interface UseDeleteProjectDialogReturn {
+  openDialog: () => void
+}
 
-const useDeleteProjectDialog = (data: Project, onSuccess: () => void) => {
+const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDeleteProjectDialogReturn => {
+  const { accountId } = useParams()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: {
-      accountIdentifier: data.accountIdentifier || '',
+      accountIdentifier: accountId,
       orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ ''
     }
   })
@@ -36,7 +41,9 @@ const useDeleteProjectDialog = (data: Project, onSuccess: () => void) => {
       }
     }
   })
-  return openDialog
+  return {
+    openDialog
+  }
 }
 
 export default useDeleteProjectDialog

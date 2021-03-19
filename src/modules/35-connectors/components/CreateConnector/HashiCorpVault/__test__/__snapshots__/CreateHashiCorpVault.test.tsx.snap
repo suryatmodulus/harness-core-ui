@@ -263,7 +263,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -529,7 +529,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -787,7 +787,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1230,7 +1230,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-top-xsmall"
                   type="button"
                 >
                   <span
@@ -1316,7 +1316,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   type="button"
                 >
                   <span
@@ -1326,7 +1326,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span
@@ -1589,7 +1589,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"

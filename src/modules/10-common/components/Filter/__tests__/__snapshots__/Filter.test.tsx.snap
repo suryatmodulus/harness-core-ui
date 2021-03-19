@@ -48,7 +48,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-xsmall"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="submit"
                     >
                       <span
@@ -58,7 +58,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       </span>
                     </button>
                     <button
-                      class="bp3-button StyledProps--font Button--button StyledProps--main"
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                       type="reset"
                     >
                       <span
@@ -119,7 +119,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       </span>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
                       type="button"
                     >
                       <span
@@ -148,7 +148,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
                     type="button"
                   >
                     <span

@@ -4,20 +4,20 @@ export const usernamePassword: ConnectorInfoDTO = {
   name: 'GitlabWorking',
   identifier: 'asasas',
   description: 'connector description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Gitlab',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://gitlab.com/dev',
     authentication: {
       type: 'Http',
       spec: {
         type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.gitlabPassword' }
+        spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.gitlabPassword' }
       }
     },
-    apiAccess: null,
     type: 'Account'
   }
 }
@@ -48,11 +48,12 @@ export const sshAuthWithAPIAccessToken: ConnectorInfoDTO = {
   name: 'GitlabWorking',
   identifier: 'asasas',
   description: 'connector description',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Gitlab',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     url: 'https://gitlab.com/dev',
     authentication: { type: 'Ssh', spec: { sshKeyRef: 'account.gitlabPassword' } },
     apiAccess: { type: 'Token', spec: { tokenRef: 'account.gitlabPassword' } },

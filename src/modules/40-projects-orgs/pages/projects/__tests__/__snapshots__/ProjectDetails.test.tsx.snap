@@ -308,7 +308,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
@@ -597,14 +597,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cd/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
+                      href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
                         Create New Pipeline
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cd/orgs/testOrg/projects/dummy_name/pipelines"
+                      href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
                         View Pipelines
@@ -840,14 +840,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup"
+                      href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup"
                     >
                       <span>
                         Set Up Change Sources
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/cv/orgs/testOrg/projects/dummy_name/admin/setup?step=2"
+                      href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup?step=2"
                     >
                       <span>
                         Set Up Monitoring Sources
@@ -1083,14 +1083,14 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
+                      href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
                     >
                       <span>
                         Create New Pipeline
                       </span>
                     </a>
                     <a
-                      href="/account/kmpySmUISimoRrJL6NL73w/ci/orgs/testOrg/projects/dummy_name/pipelines"
+                      href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines"
                     >
                       <span>
                         View Pipelines
@@ -1830,7 +1830,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
@@ -1999,7 +1999,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                   type="button"
                 >
                   <span
@@ -2079,7 +2079,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                   type="button"
                 >
                   <span
@@ -2159,7 +2159,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                   type="button"
                 >
                   <span
@@ -2239,7 +2239,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                   type="button"
                 >
                   <span
@@ -2319,7 +2319,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
                   type="button"
                 >
                   <span

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
-import { debounce } from 'lodash-es'
+import { debounce, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -10,6 +10,7 @@ import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
+import { moveStageToFocusDelayed } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
 import {
   CanvasWidget,
   createEngine,
@@ -31,12 +32,11 @@ import {
   resetDiagram,
   removeNodeFromPipeline
 } from './StageBuilderUtil'
+import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import type { StageTypes } from '../Stages/StageTypes'
 import css from './StageBuilder.module.scss'
-
-const PANEL_RESIZE_DELTA = 4
 
 export type StageStateMap = Map<string, StageState>
 
@@ -197,7 +197,10 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         if (!stage) {
           nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
           nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
-          stage = getStageFromPipeline(nodeId).parent
+          const parallelOrRootLevelStage = getStageFromPipeline(nodeId)
+          // NOTE: in a case of two stages parallel node is moved to root level
+          // so we use parallelOrRootLevelStage.parent if defined, otherwise we use parallelOrRootLevelStage
+          stage = parallelOrRootLevelStage.parent ? parallelOrRootLevelStage.parent : parallelOrRootLevelStage.stage
           next = 0
         }
         if (stage) {
@@ -222,14 +225,14 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         }
       }
     } else {
-      if (insertAt && insertAt > -1) {
+      if (!isNil(insertAt) && insertAt > -1) {
         pipeline.stages.splice(insertAt, 0, newStage)
       } else {
         pipeline.stages.push(newStage)
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap)
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
@@ -245,6 +248,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stageType: newStage.stage.type
           }
         })
+        moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)
       }
     })
   }
@@ -264,12 +268,17 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     // Can not remove this Any because of React Diagram Issue
     [Event.ClickNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
-      const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
+      dynamicPopoverHandler?.hide()
 
-      /* istanbul ignore else */ if (nodeRender && eventTemp.entity) {
+      /* istanbul ignore else */ if (eventTemp.entity) {
         if (eventTemp.entity.getType() === DiagramType.CreateNew) {
+          updatePipelineView({
+            ...pipelineView,
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
           dynamicPopoverHandler?.show(
-            nodeRender,
+            `[data-nodeid="${eventTemp.entity.getID()}"]`,
             {
               addStage,
               isStageView: false,
@@ -278,16 +287,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             },
             { useArrows: false, darkMode: true }
           )
-          updatePipelineView({
-            ...pipelineView,
-            isSplitViewOpen: false,
-            splitViewData: {}
-          })
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent
           /* istanbul ignore else */ if (parent?.parallel) {
             dynamicPopoverHandler?.show(
-              nodeRender,
+              `[data-nodeid="${eventTemp.entity.getID()}"]`,
               {
                 isGroupStage: true,
                 groupSelectedStageId: selectedStageId,
@@ -295,12 +299,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupStages: parent.parallel,
                 onClickGroupStage: (stageId: string, typeOfStage: StageTypes) => {
                   dynamicPopoverHandler?.hide()
-                  resetDiagram(engine)
                   updatePipelineView({
                     ...pipelineView,
                     isSplitViewOpen: true,
                     splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView, stageType: typeOfStage }
                   })
+                  moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
                 renderPipelineStage
@@ -312,8 +316,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           const data = getStageFromPipeline(eventTemp.entity.getIdentifier()).stage
           if (isSplitViewOpen && data?.stage?.identifier) {
             if (data?.stage?.name === EmptyStageName) {
+              // TODO: check if this is unused code
               dynamicPopoverHandler?.show(
-                nodeRender,
+                `[data-nodeid="${eventTemp.entity.getID()}"]`,
                 {
                   isStageView: true,
                   data,
@@ -343,7 +348,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 splitViewData: {}
               })
             } else {
-              resetDiagram(engine)
               updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
@@ -353,10 +357,10 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   stageType: data?.stage?.type || 'Deployment'
                 }
               })
+              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
-              resetDiagram(engine)
               updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
@@ -366,9 +370,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   stageType: data?.stage?.type || 'Deployment'
                 }
               })
+              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             } else {
+              // TODO: check if this is unused code
               dynamicPopoverHandler?.show(
-                nodeRender,
+                `[data-nodeid="${eventTemp.entity.getID()}"]`,
                 {
                   isStageView: true,
                   data,
@@ -407,9 +413,17 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Event.AddParallelNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
-      if (eventTemp.target) {
+      dynamicPopoverHandler?.hide()
+
+      updatePipelineView({
+        ...pipelineView,
+        isSplitViewOpen: false,
+        splitViewData: {}
+      })
+
+      if (eventTemp.entity) {
         dynamicPopoverHandler?.show(
-          eventTemp.target,
+          `[data-nodeid="${eventTemp.entity.getID()}"] [data-nodeid="add-parallel"]`,
           {
             addStage,
             isParallel: true,
@@ -466,10 +480,10 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const linkListeners: LinkModelListener = {
     [Event.AddLinkClicked]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
-      const linkRender = document.querySelector(`[data-linkid="${eventTemp.entity.getID()}"] circle`)
-      if (linkRender) {
+      dynamicPopoverHandler?.hide()
+      if (eventTemp.entity) {
         dynamicPopoverHandler?.show(
-          linkRender,
+          `[data-linkid="${eventTemp.entity.getID()}"] circle`,
           {
             addStage,
             isStageView: false,
@@ -499,7 +513,6 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
-  const resizerRef = React.useRef<HTMLDivElement | null>(null)
 
   model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId, splitPaneSize)
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
@@ -509,14 +522,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   /* Ignoring this function as it is used by "react-split-pane" */
   /* istanbul ignore next */
   function handleStageResize(size: number): void {
-    window.requestAnimationFrame(() => {
-      if (resizerRef.current) {
-        resizerRef.current.style.transform = `translateY(${size + PANEL_RESIZE_DELTA}px)`
-      }
-    })
-
     setSplitPaneSizeDeb(size)
   }
+
+  // handle position and zoom of canvas
+  useStageBuilderCanvasState(engine, [])
 
   const StageCanvas = (
     <div
@@ -548,30 +558,28 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
       <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
       <div className={css.canvasWrapper}>
-        {isSplitViewOpen ? (
-          <SplitPane
-            size={splitPaneSize}
-            split="horizontal"
-            minSize={MinimumSplitPaneSize}
-            maxSize={MaximumSplitPaneSize}
-            pane2Style={{ overflow: 'hidden' }}
-            onChange={handleStageResize}
+        <SplitPane
+          size={isSplitViewOpen ? splitPaneSize : '100%'}
+          split="horizontal"
+          minSize={MinimumSplitPaneSize}
+          maxSize={MaximumSplitPaneSize}
+          pane2Style={{ overflow: 'hidden' }}
+          onChange={handleStageResize}
+          allowResize={isSplitViewOpen}
+        >
+          {StageCanvas}
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              background: 'white'
+            }}
           >
-            {StageCanvas}
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                background: 'white'
-              }}
-            >
-              {type === SplitViewTypes.StageView && renderPipelineStage({ stageType, minimal: false })}
-              {/* {type === SplitViewTypes.Notifications && <PipelineNotifications />} */}
-            </div>
-          </SplitPane>
-        ) : (
-          StageCanvas
-        )}
+            {isSplitViewOpen && type === SplitViewTypes.StageView
+              ? renderPipelineStage({ stageType, minimal: false })
+              : null}
+          </div>
+        </SplitPane>
       </div>
     </Layout.Horizontal>
   )

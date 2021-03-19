@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Button, Text, Select, SelectOption } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
+import { useStrings } from 'framework/exports'
 
 enum OS {
   Mac = 'Mac',
@@ -12,7 +13,7 @@ const dropdownOptions: SelectOption[] = [
   {
     label: OS.Mac,
     value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
   },
   {
     label: OS.Windows,
@@ -22,12 +23,14 @@ const dropdownOptions: SelectOption[] = [
   {
     label: OS.Linux,
     value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
+      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
   }
 ]
 
 const SSHSetup: React.FC = () => {
   const [assetLink, setAssetLink] = React.useState<SelectOption | null>(null)
+
+  const { getString } = useStrings()
 
   React.useEffect(() => {
     const defaultOs = navigator.appVersion.includes(OS.Mac.valueOf())
@@ -41,7 +44,7 @@ const SSHSetup: React.FC = () => {
     if (defaultOs) {
       setAssetLink(dropdownOptions.find(item => item.label === defaultOs) as SelectOption)
     }
-  })
+  }, [])
 
   const downloadAsset = () => {
     const linkEl: HTMLAnchorElement = document.createElement('a')
@@ -55,11 +58,7 @@ const SSHSetup: React.FC = () => {
 
   return (
     <Layout.Vertical spacing="medium" padding="medium" style={{ backgroundColor: 'var(--grey-200)' }}>
-      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-        This is just placeholder text. You can customize the domain name for your Autostopping Rule. Domain name should
-        be entered without prefixing the scheme. A Rule can have multiple URLs. You can enter comma separated values
-        into Custom domain field to support multiple URLs.
-      </Text>
+      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>{getString('ce.co.sshSetup')}</Text>
       <Layout.Horizontal>
         <Select
           // size={SelectSize}

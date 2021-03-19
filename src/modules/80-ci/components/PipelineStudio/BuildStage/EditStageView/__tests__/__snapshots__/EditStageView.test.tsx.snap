@@ -251,7 +251,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               </p>
             </div>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
               type="submit"
             >
               <span
@@ -555,7 +555,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                         style="width: 400px;"
                         type="button"
                       >
@@ -674,7 +674,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
               type="submit"
             >
               <span

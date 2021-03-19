@@ -5,8 +5,6 @@ import {
   Formik,
   FormInput,
   Text,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding,
   FormikForm as Form,
   StepProps,
   Color,
@@ -14,20 +12,8 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import {
-  buildArtifactoryPayload,
-  SecretReferenceInterface,
-  setupArtifactoryFormData
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO,
-  Connector
-} from 'services/cd-ng'
+import { SecretReferenceInterface, setupArtifactoryFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/exports'
@@ -44,6 +30,7 @@ interface ArtifactoryAuthenticationProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
   connectorInfo: ConnectorInfoDTO | void
   accountId: string
   orgIdentifier: string
@@ -67,13 +54,7 @@ const defaultInitialFormData: ArtifactoryFormInterface = {
 const StepArtifactoryAuthentication: React.FC<
   StepProps<StepArtifactoryAuthenticationProps> & ArtifactoryAuthenticationProps
 > = props => {
-  const { prevStepData, nextStep } = props
-  const { accountId, projectIdentifier, orgIdentifier } = props
-  const { showSuccess } = useToaster()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { prevStepData, nextStep, accountId } = props
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
   const { getString } = useStrings()
@@ -89,37 +70,6 @@ const StepArtifactoryAuthentication: React.FC<
     }
   ]
 
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      setLoadConnector(false)
-      props.setIsEditMode(true)
-      props.onConnectorCreated?.(response.data)
-      showSuccess(`Connector '${prevStepData?.name}' created successfully`)
-      nextStep?.({ ...prevStepData, ...stepData } as StepArtifactoryAuthenticationProps)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepArtifactoryAuthenticationProps)
-      props?.onConnectorCreated?.(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
-
   useEffect(() => {
     if (loadingConnectorSecrets) {
       if (props.isEditMode) {
@@ -134,6 +84,10 @@ const StepArtifactoryAuthentication: React.FC<
       }
     }
   }, [loadingConnectorSecrets])
+
+  const handleSubmit = (formData: ConnectorConfigDTO) => {
+    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepArtifactoryAuthenticationProps)
+  }
 
   return loadingConnectorSecrets ? (
     <PageSpinner />
@@ -161,26 +115,10 @@ const StepArtifactoryAuthentication: React.FC<
             otherwise: Yup.object().nullable()
           })
         })}
-        onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildArtifactoryPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data as Connector, stepData)
-          } else {
-            handleCreate(data as Connector, stepData)
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
               <Container className={css.formRow}>
                 <FormInput.Text
@@ -215,13 +153,7 @@ const StepArtifactoryAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="artifactoryBackButton"
               />
-              <Button
-                type="submit"
-                intent="primary"
-                text={getString('saveAndContinue')}
-                rightIcon="chevron-right"
-                disabled={loadConnector}
-              />
+              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

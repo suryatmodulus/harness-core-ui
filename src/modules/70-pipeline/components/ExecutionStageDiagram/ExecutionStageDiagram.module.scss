@@ -122,6 +122,11 @@
   width: 100%;
 }
 
+.stage-button {
+  border: none !important;
+  height: 30px !important;
+}
+
 @keyframes shine {
   0% {
     background-position: bottom right;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Button, Text } from '@wings-software/uicore'
+import { Container, Text } from '@wings-software/uicore'
 import { useParams, useLocation } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'
@@ -100,12 +100,6 @@ export default function DeploymentDrilldownView(): JSX.Element {
             <Container>
               <Text font={{ weight: 'bold' }}>{verificationInstance?.jobName}</Text>
               <VerificationStatusCard status={verificationInstance?.status} />
-            </Container>
-            <Container>
-              <Button minimal icon="symbol-square" text="Stop Deployment" disabled />
-              <Button minimal icon="refresh" text="Rollback" disabled />
-              <Button minimal icon="share" text="Share" disabled />
-              <Button minimal icon="service-jira" text="Create Ticket" disabled />
             </Container>
           </Container>
           {verificationInstance && instancePhase !== InstancePhase.POST_DEPLOYMENT && (

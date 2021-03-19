@@ -15,13 +15,12 @@ import {
   GetEnvironmentListForProjectQueryParams
 } from 'services/cd-ng'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { EnvironmentSelect } from './EnvironmentSelect'
 import { InternalState, useValidationErrors } from '../AppDOnboardingUtils'
-import { InfoPanel, InfoPanelItem } from '../InfoPanel/InfoPanel'
 import styles from './SelectApplications.module.scss'
 
 interface SelectApplicationsProps {
@@ -38,7 +37,7 @@ interface EnvironmentCellProps {
   onUpdateOptions(options: SelectOption[]): void
 }
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 7
 
 export default function SelectApplications({ stepData, onCompleteStep, onPrevious }: SelectApplicationsProps) {
   const { getString } = useStrings()
@@ -114,6 +113,15 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
       <Container className={styles.sideSpace} />
       <Container className={styles.mainPanel}>
         {loading && <PageSpinner />}
+        <TableFilter
+          className={styles.columnHeaderWithFilter}
+          onFilter={val => {
+            setPageIndex(0)
+            setTextFilter(val)
+          }}
+          placeholder={getString('cv.monitoringSources.appD.searchPlaceholderApplications')}
+          appliedFilter={textFilter}
+        />
         <Table<AppDynamicsApplication>
           className={styles.table}
           columns={[
@@ -161,16 +169,7 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
             },
             {
               id: '3',
-              Header: (
-                <TableColumnWithFilter
-                  className={styles.columnHeaderWithFilter}
-                  onFilter={val => {
-                    setPageIndex(0)
-                    setTextFilter(val)
-                  }}
-                  columnName={getString('cv.monitoringSources.appD.harnessEnv')}
-                />
-              ),
+              Header: getString('cv.monitoringSources.appD.mapToHarnessEnvironment'),
               disableSortBy: true,
               width: '45%',
               Cell: function EnvironmentCellWrapper({ row }: CellProps<AppDynamicsApplication>) {
@@ -223,12 +222,6 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
         {renderError('selectApp')}
         <SubmitAndPreviousButtons onPreviousClick={onPrevious} onNextClick={onNext} />
       </Container>
-      <InfoPanel>
-        <InfoPanelItem
-          label={getString('cv.monitoringSources.appD.infoPanel.mapDashboards')}
-          text={getString('cv.monitoringSources.appD.infoPanel.mapDashboardsMsg')}
-        />
-      </InfoPanel>
     </Container>
   )
 }

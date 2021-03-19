@@ -129,7 +129,7 @@ exports[`Connector Details Page Edit details test 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
             type="button"
           >
             <span
@@ -202,7 +202,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main editButton"
           id="editDetailsBtn"
           type="button"
         >
@@ -322,7 +322,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           class="Layout--vertical StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
             type="button"
           >
             <span
@@ -395,7 +395,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main editButton"
           id="editDetailsBtn"
           type="button"
         >
@@ -515,7 +515,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           class="Layout--vertical StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
             type="button"
           >
             <span
@@ -588,7 +588,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button StyledProps--main editButton"
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main editButton"
           id="editDetailsBtn"
           type="button"
         >
@@ -708,7 +708,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           class="Layout--vertical StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button StyledProps--main testButton"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
             type="button"
           >
             <span

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Org Resource Modal Body test initializes ok  1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="table"
+    >
+      <div
+        class="header"
+        role="row"
+      >
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 5%;"
+        >
+           
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 25%;"
+        >
+          Organization
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <label
+            class="bp3-control bp3-checkbox"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 25%;"
+        >
+          <div
+            class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              Org Name
+            </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
+              style="--text-line-clamp: 1;"
+            >
+              Description
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <label
+            class="bp3-control bp3-checkbox"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 25%;"
+        >
+          <div
+            class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              default
+            </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
+              style="--text-line-clamp: 1;"
+            >
+              default
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

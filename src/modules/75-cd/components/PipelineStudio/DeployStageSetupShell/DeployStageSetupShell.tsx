@@ -179,6 +179,14 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
         />
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
         <Tab
           id={i18n.serviceLabel}
           title={
@@ -189,6 +197,14 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
         />
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
         <Tab
           id={i18n.infraLabel}
           title={
@@ -198,6 +214,14 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
+        />
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
         />
         <Tab
           id={i18n.executionLabel}

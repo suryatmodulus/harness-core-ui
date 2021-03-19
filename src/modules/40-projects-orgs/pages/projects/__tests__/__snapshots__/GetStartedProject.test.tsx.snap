@@ -44,7 +44,7 @@ exports[`Get Started Project test Add a new Project  1`] = `
         </h2>
       </div>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span

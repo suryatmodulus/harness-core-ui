@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uicore'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
@@ -10,9 +10,11 @@ interface CERendererProps {
   data: Project
   isPreview?: boolean
 }
-const CERenderer: React.FC<CERendererProps> = ({ data, isPreview }) => {
+const CERenderer: React.FC<CERendererProps> = ({ isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
+  const { accountId } = useParams()
+
   return (
     <Container
       border={{ top: true, color: Color.GREY_250 }}
@@ -22,7 +24,7 @@ const CERenderer: React.FC<CERendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routes.toCEHome({
-              accountId: data.accountIdentifier || /* istanbul ignore next */ ''
+              accountId
             })
           )
       }}

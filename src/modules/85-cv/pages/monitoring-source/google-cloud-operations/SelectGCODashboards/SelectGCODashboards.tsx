@@ -7,7 +7,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StackdriverDashboardDTO, useGetStackdriverDashboards } from 'services/cv'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { Table } from '@common/components'
-import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import { useStrings } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -107,6 +107,12 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
   const { content, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.data || {}
   return (
     <Container className={css.main}>
+      <TableFilter
+        appliedFilter={filteredDashboard}
+        className={css.filterStyle}
+        placeholder={getString('cv.monitoringSources.gco.searchForDashboardsPlaceholder')}
+        onFilter={(filterValue: string) => setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })}
+      />
       <Table<TableData>
         data={tableData || []}
         onRowClick={(rowData, index) => {
@@ -162,14 +168,9 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
                 <Link withoutHref onClick={() => setIsModalOpen(true)} className={css.manualQueryLink}>
                   {getString('cv.monitoringSources.gco.addManualInputQuery')}
                 </Link>
-                <TableColumnWithFilter
-                  columnName={getString('cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName')}
-                  appliedFilter={filteredDashboard}
-                  className={css.filterStyle}
-                  onFilter={(filterValue: string) =>
-                    setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })
-                  }
-                />
+                <Text color={Color.BLACK}>
+                  {getString('cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName')}
+                </Text>
               </Container>
             ),
             accessor: 'dashboard',

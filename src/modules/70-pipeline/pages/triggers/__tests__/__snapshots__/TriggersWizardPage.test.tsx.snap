@@ -62,7 +62,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -431,7 +431,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                                     style="width: 324px;"
                                     type="button"
                                   >
@@ -664,7 +664,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -772,7 +772,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -1137,7 +1137,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                                     style="width: 324px;"
                                     type="button"
                                   >
@@ -1469,7 +1469,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span
@@ -1577,7 +1577,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           >
             <div>
               <div
-                class="bp3-tabs Tabs--main"
+                class="bp3-tabs Tabs--main Tabs--horizontal"
               >
                 <div
                   class="bp3-tab-list"
@@ -1946,7 +1946,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
                                     style="width: 324px;"
                                     type="button"
                                   >
@@ -2198,7 +2198,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="button"
                 >
                   <span

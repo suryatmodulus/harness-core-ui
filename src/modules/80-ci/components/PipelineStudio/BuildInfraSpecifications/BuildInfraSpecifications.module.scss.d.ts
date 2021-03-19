@@ -1,6 +1,11 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly wrapper: string
+  readonly contentSection: string
+  readonly tabHeading: string
+  readonly sectionCard: string
+  readonly shadow: string
   readonly section: string
   readonly noPadTop: string
   readonly specTabs: string
@@ -10,5 +15,6 @@ declare const styles: {
   readonly card: string
   readonly cardTitle: string
   readonly active: string
+  readonly navigationButtons: string
 }
 export default styles

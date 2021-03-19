@@ -19,7 +19,7 @@ exports[`Org Page List Create New Org 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--padding-small"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -55,11 +55,11 @@ exports[`Org Page List Create New Org 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
           data-name=""
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
             icon="search"
           >
             <svg
@@ -120,7 +120,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span
@@ -301,7 +301,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span
@@ -526,7 +526,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main Card--menu"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main Card--menu"
                       type="button"
                     >
                       <span

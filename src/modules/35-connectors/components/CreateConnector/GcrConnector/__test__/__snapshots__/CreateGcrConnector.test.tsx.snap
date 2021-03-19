@@ -138,6 +138,21 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -322,7 +337,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -519,6 +534,21 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -584,8 +614,9 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                     data-index="1"
+                    tabindex="0"
                   >
                     <div
                       class="StyledProps--font StyledProps--main card"
@@ -614,7 +645,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                         Encrypted Key
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -659,7 +690,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span
@@ -834,6 +865,21 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -993,7 +1039,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -1190,6 +1236,21 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -1255,8 +1316,9 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                     </div>
                   </div>
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card Card--disabled"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                     data-index="1"
+                    tabindex="0"
                   >
                     <div
                       class="StyledProps--font StyledProps--main card"
@@ -1285,7 +1347,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         Encrypted Key
                       </label>
                       <button
-                        class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                         data-testid="password"
                         type="button"
                       >
@@ -1330,7 +1392,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                 type="submit"
               >
                 <span

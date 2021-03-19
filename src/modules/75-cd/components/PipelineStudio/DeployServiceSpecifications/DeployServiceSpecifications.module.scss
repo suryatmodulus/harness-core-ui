@@ -10,7 +10,10 @@
   }
   .navigationButtons {
     padding-left: var(--spacing-huge);
-    margin-bottom: 40px;
+    margin-bottom: 90px;
+    &.overrides {
+      padding-left: 0;
+    }
   }
   .overFlowScroll {
     overflow-y: auto;

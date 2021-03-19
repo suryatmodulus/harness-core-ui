@@ -8,7 +8,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import ResponseMapping from './ResponseMapping'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
@@ -45,8 +45,21 @@ export function HttpStepWidget(
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           url: Yup.string().required(getString('validation.UrlRequired')),
-          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired'))
-        })
+          method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
+          headers: Yup.array().of(
+            Yup.object().shape({
+              key: Yup.string().required(getString('validation.keyRequired')),
+              value: Yup.string().required(getString('validation.valueRequired'))
+            })
+          ),
+          outputVariables: Yup.array().of(
+            Yup.object().shape({
+              name: Yup.string().required(getString('validation.nameRequired')),
+              value: Yup.string().required(getString('validation.valueRequired'))
+            })
+          )
+        }),
+        ...IdentifierValidation()
       })}
     >
       {(formik: FormikProps<HttpStepFormData>) => {

@@ -244,7 +244,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     }
   }
 
-  private processFormData(data: ShellScriptFormData): ShellScriptData {
+  processFormData(data: ShellScriptFormData): ShellScriptData {
     return {
       ...data,
       spec: {

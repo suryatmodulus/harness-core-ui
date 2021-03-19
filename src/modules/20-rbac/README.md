@@ -45,21 +45,27 @@ Also known as the _Decision Framework_.
 
 Querying for permissions from the backend involves multiple steps, but it has been abstracted out as a simple hook. The usage is as follows:
 
-```typescriptreact
+```typescript
 import usePermission from '@rbac/hooks/usePermission'
 
 const SampleComponent = () => {
   const [canEdit, canDelete] = usePermission(
     {
       // Scope variables for account, org and project
-      accountIdentifier,
-      orgIdentifier,
-      projectIdentifier,
+      resourceScope: {
+        accountIdentifier,
+        orgIdentifier,
+        projectIdentifier
+      }
       // Identify the resource you want to check permission for
       resourceType,
-      resourceIdentifier,
-      // The actions you want to check permission for
-      actions: ['edit', 'delete']
+      resourceIdentifier ,
+      // The permissions you want to check
+      permissions: ['project.edit', 'project.delete'],
+      // connfiguration options
+      options: {
+        skipCache: true
+      }
     },
     // dependencies array, similar to useEffect's second parameter
     // any value or reference change in this will re-trigger the check
@@ -78,7 +84,7 @@ const SampleComponent = () => {
 ### Salient Features:
 
 - Permissions returned are boolean in nature
-- Permissions are returned in the same order as requested in the `actions` array
-- Fetched permissions are stored in `PermissionsContext`, which is available in `AppContext`. However, **direct access via context should be avoided**. The internal data structure does not support a O(1) look-up.
-- The hook implements cache-first approach. Fetched permissions are cached and any requests are first checked in the cache. We make a network call only if it's a cache miss.
+- Permissions are returned in the same order as requested in the `permissions` array
+- Fetched permissions are stored in `PermissionsContext`, which is available in `AppContext`. However, **direct access via context should be avoided**. The internal data structure does not support a O(1) look-ups.
+- The hook implements cache-first approach. Fetched permissions are cached and any requests are first checked in the cache. We make a network call only if it's a cache miss. You can switch to a network-first approach by passing `skipCache` as true in options.
 - Multiple requests across components are automatically collected together to avoid network thrashing.

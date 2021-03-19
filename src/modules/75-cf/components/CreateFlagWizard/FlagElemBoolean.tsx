@@ -41,7 +41,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     flagTypeOptions,
     prevStepData,
     previousStep,
-    nextStep,
+    // nextStep,
     onWizardStepSubmit,
     projectIdentifier,
     setModalErrorHandler,
@@ -185,7 +185,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 loading={isLoadingCreateFeatureFlag}
               />
               <FlexExpander />
-              <Button
+              {/* <Button
                 type="button"
                 text={i18n.varSettingsFlag.testFlagOption}
                 rightIcon="chevron-right"
@@ -194,7 +194,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 onClick={() => {
                   nextStep?.({ ...prevStepData })
                 }}
-              />
+              /> */}
             </Layout.Horizontal>
           </Container>
         </Form>

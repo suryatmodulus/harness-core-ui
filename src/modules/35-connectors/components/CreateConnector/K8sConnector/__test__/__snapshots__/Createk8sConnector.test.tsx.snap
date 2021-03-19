@@ -90,6 +90,21 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -274,7 +289,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -418,6 +433,21 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -708,7 +738,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -778,7 +808,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -808,7 +838,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -949,6 +979,21 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1272,7 +1317,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Password
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcPassword"
                             type="button"
                           >
@@ -1336,7 +1381,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Client ID
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcCleintId"
                             type="button"
                           >
@@ -1395,7 +1440,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             OIDC Secret
                           </label>
                           <button
-                            class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                             data-testid="oidcCleintSecret"
                             type="button"
                           >
@@ -1496,7 +1541,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -1526,7 +1571,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -1667,6 +1712,21 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1865,7 +1925,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                           Service Account Token
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="serviceAccountToken"
                           type="button"
                         >
@@ -1935,7 +1995,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -1965,7 +2025,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -2093,6 +2153,21 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -2210,7 +2285,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                             class="bp3-input bp3-fill"
                             name="description"
                           >
-                            k8 descriptipn
+                            k8 description
                           </textarea>
                         </div>
                       </div>
@@ -2287,7 +2362,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                     type="submit"
                   >
                     <span
@@ -2431,6 +2506,21 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2721,7 +2811,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           Password
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="password"
                           type="button"
                         >
@@ -2791,7 +2881,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -2821,7 +2911,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -2967,6 +3057,21 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
           Test Connection
         </p>
       </div>
@@ -3159,7 +3264,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Key
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKey"
                           type="button"
                         >
@@ -3218,7 +3323,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Key passphrase
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyPassphrase"
                           type="button"
                         >
@@ -3281,7 +3386,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           Client Certificate
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCertificate"
                           type="button"
                         >
@@ -3375,7 +3480,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                           CA Certificate (optional)
                         </label>
                         <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
                           data-testid="clientKeyCACertificate"
                           type="button"
                         >
@@ -3445,7 +3550,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
                   data-name="k8sBackButton"
                   type="button"
                 >
@@ -3475,7 +3580,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
                   type="submit"
                 >
                   <span
@@ -3595,12 +3700,30 @@ exports[`should form for edit authtype clientKey 2`] = `
         </p>
       </div>
       <div
-        class="StepWizard--navStep StepWizard--activeStep"
+        class="StepWizard--navStep StepWizard--completedStep"
       >
         <span
-          class="StepWizard--number"
+          class="StepWizard--completedIcon"
         >
-          2
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3610,12 +3733,27 @@ exports[`should form for edit authtype clientKey 2`] = `
         </p>
       </div>
       <div
-        class="StepWizard--navStep"
+        class="StepWizard--navStep StepWizard--activeStep"
       >
         <span
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Delegate selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3630,13 +3768,13 @@ exports[`should form for edit authtype clientKey 2`] = `
     >
        
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
+        class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
         style="height: inherit;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          Delegation Selection
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -3646,492 +3784,113 @@ exports[`should form for edit authtype clientKey 2`] = `
           >
             <div>
               <div
-                class="StyledProps--font StyledProps--main clusterWrapper"
+                class="StyledProps--font StyledProps--main StyledProps--background-red200 StyledProps--padding-medium StyledProps--flex StyledProps--border StyledProps--border-color-red300 StyledProps--border-bottom"
+                style="padding: 10px 20px;"
               >
                 <div
-                  class="StyledProps--font StyledProps--main StyledProps--background-red200 StyledProps--padding-medium StyledProps--flex StyledProps--border StyledProps--border-color-red300 StyledProps--border-bottom"
-                  style="padding: 10px 20px;"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main StyledProps--flex"
-                    style="justify-content: flex-start;"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-xsmall"
-                      icon="warning-sign"
-                    >
-                      <svg
-                        data-icon="warning-sign"
-                        height="24"
-                        viewBox="0 0 20 20"
-                        width="24"
-                      >
-                        <desc>
-                          warning-sign
-                        </desc>
-                        <path
-                          d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    <div
-                      class="StyledProps--font StyledProps--main StyledProps--padding-small"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-red500"
-                        data-type="single-message"
-                        style="overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; --text-line-clamp: 5;"
-                      >
-                        Cannot read property 'data' of undefined
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="cardRow"
-                >
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
-                    data-index="0"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card selectedCard"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        Specify master url and credentials
-                      </span>
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--margin-small"
-                        data-icon="deployment-success-new"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 14 14"
-                          width="16"
-                        >
-                          <path
-                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                            fill="#38d168"
-                          />
-                          <path
-                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                            fill="#fff"
-                          />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                    data-index="1"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group formFieldWidth"
-                  data-id="masterUrl-0"
-                >
-                  <label
-                    class="bp3-label"
-                    for="masterUrl"
-                  >
-                    Master URL
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <div
-                      class="bp3-input-group"
-                    >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        name="masterUrl"
-                        placeholder="/url"
-                        type="text"
-                        value="/url"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main authHeaderRow"
+                  class="StyledProps--font StyledProps--main StyledProps--flex"
+                  style="justify-content: flex-start;"
                 >
                   <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-xsmall"
+                    icon="warning-sign"
                   >
-                    Authentication
+                    <svg
+                      data-icon="warning-sign"
+                      height="24"
+                      viewBox="0 0 20 20"
+                      width="24"
+                    >
+                      <desc>
+                        warning-sign
+                      </desc>
+                      <path
+                        d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
                   <div
-                    class="bp3-form-group authTypeSelect"
-                    data-id="authType-1"
+                    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-red500"
+                      data-type="single-message"
+                      style="overflow-wrap: break-word; word-wrap: break-word; hyphens: auto; --text-line-clamp: 5;"
+                    >
+                      Cannot read property 'data' of undefined
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main formData StyledProps--padding-top-xxlarge StyledProps--padding-bottom-large"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+                >
+                  Limit usage of this connector to the delegates which have the following tags
+                </p>
+                <div
+                  data-name="DelegateSelectors"
+                >
+                  <div
+                    class="bp3-popover-wrapper formInput bp3-fill"
                   >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class=""
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
                         >
                           <div
-                            class="bp3-input-group"
+                            class="bp3-tag-input-values"
                           >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="authType"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="Client Key Certificate"
-                            />
                             <span
-                              class="bp3-input-action"
+                              class="bp3-tag bp3-intent-danger bp3-minimal TagInput--tag"
+                              data-tag-index="0"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-text-overflow-ellipsis bp3-fill"
                               >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
+                                dummyDelegateSelector
                               </span>
+                              <button
+                                class="bp3-tag-remove"
+                                type="button"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-small-cross"
+                                  icon="small-cross"
+                                >
+                                  <svg
+                                    data-icon="small-cross"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    width="16"
+                                  >
+                                    <desc>
+                                      small-cross
+                                    </desc>
+                                    <path
+                                      d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </button>
                             </span>
+                            <input
+                              class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                              value=""
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main formRow"
-                >
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <label
-                          class="bp3-label"
-                        >
-                          Client Key
-                        </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                          data-testid="clientKey"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
-                              >
-                                <svg
-                                  height="24"
-                                  width="24"
-                                >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                k8serviceToken
-                              </span>
-                            </div>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-3"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <label
-                          class="bp3-label"
-                        >
-                          Client Key passphrase
-                        </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                          data-testid="clientKeyPassphrase"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
-                              >
-                                <svg
-                                  height="24"
-                                  width="24"
-                                >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                k8serviceToken
-                              </span>
-                            </div>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main formRow"
-                >
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-4"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <label
-                          class="bp3-label"
-                        >
-                          Client Certificate
-                        </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                          data-testid="clientKeyCertificate"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
-                              >
-                                <svg
-                                  height="24"
-                                  width="24"
-                                >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                k8serviceToken
-                              </span>
-                            </div>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="clientKeyAlgo-5"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="clientKeyAlgo"
-                    >
-                      Client Key Algorithm (optional)
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="clientKeyAlgo"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main"
-                  style="width: 42%;"
-                >
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-6"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <label
-                          class="bp3-label"
-                        >
-                          CA Certificate (optional)
-                        </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button StyledProps--main inputButton"
-                          data-testid="clientKeyCACertificate"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
-                              >
-                                <svg
-                                  height="24"
-                                  width="24"
-                                >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                k8serviceToken
-                              </span>
-                            </div>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-7"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      Skip default namespace validation
-                    </label>
                   </div>
                 </div>
               </div>
@@ -4139,8 +3898,8 @@ exports[`should form for edit authtype clientKey 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main"
-                  data-name="k8sBackButton"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  data-name="awsBackButton"
                   type="button"
                 >
                   <span
@@ -4169,7 +3928,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                   type="submit"
                 >
                   <span

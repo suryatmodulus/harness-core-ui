@@ -12,6 +12,7 @@ import {
   ExecutionPipelineItemStatus
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export const LITE_ENGINE_TASK = 'liteEngineTask'
 export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
@@ -21,8 +22,6 @@ export const StepGroupRollbackIdentifier = '(Rollback)'
 export const RollbackContainerCss: React.CSSProperties = {
   borderColor: 'var(--red-450)'
 }
-
-export const NonSelectableNodes: string[] = ['NG_SECTION', 'NG_FORK', 'DEPLOYMENT_STAGE_STEP']
 
 // TODO: remove use DTO
 export interface ServiceDependency {
@@ -36,26 +35,26 @@ export interface ServiceDependency {
   errorReason: string | null
 }
 
-export enum StepTypes {
+export enum NodeType {
   SERVICE = 'SERVICE',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
   GENERIC_SECTION = 'GENERIC_SECTION',
   STEP_GROUP = 'STEP_GROUP',
   NG_SECTION = 'NG_SECTION',
-  K8S_ROLLING = 'K8S_ROLLING',
   FORK = 'NG_FORK',
-  HTTP = 'HTTP'
+  DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP'
 }
 
-export const StepTypeIconsMap: { [key in StepTypes]: IconName } = {
+export const NonSelectableNodes: NodeType[] = [NodeType.NG_SECTION, NodeType.FORK, NodeType.DEPLOYMENT_STAGE_STEP]
+
+export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
-  K8S_ROLLING: 'service-kubernetes',
   NG_SECTION: 'step-group',
   STEP_GROUP: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
   NG_FORK: 'fork',
-  HTTP: 'command-http'
+  DEPLOYMENT_STAGE_STEP: 'circle'
 }
 
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
@@ -265,7 +264,7 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
     if (typeof step === 'string') return step
   }
 
-  if (isExecutionRunning(node.status) && !NonSelectableNodes.includes(node.stepType || '')) {
+  if (isExecutionRunning(node.status) && !NonSelectableNodes.includes(node.stepType as NodeType)) {
     return currentNodeId
   }
 
@@ -340,7 +339,7 @@ const processLiteEngineTask = (
   const stepItem: ExecutionPipelineItem<ExecutionNode> = {
     identifier: nodeData?.uuid as string,
     name: 'Initialize',
-    type: ExecutionPipelineNodeType.NORMAL,
+    type: getExecutionPipelineNodeType(nodeData?.stepType),
     status: nodeData?.status as ExecutionPipelineItemStatus,
     icon: 'initialize-step',
     data: nodeData as ExecutionNode,
@@ -359,7 +358,7 @@ const processNodeData = (
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
   children?.forEach(item => {
     const nodeData = nodeMap?.[item]
-    if (nodeData?.stepType === StepTypes.FORK) {
+    if (nodeData?.stepType === NodeType.FORK) {
       items.push({
         parallel: processNodeData(
           nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
@@ -368,7 +367,7 @@ const processNodeData = (
           rootNodes
         )
       })
-    } else if (nodeData?.stepType === StepTypes.STEP_GROUP || nodeData?.stepType === StepTypes.NG_SECTION) {
+    } else if (nodeData?.stepType === NodeType.STEP_GROUP || nodeData?.stepType === NodeType.NG_SECTION) {
       const icon = factory.getStepIcon(nodeData?.stepType)
       items.push({
         group: {
@@ -382,7 +381,7 @@ const processNodeData = (
           status: nodeData.status as ExecutionPipelineItemStatus,
           isOpen: true,
           skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
-          icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
+          icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
             nodeMap,
@@ -399,11 +398,11 @@ const processNodeData = (
         items.push({
           item: {
             name: nodeData?.name || /* istanbul ignore next */ '',
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
             identifier: item,
             skipCondition: nodeData?.skipInfo?.evaluatedCondition ? nodeData?.skipInfo.skipCondition : undefined,
             status: nodeData?.status as ExecutionPipelineItemStatus,
-            type: ExecutionPipelineNodeType.NORMAL,
+            type: getExecutionPipelineNodeType(nodeData?.stepType),
             data: nodeData
           }
         })
@@ -412,7 +411,7 @@ const processNodeData = (
     const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
       const nodeDataNext = nodeMap?.[id]
-      if (nodeDataNext?.stepType === StepTypes.FORK) {
+      if (nodeDataNext?.stepType === NodeType.FORK) {
         items.push({
           parallel: processNodeData(
             nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
@@ -421,7 +420,7 @@ const processNodeData = (
             rootNodes
           )
         })
-      } else if (nodeDataNext?.stepType === StepTypes.STEP_GROUP) {
+      } else if (nodeDataNext?.stepType === NodeType.STEP_GROUP) {
         const icon = factory.getStepIcon(nodeDataNext?.stepType)
         items.push({
           group: {
@@ -432,7 +431,7 @@ const processNodeData = (
             skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext.status as ExecutionPipelineItemStatus,
             isOpen: true,
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeDataNext?.stepType as StepTypes] || 'cross',
+            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeDataNext?.stepType as NodeType] || 'cross',
             items: processNodeData(
               nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
               nodeMap,
@@ -446,11 +445,11 @@ const processNodeData = (
         items.push({
           item: {
             name: nodeDataNext?.name || /* istanbul ignore next */ '',
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
             identifier: id,
             skipCondition: nodeDataNext?.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext?.status as ExecutionPipelineItemStatus,
-            type: ExecutionPipelineNodeType.NORMAL,
+            type: getExecutionPipelineNodeType(nodeDataNext?.stepType),
             data: nodeDataNext
           }
         })
@@ -485,7 +484,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.NG_SECTION) {
+        if (nodeData.stepType === NodeType.NG_SECTION) {
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -504,7 +503,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 },
                 status: nodeData.status as ExecutionPipelineItemStatus,
                 isOpen: true,
-                icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
+                icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
                 items: processNodeData(
                   nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                   graph?.nodeMap,
@@ -514,7 +513,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
               }
             })
           }
-        } else if (nodeData.stepType === StepTypes.FORK) {
+        } else if (nodeData.stepType === NodeType.FORK) {
           items.push({
             parallel: processNodeData(
               nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
@@ -529,11 +528,11 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
               skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
-              icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as StepTypes] || 'cross',
-              showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
+              icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+              showInLabel: nodeData.stepType === NodeType.SERVICE || nodeData.stepType === NodeType.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as ExecutionPipelineItemStatus,
-              type: ExecutionPipelineNodeType.NORMAL,
+              type: getExecutionPipelineNodeType(nodeData?.stepType),
               data: nodeData
             }
           })
@@ -552,4 +551,12 @@ export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | 'unknown' {
     return 'cd'
   }
   return 'unknown'
+}
+
+export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipelineNodeType {
+  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval) {
+    return ExecutionPipelineNodeType.DIAMOND
+  }
+
+  return ExecutionPipelineNodeType.NORMAL
 }

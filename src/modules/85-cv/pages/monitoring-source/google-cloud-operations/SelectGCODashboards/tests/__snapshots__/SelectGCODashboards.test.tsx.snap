@@ -6,6 +6,43 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
     class="StyledProps--font StyledProps--main main"
   >
     <div
+      class="StyledProps--font StyledProps--main main filterStyle"
+    >
+      <div
+        class="TextInput--main"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main"
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="12"
+              viewBox="0 0 16 16"
+              width="12"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input"
+            placeholder="Search for dashboards"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
       class="table"
     >
       <div
@@ -30,7 +67,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             class="StyledProps--font StyledProps--main columnContainer"
           >
             <a
-              class="bp3-button StyledProps--font Button--button Button--link StyledProps--main manualQueryLink"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main manualQueryLink"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -41,46 +78,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                 + Manually input query
               </span>
             </a>
-            <div
-              class="StyledProps--font StyledProps--main filterStyle StyledProps--flex"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
-              >
-                Google Cloud Operation Dashboards
-              </p>
-              <div
-                class="bp3-input-group ui-search-box ExpandingSearchInput--main "
-                data-name=""
-              >
-                <span
-                  class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon"
-                  icon="search"
-                >
-                  <svg
-                    data-icon="search"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      search
-                    </desc>
-                    <path
-                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                <input
-                  class="bp3-input "
-                  dir="auto"
-                  placeholder="Search"
-                  type="search"
-                  value=""
-                />
-              </div>
-            </div>
+              Google Cloud Operation Dashboards
+            </p>
           </div>
         </div>
       </div>
@@ -638,7 +640,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
             disabled=""
             tabindex="-1"
             type="button"
@@ -650,7 +652,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -660,7 +662,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -670,7 +672,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
             type="button"
           >
             <span
@@ -686,7 +688,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
         type="button"
       >
         <span
@@ -715,7 +717,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="submit"
       >
         <span

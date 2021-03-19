@@ -18,4 +18,7 @@ export abstract class PipelineStep<T extends { name?: string; identifier?: strin
       ...initialValues
     }
   }
+  processFormData(values: T): T {
+    return values
+  }
 }

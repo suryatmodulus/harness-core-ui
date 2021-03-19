@@ -200,7 +200,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -281,7 +281,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -307,7 +307,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
           </div>
           <span>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addBtn StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addBtn StyledProps--intent-primary"
               type="button"
             >
               <span
@@ -872,7 +872,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -953,7 +953,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               type="button"
             >
               <span
@@ -979,7 +979,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
           </div>
           <span>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main addBtn StyledProps--intent-primary"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addBtn StyledProps--intent-primary"
               type="button"
             >
               <span

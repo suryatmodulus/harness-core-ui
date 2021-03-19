@@ -65,7 +65,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
           const { category, risk = -1 } = riskScoreMapping
           return !category ? undefined : (
             <Container key={category} className={classnames(css.infoContainer, infoContainerClassName)}>
-              <Text font={{ size: 'small' }}>{getAbbreviatedMetricCategories(category)}</Text>
+              <Text style={{ fontSize: 12 }}>{getAbbreviatedMetricCategories(category)}</Text>
               <RiskScoreTile riskScore={risk} isSmall {...riskScoreTileProps} />
             </Container>
           )

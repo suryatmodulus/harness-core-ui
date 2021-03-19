@@ -15,7 +15,7 @@ export default {
   errorUpdate: 'Unable to update connector',
   errorCreate: 'Unable to create connector',
   accountName: 'Account Name',
-  Url: 'Url',
+  Url: 'Controller URL',
   showSuccessCreated: (name: string) => `Connector '${name}' created successfully`,
   showSuccessUpdated: (name: string) => `Connector '${name}' updated successfully`
 }

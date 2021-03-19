@@ -4,13 +4,17 @@ export const mockConnector: ConnectorInfoDTO = {
   name: 'ArtifactoryTest',
   identifier: 'ArtifactoryTest',
   description: 'connectorDescription',
-  orgIdentifier: '',
-  projectIdentifier: '',
+  orgIdentifier: undefined,
+  projectIdentifier: undefined,
   tags: {},
   type: 'Artifactory',
   spec: {
+    delegateSelectors: ['dummyDelegateSelector'],
     artifactoryServerUrl: 'dummyRespositoryUrl',
-    auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.connectorPass' } }
+    auth: {
+      type: 'UsernamePassword',
+      spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.connectorPass' }
+    }
   }
 }
 

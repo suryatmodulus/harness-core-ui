@@ -10,7 +10,7 @@ exports[`Custom Variables can add a string variable 1`] = `
     >
       <div />
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -118,7 +118,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="edit-variable-0"
                   tabindex="0"
                   type="button"
@@ -152,7 +152,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--iconOnly StyledProps--main"
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                   data-testid="delete-variable-0"
                   tabindex="0"
                   type="button"
@@ -239,7 +239,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -335,7 +335,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-0"
               tabindex="0"
               type="button"
@@ -369,7 +369,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-0"
               tabindex="0"
               type="button"
@@ -431,7 +431,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -527,7 +527,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-1"
               tabindex="0"
               type="button"
@@ -561,7 +561,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-1"
               tabindex="0"
               type="button"
@@ -591,7 +591,7 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -677,7 +677,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -773,7 +773,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-0"
               tabindex="0"
               type="button"
@@ -807,7 +807,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-0"
               tabindex="0"
               type="button"
@@ -869,7 +869,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -965,7 +965,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-1"
               tabindex="0"
               type="button"
@@ -999,7 +999,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-1"
               tabindex="0"
               type="button"
@@ -1061,7 +1061,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -1154,7 +1154,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
           id="configureOptions"
           type="button"
         >
@@ -1189,7 +1189,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-2"
               tabindex="0"
               type="button"
@@ -1223,7 +1223,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-2"
               tabindex="0"
               type="button"
@@ -1253,7 +1253,7 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span
@@ -1297,7 +1297,7 @@ exports[`Custom Variables should render edit view as new step 1`] = `
     >
       <div />
       <button
-        class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
         type="button"
       >
         <span
@@ -1384,7 +1384,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -1480,7 +1480,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-0"
               tabindex="0"
               type="button"
@@ -1514,7 +1514,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-0"
               tabindex="0"
               type="button"
@@ -1576,7 +1576,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -1672,7 +1672,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-1"
               tabindex="0"
               type="button"
@@ -1706,7 +1706,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-1"
               tabindex="0"
               type="button"
@@ -1768,7 +1768,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
               disabled=""
               tabindex="-1"
               type="button"
@@ -1861,7 +1861,7 @@ exports[`Custom Variables should render variables 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
           id="configureOptions"
           type="button"
         >
@@ -1896,7 +1896,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="edit-variable-2"
               tabindex="0"
               type="button"
@@ -1930,7 +1930,7 @@ exports[`Custom Variables should render variables 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
               data-testid="delete-variable-2"
               tabindex="0"
               type="button"
@@ -1960,7 +1960,7 @@ exports[`Custom Variables should render variables 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button bp3-minimal StyledProps--font Button--button StyledProps--main StyledProps--intent-primary"
+      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
       type="button"
     >
       <span

@@ -211,7 +211,7 @@ function TerraformDestroyWidget(
                         multiTypeFieldSelectorProps={{
                           label: (
                             <Text style={{ display: 'flex', alignItems: 'center' }}>
-                              {getString('pipelineSteps.targets')}
+                              {getString('cf.targets.title')}
                             </Text>
                           )
                         }}

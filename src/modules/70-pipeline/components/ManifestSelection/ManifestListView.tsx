@@ -100,6 +100,14 @@ const ManifestListView = ({
   refetchConnectors,
   isReadonly
 }: ManifestListViewProps): JSX.Element => {
+  const deploymentType = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type
+
+  const allowedManifestTypes: Array<ManifestTypes> = [ManifestDataType.Values, ManifestDataType.HelmChart]
+
+  if (deploymentType === 'Kubernetes') {
+    allowedManifestTypes.unshift(ManifestDataType.K8sManifest)
+  }
+
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)
   const [manifestStore, setManifestStore] = useState('')

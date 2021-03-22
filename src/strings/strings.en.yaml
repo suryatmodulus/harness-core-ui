@@ -1250,10 +1250,18 @@ pipelineSteps:
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   configurationType: 'Configuration Type'
+  workspace: Workspace
+  backendConfig: 'Backend Config'
+
+  gitFetchType: 'Git Fetch Type'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
   gitFetchType: 'Git Fetch Type'
   repoName: 'Repo Name'
+  branchPlaceholder: 'Enter branch name here'
+  commitPlaceholder: 'Enter Commit ID here'
+  commitLabel: 'Commit ID'
+  configFiles: 'Config Files'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'

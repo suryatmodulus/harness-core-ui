@@ -1,9 +1,11 @@
 import React from 'react'
 import {
   IconName,
+  Button,
   Formik,
   FormInput,
   Text,
+  Accordion,
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -35,10 +37,19 @@ import { DelegateSelectors } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+
+import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
+
+import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
+import GitStore from '../Common/Terraform/GitStore'
+import BaseForm from '../Common/Terraform/BaseForm'
+
+import type { TerraformData } from '../Common/Terraform/TerraformIntefaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformDestroy.module.scss'
 
 export const configurationTypes: SelectOption[] = [
+  { label: 'Inline', value: 'Inline' },
   { label: 'Inherit From Plan', value: 'InheritFromPlan' },
   { label: 'Inherit From Apply', value: 'InheritFromApply' }
 ]
@@ -72,7 +83,7 @@ export interface TerraformDestroyVariableStepProps {
   variablesData: TerraformDestroyData
 }
 
-const setInitialValues = (data: TerraformDestroyData): TerraformDestroyData => {
+const setInitialValues = (data: TerraformData): TerraformData => {
   return {
     ...data,
     delegateSelectors: data?.delegateSelectors,
@@ -86,7 +97,7 @@ const setInitialValues = (data: TerraformDestroyData): TerraformDestroyData => {
 }
 function TerraformDestroyWidget(
   props: TerraformDestroyProps,
-  formikRef: StepFormikFowardRef<TerraformDestroyData>
+  formikRef: StepFormikFowardRef<TerraformData>
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
@@ -96,8 +107,8 @@ function TerraformDestroyWidget(
 
   return (
     <>
-      <Formik<TerraformDestroyData>
-        onSubmit={(values: TerraformDestroyData) => {
+      <Formik<TerraformData>
+        onSubmit={(values: TerraformData) => {
           const payload = {
             ...values,
             spec: {
@@ -123,7 +134,7 @@ function TerraformDestroyWidget(
           })
         })}
       >
-        {(formik: FormikProps<TerraformDestroyData>) => {
+        {(formik: FormikProps<TerraformData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
@@ -135,37 +146,7 @@ function TerraformDestroyWidget(
                     isIdentifierEditable={isEmpty(initialValues.identifier)}
                   />
                 </div>
-
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    name="spec.provisionerIdentifier"
-                    label={getString('pipelineSteps.provisionerIdentifier')}
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.spec.provisionerIdentifier as string}
-                      type="String"
-                      variableName="spec.provisionerIdentifier"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('spec.provisionerIdentifier', value)
-                      }}
-                    />
-                  )}
-                </div>
-
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Select
-                    items={configurationTypes}
-                    name="spec.configuration.type"
-                    label={getString('pipelineSteps.configurationType')}
-                    placeholder={getString('pipelineSteps.configurationType')}
-                  />
-                </div>
-
+                <BaseForm formik={formik} />
                 <Layout.Vertical padding={{ bottom: 'medium' }} className={css.formData}>
                   <>
                     <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateSelector')}</Text>
@@ -181,7 +162,6 @@ function TerraformDestroyWidget(
                     ></DelegateSelectors>
                   </>
                 </Layout.Vertical>
-
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField
                     name="timeout"
@@ -202,6 +182,66 @@ function TerraformDestroyWidget(
                     />
                   )}
                 </div>
+
+                <Accordion activeId="step-1" className={stepCss.accordion}>
+                  <Accordion.Panel
+                    id="step-1"
+                    summary={getString('pipelineSteps.configFiles')}
+                    details={<GitStore formik={formik} />}
+                  />
+
+                  <Accordion.Panel
+                    id="step-2"
+                    summary={getString('pipelineSteps.backendConfig')}
+                    details={
+                      <>
+                        <FormInput.TextArea
+                          name="spec.backendConfig.content"
+                          label={getString('pipelineSteps.backendConfig')}
+                        />
+                      </>
+                    }
+                  />
+                  <Accordion.Panel
+                    id="step-3"
+                    summary={getString('cf.targets.title')}
+                    details={
+                      <MultiTypeList
+                        name="spec.targets"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                              {getString('pipelineSteps.targets')}
+                            </Text>
+                          )
+                        }}
+                        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+                      />
+                    }
+                  />
+                  <Accordion.Panel
+                    id="step-4"
+                    summary={getString('environmentVariables')}
+                    details={
+                      <MultiTypeMap
+                        name="spec.environmentVariables"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                              {getString('environmentVariables')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('dependencyEnvironmentVariablesInfo')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
+                          )
+                        }}
+                      />
+                    }
+                  />
+                </Accordion>
               </Layout.Vertical>
             </>
           )
@@ -243,13 +283,13 @@ const TerraformRollbackVariableStep: React.FC<TerraformDestroyVariableStepProps>
 
 const TerraformDestroyWidgetWithRef = React.forwardRef(TerraformDestroyWidget)
 
-export class TerraformDestroy extends PipelineStep<TerraformDestroyData> {
+export class TerraformDestroy extends PipelineStep<TerraformData> {
   constructor() {
     super()
     this._hasStepVariables = true
   }
   protected type = StepType.TerraformDestroy
-  protected defaultValues: TerraformDestroyData = {
+  protected defaultValues: TerraformData = {
     identifier: '',
     timeout: '10m',
     delegateSelectors: [],

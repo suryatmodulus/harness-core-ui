@@ -344,13 +344,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     })
   }
   const handleDeploymentTypeChange = (selected: DeplymentTypes): void => {
-    if (
-      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-      !stage?.stage?.spec.serviceConfig?.useFromStage
-    ) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', selected)
-      debounceUpdatePipeline(pipeline)
-    }
+    set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', selected)
+    debounceUpdatePipeline(pipeline)
+
     if (selected === deploymentType) {
       setDeploymentType('')
     } else {

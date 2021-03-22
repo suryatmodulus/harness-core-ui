@@ -88,13 +88,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   ]
 
-  const [setupModeType, setSetupMode] = useState('')
-  const [checkedItems, setCheckedItems] = useState({ overrideSetCheckbox: false })
-  const [isConfigVisible, setConfigVisibility] = useState(false)
-  const [selectedPropagatedState, setSelectedPropagatedState] = useState<SelectOption>()
-  const [deploymentType, setDeploymentType] = useState(supportedDeploymentTypes[0].name)
+  const [setupModeType, setSetupMode] = React.useState('')
+  const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
+  const [isConfigVisible, setConfigVisibility] = React.useState(false)
+  const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
   const [canPropagate, setCanPropagate] = React.useState(false)
-  const scrollRef = useRef<HTMLDivElement | null>(null)
+
+  const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
   const previousStageList: { label: string; value: string }[] = []
   const {
@@ -117,6 +117,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const [parentStage, setParentStage] = React.useState<{ [key: string]: any }>({})
+  const [deploymentType, setDeploymentType] = React.useState(
+    stage?.stage.spec.serviceConfig?.serviceDefinition?.type || ''
+  )
 
   React.useEffect(() => {
     if (stages && stages.length > 0) {
@@ -181,7 +184,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       serviceConfig: {
         serviceRef: '',
         serviceDefinition: {
-          type: 'Kubernetes',
+          type: deploymentType,
           spec: {
             artifacts: {
               // primary: null,
@@ -240,7 +243,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', deploymentType)
       debounceUpdatePipeline(pipeline)
     }
     if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
@@ -341,11 +344,19 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     })
   }
   const handleDeploymentTypeChange = (selected: DeplymentTypes): void => {
+    if (
+      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
+      !stage?.stage?.spec.serviceConfig?.useFromStage
+    ) {
+      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', selected)
+      debounceUpdatePipeline(pipeline)
+    }
     if (selected === deploymentType) {
       setDeploymentType('')
     } else {
       setDeploymentType(selected)
     }
+    debounceUpdatePipeline(pipeline)
   }
 
   return (

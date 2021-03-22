@@ -164,6 +164,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const selectedStage = selectedStageId ? getStageFromPipeline(selectedStageId).stage : undefined
   const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
+  const deploymentType = selectedStage?.stage?.spec?.serviceConfig?.serviceDefinition.type
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
@@ -279,7 +280,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           className={css.fullHeight}
-          disabled={!isTabNavigationAllowed}
+          disabled={!isTabNavigationAllowed || deploymentType === ''}
           panel={
             <ExecutionGraph
               allowAddGroup={true}

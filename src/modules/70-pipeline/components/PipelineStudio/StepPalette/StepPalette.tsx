@@ -71,6 +71,7 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
       base: getConfig('ng/api'),
       ...props,
       mock: {
+        loading: false,
         data: (isRunTestsStepEnabled
           ? (buildStageStepsWithRunTestsStep as unknown)
           : (buildStageSteps as unknown)) as ResponseStepCategory

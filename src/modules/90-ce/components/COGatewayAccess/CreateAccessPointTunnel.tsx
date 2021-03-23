@@ -331,10 +331,12 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 items={certificateOptions}
                 onChange={e => {
                   formik.setFieldValue('certificate', e)
-                  if (props.accessPoint.metadata) props.accessPoint.metadata.certificate_id = e.value as string // eslint-disable-line
-                  setAccessPoint(props.accessPoint)
+                  const updatedAccessPoint = { ...props.accessPoint }
+                  if (updatedAccessPoint.metadata) updatedAccessPoint.metadata.certificate_id = e.value as string // eslint-disable-line
+                  setAccessPoint(updatedAccessPoint)
                 }}
                 disabled={certificatesLoading || certificateOptions.length == 0}
+                selectProps={{ addClearBtn: true }}
               />
               {!props.isRuleCreationMode && !useExistingALB ? (
                 <FormInput.Select

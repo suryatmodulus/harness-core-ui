@@ -53,6 +53,7 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
+          <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
             {GIT_SYNC_NG ? (

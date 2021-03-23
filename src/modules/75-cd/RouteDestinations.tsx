@@ -58,6 +58,7 @@ import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSet
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
+import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -141,6 +142,13 @@ export default (
       path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <PipelinesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toServices({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <ServiceDetailPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

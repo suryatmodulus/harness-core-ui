@@ -3,11 +3,10 @@ import cx from 'classnames'
 
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 
+import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { TerraformData } from './TerraformIntefaces'
-
-import type { FormikProps } from 'formik'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 

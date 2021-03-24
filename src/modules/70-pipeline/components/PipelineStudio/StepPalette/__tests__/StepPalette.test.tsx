@@ -1,6 +1,6 @@
 import React from 'react'
 import type { UseGetReturn } from 'restful-react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as pipelinesNgService from 'services/pipeline-ng'
@@ -43,7 +43,7 @@ const getProps = () => ({
 describe('Step Palette tests', () => {
   const spy = jest.spyOn(pipelinesNgService, 'useGetSteps')
 
-  test('Show all steps count', () => {
+  test('Show all steps count and filters correctly', async () => {
     const props = getProps()
     spy.mockReturnValue({
       loading: false,
@@ -93,13 +93,15 @@ describe('Step Palette tests', () => {
         correlationId: 'someId'
       }
     } as UseGetReturn<any, pipelinesNgService.Failure, any, unknown>)
-    const { queryByText } = render(
+    const { container, queryByText } = render(
       <TestWrapper>
         <StepPalette {...props} />
       </TestWrapper>
     )
 
     expect(queryByText('Show All Steps (4)')).toBeDefined()
+    fireEvent.change(container.querySelector('input[type="search"]')!, { target: { value: 'tttt' } })
+    await waitFor(() => expect(queryByText('No results found. Please try another step name.')).not.toBeNull())
   })
 
   test('Loading indicator', () => {

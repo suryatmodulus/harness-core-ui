@@ -84,7 +84,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config";`,
     customProps: {
-      base: `{getConfig("")}`
+      base: `{getConfig("ti-service")}`
     }
   },
   cv: {

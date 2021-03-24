@@ -1,23 +1,115 @@
 .mainContainer {
-  height: calc(100vh - 150px);
+  // Seems like no need in settings fixed height since the container has fixed height already
+  // height: calc(100vh - 150px);
   overflow: auto;
+  padding: var(--spacing-medium);
+
+  .graph {
+    --cell-size: 14px;
+    --cell-gap: 2px;
+
+    list-style: none;
+    padding: 0 !important;
+    margin: 0;
+    display: grid;
+    grid-gap: var(--cell-gap);
+    overflow: hidden;
+
+    // grid-template-columns: repeat(33, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(14px, 14px));
+    grid-template-rows: 1fr 1fr;
+
+    li {
+      background-color: #6bd167;
+      border-radius: 2px;
+      height: var(--cell-size);
+      width: var(--cell-size);
+
+      > span,
+      > span > span,
+      > span > span > span {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+      }
+    }
+
+    li[data-status='failed'],
+    li[data-status='error'] {
+      background-color: #da291d;
+    }
+
+    li[data-status='skipped'] {
+      background-color: var(--grey-300);
+    }
+  }
+}
+
+.widgetWrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .leftContainer {
   flex-shrink: 0;
-  width: 515px;
+  width: 510px;
   position: sticky;
   top: 0;
 }
 
 .widget {
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0px 1px 4px rgba(0, 12, 120, 0.15);
-  padding-top: var(--spacing-small);
-  padding-bottom: var(--spacing-small);
+  background: var(--white) !important;
+  border-radius: 6px;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  padding: var(--spacing-medium) !important;
+}
+
+.stats {
+  flex-grow: 1;
+  flex-basis: 50%;
+  border-radius: 12px;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+
+  .statsTitle {
+    display: block;
+    font-weight: 500 !important;
+    color: #9293ab;
+  }
+
+  .statsNumber {
+    font-size: 32px;
+    font-weight: 600;
+  }
 }
 
 .overview {
+  width: 360px;
+  flex-shrink: 0;
+
+  .linesWrapper {
+    position: absolute;
+    top: var(--spacing-medium);
+    right: var(--spacing-medium);
+    bottom: var(--spacing-medium);
+    display: flex;
+    flex-direction: column;
+    width: 5px;
+  }
+
+  .line {
+    min-height: 5px;
+    border-radius: 100px;
+    background-color: #d9dae6;
+
+    &:first-child {
+      background-color: #00ade4;
+      margin-bottom: 2px;
+      opacity: 0.7;
+    }
+  }
+}
+
+.reportsOverview {
   .stats {
     border-radius: 5px;
     .statsNumber {
@@ -34,45 +126,6 @@
   .graphContainer {
     max-height: 255px;
     overflow: auto;
-
-    .graph {
-      --cell-size: 14px;
-      --cell-gap: 2px;
-
-      list-style: none;
-      padding: 0 !important;
-      margin: 0;
-      display: grid;
-      grid-gap: var(--cell-gap);
-      overflow: hidden;
-
-      grid-template-columns: repeat(28, 1fr);
-      grid-template-rows: 1fr 1fr;
-
-      li {
-        background-color: var(--green-450);
-        border-radius: 2px;
-        height: var(--cell-size);
-        width: var(--cell-size);
-
-        > span,
-        > span > span,
-        > span > span > span {
-          width: 100%;
-          height: 100%;
-          display: inline-block;
-        }
-      }
-
-      li[data-status='failed'],
-      li[data-status='error'] {
-        background-color: var(--orange-500);
-      }
-
-      li[data-status='skipped'] {
-        background-color: var(--grey-300);
-      }
-    }
   }
 
   .overviewResultLabel {
@@ -92,14 +145,158 @@
   }
 }
 
+.executionResult {
+  width: 510px;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  .graphContainer {
+    max-height: 174px;
+    overflow: auto;
+  }
+}
+
+.selectionBreakdown {
+  width: 380px;
+  flex-shrink: 0;
+
+  .widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .section {
+    background-color: #f8f8fc !important;
+    border-radius: 6px;
+    padding: var(--spacing-small) var(--spacing-medium) !important;
+
+    .type {
+      flex-grow: 1;
+      flex-shrink: 0;
+      margin-right: var(--spacing-xxxlarge) !important;
+    }
+
+    .number {
+      font-size: 20px !important;
+    }
+  }
+}
+
+.coverage {
+  width: 500px;
+  flex-shrink: 0;
+
+  .columnNames {
+    display: grid;
+    grid-template-columns: 148px 158px 104px;
+    margin-bottom: var(--spacing-small);
+    padding-left: 60px;
+  }
+}
+
+.coverageItem {
+  border-radius: 6px;
+
+  &:nth-of-type(odd) {
+    background-color: #fafbfc !important;
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 160px 125px 90px;
+    align-items: center;
+    justify-content: space-between;
+
+    .name {
+      display: block !important;
+      width: 115px;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .commitHash {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    margin-left: var(--spacing-large);
+    color: var(--blue-600);
+    font-size: var(--font-size-small);
+    line-height: var(--font-size-xsmall);
+    background: var(--grey-100);
+    border: 1px solid var(--grey-300);
+    border-radius: var(--spacing-xsmall);
+    cursor: pointer;
+
+    > * + * {
+      border-left: 1px solid var(--grey-300);
+    }
+
+    > * {
+      padding: 2px var(--spacing-xsmall) !important;
+    }
+
+    > *:last-child {
+      color: var(--blue-600) !important;
+    }
+  }
+
+  .method {
+    display: grid;
+    grid-template-columns: 140px auto;
+    padding: var(--spacing-xsmall) var(--spacing-small);
+
+    &:nth-of-type(2n) {
+      background-color: #fafafa;
+    }
+
+    .name {
+      display: block !important;
+      width: 135px;
+      text-overflow: ellipsis;
+    }
+  }
+
+  :global {
+    .bp3-tabs {
+      padding-left: 45px;
+    }
+
+    .bp3-tab {
+      font-size: var(--font-size-normal) !important;
+      margin-top: 0 !important;
+      margin-bottom: var(--spacing-xsmall) !important;
+    }
+
+    .bp3-tab-indicator-wrapper {
+      top: 7px !important;
+    }
+  }
+}
+
 .testCasesHeader,
 .rightContainer {
   flex-grow: 1;
 }
 
-.testSuite {
-  margin-bottom: var(--spacing-small) !important;
+.rightContainer {
+  width: 955px;
+  flex-shrink: 0;
+}
 
+.testsSelectionBreakdown {
+  height: 8px;
+  background-color: transparent;
+  margin-top: var(--spacing-small);
+
+  :global {
+    .bp3-progress-meter {
+      background: linear-gradient(147.14deg, #73dfe7 6.95%, #0095f7 93.05%) !important;
+    }
+  }
+}
+
+.testSuite {
   &.expanded {
     padding-bottom: 0 !important;
 

@@ -13,14 +13,6 @@ import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
 import css from './BuildTests.module.scss'
 
-const scrollIntoItem = (): void => {
-  const expandedElement = document.querySelector(`.${css.expanded}`)
-
-  if (expandedElement && expandedElement.previousElementSibling?.classList.contains(css.testSuite)) {
-    expandedElement.scrollIntoView?.({ behavior: 'smooth', block: 'start', inline: 'start' })
-  }
-}
-
 const NOW = Date.now()
 const PAGE_SIZE = 10
 
@@ -172,10 +164,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   }, [expanded, queryParams, refetchData, data])
 
   useEffect(() => {
-    if (data) {
-      scrollIntoItem()
-    }
-  }, [data])
+    refetchData(queryParams)
+  }, [status])
 
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
@@ -255,19 +245,23 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
               className={css.testSuiteTable}
               columns={columns}
               data={data?.content || []}
-              pagination={{
-                itemCount: data?.data?.totalItems || 0,
-                pageSize: data?.data?.pageSize || 0,
-                pageCount: data?.data?.totalPages || 0,
-                pageIndex,
-                gotoPage: pageIdx => {
-                  setPageIndex(pageIdx)
-                  refetchData({
-                    ...queryParams,
-                    pageIndex: pageIdx
-                  })
-                }
-              }}
+              pagination={
+                (data?.data?.totalItems || 0) > PAGE_SIZE
+                  ? {
+                      itemCount: data?.data?.totalItems || 0,
+                      pageSize: data?.data?.pageSize || 0,
+                      pageCount: data?.data?.totalPages || 0,
+                      pageIndex,
+                      gotoPage: pageIdx => {
+                        setPageIndex(pageIdx)
+                        refetchData({
+                          ...queryParams,
+                          pageIndex: pageIdx
+                        })
+                      }
+                    }
+                  : undefined
+              }
             />
           )}
         </>

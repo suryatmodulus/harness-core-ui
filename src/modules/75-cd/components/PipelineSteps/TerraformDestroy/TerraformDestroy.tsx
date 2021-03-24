@@ -32,8 +32,6 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import { DelegateSelectors } from '@common/components'
-
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -47,7 +45,6 @@ import BaseForm from '../Common/Terraform/BaseForm'
 import TfVarFileList from '../Common/Terraform/TfVarFileList'
 import type { TerraformData } from '../Common/Terraform/TerraformIntefaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-import css from './TerraformDestroy.module.scss'
 
 export const configurationTypes: SelectOption[] = [
   { label: 'Inline', value: 'Inline' },
@@ -116,8 +113,6 @@ function TerraformDestroyWidget(
 ): React.ReactElement {
   const { initialValues, onUpdate } = props
   const { getString } = useStrings()
-  // const defaultValueToReset = ['']
-  const [delegateSelectors, setDelegateSelectors] = React.useState<Array<string>>([])
   const { expressions } = useVariablesExpression()
   return (
     <>
@@ -126,8 +121,7 @@ function TerraformDestroyWidget(
           const payload = {
             ...values,
             spec: {
-              ...values.spec,
-              delegateSelectors
+              ...values.spec
             }
           }
           onUpdate?.(payload)
@@ -161,21 +155,7 @@ function TerraformDestroyWidget(
                   />
                 </div>
                 <BaseForm formik={formik} />
-                <Layout.Vertical padding={{ bottom: 'medium' }} className={css.formData}>
-                  <>
-                    <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateSelector')}</Text>
-                    <DelegateSelectors
-                      fill
-                      className={css.formInput}
-                      allowNewTag={false}
-                      placeholder={getString('delegate.DelegateselectionPlaceholder')}
-                      selectedItems={delegateSelectors}
-                      onChange={data => {
-                        setDelegateSelectors(data as Array<string>)
-                      }}
-                    ></DelegateSelectors>
-                  </>
-                </Layout.Vertical>
+
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField
                     name="timeout"

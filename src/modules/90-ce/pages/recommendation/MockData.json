@@ -1,0 +1,656 @@
+{
+  "k8sWorkloadRecommendations": {
+    "nodes": [
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "anshul-ds",
+        "clusterName": "auto_cp_rnqffu",
+        "clusterId": "603dd98511b7e9e52b292422",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "fluentd-elasticsearch",
+        "clusterName": "auto_cp_rnqffu",
+        "clusterId": "603dd98511b7e9e52b292422",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "k8sv2-daemonset",
+        "clusterName": "auto_cp_rnqffu",
+        "clusterId": "603dd98511b7e9e52b292422",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "k8sv2-daemonset",
+        "clusterName": "auto_cp_4j4fxb",
+        "clusterId": "603dd8e011b7e9e52b1a02c9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "anshul-ds",
+        "clusterName": "auto_cp_4j4fxb",
+        "clusterId": "603dd8e011b7e9e52b1a02c9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 7,
+        "workloadName": "fluentd-elasticsearch",
+        "clusterName": "auto_cp_4j4fxb",
+        "clusterId": "603dd8e011b7e9e52b1a02c9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 8,
+        "workloadName": "k8sv2-daemonset",
+        "clusterName": "auto_cp_8s2pup",
+        "clusterId": "603cc89311b7e9e52b40a0b9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 8,
+        "workloadName": "fluentd-elasticsearch",
+        "clusterName": "auto_cp_8s2pup",
+        "clusterId": "603cc89311b7e9e52b40a0b9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 8,
+        "workloadName": "anshul-ds",
+        "clusterName": "auto_cp_8s2pup",
+        "clusterId": "603cc89311b7e9e52b40a0b9",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      },
+      {
+        "estimatedSavings": 128.16,
+        "namespace": "kube-system",
+        "numDays": 8,
+        "workloadName": "anshul-ds",
+        "clusterName": "auto_cp_cdjj4d",
+        "clusterId": "6024ca5a11b7e9e52b6825a4",
+        "workloadType": "DaemonSet",
+        "preset": {
+          "cpuLimit": null,
+          "cpuRequest": 0.8,
+          "memoryLimit": 0.95,
+          "memoryRequest": 0.8,
+          "minCpuMilliCores": "25",
+          "minMemoryBytes": "250000000",
+          "safetyMargin": 0.15
+        },
+        "resourceType": "Workload",
+        "totalCost": 133,
+        "recommendationType": "Resizing",
+        "details": "resize from a to b",
+        "containerRecommendations": [
+          {
+            "containerName": "fluentd-elasticsearch",
+            "current": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "100m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "200Mi"
+                }
+              ],
+              "yaml": "limits:\n  memory: 200Mi\nrequests:\n  memory: 200Mi\n  cpu: 100m\n"
+            },
+            "recommended": {
+              "requests": [
+                {
+                  "name": "cpu",
+                  "quantity": "25m"
+                },
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "limits": [
+                {
+                  "name": "memory",
+                  "quantity": "210M"
+                }
+              ],
+              "yaml": "limits:\n  memory: 210M\nrequests:\n  memory: 210M\n  cpu: 25m\n"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

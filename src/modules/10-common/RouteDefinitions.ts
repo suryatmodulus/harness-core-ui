@@ -821,6 +821,14 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
+  toCERecommendations: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations`
+  ),
+  toCERecommendationDetails: withAccountId(
+    ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+  ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
   toCustomDasboardHome: withAccountId(() => '/dashboards/home'),

@@ -15,6 +15,8 @@ import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
 import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
 import CECOAccessPointsPage from './pages/co-access-points/CECOAccessPointsPage'
+import RecommendationList from './pages/recommendation/RecommendationList'
+import RecommendationDetailsPage from './pages/recommendationDetails/RecommendationDetailsPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -95,6 +97,24 @@ export default (
       exact
     >
       <CECOAccessPointsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCERecommendations({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <RecommendationList />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CESideNavProps}
+      path={routes.toCERecommendationDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        recommendation: ':recommendation'
+      })}
+      exact
+    >
+      <RecommendationDetailsPage />
     </RouteWithLayout>
   </>
 )

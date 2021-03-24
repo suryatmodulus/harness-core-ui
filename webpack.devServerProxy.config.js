@@ -1,5 +1,5 @@
 const baseUrl = 'https://qb.harness.io/gateway'
-const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
+const targetLocalHost = false // set to false to target baseUrl environment instead of localhost
 
 module.exports = {
   '/ng/api': {

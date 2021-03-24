@@ -5,5 +5,7 @@ declare const styles: {
   readonly path: string
   readonly branch: string
   readonly dialog: string
+  readonly pathRow: string
+  readonly label: string
 }
 export default styles

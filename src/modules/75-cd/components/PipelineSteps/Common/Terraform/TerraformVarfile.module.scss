@@ -1,0 +1,28 @@
+.tfContainer {
+  display: flex;
+
+  background: none !important;
+}
+.path {
+  background: #f3f3fa !important;
+  /* Gray Scale / Gray Scale 200 */
+
+  border: 1px solid #d9dae6 !important;
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding: 5px !important;
+}
+.branch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px !important;
+}
+
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  width: 1000px;
+  padding: 10px;
+}

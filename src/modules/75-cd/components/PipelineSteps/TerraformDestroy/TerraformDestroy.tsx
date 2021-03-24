@@ -44,6 +44,7 @@ import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import GitStore from '../Common/Terraform/GitStore'
 import BaseForm from '../Common/Terraform/BaseForm'
 
+import TfVarFileList from '../Common/Terraform/TfVarFileList'
 import type { TerraformData } from '../Common/Terraform/TerraformIntefaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformDestroy.module.scss'
@@ -90,7 +91,21 @@ const setInitialValues = (data: TerraformData): TerraformData => {
     spec: {
       provisionerIdentifier: data?.spec?.provisionerIdentifier,
       configuration: {
-        type: data?.spec?.configuration?.type
+        type: data?.spec?.configuration?.type,
+        spec: {
+          varFiles: [
+            {
+              type: 'Remote',
+              store: {
+                spec: {
+                  gitFetchType: 'Branch',
+                  branch: 'main',
+                  paths: ['test']
+                }
+              }
+            }
+          ]
+        }
       }
     }
   }
@@ -104,7 +119,6 @@ function TerraformDestroyWidget(
   // const defaultValueToReset = ['']
   const [delegateSelectors, setDelegateSelectors] = React.useState<Array<string>>([])
   const { expressions } = useVariablesExpression()
-
   return (
     <>
       <Formik<TerraformData>
@@ -192,6 +206,12 @@ function TerraformDestroyWidget(
 
                   <Accordion.Panel
                     id="step-2"
+                    summary={getString('pipelineSteps.terraformVarFiles')}
+                    details={<TfVarFileList formik={formik} />}
+                  />
+
+                  <Accordion.Panel
+                    id="step-3"
                     summary={getString('pipelineSteps.backendConfig')}
                     details={
                       <>
@@ -203,7 +223,7 @@ function TerraformDestroyWidget(
                     }
                   />
                   <Accordion.Panel
-                    id="step-3"
+                    id="step-4"
                     summary={getString('cf.targets.title')}
                     details={
                       <MultiTypeList
@@ -220,7 +240,7 @@ function TerraformDestroyWidget(
                     }
                   />
                   <Accordion.Panel
-                    id="step-4"
+                    id="step-5"
                     summary={getString('environmentVariables')}
                     details={
                       <MultiTypeMap

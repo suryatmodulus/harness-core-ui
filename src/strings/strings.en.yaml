@@ -1252,7 +1252,6 @@ pipelineSteps:
   configurationType: 'Configuration Type'
   workspace: Workspace
   backendConfig: 'Backend Config'
-
   gitFetchType: 'Git Fetch Type'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
@@ -1262,6 +1261,9 @@ pipelineSteps:
   commitPlaceholder: 'Enter Commit ID here'
   commitLabel: 'Commit ID'
   configFiles: 'Config Files'
+  terraformVarFiles: 'Terraform Var Files'
+  addTerraformVarFile: 'Add Terraform Var File'
+  storeType: 'Store Type'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'

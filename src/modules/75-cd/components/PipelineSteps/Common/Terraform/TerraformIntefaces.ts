@@ -1,5 +1,17 @@
 import type { StepElementConfig } from 'services/cd-ng'
 
+interface VarFileArray {
+  type?: string
+  store?: {
+    spec?: {
+      gitFetchType?: string
+      branch?: string
+      commitId?: string
+      connectorRef?: string
+      paths?: string[]
+    }
+  }
+}
 export interface TerraformData extends StepElementConfig {
   delegateSelectors: string[]
   spec: {
@@ -17,6 +29,7 @@ export interface TerraformData extends StepElementConfig {
             connectorRef?: string
           }
         }
+        varFiles?: VarFileArray[]
       }
     }
   }

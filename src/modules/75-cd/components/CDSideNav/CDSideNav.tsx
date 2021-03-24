@@ -19,7 +19,7 @@ export default function CDSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cd'
   const { updateAppStore } = useAppStore()
-  const { GIT_SYNC_NG } = useFeatureFlags()
+  const { GIT_SYNC_NG, SERVICE_DASHBOARD_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -53,7 +53,7 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
-          <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />
+          {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
             {GIT_SYNC_NG ? (

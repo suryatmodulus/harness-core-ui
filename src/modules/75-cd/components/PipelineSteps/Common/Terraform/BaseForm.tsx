@@ -33,9 +33,9 @@ export default function GitStore(props: BaseFormProps): React.ReactElement {
           name="spec.provisionerIdentifier"
           label={getString('pipelineSteps.provisionerIdentifier')}
         />
-        {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={values.spec.provisionerIdentifier as string}
+            value={values.spec?.provisionerIdentifier as string}
             type="String"
             variableName="spec.provisionerIdentifier"
             showRequiredField={false}

@@ -264,6 +264,7 @@ fileFolderPathText: File/Folder Path
 chartPath: Chart Path
 pluginPath: Path to Kustomize plugin
 addFileText: + Add File
+addFile: Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
@@ -1250,6 +1251,9 @@ pipelineSteps:
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   configurationType: 'Configuration Type'
+  addTfVarFile: 'Add TfVar File'
+  content: 'Content'
+  repoName: 'Repo Name'
   workspace: Workspace
   backendConfig: 'Backend Config'
   gitFetchType: 'Git Fetch Type'

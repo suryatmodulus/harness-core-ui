@@ -17,7 +17,7 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
-import type { StepElementConfig } from 'services/cd-ng'
+
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useStrings } from 'framework/exports'
 import {
@@ -52,60 +52,27 @@ export const configurationTypes: SelectOption[] = [
   { label: 'Inherit From Apply', value: 'InheritFromApply' }
 ]
 
-export interface TerraformDestroyData extends StepElementConfig {
-  delegateSelectors: string[]
-  spec: {
-    provisionerIdentifier: string
-    configuration: {
-      type: string
-    }
-  }
-}
-
 interface TerraformDestroyProps {
-  initialValues: TerraformDestroyData
-  onUpdate?: (data: TerraformDestroyData) => void
+  initialValues: TerraformData
+  onUpdate?: (data: TerraformData) => void
   stepViewType?: StepViewType
   inputSetData?: {
-    template?: TerraformDestroyData
+    template?: TerraformData
     path?: string
   }
   readonly?: boolean
 }
 
 export interface TerraformDestroyVariableStepProps {
-  initialValues: TerraformDestroyData
+  initialValues: TerraformData
   stageIdentifier: string
-  onUpdate?(data: TerraformDestroyData): void
+  onUpdate?(data: TerraformData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: TerraformDestroyData
+  variablesData: TerraformData
 }
 
 const setInitialValues = (data: TerraformData): TerraformData => {
-  return {
-    ...data,
-    delegateSelectors: data?.delegateSelectors,
-    spec: {
-      provisionerIdentifier: data?.spec?.provisionerIdentifier,
-      configuration: {
-        type: data?.spec?.configuration?.type,
-        spec: {
-          varFiles: [
-            {
-              type: 'Remote',
-              store: {
-                spec: {
-                  gitFetchType: 'Branch',
-                  branch: 'main',
-                  paths: ['test']
-                }
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
+  return data
 }
 function TerraformDestroyWidget(
   props: TerraformDestroyProps,
@@ -177,71 +144,73 @@ function TerraformDestroyWidget(
                   )}
                 </div>
 
-                <Accordion activeId="step-1" className={stepCss.accordion}>
-                  <Accordion.Panel
-                    id="step-1"
-                    summary={getString('pipelineSteps.configFiles')}
-                    details={<GitStore formik={formik} />}
-                  />
+                {formik.values?.spec?.configuration?.type === 'Inline' && (
+                  <Accordion activeId="step-1" className={stepCss.accordion}>
+                    <Accordion.Panel
+                      id="step-1"
+                      summary={getString('pipelineSteps.configFiles')}
+                      details={<GitStore formik={formik} />}
+                    />
 
-                  <Accordion.Panel
-                    id="step-2"
-                    summary={getString('pipelineSteps.terraformVarFiles')}
-                    details={<TfVarFileList formik={formik} />}
-                  />
+                    <Accordion.Panel
+                      id="step-2"
+                      summary={getString('pipelineSteps.terraformVarFiles')}
+                      details={<TfVarFileList formik={formik} />}
+                    />
 
-                  <Accordion.Panel
-                    id="step-3"
-                    summary={getString('pipelineSteps.backendConfig')}
-                    details={
-                      <>
-                        <FormInput.TextArea
-                          name="spec.backendConfig.content"
-                          label={getString('pipelineSteps.backendConfig')}
+                    <Accordion.Panel
+                      id="step-3"
+                      summary={getString('pipelineSteps.backendConfig')}
+                      details={
+                        <>
+                          <FormInput.TextArea
+                            name="spec.backendConfig.content"
+                            label={getString('pipelineSteps.backendConfig')}
+                          />
+                        </>
+                      }
+                    />
+                    <Accordion.Panel
+                      id="step-4"
+                      summary={getString('cf.targets.title')}
+                      details={
+                        <MultiTypeList
+                          name="spec.targets"
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                                {getString('cf.targets.title')}
+                              </Text>
+                            )
+                          }}
+                          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
                         />
-                      </>
-                    }
-                  />
-                  <Accordion.Panel
-                    id="step-4"
-                    summary={getString('cf.targets.title')}
-                    details={
-                      <MultiTypeList
-                        name="spec.targets"
-                        multiTypeFieldSelectorProps={{
-                          label: (
-                            <Text style={{ display: 'flex', alignItems: 'center' }}>
-                              {getString('cf.targets.title')}
-                            </Text>
-                          )
-                        }}
-                        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-                      />
-                    }
-                  />
-                  <Accordion.Panel
-                    id="step-5"
-                    summary={getString('environmentVariables')}
-                    details={
-                      <MultiTypeMap
-                        name="spec.environmentVariables"
-                        multiTypeFieldSelectorProps={{
-                          label: (
-                            <Text style={{ display: 'flex', alignItems: 'center' }}>
-                              {getString('environmentVariables')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                iconProps={{ size: 14 }}
-                              />
-                            </Text>
-                          )
-                        }}
-                      />
-                    }
-                  />
-                </Accordion>
+                      }
+                    />
+                    <Accordion.Panel
+                      id="step-5"
+                      summary={getString('environmentVariables')}
+                      details={
+                        <MultiTypeMap
+                          name="spec.environmentVariables"
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                                {getString('environmentVariables')}
+                                <Button
+                                  icon="question"
+                                  minimal
+                                  tooltip={getString('dependencyEnvironmentVariablesInfo')}
+                                  iconProps={{ size: 14 }}
+                                />
+                              </Text>
+                            )
+                          }}
+                        />
+                      }
+                    />
+                  </Accordion>
+                )}
               </Layout.Vertical>
             </>
           )
@@ -303,10 +272,10 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
   protected stepIcon: IconName = 'terraform-apply'
   protected stepName = 'Terraform Delete'
   validateInputSet(
-    data: TerraformDestroyData,
-    template?: TerraformDestroyData,
+    data: TerraformData,
+    template?: TerraformData,
     getString?: (key: string, vars?: Record<string, any>) => string
-  ): FormikErrors<TerraformDestroyData> {
+  ): FormikErrors<TerraformData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
@@ -330,7 +299,7 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
     }
     return errors
   }
-  renderStep(props: StepProps<TerraformDestroyData, unknown>): JSX.Element {
+  renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {

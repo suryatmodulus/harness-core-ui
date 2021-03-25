@@ -1,3 +1,4 @@
+import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepElementConfig } from 'services/cd-ng'
 
 interface VarFileArray {
@@ -14,23 +15,43 @@ interface VarFileArray {
 }
 export interface TerraformData extends StepElementConfig {
   delegateSelectors: string[]
-  spec: {
-    provisionerIdentifier: string
-    configuration: {
-      type: string
+  spec?: {
+    provisionerIdentifier?: string
+    configuration?: {
+      type?: string
       spec?: {
         workspace?: string
-        store?: {
-          spec?: {
-            gitFetchType?: string
-            branch?: string
-            commitId?: string
-            folderPath?: string
-            connectorRef?: string
+        configFiles?: {
+          store?: {
+            type: string
+            spec?: {
+              gitFetchType?: string
+              branch?: string
+              commitId?: string
+              folderPath?: string
+              connectorRef?: {
+                label: string
+                scope: Scope
+                value: string
+              }
+            }
           }
         }
         varFiles?: VarFileArray[]
       }
     }
   }
+}
+
+export interface TfVar {
+  type?: string
+  connectorRef?: {
+    label: string
+    scope: Scope
+    value: string
+  }
+  gitFetchType?: string
+  branch?: string
+  commitId?: string
+  paths?: string[]
 }

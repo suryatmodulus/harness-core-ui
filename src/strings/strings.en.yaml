@@ -2498,3 +2498,5 @@ userProfile:
   myProjects: My Projects
   myGroups: My Groups
   myTools: My Collaboration Tools
+serviceDashboard:
+  activeServiceInstancesLabel: Active Service Instances

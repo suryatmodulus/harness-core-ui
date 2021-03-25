@@ -326,6 +326,7 @@ commandLabel: Command
 summary: Summary
 permissions: Permissions
 activityLog: Activity Log
+selectAnExistingConnector: Select an existing Connector
 authentication: Authentication
 preCommandLabel: PreCommand
 preCommandInfo: Commands used for setting up the environment before running the tests

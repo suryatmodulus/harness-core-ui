@@ -60,48 +60,40 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
                   class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                   style="width: 300px;"
                 >
-                  <span
-                    class="bp3-popover-wrapper"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                    style="width: 272px;"
+                    type="button"
                   >
                     <span
-                      class="bp3-popover-target"
+                      class="bp3-button-text"
                     >
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
-                        style="width: 272px;"
-                        type="button"
+                      <span
+                        class="placeholder"
                       >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <span
-                            class="placeholder"
-                          >
-                            Select connector
-                          </span>
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                          icon="caret-down"
-                        >
-                          <svg
-                            data-icon="caret-down"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              caret-down
-                            </desc>
-                            <path
-                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
+                        Select connector
+                      </span>
                     </span>
-                  </span>
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                   <span
                     class="bp3-popover-wrapper MultiTypeInput--wrapper"
                   >

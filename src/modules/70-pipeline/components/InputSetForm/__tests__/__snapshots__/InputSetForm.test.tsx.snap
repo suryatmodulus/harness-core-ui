@@ -649,97 +649,89 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             <div
                                               class="bp3-form-content"
                                             >
-                                              <span
-                                                class="bp3-popover-wrapper"
+                                              <button
+                                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                style="width: 400px;"
+                                                type="button"
                                               >
                                                 <span
-                                                  class="bp3-popover-target"
+                                                  class="bp3-button-text"
                                                 >
-                                                  <button
-                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
-                                                    style="width: 400px;"
-                                                    type="button"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
                                                     <span
-                                                      class="bp3-button-text"
+                                                      class="bp3-popover-wrapper"
                                                     >
-                                                      <div
-                                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
                                                       >
                                                         <span
-                                                          class="bp3-popover-wrapper"
+                                                          class="bp3-tag bp3-minimal tag"
                                                         >
                                                           <span
-                                                            class="bp3-popover-target"
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
                                                           >
-                                                            <p
-                                                              class="StyledProps--font StyledProps--main label"
-                                                              tabindex="0"
-                                                            >
-                                                              tesa1
-                                                            </p>
+                                                            org
                                                           </span>
                                                         </span>
-                                                        <div
-                                                          class="rightStatus"
-                                                        >
-                                                          <span
-                                                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                                            icon="full-circle"
-                                                          >
-                                                            <svg
-                                                              data-icon="full-circle"
-                                                              height="6"
-                                                              viewBox="0 0 16 16"
-                                                              width="6"
-                                                            >
-                                                              <desc>
-                                                                full-circle
-                                                              </desc>
-                                                              <path
-                                                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                                                fill-rule="evenodd"
-                                                              />
-                                                            </svg>
-                                                          </span>
-                                                          <span
-                                                            class="Tag--main"
-                                                          >
-                                                            <span
-                                                              class="bp3-tag bp3-minimal tag"
-                                                            >
-                                                              <span
-                                                                class="bp3-text-overflow-ellipsis bp3-fill"
-                                                              >
-                                                                org
-                                                              </span>
-                                                            </span>
-                                                          </span>
-                                                        </div>
-                                                      </div>
-                                                    </span>
-                                                    <span
-                                                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                                                      icon="caret-down"
-                                                    >
-                                                      <svg
-                                                        data-icon="caret-down"
-                                                        height="16"
-                                                        viewBox="0 0 16 16"
-                                                        width="16"
-                                                      >
-                                                        <desc>
-                                                          caret-down
-                                                        </desc>
-                                                        <path
-                                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                                          fill-rule="evenodd"
-                                                        />
-                                                      </svg>
-                                                    </span>
-                                                  </button>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
-                                              </span>
+                                                <span
+                                                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                                                  icon="caret-down"
+                                                >
+                                                  <svg
+                                                    data-icon="caret-down"
+                                                    height="16"
+                                                    viewBox="0 0 16 16"
+                                                    width="16"
+                                                  >
+                                                    <desc>
+                                                      caret-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
                                             </div>
                                           </div>
                                           <div
@@ -2038,97 +2030,89 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             <div
                                               class="bp3-form-content"
                                             >
-                                              <span
-                                                class="bp3-popover-wrapper"
+                                              <button
+                                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                                                style="width: 400px;"
+                                                type="button"
                                               >
                                                 <span
-                                                  class="bp3-popover-target"
+                                                  class="bp3-button-text"
                                                 >
-                                                  <button
-                                                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main container"
-                                                    style="width: 400px;"
-                                                    type="button"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
                                                     <span
-                                                      class="bp3-button-text"
+                                                      class="bp3-popover-wrapper"
                                                     >
-                                                      <div
-                                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
                                                       >
                                                         <span
-                                                          class="bp3-popover-wrapper"
+                                                          class="bp3-tag bp3-minimal tag"
                                                         >
                                                           <span
-                                                            class="bp3-popover-target"
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
                                                           >
-                                                            <p
-                                                              class="StyledProps--font StyledProps--main label"
-                                                              tabindex="0"
-                                                            >
-                                                              tesa1
-                                                            </p>
+                                                            org
                                                           </span>
                                                         </span>
-                                                        <div
-                                                          class="rightStatus"
-                                                        >
-                                                          <span
-                                                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                                            icon="full-circle"
-                                                          >
-                                                            <svg
-                                                              data-icon="full-circle"
-                                                              height="6"
-                                                              viewBox="0 0 16 16"
-                                                              width="6"
-                                                            >
-                                                              <desc>
-                                                                full-circle
-                                                              </desc>
-                                                              <path
-                                                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                                                fill-rule="evenodd"
-                                                              />
-                                                            </svg>
-                                                          </span>
-                                                          <span
-                                                            class="Tag--main"
-                                                          >
-                                                            <span
-                                                              class="bp3-tag bp3-minimal tag"
-                                                            >
-                                                              <span
-                                                                class="bp3-text-overflow-ellipsis bp3-fill"
-                                                              >
-                                                                org
-                                                              </span>
-                                                            </span>
-                                                          </span>
-                                                        </div>
-                                                      </div>
-                                                    </span>
-                                                    <span
-                                                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                                                      icon="caret-down"
-                                                    >
-                                                      <svg
-                                                        data-icon="caret-down"
-                                                        height="16"
-                                                        viewBox="0 0 16 16"
-                                                        width="16"
-                                                      >
-                                                        <desc>
-                                                          caret-down
-                                                        </desc>
-                                                        <path
-                                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                                          fill-rule="evenodd"
-                                                        />
-                                                      </svg>
-                                                    </span>
-                                                  </button>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
-                                              </span>
+                                                <span
+                                                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                                                  icon="caret-down"
+                                                >
+                                                  <svg
+                                                    data-icon="caret-down"
+                                                    height="16"
+                                                    viewBox="0 0 16 16"
+                                                    width="16"
+                                                  >
+                                                    <desc>
+                                                      caret-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
                                             </div>
                                           </div>
                                           <div

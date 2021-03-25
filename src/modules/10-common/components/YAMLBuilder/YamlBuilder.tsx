@@ -161,21 +161,25 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
 
   const verifyIncomingJSON = (jsonObj?: Record<string, any>): void => {
-    const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/:\s*null/g, ':""')) as Record<
-      string,
-      any
-    >
-    const sanitizedJSONObj = sanitize(jsonObjWithoutNulls, yamlSanityConfig)
-    if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
-      const yamlEqOfJSON = stringify(sanitizedJSONObj)
-      const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
-      setCurrentYaml(sanitizedYAML)
-      yamlRef.current = sanitizedYAML
-      verifyYAML(sanitizedYAML)
-    } else {
-      setCurrentYaml('')
-      yamlRef.current = ''
-      setYamlValidationErrors(undefined)
+    try {
+      const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/:\s*null/g, ':""')) as Record<
+        string,
+        any
+      >
+      const sanitizedJSONObj = sanitize(jsonObjWithoutNulls, yamlSanityConfig)
+      if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
+        const yamlEqOfJSON = stringify(sanitizedJSONObj)
+        const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
+        setCurrentYaml(sanitizedYAML)
+        yamlRef.current = sanitizedYAML
+        verifyYAML(sanitizedYAML)
+      } else {
+        setCurrentYaml('')
+        yamlRef.current = ''
+        setYamlValidationErrors(undefined)
+      }
+    } catch (e) {
+      // Ignore error
     }
   }
 

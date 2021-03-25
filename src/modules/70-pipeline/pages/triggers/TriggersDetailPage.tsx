@@ -84,9 +84,9 @@ export default function TriggersDetailPage(): JSX.Element {
     }
   })
 
-  let triggerYAMLEqOfJson
+  let triggerJSON
   try {
-    triggerYAMLEqOfJson = parse(triggerResponse?.data?.yaml || '')
+    triggerJSON = parse(triggerResponse?.data?.yaml || '')
   } catch (e) {
     // ignore error
   }
@@ -95,7 +95,7 @@ export default function TriggersDetailPage(): JSX.Element {
     fileName: `${triggerResponse?.data?.identifier ?? 'Trigger'}.yaml`,
     // TO DO: update GetYamlSchemaQueryParams to add trigger
     entityType: 'Pipelines',
-    existingJSON: triggerYAMLEqOfJson,
+    existingJSON: triggerJSON,
     width: 900
   }
 

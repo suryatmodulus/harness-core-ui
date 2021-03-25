@@ -84,11 +84,18 @@ export default function TriggersDetailPage(): JSX.Element {
     }
   })
 
+  let triggerYAMLEqOfJson
+  try {
+    triggerYAMLEqOfJson = parse(triggerResponse?.data?.yaml || '')
+  } catch (e) {
+    // ignore error
+  }
+
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${triggerResponse?.data?.identifier ?? 'Trigger'}.yaml`,
     // TO DO: update GetYamlSchemaQueryParams to add trigger
     entityType: 'Pipelines',
-    existingJSON: { connector: triggerResponse?.data?.yaml },
+    existingJSON: triggerYAMLEqOfJson,
     width: 900
   }
 

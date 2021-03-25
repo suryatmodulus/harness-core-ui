@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeListType,
   MultiTypeListUIType,
@@ -17,7 +18,7 @@ import type {
 import { SaveCacheGCSStepBaseWithRef } from './SaveCacheGCSStepBase'
 import { SaveCacheGCSStepInputSet } from './SaveCacheGCSStepInputSet'
 import { SaveCacheGCSStepVariables, SaveCacheGCSStepVariablesProps } from './SaveCacheGCSStepVariables'
-import { inputSetViewValidateFieldsConfig } from './SaveCacheGCSStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './SaveCacheGCSStepFunctionConfigs'
 
 export interface SaveCacheGCSStepSpec {
   connectorRef: string
@@ -80,6 +81,10 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
       key: '',
       sourcePaths: []
     }
+  }
+
+  processFormData<SaveCacheGCSStepDataUI>(data: SaveCacheGCSStepDataUI): SaveCacheGCSStepData {
+    return getFormValuesInCorrectFormat<SaveCacheGCSStepDataUI, SaveCacheGCSStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(

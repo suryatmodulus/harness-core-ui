@@ -8,6 +8,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -21,7 +22,7 @@ import { loggerFor, ModuleName } from 'framework/exports'
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
-import { inputSetViewValidateFieldsConfig } from './DockerHubStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DockerHubStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -115,6 +116,10 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
       }
     }
     return []
+  }
+
+  processFormData<DockerHubStepDataUI>(data: DockerHubStepDataUI): DockerHubStepData {
+    return getFormValuesInCorrectFormat<DockerHubStepDataUI, DockerHubStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(

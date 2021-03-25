@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,7 +18,7 @@ import type {
 import { ECRStepBaseWithRef } from './ECRStepBase'
 import { ECRStepInputSet } from './ECRStepInputSet'
 import { ECRStepVariables, ECRStepVariablesProps } from './ECRStepVariables'
-import { inputSetViewValidateFieldsConfig } from './ECRStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './ECRStepFunctionConfigs'
 
 export interface ECRStepSpec {
   connectorRef: string
@@ -90,6 +91,10 @@ export class ECRStep extends PipelineStep<ECRStepData> {
       imageName: '',
       tags: []
     }
+  }
+
+  processFormData<ECRStepDataUI>(data: ECRStepDataUI): ECRStepData {
+    return getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(data: ECRStepData, template?: ECRStepData, getString?: UseStringsReturn['getString']): object {

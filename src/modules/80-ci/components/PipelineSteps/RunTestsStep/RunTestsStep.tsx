@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeSelectOption,
   MultiTypePullOption,
@@ -19,7 +20,7 @@ import type {
 import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
 import { RunTestsStepInputSet } from './RunTestsStepInputSet'
 import { RunTestsStepVariables, RunTestsStepVariablesProps } from './RunTestsStepVariables'
-import { inputSetViewValidateFieldsConfig } from './RunTestsStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RunTestsStepFunctionConfigs'
 
 export interface RunTestsStepSpec {
   connectorRef: string
@@ -108,6 +109,10 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
       packages: '',
       runOnlySelectedTests: true
     }
+  }
+
+  processFormData<RunTestsStepDataUI>(data: RunTestsStepDataUI): RunTestsStepData {
+    return getFormValuesInCorrectFormat<RunTestsStepDataUI, RunTestsStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(

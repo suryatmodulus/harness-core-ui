@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -15,7 +16,7 @@ import type {
 import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
 import { PluginStepVariables, PluginStepVariablesProps } from './PluginStepVariables'
-import { inputSetViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './PluginStepFunctionConfigs'
 
 export interface PluginStepSpec {
   connectorRef: string
@@ -76,6 +77,10 @@ export class PluginStep extends PipelineStep<PluginStepData> {
       connectorRef: '',
       image: ''
     }
+  }
+
+  processFormData<PluginStepDataUI>(data: PluginStepDataUI): PluginStepData {
+    return getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(data: PluginStepData, template?: PluginStepData, getString?: UseStringsReturn['getString']): object {

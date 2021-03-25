@@ -6,11 +6,12 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { GCSStepBaseWithRef } from './GCSStepBase'
 import { GCSStepInputSet } from './GCSStepInputSet'
 import { GCSStepVariables, GCSStepVariablesProps } from './GCSStepVariables'
-import { inputSetViewValidateFieldsConfig } from './GCSStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCSStepFunctionConfigs'
 
 export interface GCSStepSpec {
   connectorRef: string
@@ -72,6 +73,11 @@ export class GCSStep extends PipelineStep<GCSStepData> {
       sourcePath: ''
     }
   }
+
+  processFormData<GCSStepDataUI>(data: GCSStepDataUI): GCSStepData {
+    return getFormValuesInCorrectFormat<GCSStepDataUI, GCSStepData>(data, transformValuesFieldsConfig)
+  }
+
   validateInputSet(data: GCSStepData, template?: GCSStepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

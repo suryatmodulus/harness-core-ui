@@ -8,6 +8,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeConnectorRef,
   Resources,
@@ -19,7 +20,7 @@ import { loggerFor, ModuleName } from 'framework/exports'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
 import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
-import { inputSetViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -104,6 +105,13 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
       }
     }
     return []
+  }
+
+  processFormData<RestoreCacheGCSStepDataUI>(data: RestoreCacheGCSStepDataUI): RestoreCacheGCSStepData {
+    return getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
+      data,
+      transformValuesFieldsConfig
+    )
   }
 
   validateInputSet(

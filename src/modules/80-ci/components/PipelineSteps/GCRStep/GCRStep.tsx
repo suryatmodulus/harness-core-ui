@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
@@ -17,7 +18,7 @@ import type {
 import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
 import { GCRStepVariables, GCRStepVariablesProps } from './GCRStepVariables'
-import { inputSetViewValidateFieldsConfig } from './GCRStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCRStepFunctionConfigs'
 
 export interface GCRStepSpec {
   connectorRef: string
@@ -90,6 +91,10 @@ export class GCRStep extends PipelineStep<GCRStepData> {
       imageName: '',
       tags: []
     }
+  }
+
+  processFormData<GCRStepDataUI>(data: GCRStepDataUI): GCRStepData {
+    return getFormValuesInCorrectFormat<GCRStepDataUI, GCRStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(data: GCRStepData, template?: GCRStepData, getString?: UseStringsReturn['getString']): object {

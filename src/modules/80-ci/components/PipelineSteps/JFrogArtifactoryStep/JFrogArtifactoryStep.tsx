@@ -8,13 +8,14 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor, ModuleName } from 'framework/exports'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
-import { inputSetViewValidateFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -101,6 +102,13 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
       }
     }
     return []
+  }
+
+  processFormData<JFrogArtifactoryStepDataUI>(data: JFrogArtifactoryStepDataUI): JFrogArtifactoryStepData {
+    return getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
+      data,
+      transformValuesFieldsConfig
+    )
   }
 
   validateInputSet(

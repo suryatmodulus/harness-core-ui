@@ -6,6 +6,7 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
   MultiTypeListType,
   MultiTypeListUIType,
@@ -17,7 +18,7 @@ import type {
 import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
 import { SaveCacheS3StepVariables, SaveCacheS3StepVariablesProps } from './SaveCacheS3StepVariables'
-import { inputSetViewValidateFieldsConfig } from './SaveCacheS3StepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './SaveCacheS3StepFunctionConfigs'
 
 export interface SaveCacheS3StepSpec {
   connectorRef: string
@@ -84,6 +85,11 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
       sourcePaths: []
     }
   }
+
+  processFormData<SaveCacheS3StepDataUI>(data: SaveCacheS3StepDataUI): SaveCacheS3StepData {
+    return getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(data, transformValuesFieldsConfig)
+  }
+
   validateInputSet(
     data: SaveCacheS3StepData,
     template?: SaveCacheS3StepData,

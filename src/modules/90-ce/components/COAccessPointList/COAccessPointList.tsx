@@ -19,6 +19,7 @@ import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { useStrings } from 'framework/exports'
 import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import { getRelativeTime } from '../COGatewayList/Utils'
 import css from './COAcessPointList.module.scss'
@@ -58,6 +59,7 @@ function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 
 const COAccessPointList: React.FC = () => {
   const { showError } = useToaster()
+  const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -243,7 +245,7 @@ const COAccessPointList: React.FC = () => {
                 <Layout.Horizontal width="55%" spacing="medium">
                   <Button
                     intent="primary"
-                    text="New Access Point"
+                    text={getString('ce.co.accessPoint.new')}
                     icon="plus"
                     onClick={() => createAccessPointModal()}
                   />
@@ -261,7 +263,7 @@ const COAccessPointList: React.FC = () => {
                 <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
                   <Layout.Horizontal flex>
                     <ExpandingSearchInput
-                      placeholder="search"
+                      placeholder={getString('search')}
                       // onChange={text => {
                       //   // console.log(text)
                       //   // setSearchParam(text.trim())
@@ -300,32 +302,32 @@ const COAccessPointList: React.FC = () => {
                   },
                   {
                     accessor: 'host_name',
-                    Header: 'Name'.toUpperCase(),
+                    Header: getString('name').toUpperCase(),
                     width: '20%',
                     Cell: NameCell
                   },
                   {
                     accessor: 'cloud_account_id',
-                    Header: 'Cloud Account'.toUpperCase(),
+                    Header: getString('ce.co.accessPoint.cloudAccount').toUpperCase(),
                     width: '20%',
                     Cell: CloudAccountCell
                   },
                   {
                     accessor: 'id',
-                    Header: 'DNS Provider'.toUpperCase(),
+                    Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
                     width: '15%',
                     Cell: DNSCell,
                     disableSortBy: true
                   },
                   {
                     accessor: 'name',
-                    Header: 'Associated Rules'.toUpperCase(),
+                    Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
                     width: '15%',
                     Cell: RulesCell
                   },
                   {
                     accessor: 'status',
-                    Header: 'Last Activity'.toUpperCase(),
+                    Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
                     width: '20%',
                     Cell: ActivityCell
                   }

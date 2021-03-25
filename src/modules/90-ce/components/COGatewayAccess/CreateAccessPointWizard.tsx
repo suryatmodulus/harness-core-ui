@@ -102,11 +102,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
       if (!accessPointStatusLoading) {
         if (accessPointData?.response?.status == 'errored') {
           setaccessPointStatusInProgress(false)
-          showError('could not create access point')
+          showError(getString('ce.co.accessPoint.error'))
         } else if (accessPointData?.response?.status == 'created') {
           setaccessPointStatusInProgress(false)
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
-          showSuccess('Access Point Created Succesfully')
+          showSuccess(getString('ce.co.accessPoint.success'))
           props.refreshAccessPoints()
           props.setAccessPoint?.(accessPointData?.response)
           props.closeModal()
@@ -157,7 +157,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
               <RadioGroup
                 inline={true}
                 name="dnsProvider"
-                label={'Select the DNS Provider'}
+                label={getString('ce.co.accessPoint.select.dnsProvider')}
                 onChange={e => {
                   formik.setFieldValue('dnsProvider', e.currentTarget.value)
                   setDNSProvider(e.currentTarget.value)
@@ -177,15 +177,15 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
                 }}
                 selectedValue={formik.values.dnsProvider}
               >
-                <Radio label="Route53" value="route53" />
-                <Radio label="Others" value="others" />
+                <Radio label={getString('ce.co.accessPoint.route53')} value="route53" />
+                <Radio label={getString('ce.co.accessPoint.others')} value="others" />
               </RadioGroup>
               {formik.values.dnsProvider == 'route53' ? (
                 <Layout.Horizontal spacing="medium">
                   <FormInput.Select
                     name="route53Account"
-                    label={'Select Route53 hosted zone'}
-                    placeholder={'Select route 53 hosted zone'}
+                    label={getString('ce.co.accessPoint.select.route53zone')}
+                    placeholder={getString('ce.co.accessPoint.select.route53zone')}
                     items={hostedZonesList}
                     onChange={e => {
                       formik.setFieldValue('route53Account', e.value)
@@ -238,10 +238,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
   )
 }
 const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props => {
+  const { getString } = useStrings()
   return (
     <StepWizard icon={'service-aws'} iconProps={{ size: 40 }} title={'Create New Access Point'}>
       <CreateTunnelStep
-        name="Create access point"
+        name={getString('ce.co.accessPoint.create')}
         accessPoint={props.accessPoint}
         closeModal={props.closeModal}
         refreshAccessPoints={props.refreshAccessPoints}
@@ -249,7 +250,7 @@ const CreateAccessPointWizard: React.FC<CreateAccessPointWizardProps> = props =>
         isRuleCreationMode={props.isRuleCreationMode}
       />
       <MapToProvider
-        name="Map the domain"
+        name={getString('ce.co.accessPoint.mapDomain')}
         accessPoint={props.accessPoint}
         closeModal={props.closeModal}
         setAccessPoint={props.setAccessPoint}

@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project Page List User Profile 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody filled"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main"
+      style="height: inherit;"
+    >
+      <div
+        class="StyledProps--font StyledProps--main details StyledProps--padding-huge"
+        style="width: 30%;"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              data-testid="editUserProfile"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+          >
+            <div
+              class="avatar Avatar--Avatar Avatar--contentStyle"
+            >
+              <span
+                class="bp3-popover-wrapper Avatar--avatarPopOver"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="Avatar--AvatarInner"
+                    style="border-radius: 100%; line-height: 66px; width: 72px; height: 72px; font-size: 28px;"
+                    tabindex="0"
+                  >
+                    O
+                  </div>
+                </span>
+              </span>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
+            >
+              olivia
+            </p>
+          </div>
+          <div
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-huge StyledProps--padding-bottom-huge"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+            >
+              Basic Information
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-medium"
+                data-icon="main-email"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 14 9"
+                  width="16"
+                >
+                  <path
+                    d="M0 .7v7.7l4.4-4zM13.2 0H.8L7 5.1zM9.6 4.3l4.4 4V.7zM7.3 6.1c0 .1-.2.2-.3.2s-.3 0-.3-.1L5.2 4.9.7 9h12.5L8.8 4.9z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+              olivia@harness.io
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-medium"
+                icon="lock"
+              >
+                <svg
+                  data-icon="lock"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    lock
+                  </desc>
+                  <path
+                    d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              Change Password
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main authentication StyledProps--padding-large StyledProps--flex"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+            >
+              Two-Factor Authentication
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="width: 70%;"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+        >
+          <div
+            class="bp3-tabs Tabs--main Tabs--horizontal"
+          >
+            <div
+              class="bp3-tab-list"
+              role="tablist"
+            >
+              <div
+                class="bp3-tab-indicator-wrapper"
+                style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+              >
+                <div
+                  class="bp3-tab-indicator"
+                />
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_overview_summary"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-selected="true"
+                class="bp3-tab"
+                data-tab-id="summary"
+                id="bp3-tab-title_overview_summary"
+                role="tab"
+                tabindex="0"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  Summary
+                </p>
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_overview_authentication"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="authentication"
+                id="bp3-tab-title_overview_authentication"
+                role="tab"
+                tabindex="0"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  Authentication
+                </p>
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_overview_permissions"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="permissions"
+                id="bp3-tab-title_overview_permissions"
+                role="tab"
+                tabindex="0"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  Permissions
+                </p>
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_overview_activityLog"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="activityLog"
+                id="bp3-tab-title_overview_activityLog"
+                role="tab"
+                tabindex="0"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                >
+                  Activity Log
+                </p>
+              </div>
+            </div>
+            <div
+              aria-hidden="false"
+              aria-labelledby="bp3-tab-title_overview_summary"
+              class="bp3-tab-panel"
+              id="bp3-tab-panel_overview_summary"
+              role="tabpanel"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                >
+                  My Projects
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                >
+                  My Groups
+                </p>
+                <div
+                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                  >
+                    My Source Code Managers
+                  </p>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        + Add a Source Code Manager
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                >
+                  My Collaboration Tools
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

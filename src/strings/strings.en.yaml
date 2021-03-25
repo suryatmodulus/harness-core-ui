@@ -2601,6 +2601,7 @@ userProfile:
   addSCM: Add a Source Code Manager
   plusSCM: + Add a Source Code Manager
   selectSCM: Select an Source Code Manager
+  editProfile: Edit Profile
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'

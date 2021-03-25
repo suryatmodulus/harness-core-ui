@@ -754,12 +754,31 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           <ConnectorReferenceField
                             disabled={readonly}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                            selected={get(
+                              initialValues,
+                              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+                              ''
+                            )}
                             label={''}
                             placeholder={''}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             type={ManifestToConnectorMap[type as ManifestStores]}
+                            onChange={(record, scope) => {
+                              const connectorRefSelected =
+                                scope === Scope.ORG || scope === Scope.ACCOUNT
+                                  ? `${scope}.${record?.identifier}`
+                                  : record?.identifier
+                              set(
+                                initialValues,
+                                `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+                                connectorRefSelected
+                              )
+                              onUpdate?.({
+                                ...initialValues
+                              })
+                            }}
                           />
                         </FormGroup>
                       )}

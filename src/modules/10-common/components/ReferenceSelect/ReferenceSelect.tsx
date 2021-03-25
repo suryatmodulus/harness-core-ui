@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Popover,
   Button,
   ExpressionAndRuntimeTypeProps,
   ExpressionAndRuntimeType,
@@ -11,7 +10,9 @@ import {
   FixedTypeComponentProps,
   MultiTypeInputType
 } from '@wings-software/uicore'
-import { Position, Classes } from '@blueprintjs/core'
+import { Classes, Dialog, Tabs, Tab } from '@blueprintjs/core'
+import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
@@ -27,6 +28,7 @@ export interface Item {
 export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<EntityReferenceProps<T>, 'onSelect'> {
   name: string
   placeholder: string
+  selectAnReferenceLabel: string
   selected?: Item
   createNewLabel?: string
   createNewHandler?: () => void
@@ -52,55 +54,101 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     disabled,
     ...referenceProps
   } = props
+  const [isOpen, setOpen] = React.useState(false)
   return (
-    <Popover position={Position.BOTTOM} minimal={true}>
+    <>
       <Button
         minimal
         className={css.container}
         style={{ width }}
+        withoutCurrentColor={true}
         rightIcon="caret-down"
         disabled={disabled}
         onClick={e => {
-          if (disabled) e.preventDefault()
+          if (disabled) {
+            e.preventDefault()
+          } else {
+            setOpen(true)
+          }
         }}
       >
         {selected ? selectedRenderer || selected.label : <span className={css.placeholder}>{placeholder}</span>}
       </Button>
-      <div className={css.contentContainer}>
-        {editRenderer && selected && selected.value && (
-          <Layout.Horizontal
-            padding="medium"
-            style={{
-              borderBottom: '1px solid var(--grey-250)',
-              paddingTop: '0',
-              marginBottom: 'var(--spacing-small)'
-            }}
-          >
-            {editRenderer}
-          </Layout.Horizontal>
-        )}
-        {createNewLabel && createNewHandler && isNewConnectorLabelVisible && (
-          <Layout.Horizontal
-            style={{
-              borderBottom: '1px solid var(--grey-250)',
-              paddingBottom: 'var(--spacing-small)'
-            }}
-            className={Classes.POPOVER_DISMISS}
-          >
-            <Button
-              minimal
-              onClick={() => {
-                createNewHandler?.()
+      <Dialog
+        isOpen={isOpen}
+        canEscapeKeyClose
+        canOutsideClickClose
+        onClose={() => setOpen(false)}
+        className={css.dialog}
+      >
+        <div className={cx(css.contentContainer)}>
+          {editRenderer && selected && selected.value && (
+            <Layout.Horizontal
+              padding="medium"
+              style={{
+                borderBottom: '1px solid var(--grey-250)',
+                paddingTop: '0',
+                paddingRight: 'var(--spacing-large)',
+                marginBottom: 'var(--spacing-small)'
               }}
-              style={{ width: '100%', justifyContent: 'flex-start' }}
             >
-              <Text color={Color.BLUE_500}>+ {createNewLabel}</Text>
-            </Button>
-          </Layout.Horizontal>
-        )}
-        <EntityReference<T> {...referenceProps} onSelect={(record, scope) => onChange(record, scope)} />
-      </div>
-    </Popover>
+              {editRenderer}
+              <Button onClick={() => setOpen(false)} className={css.closeButton} icon="cross" minimal />
+            </Layout.Horizontal>
+          )}
+          {createNewLabel && createNewHandler && isNewConnectorLabelVisible && (
+            <>
+              <Layout.Horizontal
+                style={{
+                  borderBottom: '1px solid var(--grey-250)',
+                  paddingBottom: 'var(--spacing-small)'
+                }}
+                className={Classes.POPOVER_DISMISS}
+              >
+                <Button
+                  minimal
+                  onClick={() => {
+                    createNewHandler?.()
+                  }}
+                  style={{ width: '100%', justifyContent: 'flex-start' }}
+                >
+                  <Text color={Color.BLUE_500}>+ {createNewLabel}</Text>
+                </Button>
+                <Button onClick={() => setOpen(false)} className={css.closeButton} icon="cross" minimal />
+              </Layout.Horizontal>
+            </>
+          )}
+          {isEmpty(selected) && !isNewConnectorLabelVisible ? (
+            <>
+              <Tabs id={'Select'}>
+                <Tab
+                  id={'reference'}
+                  title={<Text padding={'medium'}>{props.selectAnReferenceLabel}</Text>}
+                  panel={
+                    <EntityReference<T>
+                      {...referenceProps}
+                      onSelect={(record, scope) => {
+                        setOpen(false)
+                        onChange(record, scope)
+                      }}
+                    />
+                  }
+                />
+              </Tabs>
+              <Button onClick={() => setOpen(false)} className={css.closeButton} icon="cross" minimal />
+            </>
+          ) : (
+            <EntityReference<T>
+              {...referenceProps}
+              onSelect={(record, scope) => {
+                setOpen(false)
+                onChange(record, scope)
+              }}
+            />
+          )}
+        </div>
+      </Dialog>
+    </>
   )
 }
 export interface MultiTypeReferenceInputProps<T extends MinimalObject>

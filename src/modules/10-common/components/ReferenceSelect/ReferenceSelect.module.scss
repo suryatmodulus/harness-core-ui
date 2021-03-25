@@ -1,3 +1,8 @@
+.dialog {
+  width: auto;
+  padding-bottom: 0;
+}
+
 .container {
   box-shadow: none !important;
   border: 1px solid var(--bp3-intent-color, #dddddd) !important;
@@ -17,4 +22,26 @@
 }
 .contentContainer {
   padding: var(--spacing-medium);
+  position: relative;
+
+  .closeButton {
+    position: absolute;
+    top: 13px;
+    right: var(--spacing-small);
+  }
+
+  :global {
+    .bp3-tab-indicator-wrapper .bp3-tab-indicator {
+      background-color: var(--blue-500);
+      height: 3.5px;
+    }
+
+    .bp3-tab[aria-selected='true'] p {
+      font-weight: bold !important;
+    }
+    .bp3-tab[aria-selected='true'],
+    .bp3-tab:not([aria-disabled='true']):hover {
+      color: var(--blue-600);
+    }
+  }
 }

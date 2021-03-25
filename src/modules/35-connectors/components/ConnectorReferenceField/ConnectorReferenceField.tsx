@@ -161,6 +161,7 @@ export function getReferenceFieldProps({
   return {
     name,
     width,
+    selectAnReferenceLabel: getString('selectAnExistingConnector'),
     selected: selected as ConnectorSelectedValue,
     placeholder,
     defaultScope,

@@ -10,12 +10,18 @@
   .commandFlags {
     margin-top: var(--spacing-large);
   }
+  .delBtn {
+    margin-top: 18px !important;
+  }
   .runtimeInput {
     display: grid;
     grid-template-columns: 4fr 1fr;
   }
   .advancedStepOpen {
     min-height: 400px;
+  }
+  .skipResourceSection {
+    min-height: 200px;
   }
   .repoName {
     margin-bottom: 0 !important;

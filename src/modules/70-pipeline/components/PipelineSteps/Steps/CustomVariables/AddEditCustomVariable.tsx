@@ -3,21 +3,21 @@ import * as Yup from 'yup'
 import { Dialog, Classes } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 
-import type { NGVariable } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { getVaribaleTypeOptions } from './CustomVariableUtils'
 
 export interface VariableState {
-  variable: NGVariable
+  variable: AllNGVariables
   index: number
 }
 
 export interface AddEditCustomVariableProps {
   selectedVariable: VariableState | null
   setSelectedVariable(variable: VariableState | null): void
-  addNewVariable(variable: NGVariable): void
-  updateVariable(index: number, variable: NGVariable): void
+  addNewVariable(variable: AllNGVariables): void
+  updateVariable(index: number, variable: AllNGVariables): void
 }
 
 export default function AddEditCustomVariable(props: AddEditCustomVariableProps): React.ReactElement {

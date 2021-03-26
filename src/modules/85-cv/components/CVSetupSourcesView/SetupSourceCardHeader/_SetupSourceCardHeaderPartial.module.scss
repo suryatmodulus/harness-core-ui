@@ -14,6 +14,9 @@
   .content {
     width: 100% !important;
     padding: var(--spacing-large) !important;
+    > div:first-child {
+      margin-right: var(--spacing-small) !important;
+    }
   }
   .headingDivider {
     border-color: var(--grey-300) !important;

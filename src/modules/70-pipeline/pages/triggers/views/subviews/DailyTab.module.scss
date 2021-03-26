@@ -17,9 +17,6 @@
   }
 
   .radioContainer {
-    &:first-child {
-      border-bottom: 1px solid var(--grey-200);
-    }
     width: 100%;
     padding-bottom: var(--spacing-medium) !important;
   }
@@ -38,5 +35,22 @@
     p:not(.radioOption) {
       opacity: 0.5;
     }
+  }
+
+  [class*='bp3-menu'] {
+    overflow-x: hidden !important;
+    min-width: 100px;
+  }
+
+  [class*='Select'] {
+    width: 100px;
+  }
+
+  div [data-name='expressionBreakdown'] {
+    padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-xxxlarge) !important;
+  }
+
+  div[data-name='expression'] {
+    padding: 0 var(--spacing-xxxlarge) !important;
   }
 }

@@ -178,7 +178,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  test('Ensure modal opens after click on a heat map cell', async () => {
+  test('Ensure data is communicated on click', async () => {
     const useGetHeatmapSpy = jest.spyOn(cvService, 'useGetHeatmap')
     const refetchMock = jest.fn()
     const onClickHeatMapCellMock = jest.fn()
@@ -209,7 +209,12 @@ describe('Unit tests for Service Heatmap componnt', () => {
 
     // click on green square with risk score 0 for infrastructure
     fireEvent.click(heatmapCells[29])
-    await waitFor(() => expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000))
+    await waitFor(() =>
+      expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000, {
+        data: MockData.resource.Performance,
+        name: 'Performance'
+      })
+    )
     let stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
     expect(stickyTooltip).not.toBeNull()
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
@@ -228,7 +233,12 @@ describe('Unit tests for Service Heatmap componnt', () => {
 
     // click on another square with time range in the same day
     fireEvent.click(heatmapCells[27])
-    await waitFor(() => expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000))
+    await waitFor(() =>
+      expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000, {
+        data: MockData.resource.Performance,
+        name: 'Performance'
+      })
+    )
     stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
     expect(stickyTooltip).not.toBeNull()
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(

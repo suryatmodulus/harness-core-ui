@@ -58,6 +58,7 @@ allowpaths:
   - /verification-job/default-health-job
   - /newrelic/endpoints
   - /newrelic/applications
+  - /newrelic/metric-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

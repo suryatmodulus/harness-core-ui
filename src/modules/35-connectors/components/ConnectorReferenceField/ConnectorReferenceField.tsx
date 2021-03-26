@@ -63,7 +63,7 @@ const getAdditionalParams = ({
 
   return additionalParams
 }
-interface ConnectorSelectedValue {
+export interface ConnectorSelectedValue {
   label: string
   value: string
   scope: Scope
@@ -161,6 +161,7 @@ export function getReferenceFieldProps({
   return {
     name,
     width,
+    selectAnReferenceLabel: getString('selectAnExistingConnector'),
     selected: selected as ConnectorSelectedValue,
     placeholder,
     defaultScope,
@@ -219,39 +220,42 @@ export function getReferenceFieldProps({
     projectIdentifier,
     orgIdentifier,
     noRecordsText: getString('noConnectorFound'),
-    recordRender: function renderItem(item) {
+    recordRender: function renderItem(item, checked) {
       return (
-        <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between' }}>
-          <Layout.Horizontal spacing="small">
-            <Icon name={getIconByType(item.record.type)} size={30}></Icon>
-            <div>
-              <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
-              <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                {item.identifier}
-              </Text>
-            </div>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="small">
-            <Button
-              minimal
-              icon="edit"
-              className={css.editBtn}
-              onClick={e => {
-                e.stopPropagation()
-                openConnectorModal(true, item.record?.type || type, item.record)
-              }}
-              style={{
-                color: 'var(--blue-450)'
-              }}
-            />
-            <Icon
-              className={css.status}
-              name="full-circle"
-              size={6}
-              color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
-            />
-          </Layout.Horizontal>
-        </Layout.Horizontal>
+        <>
+          <div className={css.item}>
+            <Layout.Horizontal spacing="small">
+              <Icon name={getIconByType(item.record.type)} size={30}></Icon>
+              <div>
+                <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
+                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                  {item.identifier}
+                </Text>
+              </div>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="small">
+              <Button
+                minimal
+                icon="edit"
+                className={css.editBtn}
+                onClick={e => {
+                  e.stopPropagation()
+                  openConnectorModal(true, item.record?.type || type, item.record)
+                }}
+                style={{
+                  color: 'var(--blue-450)'
+                }}
+              />
+              <Icon
+                className={css.status}
+                name="full-circle"
+                size={6}
+                color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
+              />
+            </Layout.Horizontal>
+          </div>
+          <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} name="pipeline-approval" />
+        </>
       )
     }
   }

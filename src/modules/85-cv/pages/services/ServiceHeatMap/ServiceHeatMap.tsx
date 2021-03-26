@@ -18,7 +18,7 @@ interface ServiceHeatMapProps {
   endTime: number
   environmentIdentifier?: string
   serviceIdentifier?: string
-  onClickHeatMapCell?: (startTime?: number, endTime?: number) => void
+  onClickHeatMapCell?: (startTime?: number, endTime?: number, series?: SerieConfig) => void
   className?: string
 }
 
@@ -156,9 +156,9 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
           mapValue={mapHeatmapValue}
           renderTooltip={cellInfo => <HeatMapTooltip {...cellInfo} />}
           cellShapeBreakpoint={0.5}
-          onCellClick={(cell: HeatMapDTO) => {
+          onCellClick={(cell: HeatMapDTO, series: SerieConfig) => {
             if (cell?.startTime && cell?.endTime) {
-              onClickHeatMapCell?.(cell.startTime, cell.endTime)
+              onClickHeatMapCell?.(cell.startTime, cell.endTime, series)
             } else {
               onClickHeatMapCell?.()
             }

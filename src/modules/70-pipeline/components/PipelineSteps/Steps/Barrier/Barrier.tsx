@@ -1,5 +1,13 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  IconName,
+  Formik,
+  FormInput,
+  Layout,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  SelectOption
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
@@ -18,8 +26,9 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStep, StepProps } from '../../PipelineStep'
-
+import css from './Barrier.module.scss'
 type BarrierData = StepElementConfig
 
 export interface BarrierVariableStepProps {
@@ -42,18 +51,35 @@ interface BarrierProps {
 }
 
 function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<BarrierData>): React.ReactElement {
+  const {
+    state: { pipeline }
+  } = React.useContext(PipelineContext)
   const { initialValues, onUpdate } = props
+
   const { getString } = useStrings()
+  let barriers: SelectOption[] = []
+  if (pipeline?.flowControl?.barriers?.length) {
+    barriers = pipeline?.flowControl?.barriers?.map(barrier => ({
+      label: barrier.name,
+      value: barrier.identifier
+    }))
+  }
+
   return (
     <>
       <Formik<BarrierData>
         onSubmit={(values: BarrierData) => {
           onUpdate?.(values)
         }}
-        initialValues={initialValues}
+        initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-          timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum'))
+          timeout: getDurationValidationSchema({ minimum: '10s' }).required(
+            getString('validation.timeout10SecMinimum')
+          ),
+          spec: Yup.object().shape({
+            barrierRef: Yup.string().required('Barrier Ref. is required')
+          })
         })}
       >
         {(formik: FormikProps<BarrierData>) => {
@@ -65,10 +91,17 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                 inputLabel={getString('name')}
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
               />
+              <FormInput.Select
+                className={css.width50}
+                label="Barrier Reference"
+                name="spec.barrierRef"
+                items={barriers}
+              />
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
+                  className={css.width25}
                   multiTypeDurationProps={{ enableConfigureOptions: false }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -176,8 +209,8 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   }
 
   protected type = StepType.Barrier
-  protected stepName = 'Barrier'
-  protected stepIcon: IconName = 'command-barrier'
+  protected stepName = 'Synchronization Barrier'
+  protected stepIcon: IconName = 'barrier-open'
 
   protected defaultValues: BarrierData = {
     identifier: '',

@@ -23,7 +23,7 @@ export interface ResourceHandler {
 export interface ResourceTypeGroupHandler {
   icon: IconName
   label: string | React.ReactElement
-  resourceTypes?: ResourceType[]
+  resourceTypes?: Set<ResourceType>
 }
 
 class RbacFactory {
@@ -50,8 +50,8 @@ class RbacFactory {
         if (handler.category) {
           const resourceTypeGroupHandler = this.resourceTypeGroupMap.get(handler.category)
           if (resourceTypeGroupHandler) {
-            if (resourceTypeGroupHandler.resourceTypes) resourceTypeGroupHandler.resourceTypes.push(resourceType)
-            else resourceTypeGroupHandler.resourceTypes = [resourceType]
+            if (resourceTypeGroupHandler.resourceTypes) resourceTypeGroupHandler.resourceTypes.add(resourceType)
+            else resourceTypeGroupHandler.resourceTypes = new Set([resourceType])
             this.resourceTypeGroupMap.set(handler.category, resourceTypeGroupHandler)
           }
         } else {
@@ -59,6 +59,7 @@ class RbacFactory {
         }
       }
     })
+
     return Array.from(this.resourceTypeGroupMap.keys())
   }
 

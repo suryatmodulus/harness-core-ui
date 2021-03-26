@@ -1,21 +1,4 @@
-export const ActivityDetailsActivityType = {
-  BG: 'bg-verification',
-  TEST: 'test-verification',
-  CANARY: 'canary-verification',
-  HEALTH: 'health-verification'
-}
-
-export const ActivityDetailsActivitySource = {
-  KUBERNETES: 'kubernetes',
-  AWS: 'aws',
-  AZURE: 'azure',
-  GCP: 'gcp'
-}
-
-export const DataSourceRoutePaths = {
-  APP_DYNAMICS: 'app-dynamics',
-  SPLUNK: 'splunk'
-}
+import type { ActivitySourceDTO, DSConfig } from 'services/cv'
 
 export const ActivitySourceSetupRoutePaths = {
   KUBERNETES: 'kubernetes',
@@ -23,20 +6,22 @@ export const ActivitySourceSetupRoutePaths = {
 }
 export const MonitoringSourceSetupRoutePaths = {
   APP_DYNAMICS: 'app-dynamics',
-  GOOGLE_CLOUD_OPERATIONS: 'GoogleCloudOperations',
+  GOOGLE_CLOUD_OPERATIONS: 'google-cloud-operations',
   NEW_RELIC: 'new-relic'
 }
 
-export const getRoutePathByType = (type: string) => {
+export const getRoutePathByType = (type: DSConfig['type'] | ActivitySourceDTO['type']) => {
   switch (type) {
     case 'KUBERNETES':
       return ActivitySourceSetupRoutePaths.KUBERNETES
-    case 'HarnessCD_1.0':
+    case 'HARNESS_CD10':
       return ActivitySourceSetupRoutePaths.HARNESS_CD
-    case 'AppDynamics':
+    case 'APP_DYNAMICS':
       return MonitoringSourceSetupRoutePaths.APP_DYNAMICS
     case 'STACKDRIVER':
       return MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS
+    case 'NEW_RELIC':
+      return MonitoringSourceSetupRoutePaths.NEW_RELIC
     default:
       return ''
   }

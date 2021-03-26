@@ -198,16 +198,18 @@ const VerifyOutOfClusterDelegate: React.FC<
           >
             {testConnectionResponse?.data?.errorSummary}
           </Text>
-          <Button
-            width={'120px'}
-            text="View Details"
-            intent="primary"
-            font={{ size: 'small' }}
-            minimal
-            onClick={() => setViewDetails(!viewDetails)}
-            rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
-            iconProps={{ size: 12 }}
-          />
+          {testConnectionResponse?.data?.errors && (
+            <Button
+              width={'120px'}
+              text="View Details"
+              intent="primary"
+              font={{ size: 'small' }}
+              minimal
+              onClick={() => setViewDetails(!viewDetails)}
+              rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
+              iconProps={{ size: 12 }}
+            />
+          )}
         </Layout.Horizontal>
         {viewDetails ? (
           <div className={css.errorMsg}>
@@ -263,7 +265,7 @@ const VerifyOutOfClusterDelegate: React.FC<
 
         {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
           stepDetails.status === 'ERROR' ? (
-            testConnectionResponse?.data?.errorSummary && testConnectionResponse.data.errors ? (
+            testConnectionResponse?.data?.errorSummary || testConnectionResponse?.data?.errors ? (
               renderError()
             ) : (
               <Text padding={{ top: 'small' }}>{getString('connectors.testConnectionStep.placeholderError')}</Text>

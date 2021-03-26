@@ -101,10 +101,10 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [dnsProvider, setDNSProvider] = useState<string>(
     customDomainProviderDetails?.route53?.hosted_zone_id ? 'route53' : 'others'
   )
-  const [generatedHostName, setGeneratedHostName] = useState<string>(
-    (props.gatewayDetails.hostName as string) || 'Auto generated URL'
-  )
   const { getString } = useStrings()
+  const [generatedHostName, setGeneratedHostName] = useState<string>(
+    (props.gatewayDetails.hostName as string) || getString('ce.co.dnsSetup.autoURL')
+  )
 
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
@@ -255,7 +255,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 />
                 <FormInput.Text
                   name="customURL"
-                  placeholder={'Custom URL (Example: qa.yourcompany.com)'}
+                  placeholder={getString('ce.co.dnsSetup.customURL')}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     formik.setFieldValue('customURL', e.target.value)
                     debouncedCustomDomainTextChange(e.target.value, true)
@@ -269,7 +269,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               <>
                 <RadioGroup
                   inline={true}
-                  label="Is the URL publicly accessible?"
+                  label={getString('ce.co.dnsSetup.isURLaccessible')}
                   name="publicallyAccessible"
                   onChange={e => {
                     formik.setFieldValue('publicallyAccessible', e.currentTarget.value)
@@ -285,8 +285,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 <Layout.Vertical spacing="xsmall">
                   <FormInput.Select
                     name="accessPoint"
-                    label={'Select Access Point'}
-                    placeholder={'Select Access Point'}
+                    label={getString('ce.co.accessPoint.select.accessPoint')}
+                    placeholder={getString('ce.co.accessPoint.select.accessPoint')}
                     items={accessPointsList}
                     onChange={e => {
                       formik.setFieldValue('accessPoint', e.value)
@@ -337,15 +337,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       }}
                       selectedValue={formik.values.dnsProvider}
                     >
-                      <Radio label="Route53" value="route53" />
-                      <Radio label="Others" value="others" />
+                      <Radio label={getString('ce.co.accessPoint.route53')} value="route53" />
+                      <Radio label={getString('ce.co.accessPoint.others')} value="others" />
                     </RadioGroup>
                     {formik.values.dnsProvider == 'route53' ? (
                       <>
                         <FormInput.Select
                           name="route53Account"
-                          label={'Select Route53 account'}
-                          placeholder={'Select Route53 account'}
+                          label={getString('ce.co.accessPoint.select.route53')}
+                          placeholder={getString('ce.co.accessPoint.select.route53')}
                           items={hostedZonesList}
                           onChange={e => {
                             formik.setFieldValue('route53Account', e.value)

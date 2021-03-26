@@ -149,7 +149,7 @@ exports[`Tests for Validate Mapping cell Ensure that when in progress is passed 
 exports[`Tests for Validate Mapping cell Ensure that when no data is available minus is displayed 1`] = `
 <div>
   <p
-    class="StyledProps--font StyledProps--main"
+    class="StyledProps--font StyledProps--main clickableText"
     style="display: flex; align-items: center;"
   >
     <span
@@ -187,7 +187,7 @@ exports[`Tests for Validate Mapping cell Ensure that when no status is passed no
 exports[`Tests for Validate Mapping cell Ensure that when success is passed check is displayed 1`] = `
 <div>
   <p
-    class="StyledProps--font StyledProps--main StyledProps--intent-success"
+    class="StyledProps--font StyledProps--main clickableText StyledProps--intent-success"
     style="display: flex; align-items: center;"
   >
     <span

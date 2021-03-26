@@ -7,7 +7,6 @@ import secretsRoutes from '@secrets/RouteDestinations'
 import rbacRoutes from '@rbac/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
-import gitSyncRoutes from '@gitsync/RouteDestinations'
 import '@pipeline/RouteDestinations'
 import CDRoutes from '@cd/RouteDestinations'
 import CIRoutes from '@ci/RouteDestinations'
@@ -28,7 +27,6 @@ export default function RouteDestinations(): React.ReactElement {
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
-      {...gitSyncRoutes.props.children}
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}

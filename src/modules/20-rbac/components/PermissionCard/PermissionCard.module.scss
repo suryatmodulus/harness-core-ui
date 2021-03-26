@@ -19,7 +19,7 @@
 
 .groupRow {
   border-bottom: 1px solid var(--grey-200);
-  padding: var(--spacing-large);
+  padding: var(--spacing-large) 0;
 
   &:last-child {
     border: 0;
@@ -43,4 +43,5 @@
 
 .checkbox {
   margin-bottom: 0px !important;
+  color: var(--grey-900);
 }

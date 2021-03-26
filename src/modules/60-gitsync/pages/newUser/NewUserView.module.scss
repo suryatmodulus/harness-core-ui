@@ -1,0 +1,11 @@
+.pageContainer {
+  width: 472px;
+  margin: 0 auto !important;
+  text-align: center;
+  top: 20vh;
+  position: relative;
+
+  .gitEnableBtn {
+    padding: var(--spacing-small) var(--spacing-huge) !important;
+  }
+}

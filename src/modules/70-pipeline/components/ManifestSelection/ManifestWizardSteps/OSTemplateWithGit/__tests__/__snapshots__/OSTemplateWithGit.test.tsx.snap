@@ -40,7 +40,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Give name to your manifest config"
+                  placeholder="Add Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -98,7 +98,7 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Commit ID
+                  Branch/Commit ID
                    
                   <span
                     class="bp3-text-muted"

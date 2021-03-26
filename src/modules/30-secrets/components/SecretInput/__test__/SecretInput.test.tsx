@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, findByText } from '@testing-library/react'
+import { render, fireEvent, findByText, waitFor } from '@testing-library/react'
 import { FormikForm, Formik } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { act } from 'react-dom/test-utils'
@@ -63,6 +63,12 @@ describe('SecretInput', () => {
 
     act(() => {
       fireEvent.click(secret)
+    })
+
+    const applyBtn = await waitFor(() => findByText(modal!, 'Apply Selected'))
+
+    act(() => {
+      fireEvent.click(applyBtn)
     })
 
     expect(handleSuccess).toHaveBeenCalled()

@@ -206,7 +206,7 @@ function K8sDeleteDeployWidget(
         deleteResources: {
           type: getString('pipelineSteps.releaseNameValue'),
           spec: {
-            deleteNamespace: iValues.spec?.deleteResources?.spec?.deleteNamespace
+            deleteNamespace: iValues.spec?.deleteResources?.spec?.deleteNamespace || false
           }
         }
       }
@@ -254,7 +254,7 @@ function K8sDeleteDeployWidget(
                 deleteResources: {
                   type: getString('pipelineSteps.releaseNameValue'),
                   spec: {
-                    deleteNamespace: data.spec?.deleteResources?.spec?.deleteNamespace
+                    deleteNamespace: data.spec?.deleteResources?.spec?.deleteNamespace as boolean
                   }
                 }
               }

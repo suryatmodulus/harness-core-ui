@@ -54,6 +54,7 @@ import type { CustomVariableInputSetExtraProps } from '@pipeline/components/Pipe
 import { useListAwsRegions } from 'services/portal'
 import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
 import { ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
@@ -753,12 +754,31 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           <ConnectorReferenceField
                             disabled={readonly}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                            selected={get(
+                              initialValues,
+                              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+                              ''
+                            )}
                             label={''}
                             placeholder={''}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             type={ManifestToConnectorMap[type as ManifestStores]}
+                            onChange={(record, scope) => {
+                              const connectorRefSelected =
+                                scope === Scope.ORG || scope === Scope.ACCOUNT
+                                  ? `${scope}.${record?.identifier}`
+                                  : record?.identifier
+                              set(
+                                initialValues,
+                                `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+                                connectorRefSelected
+                              )
+                              onUpdate?.({
+                                ...initialValues
+                              })
+                            }}
                           />
                         </FormGroup>
                       )}
@@ -813,7 +833,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
               factory={(factory as unknown) as AbstractStepFactory}
               initialValues={{
-                variables: initialValues.variables || [],
+                variables: (initialValues.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
               type={StepType.CustomVariable}
@@ -825,7 +845,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                 })
               }}
               customStepProps={{
-                template: { variables: template?.variables || [] },
+                template: { variables: (template?.variables || []) as AllNGVariables[] },
                 path
               }}
             />

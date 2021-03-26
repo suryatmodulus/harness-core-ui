@@ -14,6 +14,7 @@ import {
   useGetSteps,
   UseGetStepsProps
 } from 'services/pipeline-ng'
+import { useGetProvisionerSteps } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { useLocalStorage } from '@common/hooks/useLocalStorage'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
@@ -71,6 +72,7 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
       base: getConfig('ng/api'),
       ...props,
       mock: {
+        loading: false,
         data: (isRunTestsStepEnabled
           ? (buildStageStepsWithRunTestsStep as unknown)
           : (buildStageSteps as unknown)) as ResponseStepCategory
@@ -80,12 +82,12 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
 }
 
 // TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: StageTypes): any => {
+const dataSourceFactory = (stageType: StageTypes, isProvisioner?: boolean): any => {
   switch (stageType) {
     case StageTypes.BUILD:
       return useGetBuildSteps
     case StageTypes.DEPLOY:
-      return useGetSteps
+      return isProvisioner ? useGetProvisionerSteps : useGetSteps
     case StageTypes.APPROVAL:
       // Replace this with approval step palette API
       return useGetSteps
@@ -109,13 +111,15 @@ export interface StepPaletteProps {
   stepsFactory: AbstractStepFactory
   selectedStage: object
   stageType: StageTypes
+  isProvisioner?: boolean
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,
   onClose,
   selectedStage,
   stepsFactory,
-  stageType
+  stageType,
+  isProvisioner = false
 }): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
@@ -138,15 +142,23 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     ) : null
   }
 
-  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(stageType)({
+  const { data: stepsData, loading: stepsDataLoading } = dataSourceFactory(
+    stageType,
+    isProvisioner
+  )({
     queryParams: { category: categoryForStepPalette, module, accountId }
   })
   const { getString } = useStrings()
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
     /* istanbul ignore else */ if (stepsCategories) {
-      setStepsCategories(stepsCategories)
-      setOriginalCategories(stepsCategories)
+      const flowControlStep = {
+        name: 'Flow Control',
+        stepsData: [{ name: 'Barriers', type: 'BARRIER' }],
+        stepCategories: []
+      }
+      setStepsCategories([...stepsCategories, flowControlStep])
+      setOriginalCategories([...stepsCategories, flowControlStep])
     }
   }, [stepsData?.data?.stepCategories])
 

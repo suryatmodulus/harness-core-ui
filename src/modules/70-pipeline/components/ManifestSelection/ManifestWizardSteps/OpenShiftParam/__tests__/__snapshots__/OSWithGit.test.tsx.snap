@@ -40,7 +40,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Give name to your manifest config"
+                  placeholder="Add Manifest Identifier"
                   type="text"
                   value=""
                 />

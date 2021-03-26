@@ -1,0 +1,47 @@
+.formWrapper {
+  padding: var(--spacing-large) !important;
+
+  .formBody {
+    min-height: 480px;
+
+    .cardWrapper {
+      text-align: center;
+      margin-right: var(--spacing-large);
+
+      .card {
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: var(--spacing-small) !important;
+        margin-bottom: var(--spacing-small);
+        width: 75px;
+        height: 75px;
+      }
+
+      .selectedCard {
+        background-color: var(--blue-300) !important;
+        border: thin solid var(--blue-500) !important;
+      }
+
+      .connectorTypeIcon {
+        margin: 0 !important;
+
+        svg {
+          margin: 0 auto var(--spacing-small) !important;
+          width: 45px;
+          height: 55px;
+        }
+      }
+    }
+
+    :global {
+      .bp3-input-group,
+      .bp3-menu {
+        width: 350px !important;
+      }
+    }
+  }
+
+  .formButton {
+    padding: 0 var(--spacing-large) !important;
+  }
+}

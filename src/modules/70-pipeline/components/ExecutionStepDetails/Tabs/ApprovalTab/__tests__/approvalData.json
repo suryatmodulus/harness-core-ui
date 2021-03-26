@@ -1,0 +1,69 @@
+{
+  "id": "tHlafNQNR3WAFDzBbhBFMA",
+  "type": "HarnessApproval",
+  "approvalMessage": "Please review the following information and approve the pipeline progression",
+  "includePipelineExecutionHistory": true,
+  "deadline": 1615979161158,
+  "details": {
+    "approvers": {
+      "userGroups": ["ug1", "ug2"],
+      "users": null,
+      "minimumCount": 3,
+      "disallowPipelineExecutor": true
+    },
+    "approvalActivities": [
+      {
+        "user": {
+          "uuid": "49zfOcWIT5ab7Iv2YgGyNQ",
+          "name": "User 1",
+          "email": "user1@harness.io"
+        },
+        "action": "APPROVE",
+        "approverInputs": [
+          {
+            "name": "var1",
+            "value": "val11"
+          },
+          {
+            "name": "var2",
+            "value": "val21"
+          }
+        ],
+        "comments": "c1",
+        "approvedAt": 1615975561161
+      },
+      {
+        "user": {
+          "uuid": "AIGoIvMyQXCZXMMX8eH6FQ",
+          "name": "User 2",
+          "email": "user2@harness.io"
+        },
+        "action": "REJECT",
+        "approverInputs": [
+          {
+            "name": "var1",
+            "value": "val12"
+          },
+          {
+            "name": "var2",
+            "value": "val22"
+          }
+        ],
+        "comments": "c2",
+        "approvedAt": 1615975561162
+      }
+    ],
+    "approverInputs": [
+      {
+        "name": "var1",
+        "defaultValue": "val10"
+      },
+      {
+        "name": "var2",
+        "defaultValue": "val20"
+      }
+    ]
+  },
+  "createdAt": 1615975561162,
+  "lastModifiedAt": 1615975561162
+}

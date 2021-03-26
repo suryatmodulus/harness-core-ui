@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button } from '@wings-software/uicore'
+import cx from 'classnames'
 
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { isApprovalStep } from '@pipeline/utils/stepUtils'
 
+import { REFRESH_APPROVAL } from './Tabs/ApprovalTab/ApprovalTab'
 import { StepDetailTabs } from './StepDetailTabs'
 import css from './ExecutionStepDetails.module.scss'
 
@@ -19,15 +21,21 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   const { allNodeMap } = useExecutionContext()
 
   const step = allNodeMap?.[selectedStep] || {}
-  const isApprovalStep = step.stepType === StepType.HarnessApproval || step.stepType === StepType.JiraApproval
+  const isApproval = isApprovalStep(step.stepType)
   const isWaiting = isExecutionWaiting(step.status)
+
+  function handleRefresh(): void {
+    if (isApproval && isWaiting) {
+      window.dispatchEvent(new CustomEvent(REFRESH_APPROVAL))
+    }
+  }
 
   return (
     <div className={css.main}>
-      <div className={css.header}>
+      <div className={cx(css.header, { [css.isApproval]: isApproval && isWaiting })}>
         <div className={css.title}>Step: {step.name}</div>
-        {isApprovalStep && isWaiting ? (
-          <Button minimal small>
+        {isApproval && isWaiting ? (
+          <Button minimal small intent="primary" onClick={handleRefresh}>
             Refresh
           </Button>
         ) : null}

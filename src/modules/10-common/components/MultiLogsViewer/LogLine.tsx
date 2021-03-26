@@ -86,7 +86,7 @@ export interface LogLineProps {
  */
 export function LogLine(props: LogLineProps): React.ReactElement {
   const {
-    data: { anserJson },
+    data: { anserJsonLevel, anserJsonTime, anserJsonOut },
     lineNumber
   } = props
 
@@ -94,22 +94,58 @@ export function LogLine(props: LogLineProps): React.ReactElement {
     <div className={css.logLine}>
       <div className={css.lineNumber}>{lineNumber}</div>
       <div className={css.line}>
-        {anserJson.map((row, i) => {
+        {anserJsonLevel?.map((row, i) => {
           return (
             <span
-              className={cx(
+              id="log-level"
+              className={`${css.logLineLevel} ${cx(
                 {
                   [`${row.bg}-bg`]: row.bg,
                   [`${row.fg}-fg`]: row.fg
                 },
                 ...(row.decorations || []).map(p => `ansi-decoration-${p}`)
-              )}
+              )}`}
               key={`${row.content}_${i}`}
-            >
-              {highlightedTextToReactNode(linkifyText(row.content))}
-            </span>
+              dangerouslySetInnerHTML={{ __html: linkifyText(row.content) }}
+            />
           )
         })}
+        {anserJsonTime?.map((row, i) => {
+          return (
+            <span
+              id="log-timestamp"
+              className={`${css.logLineTimestamp} ${cx(
+                {
+                  [`${row.bg}-bg`]: row.bg,
+                  [`${row.fg}-fg`]: row.fg
+                },
+                ...(row.decorations || []).map(p => `ansi-decoration-${p}`)
+              )}`}
+              key={`${row.content}_${i}`}
+              dangerouslySetInnerHTML={{ __html: linkifyText(row.content) }}
+            />
+          )
+        })}
+        {
+          <span className={css.logLineContent}>
+            {anserJsonOut?.map((row, i) => {
+              return (
+                <span
+                  id="log-content"
+                  className={cx(
+                    {
+                      [`${row.bg}-bg`]: row.bg,
+                      [`${row.fg}-fg`]: row.fg
+                    },
+                    ...(row.decorations || []).map(p => `ansi-decoration-${p}`)
+                  )}
+                  key={`${row.content}_${i}`}
+                  dangerouslySetInnerHTML={{ __html: linkifyText(row.content) }}
+                />
+              )
+            })}
+          </span>
+        }
       </div>
     </div>
   )

@@ -179,6 +179,15 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
           {props.node.getOutPorts().map(port => generatePort(port, props))}
         </div>
+        {options?.tertiaryIcon && (
+          <Icon
+            className={css.tertiaryIcon}
+            size={12}
+            name={options?.tertiaryIcon}
+            style={options?.tertiaryIconStyle}
+            {...options.tertiaryIconProps}
+          />
+        )}
         {options.secondaryIcon && (
           <Icon
             className={css.secondaryIcon}

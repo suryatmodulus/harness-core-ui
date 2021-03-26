@@ -100,7 +100,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                             }}
                           />
                         )}
-                        {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
+                        {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
                           <ConfigureOptions
                             value={variable.value as string}
                             defaultValue={variable.default}

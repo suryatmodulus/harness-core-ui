@@ -4,7 +4,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import produce from 'immer'
 import * as Yup from 'yup'
 import { stringify } from 'yaml'
-import { Button, Icon, Accordion, Tag, Text, Formik } from '@wings-software/uicore'
+import { Icon, Accordion, Tag, Text, Formik } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
 import type { PipelineInfoConfig } from 'services/cd-ng'
@@ -13,7 +13,6 @@ import { useGetBarriersSetupInfoList, StageDetail } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './FlowControl.module.scss'
 
 const getErrors = (barriers: Barrier[], errorText: string): Barrier[] => {
@@ -51,9 +50,8 @@ interface BarrierListProps {
 }
 export const FlowControl: React.FC = (): JSX.Element => {
   const {
-    state: { pipelineView, pipeline, originalPipeline },
-    updatePipeline,
-    updatePipelineView
+    state: { pipeline, originalPipeline },
+    updatePipeline
   } = React.useContext(PipelineContext)
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
 
@@ -147,14 +145,6 @@ export const FlowControl: React.FC = (): JSX.Element => {
             {getString('total')} : {barriers.length}
           </span>
         </div>
-
-        <Button
-          minimal
-          icon="cross"
-          onClick={() => {
-            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
-          }}
-        />
       </div>
       <div>
         <Accordion activeId="syncBarriers">

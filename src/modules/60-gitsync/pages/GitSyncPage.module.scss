@@ -10,11 +10,17 @@
   }
 }
 .activeTag {
-  background: var(--grey-800);
-  color: var(--white);
-  border-radius: 8px;
+  border-bottom: 2px solid var(--blue-500);
   &:hover {
     text-decoration: none;
-    color: var(--white);
+  }
+}
+
+.header {
+  flex-direction: column !important;
+  align-items: unset !important;
+
+  .breadCrumb {
+    font-size: 12px !important;
   }
 }

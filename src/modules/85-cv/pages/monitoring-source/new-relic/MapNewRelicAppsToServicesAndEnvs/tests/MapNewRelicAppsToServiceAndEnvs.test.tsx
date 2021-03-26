@@ -19,6 +19,22 @@ const MockApplicationsResponse = {
   correlationId: '2f58555c-1982-4b46-bfda-d57d4bdcc238'
 }
 
+const SuccessValidationResponse = {
+  status: 'SUCCESS',
+  data: {
+    metricValidationResponses: [
+      { metricName: 'Errors per Minute', value: 2.5078806695728937, status: 'SUCCESS' },
+      { metricName: 'Apdex', value: 0.0025216007110385828, status: 'SUCCESS' },
+      { metricName: 'Calls per Minute', value: 97887.0, status: 'SUCCESS' },
+      { metricName: 'Average Response Time (ms)', value: 0.0, status: 'SUCCESS' }
+    ],
+    metricPackName: null,
+    overallStatus: 'SUCCESS'
+  },
+  metaData: null,
+  correlationId: '201a0cb8-68ef-4842-9106-c5bea9032d77'
+}
+
 function WrapperComponent(): JSX.Element {
   return (
     <TestWrapper>
@@ -36,6 +52,13 @@ function WrapperComponent(): JSX.Element {
     </TestWrapper>
   )
 }
+
+jest.mock('@wings-software/uicore', () => ({
+  ...(jest.requireActual('@wings-software/uicore') as object),
+  Utils: {
+    randomId: () => '31231'
+  }
+}))
 
 jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment', () => ({
   useGetHarnessServices: () => ({
@@ -147,6 +170,10 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
       isInitializingDB: false
     })
 
+    const validationSpy = jest
+      .spyOn(cvService, 'getNewRelicMetricDataPromise')
+      .mockResolvedValue(SuccessValidationResponse as any)
+
     const { container, getByText } = render(<WrapperComponent />)
     await waitFor(() =>
       expect(container.querySelectorAll('div[role="row"]').length).toBe(MockApplicationsResponse.data.length + 1)
@@ -167,6 +194,59 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
     fireEvent.click(serviceDropdown)
     await waitFor(() => expect(getByText('{"label":"service1","value":"service1"}')))
 
+    await waitFor(() =>
+      expect(validationSpy).toHaveBeenCalledWith({
+        body: [
+          {
+            accountId: '123123',
+            category: 'Performance',
+            dataSourceType: 'NEW_RELIC',
+            identifier: 'Performance',
+            metrics: [
+              {
+                included: true,
+                name: 'Calls per Minute',
+                path:
+                  'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
+                thresholds: [],
+                type: 'THROUGHPUT',
+                validationPath: 'Overall Application Performance|__tier_name__|Calls per Minute'
+              },
+              {
+                included: true,
+                name: 'Average Response Time (ms)',
+                path: "SELECT average('apm.service.transaction.duration') FROM Metric",
+                thresholds: [],
+                type: 'RESP_TIME',
+                validationPath: 'Overall Application Performance|__tier_name__|Average Response Time (ms)'
+              },
+              {
+                included: true,
+                name: 'Errors per Minute',
+                path:
+                  'SELECT count(`apm.service.transaction.error.count`) FROM Metric FACET transactionName TIMESERIES',
+                thresholds: [],
+                type: 'ERROR',
+                validationPath: 'Overall Application Performance|__tier_name__|Errors per Minute'
+              }
+            ],
+            orgIdentifier: 'harness_test',
+            projectIdentifier: 'raghu_p',
+            thresholds: null,
+            uuid: '12312'
+          }
+        ],
+        queryParams: {
+          accountId: undefined,
+          appId: '107019083',
+          appName: 'My Application',
+          connectorIdentifier: 'sadad',
+          orgIdentifier: undefined,
+          projectIdentifier: undefined,
+          requestGuid: '31231'
+        }
+      })
+    )
     fireEvent.click(getByText('Next'))
   })
 
@@ -217,7 +297,7 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
     )
   })
 
-  test('Ensure modal is displayed when noo metricpacks are selected', async () => {
+  test('Ensure modal is displayed when no applications are selected', async () => {
     jest.spyOn(cvService, 'useGetNewRelicApplications').mockReturnValue({
       data: MockApplicationsResponse
     } as UseGetReturn<any, any, any, any>)

@@ -75,7 +75,7 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-  const isFlowControlEnabled = useFeatureFlag('FLOW_CONTROL')
+  const isFlowControlEnabled = useFeatureFlag('NG_BARRIERS')
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 
@@ -350,7 +350,7 @@ export const RightBar = (): JSX.Element => {
             validationSchema={Yup.object().shape({
               connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
               ...(connectionType === 'Account' && {
-                repoName: Yup.string().required(getString('pipelineSteps.build.create.repositoryNameRequiredError'))
+                repoName: Yup.string().required(getString('validation.repositoryName'))
               })
             })}
             onSubmit={(values): void => {
@@ -377,7 +377,7 @@ export const RightBar = (): JSX.Element => {
                   <FormikForm>
                     <ConnectorReferenceField
                       name="connectorRef"
-                      type={['Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
+                      type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                       selected={values.connectorRef}
                       width={460}
                       error={errors?.connectorRef}

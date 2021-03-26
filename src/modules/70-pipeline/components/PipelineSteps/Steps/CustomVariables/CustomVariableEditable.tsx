@@ -9,21 +9,20 @@ import { String } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
-import type { StringNGVariable } from 'services/cd-ng'
+import type { NGVariable } from 'services/cd-ng'
 import type { YamlProperties } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 import { CopyText } from '@common/components/CopyText/CopyText'
-
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
-export type NGVariable = Partial<StringNGVariable>
-
 export interface CustomVariablesData {
-  variables: Array<NGVariable & { new?: boolean }>
+  variables: Array<AllNGVariables & { new?: boolean }>
   isPropagating?: boolean
   canAddVariable?: boolean
 }
@@ -147,7 +146,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               }}
                             />
                           )}
-                          {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME ? (
+                          {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
                             <ConfigureOptions
                               value={variable.value as string}
                               defaultValue={variable.default}

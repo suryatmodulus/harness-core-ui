@@ -15,6 +15,7 @@ import type {
   CustomVariablesData,
   CustomVariableEditableExtraProps
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import type { AllNGVariables } from '@pipeline/utils/types'
 
 import css from './K8sServiceSpec.module.scss'
 
@@ -107,7 +108,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
             factory={stepsFactory}
             initialValues={{
-              variables: variables || [],
+              variables: (variables || []) as AllNGVariables[],
               canAddVariable: true
             }}
             type={StepType.CustomVariable}
@@ -117,7 +118,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
               variableNamePrefix: 'serviceConfig.variables.',
               className: css.customVariables,
               heading: <b>{getString('customVariables.title')}</b>,
-              yamlProperties: variablesData?.variables?.map(
+              yamlProperties: (variablesData?.variables as AllNGVariables[])?.map(
                 variable => metadataMap?.[variable.value || '']?.yamlProperties || {}
               )
             }}

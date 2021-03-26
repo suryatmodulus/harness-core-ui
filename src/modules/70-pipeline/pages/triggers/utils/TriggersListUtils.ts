@@ -15,6 +15,9 @@ export const GitSourceProviders: Record<
   CUSTOM: { value: 'CUSTOM', iconName: 'build' }
 }
 
+const TriggerTypeIcons = {
+  SCHEDULE: 'trigger-schedule'
+}
 export const getTriggerIcon = ({
   type,
   webhookSourceRepo
@@ -25,7 +28,9 @@ export const getTriggerIcon = ({
   const webhookSourceRepoIconName =
     webhookSourceRepo && GitSourceProviders[webhookSourceRepo as GetActionsListQueryParams['sourceRepo']]?.iconName
   if (type === TriggerTypes.WEBHOOK && webhookSourceRepoIconName) {
-    return webhookSourceRepoIconName
+    return webhookSourceRepoIconName as IconName
+  } else if (type === TriggerTypes.SCHEDULE) {
+    return TriggerTypeIcons.SCHEDULE as IconName
   }
   // placeholder for now
   return GitSourceProviders.GITHUB?.iconName as IconName
@@ -58,9 +63,9 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
       categoryValue: 'Scheduled',
       items: [
         {
-          itemLabel: getString('pipeline-triggers.onScheduleLabel'),
-          value: 'Scheduled',
-          iconName: 'trigger-schedule'
+          itemLabel: getString('pipeline-triggers.cronLabel'),
+          value: 'Cron',
+          iconName: TriggerTypeIcons.SCHEDULE as IconName
         }
       ]
     },

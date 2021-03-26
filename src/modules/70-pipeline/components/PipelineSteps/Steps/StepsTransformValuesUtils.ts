@@ -21,7 +21,9 @@ export enum Types {
   ConnectorRef,
   ReportPaths,
   LimitMemory,
-  LimitCPU
+  LimitCPU,
+  Provisioner,
+  Boolean
 }
 
 interface Field {
@@ -61,7 +63,7 @@ export function getInitialValuesInCorrectFormat<T, U>(
   fields.forEach(({ name, type }) => {
     const value = get(initialValues, name)
 
-    if (type === Types.Text || type === Types.ConnectorRef) {
+    if (type === Types.Text || type === Types.ConnectorRef || type === Types.Boolean) {
       set(values, name, value)
     }
 
@@ -164,6 +166,11 @@ export function getInitialValuesInCorrectFormat<T, U>(
       const _value = get(initialValues, 'spec.resources.limits.cpu')
       set(values, 'spec.limitCPU', _value)
     }
+
+    if (type === Types.Provisioner) {
+      const provisioner = get(initialValues, 'provisioner')
+      set(values, 'provisioner.stage.spec.execution', provisioner)
+    }
   })
 
   return values as U
@@ -173,7 +180,7 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
   const values = {}
 
   fields.forEach(({ name, type }) => {
-    if (type === Types.Text) {
+    if (type === Types.Text || type === Types.Boolean) {
       const value = get(formValues, name)
       set(values, name, value)
     }
@@ -240,6 +247,11 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
     if (type === Types.LimitCPU) {
       const _value = get(formValues, 'spec.limitCPU')
       set(values, 'spec.resources.limits.cpu', _value)
+    }
+
+    if (type === Types.Provisioner) {
+      const _value = get(formValues, 'provisioner.stage.spec.execution')
+      set(values, 'provisioner', _value)
     }
   })
 

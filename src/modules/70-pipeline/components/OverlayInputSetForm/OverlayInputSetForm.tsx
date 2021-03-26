@@ -75,7 +75,9 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   height: 360,
   showSnippetSection: false,
   yamlSanityConfig: {
-    removeEmptyString: false
+    removeEmptyString: false,
+    removeEmptyObject: false,
+    removeEmptyArray: false
   }
 }
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text } from '@wings-software/uicore'
+import { Container, TextInput, Button, Layout, Text, Tabs, Tab, Icon, IconName } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import i18n from './EntityReference.i18n'
+import { useStrings } from 'framework/exports'
 import css from './EntityReference.module.scss'
 
 export interface ScopedObjectDTO {
@@ -54,13 +53,14 @@ export interface EntityReferenceProps<T> {
     searchTerm: string | undefined,
     done: (records: EntityReferenceResponse<T>[]) => void
   ) => void
-  recordRender: (item: EntityReferenceResponse<T>) => JSX.Element
+  recordRender: (item: EntityReferenceResponse<T>, selected?: boolean) => JSX.Element
   recordClassName?: string
   className?: string
   projectIdentifier?: string
   noRecordsText?: string
   orgIdentifier?: string
   defaultScope?: Scope
+  searchInlineComponent?: JSX.Element
 }
 
 function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
@@ -73,6 +73,7 @@ function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Sc
 }
 
 export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element {
+  const { getString } = useStrings()
   const {
     defaultScope,
     projectIdentifier,
@@ -81,7 +82,8 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     className = '',
     recordRender,
     recordClassName = '',
-    noRecordsText = i18n.noRecordFound
+    noRecordsText = getString('entityReference.noRecordFound'),
+    searchInlineComponent
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(
@@ -90,6 +92,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [data, setData] = useState<EntityReferenceResponse<T>[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
+  const [selectedRecord, setSelectedRecord] = useState<T>()
 
   React.useEffect(() => {
     setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
@@ -98,6 +101,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
       setLoading(true)
+      setSelectedRecord(undefined)
       fetchRecords(scope, search, done)
     }, 300)
   ).current
@@ -120,75 +124,103 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     } catch (msg) {
       setError(msg)
     }
-  }, [selectedScope, delayedFetchRecords, searchTerm])
+  }, [selectedScope, delayedFetchRecords, searchTerm, searchInlineComponent])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
+  const onScopeChange = (scope: Scope) => {
+    setSelectedRecord(undefined)
+    setSelectedScope(scope)
+  }
+
+  const iconProps = {
+    size: 16
+  }
+
+  const enum TAB_ID {
+    PROJECT = 'project',
+    ORGANIZATION = 'organization',
+    ACCOUNT = 'account'
+  }
+
+  const defaultTab = projectIdentifier ? TAB_ID.PROJECT : orgIdentifier ? TAB_ID.ORGANIZATION : TAB_ID.ACCOUNT
+
+  const renderedList = loading ? (
+    <Container flex={{ align: 'center-center' }} padding="small">
+      <Icon name="spinner" size={24} color="blue500" />
+    </Container>
+  ) : error ? (
+    <Container>
+      <PageError message={error} onClick={fetchData} />
+    </Container>
+  ) : data.length ? (
+    <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
+      {data.map((item: EntityReferenceResponse<T>) => (
+        <div
+          key={item.identifier}
+          className={cx(css.listItem, recordClassName, {
+            [css.selectedItem]: selectedRecord === item.record
+          })}
+          onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
+        >
+          {recordRender(item, selectedRecord === item.record)}
+        </div>
+      ))}
+    </div>
+  ) : (
+    <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
+      <Text>{noRecordsText}</Text>
+    </Container>
+  )
+
+  const renderTab = (show: boolean, id: string, scope: Scope, icon: IconName, title: string) => {
+    return show ? (
+      <Tab
+        id={id}
+        title={
+          <Text onClick={() => onScopeChange(scope)} padding={'medium'}>
+            <Icon name={icon} {...iconProps} className={css.iconMargin} />
+            {getString(title)}
+          </Text>
+        }
+        panel={renderedList}
+      />
+    ) : null
+  }
+
   return (
     <Container className={cx(css.container, className)}>
       <Layout.Vertical spacing="medium">
-        <Layout.Horizontal spacing="small">
-          <Button
-            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.PROJECT })}
-            text={i18n.project}
-            icon="cube"
-            onClick={() => setSelectedScope(Scope.PROJECT)}
-            disabled={!projectIdentifier}
+        <div className={css.searchBox}>
+          <TextInput
+            wrapperClassName={css.search}
+            placeholder={getString('search')}
+            leftIcon="search"
+            value={searchTerm}
+            autoFocus
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           />
-          <Button
-            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.ORG })}
-            text={i18n.organization}
-            icon="diagram-tree"
-            onClick={() => setSelectedScope(Scope.ORG)}
-            disabled={!orgIdentifier}
-          />
-          <Button
-            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.ACCOUNT })}
-            text={i18n.account}
-            icon="layers"
-            onClick={() => setSelectedScope(Scope.ACCOUNT)}
-          />
-        </Layout.Horizontal>
-        <TextInput
-          placeholder={i18n.search}
-          leftIcon="search"
-          value={searchTerm}
-          autoFocus
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchTerm(e.target.value)
-          }}
-        />
-      </Layout.Vertical>
-      {loading ? (
-        <PageSpinner />
-      ) : error ? (
-        <Container padding={{ top: 'large' }}>
-          <PageError
-            message={error}
-            onClick={() => {
-              fetchData()
-            }}
-          />
-        </Container>
-      ) : data.length ? (
-        <div className={css.referenceList}>
-          {data.map((item: EntityReferenceResponse<T>) => (
-            <div
-              key={item.identifier}
-              className={cx(css.listItem, Classes.POPOVER_DISMISS, recordClassName)}
-              onClick={() => props.onSelect(item.record, selectedScope)}
-            >
-              {recordRender(item)}
-            </div>
-          ))}
+          {searchInlineComponent}
         </div>
-      ) : (
-        <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
-          <Text>{noRecordsText}</Text>
-        </Container>
-      )}
+      </Layout.Vertical>
+      <div className={css.tabsContainer}>
+        <Tabs id={'selectScope'} vertical defaultSelectedTabId={defaultTab}>
+          {renderTab(!!projectIdentifier, TAB_ID.PROJECT, Scope.PROJECT, 'cube', 'projectLabel')}
+          {renderTab(!!orgIdentifier, TAB_ID.ORGANIZATION, Scope.ORG, 'diagram-tree', 'orgLabel')}
+          {renderTab(true, TAB_ID.ACCOUNT, Scope.ACCOUNT, 'layers', 'account')}
+        </Tabs>
+      </div>
+      <Layout.Horizontal>
+        <Button
+          intent="primary"
+          text={getString('entityReference.apply')}
+          onClick={() => props.onSelect(selectedRecord as T, selectedScope)}
+          disabled={!selectedRecord}
+          className={cx(css.applyButton, Classes.POPOVER_DISMISS)}
+        />
+      </Layout.Horizontal>
     </Container>
   )
 }

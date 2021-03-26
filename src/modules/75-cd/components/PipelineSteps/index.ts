@@ -17,6 +17,10 @@ import { DeployEnvironmentStep } from './DeployEnvStep/DeployEnvStep'
 import { DeployServiceStep } from './DeployServiceStep/DeployServiceStep'
 import { HelmDeploy } from './HelmDeploy/HelmDeploy'
 import { HelmRollback } from './HelmRollback/HelmRollback'
+import { TerraformRollback } from './TerraformRollback/TerraformRollback'
+import { TerraformDestroy } from './TerraformDestroy/TerraformDestroy'
+import { TerraformPlan } from './TerraformPlan/TerraformPlan'
+import { InfraProvisioning } from './InfraProvisioning/InfraProvisioning'
 
 factory.registerStep(new HttpStep())
 factory.registerStep(new K8RolloutDeployStep())
@@ -35,3 +39,7 @@ factory.registerStep(new DeployServiceStep())
 factory.registerStep(new KubernetesServiceSpec())
 factory.registerStep(new HelmDeploy())
 factory.registerStep(new HelmRollback())
+factory.registerStep(new TerraformRollback())
+factory.registerStep(new TerraformDestroy())
+factory.registerStep(new TerraformPlan())
+factory.registerStep(new InfraProvisioning())

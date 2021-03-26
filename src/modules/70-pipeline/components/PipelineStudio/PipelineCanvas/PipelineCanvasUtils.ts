@@ -37,7 +37,7 @@ export const iconMap: iconMapOptions = {
   Jira: 'service-jira',
   ServiceNow: 'service-servicenow',
   Email: 'command-email',
-  Barriers: 'command-barrier',
+  Barriers: 'barrier-open',
   'New Relic Deployment Maker': 'service-newrelic',
   'Templatized Secret Manager': 'main-template-library',
   Run: 'run-step',

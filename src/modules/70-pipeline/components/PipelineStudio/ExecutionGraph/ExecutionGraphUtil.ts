@@ -2,6 +2,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import { v4 as nameSpace, v5 as uuid, version } from 'uuid'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
+import { IconNodeModel } from '@pipeline/components/Diagram/node/IconNode/IconNodeModel'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import {
   CreateNewModel,
@@ -9,7 +10,8 @@ import {
   DefaultNodeModel,
   StepGroupNodeLayerModel,
   StepGroupNodeLayerOptions,
-  StepsType
+  StepsType,
+  DiamondNodeModel
 } from '../../Diagram'
 
 // TODO: have to be auto generated from swagger/API
@@ -459,4 +461,34 @@ export const addStepOrGroup = (
       }
     }
   }
+}
+
+export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps: {} } } = {
+  APPROVAL: {
+    model: DiamondNodeModel,
+    defaultProps: {
+      icon: 'command-approval'
+    }
+  },
+  Barrier: {
+    model: IconNodeModel,
+    defaultProps: {
+      icon: 'barrier-open'
+    }
+  },
+  Default: {
+    model: DefaultNodeModel,
+    defaultProps: {}
+  }
+}
+
+export const getModelByStepType = (type: string, props: any) => {
+  let StepModel = StepToNodeModelDataMap[type]?.model
+  let defaultProps = StepToNodeModelDataMap[type]?.defaultProps
+  if (!StepModel) {
+    StepModel = StepToNodeModelDataMap['Default'].model
+    defaultProps = StepToNodeModelDataMap['Default'].defaultProps
+    return new StepModel({ ...props, ...defaultProps, allowAdd: true })
+  }
+  return new StepModel({ ...props, ...defaultProps })
 }

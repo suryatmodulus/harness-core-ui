@@ -12,6 +12,7 @@ import {
 import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
+import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
 
 export interface ProgressMapValue extends Pick<UnitProgress, 'startTime' | 'endTime'> {
   status: LogViewerAccordionStatus
@@ -37,6 +38,7 @@ export interface LogSectionData {
   dataSource: 'blob' | 'stream'
   unitStatus: LogViewerAccordionStatus
   manuallyToggled?: boolean
+  formattedData: FormattedLogLine[]
 }
 
 export interface CreateSectionsPayload extends ExecutionPathProps {
@@ -114,7 +116,8 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           logKey:
             node.stepType === LITE_ENGINE_TASK
               ? ((node.executableResponses || []).find(item => item.task)?.task as any)?.logKeys?.[0]
-              : `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${node?.identifier}`
+              : `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${node?.identifier}`,
+          formattedData: []
         }
 
         return { units, dataMap: { [units[0]]: sectionData }, selectedStep }
@@ -206,7 +209,8 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             unitStatus,
             startTime: unitProgress?.startTime,
             endTime: unitProgress?.endTime,
-            dataSource: isRunning ? 'stream' : 'blob'
+            dataSource: isRunning ? 'stream' : 'blob',
+            formattedData: []
           }
 
           return acc
@@ -265,6 +269,32 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
       if (state.dataMap[payload.id]?.data === payload.data) return state
 
       return produce(state, draft => {
+        const formattedData = payload.data
+          .split('\n')
+          .map(line => {
+            if (line.length > 0) {
+              const { level, time, out } = JSON.parse(line) as Record<string, string>
+
+              const mutlilineOut = out.split(/\n/)
+              const handledMultilineOutData = mutlilineOut.map((row, index) => {
+                return {
+                  level: index === 0 ? level : '',
+                  time: index === 0 ? time : '',
+                  out: row
+                }
+              })
+
+              return handledMultilineOutData
+            }
+          })
+          .filter(p => p)
+          .reduce(function (prev, curr) {
+            return prev!.concat(curr!)
+          })
+          ?.filter(p => Object.values(p)?.join('').length > 0)
+
+        set(draft.dataMap[payload.id], 'formattedData', formattedData)
+
         const unit = state.dataMap[payload.id]
         const data = payload.data.split('\n').reduce((str, line) => {
           if (line.length > 0) {

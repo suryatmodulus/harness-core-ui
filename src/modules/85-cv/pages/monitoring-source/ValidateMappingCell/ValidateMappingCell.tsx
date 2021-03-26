@@ -26,24 +26,25 @@ export function ValidateMappingCell(props: ValidationMappingCellProps): JSX.Elem
   switch (validationStatus) {
     case 'LOADING':
       return (
-        <Text
-          icon="steps-spinner"
-          intent="primary"
-          iconProps={{ size: 16, color: Color.BLUE_500 }}
-          onClick={onCellClick}
-        >
+        <Text icon="steps-spinner" intent="primary" iconProps={{ size: 16, color: Color.BLUE_500 }}>
           {getString('cv.monitoringSources.appD.verificationsInProgress')}
         </Text>
       )
     case 'NO_DATA':
       return (
-        <Text icon="small-minus" iconProps={{ size: 16 }} onClick={onCellClick}>
+        <Text icon="small-minus" className={css.clickableText} iconProps={{ size: 16 }} onClick={onCellClick}>
           {getString('cv.monitoringSources.appD.noData')}
         </Text>
       )
     case 'SUCCESS':
       return (
-        <Text icon="tick" intent="success" iconProps={{ size: 16, color: Color.GREEN_500 }} onClick={onCellClick}>
+        <Text
+          icon="tick"
+          className={css.clickableText}
+          intent="success"
+          iconProps={{ size: 16, color: Color.GREEN_500 }}
+          onClick={onCellClick}
+        >
           {getString('cv.monitoringSources.appD.validationsPassed')}
         </Text>
       )

@@ -182,6 +182,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           minimal
           icon="minus"
           disabled={options.inComplete}
+          withoutCurrentColor
           iconProps={{
             size: 8
           }}

@@ -48,7 +48,8 @@ function getStateData({ status, unitStatus, selectedStep = 'SELECTED_STEP_1' }: 
         dataSource: 'blob',
         logKey: 'logKey1',
         status,
-        unitStatus
+        unitStatus,
+        formattedData: []
       }
     },
     selectedStep
@@ -90,6 +91,7 @@ describe('logs state reducer tests', () => {
                 "data": "",
                 "dataSource": "blob",
                 "endTime": undefined,
+                "formattedData": Array [],
                 "id": "Unit 1",
                 "isOpen": false,
                 "logKey": "logKey1",

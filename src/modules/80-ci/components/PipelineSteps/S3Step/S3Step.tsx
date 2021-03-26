@@ -6,11 +6,12 @@ import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
-import { inputSetViewValidateFieldsConfig } from './S3StepFunctionConfigs'
+import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './S3StepFunctionConfigs'
 
 export interface S3StepSpec {
   connectorRef: string
@@ -75,6 +76,11 @@ export class S3Step extends PipelineStep<S3StepData> {
       sourcePath: ''
     }
   }
+
+  processFormData<S3StepDataUI>(data: S3StepDataUI): S3StepData {
+    return getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(data, transformValuesFieldsConfig)
+  }
+
   validateInputSet(data: S3StepData, template?: S3StepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
@@ -82,6 +88,7 @@ export class S3Step extends PipelineStep<S3StepData> {
 
     return {}
   }
+
   renderStep(props: StepProps<S3StepData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
 

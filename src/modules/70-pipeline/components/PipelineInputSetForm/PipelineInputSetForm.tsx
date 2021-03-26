@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
@@ -67,13 +68,13 @@ function StageForm({
                 <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
                   factory={(factory as unknown) as AbstractStepFactory}
                   initialValues={{
-                    variables: allValues?.stage?.variables || [],
+                    variables: (allValues?.stage?.variables || []) as AllNGVariables[],
                     canAddVariable: true
                   }}
                   type={StepType.CustomVariable}
                   stepViewType={StepViewType.InputSet}
                   customStepProps={{
-                    template: { variables: template?.stage?.variables },
+                    template: { variables: template?.stage?.variables as AllNGVariables[] },
                     path
                   }}
                 />
@@ -106,13 +107,13 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
               factory={(factory as unknown) as AbstractStepFactory}
               initialValues={{
-                variables: originalPipeline.variables || [],
+                variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
               customStepProps={{
-                template: { variables: template?.variables || [] },
+                template: { variables: (template?.variables || []) as AllNGVariables[] },
                 path
               }}
             />

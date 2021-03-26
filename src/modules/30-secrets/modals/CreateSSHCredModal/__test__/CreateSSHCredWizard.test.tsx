@@ -85,6 +85,10 @@ describe('Create SSH Cred Wizard', () => {
     await act(async () => {
       fireEvent.click($secret)
     })
+    const $applyBtn = getByText(document.body, 'Apply Selected')
+    await act(async () => {
+      fireEvent.click($applyBtn)
+    })
 
     setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'userName', value: 'user name' })
 

@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
 import type { UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import type { HttpHeaderConfig, NGVariable } from 'services/cd-ng'
+import type { HttpHeaderConfig, StringNGVariable } from 'services/cd-ng'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -137,16 +137,16 @@ export class HttpStep extends PipelineStep<HttpStepData> {
                   id: uuid()
                 })
               )
-            : [{ key: '', value: '', id: uuid() }],
+            : [],
         outputVariables:
           getMultiTypeFromValue(initialValues.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME
             ? (initialValues.spec?.outputVariables as string)
             : Array.isArray(initialValues.spec?.outputVariables)
-            ? initialValues.spec.outputVariables.map((variable: NGVariable) => ({
+            ? initialValues.spec.outputVariables.map((variable: StringNGVariable) => ({
                 ...variable,
                 id: uuid()
               }))
-            : [{ name: '', type: 'String', value: '', id: uuid() }]
+            : []
       }
     }
   }

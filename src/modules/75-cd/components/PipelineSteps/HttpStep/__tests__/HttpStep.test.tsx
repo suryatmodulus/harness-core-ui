@@ -79,7 +79,7 @@ describe('Http Step', () => {
   test('form produces correct data for fixed inputs', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={{}}
         type={StepType.HTTP}
@@ -94,6 +94,7 @@ describe('Http Step', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My Http Step' } })
     fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })
     fireEvent.change(queryByNameAttribute('spec.assertion')!, { target: { value: '${httpResponseBody} == 200' } })
+    fireEvent.click(getByTestId('add-header'))
     fireEvent.change(queryByNameAttribute('spec.headers[0].key')!, { target: { value: 'Content-Type' } })
     fireEvent.change(queryByNameAttribute('spec.headers[0].value')!, { target: { value: 'application/json' } })
     fireEvent.change(queryByNameAttribute('spec.requestBody')!, {
@@ -101,6 +102,7 @@ describe('Http Step', () => {
     })
 
     fireEvent.click(getByText('Response Mapping'))
+    fireEvent.click(getByTestId('add-response-mapping'))
 
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'myVar' } })
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, { target: { value: 'response.message' } })

@@ -1,6 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 
 export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
 
@@ -25,12 +26,24 @@ export const getArtifactTitleIdByType = (type: string): string => {
     case Connectors.DOCKER:
       return 'dockerRegistry'
     case Connectors.AWS:
-      return 'connectors.ECR.fullName'
+      return 'connectors.ECR.name'
     case Connectors.GCP:
-      return 'connectors.GCR.fullName'
+      return 'connectors.GCR.name'
     default:
       return 'connector'
   }
+}
+
+export const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
+  DockerRegistry: 'Dockerhub',
+  Gcp: 'Gcr',
+  Aws: 'Ecr'
+}
+
+export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
+  Dockerhub: Connectors.DOCKER,
+  Ecr: Connectors.AWS,
+  Gcr: Connectors.GCP
 }
 
 export const tagOptions: IOptionProps[] = [

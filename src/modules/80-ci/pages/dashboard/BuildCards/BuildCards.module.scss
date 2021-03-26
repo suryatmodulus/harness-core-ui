@@ -1,0 +1,97 @@
+@mixin card-mixin($radius) {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--grey-200);
+  box-shadow: 1px 1px 1px 0px var(--grey-300);
+  border-radius: $radius;
+  max-width: 500px;
+  padding: var(--spacing-small) !important;
+  .titleAndMessage {
+    flex: 1;
+    margin: 0 var(--spacing-small) !important;
+    .title {
+      padding-top: 8px;
+      padding-bottom: 4px;
+    }
+  }
+}
+
+@mixin border-mixin($radius) {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: $radius;
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+.failedBuildCard {
+  @include card-mixin(6px);
+  .times {
+    font-size: var(--font-size-small) !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: var(--spacing-medium) !important;
+    .timeIcon {
+      margin-left: var(--spacing-small) !important;
+      margin-right: var(--spacing-xsmall) !important;
+    }
+  }
+  .linkWrap {
+    display: inline-block;
+    background-color: var(--blue-200);
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: var(--spacing-xsmall);
+    a {
+      color: var(--blue-600);
+    }
+  }
+  .leftBorder {
+    background-color: var(--red-500);
+    @include border-mixin(6px);
+  }
+}
+
+.activeBuildCard {
+  @include card-mixin(6px);
+  .buildIcon {
+    margin: 0 var(--spacing-small);
+    svg {
+      width: 24px;
+      height: 20px;
+    }
+  }
+  .statusLabel {
+    border: 1px solid;
+    padding: 2px 5px;
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-medium);
+    .statusLabelIcon {
+      margin-right: 5px;
+    }
+    &.pendingApprovalLabel {
+      color: var(--orange-500);
+      border-color: var(--orange-500);
+      .statusLabelIcon {
+        color: var(--orange-500);
+      }
+      background-color: #fff5ed;
+    }
+    &.runningLabel {
+      color: var(--blue-500);
+      border-color: var(--blue-500);
+      .statusLabelIcon {
+        color: var(--blue-500);
+      }
+      background-color: var(--blue-200);
+    }
+  }
+}

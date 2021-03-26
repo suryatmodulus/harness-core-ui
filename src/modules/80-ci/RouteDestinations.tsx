@@ -54,6 +54,10 @@ import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/Create
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/BuildStage'
+import SessionToken from 'framework/utils/SessionToken'
+import GitSyncPage from '@gitsync/pages/GitSyncPage'
+import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
+import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
@@ -85,6 +89,13 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
   return <Redirect to={routes.toPipelineStudio(params)} />
+}
+
+const RedirectToGitSyncHome = (): React.ReactElement => {
+  const accountId = SessionToken.accountId()
+  const { projectIdentifier, orgIdentifier } = useParams()
+
+  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
 }
 
 const CISideNavProps: SidebarContext = {
@@ -119,7 +130,6 @@ export default (
     >
       <CIDashboardPage />
     </RouteWithLayout>
-
     {/* <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
         <CIBuildList />
       </RouteWithLayout>
@@ -152,7 +162,6 @@ export default (
         path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
         component={<BuildCommits />}
       /> */}
-
     <Route
       sidebarProps={CISideNavProps}
       exact
@@ -160,7 +169,6 @@ export default (
     >
       <RedirectToResourcesHome />
     </Route>
-
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
@@ -171,6 +179,31 @@ export default (
       </ResourcesPage>
     </RouteWithLayout>
 
+    <Route
+      sidebarProps={CISideNavProps}
+      exact
+      path={routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps })}
+    >
+      <RedirectToGitSyncHome />
+    </Route>
+    <RouteWithLayout
+      exact
+      sidebarProps={CISideNavProps}
+      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps })}
+    >
+      <GitSyncPage>
+        <GitSyncRepoTab />
+      </GitSyncPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncEntityTab />
+      </GitSyncPage>
+    </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
@@ -203,7 +236,6 @@ export default (
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
@@ -215,7 +247,6 @@ export default (
     >
       <SecretDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CISideNavProps}
       exact
@@ -225,7 +256,6 @@ export default (
         <CIPipelineStudio />
       </PipelineDetails>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}

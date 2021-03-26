@@ -7,11 +7,17 @@ empty objects(with no keys)
 empty arrays
  * @param obj 
  */
+
+export const DEFAULT_SANITY_CONFIG = {
+  removeEmptyString: true,
+  removeEmptyArray: true,
+  removeEmptyObject: true
+}
+
 const sanitize = (obj: Record<string, any>, sanityConfig?: YamlSanityConfig): Record<string, any> => {
-  const { removeEmptyString, removeEmptyArray, removeEmptyObject } = sanityConfig || {
-    removeEmptyString: true,
-    removeEmptyArray: true,
-    removeEmptyObject: true
+  const { removeEmptyString, removeEmptyArray, removeEmptyObject } = {
+    ...DEFAULT_SANITY_CONFIG,
+    ...sanityConfig
   }
   for (const key in obj) {
     if ((removeEmptyString && obj[key] === '') || obj[key] === null) {

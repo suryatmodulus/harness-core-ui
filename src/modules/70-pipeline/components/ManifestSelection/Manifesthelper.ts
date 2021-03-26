@@ -108,3 +108,8 @@ export const GitRepoName: Record<string, string> = {
   Account: 'Account',
   Repo: 'Repo'
 }
+
+export const gitFetchTypes = [
+  { label: 'Latest from Branch', value: 'Branch' },
+  { label: 'Specific Commit ID', value: 'Commit' }
+]

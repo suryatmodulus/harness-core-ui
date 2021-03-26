@@ -379,7 +379,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
     isReadOnlyMode: true,
-    height: 'calc(100vh - 300px)'
+    height: 'calc(100vh - 300px)',
+    yamlSanityConfig: {
+      removeEmptyString: false
+    }
   }
 
   return (

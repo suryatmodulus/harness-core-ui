@@ -1,6 +1,6 @@
 // DD = Double Digits Label
 export const zeroFiftyNineDDOptions = Array.from({ length: 60 }, (_, i) => ({
-  label: (i + 1).toString().padStart(2, '0'),
+  label: i.toString().padStart(2, '0'),
   value: `${i}`
 }))
 export const oneFiftyNineDDOptions = zeroFiftyNineDDOptions.slice(1)

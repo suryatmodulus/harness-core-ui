@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { timeToDisplayText, Text, Layout, Color } from '@wings-software/uicore'
@@ -14,8 +13,6 @@ import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelect
 import LogsContentOld from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionLogView/LogsContent'
 
 import css from './ExecutionStepDetailsTab.module.scss'
-
-const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
 
 export interface ExecutionStepDetailsTabProps {
   step: ExecutionNode
@@ -47,8 +44,6 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   const isFailed = isExecutionFailed(step.status)
   const isSkipped = isExecutionSkipped(step.status)
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
-  const taskIds: string[] =
-    step.executableResponses?.map(taskChain => taskChain?.task?.taskId || taskChain.taskChain?.taskId || '') || []
 
   return (
     <div className={css.detailsTab}>
@@ -62,11 +57,11 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
         <tbody>
           <tr>
             <th>{getString('startedAt')}</th>
-            <td>{step?.startTs ? moment(step?.startTs).format(DATE_FORMAT) : '-'}</td>
+            <td>{step?.startTs ? new Date(step.startTs).toLocaleString() : '-'}</td>
           </tr>
           <tr>
             <th>{getString('endedAt')}</th>
-            <td>{step?.endTs ? moment(step?.endTs).format(DATE_FORMAT) : '-'}</td>
+            <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
           </tr>
           {step?.startTs && step?.endTs && (
             <tr>
@@ -81,9 +76,21 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                 <Layout.Vertical spacing="xsmall">
                   {step.delegateInfoList.map((item, index) => (
                     <div key={`${item.id}-${index}`}>
-                      <Text>{item.name}</Text> (
+                      <Text font={{ size: 'small', weight: 'semi-bold' }}>
+                        {getString('delegateForTask', { delegate: item.name, taskName: item.taskName })}
+                      </Text>{' '}
+                      (
                       <Text
-                        onClick={() => openDelegateSelectionLogsModal(taskIds)}
+                        font={{ size: 'small' }}
+                        onClick={() =>
+                          openDelegateSelectionLogsModal([
+                            {
+                              taskId: item.taskId as string,
+                              taskName: item.taskName as string,
+                              delegateName: item.name as string
+                            }
+                          ])
+                        }
                         style={{ cursor: 'pointer' }}
                         color={Color.BLUE_500}
                       >

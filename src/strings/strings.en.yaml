@@ -7,6 +7,8 @@ common:
   durationPrefix: 'Duration: '
   pipelineDetails: Pipeline Details
   comments: Comments
+  approve: Approve
+  reject: Reject
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -31,8 +33,10 @@ signUp:
     middle: ' and our '
     terms: 'Terms of Use'
   noAccount: 'No Account?'
+signOut: Sign Out
 featureFlagsText: Feature Flags
 flag: Flag
+newLabel: New
 continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
@@ -62,6 +66,7 @@ artifactRepository: ARTIFACT REPOSITORY
 more: '+{{number}} more'
 yes: 'Yes'
 no: 'No'
+or: or
 restart: 'Restart'
 invalidText: Invalid
 noData: No Data
@@ -74,6 +79,13 @@ parallelSteps: Parallel Steps
 stepGroup: Step Group
 changeHistory: Change History
 entity: Entity
+entities: Entities
+enableGitExperience: Enable Git Experience
+gitExperienceNewUserText: Git Experience allows you to store the pipeline and other harness configurations in git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+primaryBranch: Primary branch
+selectGitProvider: Select your Git Provider
+selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
+configureHarnessFolder: 'Configure Harness Folder'
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful
@@ -107,6 +119,7 @@ kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
 profile: Profile
+taskId: 'TaskId: {{id}}'
 preferences: Preferences
 cloudProviders: Cloud Providers
 artifactRepositories: Artifact Repositories
@@ -121,7 +134,7 @@ connectionMode: Connection Mode
 credType: Credential Type
 secrets: 'Secrets'
 secretDetails: 'Secret Details'
-noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
+noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
 newConnector: 'New Connector'
 thisConnectorIsSavedAs: 'This Connector is saved as'
@@ -182,11 +195,15 @@ editDetails: Edit Details
 verificationJobs: Verification Jobs
 abort: Abort
 conditions: Conditions
+repositories: Repositories
+addRepository: Add Repository
+gitManagement: Git Management
 gitBranch: Git Branch
 addStep: Add Step
 addStepGroup: Add Step Group
 gitTag: Git Tag
 tbd: TBD
+color: Color
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
 notifications: Notifications
@@ -317,6 +334,7 @@ stageDetails: Stage Details
 stageOverview: Stage Overview
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
+stage: 'Stage: '
 tagsLabel: Tags
 tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image
@@ -328,6 +346,7 @@ commandLabel: Command
 summary: Summary
 permissions: Permissions
 activityLog: Activity Log
+selectAnExistingConnector: Select an existing Connector
 authentication: Authentication
 preCommandLabel: PreCommand
 preCommandInfo: Commands used for setting up the environment before running the tests
@@ -492,12 +511,13 @@ collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
 startedAt: 'Started at:'
 endedAt: 'Ended at:'
+delegateForTask: '{{delegate}} for {{taskName}}'
 lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
 order: Order
 artifactsSelection:
-  specifyArtifactServer: Specify the Server
+  artifactDetails: Artifact Details
   existingDocker:
     sidecarId: Give your sidecar identifier
     sidecarIdPlaceholder: Specify artifact identifier
@@ -507,7 +527,7 @@ artifactsSelection:
   validation:
     imagePath: Image path is a required field
     region: Region is an required field
-    tag: Tag is required,
+    tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar identifier is required field
 inputSets:
@@ -540,7 +560,7 @@ inputSets:
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
-delegateSelectionLogs: delegate selection logs
+delegateSelectionLogs: Delegate selection logs
 assessment: Assessment
 workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
 manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
@@ -655,7 +675,6 @@ runPipeline: Run Pipeline
 generalSettings: 'General Settings'
 accessControl: 'Access Control'
 noPermission: You don't have permission to perform this action
-gitSync: 'Git Sync'
 templateLibrary: 'Template Library'
 generic_errors:
   INVITE_EXPIRED: This invite link has expired
@@ -712,7 +731,9 @@ barriers:
   syncBarriers: Synchronization Barriers
   flowControl: Flow Control
   addBarrier: + Add Barrier
-
+  tooltips:
+    barrierWaiting: 'Waiting for another barrier '
+    timeout: 'to Timeout'
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'
@@ -766,6 +787,7 @@ secret:
   labelText: 'Text'
   labelFile: 'File'
   labelSecretType: 'Secret type'
+  noSecretsFound: 'No Secrets Found'
 usersPage:
   search: Search by Name or Email
 instanceFieldOptions:
@@ -787,6 +809,9 @@ approvalStep:
     userGroups: 'Please provide user groups'
     minimumCountOne: 'Minimum count cannot be less than one'
     minimumCountRequired: 'Minimum count is required'
+  status:
+    APPROVE: Approved
+    REJECT: Rejected
 delegate:
   numberOfDelegates: 'Number of delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'
@@ -1001,6 +1026,7 @@ pipeline-triggers:
   newArtifactLabel: 'New Artifact'
   newManifestLabel: 'New Manifest'
   onScheduleLabel: 'On Schedule'
+  cronLabel: 'Cron'
   scheduledLabel: 'Scheduled'
   triggerConfigurationLabel: 'Trigger Configuration'
   pipelineInputLabel: 'Pipeline Input'
@@ -1029,6 +1055,7 @@ pipeline-triggers:
     matchesValue: 'Matches Value is required with Operator.'
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
     headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
+    cronExpression: 'Valid cron expression is required.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'
     successfulUpdate: 'Successfully updated {{name}}.'
@@ -1103,12 +1130,14 @@ pipeline-triggers:
     SAT: 'SAT'
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
+    cronExpression: 'Cron Expression'
 repo-provider:
   bitbucketLabel: BitBucket
   customLabel: Custom
   githubLabel: GitHub
   gitlabLabel: GitLab
   awscodecommit: CodeCommit
+  azureDev: Azure Devops
 executionStatus:
   Failed: FAILED
   Success: SUCCESS
@@ -1161,6 +1190,9 @@ pipelineSteps:
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   deleteNamespace: 'Delete namespace'
+  workspace: Workspace
+  gitFetchType: 'Git Fetch Type'
+  repoName: 'Repo Name'
   stepNameLabel: '{{ $.name }}'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'
@@ -1248,6 +1280,7 @@ pipelineSteps:
   limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
   limitCPUExample: 'Ex: 1'
   timeoutLabel: 'Timeout'
+  provisionerIdentifier: 'Provisioner Identifier'
   timeoutPlaceholder: '120s'
   resourceNameLabel: 'Resource Name'
   resourceNameValue: 'ResourceName'
@@ -1292,6 +1325,7 @@ pipelineSteps:
   skipSteadyStateCheck: Skip Steady State Check
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
+  provisionerIdentifierRequired: 'Provisioner Identifier is required.'
   lessThanZero: 'Instance cannot be less than zero.'
   morethanHundred: 'Instance cannot be more than 100.'
   instancesRequired: 'Instance is required.'
@@ -1312,7 +1346,6 @@ pipelineSteps:
       configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
       connectorRequiredError: 'Connector is required'
       repositoryNameLabel: 'Repository Name'
-      repositoryNameRequiredError: 'Repository Name is required'
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
@@ -1358,6 +1391,8 @@ pipelineSteps:
       selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
       directConnection: Direct Connection
       viaCloudProvider: Via Cloud Provider
+    provisioner:
+      enableProvisionerLabel: Provision your infrastructure dynamically during the execution of your pipeline
   feature:
     create:
       featureStageName: Feature Flag
@@ -1379,7 +1414,9 @@ validation:
   limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
   keyRequired: Key is a required field
   valueRequired: Value is a required field
-  validIdRegex: Identifier can only contain alphanumerics, _ and $
+  repositoryName: 'Repository Name is required'
+  branchName: 'Branch Name is required'
+  validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
   validKeyRegex: Keys can only contain alphanumerics and _
@@ -1397,6 +1434,7 @@ validation:
   accountName: Account Name is a required field
   authType: 'Auth type is required'
   masterUrl: 'Master URL is required'
+  orgValidation: Organization is required
   serviceAccountToken: 'Service Account Token is required'
   OIDCIssuerUrl: 'OIDC Issuer URL is required'
   OIDCUsername: 'OIDC username is required'
@@ -1459,7 +1497,7 @@ activityHistory:
   heartbeatFailure: Heart beat Failure
 manifestType:
   manifestIdentifier: Manifest Identifier
-  manifestPlaceholder: Give name to your manifest config
+  manifestPlaceholder: Add Manifest Identifier
   manifestSource: Manifest Source
   manifestDetails: Manifest Details
   manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
@@ -1473,10 +1511,16 @@ manifestType:
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
+  pathRequired: Path is required
   path: 'Path'
   pluginPathRequired: Plugin Path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
+  gitFetchTypeLabel: Branch/Commit ID
+  commitId: Commit ID
+  branchPlaceholder: Enter branch name here
+  commitPlaceholder: Enter Commit ID here
+  filePathPlaceholder: Enter overrides file path
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'
@@ -1681,6 +1725,9 @@ connectors:
       crossAccountRoleArn: 'Role ARN is required'
   awsCodeCommit:
     repoUrl: 'AWS CodeCommit Repository URL'
+gitSync:
+  label: 'Git Sync'
+  successfullCreate: 'Git sync repository {{name}} created successfully'
 cf:
   boolean: Boolean
   multivariate: Multivariate
@@ -2027,6 +2074,9 @@ cv:
     oneMetricPackValidation: At least one Metric Pack must be selected
     oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
     backToMapping: Back to Mapping
+    reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
+    appDName: App Dynamics
+    newRelicName: New Relic
     appD:
       envDescription: An Environment is the representation of your production or non-production infrastructure.
       appDApplications: APPDYNAMICS APPLICATIONS
@@ -2129,6 +2179,7 @@ cv:
       newRelicAppColumn: NEW RELIC APPLICATION
       selectedApplications: Selected Applications
       oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
+      totalMappedApplications: '{{total}} Application(s) mapped'
 
   activitySources:
     name: 'Name your Change Source'
@@ -2232,10 +2283,28 @@ ci:
     learnMore: Learn more about Continuous Integration
     createProject: Create Project
   testsReports:
+    executionOverview: Test Execution Overview
+    numberOfSelectedTests: '# of Selected Tests'
+    testsIntelligentlySkipped: Tests Intelligently Skipped
+    timeSaved: Time Saved
     totalExecutedTest: Total Executed Tests
+    selectionBreakdown: Testcase Selection Breakdown
+    selectionBreakdownInfo: Shows aggregated data on how tests were selected
+    totalWithColon: 'TOTAL:'
+    failedWithColon: 'FAILED:'
+    successWithColon: 'SUCCESS:'
+    skippedWithColon: 'SKIPPED:'
+    skipped: Skipped
+    correlatedWithCodeChanges: Correlated with Code Changes
+    newTests: New Tests
+    updatedTests: Updated Tests
+    coverage: Files Coverage
+    coverageInfo: List of files that were added or changed in the build which don't have a proper testing coverage
+    onlyUncoveredFiles: Only Uncovered Files
+    filename: FILENAME
+    commitId: COMMIT ID
     failedTests: Failed Tests
     failureRate: Failure Rate
-    skipped: Skipped
     failureMessage: Failure Message
     stackTrace: Stack Trace
     consoleOutput: Console Output
@@ -2245,14 +2314,17 @@ ci:
     testCaseName: TEST CASE NAME
     className: CLASS NAME
     result: RESULT
-    testCasesExecution: Test Cases Execution
+    testCasesExecution: Testcases Execution
+    testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
+    noFailedTestsFound: No failed tests found
     showOnlyFailedTests: Show only failed tests
     hangTight: Hang tight! Report is being generated...
     nothing: Nothing here!
     notfound: No tests were found to analyze.
     willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
     learnMore: Learn how to enable Unit test reporting
-    resultLabel: TEST CASE EXECUTION RESULT
+    resultLabel: Testcase Execution Result
+    resultInfo: Heat Map showing a graphical over of the test results
     sortBy: 'Sort by:'
 orgs:
   searchPlaceHolder: 'Search Organizations by name and tags'
@@ -2309,7 +2381,7 @@ dashboards:
 resourceGroup:
   newResourceGroup: 'New Resource Group'
   updateResourceGroupDialogTitle: 'Update Resource Group'
-  color: 'Color'
+  color: '{{ $.color}}'
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
   resourceGroupColumn: 'Resource Group'
   summary: '{{ $.summary }}'
@@ -2427,7 +2499,17 @@ ce:
         deleteDialogText: 'Are you sure you want to delete?'
 
     accessPoint:
+      ap: 'Access Point'
+      new: 'New Access Point'
+      dnsProvider: 'DNS Provider'
+      asssociatedRules: 'Associated Rules'
+      lastActivity: '{{$.cf.targets.lastActivity}}'
+      mapDomain: 'Map the domain'
+      error: 'Could not create access point'
+      success: 'Access Point Created Succesfully'
       create: 'Create Access Point'
+      route53: 'Route53'
+      others: '{{$.stepPalette.others}}'
       proceed: 'Proceed'
       domainName: 'Access Point Domain name'
       enterDomain: 'Enter {{$.ce.co.accessPoint.domainName}}'
@@ -2435,6 +2517,7 @@ ce:
       cloudConnector: 'Cloud Connector'
       createNewALB: 'Create new ALB'
       select:
+        accessPoint: 'Select Access Point'
         account: 'Select {{$.ce.co.accessPoint.cloudAccount}}'
         connector: 'Select {{$.ce.co.accessPoint.cloudConnector}}'
         region: 'Select region'
@@ -2444,6 +2527,9 @@ ce:
         aCertificate: 'Select a certificate'
         vpc: 'Select VPC'
         securityGroups: 'Select security groups'
+        dnsProvider: 'Select the {{$.ce.co.accessPoint.dnsProvider}}'
+        route53: 'Select Route53 account'
+        route53zone: 'Select Route53 hosted zone'
       validation:
         connector: 'Connector is a required field'
         name: 'Access point Name is a required field'
@@ -2452,6 +2538,10 @@ ce:
         securityGroup: 'Atleast one security group is mandatory'
       hostedZone:
         noResult: 'Access point name does not match any of the existing domains'
+    dnsSetup:
+      autoURL: 'Auto generated URL'
+      customURL: 'Custom URL (Example: qa.yourcompany.com)'
+      isURLaccessible: 'Is the URL publicly accessible?'
     ipAddressSetup:
       'This is just placeholder text. You can customize the domain name for your AutoStopping Rule. Domain name
       should be entered without prefixing the scheme.'
@@ -2461,9 +2551,14 @@ ce:
     gatewayAccess:
       subtitle: 'Now that you have the Rule configured, you need to choose how you would like to access the instances.'
       accessDescription: 'How would you want to access the instances'
+      dnsLink: 'DNS Link'
+      sshRdp: 'SSH / RDP'
+      ip: 'IP Address'
+      rdp: 'RDP'
+      backgroundTasks: 'Background Tasks'
     instanceSelector:
       name: 'Name and ID'
-      ipAddress: 'IP Address'
+      ipAddress: '{{$.ce.co.gatewayAccess.ip}}'
       launchTime: 'Launch Time'
     gatewayReview:
       nameYourGateway: 'Name your Rule'
@@ -2487,6 +2582,21 @@ ce:
       account: 'account'
       select: 'Select your Cloud Account'
       new: 'Link a new'
+    gatewayConfig:
+      configHeading: 'Rule Configuration'
+      info: 'From the list below, select the instances that you want this AutoStopping Rule to manage. Multiple instances can be managed by a single Rule.'
+      addInstanceLabel: 'Add Instance'
+      addPortLabel: '+ add port'
+      addDependency: '+ add dependency'
+      customDomain: 'CUSTOM DOMAIN'
+      customDomainHelp: 'Custom domains allow you to srve your site from a domain othwer than autogenerated hostname'
+      allowTraffic: 'Alllow traffic from all subdomains'
+      disable: '{{$.ce.co.autoStoppingRule.confirm.disable}}'
+      usePrivateIP: 'Use Private IP'
+      healthCheck: 'Health check'
+      name: '{{$.ce.co.gatewayReview.nameYourGateway}}'
+      addSchedule: '+ add schedule'
+      scheduleDescription: 'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
 
 logs:
   noLogsText: 'No logs found'
@@ -2494,9 +2604,27 @@ userProfile:
   mysourceCodeManagers: My Source Code Managers
   basicInformation: Basic Information
   changePassword: Change Password
+  passwordReqs: 'Password must meet the requirements.'
+  passwordMatch: 'Passwords must match.'
+  currentPassword: 'Current Password'
+  requiredField: 'is a required field.'
+  newPassword: 'New Password'
+  confirmPassword: 'Confirm Password'
   twofactorAuth: Two-Factor Authentication
   myProjects: My Projects
   myGroups: My Groups
   myTools: My Collaboration Tools
+  addSCM: Add a Source Code Manager
+  plusSCM: + Add a Source Code Manager
+  selectSCM: Select an Source Code Manager
+  editProfile: Edit Profile
+entityReference:
+  noRecordFound: 'No Record Found'
+  apply: 'Apply Selected'
+
+characters: 'characters'
+uppercase: 'uppercase'
+lowercase: 'lowercase'
+specialChar: 'special character'
 serviceDashboard:
   activeServiceInstancesLabel: Active Service Instances

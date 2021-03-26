@@ -126,3 +126,19 @@
   display: block;
   padding: var(--spacing-small);
 }
+
+.custom-variables-input-sets {
+  .variable-list-table {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, minmax(10px, 1fr));
+    align-items: baseline;
+    margin-top: var(--spacing-small);
+    column-gap: var(--spacing-xsmall);
+
+    & > p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

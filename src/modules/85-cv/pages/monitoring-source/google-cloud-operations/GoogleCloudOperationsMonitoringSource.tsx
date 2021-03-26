@@ -4,7 +4,7 @@ import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { RestResponseDSConfig } from 'services/cv'
+import type { DSConfig } from 'services/cv'
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import { SelectGCODashboards } from './SelectGCODashboards/SelectGCODashboards'
 import { MapGCOMetricsToServices } from './MapGCOMetricsToServices/MapGCOMetricsToServices'
@@ -79,18 +79,14 @@ export function transformGetResponse(
   return gcoInfo
 }
 
-export function GoogleCloudOperationsMonitoringSource({
-  dsConfig
-}: {
-  dsConfig?: RestResponseDSConfig | null
-}): JSX.Element {
+export function GoogleCloudOperationsMonitoringSource({ dsConfig }: { dsConfig?: DSConfig | null }): JSX.Element {
   const { getString } = useStrings()
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<GCOMonitoringSourceInfo>({ totalTabs: 4 })
   const params = useParams<ProjectPathProps & { identifier: string }>()
 
   useEffect(() => {
-    if (dsConfig?.resource) {
-      setCurrentData(transformGetResponse(dsConfig?.resource as GCODSConfig, params))
+    if (dsConfig) {
+      setCurrentData(transformGetResponse(dsConfig as GCODSConfig, params))
     }
   }, [dsConfig])
 

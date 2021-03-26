@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     line-height: 2;
-    padding: var(--spacing-xsmall) var(--spacing-xxlarge);
+    column-gap: var(--spacing-xsmall);
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--grey-250);
@@ -22,6 +22,11 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xxlarge);
+
+      &:hover {
+        background-color: var(--blue-200);
+      }
     }
 
     .value {
@@ -29,6 +34,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: var(--spacing-xsmall) var(--spacing-xxlarge) var(--spacing-xsmall) var(--spacing-xsmall);
     }
   }
 

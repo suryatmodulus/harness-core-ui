@@ -6,13 +6,19 @@
 
   .header {
     padding: var(--spacing-large);
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: space-between;
+    grid-template-columns: 1fr 128px;
+    column-gap: var(--spacing-xsmall);
+
+    &.isApproval {
+      grid-template-columns: 1fr 60px 128px;
+    }
 
     .actions {
       display: flex;
       align-items: center;
+      justify-self: end;
       column-gap: var(--spacing-small);
     }
   }

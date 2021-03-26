@@ -1,10 +1,11 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import ExecutionContext, { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
+import { useGetApprovalInstance } from 'services/pipeline-ng'
 import ExecutionStepDetails, { ExecutionStepDetailsProps } from '../ExecutionStepDetails'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
@@ -80,5 +81,21 @@ describe('<ExecutionStepDetails /> tests', () => {
   test('renders approval complete step', () => {
     const { container } = render(<TestComponent selectedStep="approvalStepComplete" closeDetails={jest.fn()} />)
     expect(container).toMatchSnapshot()
+  })
+
+  test('click on refresh triggers new approval call', async () => {
+    const refetch = jest.fn()
+    ;(useGetApprovalInstance as jest.Mock).mockImplementation(() => ({ data: {}, loading: false, refetch }))
+
+    const { container, findByText } = render(
+      <TestComponent selectedStep="approvalStepWaiting" closeDetails={jest.fn()} />
+    )
+    expect(container).toMatchSnapshot()
+
+    const refresh = await findByText('Refresh')
+
+    fireEvent.click(refresh)
+
+    await waitFor(() => expect(refetch).toHaveBeenCalled())
   })
 })

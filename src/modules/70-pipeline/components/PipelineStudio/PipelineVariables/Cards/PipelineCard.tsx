@@ -12,6 +12,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { useStrings } from 'framework/exports'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { AllNGVariables } from '@pipeline/utils/types'
 
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
@@ -34,7 +35,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
 
       <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
         factory={stepsFactory}
-        initialValues={{ variables: originalPipeline.variables || [], canAddVariable: true }}
+        initialValues={{ variables: (originalPipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
         type={StepType.CustomVariable}
         stepViewType={StepViewType.InputVariable}
         onUpdate={({ variables }: CustomVariablesData) => {
@@ -45,7 +46,9 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
           domId: 'Pipeline.Variables-panel',
           className: css.customVariables,
           heading: <b>{getString('customVariables.title')}</b>,
-          yamlProperties: pipeline.variables?.map(variable => metadataMap[variable.value || '']?.yamlProperties || {})
+          yamlProperties: (pipeline.variables as AllNGVariables[])?.map(
+            variable => metadataMap[variable.value || '']?.yamlProperties || {}
+          )
         }}
       />
     </Card>

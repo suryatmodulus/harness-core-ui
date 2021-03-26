@@ -206,7 +206,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       }
       props.onSubmit?.({
         services: newlySelectedServices,
-        type: 'HarnessCD_1.0',
+        type: 'HARNESS_CD10',
         sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE
       })
       setValidationText(undefined)

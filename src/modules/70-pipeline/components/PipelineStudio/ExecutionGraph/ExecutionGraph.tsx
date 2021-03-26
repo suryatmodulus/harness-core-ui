@@ -8,7 +8,7 @@ import type { AbstractStepFactory } from '@pipeline/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'
 import type { ExecutionWrapper } from 'services/cd-ng'
-import { ExecutionStepModel } from './ExecutionStepModel'
+import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import {
   addStepOrGroup,
@@ -116,6 +116,11 @@ export interface ExecutionGraphProp {
   updateStage: (stage: StageElementWrapper) => void
   onAddStep: (event: ExecutionGraphAddStepEvent) => void
   onEditStep: (event: ExecutionGraphEditStepEvent) => void
+  gridStyle?: GridStyleInterface
+  rollBackPropsStyle?: React.CSSProperties
+  rollBackBannerStyle?: React.CSSProperties
+  canvasButtonsLayout?: 'horizontal' | 'vertical'
+  canvasButtonsTooltipPosition?: 'top' | 'left'
 }
 
 function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {
@@ -127,7 +132,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     stage,
     updateStage,
     onAddStep,
-    onEditStep
+    onEditStep,
+    gridStyle = {},
+    rollBackPropsStyle = {},
+    rollBackBannerStyle = {},
+    canvasButtonsLayout,
+    canvasButtonsTooltipPosition
   } = props
 
   const { getString } = useStrings()
@@ -161,6 +171,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
 
   //2) setup the diagram model
   const model = React.useMemo(() => new ExecutionStepModel(), [])
+  model.setGridStyle(gridStyle)
 
   const onPopoverSelection = (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: DefaultNodeEvent): void => {
     if (!isStepGroup && event) {
@@ -568,7 +579,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     >
       <div className={css.canvas} ref={canvasRef}>
         {state.isRollback && (
-          <Text font={{ size: 'medium' }} className={css.rollbackBanner}>
+          <Text font={{ size: 'medium' }} className={css.rollbackBanner} style={rollBackBannerStyle}>
             {getString('rollbackLabel')}
           </Text>
         )}
@@ -576,11 +587,11 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           engine={engine}
           isRollback={hasRollback}
           rollBackProps={{
-            style: { top: 62 },
+            style: { top: 62, ...rollBackPropsStyle },
             active: state.isRollback ? StepsType.Rollback : StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} tooltipPosition="left" />
+        <CanvasButtons engine={engine} tooltipPosition={canvasButtonsTooltipPosition} layout={canvasButtonsLayout} />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}

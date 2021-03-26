@@ -66,7 +66,10 @@ import css from './ManifestSelection.module.scss'
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
-  ManifestDataType.HelmChart
+  ManifestDataType.HelmChart,
+  ManifestDataType.Kustomize
+  // ManifestDataType.OpenshiftTemplate,
+  // ManifestDataType.OpenshiftParam
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
@@ -238,6 +241,7 @@ const ManifestListView = ({
   }
   const handleConnectorViewChange = (isConnectorView: boolean): void => {
     setConnectorView(isConnectorView)
+    setIsEditMode(false)
   }
   const handleStoreChange = (store?: ManifestStores): void => {
     setManifestStore(store || '')
@@ -258,8 +262,8 @@ const ManifestListView = ({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('manifestType.specifyManifestRepoType'),
-      secondStepName: getString('manifestType.specifyManifestStore'),
-      newConnector: getString('newConnector')
+      secondStepName: `${getString('select')} ${selectedManifest} ${getString('store')}`,
+      newConnector: `${getString('newLabel')} ${ManifestToConnectorMap[manifestStore]} ${getString('connector')}`
     }
   }
 
@@ -356,7 +360,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -383,7 +387,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -460,7 +464,7 @@ const ManifestListView = ({
             <ConnectorDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
-              isEditMode={false}
+              isEditMode={isEditMode}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}
@@ -541,7 +545,7 @@ const ManifestListView = ({
           </StepWizard>
         )
     }
-  }, [connectorView, manifestStore])
+  }, [connectorView, manifestStore, isEditMode])
 
   const { expressions } = useVariablesExpression()
 
@@ -550,20 +554,13 @@ const ManifestListView = ({
       setConnectorView(false)
       hideConnectorModal()
       setManifestStore('')
+      setIsEditMode(false)
     }
     //S3 and GCS are disabled till BE is ready
     // const storeTypes =
     //   selectedManifest === ManifestDataType.HelmChart
     //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
     //     : manifestStoreTypes
-
-    /*
-      // This is for openshiftparam
-        const storeTypes =
-      selectedManifest === ManifestDataType.OpenshiftParam
-        ? [ManifestStoreMap.Git, ManifestStoreMap.Local]
-        : manifestStoreTypes
-    */
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http]
@@ -591,7 +588,7 @@ const ManifestListView = ({
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
     )
-  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions])
+  }, [selectedManifest, connectorView, manifestIndex, manifestStore, expressions.length, expressions, isEditMode])
 
   return (
     <Layout.Vertical spacing="small">

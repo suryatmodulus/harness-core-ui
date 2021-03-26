@@ -10,6 +10,7 @@ import { StepGroupNodeLayerFactory } from './node-layer/StepGroupNodeLayerFactor
 import { DefaultLabelFactory } from './label/DefaultLabelFactory'
 import { DefaultNodeFactory } from './node/DefaultNodeFactory'
 import { CreateNewFactory } from './node/CreateNew/CreateNewFactory'
+import { IconNodeFactory } from './node/IconNode/IconNodeFactory'
 import { EmptyNodeFactory } from './node/EmptyNode/EmptyNodeFactory'
 import { NodeStartFactory } from './node/NodeStart/NodeStartFactory'
 import { GroupNodeFactory } from './node/GroupNode/GroupNodeFactory'
@@ -38,6 +39,10 @@ export * from './node-layer/StepGroupNodeLayerWidget'
 export * from './node/CreateNew/CreateNewFactory'
 export * from './node/CreateNew/CreateNewModel'
 export * from './node/CreateNew/CreateNewWidget'
+
+export * from './node/IconNode/IconNodeFactory'
+export * from './node/IconNode/IconNodeModel'
+export * from './node/IconNode/IconNodeWidget'
 
 export * from './node/EmptyNode/EmptyNodeFactory'
 export * from './node/EmptyNode/EmptyNodeModel'
@@ -85,6 +90,7 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   engine.getNodeFactories().registerFactory(new CreateNewFactory())
   engine.getNodeFactories().registerFactory(new GroupNodeFactory())
   engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
+  engine.getNodeFactories().registerFactory(new IconNodeFactory())
   engine.getNodeFactories().registerFactory(new NodeStartFactory())
   // register the default interaction behaviors
   engine.getStateMachine().pushState(new DefaultDiagramState())

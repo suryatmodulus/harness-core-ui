@@ -20,10 +20,10 @@ import css from './ConfigureOptions.module.scss'
 export interface ConfigureOptionsProps {
   value: string
   isRequired?: boolean
-  defaultValue?: string
+  defaultValue?: string | number
   variableName: string
   type: string | JSX.Element
-  onChange?: (value: string, defaultValue?: string, isRequired?: boolean) => void
+  onChange?: (value: string, defaultValue?: string | number, isRequired?: boolean) => void
   showDefaultField?: boolean
   showRequiredField?: boolean
   showAdvanced?: boolean
@@ -286,7 +286,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   }, [value])
 
   const closeModal = React.useCallback(
-    (str?: string, defaultStr?: string, required?: boolean) => {
+    (str?: string, defaultStr?: string | number, required?: boolean) => {
       hideModal()
       onChange?.(str ?? input, defaultStr ?? defaultValue, required)
     },

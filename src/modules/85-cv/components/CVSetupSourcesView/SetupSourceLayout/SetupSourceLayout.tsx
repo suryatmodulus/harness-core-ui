@@ -6,6 +6,7 @@ import css from './SetupSourceLayout.module.scss'
 export interface FooterCTAProps {
   onNext?: () => void
   onPrevious?: () => void
+  isSubmit?: boolean
 }
 
 export interface SetupSourceLayoutProps {
@@ -16,7 +17,7 @@ export interface SetupSourceLayoutProps {
 }
 
 export function FooterCTA(props: FooterCTAProps): JSX.Element {
-  const { onNext, onPrevious } = props
+  const { onNext, onPrevious, isSubmit } = props
   const { getString } = useStrings()
   return (
     <Container className={css.footerCta}>
@@ -27,7 +28,7 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
       )}
       {onNext && (
         <Button icon="chevron-right" className={css.nextButton} onClick={() => onNext()}>
-          {getString('next')}
+          {isSubmit ? getString('submit') : getString('next')}
         </Button>
       )}
     </Container>

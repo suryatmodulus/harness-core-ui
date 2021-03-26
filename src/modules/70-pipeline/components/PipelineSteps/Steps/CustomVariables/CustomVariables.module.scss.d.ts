@@ -15,5 +15,6 @@ declare const styles: {
   readonly valueString: string
   readonly valueColumn: string
   readonly tooltip: string
+  readonly customVariablesInputSets: string
 }
 export default styles

@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import YAML from 'yaml'
 import { Layout, Card, Icon, Text, Accordion } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { debounce, get, isNil } from 'lodash-es'
+import { debounce, get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
-import type { K8SDirectInfrastructure, NgPipeline, PipelineInfrastructure } from 'services/cd-ng'
+import {
+  ExecutionWrapper,
+  getProvisionerExecutionStrategyYamlPromise,
+  K8SDirectInfrastructure,
+  NgPipeline,
+  PipelineInfrastructure,
+  StageElementWrapper
+} from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import Timeline from '@common/components/Timeline/Timeline'
 import { String } from 'framework/exports'
 import i18n from './DeployInfraSpecifications.i18n'
@@ -25,7 +35,7 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
   }
 ]
 
-const TimelineNodes = [
+const getTimelineNodes = (isProvisionerEnabled: boolean) => [
   {
     label: 'Environment',
     id: 'environment'
@@ -34,6 +44,14 @@ const TimelineNodes = [
     label: 'Infrastructure definition',
     id: 'infrastructureDefinition',
     childItems: [
+      ...(isProvisionerEnabled
+        ? [
+            {
+              label: 'Dynamic provisioning',
+              id: 'dynamicProvisioning-panel'
+            }
+          ]
+        : []),
       {
         label: 'Cluster details',
         id: 'clusterDetails-panel'
@@ -43,6 +61,7 @@ const TimelineNodes = [
 ]
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
+  const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
@@ -177,9 +196,79 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       </div>
     )
   }
+
+  const [provisionerEnabled, setProvisionerEnabled] = useState<boolean>(false)
+  const [provisionerSnippetLoading, setProvisionerSnippetLoading] = useState<boolean>(false)
+
+  const isProvisionerEmpty = (stageData: StageElementWrapper) => {
+    const provisionerData = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
+    return isEmpty(provisionerData?.steps) && isEmpty(provisionerData?.rollbackSteps)
+  }
+
+  // load and apply provisioner snippet to the stage
+  useEffect(() => {
+    if (stage && isProvisionerEmpty(stage) && provisionerEnabled) {
+      setProvisionerSnippetLoading(true)
+      getProvisionerExecutionStrategyYamlPromise({ queryParams: { provisionerType: 'TERRAFORM' } }).then(res => {
+        const provisionerSnippet = YAML.parse(res?.data || '')
+        if (stage && isProvisionerEmpty(stage) && provisionerSnippet) {
+          stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = provisionerSnippet.provisioner
+          updatePipeline(pipeline).then(() => {
+            setProvisionerSnippetLoading(false)
+          })
+        }
+      })
+    }
+  }, [provisionerEnabled])
+
+  useEffect(() => {
+    setProvisionerEnabled(!isProvisionerEmpty(stage || {}))
+
+    return () => {
+      const provisioner = stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+      let isChanged = false
+
+      if (!isNil(provisioner.steps) && provisioner.steps.length === 0) {
+        delete provisioner.steps
+        isChanged = true
+      }
+      if (!isNil(provisioner.rollbackSteps) && provisioner.rollbackSteps.length === 0) {
+        delete provisioner.rollbackSteps
+        isChanged = true
+      }
+
+      if (!isNil(provisioner) && isEmpty(provisioner)) {
+        delete stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+        isChanged = true
+      }
+
+      if (isChanged) {
+        updatePipeline(pipeline)
+      }
+    }
+  }, [])
+
+  const getProvisionerData = (stageData: ExecutionWrapper): InfraProvisioningData => {
+    let provisioner = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
+
+    if (isNil(provisioner)) {
+      provisioner = {}
+    }
+    if (isNil(provisioner.steps)) {
+      provisioner.steps = []
+    }
+    if (isNil(provisioner.rollbackSteps)) {
+      provisioner.rollbackSteps = []
+    }
+
+    set(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
+
+    return { provisioner, provisionerEnabled, provisionerSnippetLoading }
+  }
+
   return (
     <div className={css.serviceOverrides}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
+      <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes(isProvisionerEnabled)} />
 
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
@@ -217,6 +306,31 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             {renderInfraSelection()}
           </div>
         </Card>
+        {isProvisionerEnabled ? (
+          <Accordion className={css.sectionCard} activeId="dynamicProvisioning">
+            <Accordion.Panel
+              id="dynamicProvisioning"
+              addDomId={true}
+              summary={'Dynamic provisioning'}
+              details={
+                <StepWidget<InfraProvisioningData>
+                  factory={factory}
+                  key={updateKey}
+                  initialValues={getProvisionerData(stage || {})}
+                  type={StepType.InfraProvisioning}
+                  stepViewType={StepViewType.Edit}
+                  onUpdate={(value: InfraProvisioningData) => {
+                    if (stage) {
+                      stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = value.provisioner
+                    }
+                    debounceUpdatePipeline(pipeline)
+                    setProvisionerEnabled(value.provisionerEnabled)
+                  }}
+                />
+              }
+            />
+          </Accordion>
+        ) : null}
         <Accordion className={css.sectionCard} activeId="clusterDetails">
           <Accordion.Panel
             id="clusterDetails"

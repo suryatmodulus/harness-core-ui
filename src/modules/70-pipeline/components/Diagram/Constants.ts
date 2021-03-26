@@ -30,7 +30,8 @@ export const DiagramType: { [key: string]: string } = {
   CreateNew: 'create-new',
   DiamondNode: 'default-diamond',
   StartNode: 'node-start',
-  GroupNode: 'group-node'
+  GroupNode: 'group-node',
+  IconNode: 'icon-node'
 }
 
 export enum StepsType {

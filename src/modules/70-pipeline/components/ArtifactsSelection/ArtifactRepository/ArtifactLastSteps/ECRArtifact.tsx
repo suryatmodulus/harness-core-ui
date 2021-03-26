@@ -207,7 +207,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{getString('artifactsSelection.specifyArtifactServer')}</div>
+      <div className={css.heading}>{getString('artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sideCarSchema : ecrSchema}
@@ -224,7 +224,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
           <Form>
             <div className={css.connectorForm}>
               {context === 2 && (
-                <div className={css.imagePathContainer}>
+                <div className={css.dockerSideCard}>
                   <FormInput.Text
                     label={getString('artifactsSelection.existingDocker.sidecarId')}
                     placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}

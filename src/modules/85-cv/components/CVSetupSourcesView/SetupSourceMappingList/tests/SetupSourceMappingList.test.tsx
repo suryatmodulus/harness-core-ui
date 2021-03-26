@@ -25,7 +25,7 @@ describe('Unit tests for SetupSourceMappingList', () => {
           message: 'mockError',
           onClick: onClickFn
         }}
-        tableFilterProps={{ isItemInFilter: jest.fn() }}
+        tableFilterProps={{ isItemInFilter: jest.fn(), totalItemsToRender: 30 }}
       />
     )
 
@@ -51,7 +51,7 @@ describe('Unit tests for SetupSourceMappingList', () => {
             { accessor: 'y', Header: 'sdlkfjsdlfj' }
           ]
         }}
-        tableFilterProps={{ isItemInFilter: jest.fn() }}
+        tableFilterProps={{ isItemInFilter: jest.fn(), totalItemsToRender: 30 }}
         mappingListHeaderProps={{
           mainHeading: 'main',
           subHeading: 'sub'
@@ -85,7 +85,8 @@ describe('Unit tests for SetupSourceMappingList', () => {
         tableFilterProps={{
           isItemInFilter: (_, item) => {
             return item.c === 's432d'
-          }
+          },
+          totalItemsToRender: 30
         }}
         loading={false}
       />
@@ -100,5 +101,105 @@ describe('Unit tests for SetupSourceMappingList', () => {
     fireEvent.click(filter)
     await waitFor(() => expect(container.querySelectorAll(`[role="row"]`).length).toBe(2))
     expect(getByText('s432d')).not.toBeNull()
+  })
+
+  test('Ensure that when there are more than total number of items to render, the limit count is honored', async () => {
+    const { container, getByText } = render(
+      <SetupSourceMappingList<{ c: string; s: string; t: string; y: string }>
+        tableProps={{
+          data: [
+            { c: '_app1', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: '_app2', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: '_app3', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: '_app4', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: '_app5', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: '_app6', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: '_app7', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: '_app8', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: '_app9', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: '_app10', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: '_app11', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: 'app12', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: 'app13', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: 'app14', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' },
+            { c: 'app15', s: 'dsfs', t: 'sdfsdf', y: 'sdfsdfsdf' },
+            { c: 'app16', s: 'ds234fs', t: 'sd23fsdf', y: 'sdf243sdfsdf' }
+          ],
+          columns: [
+            { Header: 'asdad', accessor: 'c' },
+            { accessor: 's', Header: 'asdsdfad' },
+            { accessor: 't', Header: 'sdklfjksl' },
+            { accessor: 'y', Header: 'sdlkfjsdlfj' }
+          ]
+        }}
+        mappingListHeaderProps={{
+          mainHeading: 'main',
+          subHeading: 'sub'
+        }}
+        tableFilterProps={{
+          isItemInFilter: (_, item) => {
+            return item.c.startsWith('_')
+          },
+          totalItemsToRender: 10
+        }}
+        loading={false}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelectorAll(`[role="row"]`).length).toBe(11))
+    const filter = container.querySelector('.filter')
+    if (!filter) {
+      throw Error('filter did not render.')
+    }
+
+    fireEvent.click(filter)
+    await waitFor(() => expect(container.querySelectorAll(`[role="row"]`).length).toBe(11))
+    expect(getByText('_app1')).not.toBeNull()
+    expect(getByText('_app10')).not.toBeNull()
+  })
+
+  test('Ensure that when there are a 1000 or more items api filter is called', async () => {
+    const mockFn = jest.fn()
+    const { container } = render(
+      <SetupSourceMappingList<{ c: string; s: string; t: string; y: string }>
+        tableProps={{
+          data: Array(1000)
+            .fill({})
+            .map((_, index) => ({
+              c: index.toString(),
+              s: index.toString(),
+              t: index.toString(),
+              y: index.toString()
+            })),
+          columns: [
+            { Header: 'asdad', accessor: 'c' },
+            { accessor: 's', Header: 'asdsdfad' },
+            { accessor: 't', Header: 'sdklfjksl' },
+            { accessor: 'y', Header: 'sdlkfjsdlfj' }
+          ]
+        }}
+        mappingListHeaderProps={{
+          mainHeading: 'main',
+          subHeading: 'sub'
+        }}
+        tableFilterProps={{
+          isItemInFilter: (_, item) => {
+            return item.c.startsWith('_')
+          },
+          totalItemsToRender: 10,
+          onFilterForMoreThan1000Items: mockFn
+        }}
+        loading={false}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelectorAll(`[role="row"]`).length).toBe(11))
+    const searchField = container.querySelector('.filter')
+    if (!searchField) {
+      throw Error('Search field was not rendered.')
+    }
+
+    fireEvent.click(searchField)
+    await waitFor(() => expect(mockFn).toHaveBeenCalled())
   })
 })

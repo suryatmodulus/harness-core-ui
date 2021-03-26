@@ -23,7 +23,7 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import { defaultScheduleValues, scheduleTabsId } from './views/subviews/ScheduleUtils'
+import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import { eventTypes } from './utils/TriggersWizardPageUtils'
@@ -49,6 +49,7 @@ import {
   scheduledTypes,
   getValidationSchema
 } from './utils/TriggersWizardPageUtils'
+import { resetScheduleObject, getBreakdownValues } from './views/subviews/ScheduleUtils'
 import css from './TriggersWizardPage.module.scss'
 const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier, triggerIdentifier, module } = useParams<
@@ -154,7 +155,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const originalPipeline: NgPipeline | undefined = parse((pipelineResponse?.data?.yamlPipeline as any) || '')?.pipeline
 
   useEffect(() => {
-    if (triggerResponse?.data?.yaml && triggerResponse.data.type) {
+    if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.WEBHOOK) {
       let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
       let gitRepoSpecCopy
       try {
@@ -217,7 +218,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           targetBranchValue,
           tagConditionOperator,
           tagConditionValue,
-
           headerConditions,
           payloadConditions: payloadConditions?.filter(
             (payloadCondition: AddConditionInterface) =>
@@ -256,11 +256,57 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
         newOnEditInitialValues.connectorRef = connectorRef
 
-        if (gitRepoSpecCopy?.repoName) {
-          newOnEditInitialValues.repoName = gitRepoSpecCopy.repoName
-        }
+        newOnEditInitialValues.repoName = gitRepoSpecCopy?.repoName ?? ''
       }
 
+      setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
+    } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.SCHEDULE) {
+      let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
+      try {
+        const triggerResponseJson = parse(triggerResponse.data.yaml)
+        const {
+          trigger: {
+            name,
+            identifier,
+            description,
+            tags,
+            source: {
+              spec: {
+                spec: { expression }
+              }
+            },
+            target: {
+              targetIdentifier,
+              spec: { runtimeInputYaml: pipelineYaml }
+            }
+          }
+        } = triggerResponseJson
+
+        let pipelineJson = undefined
+        try {
+          pipelineJson = parse(pipelineYaml)?.pipeline
+        } catch (e) {
+          // set error
+          setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+        }
+        const expressionBreakdownValues = getBreakdownValues(expression)
+        const newExpressionBreakdown = { ...resetScheduleObject, ...expressionBreakdownValues }
+        newOnEditInitialValues = {
+          name,
+          identifier,
+          description,
+          tags,
+          pipeline: pipelineJson,
+          triggerType: triggerResponse.data.type,
+          targetIdentifier,
+          expression,
+          ...newExpressionBreakdown,
+          selectedScheduleTab: scheduleTabsId.CUSTOM // only show CUSTOM on edit
+        }
+      } catch (e) {
+        // set error
+        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
+      }
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
   }, [triggerIdentifier, triggerResponse])
@@ -468,9 +514,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         identifier: '',
         tags: {},
         selectedScheduleTab: scheduleTabsId.MINUTES,
-        minutes: defaultScheduleValues.MINUTES,
         pipeline: currentPipeline?.pipeline,
-        originalPipeline
+        originalPipeline,
+        ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
     }
   }

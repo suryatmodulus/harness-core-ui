@@ -1,14 +1,19 @@
 import React from 'react'
-import { isEmpty } from 'lodash-es'
+import { useParams } from 'react-router-dom'
+import { isEmpty, debounce } from 'lodash-es'
 import { useExecutionLayoutContext, ExecutionStageDiagram } from '@pipeline/exports'
 import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from '@pipeline/exports'
-import type { GraphLayoutNode } from 'services/pipeline-ng'
+import { GraphLayoutNode, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
 import {
   getIconFromStageModule,
   processLayoutNodeMap,
-  ProcessLayoutNodeMapResponse
+  ProcessLayoutNodeMapResponse,
+  ExecutionPathParams
 } from '@pipeline/utils/executionUtils'
+import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
+import { DynamicPopover } from '@common/exports'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
+import BarrierStageTooltip from './components/BarrierStageTooltip'
 import css from './ExecutionGraph.module.scss'
 
 const processExecutionData = (
@@ -56,32 +61,84 @@ export interface ExecutionGraphProps {
 }
 
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
+  const { executionIdentifier } = useParams<ExecutionPathParams>()
+  const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
+    DynamicPopoverHandlerBinding<{}> | undefined
+  >()
+  const [stageSetupId, setStageSetupIdId] = React.useState('')
   const { pipelineExecutionDetail } = useExecutionContext()
   const { primaryPaneSize } = useExecutionLayoutContext()
-
   const nodeData = processLayoutNodeMap(pipelineExecutionDetail?.pipelineExecutionSummary)
   const data: ExecutionPipeline<GraphLayoutNode> = {
     items: processExecutionData(nodeData),
     identifier: pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || /* istanbul ignore next */ '',
     status: pipelineExecutionDetail?.pipelineExecutionSummary?.status as any
   }
+
+  const { data: barrierInfoData, refetch, loading: barrierInfoLoading } = useGetBarriersExecutionInfo({
+    queryParams: {
+      stageSetupId: stageSetupId || '',
+      planExecutionId: executionIdentifier
+    },
+    lazy: true
+  })
+
+  const fetchBarrierInfo = debounce(refetch, 1000)
+  React.useEffect(() => {
+    !barrierInfoLoading && stageSetupId && fetchBarrierInfo()
+  }, [stageSetupId])
+
+  const onMouseEnter = (event: any) => {
+    const stage = event.stage
+    const isFinished = stage?.data?.endTs
+    const hasStarted = stage?.data?.startTs
+    if (!isFinished && hasStarted) {
+      setStageSetupIdId(stage?.data?.nodeUuid)
+      dynamicPopoverHandler?.show(
+        event.stageTarget,
+        {
+          event,
+          data: stage
+        },
+        { useArrows: true }
+      )
+    }
+  }
+
+  const renderPopover = ({ data: popoverData }: { data: { stepType: string; name: string } }): JSX.Element => {
+    if (barrierInfoData?.data)
+      return (
+        <BarrierStageTooltip loading={barrierInfoLoading} stageName={popoverData.name} data={barrierInfoData?.data} />
+      )
+
+    return <div />
+  }
+
   return (
     <div className={css.main}>
       {!isEmpty(pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier) && data.items?.length > 0 && (
-        <ExecutionStageDiagram
-          selectedIdentifier={props.selectedStage}
-          itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
-          diagramContainerHeight={primaryPaneSize}
-          data={data}
-          nodeStyle={{
-            width: 114,
-            height: 50
-          }}
-          gridStyle={{
-            startX: 50,
-            startY: 50
-          }}
-        />
+        <>
+          <ExecutionStageDiagram
+            itemMouseEnter={onMouseEnter}
+            itemMouseLeave={() => {
+              dynamicPopoverHandler?.hide()
+              setStageSetupIdId('')
+            }}
+            selectedIdentifier={props.selectedStage}
+            itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
+            diagramContainerHeight={primaryPaneSize}
+            data={data}
+            nodeStyle={{
+              width: 114,
+              height: 50
+            }}
+            gridStyle={{
+              startX: 50,
+              startY: 50
+            }}
+          />
+          <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler as any} />
+        </>
       )}
     </div>
   )

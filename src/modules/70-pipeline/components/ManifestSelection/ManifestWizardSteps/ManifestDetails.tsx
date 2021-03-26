@@ -26,16 +26,10 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 
 import { String, useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import i18n from './ManifestWizard.i18n'
 import type { ManifestDetailDataType } from '../ManifestInterface'
-import { GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
+import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
-const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
-  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
-]
 
 interface ManifestDetailsPropType {
   stepName: string
@@ -54,6 +48,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   prevStepData,
   previousStep
 }) => {
+  const { getString } = useStrings()
+
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
     event.currentTarget.classList.add(css.dragging)
@@ -93,7 +89,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     []
   )
 
-  const { getString } = useStrings()
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning
 
@@ -194,12 +189,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
-            .required(i18n.validation.identifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           paths: Yup.array(
             Yup.object().shape({
-              path: Yup.string().trim().required(i18n.validation.filePath)
+              path: Yup.string().trim().required(getString('manifestType.pathRequired'))
             })
           ).min(1)
         })}
@@ -222,8 +217,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             <div className={css.manifestDetailsForm}>
               <FormInput.Text
                 name="identifier"
-                label={i18n.STEP_TWO.manifestId}
-                placeholder={i18n.STEP_ONE.idPlaceholder}
+                label={getString('manifestType.manifestIdentifier')}
+                placeholder={getString('manifestType.manifestPlaceholder')}
               />
               {connectionType === GitRepoName.Repo && (
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -249,14 +244,18 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   >{`${accountUrl}/${formik.values?.repoName}`}</div>
                 </div>
               )}
-              <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+              <FormInput.Select
+                name="gitFetchType"
+                label={getString('manifestType.gitFetchTypeLabel')}
+                items={gitFetchTypes}
+              />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
-                    label={i18n.STEP_TWO.branchLabel}
-                    placeholder={i18n.STEP_TWO.branchPlaceholder}
+                    label={getString('pipelineSteps.deploy.inputSet.branch')}
+                    placeholder={getString('manifestType.branchPlaceholder')}
                     name="branch"
                     style={{ width: '370px' }}
                   />
@@ -277,8 +276,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
-                    label={i18n.STEP_TWO.commitLabel}
-                    placeholder={i18n.STEP_TWO.commitPlaceholder}
+                    label={getString('manifestType.comitId')}
+                    placeholder={getString('manifestType.commitPlaceholder')}
                     name="commitId"
                     style={{ width: '370px' }}
                   />
@@ -337,7 +336,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                             {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
                             <FormInput.MultiTextInput
                               label={''}
-                              placeholder={i18n.STEP_TWO.filePathPlaceholder}
+                              placeholder={getString('manifestType.filePathPlaceholder')}
                               name={`paths[${index}].path`}
                               style={{ width: '330px' }}
                               multiTextInputProps={{

@@ -1,11 +1,39 @@
 .listItem {
-  .edit-btn {
-    display: none !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .item {
+    display: flex;
+    align-items: center;
+    .edit-btn {
+      display: none !important;
+    }
   }
-
   &:hover {
     .edit-btn {
       display: flex !important;
+    }
+    .iconCheck {
+      visibility: visible;
+    }
+  }
+  .iconCheck {
+    visibility: hidden;
+    margin-right: var(--spacing-xsmall);
+    cursor: pointer;
+    > svg {
+      > path {
+        stroke-width: 1;
+        stroke: var(--grey-500);
+      }
+    }
+  }
+  .iconChecked {
+    visibility: visible !important;
+    > svg {
+      > path {
+        stroke: var(--blue-600);
+      }
     }
   }
 }

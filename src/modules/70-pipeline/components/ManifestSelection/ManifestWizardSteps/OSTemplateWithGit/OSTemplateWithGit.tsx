@@ -23,16 +23,10 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import i18n from '../ManifestWizard.i18n'
 import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
-import { GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
-
-const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
-  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
-]
 
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
@@ -142,8 +136,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
-            .required(i18n.validation.identifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           path: Yup.string().trim().required(getString('manifestType.folderPathRequired'))
         })}
@@ -196,7 +190,11 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={templateCss.halfWidth}>
-                  <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+                  <FormInput.Select
+                    name="gitFetchType"
+                    label={getString('manifestType.gitFetchTypeLabel')}
+                    items={gitFetchTypes}
+                  />
                 </div>
 
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
@@ -207,8 +205,8 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.branchLabel}
-                      placeholder={i18n.STEP_TWO.branchPlaceholder}
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      placeholder={getString('manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -235,9 +233,9 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.commitLabel}
+                      label={getString('manifestType.comitId')}
+                      placeholder={getString('manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
-                      placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (

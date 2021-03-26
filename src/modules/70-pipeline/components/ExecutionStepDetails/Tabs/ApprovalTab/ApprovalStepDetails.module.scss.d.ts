@@ -10,6 +10,7 @@ declare const styles: {
   readonly harnessApproval: string
   readonly inputs: string
   readonly heading: string
+  readonly status: string
   readonly actions: string
   readonly approver: string
   readonly approverName: string

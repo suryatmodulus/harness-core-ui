@@ -105,7 +105,7 @@ describe('Test Barrier Step', () => {
           },
           variablesData: {
             name: 'step-name',
-            identifier: 'barrier',
+            identifier: 'BARRIER',
             type: StepType.Barrier,
             spec: { timeout: 'step-timeout' }
           }

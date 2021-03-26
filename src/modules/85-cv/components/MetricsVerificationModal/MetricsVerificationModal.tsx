@@ -3,10 +3,7 @@ import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wi
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 
 import cx from 'classnames'
-import type {
-  AppdynamicsValidationResponse,
-  AppdynamicsMetricValueValidationResponse
-} from '@wings-software/swagger-ts/definitions'
+import type { AppdynamicsValidationResponse, AppdynamicsMetricValueValidationResponse } from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 import i18n from './MetricsVerificationModal.i18n'
@@ -120,7 +117,7 @@ function NoDataErrorCard(props: NoDataErrorCardProps): JSX.Element {
   const { metricName, viewCallLogs, metricPackName } = props
   return (
     <Card className={cx(css.noDataCard, css.statusCard)}>
-      <Icon name="remove" className={css.statusIcon} size={ICON_SIZE} />
+      <Icon name="small-minus" className={css.statusIcon} size={ICON_SIZE} />
       <Container className={css.dataContainer}>
         <Text intent="none" lineClamp={1} width={MAX_TEXT_WIDTH} className={css.dataTitle}>
           {metricName}

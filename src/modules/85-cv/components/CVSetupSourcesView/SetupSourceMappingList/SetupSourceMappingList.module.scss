@@ -24,7 +24,7 @@
 
   .mappingTable {
     div[role='row'] {
-      &:hover {
+      &:hover:not(:first-child) {
         background-color: var(--blue-200);
       }
       margin: 0 !important;
@@ -35,6 +35,10 @@
     }
     > div[role='row']:first-child {
       border-bottom: 1px solid var(--grey-300);
+    }
+
+    div[role='columnheader'] {
+      cursor: unset;
     }
   }
 }

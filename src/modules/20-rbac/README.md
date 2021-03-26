@@ -12,13 +12,15 @@ The Configuration framework built using the _registration_ pattern. Since each r
 
 Developers from different teams will need to register their resources with the RBAC Factory.
 
-- This registration is required to support adding your resources to resource groups.
+- This registration of resource is required to support adding your resources to resource groups.
 - This registration is done at a [module](https://github.com/wings-software/nextgenui/blob/master/src/modules/README.md) level.
+- These resources are grouped into a category and those categories are registered at [rbac](https://github.com/wings-software/nextgenui/blob/master/src/modules/20-rbac/RouteDestinations.tsx).
 
-Example of a registration:
+Example of a resource registration:
 
 ```typescript
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'nav-org',
@@ -26,24 +28,43 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   permissionLabels: {
     [PermissionIdentifier.CREATE_ORG]: 'Create / Edit'
   }
+  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
   addResourceModalBody: props => <AddOrganizationResourceModalBody {...props} />
 })
 ```
 
-The `RbacFactory` maintains a simple map of `ResourceType` enum to `ResourceHandler` interface implementations. This map is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
+Example of a resource category registration:
+
+```typescript
+RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS, {
+  icon: 'settings',
+  label: <String stringID="adminFunctions" />
+})
+```
+
+The `RbacFactory` maintains a map of `ResourceType` enum to `ResourceHandler` interface implementations along with a map from `ResourceTypeGroup` to `ResourceTypeGroupHandler`. A ResourceTypeGroup is used for grouping of resources that belong to the same category for eg. secrets, connectors are part of Project Resources. A resource can either be put into a category or it could be standalone, in the later case we treat it as it's own category and no other explicit registration is required to make it a category. The map returned from Rbac Factory is used by the access-control UI to render the corresponding features. For eg. the icon and label are used to render the resources list in the Resource Group Details page.
 
 Similarly, for all resource types, we need the capability to select individual resources for a resource group. This is done by delegating the UI via the `addResourceModalBody` prop. This allows teams to render their own UI within the modal, while the overall access-control interface still remains consistent.
 
-`ResourceHandler` interface is implemented as follows (as of March 2021):
+`ResourceHandler` and `ResourceTypeGroupHandler` interfaces are implemented as follows (as of March 2021):
 
 ```typescript
 export interface ResourceHandler {
   icon: IconName
-  label: string
+  label: string | React.ReactElement
   permissionLabels?: {
-    [key in PermissionIdentifier]?: string
+    [key in PermissionIdentifier]?: string | React.ReactElement
   }
-  addResourceModalBody: (props: RbacResourceModalProps) => React.ReactElement
+  addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
+  category?: ResourceTypeGroup
+}
+```
+
+```typescript
+export interface ResourceTypeGroupHandler {
+  icon: IconName
+  label: string | React.ReactElement
+  resourceTypes?: Set<ResourceType>
 }
 ```
 

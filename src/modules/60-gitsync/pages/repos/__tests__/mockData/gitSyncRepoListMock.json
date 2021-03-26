@@ -1,0 +1,54 @@
+[
+  {
+    "identifier": "605855f5bdb5e241e35cacd1",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "bitBucketTest",
+    "repo": "one",
+    "branch": "master",
+    "gitConnectorType": "Bitbucket",
+    "gitSyncFolderConfigDTOs": null
+  },
+
+  {
+    "identifier": "60582f30bdb5e241e35ca8f2",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "github1",
+    "repo": "Wings/githubRepo",
+    "branch": "Develop",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": null
+  },
+
+  {
+    "identifier": "60582f14bdb5e241e35ca8ec",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "gitTest",
+    "repo": "Wings/Rep1",
+    "branch": "Develop",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": null
+  },
+  {
+    "identifier": "6052f655bdb5e241e35c897f",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "gitlab1",
+    "repo": "Project/Repo1",
+    "branch": "Master",
+    "gitConnectorType": "Gitlab",
+    "gitSyncFolderConfigDTOs": null
+  },
+  {
+    "identifier": "6052f655bdb5e241e35c897f",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "git1",
+    "repo": "Project/Repo1",
+    "branch": "Master",
+    "gitConnectorType": "Git",
+    "gitSyncFolderConfigDTOs": null
+  }
+]

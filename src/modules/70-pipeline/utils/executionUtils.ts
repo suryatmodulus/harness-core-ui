@@ -370,7 +370,6 @@ const processNodeData = (
         )
       })
     } else if (nodeData?.stepType === NodeType.STEP_GROUP || nodeData?.stepType === NodeType.NG_SECTION) {
-      const icon = factory.getStepIcon(nodeData?.stepType)
       items.push({
         group: {
           name: nodeData.name || /* istanbul ignore next */ '',
@@ -383,7 +382,7 @@ const processNodeData = (
           status: nodeData.status as ExecutionPipelineItemStatus,
           isOpen: true,
           skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
-          icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+          ...getIconDataBasedOnType(nodeData),
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
             nodeMap,
@@ -396,11 +395,10 @@ const processNodeData = (
       if (nodeData?.stepType === LITE_ENGINE_TASK) {
         processLiteEngineTask(nodeData, rootNodes)
       } else {
-        const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
         items.push({
           item: {
             name: nodeData?.name || /* istanbul ignore next */ '',
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+            ...getIconDataBasedOnType(nodeData),
             identifier: item,
             skipCondition: nodeData?.skipInfo?.evaluatedCondition ? nodeData?.skipInfo.skipCondition : undefined,
             status: nodeData?.status as ExecutionPipelineItemStatus,
@@ -423,7 +421,6 @@ const processNodeData = (
           )
         })
       } else if (nodeDataNext?.stepType === NodeType.STEP_GROUP) {
-        const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeDataNext?.stepType)
         items.push({
           group: {
             name: nodeDataNext.name || /* istanbul ignore next */ '',
@@ -433,7 +430,7 @@ const processNodeData = (
             skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext.status as ExecutionPipelineItemStatus,
             isOpen: true,
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeDataNext?.stepType as NodeType] || 'cross',
+            ...getIconDataBasedOnType(nodeDataNext),
             items: processNodeData(
               nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
               nodeMap,
@@ -443,12 +440,10 @@ const processNodeData = (
           }
         })
       } else {
-        const icon =
-          StepTypeIconsMap[nodeDataNext?.stepType as NodeType] || factory.getStepIcon(nodeDataNext?.stepType || '')
         items.push({
           item: {
             name: nodeDataNext?.name || /* istanbul ignore next */ '',
-            icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+            ...getIconDataBasedOnType(nodeDataNext),
             identifier: id,
             skipCondition: nodeDataNext?.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext?.status as ExecutionPipelineItemStatus,
@@ -463,6 +458,7 @@ const processNodeData = (
       }
     })
   })
+
   return items
 }
 
@@ -494,7 +490,6 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
             const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
-            const icon = factory.getStepIcon(nodeData?.stepType || '')
             items.push({
               group: {
                 name: nodeData.name || /* istanbul ignore next */ '',
@@ -506,7 +501,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 },
                 status: nodeData.status as ExecutionPipelineItemStatus,
                 isOpen: true,
-                icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+                ...getIconDataBasedOnType(nodeData),
                 items: processNodeData(
                   nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                   graph?.nodeMap,
@@ -526,12 +521,11 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
             )
           })
         } else {
-          const icon = factory.getStepIcon(nodeData?.stepType || '')
           items.push({
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
               skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
-              icon: icon !== 'disable' ? icon : StepTypeIconsMap[nodeData?.stepType as NodeType] || 'cross',
+              ...getIconDataBasedOnType(nodeData),
               showInLabel: nodeData.stepType === NodeType.SERVICE || nodeData.stepType === NodeType.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as ExecutionPipelineItemStatus,
@@ -557,9 +551,29 @@ export function getStageType(node?: GraphLayoutNode): 'ci' | 'cd' | 'unknown' {
 }
 
 export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipelineNodeType {
+  if (stepType === StepType.Barrier) {
+    return ExecutionPipelineNodeType.ICON
+  }
   if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval) {
     return ExecutionPipelineNodeType.DIAMOND
   }
 
   return ExecutionPipelineNodeType.NORMAL
+}
+
+export function getIconDataBasedOnType(nodeData?: ExecutionNode): { icon: IconName; iconSize: number } {
+  if (nodeData) {
+    if (nodeData.stepType === StepType.Barrier) {
+      return nodeData.endTs ? { icon: 'barrier-close', iconSize: 72 } : { icon: 'barrier-open', iconSize: 70 }
+    }
+    const icon = StepTypeIconsMap[nodeData?.stepType as NodeType] || factory.getStepIcon(nodeData?.stepType || '')
+    return {
+      icon,
+      iconSize: 20
+    }
+  }
+  return {
+    icon: 'cross',
+    iconSize: 20
+  }
 }

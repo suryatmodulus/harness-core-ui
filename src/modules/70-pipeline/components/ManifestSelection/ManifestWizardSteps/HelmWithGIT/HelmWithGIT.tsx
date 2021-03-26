@@ -21,17 +21,11 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import i18n from '../ManifestWizard.i18n'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
-import { GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
-
-const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
-  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
-]
 
 const commandFlagOptions = [
   { label: 'Version ', value: 'Version' },
@@ -53,6 +47,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   previousStep
 }) => {
   const { getString } = useStrings()
+
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
@@ -160,8 +155,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
-            .required(i18n.validation.identifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
@@ -215,7 +210,11 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
-                  <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+                  <FormInput.Select
+                    name="gitFetchType"
+                    label={getString('manifestType.gitFetchTypeLabel')}
+                    items={gitFetchTypes}
+                  />
                 </div>
 
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
@@ -226,8 +225,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.branchLabel}
-                      placeholder={i18n.STEP_TWO.branchPlaceholder}
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      placeholder={getString('manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -254,9 +253,9 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.commitLabel}
+                      label={getString('manifestType.comitId')}
+                      placeholder={getString('manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
-                      placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (

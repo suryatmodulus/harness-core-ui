@@ -194,7 +194,7 @@ describe('Select Services', () => {
           }
         },
         sourceType: 'CHANGE_SOURCE',
-        type: 'HarnessCD_1.0'
+        type: 'HARNESS_CD10'
       })
     )
   })

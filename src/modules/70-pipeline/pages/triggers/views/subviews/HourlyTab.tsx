@@ -5,7 +5,7 @@ import { zeroFiftyNineDDOptions } from '@common/components/TimeSelect/TimeSelect
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { oneTwentyThreeOptions } from './ScheduleUtils'
+import { oneTwentyThreeOptions, getUpdatedExpression, getBackslashValue } from './ScheduleUtils'
 import css from './HourlyTab.module.scss'
 
 interface HourlyTabInterface {
@@ -15,15 +15,11 @@ interface HourlyTabInterface {
 export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
   const {
     formikProps: {
-      values: { hours, minutes },
+      values: { hours, minutes, expression, selectedScheduleTab },
       values
     },
     formikProps
   } = props
-
-  // useEffect(() => {
-  //   formikProps.setValues({ ...values, hours: defaultValues.HOURS.value, minutes: defaultValues.MINUTES.value })
-  // }, [])
   const { getString } = useStrings()
 
   return (
@@ -33,9 +29,25 @@ export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
         startValue={hours}
         endValue={minutes}
         startOptions={oneTwentyThreeOptions}
-        handleStartValueChange={val => formikProps.setFieldValue('hours', val.value)}
+        handleStartValueChange={val =>
+          formikProps.setValues({
+            ...values,
+            hours: val.value,
+            expression: getUpdatedExpression({
+              expression,
+              value: getBackslashValue({ selectedScheduleTab, id: 'hours', value: val.value as string }),
+              id: 'hours'
+            })
+          })
+        }
         endOptions={zeroFiftyNineDDOptions}
-        handleEndValueChange={val => formikProps.setFieldValue('minutes', val.value)}
+        handleEndValueChange={val =>
+          formikProps.setValues({
+            ...values,
+            minutes: val.value,
+            expression: getUpdatedExpression({ expression, value: val.value as string, id: 'minutes' })
+          })
+        }
         adjoiningText={getString('pipeline-triggers.schedulePanel.hoursAnd')}
         endingText={getString('pipeline-triggers.schedulePanel.minutesParentheses')}
       />

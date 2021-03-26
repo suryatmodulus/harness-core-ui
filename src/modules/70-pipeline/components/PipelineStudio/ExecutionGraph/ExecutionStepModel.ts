@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash-es'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import {
   DiagramModel,
   CreateNewModel,
@@ -10,7 +11,8 @@ import {
   EmptyNodeModel,
   NodeStartModel,
   StepGroupNodeLayerModel,
-  StepsType
+  StepsType,
+  IconNodeModel
 } from '../../Diagram'
 import {
   Listeners,
@@ -23,7 +25,26 @@ import {
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 
+export interface GridStyleInterface {
+  gridSize?: number
+  startX?: number
+  startY?: number
+  gap?: number
+}
+
 const LINE_SEGMENT_LENGTH = 50
+
+export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipelineNodeType {
+  if (stepType === StepType.Barrier) {
+    return ExecutionPipelineNodeType.ICON
+  }
+  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval) {
+    return ExecutionPipelineNodeType.DIAMOND
+  }
+
+  return ExecutionPipelineNodeType.NORMAL
+}
+
 export class ExecutionStepModel extends DiagramModel {
   constructor() {
     super({
@@ -32,6 +53,10 @@ export class ExecutionStepModel extends DiagramModel {
       startY: 100,
       gap: 200
     })
+  }
+
+  setGridStyle(style: GridStyleInterface): void {
+    Object.assign(this, style)
   }
 
   renderGraphServiceNodes(
@@ -159,10 +184,11 @@ export class ExecutionStepModel extends DiagramModel {
     getString?: (key: string, vars?: Record<string, any>) => string
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
-      const type = node?.step?.type || ExecutionPipelineNodeType.NORMAL
+      const stepType = node?.step?.type
+      const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       startX += this.gap
       const nodeRender =
-        type === ExecutionPipelineNodeType.DIAMOND
+        nodeType === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
@@ -172,10 +198,25 @@ export class ExecutionStepModel extends DiagramModel {
               skipCondition: node.step.skipCondition,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
+          : nodeType === ExecutionPipelineNodeType.ICON
+          ? new IconNodeModel({
+              identifier: node.step.identifier,
+              name: node.step.name,
+              icon: factory.getStepIcon(stepType),
+              allowAdd: allowAdd === true,
+              isInComplete: isCustomGeneratedString(node.step.identifier),
+              skipCondition: node.step.skipCondition,
+              draggable: true,
+              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              iconSize: 70,
+              iconStyle: {
+                marginBottom: '38px'
+              }
+            })
           : new DefaultNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
-              icon: factory.getStepIcon(type),
+              icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,

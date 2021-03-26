@@ -229,7 +229,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         : undefined
                     }
                     name="connectorRef"
-                    type={['Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
+                    type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
                     placeholder={loading ? getString('loading') : getString('select')}

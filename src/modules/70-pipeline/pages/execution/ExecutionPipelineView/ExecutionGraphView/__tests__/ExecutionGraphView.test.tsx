@@ -85,6 +85,15 @@ fetchMock.mockResolvedValue({
 })
 
 describe('<ExecutionGraphView /> tests', () => {
+  const dateToString = jest.spyOn(Date.prototype, 'toLocaleString')
+
+  beforeAll(() => {
+    dateToString.mockImplementation(() => 'DUMMY DATE')
+  })
+
+  afterAll(() => {
+    dateToString.mockRestore()
+  })
   test('renders execution graphs with CD data', () => {
     const { container } = render(
       <TestWrapper>

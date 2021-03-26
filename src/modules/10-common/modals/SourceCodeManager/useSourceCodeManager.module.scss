@@ -1,0 +1,25 @@
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: var(--spacing-none);
+  min-width: 600px;
+}
+
+.cardRow {
+  display: flex;
+}
+
+.card {
+  display: flex !important;
+  justify-content: center;
+  box-shadow: var(--card-box-shadow);
+  margin: var(--spacing-small);
+  width: 90px;
+  height: 80px;
+}

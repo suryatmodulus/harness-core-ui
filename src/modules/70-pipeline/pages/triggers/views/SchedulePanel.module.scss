@@ -94,41 +94,6 @@
     }
   }
 
-  [class*='toothpick'],
-  [class*='minutesTab'],
-  [class*='hourlyTab'],
-  [class*='dailyTab'],
-  [class*='weeklyTab'],
-  [class*='monthlyTab'],
-  [class*='yearlyTab'] {
-    [class*='bp3-menu'] {
-      overflow-x: hidden !important;
-      min-width: 100px;
-    }
-
-    [class*='Select'] {
-      width: 100px;
-    }
-  }
-
-  [class*='minutesTab'],
-  [class*='hourlyTab'],
-  [class*='weeklyTab'],
-  [class*='monthlyTab'],
-  [class*='yearlyTab'] {
-    padding: var(--spacing-xsmall) var(--spacing-xlarge) 0 var(--spacing-xlarge);
-  }
-
-  [class*='dailyTab'] {
-    [class*='expressionBreakdown'] {
-      padding-left: var(--spacing-xxxlarge) !important;
-    }
-
-    [class*='expression'] {
-      padding: 0 var(--spacing-xxxlarge) !important;
-    }
-  }
-
   [id*='Custom'] {
     padding: 0 var(--spacing-xlarge);
     margin-top: var(--spacing-xlarge);
@@ -142,11 +107,6 @@
       font-size: 14px !important;
       margin-bottom: var(--spacing-small) !important;
     }
-
-    [class*='expressionBreakdown'],
-    &[class*='bp3-tab-panel'] > div[class*='spacer'] {
-      margin-top: 0 !important;
-    }
   }
 
   [class*='TimeSelect'] {
@@ -155,10 +115,6 @@
 
   [id*='Daily'] {
     margin-left: -10px;
-  }
-
-  [class*='expressionBreakdown'] {
-    padding: var(--spacing-large) 0 var(--spacing-large) !important;
   }
 
   [class*='bp3-tab-panel'] [class*='bp3-form-group'] label[for='expression'] {

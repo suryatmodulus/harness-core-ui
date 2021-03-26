@@ -172,7 +172,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             {accessDetails.dnsLink.selected ? (
               <Tab
                 id="dns"
-                title={'DNS Link'}
+                title={getString('ce.co.gatewayAccess.dnsLink')}
                 panel={
                   <DNSLinkSetup
                     gatewayDetails={props.gatewayDetails}
@@ -182,11 +182,17 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 }
               ></Tab>
             ) : null}
-            {accessDetails.ssh.selected ? <Tab id="ssh" title={'SSH / RDP'} panel={<SSHSetup />}></Tab> : null}
-            {accessDetails.ipaddress.selected ? <Tab id="ip" title={'IP Address'} panel={<IPSetup />}></Tab> : null}
-            {accessDetails.rdp.selected ? <Tab id="rdp" title={'RDP'} panel={<IPSetup />}></Tab> : null}
+            {accessDetails.ssh.selected ? (
+              <Tab id="ssh" title={getString('ce.co.gatewayAccess.sshRdp')} panel={<SSHSetup />}></Tab>
+            ) : null}
+            {accessDetails.ipaddress.selected ? (
+              <Tab id="ip" title={getString('ce.co.gatewayAccess.ip')} panel={<IPSetup />}></Tab>
+            ) : null}
+            {accessDetails.rdp.selected ? (
+              <Tab id="rdp" title={getString('ce.co.gatewayAccess.rdp')} panel={<IPSetup />}></Tab>
+            ) : null}
             {accessDetails.backgroundTasks.selected ? (
-              <Tab id="bg" title={'Background Tasks'} panel={<IPSetup />}></Tab>
+              <Tab id="bg" title={getString('ce.co.gatewayAccess.backgroundTasks')} panel={<IPSetup />}></Tab>
             ) : null}
           </Tabs>
         </Container>

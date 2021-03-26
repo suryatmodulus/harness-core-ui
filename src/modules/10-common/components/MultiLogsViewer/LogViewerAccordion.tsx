@@ -3,6 +3,7 @@ import { Icon, IconName } from '@wings-software/uicore'
 
 import { Duration } from '@common/components'
 
+import type { FormattedLogLine } from './types'
 import css from './MultiLogsViewer.module.scss'
 
 export type LogViewerAccordionStatus = 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'NOT_STARTED' | 'LOADING' | 'QUEUED'
@@ -15,7 +16,7 @@ export interface LogViewerAccordionProps {
   id: string
   status: LogViewerAccordionStatus
   isOpen?: boolean
-  // linesChunkSize: number
+  formattedData: FormattedLogLine[]
   onSectionClick?(id: string, props: LogViewerAccordionProps): boolean | void
 }
 

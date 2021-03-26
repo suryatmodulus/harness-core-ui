@@ -35,9 +35,9 @@ import {
   useGetServices,
   useSecurityGroupsOfInstances
 } from 'services/lw'
+import { useStrings } from 'framework/exports'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'
-import i18n from './COGatewayConfig.i18n'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import CORuleDendencySelector from './CORuleDependencySelector'
@@ -72,6 +72,7 @@ const portProtocolMap: { [key: number]: string } = {
   443: 'https'
 }
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
+  const { getString } = useStrings()
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
@@ -338,7 +339,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       </Drawer>
       <Container style={{ paddingTop: 10 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Text style={{ fontSize: '18px', lineHeight: '20px', fontWeight: 500 }}>{i18n.configHeading}</Text>
+          <Text style={{ fontSize: '18px', lineHeight: '20px', fontWeight: 500 }}>
+            {getString('ce.co.gatewayConfig.configHeading')}
+          </Text>
           <Container width="50%">
             <Formik
               initialValues={{
@@ -352,7 +355,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   <Layout.Vertical spacing="xxxlarge" width="50%">
                     <FormInput.Text
                       name="gatewayName"
-                      label={i18n.name}
+                      label={getString('ce.co.gatewayConfig.name')}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         formik.setFieldValue('gatewayName', e.target.value)
                         props.gatewayDetails.name = e.target.value
@@ -446,7 +449,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                     maxWidth: '890px'
                   }}
                 >
-                  {i18n.info}
+                  {getString('ce.co.gatewayConfig.info')}
                 </Text>
                 {selectedInstances.length ? (
                   <Table<InstanceDetails>
@@ -502,7 +505,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                 ) : null}
               </Container>
               <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '947px' }}>
-                <Collapse collapsedIcon="plus" heading={i18n.addInstanceLabel}>
+                <Collapse collapsedIcon="plus" heading={getString('ce.co.gatewayConfig.addInstanceLabel')}>
                   <Button style={{ float: 'right' }} onClick={refreshInstances} icon="refresh" />
                   {loadingInstances ? (
                     <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center', marginTop: '10px' }} />
@@ -544,7 +547,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                     addPort()
                                   }}
                                 >
-                                  {i18n.addPortLabel}
+                                  {getString('ce.co.gatewayConfig.addPortLabel')}
                                 </Text>
                               </Container>
                             </Layout.Vertical>
@@ -558,7 +561,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                           <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
                             <Layout.Vertical spacing="large" padding="large">
                               <Switch
-                                label={i18n.healthCheck}
+                                label={getString('ce.co.gatewayConfig.healthCheck')}
                                 className={css.switchFont}
                                 onChange={e => {
                                   setHealthCheck(e.currentTarget.checked)
@@ -582,7 +585,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                           <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
                             <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
                               <Switch
-                                label={i18n.allowTraffic}
+                                label={getString('ce.co.gatewayConfig.allowTraffic')}
                                 width="50%"
                                 className={css.switchFont}
                                 checked={matchSubdomains}
@@ -593,7 +596,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 }}
                               />
                               <Switch
-                                label={i18n.usePrivateIP}
+                                label={getString('ce.co.gatewayConfig.usePrivateIP')}
                                 width="50%"
                                 className={css.switchFont}
                                 checked={usePrivateIP}

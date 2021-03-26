@@ -4,7 +4,7 @@ import { Container } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
-import { RestResponseDSConfig, useGetDSConfig } from 'services/cv'
+import { DSConfig, useGetDSConfig } from 'services/cv'
 import { Page } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
@@ -14,14 +14,14 @@ import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoard
 import i18n from './MonitoringSource.i18n'
 import css from './MonitoringSource.module.scss'
 
-const getContentByType = (type: string, dsConfig?: RestResponseDSConfig | null): JSX.Element => {
+const getContentByType = (type: string, dsConfig?: DSConfig | null): JSX.Element => {
   switch (type) {
     case MonitoringSourceSetupRoutePaths.APP_DYNAMICS:
       return <AppDMonitoringSource dsConfig={dsConfig} />
     case MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS:
       return <GoogleCloudOperationsMonitoringSource dsConfig={dsConfig} />
     case MonitoringSourceSetupRoutePaths.NEW_RELIC:
-      return <NewRelicMonitoringSource />
+      return <NewRelicMonitoringSource dsConfig={dsConfig} />
     default:
       return <></>
   }
@@ -67,7 +67,7 @@ const MonitoringSource = (): JSX.Element => {
           }
         ]}
       />
-      <Container className={css.pageBody}>{getContentByType(monitoringSource, dsConfig)}</Container>
+      <Container className={css.pageBody}>{getContentByType(monitoringSource, dsConfig?.resource)}</Container>
     </Page.Body>
   )
 }

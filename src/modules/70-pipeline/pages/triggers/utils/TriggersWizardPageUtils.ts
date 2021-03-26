@@ -4,6 +4,7 @@ import type { NgPipeline } from 'services/cd-ng'
 import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
+import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
 const CUSTOM = 'CUSTOM'
@@ -21,7 +22,6 @@ export interface FlatInitialValuesInterface {
   sourceRepo?: GetActionsListQueryParams['sourceRepo'] | string
   // SCHEDULE-SPECIFIC
   selectedScheduleTab?: string
-  minutes?: string // default open tab
 }
 
 export interface ConnectorRefInterface {
@@ -42,15 +42,15 @@ export interface FlatOnEditValuesInterface {
   triggerType: NGTriggerSource['type']
   originalPipeline?: NgPipeline
   // WEBHOOK-SPECIFIC
-  sourceRepo: GetActionsListQueryParams['sourceRepo']
+  sourceRepo?: GetActionsListQueryParams['sourceRepo']
   connectorRef?: {
     identifier: string
     repoName?: string
   }
   repoName?: string
   repoUrl?: string
-  event: string
-  actions: string[]
+  event?: string
+  actions?: string[]
   anyAction?: boolean // required for onEdit to show checked
   secureToken?: string
   sourceBranchOperator?: string
@@ -62,8 +62,9 @@ export interface FlatOnEditValuesInterface {
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
   // SCHEDULE-SPECIFIC
-  selectedScheduleType?: string
+  selectedScheduleTab?: string
   minutes?: string
+  expression?: string
 }
 
 export interface FlatValidWebhookFormikValuesInterface {
@@ -230,6 +231,9 @@ const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesI
   return true
 }
 
+const checkValidCronExpression = (formikValues: FlatValidScheduleFormikValuesInterface): boolean =>
+  isCronValid(formikValues?.expression || '')
+
 const getPanels = ({
   triggerType,
   getString
@@ -265,7 +269,9 @@ const getPanels = ({
       },
       {
         id: 'Schedule',
-        tabTitle: getString('pipeline-triggers.schedulePanel.title')
+        tabTitle: getString('pipeline-triggers.schedulePanel.title'),
+        checkValidPanel: checkValidCronExpression,
+        requiredFields: ['expression']
       },
       {
         id: 'Pipeline Input',
@@ -428,7 +434,14 @@ export const getValidationSchema = (
     // Scheduled
     return object().shape({
       name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
-      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier'))
+      identifier: string().trim().required(getString('pipeline-triggers.validation.identifier')),
+      expression: string().test(
+        getString('pipeline-triggers.validation.cronExpression'),
+        getString('pipeline-triggers.validation.cronExpression'),
+        function (expression) {
+          return isCronValid(expression || '')
+        }
+      )
     })
   }
 }

@@ -31,12 +31,16 @@ export enum DrawerTypes {
   FailureStrategy = 'FailureStrategy',
   PipelineNotifications = 'PipelineNotifications',
   SkipCondition = 'SkipCondition',
-  FlowControl = 'FlowControl'
+  FlowControl = 'FlowControl',
+  ProvisionerStepConfig = 'ProvisionerStepConfig',
+  AddProvisionerStep = 'AddProvisionerStep'
 }
 
 export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
   [DrawerTypes.StepConfig]: 600,
   [DrawerTypes.AddStep]: 700,
+  [DrawerTypes.ProvisionerStepConfig]: 600,
+  [DrawerTypes.AddProvisionerStep]: 700,
   [DrawerTypes.PipelineVariables]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
   [DrawerTypes.Templates]: 450,
   [DrawerTypes.ExecutionStrategy]: 1000,

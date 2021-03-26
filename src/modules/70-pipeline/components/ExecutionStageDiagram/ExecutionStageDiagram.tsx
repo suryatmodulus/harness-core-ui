@@ -157,6 +157,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.MouseLeaveNode]: (event: any) => {
       const stage = getStageFromDiagramEvent(event, data)
+      // dynamicPopoverHandler?.hide()
       /* istanbul ignore else */ if (stage) itemMouseLeave(new ItemMouseLeaveEvent(stage, event.target))
     }
   }
@@ -276,7 +277,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                     onClick={e => {
                       e.currentTarget.classList.add(css.selectedLabel)
                       moveStageToFocus(engine, item[1].identifier)
-                      itemClickHandler({ stage: {} })
                     }}
                     onAnimationEnd={e => {
                       e.currentTarget.classList.remove(css.selectedLabel)

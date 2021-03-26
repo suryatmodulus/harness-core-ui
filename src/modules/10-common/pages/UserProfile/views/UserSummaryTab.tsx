@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, Layout, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
+import SourceCodeManagerList from './UserSummary/SourceCodeManagerList'
 
 const UserSummaryTab: React.FC = () => {
   const { getString } = useStrings()
@@ -12,9 +13,7 @@ const UserSummaryTab: React.FC = () => {
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
         {getString('userProfile.myGroups')}
       </Text>
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-        {getString('userProfile.mysourceCodeManagers')}
-      </Text>
+      <SourceCodeManagerList />
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
         {getString('userProfile.myTools')}
       </Text>

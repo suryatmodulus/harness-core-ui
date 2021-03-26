@@ -15,6 +15,7 @@ import {
 import { getStageType } from '@pipeline/utils/executionUtils'
 import { PQueue } from '@common/utils/PQueue'
 import { useDeepCompareEffect } from '@common/hooks'
+import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
 
 import { useLogsStream } from './useLogsStream'
 import { reducer, ActionType, State, Action } from './LogsState'
@@ -43,6 +44,7 @@ type LogArray = {
   unitStatus: LogViewerAccordionStatus
   manuallyToggled?: boolean | undefined
   previousLineLength?: number
+  formattedData: FormattedLogLine[]
 }
 
 type Matches = {
@@ -52,89 +54,97 @@ type Matches = {
   matchLineNo: number | undefined
 }
 
-type Chunk = {
+type Chunks = {
   start: number
   end: number
-  arrayId: string
-  arrayIndex: number
 }
 
 export function highlightSearchText(
-  logArray: LogArray[],
+  arrayToSearch: LogArray[],
   searchText: string,
   searchSelection: number
-): { highlightedLogArray: LogArray[]; matches: Matches[] } {
+): { logArray: LogArray[]; matches: Matches[] } {
   const regex = new RegExp(searchText, 'gi')
 
-  let match
-
-  let totalMatches = 0
-  let totalLines = 0
   const matches: Matches[] = []
-  const highlightedLogArray = logArray.map((logContent, arrayIndex) => {
-    const chunks: Chunk[] = []
-    const textToHighlight = logContent.data
-    while ((match = regex.exec(textToHighlight)) !== null) {
-      if (regex.lastIndex > match.index) {
-        chunks.push({
-          start: match.index,
-          end: regex.lastIndex,
-          arrayId: logContent.id,
-          arrayIndex: arrayIndex
+
+  let searchedLines = 0
+
+  // Loop through log sections
+  const formattedArrayToSearch = arrayToSearch.map((logSection, arrayIndex) => {
+    if (logSection.formattedData) {
+      const arrayId = logSection.id
+
+      // Loop through each line in the section
+      const highlightedFormattedData = Object.values(logSection.formattedData).map(logLine => {
+        // Turn the log object (level, time, out) into an array so we can look through it
+        const logLineContent = Object.values(logLine)
+
+        // Loop through each line section for matches
+        const highlightedLogLineContent = logLineContent.map(textToHighlight => {
+          let match
+          const chunks: Chunks[] = []
+          while ((match = regex.exec(textToHighlight)) !== null) {
+            if (regex.lastIndex > match.index) {
+              chunks.push({
+                start: match.index,
+                end: regex.lastIndex
+              })
+            }
+
+            if (match.index === regex.lastIndex) {
+              regex.lastIndex++
+            }
+          }
+
+          let highlightedString = textToHighlight
+          chunks.forEach((chunk, index) => {
+            const startShift = highlightedString.length - textToHighlight.length
+            const openMarkTags = [
+              highlightedString.slice(0, chunk.start + startShift),
+              `<mark class=${searchSelection === index + 1 + matches.length ? css.selectedSearchResult : ''}>`,
+              highlightedString.slice(chunk.start + startShift)
+            ].join('')
+            const endShift = openMarkTags.length - textToHighlight.length
+            const closeMarkTags = [
+              openMarkTags.slice(0, chunk.end + endShift),
+              '</mark>',
+              openMarkTags.slice(chunk.end + endShift)
+            ].join('')
+            highlightedString = closeMarkTags
+
+            matches.push({
+              matchId: matches.length + 1,
+              arrayId: arrayId,
+              arrayIndex: arrayIndex,
+              matchLineNo: 1 + searchedLines
+            })
+          })
+
+          return highlightedString
         })
-      }
 
-      if (match.index === regex.lastIndex) {
-        regex.lastIndex++
-      }
-    }
+        searchedLines += 1
 
-    let highlightedString = textToHighlight
-    chunks.forEach((chunk, index) => {
-      const startShift = highlightedString.length - textToHighlight.length
-      const openMarkTags = [
-        highlightedString.slice(0, chunk.start + startShift),
-        `<mark id="searchResult-${index + 1 + totalMatches}" class=${
-          searchSelection === index + 1 + totalMatches ? css.selectedSearchResult : ''
-        }>`,
-        highlightedString.slice(chunk.start + startShift)
-      ].join('')
-      const endShift = openMarkTags.length - textToHighlight.length
-      const closeMarkTags = [
-        openMarkTags.slice(0, chunk.end + endShift),
-        '</mark>',
-        openMarkTags.slice(chunk.end + endShift)
-      ].join('')
-      highlightedString = closeMarkTags
-      const matchLineNo =
-        highlightedString
-          .split(/\r?\n/)
-          .map((stringArr, i) => {
-            return { stringArr: stringArr, index: i }
-          })
-          .reverse()
-          .map(elm => {
-            if (elm.stringArr.match(new RegExp('(<mark)+.*>.*(</mark>)+', 'g'))) return elm.index + 1
-          })
-          .filter(i => i != null)[0] || 0
-
-      matches.push({
-        matchId: index + 1 + totalMatches,
-        arrayId: chunk.arrayId,
-        arrayIndex: chunk.arrayIndex,
-        matchLineNo: matchLineNo + totalLines
+        return {
+          level: highlightedLogLineContent[0],
+          time: highlightedLogLineContent[1],
+          out: highlightedLogLineContent[2]
+        }
       })
-    })
-    const previousLineLength = totalLines
-    totalLines += highlightedString.split(/\r?\n/).length
-    totalMatches += chunks.length
-    return {
-      ...logContent,
-      data: highlightedString,
-      previousLineLength: previousLineLength
+
+      return {
+        ...logSection,
+        formattedData: highlightedFormattedData
+      }
+    } else {
+      return logSection
     }
   })
-  return { highlightedLogArray: highlightedLogArray, matches: matches }
+  return {
+    logArray: formattedArrayToSearch,
+    matches: matches
+  }
 }
 
 export function LogsContent(props: LogsContentProps): React.ReactElement {
@@ -316,18 +326,30 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     searchSelection
   )
 
-  const logViewerData = searchResults.highlightedLogArray
+  const logViewerData = searchResults.logArray
+
+  // console.log(
+  //   newHighlightFunction(
+  //     state.units.map(unit => {
+  //       return {
+  //         ...state.dataMap[unit]
+  //       }
+  //     }),
+  //     searchText,
+  //     searchSelection
+  //   )
+  // )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const virtuosoRef = React.useRef<null | any>(null)
 
   async function goToResult(
     direction: 'next' | 'previous',
-    _searchResults: { highlightedLogArray: LogArray[]; matches: Matches[] },
+    _searchResults: { logArray: LogArray[]; matches: Matches[] },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ref: React.MutableRefObject<null | any>
   ): Promise<void> {
-    const { highlightedLogArray, matches } = _searchResults
+    const { logArray, matches } = _searchResults
     //Do nothing if no matches are found
     if (matches.length === 0) return
 
@@ -343,7 +365,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
     setSearchSelection(nextValue)
 
-    if (highlightedLogArray[matches[nextValue - 1].arrayIndex].isOpen === false) {
+    if (logArray[matches[nextValue - 1].arrayIndex].isOpen === false) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       dispatch({ type: ActionType.ToggleSection, payload: matches[nextValue - 1].arrayId! })
     }
@@ -359,7 +381,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
   const cssSearchInput = `${css.searchInput} ${searchText ? css.searchHasInput : ''}`
 
-  const previousRowCounts = searchResults.highlightedLogArray.map(arrayRow => {
+  const previousRowCounts = searchResults.logArray.map(arrayRow => {
     return arrayRow.previousLineLength || 0
   })
 
@@ -386,7 +408,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           ) : null}
         </div>
       </div>
-      <div className={css.logViewer}>
+      <div>
         {state.units.length > 0 ? (
           <MultiLogsViewer
             key={selectedStepId}

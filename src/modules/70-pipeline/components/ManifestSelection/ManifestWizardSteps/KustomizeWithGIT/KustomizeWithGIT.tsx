@@ -23,16 +23,10 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
-import i18n from '../ManifestWizard.i18n'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
-import { GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
-
-const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
-  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
-]
 
 interface KustomizeWithGITPropType {
   stepName: string
@@ -50,6 +44,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   previousStep
 }) => {
   const { getString } = useStrings()
+
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
@@ -145,8 +140,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
-            .required(i18n.validation.identifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
           folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
           pluginPath: Yup.string().trim().required(getString('manifestType.pluginPathRequired'))
@@ -200,7 +195,11 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
-                  <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+                  <FormInput.Select
+                    name="gitFetchType"
+                    label={getString('manifestType.gitFetchTypeLabel')}
+                    items={gitFetchTypes}
+                  />
                 </div>
 
                 {formik.values?.gitFetchType === gitFetchTypes[0].value && (
@@ -211,8 +210,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.branchLabel}
-                      placeholder={i18n.STEP_TWO.branchPlaceholder}
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      placeholder={getString('manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -239,9 +238,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={i18n.STEP_TWO.commitLabel}
+                      label={getString('manifestType.comitId')}
+                      placeholder={getString('manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
-                      placeholder={i18n.STEP_TWO.commitPlaceholder}
                       name="commitId"
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
@@ -316,7 +315,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
               <Accordion
                 activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
                 className={cx({
-                  [helmcss.advancedStepOpen]: isActiveAdvancedStep
+                  [helmcss.skipResourceSection]: isActiveAdvancedStep
                 })}
               >
                 <Accordion.Panel
@@ -324,12 +323,12 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
-                        className={cx(css.checkbox, css.halfWidth)}
+                        className={cx(helmcss.checkbox, helmcss.halfWidth)}
                       />
                       <Tooltip
                         position="top"

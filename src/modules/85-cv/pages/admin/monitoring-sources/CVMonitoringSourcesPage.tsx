@@ -19,9 +19,9 @@ const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
 
 const getRouteType = (type: string) => {
   const typeMappings: any = {
-    AppDynamics: 'AppDynamics',
-    APP_DYNAMICS: 'AppDynamics',
-    STACKDRIVER: 'STACKDRIVER'
+    APP_DYNAMICS: 'APP_DYNAMICS',
+    STACKDRIVER: 'STACKDRIVER',
+    NEW_RELIC: 'NEW_RELIC'
   }
   return getRoutePathByType(typeMappings[type])
 }
@@ -184,6 +184,7 @@ function TypeTableCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
     <Container>
       {tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}
       {tableProps.value === 'STACKDRIVER' && <Icon name="service-stackdriver" size={18} />}
+      {tableProps.value === 'NEW_RELIC' && <Icon name="service-newrelic" size={18} />}
     </Container>
   )
 }

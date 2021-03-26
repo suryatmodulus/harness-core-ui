@@ -98,7 +98,25 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
       if (!nodeRender) {
         nodeRender =
-          type === ExecutionPipelineNodeType.DIAMOND
+          type === ExecutionPipelineNodeType.ICON
+            ? /* istanbul ignore next */ new Diagram.IconNodeModel({
+                identifier: stage.identifier,
+                id: stage.identifier,
+                ...commonOption,
+                customNodeStyle: {
+                  // Without this doesn't look straight
+                  marginTop: '2.5px',
+                  ...commonOption.customNodeStyle,
+                  border: 'none'
+                },
+                name: stage.name,
+                icon: stage.icon,
+                iconSize: stage.iconSize,
+                iconStyle: {
+                  marginBottom: '38px'
+                }
+              })
+            : type === ExecutionPipelineNodeType.DIAMOND
             ? /* istanbul ignore next */ new Diagram.DiamondNodeModel({
                 identifier: stage.identifier,
                 id: stage.identifier,

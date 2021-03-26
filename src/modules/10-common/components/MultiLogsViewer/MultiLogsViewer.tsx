@@ -31,11 +31,13 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
 
   const memoizedData = React.useMemo(() => {
     return data.map(row => {
-      const lines = row.data.split(/\r?\n/).map<LineData>((line, index) => ({
-        raw: line,
-        anserJson: memoizedAnsiToJson(line),
+      const lines = row.formattedData.map<LineData>((line, index) => ({
+        raw: line.level.concat(line.time, line.out),
         isOpen: row.isOpen,
-        lineNumber: index
+        lineNumber: index,
+        anserJsonLevel: memoizedAnsiToJson(line.level),
+        anserJsonTime: memoizedAnsiToJson(line.time),
+        anserJsonOut: memoizedAnsiToJson(line.out)
       }))
 
       return { linesData: lines, totalLines: lines.length, isOpen: row.isOpen }
@@ -56,31 +58,30 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
 
   return (
     <div className={css.multiLogViewer}>
-      <GroupedVirtuoso
-        className={css.logsSection}
-        id="logContent"
-        ref={virtuosoRef}
-        groupCounts={groupCounts}
-        groupContent={index => (
-          <LogViewerAccordion key={data[index].id} {...data[index]} onSectionClick={onSectionClick} />
-        )}
-        itemContent={index =>
-          flattenedRows[index].isOpen ? (
-            <div className={css.logViewer}>
-              <pre>
+      {flattenedRows.length ? (
+        <GroupedVirtuoso
+          id="logContent"
+          ref={virtuosoRef}
+          groupCounts={groupCounts}
+          groupContent={index => (
+            <LogViewerAccordion key={data[index].id} {...data[index]} onSectionClick={onSectionClick} />
+          )}
+          itemContent={index =>
+            flattenedRows[index].isOpen ? (
+              <div className={css.logViewer}>
                 <LogLine
                   key={`${flattenedRows[index]}-${index}`}
                   data={flattenedRows[index]}
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   lineNumber={flattenedRows[index].lineNumber! + 1}
                 />
-              </pre>
-            </div>
-          ) : (
-            <div style={{ height: '0.1px' }} />
-          )
-        }
-      />
+              </div>
+            ) : (
+              <div style={{ height: '0.1px' }} />
+            )
+          }
+        />
+      ) : null}
     </div>
   )
 }

@@ -1,0 +1,88 @@
+import React, { useState } from 'react'
+import cx from 'classnames'
+import { Container, Heading, Color, Button, Text, Switch } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
+import { TestsCoverageItem } from './TestsCoverageItem'
+import css from './BuildTests.module.scss'
+
+const mockItems = [
+  {
+    name: 'FilesUtils.java',
+    coverage: 'passed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'User.toml',
+    coverage: 'passed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'Migration.java',
+    coverage: 'passed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'EncryptKeys.java',
+    coverage: 'failed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'Keys.java',
+    coverage: 'passed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'Mod.java',
+    coverage: 'failed',
+    commitId: '438b6c2'
+  },
+  {
+    name: 'WorkerManager.java',
+    coverage: 'failed',
+    commitId: '438b6c2'
+  }
+]
+
+export const TestsCoverage: React.FC = () => {
+  const { getString } = useStrings()
+
+  const [showOnlyUncoveredMethods, setShowOnlyUncoveredMethods] = useState(false)
+
+  return (
+    <div className={cx(css.widgetWrapper, css.coverage)}>
+      <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
+        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+          {getString('ci.testsReports.coverage')}
+        </Heading>
+        <Button
+          icon="question"
+          minimal
+          tooltip={getString('ci.testsReports.coverageInfo')}
+          iconProps={{ size: 14 }}
+          margin={{ left: 'xsmall' }}
+        />
+      </Container>
+      <Container className={css.widget} padding="medium">
+        <Switch
+          label={getString('ci.testsReports.onlyUncoveredFiles')}
+          checked={showOnlyUncoveredMethods}
+          onChange={e => setShowOnlyUncoveredMethods(e.currentTarget.checked)}
+          margin={{ bottom: 'large' }}
+        />
+        <Container flex padding={{ left: 'medium', right: 'xxlarge' }} margin={{ bottom: 'medium' }}>
+          <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+            {getString('ci.testsReports.filename')}
+          </Text>
+          <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+            {getString('ci.testsReports.commitId')}
+          </Text>
+        </Container>
+        <div>
+          {mockItems.map(item => (
+            <TestsCoverageItem data={item as any} key={item.name} />
+          ))}
+        </div>
+      </Container>
+    </div>
+  )
+}

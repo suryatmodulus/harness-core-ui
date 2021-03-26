@@ -93,11 +93,73 @@ exports[`Test Barrier Step should render edit view 1`] = `
           </div>
         </div>
         <div
+          class="bp3-form-group width50"
+        >
+          <label
+            class="bp3-label"
+            for="spec.barrierRef"
+          >
+            Barrier Reference
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.barrierRef"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           style="align-items: center;"
         >
           <div
-            class="bp3-form-group"
+            class="bp3-form-group width25"
           >
             <label
               class="bp3-label"

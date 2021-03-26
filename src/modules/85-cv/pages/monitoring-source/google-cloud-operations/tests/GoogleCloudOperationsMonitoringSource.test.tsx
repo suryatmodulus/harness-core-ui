@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import type { RestResponseDSConfig } from 'services/cv'
+import type { DSConfig } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
 import { GoogleCloudOperationsMonitoringSource, transformGetResponse } from '../GoogleCloudOperationsMonitoringSource'
@@ -103,7 +103,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
           monitoringSource: '1234_monitoringSource'
         }}
       >
-        <GoogleCloudOperationsMonitoringSource dsConfig={{ data: MockResponseData } as RestResponseDSConfig} />
+        <GoogleCloudOperationsMonitoringSource dsConfig={MockResponseData.resource as DSConfig} />
       </TestWrapper>
     )
 

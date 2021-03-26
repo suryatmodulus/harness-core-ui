@@ -117,7 +117,11 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                   <FormMultiTypeConnectorField
                     name="connectorRef"
                     disabled={selectedManifest === ''}
-                    label={<Text style={{ marginBottom: '5px' }}>{getString('manifestType.selectManifestStore')}</Text>}
+                    label={
+                      <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
+                        ManifestToConnectorMap[selectedManifest]
+                      } ${getString('connector')}`}</Text>
+                    }
                     placeholder={getString('selectServer')}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}

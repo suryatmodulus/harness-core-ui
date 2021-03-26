@@ -595,7 +595,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                                 Started at:
                               </th>
                               <td>
-                                12/18/2020 11:47:53 am
+                                DUMMY DATE
                               </td>
                             </tr>
                             <tr>
@@ -603,7 +603,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                                 Ended at:
                               </th>
                               <td>
-                                12/18/2020 11:47:53 am
+                                DUMMY DATE
                               </td>
                             </tr>
                             <tr>

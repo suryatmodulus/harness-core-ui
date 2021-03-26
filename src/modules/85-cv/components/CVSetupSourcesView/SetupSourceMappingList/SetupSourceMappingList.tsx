@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Heading, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/exports'
@@ -11,8 +11,12 @@ import { SetupSourceCardHeaderProps, SetupSourceEmptyCardHeader } from '../Setup
 import { StepLabel } from '../StepLabel/StepLabel'
 import css from './SetupSourceMappingList.module.scss'
 
+const FILTER_THRESHOLD = 1000
+
 interface TableFilterForSetupSourceMapping<T> extends Omit<TableFilterProps, 'onFilter' | 'className'> {
   isItemInFilter: (filterString: string, rowObject: T) => boolean
+  totalItemsToRender?: number
+  onFilterForMoreThan1000Items?: (filterString: string) => void
 }
 export interface SetupSourceMappingListProps<T extends object> {
   tableProps: TableProps<T>
@@ -29,10 +33,25 @@ export function SetupSourceMappingList<T extends object>(props: SetupSourceMappi
   const { tableProps, mappingListHeaderProps, loading, error, noData, tableFilterProps } = props
   const { getString } = useStrings()
   const [filterString, setFilterString] = useState<string | undefined>()
+  const [isMoreThanFilterThreshold, setIsMoreThanFilterThreshold] = useState(tableProps.data.length > FILTER_THRESHOLD)
   const filteredData = useMemo(() => {
-    if (!filterString) return tableProps.data
-    return tableProps.data.filter(data => tableFilterProps.isItemInFilter(filterString, data))
-  }, [filterString, tableProps.data])
+    let resultData = tableProps.data
+    if (filterString !== undefined && filterString !== null) {
+      if (isMoreThanFilterThreshold && tableFilterProps.onFilterForMoreThan1000Items) {
+        tableFilterProps.onFilterForMoreThan1000Items(filterString)
+      } else {
+        resultData = tableProps.data.filter(data => tableFilterProps.isItemInFilter(filterString, data))
+      }
+    }
+
+    return tableFilterProps.totalItemsToRender ? resultData.slice(0, tableFilterProps.totalItemsToRender) : resultData
+  }, [filterString, tableProps.data, tableFilterProps.totalItemsToRender])
+
+  useEffect(() => {
+    if (tableProps.data?.length >= FILTER_THRESHOLD) {
+      setIsMoreThanFilterThreshold(true)
+    }
+  }, [tableProps.data])
 
   const renderContent = () => {
     if (error?.message) {

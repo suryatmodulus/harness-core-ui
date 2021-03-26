@@ -68,7 +68,7 @@ export default function CVServicesPage(): JSX.Element {
     ...selectedService
   })
   const [timeSeriesAndActivityTimelineInput, setScopedInput] = useState<
-    Pick<AnalysisDrillDownViewProps, 'startTime' | 'endTime'> | undefined
+    (Pick<AnalysisDrillDownViewProps, 'startTime' | 'endTime'> & { categoryName?: string }) | undefined
   >()
   const history = useHistory()
 
@@ -156,12 +156,13 @@ export default function CVServicesPage(): JSX.Element {
                 <ServiceHeatMap
                   {...heatMapAndActivityTimelineInput}
                   className={styles.servicePageHeatMap}
-                  onClickHeatMapCell={(cellStartTime, cellEndTime) =>
+                  onClickHeatMapCell={(cellStartTime, cellEndTime, seriesData) =>
                     setScopedInput(
                       cellStartTime && cellEndTime
                         ? {
                             startTime: cellStartTime - 2 * 60 * 60 * 1000,
-                            endTime: cellEndTime
+                            endTime: cellEndTime,
+                            categoryName: seriesData?.name
                           }
                         : undefined
                     )

@@ -1,7 +1,8 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { render, act } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
+
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { K8sDeleteStep } from '../K8sDeleteStep'
 
@@ -93,6 +94,46 @@ describe('Test K8sBlueGreenDeployStep', () => {
       />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('form produces correct data for fixed inputs', async () => {
+    const onUpdate = jest.fn()
+    // (JSX attribute) RefAttributes<Pick<FormikProps<unknown>, "errors" | "submitForm">>.ref?: ((instance: Pick<FormikProps<unknown>, "errors" | "submitForm"> | null) => void) | React.RefObject<Pick<FormikProps<unknown>, "errors" | "submitForm">> | null | undefined
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sDelete',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '12m',
+          spec: {
+            deleteResources: {
+              type: 'ReleaseName'
+            }
+          }
+        }}
+        type={StepType.K8sDelete}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+    await act(() => ref.current?.submitForm())
+    expect(onUpdate).toHaveBeenCalledWith({
+      identifier: 'Test_A',
+      name: 'Test A',
+      timeout: '12m',
+      type: 'K8sDelete',
+      spec: {
+        deleteResources: {
+          type: 'ReleaseName',
+          spec: {
+            deleteNamespace: false
+          }
+        }
+      }
+    })
   })
 
   test('should render variable view', () => {

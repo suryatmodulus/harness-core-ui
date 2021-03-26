@@ -276,7 +276,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
                       Project Resources
                     </p>
@@ -289,7 +289,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Secrets
                     </p>
@@ -345,7 +345,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
                       Administrative Fucntions
                     </p>
@@ -358,7 +358,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Organizations
                     </p>
@@ -422,7 +422,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Projects
                     </p>
@@ -770,7 +770,7 @@ exports[`Role Details Page render data 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
                       Project Resources
                     </p>
@@ -783,7 +783,7 @@ exports[`Role Details Page render data 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Secrets
                     </p>
@@ -839,7 +839,7 @@ exports[`Role Details Page render data 1`] = `
                       </svg>
                     </span>
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
                       Administrative Fucntions
                     </p>
@@ -852,7 +852,7 @@ exports[`Role Details Page render data 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Organizations
                     </p>
@@ -916,7 +916,7 @@ exports[`Role Details Page render data 1`] = `
                     class="permissionRow groupRow"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
                       Projects
                     </p>

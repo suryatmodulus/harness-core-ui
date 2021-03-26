@@ -13,10 +13,11 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { CustomVariableEditable, CustomVariableEditableExtraProps } from './CustomVariableEditable'
 import { CustomVariableInputSet, CustomVariableInputSetExtraProps } from './CustomVariableInputSet'
 import { CustomVariablesEditableStage } from './CustomVariablesEditableStage'
-import type { CustomVariablesData, NGVariable } from './CustomVariableEditable'
+import type { CustomVariablesData } from './CustomVariableEditable'
 import type { StepProps } from '../../PipelineStep'
 
 const logger = loggerFor(ModuleName.COMMON)
@@ -84,7 +85,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
     getString?: UseStringsReturn['getString']
   ): object {
     const errors: CustomVariablesData = { variables: [] }
-    data?.variables?.forEach((variable: NGVariable, index) => {
+    data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 
       if (isEmpty(variable.value) && getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME) {
@@ -164,12 +165,18 @@ export class CustomVariables extends Step<CustomVariablesData> {
       variables: data.variables.map(row => ({
         name: row.name,
         type: row.type,
-        default: row.default ? (row.type === 'Number' ? parseFloat(row.default) : row.default) : undefined,
+        default: row.default
+          ? row.type === 'Number'
+            ? parseFloat((row.default as unknown) as string)
+            : row.default
+          : undefined,
         value:
-          row.type === 'Number' && getMultiTypeFromValue(row.value) === MultiTypeInputType.FIXED && row.value
-            ? parseFloat(row.value)
+          row.type === 'Number' &&
+          getMultiTypeFromValue((row.value as unknown) as string) === MultiTypeInputType.FIXED &&
+          row.value
+            ? parseFloat((row.value as unknown) as string)
             : row.value
-      })) as NGVariable[]
+      })) as AllNGVariables[]
     }
   }
 }

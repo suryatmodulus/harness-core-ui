@@ -19,6 +19,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { StringUtils } from '@common/exports'
 import type { CommandFlags, HelmWithGcsDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -123,6 +124,11 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
+          identifier: Yup.string()
+            .trim()
+            .required(getString('validation.identifierRequired'))
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+            .notOneOf(StringUtils.illegalIdentifiers),
           chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
           chartVersion: Yup.string().trim().required(getString('manifestType.http.chartVersionRequired')),
           helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired'))
@@ -231,7 +237,6 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   )}
                 </div>
               </Layout.Horizontal>
-
               <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
                 <div
                   className={cx(helmcss.halfWidth, {

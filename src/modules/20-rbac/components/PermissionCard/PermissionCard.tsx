@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Card, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, Icon, Layout, Text, Color } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
 import type { Permission } from 'services/rbac'
 import RbacFactory from '@rbac/factories/RbacFactory'
@@ -50,24 +50,29 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
     )
   }
   const resourceGroupHandler = RbacFactory.getResourceGroupTypeHandler(resourceType)
+  const resourceTypes = resourceGroupHandler?.resourceTypes
   return resourceGroupHandler ? (
     <Card className={cx(css.card, { [css.selectedCard]: selected })}>
       <Layout.Vertical padding="small" width="100%">
         <Layout.Horizontal width="100%" className={css.permissionRow}>
           <Layout.Horizontal spacing="medium" className={css.center}>
             <Icon name={resourceGroupHandler.icon} size={20} />
-            <Text>{resourceGroupHandler.label}</Text>
+            <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+              {resourceGroupHandler.label}
+            </Text>
           </Layout.Horizontal>
-          {resourceGroupHandler.resourceTypes?.length ? null : getPermissionList(resourceType as ResourceType)}
+          {resourceTypes && Array.from(resourceTypes).length ? null : getPermissionList(resourceType as ResourceType)}
         </Layout.Horizontal>
-        {resourceGroupHandler.resourceTypes?.length ? (
+        {resourceTypes && Array.from(resourceTypes).length ? (
           <Layout.Vertical padding={{ top: 'large' }}>
-            {resourceGroupHandler.resourceTypes?.map(resource => {
+            {Array.from(resourceTypes).map(resource => {
               const handler = RbacFactory.getResourceTypeHandler(resource)
               return (
                 handler && (
                   <div key={resource} className={cx(css.permissionRow, css.groupRow)}>
-                    <Text>{handler.label}</Text>
+                    <Text color={Color.BLACK} padding={{ left: 'large' }}>
+                      {handler.label}
+                    </Text>
                     {getPermissionList(resource)}
                   </div>
                 )

@@ -3,7 +3,8 @@ import type { IconName, SelectOption } from '@wings-software/uicore'
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
 export enum ExecutionPipelineNodeType {
   DIAMOND = 'DIAMOND',
-  NORMAL = 'NORMAL'
+  NORMAL = 'NORMAL',
+  ICON = 'ICON'
 }
 
 // TODO: should be replaced or same as DTO
@@ -34,6 +35,7 @@ export interface StageOptions extends SelectOption {
 }
 
 export interface ExecutionPipelineItem<T> {
+  iconSize?: number
   identifier: string
   name: string
   type: ExecutionPipelineNodeType

@@ -4,19 +4,19 @@ import { Layout, Color, Text, Card } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { String, useStrings } from 'framework/exports'
-
 import type { DelegateSelectionLogParams } from 'services/portal'
+import css from './DelegateSelectionLogs.module.scss'
 
 const RenderColumnDelegateName: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row }) => {
   const rowdata = row.original
-
+  const { getString } = useStrings()
   return (
-    <Layout.Vertical spacing="xsmall" padding="medium" data-testid={rowdata.delegateId}>
+    <Layout.Vertical spacing="xsmall" padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.delegateId}>
       <Text lineClamp={1} color={Color.GREY_800}>
         {rowdata.delegateName}
       </Text>
       <Text lineClamp={1} color={Color.GREY_400}>
-        {rowdata.delegateId}
+        {getString('taskId', { id: rowdata.delegateId })}
       </Text>
     </Layout.Vertical>
   )
@@ -37,7 +37,7 @@ const RenderConclusion: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row
 const RenderMessage: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row }): JSX.Element => {
   const rowdata = row.original
   return (
-    <Layout.Vertical spacing="xsmall" padding="medium" data-testid={rowdata.message}>
+    <Layout.Vertical spacing="xsmall" padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.message}>
       <Text lineClamp={1} color={Color.GREY_800}>
         {rowdata.message}
       </Text>
@@ -99,7 +99,7 @@ export default function DelegateSelectionLogsTable({
   )
 
   return (
-    <Card>
+    <Card className={css.card}>
       <Table<DelegateSelectionLogParams>
         columns={columns}
         data={selectionLogs || []}

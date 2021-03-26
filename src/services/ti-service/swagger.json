@@ -9,11 +9,88 @@
     {
       "name": "reports",
       "description": "Everything reports related"
+    },
+    {
+      "name": "auth",
+      "description": "Auth related"
     }
   ],
   "schemes": ["https", "http"],
   "paths": {
-    "/ti-service/reports/summary": {
+    "/tests/overview": {
+      "get": {
+        "summary": "Get overview of selected tests",
+        "tags": ["tests"],
+        "description": "Get overview of selected tests.",
+        "operationId": "testOverview",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountId",
+            "description": "Account ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orgId",
+            "description": "Org ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "projectId",
+            "description": "Project ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "pipelineId",
+            "description": "Pipeline ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "buildId",
+            "description": "Build ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SelectionOverview"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/reports/summary": {
       "get": {
         "summary": "Get test report summary",
         "tags": ["reports"],
@@ -94,7 +171,7 @@
         }
       }
     },
-    "/ti-service/reports/test_suites": {
+    "/reports/test_suites": {
       "get": {
         "summary": "Get test suites",
         "tags": ["reports"],
@@ -224,7 +301,7 @@
         }
       }
     },
-    "/ti-service/token": {
+    "/token": {
       "get": {
         "summary": "Get an account level token",
         "operationId": "getToken",
@@ -266,7 +343,7 @@
         }
       }
     },
-    "/ti-service/reports/test_cases": {
+    "/reports/test_cases": {
       "get": {
         "summary": "Get test cases",
         "tags": ["reports"],
@@ -453,6 +530,37 @@
         "desc": {
           "type": "string",
           "description": "Description corresponding to the test case status"
+        }
+      }
+    },
+    "SelectionOverview": {
+      "type": "object",
+      "properties": {
+        "total_tests": {
+          "type": "integer"
+        },
+        "skipped_tests": {
+          "type": "integer"
+        },
+        "time_saved_ms": {
+          "type": "integer"
+        },
+        "selected_tests": {
+          "$ref": "#/definitions/SelectionDetails"
+        }
+      }
+    },
+    "SelectionDetails": {
+      "type": "object",
+      "properties": {
+        "new_tests": {
+          "type": "integer"
+        },
+        "updated_tests": {
+          "type": "integer"
+        },
+        "source_code_changes": {
+          "type": "integer"
         }
       }
     },

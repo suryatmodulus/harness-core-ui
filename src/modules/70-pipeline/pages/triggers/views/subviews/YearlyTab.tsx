@@ -5,7 +5,7 @@ import { useStrings } from 'framework/exports'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { monthOptions, nthDayOptions } from './ScheduleUtils'
+import { monthOptions, nthDayOptions, getUpdatedExpression, AmPmMap, getPmHours } from './ScheduleUtils'
 import css from './YearlyTab.module.scss'
 
 interface YearlyTabInterface {
@@ -15,32 +15,42 @@ interface YearlyTabInterface {
 export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
   const {
     formikProps: {
-      values: { nthDay, months, minutes, hours, amPm },
+      values: { dayOfMonth, month, minutes, hours, amPm, expression },
       values
     },
     formikProps
   } = props
   const { getString } = useStrings()
 
-  // useEffect(() => {
-  //   formikProps.setValues({
-  //     nthDay: defaultValues.NTH_DAY,
-  //     months: defaultValues.MONTH,
-  //     hours: defaultValues.HOURS,
-  //     minutes: defaultValues.MINUTES,
-  //     amPm: defaultValues.AM_PM
-  //   })
-  // }, [])
-
   return (
     <div className={css.yearlyTab}>
       <Layout.Vertical>
         <Toothpick
           label={getString('pipeline-triggers.schedulePanel.runOnSpecificDayMonth')}
-          startValue={months}
-          handleStartValueChange={val => formikProps.setFieldValue('day', val)}
-          endValue={nthDay}
-          handleEndValueChange={val => formikProps.setFieldValue('month', val)}
+          startValue={month}
+          handleStartValueChange={option =>
+            formikProps.setValues({
+              ...values,
+              month: option.value,
+              expression: getUpdatedExpression({
+                expression,
+                value: option.value as string,
+                id: 'month'
+              })
+            })
+          }
+          endValue={dayOfMonth}
+          handleEndValueChange={option =>
+            formikProps.setValues({
+              ...values,
+              dayOfMonth: option.value,
+              expression: getUpdatedExpression({
+                expression,
+                value: option.value as string,
+                id: 'dayOfMonth'
+              })
+            })
+          }
           startOptions={monthOptions}
           endOptions={nthDayOptions}
           adjoiningText={getString('pipeline-triggers.schedulePanel.onThe')}
@@ -50,9 +60,40 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
           hoursValue={hours}
           minutesValue={minutes}
           amPmValue={amPm}
-          handleHoursSelect={option => formikProps.setFieldValue('hours', option)}
-          handleMinutesSelect={option => formikProps.setFieldValue('minutes', option)}
-          handleAmPmSelect={option => formikProps.setFieldValue('amPm', option)}
+          handleHoursSelect={option =>
+            formikProps.setValues({
+              ...values,
+              hours: option.value,
+              expression: getUpdatedExpression({
+                expression,
+                value: amPm === AmPmMap.PM ? getPmHours(option.value as string) : (option.value as string),
+                id: 'hours'
+              })
+            })
+          }
+          handleMinutesSelect={option =>
+            formikProps.setValues({
+              ...values,
+              minutes: option.value,
+              expression: getUpdatedExpression({ expression, value: option.value as string, id: 'minutes' })
+            })
+          }
+          handleAmPmSelect={option => {
+            if (option.value === AmPmMap.PM && values.amPm === AmPmMap.AM) {
+              const newHours = getPmHours(values.hours)
+              formikProps.setValues({
+                ...values,
+                amPm: option.value,
+                expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
+              })
+            } else if (option.value === AmPmMap.AM && values.amPm === AmPmMap.PM) {
+              formikProps.setValues({
+                ...values,
+                amPm: option.value,
+                expression: getUpdatedExpression({ expression, value: hours, id: 'hours' })
+              })
+            }
+          }}
           hideSeconds={true}
         />
         <Spacer paddingTop="var(--spacing-large)" />

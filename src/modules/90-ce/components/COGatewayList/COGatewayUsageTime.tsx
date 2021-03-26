@@ -45,7 +45,6 @@ function convertToDuration(t: number): string {
 const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ'
 const today = () => moment()
 const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
-const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
 function TableCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
   return (
     <Text lineClamp={3} color={Color.BLACK}>
@@ -80,7 +79,7 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
     try {
       const result = await getSessionReport({
         from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
-        to: moment(endOfDay(today())).format(DATE_FORMAT),
+        to: today().format(DATE_FORMAT),
         report_name: 'GATEWAY-SESSION-WISE', // eslint-disable-line
         service_ids: [props.service?.id as number], // eslint-disable-line
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone

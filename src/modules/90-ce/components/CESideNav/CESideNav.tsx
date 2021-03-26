@@ -8,12 +8,14 @@ import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelec
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName, useAppStore } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 
 export default function CESideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const { updateAppStore } = useAppStore()
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -44,11 +46,11 @@ export default function CESideNav(): React.ReactElement {
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
           <SidebarLink
-            label="AutoStopping Rules"
+            label={getString('ce.co.breadCrumb.rules')}
             to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink
-            label="Access Points"
+            label={getString('ce.co.accessPoint.ap')}
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
         </React.Fragment>

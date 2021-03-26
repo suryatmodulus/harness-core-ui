@@ -8,10 +8,16 @@ import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 
 export interface DelegateSelectionLogsTaskProps {
   taskId: string
+  taskName: string
+  delegateName: string
 }
 const PAGE_SIZE = 5
 
-export function DelegateSelectionLogsTask({ taskId }: DelegateSelectionLogsTaskProps): JSX.Element {
+export function DelegateSelectionLogsTask({
+  taskId,
+  taskName,
+  delegateName
+}: DelegateSelectionLogsTaskProps): JSX.Element {
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -27,14 +33,17 @@ export function DelegateSelectionLogsTask({ taskId }: DelegateSelectionLogsTaskP
   return (
     <>
       {data?.resource?.delegateSelectionLogs && data?.resource?.delegateSelectionLogs.length > 0 ? (
-        <DelegateSelectionLogsTable
-          pageIndex={page}
-          pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}
-          pageSize={PAGE_SIZE}
-          itemCount={data.resource.delegateSelectionLogs.length}
-          selectionLogs={data.resource.delegateSelectionLogs.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)}
-          gotoPage={setPage}
-        />
+        <>
+          <Text>{getString('delegateForTask', { delegate: delegateName, taskName: taskName })}</Text>
+          <DelegateSelectionLogsTable
+            pageIndex={page}
+            pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}
+            pageSize={PAGE_SIZE}
+            itemCount={data.resource.delegateSelectionLogs.length}
+            selectionLogs={data.resource.delegateSelectionLogs.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)}
+            gotoPage={setPage}
+          />
+        </>
       ) : (
         <Text>{getString('logs.noLogsText')}</Text>
       )}

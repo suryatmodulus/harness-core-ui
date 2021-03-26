@@ -17,13 +17,15 @@ interface CanvasButtonsProps {
   className?: string
   callback?: (action: CanvasButtonsActions) => void
   tooltipPosition?: string
+  layout?: 'horizontal' | 'vertical'
 }
 
 export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
   engine,
   callback,
   className = '',
-  tooltipPosition = 'top'
+  tooltipPosition = 'left',
+  layout = 'vertical'
 }) => {
   const { getString } = useStrings()
   const zoomToFit = useCallback(
@@ -68,42 +70,53 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
     [engine, callback]
   )
 
+  const renderButtons = () => (
+    <>
+      <ButtonGroup>
+        <Button
+          icon="canvas-position"
+          tooltip={getString('canvasButtons.zoomToFit')}
+          tooltipProps={{ position: tooltipPosition as any }}
+          onClick={zoomToFit}
+        />
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button
+          icon="canvas-selector"
+          tooltip={getString('reset')}
+          onClick={zoomReset}
+          tooltipProps={{ position: tooltipPosition as any }}
+        />
+      </ButtonGroup>
+      <span className={layout === 'vertical' ? css.verticalButtons : ''}>
+        <ButtonGroup>
+          <Button
+            icon="zoom-in"
+            tooltip={getString('canvasButtons.zoomIn')}
+            onClick={zoomIn}
+            tooltipProps={{ position: tooltipPosition as any }}
+          />
+          <Button
+            icon="zoom-out"
+            tooltip={getString('canvasButtons.zoomOut')}
+            onClick={zoomOut}
+            tooltipProps={{ position: tooltipPosition as any }}
+          />
+        </ButtonGroup>
+      </span>
+    </>
+  )
   return (
     <span className={cx(css.canvasButtons, className)}>
-      <Layout.Vertical spacing="medium" id="button-group">
-        <ButtonGroup>
-          <Button
-            icon="canvas-position"
-            tooltip={getString('canvasButtons.zoomToFit')}
-            tooltipProps={{ position: tooltipPosition as any }}
-            onClick={zoomToFit}
-          />
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button
-            icon="canvas-selector"
-            tooltip={getString('reset')}
-            onClick={zoomReset}
-            tooltipProps={{ position: tooltipPosition as any }}
-          />
-        </ButtonGroup>
-        <span className={css.verticalButtons}>
-          <ButtonGroup>
-            <Button
-              icon="zoom-in"
-              tooltip={getString('canvasButtons.zoomIn')}
-              onClick={zoomIn}
-              tooltipProps={{ position: tooltipPosition as any }}
-            />
-            <Button
-              icon="zoom-out"
-              tooltip={getString('canvasButtons.zoomOut')}
-              onClick={zoomOut}
-              tooltipProps={{ position: tooltipPosition as any }}
-            />
-          </ButtonGroup>
-        </span>
-      </Layout.Vertical>
+      {layout === 'horizontal' ? (
+        <Layout.Horizontal spacing="medium" id="button-group">
+          {renderButtons()}
+        </Layout.Horizontal>
+      ) : (
+        <Layout.Vertical spacing="medium" id="button-group">
+          {renderButtons()}
+        </Layout.Vertical>
+      )}
     </span>
   )
 }

@@ -3,6 +3,7 @@
 declare const styles: {
   readonly main: string
   readonly header: string
+  readonly isApproval: string
   readonly actions: string
   readonly title: string
   readonly more: string

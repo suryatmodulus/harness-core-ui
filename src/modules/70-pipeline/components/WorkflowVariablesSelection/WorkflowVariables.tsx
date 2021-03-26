@@ -10,7 +10,7 @@ import {
   getStageIndexFromPipeline,
   getFlattenedStages
 } from '@pipeline/exports'
-import type { NGVariable as Variable } from 'services/cd-ng'
+import type { AllNGVariables as Variable } from '@pipeline/utils/types'
 import { PipelineContext } from '@pipeline/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'

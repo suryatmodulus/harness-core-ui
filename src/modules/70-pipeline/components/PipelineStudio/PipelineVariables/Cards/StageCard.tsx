@@ -13,8 +13,9 @@ import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { AllNGVariables } from '@pipeline/utils/types'
+
 import { ServiceCardPanel } from './ServiceCard'
 import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
@@ -56,7 +57,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
               <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                 factory={stepsFactory}
                 initialValues={{
-                  variables: (originalStage as DeploymentStage).variables || [],
+                  variables: ((originalStage as DeploymentStage).variables || []) as AllNGVariables[],
                   canAddVariable: true
                 }}
                 type={StepType.CustomVariable}
@@ -69,7 +70,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   domId: `Stage.${originalStage.identifier}.Variables-panel`,
                   className: css.customVariables,
                   heading: <b>{getString('customVariables.title')}</b>,
-                  yamlProperties: (stage as DeploymentStage).variables?.map?.(
+                  yamlProperties: ((stage as DeploymentStage).variables as AllNGVariables[])?.map?.(
                     variable => metadataMap[variable.value || '']?.yamlProperties || {}
                   )
                 }}

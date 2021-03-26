@@ -3,7 +3,7 @@ import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
 import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
-import type { RestResponseDSConfig } from 'services/cv'
+import type { DSConfig } from 'services/cv'
 
 import { SelectProduct } from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
@@ -45,15 +45,15 @@ function transformDSResponse(dsConfig: any) {
   return {}
 }
 
-const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: RestResponseDSConfig | null }) => {
+const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: DSConfig | null }) => {
   const { currentData, setCurrentData, onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook<
     AppDMonitoringSourceDataType
   >({ totalTabs: 4 })
   const { getString } = useStrings()
 
   useEffect(() => {
-    if (dsConfig?.resource) {
-      setCurrentData(transformDSResponse(dsConfig.resource))
+    if (dsConfig) {
+      setCurrentData(transformDSResponse(dsConfig))
     }
   }, [dsConfig])
 

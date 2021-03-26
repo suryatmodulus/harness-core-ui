@@ -5,7 +5,13 @@ import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
-import { SetupSourceTabs, SetupSourceTabsContext, buildObjectToStore } from '../SetupSourceTabs'
+import {
+  SetupSourceTabs,
+  SetupSourceTabsContext,
+  buildObjectToStore,
+  typeToSetupSourceType,
+  getSetupSourceRoutingIndex
+} from '../SetupSourceTabs'
 
 const TabTitles = ['Tab1', 'Tab2', 'Tab3', 'Tab4', 'Tab5']
 const determineMaxTab = (data: any): number => {
@@ -51,6 +57,24 @@ function MockComponentThatHitsSubmit(props: any): JSX.Element {
 }
 
 describe('Unit tests for SetupSourceTabs', () => {
+  test('Ensure typeToSetupSourceType returns correct value', async () => {
+    expect(typeToSetupSourceType('HARNESS_CD10')).toEqual(ONBOARDING_ENTITIES.CHANGE_SOURCE)
+    expect(typeToSetupSourceType('KUBERNETES')).toEqual(ONBOARDING_ENTITIES.CHANGE_SOURCE)
+    expect(typeToSetupSourceType('APP_DYNAMICS')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('NEW_RELIC')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('SPLUNK')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('STACKDRIVER')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
+  })
+
+  test('Ensure getSetupSourceRoutingIndex returns correct value', async () => {
+    expect(getSetupSourceRoutingIndex('HARNESS_CD10')).toEqual(1)
+    expect(getSetupSourceRoutingIndex('KUBERNETES')).toEqual(1)
+    expect(getSetupSourceRoutingIndex('APP_DYNAMICS')).toEqual(2)
+    expect(getSetupSourceRoutingIndex('NEW_RELIC')).toEqual(2)
+    expect(getSetupSourceRoutingIndex('SPLUNK')).toEqual(2)
+    expect(getSetupSourceRoutingIndex('STACKDRIVER')).toEqual(2)
+  })
+
   test('Ensure buildObjectToStore works correctly', () => {
     // change source case for replacing exisiting object in cache
     expect(
@@ -61,7 +85,7 @@ describe('Unit tests for SetupSourceTabs', () => {
           identifier: 'sdfsfsdf'
         },
         {
-          setupId: 'sfdfsf',
+          setupID: '123_accountId-134_org-1234_sdf',
           monitoringSources: [],
           changeSources: [
             {
@@ -73,12 +97,14 @@ describe('Unit tests for SetupSourceTabs', () => {
             {
               identifier: 'sdfsfsdf',
               name: 'sdfs',
-              routeUrl: '',
+              routeUrl:
+                '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
               type: 'CHANGE_SOURCE'
             }
           ],
           verificationJobs: []
         },
+        ONBOARDING_ENTITIES.CHANGE_SOURCE,
         { orgIdentifier: '134_org', projectIdentifier: '1234_sdf', accountId: '123_accountId' }
       )
     ).toEqual({
@@ -92,12 +118,13 @@ describe('Unit tests for SetupSourceTabs', () => {
         {
           identifier: 'sdfsfsdf',
           name: 'sdfs',
-          routeUrl: '',
+          routeUrl:
+            '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
           type: 'CHANGE_SOURCE'
         }
       ],
       monitoringSources: [],
-      setupId: 'sfdfsf',
+      setupID: '123_accountId-134_org-1234_sdf',
       verificationJobs: []
     })
 
@@ -110,7 +137,7 @@ describe('Unit tests for SetupSourceTabs', () => {
           identifier: 'sdfsfsdf'
         },
         {
-          setupId: 'sfdfsf',
+          setupID: '123_accountId-134_org-1234_sdf',
           monitoringSources: [],
           verificationJobs: [
             {
@@ -122,18 +149,20 @@ describe('Unit tests for SetupSourceTabs', () => {
             {
               identifier: 'ioretureoitueoit',
               name: 'fgdfgdfg',
-              routeUrl: '',
+              routeUrl:
+                '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
               type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
             }
           ],
           changeSources: []
         },
+        ONBOARDING_ENTITIES.VERIFICATION_JOBS,
         { orgIdentifier: '134_org', projectIdentifier: '1234_sdf', accountId: '123_accountId' }
       )
     ).toEqual({
       changeSources: [],
       monitoringSources: [],
-      setupId: 'sfdfsf',
+      setupID: '123_accountId-134_org-1234_sdf',
       verificationJobs: [
         {
           identifier: '97689656u7',
@@ -144,7 +173,8 @@ describe('Unit tests for SetupSourceTabs', () => {
         {
           identifier: 'ioretureoitueoit',
           name: 'fgdfgdfg',
-          routeUrl: '',
+          routeUrl:
+            '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
           type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
         },
         {
@@ -323,10 +353,12 @@ describe('Unit tests for SetupSourceTabs', () => {
           {
             identifier: undefined,
             name: undefined,
-            routeUrl: '',
+            routeUrl:
+              '/account/undefined/cv/orgs/undefined/projects/undefined/admin/setup/monitoring-source//undefined',
             type: 'MONITORING_SOURCE'
           }
         ],
+        setupID: 'undefined-undefined-undefined',
         sourceData: {
           auto: {},
           dolo: {},

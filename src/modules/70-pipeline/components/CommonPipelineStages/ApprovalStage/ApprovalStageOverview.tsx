@@ -10,13 +10,14 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
-import type { NGVariable, StageElementConfig, StageElementWrapper } from 'services/cd-ng'
+import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
@@ -48,6 +49,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     }
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStageDebounced = useCallback(
     debounce((values: StageElementWrapper): void => {
       // approvalType is just used in the UI, to populate the default steps for different approval types
@@ -162,7 +164,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
               <StepWidget<CustomVariablesData>
                 factory={stepsFactory}
                 initialValues={{
-                  variables: (cloneOriginalData?.stage as StageElementConfig)?.variables || [],
+                  variables: ((cloneOriginalData?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                   canAddVariable: true
                 }}
                 type={StepType.CustomVariable}
@@ -179,7 +181,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                       cloneOriginalData?.stage?.identifier,
                       variablesPipeline
                     )?.stage?.variables?.map?.(
-                      (variable: NGVariable) => metadataMap[variable.value || '']?.yamlProperties || {}
+                      (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
                     ) || []
                 }}
               />

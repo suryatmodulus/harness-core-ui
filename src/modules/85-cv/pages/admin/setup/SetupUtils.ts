@@ -2,12 +2,14 @@ export const getIconBySourceType = (type: string) => {
   switch (type) {
     case 'KUBERNETES':
       return 'service-kubernetes'
-    case 'AppDynamics':
+    case 'APP_DYNAMICS':
       return 'service-appdynamics'
-    case 'HarnessCD_1.0':
+    case 'HARNESS_CD10':
       return 'cd-main'
     case 'STACKDRIVER':
       return 'service-stackdriver'
+    case 'NEW_RELIC':
+      return 'service-newrelic'
     case 'HEALTH':
       return 'health'
     case 'CANARY':

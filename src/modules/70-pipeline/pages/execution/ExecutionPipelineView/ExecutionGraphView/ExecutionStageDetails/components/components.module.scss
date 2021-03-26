@@ -1,0 +1,35 @@
+.barrierInfo {
+  display: grid;
+  grid-template-columns: 22px 2fr 1fr;
+  color: #fff;
+  .barrierDetails {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--spacing-medium);
+  }
+  .timeoutIcon {
+    padding-top: var(--spacing-xlarge);
+    padding-left: var(--spacing-medium);
+  }
+  .timeoutContainer {
+    display: grid;
+    justify-content: center;
+    .timeout {
+      display: grid;
+      justify-content: center;
+      background: var(--pipeline-barrier);
+      color: var(--black-color-2);
+      width: 40px;
+      border-radius: var(--spacing-xsmall);
+    }
+  }
+  .subheading {
+    color: var(--grey-color-1);
+  }
+}
+
+.spinner {
+  padding: var(--spacing-large);
+}

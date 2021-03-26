@@ -5,7 +5,8 @@ const { compilerOptions } = require('./tsconfig')
 module.exports = {
   globals: {
     'ts-jest': {
-      isolatedModules: true
+      isolatedModules: true,
+      diagnostics: false
     },
     __DEV__: false
   },

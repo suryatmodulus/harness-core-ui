@@ -1,4 +1,6 @@
 import React from 'react'
+import { Icon, Select, SelectOption, Label } from '@wings-software/uicore'
+import cx from 'classnames'
 import {
   ListSecretsQueryParams,
   Failure,
@@ -10,7 +12,7 @@ import {
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import i18n from './SecretReference.i18n'
+import { useStrings } from 'framework/exports'
 import css from './SecretReference.module.scss'
 
 export interface SecretRef extends SecretDTOV2 {
@@ -23,7 +25,7 @@ export interface SecretReferenceProps {
   projectIdentifier?: string
   orgIdentifier?: string
   defaultScope?: Scope
-  type: ListSecretsQueryParams['type']
+  type?: ListSecretsQueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
 }
 
@@ -70,6 +72,32 @@ const fetchRecords = (
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
   const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock } = props
+  const { getString } = useStrings()
+
+  const secretTypeOptions: SelectOption[] = [
+    {
+      label: getString('secret.labelText'),
+      value: 'SecretText'
+    },
+    {
+      label: getString('secret.labelFile'),
+      value: 'SecretFile'
+    }
+  ]
+  const [secretType, setSecretType] = React.useState<SelectOption>(secretTypeOptions[0])
+
+  const selectTypeDropdown = (
+    <div className={css.selectBox}>
+      <Label className={css.text}>{getString('secret.labelSecretType')}</Label>
+      <Select
+        className={css.secretTypeSelect}
+        items={secretTypeOptions}
+        disabled={false}
+        value={secretType}
+        onChange={secretOption => setSecretType(secretOption)}
+      />
+    </div>
+  )
   return (
     <EntityReference<SecretRef>
       onSelect={(secret, scope) => {
@@ -79,20 +107,30 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       defaultScope={defaultScope}
       recordClassName={css.listItem}
       fetchRecords={(scope, search = '', done) => {
-        fetchRecords(scope, search, done, type, accountIdentifier, projectIdentifier, orgIdentifier, mock)
+        const selectedType = (secretType?.value as SecretDTOV2['type']) || type || 'SecretText'
+        fetchRecords(scope, search, done, selectedType, accountIdentifier, projectIdentifier, orgIdentifier, mock)
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}
-      noRecordsText={i18n.noSecretsFound}
-      recordRender={item => (
+      noRecordsText={getString('secret.noSecretsFound')}
+      searchInlineComponent={!type ? selectTypeDropdown : undefined}
+      recordRender={(item, selected) => (
         <>
-          <div>{item.record.name}</div>
-          {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
-            <div className={css.meta}>
-              {item.identifier} . {(item.record.spec as SecretTextSpecDTO).secretManagerIdentifier}
+          <div className={css.item}>
+            {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
+              <Icon name={item.record.type === 'SecretText' ? 'text' : 'file'} size={24} className={css.secretIcon} />
+            ) : null}
+            <div>
+              <div>{item.record.name}</div>
+              {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
+                <div className={css.meta}>
+                  {item.identifier} . {(item.record.spec as SecretTextSpecDTO).secretManagerIdentifier}
+                </div>
+              ) : null}
+              {item.record.type === 'SSHKey' ? <div className={css.meta}>{item.identifier}</div> : null}
             </div>
-          ) : null}
-          {item.record.type === 'SSHKey' ? <div className={css.meta}>{item.identifier}</div> : null}
+          </div>
+          <Icon className={cx(css.iconCheck, { [css.iconChecked]: selected })} name="pipeline-approval" />
         </>
       )}
     />

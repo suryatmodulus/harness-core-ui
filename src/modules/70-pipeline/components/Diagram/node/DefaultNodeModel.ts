@@ -26,6 +26,10 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: React.CSSProperties
   showPorts?: boolean
+  tertiaryIcon?: IconName
+  tertiaryIconProps?: Omit<IconProps, 'name'>
+  tertiaryIconStyle?: React.CSSProperties
+  iconSize?: number
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
@@ -139,11 +143,14 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     this.options.allowAdd = event.data.allowAdd
     this.options.canDelete = event.data.canDelete
     this.options.draggable = event.data.draggable
+    this.options.iconProps = { ...event.data.iconProps }
     this.options.isInComplete = event.data.isInComplete
     this.options.secondaryIcon = event.data.secondaryIcon
-    this.options.iconProps = { ...event.data.iconProps }
     this.options.secondaryIconProps = { ...event.data.secondaryIconProps }
     this.options.secondaryIconStyle = { ...event.data.secondaryIconStyle }
+    this.options.tertiaryIcon = event.data.tertiaryIcon
+    this.options.tertiaryIconProps = { ...event.data.tertiaryIconProps }
+    this.options.tertiaryIconStyle = { ...event.data.tertiaryIconStyle }
     this.portsIn = map(event.data.portsInOrder, id => {
       return this.getPortFromID(id)
     }) as DefaultPortModel[]

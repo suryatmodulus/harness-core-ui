@@ -9,7 +9,9 @@ import {
   Switch,
   Pagination,
   useIsMounted,
-  Icon
+  Icon,
+  Color,
+  Button
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import cx from 'classnames'
@@ -51,7 +53,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       buildId: String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''),
       report: 'junit' as 'junit',
       pageIndex,
-      status: showFailedTestsOnly ? ('failed' as 'failed') : undefined,
       sort: sortBy,
       pageSize: PAGE_SIZE,
       order: 'DESC' as 'DESC'
@@ -63,7 +64,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier,
       context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence,
       pageIndex,
-      showFailedTestsOnly,
       sortBy
     ]
   )
@@ -125,16 +125,26 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   }
 
   return (
-    <Container className={cx(css.rightContainer)}>
-      <Container flex margin={{ bottom: 'medium' }}>
-        <Heading level={2} font={{ weight: 'bold' }} className={css.testCasesHeader}>
+    <div className={cx(css.widgetWrapper, css.rightContainer)}>
+      <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
+        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
           {getString('ci.testsReports.testCasesExecution')}
-          {loading && <Icon name="steps-spinner" size={16} color="blue500" padding={{ left: 'xsmall' }} />}
         </Heading>
-        <Layout.Horizontal spacing="small">
+        <Button
+          icon="question"
+          minimal
+          tooltip={getString('ci.testsReports.testCasesExecutionInfo')}
+          iconProps={{ size: 14 }}
+          margin={{ left: 'xsmall' }}
+        />
+        {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
+      </Container>
+
+      <Container className={css.widget} padding="medium">
+        <Container flex>
           <Switch
             label={getString('ci.testsReports.showOnlyFailedTests')}
-            style={{ alignSelf: 'center', paddingRight: 'var(--spacing-xlarge)' }}
+            style={{ alignSelf: 'center' }}
             checked={showFailedTestsOnly}
             onChange={e => {
               setShowFailedTestsOnly(e.currentTarget.checked)
@@ -147,69 +157,84 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
               })
             }}
           />
-          <Text style={{ alignSelf: 'center' }}>{getString('ci.testsReports.sortBy')}</Text>
-          <Select
-            className={css.select}
-            items={sortByItems}
-            value={sortBySelectedItem}
-            onChange={item => {
-              setSortBySelectedItem(item as { label: string; value: SortByKey })
-              setSortBy(item.value as SortByKey)
-              setPageIndex(0)
+
+          <Layout.Horizontal spacing="small">
+            <Text style={{ alignSelf: 'center' }}>{getString('ci.testsReports.sortBy')}</Text>
+            <Select
+              className={css.select}
+              items={sortByItems}
+              value={sortBySelectedItem}
+              onChange={item => {
+                setSortBySelectedItem(item as { label: string; value: SortByKey })
+                setSortBy(item.value as SortByKey)
+                setPageIndex(0)
+                refetchData({
+                  ...queryParams,
+                  sort: item.value as SortByKey,
+                  pageIndex: 0
+                })
+              }}
+            />
+          </Layout.Horizontal>
+        </Container>
+
+        {error && (
+          <Container height={200}>
+            <PageError
+              message={get(error, 'data.error_msg', error?.message)}
+              onClick={() => {
+                fetchExecutionSummary()
+              }}
+            />
+          </Container>
+        )}
+
+        {!error && executionSummary?.content && (
+          <>
+            {executionSummary.content.length > 0 && (
+              <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
+                {executionSummary?.content?.map((summary, index) => (
+                  <TestsExecutionItem
+                    key={summary.name}
+                    buildIdentifier={String(
+                      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
+                    )}
+                    executionSummary={summary}
+                    serviceToken={serviceToken}
+                    status={showFailedTestsOnly ? 'failed' : undefined}
+                    expanded={index === expandedIndex ? true : undefined}
+                    onExpand={() => {
+                      setExpandedIndex(expandedIndex !== index ? index : undefined)
+                    }}
+                  />
+                ))}
+              </Layout.Vertical>
+            )}
+            {executionSummary.content.length === 0 && showFailedTestsOnly && (
+              <Text font={{ align: 'center' }} margin={{ top: 'medium' }}>
+                {getString('ci.testsReports.noFailedTestsFound')}
+              </Text>
+            )}
+          </>
+        )}
+
+        {(executionSummary?.data?.totalItems || 0) > 20 && (
+          <Pagination
+            pageSize={executionSummary?.data?.pageSize || 0}
+            pageIndex={pageIndex}
+            pageCount={executionSummary?.data?.totalPages || 0}
+            itemCount={executionSummary?.data?.totalItems || 0}
+            gotoPage={pageIdx => {
+              setPageIndex(pageIdx)
               refetchData({
                 ...queryParams,
-                sort: item.value as SortByKey,
-                pageIndex: 0,
-                status: showFailedTestsOnly ? 'failed' : undefined
+                sort: sortBy,
+                pageIndex: pageIdx
               })
             }}
           />
-        </Layout.Horizontal>
+        )}
       </Container>
-
-      {error && (
-        <Container height={200}>
-          <PageError
-            message={get(error, 'data.error_msg', error?.message)}
-            onClick={() => {
-              fetchExecutionSummary()
-            }}
-          />
-        </Container>
-      )}
-
-      {!error &&
-        executionSummary?.content?.map((summary, index) => (
-          <TestsExecutionItem
-            key={summary.name}
-            buildIdentifier={String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || '')}
-            executionSummary={summary}
-            serviceToken={serviceToken}
-            status={showFailedTestsOnly ? 'failed' : undefined}
-            expanded={index === expandedIndex ? true : undefined}
-            onExpand={() => {
-              setExpandedIndex(expandedIndex !== index ? index : undefined)
-            }}
-          />
-        ))}
-
-      {(executionSummary?.data?.totalItems || 0) > 20 && (
-        <Pagination
-          pageSize={executionSummary?.data?.pageSize || 0}
-          pageIndex={pageIndex}
-          pageCount={executionSummary?.data?.totalPages || 0}
-          itemCount={executionSummary?.data?.totalItems || 0}
-          gotoPage={pageIdx => {
-            setPageIndex(pageIdx)
-            refetchData({
-              ...queryParams,
-              sort: sortBy,
-              pageIndex: pageIdx,
-              status: showFailedTestsOnly ? 'failed' : undefined
-            })
-          }}
-        />
-      )}
-    </Container>
+    </div>
   )
 }

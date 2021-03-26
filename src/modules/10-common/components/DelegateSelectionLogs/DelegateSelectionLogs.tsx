@@ -6,27 +6,37 @@ import { useStrings } from 'framework/exports'
 import { DelegateSelectionLogsTask } from './DelegateSelectionLogsTask'
 import css from './DelegateSelectionLogs.module.scss'
 
+export interface DelegateTaskData {
+  taskId: string
+  taskName: string
+  delegateName: string
+}
 export interface DelegateSelectionLogsProps {
-  taskIds: string[]
+  taskIds: DelegateTaskData[]
 }
 
 export interface UseDelegateSelectionLogsModalReturn {
-  openDelegateSelectionLogsModal: (taskIds: string[], modalProps?: IDialogProps) => void
+  openDelegateSelectionLogsModal: (taskIds: DelegateTaskData[], modalProps?: IDialogProps) => void
   hideModal: () => void
 }
 
 export function DelegateSelectionLogs({ taskIds }: DelegateSelectionLogsProps): JSX.Element {
   return (
     <Layout.Vertical spacing="xxlarge" padding="large" className={css.main}>
-      {taskIds.map(taskId => (
-        <DelegateSelectionLogsTask key={taskId} taskId={taskId} />
+      {taskIds.map(task => (
+        <DelegateSelectionLogsTask
+          key={task.taskId}
+          taskId={task.taskId}
+          taskName={task.taskName}
+          delegateName={task.delegateName}
+        />
       ))}
     </Layout.Vertical>
   )
 }
 
 export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalReturn {
-  const [delegateTaskIds, setDelegateTaskIds] = React.useState<string[]>([])
+  const [delegateTaskIds, setDelegateTaskIds] = React.useState<DelegateTaskData[]>([])
   const { getString } = useStrings()
   const [modalProps, setModalProps] = React.useState<IDialogProps>({
     isOpen: true,

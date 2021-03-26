@@ -1,5 +1,7 @@
 .expressionBreakdown {
-  > div > [class*='column']:last-child {
+  margin-top: 0;
+
+  > div > [data-name='column']:last-child {
     border-right: 1px solid var(--bp3-intent-color, #dddddd);
   }
 

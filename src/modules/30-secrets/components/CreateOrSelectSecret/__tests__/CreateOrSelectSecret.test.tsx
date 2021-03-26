@@ -53,6 +53,12 @@ describe('CreateOrSelectSecret', () => {
     await act(async () => {
       fireEvent.click($secret)
     })
+
+    const $applyBtn = getByText('Apply Selected')
+    await act(async () => {
+      fireEvent.click($applyBtn)
+    })
+
     expect(successCallback).toHaveBeenCalled()
   })
 })

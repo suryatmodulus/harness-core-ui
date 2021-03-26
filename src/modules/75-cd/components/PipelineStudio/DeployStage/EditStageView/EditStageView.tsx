@@ -18,7 +18,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
-import type { StageElementWrapper, StageElementConfig, NGVariable } from 'services/cd-ng'
+import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings, String } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
@@ -28,7 +28,7 @@ import {
   usePipelineContext,
   PipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-
+import type { AllNGVariables } from '@pipeline/utils/types'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -268,7 +268,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                       <StepWidget<CustomVariablesData>
                         factory={stepsFactory}
                         initialValues={{
-                          variables: (data?.stage as StageElementConfig)?.variables || [],
+                          variables: ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                           canAddVariable: true
                         }}
                         type={StepType.CustomVariable}
@@ -279,7 +279,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                         customStepProps={{
                           yamlProperties:
                             getStageFromPipeline(data?.stage?.identifier, variablesPipeline)?.stage?.variables?.map?.(
-                              (variable: NGVariable) => metadataMap[variable.value || '']?.yamlProperties || {}
+                              (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
                             ) || []
                         }}
                       />

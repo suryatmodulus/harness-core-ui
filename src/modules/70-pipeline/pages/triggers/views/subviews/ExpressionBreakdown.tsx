@@ -3,7 +3,14 @@ import { Layout, Container, Text } from '@wings-software/uicore'
 import { isUndefined } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/exports'
-import { EXP_BREAKDOWN_INPUTS, scheduleTabsId } from './ScheduleUtils'
+import {
+  EXP_BREAKDOWN_INPUTS,
+  scheduleTabsId,
+  getPmHours,
+  AmPmMap,
+  getBackslashValue,
+  getDayOfWeekStr
+} from './ScheduleUtils'
 import css from './ExpressionBreakdown.module.scss'
 
 interface ExpressionBreakdownPropsInterface {
@@ -33,26 +40,32 @@ interface ColumnInterface {
 }
 
 const getColumnValue = (formikValues: any, column: EXP_BREAKDOWN_INPUTS): string | undefined => {
-  const { minutes, hours, dayOfMonth, month, dayOfWeek, selectedScheduleTab, expression } = formikValues
+  const { minutes, hours, amPm, dayOfMonth, month, dayOfWeek, selectedScheduleTab, expression } = formikValues
 
-  const expressionArr =
-    expression?.trim() && selectedScheduleTab === scheduleTabsId.CUSTOM ? expression.trim().split(' ') : undefined
+  const isCustomTab = selectedScheduleTab === scheduleTabsId.CUSTOM
+
+  const expressionArr = expression?.trim() && isCustomTab ? expression.trim().split(' ') : undefined
   if (column === EXP_BREAKDOWN_INPUTS.MINUTES) {
-    return expressionArr?.[0] || minutes
+    return isCustomTab ? expressionArr?.[0] : getBackslashValue({ selectedScheduleTab, id: 'minutes', value: minutes })
   } else if (column === EXP_BREAKDOWN_INPUTS.HOURS) {
-    return expressionArr?.[1] || hours
+    if (isCustomTab) return expressionArr?.[1]
+    return amPm === AmPmMap.PM
+      ? getPmHours(hours)
+      : getBackslashValue({ selectedScheduleTab, id: 'hours', value: hours })
   } else if (column === EXP_BREAKDOWN_INPUTS.DAY_OF_MONTH) {
-    return expressionArr?.[2] || dayOfMonth
+    return isCustomTab
+      ? expressionArr?.[2]
+      : getBackslashValue({ selectedScheduleTab, id: 'dayOfMonth', value: dayOfMonth })
   } else if (column === EXP_BREAKDOWN_INPUTS.MONTH) {
-    return expressionArr?.[3] || month
+    return isCustomTab ? expressionArr?.[3] : getBackslashValue({ selectedScheduleTab, id: 'month', value: month })
   } else if (column === EXP_BREAKDOWN_INPUTS.DAY_OF_WEEK) {
-    return expressionArr?.[4] || dayOfWeek
+    return isCustomTab ? expressionArr?.[4] : getDayOfWeekStr(dayOfWeek)
   }
   return undefined
 }
 
 const Column = ({ width, inactive, label, value, getString, hideValuesRow }: ColumnInterface): JSX.Element => (
-  <Layout.Vertical width={width} className={css.column}>
+  <Layout.Vertical width={width} data-name="column" className={css.column}>
     <Container className={css.label}>
       <Text>{label}</Text>
     </Container>
@@ -73,7 +86,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
   const minutesValue = getColumnValue(formikValues, EXP_BREAKDOWN_INPUTS.MINUTES)
   const hideValuesRow = selectedScheduleTab === scheduleTabsId.CUSTOM && isUndefined(minutesValue)
   return (
-    <Container className={css.expressionBreakdown}>
+    <Container data-name="expressionBreakdown" className={css.expressionBreakdown}>
       <Text className={css.title}>{getString('pipeline-triggers.schedulePanel.expressionBreakdown')}</Text>
       <Layout.Horizontal>
         <Column

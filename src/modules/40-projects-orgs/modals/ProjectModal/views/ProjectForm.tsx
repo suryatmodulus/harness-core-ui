@@ -16,11 +16,11 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
+import { useStrings } from 'framework/exports'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -47,8 +47,6 @@ const collapseProps = {
   isRemovable: false,
   className: 'collapse'
 }
-const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.desc })
-const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.tags })
 
 const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const {
@@ -64,6 +62,12 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     setModalErrorHandler,
     displayProjectCardPreview = true
   } = props
+  const { getString } = useStrings()
+  const descriptionCollapseProps = Object.assign({}, collapseProps, {
+    heading: getString('description')
+  })
+  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
+
   return (
     <Formik
       initialValues={{
@@ -80,16 +84,16 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .trim()
-          .required(i18n.newProjectWizard.aboutProject.errorName)
-          .matches(regexName, i18n.newProjectWizard.aboutProject.validationNameChars),
+          .required(getString('validation.nameRequired'))
+          .matches(regexName, getString('formValidation.name')),
         identifier: Yup.string().when('name', {
           is: val => val?.length,
           then: Yup.string()
-            .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
-            .matches(regexIdentifier, i18n.newProjectWizard.aboutProject.validationIdentifierChars)
+            .required(getString('validation.identifierRequired'))
+            .matches(regexIdentifier, getString('validation.validIdRegex'))
             .notOneOf(illegalIdentifiers)
         }),
-        orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganization)
+        orgIdentifier: Yup.string().required(getString('validation.orgValidation'))
       })}
       onSubmit={(values: AboutPageData) => {
         onComplete(values)
@@ -109,9 +113,9 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   <ModalErrorHandler bind={setModalErrorHandler} />
                   <FormInput.InputWithIdentifier isIdentifierEditable={enableEdit} />
                   <Layout.Horizontal spacing="small">
-                    <FormInput.ColorPicker label={i18n.newProjectWizard.aboutProject.color} name="color" height={38} />
+                    <FormInput.ColorPicker label={getString('color')} name="color" height={38} />
                     <FormInput.Select
-                      label={i18n.newProjectWizard.aboutProject.org}
+                      label={getString('orgLabel')}
                       name="orgIdentifier"
                       items={organizationItems}
                       disabled={disableSelect}
@@ -133,12 +137,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   </Collapse>
                 </Container>
                 <Layout.Horizontal>
-                  <Button
-                    intent="primary"
-                    text={i18n.newProjectWizard.saveAndContinue}
-                    type="submit"
-                    disabled={disableSubmit}
-                  />
+                  <Button intent="primary" text={getString('saveAndContinue')} type="submit" disabled={disableSubmit} />
                 </Layout.Horizontal>
               </Layout.Vertical>
               {displayProjectCardPreview && (

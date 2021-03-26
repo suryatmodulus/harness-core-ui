@@ -147,7 +147,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
 
     await saveDSConfigs(payload, { queryParams: { accountId } })
 
-    onCompleteStep({ ...stepData, type: 'AppDynamics', sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE })
+    onCompleteStep({ ...stepData, type: 'APP_DYNAMICS', sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE })
 
     // TODO - this is HACK, it should not be wrapped in timeout but currently it fails
     // due to IDB issues

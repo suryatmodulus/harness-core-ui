@@ -16,7 +16,6 @@ import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/Org
 import type { Organization } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { NameIdDescriptionTags } from '@common/components'
-import i18n from './StepAboutOrganization.i18n'
 import css from './Steps.module.scss'
 
 interface OrganizationFormData {
@@ -52,12 +51,15 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
       }}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().trim().required(i18n.form.errorName).matches(regexName, getString('formValidation.name')),
+        name: Yup.string()
+          .trim()
+          .required(getString('validation.nameRequired'))
+          .matches(regexName, getString('formValidation.name')),
         identifier: Yup.string().when('name', {
           is: val => val?.length,
           then: Yup.string()
-            .required(i18n.form.errorIdentifier)
-            .matches(regexIdentifier, i18n.form.validationIdentifierChars)
+            .required(getString('validation.identifierRequired'))
+            .matches(regexIdentifier, getString('validation.validIdRegex'))
             .notOneOf(illegalIdentifiers)
         })
       })}

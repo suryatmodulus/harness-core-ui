@@ -90,7 +90,14 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                         />
 
                         {formik.values?.commandFlags?.length > 1 && (
-                          <Button minimal icon="minus" onClick={() => remove(index)} style={{ alignSelf: 'center' }} />
+                          <Button
+                            minimal
+                            icon="bin-main"
+                            className={cx({
+                              [helmcss.delBtn]: index === 0
+                            })}
+                            onClick={() => remove(index)}
+                          />
                         )}
                       </Layout.Horizontal>
                     </div>

@@ -9,8 +9,8 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useAppStore } from 'framework/exports'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
@@ -19,7 +19,7 @@ export default function CDSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cd'
   const { updateAppStore } = useAppStore()
-  const { GIT_SYNC_NG, SERVICE_DASHBOARD_NG } = useFeatureFlags()
+  const { SERVICE_DASHBOARD_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -56,9 +56,6 @@ export default function CDSideNav(): React.ReactElement {
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
-            {GIT_SYNC_NG ? (
-              <AdminSelectorLink label="Git Sync" iconName="git-repo" to={routes.toGitSyncForProjects(params)} />
-            ) : null}
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
             <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />

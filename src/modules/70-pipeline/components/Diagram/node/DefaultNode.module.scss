@@ -34,6 +34,14 @@
     bottom: 2px;
     right: 2px;
   }
+  .tertiaryIcon {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background: yellow !important;
+    border: 2px solid #fff;
+    border-radius: 50%;
+  }
 
   .inComplete {
     position: absolute;

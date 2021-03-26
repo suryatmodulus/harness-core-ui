@@ -83,26 +83,6 @@ const routes = {
     ({ orgIdentifier, delegateId }: OrgPathProps & DelegatePathProps) =>
       `/admin/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
   ),
-  // git sync
-  toGitSync: withAccountId(() => '/admin/git-sync'),
-  toGitSyncRepos: withAccountId(() => '/admin/git-sync/repos'),
-  toGitSyncActivities: withAccountId(() => '/admin/git-sync/activities'),
-  toGitSyncEntities: withAccountId(() => '/admin/git-sync/entities'),
-  toGitSyncErrors: withAccountId(() => '/admin/git-sync/errors'),
-  // org git sync
-  toOrgGitSync: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync`),
-  toOrgGitSyncRepos: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/repos`
-  ),
-  toOrgGitSyncActivities: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/activities`
-  ),
-  toOrgGitSyncEntities: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/entities`
-  ),
-  toOrgGitSyncErrors: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/git-sync/errors`
-  ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       if (module && orgIdentifier && projectIdentifier) {
@@ -411,16 +391,6 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
 
-  //git-sync at project scope
-  toGitSyncForProjects: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/git-sync`
-  ),
-  toGitSyncReposForProjects: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/git-sync/repos`
-  ),
-
   /********************************************************************************************************************/
   toCI: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
@@ -506,7 +476,19 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
-
+  //git-sync at project scope
+  toGitSyncAdmin: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync`
+  ),
+  toGitSyncReposAdmin: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync/repos`
+  ),
+  toGitSyncEntitiesAdmin: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync/entities`
+  ),
   /********************************************************************************************************************/
   toCF: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier

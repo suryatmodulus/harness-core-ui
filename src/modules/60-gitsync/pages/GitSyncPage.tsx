@@ -1,74 +1,86 @@
-import React from 'react'
-import { Layout, Container } from '@wings-software/uicore'
-import { NavLink, useParams } from 'react-router-dom'
+import React, { ReactNode } from 'react'
+import { Layout, Text, Color, Icon } from '@wings-software/uicore'
+import { useParams, Link, NavLink } from 'react-router-dom'
 import { Page } from '@common/exports'
+
+import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import i18n from './GitSyncPage.i18n'
+import { PageSpinner } from '@common/components'
+import { useIsGitSyncEnabled } from 'services/cd-ng'
+
+import type { UseGetMockData } from '@common/utils/testUtils'
+import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
 
-const GitSyncPage: React.FC = ({ children }) => {
+interface GitSyncPageProps {
+  children: ReactNode
+  mockIsEnabled?: UseGetMockData<boolean>
+}
+
+const GitSyncPage: React.FC<GitSyncPageProps> = ({ children, mockIsEnabled }) => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
-  return (
+  const { selectedProject } = useAppStore()
+  const { getString } = useStrings()
+
+  const { data: isGitSyncEnabled, loading } = useIsGitSyncEnabled({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    mock: mockIsEnabled
+  })
+
+  const renderBreadCrumb = React.useMemo(() => {
+    return (
+      <Layout.Vertical padding={{ left: 'small', top: 'large', bottom: 'large' }}>
+        <Layout.Horizontal spacing="small" margin={{ bottom: 'small' }}>
+          <Link
+            className={css.breadCrumb}
+            to={`/account/${accountId}/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`}
+          >
+            {selectedProject?.name}
+          </Link>
+          <span>/</span>
+          <Text>{getString('gitManagement')}</Text>
+        </Layout.Horizontal>
+        <Text color={Color.GREY_800} font={{ size: 'medium' }}>
+          {getString('gitManagement')}
+        </Text>
+      </Layout.Vertical>
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectIdentifier])
+
+  return loading ? (
+    <PageSpinner />
+  ) : (
     <>
       <Page.Header
-        title={i18n.title}
+        className={css.header}
+        size={isGitSyncEnabled ? 'xlarge' : 'medium'}
+        title={renderBreadCrumb}
         toolbar={
-          <Container>
-            <Layout.Horizontal spacing="medium">
+          isGitSyncEnabled ? (
+            <Layout.Horizontal spacing="large">
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={
-                  projectIdentifier
-                    ? routes.toGitSyncReposForProjects({ projectIdentifier, orgIdentifier, accountId })
-                    : orgIdentifier
-                    ? routes.toOrgGitSyncRepos({ orgIdentifier, accountId })
-                    : routes.toGitSyncRepos({ accountId })
-                }
+                to={routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId })}
               >
-                {i18n.repos}
+                <Icon margin={{ right: 'small' }} name="repository" />
+                {getString('repositories')}
               </NavLink>
 
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={
-                  orgIdentifier
-                    ? routes.toOrgGitSyncActivities({ orgIdentifier, accountId })
-                    : routes.toGitSyncActivities({ accountId })
-                }
+                to={routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId })}
               >
-                {i18n.activities}
-              </NavLink>
-
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={
-                  orgIdentifier
-                    ? routes.toOrgGitSyncEntities({ orgIdentifier, accountId })
-                    : routes.toGitSyncEntities({ accountId })
-                }
-              >
-                {i18n.entities}
-              </NavLink>
-
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={
-                  orgIdentifier
-                    ? routes.toOrgGitSyncErrors({ orgIdentifier, accountId })
-                    : routes.toGitSyncErrors({ accountId })
-                }
-              >
-                {i18n.errors}
+                <Icon margin={{ right: 'small' }} name="entity" />
+                {getString('entities')}
               </NavLink>
             </Layout.Horizontal>
-          </Container>
+          ) : null
         }
       />
-      <Page.Body>{children}</Page.Body>
+      <Page.Body>{isGitSyncEnabled ? children : <NewUserView />}</Page.Body>
     </>
   )
 }

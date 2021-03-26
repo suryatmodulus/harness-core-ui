@@ -1,50 +1,75 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FormInput, Text, Container, Color, Layout, Icon, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { TimeSelect } from '@common/components'
 import { useStrings } from 'framework/exports'
-// import { amPmOptions } from '@common/components/TimeSelect/TimeSelectUtils'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { oneThirtyOneOptions, defaultScheduleValues } from './ScheduleUtils'
+import {
+  oneThirtyOneOptions,
+  AmPmMap,
+  defaultDailyNthDaysValues,
+  getCronExpression,
+  defaultDailyEveryWeekDayValues,
+  getUpdatedExpression,
+  DailyTypes,
+  getPmHours,
+  defaultScheduleValues,
+  getBackslashValue
+} from './ScheduleUtils'
 import css from './DailyTab.module.scss'
 
-enum DailyTypes {
-  NTH_DAYS = 'NTH_DAYS',
-  EVERY_WEEK_DAY = 'EVERY_WEEK_DAY'
-}
 interface DailyTabInterface {
   formikProps: any
 }
 
-// const defaultValues = {
-//   DAYS: oneThirtyOneOptions[0].value,
-//   HOURS: oneTwelveDDOptions[0],
-//   MINUTES: zeroFiftyNineDDOptions[0],
-//   AM_PM: amPmOptions[0]
-// }
+interface DailyValuesInterface {
+  hours?: string
+  minutes?: string
+  amPm?: string
+  dayOfMonth?: string
+}
+
+const getDailyTimeValue = ({
+  isActiveType,
+  persistedValue,
+  formikValue,
+  defaultValue
+}: {
+  isActiveType: boolean
+  persistedValue?: string
+  formikValue?: string
+  defaultValue: string
+}): string => {
+  const res = (isActiveType ? formikValue : persistedValue) || defaultValue
+  return res
+}
 
 export default function DailyTab(props: DailyTabInterface): JSX.Element {
-  const [dailyType, setDailyType] = useState<DailyTypes>(DailyTypes.NTH_DAYS)
   const {
     formikProps: {
-      values: { minutes, hours, amPm },
+      values: { minutes, hours, amPm, dayOfMonth, dailyRadios, expression, selectedScheduleTab },
       values
     },
     formikProps
   } = props
+  const [dailyType, setDailyType] = useState<DailyTypes>(
+    expression?.includes(defaultScheduleValues.MON_TO_FRI) ? DailyTypes.EVERY_WEEK_DAY : DailyTypes.NTH_DAYS
+  )
+  const [persistedValues, setPersistedValues] = useState<{
+    NTH_DAYS: DailyValuesInterface
+    EVERY_WEEK_DAY: DailyValuesInterface
+  }>({ NTH_DAYS: defaultDailyNthDaysValues, EVERY_WEEK_DAY: defaultDailyEveryWeekDayValues })
+  const {
+    NTH_DAYS: { minutes: persistedNthDaysMinutes, hours: persistedNthDaysHours, amPm: persistedNthDaysAmPm },
+    EVERY_WEEK_DAY: { minutes: persistedWeekdayMinutes, hours: persistedWeekdayHours, amPm: persistedWeekdayAmPm }
+  } = persistedValues
   const { getString } = useStrings()
 
-  useEffect(() => {
-    formikProps.setValues({
-      ...values,
-      days: defaultScheduleValues.DAYS,
-      hours: defaultScheduleValues.HOURS.value,
-      minutes: defaultScheduleValues.MINUTES,
-      amPm: defaultScheduleValues.AM_PM.value
-    })
-  }, [])
+  // default values
+  const { minutes: nthDayMinutes, hours: nthDayHours, amPm: nthDayAmPm } = dailyRadios?.NTH_DAYS || {}
+  const { minutes: weekdayMinutes, hours: weekdayHours, amPm: weekdayAmPm } = dailyRadios?.EVERY_WEEK_DAY || {}
 
   return (
     <div className={css.dailyTab}>
@@ -52,7 +77,19 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
         <Container
           className={cx(css.radioContainer, dailyType === DailyTypes.NTH_DAYS ? css.activeRadio : css.inactiveRadio)}
         >
-          <Button minimal onClick={() => setDailyType(DailyTypes.NTH_DAYS)}>
+          <Button
+            minimal
+            onClick={() => {
+              const newFormikValues = { ...values, ...defaultDailyNthDaysValues, ...persistedValues.NTH_DAYS }
+              const newCronExpression = getCronExpression(newFormikValues)
+              setDailyType(DailyTypes.NTH_DAYS)
+              setPersistedValues({ ...persistedValues, EVERY_WEEK_DAY: { minutes, hours, amPm, dayOfMonth } })
+              formikProps.setValues({
+                ...newFormikValues,
+                expression: newCronExpression
+              })
+            }}
+          >
             <Layout.Horizontal spacing="medium">
               <Icon name={dailyType === DailyTypes.NTH_DAYS ? 'selection' : 'circle'} />
               <Text className={css.radioOption}>{getString('pipeline-triggers.schedulePanel.runEvery')}</Text>
@@ -60,10 +97,21 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
           </Button>
           <Layout.Horizontal className={css.everyContainer} spacing="medium">
             <FormInput.Select
-              name="days"
+              name="dayOfMonth"
               items={oneThirtyOneOptions}
               disabled={dailyType !== DailyTypes.NTH_DAYS}
               placeholder="Select"
+              onChange={option => {
+                formikProps.setValues({
+                  ...values,
+                  dayOfMonth: option.value,
+                  expression: getUpdatedExpression({
+                    expression,
+                    id: 'dayOfMonth',
+                    value: getBackslashValue({ selectedScheduleTab, id: 'dayOfMonth', value: option.value as string })
+                  })
+                })
+              }}
             />
             <Text style={{ marginBottom: 'var(--spacing-medium)' }} color={Color.GREY_800}>
               {getString('pipeline-triggers.schedulePanel.daysParentheses')}
@@ -73,15 +121,62 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
             label={getString('pipeline-triggers.schedulePanel.runAt')}
             className={css.everyContainer}
             disabled={dailyType !== DailyTypes.NTH_DAYS}
-            hoursValue={(dailyType === DailyTypes.NTH_DAYS && hours) || defaultScheduleValues.HOURS}
-            minutesValue={(dailyType === DailyTypes.NTH_DAYS && minutes) || defaultScheduleValues.MINUTES}
-            amPmValue={(dailyType === DailyTypes.NTH_DAYS && amPm) || defaultScheduleValues.AM_PM}
-            handleHoursSelect={option => formikProps.setFieldValue('hours', option)}
-            handleMinutesSelect={option => formikProps.setFieldValue('minutes', option)}
-            handleAmPmSelect={option => formikProps.setFieldValue('amPm', option)}
+            hoursValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.NTH_DAYS,
+              formikValue: hours,
+              persistedValue: persistedNthDaysHours,
+              defaultValue: nthDayHours
+            })}
+            minutesValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.NTH_DAYS,
+              formikValue: minutes,
+              persistedValue: persistedNthDaysMinutes,
+              defaultValue: nthDayMinutes
+            })}
+            amPmValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.NTH_DAYS,
+              formikValue: amPm,
+              persistedValue: persistedNthDaysAmPm,
+              defaultValue: nthDayAmPm
+            })}
+            handleHoursSelect={option =>
+              formikProps.setValues({
+                ...values,
+                hours: option.value,
+                expression: getUpdatedExpression({
+                  expression,
+                  value: amPm === AmPmMap.PM ? getPmHours(option.value as string) : (option.value as string),
+                  id: 'hours'
+                })
+              })
+            }
+            handleMinutesSelect={option =>
+              formikProps.setValues({
+                ...values,
+                minutes: option.value,
+                expression: getUpdatedExpression({ expression, value: option.value as string, id: 'minutes' })
+              })
+            }
+            handleAmPmSelect={option => {
+              if (option.value === AmPmMap.PM && values.amPm === AmPmMap.AM) {
+                const newHours = getPmHours(values.hours)
+                formikProps.setValues({
+                  ...values,
+                  amPm: option.value,
+                  expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
+                })
+              } else if (option.value === AmPmMap.AM && values.amPm === AmPmMap.PM) {
+                formikProps.setValues({
+                  ...values,
+                  amPm: option.value,
+                  expression: getUpdatedExpression({ expression, value: hours, id: 'hours' })
+                })
+              }
+            }}
             hideSeconds={true}
           />
         </Container>
+        <Spacer marginLeft="var(--spacing-xxxlarge)" width="675px" />
         <Container
           style={{ paddingTop: 'var(--spacing-small)' }}
           className={cx(
@@ -89,7 +184,23 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
             dailyType === DailyTypes.EVERY_WEEK_DAY ? css.activeRadio : css.inactiveRadio
           )}
         >
-          <Button minimal onClick={() => setDailyType(DailyTypes.EVERY_WEEK_DAY)}>
+          <Button
+            minimal
+            onClick={() => {
+              const newFormikValues = {
+                ...values,
+                ...defaultDailyEveryWeekDayValues,
+                ...persistedValues.EVERY_WEEK_DAY
+              }
+              const newCronExpression = getCronExpression(newFormikValues)
+              setDailyType(DailyTypes.EVERY_WEEK_DAY)
+              setPersistedValues({ ...persistedValues, NTH_DAYS: { minutes, hours, amPm, dayOfMonth } })
+              formikProps.setValues({
+                ...newFormikValues,
+                expression: newCronExpression
+              })
+            }}
+          >
             <Layout.Horizontal>
               <Icon
                 style={{ marginRight: 'var(--spacing-medium)' }}
@@ -107,21 +218,67 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
             label={getString('pipeline-triggers.schedulePanel.runAt')}
             className={css.everyContainer}
             disabled={dailyType === DailyTypes.NTH_DAYS}
-            hoursValue={(dailyType !== DailyTypes.NTH_DAYS && hours) || defaultScheduleValues.HOURS}
-            minutesValue={(dailyType !== DailyTypes.NTH_DAYS && minutes) || defaultScheduleValues.MINUTES}
-            amPmValue={(dailyType !== DailyTypes.NTH_DAYS && amPm) || defaultScheduleValues.AM_PM}
-            handleHoursSelect={option => formikProps.setFieldValue('hours', option)}
-            handleMinutesSelect={option => formikProps.setFieldValue('minutes', option)}
-            handleAmPmSelect={option => formikProps.setFieldValue('amPm', option)}
+            hoursValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.EVERY_WEEK_DAY,
+              formikValue: hours,
+              persistedValue: persistedWeekdayHours,
+              defaultValue: weekdayHours
+            })}
+            minutesValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.EVERY_WEEK_DAY,
+              formikValue: minutes,
+              persistedValue: persistedWeekdayMinutes,
+              defaultValue: weekdayMinutes
+            })}
+            amPmValue={getDailyTimeValue({
+              isActiveType: dailyType === DailyTypes.EVERY_WEEK_DAY,
+              formikValue: amPm,
+              persistedValue: persistedWeekdayAmPm,
+              defaultValue: weekdayAmPm
+            })}
+            handleHoursSelect={option =>
+              formikProps.setValues({
+                ...values,
+                hours: option.value,
+                expression: getUpdatedExpression({
+                  expression,
+                  value: amPm === AmPmMap.PM ? getPmHours(option.value as string) : (option.value as string),
+                  id: 'hours'
+                })
+              })
+            }
+            handleMinutesSelect={option =>
+              formikProps.setValues({
+                ...values,
+                minutes: option.value,
+                expression: getUpdatedExpression({ expression, value: option.value as string, id: 'minutes' })
+              })
+            }
+            handleAmPmSelect={option => {
+              if (option.value === AmPmMap.PM && values.amPm === AmPmMap.AM) {
+                const newHours = getPmHours(values.hours)
+                formikProps.setValues({
+                  ...values,
+                  amPm: option.value,
+                  expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
+                })
+              } else if (option.value === AmPmMap.AM && values.amPm === AmPmMap.PM) {
+                formikProps.setValues({
+                  ...values,
+                  amPm: option.value,
+                  expression: getUpdatedExpression({ expression, value: hours, id: 'hours' })
+                })
+              }
+            }}
             hideSeconds={true}
           />
         </Container>
-        <Spacer paddingBottom="var(--spacing-large)" />
+        <Spacer marginLeft="var(--spacing-xxxlarge)" width="675px" />
         <ExpressionBreakdown
           formikValues={values}
           activeInputs={[ActiveInputs.MINUTES, ActiveInputs.HOURS, ActiveInputs.DAY_OF_MONTH, ActiveInputs.DAY_OF_WEEK]}
         />
-        <Spacer paddingTop="var(--spacing-large)" />
+        <Spacer marginLeft="var(--spacing-xxxlarge)" width="675px" />
         <Expression formikProps={formikProps} />
       </Layout.Vertical>
     </div>

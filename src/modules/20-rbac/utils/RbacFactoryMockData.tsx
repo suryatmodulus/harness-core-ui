@@ -37,13 +37,13 @@ export const getResourceGroupTypeHandlerMock = (
       return {
         icon: 'nav-project',
         label: 'Project Resources',
-        resourceTypes: [ResourceType.SECRET]
+        resourceTypes: new Set([ResourceType.SECRET])
       }
     case ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS:
       return {
         icon: 'nav-project',
         label: 'Administrative Fucntions',
-        resourceTypes: [ResourceType.ORGANIZATION, ResourceType.PROJECT]
+        resourceTypes: new Set([ResourceType.ORGANIZATION, ResourceType.PROJECT])
       }
   }
 }

@@ -9,13 +9,21 @@ interface TimeSelectPropsInterface {
   handleMinutesSelect: (option: SelectOption) => void
   handleSecondsSelect?: (option: SelectOption) => void
   handleAmPmSelect: (option: SelectOption) => void
-  hoursValue: SelectOption
-  minutesValue: SelectOption
-  secondsValue?: SelectOption
-  amPmValue: SelectOption
+  hoursValue: SelectOption | string
+  minutesValue: SelectOption | string
+  secondsValue?: SelectOption | string
+  amPmValue: SelectOption | string
   disabled?: boolean
   className?: string
   hideSeconds?: boolean
+}
+const getSelectValueOption = (val: string | SelectOption, options: SelectOption[]): any => {
+  if (Array.isArray(val)) {
+    return val
+  } else if (options && val) {
+    return options.find((option: SelectOption) => option.value === val)
+  }
+  return undefined
 }
 
 const TimeSelect: React.FC<TimeSelectPropsInterface> = props => {
@@ -40,14 +48,14 @@ const TimeSelect: React.FC<TimeSelectPropsInterface> = props => {
       <Layout.Horizontal spacing="xsmall">
         <Select
           className={css.selectStyle}
-          value={hoursValue}
+          value={getSelectValueOption(hoursValue, oneTwelveDDOptions)}
           items={oneTwelveDDOptions}
           onChange={handleHoursSelect}
           disabled={disabled}
         />
         <Select
           className={css.selectStyle}
-          value={minutesValue}
+          value={getSelectValueOption(minutesValue, zeroFiftyNineDDOptions)}
           items={zeroFiftyNineDDOptions}
           onChange={handleMinutesSelect}
           disabled={disabled}
@@ -55,7 +63,7 @@ const TimeSelect: React.FC<TimeSelectPropsInterface> = props => {
         {!hideSeconds && (
           <Select
             className={css.selectStyle}
-            value={secondsValue}
+            value={secondsValue && getSelectValueOption(secondsValue, zeroFiftyNineDDOptions)}
             items={zeroFiftyNineDDOptions}
             onChange={handleSecondsSelect}
             disabled={disabled}
@@ -63,7 +71,7 @@ const TimeSelect: React.FC<TimeSelectPropsInterface> = props => {
         )}
         <Select
           className={css.selectStyle}
-          value={amPmValue}
+          value={getSelectValueOption(amPmValue, amPmOptions)}
           items={amPmOptions}
           onChange={handleAmPmSelect}
           disabled={disabled}

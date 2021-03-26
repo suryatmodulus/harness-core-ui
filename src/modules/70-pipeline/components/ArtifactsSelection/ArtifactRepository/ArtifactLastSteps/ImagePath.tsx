@@ -175,7 +175,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{getString('artifactsSelection.specifyArtifactServer')}</div>
+      <div className={css.heading}>{getString('artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}

@@ -5,7 +5,7 @@ $background: #09090b;
   box-sizing: border-box;
 
   margin: 15px;
-  height: 100%;
+  height: calc(100% - 30px);
   overflow: hidden;
 
   .logsSection {
@@ -83,7 +83,6 @@ $background: #09090b;
   padding: var(--spacing-small) 0;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  overflow-y: scroll;
 
   & pre {
     background: transparent !important;
@@ -101,16 +100,19 @@ $background: #09090b;
 }
 
 .logLine {
-  height: 20px;
+  min-height: 20px;
   font-size: 12px;
   box-sizing: border-box;
   border-radius: 6px;
-  display: grid;
-  grid-template-columns: 75px 1fr;
+  width: 100%;
+  display: flex;
 
   .line {
-    display: block;
+    display: flex;
     box-sizing: border-box;
+    width: calc(100% - 75px);
+    float: left;
+    white-space: pre-wrap;
   }
 
   .lineNumber {
@@ -140,4 +142,18 @@ $background: #09090b;
 
 .multiLogViewer .logViewer {
   padding: 0;
+}
+
+.logLineContent {
+  padding-left: 3.5rem;
+  overflow-wrap: anywhere;
+}
+
+.logLineTimestamp {
+  min-width: 13rem;
+  padding-left: 2rem;
+}
+
+.logLineLevel {
+  min-width: 2rem;
 }

@@ -47,6 +47,26 @@
     }
   }
 
+  .status {
+    display: flex;
+    align-items: center;
+    column-gap: var(--spacing-xsmall);
+
+    &[data-status='APPROVE'] {
+      --intent-color: var(--green-500);
+    }
+
+    &[data-status='REJECT'] {
+      --intent-color: var(--red-500);
+    }
+
+    :global(.bp3-icon) {
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+
   .actions {
     :global(.bp3-button + .bp3-button) {
       margin-left: var(--spacing-small);

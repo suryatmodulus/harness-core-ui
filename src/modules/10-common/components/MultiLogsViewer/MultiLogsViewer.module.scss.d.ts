@@ -14,5 +14,8 @@ declare const styles: {
   readonly logLine: string
   readonly line: string
   readonly lineNumber: string
+  readonly logLineContent: string
+  readonly logLineTimestamp: string
+  readonly logLineLevel: string
 }
 export default styles

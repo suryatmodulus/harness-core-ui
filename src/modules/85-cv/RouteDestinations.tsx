@@ -18,7 +18,6 @@ import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/De
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
-import MetricPackConfigure from '@cv/pages/metric-pack/MetricPackConfigure'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
 import CVGeneralSettingsPage from '@cv/pages/admin/general-settings/CVGeneralSettingsPage'
 import CVGovernancePage from '@cv/pages/admin/governance/CVGovernancePage'
@@ -136,13 +135,6 @@ export default (
       <ActivitySourceSetup />
     </RouteWithLayout>
 
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVMetricPackConfigureThresholdPage({ ...accountPathProps, ...projectPathProps })}
-    >
-      <MetricPackConfigure />
-    </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

@@ -9,7 +9,8 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
-import { useAppStore } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CISideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
@@ -17,7 +18,9 @@ export default function CISideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const module = 'ci'
+  const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
+  const { GIT_SYNC_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -51,10 +54,17 @@ export default function CISideNav(): React.ReactElement {
           <SidebarLink label="Overview" to={routes.toCIProjectOverview(params)} />
           <SidebarLink label="Builds" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
+
           <AdminSelector path={routes.toCIAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCIAdminResources(params)} />
-            {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled /> */}
-            {/* <AdminSelectorLink label="Git Sync" iconName="git-repo" to="" disabled />
+            {GIT_SYNC_NG ? (
+              <AdminSelectorLink
+                label={getString('gitManagement')}
+                iconName="git-repo"
+                to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier })}
+              />
+            ) : null}
+            {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
             <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />
             <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}

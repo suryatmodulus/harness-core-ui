@@ -20,7 +20,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = props => {
         <Layout.Horizontal flex>
           <ActiveServiceInstances />
           <Container style={{ width: '50%', height: '50%' }}>
-            <PipelineDeploymentList onRunPipeline={() => {}} isMinimalView={true} />
+            <PipelineDeploymentList onRunPipeline={() => undefined} isMinimalView={true} />
           </Container>
         </Layout.Horizontal>
       </Page.Body>

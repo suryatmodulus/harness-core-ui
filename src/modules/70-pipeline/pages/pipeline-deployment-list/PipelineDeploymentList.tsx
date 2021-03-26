@@ -52,6 +52,7 @@ import css from './PipelineDeploymentList.module.scss'
 const pollingIntervalInMilliseconds = 5_000
 export interface PipelineDeploymentListProps {
   onRunPipeline(): void
+  isMinimalView?: boolean
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
@@ -420,7 +421,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     >
       <React.Fragment>
         <Layout.Horizontal flex>
-          <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
+          <ExecutionsFilter onRunPipeline={props.onRunPipeline} isMinimalView={props.isMinimalView} />
           <Layout.Horizontal padding={{ top: 'large', right: 'xxlarge' }}>
             <FilterSelector<FilterDTO>
               appliedFilter={appliedFilter}
@@ -447,12 +448,18 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
                 {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
               </Text>
-              <Button intent="primary" onClick={props.onRunPipeline} text={getString('runPipelineText')}></Button>
+              {props.isMinimalView ? null : (
+                <Button intent="primary" onClick={props.onRunPipeline} text={getString('runPipelineText')}></Button>
+              )}
             </div>
           )
         ) : (
           <>
-            <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.content} />
+            <ExecutionsList
+              hasFilters={hasFilters}
+              pipelineExecutionSummary={pipelineExecutionSummary?.content}
+              isMinimalView={props.isMinimalView}
+            />
             <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
           </>
         )}

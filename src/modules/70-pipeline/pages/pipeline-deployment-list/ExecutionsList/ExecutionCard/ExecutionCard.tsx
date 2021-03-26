@@ -22,10 +22,11 @@ import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
   pipelineExecution: PipelineExecutionSummary
+  isMinimalView?: boolean
 }
 
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { pipelineExecution } = props
+  const { pipelineExecution, isMinimalView = false } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
 
   const [showCommits, setShowCommits] = useState(false)
@@ -105,13 +106,15 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 </div>
               ) : null}
             </div>
-            <MiniExecutionGraph
-              pipelineExecution={pipelineExecution}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              accountId={accountId}
-              module={module}
-            />
+            {isMinimalView ? null : (
+              <MiniExecutionGraph
+                pipelineExecution={pipelineExecution}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                accountId={accountId}
+                module={module}
+              />
+            )}
             <div className={css.actions}>
               <ExecutionStatusLabel status={pipelineExecution.status} />
               <ExecutionActions

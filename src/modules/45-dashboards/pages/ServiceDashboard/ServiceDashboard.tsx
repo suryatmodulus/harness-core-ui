@@ -6,5 +6,5 @@ interface ServiceDashboardProps {
 }
 
 export const ServiceDashboard: React.FC<ServiceDashboardProps> = () => {
-  return <ServiceDetailPage />
+  return <ServiceDetailPage name={'Sample Service'} />
 }

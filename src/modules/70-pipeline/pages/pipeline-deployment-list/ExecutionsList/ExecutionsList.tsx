@@ -9,11 +9,13 @@ import css from './ExecutionList.module.scss'
 export interface ExecutionsListProps {
   pipelineExecutionSummary: PipelineExecutionSummary[] | undefined
   hasFilters?: boolean
+  isMinimalView?: boolean
 }
 
 export default function ExecutionsList({
   pipelineExecutionSummary,
-  hasFilters
+  hasFilters,
+  isMinimalView
 }: ExecutionsListProps): React.ReactElement {
   return (
     <div className={css.main}>
@@ -23,7 +25,11 @@ export default function ExecutionsList({
         </Text>
       ) : null}
       {pipelineExecutionSummary?.map(pipelineExecution => (
-        <ExecutionCard pipelineExecution={pipelineExecution} key={pipelineExecution.planExecutionId} />
+        <ExecutionCard
+          pipelineExecution={pipelineExecution}
+          key={pipelineExecution.planExecutionId}
+          isMinimalView={isMinimalView}
+        />
       ))}
     </div>
   )

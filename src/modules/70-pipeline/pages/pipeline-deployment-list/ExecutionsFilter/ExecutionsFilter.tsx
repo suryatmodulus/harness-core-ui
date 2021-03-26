@@ -14,6 +14,7 @@ import css from './ExecutionsFilter.module.scss'
 
 interface ExecutionFilterProps {
   onRunPipeline(): void
+  isMinimalView?: boolean
 }
 
 export interface FilterQueryParams {
@@ -38,9 +39,11 @@ export default function ExecutionFilter(props: ExecutionFilterProps): React.Reac
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="run-pipeline" intent="primary">
-          <String className={css.runText} stringID="runPipelineText" onClick={props.onRunPipeline} />
-        </Button>
+        {props.isMinimalView ? null : (
+          <Button icon="run-pipeline" intent="primary">
+            <String className={css.runText} stringID="runPipelineText" onClick={props.onRunPipeline} />
+          </Button>
+        )}
         <div className={cx(css.filterGroup, css.btnGroup)}>
           <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
           <ButtonGroup>

@@ -4,7 +4,9 @@ import { useStrings } from 'framework/exports'
 
 import mockData from './mocks/service-details.json'
 
-interface ActiveServiceInstancesProps {}
+interface ActiveServiceInstancesProps {
+  id?: string
+}
 
 const ActiveServiceInstances: React.FC<ActiveServiceInstancesProps> = () => {
   const { getString } = useStrings()

@@ -1,11 +1,10 @@
 import React from 'react'
-
-import ActiveServiceInstances from '@dashboards/components/ActiveServiceInstances/ActiveServiceInstances'
-
-interface ServiceDetailPageProps {}
+interface ServiceDetailPageProps {
+  id: string
+}
 
 const ServiceDetailPage: React.FC<ServiceDetailPageProps> = () => {
-  return <ActiveServiceInstances />
+  return <></>
 }
 
 export default ServiceDetailPage

@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 
-import mockData from './service-details.json'
+import mockData from './mocks/service-details.json'
 
 interface ActiveServiceInstancesProps {}
 

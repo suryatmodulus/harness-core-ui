@@ -1253,17 +1253,11 @@ pipelineSteps:
   configurationType: 'Configuration Type'
   addTfVarFile: 'Add TfVar File'
   content: 'Content'
-  repoName: 'Repo Name'
-  workspace: Workspace
   backendConfig: 'Backend Config'
-  gitFetchType: 'Git Fetch Type'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
   gitFetchType: 'Git Fetch Type'
   repoName: 'Repo Name'
-  branchPlaceholder: 'Enter branch name here'
-  commitPlaceholder: 'Enter Commit ID here'
-  commitLabel: 'Commit ID'
   configFiles: 'Config Files'
   terraformVarFiles: 'Terraform Var Files'
   addTerraformVarFile: 'Add Terraform Var File'

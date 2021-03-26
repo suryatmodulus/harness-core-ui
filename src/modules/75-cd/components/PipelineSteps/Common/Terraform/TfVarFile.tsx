@@ -23,7 +23,7 @@ import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import type { TerraformData, VarFileArray } from './TerraformIntefaces'
+import type { pathInterface, TerraformData, VarFileArray } from './TerraformIntefaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
@@ -177,9 +177,9 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                         render={({ push, remove }) => {
                           return (
                             <div>
-                              {(formik.values?.spec?.store?.spec?.paths || []).map((path: string, i: number) => (
+                              {(formik.values?.spec?.store?.spec?.paths || []).map((path: pathInterface, i: number) => (
                                 <div key={`${path}-${i}`} className={css.pathRow}>
-                                  <FormInput.MultiTextInput name={`paths[${i}].path`} label="" />
+                                  <FormInput.MultiTextInput name={`spec.store.spec.paths[${i}].path`} label="" />
                                   <Button
                                     minimal
                                     icon="trash"
@@ -205,7 +205,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                   </>
                 )}
                 {formik.values.type === 'Inline' && (
-                  <FormInput.TextArea name="spec.content" label={getString('pipelineSteps.content')} />
+                  <FormInput.TextArea name="spec.store.spec.content" label={getString('pipelineSteps.content')} />
                 )}
                 <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                   <Button

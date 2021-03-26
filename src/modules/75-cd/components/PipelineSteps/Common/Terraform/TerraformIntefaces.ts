@@ -1,6 +1,10 @@
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepElementConfig } from 'services/cd-ng'
 
+export interface pathInterface {
+  path: string
+}
+
 export interface VarFileArray {
   type?: string
   spec?: {
@@ -14,7 +18,8 @@ export interface VarFileArray {
           scope: Scope
           value: string
         }
-        paths?: string[]
+        paths?: pathInterface[]
+        content?: string
       }
     }
   }

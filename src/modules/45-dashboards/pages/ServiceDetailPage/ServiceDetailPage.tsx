@@ -17,11 +17,9 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = props => {
     <>
       <Page.Header size="large" title={name} toolbar={<Container></Container>} />
       <Page.Body>
-        <Layout.Horizontal flex>
+        <Layout.Horizontal spacing="medium" style={{ padding: 'large', margin: 'large' }}>
           <ActiveServiceInstances />
-          <Container style={{ width: '50%', height: '50%' }}>
-            <PipelineDeploymentList onRunPipeline={() => undefined} isMinimalView={true} />
-          </Container>
+          <PipelineDeploymentList onRunPipeline={() => undefined} isMinimalView={true} />
         </Layout.Horizontal>
       </Page.Body>
     </>

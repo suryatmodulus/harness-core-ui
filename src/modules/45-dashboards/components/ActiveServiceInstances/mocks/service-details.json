@@ -1,34 +1,38 @@
 {
   "details": {
     "total": 57,
-    "instances": [
+    "data": [
       {
-        "environmentId": "envId1",
+        "environmentName": "Environment 1",
+        "buildName": "Build 1",
         "envType": "NON_PROD",
-        "builds": [
+        "instances": [
           {
-            "id": "buildId1",
-            "instances": [
-              {
-                "id": "instanceId1",
-                "name": "Instance 1"
-              }
-            ]
+            "id": "instanceId1",
+            "name": "Instance 1"
+          },
+          {
+            "id": "instanceId3",
+            "name": "Instance 3"
+          },
+          {
+            "id": "instanceId5",
+            "name": "Instance 5"
           }
         ]
       },
       {
-        "environmentId": "envId2",
+        "environmentName": "Environment 2",
+        "buildName": "Build 2",
         "envType": "PROD",
-        "builds": [
+        "instances": [
           {
-            "id": "buildId2",
-            "instances": [
-              {
-                "id": "instanceId2",
-                "name": "Instance 2"
-              }
-            ]
+            "id": "instanceId2",
+            "name": "Instance 2"
+          },
+          {
+            "id": "instanceId4",
+            "name": "Instance 4"
           }
         ]
       }

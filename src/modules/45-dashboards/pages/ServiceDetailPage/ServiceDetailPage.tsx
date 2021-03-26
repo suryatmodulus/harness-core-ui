@@ -1,6 +1,6 @@
 import React from 'react'
 interface ServiceDetailPageProps {
-  id: string
+  id?: string
 }
 
 const ServiceDetailPage: React.FC<ServiceDetailPageProps> = () => {

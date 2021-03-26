@@ -11,7 +11,6 @@ import {
   MultiTypeInputType,
   SelectOption
 } from '@wings-software/uicore'
-import { v4 as uuid } from 'uuid'
 
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
@@ -24,7 +23,7 @@ import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import type { TerraformData, TfVar } from './TerraformIntefaces'
+import type { TerraformData, VarFileArray } from './TerraformIntefaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
@@ -32,6 +31,7 @@ import css from './TerraformVarfile.module.scss'
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
   onHide: () => void
+  onSubmit: (values: any) => void
 }
 
 const storeTypes: SelectOption[] = [
@@ -52,7 +52,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }>()
-  const defaultValues: TfVar = {
+  const defaultValues: VarFileArray = {
     type: ''
   }
 
@@ -65,14 +65,14 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
       style={{ minWidth: 700, minHeight: 600 }}
     >
       <Layout.Vertical padding={'huge'}>
-        <Formik<TfVar>
+        <Formik<VarFileArray>
           onSubmit={props.onHide}
           initialValues={defaultValues}
           validationSchema={Yup.object().shape({
             name: Yup.string().required(getString('pipelineSteps.stepNameRequired'))
           })}
         >
-          {(formik: FormikProps<TfVar>) => {
+          {(formik: FormikProps<VarFileArray>) => {
             return (
               <>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -99,9 +99,12 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       }
                       type={'Git'}
                       width={
-                        getMultiTypeFromValue(formik.values?.connectorRef) === MultiTypeInputType.RUNTIME ? 200 : 260
+                        getMultiTypeFromValue(formik.values?.spec?.store?.spec?.connectorRef) ===
+                        MultiTypeInputType.RUNTIME
+                          ? 200
+                          : 260
                       }
-                      name="spec.connectorRef"
+                      name="spec.store.spec.connectorRef"
                       placeholder={getString('select')}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
@@ -112,70 +115,71 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     <div className={cx(stepCss.formGroup, stepCss.md)}>
                       <FormInput.Select
                         items={gitFetchTypes}
-                        name="gitFetchType"
+                        name="spec.store.spec.gitFetchType"
                         label={getString('pipelineSteps.gitFetchType')}
                         placeholder={getString('pipelineSteps.gitFetchType')}
                       />
                     </div>
 
-                    {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                    {formik.values?.spec?.store?.spec?.gitFetchType === gitFetchTypes[0].value && (
                       <div className={cx(stepCss.formGroup, stepCss.md)}>
                         <FormInput.MultiTextInput
                           label={getString('pipelineSteps.deploy.inputSet.branch')}
                           placeholder={getString('manifestType.branchPlaceholder')}
-                          name="branch"
+                          name="spec.store.spec.branch"
                         />
-                        {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                        {getMultiTypeFromValue(formik.values?.spec?.store?.spec?.branch) ===
+                          MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
                             style={{ alignSelf: 'center' }}
-                            value={formik.values?.branch as string}
+                            value={formik.values?.spec?.store?.spec?.branch as string}
                             type="String"
-                            variableName="branch"
+                            variableName="spec.store.spec.branch"
                             showRequiredField={false}
                             showDefaultField={false}
                             showAdvanced={true}
-                            onChange={value => formik.setFieldValue('branch', value)}
+                            onChange={value => formik.setFieldValue('spec.store.spec.branch', value)}
                           />
                         )}
                       </div>
                     )}
 
-                    {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                    {formik.values?.spec?.store?.spec?.gitFetchType === gitFetchTypes[1].value && (
                       <div className={cx(stepCss.formGroup, stepCss.md)}>
                         <FormInput.MultiTextInput
                           label={getString('manifestType.commitId')}
                           placeholder={getString('manifestType.commitPlaceholder')}
-                          name="commitId"
+                          name="spec.store.spec.commitId"
                         />
-                        {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                        {getMultiTypeFromValue(formik.values?.spec?.store?.spec?.commitId) ===
+                          MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
                             style={{ alignSelf: 'center' }}
-                            value={formik.values?.commitId as string}
+                            value={formik.values?.spec?.store?.spec?.commitId as string}
                             type="String"
-                            variableName="commitId"
+                            variableName="spec.store.spec.commitId"
                             showRequiredField={false}
                             showDefaultField={false}
                             showAdvanced={true}
-                            onChange={value => formik.setFieldValue('commitId', value)}
+                            onChange={value => formik.setFieldValue('spec.store.spec.commitId', value)}
                           />
                         )}
                       </div>
                     )}
                     <MultiTypeFieldSelector
-                      name="paths"
+                      name="spec.store.spec.paths"
                       label={getString('filePaths')}
                       style={{ width: '200' }}
                       disableTypeSelection
                     >
                       <FieldArray
-                        name="paths"
+                        name="spec.store.spec.paths"
                         render={({ push, remove }) => {
                           return (
                             <div>
-                              {(formik.values?.paths || []).map((path: string, i: number) => (
-                                <div key={i} className={css.pathRow}>
-                                  {path}
-                                  <FormInput.MultiTextInput name="path" label="" />
+                              {(formik.values?.spec?.store?.spec?.paths || []).map((path: string, i: number) => (
+                                <div key={`${path}-${i}`} className={css.pathRow}>
+                                  <FormInput.MultiTextInput name={`paths[${i}].path`} label="" />
                                   <Button
                                     minimal
                                     icon="trash"
@@ -189,7 +193,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                                 minimal
                                 intent="primary"
                                 data-testid="add-header"
-                                onClick={() => push({ path: '', id: uuid() })}
+                                onClick={() => push({ path: '' })}
                               >
                                 Add TF Var file
                               </Button>
@@ -203,14 +207,21 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                 {formik.values.type === 'Inline' && (
                   <FormInput.TextArea name="spec.content" label={getString('pipelineSteps.content')} />
                 )}
+                <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
+                  <Button
+                    type={'submit'}
+                    intent={'primary'}
+                    text={getString('addFile')}
+                    onClick={() => {
+                      props.onSubmit(formik.values)
+                    }}
+                  />
+                  <Button text={getString('cancel')} onClick={props.onHide} />
+                </Layout.Horizontal>
               </>
             )
           }}
         </Formik>
-        <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-          <Button type={'submit'} intent={'primary'} text={getString('addFile')} />
-          <Button text={getString('cancel')} onClick={props.onHide} />
-        </Layout.Horizontal>
       </Layout.Vertical>
     </Dialog>
   )

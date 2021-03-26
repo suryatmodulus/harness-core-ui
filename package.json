@@ -64,7 +64,7 @@
     "@types/uuid": "^8.3.0",
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.36",
-    "@wings-software/uicore": "^0.1.94",
+    "@wings-software/uicore": "^0.1.99",
     "@wings-software/xhr-async": "^2.0.7",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",

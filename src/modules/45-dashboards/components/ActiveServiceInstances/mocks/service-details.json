@@ -1,5 +1,37 @@
 {
   "details": {
-    "total": 57
+    "total": 57,
+    "instances": [
+      {
+        "environmentId": "envId1",
+        "envType": "NON_PROD",
+        "builds": [
+          {
+            "id": "buildId1",
+            "instances": [
+              {
+                "id": "instanceId1",
+                "name": "Instance 1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "environmentId": "envId2",
+        "envType": "PROD",
+        "builds": [
+          {
+            "id": "buildId2",
+            "instances": [
+              {
+                "id": "instanceId2",
+                "name": "Instance 2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 }

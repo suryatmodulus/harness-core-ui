@@ -1,0 +1,13 @@
+.hexagon::before {
+  content: '\2B23';
+  color: var(--blue-350);
+  font-size: 30px;
+}
+
+.instanceDetails {
+  min-width: 400px;
+}
+
+.instances {
+  display: flex;
+}

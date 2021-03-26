@@ -3,7 +3,7 @@
     "total": 57,
     "data": [
       {
-        "environmentName": "Environment 1",
+        "environmentName": "QA",
         "buildName": "Build 1",
         "envType": "NON_PROD",
         "instances": [
@@ -22,7 +22,7 @@
         ]
       },
       {
-        "environmentName": "Environment 2",
+        "environmentName": "PROD",
         "buildName": "Build 2",
         "envType": "PROD",
         "instances": [

@@ -176,7 +176,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                             <div>
                               {(formik.values?.store?.spec?.paths || []).map((path: PathInterface, i: number) => (
                                 <div key={`${path}-${i}`} className={css.pathRow}>
-                                  <FormInput.MultiTextInput name={`spec.paths[${i}].path`} label="" />
+                                  <FormInput.MultiTextInput name={`store.spec.paths[${i}].path`} label="" />
                                   <Button
                                     minimal
                                     icon="trash"

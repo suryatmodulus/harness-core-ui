@@ -14,7 +14,6 @@ interface TfVarFileProps {
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
   const [showTfModal, setShowTfModal] = React.useState(false)
-
   const remoteRender = (varFile: VarFileArray) => {
     return (
       <>
@@ -44,7 +43,11 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           <Layout.Vertical>
             {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: VarFileArray, i) => (
               <>
-                <Layout.Horizontal className={css.tfContainer} key={varFile?.store?.spec?.connectorRef?.value}>
+                <Layout.Horizontal
+                  className={css.tfContainer}
+                  key={varFile?.store?.spec?.connectorRef?.value}
+                  margin={{ top: 'small' }}
+                >
                   {varFile?.type === 'Remote' && remoteRender(varFile)}
                   {varFile?.type === 'Inline' && inlineRender(varFile)}
 

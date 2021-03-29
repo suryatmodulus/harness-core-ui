@@ -48,90 +48,40 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
             </div>
           </div>
           <div
-            class="halfWidth"
-          >
-            <div>
-              <div
-                class="bp3-form-group repoName"
-              >
-                <label
-                  class="bp3-label"
-                  for="repoName"
-                >
-                  Repository Name
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="repoName"
-                      type="text"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              undefined/
-            </div>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--margin-bottom-small"
+            class="group withoutSpacing"
           >
             <div
-              class="halfWidth"
+              class="bp3-form-group"
+              style="flex-grow: 1; margin-bottom: 0px;"
             >
-              <div
-                class="bp3-form-group"
+              <label
+                class="bp3-label"
+                for="paths"
               >
-                <label
-                  class="bp3-label"
-                  for="path"
-                >
-                  Path
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
                 <div
-                  class="bp3-form-content"
+                  class="formLabel"
                 >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    Paths
+                  </p>
                   <div
-                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                    class="bp3-popover-wrapper typeSelectorWrapper"
                   >
                     <div
-                      class="bp3-input-group MultiTypeInput--input"
+                      class="bp3-popover-target typeSelector"
                     >
-                      <input
-                        class="bp3-input"
-                        name="path"
-                        placeholder="Enter file path"
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                    <span
-                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                    >
-                      <span
-                        class="bp3-popover-target"
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        type="button"
                       >
-                        <button
-                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        <span
+                          class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon StyledProps--main"
+                            class="bp3-icon StyledProps--main icon fixed"
                             data-icon="fixed-input"
                           >
                             <svg
@@ -145,50 +95,46 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                               />
                             </svg>
                           </span>
-                        </button>
-                      </span>
-                    </span>
+                          <span
+                            class="btnText"
+                          >
+                            Fixed value
+                          </span>
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="Accordion--accordion"
-          >
-            <div
-              class="Accordion--panel"
-              data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
-            >
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
-                class="Accordion--summary"
-                data-testid="Advanced-summary"
+                class="bp3-form-content"
               >
                 <div
-                  class="Accordion--label"
+                  class="bp3-card bp3-elevation-0 Card--card"
+                  style="width: 100%;"
                 >
-                  Advanced
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    data-testid="add-paths"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      + Add
+                    </span>
+                  </button>
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
-              </div>
-              <div
-                class="bp3-collapse"
-              >
-                <div
-                  aria-hidden="false"
-                  class="bp3-collapse-body"
-                  style="transform: translateY(-undefinedpx);"
-                />
               </div>
             </div>
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
             class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"

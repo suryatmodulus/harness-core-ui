@@ -1,11 +1,18 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, SelectOption } from '@wings-software/uicore'
 import { Toothpick, TimeSelect } from '@common/components'
 import { useStrings } from 'framework/exports'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { monthOptions, nthDayOptions, getUpdatedExpression, AmPmMap, getPmHours } from './ScheduleUtils'
+import {
+  monthOptions,
+  nthDayOptions,
+  getUpdatedExpression,
+  getMilitaryHours,
+  getDayOptionsToMonth,
+  defaultYearlyValues
+} from './ScheduleUtils'
 import css from './YearlyTab.module.scss'
 
 interface YearlyTabInterface {
@@ -28,17 +35,23 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
         <Toothpick
           label={getString('pipeline-triggers.schedulePanel.runOnSpecificDayMonth')}
           startValue={month}
-          handleStartValueChange={option =>
+          handleStartValueChange={option => {
+            const dayOfMonthResetExpression = getUpdatedExpression({
+              expression,
+              value: defaultYearlyValues.dayOfMonth,
+              id: 'dayOfMonth'
+            })
             formikProps.setValues({
               ...values,
               month: option.value,
+              dayOfMonth: defaultYearlyValues.dayOfMonth,
               expression: getUpdatedExpression({
-                expression,
+                expression: dayOfMonthResetExpression,
                 value: option.value as string,
                 id: 'month'
               })
             })
-          }
+          }}
           endValue={dayOfMonth}
           handleEndValueChange={option =>
             formikProps.setValues({
@@ -52,7 +65,7 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
             })
           }
           startOptions={monthOptions}
-          endOptions={nthDayOptions}
+          endOptions={getDayOptionsToMonth({ monthNo: month, options: nthDayOptions })}
           adjoiningText={getString('pipeline-triggers.schedulePanel.onThe')}
         />
         <TimeSelect
@@ -60,39 +73,31 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
           hoursValue={hours}
           minutesValue={minutes}
           amPmValue={amPm}
-          handleHoursSelect={option =>
+          handleHoursSelect={(option: SelectOption) =>
             formikProps.setValues({
               ...values,
               hours: option.value,
               expression: getUpdatedExpression({
                 expression,
-                value: amPm === AmPmMap.PM ? getPmHours(option.value as string) : (option.value as string),
+                value: getMilitaryHours({ hours: option.value as string, amPm }),
                 id: 'hours'
               })
             })
           }
-          handleMinutesSelect={option =>
+          handleMinutesSelect={(option: SelectOption) =>
             formikProps.setValues({
               ...values,
               minutes: option.value,
               expression: getUpdatedExpression({ expression, value: option.value as string, id: 'minutes' })
             })
           }
-          handleAmPmSelect={option => {
-            if (option.value === AmPmMap.PM && values.amPm === AmPmMap.AM) {
-              const newHours = getPmHours(values.hours)
-              formikProps.setValues({
-                ...values,
-                amPm: option.value,
-                expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
-              })
-            } else if (option.value === AmPmMap.AM && values.amPm === AmPmMap.PM) {
-              formikProps.setValues({
-                ...values,
-                amPm: option.value,
-                expression: getUpdatedExpression({ expression, value: hours, id: 'hours' })
-              })
-            }
+          handleAmPmSelect={(option: SelectOption) => {
+            const newHours = getMilitaryHours({ hours: values.hours, amPm: option.value as string })
+            formikProps.setValues({
+              ...values,
+              amPm: option.value,
+              expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
+            })
           }}
           hideSeconds={true}
         />

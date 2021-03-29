@@ -8,26 +8,25 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  StepProps,
-  Icon,
-  Accordion
+  StepProps
 } from '@wings-software/uicore'
 import cx from 'classnames'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { Tooltip } from '@blueprintjs/core'
 
 import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { FormMultiTypeCheckboxField } from '@common/components'
 import { useStrings } from 'framework/exports'
+import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
+
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import type { OpenShiftParamDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OpenShiftParam.module.scss'
-
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
   expressions: string[]
@@ -44,7 +43,6 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
   previousStep
 }) => {
   const { getString } = useStrings()
-  const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
   const connectionType =
     prevStepData?.connectorRef?.connector?.spec?.[gitConnectionType] === GitRepoName.Repo ||
@@ -82,12 +80,16 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
+      const pathArray = specValues.paths.map((path: string) => ({
+        id: uuid('', nameSpace()),
+        value: path
+      }))
+
       const values = {
         ...specValues,
         identifier: initialValues.identifier,
-        paths: specValues.paths,
-        repoName: getRepoName(),
-        path: specValues.paths[0]
+        paths: pathArray,
+        repoName: getRepoName()
       }
       return values
     }
@@ -96,7 +98,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
       branch: undefined,
       commitId: undefined,
       gitFetchType: 'Branch',
-      path: '',
+      paths: [],
       repoName: getRepoName()
     }
   }, [])
@@ -115,7 +117,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                 branch: formData?.branch,
                 commitId: formData?.commitId,
                 repoName: formData?.repoName,
-                paths: [formData?.path]
+                paths: formData?.paths
               }
             }
           }
@@ -131,7 +133,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
               type: formData?.store,
               spec: {
                 connectorRef: formData?.connectorRef,
-                paths: [formData?.path]
+                paths: formData?.paths
               }
             }
           }
@@ -153,12 +155,22 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          path: Yup.string().trim().required(getString('manifestType.folderPathRequired'))
+
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          })
         })}
         onSubmit={formData => {
+          const paths = formData?.paths?.map((path: any) => path.value)
           submitFormData({
             ...prevStepData,
             ...formData,
+            paths,
             connectorRef: prevStepData?.connectorRef
               ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
                 ? prevStepData?.connectorRef
@@ -179,16 +191,17 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                 className={templateCss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
-                <div>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Text
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                     disabled
                     name="repoName"
+                    style={{ width: '370px' }}
                   />
                 </div>
               )}
 
-              {connectionType === GitRepoName.Account && (
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <div className={templateCss.halfWidth}>
                   <div>
                     <FormInput.Text
@@ -270,67 +283,18 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                 </Layout.Horizontal>
               )}
 
-              <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
-                <div
-                  className={cx(templateCss.halfWidth, {
-                    [templateCss.runtimeInput]:
-                      getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME
-                  })}
-                >
-                  <FormInput.MultiTextInput
-                    label={getString('manifestType.path')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
-                    name="path"
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.path as string}
-                      type="String"
-                      variableName="path"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('path', value)}
-                    />
-                  )}
-                </div>
-              </Layout.Horizontal>
-              <Accordion
-                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
-                className={cx({
-                  [templateCss.advancedStepOpen]: isActiveAdvancedStep
-                })}
-              >
-                <Accordion.Panel
-                  id={getString('advancedTitle')}
-                  addDomId={true}
-                  summary={getString('advancedTitle')}
-                  details={
-                    <Layout.Horizontal width={'90%'} flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
-                      <FormMultiTypeCheckboxField
-                        name="skipResourceVersioning"
-                        label={getString('skipResourceVersion')}
-                        multiTypeTextbox={{ expressions }}
-                        className={cx(css.checkbox, css.halfWidth)}
-                      />
-                      <Tooltip
-                        position="top"
-                        content={
-                          <div className={css.tooltipContent}>{getString('manifestType.helmSkipResourceVersion')} </div>
-                        }
-                        className={css.tooltip}
-                      >
-                        <Icon name="info-sign" color={Color.BLUE_450} size={16} />
-                      </Tooltip>
-                    </Layout.Horizontal>
-                  }
-                />
-              </Accordion>
+              <MultiTypeList
+                name="paths"
+                multiTypeFieldSelectorProps={{
+                  label: (
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipelineSteps.paths')}</Text>
+                  )
+                }}
+                style={{ marginBottom: 'var(--spacing-small)', height: '350' }}
+              />
             </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+            <Layout.Horizontal spacing="xxlarge" margin={{ top: 'huge' }}>
               <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
               <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
             </Layout.Horizontal>

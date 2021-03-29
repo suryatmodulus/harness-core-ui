@@ -3,5 +3,6 @@
 declare const styles: {
   readonly monthlyTab: string
   readonly label: string
+  readonly selectMonth: string
 }
 export default styles

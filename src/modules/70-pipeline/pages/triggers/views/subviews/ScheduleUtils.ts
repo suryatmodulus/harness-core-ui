@@ -1,10 +1,13 @@
+import type { SelectOption } from '@wings-software/uicore'
 import { isValidCron } from 'cron-validator'
 import { zeroFiftyNineDDOptions, amPmOptions, oneTwelveDDOptions } from '@common/components/TimeSelect/TimeSelectUtils'
-
+const cronSensicalMinutes = [5, 10, 15, 20, 30]
+const cronSensicalHours = [1, 2, 3, 4, 6, 8, 12]
+export const cronSensicalMinutesOptions = cronSensicalMinutes.map(i => ({ label: `${i}`, value: `${i}` }))
+export const cronSensicalHoursOptions = cronSensicalHours.map(i => ({ label: `${i}`, value: `${i}` }))
 export const zeroFiftyNineOptions = Array.from({ length: 60 }, (_, i) => ({ label: `${i}`, value: `${i}` }))
 export const oneFiftyNineOptions = zeroFiftyNineOptions.slice(1)
 export const zeroTwentyThreeOptions = Array.from({ length: 24 }, (_, i) => ({ label: `${i}`, value: `${i}` }))
-export const oneTwentyThreeOptions = zeroTwentyThreeOptions.slice(1)
 export const zeroThirtyOneOptions = Array.from({ length: 32 }, (_, i) => ({ label: `${i}`, value: `${i}` }))
 export const oneThirtyOneOptions = zeroThirtyOneOptions.slice(1)
 export const oneFiftyNineDDOptions = zeroFiftyNineDDOptions.slice(1)
@@ -36,6 +39,29 @@ const months = [
   'December'
 ]
 
+const daysInMonth: { [key: string]: number } = {
+  '1': 31,
+  '2': 29, // allow lead year
+  '3': 31,
+  '4': 30,
+  '5': 31,
+  '6': 30,
+  '7': 31,
+  '8': 31,
+  '9': 30,
+  '10': 31,
+  '11': 30,
+  '12': 31
+}
+
+export const getDayOptionsToMonth = ({
+  monthNo,
+  options
+}: {
+  monthNo: string
+  options: SelectOption[]
+}): SelectOption[] => options.slice(0, daysInMonth[monthNo])
+
 export const monthOptions = months.map((month, index) => ({ label: month, value: (index + 1).toString() }))
 
 export const nthDayOptions = Array.from({ length: 31 }, (_, i) => {
@@ -64,10 +90,9 @@ export const shortDays: DaysOfWeek[] = [
   DaysOfWeek.SUN
 ]
 
-const MON_TO_FRI = 'MON-FRI'
-
 export const defaultScheduleValues = {
   MINUTES_0: oneFiftyNineOptions[0].value,
+  MINUTES_5: cronSensicalMinutesOptions[0].value,
   MINUTES_00: zeroFiftyNineDDOptions[0].value,
   DAY_OF_MONTH_1: oneThirtyOneOptions[0].value,
   HOURS_1: oneTwelveOptions[0].value,
@@ -80,7 +105,6 @@ export const defaultScheduleValues = {
   MONTH_1: oneTwelveOptions[0].value,
   JANUARY: monthOptions[0].value,
   MON: [DaysOfWeek.MON],
-  MON_TO_FRI: [MON_TO_FRI],
   ASTERISK: '*'
 }
 
@@ -110,11 +134,6 @@ export enum EXP_BREAKDOWN_INPUTS {
   DAY_OF_WEEK = 'DAY_OF_WEEK'
 }
 
-export enum DailyTypes {
-  NTH_DAYS = 'NTH_DAYS',
-  EVERY_WEEK_DAY = 'EVERY_WEEK_DAY'
-}
-
 export interface ExpressionBreakdownInterface {
   minutes?: string
   hours?: string
@@ -132,10 +151,6 @@ export interface DefaultExpressionBreakdownInterface {
   month?: string
   dayOfWeek?: DaysOfWeek[] | string[]
   expression?: string
-  dailyRadios?: {
-    NTH_DAYS: ExpressionBreakdownInterface
-    EVERY_WEEK_DAY: ExpressionBreakdownInterface
-  }
 }
 
 const defaultTimeSelect = {
@@ -144,7 +159,7 @@ const defaultTimeSelect = {
   amPm: defaultScheduleValues.AM_PM
 }
 const defaultMinutesValues = {
-  minutes: defaultScheduleValues.MINUTES_1,
+  minutes: defaultScheduleValues.MINUTES_5,
   hours: defaultScheduleValues.ASTERISK,
   amPm: defaultScheduleValues.AM_PM,
   dayOfMonth: defaultScheduleValues.ASTERISK,
@@ -161,17 +176,10 @@ const defaultHourlyValues = {
   dayOfWeek: defaultScheduleValues.DAY_OF_WEEK_EMPTY
 }
 
-export const defaultDailyNthDaysValues = {
+export const defaultDailyValues = {
   dayOfMonth: defaultScheduleValues.DAY_OF_MONTH_1,
   month: defaultScheduleValues.ASTERISK,
   dayOfWeek: defaultScheduleValues.DAY_OF_WEEK_EMPTY,
-  ...defaultTimeSelect
-}
-
-export const defaultDailyEveryWeekDayValues = {
-  dayOfMonth: defaultScheduleValues.ASTERISK,
-  month: defaultScheduleValues.ASTERISK,
-  dayOfWeek: defaultScheduleValues.MON_TO_FRI,
   ...defaultTimeSelect
 }
 
@@ -184,6 +192,7 @@ export const defaultWeeklyValues = {
 
 export const defaultMonthlyValues = {
   dayOfMonth: defaultScheduleValues.DAY_OF_MONTH_1ST,
+  startMonth: defaultScheduleValues.JANUARY,
   month: defaultScheduleValues.MONTH_1,
   dayOfWeek: defaultScheduleValues.DAY_OF_WEEK_EMPTY,
   ...defaultTimeSelect
@@ -196,33 +205,32 @@ export const defaultYearlyValues = {
   ...defaultTimeSelect
 }
 
-export const getBackslashValue = ({
+export const getSlashValue = ({
   selectedScheduleTab,
   id,
-  value
+  value,
+  startMonth
 }: {
   selectedScheduleTab: string
   id: string
   value: string
+  startMonth?: string
 }): string => {
   if (selectedScheduleTab === scheduleTabsId.MINUTES && id === 'minutes') {
     return `0/${value}`
   } else if (selectedScheduleTab === scheduleTabsId.HOURLY && id === 'hours') {
     return `0/${value}`
-  } else if (selectedScheduleTab === scheduleTabsId.MONTHLY && id === 'month') {
-    return `1/${value}`
+  } else if (selectedScheduleTab === scheduleTabsId.MONTHLY && id === 'month' && startMonth) {
+    // cron expression: startMonth / monthInterval
+    return `${startMonth}/${value}`
   } else if (selectedScheduleTab === scheduleTabsId.DAILY && id === 'dayOfMonth' && !isNaN(parseInt(value))) {
     return `1/${value}`
   }
   return value
 }
 
-export const getDayOfWeekStr = (days?: string[]): string => {
-  if (days?.includes(MON_TO_FRI)) {
-    return MON_TO_FRI
-  }
-  return days?.length ? shortDays.filter(day => days.includes(day)).join(',') : '*'
-}
+export const getDayOfWeekStr = (days?: string[]): string =>
+  days?.length ? shortDays.filter(day => days.includes(day)).join(',') : '*'
 
 export const getDefaultExpressionBreakdownValues = (tabId: string): DefaultExpressionBreakdownInterface => {
   if (tabId === scheduleTabsId.CUSTOM) {
@@ -232,7 +240,7 @@ export const getDefaultExpressionBreakdownValues = (tabId: string): DefaultExpre
     const { minutes, hours, dayOfMonth, month, dayOfWeek } = defaultMinutesValues
     const constructedExpression =
       tabId !== scheduleTabsId.CUSTOM
-        ? `${getBackslashValue({
+        ? `${getSlashValue({
             selectedScheduleTab: tabId,
             id: 'minutes',
             value: minutes
@@ -246,7 +254,7 @@ export const getDefaultExpressionBreakdownValues = (tabId: string): DefaultExpre
     const { minutes, hours, dayOfMonth, month, dayOfWeek } = defaultHourlyValues
     const constructedExpression =
       tabId !== scheduleTabsId.CUSTOM
-        ? `${minutes} ${getBackslashValue({
+        ? `${minutes} ${getSlashValue({
             selectedScheduleTab: tabId,
             id: 'hours',
             value: hours
@@ -257,21 +265,17 @@ export const getDefaultExpressionBreakdownValues = (tabId: string): DefaultExpre
       expression: constructedExpression
     }
   } else if (tabId === scheduleTabsId.DAILY) {
-    const { minutes, hours, dayOfMonth, month, dayOfWeek } = defaultDailyNthDaysValues
+    const { minutes, hours, dayOfMonth, month, dayOfWeek } = defaultDailyValues
     const constructedExpression =
       tabId !== scheduleTabsId.CUSTOM
-        ? `${minutes} ${hours} ${getBackslashValue({
+        ? `${minutes} ${hours} ${getSlashValue({
             selectedScheduleTab: tabId,
             id: 'dayOfMonth',
             value: dayOfMonth
           })} ${month} ${getDayOfWeekStr(dayOfWeek)}`
         : undefined
     return {
-      ...defaultDailyNthDaysValues,
-      dailyRadios: {
-        NTH_DAYS: defaultDailyNthDaysValues,
-        EVERY_WEEK_DAY: defaultDailyEveryWeekDayValues
-      },
+      ...defaultDailyValues,
       expression: constructedExpression
     }
   } else if (tabId === scheduleTabsId.WEEKLY) {
@@ -285,12 +289,14 @@ export const getDefaultExpressionBreakdownValues = (tabId: string): DefaultExpre
       expression: constructedExpression
     }
   } else if (tabId === scheduleTabsId.MONTHLY) {
-    const { minutes, hours, dayOfMonth, month, dayOfWeek } = defaultMonthlyValues
+    const { minutes, hours, dayOfMonth, month, startMonth, dayOfWeek } = defaultMonthlyValues
+    // startMonth only applicable for Monthly tab, handled in getSlashValue
     const constructedExpression =
       tabId !== scheduleTabsId.CUSTOM
-        ? `${minutes} ${hours} ${dayOfMonth} ${getBackslashValue({
+        ? `${minutes} ${hours} ${dayOfMonth} ${getSlashValue({
             selectedScheduleTab: tabId,
             id: 'month',
+            startMonth,
             value: month
           })} ${getDayOfWeekStr(dayOfWeek)}`
         : undefined
@@ -337,19 +343,21 @@ export const getUpdatedExpression = ({
   return updatedExpressionArr?.join(' ')
 }
 
-export const getPmHours = (hours: string): string => (parseInt(hours) + 12).toString()
-
 export const AmPmMap = {
   AM: 'AM',
   PM: 'PM'
 }
 
-export const getCronExpression = (expressionBreakdown: ExpressionBreakdownInterface): string => {
-  const { minutes, hours, dayOfMonth, month, dayOfWeek, amPm } = expressionBreakdown
+export const getMilitaryHours = ({ hours, amPm }: { hours: string; amPm: string }): string => {
+  if (hours === '*') return '*'
+  const hoursInt = parseInt(hours)
+  if (hoursInt === 12 && amPm === AmPmMap.AM) {
+    return '0'
+  } else if (hoursInt === 12 && amPm === AmPmMap.PM) {
+    return '12'
+  }
 
-  return `${minutes} ${
-    hours && amPm === AmPmMap.PM ? getPmHours(hours) : hours
-  } ${dayOfMonth} ${month} ${getDayOfWeekStr(dayOfWeek)}`
+  return amPm === AmPmMap.AM ? hoursInt.toString() : (hoursInt + 12).toString()
 }
 
 export const getBreakdownValues = (cronExpression: string): ExpressionBreakdownInterface => {

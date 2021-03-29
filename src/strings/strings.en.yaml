@@ -1155,15 +1155,15 @@ pipeline-triggers:
     monthlyTabTitle: 'Monthly'
     yearlyTabTitle: 'Yearly'
     runEvery: 'Run every'
+    runDailyAt: 'Run daily at'
     runAt: 'Run at'
     runOn: 'Run on'
-    runEveryWeekday: 'Run every weekday'
-    runOnSpecificDay: 'Run on a specific day'
+    runOnSpecificDay: 'Run on a specific day at monthly interval'
     runOnSpecificDayMonth: 'Run on a specific day and month'
-    mondayToFridayParentheses: '(Monday - Friday)'
+    startingWith: 'Starting with'
     enterCustomCron: 'Enter a custom cron expression'
     minutesParentheses: 'minute(s)'
-    daysParentheses: 'day(s)'
+    minutesAfterTheHour: 'minute(s) after the hour'
     hoursAnd: 'hours(s) and'
     ofEvery: 'of every'
     onThe: 'on the'
@@ -1254,6 +1254,7 @@ pipelineSteps:
   addTfVarFile: 'Add TfVar File'
   content: 'Content'
   backendConfig: 'Backend Config'
+  paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
   gitFetchType: 'Git Fetch Type'
@@ -1489,7 +1490,7 @@ validation:
   valueRequired: Value is a required field
   repositoryName: 'Repository Name is required'
   branchName: 'Branch Name is required'
-  commitId: 'CommitId is required'
+  commitId: 'Commit Id is required'
   validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _

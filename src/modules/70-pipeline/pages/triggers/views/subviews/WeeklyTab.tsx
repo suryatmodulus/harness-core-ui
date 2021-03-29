@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Container, Color, Layout, Icon, Button } from '@wings-software/uicore'
+import { Text, Container, Color, Layout, Icon, Button, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
 import { TimeSelect } from '@common/components'
 import { useStrings } from 'framework/exports'
@@ -12,8 +12,7 @@ import {
   DaysOfWeek,
   getUpdatedExpression,
   getDayOfWeekStr,
-  getPmHours,
-  AmPmMap
+  getMilitaryHours
 } from './ScheduleUtils'
 import css from './WeeklyTab.module.scss'
 interface DailyTabInterface {
@@ -93,39 +92,31 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
             hoursValue={hours}
             minutesValue={minutes}
             amPmValue={amPm}
-            handleHoursSelect={option =>
+            handleHoursSelect={(option: SelectOption) =>
               formikProps.setValues({
                 ...values,
                 hours: option.value,
                 expression: getUpdatedExpression({
                   expression,
-                  value: amPm === AmPmMap.PM ? getPmHours(option.value as string) : (option.value as string),
+                  value: getMilitaryHours({ hours: option.value as string, amPm }),
                   id: 'hours'
                 })
               })
             }
-            handleMinutesSelect={option =>
+            handleMinutesSelect={(option: SelectOption) =>
               formikProps.setValues({
                 ...values,
                 minutes: option.value,
                 expression: getUpdatedExpression({ expression, value: option.value as string, id: 'minutes' })
               })
             }
-            handleAmPmSelect={option => {
-              if (option.value === AmPmMap.PM && values.amPm === AmPmMap.AM) {
-                const newHours = getPmHours(values.hours)
-                formikProps.setValues({
-                  ...values,
-                  amPm: option.value,
-                  expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
-                })
-              } else if (option.value === AmPmMap.AM && values.amPm === AmPmMap.PM) {
-                formikProps.setValues({
-                  ...values,
-                  amPm: option.value,
-                  expression: getUpdatedExpression({ expression, value: hours, id: 'hours' })
-                })
-              }
+            handleAmPmSelect={(option: SelectOption) => {
+              const newHours = getMilitaryHours({ hours: values.hours, amPm: option.value as string })
+              formikProps.setValues({
+                ...values,
+                amPm: option.value,
+                expression: getUpdatedExpression({ expression, value: newHours, id: 'hours' })
+              })
             }}
             hideSeconds={true}
           />

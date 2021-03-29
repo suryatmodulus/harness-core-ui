@@ -4,7 +4,7 @@ import { useStrings } from 'framework/exports'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { oneFiftyNineOptions, getUpdatedExpression, getBackslashValue } from './ScheduleUtils'
+import { cronSensicalMinutesOptions, getUpdatedExpression, getSlashValue } from './ScheduleUtils'
 import css from './MinutesTab.module.scss'
 
 interface MinutesTabInterface {
@@ -27,17 +27,18 @@ export default function MinutesTab(props: MinutesTabInterface): JSX.Element {
       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
         <FormInput.Select
           name="minutes"
-          items={oneFiftyNineOptions}
+          items={cronSensicalMinutesOptions}
           placeholder="Select"
-          onChange={val => {
-            formikProps.setFieldValue(
-              'expression',
-              getUpdatedExpression({
+          onChange={option => {
+            formikProps.setValues({
+              ...values,
+              minutes: option.value,
+              expression: getUpdatedExpression({
                 expression,
-                value: getBackslashValue({ selectedScheduleTab, id: 'minutes', value: val.value as string }),
+                value: getSlashValue({ selectedScheduleTab, id: 'minutes', value: option.value as string }),
                 id: 'minutes'
               })
-            )
+            })
           }}
         />
         <Text style={{ marginBottom: 'var(--spacing-medium)' }} color={Color.GREY_800}>

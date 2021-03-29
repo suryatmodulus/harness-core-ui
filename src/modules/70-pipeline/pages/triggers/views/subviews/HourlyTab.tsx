@@ -5,7 +5,7 @@ import { zeroFiftyNineDDOptions } from '@common/components/TimeSelect/TimeSelect
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
-import { oneTwentyThreeOptions, getUpdatedExpression, getBackslashValue } from './ScheduleUtils'
+import { cronSensicalHoursOptions, getUpdatedExpression, getSlashValue } from './ScheduleUtils'
 import css from './HourlyTab.module.scss'
 
 interface HourlyTabInterface {
@@ -28,14 +28,14 @@ export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
         label={getString('pipeline-triggers.schedulePanel.runEvery')}
         startValue={hours}
         endValue={minutes}
-        startOptions={oneTwentyThreeOptions}
+        startOptions={cronSensicalHoursOptions}
         handleStartValueChange={val =>
           formikProps.setValues({
             ...values,
             hours: val.value,
             expression: getUpdatedExpression({
               expression,
-              value: getBackslashValue({ selectedScheduleTab, id: 'hours', value: val.value as string }),
+              value: getSlashValue({ selectedScheduleTab, id: 'hours', value: val.value as string }),
               id: 'hours'
             })
           })
@@ -49,7 +49,7 @@ export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
           })
         }
         adjoiningText={getString('pipeline-triggers.schedulePanel.hoursAnd')}
-        endingText={getString('pipeline-triggers.schedulePanel.minutesParentheses')}
+        endingText={getString('pipeline-triggers.schedulePanel.minutesAfterTheHour')}
       />
       <Spacer paddingTop={'var(--spacing-large)'} />
       <ExpressionBreakdown formikValues={values} activeInputs={[ActiveInputs.MINUTES, ActiveInputs.HOURS]} />

@@ -2,13 +2,8 @@
   padding: var(--spacing-xsmall) var(--spacing-xlarge) 0 var(--spacing-xlarge);
 
   .label {
-    margin-bottom: var(--spacing-small) !important;
     color: var(--grey-800) !important;
     font-size: 14px !important;
-  }
-
-  > div > div:nth-child(2) {
-    margin-top: var(--spacing-medium) !important;
   }
 
   [class*='bp3-menu'] {
@@ -18,6 +13,15 @@
 
   [class*='Select'] {
     width: 100px;
+  }
+
+  .selectMonth {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+
+    [class*='Select'] {
+      width: 115px;
+    }
   }
 
   [data-name='expressionBreakdown'] {

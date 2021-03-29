@@ -32,7 +32,7 @@
 .weekday {
   width: 93px;
   height: 38px !important;
-  margin: 0 var(--spacing-xsmall) var(--spacing-medium) 0 !important;
+  margin: 0 var(--spacing-xsmall) var(--spacing-small) 0 !important;
   border-color: var(--bp3-intent-color, #dddddd) !important;
 
   [data-icon='deployment-success-new'] svg path {

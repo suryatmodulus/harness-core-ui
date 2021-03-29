@@ -4,7 +4,7 @@ import { Layout, Text, Button, Icon } from '@wings-software/uicore'
 
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
-import type { TerraformData, VarFileArray } from './TerraformIntefaces'
+import type { TerraformData, VarFileArray } from './TerraformInterfaces'
 import TfVarFile from './TfVarFile'
 import css from './TerraformVarfile.module.scss'
 
@@ -18,11 +18,11 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const remoteRender = (varFile: VarFileArray) => {
     return (
       <>
-        <Text className={css.branch}>{varFile?.spec?.store?.spec?.branch}</Text>
+        <Text className={css.branch}>{varFile?.store?.spec?.branch}</Text>
         <Layout.Horizontal className={css.path}>
           {varFile?.type === 'Remote' && <Icon name="remote" />}
           {varFile?.type === 'Inline' && <Icon name="Inline" />}
-          <Text>{varFile?.spec?.store?.spec?.paths?.[0].path}</Text>
+          <Text>{varFile?.store?.spec?.paths?.[0].path}</Text>
         </Layout.Horizontal>
       </>
     )
@@ -32,7 +32,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     return (
       <Layout.Horizontal className={css.path}>
         {varFile?.type === 'Inline' && <Icon name="Inline" />}
-        <Text className={css.branch}>{varFile?.spec?.store?.spec?.content}</Text>
+        <Text className={css.branch}>{varFile?.store?.spec?.content}</Text>
       </Layout.Horizontal>
     )
   }
@@ -44,7 +44,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           <Layout.Vertical>
             {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: VarFileArray, i) => (
               <>
-                <Layout.Horizontal className={css.tfContainer} key={varFile?.spec?.store?.spec?.connectorRef?.value}>
+                <Layout.Horizontal className={css.tfContainer} key={varFile?.store?.spec?.connectorRef?.value}>
                   {varFile?.type === 'Remote' && remoteRender(varFile)}
                   {varFile?.type === 'Inline' && inlineRender(varFile)}
 

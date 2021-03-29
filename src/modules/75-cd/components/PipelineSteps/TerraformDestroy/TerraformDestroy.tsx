@@ -43,7 +43,7 @@ import GitStore from '../Common/Terraform/GitStore'
 import BaseForm from '../Common/Terraform/BaseForm'
 
 import TfVarFileList from '../Common/Terraform/TfVarFileList'
-import type { TerraformData } from '../Common/Terraform/TerraformIntefaces'
+import type { EnvironmentVar, TerraformData } from '../Common/Terraform/TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const configurationTypes: SelectOption[] = [
@@ -85,10 +85,18 @@ function TerraformDestroyWidget(
     <>
       <Formik<TerraformData>
         onSubmit={(values: TerraformData) => {
+          const envVariables = (values.spec?.environmentVariables || []).map((item: EnvironmentVar) => ({
+            key: item?.key,
+            value: item?.value
+          }))
+          const targetsArr = (values.spec?.targets || []).map((item: any) => item.value)
           const payload = {
             ...values,
             spec: {
-              ...values.spec
+              ...values.spec,
+
+              targets: targetsArr,
+              environmentVariables: envVariables
             }
           }
           onUpdate?.(payload)

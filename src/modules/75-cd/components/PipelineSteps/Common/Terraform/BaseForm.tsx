@@ -6,7 +6,7 @@ import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } fr
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import type { TerraformData } from './TerraformIntefaces'
+import type { TerraformData } from './TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 

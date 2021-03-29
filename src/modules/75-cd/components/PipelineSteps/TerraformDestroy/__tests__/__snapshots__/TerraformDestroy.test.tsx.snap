@@ -230,44 +230,6 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical StyledProps--main formData StyledProps--padding-bottom-medium"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
-        >
-          Delegate Selector
-        </p>
-        <div
-          data-name="DelegateSelectors"
-        >
-          <div
-            class="bp3-popover-wrapper formInput bp3-fill"
-          >
-            <div
-              class="bp3-popover-target"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                >
-                  <div
-                    class="bp3-tag-input-values"
-                  >
-                    <input
-                      class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                      placeholder="Select or create the delegate selectors"
-                      value=""
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="formGroup md"
       >
         <div
@@ -552,44 +514,6 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
                       </svg>
                     </span>
                   </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="Layout--vertical StyledProps--main formData StyledProps--padding-bottom-medium"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
-        >
-          Delegate Selector
-        </p>
-        <div
-          data-name="DelegateSelectors"
-        >
-          <div
-            class="bp3-popover-wrapper formInput bp3-fill"
-          >
-            <div
-              class="bp3-popover-target"
-            >
-              <div
-                class=""
-              >
-                <div
-                  class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                >
-                  <div
-                    class="bp3-tag-input-values"
-                  >
-                    <input
-                      class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                      placeholder="Select or create the delegate selectors"
-                      value=""
-                    />
-                  </div>
                 </div>
               </div>
             </div>

@@ -239,7 +239,7 @@ const RecommendationDetails: React.FC = () => {
           />
         </div>
       </section>
-      <Container>
+      <Container className={css.timeframeContainer}>
         <Text>Samples whose resource requirements were met in</Text>
       </Container>
       <Container className={css.histogramContainer}>
@@ -253,9 +253,13 @@ const RecommendationDetails: React.FC = () => {
           onMemoryChartLoad={setMemoryChartRef}
         />
       </Container>
+      {/* <Container className={cx(css.sliderContainer, css.xaxislabels)}>
+        <div />
+        <Text font={{ align: 'center' }}>CPU Usage(millicores)</Text>
+        <Text font={{ align: 'center' }}>Memory Usage(GBs)</Text>
+      </Container> */}
 
       <Container className={css.sliderContainer}>
-        <div />
         <Slider min={0} max={100} stepSize={1} labelStepSize={25} onChange={updateCPUChart} value={cpuReqVal} />
 
         <MultiSlider min={0} max={100} stepSize={1} labelStepSize={25} onChange={updateMemoryChart}>
@@ -267,7 +271,6 @@ const RecommendationDetails: React.FC = () => {
             intentBefore={Intent.SUCCESS}
           />
         </MultiSlider>
-        <div />
         <Text font={{ align: 'center' }}>Percentile of request and limit</Text>
       </Container>
     </Container>

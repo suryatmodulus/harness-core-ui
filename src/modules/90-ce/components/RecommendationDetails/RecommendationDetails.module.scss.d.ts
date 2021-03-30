@@ -6,10 +6,12 @@ declare const styles: {
   readonly diffHeader: string
   readonly heading: string
   readonly diff: string
+  readonly timeframeContainer: string
   readonly histogramContainer: string
   readonly sliderContainer: string
   readonly limitHandle: string
   readonly requestHandle: string
+  readonly xaxislabels: string
   readonly selectedTab: string
   readonly recommendationTypeText: string
 }

@@ -1,5 +1,11 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import routes from '@common/RouteDefinitions'
+import formatCost from '@ce/utils/formatCost'
+
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
 import css from './RecommendationDetailsPage.module.scss'
 
@@ -52,18 +58,42 @@ const RecommendationSavingsComponent = () => {
   return (
     <Container className={css.savingsContainer}>
       <Layout.Horizontal spacing="large">
-        <CostDetails costName="POTENTIAL MONTHLY SAVINGS" totalCost="$25000" isSavingsCost={true} />
-        <CostDetails costName="TOTAL COST" totalCost="$25000" />
-        <CostDetails costName="IDLE COST" totalCost="$25000" />
+        <CostDetails costName="POTENTIAL MONTHLY SAVINGS" totalCost={formatCost(25000)} isSavingsCost={true} />
+        <CostDetails costName="TOTAL COST" totalCost={formatCost(25000)} />
+        <CostDetails costName="IDLE COST" totalCost={formatCost(25000)} />
       </Layout.Horizontal>
     </Container>
   )
 }
 
 const RecommendationDetailsPage: React.FC = () => {
+  const { projectIdentifier, recommendation, orgIdentifier, accountId } = useParams<{
+    projectIdentifier: string
+    recommendation: string
+    orgIdentifier: string
+    accountId: string
+  }>()
+
   return (
-    <>
-      <Container padding="xlarge" background={Color.WHITE} height="100vh">
+    <Container style={{ overflow: 'scroll', height: '100vh', backgroundColor: 'var(--white)' }}>
+      <Breadcrumbs
+        className={css.breadCrumb}
+        links={[
+          {
+            url: routes.toCEProject({ accountId, orgIdentifier, projectIdentifier }),
+            label: projectIdentifier
+          },
+          {
+            url: routes.toCERecommendations({ accountId, orgIdentifier, projectIdentifier }),
+            label: 'Recommendation'
+          },
+          {
+            url: '',
+            label: recommendation
+          }
+        ]}
+      />
+      <Container padding="xlarge">
         <Layout.Vertical spacing="xlarge">
           <RecommendationSavingsComponent />
           <Container className={css.detailsContainer}>
@@ -72,7 +102,7 @@ const RecommendationDetailsPage: React.FC = () => {
           </Container>
         </Layout.Vertical>
       </Container>
-    </>
+    </Container>
   )
 }
 

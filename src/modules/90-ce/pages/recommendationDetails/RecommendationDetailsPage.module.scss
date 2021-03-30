@@ -1,11 +1,18 @@
 .detailsContainer {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 0.5fr;
   grid-gap: var(--spacing-large);
 
   .detailsTextContainer {
     border-left: 1px solid var(--grey-200);
   }
+}
+
+.breadCrumb {
+  background: var(--blue-100);
+  border: 1px solid var(--grey-200);
+  box-sizing: border-box;
+  padding: 8px;
 }
 
 .savingsContainer {

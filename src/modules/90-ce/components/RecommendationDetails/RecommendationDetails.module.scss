@@ -24,14 +24,19 @@
     }
   }
 
-  .histogramContainer {
+  .timeframeContainer {
     margin-top: 40px !important;
+    margin-left: 40px !important;
+  }
+
+  .histogramContainer {
+    margin-top: var(--spacing-large) !important;
   }
 
   .sliderContainer {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: 20px 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
     .limitHandle {
       background-color: var(--green-600);
@@ -62,6 +67,10 @@
         background-color: var(--blue-500);
       }
     }
+  }
+
+  .xaxislabels {
+    margin-bottom: var(--spacing-medium) !important;
   }
 
   .selectedTab {

@@ -77,7 +77,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
 
   return (
     <Container className={css.chartContainer}>
-      <label className={css.sampleText}>Number of Samples</label>
+      {/* <label className={css.sampleText}>Number of Samples</label> */}
       <Container>
         <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="blue200" color="blue500">
           CPU
@@ -110,7 +110,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
               }
             ],
             chart: {
-              height: 260,
+              height: 280,
               type: 'column',
               events: {
                 load() {
@@ -121,6 +121,9 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
             plotOptions,
             xAxis: {
               crosshair: true,
+              title: {
+                text: 'CPU Usage(millicores)'
+              },
               plotLines: [
                 {
                   zIndex: 5,
@@ -134,7 +137,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
             yAxis: {
               endOnTick: true,
               title: {
-                text: ''
+                text: 'Number of samples'
               },
               labels: {
                 formatter: function () {
@@ -182,7 +185,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
               }
             ],
             chart: {
-              height: 260,
+              height: 280,
               type: 'column',
               events: {
                 load() {
@@ -192,6 +195,9 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
             },
             plotOptions,
             xAxis: {
+              title: {
+                text: 'Memory usage(GBs)'
+              },
               crosshair: true,
               plotLines: [
                 {
@@ -219,7 +225,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
             yAxis: {
               endOnTick: true,
               title: {
-                text: ''
+                text: 'Number of samples'
               },
               labels: {
                 formatter: function () {

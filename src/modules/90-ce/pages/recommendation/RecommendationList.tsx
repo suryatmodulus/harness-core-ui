@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
@@ -9,6 +10,9 @@ import RecommendationSavingsCard from '../../components/RecommendationSavingsCar
 import Data from './MockData.json'
 
 const RecommendationsList = ({ data }) => {
+  const history = useHistory()
+  const { pathname } = useLocation()
+
   function NameCell(tableProps): JSX.Element {
     return <Text>{tableProps.value}</Text>
   }
@@ -16,11 +20,15 @@ const RecommendationsList = ({ data }) => {
   const CostCell: (tableProps: any) => JSX.Element = tableProps => {
     return <Text>{formatCost(tableProps.value)}</Text>
   }
+
   return (
     <Card>
       <Layout.Vertical spacing="large">
         <Text>Recommendations Breakdown</Text>
         <Table
+          onRowClick={row => {
+            history.push(`${pathname}/${row.workloadName}/details`)
+          }}
           data={data}
           columns={[
             {
@@ -78,12 +86,13 @@ const RecommendationList: React.FC = () => {
             <Layout.Horizontal spacing="medium">
               <RecommendationSavingsCard
                 title="Potential Savings"
-                amount={`$${totalSavings.toFixed(2)}`}
+                amount={formatCost(totalSavings)}
+                iconName="money-icon"
                 subTitle="Up from previous month"
               />
               <RecommendationSavingsCard
                 title="Total Resource Cost"
-                amount={`$${totalSavings.toFixed(2)}`}
+                amount={formatCost(totalSavings)}
                 subTitle="Up from previous month"
               />
             </Layout.Horizontal>

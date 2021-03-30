@@ -14,7 +14,6 @@ import {
   useSavingsOfService
 } from 'services/lw'
 import { useStrings } from 'framework/exports'
-import { useToaster } from '@common/exports'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
@@ -126,7 +125,6 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     projectIdentifier: string
   }>()
   const { getString } = useStrings()
-  const { showError } = useToaster()
   const [categories, setCategories] = useState<string[]>([])
   const [savingsSeries, setSavingsSeries] = useState<number[]>([])
   const [spendSeries, setSpendSeries] = useState<number[]>([])
@@ -153,7 +151,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     serviceID: props.service?.data.id as number,
     debounce: 300
   })
-  const { data: resources, loading: resourcesLoading, error: resourceError } = useAllServiceResources({
+  const { data: resources, loading: resourcesLoading } = useAllServiceResources({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     service_id: props.service?.data.id as number, // eslint-disable-line
@@ -175,10 +173,6 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     onSuccess: (_data: Service) => props.handleServiceDeletion('SUCCESS', _data),
     onFailure: err => props.handleServiceDeletion('FAILURE', err)
   })
-
-  if (resourceError) {
-    showError(`could not load resources for rule`)
-  }
   useEffect(() => {
     if (graphLoading) {
       return

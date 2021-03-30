@@ -26,11 +26,11 @@ import {
   ServiceSavings,
   useAllServiceResources,
   useGetServices,
-  useHealthOfService,
   useRequestsOfService,
   useSavingsOfService,
   useGetServiceDiagnostics,
-  ServiceError
+  ServiceError,
+  useLogsOfService
 } from 'services/lw'
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
@@ -264,11 +264,10 @@ const COGatewayList: React.FC = () => {
     )
   }
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
-    const { data, loading: healthLoading } = useHealthOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
-      debounce: 300
+    const { data, loading: logsLoading } = useLogsOfService({
+      org_id: orgIdentifier, // eslint-disable-line @typescript-eslint/camelcase
+      projectID: projectIdentifier,
+      serviceID: tableProps.row.original.id as number
     })
 
     const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
@@ -309,9 +308,9 @@ const COGatewayList: React.FC = () => {
             )}
             {!tableProps.row.original.disabled && (
               <>
-                {data?.response?.['state'] != null ? (
-                  getStateTag(data?.response?.['state'])
-                ) : !healthLoading ? (
+                {data?.response?.length ? (
+                  getStateTag(data?.response?.[0].state as string)
+                ) : !logsLoading ? (
                   getStateTag('down')
                 ) : (
                   <Icon name="spinner" size={12} color="blue500" />

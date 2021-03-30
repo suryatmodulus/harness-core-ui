@@ -27,6 +27,21 @@ const gatewayStateMap: { [key: string]: JSX.Element } = {
     <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
       RUNNING
     </Tag>
+  ),
+  coolingdown: (
+    <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
+      STOPPED
+    </Tag>
+  ),
+  warmingup: (
+    <Tag intent={Intent.WARNING} minimal={true} style={{ borderRadius: '25px' }}>
+      WARMING UP
+    </Tag>
+  ),
+  errored: (
+    <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
+      ERRORED
+    </Tag>
   )
 }
 

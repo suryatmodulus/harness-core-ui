@@ -361,28 +361,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               Connectivity Status
             </span>
             <span
-              class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
-              icon="warning-sign"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
             >
-              <svg
-                data-icon="warning-sign"
-                height="18"
-                viewBox="0 0 16 16"
-                width="18"
-              >
-                <desc>
-                  warning-sign
-                </desc>
-                <path
-                  d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span
-              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
-            >
-              Success
+              N/A
             </span>
           </div>
           <p
@@ -823,28 +804,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               Connectivity Status
             </span>
             <span
-              class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--inline StyledProps--padding-left-medium StyledProps--color StyledProps--color-red500"
-              icon="warning-sign"
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
             >
-              <svg
-                data-icon="warning-sign"
-                height="18"
-                viewBox="0 0 16 16"
-                width="18"
-              >
-                <desc>
-                  warning-sign
-                </desc>
-                <path
-                  d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span
-              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium StyledProps--color StyledProps--color-red500"
-            >
-              Success
+              N/A
             </span>
           </div>
           <p

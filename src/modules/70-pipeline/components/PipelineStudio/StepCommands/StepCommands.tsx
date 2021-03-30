@@ -7,12 +7,12 @@ import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export type StepFormikRef<T = unknown> = {
   isDirty(): FormikProps<T>['dirty'] | undefined

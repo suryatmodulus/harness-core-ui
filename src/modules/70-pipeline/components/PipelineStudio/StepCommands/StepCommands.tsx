@@ -6,8 +6,8 @@ import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
-import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 
 import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'

@@ -12,6 +12,7 @@ import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export type StepFormikRef<T = unknown> = {
   isDirty(): FormikProps<T>['dirty'] | undefined
@@ -85,7 +86,9 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     },
     getValues() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const stepObj = stepsFactory.getStep(step.type) as PipelineStep<any>
+      const stepObj = isStepGroup
+        ? (stepsFactory.getStep(StepType.StepGroup) as PipelineStep<any>)
+        : (stepsFactory.getStep(step.type) as PipelineStep<any>)
       return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
         ? (stepObj.processFormData(stepRef.current.values) as ExecutionWrapper)
         : activeTab === StepCommandTabs.Advanced && advancedConfRef.current

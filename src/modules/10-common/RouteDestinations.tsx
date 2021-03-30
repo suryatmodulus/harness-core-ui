@@ -9,7 +9,7 @@ import AdminPage from '@common/pages/AccountSettings/AdminPage'
 import GovernancePage from '@common/pages/governance/GovernancePage'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import type { SidebarContext } from './navigation/SidebarProvider'
-import type { AccountPathProps } from './interfaces/RouteInterfaces'
+import type { AccountPathProps,ProjectPathProps, SecretsPathProps ,ModulePathParams} from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 
 const RedirectToProjects = (): React.ReactElement => {
@@ -23,7 +23,7 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 }
 
  const RedirectToSecretDetailHome = () => {
-  const { accountId,projectIdentifier, orgIdentifier,secretId,module} = useParams();
+  const { accountId,projectIdentifier, orgIdentifier,secretId,module} = useParams <ProjectPathProps & SecretsPathProps & ModulePathParams>();
   return <Redirect to={routes.toSecretDetailsOverview({accountId,projectIdentifier, orgIdentifier,secretId,module})}/>
 }
 const AccountSettingsSideNavProps: SidebarContext = {

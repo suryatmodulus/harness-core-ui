@@ -75,7 +75,7 @@ const RedirectToResourcesHome = (): React.ReactElement => {
 }
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier })} />
 }

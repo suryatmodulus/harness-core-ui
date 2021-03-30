@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from 'react'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useParams, useHistory, useLocation, Redirect } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uicore'
+import { Text, Color, Layout, Icon, Button, Popover, Link } from '@wings-software/uicore'
 
 import Table from '@common/components/Table/Table'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
@@ -11,29 +11,51 @@ import { getStringForType } from '@secrets/utils/SSHAuthUtils'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useStrings } from 'framework/exports'
 import css from './SecretsReferencesList.module.scss'
-
+import { getMagicLink } from '@common/utils/MagicLinkUtils'
+import ResourceDetailFactory from '@common/factories/ResourceDetailFactory'
+import { ResourceType } from '@common/interfaces/ResourceType'
+import ConnectorDetailViewAndAction from '@common/components/ConnectorDetailViewAndAction/ConnectorDetailViewAndAction'
 interface SecretsListProps {
- //secrets?: PageSecretResponseWrapper //commented for Mock Test
+  //secrets?: PageSecretResponseWrapper //commented for Mock Test
   secrets?: any
   gotoPage: (pageNumber: number) => void
   refetch?: () => void
 }
 
+
+
 const RenderColumnEntity: Renderer<CellProps<any>> = ({ row }) => {
   const data = row.original.entity
+  ResourceDetailFactory.registerResourceDetailTypeHandler(ResourceType.PIPELINE, {
+    getResourceDetailViewAndAction: props => <ConnectorDetailViewAndAction {...props} />
+  })
+
+
+
   return (
-    <Layout.Horizontal>
-      <Layout.Vertical>
-        <Layout.Horizontal spacing="small" width={230}>
-          <Text color={Color.BLUE_500} lineClamp={1}>
-            {data.name}
+
+    ResourceDetailFactory.getResourceDetailTypeHandler(data.type) ? ResourceDetailFactory.getResourceDetailTypeHandler(data.type)?.getResourceDetailViewAndAction({ ...data.scope, identifier: data.identifier }) :
+      <Layout.Horizontal>
+        <Layout.Vertical>
+          <Layout.Horizontal spacing="small" width={230}>
+            <Text color={Color.BLACK} lineClamp={1}>
+              {data.identifier}
+            </Text>
+            {/* {
+              getMagicLink(data.type, data.scope, data.identifier) ?
+                <Link href={getMagicLink(data.type, data.scope, data.identifier)}>{data.name}</Link> :
+                <Text color={Color.BLACK} lineClamp={1}>
+                  {data.name}
+                </Text>
+            } */}
+
+
+          </Layout.Horizontal>
+          <Text color={Color.GREY_400} width={230} lineClamp={1}>
+            {data.type}
           </Text>
-        </Layout.Horizontal>
-        <Text color={Color.GREY_400} width={230} lineClamp={1}>
-          {data.type}
-        </Text>
-      </Layout.Vertical>
-    </Layout.Horizontal>
+        </Layout.Vertical>
+      </Layout.Horizontal>
   )
 }
 
@@ -41,15 +63,15 @@ const RenderColumnDetails: Renderer<CellProps<any>> = ({ row }) => {
   const data = row.original.details
   return (
     <>
-     
-        <Text color={Color.BLACK} inline>
-          {data.key}
-        </Text>:
-        <Text color={Color.BLUE_500} inline>
-          {data.value}
-        </Text>
-     
-      
+
+      <Text color={Color.BLACK} inline>
+        {data.key}
+      </Text>:
+      <Text color={Color.BLUE_500} inline>
+        {data.value}
+      </Text>
+
+
     </>
   )
 }
@@ -95,7 +117,7 @@ const SecretsReferencesList: React.FC<SecretsListProps> = ({ secrets, refetch, g
         width: '20%',
         Cell: RenderColumnActivity
       }
-      
+
     ],
     [refetch]
   )
@@ -105,9 +127,9 @@ const SecretsReferencesList: React.FC<SecretsListProps> = ({ secrets, refetch, g
       className={css.table}
       columns={columns}
       data={data}
-      onRowClick={secret => {
-        history.push(`${pathname}/${secret.secret?.identifier}`)
-      }}
+      // onRowClick={secret => {
+      //   history.push(`${pathname}/${secret.secret?.identifier}`)
+      // }}
       pagination={{
         itemCount: secrets?.totalItems || 0,
         pageSize: secrets?.pageSize || 10,

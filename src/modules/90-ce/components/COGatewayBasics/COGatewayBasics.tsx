@@ -42,7 +42,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
         <ConnectorReferenceField
           name="cloudAccount"
           category={'CLOUD_COST'}
-          selected={props.gatewayDetails.cloudAccount.name || selectedConnector?.name}
+          selected={props.gatewayDetails.cloudAccount.id || selectedConnector?.identifier}
           label={[
             getString('ce.co.gatewayBasics.connect'),
             props.gatewayDetails.provider.name,

@@ -285,7 +285,14 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     mock: props.mockSchemaData
   })
 
-  const RenderConnectorStatus: React.FC<any> = (status: ConnectorConnectivityDetails) => {
+  const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
+    if (!status) {
+      return (
+        <Text inline={true} font={{ size: 'medium' }}>
+          {getString('na')}
+        </Text>
+      )
+    }
     return (
       <>
         <Icon

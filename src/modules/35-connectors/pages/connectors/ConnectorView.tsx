@@ -286,7 +286,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   })
 
   const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
-    if (!status) {
+    if (status !== 'SUCCESS' && status !== 'FAILURE') {
       return (
         <Text inline={true} font={{ size: 'medium' }}>
           {getString('na')}

@@ -102,8 +102,6 @@ const ManifestListView = ({
 }: ManifestListViewProps): JSX.Element => {
   const deploymentType = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type
 
-  const allowedManifestTypes: Array<ManifestTypes> = [ManifestDataType.Values, ManifestDataType.HelmChart]
-
   if (deploymentType === 'Kubernetes') {
     allowedManifestTypes.unshift(ManifestDataType.K8sManifest)
   }

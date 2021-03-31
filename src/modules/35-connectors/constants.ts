@@ -59,6 +59,7 @@ export const Connectors: ConnectorType = {
   HttpHelmRepo: 'HttpHelmRepo',
   Jira: 'Jira',
   NEW_RELIC: 'NewRelic'
+  // AWS_KMS: 'AwsKms'
 }
 
 export const ConnectorInfoText = {

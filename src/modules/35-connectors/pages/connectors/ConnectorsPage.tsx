@@ -206,6 +206,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     const originalData = catalogueData?.data?.catalogue || []
     originalData.map(value => {
       value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault']) : null
+      // TODO: uncomment
+      // value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms']) : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {

@@ -966,6 +966,9 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.Jira:
       return 'service-jira'
+    // TODO: uncomment
+    // case Connectors.AWS_KMS:
+    //   return 'aws-kms'
     default:
       return 'cog'
   }
@@ -1011,6 +1014,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Http Helm Repo'
     case Connectors.AWSSM:
       return 'AWS Secret Manager'
+    case Connectors.AWS_KMS:
+      return 'AWS KMS'
     default:
       return ''
   }

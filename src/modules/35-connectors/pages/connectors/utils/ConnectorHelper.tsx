@@ -104,6 +104,8 @@ export const getConnectorTitleIdByType = (type: string): string => {
       return 'connectors.title.gcpConnector'
     case 'Gcr':
       return 'connectors.GCR.fullName'
+    case Connectors.AWS_KMS:
+      return 'connectors.title.awsKms'
     default:
       return 'connector'
   }

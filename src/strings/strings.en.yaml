@@ -1742,6 +1742,7 @@ connectors:
     awsCodeCommit: 'AWS CodeCommit'
     nexus: 'Nexus Repository'
     artifactory: 'Artifactory Repository'
+    awsKms: 'AWS Key Management Service'
   name_labels:
     Kubernetes: 'Kubernetes Connector Name'
     HttpHelmRepo: 'Helm Http Connector Name'
@@ -1900,6 +1901,10 @@ connectors:
       crossAccountRoleArn: 'Role ARN is required'
   awsCodeCommit:
     repoUrl: 'AWS CodeCommit Repository URL'
+  awsKms:
+    accessKeyLabel: 'AWS - Access Key ID*'
+    secretKeyLabel: 'AWS - Secret Access Key*'
+    arnLabel: 'AWS ARN*'
 gitSync:
   label: 'Git Sync'
   successfullCreate: 'Git sync repository created successfully'

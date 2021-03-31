@@ -3,11 +3,12 @@ import type { AnserJsonEntry } from 'anser'
 export interface LineData {
   raw: string
   anserJson?: AnserJsonEntry[]
-  anserJsonLevel?: AnserJsonEntry[]
-  anserJsonTime?: AnserJsonEntry[]
-  anserJsonOut?: AnserJsonEntry[]
+  level?: AnserJsonEntry[]
+  time?: AnserJsonEntry[]
+  out?: AnserJsonEntry[]
   isOpen?: boolean
   lineNumber?: number
+  sectionId?: string
 }
 
 export interface FormattedLogLine {

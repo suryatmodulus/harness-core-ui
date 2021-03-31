@@ -13,6 +13,7 @@ import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewe
 import { LITE_ENGINE_TASK } from '@pipeline/utils/executionUtils'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
+import { formatStringDataToLogContentArray } from '@common/components/MultiLogsViewer/LogLine'
 
 export interface ProgressMapValue extends Pick<UnitProgress, 'startTime' | 'endTime'> {
   status: LogViewerAccordionStatus
@@ -117,7 +118,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             node.stepType === LITE_ENGINE_TASK
               ? ((node.executableResponses || []).find(item => item.task)?.task as any)?.logKeys?.[0]
               : `${accountId}/${orgIdentifier}/${projectIdentifier}/${pipelineIdentifier}/${runSequence}/${stageIdentifier}/${node?.identifier}`,
-          formattedData: []
+          formattedData: isSameStep ? state.dataMap?.Logs?.formattedData || [] : []
         }
 
         return { units, dataMap: { [units[0]]: sectionData }, selectedStep }
@@ -210,7 +211,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
             startTime: unitProgress?.startTime,
             endTime: unitProgress?.endTime,
             dataSource: isRunning ? 'stream' : 'blob',
-            formattedData: []
+            formattedData: isSameStep ? state.dataMap[unit]?.formattedData || [] : []
           }
 
           return acc
@@ -269,32 +270,6 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
       if (state.dataMap[payload.id]?.data === payload.data) return state
 
       return produce(state, draft => {
-        const formattedData = payload.data
-          .split('\n')
-          .map(line => {
-            if (line.length > 0) {
-              const { level, time, out } = JSON.parse(line) as Record<string, string>
-
-              const mutlilineOut = out.split(/\n/)
-              const handledMultilineOutData = mutlilineOut.map((row, index) => {
-                return {
-                  level: index === 0 ? level : '',
-                  time: index === 0 ? time : '',
-                  out: row
-                }
-              })
-
-              return handledMultilineOutData
-            }
-          })
-          .filter(p => p)
-          .reduce(function (prev, curr) {
-            return prev!.concat(curr!)
-          })
-          ?.filter(p => Object.values(p)?.join('').length > 0)
-
-        set(draft.dataMap[payload.id], 'formattedData', formattedData)
-
         const unit = state.dataMap[payload.id]
         const data = payload.data.split('\n').reduce((str, line) => {
           if (line.length > 0) {
@@ -332,6 +307,7 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
           set(draft.dataMap[payload.id], 'status', unit.unitStatus)
         }
 
+        set(draft.dataMap[payload.id], 'formattedData', formatStringDataToLogContentArray(payload.data))
         set(draft.dataMap[payload.id], 'isOpen', true)
         set(draft.dataMap[payload.id], 'data', data.trim())
       })

@@ -1,12 +1,15 @@
 import React from 'react'
 import { GroupedVirtuoso } from 'react-virtuoso'
-import { memoizedAnsiToJson, LogLine } from './LogLine'
+
+import { LogLine, memoizedAnsiToJson } from './LogLine'
 
 import { LogViewerAccordion, LogViewerAccordionProps, LogViewerAccordionStatus } from './LogViewerAccordion'
-import type { LineData } from './types'
+import type { FormattedLogLine } from './types'
 import css from './MultiLogsViewer.module.scss'
 
-export type MultiLogsViewerData = Omit<LogViewerAccordionProps, 'onSectionClick' | 'linesChunkSize'>
+export type MultiLogsViewerData = Omit<LogViewerAccordionProps, 'onSectionClick' | 'linesChunkSize'> & {
+  formattedData: FormattedLogLine[]
+}
 
 export type { LogViewerAccordionStatus, LogViewerAccordionProps }
 
@@ -31,22 +34,30 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
 
   const memoizedData = React.useMemo(() => {
     return data.map(row => {
-      const lines = row.formattedData.map<LineData>((line, index) => ({
-        raw: line.level.concat(line.time, line.out),
-        isOpen: row.isOpen,
-        lineNumber: index,
-        anserJsonLevel: memoizedAnsiToJson(line.level),
-        anserJsonTime: memoizedAnsiToJson(line.time),
-        anserJsonOut: memoizedAnsiToJson(line.out)
-      }))
+      const lines = row.formattedData.map((line, index) => {
+        return {
+          ...line,
+          level: memoizedAnsiToJson(line.level),
+          time: memoizedAnsiToJson(line.time),
+          out: memoizedAnsiToJson(line.out),
+          lineNumber: index,
+          sectionId: row.id,
+          raw: `${line.level}${line.time}${line.out}`
+        }
+      })
 
-      return { linesData: lines, totalLines: lines.length, isOpen: row.isOpen }
+      return {
+        linesData: lines,
+        totalLines: lines.length,
+        isOpen: row.isOpen,
+        title: row.title,
+        status: row.status,
+        startTime: row.startTime,
+        endTime: row.endTime,
+        id: row.id
+      }
     })
   }, [data])
-
-  const groupCounts = memoizedData.map(row => {
-    return row.totalLines
-  })
 
   const flattenedRows = memoizedData
     .map(row => {
@@ -58,30 +69,27 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
 
   return (
     <div className={css.multiLogViewer}>
-      {flattenedRows.length ? (
-        <GroupedVirtuoso
-          id="logContent"
-          ref={virtuosoRef}
-          groupCounts={groupCounts}
-          groupContent={index => (
-            <LogViewerAccordion key={data[index].id} {...data[index]} onSectionClick={onSectionClick} />
-          )}
-          itemContent={index =>
-            flattenedRows[index].isOpen ? (
-              <div className={css.logViewer}>
-                <LogLine
-                  key={`${flattenedRows[index]}-${index}`}
-                  data={flattenedRows[index]}
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  lineNumber={flattenedRows[index].lineNumber! + 1}
-                />
-              </div>
-            ) : (
-              <div style={{ height: '0.1px' }} />
-            )
-          }
-        />
-      ) : null}
+      <GroupedVirtuoso
+        id="logContent"
+        ref={virtuosoRef}
+        groupCounts={memoizedData.map(row => row.totalLines)}
+        groupContent={index => (
+          <LogViewerAccordion key={memoizedData[index].id} {...memoizedData[index]} onSectionClick={onSectionClick} />
+        )}
+        itemContent={index =>
+          flattenedRows.length > 0 && flattenedRows[index].raw.length > 0 ? (
+            <div className={css.logViewer}>
+              {memoizedData.filter(row => row.id === flattenedRows[index].sectionId && row.isOpen).length > 0 ? (
+                <LogLine data={flattenedRows[index]} lineNumber={flattenedRows[index].lineNumber + 1} />
+              ) : (
+                <div style={{ height: '0.1px' }} />
+              )}
+            </div>
+          ) : (
+            <div style={{ height: '0.1px' }} />
+          )
+        }
+      />
     </div>
   )
 }

@@ -86,7 +86,7 @@ export interface LogLineProps {
  */
 export function LogLine(props: LogLineProps): React.ReactElement {
   const {
-    data: { anserJsonLevel, anserJsonTime, anserJsonOut },
+    data: { level, time, out },
     lineNumber
   } = props
 
@@ -94,7 +94,7 @@ export function LogLine(props: LogLineProps): React.ReactElement {
     <div className={css.logLine}>
       <div className={css.lineNumber}>{lineNumber}</div>
       <div className={css.line}>
-        {anserJsonLevel?.map((row, i) => {
+        {level?.map((row, i) => {
           return (
             <span
               id="log-level"
@@ -110,7 +110,7 @@ export function LogLine(props: LogLineProps): React.ReactElement {
             />
           )
         })}
-        {anserJsonTime?.map((row, i) => {
+        {time?.map((row, i) => {
           return (
             <span
               id="log-timestamp"
@@ -128,7 +128,7 @@ export function LogLine(props: LogLineProps): React.ReactElement {
         })}
         {
           <span className={css.logLineContent}>
-            {anserJsonOut?.map((row, i) => {
+            {out?.map((row, i) => {
               return (
                 <span
                   id="log-content"
@@ -172,4 +172,45 @@ export function LogLineChunk(props: LogLineChunkProps): React.ReactElement {
       })}
     </div>
   )
+}
+
+export function formatStringDataToLogContentArray(
+  data: string
+): {
+  level: string
+  time: string
+  out: string
+}[] {
+  if (!data || data === '') return [{ level: '', time: '', out: '' }]
+  return data
+    .split('\n')
+    .map(line => {
+      if (line.length > 0) {
+        const { level, time, out } = JSON.parse(line) as Record<string, string>
+
+        const mutlilineOut = out.split(/\n/)
+        const handledMultilineOutData = mutlilineOut.map((row, index) => {
+          return {
+            level: index === 0 ? level : '',
+            time: index === 0 ? time : '',
+            out: row
+          }
+        })
+
+        return handledMultilineOutData
+      } else {
+        return [
+          {
+            level: '',
+            time: '',
+            out: ''
+          }
+        ]
+      }
+    })
+    .filter(p => p)
+    .reduce(function (prev, curr) {
+      return prev!.concat(curr!)
+    })
+    ?.filter(p => Object.values(p)?.join('').length > 0)
 }

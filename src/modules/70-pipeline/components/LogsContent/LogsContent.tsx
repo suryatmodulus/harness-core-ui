@@ -138,7 +138,16 @@ export function highlightSearchText(
         formattedData: highlightedFormattedData
       }
     } else {
-      return logSection
+      return {
+        ...logSection,
+        formattedData: [
+          {
+            level: '',
+            time: '',
+            out: ''
+          }
+        ]
+      }
     }
   })
   return {
@@ -327,18 +336,6 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   )
 
   const logViewerData = searchResults.logArray
-
-  // console.log(
-  //   newHighlightFunction(
-  //     state.units.map(unit => {
-  //       return {
-  //         ...state.dataMap[unit]
-  //       }
-  //     }),
-  //     searchText,
-  //     searchSelection
-  //   )
-  // )
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const virtuosoRef = React.useRef<null | any>(null)

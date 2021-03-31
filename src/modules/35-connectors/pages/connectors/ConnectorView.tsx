@@ -286,7 +286,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   })
 
   const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
-    if (status !== 'SUCCESS' && status !== 'FAILURE') {
+    if (status !== ConnectorStatus.SUCCESS && status !== ConnectorStatus.FAILURE) {
       return (
         <Text inline={true} font={{ size: 'medium' }}>
           {getString('na')}
@@ -297,12 +297,16 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       <>
         <Icon
           inline={true}
-          name={status === 'SUCCESS' ? 'deployment-success-new' : 'warning-sign'}
+          name={status === ConnectorStatus.SUCCESS ? 'deployment-success-new' : 'warning-sign'}
           size={18}
           padding={{ left: 'medium' }}
-          color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
+          color={status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500}
         ></Icon>
-        <Text inline={true} font={{ size: 'medium' }} color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}>
+        <Text
+          inline={true}
+          font={{ size: 'medium' }}
+          color={status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500}
+        >
           {status === ConnectorStatus.FAILURE ? getString('failed') : getString('success')}
         </Text>
       </>

@@ -256,7 +256,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
                   target="_blank"
                   style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                 >
-                  {resources?.response?.length} Instances
+                  {resources?.response?.length ? resources?.response?.length : 0} Instances
                 </Link>
               ) : (
                 <Icon name="spinner" size={12} color="blue500" />
@@ -264,7 +264,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
               {healthData?.response?.['state'] != null ? (
                 getStateTag(healthData?.response?.['state'])
               ) : !healthDataLoading ? (
-                getStateTag('down')
+                resources?.response?.length && getStateTag('down')
               ) : (
                 <Icon name="spinner" size={12} color="blue500" />
               )}

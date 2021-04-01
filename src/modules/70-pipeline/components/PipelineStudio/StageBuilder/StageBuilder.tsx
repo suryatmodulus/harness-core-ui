@@ -36,6 +36,7 @@ import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import type { StageTypes } from '../Stages/StageTypes'
+import { useValidationErrors } from '../PiplineHooks/useValidationErrors'
 import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
@@ -136,6 +137,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
+  const { errorMap } = useValidationErrors()
 
   const [deleteId, setDeleteId] = React.useState<string | undefined>(undefined)
   const { showSuccess, showError } = useToaster()
@@ -232,7 +234,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, errorMap, getString)
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
@@ -514,7 +516,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
 
-  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString, selectedStageId, splitPaneSize)
+  model.addUpdateGraph(
+    pipeline,
+    { nodeListeners, linkListeners },
+    stagesMap,
+    errorMap,
+    getString,
+    selectedStageId,
+    splitPaneSize
+  )
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)

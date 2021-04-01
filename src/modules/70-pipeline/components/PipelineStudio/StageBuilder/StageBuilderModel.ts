@@ -2,7 +2,6 @@ import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/exports'
-import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
 import {
@@ -30,16 +29,19 @@ export class StageBuilderModel extends DiagramModel {
     startX: number,
     startY: number,
     stagesMap: StagesMap,
+    errorMap: Map<string, string[]>,
     selectedStageId?: string,
     splitPaneSize?: number,
     prevNodes?: DefaultNodeModel[],
     allowAdd?: boolean,
+    path = '',
     isParallelNodes = false
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node && node.stage) {
       const type = stagesMap[node.stage.type]
       startX += this.gap
       const isSelected = selectedStageId === node.stage.identifier
+      const isError = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
       const nodeRender = type?.isApproval
         ? new DiamondNodeModel({
             identifier: node.stage.identifier,
@@ -51,7 +53,7 @@ export class StageBuilderModel extends DiagramModel {
             },
             name: node.stage.name,
             width: 57,
-            isInComplete: node.stage.name === EmptyStageName,
+            isInComplete: isError,
             canDelete: selectedStageId === node.stage.identifier ? false : true,
             draggable: true,
             height: 57,
@@ -64,7 +66,7 @@ export class StageBuilderModel extends DiagramModel {
             id: node.stage.identifier,
             customNodeStyle: getCommonStyles(isSelected),
             name: node.stage.name,
-            isInComplete: node.stage.name === EmptyStageName,
+            isInComplete: isError,
             width: 114,
             draggable: true,
             canDelete: selectedStageId === node.stage.identifier ? false : true,
@@ -146,10 +148,12 @@ export class StageBuilderModel extends DiagramModel {
               newX,
               newY,
               stagesMap,
+              errorMap,
               selectedStageId,
               splitPaneSize,
               prevNodes,
               isLastNode,
+              `${path}.parallel.${index}`,
               true
             )
             startX = resp.startX
@@ -179,10 +183,12 @@ export class StageBuilderModel extends DiagramModel {
           startX,
           startY,
           stagesMap,
+          errorMap,
           selectedStageId,
           splitPaneSize,
           prevNodes,
           true,
+          `${path}.parallel.0`,
           false
         )
       }
@@ -195,6 +201,7 @@ export class StageBuilderModel extends DiagramModel {
     data: NgPipeline,
     listeners: Listeners,
     stagesMap: StagesMap,
+    errorMap: Map<string, string[]>,
     getString: UseStringsReturn['getString'],
     selectedStageId?: string,
     splitPaneSize?: number
@@ -225,16 +232,18 @@ export class StageBuilderModel extends DiagramModel {
     startX -= this.gap / 2
 
     let prevNodes: DefaultNodeModel[] = [startNode]
-    data?.stages?.forEach((node: StageElementWrapper) => {
+    data?.stages?.forEach((node: StageElementWrapper, index) => {
       const resp = this.renderGraphNodes(
         node,
         startX,
         startY,
         stagesMap,
+        errorMap,
         selectedStageId,
         splitPaneSize,
         prevNodes,
-        true
+        true,
+        `pipeline.stages.${index}`
       )
       startX = resp.startX
       startY = resp.startY

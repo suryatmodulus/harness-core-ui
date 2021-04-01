@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { isNil } from 'lodash-es'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
+import { useDeepCompareEffect } from '@common/hooks'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 
@@ -11,7 +12,7 @@ export function useValidationErrors(): { errorMap: Map<string, string[]> } {
   } = usePipelineContext()
 
   const [errorMap, setErrorMap] = useState<Map<string, string[]>>(new Map())
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     async function validateErrors(): Promise<void> {
       if (!isNil(pipelineSchema) && pipelineSchema.data) {
         const error = await validateJSONWithSchema({ pipeline: originalPipeline }, pipelineSchema.data)

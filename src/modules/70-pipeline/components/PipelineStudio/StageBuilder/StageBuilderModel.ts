@@ -42,6 +42,11 @@ export class StageBuilderModel extends DiagramModel {
       startX += this.gap
       const isSelected = selectedStageId === node.stage.identifier
       const isError = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
+
+      const errorList = Array.from(errorMap).filter(item => {
+        return item[0].indexOf(path) > -1
+      })
+
       const nodeRender = type?.isApproval
         ? new DiamondNodeModel({
             identifier: node.stage.identifier,
@@ -66,6 +71,7 @@ export class StageBuilderModel extends DiagramModel {
             id: node.stage.identifier,
             customNodeStyle: getCommonStyles(isSelected),
             name: node.stage.name,
+            errorList: errorList,
             isInComplete: isError,
             width: 114,
             draggable: true,

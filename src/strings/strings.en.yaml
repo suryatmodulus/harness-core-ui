@@ -1743,6 +1743,7 @@ connectors:
     nexus: 'Nexus Repository'
     artifactory: 'Artifactory Repository'
     awsKms: 'AWS Key Management Service'
+    delegateSelection: 'Delegate Selection'
   name_labels:
     Kubernetes: 'Kubernetes Connector Name'
     HttpHelmRepo: 'Helm Http Connector Name'

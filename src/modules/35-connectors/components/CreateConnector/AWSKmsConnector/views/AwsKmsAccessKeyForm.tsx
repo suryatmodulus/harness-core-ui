@@ -19,21 +19,21 @@ import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/C
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { AwsKmsConfigDataProps } from './AwsKmsConfig'
 
-export interface AwsAccessKeyFormData {
+export interface AwsKmsAccessKeyFormData {
   accessKey?: string
   secretKey?: SecretReference
   awsArn?: SecretReference
   region?: SelectOption
 }
 
-const defaultInitialFormData: AwsAccessKeyFormData = {
+const defaultInitialFormData: AwsKmsAccessKeyFormData = {
   accessKey: undefined,
   secretKey: undefined,
   awsArn: undefined,
   region: undefined
 }
 
-const AwsAccessKeyForm: React.FC<AwsKmsConfigDataProps> = ({
+const AwsKmsAccessKeyForm: React.FC<AwsKmsConfigDataProps> = ({
   onSubmit,
   connectorInfo,
   isEditMode,
@@ -61,7 +61,7 @@ const AwsAccessKeyForm: React.FC<AwsKmsConfigDataProps> = ({
       if (isEditMode) {
         if (connectorInfo) {
           setupAwsKmsFormData(connectorInfo, accountId).then(data => {
-            setInitialValues(data as AwsAccessKeyFormData)
+            setInitialValues(data as AwsKmsAccessKeyFormData)
             setLoadingConnectorSecrets(false)
           })
         } else {
@@ -72,7 +72,7 @@ const AwsAccessKeyForm: React.FC<AwsKmsConfigDataProps> = ({
   }, [loadingConnectorSecrets])
 
   return (
-    <Formik<AwsAccessKeyFormData>
+    <Formik<AwsKmsAccessKeyFormData>
       initialValues={{ ...initialValues }}
       validationSchema={Yup.object().shape({
         accessKey: Yup.string().trim().required(getString('connectors.aws.validation.accessKey')),
@@ -122,4 +122,4 @@ const AwsAccessKeyForm: React.FC<AwsKmsConfigDataProps> = ({
   )
 }
 
-export default AwsAccessKeyForm
+export default AwsKmsAccessKeyForm

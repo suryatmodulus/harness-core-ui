@@ -14,11 +14,12 @@ import { pick } from 'lodash-es'
 import { useToaster } from '@common/exports'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import AwsAccessKeyForm, { AwsAccessKeyFormData } from './AwsAccessKeyForm'
+import AwsKmsAccessKeyForm, { AwsKmsAccessKeyFormData } from './AwsKmsAccessKeyForm'
+import AwsKmsDelegateSelection from './AwsKmsDelegateSelection'
 import type { CreateAwsKmsConnectorProps, StepSecretManagerProps } from '../CreateAwsKmsConnector'
 
 export interface AwsKmsConfigDataProps {
-  onSubmit: (data: AwsAccessKeyFormData) => void
+  onSubmit: (data: AwsKmsAccessKeyFormData) => void
   connectorInfo?: ConnectorInfoDTO
   isEditMode?: boolean
   isLoading?: boolean
@@ -58,7 +59,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     queryParams: { accountIdentifier }
   })
 
-  const handleSubmit = async (data: AwsAccessKeyFormData | undefined): Promise<void> => {
+  const handleSubmit = async (data: AwsKmsAccessKeyFormData | undefined): Promise<void> => {
     if (prevStepData) {
       let dataToSubmit: ConnectorRequestBody
       if (credType === credTypeOptions[0]) {
@@ -124,7 +125,11 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
         value={credType}
         onChange={setCredType}
       />
-      {credType === credTypeOptions[0] ? <AwsAccessKeyForm {...commonStepProps} /> : null}
+      {credType === credTypeOptions[0] ? (
+        <AwsKmsAccessKeyForm {...commonStepProps} />
+      ) : (
+        <AwsKmsDelegateSelection {...commonStepProps} />
+      )}
     </Container>
   )
 }

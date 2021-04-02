@@ -2,6 +2,7 @@ import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
+import { Tooltip } from '@blueprintjs/core'
 import type { DiamondNodeModel } from './DiamondNodeModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
@@ -36,6 +37,19 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
 
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
+
+  const errorList: { [key: string]: number } = {}
+  options.errorList
+    ?.map(error => error[1])
+    .reduce((prev, curr) => {
+      return prev.concat(curr)
+    }, [])
+    .forEach(function (i) {
+      errorList[i] = (errorList[i] || 0) + 1
+    })
+
+  const errorListCount = Object.entries(errorList)
+
   return (
     <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
       <div
@@ -43,7 +57,27 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
         {options.icon && <Icon size={28} name={options.icon} />}
-        {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
+        {options.isInComplete && (
+          <span className={css.inComplete}>
+            <Tooltip
+              content={
+                <>
+                  {errorListCount.map((error, subIndex) => {
+                    return (
+                      <div key={subIndex}>
+                        {error[0]}
+                        {error[1] > 1 ? ` (${error[1]})` : ``}
+                      </div>
+                    )
+                  })}
+                </>
+              }
+              position="auto"
+            >
+              <Icon size={12} name={'warning-sign'} color="orange500" />
+            </Tooltip>
+          </span>
+        )}
         {props.node.getInPorts().map(port => generatePort(port, props))}
         {props.node.getOutPorts().map(port => generatePort(port, props))}
         {options?.tertiaryIcon && (

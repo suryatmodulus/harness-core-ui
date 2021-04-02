@@ -5,6 +5,7 @@ import { DiagramType } from '../../Constants'
 export interface DiamondNodeModelOptions extends Omit<DefaultNodeModelOptions, 'secondaryIcon' | 'name'> {
   name?: string
   secondaryIcon?: IconName
+  errorList?: [string, string[]][]
 }
 
 export class DiamondNodeModel extends DefaultNodeModel {

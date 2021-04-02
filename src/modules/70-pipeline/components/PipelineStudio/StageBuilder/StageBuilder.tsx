@@ -261,7 +261,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       initializeStageStateMap(pipeline, map)
       setStageMap(map)
     }
-  }, [isInitialized, pipeline, isSplitViewOpen])
+  }, [isInitialized, pipeline, isSplitViewOpen, errorMap])
 
   React.useEffect(() => {
     setDeleteId(deleteId)

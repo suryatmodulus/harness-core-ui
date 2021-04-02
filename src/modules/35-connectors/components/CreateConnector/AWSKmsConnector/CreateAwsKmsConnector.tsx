@@ -8,7 +8,7 @@ import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
-import AwsKmsConfigForm from './views/AwsKmsConfigForm'
+import AwsKmsConfig from './views/AwsKmsConfig'
 import css from './CreateAwsKmsConnector.module.scss'
 
 export interface CreateAwsKmsConnectorProps {
@@ -41,11 +41,12 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
-      <AwsKmsConfigForm
+      <AwsKmsConfig
         name={getString('details')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...props}
         onSuccess={onSuccess}
+        connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

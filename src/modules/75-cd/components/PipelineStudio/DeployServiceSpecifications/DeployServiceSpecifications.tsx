@@ -429,7 +429,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       serviceObj.service = value.service
                       delete serviceObj.serviceRef
                     } else if (value.serviceRef) {
-                      serviceObj.serviceRef = value.serviceRef
+                      const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
+                      serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
                       delete serviceObj.service
                     }
                     debounceUpdatePipeline(pipeline)

@@ -374,7 +374,7 @@ exports[`Delegates Listing render data 1`] = `
             role="cell"
             style="width: calc(20% - 10px);"
           >
-            a year ago
+            2 years ago
           </div>
           <div
             class="cell"

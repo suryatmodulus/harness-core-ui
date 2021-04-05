@@ -237,10 +237,7 @@ export interface StringsMap {
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
-  'gitsync.entitiesByRepositories': string
   'gitsync.label': string
-  'gitsync.seeLess': string
-  'gitsync.seeMore': string
   'gitsync.successfullCreate': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string

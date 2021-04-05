@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { Project, useGetProject, useIsGitSyncEnabled } from 'services/cd-ng'
+import { Project, useGetProject } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
@@ -15,7 +15,6 @@ export type FeatureFlagMap = Record<string, boolean>
  */
 export interface AppStoreContextProps {
   readonly selectedProject?: Project
-  readonly isGitSyncEnabled?: boolean
 
   /** feature flags */
   readonly featureFlags: FeatureFlagMap
@@ -25,7 +24,6 @@ export interface AppStoreContextProps {
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   featureFlags: {},
-  isGitSyncEnabled: false,
   updateAppStore: () => void 0
 })
 
@@ -36,18 +34,13 @@ export function useAppStore(): AppStoreContextProps {
 export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
-    featureFlags: {},
-    isGitSyncEnabled: false
+    featureFlags: {}
   })
 
   const { data: featureFlags, loading: featureFlagsLoading } = useGetFeatureFlags({
     accountId,
     pathParams: { accountId },
     queryParams: ({ routingId: accountId } as unknown) as void // BE accepts this queryParam, but not declared in swagger
-  })
-
-  const { data: isGitSyncEnabled, refetch: refetchIsGitSyncEnabled } = useIsGitSyncEnabled({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
   const { refetch, data: project } = useGetProject({
@@ -91,19 +84,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   }, [featureFlags])
 
   React.useEffect(() => {
-    if (isGitSyncEnabled) {
-      setState(prevState => ({
-        ...prevState,
-        isGitSyncEnabled
-      }))
-    }
-  }, [isGitSyncEnabled])
-
-  React.useEffect(() => {
-    if (projectIdentifier && orgIdentifier) {
-      refetch()
-      refetchIsGitSyncEnabled()
-    }
+    if (projectIdentifier && orgIdentifier) refetch()
     if (!projectIdentifier || !orgIdentifier) {
       setState(prevState => ({
         ...prevState,

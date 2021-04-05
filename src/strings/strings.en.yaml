@@ -1906,6 +1906,9 @@ connectors:
     accessKeyLabel: 'AWS - Access Key ID*'
     secretKeyLabel: 'AWS - Secret Access Key*'
     arnLabel: 'AWS ARN*'
+    loggedAt: 'Logged at'
+    validation:
+      selectDelegate: 'Please select a Delegate'
 gitSync:
   label: 'Git Sync'
   successfullCreate: 'Git sync repository created successfully'

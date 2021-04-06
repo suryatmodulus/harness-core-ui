@@ -63,8 +63,13 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
   const [loadConnector, setLoadConnector] = useState(false)
   const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])

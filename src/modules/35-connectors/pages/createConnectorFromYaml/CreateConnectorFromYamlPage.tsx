@@ -39,7 +39,9 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
   const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const [editorContent, setEditorContent] = React.useState<Record<string, any>>()
   const { getString } = useStrings()

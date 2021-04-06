@@ -45,8 +45,13 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
     accessKey: undefined,
     secretKey: undefined
   })
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
 
   useEffect(() => {
     ;(async () => {

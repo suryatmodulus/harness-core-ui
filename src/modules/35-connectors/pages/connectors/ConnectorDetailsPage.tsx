@@ -47,7 +47,10 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     activityHistory: getString('activityHistoryLabel')
   }
 
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: connectorId,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
 
   const RenderBreadCrumb: React.FC = () => {
     if (projectIdentifier) {

@@ -54,10 +54,11 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: CreateHashiCorpVault, loading: createLoading } = useCreateConnector({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
   const { mutate: updateSecretManager, loading: updateLoading } = useUpdateConnector({
-    queryParams: { accountIdentifier: accountId }
+    identifier: prevStepData?.identifier || '',
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
   const handleSubmit = async (formData: VaultConfigFormData): Promise<void> => {

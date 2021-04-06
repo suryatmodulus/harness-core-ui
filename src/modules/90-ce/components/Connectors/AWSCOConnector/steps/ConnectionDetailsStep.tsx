@@ -42,7 +42,9 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const [externalID, setExternalID] = useState(connectorInfo.spec.externalID as string)
   const [saving, setSaving] = useState(false)
   const { showError } = useToaster()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
   const { data, error } = useGetCloudFormationTemplate({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

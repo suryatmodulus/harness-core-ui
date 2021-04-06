@@ -52,8 +52,21 @@ interface SplunkFormInterface {
 
 export default function CreateSplunkConnector(props: CreateSplunkConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: {
+      accountIdentifier: props.accountId,
+      projectIdentifier: props.projectIdentifier,
+      orgIdentifier: props.orgIdentifier
+    }
+  })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    queryParams: {
+      accountIdentifier: props.accountId,
+      projectIdentifier: props.projectIdentifier,
+      orgIdentifier: props.orgIdentifier
+    }
+  })
   const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestBody | undefined>()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
   const { showSuccess } = useToaster()

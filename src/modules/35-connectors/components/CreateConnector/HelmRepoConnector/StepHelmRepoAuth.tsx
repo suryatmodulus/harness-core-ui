@@ -56,7 +56,6 @@ const defaultInitialFormData: HelmFormInterface = {
 
 const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps> & AuthenticationProps> = props => {
   const { getString } = useStrings()
-
   const { prevStepData, nextStep, accountId } = props
 
   const [, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()

@@ -39,8 +39,17 @@ export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
 }
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: {
+      accountIdentifier: props.accountId,
+      projectIdentifier: props.projectIdentifier,
+      orgIdentifier: props.orgIdentifier
+    }
+  })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    queryParams: { accountIdentifier: props.accountId, orgIdentifier: props.orgIdentifier }
+  })
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)

@@ -132,7 +132,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.spec && item.tab !== TabTypes.Advanced) {
         node.spec = { ...item.spec }
       }
-      data?.stepConfig?.onUpdate?.(node)
+
       if (stepId && selectedStage?.stage?.spec?.execution) {
         await updateStage(
           produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
@@ -140,8 +140,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             originalNode.node = clone(node)
           }).stage as StageElementConfig
         )
-      } else {
-        await updatePipeline(pipeline)
+        data?.stepConfig?.onUpdate?.(node)
       }
 
       // TODO: temporary fix for FF

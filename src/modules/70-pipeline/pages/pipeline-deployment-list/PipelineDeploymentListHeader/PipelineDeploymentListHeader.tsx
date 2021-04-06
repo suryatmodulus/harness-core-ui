@@ -62,7 +62,12 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline}>
+        <Button
+          icon="run-pipeline"
+          data-testid="run-pipeline-deployment-list"
+          intent="primary"
+          onClick={props.onRunPipeline}
+        >
           <String className={css.runText} stringID="runPipelineText" />
         </Button>
         <div className={cx(css.filterGroup, css.btnGroup)}>

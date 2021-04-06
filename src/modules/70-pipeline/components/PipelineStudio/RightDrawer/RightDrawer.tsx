@@ -13,7 +13,7 @@ import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
-import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
+import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
@@ -44,6 +44,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       pipelineView
     },
     updatePipeline,
+    updateStage,
     updatePipelineView,
     getStageFromPipeline,
     stepsFactory
@@ -93,8 +94,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onSubmitStep = (item: ExecutionWrapper): void => {
+  const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
     const node = data?.stepConfig?.node
+    const stepId = node?.identifier
+
     if (node) {
       // Add/replace values only if they are presented
       if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
@@ -128,8 +131,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.spec && item.tab !== TabTypes.Advanced) {
         node.spec = { ...item.spec }
       }
-      data?.stepConfig?.onUpdate?.(item)
-      updatePipeline(pipeline)
+      data?.stepConfig?.onUpdate?.(node)
+      if (stepId && selectedStage?.stage?.spec?.execution) {
+        const originalNode = getStepFromId(selectedStage?.stage?.spec?.execution, stepId)
+        originalNode.node = node
+        await updateStage(selectedStage.stage)
+      } else {
+        await updatePipeline(pipeline)
+      }
 
       // TODO: temporary fix for FF
       // can be removed once the unified solution across modules is implemented

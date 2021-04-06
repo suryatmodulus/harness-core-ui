@@ -39,6 +39,7 @@ const ConfigStepOneContent = () => {
 
 const ConfigStepTwoContent = () => {
   const { getString } = useStrings()
+
   return (
     <>
       <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>

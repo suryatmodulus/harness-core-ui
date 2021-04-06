@@ -63,6 +63,7 @@ export interface FlatOnEditValuesInterface {
   tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
+  jexlConditions?: string
   // SCHEDULE-SPECIFIC
   selectedScheduleTab?: string
   minutes?: string
@@ -94,6 +95,7 @@ export interface FlatValidWebhookFormikValuesInterface {
   tagConditionValue?: string
   headerConditions?: AddConditionInterface[]
   payloadConditions?: AddConditionInterface[]
+  jexlConditions?: string
 }
 
 export interface FlatValidScheduleFormikValuesInterface {

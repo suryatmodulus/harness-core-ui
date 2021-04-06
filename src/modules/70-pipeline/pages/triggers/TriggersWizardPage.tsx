@@ -168,7 +168,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             tags,
             source: {
               spec: {
-                spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken },
+                spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken, jexlConditions },
                 type
               }
             },
@@ -224,7 +224,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
               payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
               payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH &&
               payloadCondition.key !== PayloadConditionTypes.TAG
-          )
+          ),
+          jexlConditions
         }
         gitRepoSpecCopy = gitRepoSpec
       } catch (e) {
@@ -386,6 +387,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       tagConditionValue,
       headerConditions = [],
       payloadConditions = [],
+      jexlConditions,
       secureToken
     } = val
 
@@ -436,7 +438,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           spec: {
             gitRepoSpec: { identifier: connectorRef?.value, repoName },
             event,
-            actions: actionsValues
+            actions: actionsValues,
+            jexlConditions
           }
         }
       }

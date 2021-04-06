@@ -22,7 +22,15 @@ interface WebhookConditionsPanelPropsInterface {
   formikProps?: any
 }
 
-export const ConditionRow = ({ formikProps, name, label }: { formikProps: any; name: string; label: string }) => {
+export const ConditionRow = ({
+  formikProps,
+  name,
+  label
+}: {
+  formikProps: any
+  name: string
+  label: string
+}): JSX.Element => {
   const { getString } = useStrings()
   const operatorKey = `${name}Operator`
   const valueKey = `${name}Value`
@@ -121,7 +129,11 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         setFieldValue={setFieldValue}
         errors={errors}
       />
-      {/* <FormInput.TextArea style={{ width: '100%' }} disabled={true} name="jexlConditions" label="JEXL Conditions" /> */}
+      <FormInput.Text
+        style={{ width: '100%' }}
+        name="jexlConditions"
+        label={getString('pipeline-triggers.conditionsPanel.jexlConditions')}
+      />
     </Layout.Vertical>
   )
 }

@@ -1,13 +1,14 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Icon, Button } from '@wings-software/uicore'
-import { isNil, isEmpty, get, set } from 'lodash-es'
+import { isNil, isEmpty, get, set, clone } from 'lodash-es'
 import cx from 'classnames'
 
+import produce from 'immer'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { useStrings } from 'framework/exports'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import type { ExecutionWrapper, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -133,9 +134,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       }
       data?.stepConfig?.onUpdate?.(node)
       if (stepId && selectedStage?.stage?.spec?.execution) {
-        const originalNode = getStepFromId(selectedStage?.stage?.spec?.execution, stepId)
-        originalNode.node = node
-        await updateStage(selectedStage.stage)
+        await updateStage(
+          produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+            const originalNode = getStepFromId(draft?.stage?.spec?.execution, stepId)
+            originalNode.node = clone(node)
+          }).stage as StageElementConfig
+        )
       } else {
         await updatePipeline(pipeline)
       }

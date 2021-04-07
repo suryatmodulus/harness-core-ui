@@ -203,6 +203,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
 }
 
 export default function CreateNewRelicConnector(props: CreateNewRelicConnectorProps): JSX.Element {
+  const [connectorIdentifier, setConnectorIdentifier] = useState('') // Adding this temporarily, modify this component to support inline edit.
   const { mutate: createConnector } = useCreateConnector({
     queryParams: {
       accountIdentifier: props.accountId,
@@ -211,7 +212,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
     }
   })
   const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : connectorIdentifier || '',
     queryParams: {
       accountIdentifier: props.accountId,
       projectIdentifier: props.projectIdentifier,
@@ -222,6 +223,8 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
   const { getString } = useStrings()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
   const handleCreate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
+    setConnectorIdentifier(data.identifier)
+
     const res = await createConnector({
       connector: {
         name: data.name,

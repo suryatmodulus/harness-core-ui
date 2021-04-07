@@ -60,7 +60,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
     }
   })
   const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : formData?.identifier || '',
     queryParams: {
       accountIdentifier: props.accountId,
       projectIdentifier: props.projectIdentifier,

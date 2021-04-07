@@ -39,6 +39,7 @@ export interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
 }
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
+  const [connectorIdentifier, setConnectorIdentifier] = useState('')
   const { mutate: createConnector } = useCreateConnector({
     queryParams: {
       accountIdentifier: props.accountId,
@@ -47,18 +48,24 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     }
   })
   const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
-    queryParams: { accountIdentifier: props.accountId, orgIdentifier: props.orgIdentifier }
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : connectorIdentifier || '',
+    queryParams: {
+      accountIdentifier: props.accountId,
+      orgIdentifier: props.orgIdentifier,
+      projectIdentifier: props.projectIdentifier
+    }
   })
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
+
   const handleSubmit = async (
     payload: ConnectorConfigDTO,
     prevData: ConnectorConfigDTO,
     stepProps: StepProps<ConnectorConfigDTO>
   ): Promise<ConnectorInfoDTO | undefined> => {
     const { isEditMode } = props
+    setConnectorIdentifier(prevData.identifier)
     const res = await (isEditMode ? updateConnector : createConnector)(payload)
     if (res && res.status === 'SUCCESS') {
       showSuccess(

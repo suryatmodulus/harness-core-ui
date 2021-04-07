@@ -38,17 +38,17 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
 
-  const errorList: { [key: string]: number } = {}
-  options.errorList
-    ?.map(error => error[1])
-    .reduce((prev, curr) => {
-      return prev.concat(curr)
-    }, [])
-    .forEach(function (i) {
-      errorList[i] = (errorList[i] || 0) + 1
-    })
+  // const errorList: { [key: string]: number } = {}
+  // options.errorList
+  //   ?.map(error => error[1])
+  //   .reduce((prev, curr) => {
+  //     return prev.concat(curr)
+  //   }, [])
+  //   .forEach(function (i) {
+  //     errorList[i] = (errorList[i] || 0) + 1
+  //   })
 
-  const errorListCount = Object.entries(errorList)
+  // const errorListCount = Object.entries(errorList)
 
   return (
     <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
@@ -59,21 +59,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         {options.icon && <Icon size={28} name={options.icon} />}
         {options.isInComplete && (
           <span className={css.inComplete}>
-            <Tooltip
-              content={
-                <>
-                  {errorListCount.map((error, subIndex) => {
-                    return (
-                      <div key={subIndex}>
-                        {error[0]}
-                        {error[1] > 1 ? ` (${error[1]})` : ``}
-                      </div>
-                    )
-                  })}
-                </>
-              }
-              position="auto"
-            >
+            <Tooltip content={<div>{options.errorList?.length} error(s) at this node</div>} position="auto">
               <Icon size={12} name={'warning-sign'} color="orange500" />
             </Tooltip>
           </span>

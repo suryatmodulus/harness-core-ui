@@ -438,8 +438,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           spec: {
             gitRepoSpec: { identifier: connectorRef?.value, repoName },
             event,
-            actions: actionsValues,
-            jexlConditions
+            actions: actionsValues
           }
         }
       }
@@ -455,6 +454,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
     if (!isEmpty(headerConditions) && triggerJson.source?.spec) {
       triggerJson.source.spec.spec.headerConditions = headerConditions
+    }
+
+    if (jexlConditions && triggerJson.source?.spec) {
+      triggerJson.source.spec.spec.jexlConditions = jexlConditions
     }
 
     submitTrigger(triggerJson)

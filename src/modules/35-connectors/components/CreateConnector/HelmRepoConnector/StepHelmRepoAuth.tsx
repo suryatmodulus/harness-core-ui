@@ -58,8 +58,20 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
   const { getString } = useStrings()
   const { prevStepData, nextStep, accountId } = props
 
+<<<<<<< HEAD
   const [, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loadConnector] = useState(false)
+=======
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { mutate: createConnector } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
+  const { mutate: updateConnector } = useUpdateConnector({
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : prevStepData?.identifier || '',
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+  })
+  const [loadConnector, setLoadConnector] = useState(false)
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 

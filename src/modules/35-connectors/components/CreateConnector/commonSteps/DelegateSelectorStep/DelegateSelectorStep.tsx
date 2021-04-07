@@ -67,7 +67,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
   const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : prevStepData?.identifier || '',
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
   const [loadConnector, setLoadConnector] = useState(false)

@@ -49,7 +49,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
   const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : '',
+    identifier: props.connectorInfo ? props.connectorInfo.identifier : props.prevStepData?.identifier || '',
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
 

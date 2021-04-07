@@ -22,26 +22,15 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import {
-  Project,
-  useGetUsers,
-  useGetRoles,
-  useGetInvites,
-  CreateInviteListDTO,
-  useSendInvite,
-  ResponsePageUserSearchDTO,
-  ResponseOptionalListRoleDTO,
-  ResponsePageInviteDTO,
-  Organization
-} from 'services/cd-ng'
+import { Project, useGetUsers, useGetInvites, CreateInvite, useSendInvite, Organization } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
 import { regexEmail } from '@common/utils/StringUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
-import { InviteType } from '../Constants'
+import { useGetRoleList } from 'services/rbac'
 
+import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -50,9 +39,10 @@ interface CollaboratorModalData {
   orgIdentifier?: string
   showManage?: boolean
   defaultRole?: SelectOption
-  userMockData?: UseGetMockData<ResponsePageUserSearchDTO>
-  rolesMockData?: UseGetMockData<ResponseOptionalListRoleDTO>
-  invitesMockData?: UseGetMockData<ResponsePageInviteDTO>
+}
+
+interface RoleOption extends SelectOption {
+  managed: boolean
 }
 interface CollaboratorsData {
   collaborators: MultiSelectOption[]
@@ -61,7 +51,7 @@ interface CollaboratorsData {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
-  const { rolesMockData, userMockData, invitesMockData, projectIdentifier, orgIdentifier, showManage = true } = props
+  const { projectIdentifier, orgIdentifier, showManage = true } = props
   const { accountId } = useParams()
   const { getString } = useStrings()
 
@@ -70,34 +60,31 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const initialValues: CollaboratorsData = { collaborators: [] }
   const { data: userData } = useGetUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
-    mock: userMockData,
     debounce: 300
   })
 
   const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier || '',
+      orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
-    },
-    mock: invitesMockData
+    }
   })
 
   const { mutate: sendInvite, loading } = useSendInvite({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier || '',
+      orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
     }
   })
 
-  const { data: roleData } = useGetRoles({
+  const { data: roleData } = useGetRoleList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier || '',
       projectIdentifier: projectIdentifier
-    },
-    mock: rolesMockData
+    }
   })
 
   const users: SelectOption[] =
@@ -108,11 +95,28 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       }
     }) || []
 
-  const roles: SelectOption[] =
-    roleData?.data?.map(roleOption => {
+  const getDefaultRole = (scope: ScopedObjectDTO): RoleOption => {
+    if (getScopeFromDTO(scope) === Scope.PROJECT)
+      return { label: getString('common.projectViewer'), value: '_project_viewer', managed: true }
+    if (getScopeFromDTO(scope) === Scope.ORG)
       return {
-        label: roleOption.name,
-        value: roleOption.name
+        label: getString('common.orgViewer'),
+        value: '_organization_viewer',
+        managed: true
+      }
+    return { label: getString('common.accViewer'), value: '_account_viewer', managed: true }
+  }
+
+  const [role, setRole] = useState<RoleOption>(
+    getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  )
+
+  const roles: RoleOption[] =
+    roleData?.data?.content?.map(roleOption => {
+      return {
+        label: roleOption.role.name,
+        value: roleOption.role.identifier,
+        managed: roleOption.harnessManaged || false
       }
     }) || []
 
@@ -125,11 +129,15 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       return collaborator.value
     })
 
-    const dataToSubmit: CreateInviteListDTO = {
+    const dataToSubmit: CreateInvite = {
       users: usersToSubmit as string[],
-      role: {
-        name: role.label
-      },
+      roleBindings: [
+        {
+          roleIdentifier: role.value.toString(),
+          roleName: role.label,
+          managedRole: role.managed
+        }
+      ],
       inviteType: InviteType.ADMIN_INITIATED
     }
 
@@ -140,24 +148,14 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
       modalErrorHandler?.show(e.data)
     }
   }
-  const getDefaultRole = (scope: ScopedObjectDTO): SelectOption => {
-    if (getScopeFromDTO(scope) === Scope.PROJECT)
-      return { label: getString('customText', { text: 'Project Member' }), value: 'Project Member' }
-    if (getScopeFromDTO(scope) === Scope.ORG)
-      return { label: getString('customText', { text: 'Organization Member' }), value: 'Organization Member' }
-    return { label: getString('customText', { text: 'Assign a role' }), value: '' }
-  }
 
-  const [role, setRole] = useState<SelectOption>(
-    getDefaultRole({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-  )
   return (
     <Formik<CollaboratorsData>
       initialValues={initialValues}
       validationSchema={Yup.object().shape({
         collaborators: Yup.array().of(
           Yup.object().shape({
-            value: Yup.string().email().required('Required')
+            value: Yup.string().email().required()
           })
         )
       })}
@@ -219,7 +217,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                       </div>
                     )}
                     onItemSelect={item => {
-                      setRole(item)
+                      setRole(item as RoleOption)
                     }}
                     popoverProps={{ minimal: true, popoverClassName: css.customselect }}
                   >

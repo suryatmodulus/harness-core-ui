@@ -6,25 +6,27 @@ import { useParams } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import { useToaster } from '@common/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import { useDeleteInvite, useUpdateInvite, InviteDTO } from 'services/cd-ng'
+import { useDeleteInvite, useUpdateInvite, Invite } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
-import { InviteType } from '../Constants'
+import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import css from './Steps.module.scss'
 
 interface InviteListProps {
-  user: InviteDTO
+  user: Invite
   projectIdentifier?: string
   orgIdentifier?: string
   roles: SelectOption[]
   reload: () => void
 }
+
 const CustomSelect = Select.ofType<SelectOption>()
+
 const InviteListRenderer: React.FC<InviteListProps> = props => {
   const { user, reload, roles } = props
   const { accountId } = useParams()
   const { getString } = useStrings()
   const [approved, setApproved] = useState<boolean>(false)
-  const { mutate: deleteInvite } = useDeleteInvite({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: deleteInvite } = useDeleteInvite({})
   const defaultRole = {
     label: getString('customText', { text: 'Assign a role' }),
     value: ''
@@ -34,15 +36,13 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
   const { showSuccess, showError } = useToaster()
 
   const handleUpdate = async (type: InviteType): Promise<void> => {
-    const dataToSubmit: InviteDTO = {
-      name: user.name,
-      email: user.email,
-      role: user.role,
+    const dataToSubmit: Invite = {
+      ...user,
       inviteType: type,
       approved: type === InviteType.USER_INITIATED ? true : false
     }
     try {
-      const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
+      const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id } })
       if (updated) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
     } catch (err) {
@@ -52,7 +52,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
 
   const handleDelete = async (): Promise<void> => {
     try {
-      const deleted = await deleteInvite(user.id || '')
+      const deleted = await deleteInvite(user.id, { headers: { 'content-type': 'application/json' } })
       if (deleted) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
     } catch (err) {
@@ -68,7 +68,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
                 <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
-                  {user.name}
+                  {user.name || user.email.split('@')[0]}
                 </Text>
                 <Text
                   font={{ size: 'xsmall', weight: 'bold' }}
@@ -86,7 +86,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   {i18n.newProjectWizard.Collaborators.roleAssigned}
                 </Text>
                 <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
-                  {user.role.name}
+                  {user.roleBindings[0]?.roleName}
                 </Text>
               </Layout.Horizontal>
             </Layout.Vertical>

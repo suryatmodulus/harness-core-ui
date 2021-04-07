@@ -56,7 +56,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
       <Layout.Vertical padding="small" width="100%">
         <Layout.Horizontal width="100%" className={css.permissionRow}>
           <Layout.Horizontal spacing="medium" className={css.center}>
-            <Icon name={resourceGroupHandler.icon} size={20} />
+            <Icon name={resourceGroupHandler.icon} size={30} />
             <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
               {resourceGroupHandler.label}
             </Text>

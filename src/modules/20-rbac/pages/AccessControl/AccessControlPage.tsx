@@ -29,7 +29,7 @@ const AccessControlPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier })}
               >
-                {getString('userGroups')}
+                {getString('common.userGroups')}
               </NavLink>
               <NavLink
                 className={css.tags}

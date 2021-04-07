@@ -4,17 +4,29 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 
 import OrganizationDetailsPage from '../OrganizationDetails/OrganizationDetailsPage'
-import { getOrgAggregateMockData as getOrgMockData } from './OrganizationsMockData'
+import {
+  getOrgAggregateMockData as getOrgMockData,
+  invitesMockData,
+  response,
+  roleMockData,
+  userMockData
+} from './OrganizationsMockData'
 
 jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: () => jest.fn(),
-  useGetInvites: () => jest.fn(),
-  useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
 }))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
+}))
+
 describe('Organization Details', () => {
   let container: HTMLElement
   let getByText: RenderResult['getByText']

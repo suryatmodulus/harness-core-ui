@@ -70,21 +70,22 @@ exports[`Role Details Page Click on Resource Type 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
-          data-icon="nav-project-selected"
+          data-icon="customRole"
         >
           <svg
+            fill="none"
             height="40"
-            viewBox="0 0 22 22"
+            viewBox="0 0 37 37"
             width="40"
           >
             <path
-              d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-              fill="#7dc7fb"
+              d="M34.898 16.867h-5.157c-.582-5.545-5.002-9.965-10.547-10.547V1.163C19.194.504 18.69 0 18.03 0c-.66 0-1.164.504-1.164 1.163V6.32c-5.545.582-9.965 5.002-10.547 10.547H1.163c-.659 0-1.163.504-1.163 1.164 0 .659.504 1.163 1.163 1.163H6.32c.582 5.545 5.002 9.965 10.547 10.547v5.157c0 .66.504 1.163 1.164 1.163.659 0 1.163-.504 1.163-1.163v-5.157c5.545-.582 9.965-5.002 10.547-10.547h5.157c.66 0 1.163-.504 1.163-1.163 0-.66-.504-1.164-1.163-1.164zM19.194 27.375v-4.032c0-.66-.504-1.163-1.163-1.163-.66 0-1.164.504-1.164 1.163v4.032a9.464 9.464 0 01-8.181-8.181h4.032c.66 0 1.164-.504 1.164-1.163 0-.66-.505-1.164-1.164-1.164H8.686a9.464 9.464 0 018.181-8.181v4.032c0 .66.504 1.164 1.164 1.164.659 0 1.163-.504 1.163-1.164V8.686a9.464 9.464 0 018.181 8.181h-4.032c-.66 0-1.163.504-1.163 1.164 0 .659.504 1.163 1.163 1.163h4.032a9.464 9.464 0 01-8.181 8.181z"
+              fill="#6374D0"
             />
           </svg>
         </span>
         <div
-          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main details StyledProps--padding-left-medium"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
@@ -92,7 +93,8 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             name
           </p>
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
+            style="--text-line-clamp: 2;"
           >
             description
           </p>
@@ -185,9 +187,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                 data-icon="nav-project"
               >
                 <svg
-                  height="16"
+                  height="20"
                   viewBox="0 0 22 22"
-                  width="16"
+                  width="20"
                 >
                   <path
                     d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -216,9 +218,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                 data-icon="nav-project"
               >
                 <svg
-                  height="16"
+                  height="20"
                   viewBox="0 0 22 22"
-                  width="16"
+                  width="20"
                 >
                   <path
                     d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -254,7 +256,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                disabled=""
+                tabindex="-1"
                 type="button"
               >
                 <span
@@ -285,9 +289,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       data-icon="nav-project"
                     >
                       <svg
-                        height="20"
+                        height="30"
                         viewBox="0 0 22 22"
-                        width="20"
+                        width="30"
                       >
                         <path
                           d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -354,9 +358,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       data-icon="nav-project"
                     >
                       <svg
-                        height="20"
+                        height="30"
                         viewBox="0 0 22 22"
-                        width="20"
+                        width="30"
                       >
                         <path
                           d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -584,21 +588,22 @@ exports[`Role Details Page render data 1`] = `
       >
         <span
           class="bp3-icon StyledProps--main"
-          data-icon="nav-project-selected"
+          data-icon="customRole"
         >
           <svg
+            fill="none"
             height="40"
-            viewBox="0 0 22 22"
+            viewBox="0 0 37 37"
             width="40"
           >
             <path
-              d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-              fill="#7dc7fb"
+              d="M34.898 16.867h-5.157c-.582-5.545-5.002-9.965-10.547-10.547V1.163C19.194.504 18.69 0 18.03 0c-.66 0-1.164.504-1.164 1.163V6.32c-5.545.582-9.965 5.002-10.547 10.547H1.163c-.659 0-1.163.504-1.163 1.164 0 .659.504 1.163 1.163 1.163H6.32c.582 5.545 5.002 9.965 10.547 10.547v5.157c0 .66.504 1.163 1.164 1.163.659 0 1.163-.504 1.163-1.163v-5.157c5.545-.582 9.965-5.002 10.547-10.547h5.157c.66 0 1.163-.504 1.163-1.163 0-.66-.504-1.164-1.163-1.164zM19.194 27.375v-4.032c0-.66-.504-1.163-1.163-1.163-.66 0-1.164.504-1.164 1.163v4.032a9.464 9.464 0 01-8.181-8.181h4.032c.66 0 1.164-.504 1.164-1.163 0-.66-.505-1.164-1.164-1.164H8.686a9.464 9.464 0 018.181-8.181v4.032c0 .66.504 1.164 1.164 1.164.659 0 1.163-.504 1.163-1.164V8.686a9.464 9.464 0 018.181 8.181h-4.032c-.66 0-1.163.504-1.163 1.164 0 .659.504 1.163 1.163 1.163h4.032a9.464 9.464 0 01-8.181 8.181z"
+              fill="#6374D0"
             />
           </svg>
         </span>
         <div
-          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main details StyledProps--padding-left-medium"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
@@ -606,7 +611,8 @@ exports[`Role Details Page render data 1`] = `
             name
           </p>
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font Text--lineclamp StyledProps--main"
+            style="--text-line-clamp: 2;"
           >
             description
           </p>
@@ -699,9 +705,9 @@ exports[`Role Details Page render data 1`] = `
                 data-icon="nav-project"
               >
                 <svg
-                  height="16"
+                  height="20"
                   viewBox="0 0 22 22"
-                  width="16"
+                  width="20"
                 >
                   <path
                     d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -730,9 +736,9 @@ exports[`Role Details Page render data 1`] = `
                 data-icon="nav-project"
               >
                 <svg
-                  height="16"
+                  height="20"
                   viewBox="0 0 22 22"
-                  width="16"
+                  width="20"
                 >
                   <path
                     d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -768,7 +774,9 @@ exports[`Role Details Page render data 1`] = `
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                disabled=""
+                tabindex="-1"
                 type="button"
               >
                 <span
@@ -799,9 +807,9 @@ exports[`Role Details Page render data 1`] = `
                       data-icon="nav-project"
                     >
                       <svg
-                        height="20"
+                        height="30"
                         viewBox="0 0 22 22"
-                        width="20"
+                        width="30"
                       >
                         <path
                           d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
@@ -868,9 +876,9 @@ exports[`Role Details Page render data 1`] = `
                       data-icon="nav-project"
                     >
                       <svg
-                        height="20"
+                        height="30"
                         viewBox="0 0 22 22"
-                        width="20"
+                        width="30"
                       >
                         <path
                           d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"

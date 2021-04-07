@@ -26,7 +26,7 @@ export const roleMockData: ResponseRoleResponse = {
       description: 'description',
       tags: { ui: '', dev: '' }
     },
-    scope: '/ACCOUNT/testAcc',
+    scope: { accountIdentifier: 'testAcc' },
     harnessManaged: false,
     createdAt: 1614260652905,
     lastModifiedAt: 1614669872800

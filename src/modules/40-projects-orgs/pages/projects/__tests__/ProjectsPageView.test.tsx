@@ -15,7 +15,16 @@ import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/Organi
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectsListPage from '../ProjectsPage'
-import { createMockData, OrgMockData, projectMockData, projectPageMock } from './ProjectPageMock'
+import {
+  createMockData,
+  invitesMockData,
+  OrgMockData,
+  projectMockData,
+  projectPageMock,
+  response,
+  roleMockData,
+  userMockData
+} from './ProjectPageMock'
 
 const getProjectList = jest.fn()
 const deleteProject = jest.fn()
@@ -44,10 +53,15 @@ jest.mock('services/cd-ng', () => ({
     getOrg(args)
     return { ...OrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: () => jest.fn(),
-  useGetInvites: () => jest.fn(),
-  useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
+}))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
 }))
 
 jest.mock('framework/exports', () => ({

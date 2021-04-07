@@ -3,14 +3,18 @@ import { fireEvent, getByText, queryByText, render, RenderResult, waitFor, findA
 
 import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
+import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import {
   orgMockData,
   getOrgMockData,
   createOrgMockData,
-  getOrganizationAggregateDTOListMockData
-} from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
-import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
-import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+  getOrganizationAggregateDTOListMockData,
+  roleMockData,
+  invitesMockData,
+  response,
+  userMockData
+} from './OrganizationsMockData'
 import OrganizationsPage from '../OrganizationsPage'
 
 const getOrganizationList = jest.fn()
@@ -39,11 +43,17 @@ jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTOList: jest.fn().mockImplementation(() => {
     return { ...getOrganizationAggregateDTOListMockData, refetch: jest.fn(), error: null }
   }),
-  useGetUsers: () => jest.fn(),
-  useGetInvites: () => jest.fn(),
-  useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
 }))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
+}))
+
 jest.useFakeTimers()
 
 const organization = getOrganizationAggregateDTOListMockData.data.data.content[0].organizationResponse.organization

@@ -2,17 +2,11 @@ import React from 'react'
 
 import { fireEvent, getByText, render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import type {
-  Project,
-  ResponseOptionalListRoleDTO,
-  ResponsePageInviteDTO,
-  ResponsePageUserSearchDTO
-} from 'services/cd-ng'
-import { findPopoverContainer, TestWrapper, UseGetMockData } from '@common/utils/testUtils'
-import { rolesMockData } from './RolesMockData'
-import { userMockData } from './UserMockData'
+import type { Project } from 'services/cd-ng'
+import { findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import Collaborators from '../Collaborators'
-import { invitesMockData } from './InvitesMockData'
+import { userMockData } from './UserMockData'
+import { invitesMockData, roleMockData } from './InvitesMockData'
 
 const project: Project = {
   orgIdentifier: 'testOrg',
@@ -24,24 +18,37 @@ const project: Project = {
   tags: { tag1: '', tag2: 'tag3' }
 }
 
+const response = {
+  status: 'SUCCESS',
+  data: true,
+  metaData: {},
+  correlationId: ''
+}
+
+jest.mock('services/cd-ng', () => ({
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
+}))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
+}))
+
 describe('Collaborators test', () => {
   test('Render Collaborators ', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-        <Collaborators
-          projectIdentifier={project.identifier}
-          orgIdentifier={project.orgIdentifier}
-          userMockData={userMockData as UseGetMockData<ResponsePageUserSearchDTO>}
-          rolesMockData={rolesMockData as UseGetMockData<ResponseOptionalListRoleDTO>}
-          invitesMockData={invitesMockData as UseGetMockData<ResponsePageInviteDTO>}
-        />
+        <Collaborators projectIdentifier={project.identifier} orgIdentifier={project.orgIdentifier} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const role = getByText(container, 'Project Member')
+    const role = getByText(container, 'Project Viewer')
     fireEvent.click(role!)
     const popover = findPopoverContainer()
-    const opt = getByText(popover as HTMLElement, 'Project Viewer')
+    const opt = getByText(popover as HTMLElement, 'Project Admin')
     fireEvent.click(opt!)
     await act(async () => {
       fireEvent.change(container.querySelector("input[name='collaborators']")!, {

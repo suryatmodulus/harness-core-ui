@@ -6,6 +6,7 @@ export interface StringsMap {
   'common.ID': string
   'common.My': string
   'common.PermissibleActions': string
+  'common.accViewer': string
   'common.addVariable': string
   'common.approve': string
   'common.comments': string
@@ -23,23 +24,58 @@ export interface StringsMap {
   'common.jexlExpression': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
+  'common.orgViewer': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
+  'common.plusNumber': string
   'common.production': string
+  'common.projectViewer': string
   'common.reject': string
   'common.removeThisVariable': string
+  'common.role': string
   'common.secrets': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.userGroup': string
+  'common.userGroups': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'notifications.name': string
+  'rbac.activeUsers': string
+  'rbac.addRole': string
+  'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.view': string
+  'rbac.roleBinding': string
+  'rbac.userGroupPage.confirmDelete': string
+  'rbac.userGroupPage.confirmDeleteTitle': string
+  'rbac.userGroupPage.newUserGroup': string
+  'rbac.userGroupPage.noDataText': string
+  'rbac.userGroupPage.noRoleAssignmentsText': string
+  'rbac.userGroupPage.noUserGroups': string
+  'rbac.userGroupPage.search': string
+  'rbac.userGroupPage.successMessage': string
+  'rbac.usersPage.assignRoles': string
+  'rbac.usersPage.deleteConfirmation': string
+  'rbac.usersPage.deleteSuccessMessage': string
+  'rbac.usersPage.deleteTitle': string
+  'rbac.usersPage.forUser': string
+  'rbac.usersPage.invitationSuccess': string
+  'rbac.usersPage.noDataDescription': string
+  'rbac.usersPage.noDataText': string
+  'rbac.usersPage.noUsersFound': string
+  'rbac.usersPage.pendingInvitation': string
+  'rbac.usersPage.roleAssignSuccess': string
+  'rbac.usersPage.roleBinding': string
+  'rbac.usersPage.search': string
+  'rbac.usersPage.selectResourceGroup': string
+  'rbac.usersPage.selectRole': string
+  'rbac.usersPage.validation.resourceGroup': string
+  'rbac.usersPage.validation.role': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -2654,6 +2690,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   editService: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  email: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5453,6 +5493,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  plusNumber: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   postCommandInfo: string
   /**
    * @deprecated migrate this string to module level file
@@ -6613,10 +6657,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  userGroups: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   username: string
   /**
    * @deprecated migrate this string to module level file
@@ -6630,10 +6670,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   users: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'usersPage.search': string
   /**
    * @deprecated migrate this string to module level file
    */

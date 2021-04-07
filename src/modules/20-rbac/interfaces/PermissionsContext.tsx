@@ -98,7 +98,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
         // find the current request in aggregated response
         const hasAccess = !!res.data?.accessControlList?.find((perm: AccessControl) =>
           shallowCompare(perm, permissionRequest, keysToCompare)
-        )?.accessible
+        )?.permitted
 
         // update current request in the map
         draft.set(getStringKeyFromObjectValues(permissionRequest, keysToCompare), hasAccess)

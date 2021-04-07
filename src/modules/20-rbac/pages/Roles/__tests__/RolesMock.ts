@@ -17,7 +17,7 @@ export const rolesMockList: ResponsePageRoleResponse = {
           description: '',
           tags: {}
         },
-        scope: '/account/kmpySmUISimoRrJL6NL73w',
+        scope: { accountIdentifier: 'testAcc' },
         harnessManaged: false,
         createdAt: 1613471787889,
         lastModifiedAt: 1613551258686
@@ -31,7 +31,7 @@ export const rolesMockList: ResponsePageRoleResponse = {
           description: '',
           tags: {}
         },
-        scope: '/account/kmpySmUISimoRrJL6NL73w',
+        scope: { accountIdentifier: 'testAcc' },
         harnessManaged: false,
         createdAt: 1613543661350,
         lastModifiedAt: 1613543661350
@@ -45,7 +45,7 @@ export const rolesMockList: ResponsePageRoleResponse = {
           description: '',
           tags: {}
         },
-        scope: '/account/kmpySmUISimoRrJL6NL73w',
+        scope: { accountIdentifier: 'testAcc' },
         harnessManaged: false,
         createdAt: 1613543805827,
         lastModifiedAt: 1613543805827

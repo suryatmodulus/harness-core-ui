@@ -7,6 +7,7 @@ import { Role, RoleResponse, useDeleteRole } from 'services/rbac'
 import routes from '@common/RouteDefinitions'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
+import { getRoleIcon } from '@rbac/utils/RoleData'
 import css from './RoleCard.module.scss'
 
 interface RoleCardProps {
@@ -44,7 +45,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
           }
         } catch (err) {
           /* istanbul ignore next */
-          showError(err)
+          showError(err?.data?.message || err?.message)
         }
       }
     }
@@ -89,9 +90,8 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       />
 
       <Layout.Vertical flex={{ align: 'center-center' }} spacing="large" height="100%">
-        {/* TODO: REPLACE WITH ROLE ICON */}
-        <Icon name="nav-project-selected" size={40} />
-        <Text className={css.name} lineClamp={2} color={Color.BLACK}>
+        <Icon name={getRoleIcon(role.identifier)} size={40} />
+        <Text className={css.name} lineClamp={2} color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
           {role.name}
         </Text>
       </Layout.Vertical>

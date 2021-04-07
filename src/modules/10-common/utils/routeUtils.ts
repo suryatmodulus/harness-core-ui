@@ -20,7 +20,8 @@ import type {
   TargetPathProps,
   ModulePathParams,
   RolePathProps,
-  ResourceGroupPathProps
+  ResourceGroupPathProps,
+  UserGroupPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -71,9 +72,15 @@ export const secretPathProps: SecretsPathProps = {
 export const rolePathProps: RolePathProps = {
   roleIdentifier: ':roleIdentifier'
 }
+
+export const userGroupPathProps: UserGroupPathProps = {
+  userGroupIdentifier: ':userGroupIdentifier'
+}
+
 export const resourceGroupPathProps: ResourceGroupPathProps = {
   resourceGroupIdentifier: ':resourceGroupIdentifier'
 }
+
 export const delegatePathProps: DelegatePathProps = {
   delegateId: ':delegateId'
 }

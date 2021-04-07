@@ -8,7 +8,7 @@ signUp:
     secondary: 'and get ship done'
   form:
     namePlaceholder: 'John Smith'
-    emailLabel: 'Email'
+    emailLabel: '{{ $.email }}'
     emailPlaceholder: 'email@work.com'
     companyLabel: 'Company'
     companyPlaceholder: 'Your Company'
@@ -46,7 +46,6 @@ users: Users
 roles: Roles
 newRole: New Role
 editRole: Edit Role
-userGroups: User Groups
 created: Created
 create: Create
 resourceGroups: Resource Groups
@@ -62,6 +61,7 @@ artifactOrArtifacts: 'Artifact(s)'
 artifactRepository: ARTIFACT REPOSITORY
 more: '+{{number}} more'
 addFile: Add File
+email: Email
 yes: 'Yes'
 no: 'No'
 or: or
@@ -71,6 +71,7 @@ noData: No Data
 members: Members
 wip: Work in progress
 tagRegex: Tag Regex
+plusNumber: + {{number}}
 of: of
 step: Step
 parallelSteps: Parallel Steps
@@ -808,8 +809,6 @@ secret:
   labelSecretType: 'Secret type'
   noSecretsFound: 'No Secrets Found'
   configureSecret: 'Configure Secret'
-usersPage:
-  search: Search by Name or Email
 instanceFieldOptions:
   percentage: 'percentage'
   instances: 'instances'

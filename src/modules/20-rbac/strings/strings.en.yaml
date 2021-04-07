@@ -4,3 +4,35 @@ permissionLabels:
   pipelineExecution: Use in Pipeline Execution
   delete: '{{ $.delete}}'
   access: Access
+roleBinding: Role Bindings (Role - Resource Group)
+activeUsers: Active Users
+addRole: Add Role
+pendingUsers: Pending Users
+userGroupPage:
+  newUserGroup: New {{ $.common.userGroups}}
+  noRoleAssignmentsText: There are no roles assigned to this User Group, Click on Add to start assigning roles
+  search: Search User Groups by name or email
+  confirmDelete: Are you sure you want to delete the User Group '{{name}}'
+  confirmDeleteTitle: Delete User Group
+  successMessage: User Group '{{name}}' deleted successfully
+  noUserGroups: No User Groups
+  noDataText: You have no User Groups. Click on the button below to create a new one.
+usersPage:
+  search: Search by Name or Email
+  roleBinding: Role Binding (Role - Resource Group)
+  pendingInvitation: Pending Invitation
+  forUser: For User
+  assignRoles: Assign Roles
+  noDataText: There are no roles assigned to this User, Click on Add to start assigning roles
+  selectRole: Select a role
+  selectResourceGroup: Select a resource group
+  validation:
+    resourceGroup: Resource Group is Required
+    role: Role is Required
+  roleAssignSuccess: Role assigned succesfully
+  invitationSuccess: Invitation sent succesfully
+  deleteConfirmation: Are you sure you want to delete the User '{{name}}'?
+  deleteTitle: Delete User
+  deleteSuccessMessage: User '{{name}}' deleted successfully
+  noDataDescription: There are no users in this scope. Click on the button below to start adding them.
+  noUsersFound: No Users found

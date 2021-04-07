@@ -20,9 +20,10 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
-import { getPermissionMap } from '@rbac/pages/RoleDetails/utils.tsx'
+import { getPermissionMap } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
+import { getRoleIcon } from '@rbac/utils/RoleData'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
@@ -132,13 +133,12 @@ const RoleDetails: React.FC = () => {
               ]}
             />
             <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              {/* TODO: REPLACE WITH ROLE ICON */}
-              <Icon name="nav-project-selected" size={40} />
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
+              <Icon name={getRoleIcon(role.identifier)} size={40} />
+              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall" className={css.details}>
                 <Text color={Color.BLACK} font="medium">
                   {role.name}
                 </Text>
-                <Text>{role.description}</Text>
+                <Text lineClamp={2}>{role.description}</Text>
                 <Layout.Horizontal padding={{ top: 'small' }}>
                   <TagsRenderer tags={role.tags || /* istanbul ignore next */ {}} length={6} />
                 </Layout.Horizontal>
@@ -187,7 +187,7 @@ const RoleDetails: React.FC = () => {
                       }}
                     >
                       <Layout.Horizontal flex spacing="small">
-                        <Icon name={resourceHandler.icon} />
+                        <Icon name={resourceHandler.icon} size={20} />
                         <Text color={Color.BLACK}>{resourceHandler.label} </Text>
                       </Layout.Horizontal>
                     </Card>
@@ -204,7 +204,12 @@ const RoleDetails: React.FC = () => {
                 </Text>
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
                   {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                  <Button onClick={() => submitChanges(role)} text={getString('applyChanges')} intent="primary" />
+                  <Button
+                    onClick={() => submitChanges(role)}
+                    text={getString('applyChanges')}
+                    intent="primary"
+                    disabled={data?.data?.harnessManaged || !isUpdated}
+                  />
                 </Layout.Horizontal>
               </Layout.Horizontal>
               {resourceGroupTypeList?.map(resourceType => {

@@ -81,6 +81,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
     // TODO: replace with view change action
     <Button
       minimal
+      className={css.selectResource}
       intent="primary"
       onClick={e => {
         e.stopPropagation()

@@ -32,3 +32,10 @@ validation:
   nameIsRequired: Name is required
   valueIsRequired: Value is required
 specify: Specify
+role: Role
+projectViewer: Project Viewer
+orgViewer: Organization Viewer
+accViewer: Account Viewer
+plusNumber: + {{number}}
+userGroup: User Group
+userGroups: User Groups

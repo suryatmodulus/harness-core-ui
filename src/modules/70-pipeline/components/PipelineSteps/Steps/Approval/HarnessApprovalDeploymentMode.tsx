@@ -70,7 +70,7 @@ const UGMultiSelect = ({
     <FormInput.MultiSelect
       className={css.multiSelect}
       name={`${prefix}spec.approvers.userGroups`}
-      label={getString('userGroups')}
+      label={getString('common.userGroups')}
       disabled={readonly}
       items={
         fetchingUserGroups

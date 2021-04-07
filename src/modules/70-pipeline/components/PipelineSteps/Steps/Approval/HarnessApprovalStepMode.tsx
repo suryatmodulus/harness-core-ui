@@ -108,7 +108,7 @@ const FormContent = ({
               <FormInput.MultiSelectTypeInput
                 className={css.multiSelect}
                 name="spec.approvers.userGroups"
-                label={getString('userGroups')}
+                label={getString('common.userGroups')}
                 selectItems={
                   fetchingUserGroups
                     ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]

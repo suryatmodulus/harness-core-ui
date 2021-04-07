@@ -383,7 +383,10 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
   'pipeline.jiraApprovalStep.fetchingFields': string
+  'pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder': string
+  'pipeline.jiraApprovalStep.fetchingProjectsPlaceholder': string
   'pipeline.jiraApprovalStep.issueKey': string
+  'pipeline.jiraApprovalStep.issueKeyPlaceholder': string
   'pipeline.jiraApprovalStep.issueType': string
   'pipeline.jiraApprovalStep.jexlExpressionApprovalCriteria': string
   'pipeline.jiraApprovalStep.jexlExpressionLabelApproval': string

@@ -257,10 +257,18 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTypeInput
-                selectItems={fetchingProjects ? [{ label: 'Fetching Projects...', value: '' }] : projectOptions}
+                selectItems={
+                  fetchingProjects
+                    ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
+                    : projectOptions
+                }
                 label={getString('pipeline.jiraApprovalStep.project')}
                 name="spec.projectKey"
-                placeholder={fetchingProjects ? 'Fetching Projects...' : 'Projects'}
+                placeholder={
+                  fetchingProjects
+                    ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+                    : getString('select')
+                }
                 className={css.md}
                 disabled={fetchingProjects}
                 multiTypeInputProps={{
@@ -273,16 +281,20 @@ const FormContent = ({
               <FormInput.MultiTypeInput
                 selectItems={
                   fetchingProjectMetadata
-                    ? [{ label: 'Fetching Issue Types...', value: '' }]
+                    ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
                     : setIssueTypeOptions(projectMetadata?.issuetypes)
                 }
                 label={getString('pipeline.jiraApprovalStep.issueType')}
                 name="spec.issueType"
-                placeholder={fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Issue Type'}
+                placeholder={
+                  fetchingProjectMetadata
+                    ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+                    : getString('select')
+                }
                 className={css.md}
                 disabled={fetchingProjectMetadata}
                 multiTypeInputProps={{
-                  onChange: _unused => {
+                  onChange: (_unused: any) => {
                     // Clear dependent fields
                     resetForm(formik, 'issueType')
                   }

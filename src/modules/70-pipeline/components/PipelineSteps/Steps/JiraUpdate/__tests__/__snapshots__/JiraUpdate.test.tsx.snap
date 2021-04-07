@@ -463,7 +463,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
       </div>
     </div>
     <div
-      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+      class="bp3-form-group deploymentViewMedium"
     >
       <label
         class="bp3-label"
@@ -485,7 +485,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group bp3-intent-danger"
+              class="bp3-input-group"
             >
               <input
                 autocomplete="off"
@@ -522,11 +522,6 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             </div>
           </div>
         </div>
-        <div
-          class="bp3-form-helper-text"
-        >
-          Status is required.
-        </div>
       </div>
     </div>
     <div
@@ -558,10 +553,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
       {
   "spec": {
     "connectorRef": "Jira Connector is required.",
-    "issueKey": "Issue Key is required.",
-    "transitionTo": {
-      "status": "Status is required."
-    }
+    "issueKey": "Issue Key is required."
   }
 }
     </pre>

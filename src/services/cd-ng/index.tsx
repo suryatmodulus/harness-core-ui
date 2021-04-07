@@ -830,9 +830,17 @@ export interface ResponseString {
   correlationId?: string
 }
 
+<<<<<<< HEAD
 export interface ResponseListServiceDefinitionType {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ('Ssh' | 'Kubernetes' | 'Ecs' | 'Helm' | 'Pcf')[]
+=======
+export interface ResponseMapServiceDefinitionTypeListExecutionStrategyType {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: {
+    [key: string]: ('Basic' | 'Canary' | 'BlueGreen' | 'Rolling' | 'Default')[]
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -910,13 +918,23 @@ export interface ByteString {
 export interface Commit {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   message?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   sha?: string
   authorOrBuilder?: SignatureOrBuilder
+=======
+  message?: string
+  sha?: string
+  shaBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   linkBytes?: ByteString
   author?: Signature
   shaBytes?: ByteString
@@ -962,7 +980,10 @@ export interface Commit {
 
 export interface CommitOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   message?: string
   messageBytes?: ByteString
@@ -983,9 +1004,16 @@ export interface CommitOrBuilder {
   linkBytes?: ByteString
   shaBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   sha?: string
   authorOrBuilder?: SignatureOrBuilder
+=======
+  message?: string
+  sha?: string
+  shaBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   linkBytes?: ByteString
   author?: Signature
   shaBytes?: ByteString
@@ -1032,7 +1060,10 @@ export interface EnumDescriptor {
 
 export interface EnumOptions {
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
   allowAlias?: boolean
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -1041,6 +1072,10 @@ export interface EnumOptions {
   serializedSize?: number
   parserForType?: ParserEnumOptions
   defaultInstanceForType?: EnumOptions
+<<<<<<< HEAD
+=======
+  allowAlias?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1083,6 +1118,7 @@ export interface EnumValueOptions {
 
 export interface ExecutionMetadata {
   unknownFields?: UnknownFieldSet
+  principalInfo?: ExecutionPrincipalInfo
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserExecutionMetadata
@@ -1115,10 +1151,20 @@ export interface ExecutionPrincipalInfo {
   serializedSize?: number
   parserForType?: ParserExecutionPrincipalInfo
   defaultInstanceForType?: ExecutionPrincipalInfo
+<<<<<<< HEAD
   principal?: string
   principalBytes?: ByteString
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+=======
+<<<<<<< HEAD
+=======
+  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  principal?: string
+  principalBytes?: ByteString
+  principalTypeValue?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1127,10 +1173,22 @@ export interface ExecutionPrincipalInfo {
 }
 
 export interface ExecutionPrincipalInfoOrBuilder {
+  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
   principal?: string
+<<<<<<< HEAD
   principalBytes?: ByteString
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+=======
+<<<<<<< HEAD
+  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  principalTypeValue?: number
+  principalBytes?: ByteString
+=======
+  principalBytes?: ByteString
+  principalTypeValue?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
   initializationErrorString?: string
@@ -1214,14 +1272,27 @@ export interface FieldDescriptor {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   name?: string
   number?: number
+<<<<<<< HEAD
   repeated?: boolean
   javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   mapField?: boolean
+=======
+<<<<<<< HEAD
+=======
+  repeated?: boolean
+  javaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
+  options?: FieldOptions
+  mapField?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   required?: boolean
   optional?: boolean
   extension?: boolean
+<<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   packed?: boolean
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   liteJavaType?: 'INT' | 'LONG' | 'FLOAT' | 'DOUBLE' | 'BOOLEAN' | 'STRING' | 'BYTE_STRING' | 'ENUM' | 'MESSAGE'
   liteType?:
     | 'DOUBLE'
@@ -1242,6 +1313,7 @@ export interface FieldDescriptor {
     | 'SFIXED64'
     | 'SINT32'
     | 'SINT64'
+  packed?: boolean
   packable?: boolean
   extension?: boolean
   options?: FieldOptions
@@ -1257,8 +1329,17 @@ export interface FieldDescriptor {
 export interface FieldOptions {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   packed?: boolean
 =======
+=======
+=======
+  ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
+  weak?: boolean
+  lazy?: boolean
+  jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -1290,10 +1371,15 @@ export interface FieldOptions {
   packed?: boolean
 =======
   packed?: boolean
+<<<<<<< HEAD
   lazy?: boolean
   weak?: boolean
   ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
   jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -1320,8 +1406,15 @@ export interface FileDescriptor {
   package?: string
   file?: FileDescriptor
 <<<<<<< HEAD
+<<<<<<< HEAD
   fullName?: string
 =======
+=======
+=======
+  options?: FileOptions
+  fullName?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   syntax?: 'UNKNOWN' | 'PROTO2' | 'PROTO3'
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
@@ -1329,8 +1422,11 @@ export interface FileDescriptor {
 export interface FileOptions {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   javaStringCheckUtf8?: boolean
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
@@ -1342,6 +1438,10 @@ export interface FileOptions {
 <<<<<<< HEAD
 =======
   javaStringCheckUtf8?: boolean
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   javaPackage?: string
@@ -1372,14 +1472,31 @@ export interface FileOptions {
   phpMetadataNamespaceBytes?: ByteString
   rubyPackage?: string
   rubyPackageBytes?: ByteString
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  javaStringCheckUtf8?: boolean
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserFileOptions
   defaultInstanceForType?: FileOptions
+<<<<<<< HEAD
+=======
+  javaStringCheckUtf8?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -1393,15 +1510,25 @@ export interface FileOptions {
 export interface Label {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   name?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   color?: string
   colorBytes?: ByteString
+=======
+  name?: string
+  colorBytes?: ByteString
+  color?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -1410,14 +1537,21 @@ export interface Label {
   parserForType?: ParserLabel
   defaultInstanceForType?: Label
 <<<<<<< HEAD
+<<<<<<< HEAD
   name?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
 =======
   name?: string
+=======
+  name?: string
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -1429,17 +1563,26 @@ export interface Label {
 
 export interface LabelOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
   name?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   name?: string
   nameBytes?: ByteString
   color?: string
   colorBytes?: ByteString
 =======
+=======
+=======
+  name?: string
+  colorBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   color?: string
   colorBytes?: ByteString
   nameBytes?: ByteString
@@ -1535,8 +1678,13 @@ export interface MethodDescriptor {
 export interface MethodOptions {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
 =======
+=======
+=======
+  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
@@ -1547,8 +1695,13 @@ export interface MethodOptions {
   parserForType?: ParserMethodOptions
   defaultInstanceForType?: MethodOptions
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
+=======
+  idempotencyLevel?: 'IDEMPOTENCY_UNKNOWN' | 'NO_SIDE_EFFECTS' | 'IDEMPOTENT'
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
@@ -1643,24 +1796,51 @@ export interface OneofDescriptor {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
+<<<<<<< HEAD
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
+=======
+export interface OneofOptions {
+  unknownFields?: UnknownFieldSet
+  uninterpretedOptionList?: UninterpretedOption[]
+  uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
+  uninterpretedOptionCount?: number
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserOneofOptions
+  defaultInstanceForType?: OneofOptions
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  allFieldsRaw?: {
+    [key: string]: { [key: string]: any }
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 <<<<<<< HEAD
 export interface ParsedPayload {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   prOrBuilder?: PullRequestHookOrBuilder
   pr?: PullRequestHook
   push?: PushHook
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   push?: PushHook
   pr?: PullRequestHook
+=======
+  pr?: PullRequestHook
+  push?: PushHook
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   prOrBuilder?: PullRequestHookOrBuilder
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pushOrBuilder?: PushHookOrBuilder
@@ -1677,6 +1857,15 @@ export interface ParsedPayload {
 }
 
 export interface ParsedPayloadOrBuilder {
+<<<<<<< HEAD
+=======
+  pr?: PullRequestHook
+  push?: PushHook
+<<<<<<< HEAD
+  pr?: PullRequestHook
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   prOrBuilder?: PullRequestHookOrBuilder
   pr?: PullRequestHook
   push?: PushHook
@@ -1737,8 +1926,10 @@ export interface ResponseNGPipelineValidationInfo {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface Perm {
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
 <<<<<<< HEAD
   pull?: boolean
   admin?: boolean
@@ -1783,6 +1974,158 @@ export interface PermOrBuilder {
 export interface VisitorErrorResponse {
   fieldName?: string
   message?: string
+=======
+=======
+export interface ParserExecutionTriggerInfo {
+  [key: string]: any
+}
+
+export interface ParserFieldOptions {
+  [key: string]: any
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+}
+
+export interface ParserFileOptions {
+  [key: string]: any
+}
+
+export interface ParserLabel {
+  [key: string]: any
+}
+
+<<<<<<< HEAD
+export interface Commit {
+  unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+export interface ParserMessage {
+  [key: string]: any
+}
+
+export interface ParserMessageLite {
+  [key: string]: any
+}
+
+export interface ParserMessageOptions {
+  [key: string]: any
+}
+
+export interface ParserMethodOptions {
+  [key: string]: any
+}
+
+export interface ParserNamePart {
+  [key: string]: any
+}
+
+export interface ParserOneofOptions {
+  [key: string]: any
+}
+
+export interface ParserParsedPayload {
+  [key: string]: any
+}
+
+export interface ParserPerm {
+  [key: string]: any
+}
+
+export interface ParserPullRequest {
+  [key: string]: any
+}
+
+export interface ParserPullRequestHook {
+  [key: string]: any
+}
+
+export interface ParserPushHook {
+  [key: string]: any
+}
+
+export interface ParserReference {
+  [key: string]: any
+}
+
+export interface ParserRepository {
+  [key: string]: any
+}
+
+export interface ParserServiceOptions {
+  [key: string]: any
+}
+
+export interface ParserSignature {
+  [key: string]: any
+}
+
+export interface ParserTimestamp {
+  [key: string]: any
+}
+
+export interface ParserTriggerPayload {
+  [key: string]: any
+}
+
+export interface ParserTriggeredBy {
+  [key: string]: any
+}
+
+export interface ParserUninterpretedOption {
+  [key: string]: any
+}
+
+export interface ParserUser {
+  [key: string]: any
+}
+
+export interface Perm {
+  unknownFields?: UnknownFieldSet
+  pull?: boolean
+  admin?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  push?: boolean
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserPerm
+  defaultInstanceForType?: Perm
+<<<<<<< HEAD
+  admin?: boolean
+  pull?: boolean
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface PermOrBuilder {
+<<<<<<< HEAD
+  push?: boolean
+  admin?: boolean
+  pull?: boolean
+=======
+  pull?: boolean
+  admin?: boolean
+  push?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  initialized?: boolean
+=======
+export interface VisitorErrorResponse {
+  fieldName?: string
+  message?: string
 }
 
 export interface VisitorErrorResponseWrapper {
@@ -1799,8 +2142,6 @@ export interface Commit {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
 <<<<<<< HEAD
-=======
-=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   target?: string
@@ -1808,6 +2149,11 @@ export interface Commit {
   number?: number
 =======
 =======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   sha?: string
@@ -1836,6 +2182,21 @@ export interface Commit {
   source?: string
   head?: Reference
   created?: Timestamp
+<<<<<<< HEAD
+=======
+=======
+  body?: string
+  created?: Timestamp
+  target?: string
+  ref?: string
+  number?: number
+  fork?: string
+  titleBytes?: ByteString
+  sha?: string
+  bodyBytes?: ByteString
+  shaBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   sourceBytes?: ByteString
   targetBytes?: ByteString
   titleBytes?: ByteString
@@ -1847,6 +2208,10 @@ export interface Commit {
   baseOrBuilder?: ReferenceOrBuilder
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   headOrBuilder?: ReferenceOrBuilder
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   labelsList?: Label[]
   labelsCount?: number
   merged?: boolean
@@ -1857,6 +2222,9 @@ export interface Commit {
   bodyBytes?: ByteString
   titleBytes?: ByteString
   fork?: string
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   created?: Timestamp
   body?: string
@@ -1864,11 +2232,17 @@ export interface Commit {
   refBytes?: ByteString
   titleBytes?: ByteString
   sha?: string
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   linkBytes?: ByteString
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
+<<<<<<< HEAD
   bodyBytes?: ByteString
+=======
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   shaBytes?: ByteString
   sourceBytes?: ByteString
   targetBytes?: ByteString
@@ -1877,14 +2251,20 @@ export interface Commit {
   closed?: boolean
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   merged?: boolean
   baseOrBuilder?: ReferenceOrBuilder
   headOrBuilder?: ReferenceOrBuilder
+=======
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   author?: User
   authorOrBuilder?: UserOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   labelsOrBuilderList?: LabelOrBuilder[]
+<<<<<<< HEAD
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserPullRequest
@@ -1907,6 +2287,12 @@ export interface Commit {
 =======
 <<<<<<< HEAD
 =======
+=======
+  refBytes?: ByteString
+<<<<<<< HEAD
+  body?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
   sha?: string
   linkBytes?: ByteString
@@ -1921,6 +2307,16 @@ export interface Commit {
   parserForType?: ParserCommit
   defaultInstanceForType?: Commit
   messageBytes?: ByteString
+=======
+  head?: Reference
+  source?: string
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserPullRequest
+  defaultInstanceForType?: PullRequest
+  title?: string
+  base?: Reference
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -1936,14 +2332,22 @@ export interface Commit {
 export interface PullRequestHook {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   repo?: Repository
   actionValue?: number
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
+<<<<<<< HEAD
   prOrBuilder?: PullRequestOrBuilder
   pr?: PullRequest
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pr?: PullRequest
   prOrBuilder?: PullRequestOrBuilder
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -1965,10 +2369,15 @@ export interface PullRequestHook {
     | 'MERGE'
     | 'UNRECOGNIZED'
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   pr?: PullRequest
   prOrBuilder?: PullRequestOrBuilder
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   repo?: Repository
@@ -1976,6 +2385,10 @@ export interface PullRequestHook {
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
@@ -1986,14 +2399,22 @@ export interface PullRequestHook {
 
 export interface PullRequestHookOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   repo?: Repository
   actionValue?: number
   repoOrBuilder?: RepositoryOrBuilder
   sender?: User
   senderOrBuilder?: UserOrBuilder
+<<<<<<< HEAD
   prOrBuilder?: PullRequestOrBuilder
   pr?: PullRequest
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pr?: PullRequest
   prOrBuilder?: PullRequestOrBuilder
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2011,10 +2432,15 @@ export interface PullRequestHookOrBuilder {
     | 'MERGE'
     | 'UNRECOGNIZED'
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   pr?: PullRequest
   prOrBuilder?: PullRequestOrBuilder
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   repo?: Repository
@@ -2037,6 +2463,10 @@ export interface CommitOrBuilder {
   messageBytes?: ByteString
   link?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
@@ -2051,7 +2481,10 @@ export interface CommitOrBuilder {
 <<<<<<< HEAD
 export interface PullRequestOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   target?: string
   ref?: string
@@ -2061,6 +2494,8 @@ export interface PullRequestOrBuilder {
   source?: string
   base?: Reference
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   sha?: string
   authorOrBuilder?: UserOrBuilder
@@ -2078,6 +2513,18 @@ export interface PullRequestOrBuilder {
   source?: string
   head?: Reference
   created?: Timestamp
+=======
+  body?: string
+  created?: Timestamp
+  target?: string
+  ref?: string
+  number?: number
+  fork?: string
+  titleBytes?: ByteString
+  sha?: string
+  bodyBytes?: ByteString
+  shaBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   sourceBytes?: ByteString
   targetBytes?: ByteString
   titleBytes?: ByteString
@@ -2089,6 +2536,12 @@ export interface PullRequestOrBuilder {
   baseOrBuilder?: ReferenceOrBuilder
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   headOrBuilder?: ReferenceOrBuilder
+  linkBytes?: ByteString
+  createdOrBuilder?: TimestampOrBuilder
+  updated?: Timestamp
+  updatedOrBuilder?: TimestampOrBuilder
+  author?: User
+  authorOrBuilder?: UserOrBuilder
   labelsList?: Label[]
   labelsCount?: number
   merged?: boolean
@@ -2137,6 +2590,7 @@ export interface PullRequestOrBuilder {
   targetBytes?: ByteString
 =======
   refBytes?: ByteString
+<<<<<<< HEAD
   body?: string
 <<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2182,12 +2636,24 @@ export interface EnumOptions {
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
   allowAlias?: boolean
+<<<<<<< HEAD
+=======
+=======
+  head?: Reference
+  source?: string
+  title?: string
+  base?: Reference
+  link?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+<<<<<<< HEAD
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
@@ -2226,6 +2692,21 @@ export interface EnumValueOptions {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   baseRefBytes?: ByteString
   repoOrBuilder?: RepositoryOrBuilder
+=======
+  initialized?: boolean
+}
+
+export interface PushHook {
+  unknownFields?: UnknownFieldSet
+  ref?: string
+  repo?: Repository
+  repoOrBuilder?: RepositoryOrBuilder
+  sender?: User
+  senderOrBuilder?: UserOrBuilder
+  refBytes?: ByteString
+  baseRef?: string
+  baseRefBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   before?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   baseRef?: string
@@ -2259,7 +2740,10 @@ export interface EnumValueOptions {
   commitsOrBuilderList?: CommitOrBuilder[]
   commitsCount?: number
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
   parserForType?: ParserEnumValueOptions
   defaultInstanceForType?: EnumValueOptions
@@ -2267,6 +2751,14 @@ export interface EnumValueOptions {
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserPushHook
+  defaultInstanceForType?: PushHook
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2284,14 +2776,28 @@ export interface EnumValueOptions {
 export interface PushHookOrBuilder {
   repo?: Repository
 <<<<<<< HEAD
-=======
 <<<<<<< HEAD
 =======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   refBytes?: ByteString
   baseRef?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   baseRefBytes?: ByteString
   repoOrBuilder?: RepositoryOrBuilder
+=======
+  repoOrBuilder?: RepositoryOrBuilder
+  sender?: User
+  senderOrBuilder?: UserOrBuilder
+  refBytes?: ByteString
+  baseRef?: string
+  baseRefBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   before?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   baseRef?: string
@@ -2321,9 +2827,16 @@ export interface PushHookOrBuilder {
   commitsOrBuilderList?: CommitOrBuilder[]
   commitsCount?: number
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 export interface ExecutionMetadata {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+=======
+export interface ExecutionMetadata {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2358,11 +2871,14 @@ export interface ExecutionPrincipalInfo {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
   sha?: string
   shaBytes?: ByteString
   pathBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -2374,6 +2890,18 @@ export interface ExecutionPrincipalInfo {
   sha?: string
   nameBytes?: ByteString
   shaBytes?: ByteString
+=======
+  sha?: string
+  nameBytes?: ByteString
+  shaBytes?: ByteString
+=======
+  name?: string
+  path?: string
+  sha?: string
+  shaBytes?: ByteString
+  pathBytes?: ByteString
+  nameBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
@@ -2381,15 +2909,20 @@ export interface ExecutionPrincipalInfo {
   parserForType?: ParserReference
   defaultInstanceForType?: Reference
 <<<<<<< HEAD
+<<<<<<< HEAD
   name?: string
   path?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   pathBytes?: ByteString
   sha?: string
   shaBytes?: ByteString
   nameBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   name?: string
   path?: string
   pathBytes?: ByteString
@@ -2405,6 +2938,10 @@ export interface ExecutionPrincipalInfo {
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -2417,6 +2954,7 @@ export interface ExecutionPrincipalInfo {
 <<<<<<< HEAD
 export interface ReferenceOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
   sha?: string
   shaBytes?: ByteString
@@ -2424,6 +2962,8 @@ export interface ReferenceOrBuilder {
   name?: string
   path?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   name?: string
   path?: string
@@ -2432,6 +2972,8 @@ export interface ReferenceOrBuilder {
   shaBytes?: ByteString
   nameBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   sha?: string
   nameBytes?: ByteString
   shaBytes?: ByteString
@@ -2446,6 +2988,16 @@ export interface ExecutionPrincipalInfoOrBuilder {
   principalBytes?: ByteString
   principalTypeValue?: number
   principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  name?: string
+  path?: string
+  sha?: string
+  shaBytes?: ByteString
+  pathBytes?: ByteString
+  nameBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2463,7 +3015,10 @@ export interface ExecutionTriggerInfo {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -2476,6 +3031,8 @@ export interface ExecutionTriggerInfo {
   namespace?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   created?: Timestamp
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   nameBytes?: ByteString
   idBytes?: ByteString
@@ -2493,6 +3050,19 @@ export interface ExecutionTriggerInfo {
   clone?: string
   idBytes?: ByteString
   namespaceBytes?: ByteString
+<<<<<<< HEAD
+=======
+=======
+  created?: Timestamp
+  namespace?: string
+  name?: string
+  id?: string
+  perm?: Perm
+  permOrBuilder?: PermOrBuilder
+  clone?: string
+  namespaceBytes?: ByteString
+  idBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   branchBytes?: ByteString
   private?: boolean
@@ -2505,6 +3075,7 @@ export interface ExecutionTriggerInfo {
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
 <<<<<<< HEAD
+<<<<<<< HEAD
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserRepository
@@ -2514,14 +3085,22 @@ export interface ExecutionTriggerInfo {
   namespace?: string
   branch?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   branch?: string
   nameBytes?: ByteString
 =======
+=======
+=======
+  nameBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserRepository
   defaultInstanceForType?: Repository
+<<<<<<< HEAD
   name?: string
   id?: string
   namespace?: string
@@ -2539,6 +3118,12 @@ export interface ExecutionTriggerInfo {
   parserForType?: ParserExecutionTriggerInfo
   defaultInstanceForType?: ExecutionTriggerInfo
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  link?: string
+  branch?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -2551,7 +3136,10 @@ export interface ExecutionTriggerInfo {
 <<<<<<< HEAD
 export interface RepositoryOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   name?: string
   id?: string
@@ -2563,6 +3151,8 @@ export interface RepositoryOrBuilder {
   idBytes?: ByteString
   namespaceBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   link?: string
   nameBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -2573,6 +3163,19 @@ export interface RepositoryOrBuilder {
   clone?: string
   idBytes?: ByteString
   namespaceBytes?: ByteString
+<<<<<<< HEAD
+=======
+=======
+  created?: Timestamp
+  namespace?: string
+  name?: string
+  id?: string
+  perm?: Perm
+  permOrBuilder?: PermOrBuilder
+  clone?: string
+  namespaceBytes?: ByteString
+  idBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   branchBytes?: ByteString
   private?: boolean
@@ -2585,15 +3188,20 @@ export interface RepositoryOrBuilder {
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
 <<<<<<< HEAD
+<<<<<<< HEAD
   name?: string
   id?: string
   namespace?: string
   branch?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   branch?: string
   nameBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   name?: string
   id?: string
   namespace?: string
@@ -2608,6 +3216,13 @@ export interface ExecutionTriggerInfoOrBuilder {
   triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
   triggeredBy?: TriggeredBy
   triggeredByOrBuilder?: TriggeredByOrBuilder
+<<<<<<< HEAD
+=======
+=======
+  nameBytes?: ByteString
+  link?: string
+  branch?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
@@ -2686,19 +3301,29 @@ export interface FieldDescriptor {
 export interface FieldOptions {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserFieldOptions
   defaultInstanceForType?: FieldOptions
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   deprecated?: boolean
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+<<<<<<< HEAD
   lazy?: boolean
   weak?: boolean
   ctype?: 'STRING' | 'CORD' | 'STRING_PIECE'
   jstype?: 'JS_NORMAL' | 'JS_STRING' | 'JS_NUMBER'
   packed?: boolean
+=======
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserServiceOptions
+  defaultInstanceForType?: ServiceOptions
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2886,15 +3511,27 @@ export interface FileOptions {
 export interface Label {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
   loginBytes?: ByteString
+=======
+  dateOrBuilder?: TimestampOrBuilder
+  name?: string
+  avatarBytes?: ByteString
+  emailBytes?: ByteString
+  avatar?: string
+  loginBytes?: ByteString
+  nameBytes?: ByteString
+  date?: Timestamp
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserSignature
   defaultInstanceForType?: Signature
+<<<<<<< HEAD
   name?: string
   email?: string
   date?: Timestamp
@@ -2910,6 +3547,10 @@ export interface Label {
   color?: string
   nameBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  email?: string
+  login?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2919,6 +3560,7 @@ export interface Label {
 
 <<<<<<< HEAD
 export interface SignatureOrBuilder {
+<<<<<<< HEAD
   nameBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
@@ -2936,6 +3578,18 @@ export interface LabelOrBuilder {
   color?: string
   nameBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  dateOrBuilder?: TimestampOrBuilder
+  name?: string
+  avatarBytes?: ByteString
+  emailBytes?: ByteString
+  avatar?: string
+  loginBytes?: ByteString
+  nameBytes?: ByteString
+  date?: Timestamp
+  email?: string
+  login?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
   initializationErrorString?: string
@@ -2946,12 +3600,23 @@ export interface LabelOrBuilder {
   initialized?: boolean
 }
 
+<<<<<<< HEAD
 export interface Message {
   parserForType?: ParserMessage
   serializedSize?: number
   initialized?: boolean
   defaultInstanceForType?: MessageLite
   unknownFields?: UnknownFieldSet
+=======
+export interface Timestamp {
+  unknownFields?: UnknownFieldSet
+  nanos?: number
+  seconds?: number
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserTimestamp
+  defaultInstanceForType?: Timestamp
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -2959,9 +3624,22 @@ export interface Message {
   }
 }
 
+<<<<<<< HEAD
 export interface MessageLite {
   serializedSize?: number
   parserForType?: ParserMessageLite
+=======
+export interface TimestampOrBuilder {
+  nanos?: number
+  seconds?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   defaultInstanceForType?: MessageLite
 }
@@ -2980,14 +3658,22 @@ export interface MessageOptions {
   parserForType?: ParserTriggerPayload
   defaultInstanceForType?: TriggerPayload
 <<<<<<< HEAD
+<<<<<<< HEAD
   jsonPayload?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   jsonPayloadBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   jsonPayload?: string
+=======
+  jsonPayload?: string
+  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
+  jsonPayloadBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   parsedPayload?: ParsedPayload
   typeValue?: number
 <<<<<<< HEAD
@@ -3027,10 +3713,16 @@ export interface TriggerPayloadOrBuilder {
   parsedPayload?: ParsedPayload
 =======
   type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'UNRECOGNIZED'
+<<<<<<< HEAD
   jsonPayloadBytes?: ByteString
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   jsonPayload?: string
+=======
+  jsonPayload?: string
+  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
+  jsonPayloadBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   parsedPayload?: ParsedPayload
   typeValue?: number
 <<<<<<< HEAD
@@ -3098,11 +3790,21 @@ export interface NGPipelineExecutionResponse {
 
 export interface NamePart {
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  identifier?: string
+=======
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
 <<<<<<< HEAD
   parserForType?: ParserTriggeredBy
   defaultInstanceForType?: TriggeredBy
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   identifier?: string
   uuid?: string
   uuidBytes?: ByteString
@@ -3114,12 +3816,19 @@ export interface NamePart {
   extraInfoMap?: {
     [key: string]: string
   }
+<<<<<<< HEAD
 =======
   parserForType?: ParserNamePart
   defaultInstanceForType?: NamePart
   namePart?: string
   namePartBytes?: ByteString
   isExtension?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserTriggeredBy
+  defaultInstanceForType?: TriggeredBy
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
@@ -3171,9 +3880,15 @@ export interface OneofDescriptor {
 export interface OneofOptions {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameCount?: number
   stringValue?: ByteString
+=======
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
 <<<<<<< HEAD
@@ -3184,6 +3899,8 @@ export interface OneofOptions {
 =======
   stringValue?: ByteString
   doubleValue?: number
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameCount?: number
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -3196,6 +3913,7 @@ export interface OneofOptions {
   aggregateValue?: string
   aggregateValueBytes?: ByteString
 <<<<<<< HEAD
+<<<<<<< HEAD
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUninterpretedOption
@@ -3205,11 +3923,23 @@ export interface OneofOptions {
   stringValue?: ByteString
 =======
 =======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
   parserForType?: ParserOneofOptions
   defaultInstanceForType?: OneofOptions
   uninterpretedOptionList?: UninterpretedOption[]
   uninterpretedOptionOrBuilderList?: UninterpretedOptionOrBuilder[]
   uninterpretedOptionCount?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserUninterpretedOption
+  defaultInstanceForType?: UninterpretedOption
+  stringValue?: ByteString
+  doubleValue?: number
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -3222,14 +3952,21 @@ export interface OneofOptions {
 
 export interface UninterpretedOptionOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   nameCount?: number
   stringValue?: ByteString
   doubleValue?: number
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   stringValue?: ByteString
   doubleValue?: number
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameCount?: number
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -3241,9 +3978,17 @@ export interface UninterpretedOptionOrBuilder {
   negativeIntValue?: number
   aggregateValue?: string
   aggregateValueBytes?: ByteString
+<<<<<<< HEAD
   nameCount?: number
   doubleValue?: number
   stringValue?: ByteString
+=======
+<<<<<<< HEAD
+=======
+  stringValue?: ByteString
+  doubleValue?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
   initializationErrorString?: string
@@ -3260,6 +4005,7 @@ export interface UnknownFieldSet {
   serializedSize?: number
   parserForType?: Parser
   defaultInstanceForType?: UnknownFieldSet
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -3279,9 +4025,15 @@ export interface User {
 =======
   serializedSizeAsMessageSet?: number
 =======
+  serializedSizeAsMessageSet?: number
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
   allFieldsRaw?: {
     [key: string]: { [key: string]: any }
   }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
@@ -3289,6 +4041,7 @@ export interface ParsedPayload {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
 <<<<<<< HEAD
   name?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -3307,22 +4060,40 @@ export interface ParsedPayload {
 =======
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+<<<<<<< HEAD
+=======
+=======
+  created?: Timestamp
+  name?: string
+  avatarBytes?: ByteString
+  emailBytes?: ByteString
+  avatar?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   createdOrBuilder?: TimestampOrBuilder
   updated?: Timestamp
   updatedOrBuilder?: TimestampOrBuilder
   loginBytes?: ByteString
 <<<<<<< HEAD
+<<<<<<< HEAD
   nameBytes?: ByteString
 =======
+=======
+=======
+  nameBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUser
   defaultInstanceForType?: User
+<<<<<<< HEAD
   name?: string
   email?: string
   created?: Timestamp
@@ -3340,6 +4111,12 @@ export interface ParsedPayload {
   pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  email?: string
+  login?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
@@ -3352,9 +4129,12 @@ export interface ParsedPayload {
 <<<<<<< HEAD
 export interface UserOrBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
   created?: Timestamp
   nameBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   name?: string
   email?: string
@@ -3364,10 +4144,21 @@ export interface UserOrBuilder {
   avatarBytes?: ByteString
   emailBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nameBytes?: ByteString
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
+<<<<<<< HEAD
+=======
+=======
+  created?: Timestamp
+  name?: string
+  avatarBytes?: ByteString
+  emailBytes?: ByteString
+  avatar?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   createdOrBuilder?: TimestampOrBuilder
@@ -3375,6 +4166,7 @@ export interface UserOrBuilder {
   updatedOrBuilder?: TimestampOrBuilder
   loginBytes?: ByteString
 <<<<<<< HEAD
+<<<<<<< HEAD
   emailBytes?: ByteString
   avatar?: string
   avatarBytes?: ByteString
@@ -3382,9 +4174,13 @@ export interface UserOrBuilder {
   email?: string
   login?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   nameBytes?: ByteString
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   name?: string
   email?: string
   created?: Timestamp
@@ -3398,6 +4194,13 @@ export interface ParsedPayloadOrBuilder {
   pr?: PullRequestHook
   pushOrBuilder?: PushHookOrBuilder
   payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
+  nameBytes?: ByteString
+  email?: string
+  login?: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -3483,8 +4286,17 @@ export interface ParserPerm {
   [key: string]: any
 }
 
+<<<<<<< HEAD
 export interface ParserPullRequest {
   [key: string]: any
+=======
+export interface DeleteResourcesBaseSpec {
+  type?: 'ResourceName' | 'ReleaseName' | 'ManifestPath'
+  resourceNames?: string
+  deleteNamespace?: boolean
+  allManifestPaths?: boolean
+  manifestPaths?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface ParserPullRequestHook {
@@ -4694,7 +5506,6 @@ export interface NGVariable {
   name?: string
   type?: 'String' | 'Number' | 'Secret'
   required?: boolean
-  description?: string
   metadata?: string
 }
 
@@ -4872,7 +5683,10 @@ export interface ServiceOverrides {
 export interface ServiceSpec {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   artifacts?: ArtifactListConfig
@@ -4894,11 +5708,20 @@ export interface ServiceSpec {
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   variableOverrideSets?: NGVariableOverrideSetWrapper[]
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   variables?: NGVariable[]
-  manifestOverrideSets?: ManifestOverrideSetWrapper[]
-  artifactOverrideSets?: ArtifactOverrideSetWrapper[]
-  artifacts?: ArtifactListConfig
   manifests?: ManifestConfigWrapper[]
+  artifactOverrideSets?: ArtifactOverrideSetWrapper[]
+  manifestOverrideSets?: ManifestOverrideSetWrapper[]
+  variableOverrideSets?: NGVariableOverrideSetWrapper[]
+  artifacts?: ArtifactListConfig
+<<<<<<< HEAD
+  manifests?: ManifestConfigWrapper[]
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
+=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
@@ -6023,6 +6846,21 @@ export type ConnectorFilterProperties = FilterProperties & {
   inheritingCredentialsFromDelegate?: boolean
 }
 
+export interface ConnectorValidationResult {
+  status?: 'SUCCESS' | 'FAILURE' | 'PARTIAL'
+  errors?: ErrorDetail[]
+  errorSummary?: string
+  testedAt?: number
+  delegateId?: string
+}
+
+export interface ResponseConnectorValidationResult {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorValidationResult
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ConnectorCatalogueItem {
   category?:
     | 'CLOUD_PROVIDER'
@@ -6070,8 +6908,11 @@ export interface ResponseConnectorCatalogueResponse {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface ConnectorValidationResult {
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
 =======
 export interface ConnectorValidationResult {
@@ -6089,6 +6930,8 @@ export interface ResponseConnectorValidationResult {
   correlationId?: string
 }
 
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface ConnectorStatistics {
   typeStats?: ConnectorTypeStatistics[]
@@ -6571,8 +7414,11 @@ export interface PageActivity {
   totalPages?: number
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   last?: boolean
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pageable?: Pageable
 <<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -6599,13 +7445,19 @@ export interface PageActivity {
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   size?: number
   content?: Activity[]
   number?: number
-  numberOfElements?: number
   last?: boolean
-  sort?: Sort
+  numberOfElements?: number
   first?: boolean
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  sort?: Sort
+  pageable?: Pageable
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -6614,6 +7466,7 @@ export interface PageActivity {
 
 export interface Pageable {
 <<<<<<< HEAD
+<<<<<<< HEAD
   pageNumber?: number
   paged?: boolean
   unpaged?: boolean
@@ -6623,13 +7476,24 @@ export interface Pageable {
   offset?: number
   pageSize?: number
   sort?: Sort
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   paged?: boolean
   unpaged?: boolean
   pageNumber?: number
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+<<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pageSize?: number
 =======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  offset?: number
+  sort?: Sort
+  pageSize?: number
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
@@ -6680,10 +7544,13 @@ export interface PageActivitySummary {
   totalElements?: number
   totalPages?: number
 <<<<<<< HEAD
+<<<<<<< HEAD
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   pageable?: Pageable
 <<<<<<< HEAD
   numberOfElements?: number
@@ -6705,13 +7572,19 @@ export interface PageActivitySummary {
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   size?: number
   content?: ActivitySummary[]
   number?: number
-  numberOfElements?: number
   last?: boolean
-  sort?: Sort
+  numberOfElements?: number
   first?: boolean
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  sort?: Sort
+  pageable?: Pageable
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -6723,12 +7596,6 @@ export interface ResponsePageActivitySummary {
   data?: PageActivitySummary
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface DockerRequestDTO {
-  tag?: string
-  tagRegex?: string
-  tagsList?: string[]
 }
 
 export interface DockerBuildDetailsDTO {
@@ -6754,6 +7621,12 @@ export interface ResponseDockerResponseDTO {
   correlationId?: string
 }
 
+export interface DockerRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+}
+
 export interface ResponseDockerBuildDetailsDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: DockerBuildDetailsDTO
@@ -6761,6 +7634,7 @@ export interface ResponseDockerBuildDetailsDTO {
   correlationId?: string
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export interface DockerRequestDTO {
   tag?: string
@@ -6775,6 +7649,8 @@ export interface EcrRequestDTO {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface EcrBuildDetailsDTO {
   tag?: string
   buildUrl?: string
@@ -6794,6 +7670,13 @@ export interface ResponseEcrBuildDetailsDTO {
   correlationId?: string
 }
 
+export interface EcrRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+  region?: string
+}
+
 export interface EcrResponseDTO {
   buildDetailsList?: EcrBuildDetailsDTO[]
 }
@@ -6803,13 +7686,6 @@ export interface ResponseEcrResponseDTO {
   data?: EcrResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface GcrRequestDTO {
-  tag?: string
-  tagRegex?: string
-  tagsList?: string[]
-  registryHostname?: string
 }
 
 export interface GcrBuildDetailsDTO {
@@ -6829,6 +7705,13 @@ export interface ResponseGcrBuildDetailsDTO {
   data?: GcrBuildDetailsDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface GcrRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+  registryHostname?: string
 }
 
 export interface GcrResponseDTO {
@@ -6977,10 +7860,13 @@ export interface Document {
   domConfig?: DOMConfiguration
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   attributes?: NamedNodeMap
   prefix?: string
   namespaceURI?: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   nodeType?: number
@@ -6990,13 +7876,14 @@ export interface Document {
 <<<<<<< HEAD
 =======
 =======
+=======
+  namespaceURI?: string
+  prefix?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   attributes?: NamedNodeMap
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   localName?: string
-  prefix?: string
-  namespaceURI?: string
-  nodeType?: number
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -7027,6 +7914,7 @@ export interface DocumentType {
   notations?: NamedNodeMap
   internalSubset?: string
 <<<<<<< HEAD
+<<<<<<< HEAD
   name?: string
   publicId?: string
   systemId?: string
@@ -7037,13 +7925,14 @@ export interface DocumentType {
 <<<<<<< HEAD
 =======
 =======
+=======
+  namespaceURI?: string
+  prefix?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   attributes?: NamedNodeMap
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   localName?: string
-  prefix?: string
-  namespaceURI?: string
-  nodeType?: number
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -7063,6 +7952,10 @@ export interface Element {
 =======
   schemaTypeInfo?: TypeInfo
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+<<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   tagName?: string
 <<<<<<< HEAD
@@ -7081,13 +7974,14 @@ export interface Element {
 <<<<<<< HEAD
 =======
 =======
+=======
+  namespaceURI?: string
+  prefix?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   attributes?: NamedNodeMap
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   localName?: string
-  prefix?: string
-  namespaceURI?: string
-  nodeType?: number
   nodeName?: string
   nodeValue?: string
   parentNode?: Node
@@ -7533,6 +8427,7 @@ export interface CreateInviteListDTO {
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
 }
 
+<<<<<<< HEAD
 export interface PageInviteDTO {
   totalPages?: number
   totalItems?: number
@@ -7541,6 +8436,25 @@ export interface PageInviteDTO {
   content?: InviteDTO[]
   pageIndex?: number
   empty?: boolean
+=======
+export interface Node {
+  namespaceURI?: string
+  prefix?: string
+  attributes?: NamedNodeMap
+  localName?: string
+  nodeName?: string
+  nodeValue?: string
+  parentNode?: Node
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  previousSibling?: Node
+  nextSibling?: Node
+  ownerDocument?: Document
+  baseURI?: string
+  textContent?: string
+  nodeType?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface ResponsePageInviteDTO {
@@ -7625,11 +8539,26 @@ export interface ProjectResponse {
   lastModifiedAt?: number
 }
 
+<<<<<<< HEAD
 export interface ResponseProjectAggregateDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ProjectAggregateDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+=======
+export interface PageEntitySetupUsageDTO {
+  totalElements?: number
+  totalPages?: number
+  size?: number
+  content?: EntitySetupUsageDTO[]
+  number?: number
+  last?: boolean
+  numberOfElements?: number
+  first?: boolean
+  sort?: Sort
+  pageable?: Pageable
+  empty?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 <<<<<<< HEAD
@@ -7847,6 +8776,7 @@ export interface SecretFileDTO {
   type: 'SecretFile' | 'SecretText' | 'SSHKey'
 }
 
+<<<<<<< HEAD
 export interface SecretFileDTO {
   account?: string
   org?: string
@@ -7860,6 +8790,26 @@ export interface SecretFileDTO {
 }
 
 export interface ResponseSecretManagerMetadataDTO {
+=======
+export interface PageInviteDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: InviteDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageInviteDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageInviteDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseListInviteOperationResponse {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: SecretManagerMetadataDTO
   metaData?: { [key: string]: any }
@@ -7881,6 +8831,7 @@ export interface SecretManagerMetadataDTO {
   spec?: SecretManagerMetadataSpecDTO
 }
 
+<<<<<<< HEAD
 export interface SecretManagerMetadataSpecDTO {
   [key: string]: any
 }
@@ -7980,6 +8931,9 @@ export type KerberosConfigDTO = BaseSSHSpecDTO & {
 }
 
 export interface ResponseSecretResponseWrapper {
+=======
+export interface ResponseOptionalListRoleDTO {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: SecretResponseWrapper
   metaData?: { [key: string]: any }
@@ -8172,6 +9126,7 @@ export interface ResponseUserGroupDTO {
   correlationId?: string
 }
 
+<<<<<<< HEAD
 export interface PageUserGroupDTO {
   totalPages?: number
   totalItems?: number
@@ -8190,12 +9145,66 @@ export interface ResponsePageUserGroupDTO {
 }
 
 export interface ResponseListUserGroupDTO {
+=======
+<<<<<<< HEAD
+export interface ResponseListUserGroupDTO {
+=======
+export interface AggregateACLRequest {
+  searchTerm?: string
+  resourceGroupFilter?: string[]
+  roleFilter?: string[]
+}
+
+export interface SecretFileDTO {
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  secretManager?: string
+  name?: string
+  tags?: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText' | 'SSHKey'
+}
+
+export interface EncryptedDataDTO {
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+  valueType?: 'Inline' | 'Reference'
+  value?: string
+  draft?: boolean
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  secretManager?: string
+  secretManagerName?: string
+  name?: string
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
+  tags?: string[]
+  lastUpdatedAt?: number
+  description?: string
+}
+
+export interface ResponseEncryptedDataDTO {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: UserGroupDTO[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
+<<<<<<< HEAD
 export interface UserGroupFilterDTO {
   databaseIdFilter?: string[]
   identifierFilter?: string[]
@@ -8215,7 +9224,21 @@ export interface PageServiceResponseDTO {
   empty?: boolean
 }
 
+<<<<<<< HEAD
 export interface ResponsePageServiceResponseDTO {
+=======
+export interface ResponsePageUserGroupDTO {
+=======
+export interface ResponseSecretManagerMetadataDTO {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageUserGroupDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseServiceResponseDTO {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageServiceResponseDTO
   metaData?: { [key: string]: any }
@@ -8285,6 +9308,37 @@ export interface ResponseServiceResponse {
   correlationId?: string
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+export interface ServiceResponse {
+  service?: ServiceResponseDTO
+  createdAt?: number
+  lastModifiedAt?: number
+}
+
+export interface PageServiceResponse {
+=======
+export interface PageEncryptedDataDTO {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: ServiceResponse[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageServiceResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageServiceResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface PageUserSearchDTO {
   totalPages?: number
   totalItems?: number
@@ -8293,6 +9347,24 @@ export interface PageUserSearchDTO {
   content?: UserSearchDTO[]
   pageIndex?: number
   empty?: boolean
+=======
+export interface SecretTextDTO {
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  secretManager?: string
+  name?: string
+  tags?: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText' | 'SSHKey'
+  valueType: 'Inline' | 'Reference'
+  value?: string
+}
+
+export interface BaseSSHSpecDTO {
+  [key: string]: any
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface ResponsePageUserSearchDTO {
@@ -9264,6 +10336,7 @@ export interface ParserSkipInfo {
   [key: string]: any
 }
 
+<<<<<<< HEAD
 export interface ParserSkipTaskExecutableResponse {
   [key: string]: any
 }
@@ -9278,12 +10351,17 @@ export interface ParserTaskChainExecutableResponse {
 
 export interface ParserTaskExecutableResponse {
   [key: string]: any
+=======
+export interface ArtifactSummary {
+  type?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface ParserTimeoutIssuer {
   [key: string]: any
 }
 
+<<<<<<< HEAD
 export interface ParserUnitProgress {
   [key: string]: any
 }
@@ -9294,6 +10372,51 @@ export interface PipelineExecutionDetail {
   stageRollbackGraph?: ExecutionGraph
 }
 
+<<<<<<< HEAD
+=======
+export interface PipelineExecutionSummaryDTO {
+  pipelineIdentifier?: string
+  pipelineName?: string
+  deploymentId?: string
+=======
+export type CDStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  planExecutionId?: string
+  executionStatus?:
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+  inputSetYaml?: string
+  startedAt?: number
+  endedAt?: number
+  tags?: {
+    [key: string]: string
+  }
+  stageExecutionSummaryElements?: StageExecutionSummaryDTO[]
+  errorMsg?: string
+  stageIdentifiers?: string[]
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  serviceDefinitionTypes?: string[]
+  stageTypes?: NGStageType[]
+  errorInfo?: ExecutionErrorInfo
+  triggerInfo?: ExecutionTriggerInfo
+  successfulStagesCount?: number
+  runningStagesCount?: number
+  failedStagesCount?: number
+  totalStagesCount?: number
+}
+
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface ProgressData {
   [key: string]: any
 }
@@ -9301,10 +10424,120 @@ export interface ProgressData {
 export interface ResponsePipelineExecutionDetail {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PipelineExecutionDetail
+=======
+export interface ExecutionErrorInfo {
+  unknownFields?: UnknownFieldSet
+  message?: string
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserExecutionErrorInfo
+  defaultInstanceForType?: ExecutionErrorInfo
+  messageBytes?: ByteString
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface NGStageType {
+  type?: string
+}
+
+export interface PagePipelineExecutionSummaryDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: PipelineExecutionSummaryDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export type ParallelStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
+  stageExecutions?: StageExecutionSummaryDTO[]
+}
+
+export interface ParserExecutionErrorInfo {
+  [key: string]: any
+}
+
+export interface PipelineExecutionSummaryDTO {
+  pipelineIdentifier?: string
+  pipelineName?: string
+  deploymentId?: string
+  planExecutionId?: string
+  executionStatus?:
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+  inputSetYaml?: string
+  startedAt?: number
+  endedAt?: number
+  tags?: {
+    [key: string]: string
+  }
+  stageExecutionSummaryElements?: StageExecutionSummaryDTO[]
+  errorMsg?: string
+  stageIdentifiers?: string[]
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  serviceDefinitionTypes?: string[]
+  stageTypes?: NGStageType[]
+  errorInfo?: ExecutionErrorInfo
+  triggerInfo?: ExecutionTriggerInfo
+  successfulStagesCount?: number
+  runningStagesCount?: number
+  failedStagesCount?: number
+  totalStagesCount?: number
+}
+
+export interface ResponsePagePipelineExecutionSummaryDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PagePipelineExecutionSummaryDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
+export interface ServiceExecutionSummary {
+  identifier?: string
+  displayName?: string
+  deploymentType?: string
+  artifacts?: ArtifactsSummary
+}
+
+export interface StageExecutionSummaryDTO {
+  [key: string]: any
+}
+
+export interface CDStageModuleInfo {
+  serviceInfo?: ServiceExecutionSummary
+  infraExecutionSummary?: InfraExecutionSummary
+  nodeExecutionId?: string
+}
+
+export interface InfraExecutionSummary {
+  identifier?: string
+  name?: string
+}
+
+export interface ResponseCDStageModuleInfo {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: CDStageModuleInfo
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+<<<<<<< HEAD
 export interface RetryInterruptConfig {
   unknownFields?: UnknownFieldSet
   retryIdBytes?: ByteString
@@ -9313,6 +10546,30 @@ export interface RetryInterruptConfig {
   serializedSize?: number
   parserForType?: ParserRetryInterruptConfig
   defaultInstanceForType?: RetryInterruptConfig
+=======
+export interface CDPipelineModuleInfo {
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  serviceDefinitionTypes?: string[]
+  environmentTypes?: ('PreProduction' | 'Production')[]
+  infrastructureTypes?: string[]
+}
+
+export interface ResponseCDPipelineModuleInfo {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: CDPipelineModuleInfo
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface AdviserIssuer {
+  unknownFields?: UnknownFieldSet
+  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
+  adviserTypeValue?: number
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserAdviserIssuer
+  defaultInstanceForType?: AdviserIssuer
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -9320,9 +10577,109 @@ export interface RetryInterruptConfig {
   }
 }
 
+export interface AdviserIssuerOrBuilder {
+  adviserType?: 'UNKNOWN' | 'NEXT_STEP' | 'RETRY' | 'INTERVENTION_WAIT' | 'END_PLAN' | 'MARK_SUCCESS' | 'UNRECOGNIZED'
+  adviserTypeValue?: number
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  initialized?: boolean
+}
+
+export interface AsyncExecutableResponse {
+  unknownFields?: UnknownFieldSet
+  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserAsyncExecutableResponse
+  defaultInstanceForType?: AsyncExecutableResponse
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  callbackIdsCount?: number
+  modeValue?: number
+  callbackIdsList?: string[]
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface AsyncExecutableResponseOrBuilder {
+  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  callbackIdsCount?: number
+  modeValue?: number
+  callbackIdsList?: string[]
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  initialized?: boolean
+}
+
+export interface Child {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserChild
+  defaultInstanceForType?: Child
+  childNodeId?: string
+  childNodeIdBytes?: ByteString
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface ChildChainExecutableResponse {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserChildChainExecutableResponse
+  defaultInstanceForType?: ChildChainExecutableResponse
+  previousChildId?: string
+  previousChildIdBytes?: ByteString
+  nextChildIdBytes?: ByteString
+  nextChildId?: string
+  passThroughData?: ByteString
+  lastLink?: boolean
+  suspend?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+<<<<<<< HEAD
 export interface RetryInterruptConfigOrBuilder {
   retryIdBytes?: ByteString
   retryId?: string
+=======
+export interface ChildChainExecutableResponseOrBuilder {
+  previousChildId?: string
+  previousChildIdBytes?: ByteString
+  nextChildIdBytes?: ByteString
+  nextChildId?: string
+  passThroughData?: ByteString
+  lastLink?: boolean
+  suspend?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
   initializationErrorString?: string
@@ -9337,11 +10694,18 @@ export interface SkipInfo {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
   serializedSize?: number
+<<<<<<< HEAD
   parserForType?: ParserSkipInfo
   defaultInstanceForType?: SkipInfo
   skipCondition?: string
   skipConditionBytes?: ByteString
   evaluatedCondition?: boolean
+=======
+  parserForType?: ParserChildExecutableResponse
+  defaultInstanceForType?: ChildExecutableResponse
+  childNodeId?: string
+  childNodeIdBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -9349,7 +10713,13 @@ export interface SkipInfo {
   }
 }
 
+<<<<<<< HEAD
 export interface SkipTaskExecutableResponse {
+=======
+export interface ChildExecutableResponseOrBuilder {
+  childNodeId?: string
+  childNodeIdBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
 =======
@@ -9382,9 +10752,18 @@ export interface SkipTaskExecutableResponse {
   }
 }
 
+<<<<<<< HEAD
 export interface SkipTaskExecutableResponseOrBuilder {
   message?: string
+<<<<<<< HEAD
   messageBytes?: ByteString
+=======
+=======
+export interface ChildOrBuilder {
+  childNodeId?: string
+  childNodeIdBytes?: ByteString
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
   initializationErrorString?: string
@@ -9397,6 +10776,7 @@ export interface SkipTaskExecutableResponseOrBuilder {
 
 export interface SyncExecutableResponse {
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
   logKeysList?: string[]
   logKeysCount?: number
   unitsList?: string[]
@@ -9405,6 +10785,15 @@ export interface SyncExecutableResponse {
   serializedSize?: number
   parserForType?: ParserSyncExecutableResponse
   defaultInstanceForType?: SyncExecutableResponse
+=======
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserChildrenExecutableResponse
+  defaultInstanceForType?: ChildrenExecutableResponse
+  childrenOrBuilderList?: ChildOrBuilder[]
+  childrenList?: Child[]
+  childrenCount?: number
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -9430,13 +10819,20 @@ export interface SyncExecutableResponseOrBuilder {
 export interface TaskChainExecutableResponse {
   unknownFields?: UnknownFieldSet
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserTaskChainExecutableResponse
   defaultInstanceForType?: TaskChainExecutableResponse
   taskId?: string
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -9501,6 +10897,38 @@ export interface TaskChainExecutableResponseOrBuilder {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   unknownFields?: UnknownFieldSet
   defaultInstanceForType?: Message
+=======
+  responseCase?:
+    | 'ASYNC'
+    | 'CHILD'
+    | 'CHILDREN'
+    | 'CHILDCHAIN'
+    | 'TASK'
+    | 'TASKCHAIN'
+    | 'SYNC'
+    | 'SKIPTASK'
+    | 'RESPONSE_NOT_SET'
+  async?: AsyncExecutableResponse
+  task?: TaskExecutableResponse
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserExecutableResponse
+  defaultInstanceForType?: ExecutableResponse
+  child?: ChildExecutableResponse
+  childOrBuilder?: ChildExecutableResponseOrBuilder
+  children?: ChildrenExecutableResponse
+  childrenOrBuilder?: ChildrenExecutableResponseOrBuilder
+  childChain?: ChildChainExecutableResponse
+  childChainOrBuilder?: ChildChainExecutableResponseOrBuilder
+  taskOrBuilder?: TaskExecutableResponseOrBuilder
+  taskChain?: TaskChainExecutableResponse
+  taskChainOrBuilder?: TaskChainExecutableResponseOrBuilder
+  sync?: SyncExecutableResponse
+  syncOrBuilder?: SyncExecutableResponseOrBuilder
+  skipTask?: SkipTaskExecutableResponse
+  skipTaskOrBuilder?: SkipTaskExecutableResponseOrBuilder
+  asyncOrBuilder?: AsyncExecutableResponseOrBuilder
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initializationErrorString?: string
   descriptorForType?: Descriptor
   allFields?: {
@@ -9552,6 +10980,7 @@ export interface TaskExecutableResponse {
   }
 }
 
+<<<<<<< HEAD
 export interface TaskExecutableResponseOrBuilder {
 <<<<<<< HEAD
 =======
@@ -9583,10 +11012,46 @@ export interface TaskExecutableResponseOrBuilder {
   descriptorForType?: Descriptor
   allFields?: {
     [key: string]: { [key: string]: any }
+=======
+export interface ExecutionNode {
+  uuid?: string
+  setupId?: string
+  name?: string
+  identifier?: string
+  baseFqn?: string
+  outcomes?: {
+    [key: string]: { [key: string]: any }
+  }[]
+  stepParameters?: {
+    [key: string]: { [key: string]: any }
+  }
+  startTs?: number
+  endTs?: number
+  stepType?: string
+  status?:
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+  failureInfo?: FailureInfoDTO
+  skipInfo?: SkipInfo
+  nodeRunInfo?: NodeRunInfo
+  executableResponses?: ExecutableResponse[]
+  taskIdToProgressDataMap?: {
+    [key: string]: ProgressData[]
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   }
   initialized?: boolean
 }
 
+<<<<<<< HEAD
 export interface TimeoutIssuer {
   unknownFields?: UnknownFieldSet
   initialized?: boolean
@@ -9598,6 +11063,21 @@ export interface TimeoutIssuer {
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+=======
+export interface FailureInfoDTO {
+  message?: string
+  failureTypeList?: (
+    | 'EXPIRED'
+    | 'DELEGATE_PROVISIONING'
+    | 'CONNECTIVITY'
+    | 'AUTHENTICATION'
+    | 'VERIFICATION_FAILURE'
+    | 'APPLICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
+    | 'TIMEOUT_ERROR'
+  )[]
+  responseMessages?: ResponseMessage[]
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface TimeoutIssuerOrBuilder {
@@ -9613,6 +11093,16 @@ export interface TimeoutIssuerOrBuilder {
 
 export interface UnitProgress {
   unknownFields?: UnknownFieldSet
+<<<<<<< HEAD
+=======
+  manualIssuer?: ManualIssuer
+  manualIssuerOrBuilder?: ManualIssuerOrBuilder
+  adviserIssuer?: AdviserIssuer
+  adviserIssuerOrBuilder?: AdviserIssuerOrBuilder
+  timeoutIssuer?: TimeoutIssuer
+  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
+  timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   initialized?: boolean
   serializedSize?: number
   parserForType?: ParserUnitProgress
@@ -9630,6 +11120,7 @@ export interface UnitProgress {
   }
 }
 
+<<<<<<< HEAD
 export interface ResponsePipelineExecutionInterrupt {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PipelineExecutionInterrupt
@@ -9852,9 +11343,26 @@ export interface ResponseJiraIssueUpdateMetadataNG {
 export interface JiraIssueCreateMetadataNG {
   projects?: {
     [key: string]: JiraProjectNG
+=======
+export interface IssuedByOrBuilder {
+  manualIssuer?: ManualIssuer
+  manualIssuerOrBuilder?: ManualIssuerOrBuilder
+  adviserIssuer?: AdviserIssuer
+  adviserIssuerOrBuilder?: AdviserIssuerOrBuilder
+  timeoutIssuer?: TimeoutIssuer
+  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
+  timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   }
 }
 
+<<<<<<< HEAD
 export interface JiraIssueTypeNG {
   id: string
   name: string
@@ -9862,19 +11370,50 @@ export interface JiraIssueTypeNG {
   statuses: JiraStatusNG[]
   fields: {
     [key: string]: JiraFieldNG
+=======
+export interface ManualIssuer {
+  unknownFields?: UnknownFieldSet
+  emailId?: string
+  emailIdBytes?: ByteString
+  userId?: string
+  userIdBytes?: ByteString
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserManualIssuer
+  defaultInstanceForType?: ManualIssuer
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   }
   subTask?: boolean
 }
 
+<<<<<<< HEAD
 export interface JiraProjectNG {
   id: string
   key: string
   name: string
   issuetypes: {
     [key: string]: JiraIssueTypeNG
+=======
+export interface ManualIssuerOrBuilder {
+  emailId?: string
+  emailIdBytes?: ByteString
+  userId?: string
+  userIdBytes?: ByteString
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   }
 }
 
+<<<<<<< HEAD
 export interface JiraStatusCategoryNG {
   id: number
   key: string
@@ -9922,6 +11461,26 @@ export interface ResponseListJiraStatusNG {
   data?: JiraStatusNG[]
   metaData?: { [key: string]: any }
   correlationId?: string
+=======
+export interface NodeRunInfo {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserNodeRunInfo
+  defaultInstanceForType?: NodeRunInfo
+  evaluatedCondition?: boolean
+  whenCondition?: string
+  whenConditionBytes?: ByteString
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface ParserAdviserIssuer {
+  [key: string]: any
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export type AwsCodeCommitSCMDTO = SourceCodeManagerDTO & {
@@ -9955,6 +11514,7 @@ export interface SourceCodeManagerAuthentication {
   [key: string]: any
 }
 
+<<<<<<< HEAD
 export interface SourceCodeManagerDTO {
   id?: string
   userIdentifier?: string
@@ -9977,6 +11537,10 @@ export interface ResponseUserInfo {
   data?: UserInfo
   metaData?: { [key: string]: any }
   correlationId?: string
+=======
+export interface ParserInterruptConfig {
+  [key: string]: any
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface OverlayInputSetResponse {
@@ -10199,6 +11763,7 @@ export interface ResponseNGPipelineResponse {
   correlationId?: string
 }
 
+<<<<<<< HEAD
 export interface NGPipelineSummaryResponse {
   name?: string
   identifier?: string
@@ -10217,6 +11782,10 @@ export interface ResponseNGPipelineSummaryResponse {
   data?: NGPipelineSummaryResponse
   metaData?: { [key: string]: any }
   correlationId?: string
+=======
+export interface ProgressData {
+  [key: string]: any
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface PageNGPipelineSummaryResponse {
@@ -10277,6 +11846,7 @@ export interface BarrierInfoConfig {
   name: string
 }
 
+<<<<<<< HEAD
 export interface CIProperties {
   codebase?: CodeBase
 }
@@ -10285,6 +11855,22 @@ export type DeploymentStageConfig = StageInfoConfig & {
   serviceConfig: ServiceConfig
   infrastructure: PipelineInfrastructure
   execution: ExecutionElementConfig
+=======
+export interface SkipInfo {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserSkipInfo
+  defaultInstanceForType?: SkipInfo
+  skipCondition?: string
+  skipConditionBytes?: ByteString
+  evaluatedCondition?: boolean
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export interface FlowControlConfig {
@@ -10295,6 +11881,7 @@ export interface NGProperties {
   ci?: CIProperties
 }
 
+<<<<<<< HEAD
 export interface NotificationChannelWrapper {
   type?: string
   spec?: PmsNotificationChannel
@@ -10305,6 +11892,23 @@ export interface NotificationRules {
   enabled?: boolean
   pipelineEvents?: PipelineEvent[]
   notificationMethod?: NotificationChannelWrapper
+=======
+export interface SyncExecutableResponse {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserSyncExecutableResponse
+  defaultInstanceForType?: SyncExecutableResponse
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export type ParallelStageElementConfig = StageElementWrapperConfig[]
@@ -10313,6 +11917,7 @@ export interface PipelineConfig {
   pipeline?: PipelineInfoConfig
 }
 
+<<<<<<< HEAD
 export interface PipelineEvent {
   type?:
     | 'AllEvents'
@@ -10334,6 +11939,52 @@ export interface PipelineInfoConfig {
   description?: string
   tags?: {
     [key: string]: string
+=======
+export interface TaskChainExecutableResponse {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserTaskChainExecutableResponse
+  defaultInstanceForType?: TaskChainExecutableResponse
+  taskName?: string
+  passThroughData?: ByteString
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  taskNameBytes?: ByteString
+  taskCategoryValue?: number
+  taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
+  taskIdBytes?: ByteString
+  chainEnd?: boolean
+  taskId?: string
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface TaskChainExecutableResponseOrBuilder {
+  taskName?: string
+  passThroughData?: ByteString
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  taskNameBytes?: ByteString
+  taskCategoryValue?: number
+  taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
+  taskIdBytes?: ByteString
+  chainEnd?: boolean
+  taskId?: string
+  unknownFields?: UnknownFieldSet
+  defaultInstanceForType?: Message
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   }
   variables?: NGVariable[]
   properties?: NGProperties
@@ -10341,9 +11992,33 @@ export interface PipelineInfoConfig {
   notificationRules?: NotificationRules[]
 }
 
+<<<<<<< HEAD
 export type PmsEmailChannel = PmsNotificationChannel & {
   userGroups?: string[]
   recipients?: string[]
+=======
+export interface TaskExecutableResponse {
+  unknownFields?: UnknownFieldSet
+  initialized?: boolean
+  serializedSize?: number
+  parserForType?: ParserTaskExecutableResponse
+  defaultInstanceForType?: TaskExecutableResponse
+  taskName?: string
+  logKeysList?: string[]
+  logKeysCount?: number
+  unitsList?: string[]
+  unitsCount?: number
+  taskNameBytes?: ByteString
+  taskCategoryValue?: number
+  taskCategory?: 'UNKNOWN_CATEGORY' | 'DELEGATE_TASK_V1' | 'DELEGATE_TASK_V2' | 'UNRECOGNIZED'
+  taskIdBytes?: ByteString
+  taskId?: string
+  initializationErrorString?: string
+  descriptorForType?: Descriptor
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export type PmsMSTeamChannel = PmsNotificationChannel & {
@@ -10365,7 +12040,30 @@ export type PmsSlackChannel = PmsNotificationChannel & {
   webhookUrl?: string
 }
 
+<<<<<<< HEAD
 export interface ResponsePipelineConfig {
+=======
+export interface ResponseListExecutionStatus {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: (
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+  )[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponsePipelineExecutionInterrupt {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PipelineConfig
   metaData?: { [key: string]: any }
@@ -10383,6 +12081,7 @@ export interface StageElementConfig {
   spec?: StageInfoConfig
 }
 
+<<<<<<< HEAD
 export interface StageElementWrapperConfig {
   stage?: StageElementConfig
   parallel?: ParallelStageElementConfig
@@ -10451,6 +12150,23 @@ export interface PageResourceGroupResponse {
 export interface ResponsePageResourceGroupResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageResourceGroupResponse
+=======
+export interface JiraStatusCategoryNG {
+  id: number
+  key: string
+  name: string
+}
+
+export interface JiraStatusNG {
+  id: string
+  name: string
+  statusCategory?: JiraStatusCategoryNG
+}
+
+export interface ResponseListJiraStatusNG {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JiraStatusNG[]
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -10479,6 +12195,7 @@ export interface RestResponseUserInfo {
   responseMessages?: ResponseMessage[]
 }
 
+<<<<<<< HEAD
 export interface OAuthSignupDTO {
   email?: string
   name?: string
@@ -10502,6 +12219,9 @@ export interface SignupDTO {
   module?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
 }
 
+=======
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface JsonNode {
 <<<<<<< HEAD
 =======
@@ -10537,6 +12257,9 @@ export interface PartialSchemaDTO {
 }
 
 export interface ResponsePartialSchemaDTO {
+=======
+export interface ResponseJiraIssueCreateMetadataNG {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PartialSchemaDTO
   metaData?: { [key: string]: any }
@@ -10550,9 +12273,21 @@ export interface ResponseJsonNode {
   correlationId?: string
 }
 
+<<<<<<< HEAD
 export interface ResponseYamlSnippets {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: YamlSnippets
+=======
+export interface JiraProjectBasicNG {
+  id: string
+  key: string
+  name: string
+}
+
+export interface ResponseListJiraProjectBasicNG {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: JiraProjectBasicNG[]
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -10899,10 +12634,26 @@ export interface ValidatePipelineQueryParams {
   pipelineIdentifier?: string
 }
 
+<<<<<<< HEAD
 export type ValidatePipelineProps = Omit<
   GetProps<ResponseNGPipelineValidationInfo, Failure | Error, ValidatePipelineQueryParams, void>,
   'path'
 >
+=======
+export interface PageNGPipelineSummaryResponse {
+  totalElements?: number
+  totalPages?: number
+  size?: number
+  content?: NGPipelineSummaryResponse[]
+  number?: number
+  last?: boolean
+  numberOfElements?: number
+  first?: boolean
+  sort?: Sort
+  pageable?: Pageable
+  empty?: boolean
+}
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 /**
  * Validate a Pipeline
@@ -11648,8 +13399,33 @@ export interface UpdateConnectorQueryParams {
   projectIdentifier?: string
 }
 
+<<<<<<< HEAD
 export interface UpdateConnectorPathParams {
   identifier: string
+=======
+export interface JsonNode {
+  array?: boolean
+  null?: boolean
+  containerNode?: boolean
+  valueNode?: boolean
+  missingNode?: boolean
+  object?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  pojo?: boolean
+  number?: boolean
+  integralNumber?: boolean
+  floatingPointNumber?: boolean
+  short?: boolean
+  int?: boolean
+  long?: boolean
+  float?: boolean
+  double?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  textual?: boolean
+  boolean?: boolean
+  binary?: boolean
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 }
 
 export type UpdateConnectorProps = Omit<
@@ -11993,8 +13769,20 @@ export interface UpdateConnectorQueryParams {
   lastObjectId?: string
 }
 
+<<<<<<< HEAD
 export type UpdateConnectorProps = Omit<
   MutateProps<ResponseConnectorResponse, Failure | Error, UpdateConnectorQueryParams, ConnectorRequestBody, void>,
+=======
+<<<<<<< HEAD
+export type GetConnectorListV2Props = Omit<
+  MutateProps<
+    ResponsePageConnectorResponse,
+    Failure | Error,
+    GetConnectorListV2QueryParams,
+    ConnectorFilterProperties,
+    void
+  >,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path' | 'verb'
 >
 
@@ -12009,6 +13797,11 @@ export const UpdateConnector = (props: UpdateConnectorProps) => (
     {...props}
   />
 )
+=======
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+
+export type SecretRequestWrapper2RequestBody = void
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export type UseUpdateConnectorProps = Omit<
   UseMutateProps<ResponseConnectorResponse, Failure | Error, UpdateConnectorQueryParams, ConnectorRequestBody, void>,
@@ -12199,6 +13992,7 @@ export const getConnectorCataloguePromise = (
   )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface GetConnectorListV2QueryParams {
   pageIndex?: number
   pageSize?: number
@@ -12212,6 +14006,58 @@ export interface ValidateTheIdentifierIsUniqueQueryParams {
 
 export type ValidateTheIdentifierIsUniqueProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+=======
+export interface GetProvisionerExecutionStrategyYamlQueryParams {
+  provisionerType: 'TERRAFORM' | 'CLOUD_FORMATION' | 'AZURE_ARM' | 'SHELL_SCRIPT'
+}
+
+export type GetProvisionerExecutionStrategyYamlProps = Omit<
+  GetProps<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Yaml for Execution Strategy based on Provisioner Type
+ */
+export const GetProvisionerExecutionStrategyYaml = (props: GetProvisionerExecutionStrategyYamlProps) => (
+  <Get<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>
+    path="/pipelines/configuration/strategies/provisioner-yaml-snippets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetProvisionerExecutionStrategyYamlProps = Omit<
+  UseGetProps<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Yaml for Execution Strategy based on Provisioner Type
+ */
+export const useGetProvisionerExecutionStrategyYaml = (props: UseGetProvisionerExecutionStrategyYamlProps) =>
+  useGet<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>(
+    `/pipelines/configuration/strategies/provisioner-yaml-snippets`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Yaml for Execution Strategy based on Provisioner Type
+ */
+export const getProvisionerExecutionStrategyYamlPromise = (
+  props: GetUsingFetchProps<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseString, Failure | Error, GetProvisionerExecutionStrategyYamlQueryParams, void>(
+    getConfig('ng/api'),
+    `/pipelines/configuration/strategies/provisioner-yaml-snippets`,
+    props,
+    signal
+  )
+
+export type GetExecutionStrategyListProps = Omit<
+  GetProps<ResponseMapServiceDefinitionTypeListExecutionStrategyType, Failure | Error, void, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
@@ -12467,6 +14313,7 @@ export const getConnectorStatisticsPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export interface ListConnectorByFQNQueryParams {
   accountIdentifier?: string
 }
@@ -12563,8 +14410,17 @@ export interface ValidateTheIdentifierIsUniqueQueryParams {
   accountIdentifier?: string
 }
 
+<<<<<<< HEAD
 export type GetConnectorCatalogueProps = Omit<
   GetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
+=======
+export type ValidateTheIdentifierIsUniqueProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+=======
+export type GetServiceDefinitionTypesProps = Omit<
+  GetProps<ResponseListServiceDefinitionType, Failure | Error, void, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
@@ -13381,8 +15237,15 @@ export const getListOfBranchesByGitConfigPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export interface GetListOfBranchesByConnectorQueryParams {
   identifier?: string
+=======
+<<<<<<< HEAD
+export interface ListGitSyncEntitiesSummaryForRepoAndTypesQueryParams {
+  projectIdentifier?: string
+  orgIdentifier?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -13426,6 +15289,7 @@ export const getListOfBranchesByConnectorPromise = (
   props: GetUsingFetchProps<ResponseListString, unknown, GetListOfBranchesByConnectorQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
+<<<<<<< HEAD
   getUsingFetch<ResponseListString, unknown, GetListOfBranchesByConnectorQueryParams, void>(
     getConfig('ng/api'),
     `/git-sync-branch/listBranchesByConnector`,
@@ -13433,6 +15297,256 @@ export const getListOfBranchesByConnectorPromise = (
     signal
   )
 
+=======
+  mutateUsingFetch<
+    ResponseGitSyncRepoFilesList,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndTypesQueryParams,
+    GitEntityFilterProperties,
+    void
+  >('POST', getConfig('ng/api'), `/git-sync-entities/summary`, props, signal)
+
+export interface ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams {
+  projectIdentifier?: string
+  orgIdentifier?: string
+  accountIdentifier?: string
+  size?: number
+  gitSyncConfigId?: string
+}
+
+export interface ListGitSyncEntitiesSummaryForRepoAndBranchPathParams {
+  branch: string
+}
+
+export type ListGitSyncEntitiesSummaryForRepoAndBranchProps = Omit<
+  MutateProps<
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+=======
+export interface GetTestConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+/**
+ * List Git Sync Entity by product for Repo and Branch and List of Entities
+ */
+<<<<<<< HEAD
+export const ListGitSyncEntitiesSummaryForRepoAndBranch = ({
+  branch,
+  ...props
+}: ListGitSyncEntitiesSummaryForRepoAndBranchProps) => (
+  <Mutate<
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  >
+    verb="POST"
+    path="/git-sync-entities/branch/${branch}"
+=======
+export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testConnection/${identifier}"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+<<<<<<< HEAD
+export type UseListGitSyncEntitiesSummaryForRepoAndBranchProps = Omit<
+  UseMutateProps<
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+=======
+export type UseGetTestConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+/**
+ * List Git Sync Entity by product for Repo and Branch and List of Entities
+ */
+<<<<<<< HEAD
+export const useListGitSyncEntitiesSummaryForRepoAndBranch = ({
+  branch,
+  ...props
+}: UseListGitSyncEntitiesSummaryForRepoAndBranchProps) =>
+  useMutate<
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  >(
+    'POST',
+    (paramsInPath: ListGitSyncEntitiesSummaryForRepoAndBranchPathParams) =>
+      `/git-sync-entities/branch/${paramsInPath.branch}`,
+    { base: getConfig('ng/api'), pathParams: { branch }, ...props }
+=======
+export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  )
+
+/**
+ * List Git Sync Entity by product for Repo and Branch and List of Entities
+ */
+<<<<<<< HEAD
+export const listGitSyncEntitiesSummaryForRepoAndBranchPromise = (
+=======
+export const getTestConnectionResultPromise = (
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  {
+    branch,
+    ...props
+  }: MutateUsingFetchProps<
+<<<<<<< HEAD
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  > & { branch: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListGitSyncEntityListDTO,
+    unknown,
+    ListGitSyncEntitiesSummaryForRepoAndBranchQueryParams,
+    GitEntityBranchFilterSummaryProperties,
+    ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
+  >('POST', getConfig('ng/api'), `/git-sync-entities/branch/${branch}`, props, signal)
+=======
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
+
+export interface GetConnectorCatalogueQueryParams {
+  accountIdentifier?: string
+}
+
+export type GetConnectorCatalogueProps = Omit<
+  GetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Connector Catalogue
+ */
+export const GetConnectorCatalogue = (props: GetConnectorCatalogueProps) => (
+  <Get<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>
+    path="/connectors/catalogue"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetConnectorCatalogueProps = Omit<
+  UseGetProps<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Connector Catalogue
+ */
+export const useGetConnectorCatalogue = (props: UseGetConnectorCatalogueProps) =>
+  useGet<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
+    `/connectors/catalogue`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Connector Catalogue
+ */
+export const getConnectorCataloguePromise = (
+  props: GetUsingFetchProps<
+    ResponseConnectorCatalogueResponse,
+    Failure | Error,
+    GetConnectorCatalogueQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseConnectorCatalogueResponse, Failure | Error, GetConnectorCatalogueQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/catalogue`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface ListGitSyncEntitiesByTypeQueryParams {
   projectIdentifier?: string
   orgIdentifier?: string
@@ -13689,12 +15803,105 @@ export const ListGitSyncEntitiesSummaryForRepoAndTypes = (props: ListGitSyncEnti
     void
   >
     verb="POST"
+<<<<<<< HEAD
     path="/git-sync-entities/summary"
+=======
+    path="/git-sync"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+export type UsePostGitSyncProps = Omit<
+  UseMutateProps<GitSyncConfig, unknown, PostGitSyncQueryParams, GitSyncConfigRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Git Sync
+ */
+export const usePostGitSync = (props: UsePostGitSyncProps) =>
+  useMutate<GitSyncConfig, unknown, PostGitSyncQueryParams, GitSyncConfigRequestBody, void>('POST', `/git-sync`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a Git Sync
+ */
+export const postGitSyncPromise = (
+  props: MutateUsingFetchProps<GitSyncConfig, unknown, PostGitSyncQueryParams, GitSyncConfigRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<GitSyncConfig, unknown, PostGitSyncQueryParams, GitSyncConfigRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/git-sync`,
+    props,
+    signal
+  )
+
+<<<<<<< HEAD
+export interface PutGitSyncQueryParams {
+  accountIdentifier?: string
+}
+
+export type PutGitSyncProps = Omit<
+  MutateProps<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>,
+  'path' | 'verb'
+>
+=======
+export interface GetTestGitRepoConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  repoURL?: string
+}
+
+export interface GetTestGitRepoConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestGitRepoConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestGitRepoConnectionResultPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+/**
+ * Update Git Sync by id
+ */
+<<<<<<< HEAD
+export const PutGitSync = (props: PutGitSyncProps) => (
+  <Mutate<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>
+    verb="PUT"
+    path="/git-sync"
+=======
+export const GetTestGitRepoConnectionResult = ({ identifier, ...props }: GetTestGitRepoConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testGitRepoConnection/${identifier}"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+<<<<<<< HEAD
 export type UseListGitSyncEntitiesSummaryForRepoAndTypesProps = Omit<
   UseMutateProps<
     ResponseGitSyncRepoFilesList,
@@ -13703,10 +15910,29 @@ export type UseListGitSyncEntitiesSummaryForRepoAndTypesProps = Omit<
     GitEntityFilterProperties,
     void
   >,
+=======
+<<<<<<< HEAD
+export type UsePutGitSyncProps = Omit<
+  UseMutateProps<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path' | 'verb'
 >
+=======
+export type UseGetTestGitRepoConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestGitRepoConnectionResultPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 /**
+<<<<<<< HEAD
  * List Git Sync Entity by product for List of Repos and Entities
  */
 export const useListGitSyncEntitiesSummaryForRepoAndTypes = (
@@ -13781,11 +16007,90 @@ export const ListGitSyncEntitiesSummaryForRepoAndBranch = ({
   >
     verb="POST"
     path="/git-sync-entities/branch/${branch}"
+=======
+ * Update Git Sync by id
+ */
+<<<<<<< HEAD
+export const usePutGitSync = (props: UsePutGitSyncProps) =>
+  useMutate<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>('PUT', `/git-sync`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+=======
+export const useGetTestGitRepoConnectionResult = ({ identifier, ...props }: UseGetTestGitRepoConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestGitRepoConnectionResultPathParams) =>
+      `/connectors/testGitRepoConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+/**
+ * Update Git Sync by id
+ */
+<<<<<<< HEAD
+export const putGitSyncPromise = (
+  props: MutateUsingFetchProps<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<GitSyncConfig, unknown, PutGitSyncQueryParams, GitSyncConfigRequestBody, void>(
+    'PUT',
+    getConfig('ng/api'),
+    `/git-sync`,
+=======
+export const getTestGitRepoConnectionResultPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestGitRepoConnectionResultQueryParams,
+    void,
+    GetTestGitRepoConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testGitRepoConnection/${identifier}`, props, signal)
+
+export interface ValidateTheIdentifierIsUniqueQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+}
+
+export type ValidateTheIdentifierIsUniqueProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Identifier is unique
+ */
+export const ValidateTheIdentifierIsUnique = (props: ValidateTheIdentifierIsUniqueProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>
+    path="/connectors/validateUniqueIdentifier"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseListGitSyncEntitiesSummaryForRepoAndBranchProps = Omit<
   UseMutateProps<
     ResponseListGitSyncEntityListDTO,
@@ -13841,6 +16146,36 @@ export const listGitSyncEntitiesSummaryForRepoAndBranchPromise = (
     GitEntityBranchFilterSummaryProperties,
     ListGitSyncEntitiesSummaryForRepoAndBranchPathParams
   >('POST', getConfig('ng/api'), `/git-sync-entities/branch/${branch}`, props, signal)
+=======
+export type UseValidateTheIdentifierIsUniqueProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Identifier is unique
+ */
+export const useValidateTheIdentifierIsUnique = (props: UseValidateTheIdentifierIsUniqueProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
+    `/connectors/validateUniqueIdentifier`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate Identifier is unique
+ */
+export const validateTheIdentifierIsUniquePromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>(
+    getConfig('ng/api'),
+    `/connectors/validateUniqueIdentifier`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface PutGitSyncDefaultQueryParams {
   projectId?: string
@@ -15496,9 +17831,25 @@ export const validateArtifactImageForEcrPromise = (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface GetLabelsForDockerQueryParams {
   imagePath?: string
   connectorRef?: string
+=======
+<<<<<<< HEAD
+export interface ValidateArtifactServerForEcrQueryParams {
+=======
+export interface ValidateArtifactForEcrQueryParams {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  imagePath: string
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+export interface ValidateArtifactServerForEcrQueryParams {
+  imagePath: string
+  connectorRef: string
+  region: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -15656,9 +18007,21 @@ export interface ValidateArtifactForGcrQueryParams {
   registryHostname: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   connectorRef: string
+<<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   region: string
   connectorRef: string
+=======
+<<<<<<< HEAD
+  region: string
+=======
+=======
+export interface GetLabelsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -15899,36 +18262,59 @@ export const getLastSuccessfulBuildForGcrPromise = (
   >('POST', getConfig('ng/api'), `/artifacts/ecr/getLastSuccessfulBuild`, props, signal)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface ValidateArtifactServerForEcrQueryParams {
   imagePath: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
 export interface ValidateArtifactImageForEcrQueryParams {
   imagePath: string
   region: string
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface GetBuildDetailsForGcrQueryParams {
   imagePath: string
   registryHostname: string
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   connectorRef: string
+<<<<<<< HEAD
   region: string
+=======
+=======
+export interface ValidateArtifactForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type ValidateArtifactServerForEcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForEcrQueryParams, void>,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
 export type ValidateArtifactImageForEcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>,
 =======
 export type GetBuildDetailsForGcrProps = Omit<
   GetProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>,
+=======
+export type GetBuildDetailsForGcrProps = Omit<
+  GetProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>,
+=======
+export type ValidateArtifactForDockerProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
@@ -15936,12 +18322,15 @@ export type GetBuildDetailsForGcrProps = Omit<
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Validate ecr artifact server
  */
 export const ValidateArtifactServerForEcr = (props: ValidateArtifactServerForEcrProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForEcrQueryParams, void>
     path="/artifacts/ecr/validateArtifactServer"
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
  * Validate Ecr image
  */
@@ -15949,11 +18338,22 @@ export const ValidateArtifactImageForEcr = (props: ValidateArtifactImageForEcrPr
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>
     path="/artifacts/ecr/validateArtifactSource"
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  * Gets gcr build details
  */
 export const GetBuildDetailsForGcr = (props: GetBuildDetailsForGcrProps) => (
   <Get<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>
     path="/artifacts/gcr/getBuildDetails"
+<<<<<<< HEAD
+=======
+=======
+ * Validate docker artifact with tag/tagregx if given
+ */
+export const ValidateArtifactForDocker = (props: ValidateArtifactForDockerProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>
+    path="/artifacts/docker/validateArtifact"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
@@ -15962,15 +18362,25 @@ export const GetBuildDetailsForGcr = (props: GetBuildDetailsForGcrProps) => (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type UseValidateArtifactServerForEcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForEcrQueryParams, void>,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
 export type UseValidateArtifactImageForEcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>,
 =======
 export type UseGetBuildDetailsForGcrProps = Omit<
   UseGetProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>,
+=======
+export type UseGetBuildDetailsForGcrProps = Omit<
+  UseGetProps<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>,
+=======
+export type UseValidateArtifactForDockerProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
@@ -15978,12 +18388,15 @@ export type UseGetBuildDetailsForGcrProps = Omit<
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Validate ecr artifact server
  */
 export const useValidateArtifactServerForEcr = (props: UseValidateArtifactServerForEcrProps) =>
   useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForEcrQueryParams, void>(
     `/artifacts/ecr/validateArtifactServer`,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
  * Validate Ecr image
  */
@@ -15991,11 +18404,22 @@ export const useValidateArtifactImageForEcr = (props: UseValidateArtifactImageFo
   useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>(
     `/artifacts/ecr/validateArtifactSource`,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  * Gets gcr build details
  */
 export const useGetBuildDetailsForGcr = (props: UseGetBuildDetailsForGcrProps) =>
   useGet<ResponseGcrResponseDTO, Failure | Error, GetBuildDetailsForGcrQueryParams, void>(
     `/artifacts/gcr/getBuildDetails`,
+<<<<<<< HEAD
+=======
+=======
+ * Validate docker artifact with tag/tagregx if given
+ */
+export const useValidateArtifactForDocker = (props: UseValidateArtifactForDockerProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>(
+    `/artifacts/docker/validateArtifact`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     { base: getConfig('ng/api'), ...props }
@@ -16003,8 +18427,11 @@ export const useGetBuildDetailsForGcr = (props: UseGetBuildDetailsForGcrProps) =
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Validate ecr artifact server
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
  * Validate Ecr image
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -16020,6 +18447,8 @@ export const validateArtifactServerForEcrPromise = (
 =======
     `/artifacts/ecr/validateArtifactSource`,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  * Gets gcr build details
  */
 export const getBuildDetailsForGcrPromise = (
@@ -16042,42 +18471,87 @@ export interface ValidateArtifactServerForGcrQueryParams {
   imagePath: string
   connectorRef: string
   registryHostname: string
+=======
+ * Validate docker artifact with tag/tagregx if given
+ */
+export const validateArtifactForDockerPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/validateArtifact`,
+    props,
+    signal
+  )
+
+export interface GetBuildDetailsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
 }
 
+<<<<<<< HEAD
 export type ValidateArtifactServerForGcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+=======
+export type GetBuildDetailsForDockerProps = Omit<
+  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const ValidateArtifactServerForGcr = (props: ValidateArtifactServerForGcrProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>
     path="/artifacts/gcr/validateArtifactServer"
+=======
+ * Gets docker build details
+ */
+export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
+  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
+    path="/artifacts/docker/getBuildDetails"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseValidateArtifactServerForGcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+=======
+export type UseGetBuildDetailsForDockerProps = Omit<
+  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
   useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
     `/artifacts/gcr/validateArtifactServer`,
+=======
+ * Gets docker build details
+ */
+export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
+  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    `/artifacts/docker/getBuildDetails`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     { base: getConfig('ng/api'), ...props }
   )
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const validateArtifactServerForGcrPromise = (
@@ -16087,6 +18561,17 @@ export const validateArtifactServerForGcrPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/gcr/validateArtifactServer`,
+=======
+ * Gets docker build details
+ */
+export const getBuildDetailsForDockerPromise = (
+  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/getBuildDetails`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     props,
     signal
   )
@@ -16146,8 +18631,11 @@ export const validateArtifactImageForGcrPromise = (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface ValidateArtifactImageForGcrQueryParams {
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -16158,12 +18646,27 @@ export interface ValidateArtifactForGcrQueryParams {
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface ValidateArtifactImageForGcrQueryParams {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   imagePath: string
+<<<<<<< HEAD
   registryHostname: string
   connectorRef: string
+=======
+  connectorRef: string
+<<<<<<< HEAD
+  registryHostname: string
+=======
+=======
+export interface ValidateArtifactImageForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -16171,9 +18674,12 @@ export interface ValidateArtifactImageForGcrQueryParams {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type ValidateArtifactImageForGcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -16188,6 +18694,13 @@ export type ValidateArtifactForGcrProps = Omit<
 =======
 export type ValidateArtifactImageForGcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+export type ValidateArtifactImageForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+export type ValidateArtifactImageForDockerProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
@@ -16196,12 +18709,15 @@ export type ValidateArtifactImageForGcrProps = Omit<
 /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Validate Gcr image
  */
 export const ValidateArtifactImageForGcr = (props: ValidateArtifactImageForGcrProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>
     path="/artifacts/gcr/validateArtifactSource"
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -16220,11 +18736,22 @@ export const ValidateArtifactForGcr = (props: ValidateArtifactForGcrProps) => (
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  * Validate Gcr image
  */
 export const ValidateArtifactImageForGcr = (props: ValidateArtifactImageForGcrProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>
     path="/artifacts/gcr/validateArtifactSource"
+<<<<<<< HEAD
+=======
+=======
+ * Validate docker image
+ */
+export const ValidateArtifactImageForDocker = (props: ValidateArtifactImageForDockerProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>
+    path="/artifacts/docker/validateArtifactSource"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
@@ -16234,9 +18761,12 @@ export const ValidateArtifactImageForGcr = (props: ValidateArtifactImageForGcrPr
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type UseValidateArtifactImageForGcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -16251,6 +18781,13 @@ export type UseValidateArtifactForGcrProps = Omit<
 =======
 export type UseValidateArtifactImageForGcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+export type UseValidateArtifactImageForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+export type UseValidateArtifactImageForDockerProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
@@ -16259,8 +18796,11 @@ export type UseValidateArtifactImageForGcrProps = Omit<
 /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Validate Gcr image
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
@@ -16289,16 +18829,26 @@ export const validateArtifactImageForGcrPromise = (
 =======
  * Validate Gcr Artifact
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  * Validate Gcr image
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  */
 export const useValidateArtifactImageForGcr = (props: UseValidateArtifactImageForGcrProps) =>
   useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
     `/artifacts/gcr/validateArtifactSource`,
+=======
+ * Validate docker image
+ */
+export const useValidateArtifactImageForDocker = (props: UseValidateArtifactImageForDockerProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
+    `/artifacts/docker/validateArtifactSource`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     { base: getConfig('ng/api'), ...props }
   )
 
 /**
+<<<<<<< HEAD
  * Validate Gcr image
  */
 export const validateArtifactImageForGcrPromise = (
@@ -16314,6 +18864,19 @@ export const validateArtifactImageForGcrPromise = (
 =======
 =======
     `/artifacts/gcr/validateArtifactSource`,
+<<<<<<< HEAD
+=======
+=======
+ * Validate docker image
+ */
+export const validateArtifactImageForDockerPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/validateArtifactSource`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     props,
@@ -16413,13 +18976,54 @@ export const getLastSuccessfulBuildForGcrPromise = (
     GcrRequestDTORequestBody,
     void
   >,
+<<<<<<< HEAD
 =======
 export type UseValidateArtifactServerForGcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+=======
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseEcrBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForEcrQueryParams,
+    EcrRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/ecr/getLastSuccessfulBuild`, props, signal)
+
+export interface ValidateArtifactForEcrQueryParams {
+  imagePath: string
+  region: string
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactForEcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
   'path'
 >
 
 /**
+ * Validate Ecr Artifact
+ */
+export const ValidateArtifactForEcr = (props: ValidateArtifactForEcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>
+    path="/artifacts/ecr/validateArtifact"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactForEcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  'path'
+>
+
+/**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
@@ -16439,13 +19043,36 @@ export const validateArtifactServerForGcrPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/gcr/validateArtifactServer`,
+=======
+ * Validate Ecr Artifact
+ */
+export const useValidateArtifactForEcr = (props: UseValidateArtifactForEcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>(`/artifacts/ecr/validateArtifact`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Validate Ecr Artifact
+ */
+export const validateArtifactForEcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/ecr/validateArtifact`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     props,
     signal
   )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface ValidateArtifactServerForGcrQueryParams {
 =======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 <<<<<<< HEAD
 export interface ValidateArtifactImageForGcrQueryParams {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -16457,38 +19084,140 @@ export interface ValidateArtifactImageForGcrQueryParams {
   projectIdentifier: string
 }
 
+<<<<<<< HEAD
 export type ValidateArtifactServerForGcrProps = Omit<
   GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+=======
+export type ValidateArtifactImageForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+export interface ListDelegateProfilesNgQueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  accountId?: string
+}
+
+export type ListDelegateProfilesNgProps = Omit<
+  GetProps<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>,
+=======
+export interface GetBuildDetailsForEcrQueryParams {
+  imagePath: string
+  region: string
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetBuildDetailsForEcrProps = Omit<
+  GetProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const ValidateArtifactServerForGcr = (props: ValidateArtifactServerForGcrProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>
     path="/artifacts/gcr/validateArtifactServer"
+=======
+<<<<<<< HEAD
+ * Validate Gcr image
+ */
+export const ValidateArtifactImageForGcr = (props: ValidateArtifactImageForGcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>
+    path="/artifacts/gcr/validateArtifactSource"
+=======
+<<<<<<< HEAD
+ * Lists the delegate profiles
+ */
+export const ListDelegateProfilesNg = (props: ListDelegateProfilesNgProps) => (
+  <Get<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>
+    path="/delegate-profiles/ng"
+=======
+ * Gets ecr build details
+ */
+export const GetBuildDetailsForEcr = (props: GetBuildDetailsForEcrProps) => (
+  <Get<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>
+    path="/artifacts/ecr/getBuildDetails"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseValidateArtifactServerForGcrProps = Omit<
   UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+=======
+<<<<<<< HEAD
+export type UseValidateArtifactImageForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+=======
+<<<<<<< HEAD
+export type UseListDelegateProfilesNgProps = Omit<
+  UseGetProps<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>,
+=======
+export type UseGetBuildDetailsForEcrProps = Omit<
+  UseGetProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
  */
 export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
   useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
     `/artifacts/gcr/validateArtifactServer`,
+=======
+<<<<<<< HEAD
+ * Validate Gcr image
+ */
+export const useValidateArtifactImageForGcr = (props: UseValidateArtifactImageForGcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
+    `/artifacts/gcr/validateArtifactSource`,
+=======
+<<<<<<< HEAD
+ * Lists the delegate profiles
+ */
+export const useListDelegateProfilesNg = (props: UseListDelegateProfilesNgProps) =>
+  useGet<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>(
+    `/delegate-profiles/ng`,
+=======
+ * Gets ecr build details
+ */
+export const useGetBuildDetailsForEcr = (props: UseGetBuildDetailsForEcrProps) =>
+  useGet<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>(
+    `/artifacts/ecr/getBuildDetails`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     { base: getConfig('ng/api'), ...props }
   )
 
 /**
+<<<<<<< HEAD
  * Validate gcr artifact server
+=======
+<<<<<<< HEAD
+ * Validate Gcr image
+=======
+<<<<<<< HEAD
+ * Lists the delegate profiles
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  */
 export const validateArtifactServerForGcrPromise = (
   props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
@@ -16496,7 +19225,26 @@ export const validateArtifactServerForGcrPromise = (
 ) =>
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
     getConfig('ng/api'),
+<<<<<<< HEAD
     `/artifacts/gcr/validateArtifactServer`,
+=======
+<<<<<<< HEAD
+    `/artifacts/gcr/validateArtifactSource`,
+=======
+    `/delegate-profiles/ng`,
+=======
+ * Gets ecr build details
+ */
+export const getBuildDetailsForEcrPromise = (
+  props: GetUsingFetchProps<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseEcrResponseDTO, Failure | Error, GetBuildDetailsForEcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/ecr/getBuildDetails`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     props,
     signal
   )
@@ -16690,6 +19438,7 @@ export const addDelegateProfileNgPromise = (
     void
   >('POST', getConfig('ng/api'), `/delegate-profiles/ng`, props, signal)
 
+<<<<<<< HEAD
 export interface GetDelegateProfileNgQueryParams {
   accountId?: string
 }
@@ -16705,21 +19454,43 @@ export type GetDelegateProfileNgProps = Omit<
     GetDelegateProfileNgQueryParams,
     GetDelegateProfileNgPathParams
   >,
+=======
+export interface ValidateArtifactImageForEcrQueryParams {
+  imagePath: string
+  region: string
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactImageForEcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 > &
   GetDelegateProfileNgPathParams
 
 /**
+<<<<<<< HEAD
  * Gets delegate profile
  */
 export const GetDelegateProfileNg = ({ delegateProfileId, ...props }: GetDelegateProfileNgProps) => (
   <Get<RestResponseDelegateProfileDetailsNg, unknown, GetDelegateProfileNgQueryParams, GetDelegateProfileNgPathParams>
     path="/delegate-profiles/ng/${delegateProfileId}"
+=======
+ * Validate Ecr image
+ */
+export const ValidateArtifactImageForEcr = (props: ValidateArtifactImageForEcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>
+    path="/artifacts/ecr/validateArtifactSource"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseGetDelegateProfileNgProps = Omit<
   UseGetProps<
     RestResponseDelegateProfileDetailsNg,
@@ -16727,11 +19498,16 @@ export type UseGetDelegateProfileNgProps = Omit<
     GetDelegateProfileNgQueryParams,
     GetDelegateProfileNgPathParams
   >,
+=======
+export type UseValidateArtifactImageForEcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 > &
   GetDelegateProfileNgPathParams
 
 /**
+<<<<<<< HEAD
  * Gets delegate profile
  */
 export const useGetDelegateProfileNg = ({ delegateProfileId, ...props }: UseGetDelegateProfileNgProps) =>
@@ -16767,6 +19543,29 @@ export const getDelegateProfileNgPromise = (
     GetDelegateProfileNgQueryParams,
     GetDelegateProfileNgPathParams
   >(getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}`, props, signal)
+=======
+ * Validate Ecr image
+ */
+export const useValidateArtifactImageForEcr = (props: UseValidateArtifactImageForEcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>(
+    `/artifacts/ecr/validateArtifactSource`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate Ecr image
+ */
+export const validateArtifactImageForEcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForEcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/ecr/validateArtifactSource`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface UpdateDelegateProfileNgQueryParams {
   accountId?: string
@@ -16851,12 +19650,74 @@ export const updateDelegateProfileNgPromise = (
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
+<<<<<<< HEAD
     RestResponseDelegateProfileDetailsNg,
     unknown,
     UpdateDelegateProfileNgQueryParams,
     DelegateProfileDetailsNgRequestBody,
     UpdateDelegateProfileNgPathParams
   >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}`, props, signal)
+=======
+    ResponseGcrBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForGcrQueryParams,
+    GcrRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/gcr/getLastSuccessfulBuild`, props, signal)
+
+export interface ValidateArtifactForGcrQueryParams {
+  imagePath: string
+  registryHostname: string
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Gcr Artifact
+ */
+export const ValidateArtifactForGcr = (props: ValidateArtifactForGcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>
+    path="/artifacts/gcr/validateArtifact"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Gcr Artifact
+ */
+export const useValidateArtifactForGcr = (props: UseValidateArtifactForGcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>(`/artifacts/gcr/validateArtifact`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Validate Gcr Artifact
+ */
+export const validateArtifactForGcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/gcr/validateArtifact`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface DeleteDelegateProfileNgQueryParams {
   accountId?: string
@@ -16909,6 +19770,7 @@ export const deleteDelegateProfileNgPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export interface UpdateScopingRulesNgQueryParams {
   accountId?: string
 }
@@ -16942,11 +19804,34 @@ export const UpdateScopingRulesNg = ({ delegateProfileId, ...props }: UpdateScop
   >
     verb="PUT"
     path="/delegate-profiles/ng/${delegateProfileId}/scoping-rules"
+=======
+export interface ValidateArtifactServerForGcrQueryParams {
+  imagePath: string
+  connectorRef: string
+  registryHostname: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactServerForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate gcr artifact server
+ */
+export const ValidateArtifactServerForGcr = (props: ValidateArtifactServerForGcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>
+    path="/artifacts/gcr/validateArtifactServer"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseUpdateScopingRulesNgProps = Omit<
   UseMutateProps<
     RestResponseDelegateProfileDetailsNg,
@@ -17033,11 +19918,62 @@ export const UpdateSelectorsNg = ({ delegateProfileId, ...props }: UpdateSelecto
   >
     verb="PUT"
     path="/delegate-profiles/ng/${delegateProfileId}/selectors"
+=======
+export type UseValidateArtifactServerForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate gcr artifact server
+ */
+export const useValidateArtifactServerForGcr = (props: UseValidateArtifactServerForGcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
+    `/artifacts/gcr/validateArtifactServer`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate gcr artifact server
+ */
+export const validateArtifactServerForGcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForGcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/gcr/validateArtifactServer`,
+    props,
+    signal
+  )
+
+export interface ValidateArtifactImageForGcrQueryParams {
+  imagePath: string
+  registryHostname: string
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactImageForGcrProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Gcr image
+ */
+export const ValidateArtifactImageForGcr = (props: ValidateArtifactImageForGcrProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>
+    path="/artifacts/gcr/validateArtifactSource"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseUpdateSelectorsNgProps = Omit<
   UseMutateProps<
     RestResponseDelegateProfileDetailsNg,
@@ -17089,6 +20025,35 @@ export const updateSelectorsNgPromise = (
     string[],
     UpdateSelectorsNgPathParams
   >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/selectors`, props, signal)
+=======
+export type UseValidateArtifactImageForGcrProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate Gcr image
+ */
+export const useValidateArtifactImageForGcr = (props: UseValidateArtifactImageForGcrProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
+    `/artifacts/gcr/validateArtifactSource`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate Gcr image
+ */
+export const validateArtifactImageForGcrPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/gcr/validateArtifactSource`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface SyncTaskD2QueryParams {
   accountId?: string
@@ -19979,6 +22944,7 @@ export const listSecretsPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export type PostSecretTextProps = Omit<
   MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
   'path' | 'verb'
@@ -20030,6 +22996,11 @@ export type PostSecretTextViaYamlProps = Omit<
 <<<<<<< HEAD
   'path' | 'verb'
 >
+=======
+export interface PutSecretFileViaYamlPathParams {
+  identifier: string
+}
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 /**
  * Create a secret text via yaml
@@ -20083,7 +23054,58 @@ export const postSecretTextViaYamlPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export interface PutSecretViaYamlQueryParams {
+=======
+export type PostSecretFileViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>
+    verb="POST"
+    path="/secrets/files/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretFileViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    `/secrets/files/yaml`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create a secret file via yaml
+ */
+export const postSecretFileViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/files/yaml`,
+    props,
+    signal
+  )
+
+export interface GetMetadataQueryParams {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -20174,6 +23196,7 @@ export const postSecretTextViaYamlPromise = (
   props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
+<<<<<<< HEAD
   mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
     'POST',
     getConfig('ng/api'),
@@ -20211,6 +23234,15 @@ export const putSecretViaYamlPromise = (
     SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
+=======
+  mutateUsingFetch<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >('POST', getConfig('ng/api'), `/secret-managers/meta-data`, props, signal)
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface PutSecretFileV2QueryParams {
   accountIdentifier: string
@@ -20442,6 +23474,7 @@ export const useGetSecretV2 = ({ identifier, ...props }: UseGetSecretV2Props) =>
     { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
+<<<<<<< HEAD
 /**
  * Gets secret
  */
@@ -20690,11 +23723,31 @@ export const PostSecret = (props: PostSecretProps) => (
   <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path="/v2/secrets"
+=======
+export interface PutSecretTextViaYamlPathParams {
+  identifier: string
+}
+
+export type PutSecretTextViaYamlProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextViaYamlPathParams
+
+/**
+ * Update a secret text via yaml
+ */
+export const PutSecretTextViaYaml = ({ identifier, ...props }: PutSecretTextViaYamlProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>
+    verb="PUT"
+    path="/secrets/${identifier}/yaml"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UsePostSecretProps = Omit<
   UseMutateProps<
     ResponseSecretResponseWrapper,
@@ -20754,16 +23807,62 @@ export type ValidateSecretProps = Omit<
     SecretValidationMetaData,
     void
   >,
+=======
+export type UsePutSecretTextViaYamlProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextViaYamlPathParams
+
+/**
+ * Update a secret text via yaml
+ */
+export const usePutSecretTextViaYaml = ({ identifier, ...props }: UsePutSecretTextViaYamlProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
+    'PUT',
+    (paramsInPath: PutSecretTextViaYamlPathParams) => `/secrets/${paramsInPath.identifier}/yaml`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret text via yaml
+ */
+export const putSecretTextViaYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    void,
+    SecretTextDTORequestBody,
+    PutSecretTextViaYamlPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/secrets/${identifier}/yaml`,
+    props,
+    signal
+  )
+
+export type PostSecretTextViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path' | 'verb'
 >
 
 /**
+<<<<<<< HEAD
  * Validate a secret
  */
 export const ValidateSecret = (props: ValidateSecretProps) => (
   <Mutate<ResponseSecretValidationResultDTO, Failure | Error, ValidateSecretQueryParams, SecretValidationMetaData, void>
     verb="POST"
     path="/v2/secrets/validate"
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     base={getConfig('ng/api')}
@@ -20847,12 +23946,22 @@ export const ValidateSecretIdentifierIsUnique = ({ identifier, ...props }: Valid
     ValidateSecretIdentifierIsUniquePathParams
   >
     path="/v2/secrets/validateUniqueIdentifier/${identifier}"
+=======
+=======
+ * Create a secret text via yaml
+ */
+export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>
+    verb="POST"
+    path="/secrets/yaml"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 export type UseValidateSecretProps = Omit<
   UseMutateProps<
     ResponseSecretValidationResultDTO,
@@ -20861,10 +23970,15 @@ export type UseValidateSecretProps = Omit<
     SecretValidationMetaData,
     void
   >,
+=======
+export type UsePostSecretTextViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path' | 'verb'
 >
 
 /**
+<<<<<<< HEAD
  * Validate a secret
  */
 export const useValidateSecret = (props: UseValidateSecretProps) =>
@@ -20896,6 +24010,30 @@ export const validateSecretPromise = (
     SecretValidationMetaData,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/validate`, props, signal)
+=======
+ * Create a secret text via yaml
+ */
+export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>('POST', `/secrets/yaml`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a secret text via yaml
+ */
+export const postSecretTextViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/yaml`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 export interface PostSecretViaYamlQueryParams {
   accountIdentifier: string
@@ -21143,6 +24281,331 @@ export const postSecretViaYamlPromise = (
     SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
+
+export interface PutSecretViaYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface PutSecretViaYamlPathParams {
+  identifier: string
+}
+
+export type PutSecretViaYamlProps = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  >,
+  'path' | 'verb'
+> &
+  PutSecretViaYamlPathParams
+
+/**
+ * Update a secret via yaml
+ */
+export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps) => (
+  <Mutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  >
+    verb="PUT"
+    path="/v2/secrets/${identifier}/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretViaYamlProps = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  >,
+  'path' | 'verb'
+> &
+  PutSecretViaYamlPathParams
+
+/**
+ * Update a secret via yaml
+ */
+export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYamlProps) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+  >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+  >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Update a secret via yaml
+ */
+export const putSecretViaYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+<<<<<<< HEAD
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretViaYamlPathParams
+  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
+=======
+    PutSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretPathParams
+  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
+
+export interface DeleteSecretV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteSecretV2Props = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete secret
+ */
+export const DeleteSecretV2 = (props: DeleteSecretV2Props) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>
+    verb="DELETE"
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteSecretV2Props = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete secret
+ */
+export const useDeleteSecretV2 = (props: UseDeleteSecretV2Props) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>('DELETE', `/v2/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete secret
+ */
+export const deleteSecretV2Promise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/v2/secrets`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+
+export interface PutSecretFileV2QueryParams {
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifiers?: string[]
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+  searchTerm?: string
+  types?: ('SecretFile' | 'SecretText' | 'SSHKey')[]
+  includeSecretsFromEverySubScope?: boolean
+  pageIndex?: number
+  pageSize?: number
+}
+
+export type ListSecretsV2Props = Omit<
+  GetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets
+ */
+export const ListSecretsV2 = (props: ListSecretsV2Props) => (
+  <Get<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSecretsV2Props = Omit<
+  UseGetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets
+ */
+export const useListSecretsV2 = (props: UseListSecretsV2Props) =>
+  useGet<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(`/v2/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+<<<<<<< HEAD
+<<<<<<< HEAD
+ * Update a secret file
+=======
+ * Get secrets
+=======
+ * Get secrets
+ */
+export const listSecretsV2Promise = (
+  props: GetUsingFetchProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(
+    getConfig('ng/api'),
+    `/v2/secrets`,
+    props,
+    signal
+  )
+
+<<<<<<< HEAD
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+export interface PutSecretViaYamlQueryParams {
+=======
+export interface PostSecretQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type PostSecretProps = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret
+ */
+export const PostSecret = (props: PostSecretProps) => (
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+    verb="POST"
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretProps = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret
+ */
+export const usePostSecret = (props: UsePostSecretProps) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a secret
+ */
+export const postSecretPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
 <<<<<<< HEAD
 export interface ValidateSecretIdentifierIsUniqueQueryParams {
@@ -21270,28 +24733,31 @@ export const putSecretViaYamlPromise = (
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
 export interface PutSecretFileV2QueryParams {
-=======
->>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  identifiers?: string[]
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
-  searchTerm?: string
-  types?: ('SecretFile' | 'SecretText' | 'SSHKey')[]
-  includeSecretsFromEverySubScope?: boolean
-  pageIndex?: number
-  pageSize?: number
 }
 
-export type ListSecretsV2Props = Omit<
-  GetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
-  'path'
->
+export interface PutSecretFileV2PathParams {
+  identifier: string
+}
+
+export type PutSecretFileV2Props = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretFileV2PathParams
 
 /**
- * Get secrets
+ * Update a secret file
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export const ValidateSecretIdentifierIsUnique = ({ identifier, ...props }: ValidateSecretIdentifierIsUniqueProps) => (
@@ -21311,11 +24777,18 @@ export const ListSecretsV2 = (props: ListSecretsV2Props) => (
   <Get<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>
     path="/v2/secrets"
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+export const PutSecretFileV2 = ({ identifier, ...props }: PutSecretFileV2Props) => (
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>
+    verb="PUT"
+    path="/v2/secrets/files/${identifier}"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export type UseValidateSecretIdentifierIsUniqueProps = Omit<
   UseGetProps<
@@ -21372,26 +24845,54 @@ export type UseListSecretsV2Props = Omit<
   UseGetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
   'path'
 >
+=======
+export type UsePutSecretFileV2Props = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretFileV2PathParams
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 /**
- * Get secrets
+ * Update a secret file
  */
-export const useListSecretsV2 = (props: UseListSecretsV2Props) =>
-  useGet<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(`/v2/secrets`, {
+export const usePutSecretFileV2 = ({ identifier, ...props }: UsePutSecretFileV2Props) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  >('PUT', (paramsInPath: PutSecretFileV2PathParams) => `/v2/secrets/files/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
+    pathParams: { identifier },
     ...props
   })
 
 /**
-<<<<<<< HEAD
  * Update a secret file
-=======
- * Get secrets
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  */
-export const listSecretsV2Promise = (
-  props: GetUsingFetchProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+export const putSecretFileV2Promise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
+<<<<<<< HEAD
   getUsingFetch<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(
     getConfig('ng/api'),
     `/v2/secrets`,
@@ -21399,77 +24900,62 @@ export const listSecretsV2Promise = (
     signal
   )
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
-
-<<<<<<< HEAD
 =======
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  >('PUT', getConfig('ng/api'), `/v2/secrets/files/${identifier}`, props, signal)
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
-export interface PutSecretViaYamlQueryParams {
-=======
-export interface PostSecretQueryParams {
+
+export interface PostSecretFileV2QueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
 
-export type PostSecretProps = Omit<
-  MutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
+export type PostSecretFileV2Props = Omit<
+  MutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
   'path' | 'verb'
 >
 
 /**
- * Create a secret
+ * Create a secret file
  */
-export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+export const PostSecretFileV2 = (props: PostSecretFileV2Props) => (
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>
     verb="POST"
-    path="/v2/secrets"
+    path="/v2/secrets/files"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UsePostSecretProps = Omit<
-  UseMutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
+export type UsePostSecretFileV2Props = Omit<
+  UseMutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
   'path' | 'verb'
 >
 
 /**
- * Create a secret
+ * Create a secret file
  */
-export const usePostSecret = (props: UsePostSecretProps) =>
-  useMutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
+export const usePostSecretFileV2 = (props: UsePostSecretFileV2Props) =>
+  useMutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
+    'POST',
+    `/v2/secrets/files`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
- * Create a secret
+ * Create a secret file
  */
-export const postSecretPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
+export const postSecretFileV2Promise = (
+  props: MutateUsingFetchProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
+<<<<<<< HEAD
   mutateUsingFetch<
     ResponseSecretResponseWrapper,
     Failure | Error,
@@ -21478,6 +24964,15 @@ export const postSecretPromise = (
     void
 <<<<<<< HEAD
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
+=======
+  mutateUsingFetch<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/v2/secrets/files`,
+    props,
+    signal
+  )
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 <<<<<<< HEAD
 export interface PutSecretViaYamlQueryParams {
@@ -21768,7 +25263,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -21787,7 +25282,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -21807,7 +25302,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -21830,7 +25325,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -21856,7 +25351,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -21865,7 +25360,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
@@ -24424,46 +27919,174 @@ export const getUsersPromise = (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export interface HandleInterruptQueryParams {
 =======
 =======
 export type GetExecutionStatusesProps = Omit<GetProps<ResponseListExecutionStatus, Failure | Error, void, void>, 'path'>
+=======
+export interface GetListOfExecutionsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier: string
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  pipelineIdentifiers?: string[]
+  executionStatuses?: (
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+    | 'Skipped'
+  )[]
+  startTime?: number
+  endTime?: number
+  searchTerm?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export type GetListOfExecutionsProps = Omit<
+  GetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
+  'path'
+>
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 
 /**
- * Gets Execution Status list
+ * Gets Executions list
  */
-export const GetExecutionStatuses = (props: GetExecutionStatusesProps) => (
-  <Get<ResponseListExecutionStatus, Failure | Error, void, void>
-    path="/executions/executionStatus"
+export const GetListOfExecutions = (props: GetListOfExecutionsProps) => (
+  <Get<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>
+    path="/executions"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetExecutionStatusesProps = Omit<
-  UseGetProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+export type UseGetListOfExecutionsProps = Omit<
+  UseGetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
   'path'
 >
 
 /**
- * Gets Execution Status list
+ * Gets Executions list
  */
-export const useGetExecutionStatuses = (props: UseGetExecutionStatusesProps) =>
-  useGet<ResponseListExecutionStatus, Failure | Error, void, void>(`/executions/executionStatus`, {
+export const useGetListOfExecutions = (props: UseGetListOfExecutionsProps) =>
+  useGet<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
+    `/executions`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Executions list
+ */
+export const getListOfExecutionsPromise = (
+  props: GetUsingFetchProps<
+    ResponsePagePipelineExecutionSummaryDTO,
+    Failure | Error,
+    GetListOfExecutionsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
+    getConfig('ng/api'),
+    `/executions`,
+    props,
+    signal
+  )
+
+export type GetDummyCDStageModuleInfoProps = Omit<
+  GetProps<ResponseCDStageModuleInfo, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api
+ */
+export const GetDummyCDStageModuleInfo = (props: GetDummyCDStageModuleInfoProps) => (
+  <Get<ResponseCDStageModuleInfo, Failure | Error, void, void>
+    path="/executions/dummyCDStageModuleInfo"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDummyCDStageModuleInfoProps = Omit<
+  UseGetProps<ResponseCDStageModuleInfo, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api
+ */
+export const useGetDummyCDStageModuleInfo = (props: UseGetDummyCDStageModuleInfoProps) =>
+  useGet<ResponseCDStageModuleInfo, Failure | Error, void, void>(`/executions/dummyCDStageModuleInfo`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 /**
- * Gets Execution Status list
+ * dummy api
  */
-export const getExecutionStatusesPromise = (
-  props: GetUsingFetchProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+export const getDummyCDStageModuleInfoPromise = (
+  props: GetUsingFetchProps<ResponseCDStageModuleInfo, Failure | Error, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListExecutionStatus, Failure | Error, void, void>(
+  getUsingFetch<ResponseCDStageModuleInfo, Failure | Error, void, void>(
     getConfig('ng/api'),
-    `/executions/executionStatus`,
+    `/executions/dummyCDStageModuleInfo`,
+    props,
+    signal
+  )
+
+export type GetDummyCDPipelineModuleInfoProps = Omit<
+  GetProps<ResponseCDPipelineModuleInfo, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api
+ */
+export const GetDummyCDPipelineModuleInfo = (props: GetDummyCDPipelineModuleInfoProps) => (
+  <Get<ResponseCDPipelineModuleInfo, Failure | Error, void, void>
+    path="/executions/dummyCDPipelineModuleInfo"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDummyCDPipelineModuleInfoProps = Omit<
+  UseGetProps<ResponseCDPipelineModuleInfo, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api
+ */
+export const useGetDummyCDPipelineModuleInfo = (props: UseGetDummyCDPipelineModuleInfoProps) =>
+  useGet<ResponseCDPipelineModuleInfo, Failure | Error, void, void>(`/executions/dummyCDPipelineModuleInfo`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * dummy api
+ */
+export const getDummyCDPipelineModuleInfoPromise = (
+  props: GetUsingFetchProps<ResponseCDPipelineModuleInfo, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseCDPipelineModuleInfo, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/executions/dummyCDPipelineModuleInfo`,
     props,
     signal
   )
@@ -24561,8 +28184,56 @@ export const getPipelineExecutionDetailPromise = (
     GetPipelineExecutionDetailPathParams
   >(getConfig('ng/api'), `/executions/${planExecutionId}`, props, signal)
 
+<<<<<<< HEAD
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+<<<<<<< HEAD
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface GetPipelineExecutionDetailQueryParams {
+=======
+export type GetExecutionStatusesProps = Omit<GetProps<ResponseListExecutionStatus, Failure | Error, void, void>, 'path'>
+
+/**
+ * Gets Execution Status list
+ */
+export const GetExecutionStatuses = (props: GetExecutionStatusesProps) => (
+  <Get<ResponseListExecutionStatus, Failure | Error, void, void>
+    path="/executions/executionStatus"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetExecutionStatusesProps = Omit<
+  UseGetProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Gets Execution Status list
+ */
+export const useGetExecutionStatuses = (props: UseGetExecutionStatusesProps) =>
+  useGet<ResponseListExecutionStatus, Failure | Error, void, void>(`/executions/executionStatus`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Execution Status list
+ */
+export const getExecutionStatusesPromise = (
+  props: GetUsingFetchProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListExecutionStatus, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/executions/executionStatus`,
+    props,
+    signal
+  )
+
+export interface HandleInterruptQueryParams {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -24690,6 +28361,7 @@ export const getExecutionStatusesPromise = (
     signal
   )
 
+<<<<<<< HEAD
 export interface GetListOfExecutionsQueryParams {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   accountIdentifier: string
@@ -25434,10 +29106,14 @@ export interface GetJiraIssueUpdateMetadataQueryParams {
 =======
 export interface GetJiraProjectsQueryParams {
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+export interface GetJiraStatusesQueryParams {
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   connectorRef: string
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+<<<<<<< HEAD
 <<<<<<< HEAD
   issueKey?: string
 }
@@ -25450,10 +29126,19 @@ export type GetJiraIssueUpdateMetadataProps = Omit<
 export type GetJiraProjectsProps = Omit<
   GetProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+  projectKey?: string
+  issueType?: string
+}
+
+export type GetJiraStatusesProps = Omit<
+  GetProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
 <<<<<<< HEAD
  * Get jira issue update metadata
  */
@@ -25467,11 +29152,19 @@ export const GetJiraProjects = (props: GetJiraProjectsProps) => (
   <Get<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>
     path="/jira/projects"
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+ * Get jira statuses
+ */
+export const GetJiraStatuses = (props: GetJiraStatusesProps) => (
+  <Get<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>
+    path="/jira/statuses"
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export type UseGetJiraIssueUpdateMetadataProps = Omit<
   UseGetProps<ResponseJiraIssueUpdateMetadataNG, Failure | Error, GetJiraIssueUpdateMetadataQueryParams, void>,
@@ -25479,10 +29172,15 @@ export type UseGetJiraIssueUpdateMetadataProps = Omit<
 export type UseGetJiraProjectsProps = Omit<
   UseGetProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+export type UseGetJiraStatusesProps = Omit<
+  UseGetProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   'path'
 >
 
 /**
+<<<<<<< HEAD
 <<<<<<< HEAD
  * Get jira issue update metadata
  */
@@ -25509,23 +29207,30 @@ export const getJiraIssueUpdateMetadataPromise = (
     `/jira/updateMetadata`,
 =======
  * Get jira projects
+=======
+ * Get jira statuses
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
  */
-export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
-  useGet<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/projects`, {
+export const useGetJiraStatuses = (props: UseGetJiraStatusesProps) =>
+  useGet<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>(`/jira/statuses`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 /**
- * Get jira projects
+ * Get jira statuses
  */
-export const getJiraProjectsPromise = (
-  props: GetUsingFetchProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
+export const getJiraStatusesPromise = (
+  props: GetUsingFetchProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>(
+  getUsingFetch<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>(
     getConfig('ng/api'),
+<<<<<<< HEAD
     `/jira/projects`,
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+    `/jira/statuses`,
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
     props,
     signal
@@ -25642,55 +29347,53 @@ export const getJiraProjectsPromise = (
     signal
   )
 
-export interface GetJiraStatusesQueryParams {
+export interface GetJiraProjectsQueryParams {
   connectorRef: string
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  projectKey?: string
-  issueType?: string
 }
 
-export type GetJiraStatusesProps = Omit<
-  GetProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
+export type GetJiraProjectsProps = Omit<
+  GetProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
   'path'
 >
 
 /**
- * Get jira statuses
+ * Get jira projects
  */
-export const GetJiraStatuses = (props: GetJiraStatusesProps) => (
-  <Get<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>
-    path="/jira/statuses"
+export const GetJiraProjects = (props: GetJiraProjectsProps) => (
+  <Get<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>
+    path="/jira/projects"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetJiraStatusesProps = Omit<
-  UseGetProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
+export type UseGetJiraProjectsProps = Omit<
+  UseGetProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
   'path'
 >
 
 /**
- * Get jira statuses
+ * Get jira projects
  */
-export const useGetJiraStatuses = (props: UseGetJiraStatusesProps) =>
-  useGet<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>(`/jira/statuses`, {
+export const useGetJiraProjects = (props: UseGetJiraProjectsProps) =>
+  useGet<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>(`/jira/projects`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 /**
- * Get jira statuses
+ * Get jira projects
  */
-export const getJiraStatusesPromise = (
-  props: GetUsingFetchProps<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>,
+export const getJiraProjectsPromise = (
+  props: GetUsingFetchProps<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListJiraStatusNG, Failure | Error, GetJiraStatusesQueryParams, void>(
+  getUsingFetch<ResponseListJiraProjectBasicNG, Failure | Error, GetJiraProjectsQueryParams, void>(
     getConfig('ng/api'),
-    `/jira/statuses`,
+    `/jira/projects`,
     props,
     signal
   )
@@ -26973,6 +30676,7 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface GetPipelineListQueryParams {
@@ -27122,6 +30826,8 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
   >('POST', getConfig('ng/api'), `/inputSets/merge`, props, signal)
 
 <<<<<<< HEAD
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
@@ -27389,9 +31095,14 @@ export const getPipelineSummaryPromise = (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-=======
 <<<<<<< HEAD
 =======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 export interface GetPipelineListQueryParams {
   accountIdentifier: string
@@ -27502,6 +31213,11 @@ export const postPipelinePromise = (
   )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
+=======
+>>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 =======
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
 >>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api

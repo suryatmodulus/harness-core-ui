@@ -256,7 +256,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         <Layout.Horizontal flex className={css.headerActions}>
           <Button
             intent="primary"
-            text={getString('notifications')}
+            text={getString('notifications.name')}
             icon="plus"
             id="newNotificationBtn"
             onClick={() => openNotificationModal()}

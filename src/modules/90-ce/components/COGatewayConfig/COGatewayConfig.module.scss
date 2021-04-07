@@ -18,13 +18,17 @@
 }
 .instanceTypeViewGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(14, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
 
   > div {
     background-color: var(--white) !important;
+  }
+  img {
+    width: 28px;
+    height: 28px;
   }
 }
 .instanceTypeNameGrid {
@@ -33,7 +37,7 @@
   grid-template-rows: 1fr;
   grid-column-gap: var(--spacing-xxxlarge);
   grid-row-gap: 0px;
-  margin-left: var(--spacing-medium) !important;
+  margin-left: var(--spacing-large) !important;
 }
 .card {
   padding: 0px;
@@ -44,7 +48,6 @@
   }
   tbody {
     background: #ffffff;
-    box-shadow: 0px 0px 8px 1px rgba(26, 19, 106, 0.05);
     border-radius: 4px;
 
     font-style: normal;
@@ -54,6 +57,12 @@
   }
   tr {
     height: 63.33px;
+    box-shadow: 0 -1px 0 0 #d9dae6;
+    td,
+    th {
+      vertical-align: middle !important;
+      box-shadow: none !important;
+    }
   }
 }
 .healthCheckTable {
@@ -74,7 +83,7 @@
 .page {
   overflow: scroll;
   height: calc(100vh - 86px);
-  margin-left: var(--spacing-xlarge) !important;
+  // margin-left: var(--spacing-xlarge) !important;
   padding-bottom: 72px !important;
 }
 .instanceSelection {
@@ -172,6 +181,7 @@
     }
   }
 }
+
 .heading {
   font-size: 18px;
   line-height: 20px;
@@ -183,4 +193,138 @@
   width: fit-content;
   margin: auto;
   margin-top: var(--spacing-xsmall) !important;
+}
+
+.configStepContainer {
+  box-shadow: 0px 0px 1.79261px rgba(40, 41, 61, 0.04), 0px 3.58522px 7.17043px rgba(96, 97, 112, 0.16);
+  border-radius: 5px;
+  padding: 30px !important;
+  margin-bottom: var(--spacing-xlarge) !important;
+  width: 70% !important;
+  .stepInfo {
+    span {
+      padding: 3px 10px;
+      font-size: 10px;
+      border-radius: 7px;
+      font-weight: 900;
+    }
+  }
+  .title {
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    color: #22222a !important;
+  }
+  .subTitle {
+    font-size: 14px !important;
+  }
+  .childrenContainer {
+    padding-top: var(--spacing-xlarge);
+    border-top: 1px solid #d9dae5;
+  }
+  :global {
+    .OverlaySpinner--overlaySpinner {
+      width: 100%;
+    }
+  }
+}
+
+.displayCard {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 120px;
+  height: 120px;
+}
+
+.step1Form {
+  height: 100%;
+  margin-left: 40px;
+  > div {
+    height: 100%;
+    div[class*='Layout'] {
+      height: 100%;
+      --layout-spacing: 20px !important;
+    }
+    .formElement {
+      justify-content: space-between;
+      flex: 1;
+      :global {
+        .bp3-icon {
+          margin-left: 5px;
+          cursor: pointer;
+        }
+        .bp3-form-group {
+          margin: 0 !important;
+          .bp3-form-content {
+            position: relative;
+            .bp3-form-helper-text {
+              position: absolute;
+            }
+          }
+          input[type='text'] {
+            box-shadow: inset 0px 0.5px 4px rgba(96, 97, 112, 0.32);
+          }
+        }
+      }
+    }
+  }
+}
+
+.step2Container {
+  .radioGroupTitle {
+    color: #0b0b0d !important;
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+  }
+  .radioGroup {
+    display: flex;
+    margin-bottom: 20px;
+    :global {
+      .bp3-radio {
+        margin-right: 20px;
+      }
+    }
+  }
+  .clearBtn {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--red-600) !important;
+    opacity: 0.7;
+    &:hover {
+      border: none !important;
+      background: transparent !important;
+      border: none !important;
+      opacity: 1;
+    }
+  }
+}
+
+.asgInstanceSelectionContianer {
+  .asgInstanceDetails {
+    flex: 1;
+    .asgDetailRow {
+      margin-bottom: 10px;
+    }
+  }
+  .asgInstanceFormContainer {
+    flex: 3;
+    .instanceTypeInput {
+      flex: 1;
+      &:last-child {
+        margin-left: var(--spacing-large) !important;
+      }
+      img {
+        width: 18px;
+        height: 18px;
+        margin-right: var(--spacing-medium) !important;
+      }
+      :global {
+        .bp3-form-group {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+  }
 }

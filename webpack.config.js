@@ -12,6 +12,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
 
 const DEV = process.env.NODE_ENV === 'development'
 const CONTEXT = process.cwd()
@@ -48,9 +49,6 @@ const config = {
       assets: false,
       modules: false
     }
-  },
-  watchOptions: {
-    ignored: /node_modules/
   },
   stats: {
     modules: false,
@@ -197,11 +195,15 @@ const commonPlugins = [
   new MonacoWebpackPlugin({
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
     languages: ['yaml', 'shell', 'powershell']
-  })
+  }),
+  new GenerateStringTypesPlugin()
 ]
 
 const devOnlyPlugins = [
-  new ForkTsCheckerWebpackPlugin(),
+  new webpack.WatchIgnorePlugin({
+    paths: [/node_modules/, /\.d\.ts$/, /stringTypes\.ts/]
+  }),
+  // new ForkTsCheckerWebpackPlugin(), // this plugin is causing a compile loop
   new CircularDependencyPlugin({
     exclude: /node_modules/,
     failOnError: true

@@ -28,6 +28,7 @@ import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ViewSecretDetails from './views/ViewSecretDetails'
@@ -120,7 +121,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
-  useDocumentTitle([getString('resources'), getString('secrets'), secretData?.secret.name || ''])
+  useDocumentTitle([getString('resources'), getString('common.secrets'), secretData?.secret.name || ''])
 
   useEffect(() => {
     setSecretData(data?.data)
@@ -235,7 +236,11 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                   mode === Mode.VISUAL
                     ? secretData.secret.type === 'SSHKey'
                       ? openCreateSSHCredModal(data?.data?.secret)
-                      : openCreateSecretModal(secretData.secret.type, secretData)
+                      : openCreateSecretModal(secretData.secret.type, {
+                          identifier: secretData.secret?.identifier,
+                          orgIdentifier: secretData.secret?.orgIdentifier,
+                          projectIdentifier: secretData.secret?.projectIdentifier
+                        } as SecretIdentifiers)
                     : setEdit(true)
                 }}
               />

@@ -15,6 +15,10 @@ import { PipelineContext } from '@pipeline/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 
 import { useStrings } from 'framework/exports'
 import css from './WorkflowVariables.module.scss'
@@ -148,7 +152,7 @@ export default function WorkflowVariables({
         {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
           <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('workflowVariableInfo')}</Text>
         )}
-        <StepWidget<{ variables: Variable[]; isPropagating?: boolean; canAddVariable: boolean }>
+        <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
           factory={factory}
           stepViewType={StepViewType.StageVariable}
           initialValues={{
@@ -163,7 +167,8 @@ export default function WorkflowVariables({
           customStepProps={{
             yamlProperties: getYamlPropertiesForVariables().map(
               variable => metadataMap[variable.value || '']?.yamlProperties || {}
-            )
+            ),
+            enableValidation: true
           }}
         />
       </section>

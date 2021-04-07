@@ -1,50 +1,61 @@
 import React, { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
-import { Button, Layout, Text, Container, Icon } from '@wings-software/uicore'
+import { Button, Layout, Text, Container, Icon, Color } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from '@common/components/Table/Table'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 
-import { GitSyncConfig, useListGitSync } from 'services/cd-ng'
+import type { GitSyncConfig } from 'services/cd-ng'
 
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/exports'
 import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
+import { useGitSyncStore } from '@gitsync/common/GitSyncStoreContext'
 import css from './GitSyncRepoTab.module.scss'
 
 const GitSyncRepoTab: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
-
-  //Note: right now we support git-sync only at project level
-  const { data: dataAllGitSync, loading, refetch } = useListGitSync({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
+  const { gitSyncRepos, refreshStore } = useGitSyncStore()
 
   const { openGitSyncModal } = useCreateGitSyncModal({
     onSuccess: async () => {
-      refetch()
+      refreshStore()
     },
     onClose: async () => {
-      refetch()
+      refreshStore()
     }
   })
+
+  const RenderColumnReponame: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
+    const data = row.original
+
+    return (
+      <Layout.Horizontal spacing="small">
+        <Icon name={getGitConnectorIcon(data.gitConnectorType)} size={30}></Icon>
+        <div className={css.wrapper}>
+          <Text className={css.name} color={Color.BLACK} title={data.name}>
+            {data.name}
+          </Text>
+          <Text className={css.name} color={Color.GREY_400} title={data.identifier}>
+            {data.identifier}
+          </Text>
+        </div>
+      </Layout.Horizontal>
+    )
+  }
 
   const RenderColumnRepo: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     const data = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <Icon name={getGitConnectorIcon(data.gitConnectorType)} />
-        <Text>{data.repo}</Text>
-      </Layout.Horizontal>
+      <div className={css.wrapper}>
+        <Text className={css.name}>{data.repo}</Text>
+      </div>
     )
   }
 
   const RenderColumnBranch: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     const data = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <Text>{data.branch}</Text>
-      </Layout.Horizontal>
+      <div className={css.wrapper}>
+        <Text className={css.name}>{data.branch}</Text>
+      </div>
     )
   }
 
@@ -67,7 +78,14 @@ const GitSyncRepoTab: React.FC = () => {
   const columns: Column<GitSyncConfig>[] = useMemo(
     () => [
       {
-        Header: getString('repositories').toUpperCase(),
+        Header: getString('name').toUpperCase(),
+        accessor: 'repo',
+        id: 'reponame',
+        width: '20%',
+        Cell: RenderColumnReponame
+      },
+      {
+        Header: getString('gitsync.repositoryPath').toUpperCase(),
         accessor: 'repo',
         id: 'repo',
         width: '50%',
@@ -77,7 +95,7 @@ const GitSyncRepoTab: React.FC = () => {
         Header: getString('primaryBranch').toUpperCase(),
         accessor: 'branch',
         id: 'branch',
-        width: '45%',
+        width: '25%',
         Cell: RenderColumnBranch
       },
       {
@@ -90,11 +108,9 @@ const GitSyncRepoTab: React.FC = () => {
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dataAllGitSync?.length]
+    [gitSyncRepos?.length]
   )
-  return loading ? (
-    <PageSpinner />
-  ) : (
+  return (
     <Container padding="large">
       <Button
         intent="primary"
@@ -104,7 +120,7 @@ const GitSyncRepoTab: React.FC = () => {
         id="newRepoBtn"
         margin={{ left: 'xlarge', bottom: 'small' }}
       />
-      <Table<GitSyncConfig> className={css.table} columns={columns} data={dataAllGitSync || []} />
+      <Table<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
     </Container>
   )
 }

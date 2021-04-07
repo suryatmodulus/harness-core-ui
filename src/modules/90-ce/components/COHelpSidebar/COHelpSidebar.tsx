@@ -1,5 +1,5 @@
 import { Layout, Container, Text, Icon, Color, Heading } from '@wings-software/uicore'
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useStrings } from 'framework/exports'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'
@@ -16,43 +16,88 @@ interface COHelpSidebarProps {
   customDomain?: string
   hostName?: string
 }
+
+const ConfigStepOneContent = () => {
+  const { getString } = useStrings()
+  return (
+    <>
+      <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>
+        <Icon name="info"></Icon> {getString('ce.co.autoStoppingRule.helpText.step1.title')}
+      </Text>
+      <Container flex style={{ justifyContent: 'center', flexGrow: 1 }}>
+        <img src={idleTimeIMG} alt="" aria-hidden />
+      </Container>
+      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
+        {getString('ce.co.autoStoppingRule.helpText.step1.description')}
+      </Text>
+      <Text style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}>
+        {getString('ce.co.autoStoppingRule.helpText.readMore')}
+      </Text>
+    </>
+  )
+}
+
+const ConfigStepTwoContent = () => {
+  const { getString } = useStrings()
+  return (
+    <>
+      <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>
+        <Icon name="info"></Icon> {getString('ce.co.autoStoppingRule.helpText.step2.title')}
+      </Text>
+      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
+        {getString('ce.co.autoStoppingRule.helpText.step2.description.heading')}
+        <ol type={'1'}>
+          <li>{getString('pipelineSteps.instanceLabel')}</li>
+          <li>{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg')}</li>
+        </ol>
+        <br />
+        {getString('ce.co.autoStoppingRule.helpText.step2.description.info')}
+        <br />
+        {getString('ce.co.autoStoppingRule.helpText.step2.description.additionalInfo')}
+      </Text>
+    </>
+  )
+}
+
+const ConfigStepThreeContent = () => {
+  const { getString } = useStrings()
+  return (
+    <>
+      <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>
+        <Icon name="info"></Icon> {getString('ce.co.autoStoppingRule.helpText.step3.title')}
+      </Text>
+      <img src={spotVSODIMG} alt="" aria-hidden />
+      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
+        {getString('ce.co.autoStoppingRule.helpText.step3.description.heading')}
+        <br />
+        {getString('ce.co.autoStoppingRule.helpText.step3.description.info')}
+        <br />
+        {getString('ce.co.autoStoppingRule.helpText.step3.description.additionalInfo')}
+      </Text>
+    </>
+  )
+}
+
+const configStepIdToContentMap: { [key: string]: ReactElement } = {
+  configStep1: <ConfigStepOneContent />,
+  configStep2: <ConfigStepTwoContent />,
+  configStep3: <ConfigStepThreeContent />
+}
+
 const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
   const [activeSections] = useState<string[]>(props.activeSectionNames)
   const { getString } = useStrings()
   return (
     <Container>
-      {props.pageName == 'configuration' ? (
+      {props.pageName == 'configuration' && props.activeSectionNames && (
         <Container padding="large">
           <Layout.Vertical padding="medium" spacing="large">
-            <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>
-              <Icon name="info"></Icon> {getString('ce.co.autoStoppingRule.helpText.idleTime.title')}
-            </Text>
-            <Container flex style={{ justifyContent: 'center', flexGrow: 1 }}>
-              <img src={idleTimeIMG} alt="" aria-hidden />
-            </Container>
-            <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-              {getString('ce.co.autoStoppingRule.helpText.idleTime.description')}
-            </Text>
-            <Text
-              style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
-            >
-              {getString('ce.co.autoStoppingRule.helpText.readMore')}
-            </Text>
-            <Text style={{ fontWeight: 500, fontSize: 'var(--font-size-normal)', lineHeight: '24px' }}>
-              <Icon name="info"></Icon> {getString('ce.co.autoStoppingRule.helpText.spotVsOD.title')}
-            </Text>
-            <img src={spotVSODIMG} alt="" aria-hidden />
-            <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-              {getString('ce.co.autoStoppingRule.helpText.spotVsOD.description')}
-            </Text>
-            <Text
-              style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
-            >
-              {getString('ce.co.autoStoppingRule.helpText.readMore')}
-            </Text>
+            {props.activeSectionNames.map(_id => {
+              return configStepIdToContentMap[_id]
+            })}
           </Layout.Vertical>
         </Container>
-      ) : null}
+      )}
       {props.pageName == 'setup-access' ? (
         <Container padding="large">
           <Layout.Vertical padding="medium" spacing="xxlarge">

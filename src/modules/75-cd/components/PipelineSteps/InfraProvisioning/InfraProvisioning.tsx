@@ -12,6 +12,10 @@ export interface InfraProvisioningData {
     steps?: ExecutionWrapper[]
     rollbackSteps?: ExecutionWrapper[]
   }
+  originalProvisioner?: {
+    steps?: ExecutionWrapper[]
+    rollbackSteps?: ExecutionWrapper[]
+  }
   provisionerEnabled: boolean
   provisionerSnippetLoading?: boolean
 }

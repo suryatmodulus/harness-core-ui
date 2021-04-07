@@ -24,19 +24,29 @@ import {
   ConnectorInfoDTO,
   ConnectorResponse,
   VaultConnectorDTO,
-  useGetConnector
+  useGetConnector,
+  useGetSecretV2,
+  ResponseSecretResponseWrapper
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import { useStrings } from 'framework/exports'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
 
 export type SecretFormData = Omit<SecretDTOV2, 'spec'> & SecretTextSpecDTO & SecretFileSpecDTO
 
+export interface SecretIdentifiers {
+  identifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+}
+
 interface CreateUpdateSecretProps {
-  secret?: SecretResponseWrapper
+  mockSecretDetails?: UseGetMockData<ResponseSecretResponseWrapper>
+  secret?: SecretIdentifiers
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
@@ -45,12 +55,37 @@ interface CreateUpdateSecretProps {
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
   const { onSuccess } = props
-  const secret = props.secret?.secret
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const propsSecret = props.secret
+  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const secretTypeFromProps = props.type || secret?.type
+  const secretTypeFromProps = props.type
   const [type, setType] = useState<SecretResponseWrapper['secret']['type']>(secretTypeFromProps || 'SecretText')
+  const [secret, setSecret] = useState<SecretDTOV2>()
+
+  const { loading: loadingSecret, data: secretResponse, refetch, error: getSecretError } = useGetSecretV2({
+    identifier: propsSecret?.identifier || '',
+    queryParams: {
+      accountIdentifier,
+      projectIdentifier: propsSecret?.projectIdentifier,
+      orgIdentifier: propsSecret?.orgIdentifier
+    },
+    mock: props.mockSecretDetails,
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (getSecretError) {
+      modalErrorHandler?.showDanger(getSecretError.message)
+      refetch?.()
+    }
+  }, [getSecretError])
+
+  useEffect(() => {
+    if (propsSecret?.identifier) {
+      refetch?.()
+    }
+  }, [propsSecret?.identifier])
 
   const {
     data: secretManagersApiResponse,
@@ -58,47 +93,51 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     refetch: getSecretManagers
   } = useGetConnectorList({
     queryParams: {
-      accountIdentifier: accountId,
+      accountIdentifier,
       orgIdentifier,
       projectIdentifier,
       category: 'SECRET_MANAGER'
     },
     lazy: true
   })
+
   const { data: connectorDetails, loading: loadingConnectorDetails, refetch: getConnectorDetails } = useGetConnector({
-    identifier: (secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier,
+    identifier:
+      (secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier ||
+      (secretResponse?.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier,
     lazy: true
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
   const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFileV2({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
   })
   const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFileV2({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
+    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
   })
 
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
-  const editing = !!secret?.identifier
+  const editing = !!propsSecret
 
   useEffect(() => {
     if (!editing) {
       getSecretManagers()
-    } else {
+    } else if (secretResponse?.data?.secret && !loadingSecret) {
+      setSecret(secretResponse?.data?.secret)
       getConnectorDetails({
         queryParams: {
-          accountIdentifier: accountId,
-          ...pick(secret, ['orgIdentifier', 'projectIdentifier'])
+          accountIdentifier,
+          ...pick(secretResponse?.data.secret, ['orgIdentifier', 'projectIdentifier'])
         }
       })
     }
-  }, [])
+  }, [secretResponse])
 
   const createFormData = (data: SecretFormData): FormData => {
     const formData = new FormData()
@@ -285,6 +324,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 inputLabel={getString('secret.labelSecretName')}
                 idName="identifier"
                 isIdentifierEditable={!editing}
+                inputGroupProps={{ disabled: loadingSecret }}
               />
               {!typeOfSelectedSecretManager ? <Text>{getString('secret.messageSelectSM')}</Text> : null}
               {typeOfSelectedSecretManager === 'Local' || typeOfSelectedSecretManager === 'GcpKms' ? (

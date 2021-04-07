@@ -7,6 +7,7 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import { useStrings } from 'framework/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 
@@ -54,7 +55,14 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('approvalStage.stageNameRequired'))
+          name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
+          identifier: Yup.string().when('name', {
+            is: val => val?.length,
+            then: Yup.string()
+              .required(getString('validation.identifierRequired'))
+              .matches(regexIdentifier, getString('validation.validIdRegex'))
+              .notOneOf(illegalIdentifiers)
+          })
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}

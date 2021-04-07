@@ -1,12 +1,22 @@
 import React from 'react'
 import { RenderResult, render, fireEvent, waitFor, queryByText, act } from '@testing-library/react'
-import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage.tsx'
+import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { clickSubmit } from '@common/utils/JestFormHelper'
 
-describe('Project Page List', () => {
+jest.mock('services/cd-ng', () => ({
+  useSaveSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve({ status: 'SUCCESS' }) }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn() }
+  })
+}))
+
+describe('User Profile Page', () => {
   let container: HTMLElement
+  let getByText: RenderResult['getByText']
   let getByTestId: RenderResult['getByTestId']
 
   beforeEach(async () => {
@@ -21,6 +31,7 @@ describe('Project Page List', () => {
     )
     container = renderObj.container
     getByTestId = renderObj.getByTestId
+    getByText = renderObj.getByText
   })
 
   test('User Profile', () => {
@@ -38,5 +49,15 @@ describe('Project Page List', () => {
       await act(async () => {
         clickSubmit(container)
       })
+    }),
+    test('Add SCM', async () => {
+      const addSCM = getByText('+ Add a Source Code Manager')
+      expect(addSCM).toBeTruthy()
+      act(() => {
+        fireEvent.click(addSCM!)
+      })
+      await waitFor(() => queryByText(document.body, 'Add a Source Code Manager'))
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
     })
 })

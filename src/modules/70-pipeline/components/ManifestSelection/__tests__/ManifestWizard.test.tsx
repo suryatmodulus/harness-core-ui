@@ -138,7 +138,7 @@ describe('ManifestSelection tests', () => {
     const manifeststoreLabel = await findByText(container, 'Specify Manifest Store')
     expect(manifeststoreLabel).toBeDefined()
 
-    const gitConnector = await findByText(container, 'Git Connector')
+    const gitConnector = await findByText(container, 'Git')
     expect(gitConnector).toBeDefined()
     const gitconnectorCard = container.getElementsByClassName('squareCard')[0]
     fireEvent.click(gitconnectorCard)

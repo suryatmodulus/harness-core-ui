@@ -44,6 +44,7 @@ interface K8sCanaryDeployProps {
   initialValues: K8sCanaryDeployData
   onUpdate?: (data: K8sCanaryDeployData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   template?: K8sCanaryDeployData
   readonly?: boolean
   path?: string
@@ -53,7 +54,7 @@ function K8CanaryDeployWidget(
   props: K8sCanaryDeployProps,
   formikRef: StepFormikFowardRef<K8sCanaryDeployData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
 
   return (
@@ -81,10 +82,7 @@ function K8CanaryDeployWidget(
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
-                />
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
@@ -192,7 +190,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep
@@ -217,6 +215,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
       <K8CanaryDeployWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

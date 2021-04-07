@@ -36,7 +36,7 @@ jobs:
         run: yarn
 
       - name: Lint Check
-        run: yarn lint
+        run: yarn lint --quiet
 
   messagecheck:
     name: Title Check
@@ -52,6 +52,7 @@ jobs:
           node ./scripts/lint-commit-message.js "$PR_TITLE"
 
   typecheck:
+    needs: strings
     name: Typecheck
     runs-on: ubuntu-latest
     steps:
@@ -226,7 +227,7 @@ jobs:
 
       - name: Run Standard Checks
         run: |
-          ./scripts/generate-eslint-config-for-imports && npx prettier --write src/modules/*/.eslintrc.yml --loglevel error
+          node ./scripts/generate-eslint-config-for-imports.mjs
 
           changed=$(git diff --name-only)
           if [ -n "$changed" ]; then
@@ -238,7 +239,7 @@ jobs:
 
           git checkout .
 
-          ./scripts/check-module-structures
+          node ./scripts/check-module-structures.mjs
 
   strings:
     name: Strings
@@ -272,5 +273,25 @@ jobs:
 
       - name: Run Strings Check
         run: |
-          node scripts/yaml-strings-check.js
-          npx jest scripts/eslint-rules/__tests__/string-exists-in-yaml.test.js
+          wget --header "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" https://raw.githubusercontent.com/wings-software/nextgenui/${{ github.base_ref }}/src/strings/strings.en.yaml
+
+          limit=$(cat strings.en.yaml | wc -l)
+          lines=$(cat src/strings/strings.en.yaml | wc -l)
+
+          echo "Limit: $limit"
+          echo "Lines: $lines"
+          if [ "$lines" -gt "$limit" ]; then
+            echo "No Addition allowed in src/strings/strings.en.yaml. Please use module level string files instead."
+            exit 1
+          fi
+
+          rm -f strings.en.yaml
+          yarn strings
+
+          changed=$(git diff --name-only)
+          if [ -n "$changed" ]; then
+            echo "The following files have some issue:"
+            git diff --name-only
+            echo "Please run 'yarn strings' to find and fix any issues\n"
+            exit 1
+          fi

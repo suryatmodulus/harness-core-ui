@@ -46,7 +46,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="Enter Manifest Identifier"
                       type="text"
                       value=""
                     />
@@ -64,7 +64,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  Bucket Name (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -132,7 +132,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  Path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -264,7 +264,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  Helm Chart Version (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -533,7 +533,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="Enter Manifest Identifier"
                       type="text"
                       value=""
                     />
@@ -551,7 +551,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  Bucket Name (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -619,7 +619,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  Path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -751,7 +751,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  Helm Chart Version (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1020,7 +1020,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="Enter Manifest Identifier"
                       type="text"
                       value=""
                     />
@@ -1038,7 +1038,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  Bucket Name (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1106,7 +1106,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  Path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1238,7 +1238,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  Helm Chart Version (optional)
                    
                   <span
                     class="bp3-text-muted"

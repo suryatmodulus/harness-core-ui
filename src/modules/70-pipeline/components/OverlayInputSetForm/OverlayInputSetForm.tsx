@@ -97,7 +97,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess, showError, clear } = useToaster()
 
   const {
     data: overlayInputSetResponse,
@@ -238,8 +238,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
           /* istanbul ignore else */
           if (response) {
             if (response.data?.errorResponse) {
+              clear()
               showError(getString('inputSets.overlayInputSetSavedError'))
             } else {
+              clear()
               showSuccess(getString('inputSets.overlayInputSetSaved'))
             }
           }
@@ -299,6 +301,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
     errorInputSetList
   ) {
     /* istanbul ignore next */
+    clear()
     showError(
       (errorPipeline?.data as Failure)?.message ||
         (createOverlayInputSetError?.data as Failure)?.message ||

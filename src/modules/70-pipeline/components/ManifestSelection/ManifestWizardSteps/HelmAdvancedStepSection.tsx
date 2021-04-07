@@ -27,7 +27,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
   const commandFlagLabel = (): React.ReactElement => {
     return (
       <Layout.Horizontal flex spacing="small">
-        <String tagName="div" stringID="manifestType.helmCommandFlagLabel" />
+        <String tagName="div" stringID="pipeline.manifestType.helmCommandFlagLabel" />
       </Layout.Horizontal>
     )
   }
@@ -43,7 +43,9 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
         />
         <Tooltip
           position="top"
-          content={<div className={helmcss.tooltipContent}>{getString('manifestType.helmSkipResourceVersion')} </div>}
+          content={
+            <div className={helmcss.tooltipContent}>{getString('pipeline.manifestType.helmSkipResourceVersion')} </div>
+          }
           className={helmcss.tooltip}
         >
           <Icon name="info-sign" color={Color.BLUE_450} size={16} />
@@ -66,9 +68,9 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
                     <div className={helmcss.halfWidth}>
                       <FormInput.Select
                         name={`commandFlags[${index}].commandType`}
-                        label={index === 0 ? getString('manifestType.helmCommandType') : ''}
+                        label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
                         items={commandFlagOptions}
-                        placeholder={getString('manifestType.helmCommandType')}
+                        placeholder={getString('pipeline.manifestType.helmCommandType')}
                       />
                     </div>
                     <div className={helmcss.halfWidth}>

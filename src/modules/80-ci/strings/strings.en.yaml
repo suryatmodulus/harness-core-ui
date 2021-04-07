@@ -1,0 +1,54 @@
+continuousIntegration: 'Continuous Integration'
+dashboard:
+  subHeading: Take your software build processes to the next level using our Harness Continuous Integration
+  learnMore: Learn more about Continuous Integration
+  createProject: '{{ $.projectsOrgs.createProject }}'
+  failedBuilds: Failed Builds
+  activeBuilds: Active Builds
+  noRepositories: No Repositories found
+  noFailedBuilds: No Failed Builds found
+  noActiveBuilds: No Active Builds found
+testsReports:
+  executionOverview: Test Execution Overview
+  numberOfSelectedTests: '# of Selected Tests'
+  testsIntelligentlySkipped: Tests Intelligently Skipped
+  timeSaved: Time Saved
+  totalExecutedTest: Total Executed Tests
+  selectionBreakdown: Testcase Selection Breakdown
+  selectionBreakdownInfo: Shows aggregated data on how tests were selected
+  totalWithColon: 'TOTAL:'
+  failedWithColon: 'FAILED:'
+  successWithColon: 'SUCCESS:'
+  skippedWithColon: 'SKIPPED:'
+  skipped: Skipped
+  correlatedWithCodeChanges: Correlated with Code Changes
+  newTests: New Tests
+  updatedTests: Updated Tests
+  coverage: Files Coverage
+  coverageInfo: List of files that were added or changed in the build which don't have a proper testing coverage
+  onlyUncoveredFiles: Only Uncovered Files
+  filename: FILENAME
+  commitId: COMMIT ID
+  failedTests: Failed Tests
+  failureRate: Failure Rate
+  failureMessage: Failure Message
+  stackTrace: Stack Trace
+  consoleOutput: Console Output
+  testSuite: 'Test Suite:'
+  duration: Duration
+  totalTests: Total Tests
+  testCaseName: TEST CASE NAME
+  className: CLASS NAME
+  result: RESULT
+  testCasesExecution: Testcases Execution
+  testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
+  noFailedTestsFound: No failed tests found
+  showOnlyFailedTests: Show only failed tests
+  hangTight: Hang tight! Report is being generated...
+  nothing: Nothing here!
+  notfound: No tests were found to analyze.
+  willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
+  learnMore: Learn how to enable Unit test reporting
+  resultLabel: Testcase Execution Result
+  resultInfo: Heat Map showing a graphical over of the test results
+  sortBy: 'Sort by:'

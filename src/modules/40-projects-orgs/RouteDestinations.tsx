@@ -58,9 +58,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   label: 'Projects',
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="permissionLabels.createEdit" />,
-    [PermissionIdentifier.VIEW_PROJECT]: <String stringID="permissionLabels.view" />,
-    [PermissionIdentifier.DELETE_PROJECT]: <String stringID="permissionLabels.delete" />
+    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_PROJECT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_PROJECT]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
@@ -71,9 +71,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   label: 'Organizations',
   category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_ORG]: <String stringID="permissionLabels.createEdit" />,
-    [PermissionIdentifier.VIEW_ORG]: <String stringID="permissionLabels.view" />,
-    [PermissionIdentifier.DELETE_ORG]: <String stringID="permissionLabels.delete" />
+    [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_ORG]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_ORG]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <OrgResourceModalBody {...props} />

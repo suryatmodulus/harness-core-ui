@@ -34,6 +34,7 @@ export interface CustomVariableEditableExtraProps {
   className?: string
   yamlProperties?: YamlProperties[]
   showHeaders?: boolean
+  enableValidation?: boolean
 }
 
 export interface CustomVariableEditableProps extends CustomVariableEditableExtraProps {

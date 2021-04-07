@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import type { CellProps } from 'react-table'
-import { Drawer } from '@blueprintjs/core'
+import { debounce as _debounce, isEmpty as _isEmpty, get as _get } from 'lodash-es'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 import {
   Formik,
   FormikForm,
@@ -8,30 +9,35 @@ import {
   Container,
   Layout,
   CardSelect,
-  Label,
   Text,
   Table,
   Color,
   Tabs,
   Tab,
-  Collapse,
   Button,
   Switch,
-  Icon
+  Icon,
+  Card,
+  useModalHook
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
+import type { FormikContext } from 'formik'
+import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
+import { Utils } from '@ce/common/Utils'
 import {
+  ASGMinimal,
   HealthCheck,
   PortConfig,
   Service,
   ServiceDep,
   useAllResourcesOfAccount,
+  useGetAllASGs,
   useGetServices,
   useSecurityGroupsOfInstances
 } from 'services/lw'
@@ -41,6 +47,9 @@ import COHealthCheckTable from './COHealthCheckTable'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import CORuleDendencySelector from './CORuleDependencySelector'
+import COGatewayConfigStep from './COGatewayConfigStep'
+import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
+import COAsgSelector from '../COAsgSelector'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -48,6 +57,7 @@ interface COGatewayConfigProps {
   setGatewayDetails: (gwDetails: GatewayDetails) => void
   valid: boolean
   setValidity: (tab: boolean) => void
+  activeStepDetails?: { count?: number; tabId?: string } | null
 }
 interface CardData {
   text: string
@@ -71,6 +81,31 @@ const portProtocolMap: { [key: number]: string } = {
   80: 'http',
   443: 'https'
 }
+
+enum RESOURCES {
+  INSTANCES = 'INSTANCES',
+  ASG = 'ASG'
+}
+
+const managedResources = [
+  { label: 'Instances', value: RESOURCES.INSTANCES },
+  { label: 'Auto-scaling groups', value: RESOURCES.ASG }
+]
+
+const modalProps: IDialogProps = {
+  isOpen: true,
+  style: {
+    width: 1000,
+    minHeight: 350,
+    borderTop: '5px solid #0091FF',
+    padding: 40,
+    position: 'relative',
+    overflow: 'hidden'
+  }
+}
+
+const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configStep4']
+
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
@@ -89,7 +124,27 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   )
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
+  const [, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
+  const [selectedResource, setSelectedResource] = useState<RESOURCES | null>(
+    !_isEmpty(props.gatewayDetails.selectedInstances)
+      ? RESOURCES.INSTANCES
+      : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group)
+      ? RESOURCES.ASG
+      : null
+  )
+  const [selectedInstanceType, setSelectedInstanceType] = useState<CardData | null>(
+    props.gatewayDetails.fullfilment
+      ? instanceTypeCardData[instanceTypeCardData.findIndex(card => card.value == props.gatewayDetails.fullfilment)]
+      : null
+  )
+  const configContEl = useRef<HTMLDivElement>(null)
+  const [activeDrawerIds, setActiveDrawerIds] = useState<string[]>([CONFIG_STEP_IDS[0], CONFIG_STEP_IDS[1]])
+  const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
+  const [asgToShow, setAsgToShow] = useState<ASGMinimal[]>([])
+  const [allAsg, setAllAsg] = useState<ASGMinimal[]>([])
+  const [selectedAsg, setSelectedAsg] = useState<ASGMinimal | undefined>(
+    props.gatewayDetails.routing?.instance?.scale_group
+  )
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showError } = useToaster()
@@ -108,6 +163,22 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     )
   }
 
+  const RemoveCell = (tableProps: CellProps<InstanceDetails>) => {
+    const handleDeletion = () => {
+      const instances = [...selectedInstances]
+      instances.splice(tableProps.row.index, 1)
+      if (instances.length) {
+        const updatedGatewayDetails = { ...props.gatewayDetails }
+        updatedGatewayDetails.selectedInstances = instances
+        props.setGatewayDetails(updatedGatewayDetails)
+        setSelectedInstances(instances)
+      } else {
+        resetSelectedInstancesDetails()
+      }
+    }
+    return <Button className={css.clearBtn} icon={'delete'} onClick={handleDeletion} />
+  }
+
   const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -117,6 +188,16 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       type: 'instance'
     }
   })
+
+  const { mutate: fetchAllASGs, loading: loadingFetchASGs } = useGetAllASGs({
+    org_id: orgIdentifier, // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    queryParams: {
+      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
+    }
+  })
+
   const { data, error } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -125,6 +206,114 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   if (error) {
     showError('Faield to fetch services')
   }
+
+  const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
+    return (
+      <Dialog {...modalProps}>
+        <COInstanceSelector
+          selectedInstances={selectedInstances}
+          setSelectedInstances={setSelectedInstances}
+          setGatewayDetails={props.setGatewayDetails}
+          instances={filteredInstances}
+          gatewayDetails={props.gatewayDetails}
+          search={handleSearch}
+          onInstancesAddSuccess={() => {
+            handleSearch('')
+            closeInstancesModal()
+          }}
+          loading={loadingInstances}
+        />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            handleSearch('')
+            closeInstancesModal()
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+        />
+      </Dialog>
+    )
+  }, [filteredInstances, selectedInstances, loadingInstances])
+
+  const handleAsgSearch = (text: string) => {
+    if (!text) {
+      setAsgToShow([])
+      return
+    }
+    text = text.toLowerCase()
+    const filteredScalingGroups = allAsg.filter(
+      item => item.name?.toLowerCase().includes(text) || item.id?.toLowerCase().includes(text)
+    )
+    setAsgToShow(filteredScalingGroups)
+  }
+
+  const [openAsgModal, closeAsgModal] = useModalHook(() => {
+    return (
+      <Dialog {...modalProps}>
+        <COAsgSelector
+          selectedScalingGroup={selectedAsg}
+          setSelectedAsg={setSelectedAsg}
+          setGatewayDetails={props.setGatewayDetails}
+          scalingGroups={!_isEmpty(asgToShow) ? asgToShow : allAsg}
+          gatewayDetails={props.gatewayDetails}
+          search={handleAsgSearch}
+          onAsgAddSuccess={updatedGatewayDetails => {
+            setRoutingRecords(updatedGatewayDetails.routing.ports)
+            handleAsgSearch('')
+            closeAsgModal()
+          }}
+          loading={loadingFetchASGs}
+        />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            handleAsgSearch('')
+            closeAsgModal()
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+        />
+      </Dialog>
+    )
+  }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs])
+
+  useLayoutEffect(() => {
+    const observeScrollHandler = _debounce(() => {
+      const parentElVal = (configContEl.current as HTMLDivElement).getBoundingClientRect()
+      const configStepsContainers: HTMLElement[] = []
+      CONFIG_STEP_IDS.forEach((_id: string) => {
+        const element = document.getElementById(_id)
+        element && configStepsContainers.push(element)
+      })
+      const newActiveIds: string[] = []
+      configStepsContainers.forEach((stepEl, _i) => {
+        const { top, bottom, height } = stepEl.getBoundingClientRect()
+        if (
+          (top > parentElVal.top || bottom - parentElVal.top > 100) &&
+          (bottom <= parentElVal.bottom || (height >= parentElVal.height ? bottom > parentElVal.bottom : false))
+        ) {
+          newActiveIds.push(stepEl.id)
+        }
+      })
+      setActiveDrawerIds(newActiveIds)
+    }, 500)
+
+    {
+      ;(configContEl.current as HTMLDivElement).addEventListener('scroll', observeScrollHandler)
+      if (props.activeStepDetails?.count) {
+        const el = document.getElementById(`configStep${props.activeStepDetails.count}`)
+        el?.scrollIntoView()
+      }
+    }
+
+    return () => {
+      ;(configContEl.current as HTMLDivElement).removeEventListener('scroll', observeScrollHandler)
+    }
+  }, [])
+
   useEffect(() => {
     props.gatewayDetails.routing.ports = routingRecords
     props.setGatewayDetails(props.gatewayDetails)
@@ -176,6 +365,19 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       showError(e.data?.message || e.message)
     }
   }
+
+  const fetchAndSetAsgItems = async (): Promise<void> => {
+    try {
+      const result = await fetchAllASGs({ Text: '' })
+      if (result?.response) {
+        const filteredAsgs = result.response.filter((item: ASGMinimal) => !_isEmpty(item.target_groups))
+        setAllAsg(filteredAsgs)
+      }
+    } catch (err) {
+      showError(err.data?.message || err.message)
+    }
+  }
+
   const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
@@ -228,26 +430,69 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
 
   function isValid(): boolean {
     return (
-      selectedInstances.length > 0 &&
+      (selectedInstances.length > 0 || !_isEmpty(selectedAsg)) &&
       routingRecords.length > 0 &&
       gatewayName != '' &&
       idleTime >= 5 &&
-      fullfilment != ''
+      (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true)
     )
   }
+
+  const resetSelectedInstancesDetails = () => {
+    setRoutingRecords([])
+    setSelectedInstances([])
+    const updatedGatewayDetails = { ...props.gatewayDetails }
+    updatedGatewayDetails.selectedInstances = []
+    props.setGatewayDetails(updatedGatewayDetails)
+  }
+
+  const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
+    if (resourceType) {
+      const updatedGatewayDetails = { ...props.gatewayDetails }
+      switch (resourceType) {
+        case RESOURCES.INSTANCES:
+          // remove details related to AsG
+          if (!_isEmpty(updatedGatewayDetails.routing.instance.scale_group)) {
+            setRoutingRecords([])
+            setSelectedAsg(undefined)
+            delete updatedGatewayDetails.routing.instance.scale_group
+            props.setGatewayDetails(updatedGatewayDetails)
+          }
+          break
+        case RESOURCES.ASG:
+          // remove details related to instances
+          if (!_isEmpty(updatedGatewayDetails.selectedInstances)) {
+            resetSelectedInstancesDetails()
+          }
+          break
+        default:
+          return
+      }
+    }
+  }
+
   useEffect(() => {
-    if (!selectedInstances.length) {
-      setRoutingRecords([])
-      return
+    // run only in case of selecting instances
+    if (selectedResource === RESOURCES.INSTANCES) {
+      if (!selectedInstances.length) {
+        setRoutingRecords([])
+        return
+      }
+      if (routingRecords.length) {
+        return
+      }
+      fetchInstanceSecurityGroups()
     }
-    if (routingRecords.length) {
-      return
-    }
-    fetchInstanceSecurityGroups()
   }, [selectedInstances])
+
+  useEffect(() => {
+    clearResourceDetailsFromGateway(selectedResource as RESOURCES)
+  }, [selectedResource])
+
   useEffect(() => {
     if (!props.gatewayDetails.provider) return
     refreshInstances()
+    fetchAndSetAsgItems()
   }, [props.gatewayDetails.provider])
   useEffect(() => {
     if (isValid()) {
@@ -255,7 +500,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     } else {
       props.setValidity(false)
     }
-  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment])
+  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment, selectedAsg])
   function handleSearch(text: string): void {
     if (!text) {
       setFilteredInstances(allInstances)
@@ -311,329 +556,500 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     const deps = [...serviceDependencies]
     setServiceDependencies(deps)
   }
+
+  const handleAsgInstancesChange = (formik: FormikContext<any>, val: string, instanceType: 'OD' | 'SPOT') => {
+    switch (instanceType) {
+      case 'OD':
+        if (Utils.isNumber(val)) {
+          const numericVal = Number(val)
+          formik.setFieldValue('odInstance', numericVal)
+          selectedAsg?.mixed_instance &&
+            formik.setFieldValue(
+              'spotInstance',
+              (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal
+            )
+          const updatedGatewayDetails = { ...props.gatewayDetails }
+          // eslint-disable-next-line
+          updatedGatewayDetails.routing.instance.scale_group = {
+            ...props.gatewayDetails.routing.instance.scale_group,
+            on_demand: numericVal, // eslint-disable-line
+            // eslint-disable-next-line
+            ...(selectedAsg?.mixed_instance && {
+              spot: (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal // eslint-disable-line
+            })
+          }
+          props.setGatewayDetails(updatedGatewayDetails)
+        }
+        break
+      case 'SPOT':
+        if (Utils.isNumber(val)) {
+          const numericVal = Number(val)
+          formik.setFieldValue('spotInstance', numericVal)
+          formik.setFieldValue(
+            'odInstance',
+            (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal
+          )
+          const updatedGatewayDetails = { ...props.gatewayDetails }
+          // eslint-disable-next-line
+          updatedGatewayDetails.routing.instance.scale_group = {
+            ...props.gatewayDetails.routing.instance.scale_group,
+            spot: numericVal,
+            on_demand: (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal // eslint-disable-line
+          }
+          props.setGatewayDetails(updatedGatewayDetails)
+        }
+        break
+    }
+  }
+
   return (
-    <Layout.Vertical className={css.page}>
-      <Drawer
-        autoFocus={true}
-        enforceFocus={true}
-        hasBackdrop={false}
-        usePortal={true}
-        canOutsideClickClose={true}
-        canEscapeKeyClose={true}
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false)
-        }}
-        size="392px"
-        style={{
-          top: '86px',
-          boxShadow: '0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16)',
-          height: 'calc(100vh - 86px)',
-          overflowY: 'scroll'
-        }}
-      >
-        <Container style={{ textAlign: 'right' }}>
-          <Button icon="cross" minimal onClick={_ => setDrawerOpen(false)} />
-        </Container>
-        <COHelpSidebar pageName="configuration" activeSectionNames={[]} />
-      </Drawer>
+    <Layout.Vertical ref={configContEl} className={css.page}>
+      <COFixedDrawer
+        topMargin={85}
+        content={<COHelpSidebar pageName="configuration" activeSectionNames={activeDrawerIds} />}
+      />
       <Container style={{ paddingTop: 10 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Text style={{ fontSize: '18px', lineHeight: '20px', fontWeight: 500 }}>
-            {getString('ce.co.gatewayConfig.configHeading')}
-          </Text>
-          <Container width="50%">
-            <Formik
-              initialValues={{
-                gatewayName: props.gatewayDetails.name,
-                idleTime: props.gatewayDetails.idleTimeMins,
-                selectedIcon: props.gatewayDetails.fullfilment
-              }}
-              onSubmit={values => alert(JSON.stringify(values))}
-              render={formik => (
-                <FormikForm className={css.gatewayConfigForm}>
-                  <Layout.Vertical spacing="xxxlarge" width="50%">
-                    <FormInput.Text
-                      name="gatewayName"
-                      label={getString('ce.co.gatewayConfig.name')}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        formik.setFieldValue('gatewayName', e.target.value)
-                        props.gatewayDetails.name = e.target.value
-                        props.setGatewayDetails(props.gatewayDetails)
-                        setGatewayName(e.target.value)
-                      }}
-                      style={{ height: '30px', fontSize: 'var(--font-size-normal)' }}
-                    />
-                    <FormInput.Text
-                      name="idleTime"
-                      label={
-                        <Layout.Horizontal spacing="small">
-                          <Text>Idle time (mins)</Text>
+          <COGatewayConfigStep
+            count={1}
+            title={getString('ce.co.autoStoppingRule.configuration.step1.title')}
+            subTitle={getString('ce.co.autoStoppingRule.configuration.step1.subTitle')}
+            totalStepsCount={4}
+            id={CONFIG_STEP_IDS[0]}
+          >
+            <Layout.Horizontal>
+              <Card interactive={false} className={css.displayCard}>
+                <Icon name="service-aws" size={30} />
+                <Text style={{ marginTop: '5px' }} font="medium">
+                  AWS
+                </Text>
+              </Card>
+              {/* <Layout.Vertical style={{}}> */}
+              {/* <Layout.Horizontal spacing="large">
+                  
+                </Layout.Horizontal> */}
+              <Formik
+                initialValues={{
+                  gatewayName: props.gatewayDetails.name,
+                  idleTime: props.gatewayDetails.idleTimeMins
+                }}
+                onSubmit={values => alert(JSON.stringify(values))}
+                render={formik => (
+                  <FormikForm className={css.step1Form}>
+                    <Layout.Horizontal spacing="xxxlarge">
+                      <Layout.Vertical className={css.formElement}>
+                        <Text style={{ fontSize: 16, fontWeight: 500, color: '#0B0B0D' }}>AutoStopping Rule Name</Text>
+                        <FormInput.Text
+                          name="gatewayName"
+                          label={getString('ce.co.gatewayConfig.name')}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            formik.setFieldValue('gatewayName', e.target.value)
+                            props.gatewayDetails.name = e.target.value
+                            props.setGatewayDetails(props.gatewayDetails)
+                            setGatewayName(e.target.value)
+                          }}
+                        />
+                      </Layout.Vertical>
+                      <Layout.Vertical className={css.formElement}>
+                        <Text style={{ fontSize: 16, fontWeight: 500, color: '#0B0B0D' }}>
+                          Idle Time (mins)
                           <Icon
                             name="info"
                             onClick={() => {
                               setDrawerOpen(true)
                             }}
                           ></Icon>
-                        </Layout.Horizontal>
-                      }
-                      placeholder="Enter time"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        formik.setFieldValue('idleTime', e.target.value)
-                        props.gatewayDetails.idleTimeMins = +e.target.value
-                        props.setGatewayDetails(props.gatewayDetails)
-                        setIdleTime(+e.target.value)
-                      }}
-                    />
-                    <Layout.Horizontal spacing="small">
-                      <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>
-                        Select Instance type
-                      </Label>
-                      <Icon
-                        name="info"
-                        onClick={() => {
-                          setDrawerOpen(true)
-                        }}
-                      ></Icon>
+                        </Text>
+                        <FormInput.Text
+                          name="idleTime"
+                          label={
+                            <Layout.Horizontal spacing="small">
+                              <Text>Idle time (mins)</Text>
+                            </Layout.Horizontal>
+                          }
+                          placeholder="Enter time"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            formik.setFieldValue('idleTime', e.target.value)
+                            props.gatewayDetails.idleTimeMins = +e.target.value
+                            props.setGatewayDetails(props.gatewayDetails)
+                            setIdleTime(+e.target.value)
+                          }}
+                        />
+                      </Layout.Vertical>
                     </Layout.Horizontal>
-
-                    <CardSelect
-                      data={instanceTypeCardData}
-                      className={css.instanceTypeViewGrid}
-                      onChange={item => {
-                        props.gatewayDetails.fullfilment = item.value
-                        props.setGatewayDetails(props.gatewayDetails)
-                        formik.setFieldValue('selectedIcon', item.value)
-                        setFullfilment(item.value)
-                      }}
-                      renderItem={(item, _) => (
-                        <Layout.Vertical spacing="large">
-                          <img src={item.icon} alt="" aria-hidden />
-                        </Layout.Vertical>
-                      )}
-                      selected={
-                        instanceTypeCardData[
-                          instanceTypeCardData.findIndex(card => card.value == formik.values.selectedIcon)
-                        ]
-                      }
-                      cornerSelected={true}
-                    ></CardSelect>
-                    <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
-                      <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                        Spot
-                      </Text>
-                      <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                        On demand
-                      </Text>
-                    </Layout.Horizontal>
-                  </Layout.Vertical>
-                </FormikForm>
+                  </FormikForm>
+                )}
+                validationSchema={Yup.object().shape({
+                  gatewayName: Yup.string().trim().required('Rule Name is required field'),
+                  idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
+                })}
+              ></Formik>
+              {/* </Layout.Vertical> */}
+            </Layout.Horizontal>
+          </COGatewayConfigStep>
+          <COGatewayConfigStep
+            count={2}
+            title={getString('ce.co.autoStoppingRule.configuration.step2.title')}
+            // subTitle={'You can manage multiple instances or a Auto Scaling group using and AutoStopping rule.'}
+            subTitle={getString('ce.co.autoStoppingRule.configuration.step2.subTitle')}
+            totalStepsCount={4}
+            id={CONFIG_STEP_IDS[1]}
+          >
+            <Layout.Vertical className={css.step2Container}>
+              <Text className={css.radioGroupTitle}>Select the resources to be managed by the rule</Text>
+              <RadioGroup
+                selectedValue={selectedResource?.valueOf()}
+                onChange={e => {
+                  setSelectedResource(e.currentTarget.value as RESOURCES)
+                }}
+                className={css.radioGroup}
+              >
+                {managedResources.map(resourceItem => {
+                  return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
+                })}
+              </RadioGroup>
+              {!_isEmpty(selectedResource) && (
+                <Layout.Vertical style={{ marginBottom: 20 }}>
+                  <Text style={{ fontSize: 14, color: '#9293AB', marginBottom: 10 }}>
+                    {selectedResource?.valueOf() === RESOURCES.INSTANCES
+                      ? getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance')
+                      : getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg')}
+                  </Text>
+                  <Text
+                    style={{ cursor: 'pointer', color: '#0278D5' }}
+                    onClick={selectedResource?.valueOf() === RESOURCES.INSTANCES ? openInstancesModal : openAsgModal}
+                  >
+                    {selectedResource?.valueOf() === RESOURCES.INSTANCES
+                      ? `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`
+                      : `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`}
+                  </Text>
+                </Layout.Vertical>
               )}
-              validationSchema={Yup.object().shape({
-                gatewayName: Yup.string().trim().required('Rule Name is required field'),
-                idleTime: Yup.number().required('Idle Time is required field'),
-                selectedIcon: Yup.string().required('Instance Type is required field')
-              })}
-            ></Formik>
-          </Container>
-
-          {fullfilment ? (
-            <>
-              <Label style={{ fontSize: 'var(--font-size-normal)', lineHeight: '20px' }}>Instances</Label>
-              <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '940px' }}>
-                <Text
-                  style={{
-                    color: 'var(--grey-500)',
-                    lineHeight: '24px',
-                    fontSize: 'var(--font-size-normal)',
-                    maxWidth: '890px'
-                  }}
-                >
-                  {getString('ce.co.gatewayConfig.info')}
-                </Text>
-                {selectedInstances.length ? (
-                  <Table<InstanceDetails>
-                    data={selectedInstances}
-                    bpTableProps={{}}
-                    className={css.instanceTable}
-                    columns={[
-                      {
-                        accessor: 'name',
-                        Header: 'NAME AND ID',
-                        width: '16.5%',
-                        Cell: NameCell
-                      },
-                      {
-                        accessor: 'ipv4',
-                        Header: 'IP ADDRESS',
-                        width: '16.5%',
-                        Cell: TableCell,
-                        disableSortBy: true
-                      },
-                      {
-                        accessor: 'region',
-                        Header: 'REGION',
-                        width: '16.5%',
-                        Cell: TableCell
-                      },
-                      {
-                        accessor: 'type',
-                        Header: 'TYPE',
-                        width: '16.5%',
-                        Cell: TableCell
-                      },
-                      {
-                        accessor: 'tags',
-                        Header: 'TAGS',
-                        width: '16.5%',
-                        Cell: TableCell
-                      },
-                      {
-                        accessor: 'launch_time',
-                        Header: 'LAUNCH TIME',
-                        width: '16.5%',
-                        Cell: TableCell
-                      },
-                      {
-                        accessor: 'status',
-                        Header: 'STATUS',
-                        width: '16.5%',
-                        Cell: TableCell
-                      }
-                    ]}
-                  />
-                ) : null}
-              </Container>
-              <Container style={{ background: 'var(--grey-100)', padding: 25, maxWidth: '947px' }}>
-                <Collapse collapsedIcon="plus" heading={getString('ce.co.gatewayConfig.addInstanceLabel')}>
-                  <Button style={{ float: 'right' }} onClick={refreshInstances} icon="refresh" />
-                  {loadingInstances ? (
-                    <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center', marginTop: '10px' }} />
-                  ) : (
-                    <COInstanceSelector
-                      selectedInstances={selectedInstances}
-                      setSelectedInstances={setSelectedInstances}
-                      setGatewayDetails={props.setGatewayDetails}
-                      instances={filteredInstances}
-                      gatewayDetails={props.gatewayDetails}
-                      search={handleSearch}
-                    />
-                  )}
-                </Collapse>
-              </Container>
               {selectedInstances.length ? (
-                <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
-                  <Container className={css.configTab}>
-                    <Tabs id="tabsId1">
-                      <Tab
-                        id="routing"
-                        title="Routing"
-                        panel={
-                          <Container style={{ backgroundColor: '#FBFBFB' }}>
-                            <Layout.Vertical spacing="large">
-                              {loading ? (
-                                <Icon
-                                  name="spinner"
-                                  size={24}
-                                  color="blue500"
-                                  style={{ alignSelf: 'center', marginTop: '10px' }}
-                                />
-                              ) : (
-                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                              )}
-                              <Container className={css.rowItem}>
-                                <Text
-                                  onClick={() => {
-                                    addPort()
-                                  }}
-                                >
-                                  {getString('ce.co.gatewayConfig.addPortLabel')}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                      <Tab
-                        id="healthcheck"
-                        title="Health check"
-                        panel={
-                          <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
-                            <Layout.Vertical spacing="large" padding="large">
-                              <Switch
-                                label={getString('ce.co.gatewayConfig.healthCheck')}
-                                className={css.switchFont}
-                                onChange={e => {
-                                  setHealthCheck(e.currentTarget.checked)
-                                }}
-                                checked={healthCheck}
-                              />
-                              {healthCheck ? (
-                                <COHealthCheckTable
-                                  pattern={healthCheckPattern}
-                                  updatePattern={setHealthCheckPattern}
-                                />
-                              ) : null}
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                      <Tab
-                        id="advanced"
-                        title="Advanced Configuration"
-                        panel={
-                          <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                            <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                              <Switch
-                                label={getString('ce.co.gatewayConfig.allowTraffic')}
-                                width="50%"
-                                className={css.switchFont}
-                                checked={matchSubdomains}
-                                onChange={e => {
-                                  props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
-                                  setMatchSubdomains(e.currentTarget.checked)
-                                  props.setGatewayDetails(props.gatewayDetails)
-                                }}
-                              />
-                              <Switch
-                                label={getString('ce.co.gatewayConfig.usePrivateIP')}
-                                width="50%"
-                                className={css.switchFont}
-                                checked={usePrivateIP}
-                                onChange={e => {
-                                  props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
-                                  setUsePrivateIP(e.currentTarget.checked)
-                                  props.setGatewayDetails(props.gatewayDetails)
-                                }}
-                              />
-                              {serviceDependencies && serviceDependencies.length ? (
-                                <CORuleDendencySelector
-                                  deps={serviceDependencies}
-                                  setDeps={setServiceDependencies}
-                                  service_id={props.gatewayDetails.id}
-                                  allServices={data?.response as Service[]}
-                                ></CORuleDendencySelector>
-                              ) : null}
-                              <Container>
-                                <Text
-                                  onClick={() => {
-                                    addDependency()
-                                  }}
-                                  style={{ color: 'var(--blue-500)', cursor: 'pointer' }}
-                                >
-                                  {'+ add dependency'}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                    </Tabs>
-                  </Container>
-                </Container>
+                <Table<InstanceDetails>
+                  data={selectedInstances}
+                  bpTableProps={{}}
+                  className={css.instanceTable}
+                  columns={[
+                    {
+                      accessor: 'name',
+                      Header: 'NAME AND ID',
+                      width: '16.5%',
+                      Cell: NameCell
+                    },
+                    {
+                      accessor: 'ipv4',
+                      Header: 'IP ADDRESS',
+                      width: '16.5%',
+                      Cell: TableCell,
+                      disableSortBy: true
+                    },
+                    {
+                      accessor: 'region',
+                      Header: 'REGION',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'type',
+                      Header: 'TYPE',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'tags',
+                      Header: 'TAGS',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'launch_time',
+                      Header: 'LAUNCH TIME',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'status',
+                      Header: 'STATUS',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      Header: '',
+                      id: 'menu',
+                      accessor: row => row.id,
+                      width: '5%',
+                      Cell: RemoveCell,
+                      disableSortBy: true
+                    }
+                  ]}
+                />
               ) : null}
-            </>
-          ) : null}
+              {!_isEmpty(selectedAsg) && (
+                <Table<ASGMinimal>
+                  data={[selectedAsg as ASGMinimal]}
+                  bpTableProps={{}}
+                  columns={[
+                    {
+                      accessor: 'name',
+                      Header: 'Name and ID',
+                      width: '16.5%',
+                      Cell: NameCell
+                    },
+                    {
+                      accessor: 'desired',
+                      Header: 'Instances',
+                      width: '10%',
+                      Cell: TableCell,
+                      disableSortBy: true
+                    },
+                    {
+                      accessor: 'region',
+                      Header: 'Region',
+                      width: '16.5%',
+                      Cell: TableCell
+                    }
+                  ]}
+                />
+              )}
+            </Layout.Vertical>
+          </COGatewayConfigStep>
+          <COGatewayConfigStep
+            count={3}
+            title={getString('ce.co.autoStoppingRule.configuration.step3.title')}
+            subTitle={selectedAsg ? getString('ce.co.autoStoppingRule.configuration.step3.subTitle') : ''}
+            totalStepsCount={4}
+            id={CONFIG_STEP_IDS[2]}
+          >
+            {!selectedAsg && (
+              <Layout.Vertical>
+                <CardSelect
+                  data={instanceTypeCardData}
+                  className={css.instanceTypeViewGrid}
+                  onChange={item => {
+                    setSelectedInstanceType(item)
+                    props.gatewayDetails.fullfilment = (item as CardData).value
+                    props.setGatewayDetails(props.gatewayDetails)
+                    setFullfilment((item as CardData).value)
+                  }}
+                  renderItem={(item, _) => (
+                    <Layout.Vertical spacing="large">
+                      <img src={(item as CardData).icon} alt="" aria-hidden />
+                    </Layout.Vertical>
+                  )}
+                  selected={selectedInstanceType}
+                  cornerSelected={true}
+                ></CardSelect>
+                <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
+                  <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
+                    Spot
+                  </Text>
+                  <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
+                    On demand
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Vertical>
+            )}
+            {selectedAsg && (
+              <Layout.Horizontal className={css.asgInstanceSelectionContianer}>
+                <div className={css.asgInstanceDetails}>
+                  <Text className={css.asgDetailRow}>
+                    <span>Desired capacity: </span>
+                    <span>{selectedAsg.desired}</span>
+                  </Text>
+                  <Text className={css.asgDetailRow}>
+                    <span>Min capacity: </span>
+                    <span>{selectedAsg.min}</span>
+                  </Text>
+                  <Text className={css.asgDetailRow}>
+                    <span>Max capacity: </span>
+                    <span>{selectedAsg.max}</span>
+                  </Text>
+                </div>
+                <div className={css.asgInstanceFormContainer}>
+                  <Formik
+                    initialValues={{
+                      odInstance: props.gatewayDetails.routing.instance.scale_group?.on_demand || selectedAsg.desired,
+                      spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
+                    }}
+                    onSubmit={_ => {}} // eslint-disable-line
+                    render={formik => (
+                      <FormikForm>
+                        <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+                          <Layout.Vertical className={css.instanceTypeInput}>
+                            <FormInput.Text
+                              name={'odInstance'}
+                              inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                              label={
+                                <Layout.Horizontal>
+                                  <img src={odIcon} />
+                                  <Text>On-Demand</Text>
+                                </Layout.Horizontal>
+                              }
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                handleAsgInstancesChange(formik, e.target.value, 'OD')
+                              }
+                            />
+                          </Layout.Vertical>
+                          <Layout.Vertical className={css.instanceTypeInput}>
+                            <FormInput.Text
+                              name={'spotInstance'}
+                              inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                              disabled={!selectedAsg?.mixed_instance}
+                              helperText={
+                                !selectedAsg?.mixed_instance &&
+                                getString('ce.co.autoStoppingRule.configuration.step3.policyNotEnabled')
+                              }
+                              label={
+                                <Layout.Horizontal>
+                                  <img src={spotIcon} />
+                                  <Text>Spot</Text>
+                                </Layout.Horizontal>
+                              }
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                handleAsgInstancesChange(formik, e.target.value, 'SPOT')
+                              }
+                            />
+                          </Layout.Vertical>
+                        </Layout.Horizontal>
+                      </FormikForm>
+                    )}
+                    validationSchema={Yup.object().shape({
+                      odInstance: Yup.number()
+                        .required()
+                        .positive()
+                        .min(0)
+                        .max(selectedAsg.max as number),
+                      spotInstance: Yup.number()
+                        .positive()
+                        .min(0)
+                        .max(selectedAsg.max as number)
+                    })}
+                  ></Formik>
+                </div>
+              </Layout.Horizontal>
+            )}
+          </COGatewayConfigStep>
+          <COGatewayConfigStep
+            count={4}
+            title={getString('ce.co.autoStoppingRule.configuration.step4.title')}
+            subTitle={getString('ce.co.autoStoppingRule.configuration.step4.subTitle')}
+            totalStepsCount={4}
+            id={CONFIG_STEP_IDS[3]}
+          >
+            {selectedInstances.length || !_isEmpty(selectedAsg) ? (
+              <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
+                <Container className={css.configTab}>
+                  <Tabs
+                    id="tabsId1"
+                    selectedTabId={activeConfigTabId}
+                    onChange={tabId => tabId !== activeConfigTabId && setActiveConfigTabId(tabId as string)}
+                  >
+                    <Tab
+                      id="routing"
+                      title="Routing"
+                      panel={
+                        <Container style={{ backgroundColor: '#FBFBFB' }}>
+                          <Layout.Vertical spacing="large">
+                            {!selectedAsg && loading ? (
+                              <Icon
+                                name="spinner"
+                                size={24}
+                                color="blue500"
+                                style={{ alignSelf: 'center', marginTop: '10px' }}
+                              />
+                            ) : (
+                              <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
+                            )}
+                            <Container className={css.rowItem}>
+                              <Text
+                                onClick={() => {
+                                  addPort()
+                                }}
+                              >
+                                {getString('ce.co.gatewayConfig.addPortLabel')}
+                              </Text>
+                            </Container>
+                          </Layout.Vertical>
+                        </Container>
+                      }
+                    />
+                    <Tab
+                      id="healthcheck"
+                      title="Health check"
+                      panel={
+                        <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
+                          <Layout.Vertical spacing="large" padding="large">
+                            <Switch
+                              label={getString('ce.co.gatewayConfig.healthCheck')}
+                              className={css.switchFont}
+                              onChange={e => {
+                                setHealthCheck(e.currentTarget.checked)
+                              }}
+                              checked={healthCheck}
+                            />
+                            {healthCheck ? (
+                              <COHealthCheckTable pattern={healthCheckPattern} updatePattern={setHealthCheckPattern} />
+                            ) : null}
+                          </Layout.Vertical>
+                        </Container>
+                      }
+                    />
+                    <Tab
+                      id="advanced"
+                      title="Advanced Configuration"
+                      panel={
+                        <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                          <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                            <Switch
+                              label={getString('ce.co.gatewayConfig.allowTraffic')}
+                              width="50%"
+                              className={css.switchFont}
+                              checked={matchSubdomains}
+                              onChange={e => {
+                                props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
+                                setMatchSubdomains(e.currentTarget.checked)
+                                props.setGatewayDetails(props.gatewayDetails)
+                              }}
+                            />
+                            <Switch
+                              label={getString('ce.co.gatewayConfig.usePrivateIP')}
+                              width="50%"
+                              className={css.switchFont}
+                              checked={usePrivateIP}
+                              onChange={e => {
+                                props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
+                                setUsePrivateIP(e.currentTarget.checked)
+                                props.setGatewayDetails(props.gatewayDetails)
+                              }}
+                            />
+                            {serviceDependencies && serviceDependencies.length ? (
+                              <CORuleDendencySelector
+                                deps={serviceDependencies}
+                                setDeps={setServiceDependencies}
+                                service_id={props.gatewayDetails.id}
+                                allServices={data?.response as Service[]}
+                              ></CORuleDendencySelector>
+                            ) : null}
+                            <Container>
+                              <Text
+                                onClick={() => {
+                                  addDependency()
+                                }}
+                                style={{ color: 'var(--blue-500)', cursor: 'pointer' }}
+                              >
+                                {'+ add dependency'}
+                              </Text>
+                            </Container>
+                          </Layout.Vertical>
+                        </Container>
+                      }
+                    />
+                  </Tabs>
+                </Container>
+              </Container>
+            ) : null}
+          </COGatewayConfigStep>
         </Layout.Vertical>
       </Container>
     </Layout.Vertical>

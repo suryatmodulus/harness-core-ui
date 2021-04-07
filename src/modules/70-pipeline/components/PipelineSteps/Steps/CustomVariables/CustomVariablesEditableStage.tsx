@@ -4,8 +4,9 @@ import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
 import cx from 'classnames'
+import * as Yup from 'yup'
 
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings, UseStringsReturn } from 'framework/exports'
 import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
@@ -15,8 +16,18 @@ import type { CustomVariableEditableProps, CustomVariablesData } from './CustomV
 import { VariableType, getVaribaleTypeOptions, labelStringMap } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 
+const getValidationSchema = (getString: UseStringsReturn['getString']): Yup.Schema<unknown> =>
+  Yup.object().shape({
+    variables: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().trim().required(getString('common.validation.nameIsRequired')),
+        value: Yup.mixed().required(getString('common.validation.valueIsRequired'))
+      })
+    )
+  })
+
 export function CustomVariablesEditableStage(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, domId, className, yamlProperties } = props
+  const { initialValues, onUpdate, domId, className, yamlProperties, enableValidation } = props
   const uids = React.useRef<string[]>([])
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
@@ -28,7 +39,12 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
   )
 
   return (
-    <Formik initialValues={initialValues} onSubmit={data => onUpdate?.(data)} validate={debouncedUpdate}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={data => onUpdate?.(data)}
+      validate={debouncedUpdate}
+      validationSchema={enableValidation ? getValidationSchema(getString) : undefined}
+    >
       {({ values, setFieldValue }) => (
         <FieldArray name="variables">
           {({ remove, push, replace }) => {

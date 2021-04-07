@@ -537,39 +537,39 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         />
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_details"
+                        aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
                         aria-disabled="false"
                         aria-expanded="true"
                         aria-selected="true"
                         class="bp3-tab"
-                        data-tab-id="details"
-                        id="bp3-tab-title_step-details_details"
+                        data-tab-id="STEP_DETAILS"
+                        id="bp3-tab-title_step-details_STEP_DETAILS"
                         role="tab"
                         tabindex="0"
                       >
                         Details
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_input"
+                        aria-controls="bp3-tab-panel_step-details_INPUT"
                         aria-disabled="false"
                         aria-expanded="false"
                         aria-selected="false"
                         class="bp3-tab"
-                        data-tab-id="input"
-                        id="bp3-tab-title_step-details_input"
+                        data-tab-id="INPUT"
+                        id="bp3-tab-title_step-details_INPUT"
                         role="tab"
                         tabindex="0"
                       >
                         Input
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_output"
+                        aria-controls="bp3-tab-panel_step-details_OUTPUT"
                         aria-disabled="false"
                         aria-expanded="false"
                         aria-selected="false"
                         class="bp3-tab"
-                        data-tab-id="output"
-                        id="bp3-tab-title_step-details_output"
+                        data-tab-id="OUTPUT"
+                        id="bp3-tab-title_step-details_OUTPUT"
                         role="tab"
                         tabindex="0"
                       >
@@ -578,9 +578,9 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                     </div>
                     <div
                       aria-hidden="false"
-                      aria-labelledby="bp3-tab-title_step-details_details"
+                      aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
                       class="bp3-tab-panel"
-                      id="bp3-tab-panel_step-details_details"
+                      id="bp3-tab-panel_step-details_STEP_DETAILS"
                       role="tabpanel"
                     >
                       <div

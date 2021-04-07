@@ -19,6 +19,7 @@ import { DefaultRulesView } from './DefaultRulesView'
 import css from '../FlagActivation/FlagActivation.module.scss'
 
 interface TabTargetingProps {
+  feature: Feature
   formikProps: any
   editing: boolean
   refetch: any
@@ -29,8 +30,8 @@ interface TabTargetingProps {
   setEditing: Function
 }
 
-const TodoTargeting: React.FC<TabTargetingProps> = props => {
-  const { formikProps, targetData, editing, setEditing, environmentIdentifier, projectIdentifier } = props
+const TabTargeting: React.FC<TabTargetingProps> = props => {
+  const { feature, formikProps, targetData, editing, setEditing, environmentIdentifier, projectIdentifier } = props
   const [isEditRulesOn, setEditRulesOn] = useState(false)
   const { getString } = useStrings()
 
@@ -94,10 +95,11 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
           alignIndicator="right"
           className={cx(Classes.LARGE, css.switch)}
           checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+          disabled={feature.archived}
         />
         <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
           {isFlagSwitchChanged
-            ? getString(`cf.featureFlags.flagWillTurn${switchOff ? 'Off' : 'On'}`)
+            ? getString(switchOff ? 'cf.featureFlags.flagWillTurnOff' : 'cf.featureFlags.flagWillTurnOn')
             : switchOff
             ? getString('cf.featureFlags.flagOff')
             : getString('cf.featureFlags.flagOn')}
@@ -110,6 +112,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
           style={{
             visibility: isEditRulesOn ? 'hidden' : undefined
           }}
+          disabled={feature.archived}
         />
       </Layout.Horizontal>
       <Layout.Vertical>
@@ -125,6 +128,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
       <Layout.Vertical>
         {showCustomRules && (
           <CustomRulesView
+            feature={feature}
             editing={isEditRulesOn}
             formikProps={formikProps}
             target={targetData}
@@ -137,4 +141,4 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
   )
 }
 
-export default TodoTargeting
+export default TabTargeting

@@ -1,0 +1,361 @@
+continuousVerification: Continuous Verification
+methodLabel: Method Label
+request: Request
+response: Response
+responseBody: Response Body
+statusCode: Status Code
+failures: Failures
+thirdPartyCalls:
+  modalTitle: Calls to
+  timeTaken: Time Taken
+  requestMade: Request Made
+  noCallsWereMade: No calls were made
+metricVerificationModal:
+  viewCalls: View calls to {{type}}
+  modalTitle: Metric Pack Connection Test
+dashboard:
+  subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
+  learnMore: Learn more about Continuous Verification
+  createProject: '{{$.ci.dashboard.createProject}}'
+  notStarted: Not started
+continuous: 'CONTINUOUS'
+verification: 'VERIFICATION'
+hostNamePlaceholder: '${host}'
+harnessService: 'Harness Service'
+harnessEnvironment: 'Harness Environment'
+selectOrCreateEnv: 'Select or create an environment'
+verificationErrored: 'Verification errored'
+getRiskAssessment: 'Get risk assessment'
+setup: 'Setup Continuous Verification'
+riskScore: 'Risk Score'
+noAnalysis: 'No Analysis'
+overviewPage:
+  recentChangeVerifications: 'Recent Change Verifications'
+riskCardTooltip:
+  header: Performance risk was computed based on metrics from your data providers
+  allServicesGreen: all services green
+analysisScreens:
+  analysisTab:
+    metrics: 'Metrics'
+    logs: 'Logs'
+navLinks:
+  activities: 'Activities'
+  dashboard: 'Dashboard'
+  adminSideNavLinks:
+    setup: 'Setup'
+    activitySources: 'Change Sources'
+    monitoringSources: 'Monitoring Sources'
+changesPage:
+  changeSourceDetails: 'Change Source Details'
+  changeSummary: 'Change Summary'
+  eventCount: 'Event Count'
+  viewKubernetesEvents: 'View Kubernetes Change Summary'
+admin:
+  mapsTo: maps to
+  notifications:
+    newNotification: 'New Notification Rule'
+    name: 'Name of the rule'
+    method: '{{$.notificationMethod}}'
+    createSuccess: Notification rule created succesfully
+    updateSuccess: 'Notification rule updated successfully'
+    deleteSuccess: 'Notification rule deleted succesfully'
+    create:
+      type: Notification Type
+      details: Detail
+      method: Configure Method
+      stepOne:
+        heading: Notification Rule Details
+        name: Give name to your notification rule
+      stepThree:
+        verification: Verification
+        headingOne: Select Condition for Notification
+        headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
+        notifyVerification: Notify on completed verifications
+        activityType: Activity Type
+        verificationStatus: Verification Statuses
+        notifyRisk: Notify on reaching service risk score threshold
+        preDeployment: Pre-Deployment
+        duringDeployment: During Deployment
+        postDeployment: Post-Deployment
+        infrastructureChange: Infrastructure Change
+        configChange: Config Change
+      validation:
+        type: Select a notification type
+  activitySources:
+    searchBoxPlaceholder: 'Search by Change Source name'
+    noDataMessage: 'No Change Sources onboarded'
+    addActivitySource: '+ Add Change Source(s)'
+    dialogDeleteContent: 'Are you sure you want to delete Change Source: '
+    dialogDeleteTitle: 'Delete Change Source'
+    tableColumnNames:
+      environments: 'Number of Environments'
+      createdOn: 'Created on'
+      lastUpdatedOn: 'Last Updated on'
+  monitoringSources:
+    searchPlaceholder: 'Search by name, environments, services'
+    newMonitoringSource: 'New Monitoring Source'
+    noDataMessage: 'No Monitoring Sources onboarded'
+    importStatus: 'Import Status'
+    importedOn: 'Imported On'
+    applicationsImported: '{{num}}/{{total}} applications imported'
+    environmentsImported: '{{num}}/{{total}} environments imported'
+    confirmDeleteTitle: Delete Monitoring Source
+    confirmDeleteContent: 'Are you sure you want to delete Monitoring Source: {{ name }}'
+  verificationJobs:
+    newVerificationJob: 'New Verification Job'
+    noDataMessage: 'No Verification Jobs to show'
+    jobTypes:
+      test: Test Verification
+      canary: Canary Verification
+      blueGreen: Blue Green Verification
+      health: Health Verification
+    confirmDeleteTitle: Delete Verification Job
+    confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
+connectors:
+  connectorDetailsHeader: '{{type}} Connector Details'
+  addConnectorDetails: Add {{type}} Verification Provider
+  unableToCreateConnector: Unable to create connector
+  unableToUpdateConnector: Unable to update connector
+  appD:
+    controllerUrlValidation: Controller URL is a required field
+  newRelic:
+    subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
+    urlFieldLabel: New Relic URL
+    accountIdFieldLabel: New Relic Account ID
+    encryptedAPIKeyLabel: Encrypted API Key
+    urlValidation: New Relic URL is required.
+    accountIdValidation: New Relic Account ID is required.
+    encryptedKeyValidation: Encrypted API Key is required.
+    accountIdTooltip: For steps to get New Relic Account ID
+    products:
+      fullStackObservability: 'Full Stack Observability: APM'
+onboarding:
+  monitoringSources:
+    addMoreSources: Add more Monitoring Sources
+    addedStatus: You have added {{sourceCount}} Monitoring Source
+    defineMonitoringSource: Define your Monitoring Source
+    monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
+    specifyConnector: Specify your {{type}} connector
+    firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
+    selectConnector: Select your {{type}} connector
+    addConnector: + Add {{type}} connector
+    selectProduct: Select the {{type}} product that you would like to select {{entity}} from
+    selectMetricPacks: Select Metric Pack(s)
+    metricPacksToMonitor: Select metric packs you want to monitor.
+  activitySources:
+    addMoreSources: Add more Change Sources
+    addedStatus: You have added {{sourceCount}} Change Source
+  verificationJobs:
+    heading: Almost there
+    infoText: Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
+    subHeading: Default health verification jobs are applied automatically.
+    createJobQues: Would you like to create a new verification job?
+    createJob: Create Job
+    keepGoing: Want to keep going...
+  progress:
+    heading: 'Your Progress'
+    mapServices: 'Map the above {{serviceLabel}} to a Monitoring Source.'
+    serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
+    servicesUsedInActivitySources: '{{serviceCount}} service is used in Change Sources.'
+    multiServicesUsedInActivitySources: '{{serviceCount}} services are used in Change Sources.'
+    serviceUsedInMonitoringSources: '{{serviceCount}} service is used in Monitoring Sources.'
+    multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in Monitoring Sources.'
+    servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
+    multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
+  selectProductScreen:
+    validationText:
+      name: 'Name is required.'
+      identifier: 'Identifier is required'
+      connectorRef: 'Connector Selection is required.'
+      validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
+      product: 'Product selection is required.'
+selectCreateService: Select or create a service
+monitoringSources:
+  mapMetricsToServices: 'Map Metrics to Harness Services'
+  metricPackValidation: Metric Pack Validation
+  oneMetricMappingValidation: At least one application must be mapped
+  oneMetricPackValidation: At least one Metric Pack must be selected
+  oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
+  backToMapping: Back to Mapping
+  reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
+  appDName: App Dynamics
+  newRelicName: New Relic
+  appD:
+    envDescription: An Environment is the representation of your production or non-production infrastructure.
+    appDApplications: APPDYNAMICS APPLICATIONS
+    appDTier: APPDYNAMICS TIER
+    harnessEnv: HARNESS ENVIRONMENT
+    validationMsg: Services should be mapped uniquely to application services
+    mapApplicationsToEnv: Map the AppDynamics Application to a Harness Environment
+    mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
+    noAppsMsg: No Applications were found
+    noTiersMsg: No Tiers were found for selected application
+    mappingToHarnessService: MAPPING TO HARNESS SERVICE
+    mapToHarnessEnvironment: MAPPING TO HARNESS ENVIRONMENT
+    mappedToHarnessService: MAPPED TO HARNESS SERVICE
+    mappedToHarnessEnvironment: MAPPED TO HARNESS ENVIRONMENT
+    harnessServices: HARNESS SERVICES
+    status: STATUS
+    validation: VALIDATION
+    tiersMappedToServices: tiers mapped to services
+    errorsFound: errors found
+    verificationsInProgress: Verification in progress
+    noData: No data
+    searchPlaceholderApplications: Search for Applications
+    validationsPassed: Validation passed
+    validationsFailed: Validation failed
+    validations:
+      selectApp: Please select application and its environment
+      selectTier: Please select tier and its service
+      selectMetricPack: Plese select metric packs
+    connectToMonitoringSource: 'Connect to your AppDynamics Monitoring Source'
+    firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
+    createConnectorText: '+ New AppDynamics Connector'
+    selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
+    product:
+      applicationMonitoring: 'Application Monitoring'
+      businessMonitoring: 'Business Performance Monitoring'
+      machineMonitoring: 'Machine Monitoring'
+      endUserMonitoring: 'End User Moniorting'
+    infoPanel:
+      mapDashboards: Map Dashboards to Harness Services
+      mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+      applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+      tiers: Tiers
+    searchTiersPlaceHolder: 'Search for Tiers'
+  gco:
+    connectToMonitoringSource: 'Connect to your Google Cloud Platform'
+    defaultName: 'My Google Cloud Operations Monitoring Source'
+    firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
+    createConnectorText: '+ New Google Cloud Platform Connector'
+    addManualInputQuery: '+ Manually input query'
+    selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
+    searchForDashboardsPlaceholder: Search for dashboards
+    product:
+      metrics: 'Cloud Metrics'
+    productValidationText: 'Google Cloud Operations feature is required.'
+    selectDashboardsPage:
+      noDataText: 'No Google Cloud Operation dashboards found.'
+      dashboardColumnName: 'Google Cloud Operation Dashboards'
+    manualInputQueryModal:
+      modalTitle: 'Add your Google Cloud Operations query'
+      subtitle1: 'Make sure your provide'
+      subtitle2: 'string for filtering in query.'
+      subtitle3: 'For example: '
+      exampleString: 'resource.label.\"pod_name\"=\"${host}\"".'
+      validation:
+        query: 'Query is required.'
+        metricName: 'Metric Name is required.'
+        uniqueMetricName: '{{metricName}} is an already taken metric name'
+    mapMetricsToServicesPage:
+      metricTagsLabel: 'Metric Tags'
+      metricNameLabel: 'Metric Name'
+      riskCategoryLabel: 'Risk Category'
+      manuallyInputQueriesLabel: 'Manually input queries'
+      viewQuery: 'View Query'
+      baselineDeviation: 'Deviation compared to baseline'
+      operationsQueryLabel: 'Operations query'
+      mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
+      querySpecifications: 'Query Specifications'
+      configureRiskProfile: 'Configure Risk Profile'
+      higherCounts: 'Higher counts = higher risk'
+      lowerCounts: 'Lower counts = lower risk'
+      enterQueryForValidation: Please enter a query.
+      validation:
+        mainSetupValidation: 'All fields for at least one metric must be filled completely.'
+        validJSON: Please provide valid json.
+        riskCategory: Risk Category is required.
+        env: Environment is required.
+        service: Service is required.
+        tags: Tags are required.
+        baseline: One selection is required.
+      noDataForQuery: 'No data for provided query.'
+    reviewPage:
+      mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
+      gcoMetrics: Google Cloud Operation metrics
+    tabName:
+      selectDashboards: 'Select Dashboards'
+  newRelic:
+    mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
+    mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications
+    newRelicAppColumn: NEW RELIC APPLICATION
+    selectedApplications: Selected Applications
+    oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
+    totalMappedApplications: '{{total}} Application(s) mapped'
+activitySources:
+  name: 'Name your Change Source'
+  harnessCD:
+    defaultName: 'My Harness CD'
+    select: 'Select your Change Source'
+    selectActivitySource: 'Select Change Source'
+    selectApplication: 'Select Applications'
+    selectEnvironment: 'Select Environments'
+    selectService: 'Select Services'
+    iconLabel: 'Harness FirstGen'
+    harnessApps: 'HARNESS FIRSTGEN APPLICATION'
+    application:
+      noData: 'No applications were found'
+      infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.'
+      servicesToBeImported: HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
+      searchPlaceholder: Search for FirstGen Applications
+    environment:
+      noData: 'No environments were found'
+      infoText: 'Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
+      harnessEnv: 'HARNESS FIRSTGEN ENVIRONMENTS'
+      env: 'HARNESS NEXTGEN ENVIRONMENTS'
+      searchPlaceholder: Search for FirstGen Environments
+    service:
+      noData: 'No services were found'
+      infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.'
+      harnessServices: 'HARNESS FIRSTGEN SERVICES'
+      services: 'HARNESS NEXTGEN SERVICES'
+      searchPlaceholder: Search for FirstGen Services
+    validation:
+      applicationValidation: At least one application must be selected.
+      serviceValidation: At least one service mapping must be selected.
+      environmentValidation: At least one environment mapping must be selected.
+  kubernetes:
+    tabNames:
+      tab1: 'Select Kubernetes Connector'
+      tab2: 'Select Kubernetes Namespace(s)'
+      tab3: 'Map Workloads to Services'
+    namespaceMapping:
+      searchNamespacePlaceholder: Search for Namespaces
+    mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
+    noWorkloads: 'No workloads found.'
+    missingWorkloadMapping: Please add at least one workload mapping
+    searchWorkloadPlaceholder: Search for Workloads
+    workloadToServiceTableColumns:
+      workload: 'Kubernetes Workload'
+      mapToService: 'Map to Harness Service'
+      mapToEnvironment: 'Map to Harness Environment'
+    reviewPage:
+      heading: '{{namespaceCount}} Namespaces, {{workloadCount}} Workloads will be sourced into Harness CV'
+      reviewTableColumns:
+        namespace: 'KUBERNETES NAMESPACE'
+        workload: 'KUBERNETES WORKLOAD'
+        service: 'HARNESS SERVICE'
+verificationJobs:
+  validation:
+    type: Please select Verification Job type
+    service: Please select a service
+    environment: Please select a environment
+    duration: Please select duration
+    dataSource: Please select a Monitoring Source
+    baseline: Please select a baseline
+    changeSource: Please select a Change Source
+  details:
+    name: Name of your job
+    tabName: Select Verification Job Type
+    heading: Create your verification job
+    verificationMonitoringSource: Verification Monitoring Sources (select multiple that apply)
+    selectType: Select the type of verification job
+    preDeploymentTests: Pre-Deployment Tests
+    productionDep: Production Deployments
+    postDeploymentTests: Post Deployment Tests
+  configure:
+    tabName: Configure Verification Job
+    heading: Verification Specification
+    preDepText: Create a new pre-deployment test verification job
+    prodDepText: Create a new production deployment verification job
+    postDepText: Create a new post-deployment test verification job

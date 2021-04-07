@@ -69,6 +69,7 @@ interface K8sApplyProps {
   initialValues: K8sApplyData
   onUpdate?: (data: K8sApplyData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: K8sApplyData
     path?: string
@@ -101,7 +102,7 @@ const setInitialValues = (data: K8sApplyData): K8sApplyFormData => {
 }
 
 function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardRef<K8sApplyData>): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const defaultValueToReset = ['']
   const { expressions } = useVariablesExpression()
@@ -129,10 +130,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 <div className={stepCss.formGroup}>
                   <MultiTypeFieldSelector
@@ -269,7 +267,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sApplyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sApplyInputStep
@@ -293,6 +291,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       <K8sApplyDeployWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
         ref={formikRef}

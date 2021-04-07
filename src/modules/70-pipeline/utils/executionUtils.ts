@@ -42,17 +42,23 @@ export enum NodeType {
   GENERIC_SECTION = 'GENERIC_SECTION',
   STEP_GROUP = 'STEP_GROUP',
   NG_SECTION = 'NG_SECTION',
+  ROLLBACK_OPTIONAL_CHILD_CHAIN = 'ROLLBACK_OPTIONAL_CHILD_CHAIN',
   FORK = 'NG_FORK',
   INFRASTRUCTURE_SECTION = 'INFRASTRUCTURE_SECTION',
   DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP'
 }
 
 export const NonSelectableNodes: NodeType[] = [NodeType.NG_SECTION, NodeType.FORK, NodeType.DEPLOYMENT_STAGE_STEP]
-
+export const TopLevelNodes: NodeType[] = [
+  NodeType.NG_SECTION,
+  NodeType.ROLLBACK_OPTIONAL_CHILD_CHAIN,
+  NodeType.INFRASTRUCTURE_SECTION
+]
 export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   SERVICE: 'main-services',
   GENERIC_SECTION: 'step-group',
   NG_SECTION: 'step-group',
+  ROLLBACK_OPTIONAL_CHILD_CHAIN: 'step-group',
   INFRASTRUCTURE_SECTION: 'step-group',
   STEP_GROUP: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
@@ -361,6 +367,7 @@ const processNodeData = (
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
   children?.forEach(item => {
     const nodeData = nodeMap?.[item]
+    const isRollback = nodeData?.name?.endsWith(StepGroupRollbackIdentifier) ?? false
     if (nodeData?.stepType === NodeType.FORK) {
       items.push({
         parallel: processNodeData(
@@ -370,14 +377,18 @@ const processNodeData = (
           rootNodes
         )
       })
-    } else if (nodeData?.stepType === NodeType.STEP_GROUP || nodeData?.stepType === NodeType.NG_SECTION) {
+    } else if (
+      nodeData?.stepType === NodeType.STEP_GROUP ||
+      nodeData?.stepType === NodeType.NG_SECTION ||
+      (nodeData && isRollback)
+    ) {
       items.push({
         group: {
           name: nodeData.name || /* istanbul ignore next */ '',
           identifier: item,
           data: nodeData,
           containerCss: {
-            ...(nodeData.identifier?.endsWith(StepGroupRollbackIdentifier) ? RollbackContainerCss : {})
+            ...(isRollback ? RollbackContainerCss : {})
           },
           showInLabel: false,
           status: nodeData.status as ExecutionPipelineItemStatus,
@@ -412,6 +423,7 @@ const processNodeData = (
     const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
       const nodeDataNext = nodeMap?.[id]
+      const isRollbackNext = nodeDataNext?.name?.endsWith(StepGroupRollbackIdentifier) ?? false
       if (nodeDataNext?.stepType === NodeType.FORK) {
         items.push({
           parallel: processNodeData(
@@ -421,13 +433,16 @@ const processNodeData = (
             rootNodes
           )
         })
-      } else if (nodeDataNext?.stepType === NodeType.STEP_GROUP) {
+      } else if (nodeDataNext?.stepType === NodeType.STEP_GROUP || (isRollbackNext && nodeDataNext)) {
         items.push({
           group: {
             name: nodeDataNext.name || /* istanbul ignore next */ '',
             identifier: id,
             data: nodeDataNext,
             showInLabel: false,
+            containerCss: {
+              ...(isRollbackNext ? RollbackContainerCss : {})
+            },
             skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
             status: nodeDataNext.status as ExecutionPipelineItemStatus,
             isOpen: true,
@@ -483,7 +498,8 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
       const nodeData = graph?.nodeMap?.[nodeId]
       /* istanbul ignore else */
       if (nodeData) {
-        if (nodeData.stepType === NodeType.NG_SECTION || nodeData.stepType === NodeType.INFRASTRUCTURE_SECTION) {
+        const isRollback = nodeData.name?.endsWith(StepGroupRollbackIdentifier) ?? false
+        if (nodeData.stepType && (TopLevelNodes.indexOf(nodeData.stepType as NodeType) > -1 || isRollback)) {
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -497,7 +513,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 data: nodeData,
                 skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
                 containerCss: {
-                  ...(RollbackIdentifier === nodeData.identifier ? RollbackContainerCss : {})
+                  ...(RollbackIdentifier === nodeData.identifier || isRollback ? RollbackContainerCss : {})
                 },
                 status: nodeData.status as ExecutionPipelineItemStatus,
                 isOpen: true,
@@ -566,7 +582,7 @@ export function getIconDataBasedOnType(
 ): { icon: IconName; iconSize: number; iconStyle?: { marginBottom: string } } {
   if (nodeData) {
     if (nodeData.stepType === StepType.Barrier) {
-      return nodeData.endTs
+      return nodeData.status === 'Success'
         ? { icon: 'barrier-close', iconSize: 72 }
         : { icon: 'barrier-open', iconSize: 70, iconStyle: { marginBottom: '38px' } }
     }

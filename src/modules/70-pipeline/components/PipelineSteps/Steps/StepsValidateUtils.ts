@@ -7,6 +7,7 @@ import type { UseStringsReturn } from 'framework/strings/String'
 import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
+import type { StringKeys } from 'framework/exports'
 
 export enum Types {
   Text,
@@ -103,7 +104,7 @@ function generateSchemaForList(
       schema = schema
         .ensure()
         .compact()
-        .min(1, getString('fieldRequired', { field: getString(label) }))
+        .min(1, getString('fieldRequired', { field: getString(label as StringKeys) }))
     }
 
     return schema
@@ -120,7 +121,7 @@ function generateSchemaForList(
           schema = schema
             .ensure()
             .compact((val: any) => !val?.value)
-            .min(1, getString('fieldRequired', { field: getString(label) }))
+            .min(1, getString('fieldRequired', { field: getString(label as StringKeys) }))
         }
 
         return schema
@@ -174,7 +175,7 @@ function generateSchemaForMap(
           schema = schema
             .ensure()
             .compact((val: any) => !val?.value)
-            .min(1, getString('fieldRequired', { field: getString(label) }))
+            .min(1, getString('fieldRequired', { field: getString(label as StringKeys) }))
         }
 
         return schema
@@ -286,9 +287,11 @@ export function generateSchemaFields(
 
     if ((type === Types.Identifier || type === Types.Name || type === Types.Text) && isRequired && label) {
       if (validationRule) {
-        validationRule = (validationRule as any).required(getString('fieldRequired', { field: getString(label) }))
+        validationRule = (validationRule as any).required(
+          getString('fieldRequired', { field: getString(label as StringKeys) })
+        )
       } else {
-        validationRule = yup.string().required(getString('fieldRequired', { field: getString(label) }))
+        validationRule = yup.string().required(getString('fieldRequired', { field: getString(label as StringKeys) }))
       }
     }
 

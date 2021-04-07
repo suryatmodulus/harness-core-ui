@@ -87,6 +87,7 @@ interface K8sDeleteProps {
   initialValues: K8sDeleteFormData
   onUpdate?: (data: K8sDeleteFormData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: K8sDeleteData
     path?: string
@@ -98,7 +99,7 @@ function K8sDeleteDeployWidget(
   props: K8sDeleteProps,
   formikRef: StepFormikFowardRef<K8sDeleteData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
 
   const accessTypeOptions = React.useMemo(() => {
@@ -294,10 +295,7 @@ function K8sDeleteDeployWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 <div className={stepCss.formGroup}>
                   <FormInput.RadioGroup
@@ -504,7 +502,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
   renderStep(props: StepProps<any>): JSX.Element {
     /* istanbul ignore next */
 
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */
@@ -532,6 +530,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
       <K8sDeleteDeployWidgetWithRef
         initialValues={initialValues}
         stepViewType={stepViewType}
+        isNewStep={isNewStep}
         readonly={!!inputSetData?.readonly}
         ref={formikRef}
         onUpdate={onUpdate}

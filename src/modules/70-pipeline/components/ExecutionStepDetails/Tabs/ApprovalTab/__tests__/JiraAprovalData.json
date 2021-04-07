@@ -11,23 +11,27 @@
     },
     "approvalCriteria": {
       "type": "KeyValues",
-      "matchAnyCondition": false,
-      "conditions": [
-        {
-          "key": "Status",
-          "value": "Resolved",
-          "op": "equals"
-        },
-        {
-          "key": "Status",
-          "value": "In-progress,Open",
-          "op": "not in"
-        }
-      ]
+      "spec": {
+        "matchAnyCondition": false,
+        "conditions": [
+          {
+            "key": "Status",
+            "value": "Resolved",
+            "operator": "equals"
+          },
+          {
+            "key": "Status",
+            "value": "In-progress,Open",
+            "operator": "not in"
+          }
+        ]
+      }
     },
     "rejectionCriteria": {
       "type": "Jexl",
-      "expression": "${changes[0].ref.displayId}-${repository.name.substring(${repository.name.indexOf('-')+1})}"
+      "spec": {
+        "expression": "${changes[0].ref.displayId}-${repository.name.substring(${repository.name.indexOf('-')+1})}"
+      }
     }
   }
 }

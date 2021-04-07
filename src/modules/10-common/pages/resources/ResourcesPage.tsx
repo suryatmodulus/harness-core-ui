@@ -46,7 +46,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                     : routes.toResourcesSecretsListing({ accountId })
                 }
               >
-                {getString('secrets')}
+                {getString('common.secrets')}
               </NavLink>
 
               {CDNG_ENABLED && !(projectIdentifier || orgIdentifier) ? (

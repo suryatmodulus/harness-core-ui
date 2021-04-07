@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Render - Custom Trigger Configuration Panel 1`] = `
+exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Render - Custom Trigger Configuration Panel (enableSecureToken: false)  1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -109,7 +109,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description
+                  Description (optional)
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -140,7 +140,253 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags
+                  Tags (optional)
+                  <span
+                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    data-name="edit"
+                    data-testid="tags-edit"
+                    icon="edit"
+                  >
+                    <svg
+                      data-icon="edit"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      width="12"
+                    >
+                      <desc>
+                        edit
+                      </desc>
+                      <path
+                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              level="2"
+            >
+              Listen on New Webhook
+            </h2>
+            <section
+              style="width: 650px;"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="sourceRepo-1"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceRepo"
+                >
+                  Payload Type
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="sourceRepo"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Custom"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Render - Custom Trigger Configuration Panel (enableSecureToken:true, isEdit: false) 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            Trigger Configuration: On New Webhook
+          </h2>
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+            >
+              <div
+                class="InputWithIdentifier--txtNameContainer"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                    :
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-editable-text-content"
+                          style="height: 1px; line-height: 1px; min-width: 0;"
+                        />
+                      </div>
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-edit StyledProps--main"
+                    icon="edit"
+                    style="vertical-align: middle;"
+                  >
+                    <svg
+                      data-icon="edit"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      width="12"
+                    >
+                      <desc>
+                        edit
+                      </desc>
+                      <path
+                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="name-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="name"
+                  >
+                    Name
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="name"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <label
+                  class="Label--main"
+                  style="font-size: 13px;"
+                >
+                  Description (optional)
+                  <span
+                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    data-name="edit"
+                    data-testid="description-edit"
+                    icon="edit"
+                  >
+                    <svg
+                      data-icon="edit"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      width="12"
+                    >
+                      <desc>
+                        edit
+                      </desc>
+                      <path
+                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <label
+                  class="Label--main"
+                  style="font-size: 13px;"
+                >
+                  Tags (optional)
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -241,12 +487,290 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 class="Layout--horizontal StyledProps--main"
                 style="justify-content: space-between; width: 324px;"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="align-self: center;"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                 >
-                  Secure Token
-                </p>
+                  <div
+                    class="bp3-form-group"
+                    data-id="secureToken-2"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <label
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
+                      >
+                        <input
+                          name="secureToken"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        Secure Token
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                />
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Render - Custom Trigger Configuration Panel (enableSecureToken:true, isEdit: true) 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            Trigger Configuration
+          </h2>
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+            >
+              <div
+                class="InputWithIdentifier--txtNameContainer"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                    :
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                      >
+                        <span
+                          class="bp3-editable-text-content"
+                          style="height: 1px; line-height: 1px; min-width: 0;"
+                        />
+                      </div>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="name-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="name"
+                  >
+                    Name
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="name"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <label
+                  class="Label--main"
+                  style="font-size: 13px;"
+                >
+                  Description (optional)
+                  <span
+                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    data-name="edit"
+                    data-testid="description-edit"
+                    icon="edit"
+                  >
+                    <svg
+                      data-icon="edit"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      width="12"
+                    >
+                      <desc>
+                        edit
+                      </desc>
+                      <path
+                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <label
+                  class="Label--main"
+                  style="font-size: 13px;"
+                >
+                  Tags (optional)
+                  <span
+                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    data-name="edit"
+                    data-testid="tags-edit"
+                    icon="edit"
+                  >
+                    <svg
+                      data-icon="edit"
+                      height="12"
+                      viewBox="0 0 16 16"
+                      width="12"
+                    >
+                      <desc>
+                        edit
+                      </desc>
+                      <path
+                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+              level="2"
+            >
+              Listen on New Webhook
+            </h2>
+            <section
+              style="width: 650px;"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="sourceRepo-1"
+              >
+                <label
+                  class="bp3-label"
+                  for="sourceRepo"
+                >
+                  Payload Type
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="sourceRepo"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Custom"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal StyledProps--main"
+                style="justify-content: space-between; width: 324px;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="secureToken-2"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <label
+                        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
+                      >
+                        <input
+                          checked=""
+                          name="secureToken"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        Secure Token
+                      </label>
+                    </div>
+                  </div>
+                </div>
                 <div
                   class="StyledProps--font StyledProps--main"
                 >
@@ -257,75 +781,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                        data-name="eye-con"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-eye-off StyledProps--main"
-                          icon="eye-off"
-                        >
-                          <svg
-                            data-icon="eye-off"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              eye-off
-                            </desc>
-                            <path
-                              d="M16 7.97v-.02-.01-.02-.02a.672.672 0 00-.17-.36c-.49-.63-1.07-1.2-1.65-1.72l-3.16 2.26a2.978 2.978 0 01-2.98 2.9c-.31 0-.6-.06-.88-.15L5.09 12.3c.44.19.9.36 1.37.47.97.23 1.94.24 2.92.05.88-.17 1.74-.54 2.53-.98 1.25-.7 2.39-1.67 3.38-2.75.18-.2.37-.41.53-.62.09-.1.15-.22.17-.36v-.02-.02-.01-.02-.03c.01-.02.01-.03.01-.04zm-.43-4.17c.25-.18.43-.46.43-.8 0-.55-.45-1-1-1-.22 0-.41.08-.57.2l-.01-.01-2.67 1.91c-.69-.38-1.41-.69-2.17-.87a6.8 6.8 0 00-2.91-.05c-.88.18-1.74.54-2.53.99-1.25.7-2.39 1.67-3.38 2.75-.18.2-.37.41-.53.62-.23.29-.23.63-.01.92.51.66 1.11 1.25 1.73 1.79.18.16.38.29.56.44l-2.09 1.5.01.01c-.25.18-.43.46-.43.8 0 .55.45 1 1 1 .22 0 .41-.08.57-.2l.01.01 14-10-.01-.01zm-10.41 5a3.03 3.03 0 01-.11-.8 2.99 2.99 0 012.99-2.98c.62 0 1.19.21 1.66.53L5.16 8.8z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                        data-name="copy"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-duplicate StyledProps--main"
-                          icon="duplicate"
-                        >
-                          <svg
-                            data-icon="duplicate"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              duplicate
-                            </desc>
-                            <path
-                              d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main regenerateButton"
                         data-name="regenerate-token"
                         tabindex="0"
                         type="button"
@@ -351,19 +807,28 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 </div>
               </div>
               <div
-                class="TextInput--main"
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main fieldWarning"
               >
-                <div
-                  class="bp3-input-group bp3-disabled"
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-yellow500"
+                  data-icon="main-warning"
                 >
-                  <input
-                    class="bp3-input"
-                    disabled=""
-                    name="test"
-                    type="password"
-                    value="************"
-                  />
-                </div>
+                  <svg
+                    height="16"
+                    viewBox="0 0 14 12"
+                    width="16"
+                  >
+                    <path
+                      d="M13.9 11L7.6.3C7.5.1 7.3 0 7 0s-.5.1-.6.3L.1 11c-.1.1-.1.2-.1.3 0 .4.3.7.7.7h12.6c.4 0 .7-.3.7-.7 0-.1 0-.2-.1-.3zm-6.2-.3H6.3V9.3h1.4zm0-2H6.3V3.3h1.4z"
+                      fill="#4d5969"
+                    />
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.
+                </p>
               </div>
             </section>
           </div>
@@ -483,7 +948,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description
+                  Description (optional)
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -514,7 +979,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags
+                  Tags (optional)
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"

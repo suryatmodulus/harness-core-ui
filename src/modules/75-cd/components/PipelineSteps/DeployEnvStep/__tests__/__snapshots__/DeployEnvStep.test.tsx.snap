@@ -119,7 +119,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description
+              Description (optional)
             </label>
             <div
               class="bp3-form-group"
@@ -144,7 +144,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags
+              Tags (optional)
             </label>
             <div
               class="bp3-form-group"
@@ -473,7 +473,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description
+              Description (optional)
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -504,7 +504,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags
+              Tags (optional)
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"

@@ -131,8 +131,93 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   </div>
                 </div>
                 <div
+                  class="StyledProps--font StyledProps--main formElm"
+                >
+                  <div
+                    class="InputWithIdentifier--txtNameContainer"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            />
+                          </div>
+                        </span>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
+                        icon="edit"
+                        style="vertical-align: middle;"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        Name
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
                   class="bp3-form-group"
-                  data-id="null-0"
+                  data-id="null-1"
                 >
                   <label
                     class="bp3-label"
@@ -184,7 +269,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                 </div>
                 <div
                   class="bp3-form-group"
-                  data-id="repo-1"
+                  data-id="repo-2"
                 >
                   <label
                     class="bp3-label"
@@ -214,7 +299,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                 </div>
                 <div
                   class="bp3-form-group"
-                  data-id="branch-2"
+                  data-id="branch-3"
                 >
                   <label
                     class="bp3-label"
@@ -239,6 +324,441 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                         type="text"
                         value=""
                       />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+              >
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--intent-primary"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save
+                  </span>
+                </button>
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--margin-left-medium"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="width: 40%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--background-grey200 StyledProps--padding-large StyledProps--border"
+        >
+          <span
+            class="bp3-icon StyledProps--main"
+            data-icon="help"
+          >
+            <svg
+              fill="none"
+              height="28"
+              width="28"
+            >
+              <path
+                d="M.488 8.325a3.694 3.694 0 015.225 0 3.694 3.694 0 015.224 0 3.694 3.694 0 015.225 0 7.837 7.837 0 10-15.674 0z"
+                fill="#ADEEFA"
+              />
+              <path
+                d="M8.325.488c-1.443 0-2.613 3.508-2.613 7.836v.001a3.694 3.694 0 015.227-.001c0-4.328-1.17-7.836-2.614-7.836z"
+                fill="#FF7D97"
+              />
+              <path
+                d="M4.81 13.574h7.03c1.08 0 1.954.875 1.954 1.953v7.032a1.953 1.953 0 01-1.953 1.953H4.81a1.953 1.953 0 01-1.954-1.953v-7.032c0-1.078.875-1.953 1.954-1.953z"
+                fill="#FFEC80"
+              />
+              <path
+                d="M6.373 17.385v-3.81h3.906v3.81l-1.953-1.4-1.953 1.4z"
+                fill="#fff"
+              />
+              <path
+                d="M16.65 8.325C16.65 3.735 12.916 0 8.325 0 3.735 0 0 3.735 0 8.325c0 .153.071.293.187.384l5.584 4.377H4.81a2.444 2.444 0 00-2.442 2.441v1.319a.488.488 0 00.977 0v-1.319c0-.807.657-1.464 1.465-1.464h1.074v3.322a.488.488 0 00.773.397l1.669-1.196 1.669 1.196a.488.488 0 00.772-.397v-3.323h1.074c.808 0 1.465.658 1.465 1.465v7.032c0 .807-.657 1.464-1.465 1.464H4.81a1.466 1.466 0 01-1.465-1.464V21.24a.488.488 0 00-.977 0v1.319A2.444 2.444 0 004.81 25h7.03a2.444 2.444 0 002.442-2.441v-7.032a2.444 2.444 0 00-2.441-2.441h-.962l5.584-4.377a.488.488 0 00.187-.384zm-1.048-1.033a4.199 4.199 0 00-4.195.054c-.072-1.776-.339-3.423-.77-4.717-.206-.617-.429-1.095-.657-1.464a7.368 7.368 0 015.621 6.127zM8.325.977c.337 0 .902.513 1.385 1.961.399 1.195.647 2.725.72 4.385a4.184 4.184 0 00-4.209 0c.072-1.66.32-3.19.72-4.385C7.422 1.49 7.987.977 8.324.977zm2.025 7.475l-2.024 4.613L6.3 8.451a3.212 3.212 0 014.05 0zm-5.045.159l1.918 4.372-5.96-4.671a3.21 3.21 0 014.042.299zm6.043-.002a3.21 3.21 0 014.04-.297l-5.959 4.67 1.919-4.373zM6.67 1.165c-.228.369-.45.847-.656 1.464-.432 1.294-.699 2.941-.771 4.717a4.199 4.199 0 00-4.194-.054A7.368 7.368 0 016.67 1.165zm3.12 15.27l-1.18-.847a.488.488 0 00-.569 0l-1.18.846v-2.372h2.93v2.372z"
+                fill="#6B6D85"
+              />
+              <path
+                d="M11.646 22.64a.488.488 0 100-.976h-1.514a.488.488 0 000 .976h1.514zm-8.79-3.109a.492.492 0 00.489-.488.492.492 0 00-.489-.488.492.492 0 00-.488.488.492.492 0 00.488.488z"
+                fill="#6B6D85"
+              />
+            </svg>
+          </span>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700"
+            >
+              What is a Connector?
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+               
+              Connectors integrate Harness with your cloud platforms, codebase and artifact repos, and collaboration and monitoring tools.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
+    style="height: inherit;"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+    >
+      Enable Git Experience
+    </p>
+    <div
+      class="Layout--horizontal StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="width: 60%;"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main formBody"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-top-large StyledProps--margin-bottom-large"
+                >
+                  Select your Git Provider
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-large"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main cardWrapper"
+                  >
+                    <div
+                      class="bp3-card bp3-interactive bp3-elevation-0 Card--card card selectedCard Card--interactive"
+                      data-testid="Github-card"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main connectorTypeIcon StyledProps--margin-large StyledProps--inline"
+                        data-icon="github-selected"
+                      >
+                        <svg
+                          fill="none"
+                          height="40"
+                          viewBox="0 0 20 20"
+                          width="40"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M9.97 0C4.464 0 0 4.465 0 9.97c0 4.403 2.875 8.134 6.789 9.48.49.06.673-.245.673-.49v-1.712c-2.753.611-3.364-1.346-3.364-1.346-.428-1.162-1.101-1.468-1.101-1.468-.917-.611.061-.611.061-.611.979.06 1.53 1.04 1.53 1.04.917 1.528 2.323 1.1 2.874.856a2.13 2.13 0 01.611-1.346c-2.201-.244-4.526-1.1-4.526-4.954 0-1.101.367-1.957 1.04-2.691-.061-.184-.428-1.223.122-2.569 0 0 .857-.245 2.753 1.04.795-.245 1.651-.306 2.507-.306.857 0 1.713.122 2.508.306 1.896-1.285 2.752-1.04 2.752-1.04.55 1.346.184 2.385.123 2.63a3.956 3.956 0 011.04 2.691c0 3.853-2.325 4.649-4.527 4.893.367.306.673.918.673 1.835v2.752c0 .245.184.55.673.49A9.98 9.98 0 0020 9.97C19.939 4.464 15.474 0 9.97 0z"
+                            fill="#3E7BFA"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-blue500"
+                    >
+                      GitHub
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--vertical StyledProps--main cardWrapper"
+                  >
+                    <div
+                      class="bp3-card bp3-elevation-0 Card--card card Card--disabled"
+                      data-testid="Gitlab-card"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main connectorTypeIcon StyledProps--margin-large StyledProps--inline"
+                        data-icon="gitlab-unselected"
+                      >
+                        <svg
+                          fill="none"
+                          height="40"
+                          viewBox="0 0 20 19"
+                          width="40"
+                        >
+                          <path
+                            d="M15.657 0a.436.436 0 00-.42.3l-2.161 6.656H6.925L4.762.301a.438.438 0 00-.657-.226.438.438 0 00-.164.207L1.335 7.235c-.002 0-.002.002-.003.003L.027 10.716a.435.435 0 00.153.505l9.562 6.953.002.003.001.002.018.01c.006.004.011.009.018.012.002 0 .002.002.003.002l.004.001c.002.002.003.004.006.004l.007.005.03.012v.002l.028.01.004.001.021.007.013.002c0 .002 0 .002 0 0a.114.114 0 00.025.006l.034.006.053.001c.017-.001.032-.001.047-.005.007 0 .012 0 .019-.002h.003l.009-.001c.001 0 .003-.002.007-.002.003-.001.008-.001.011-.003a.205.205 0 00.018-.005c.003 0 .005 0 .006-.002h.005a.284.284 0 00.045-.019l.003-.002.005-.001.01-.005a.387.387 0 00.027-.016l.007-.004.005-.002.02-.014.004-.005 9.562-6.951a.436.436 0 00.15-.504l-1.3-3.467a.03.03 0 01-.004-.012L16.06.282A.435.435 0 0015.658 0zM2.637 7.826h3.656l2.545 7.833-6.2-7.833zm11.07 0h3.655l-6.2 7.833 2.545-7.833zm-11.832.438L7.69 15.61.96 10.713l.916-2.449zm16.25 0l.917 2.45-6.732 4.895 5.815-7.345z"
+                            fill="#4F5162"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey500"
+                    >
+                      GitLab
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--vertical StyledProps--main cardWrapper"
+                  >
+                    <div
+                      class="bp3-card bp3-elevation-0 Card--card card Card--disabled"
+                      data-testid="Bitbucket-card"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main connectorTypeIcon StyledProps--margin-large StyledProps--inline"
+                        data-icon="bitbucket-unselected"
+                      >
+                        <svg
+                          fill="none"
+                          height="40"
+                          viewBox="0 0 20 18"
+                          width="40"
+                        >
+                          <path
+                            d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
+                            fill="#4F5162"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey500"
+                    >
+                      Bitbucket
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main formElm"
+                >
+                  <div
+                    class="InputWithIdentifier--txtNameContainer"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                            tabindex="0"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            />
+                          </div>
+                        </span>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
+                        icon="edit"
+                        style="vertical-align: middle;"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group bp3-intent-danger"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        Name
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group bp3-intent-danger"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          class="bp3-form-helper-text"
+                        >
+                          Name is a required field
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-1"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    Select the connector to your GitHub
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      style="width: 350px;"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span
+                          class="placeholder"
+                        >
+                          Select
+                        </span>
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                        icon="caret-down"
+                      >
+                        <svg
+                          data-icon="caret-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            caret-down
+                          </desc>
+                          <path
+                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group bp3-intent-danger"
+                  data-id="repo-2"
+                >
+                  <label
+                    class="bp3-label"
+                    for="repo"
+                  >
+                    Repository URL
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-intent-danger"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="repo"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Repository Name is required
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group bp3-intent-danger"
+                  data-id="branch-3"
+                >
+                  <label
+                    class="bp3-label"
+                    for="branch"
+                  >
+                    Branch name
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-intent-danger"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="branch"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      Branch Name is required
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,14 @@
 .execHistoryCheckbox {
-  margin-left: var(--spacing-xlarge) !important;
   :global {
     label {
       padding-left: 0 !important;
+      color: var(--black) !important;
+      font-size: 14px !important;
+    }
+
+    .bp3-control-indicator {
+      margin-left: 0 !important;
+      margin-right: var(--spacing-small) !important;
     }
   }
 }
@@ -47,4 +53,12 @@
 
 .align {
   align-items: center;
+}
+
+.md {
+  width: 75%;
+}
+
+.sm {
+  width: 50%;
 }

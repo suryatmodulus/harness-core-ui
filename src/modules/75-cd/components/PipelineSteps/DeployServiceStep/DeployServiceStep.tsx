@@ -27,12 +27,12 @@ import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/e
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { NameIdDescriptionTags } from '@common/components'
 import css from './DeployServiceStep.module.scss'
 const logger = loggerFor(ModuleName.CD)
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
@@ -68,7 +68,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
       >
         {formikProps => (
           <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
-            <AddDescriptionAndKVTagsWithIdentifier
+            <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),

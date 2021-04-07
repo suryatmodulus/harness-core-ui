@@ -5,27 +5,19 @@ import { Page } from '@common/exports'
 
 import { useStrings, useAppStore } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
-import { PageSpinner } from '@common/components'
-import { useIsGitSyncEnabled } from 'services/cd-ng'
+import { GitSyncStoreProvider } from '@gitsync/common/GitSyncStoreContext'
 
-import type { UseGetMockData } from '@common/utils/testUtils'
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
 
 interface GitSyncPageProps {
   children: ReactNode
-  mockIsEnabled?: UseGetMockData<boolean>
 }
 
-const GitSyncPage: React.FC<GitSyncPageProps> = ({ children, mockIsEnabled }) => {
+export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
-  const { selectedProject } = useAppStore()
+  const { selectedProject, isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
-
-  const { data: isGitSyncEnabled, loading } = useIsGitSyncEnabled({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
-    mock: mockIsEnabled
-  })
 
   const renderBreadCrumb = React.useMemo(() => {
     return (
@@ -48,9 +40,7 @@ const GitSyncPage: React.FC<GitSyncPageProps> = ({ children, mockIsEnabled }) =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier])
 
-  return loading ? (
-    <PageSpinner />
-  ) : (
+  return (
     <>
       <Page.Header
         className={css.header}
@@ -82,6 +72,14 @@ const GitSyncPage: React.FC<GitSyncPageProps> = ({ children, mockIsEnabled }) =>
       />
       <Page.Body>{isGitSyncEnabled ? children : <NewUserView />}</Page.Body>
     </>
+  )
+}
+
+const GitSyncPage: React.FC<GitSyncPageProps> = ({ children }) => {
+  return (
+    <GitSyncStoreProvider>
+      <GitSyncLandingView>{children}</GitSyncLandingView>
+    </GitSyncStoreProvider>
   )
 }
 

@@ -25,6 +25,11 @@
   &.shadow {
     box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
   }
+  &:not(:last-child) {
+    :global(.bp3-collapse-body > div) {
+      background-color: var(--white) !important;
+    }
+  }
 }
 
 .section {
@@ -55,6 +60,75 @@
 
   .selected {
     border-bottom: 2px solid var(--grey-700) !important;
+  }
+}
+
+.stageSection {
+  background-color: var(--white);
+
+  &.stagePopover {
+    padding: var(--spacing-medium);
+  }
+
+  .tabHeading {
+    font-weight: 500;
+    font-size: var(--font-size-medium);
+  }
+  &.noPadVertical {
+    padding-top: 0px;
+    padding-bottom: 0;
+  }
+  .disabled {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    cursor: not-allowed !important;
+  }
+
+  .stageDetails {
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    padding: var(--spacing-medium);
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px 0px var(--grey-250);
+    .stageOverridesTab {
+      justify-content: end;
+      display: grid;
+    }
+    :global {
+      .customVariables {
+        width: 700px !important;
+      }
+    }
+  }
+
+  .inputContainer {
+    display: grid;
+    grid-template-columns: none;
+    align-items: center;
+    button {
+      width: fit-content;
+      margin-bottom: var(--spacing-small);
+    }
+    &.sideDescription {
+      grid-template-columns: 1fr 40px;
+    }
+  }
+  .removeLink {
+    color: var(--blue-500);
+    cursor: pointer;
+    position: relative;
+    top: 16px;
+    left: 395px;
+    &.dialogView {
+      left: 276px;
+    }
+  }
+  .squareCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    margin-right: var(--spacing-small);
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep, pick } from 'lodash-es'
+import { isEqual, cloneDeep, pick, isNil, isEmpty } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import type {
@@ -21,7 +21,7 @@ import {
   PutPipelineQueryParams,
   Failure
 } from 'services/pipeline-ng'
-import { useLocalStorage } from '@common/hooks'
+import { useGlobalEventListener, useLocalStorage } from '@common/hooks'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -30,7 +30,8 @@ import {
   DefaultPipeline,
   initialState,
   PipelineReducer,
-  PipelineViewData
+  PipelineViewData,
+  DrawerTypes
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
@@ -236,6 +237,75 @@ const _fetchPipeline = async (
   }
 }
 
+const _getStageFromPipeline = (
+  stageId: string,
+  localPipeline: PipelineInfoConfig
+): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
+  let stage: StageElementWrapper | undefined = undefined
+  let parent: StageElementWrapper | undefined = undefined
+  if (localPipeline?.stages) {
+    localPipeline.stages?.some?.(item => {
+      if (item?.stage && item.stage.identifier === stageId) {
+        stage = item
+        return true
+      } else if (item?.parallel) {
+        stage = _getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
+        if (stage) {
+          parent = item
+          return true
+        }
+      }
+    })
+  }
+  return { stage, parent }
+}
+
+const _softFetchPipeline = async (
+  dispatch: React.Dispatch<ActionReturnType>,
+  queryParams: GetPipelineQueryParams,
+  pipelineId: string,
+  originalPipeline: PipelineInfoConfig,
+  pipelineView: PipelineReducerState['pipelineView']
+): Promise<void> => {
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    pipelineId
+  )
+  if (IdbPipeline) {
+    const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
+    if (data?.pipeline) {
+      const isUpdated = !isEqual(originalPipeline, data.pipeline)
+      if (!isEmpty(pipelineView.splitViewData?.selectedStageId) && pipelineView.splitViewData.selectedStageId) {
+        const stage = _getStageFromPipeline(pipelineView.splitViewData.selectedStageId, data.pipeline).stage
+        if (isNil(stage)) {
+          dispatch(
+            PipelineContextActions.success({
+              error: '',
+              pipeline: data.pipeline,
+              isUpdated,
+              pipelineView: {
+                ...pipelineView,
+                isSplitViewOpen: false,
+                isDrawerOpened: false,
+                drawerData: { type: DrawerTypes.StepConfig },
+                splitViewData: {}
+              }
+            })
+          )
+        } else {
+          dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
+        }
+      } else {
+        dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
+      }
+    }
+  } else {
+    dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
+  }
+}
+
 const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineQueryParams,
@@ -363,6 +433,7 @@ export const PipelineProvider: React.FC<{
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
+
   const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
     async (pipeline: PipelineInfoConfig) => {
@@ -380,24 +451,8 @@ export const PipelineProvider: React.FC<{
   }, [])
   const getStageFromPipeline = React.useCallback(
     (stageId: string, pipeline?: PipelineInfoConfig) => {
-      let stage: StageElementWrapper | undefined = undefined
-      let parent: StageElementWrapper | undefined = undefined
       const localPipeline = pipeline || state.pipeline
-      if (localPipeline?.stages) {
-        localPipeline.stages?.some?.(item => {
-          if (item?.stage && item.stage.identifier === stageId) {
-            stage = item
-            return true
-          } else if (item?.parallel) {
-            stage = getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
-            if (stage) {
-              parent = item
-              return true
-            }
-          }
-        })
-      }
-      return { stage, parent }
+      return _getStageFromPipeline(stageId, localPipeline)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.pipeline, state.pipeline?.stages]
@@ -427,6 +482,10 @@ export const PipelineProvider: React.FC<{
     },
     [state.pipeline, updatePipeline]
   )
+
+  useGlobalEventListener('focus', () => {
+    _softFetchPipeline(dispatch, queryParams, pipelineIdentifier, state.originalPipeline, state.pipelineView)
+  })
 
   React.useEffect(() => {
     if (state.isDBInitialized) {

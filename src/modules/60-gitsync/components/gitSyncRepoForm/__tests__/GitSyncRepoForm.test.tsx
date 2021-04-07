@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, act, fireEvent } from '@testing-library/react'
 import { noop } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import GitSyncRepoForm from '../GitSyncRepoForm'
@@ -33,6 +33,12 @@ describe('Git Sync - repo tab', () => {
 
     await waitFor(() => {
       expect(getByText('Select your Git Provider')).toBeTruthy()
+    })
+    expect(container).toMatchSnapshot()
+
+    // All required validation test
+    await act(async () => {
+      fireEvent.click(getByText('Save'))
     })
 
     expect(container).toMatchSnapshot()

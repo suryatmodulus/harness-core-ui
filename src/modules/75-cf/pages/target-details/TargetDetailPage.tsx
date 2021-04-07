@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Layout, Text, Avatar, Intent, Color } from '@wings-software/uicore'
-import { useAppStore, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import { useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -23,9 +23,8 @@ export const fullSizeContentStyle: React.CSSProperties = {
   height: 'calc(100% - 135px)'
 }
 
-export const TargetDetailPage: React.FC<any> = () => {
+export const TargetDetailPage: React.FC = () => {
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
   const { showError, showSuccess, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
     Record<string, string>
@@ -47,11 +46,7 @@ export const TargetDetailPage: React.FC<any> = () => {
   })
   const breadcrumbs = [
     {
-      title: selectedProject?.name as string,
-      url: routes.toProjectDetails({ orgIdentifier, projectIdentifier, accountId })
-    },
-    {
-      title: getString('cf.targetDetail.title'),
+      title: getString('cf.targets.title'),
       url: routes.toCFTargets({
         accountId,
         orgIdentifier,
@@ -98,7 +93,7 @@ export const TargetDetailPage: React.FC<any> = () => {
               <Text color={Color.WHITE}>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: target?.name })
+                    __html: getString('cf.targetDetail.deleteTargetSuccess', { name: target?.name })
                   }}
                 />
               </Text>

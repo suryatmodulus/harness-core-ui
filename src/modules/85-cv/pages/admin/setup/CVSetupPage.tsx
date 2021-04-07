@@ -72,14 +72,14 @@ const MonitoringSources = [
     label: 'Google Cloud Operations',
     routeName: MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS,
     routeUrl: routes.toCVAdminSetupMonitoringSource
+  },
+  {
+    type: 'NewRelic',
+    icon: 'service-newrelic',
+    label: 'New Relic',
+    routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
+    routeUrl: routes.toCVAdminSetupMonitoringSource
   }
-  // {
-  //   type: 'NewRelic',
-  //   icon: 'service-newrelic',
-  //   label: 'New Relic',
-  //   routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
-  //   routeUrl: routes.toCVAdminSetupMonitoringSource
-  // }
 ]
 interface CVSetupPageProps {
   setupStatusMockData?: UseGetMockData<RestResponseCVSetupStatus>

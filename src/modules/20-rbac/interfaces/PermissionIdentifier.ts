@@ -5,7 +5,7 @@ export enum PermissionIdentifier {
   UPDATE_SECRET = 'core_secret_edit',
   DELETE_SECRET = 'core_secret_delete',
   VIEW_SECRET = 'core_secret_view',
-  RUNTIMEACCESS_SECRET = 'core_secret_runtimeaccess',
+  ACCESS_SECRET = 'core_secret_access',
   UPDATE_ORG = 'core_organization_edit',
   DELETE_ORG = 'core_organization_delete',
   VIEW_ORG = 'core_organization_view'

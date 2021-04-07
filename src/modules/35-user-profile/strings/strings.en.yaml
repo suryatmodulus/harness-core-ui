@@ -1,0 +1,17 @@
+mysourceCodeManagers: My Source Code Managers
+basicInformation: Basic Information
+changePassword: Change Password
+passwordReqs: 'Password must meet the requirements.'
+passwordMatch: 'Passwords must match.'
+currentPassword: 'Current Password'
+requiredField: 'is a required field.'
+newPassword: 'New Password'
+confirmPassword: 'Confirm Password'
+twofactorAuth: Two-Factor Authentication
+myProjects: My Projects
+myGroups: My Groups
+myTools: My Collaboration Tools
+addSCM: Add a Source Code Manager
+plusSCM: + Add a Source Code Manager
+selectSCM: Select a Source Code Manager
+editProfile: Edit Profile

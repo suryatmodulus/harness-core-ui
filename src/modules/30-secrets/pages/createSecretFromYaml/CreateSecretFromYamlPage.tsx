@@ -21,11 +21,7 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    accountId: string
-    projectIdentifier: string
-    orgIdentifier: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
   useDocumentTitle(getString('createSecretYAML.createSecret'))
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
@@ -33,7 +29,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
   const { showSuccess, showError } = useToaster()
   const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const { mutate: createSecret } = usePostSecretViaYaml({
-    queryParams: { accountIdentifier: accountId },
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 

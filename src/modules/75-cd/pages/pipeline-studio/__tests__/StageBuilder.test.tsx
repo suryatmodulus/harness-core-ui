@@ -209,8 +209,8 @@ describe('Stage Builder Test', () => {
     await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
-    fireEvent.change(stageName!, { target: { value: 'New Stage' } })
-    await waitFor(() => expect(getByTextBody(document.body, 'New_Stage')).toBeDefined())
+    fireEvent.change(stageName!, { target: { value: 'New Stage 1' } })
+    await waitFor(() => expect(getByTextBody(document.body, 'New_Stage_1')).toBeDefined())
     const setupStage = getByTextBody(document.body, 'Set Up Stage')
     // Click Setup
     fireEvent.click(setupStage)
@@ -222,5 +222,35 @@ describe('Stage Builder Test', () => {
     // Select Execution Strategy
     // const selectStrategy = getByTextBody(document.body, 'Select Strategy')
     // fireEvent.click(selectStrategy)
+  }, 20000)
+
+  test('should not allow duplicate / empty stage name', async () => {
+    // Click Create New Stage
+    const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
+    fireEvent.click(createNewBtn as HTMLElement)
+    const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
+    // Select Deploy
+    fireEvent.click(deployBtn as Element)
+    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    const stageName = document.body.querySelector('[name="name"]')
+    // Give duplicate stage name and check for error message
+    fireEvent.change(stageName!, { target: { value: 'New Stage' } })
+    await waitFor(() => expect(getByTextBody(document.body, 'New_Stage')).toBeDefined())
+    const setupStage = getByTextBody(document.body, 'Set Up Stage')
+    // Click Setup
+    fireEvent.click(setupStage)
+    // Dialog box should still be open
+    expect(getByTextBody(document.body, 'About Your Stage')).toBeDefined()
+    await waitFor(() => expect(getByTextBody(document.body, 'Stage with same identifier already exists')).toBeDefined())
+
+    // Give empty stage name and check for error message
+    fireEvent.click(createNewBtn as HTMLElement)
+    fireEvent.click(deployBtn as Element)
+    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    fireEvent.change(stageName!, { target: { value: '' } })
+    fireEvent.click(setupStage)
+    // Dialog box should still be open
+    expect(getByTextBody(document.body, 'About Your Stage')).toBeDefined()
+    await waitFor(() => expect(getByTextBody(document.body, 'Stage Name is required')).toBeDefined())
   }, 20000)
 })

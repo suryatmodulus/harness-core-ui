@@ -10,43 +10,55 @@ import {
   CardSelect,
   CardBody,
   IconName,
-  Container
+  Container,
+  SelectOption,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'
 import { regexName } from '@common/utils/StringUtils'
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
+import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'
+import { AuthTypes, getAuthentication, SourceCodeTypes } from '@user-profile/utils/utils'
+import type { TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
+import Authentication from './Authentication'
 import css from '../useSourceCodeManager.module.scss'
 
-interface SourceCodeManagerData {
+interface SourceCodeManagerProps {
   onSubmit: () => void
   onClose: () => void
 }
 
+export interface SCMData {
+  name: string
+  authType?: AuthTypes
+  username?: TextReferenceInterface
+  password?: SecretReference
+  sshKey?: SecretReference
+  kerberosKey?: SecretReference
+  accessToken?: SecretReference
+}
 interface SourceCodeType {
   text: string
-  value: string
+  value: SourceCodeTypes
   icon: IconName
 }
 
-export enum SourceCodeTypes {
-  BITBUCKET = 'BITBUCKET',
-  GITHUB = 'GITHUB',
-  GITLAB = 'GITLAB',
-  AZURE_DEVOPS = 'AZURE_DEVOPS',
-  AWS_CODECOMMIT = 'AWS_CODECOMMIT'
-}
-
-const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
+const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
   const { onSubmit, onClose } = props
   const { getString } = useStrings()
   const [selected, setSelected] = useState<SourceCodeType>()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+
+  const { mutate: saveSourceCodeManager } = useSaveSourceCodeManagers({})
 
   const sourceCodeManagers: SourceCodeType[] = [
     { text: getString('repo-provider.githubLabel'), value: SourceCodeTypes.GITHUB, icon: 'github' },
     {
       text: getString('repo-provider.bitbucketLabel'),
       value: SourceCodeTypes.BITBUCKET,
-      icon: 'bitbucket'
+      icon: 'bitbucket-blue'
     },
     { text: getString('repo-provider.gitlabLabel'), value: SourceCodeTypes.GITLAB, icon: 'service-gotlab' },
     {
@@ -56,9 +68,102 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
     }
   ]
 
-  const handleSubmit = async (): Promise<void> => {
-    //Handle Submit
-    onSubmit()
+  const getDefaultSelected = (type?: SourceCodeTypes): AuthTypes | undefined => {
+    switch (type) {
+      case SourceCodeTypes.BITBUCKET:
+      case SourceCodeTypes.GITHUB:
+      case SourceCodeTypes.GITLAB:
+        return AuthTypes.USERNAME_PASSWORD
+      default:
+        return undefined
+    }
+  }
+
+  const getAuthOptions = (type: SourceCodeTypes): SelectOption[] => {
+    switch (type) {
+      case SourceCodeTypes.BITBUCKET:
+        return [
+          {
+            label: getString('usernamePassword'),
+            value: AuthTypes.USERNAME_PASSWORD
+          },
+          {
+            label: getString('SSH_KEY'),
+            value: AuthTypes.SSH_KEY
+          }
+        ]
+      case SourceCodeTypes.GITHUB:
+        return [
+          {
+            label: getString('usernamePassword'),
+            value: AuthTypes.USERNAME_PASSWORD
+          },
+          {
+            label: getString('usernameToken'),
+            value: AuthTypes.USERNAME_TOKEN
+          }
+        ]
+      case SourceCodeTypes.GITLAB:
+        return [
+          {
+            label: getString('usernamePassword'),
+            value: AuthTypes.USERNAME_PASSWORD
+          },
+          {
+            label: getString('usernameToken'),
+            value: AuthTypes.USERNAME_TOKEN
+          },
+          {
+            label: getString('kerberos'),
+            value: AuthTypes.KERBEROS
+          }
+        ]
+      default:
+        return []
+    }
+  }
+
+  const handleSubmit = async (values: SCMData): Promise<void> => {
+    let dataToSubmit: SourceCodeManagerDTO
+    if (selected?.value) {
+      switch (selected.value) {
+        case SourceCodeTypes.BITBUCKET: {
+          dataToSubmit = {
+            type: SourceCodeTypes.BITBUCKET,
+            name: values.name,
+            authentication: getAuthentication(values)
+          }
+          break
+        }
+        case SourceCodeTypes.GITHUB: {
+          dataToSubmit = {
+            type: SourceCodeTypes.GITHUB,
+            name: values.name,
+            authentication: getAuthentication(values)
+          }
+          break
+        }
+        case SourceCodeTypes.GITLAB: {
+          dataToSubmit = {
+            type: SourceCodeTypes.GITLAB,
+            name: values.name,
+            authentication: getAuthentication(values)
+          }
+          break
+        }
+        default:
+          return undefined
+      }
+
+      try {
+        if (dataToSubmit) {
+          const saved = await saveSourceCodeManager(dataToSubmit)
+          saved && onSubmit()
+        }
+      } catch (e) {
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
+      }
+    } else modalErrorHandler?.showDanger(getString('userProfile.selectSCM'))
   }
 
   return (
@@ -67,7 +172,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
         <Text color={Color.BLACK} font="medium">
           {getString('userProfile.addSCM')}
         </Text>
-        <Formik
+        <Formik<SCMData>
           initialValues={{
             name: ''
           }}
@@ -75,16 +180,43 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
             name: Yup.string()
               .trim()
               .required(getString('validation.nameRequired'))
-              .matches(regexName, getString('formValidation.name'))
+              .matches(regexName, getString('formValidation.name')),
+            username: Yup.string().when(['authType'], {
+              is: AuthTypes.USERNAME_PASSWORD || AuthTypes.USERNAME_TOKEN,
+              then: Yup.string().trim().required(getString('validation.username')),
+              otherwise: Yup.string().nullable()
+            }),
+            password: Yup.object().when(['authType'], {
+              is: AuthTypes.USERNAME_PASSWORD,
+              then: Yup.object().required(getString('validation.password')),
+              otherwise: Yup.object().nullable()
+            }),
+            kerberosKey: Yup.object().when(['authType'], {
+              is: AuthTypes.KERBEROS,
+              then: Yup.object().required(getString('validation.kerberosKey')),
+              otherwise: Yup.object().nullable()
+            }),
+            accessToken: Yup.object().when(['authType'], {
+              is: AuthTypes.USERNAME_TOKEN,
+              then: Yup.object().required(getString('validation.accessToken')),
+              otherwise: Yup.object().nullable()
+            }),
+            sshKey: Yup.object().when(['authType'], {
+              is: AuthTypes.SSH_KEY,
+              then: Yup.object().required(getString('validation.sshKey')),
+              otherwise: Yup.object().nullable()
+            })
           })}
-          onSubmit={() => {
-            handleSubmit()
+          onSubmit={values => {
+            modalErrorHandler?.hide()
+            handleSubmit(values)
           }}
         >
-          {() => {
+          {formikProps => {
             return (
               <Form>
                 <Layout.Vertical spacing="medium">
+                  <ModalErrorHandler bind={setModalErrorHandler} />
                   <Container width={300}>
                     <FormInput.Text name="name" label={getString('name')} />
                   </Container>
@@ -109,7 +241,11 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
                           </Text>
                         </CardBody.Icon>
                       )}
-                      onChange={value => setSelected(value)}
+                      onChange={value => {
+                        setSelected(value)
+                        modalErrorHandler?.hide()
+                        formikProps.setFieldValue('authType', getDefaultSelected(value.value))
+                      }}
                       selected={selected}
                     />
                     {selected ? (
@@ -124,7 +260,9 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerData> = props => {
                     ) : null}
                   </Layout.Horizontal>
                 </Layout.Vertical>
-
+                {selected ? (
+                  <Authentication formikProps={formikProps} authOptions={getAuthOptions(selected.value)} />
+                ) : null}
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
                   <Button intent="primary" text={getString('add')} type="submit" />
                   <Button text={getString('cancel')} onClick={onClose} />

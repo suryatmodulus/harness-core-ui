@@ -30,7 +30,8 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -40,6 +41,26 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                   </span>
                 </div>
               </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
             </span>
           </div>
           <div
@@ -329,7 +350,8 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -339,6 +361,26 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
                   </span>
                 </div>
               </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
             </span>
           </div>
           <div
@@ -1192,7 +1234,8 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -1202,6 +1245,26 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                   </span>
                 </div>
               </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
             </span>
           </div>
           <div
@@ -1491,7 +1554,8 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -1501,6 +1565,26 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                   </span>
                 </div>
               </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
             </span>
           </div>
           <div
@@ -1790,7 +1874,8 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -1800,6 +1885,26 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                   </span>
                 </div>
               </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
             </span>
           </div>
           <div

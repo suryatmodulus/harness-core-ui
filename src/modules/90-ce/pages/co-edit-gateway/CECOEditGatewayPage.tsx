@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
-import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
+import type { GatewayDetails, Routing, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import {
   HealthCheck,
   PortConfig,
@@ -31,20 +32,31 @@ export const CECOEditGatewayPage: React.FC = () => {
     if (loading || resourcesLoading) return
     const service = data?.response?.service as Service
     const deps = data?.response?.deps as ServiceDep[]
-    const selectedResources = resources?.response ? resources?.response : []
-    const selectedInstances = selectedResources.map(item => {
-      return {
-        name: item.name ? item.name : '',
-        id: item.id ? item.id : '',
-        ipv4: item.ipv4 ? item.ipv4[0] : '',
-        region: item.region ? item.region : '',
-        type: item.type ? item.type : '',
-        tags: '',
-        launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
-        status: item.status ? item.status : '',
-        vpc: item.metadata ? item.metadata['VpcID'] : ''
-      }
-    })
+    const hasAsg = !_isEmpty(service.routing?.instance?.scale_group)
+    const routing: Routing = {
+      instance: { filterText: service.routing?.instance?.filter_text as string },
+      ports: service.routing?.ports as PortConfig[],
+      lb: ''
+    }
+    let selectedInstances: InstanceDetails[] = []
+    if (hasAsg) {
+      routing.instance.scale_group = service.routing?.instance?.scale_group // eslint-disable-line
+    } else {
+      const selectedResources = resources?.response ? resources?.response : []
+      selectedInstances = selectedResources.map(item => {
+        return {
+          name: item.name ? item.name : '',
+          id: item.id ? item.id : '',
+          ipv4: item.ipv4 ? item.ipv4[0] : '',
+          region: item.region ? item.region : '',
+          type: item.type ? item.type : '',
+          tags: '',
+          launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
+          status: item.status ? item.status : '',
+          vpc: item.metadata ? item.metadata['VpcID'] : ''
+        }
+      })
+    }
     const gwDetails: GatewayDetails = {
       id: service.id,
       name: service.name,
@@ -54,13 +66,7 @@ export const CECOEditGatewayPage: React.FC = () => {
       kind: service.kind,
       healthCheck: service.health_check as HealthCheck,
       hostName: service.host_name,
-      routing: {
-        instance: {
-          filterText: service.routing?.instance?.filter_text as string
-        },
-        ports: service.routing?.ports as PortConfig[],
-        lb: ''
-      },
+      routing,
       opts: {
         preservePrivateIP: service.opts?.preserve_private_ip as boolean,
         deleteCloudResources: service.opts?.delete_cloud_resources as boolean,

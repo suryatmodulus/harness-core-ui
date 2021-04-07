@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Profile Page To Profile 1`] = `
+<div>
+  <div>
+    <a
+      class="link"
+      href="/account/testAcc/user/profile"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Profile
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/testAcc/user/preferences"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        Preferences
+      </p>
+    </a>
+    <div
+      class="signout"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-log-out StyledProps--main StyledProps--padding-right-small"
+          icon="log-out"
+        >
+          <svg
+            data-icon="log-out"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              log-out
+            </desc>
+            <path
+              d="M19.71 9.29l-5-5a1.003 1.003 0 00-1.42 1.42L16.59 9H6c-.55 0-1 .45-1 1s.45 1 1 1h10.59l-3.29 3.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l5-5c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71zM9 18H2V2h7c.55 0 1-.45 1-1s-.45-1-1-1H1C.45 0 0 .45 0 1v18c0 .55.45 1 1 1h8c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+          >
+            Sign Out
+          </p>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

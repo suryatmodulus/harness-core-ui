@@ -1,7 +1,7 @@
 {
   "name": "nextgenui",
   "description": "Harness Inc",
-  "version": "0.204.0",
+  "version": "0.210.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "private": true,
@@ -50,7 +50,11 @@
     "setup-github-registry": "sh scripts/setup-github-registry.sh",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "generate-graphql-types": "graphql-codegen --config graphql-codegen.yml"
+    "generate-graphql-types": "graphql-codegen --config graphql-codegen.yml",
+    "strings": "npm-run-all strings:*",
+    "strings:check": "node scripts/strings/yamlStringsCheck.mjs",
+    "strings:genTypes": "node scripts/strings/generateTypesCli.mjs",
+    "strings:loaders": "node scripts/strings/generateStrings.mjs"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
@@ -65,7 +69,7 @@
     "@types/uuid": "^8.3.0",
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.36",
-    "@wings-software/uicore": "0.1.104",
+    "@wings-software/uicore": "0.1.120",
     "@wings-software/xhr-async": "^2.0.7",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
@@ -149,7 +153,6 @@
     "@typescript-eslint/parser": "^2.34.0",
     "@wings-software/css-types-loader": "^2.1.0",
     "@wings-software/jarvis": "0.11.0",
-    "@wings-software/swagger-ts": "1.55003.0",
     "babel-loader": "^8.2.2",
     "cache-loader": "^4.1.0",
     "case": "^1.6.3",
@@ -217,7 +220,7 @@
       "prettier --check"
     ],
     "strings.*.yaml": [
-      "node scripts/yaml-strings-check.js"
+      "yarn strings:check"
     ],
     "webpack.devServerProxy.config.js": [
       "exit 1"
@@ -231,5 +234,19 @@
       "pre-commit": "lint-staged",
       "commit-msg": "node ./scripts/lint-commit-message.js \"$(cat $HUSKY_GIT_PARAMS)\""
     }
+  },
+  "i18nSettings": {
+    "extensionToLanguageMap": {
+      "es": [
+        "es"
+      ],
+      "en": [
+        "en",
+        "en-US",
+        "en-IN",
+        "en-UK"
+      ]
+    },
+    "commonChunkLimit": "70-pipeline"
   }
 }

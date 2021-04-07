@@ -16,6 +16,7 @@ Properties to define for each step based on different view type:
 - Step Type
 - default values
 - isHarnessSpecific - Is this specific for harness? check with PM to get this value
+- \_hasDelegateSelectionVisible: In constructor set the value to true if the step support delegate selector in advanced view
 
 #### Edit View
 
@@ -26,6 +27,7 @@ Properties to define for each step based on different view type:
   - icon
   - name
   - processFormData: Define in every step if you want post process data
+  - isNewStep: will tell you if its an new step and is it allowed to change identifier or not
 
 - Other Steps
   - stepPaletteVisible = false
@@ -35,6 +37,12 @@ Properties to define for each step based on different view type:
 - validateInputSet - method to validate the input set data and return errors in the formik errors object
 - readonly support - All fields should be readonly support
 - Step should show only fields which are runtime input
+
+#### Variable View
+
+You can use <VariablesListTable /> component to render variable list view but make sure to pass flattened object individually
+
+- \_hasStepVariables - set the value to true under constructor if variable view is written for this.
 
 #### Yaml Support
 

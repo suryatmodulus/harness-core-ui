@@ -2,11 +2,14 @@ import React from 'react'
 import { render } from 'mustache'
 import { get } from 'lodash-es'
 
+import type { StringsMap } from 'stringTypes'
 import { useStringsContext } from './StringsContext'
+
+export type StringKeys = keyof StringsMap
 
 export interface UseStringsReturn {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getString(key: string, vars?: Record<string, any>): string
+  getString(key: StringKeys, vars?: Record<string, any>): string
 }
 
 export function useStrings(): UseStringsReturn {
@@ -14,7 +17,7 @@ export function useStrings(): UseStringsReturn {
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getString(key: string, vars: Record<string, any> = {}) {
+    getString(key: StringKeys, vars: Record<string, any> = {}) {
       const template = get(strings, key)
 
       if (typeof template !== 'string') {
@@ -27,7 +30,7 @@ export function useStrings(): UseStringsReturn {
 }
 
 export interface StringProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
-  stringID: string
+  stringID: StringKeys
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   vars?: Record<string, any>
   useRichText?: boolean

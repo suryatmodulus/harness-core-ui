@@ -1,3 +1,4 @@
+import { mapValues } from 'lodash-es'
 import { Modes } from '../../common'
 
 export enum Strategy {
@@ -50,3 +51,8 @@ export const errorTypesOrder: ErrorType[] = [
   ErrorType.DelegateProvisioning,
   ErrorType.AnyOther
 ]
+
+export const testIds: Record<Strategy, string> = mapValues(
+  Strategy,
+  (_, key) => `failure-strategy-${key.toLowerCase()}`
+)

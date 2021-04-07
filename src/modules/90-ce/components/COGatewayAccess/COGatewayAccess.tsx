@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab } from '@wings-software/uicore'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/exports'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import DNSLinkSetup from './DNSLinkSetup'
@@ -38,6 +39,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   useEffect(() => {
     let validStatus = false
     if (accessDetails.dnsLink.selected) {
+      // check for custom domains validation
       if (props.gatewayDetails.customDomains?.length) {
         validStatus = props.gatewayDetails.customDomains.every(url =>
           url.match(
@@ -52,6 +54,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
         }
       } else {
         validStatus = true
+      }
+      // checck for valid access point selected
+      if (_isEmpty(props.gatewayDetails.accessPointID)) {
+        validStatus = false
       }
     } else {
       validStatus =
@@ -85,7 +91,12 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       return
     }
     setSelectedTabId('')
-  }, [accessDetails, props.gatewayDetails.customDomains, props.gatewayDetails.metadata])
+  }, [
+    accessDetails,
+    props.gatewayDetails.customDomains,
+    props.gatewayDetails.metadata,
+    props.gatewayDetails.accessPointID
+  ])
 
   useEffect(() => {
     let helpTextBase = 'setup-access'

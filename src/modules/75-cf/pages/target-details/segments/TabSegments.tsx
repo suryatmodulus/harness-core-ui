@@ -40,7 +40,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       refetch()
     })
   }
-  const excludeTargetFromSegments = async (segments: Segment[]) => {
+  const excludeTargetFromSegments = async (segments: Segment[]): Promise<void> => {
     // Note: Due to https://harness.atlassian.net/browse/FFM-603 not done, we make
     // multiple patch APIs instead of one
     return await Promise.all(

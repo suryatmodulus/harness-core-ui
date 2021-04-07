@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Container, Text } from '@wings-software/uicore'
 import { isUndefined } from 'lodash-es'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import { EXP_BREAKDOWN_INPUTS, scheduleTabsId, getMilitaryHours, getSlashValue, getDayOfWeekStr } from './ScheduleUtils'
 import css from './ExpressionBreakdown.module.scss'
 
@@ -28,7 +28,7 @@ interface ColumnInterface {
   inactive: boolean
   label: string
   value?: string
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
   hideValuesRow: boolean
 }
 

@@ -35,7 +35,7 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
@@ -499,7 +499,7 @@ const COGatewayList: React.FC = () => {
             {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
             <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
-              {getString('ce.co.landingPageText')} <Link href="/">Learn more</Link>
+              <String stringID="ce.co.landingPageText" useRichText={true} /> <Link href="/">Learn more</Link>
             </Text>
             <Button
               intent="primary"

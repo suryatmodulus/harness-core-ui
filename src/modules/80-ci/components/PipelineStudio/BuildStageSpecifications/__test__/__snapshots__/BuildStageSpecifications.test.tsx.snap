@@ -113,12 +113,14 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         class="bp3-popover-target"
                       >
                         <div
-                          class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                         >
                           <span
                             class="bp3-editable-text-content"
                             style="height: 1px; line-height: 1px; min-width: 0;"
-                          />
+                          >
+                            BuildStage
+                          </span>
                         </div>
                       </span>
                     </span>
@@ -149,7 +151,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           name="name"
                           placeholder="Enter your stage name"
                           type="text"
-                          value=""
+                          value="BuildStage"
                         />
                       </div>
                     </div>
@@ -414,7 +416,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           </form>
         </div>
         <div
-          class="Accordion--accordion sectionCard"
+          class="Accordion--accordion sectionCard shadow"
         >
           <div
             class="Accordion--panel"
@@ -448,22 +450,17 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                   class="Accordion--details"
                   data-testid="variables-details"
                 >
-                  <form
-                    class="FormikForm--main"
+                  <div
+                    class="stageSection"
                   >
-                    <div>
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          Add Variable
-                        </span>
-                      </button>
+                    <div
+                      class="stageDetails"
+                    >
+                      <div>
+                        {"a":"a","variables":[],"canAddVariable":true}
+                      </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -694,12 +691,14 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         class="bp3-popover-target"
                       >
                         <div
-                          class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                         >
                           <span
                             class="bp3-editable-text-content"
                             style="height: 1px; line-height: 1px; min-width: 0;"
-                          />
+                          >
+                            BuildStage
+                          </span>
                         </div>
                       </span>
                     </span>
@@ -730,7 +729,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           name="name"
                           placeholder="Enter your stage name"
                           type="text"
-                          value=""
+                          value="BuildStage"
                         />
                       </div>
                     </div>
@@ -994,7 +993,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           </form>
         </div>
         <div
-          class="Accordion--accordion sectionCard"
+          class="Accordion--accordion sectionCard shadow"
         >
           <div
             class="Accordion--panel"
@@ -1028,22 +1027,17 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="Accordion--details"
                   data-testid="variables-details"
                 >
-                  <form
-                    class="FormikForm--main"
+                  <div
+                    class="stageSection"
                   >
-                    <div>
-                      <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          Add Variable
-                        </span>
-                      </button>
+                    <div
+                      class="stageDetails"
+                    >
+                      <div>
+                        {"a":"a","variables":[],"canAddVariable":true}
+                      </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

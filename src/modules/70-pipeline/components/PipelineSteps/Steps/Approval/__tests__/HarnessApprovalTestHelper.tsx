@@ -1,5 +1,7 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { ResponsePageUserGroupDTO } from 'services/cd-ng'
 
 export const getHarnessApprovalEditModeProps = () => ({
   initialValues: {
@@ -10,7 +12,6 @@ export const getHarnessApprovalEditModeProps = () => ({
       approverInputs: '',
       approvers: {
         userGroups: [],
-        users: [],
         minimumCount: '',
         disallowPipelineExecutor: ''
       }
@@ -22,14 +23,13 @@ export const getHarnessApprovalEditModeProps = () => ({
 export const getHarnessApprovalDeploymentModeProps = () => ({
   initialValues: {
     spec: {
-      approvalMessage: RUNTIME_INPUT_VALUE,
-      includePipelineExecutionHistory: RUNTIME_INPUT_VALUE,
-      approverInputs: RUNTIME_INPUT_VALUE,
+      approvalMessage: '',
+      includePipelineExecutionHistory: false,
+      approverInputs: [],
       approvers: {
         userGroups: [],
-        users: [],
-        minimumCount: RUNTIME_INPUT_VALUE,
-        disallowPipelineExecutor: RUNTIME_INPUT_VALUE
+        minimumCount: 0,
+        disallowPipelineExecutor: false
       }
     }
   },
@@ -42,7 +42,6 @@ export const getHarnessApprovalDeploymentModeProps = () => ({
         approverInputs: RUNTIME_INPUT_VALUE,
         approvers: {
           userGroups: RUNTIME_INPUT_VALUE,
-          users: RUNTIME_INPUT_VALUE,
           minimumCount: RUNTIME_INPUT_VALUE,
           disallowPipelineExecutor: RUNTIME_INPUT_VALUE
         }
@@ -124,7 +123,6 @@ export const getHarnessApprovalInputVariableModeProps = () => ({
         approvalMessage: 'step-approvalMessage',
         includePipelineExecutionHistory: 'step-includePipelineExecutionHistory',
         approvers: {
-          users: 'step-approverusers',
           userGroups: 'step-approvergroups',
           minimumCount: 'step-minimumCount'
         },
@@ -147,13 +145,14 @@ export const mockUsersResponse = {
   }
 }
 
-export const mockUserGroupsResponse = {
+export const mockUserGroupsResponse: UseGetMockData<ResponsePageUserGroupDTO> = {
   loading: false,
-  error: null,
   data: {
+    correlationId: '',
     status: 'SUCCESS',
-    content: [{ name: 'ug1', identifier: 'ugv1' }],
     metaData: (null as unknown) as undefined,
-    correlationId: 'someId'
+    data: {
+      content: [{ name: 'ug1', identifier: 'ugv1' }]
+    }
   }
 }

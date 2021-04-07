@@ -46,6 +46,8 @@ import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialog
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
 import { useEnvironments } from '../../hooks/environment'
 import imageURL from './flag.svg'
+import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
+import { FlagResult } from './FlagResult'
 import css from './CFFeatureFlagsPage.module.scss'
 
 interface RenderColumnFlagProps {
@@ -254,17 +256,6 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
   )
 }
 
-// Hide until FF analytics is ready
-// const RenderColumnStatus: Renderer<CellProps<Feature>> = ({ row }) => {
-//   const { getString } = useStrings()
-//   const { archived } = row.original
-//   return (
-//     <Text inline className={cx(css.status, archived && css.archived)}>
-//       {getString(archived ? 'inactive' : 'active').toLocaleUpperCase()}
-//     </Text>
-//   )
-// }
-
 const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
   return row.original?.modifiedAt ? (
     <Layout.Horizontal spacing="small">
@@ -272,10 +263,6 @@ const RenderColumnLastUpdated: Renderer<CellProps<Feature>> = ({ row }) => {
       <ReactTimeago date={row.original?.modifiedAt} />
     </Layout.Horizontal>
   ) : null
-}
-
-const RenderColumnCreatedDate: Renderer<CellProps<Feature>> = ({ row }) => {
-  return row.original?.createdAt ? <ReactTimeago date={row.original?.createdAt} /> : null
 }
 
 interface ColumnMenuProps {
@@ -433,7 +420,7 @@ const CFFeatureFlagsPage: React.FC = () => {
       {
         Header: getString('featureFlagsText').toUpperCase(),
         accessor: row => row.name,
-        width: '45%',
+        width: '35%',
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
           return (
             <RenderColumnFlag
@@ -465,23 +452,31 @@ const CFFeatureFlagsPage: React.FC = () => {
         width: '20%',
         Cell: RenderColumnDetails
       },
-      // Hide until analytics is ready
-      // {
-      //   Header: i18n.status.toUpperCase(),
-      //   accessor: 'archived',
-      //   width: '10%',
-      //   Cell: RenderColumnStatus
-      // },
       {
-        Header: getString('cf.targets.createdDate').toUpperCase(),
-        accessor: row => row.createdAt,
-        width: '15%',
-        Cell: RenderColumnCreatedDate
+        Header: getString('status').toUpperCase(),
+        accessor: 'status',
+        width: '19%',
+        Cell: function StatusCell(cell: Cell<Feature>) {
+          return (
+            <FlagStatus
+              status={cell.row.original.status?.status as FeatureFlagStatus}
+              lastAccess={(cell.row.original.status?.lastAccess as unknown) as number}
+            />
+          )
+        }
+      },
+      {
+        Header: getString('cf.featureFlags.results').toUpperCase(),
+        accessor: row => row.results,
+        width: '11%',
+        Cell: function ResultCell(cell: Cell<Feature>) {
+          return <FlagResult feature={cell.row.original} />
+        }
       },
       {
         Header: getString('lastUpdated').toUpperCase(),
         accessor: row => row.modifiedAt,
-        width: '15%',
+        width: '10%',
         Cell: RenderColumnLastUpdated
       },
       {

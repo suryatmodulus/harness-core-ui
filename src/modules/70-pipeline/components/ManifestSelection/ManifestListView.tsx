@@ -42,7 +42,8 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeText
+  manifestTypeText,
+  manifestTypeLabels
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -66,10 +67,10 @@ import css from './ManifestSelection.module.scss'
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
-  ManifestDataType.HelmChart
-  // ManifestDataType.Kustomize,
-  // ManifestDataType.OpenshiftTemplate,
-  // ManifestDataType.OpenshiftParam
+  ManifestDataType.HelmChart,
+  ManifestDataType.Kustomize,
+  ManifestDataType.OpenshiftTemplate,
+  ManifestDataType.OpenshiftParam
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
@@ -249,10 +250,10 @@ const ManifestListView = ({
 
   const lastStepProps = (): ManifestLastStepProps => {
     return {
-      key: getString('manifestType.manifestDetails'),
-      name: getString('manifestType.manifestDetails'),
+      key: getString('pipeline.manifestType.manifestDetails'),
+      name: getString('pipeline.manifestType.manifestDetails'),
       expressions,
-      stepName: getString('manifestType.manifestDetails'),
+      stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
       selectedManifest
@@ -261,9 +262,11 @@ const ManifestListView = ({
 
   const getLabels = (): ConnectorRefLabelType => {
     return {
-      firstStepName: getString('manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('select')} ${selectedManifest} ${getString('store')}`,
-      newConnector: `${getString('newLabel')} ${ManifestToConnectorMap[manifestStore]} ${getString('connector')}`
+      firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
+      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`,
+      newConnector: `${getString('newLabel')} ${
+        manifestStore === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[manifestStore]
+      } ${getString('connector')}`
     }
   }
 
@@ -557,13 +560,9 @@ const ManifestListView = ({
       setIsEditMode(false)
     }
     //S3 and GCS are disabled till BE is ready
-    // const storeTypes =
-    //   selectedManifest === ManifestDataType.HelmChart
-    //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
-    //     : manifestStoreTypes
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
-        ? [...manifestStoreTypes, ManifestStoreMap.Http]
+        ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
         : manifestStoreTypes
 
     return (
@@ -593,7 +592,7 @@ const ManifestListView = ({
   return (
     <Layout.Vertical spacing="small">
       <div className={cx(css.manifestList, css.listHeader)}>
-        <span>{getString('cf.targets.ID')}</span>
+        <span>{getString('common.ID')}</span>
         <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
         <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
         <span>{getString('location')}</span>

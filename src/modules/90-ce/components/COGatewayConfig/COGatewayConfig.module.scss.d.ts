@@ -20,5 +20,22 @@ declare const styles: {
   readonly gatewayConfigForm: string
   readonly heading: string
   readonly cardLabel: string
+  readonly configStepContainer: string
+  readonly stepInfo: string
+  readonly title: string
+  readonly subTitle: string
+  readonly childrenContainer: string
+  readonly displayCard: string
+  readonly step1Form: string
+  readonly formElement: string
+  readonly step2Container: string
+  readonly radioGroupTitle: string
+  readonly radioGroup: string
+  readonly clearBtn: string
+  readonly asgInstanceSelectionContianer: string
+  readonly asgInstanceDetails: string
+  readonly asgDetailRow: string
+  readonly asgInstanceFormContainer: string
+  readonly instanceTypeInput: string
 }
 export default styles

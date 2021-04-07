@@ -5,7 +5,7 @@ import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@bluepr
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 import {
   ConnectorResponse,
   useDeleteConnector,
@@ -66,7 +66,7 @@ const textRenderer = (value: string): JSX.Element =>
     <></>
   )
 
-const getConnectorDisplaySummaryLabel = (titleStringId: string, Element: JSX.Element): JSX.Element | string => {
+const getConnectorDisplaySummaryLabel = (titleStringId: StringKeys, Element: JSX.Element): JSX.Element | string => {
   return (
     <div className={classNames(css.name, css.flex)}>
       {titleStringId ? (

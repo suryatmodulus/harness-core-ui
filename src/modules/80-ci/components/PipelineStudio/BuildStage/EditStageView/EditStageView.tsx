@@ -31,6 +31,7 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -107,7 +108,16 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
-        name: Yup.string().required(getString('fieldRequired', { field: getString('stageNameLabel') })),
+        name: Yup.string()
+          .trim()
+          .required(getString('fieldRequired', { field: getString('stageNameLabel') })),
+        identifier: Yup.string().when('name', {
+          is: val => val?.length,
+          then: Yup.string()
+            .required(getString('validation.identifierRequired'))
+            .matches(regexIdentifier, getString('validation.validIdRegex'))
+            .notOneOf(illegalIdentifiers)
+        }),
         ...(!codebase &&
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),

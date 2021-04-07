@@ -30,6 +30,7 @@ import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 
@@ -66,6 +67,7 @@ export const TargetsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingTargets
   const error = errEnvironments || errTargets
   const noTargetExists = targetsData?.targets?.length === 0
+  const noEnvironmentExists = environments?.length === 0
   const title = getString('cf.targets.title')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
@@ -280,7 +282,11 @@ export const TargetsPage: React.FC = () => {
     }
   }, [clear])
 
-  const content = noTargetExists ? (
+  const content = noEnvironmentExists ? (
+    <Container flex={{ align: 'center-center' }} height="100%">
+      <NoEnvironment onCreated={() => refetchEnvs()} />
+    </Container>
+  ) : noTargetExists ? (
     <NoTargetsView
       environmentIdentifier={environment?.value}
       onNewTargetsCreated={() => {
@@ -306,9 +312,10 @@ export const TargetsPage: React.FC = () => {
       pageTitle={title}
       header={header}
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noTargetExists && toolbar}
+      toolbar={!error && !noEnvironmentExists && !noTargetExists && toolbar}
       content={(!error && content) || null}
       pagination={
+        !noEnvironmentExists &&
         !!targetsData?.targets?.length && (
           <Pagination
             itemCount={targetsData?.itemCount || 0}

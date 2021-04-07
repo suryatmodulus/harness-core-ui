@@ -67,7 +67,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                 {hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1 && (
                   <Accordion.Panel
                     id={AdvancedPanels.FailureStrategy}
-                    summary={getString('failureStrategy.title')}
+                    summary={getString('pipeline.failureStrategies.title')}
                     details={
                       <FailureStrategyPanel
                         mode={hasStepGroupAncestor || isStepGroup ? Modes.STEP_GROUP : Modes.STEP}

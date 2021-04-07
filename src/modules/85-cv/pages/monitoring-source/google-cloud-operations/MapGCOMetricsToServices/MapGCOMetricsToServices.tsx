@@ -30,7 +30,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetEnvironmentListForProject, useGetServiceListForProject } from 'services/cd-ng'
 import { MetricPackDTO, TimeSeriesSampleDTO, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -87,7 +87,7 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
-function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: string) => string): object {
+function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): object {
   const ret: any = {}
   if (!values?.query?.length) {
     ret.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')
@@ -116,7 +116,7 @@ function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: string) =
 function validate(
   values: GCOMetricInfo,
   selectedMetrics: Map<string, GCOMetricInfo>,
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
 ): { [key: string]: string } | undefined {
   for (const entry of selectedMetrics) {
     const [, metricInfo] = entry
@@ -561,7 +561,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                             debouncedFunc(event.target.value, () =>
                               formikProps.setFieldError(
                                 FieldNames.QUERY,
-                                getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                                getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
                               )
                             )
                             return debouncedFunc as any
@@ -588,7 +588,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                         onQueryChange(formikProps.values.query, () =>
                           formikProps.setFieldError(
                             FieldNames.QUERY,
-                            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validJSON')
+                            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
                           )
                         )
                       }}

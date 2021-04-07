@@ -25,7 +25,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
           {data.status === ExecutionPipelineItemStatus.FAILED && (
             <div className={css.failureMessage}>
               <Icon name="warning-sign" />
-              {data?.data?.failureInfo?.message}
+              {data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
             </div>
           )}
         </div>

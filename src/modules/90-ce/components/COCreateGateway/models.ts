@@ -1,14 +1,15 @@
-import type { HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
+import type { ASGMinimal, HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
 
 interface Instance {
   filterText: string
+  scale_group?: ASGMinimal
 }
 interface CloudAccount {
   id: string
   name: string
 }
 
-interface Routing {
+export interface Routing {
   instance: Instance
   lb: string
   ports: PortConfig[]

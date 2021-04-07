@@ -222,7 +222,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -253,7 +253,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -576,7 +576,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -607,7 +607,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -903,7 +903,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -934,7 +934,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1283,7 +1283,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1314,7 +1314,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1620,7 +1620,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1651,7 +1651,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1956,7 +1956,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -1987,7 +1987,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2317,7 +2317,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2348,7 +2348,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2655,7 +2655,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2686,7 +2686,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2963,7 +2963,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2994,7 +2994,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -3295,7 +3295,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          Description (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -3326,7 +3326,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          Tags (optional)
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"

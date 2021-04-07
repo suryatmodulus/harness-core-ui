@@ -78,7 +78,10 @@ describe('TriggersWizardPage Triggers tests', () => {
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.listenOnNewWebhook'))
+          queryByText(
+            document.body,
+            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
         ).not.toBeNull()
       )
       expect(container).toMatchSnapshot()
@@ -403,7 +406,10 @@ describe('TriggersWizardPage Triggers tests', () => {
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.listenOnNewWebhook'))
+          queryByText(
+            document.body,
+            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
         ).not.toBeNull()
       )
       expect(container).toMatchSnapshot()

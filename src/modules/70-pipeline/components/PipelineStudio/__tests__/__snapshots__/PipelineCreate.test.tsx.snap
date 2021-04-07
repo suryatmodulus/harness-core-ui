@@ -121,7 +121,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description
+                      Description (optional)
                     </label>
                     <div
                       class="bp3-form-group"
@@ -147,7 +147,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags
+                      Tags (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -230,11 +230,6 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
     >
       <div>
-        <p
-          class="StyledProps--font StyledProps--main helpText"
-        >
-          Let’s get you started by giving your pipeline a name
-        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -336,7 +331,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description
+                      Description (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -367,7 +362,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags
+                      Tags (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -450,11 +445,6 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
     >
       <div>
-        <p
-          class="StyledProps--font StyledProps--main helpText"
-        >
-          Let’s get you started by giving your pipeline a name
-        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -556,7 +546,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description
+                      Description (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -587,7 +577,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags
+                      Tags (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -670,11 +660,6 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
     >
       <div>
-        <p
-          class="StyledProps--font StyledProps--main helpText"
-        >
-          Let’s get you started by giving your pipeline a name
-        </p>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -756,7 +741,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description
+                      Description (optional)
                     </label>
                     <div
                       class="bp3-form-group"
@@ -782,7 +767,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags
+                      Tags (optional)
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"

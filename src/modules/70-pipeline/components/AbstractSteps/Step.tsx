@@ -30,6 +30,7 @@ export type StepFormikFowardRef<T = unknown> =
 export interface StepProps<T, U = unknown> {
   initialValues: T
   onUpdate?: (data: T) => void
+  isNewStep?: boolean
   stepViewType?: StepViewType
   inputSetData?: InputSetData<T>
   factory: AbstractStepFactory

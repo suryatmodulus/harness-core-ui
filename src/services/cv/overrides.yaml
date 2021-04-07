@@ -59,6 +59,7 @@ allowpaths:
   - /newrelic/endpoints
   - /newrelic/applications
   - /newrelic/metric-data
+  - /cvng-log
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

@@ -260,7 +260,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
     () => [
       {
-        Header: getString('pipeline').toUpperCase(),
+        Header: getString('common.pipeline').toUpperCase(),
         accessor: 'name',
         width: '35%',
         Cell: RenderColumnPipeline

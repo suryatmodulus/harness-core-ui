@@ -41,6 +41,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     await submitForm()
 
     // only change tab if current tab has no errors
+    /* istanbul ignore else */
     if (isEmpty(get(errors, `failureStrategies[${selectedStategyNum}]`))) {
       setSelectedStategyNum(n)
     }
@@ -54,8 +55,8 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   }, [formValues.failureStrategies, selectedStategyNum])
 
   return (
-    <div className={css.main}>
-      <String className={css.helpText} stringID="failureStrategy.helpText" />
+    <div data-testid="failure-strategy-panel" className={css.main}>
+      <String className={css.helpText} stringID="pipeline.failureStrategies.helpText" />
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
@@ -129,18 +130,22 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
       {hasFailureStrategies ? (
         <React.Fragment>
           {isDefaultStageStrategy ? (
-            <String tagName="div" className={css.defaultStageText} stringID="failureStrategy.defaultStageText" />
+            <String
+              tagName="div"
+              className={css.defaultStageText}
+              stringID="pipeline.failureStrategies.defaultStageText"
+            />
           ) : (
             <FailureTypeMultiSelect
               name={`failureStrategies[${selectedStategyNum}].onFailure.errors`}
-              label={getString('failureTypeSelectLabel')}
+              label={getString('pipeline.failureStrategies.onFailureOfType')}
               filterTypes={filterTypes}
             />
           )}
 
           <StrategySelection
             name={`failureStrategies[${selectedStategyNum}].onFailure.action`}
-            label={getString('performAction')}
+            label={getString('pipeline.failureStrategies.performAction')}
             allowedStrategies={allowedStrategiesAsPerStep[mode]}
           />
         </React.Fragment>

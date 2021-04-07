@@ -3,7 +3,6 @@ import { IconName, Formik, FormInput } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
 import type { StepViewType, StepProps } from '@pipeline/exports'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -15,6 +14,7 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepGroupWidgetProps {
   initialValues: StepGroupElement
+  isNewStep?: boolean
   onUpdate?: (data: StepGroupElement) => void
   stepViewType?: StepViewType
 }
@@ -23,7 +23,7 @@ function StepGroupWidget(
   props: StepGroupWidgetProps,
   formikRef: StepFormikFowardRef<StepGroupElement>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   return (
     <>
@@ -40,10 +40,7 @@ function StepGroupWidget(
           setFormikRef(formikRef, formik)
           return (
             <div className={cx(stepCss.formGroup, stepCss.md)}>
-              <FormInput.InputWithIdentifier
-                inputLabel={getString('name')}
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
-              />
+              <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
             </div>
           )
         }}
@@ -54,12 +51,13 @@ function StepGroupWidget(
 const StepGroupWidgetRef = React.forwardRef(StepGroupWidget)
 export class StepGroupStep extends PipelineStep<StepGroupElement> {
   renderStep(props: StepProps<StepGroupElement>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef } = props
+    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep } = props
 
     return (
       <StepGroupWidgetRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

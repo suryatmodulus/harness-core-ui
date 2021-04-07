@@ -94,7 +94,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         }}
         data={stepInfo}
       >
-        {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status !== 'Success' && (
+        {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
             loading={barrierInfoLoading}
             data={{ ...barrierInfo?.data, stepParameters: stepInfo?.data?.stepParameters }}

@@ -10,6 +10,7 @@ import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 export interface StepWidgetProps<T = unknown, U = unknown> extends Omit<StepProps<T, U>, 'path'> {
   factory: AbstractStepFactory
   type: StepType
+  isNewStep?: boolean
   allValues?: T
   template?: T
   path?: string
@@ -25,6 +26,7 @@ export function StepWidget<T = unknown, U = unknown>(
     initialValues,
     allValues,
     template,
+    isNewStep = true,
     path = '',
     stepViewType = StepViewType.Edit,
     onUpdate,
@@ -51,6 +53,7 @@ export function StepWidget<T = unknown, U = unknown>(
           initialValues: values,
           formikRef,
           onUpdate,
+          isNewStep,
           stepViewType,
           inputSetData: { template, allValues, path, readonly },
           factory,

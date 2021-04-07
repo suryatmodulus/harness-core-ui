@@ -4,24 +4,26 @@ import { useParams } from 'react-router-dom'
 import { useMutate } from 'restful-react'
 import { Layout } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
+import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import css from './DashboardView.module.scss'
 
 // import { WizardLibrary } from '../../components/WidgetLibrary/WidgetLibrary'
-
+const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
   // const { getString } = useStrings()
   const { accountId, viewId } = useParams()
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
+  const history = useHistory()
   // const [isDrawerOpen, setDrawerState] = React.useState(false)
 
   const { mutate: createSignedUrl, loading, error } = useMutate({
     verb: 'POST',
     path: 'dashboard/signedUrl',
-    queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?theme=Harness` }
+    queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host }
   })
 
   const { data: dashboardData } = useGet({
@@ -37,6 +39,17 @@ const DashboardViewPage: React.FC = () => {
   React.useEffect(() => {
     generateSignedUrl()
   }, [viewId])
+
+  React.useEffect(() => {
+    window.addEventListener('message', function (event) {
+      if (event.origin === DASHBOARDS_ORIGIN) {
+        const onChangeData = JSON.parse(event?.data)
+        if (onChangeData?.type === 'page:changed' && onChangeData?.page?.url?.includes('embed/explore')) {
+          history.go(0)
+        }
+      }
+    })
+  }, [])
 
   return (
     <Page.Body

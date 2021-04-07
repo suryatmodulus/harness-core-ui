@@ -776,7 +776,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              Git Connector
+              Git
             </p>
           </div>
           <div
@@ -804,7 +804,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              GitHub Connector
+              GitHub
             </p>
           </div>
           <div
@@ -857,7 +857,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              GitLab Connector
+              GitLab
             </p>
           </div>
           <div
@@ -927,7 +927,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              Bitbucket Connector
+              Bitbucket
             </p>
           </div>
         </div>

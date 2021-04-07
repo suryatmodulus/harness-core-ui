@@ -1,0 +1,668 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval-deploymentform 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        Jira Connector
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          style="width: 400px;"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+            >
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                    tabindex="0"
+                  >
+                    c1
+                  </p>
+                </span>
+              </span>
+              <div
+                class="rightStatus"
+              >
+                <span
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                  icon="full-circle"
+                >
+                  <svg
+                    data-icon="full-circle"
+                    height="6"
+                    viewBox="0 0 16 16"
+                    width="6"
+                  >
+                    <desc>
+                      full-circle
+                    </desc>
+                    <path
+                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag bp3-minimal tag"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      project
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </span>
+          <span
+            class="bp3-icon bp3-icon-caret-down StyledProps--main"
+            icon="caret-down"
+          >
+            <svg
+              data-icon="caret-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                caret-down
+              </desc>
+              <path
+                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.projectKey"
+      >
+        Jira Project
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.projectKey"
+                placeholder="Jira Project"
+                style="padding-right: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.issueType"
+      >
+        Issue Type
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.issueType"
+                placeholder="Issue Type"
+                style="padding-right: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.issueKey"
+      >
+        Issue Key
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.issueKey"
+            placeholder="Issue Key"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Jira Approval tests Basic snapshot - input variable view: jira-approval-input variable view 1`] = `
+<div>
+  <div
+    class="variablesListTable"
+  >
+    <div
+      class="main"
+    >
+      <div
+        class="text"
+      >
+        step.approval.timeout
+      </div>
+      <div
+        class="bp3-popover-wrapper btnWrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="copy-alt"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 8 9"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
+    >
+      1d
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Jira Approval tests Basic snapshot - inputset mode but no runtime values: jira-approval-inputset-noruntime 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Jira Approval tests Basic snapshot - inputset mode: input set with errors 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+      >
+        Jira Connector
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          style="width: 400px;"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+            >
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                    tabindex="0"
+                  >
+                    c1
+                  </p>
+                </span>
+              </span>
+              <div
+                class="rightStatus"
+              >
+                <span
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                  icon="full-circle"
+                >
+                  <svg
+                    data-icon="full-circle"
+                    height="6"
+                    viewBox="0 0 16 16"
+                    width="6"
+                  >
+                    <desc>
+                      full-circle
+                    </desc>
+                    <path
+                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="Tag--main"
+                >
+                  <span
+                    class="bp3-tag bp3-minimal tag"
+                  >
+                    <span
+                      class="bp3-text-overflow-ellipsis bp3-fill"
+                    >
+                      project
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </span>
+          <span
+            class="bp3-icon bp3-icon-caret-down StyledProps--main"
+            icon="caret-down"
+          >
+            <svg
+              data-icon="caret-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                caret-down
+              </desc>
+              <path
+                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.projectKey"
+      >
+        Jira Project
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group bp3-intent-danger"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.projectKey"
+                placeholder="Jira Project"
+                style="padding-right: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          Project is required.
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.issueType"
+      >
+        Issue Type
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-popover-wrapper Select--main bp3-fill"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="bp3-input-group bp3-intent-danger"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.issueType"
+                placeholder="Issue Type"
+                style="padding-right: 0px;"
+                type="text"
+                value=""
+              />
+              <span
+                class="bp3-input-action"
+              >
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    width="14"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          Issue Type is required.
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.issueKey"
+      >
+        Issue Key
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group bp3-intent-danger"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.issueKey"
+            placeholder="Issue Key"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          Issue Key is required.
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {
+  "spec": {
+    "connectorRef": "Jira Connector is required.",
+    "projectKey": "Project is required.",
+    "issueType": "Issue Type is required.",
+    "issueKey": "Issue Key is required."
+  }
+}
+    </pre>
+    <button
+      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;

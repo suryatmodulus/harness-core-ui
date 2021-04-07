@@ -21,7 +21,8 @@ export interface DiagramModelOptions extends DiagramModelCoreOptions {
   autoPosition?: boolean
   startX?: number
   startY?: number
-  gap?: number
+  gapX?: number
+  gapY?: number
 }
 
 export interface DiagramModelGenerics extends DiagramModelGenericsCore {
@@ -32,7 +33,8 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
   autoPosition: boolean
   startX: number
   startY: number
-  gap: number
+  gapX: number
+  gapY: number
   stepGroupLayers: StepGroupNodeLayerModel[] = []
 
   constructor(options: G['OPTIONS'] = {}) {
@@ -41,7 +43,8 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     this.autoPosition = options.autoPosition || true
     this.startX = options.startX || 100
     this.startY = options.startY || 100
-    this.gap = options.gap || 200
+    this.gapX = options.gapX || 200
+    this.gapY = options.gapY || 140
     this.stepGroupLayers = []
   }
 
@@ -57,6 +60,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
           this.removeLink(link)
         }
       }
+
       this.removeNode(node)
     }
   }
@@ -112,6 +116,10 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
         link.clearListeners()
       }
     }
+
+    this.stepGroupLayers.forEach(layer => {
+      layer.clearListeners()
+    })
   }
   clearAllNodesAndLinks(): void {
     this.clearAllLinks()
@@ -179,7 +187,8 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
         link.setColorOfLink(color)
       }
     }
-    if (!isConnectedToParent) {
+    // NOTE: parent.getOutPorts().length === 0 solve the issue with missing line at the end of graph
+    if (!isConnectedToParent || parent.getOutPorts().length === 0) {
       const parentPort = parent.getPort(PortName.Out) || parent.addOutPort(PortName.Out)
       if (parentPort && inPort) {
         const link = new DefaultLinkModel({ allowAdd, strokeDasharray, color, maxLinePartLength: maxLinePartLength })
@@ -207,7 +216,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       const midX =
         parent instanceof EmptyNodeModel
           ? (inPort.getPosition().x + parentPort.getPosition().x) / 2
-          : (inPort.getPosition().x + parentPort.getPosition().x + this.gap / 2) / 2
+          : (inPort.getPosition().x + parentPort.getPosition().x + this.gapX / 2) / 2
       if (midX > highestMidX) {
         highestMidX = midX
       }

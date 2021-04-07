@@ -100,7 +100,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           <div className={css.variableList}>
             <String tagName="h4" className="bp3-heading" stringID="customVariables.pipelineVariablesTitle" />
             <String className={css.description} stringID="customVariables.pipelineVariablesDescription" />
-            <String stringID="pipeline" className={css.title} />
+            <String stringID="common.pipeline" className={css.title} />
             <div className={css.variableListHeader}>
               <String stringID="variableLabel" />
               <String stringID="valueLabel" />

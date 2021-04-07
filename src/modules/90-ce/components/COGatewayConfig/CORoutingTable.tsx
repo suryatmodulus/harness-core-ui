@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon, Select, Table, TextInput } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
+import { debounce as _debounce } from 'lodash-es'
 import type { PortConfig } from 'services/lw'
 import type { InstanceDetails } from '../COCreateGateway/models'
 import css from './COGatewayConfig.module.scss'
@@ -37,6 +38,12 @@ interface CORoutingTableProps {
   setRoutingRecords: (records: PortConfig[]) => void
 }
 const CORoutingTable: React.FC<CORoutingTableProps> = props => {
+  const debouncedInputHandler = React.useCallback(
+    _debounce((value: string, tableProps: CellProps<InstanceDetails>) => {
+      updatePortConfig(tableProps.row.index, tableProps.column.id, value)
+    }, 500),
+    [props.routingRecords]
+  )
   function updatePortConfig(index: number, column: string, val: string) {
     const portConfig = [...props.routingRecords]
     switch (column) {
@@ -89,10 +96,7 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
       <TextInput
         defaultValue={tableProps.value}
         style={{ border: 'none' }}
-        onBlur={e => {
-          const value = (e.currentTarget as HTMLInputElement).value
-          updatePortConfig(tableProps.row.index, tableProps.column.id, value)
-        }}
+        onChange={e => debouncedInputHandler((e.target as HTMLInputElement).value, tableProps)}
       />
     )
   }
@@ -125,10 +129,7 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
       <TextInput
         defaultValue={tableProps.value.length ? tableProps.value[0].path_match : ''}
         style={{ border: 'none' }}
-        onBlur={e => {
-          const value = (e.currentTarget as HTMLInputElement).value
-          updatePortConfig(tableProps.row.index, tableProps.column.id, value)
-        }}
+        onChange={e => debouncedInputHandler((e.target as HTMLInputElement).value, tableProps)}
       />
     )
   }
@@ -270,7 +271,7 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
         },
         {
           accessor: 'port',
-          Header: 'LISTON PORT',
+          Header: 'LISTEN PORT',
           width: '16.5%',
           Cell: InputCell,
           disableSortBy: true

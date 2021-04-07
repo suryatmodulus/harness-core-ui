@@ -1,10 +1,7 @@
 import React from 'react'
-import { Container, Icon, IconName, Text } from '@wings-software/uicore'
-import copy from 'clipboard-copy'
+import { IconName, Text, Icon, Layout } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import type { GitSyncEntityListDTO, GitSyncEntityDTO, GitSyncProductDTO } from 'services/cd-ng'
-import { useToaster } from '@common/components/Toaster/useToaster'
-import i18n from './GitSyncEntityTab.i18n'
+import type { GitSyncEntityListDTO, GitSyncEntityDTO } from 'services/cd-ng'
 
 export enum Products {
   CD = 'CD',
@@ -12,133 +9,89 @@ export enum Products {
   CORE = 'CORE'
 }
 
-export enum Entity {
-  PROJECTS = 'projects',
-  PIPELINES = 'pipelines',
-  CONNECTORS = 'connectors'
+export interface Entity {
+  [key: string]: GitSyncEntityDTO['entityType']
 }
 
-export enum repoProvider {
-  GITHUB = 'github',
-  GITLAB = 'gitlab',
-  BITBUCKET = 'bitbucket',
-  UNKNOWN = 'unknown'
+export const Entities: Entity = {
+  APPROVAL_STAGE: 'ApprovalStage',
+  CONNECTORS: 'Connectors',
+  CV_CONFIG: 'CvConfig',
+  CV_JOB: 'CvVerificationJob',
+  CV_K8_ACTIVITY_SOURCE: 'CvKubernetesActivitySource',
+  DELEGATES: 'Delegates',
+  DELEGATE_CONFIGURATIONS: 'DelegateConfigurations',
+  DEPLOYMENT_STAGE: 'DeploymentStage',
+  DEPLOYMENT_STEPS: 'DeploymentSteps',
+  ENVIRONMENT: 'Environment',
+  INPUT_SETS: 'InputSets',
+  INTEGRATION_STAGE: 'IntegrationStage',
+  INTEGRATION_STEPS: 'IntegrationSteps',
+  PIPELINES: 'Pipelines',
+  PIPELINES_STEPS: 'PipelineSteps',
+  PROJECTS: 'Projects',
+  SECRETS: 'Secrets',
+  SERVICE: 'Service'
 }
 
-interface SupportedProductsInterface {
-  id: GitSyncProductDTO['moduleType']
-  title: string
-}
-
-export const supportedProducts: SupportedProductsInterface[] = [
-  { id: Products.CD, title: i18n.heading.cd },
-  { id: Products.CI, title: i18n.heading.ci },
-  { id: Products.CORE, title: i18n.heading.core }
-]
-
-export const getEntityIconName = (entityType: string): IconName => {
+export const getEntityIconName = (entityType: string | undefined): IconName => {
   switch (entityType) {
-    case Entity.PROJECTS:
+    case Entities.PROJECTS:
       return 'nav-project-selected'
-    case Entity.PIPELINES:
+    case Entities.PIPELINES:
       return 'pipeline-ng'
-    case Entity.CONNECTORS:
+    case Entities.CONNECTORS:
       return 'resources-icon'
+    case Entities.SECRETS:
+      return 'secret-manager'
     default:
       return 'placeholder'
-  }
-}
-
-export const getRepoProviderIconName = (repoProviderName: string): IconName => {
-  switch (repoProviderName) {
-    case repoProvider.GITHUB:
-      return 'github'
-    case repoProvider.GITLAB:
-      return 'service-gotlab'
-    case repoProvider.BITBUCKET:
-      return 'bitbucket'
-    case repoProvider.UNKNOWN:
-    default:
-      return 'service-github'
   }
 }
 
 export const RenderEntity: Renderer<CellProps<GitSyncEntityDTO>> = ({ row }) => {
   const data = row.original
   return (
-    <Container padding={{ left: 'small' }}>
-      <Icon name={getEntityIconName(data.entityType || '')} margin={{ right: 'small' }} size={20} />
-      <Text inline font={{ weight: 'bold' }} lineClamp={1}>
+    <Layout.Horizontal>
+      <Icon inline name={getEntityIconName(data.entityType)}></Icon>
+      <Text padding={{ left: 'small' }} inline font={{ weight: 'bold' }} lineClamp={1}>
         {data.entityName}
       </Text>
-      <Text margin={{ left: 'xxlarge', top: 'small' }} lineClamp={1}>
-        {data.entityIdentifier}
-      </Text>
-    </Container>
-  )
-}
-export const RenderRootfolder: Renderer<CellProps<GitSyncEntityDTO>> = ({ row }) => {
-  const data = row.original
-  return (
-    <>
-      <Icon name={getRepoProviderIconName(data.repoProviderType || '')} margin={{ right: 'small' }} size={20} />
-      <Text inline padding={{ right: 'small' }} lineClamp={1}>
-        {data.repositoryName}
-      </Text>
-      <Text inline padding={{ right: 'small' }} lineClamp={1}>
-        {data.branch}
-      </Text>
-    </>
+    </Layout.Horizontal>
   )
 }
 
 export const RenderYamlPath: Renderer<CellProps<GitSyncEntityDTO>> = ({ row }) => {
   const data = row.original
-  const { showSuccess } = useToaster()
+
   return (
     <>
       <Text inline lineClamp={1}>
-        {data.filePath}
+        {data.entityGitPath}
       </Text>
-      <Icon
-        name={'copy'}
-        margin={{ left: 'small' }}
-        style={{ cursor: 'pointer' }}
-        onClick={() => {
-          copy(data.filePath || '')
-          showSuccess(i18n.filePathCopied)
-        }}
-      ></Icon>
     </>
   )
 }
 
 export const getEntityHeaderText = (data: GitSyncEntityListDTO): string => {
-  return data?.entityType?.toUpperCase() + ' (' + data?.count + ')'
+  return `${data.entityType?.toUpperCase()} ( ${data.count} )`
 }
 
-export const getTableColumns = (sortingDisabled: boolean): Column<GitSyncEntityDTO>[] => {
+export const getTableColumns = (): Column<GitSyncEntityDTO>[] => {
   return [
     {
-      Header: i18n.heading.entity,
+      Header: 'NAME',
       accessor: 'entityName',
       width: '25%',
       Cell: RenderEntity,
-      disableSortBy: sortingDisabled
+      disableSortBy: false
     },
     {
-      Header: i18n.heading.details,
-      accessor: 'repositoryName',
-      width: '30%',
-      Cell: RenderRootfolder,
-      disableSortBy: sortingDisabled
-    },
-    {
-      Header: i18n.heading.yamlFilePath,
-      accessor: 'filePath',
-      width: '45%',
+      Header: 'PATH',
+      accessor: 'entityGitPath',
+      width: '75%',
       Cell: RenderYamlPath,
-      disableSortBy: sortingDisabled
+      disableSortBy: false
     }
   ]
 }

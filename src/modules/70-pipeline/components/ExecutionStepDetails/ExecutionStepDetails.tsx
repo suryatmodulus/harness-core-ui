@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
-import { isApprovalStep } from '@pipeline/utils/stepUtils'
+import { isApprovalStep, isHarnessApproval } from '@pipeline/utils/stepUtils'
 
 import { REFRESH_APPROVAL } from './Tabs/ApprovalTab/ApprovalTab'
 import { StepDetailTabs } from './StepDetailTabs'
@@ -34,7 +34,7 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
     <div className={css.main}>
       <div className={cx(css.header, { [css.isApproval]: isApproval && isWaiting })}>
         <div className={css.title}>Step: {step.name}</div>
-        {isApproval && isWaiting ? (
+        {isHarnessApproval(step.stepType) && isWaiting ? (
           <Button minimal small intent="primary" onClick={handleRefresh}>
             Refresh
           </Button>

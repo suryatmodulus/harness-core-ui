@@ -28,6 +28,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
   const {
     state: {
       pipeline,
+      originalPipeline,
       pipelineView: {
         splitViewData: { selectedStageId = '' },
         isSplitViewOpen
@@ -74,6 +75,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
   }, [pipeline, selectedStageId])
 
   const selectedStage = getStageFromPipeline(selectedStageId).stage
+  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -159,6 +161,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
               ref={executionRef}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
+              originalStage={originalStage}
               updateStage={() => {
                 updatePipeline(pipeline)
               }}

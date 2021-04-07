@@ -107,7 +107,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     <Layout.Vertical padding="xxlarge" spacing="large">
       <Layout.Horizontal>
         <Text font={{ size: 'medium' }} style={{ color: 'var(--grey-600)' }}>
-          {getString('selectStrategy')}
+          {getString('pipeline.failureStrategies.selectStrategy')}
         </Text>
       </Layout.Horizontal>
 

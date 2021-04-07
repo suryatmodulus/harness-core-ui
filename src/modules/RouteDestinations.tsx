@@ -20,6 +20,7 @@ import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_USERPROFILE } = useFeatureFlags()
+
   return (
     <Switch>
       {...commonRoutes.props.children}

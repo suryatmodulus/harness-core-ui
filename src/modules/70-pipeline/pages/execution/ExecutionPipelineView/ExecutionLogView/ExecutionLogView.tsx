@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
+import { get } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
 import { useUpdateQueryParams } from '@common/hooks'
@@ -19,7 +20,13 @@ import css from './ExecutionLogView.module.scss'
 
 export default function ExecutionLogView(): React.ReactElement {
   const { getString } = useStrings()
-  const { pipelineStagesMap, pipelineExecutionDetail, selectedStageId, selectedStepId } = useExecutionContext()
+  const {
+    pipelineStagesMap,
+    allNodeMap,
+    pipelineExecutionDetail,
+    selectedStageId,
+    selectedStepId
+  } = useExecutionContext()
   const { module } = useParams<PipelineType<ExecutionPathProps>>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
 
@@ -34,6 +41,9 @@ export default function ExecutionLogView(): React.ReactElement {
       type: stage.nodeType || ''
     }))
   }, [pipelineStagesMap])
+
+  const selectedStep = allNodeMap[selectedStepId]
+  const errorMessage = get(selectedStep, 'failureInfo.message') || get(selectedStep, 'failureInfo.errorMessage')
 
   function handleStageChange(item: StageSelectOption): void {
     updateQueryParams({ stage: item.value as string })
@@ -61,7 +71,7 @@ export default function ExecutionLogView(): React.ReactElement {
       </div>
       <div className={css.logViewer}>
         {module === 'cd' ? (
-          <LogsContent mode="console-view" />
+          <LogsContent mode="console-view" errorMessage={errorMessage} />
         ) : (
           <LogsContentOld header={getString('execution.stepLogs')} key={selectedStepId} />
         )}

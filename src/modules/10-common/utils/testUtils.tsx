@@ -7,11 +7,10 @@ import { ModalProvider } from '@wings-software/uicore'
 import qs from 'qs'
 
 import { enableMapSet } from 'immer'
-import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
-import { StringsContext } from 'framework/strings/StringsContext'
+import { StringsContextProvider } from 'framework/strings/__mocks__/StringsContextProvider'
 
 import './testUtils.scss'
 
@@ -102,7 +101,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   // }, [path, pathParams, queryParams])
 
   return (
-    <StringsContext.Provider value={strings}>
+    <StringsContextProvider>
       <AppStoreContext.Provider
         value={{
           featureFlags: {},
@@ -127,6 +126,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           </ModalProvider>
         </Router>
       </AppStoreContext.Provider>
-    </StringsContext.Provider>
+    </StringsContextProvider>
   )
 }

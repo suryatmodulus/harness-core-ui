@@ -125,6 +125,84 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
+        data-testid="Manifests-panel"
+        id="Manifests-panel"
+      >
+        <div
+          class="Accordion--summary"
+          data-testid="Manifests-summary"
+        >
+          <div
+            class="Accordion--label"
+          >
+            Manifests
+          </div>
+          <div
+            class="Accordion--chevron"
+          />
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          >
+            <div
+              class="Accordion--details"
+              data-testid="Manifests-details"
+            >
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="manifestList listHeader"
+                  >
+                    <span>
+                      ID
+                    </span>
+                    <span>
+                      MANIFEST TYPE
+                    </span>
+                    <span>
+                      STORE
+                    </span>
+                    <span>
+                      LOCATION
+                    </span>
+                    <span />
+                  </div>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  >
+                    <section />
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                      style="cursor: pointer;"
+                    >
+                      <span>
+                        + Add Manifest/Config File
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Accordion--accordion cardSection"
+    >
+      <div
+        class="Accordion--panel"
+        data-open="true"
         data-testid="Artifacts-panel"
         id="Artifacts-panel"
       >
@@ -202,84 +280,6 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                     >
                       <span>
                         + Add Sidecar
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="Accordion--accordion cardSection"
-    >
-      <div
-        class="Accordion--panel"
-        data-open="true"
-        data-testid="Manifests-panel"
-        id="Manifests-panel"
-      >
-        <div
-          class="Accordion--summary"
-          data-testid="Manifests-summary"
-        >
-          <div
-            class="Accordion--label"
-          >
-            Manifests
-          </div>
-          <div
-            class="Accordion--chevron"
-          />
-        </div>
-        <div
-          class="bp3-collapse Accordion--collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
-        >
-          <div
-            aria-hidden="false"
-            class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
-          >
-            <div
-              class="Accordion--details"
-              data-testid="Manifests-details"
-            >
-              <div
-                class="Layout--vertical StyledProps--main"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <div
-                    class="manifestList listHeader"
-                  >
-                    <span>
-                      ID
-                    </span>
-                    <span>
-                      MANIFEST TYPE
-                    </span>
-                    <span>
-                      STORE
-                    </span>
-                    <span>
-                      LOCATION
-                    </span>
-                    <span />
-                  </div>
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                  >
-                    <section />
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                      style="cursor: pointer;"
-                    >
-                      <span>
-                        + Add Manifest/Config File
                       </span>
                     </p>
                   </div>

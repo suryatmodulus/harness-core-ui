@@ -22,7 +22,7 @@ export const NoTargetsView: React.FC<NoTargetsViewProps> = ({
 
   return (
     <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
-      <NoData imageURL={imageURL} message={getString(`cf.${hasEnvironment ? 'noTargetForEnv' : 'noTarget'}`)}>
+      <NoData imageURL={imageURL} message={getString(hasEnvironment ? 'cf.noTargetForEnv' : 'cf.noTarget')}>
         <NewTargets
           accountId={accountId}
           orgIdentifier={orgIdentifier}

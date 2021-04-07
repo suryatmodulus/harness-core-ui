@@ -1,14 +1,17 @@
 import React from 'react'
 import type { CellProps } from 'react-table'
-import { Heading, Container, Layout, Label, Text, Table, Color, Icon, IconName, Button } from '@wings-software/uicore'
-import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
-import { useStrings } from 'framework/exports'
-import type { PortConfig } from 'services/lw'
+import cx from 'classnames'
+import { isEmpty as _isEmpty } from 'lodash-es'
+import { Heading, Container, Layout, Text, Table, Color, Icon, IconName } from '@wings-software/uicore'
+import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
+import { Utils } from '@ce/common/Utils'
+import type { HealthCheck, PortConfig, ServiceDep } from 'services/lw'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import css from './COGatewayReview.module.scss'
+
 interface COGatewayReviewProps {
   gatewayDetails: GatewayDetails
-  setSelectedTabId: (s: string) => void
+  onEdit: (tabDetails: { id: string; metaData?: { activeStepCount?: number; activeStepTabId?: string } }) => void
 }
 
 function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
@@ -32,174 +35,325 @@ function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     </Text>
   )
 }
-const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
-  const { getString } = useStrings()
+
+interface ReviewDetailsSectionProps {
+  isEditable?: boolean
+  onEdit?: () => void
+}
+
+const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
   return (
-    <Layout.Horizontal spacing="large" padding="large" className={css.page}>
-      <Container width="20%">
-        <Layout.Vertical spacing="large">
-          <Heading level={2} style={{ paddingTop: 'var(--spacing-small)', paddingBottom: 'var(--spacing-xmall)' }}>
-            {getString('ce.co.gatewayReview.gatewayDetails')}
-          </Heading>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.selectCloudAccount')}</Label>
-            <Text>
-              <Icon name={props.gatewayDetails.provider.icon as IconName} /> {props.gatewayDetails.cloudAccount.name}
-            </Text>
-          </Layout.Vertical>
-        </Layout.Vertical>
-      </Container>
-      <Container className={css.configDetails} width="80%">
-        <Layout.Vertical spacing="large" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
-          <Layout.Horizontal>
-            <Heading level={2} style={{ alignSelf: 'center' }}>
-              {getString('ce.co.autoStoppingRule.review.configDetails')}
-            </Heading>
-            <Button
-              intent="primary"
-              minimal
-              text="Edit"
-              icon="edit"
-              onClick={() => props.setSelectedTabId('configuration')}
-            />
-          </Layout.Horizontal>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.nameYourGateway')}</Label>
+    <Container className={css.reviewDetailsSection}>
+      {props.isEditable && (
+        <div className={css.editCta} onClick={props.onEdit}>
+          <span>EDIT</span>
+        </div>
+      )}
+      {props.children}
+    </Container>
+  )
+}
+
+const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
+  return (
+    <Layout.Vertical padding="large" className={css.page}>
+      <Text className={css.reviewHeading}>Cloud account details</Text>
+      <ReviewDetailsSection>
+        <Layout.Horizontal spacing={'large'} className={css.equalSpacing}>
+          <Text>Selected cloud account</Text>
+          <Text>
+            <Icon name={props.gatewayDetails.provider.icon as IconName} /> {props.gatewayDetails.cloudAccount.name}
+          </Text>
+        </Layout.Horizontal>
+      </ReviewDetailsSection>
+      <Text className={css.reviewHeading}>Configuration details</Text>
+      <ReviewDetailsSection
+        isEditable
+        onEdit={() => props.onEdit({ id: 'configuration', metaData: { activeStepCount: 1 } })}
+      >
+        <Layout.Vertical>
+          <Layout.Horizontal
+            spacing={'large'}
+            padding={{ bottom: 'medium' }}
+            className={cx(css.equalSpacing, css.borderSpacing)}
+          >
+            <Text>Name of the rule</Text>
             <Text>{props.gatewayDetails.name}</Text>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.idleTime')}</Label>
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing={'large'} className={css.equalSpacing}>
+            <Text>Idle time(mins)</Text>
             <Text>{props.gatewayDetails.idleTimeMins}</Text>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.instanceType')}</Label>
-            <Layout.Horizontal spacing="small">
-              <img
-                className={css.fulFilmentIcon}
-                src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
-                alt=""
-                aria-hidden
-              />
-              <Text>{props.gatewayDetails.fullfilment}</Text>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.instance')}</Label>
-            {props.gatewayDetails.selectedInstances.length ? (
-              <Table<InstanceDetails>
-                data={props.gatewayDetails.selectedInstances}
-                bpTableProps={{}}
-                className={css.instanceTable}
-                columns={[
-                  {
-                    accessor: 'name',
-                    Header: 'NAME AND ID',
-                    width: '16.5%',
-                    Cell: NameCell
-                  },
-                  {
-                    accessor: 'ipv4',
-                    Header: 'IP ADDRESS',
-                    width: '16.5%',
-                    Cell: TableCell,
-                    disableSortBy: true
-                  },
-                  {
-                    accessor: 'region',
-                    Header: 'REGION',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'type',
-                    Header: 'TYPE',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'tags',
-                    Header: 'TAGS',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'launch_time',
-                    Header: 'LAUNCH TIME',
-                    width: '16.5%',
-                    Cell: TableCell
-                  },
-                  {
-                    accessor: 'status',
-                    Header: 'STATUS',
-                    width: '16.5%',
-                    Cell: TableCell
-                  }
-                ]}
-              />
-            ) : null}
-          </Layout.Vertical>
-          <Layout.Vertical spacing="xsmall" style={{ paddingTop: 'var(--spacing-large)' }}>
-            <Label className={css.labelNormal}>{getString('ce.co.gatewayReview.routing')}</Label>
-            <Table<PortConfig>
-              data={props.gatewayDetails.routing.ports}
-              className={css.instanceTable}
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      </ReviewDetailsSection>
+      <ReviewDetailsSection
+        isEditable
+        onEdit={() => props.onEdit({ id: 'configuration', metaData: { activeStepCount: 2 } })}
+      >
+        <Heading level={2}>Instance details</Heading>
+        {!!props.gatewayDetails.selectedInstances.length && (
+          <>
+            <Text style={{ margin: '20px 0 10px' }}>Instances</Text>
+            <Table<InstanceDetails>
+              data={props.gatewayDetails.selectedInstances}
               bpTableProps={{}}
+              className={css.instanceTable}
               columns={[
                 {
-                  accessor: 'protocol',
-                  Header: 'LISTEN PROTOCOL',
+                  accessor: 'name',
+                  Header: 'NAME AND ID',
                   width: '16.5%',
-                  Cell: TableCell
+                  Cell: NameCell
                 },
                 {
-                  accessor: 'port',
-                  Header: 'LISTEN PORT',
+                  accessor: 'ipv4',
+                  Header: 'IP ADDRESS',
                   width: '16.5%',
                   Cell: TableCell,
                   disableSortBy: true
                 },
                 {
-                  accessor: 'action',
-                  Header: 'ACTION',
+                  accessor: 'region',
+                  Header: 'REGION',
                   width: '16.5%',
                   Cell: TableCell
                 },
                 {
-                  accessor: 'target_protocol',
-                  Header: 'TARGET PROTOCOL',
+                  accessor: 'type',
+                  Header: 'TYPE',
                   width: '16.5%',
                   Cell: TableCell
                 },
                 {
-                  accessor: 'target_port',
-                  Header: 'TARGET PORT',
+                  accessor: 'tags',
+                  Header: 'TAGS',
                   width: '16.5%',
                   Cell: TableCell
                 },
                 {
-                  accessor: 'redirect_url',
-                  Header: 'REDIRECT URL',
+                  accessor: 'launch_time',
+                  Header: 'LAUNCH TIME',
                   width: '16.5%',
                   Cell: TableCell
                 },
                 {
-                  accessor: 'server_name',
-                  Header: 'SERVER NAME',
+                  accessor: 'status',
+                  Header: 'STATUS',
                   width: '16.5%',
                   Cell: TableCell
-                },
-                {
-                  accessor: 'routing_rules',
-                  Header: 'PATH MATCH',
-                  width: '16.5%',
-                  Cell: PathCell
                 }
               ]}
             />
+          </>
+        )}
+        <Layout.Horizontal spacing={'large'} className={css.equalSpacing} style={{ marginTop: 20 }}>
+          <Text>Instance fulfilment</Text>
+          <Layout.Horizontal spacing={'small'}>
+            <img
+              className={css.fulFilmentIcon}
+              src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
+              alt=""
+              aria-hidden
+            />
+            <Text>{props.gatewayDetails.fullfilment}</Text>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      </ReviewDetailsSection>
+      {props.gatewayDetails.routing && (
+        <ReviewDetailsSection
+          isEditable
+          onEdit={() =>
+            props.onEdit({ id: 'configuration', metaData: { activeStepCount: 4, activeStepTabId: 'routing' } })
+          }
+        >
+          <Heading level={2}>Routing</Heading>
+          <Table<PortConfig>
+            data={props.gatewayDetails.routing.ports}
+            className={css.instanceTable}
+            bpTableProps={{}}
+            columns={[
+              {
+                accessor: 'protocol',
+                Header: 'LISTEN PROTOCOL',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'port',
+                Header: 'LISTEN PORT',
+                width: '16.5%',
+                Cell: TableCell,
+                disableSortBy: true
+              },
+              {
+                accessor: 'action',
+                Header: 'ACTION',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'target_protocol',
+                Header: 'TARGET PROTOCOL',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'target_port',
+                Header: 'TARGET PORT',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'redirect_url',
+                Header: 'REDIRECT URL',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'server_name',
+                Header: 'SERVER NAME',
+                width: '16.5%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'routing_rules',
+                Header: 'PATH MATCH',
+                width: '16.5%',
+                Cell: PathCell
+              }
+            ]}
+          />
+        </ReviewDetailsSection>
+      )}
+      {props.gatewayDetails.healthCheck && (
+        <ReviewDetailsSection
+          isEditable
+          onEdit={() =>
+            props.onEdit({ id: 'configuration', metaData: { activeStepCount: 4, activeStepTabId: 'healthcheck' } })
+          }
+        >
+          <Heading level={2}>Health Check</Heading>
+          <Table<HealthCheck>
+            data={[props.gatewayDetails.healthCheck]}
+            className={css.instanceTable}
+            bpTableProps={{}}
+            columns={[
+              {
+                accessor: 'protocol',
+                Header: 'PROTOCOL',
+                width: '25%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'path',
+                Header: 'PATH',
+                width: '25%',
+                Cell: TableCell
+              },
+              {
+                accessor: 'port',
+                Header: 'PORT',
+                width: '25%',
+                Cell: TableCell,
+                disableSortBy: true
+              },
+              {
+                accessor: 'timeout',
+                Header: 'TIMEOUT(SECS)',
+                width: '25%',
+                Cell: TableCell,
+                disableSortBy: true
+              }
+            ]}
+          />
+        </ReviewDetailsSection>
+      )}
+      {props.gatewayDetails.opts && (
+        <ReviewDetailsSection
+          isEditable
+          onEdit={() =>
+            props.onEdit({ id: 'configuration', metaData: { activeStepCount: 4, activeStepTabId: 'advanced' } })
+          }
+        >
+          <Heading level={2}>Advanced configuration</Heading>
+          <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
+            <Layout.Horizontal
+              spacing={'large'}
+              padding={{ bottom: 'medium' }}
+              className={cx(css.equalSpacing, css.borderSpacing)}
+            >
+              <Text>Allow traffic from all susbdomains</Text>
+              <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing={'large'} className={css.equalSpacing}>
+              <Text>Use private IP</Text>
+              <Text>{Utils.booleanToString(props.gatewayDetails.opts.alwaysUsePrivateIP as boolean)}</Text>
+            </Layout.Horizontal>
           </Layout.Vertical>
+          {props.gatewayDetails.deps.length > 0 && (
+            <Table<ServiceDep>
+              data={props.gatewayDetails.deps}
+              className={css.instanceTable}
+              bpTableProps={{}}
+              columns={[
+                { accessor: 'dep_id', Header: 'RULE', Cell: TableCell },
+                { accessor: 'delay_secs', Header: 'DELAY(SECS)', Cell: TableCell }
+              ]}
+            />
+          )}
+        </ReviewDetailsSection>
+      )}
+      <Text className={css.reviewHeading}>Setup Access details</Text>
+      <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
+        <Heading level={2}>DNS Link mapping</Heading>
+        <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
+          {!_isEmpty(props.gatewayDetails.customDomains) && (
+            <Layout.Horizontal
+              spacing={'large'}
+              padding={{ bottom: 'medium' }}
+              className={cx(css.equalSpacing, css.borderSpacing)}
+            >
+              <Text>Custom domain</Text>
+              <Text>{props.gatewayDetails.customDomains?.join(',')}</Text>
+            </Layout.Horizontal>
+          )}
+          <Layout.Horizontal
+            spacing={'large'}
+            padding={{ bottom: 'medium' }}
+            className={cx(css.equalSpacing, css.borderSpacing)}
+          >
+            <Text>Is it publicly accessible?</Text>
+            <Text>{(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}</Text>
+          </Layout.Horizontal>
+          {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
+            <Layout.Horizontal
+              spacing={'large'}
+              padding={{ bottom: 'medium' }}
+              className={cx(css.equalSpacing, css.borderSpacing)}
+            >
+              <Text>Auto generated URL</Text>
+              <Text>{props.gatewayDetails.hostName}</Text>
+            </Layout.Horizontal>
+          )}
+          {/* <Layout.Horizontal
+            spacing={'large'}
+            padding={{ bottom: 'medium' }}
+            className={cx(css.equalSpacing, css.borderSpacing)}
+          >
+            <Text>Access point mapping status</Text>
+            <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
+          </Layout.Horizontal>
+          <Layout.Horizontal
+            spacing={'large'}
+            padding={{ bottom: 'medium' }}
+            className={cx(css.equalSpacing, css.borderSpacing)}
+          >
+            <Text>Custom Domain mapping status</Text>
+            <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
+          </Layout.Horizontal> */}
         </Layout.Vertical>
-      </Container>
-    </Layout.Horizontal>
+      </ReviewDetailsSection>
+    </Layout.Vertical>
   )
 }
 

@@ -67,10 +67,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const {
     state: {
       pipeline,
+      originalPipeline,
       pipelineView: {
         splitViewData: { selectedStageId }
       }
     },
+
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
@@ -249,7 +251,11 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
   const getProvisionerData = (stageData: ExecutionWrapper): InfraProvisioningData => {
     let provisioner = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
-
+    let originalProvisioner: InfraProvisioningData['originalProvisioner'] = undefined
+    if (selectedStageId) {
+      const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+      originalProvisioner = get(originalStage, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
+    }
     if (isNil(provisioner)) {
       provisioner = {}
     }
@@ -262,7 +268,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
     set(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
 
-    return { provisioner, provisionerEnabled, provisionerSnippetLoading }
+    return { provisioner, provisionerEnabled, provisionerSnippetLoading, originalProvisioner }
   }
 
   return (

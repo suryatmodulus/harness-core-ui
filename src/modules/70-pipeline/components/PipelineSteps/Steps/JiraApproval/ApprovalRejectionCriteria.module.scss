@@ -1,0 +1,67 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: var(--spacing-large);
+}
+
+.tab {
+  cursor: pointer;
+}
+
+.selectedTab {
+  border-bottom: 4px solid var(--blue-500);
+}
+
+.alignConditions {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-large) !important;
+
+  span {
+    color: var(--black) !important;
+  }
+
+  label {
+    color: var(--black) !important;
+  }
+}
+
+.jexlExpression {
+  :global {
+    textarea {
+      min-height: 60px;
+      max-height: 120px;
+      line-height: 35px;
+    }
+  }
+}
+
+.headers {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr 30px;
+  column-gap: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  align-items: center;
+
+  :global(.bp3-form-group) {
+    margin: 0;
+  }
+}
+
+.multiSelect {
+  :global {
+    .bp3-tag-input {
+      height: fit-content !important;
+    }
+  }
+}
+
+.fetching {
+  display: flex;
+  justify-content: center;
+}
+
+.formikError {
+  color: var(--red-600) !important;
+}

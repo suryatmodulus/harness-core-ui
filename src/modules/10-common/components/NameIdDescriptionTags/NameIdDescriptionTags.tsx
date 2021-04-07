@@ -20,7 +20,9 @@ import css from './NameIdDescriptionTags.module.scss'
 export interface NameIdDescriptionTagsProps {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
   descriptionProps?: DescriptionProps
-  tagsProps?: Partial<ITagInputProps>
+  tagsProps?: Partial<ITagInputProps> & {
+    isOption?: boolean
+  }
   formikProps: FormikProps<FormikForNameIdDescriptionTags>
   className?: string
 }
@@ -37,7 +39,8 @@ export const NameId = (props: NameIdProps): JSX.Element => {
 }
 
 export const Description = (props: DescriptionComponentProps): JSX.Element => {
-  const { descriptionProps, hasValue } = props
+  const { descriptionProps = {}, hasValue } = props
+  const { isOptional = true, ...restDescriptionProps } = descriptionProps
   const { getString } = useStrings()
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
   const [isDescriptionFocus, setDescriptionFocus] = useState<boolean>(false)
@@ -45,7 +48,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
       <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-        {getString('description')}
+        {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
         {!isDescriptionOpen && (
           <Icon
             className={css.editOpen}
@@ -66,7 +69,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
           data-name="description"
           autoFocus={isDescriptionFocus}
           name="description"
-          {...descriptionProps}
+          {...restDescriptionProps}
         />
       )}
     </Container>
@@ -74,14 +77,14 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 }
 
 const Tags = (props: TagsComponentProps): JSX.Element => {
-  const { tagsProps, hasValue } = props
+  const { tagsProps, hasValue, isOptional = true } = props
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
 
   return (
     <Container>
       <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-        {getString('tagsLabel')}
+        {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
         {!isTagsOpen && (
           <Icon
             className={css.editOpen}
@@ -148,7 +151,7 @@ export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.El
     <Container className={cx(css.main, className)}>
       <NameId identifierProps={identifierProps} />
       <Description descriptionProps={descriptionProps} hasValue={!!formikProps?.values.description} />
-      <Tags tagsProps={tagsProps} hasValue={!isEmpty(formikProps?.values.tags)} />
+      <Tags tagsProps={tagsProps} isOptional={tagsProps?.isOption} hasValue={!isEmpty(formikProps?.values.tags)} />
     </Container>
   )
 }

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { useGetAllFeatures, useGetFeatureFlag } from 'services/cf'
+import { useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
 import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/utils/CFUtils'
@@ -40,35 +40,21 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       setEnvironmentOption(environments?.length > 0 ? environments[index] : null)
     }
   }, [environments?.length, envsLoading, environmentIdentifier])
+  const environmentId = (environmentOption?.value as string) || environmentIdentifier
 
-  const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
+  const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch: fetchFeatureFlag } = useGetFeatureFlag({
     lazy: true,
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
-      environment: (environmentOption?.value as string) || environmentIdentifier,
-      account: accountId,
-      org: orgIdentifier
-    }
-  })
-
-  // TODO: This call needs to be removed, does not make sense to put it here
-  // And it fetches all features which is very costly
-  const { data: featureList, refetch: fetchFlagList } = useGetAllFeatures({
-    lazy: true,
-    queryParams: {
-      environment: environmentOption?.value as string,
-      project: projectIdentifier as string,
+      environment: environmentId === 'undefined' ? '' : environmentId,
       account: accountId,
       org: orgIdentifier
     }
   })
 
   useEffect(() => {
-    if (!loading) {
-      refetch()
-    }
-    fetchFlagList()
+    fetchFeatureFlag()
   }, [environmentOption])
 
   const onEnvChange = (item: SelectOption) => {
@@ -89,7 +75,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (environmentOption) {
-      refetch()
+      fetchFeatureFlag()
       if (environment) {
         onEnvChange(environment as SelectOption)
       }
@@ -104,9 +90,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     <Container flex height="100%">
       <Layout.Horizontal width={450} className={css.flagContainer}>
         <Layout.Vertical width="100%">
-          {featureFlag && (
-            <FlagActivationDetails featureFlag={featureFlag} featureList={featureList} refetchFlag={refetch} />
-          )}
+          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={fetchFeatureFlag} />}
         </Layout.Vertical>
       </Layout.Horizontal>
 
@@ -118,7 +102,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
         <Layout.Vertical width="100%">
           {!loading && featureFlag && !noEnvironmentExists && (
             <FlagActivation
-              refetchFlag={refetch}
+              refetchFlag={fetchFeatureFlag}
               project={projectIdentifier as string}
               environments={environments}
               environment={environmentOption}

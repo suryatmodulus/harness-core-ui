@@ -7,6 +7,7 @@ import CreateUpdateSecret from '../CreateUpdateSecret'
 import mockData from './listSecretManagersMock.json'
 import connectorMockData from './getConnectorMock.json'
 import secretDetailsMock from './secretDetailsMock.json'
+import secretMockData from './secretMockData.json'
 
 const mockUpdateTextSecret = jest.fn()
 
@@ -15,6 +16,7 @@ jest.mock('services/cd-ng', () => ({
   usePostSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetSecretV2: jest.fn().mockImplementation(() => ({ refetch: jest.fn(), data: secretMockData })),
   useGetConnectorList: () => {
     return {
       data: mockData,

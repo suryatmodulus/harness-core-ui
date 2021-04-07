@@ -233,29 +233,6 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 </div>
               )}
               <div className={css.imagePathContainer}>
-                <FormInput.MultiTextInput
-                  label={getString('artifactsSelection.existingDocker.imageName')}
-                  name="imagePath"
-                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
-                  multiTextInputProps={{ expressions }}
-                />
-                {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      value={formik.values.imagePath as string}
-                      type="String"
-                      variableName="imagePath"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('imagePath', value)
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-              <div className={css.imagePathContainer}>
                 <FormInput.MultiTypeInput
                   name="region"
                   selectItems={regions}
@@ -280,6 +257,30 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       showAdvanced={true}
                       onChange={value => {
                         formik.setFieldValue('region', value)
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTextInput
+                  label={getString('artifactsSelection.existingDocker.imageName')}
+                  name="imagePath"
+                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
+                  multiTextInputProps={{ expressions }}
+                />
+                {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={formik.values.imagePath as string}
+                      type="String"
+                      variableName="imagePath"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('imagePath', value)
                       }}
                     />
                   </div>

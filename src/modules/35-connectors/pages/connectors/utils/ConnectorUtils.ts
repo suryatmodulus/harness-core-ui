@@ -68,6 +68,9 @@ export interface SecretReferenceInterface {
   identifier: string
   name: string
   referenceString: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 const buildAuthTypePayload = (formData: FormData) => {
@@ -311,15 +314,17 @@ export const setSecretField = async (
         delete scopeQueryParams.projectIdentifier
     }
 
+    const identifier = secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1]
     const response = await getSecretV2Promise({
-      identifier: secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1],
+      identifier,
       queryParams: scopeQueryParams
     })
 
     return {
-      identifier: secretString.split('.')[1],
+      identifier,
       name: response.data?.secret.name || secretString.split('.')[1],
-      referenceString: secretString
+      referenceString: secretString,
+      ...scopeQueryParams
     }
   }
 }
@@ -457,7 +462,6 @@ export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accou
 
 export const setupKubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
   const authData = await getK8AuthFormFields(connectorInfo, accountId)
-
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
     delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',

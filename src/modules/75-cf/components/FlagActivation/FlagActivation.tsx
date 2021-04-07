@@ -414,6 +414,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                             projectIdentifier={project}
                             environmentIdentifier={environment?.value as string}
                             setEditing={setEditing}
+                            feature={flagData}
                           />
                         }
                       />

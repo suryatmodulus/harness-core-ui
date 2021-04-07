@@ -31,6 +31,7 @@ interface K8sCanaryDeployProps {
   initialValues: K8sCanaryDeleteStepData
   onUpdate?: (data: K8sCanaryDeleteStepData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: K8sCanaryDeleteStepData
     path?: string
@@ -50,7 +51,7 @@ function K8sCanaryDeleteWidget(
   props: K8sCanaryDeployProps,
   formikRef: StepFormikFowardRef<K8sCanaryDeleteStepData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -75,10 +76,7 @@ function K8sCanaryDeleteWidget(
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
-                />
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -149,7 +147,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeleteStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -173,6 +171,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
       <K8sCanaryDeleteWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

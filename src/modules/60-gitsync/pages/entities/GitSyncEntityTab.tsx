@@ -1,46 +1,96 @@
 import React, { useState } from 'react'
-import { Layout, Container, Text, Color } from '@wings-software/uicore'
-import cx from 'classnames'
-import { supportedProducts } from './EntityHelper'
+import {
+  Container,
+  Color,
+  Collapse,
+  IconName,
+  Text,
+  Layout,
+  FormInput,
+  Formik,
+  FormikForm,
+  SelectOption
+} from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import { noop } from 'lodash-es'
+import { useGitSyncStore } from '@gitsync/common/GitSyncStoreContext'
+import type { GitSyncConfig } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import EntitiesPreview from './EntitiesPreview'
-import i18n from './GitSyncEntityTab.i18n'
-import css from './GitSyncEntity.module.scss'
+import { Products } from './EntityHelper'
+import css from './GitSyncEntityTab.module.scss'
 
 const GitSyncEntityTab: React.FC = () => {
-  const [selectedProduct, setSelectedProduct] = useState(supportedProducts[0].id)
+  const { gitSyncRepos } = useGitSyncStore()
+  const { getString } = useStrings()
+  const [selectedBranch, setSelectedBranch] = useState('')
+  selectedBranch
+
+  const collapseProps = {
+    collapsedIcon: 'main-chevron-right' as IconName,
+    expandedIcon: 'main-chevron-down' as IconName,
+    iconProps: { size: 16 } as IconProps,
+    isOpen: false,
+    isRemovable: false,
+    className: 'collapse',
+    collapseHeaderClassName: css.collapseHeader
+  }
+
+  const getCollapseHeading = (gitRepo: GitSyncConfig): JSX.Element => {
+    const branchSelectOptions = [
+      {
+        label: gitRepo.branch || '',
+        value: gitRepo.branch || '',
+        icon: { name: 'git-clone-step' } as IconProps
+      }
+    ]
+
+    return (
+      <Layout.Horizontal flex className={css.header}>
+        <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ left: 'small' }} color={Color.BLUE_600} inline>
+          {gitRepo.name}
+        </Text>
+
+        <Formik
+          initialValues={{
+            branch: gitRepo.branch
+          }}
+          onSubmit={noop}
+        >
+          <FormikForm>
+            <FormInput.Select
+              name="branch"
+              items={branchSelectOptions}
+              disabled={true}
+              onChange={(branch: SelectOption, event) => {
+                setSelectedBranch(branch.value as string)
+                event?.preventDefault()
+                event?.stopPropagation()
+              }}
+            />
+          </FormikForm>
+        </Formik>
+      </Layout.Horizontal>
+    )
+  }
 
   return (
-    <Layout.Horizontal className={css.bodyContainer}>
-      <Layout.Vertical
-        className={css.productMenu}
-        padding={{ top: 'small', right: 'xlarge', bottom: 'xsmall', left: 'xlarge' }}
-        spacing="small"
-      >
-        <Text
-          font={{ weight: 'bold', size: 'medium' }}
-          margin={{ top: 'medium', right: 'medium', bottom: 'xlarge', left: 'medium' }}
-          color={Color.DARK_600}
-        >
-          {i18n.heading.productMenu}
-        </Text>
-        {supportedProducts.map(data => {
-          return (
-            <Container
-              margin="small"
-              font={{ size: 'small' }}
-              className={cx({ [css.activeTag]: selectedProduct === data.id }, css.tags)}
-              key={data.id}
-              onClick={() => {
-                setSelectedProduct(data.id)
-              }}
-            >
-              {data.title}
-            </Container>
-          )
-        })}
-      </Layout.Vertical>
-      <EntitiesPreview selectedProduct={selectedProduct} />
-    </Layout.Horizontal>
+    <Container className={css.bodyContainer}>
+      <Text color={Color.GREY_600} font={{ weight: 'semi-bold', size: 'medium' }} margin="large">
+        {getString('gitsync.entitiesByRepositories')}
+      </Text>
+
+      {gitSyncRepos?.map((gitRepo: GitSyncConfig, index: number) => {
+        // Todo: once BE maintains unique identifier, it can be used as key
+        return (
+          <Container className={css.collapseFeatures} key={(gitRepo?.identifier || '') + index}>
+            <Collapse {...collapseProps} heading={getCollapseHeading(gitRepo)}>
+              <EntitiesPreview selectedProduct={Products.CI} repo={gitRepo} />
+            </Collapse>
+          </Container>
+        )
+      })}
+    </Container>
   )
 }
 

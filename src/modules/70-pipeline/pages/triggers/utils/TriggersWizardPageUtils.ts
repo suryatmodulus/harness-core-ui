@@ -5,6 +5,7 @@ import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
+import type { StringKeys } from 'framework/exports'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
@@ -139,7 +140,7 @@ const getTriggerTitle = ({
 }: {
   triggerType: NGTriggerSource['type']
   triggerName?: string
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
 }): string => {
   if (triggerName) {
     return `Trigger: ${triggerName}`
@@ -250,7 +251,7 @@ const getPanels = ({
   getString
 }: {
   triggerType: NGTriggerSource['type']
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
 }): PanelInterface[] | [] => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return [
@@ -301,7 +302,7 @@ export const getWizardMap = ({
 }: {
   triggerType: NGTriggerSource['type']
   triggerName?: string
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
 }): { wizardLabel: string; panels: PanelInterface[] } => ({
   wizardLabel: getTriggerTitle({
     triggerType,
@@ -314,7 +315,7 @@ export const getWizardMap = ({
 // requiredFields and checkValidPanel in getPanels() above to render warning icons related to this schema
 export const getValidationSchema = (
   triggerType: NGTriggerSource['type'],
-  getString: (key: string) => string
+  getString: (key: StringKeys) => string
 ): ObjectSchema<object | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({

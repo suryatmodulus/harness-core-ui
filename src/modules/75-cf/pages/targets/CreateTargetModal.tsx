@@ -11,7 +11,7 @@ import {
   SimpleTagInput
 } from '@wings-software/uicore'
 import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import type { Target } from 'services/cf'
 import uploadImageUrl from './upload.svg'
 import css from './CFTargetsPage.module.scss'
@@ -213,7 +213,8 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
   const [targets, setTargets] = useState<TargetData[]>([emptyTarget()])
   const addDisabled = filterTargets(targets).length === 0
   const { getString } = useStrings()
-  const getPageString = (key: string): string => getString(`cf.targets.${key}`)
+  const getPageString = (key: string): string =>
+    getString(`cf.targets.${key}` as StringKeys /* TODO: fix this by using a map */)
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setIsList((e.target as HTMLInputElement).value === LIST)

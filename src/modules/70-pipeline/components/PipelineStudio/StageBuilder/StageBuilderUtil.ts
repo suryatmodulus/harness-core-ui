@@ -210,5 +210,5 @@ export const resetDiagram = (engine: DiagramEngine): void => {
 }
 
 export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]): boolean => {
-  return stages?.some(({ stage }) => stage.identifier === id)
+  return getFlattenedStages({ stages }).stages?.some(({ stage }) => stage.identifier === id)
 }

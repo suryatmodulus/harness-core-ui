@@ -1,8 +1,6 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import get from 'lodash-es/get'
-import set from 'lodash-es/set'
-import isEmpty from 'lodash-es/isEmpty'
+import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Step } from '@pipeline/exports'
@@ -45,7 +43,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
   renderStep(
     props: StepProps<CustomVariablesData, CustomVariableEditableExtraProps | CustomVariableInputSetExtraProps>
   ): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, customStepProps, inputSetData } = props
 
     if (stepViewType === StepViewType.InputSet) {
       return (
@@ -54,6 +52,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           {...customStepProps}
+          inputSetData={inputSetData}
         />
       )
     }
@@ -88,7 +87,11 @@ export class CustomVariables extends Step<CustomVariablesData> {
     data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 
-      if (isEmpty(variable.value) && getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME) {
+      if (
+        ((isEmpty(variable.value) && variable.type !== 'Number') ||
+          (variable.type === 'Number' && (isNil(variable.value) || isNaN(variable.value)))) &&
+        getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME
+      ) {
         set(errors, `variables[${index}].value`, getString?.('fieldRequired', { field: 'Value' }))
       }
     })

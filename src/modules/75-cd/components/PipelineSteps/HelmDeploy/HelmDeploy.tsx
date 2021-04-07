@@ -35,6 +35,7 @@ interface HelmDeployProps {
   initialValues: StepElementConfig
   onUpdate?: (data: StepElementConfig) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: StepElementConfig
     path?: string
@@ -54,7 +55,7 @@ function HelmDeployWidget(
   props: HelmDeployProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -82,10 +83,7 @@ function HelmDeployWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
 
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -150,7 +148,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<StepElementConfig>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -174,6 +172,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
       <HelmDeployWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

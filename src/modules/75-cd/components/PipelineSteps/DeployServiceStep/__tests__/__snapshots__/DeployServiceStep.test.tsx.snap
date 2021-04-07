@@ -51,103 +51,79 @@ exports[`Test DeployService Step should render edit service view (service), then
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="StyledProps--font StyledProps--main connectorFormNameWrapper"
+            class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="StyledProps--font StyledProps--main connectorFormNameElm"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
-              <div
-                class="InputWithIdentifier--txtNameContainer"
+              <p
+                class="StyledProps--font StyledProps--main"
               >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    ID
-                    :
-                  </p>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
-                      >
-                        <span
-                          class="bp3-editable-text-content"
-                          style="height: 1px; line-height: 1px; min-width: 0;"
-                        >
-                          pass_service
-                        </span>
-                      </div>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="bp3-form-group"
-                >
-                  <label
-                    class="bp3-label"
-                    for="name"
-                  >
-                    Name
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
                   <div
-                    class="bp3-form-content"
+                    class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                   >
-                    <div
-                      class="bp3-input-group"
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
                     >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        name="name"
-                        type="text"
-                        value="Pass Service"
-                      />
-                    </div>
+                      pass_service
+                    </span>
                   </div>
-                </div>
-              </div>
+                </span>
+              </span>
             </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main connectorFormElm"
-          >
             <div
-              class="bp3-form-group expandedDescription"
+              class="bp3-form-group"
             >
               <label
                 class="bp3-label"
-                for="description"
+                for="name"
               >
-                <div
-                  class="StyledProps--font StyledProps--main headerRow"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                  >
-                    Description
-                  </span>
-                  <span
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
-                  >
-                    remove
-                  </span>
-                </div>
+                Name
                  
                 <span
                   class="bp3-text-muted"
                 />
               </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="Pass Service"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="margin-bottom: 0px;"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px;"
+            >
+              Description (optional)
+            </label>
+            <div
+              class="bp3-form-group"
+            >
               <div
                 class="bp3-form-content"
               >
@@ -160,32 +136,19 @@ exports[`Test DeployService Step should render edit service view (service), then
                 </textarea>
               </div>
             </div>
-            <div
-              class="bp3-form-group expandedTags"
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px;"
             >
-              <label
-                class="bp3-label"
-                for="tags"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main headerRow"
-                >
-                  <span
-                    class="StyledProps--font StyledProps--main StyledProps--inline"
-                  >
-                    Tags
-                  </span>
-                  <span
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--inline StyledProps--color StyledProps--color-blue500"
-                  >
-                    remove
-                  </span>
-                </div>
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
+              Tags (optional)
+            </label>
+            <div
+              class="bp3-form-group"
+            >
               <div
                 class="bp3-form-content"
               >
@@ -344,111 +307,147 @@ exports[`Test DeployService Step should render service view and save 1`] = `
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="StyledProps--font StyledProps--main connectorFormNameWrapper"
+            class="InputWithIdentifier--txtNameContainer"
           >
             <div
-              class="StyledProps--font StyledProps--main connectorFormNameElm"
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    />
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main"
+                icon="edit"
+                style="vertical-align: middle;"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                Name
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="bp3-form-content"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                  class="bp3-input-group"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    ID
-                    :
-                  </p>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <div
-                        class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                        tabindex="0"
-                      >
-                        <span
-                          class="bp3-editable-text-content"
-                          style="height: 1px; line-height: 1px; min-width: 0;"
-                        />
-                      </div>
-                    </span>
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-edit StyledProps--main"
-                    icon="edit"
-                    style="vertical-align: middle;"
-                  >
-                    <svg
-                      data-icon="edit"
-                      height="12"
-                      viewBox="0 0 16 16"
-                      width="12"
-                    >
-                      <desc>
-                        edit
-                      </desc>
-                      <path
-                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="bp3-form-group"
-                >
-                  <label
-                    class="bp3-label"
-                    for="name"
-                  >
-                    Name
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <div
-                      class="bp3-input-group"
-                    >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        name="name"
-                        type="text"
-                        value=""
-                      />
-                    </div>
-                  </div>
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value=""
+                  />
                 </div>
               </div>
             </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-              style="justify-content: center;"
-            >
-              <p
-                class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
-              >
-                + Description
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
-              >
-                + Tags
-              </p>
-            </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main connectorFormElm"
-          />
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px;"
+            >
+              Description (optional)
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="description-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px;"
+            >
+              Tags (optional)
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="tags-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
         </div>
         <div>
           <button

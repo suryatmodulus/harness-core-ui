@@ -535,7 +535,7 @@ const routes = {
       environmentIdentifier,
       segmentIdentifier
     }: ProjectPathProps & SegmentPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/environments/${environmentIdentifier}/target-segment/${segmentIdentifier}`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/${segmentIdentifier}/environments/${environmentIdentifier}`
   ),
   toCFTargetDetails: withAccountId(
     ({

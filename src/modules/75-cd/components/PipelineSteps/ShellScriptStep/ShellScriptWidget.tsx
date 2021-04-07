@@ -26,10 +26,11 @@ interface ShellScriptWidgetProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
 }
 
 export function ShellScriptWidget(
-  { initialValues, onUpdate }: ShellScriptWidgetProps,
+  { initialValues, onUpdate, isNewStep = true }: ShellScriptWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const { getString } = useStrings()
@@ -76,7 +77,11 @@ export function ShellScriptWidget(
 
         return (
           <Accordion activeId="step-1" className={stepCss.accordion}>
-            <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
+            <Accordion.Panel
+              id="step-1"
+              summary={getString('basic')}
+              details={<BaseShellScript isNewStep={isNewStep} formik={formik} />}
+            />
             <Accordion.Panel
               id="step-2"
               summary={getString('scriptInputVariables')}

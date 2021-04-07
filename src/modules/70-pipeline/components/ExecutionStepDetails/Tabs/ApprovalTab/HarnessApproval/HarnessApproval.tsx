@@ -1,6 +1,8 @@
 import React from 'react'
-import { Button, FormInput } from '@wings-software/uicore'
+import { Button, FormInput, TextInput } from '@wings-software/uicore'
 import { Formik } from 'formik'
+import cx from 'classnames'
+import { Spinner } from '@blueprintjs/core'
 
 import {
   useGetHarnessApprovalInstanceAuthorization,
@@ -29,12 +31,13 @@ export interface HarnessApprovalProps {
     loading: boolean
     data: ResponseHarnessApprovalInstanceAuthorization
   }
+  showSpinner?: boolean
 }
 
 export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement {
-  const { approvalData, approvalInstanceId, isWaiting, updateState, getApprovalAuthorizationMock } = props
+  const { approvalData, approvalInstanceId, isWaiting, updateState, getApprovalAuthorizationMock, showSpinner } = props
 
-  const { data: authData } = useGetHarnessApprovalInstanceAuthorization({
+  const { data: authData, loading } = useGetHarnessApprovalInstanceAuthorization({
     approvalInstanceId,
     lazy: !isWaiting,
     mock: getApprovalAuthorizationMock
@@ -47,6 +50,8 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
     const newState = await submitApproval({ ...data, action: action.current })
     updateState(newState)
   }
+
+  if (loading || showSpinner) return <Spinner />
 
   return (
     <React.Fragment>
@@ -63,7 +68,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
             <String stringID="execution.approvals.timeRemainingSuffix" />
           </div>
         ) : null}
-        <div className={css.reviewMsg}>{approvalData.approvalMessage}</div>
+        <div className={css.reviewMsg}>{approvalData.details.approvalMessage}</div>
         <String
           tagName="div"
           stringID="execution.approvals.statusMsg"
@@ -104,13 +109,15 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
               return (
                 <div className={css.inputs}>
                   <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
+                  <div className={cx(css.formRow, css.labels)}>
+                    <String stringID="variableNameLabel" />
+                    <String stringID="configureOptions.defaultValue" />
+                  </div>
                   {values.approverInputs?.map((row, i) => (
-                    <FormInput.Text
-                      key={i}
-                      label={row.name}
-                      name={`approverInputs[${i}].value`}
-                      disabled={submitting}
-                    />
+                    <div className={css.formRow} key={i}>
+                      <TextInput name={`approverInputs[${i}].name`} value={row.name} disabled />
+                      <FormInput.Text name={`approverInputs[${i}].value`} disabled={submitting} />
+                    </div>
                   ))}
                   <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
                   <div className={css.actions}>

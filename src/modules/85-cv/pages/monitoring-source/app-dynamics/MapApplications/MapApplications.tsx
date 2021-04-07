@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
-import { Container, Text, Checkbox, Color, SelectOption } from '@wings-software/uicore'
+import { Container, Text, Checkbox, Color, SelectOption, Utils } from '@wings-software/uicore'
 import xhr from '@wings-software/xhr-async'
 import qs from 'qs'
 import { useParams } from 'react-router-dom'
@@ -9,11 +9,11 @@ import isEmpty from 'lodash-es/isEmpty'
 import Table from '@common/components/Table/Table'
 import { useGetServiceListForProject, GetServiceListForProjectQueryParams } from 'services/cd-ng'
 import {
-  MetricPackArrayRequestBody,
   MetricPackDTO,
   useGetAppDynamicsTiers,
   useGetMetricPacks,
-  AppDynamicsTier
+  AppDynamicsTier,
+  MetricPackDTOArrayRequestBody
 } from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -44,7 +44,7 @@ export interface MapApplicationsProps {
   onPrevious?: () => void
 }
 
-export async function validateTier(metricPacks: MetricPackArrayRequestBody, queryParams: object) {
+export async function validateTier(metricPacks: MetricPackDTOArrayRequestBody, queryParams: object) {
   const url = `${getConfig('cv/api')}/appdynamics/metric-data?${qs.stringify(queryParams)}`
   const { response }: any = await xhr.post(url, { data: metricPacks })
   const responseData = response?.data ?? response.resource
@@ -85,6 +85,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const [serviceOptions, setServiceOptions] = useState<Array<SelectOption>>([])
   const [validationResult, setValidationResult] = useState<TierRecord['validationResult']>()
   const { errors, setError, renderError, hasError } = useValidationErrors()
+  const [guidMap, setGuidMap] = useState(new Map())
   const { showError } = useToaster()
   const haveMPacksChanged = useRef<(name: string, val: any) => boolean>(() => false)
   const [metricPackChanged, setMetricPackChanged] = useState(false)
@@ -193,15 +194,20 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
 
   const onValidateTier = async (appName: string, tierName: string) => {
     if (state[appName]?.metricPacks?.length) {
+      const guid = Utils.randomId()
       onSetTierData(appName, tierName, { validationStatus: ValidationStatus.IN_PROGRESS })
-      const update = await validateTier(state[appName]?.metricPacks as MetricPackArrayRequestBody, {
+      setGuidMap(oldMap => {
+        oldMap.set(tierName, guid)
+        return new Map(oldMap)
+      })
+      const update = await validateTier(state[appName]?.metricPacks as MetricPackDTOArrayRequestBody, {
         accountId,
         appName,
         tierName,
         connectorIdentifier: stepData?.connectorIdentifier,
         orgIdentifier,
         projectIdentifier,
-        requestGuid: String(Date.now())
+        requestGuid: guid
       })
       if (!haveMPacksChanged.current(appName, state[appName]?.metricPacks)) {
         onSetTierData(appName, tierName, update)
@@ -421,7 +427,9 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
                     <ValidationCell
                       tier={state[selectedAppName]?.tiers?.[tierName]}
                       onValidateTier={() => onValidateTier(selectedAppName, tierName)}
-                      onShowValidationResult={val => setValidationResult(val)}
+                      onShowValidationResult={val => {
+                        setValidationResult({ result: val, selectedTier: tierName })
+                      }}
                     />
                   )
                 }
@@ -486,8 +494,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
       </Container>
       {validationResult && (
         <MetricsVerificationModal
-          verificationData={validationResult}
-          guid="guid"
+          verificationData={validationResult.result}
+          guid={guidMap.get(validationResult.selectedTier)}
           onHide={() => setValidationResult(undefined)}
           verificationType="AppDynamics"
         />

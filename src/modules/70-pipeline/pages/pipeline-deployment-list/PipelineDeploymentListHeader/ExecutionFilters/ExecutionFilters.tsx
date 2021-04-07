@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import type { SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, pick } from 'lodash-es'
 
 import { useAppStore, useStrings } from 'framework/exports'
 import type { FilterDTO, PipelineExecutionFilterProperties } from 'services/pipeline-ng'
@@ -26,7 +27,12 @@ import {
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 
 import { StringUtils } from '@common/exports'
-import { isObjectEmpty, UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
+import {
+  isObjectEmpty,
+  UNSAVED_FILTER,
+  removeNullAndEmpty,
+  flattenObject
+} from '@common/components/Filter/utils/FilterUtils'
 import { useFiltersContext } from '../../FiltersContext/FiltersContext'
 import PipelineFilterForm from '../../PipelineFilterForm/PipelineFilterForm'
 import type { StringQueryParams } from '../../types'
@@ -68,7 +74,12 @@ export function ExecutionFilters(): React.ReactElement {
   })
 
   const { mutate: deleteFilter } = useDeleteFilter({
-    queryParams: { accountIdentifier: accountId, type: 'PipelineExecution' }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      type: 'PipelineExecution'
+    }
   })
 
   const isFetchingMetaData = isFetchingEnvironments || isFetchingServices
@@ -110,7 +121,18 @@ export function ExecutionFilters(): React.ReactElement {
     [getString]
   )
 
-  const filterWithValidFieldsWithMetaInfo = {}
+  const filterWithValidFields = removeNullAndEmpty(
+    pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+  )
+
+  const filterWithValidFieldsWithMetaInfo =
+    filterWithValidFields.sourceBranch && filterWithValidFields.targetBranch
+      ? Object.assign(filterWithValidFields, { buildType: getString('filters.executions.pullOrMergeRequest') })
+      : filterWithValidFields.branch
+      ? Object.assign(filterWithValidFields, { buildType: getString('pipelineSteps.deploy.inputSet.branch') })
+      : filterWithValidFields.tag
+      ? Object.assign(filterWithValidFields, { buildType: getString('tagLabel') })
+      : filterWithValidFields
 
   function handleFilterSelection(
     option: SelectOption,

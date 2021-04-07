@@ -3,7 +3,6 @@
 declare const styles: {
   readonly container: string
   readonly closeModal: string
-  readonly helpText: string
   readonly layout: string
   readonly formInput: string
   readonly startBtn: string

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { Target, Segment, useGetAllTargets, useGetAllSegments, useGetAllFeatures, Feature } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
@@ -71,7 +71,8 @@ const CFTargetsPage: React.FC = () => {
     setView(view === 'individual' ? 'segments' : 'individual')
   }
   const { getString } = useStrings()
-  const getSharedString = (key: string) => getString(`cf.shared.${key}`)
+  const getSharedString = (key: string) =>
+    getString(`cf.shared.${key}` as StringKeys /* TODO: fix this by using a map */)
   // const getPageString = (key: string) => getString(`cf.targets.${key}`)
   // const [environment, setEnvironment] = useState<SelectOption>()
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)

@@ -64,9 +64,12 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({
     e => {
       e.stopPropagation()
       const zoomLevel = engine.getModel().getZoomLevel()
-      engine.getModel().setZoomLevel(zoomLevel - 20)
-      engine.repaintCanvas()
-      callback?.(CanvasButtonsActions.ZoomOut)
+      // Minimum Zoom level should be 40
+      if (zoomLevel >= 60) {
+        engine.getModel().setZoomLevel(zoomLevel - 20)
+        engine.repaintCanvas()
+        callback?.(CanvasButtonsActions.ZoomOut)
+      }
     },
     [engine, callback]
   )

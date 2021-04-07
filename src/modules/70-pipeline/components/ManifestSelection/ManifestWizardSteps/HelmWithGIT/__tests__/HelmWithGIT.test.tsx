@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent, act, queryByAttribute, wait } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import HelmWithGIT from '../HelmWithGIT'
 
@@ -70,5 +70,51 @@ describe('helm with GIT tests', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('submits with the right payload when gitfetchtype is branch', async () => {
+    const initialValues = {
+      identifier: '',
+      branch: '',
+      gitFetchType: '',
+      folderPath: './',
+      helmVersion: '',
+      skipResourceVersioning: false,
+      repoName: ''
+    }
+    const { container } = render(
+      <TestWrapper>
+        <HelmWithGIT initialValues={initialValues} {...props} />
+      </TestWrapper>
+    )
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
+      fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
+      fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
+      fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-path' } })
+    })
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await wait(() => {
+      expect(props.handleSubmit).toHaveBeenCalledWith({
+        manifest: {
+          identifier: 'testidentifier',
+          spec: {
+            store: {
+              spec: {
+                branch: 'testBranch',
+                connectorRef: '',
+                folderPath: 'test-path',
+                gitFetchType: 'Branch',
+                repoName: ''
+              },
+              type: undefined
+            },
+            helmVersion: 'V2',
+            skipResourceVersioning: false
+          }
+        }
+      })
+    })
   })
 })

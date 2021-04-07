@@ -116,7 +116,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
             <Button
               minimal
               rightIcon={showDiff ? 'chevron-up' : 'chevron-down'}
-              text={getString('cf.auditLogs.jsonDifference')}
+              text={getString('cf.auditLogs.yamlDifference').toLocaleUpperCase()}
               onClick={() => {
                 toggleShowDiff()
                 refetch()

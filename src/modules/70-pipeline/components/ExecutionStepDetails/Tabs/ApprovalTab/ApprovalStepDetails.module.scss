@@ -60,6 +60,17 @@
     }
   }
 
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--spacing-medium);
+
+    &.labels {
+      margin-bottom: var(--spacing-small);
+      color: var(--grey-400);
+    }
+  }
+
   .status {
     display: flex;
     align-items: center;

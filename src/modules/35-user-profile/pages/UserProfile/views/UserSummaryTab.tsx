@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Layout, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import SourceCodeManagerList from './UserSummary/SourceCodeManagerList'
+import SourceCodeManagerList from '@user-profile/components/UserSummary/SourceCodeManagerList'
 
 const UserSummaryTab: React.FC = () => {
   const { getString } = useStrings()

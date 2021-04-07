@@ -10,20 +10,23 @@ interface SegmentItemProps extends ItemContainerProps {
   name: string
   description: string
   onRemoveClick?: () => void
+  noAvatar?: boolean
 }
 
-export const SegmentItem: React.FC<SegmentItemProps> = ({ name, description, onRemoveClick, ...props }) => {
+export const SegmentItem: React.FC<SegmentItemProps> = ({ name, description, onRemoveClick, noAvatar, ...props }) => {
   const { getString } = useStrings()
 
   return (
-    <ItemContainer {...props}>
+    <ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}>
       <Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center' }}>
-        <Avatar
-          name={name}
-          {...DISABLE_AVATAR_PROPS}
-          style={{ transform: 'scale(1.3)', cursor: 'default' }}
-          className={css.avatar}
-        />
+        {noAvatar !== true && (
+          <Avatar
+            name={name}
+            {...DISABLE_AVATAR_PROPS}
+            style={{ transform: 'scale(1.3)', cursor: 'default' }}
+            className={css.avatar}
+          />
+        )}
         <Container style={{ flexGrow: 1 }} padding={{ left: 'xsmall' }}>
           <Text
             margin={{ bottom: description?.length ? 'xsmall' : undefined }}

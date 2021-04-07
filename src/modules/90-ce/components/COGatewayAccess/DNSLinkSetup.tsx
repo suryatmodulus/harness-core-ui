@@ -13,10 +13,10 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { debounce as _debounce } from 'lodash-es'
+import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
 import { Dialog, IDialogProps, RadioGroup, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { AccessPoint, useAllHostedZones, useListAccessPoints } from 'services/lw'
+import { AccessPoint, TargetGroupMinimal, useAllHostedZones, useListAccessPoints } from 'services/lw'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
@@ -92,8 +92,16 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       dns: {}
     },
     type: 'aws',
-    region: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].region : '',
-    vpc: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].vpc : ''
+    region: props.gatewayDetails.selectedInstances?.length
+      ? props.gatewayDetails.selectedInstances[0].region
+      : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group?.region)
+      ? props.gatewayDetails.routing?.instance?.scale_group?.region
+      : '',
+    vpc: props.gatewayDetails.selectedInstances?.length
+      ? props.gatewayDetails.selectedInstances[0].vpc
+      : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group?.target_groups)
+      ? (props.gatewayDetails.routing?.instance?.scale_group?.target_groups as TargetGroupMinimal[])[0].vpc
+      : ''
   }
 
   const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
@@ -111,8 +119,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
-      region: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].region : '',
-      vpc: props.gatewayDetails.selectedInstances?.length ? props.gatewayDetails.selectedInstances[0].vpc : ''
+      region: props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].region
+        : props.gatewayDetails.routing.instance.scale_group?.region || '',
+      vpc: props.gatewayDetails.selectedInstances?.length
+        ? props.gatewayDetails.selectedInstances[0].vpc
+        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || ''
     }
   })
   function generateHostName(val: string): string {
@@ -170,8 +182,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   ))
   useEffect(() => {
     if (!accessPoint || !accessPoint.id) return
-    props.gatewayDetails.accessPointID = accessPoint.id
-    props.setGatewayDetails(props.gatewayDetails)
+    const updatedGatewayDetails = { ...props.gatewayDetails }
+    updatedGatewayDetails.accessPointID = accessPoint.id
+    props.setGatewayDetails(updatedGatewayDetails)
     setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
   return (

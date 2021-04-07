@@ -139,3 +139,22 @@ export const getErrorMessage = (error: any): string =>
 
 export const TARGET_PRIMARY_COLOR = '#47D5DF'
 export const SEGMENT_PRIMARY_COLOR = '#BDA5F2'
+
+const ABBREV = 'KMB'
+
+function round(n: number, precision: number): number {
+  const prec = Math.pow(10, precision)
+  return Math.round(n * prec) / prec
+}
+
+export function formatNumber(n: number): string {
+  let base = Math.floor(Math.log(Math.abs(n)) / Math.log(1000))
+  const suffix = ABBREV[Math.min(2, base - 1)]
+  base = ABBREV.indexOf(suffix) + 1
+  return suffix ? round(n / Math.pow(1000, base), 2) + suffix : '' + n
+}
+
+export enum SegmentFlagType {
+  DIRECT = 'DIRECT',
+  CONDITION = 'CONDITION'
+}

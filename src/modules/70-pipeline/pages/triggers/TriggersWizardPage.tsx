@@ -442,8 +442,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     }
 
-    if (formikValueSourceRepo === GitSourceProviders.CUSTOM.value && secureToken && triggerJson.source?.spec) {
-      triggerJson.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
+    if (formikValueSourceRepo === GitSourceProviders.CUSTOM.value && triggerJson.source?.spec) {
+      triggerJson.source.spec.spec = secureToken ? { authToken: { type: 'inline', spec: { value: secureToken } } } : {}
     }
 
     if (!isEmpty(payloadConditions) && triggerJson.source?.spec) {

@@ -40,7 +40,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -60,7 +60,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -457,7 +457,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -477,7 +477,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -874,7 +874,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -894,7 +894,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"

@@ -2,6 +2,10 @@
 
 Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
 
+## Documentation
+
+[Documentation](./docs/README.md)
+
 ### Getting Started
 
 1. Install **NodeJS v13.8**. There are many ways to do this (**choose any one**):
@@ -56,8 +60,9 @@ For login, you need to run `wingsui` repo first. Once logged in, come back here 
 <details>
   <summary>Details</summary>
   Login and credential management is not implemented in `nextgenui` yet. When you login in `wingsui`, your auth tokens are set against `localhost:8181`, which can be read by this server since it is running on the same port.
-  
-  You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
+
+You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
+
 </details>
 
 [NextGen Setup and Onboarding Slides (With Troubleshoot section)](https://docs.google.com/presentation/d/1xGl8JJPzEVDz1yew6cz7ADOZ7J-geI0dXk159EgAauA/edit?usp=sharing)

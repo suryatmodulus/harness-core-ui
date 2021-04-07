@@ -10,8 +10,18 @@ declare const styles: {
   readonly noPadTop: string
   readonly specTabs: string
   readonly selected: string
-  readonly addDataLinks: string
+  readonly stageSection: string
+  readonly stagePopover: string
+  readonly noPadVertical: string
+  readonly disabled: string
+  readonly stageDetails: string
+  readonly stageOverridesTab: string
+  readonly inputContainer: string
+  readonly sideDescription: string
   readonly removeLink: string
+  readonly dialogView: string
+  readonly squareCardContainer: string
+  readonly addDataLinks: string
   readonly fields: string
   readonly removeSharedPathButton: string
   readonly fieldsGroup: string

@@ -35,6 +35,7 @@ interface K8RolloutDeployProps {
   initialValues: K8RolloutDeployData
   onUpdate?: (data: K8RolloutDeployData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: K8RolloutDeployData
     path?: string
@@ -46,7 +47,7 @@ function K8RolloutDeployWidget(
   props: K8RolloutDeployProps,
   formikRef: StepFormikFowardRef<K8RolloutDeployData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
@@ -71,10 +72,7 @@ function K8RolloutDeployWidget(
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('name')}
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
-                />
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
@@ -164,7 +162,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8RolloutDeployData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -189,6 +187,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
       <K8sRolloutDeployRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

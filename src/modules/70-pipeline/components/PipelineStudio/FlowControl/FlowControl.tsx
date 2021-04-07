@@ -19,19 +19,21 @@ const getErrors = (barriers: Barrier[], errorText: string): Barrier[] => {
   const errors: any[] = []
   const barrierValueMap: { [key: string]: { indexes: number[] } } = {}
   for (let index = 0; index < barriers.length; index++) {
-    if (barrierValueMap[barriers[index].identifier]) {
-      barrierValueMap[barriers[index].identifier].indexes.push(index)
+    const barrierId = barriers[index].identifier
+    if (barrierValueMap[barrierId]) {
+      barrierValueMap[barrierId].indexes.push(index)
     } else {
-      barrierValueMap[barriers[index].identifier] = { indexes: [] }
+      barrierValueMap[barrierId] = { indexes: [] }
     }
   }
-
   Object.values(barrierValueMap).map(({ indexes }: { indexes: number[] }) => {
     indexes.map((errIndex: number) => set(errors, `[${errIndex}].name`, errorText))
   })
-
   return errors
 }
+
+const getValidBarriers = (barriers: Barrier[]): Barrier[] =>
+  barriers.filter(barrier => barrier.identifier.length > 0 && barrier.name.length > 0)
 
 interface Barrier {
   identifier: string
@@ -54,7 +56,6 @@ export const FlowControl: React.FC = (): JSX.Element => {
     updatePipeline
   } = React.useContext(PipelineContext)
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
-
   const { data } = useMutateAsGet(useGetBarriersSetupInfoList, {
     body: (stringify({ pipeline: originalPipeline }) as unknown) as void,
     requestOptions: {
@@ -94,7 +95,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   }
 
   const commitBarrier = (barrierData: Barrier, index: number) => {
-    if (!barrierData.name.length || !barrierData.identifier.length) {
+    if (!barrierData?.name?.length || !barrierData?.identifier?.length) {
       return
     }
     const updatedBarriers: Barrier[] = produce(barriers, draft => {
@@ -104,11 +105,10 @@ export const FlowControl: React.FC = (): JSX.Element => {
       }
     })
     updateBarriers(updatedBarriers)
-
     debouncedUpdatePipeline({
       ...pipeline,
       flowControl: {
-        barriers: barriers.map(barrier => ({
+        barriers: updatedBarriers.map(barrier => ({
           name: barrier.name,
           identifier: barrier.identifier
         }))
@@ -185,14 +185,14 @@ const BarrierList: React.FC<BarrierListProps> = ({
       validate={({ barriers }: { barriers: Barrier[] }) => {
         const errors: any = { barriers: [] }
         const identifierErrors = getErrors(barriers, 'Duplicate Identifier')
-
+        const validBarriers = getValidBarriers(barriers)
         if (identifierErrors.length) {
           errors.barriers = identifierErrors
         } else {
           updatePipeline({
             ...pipeline,
             flowControl: {
-              barriers: barriers.map(barrier => ({
+              barriers: validBarriers.map(barrier => ({
                 name: barrier.name,
                 identifier: barrier.identifier
               }))

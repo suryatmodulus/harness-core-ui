@@ -5,6 +5,7 @@
 export { String, useStrings } from './strings/String'
 export { useAppStore } from './AppStore/AppStoreContext'
 export type { StringProps, UseStringsReturn } from './strings/String'
+export type { StringsMap, StringKeys } from './strings/StringsContext'
 
 export { loggerFor } from './logging/logging'
 export { ModuleName } from './types/ModuleName'

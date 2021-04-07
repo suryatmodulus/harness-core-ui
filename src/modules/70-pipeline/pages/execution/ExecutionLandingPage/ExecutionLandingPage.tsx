@@ -202,7 +202,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                       accountId,
                       module
                     }),
-                    label: pipelineExecutionSummary.name || getString('pipeline')
+                    label: pipelineExecutionSummary.name || getString('common.pipeline')
                   },
                   { url: '#', label: getString('executionText') }
                 ]}

@@ -24,7 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
 
-import { String, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import type { ManifestDetailDataType } from '../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
@@ -112,7 +112,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }
@@ -194,7 +197,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             .notOneOf(StringUtils.illegalIdentifiers),
           paths: Yup.array(
             Yup.object().shape({
-              path: Yup.string().trim().required(getString('manifestType.pathRequired'))
+              path: Yup.string().trim().required(getString('pipeline.manifestType.pathRequired'))
             })
           ).min(1)
         })}
@@ -217,8 +220,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             <div className={css.manifestDetailsForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
               />
               {connectionType === GitRepoName.Repo && (
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -246,7 +249,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
               )}
               <FormInput.Select
                 name="gitFetchType"
-                label={getString('manifestType.gitFetchTypeLabel')}
+                label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                 items={gitFetchTypes}
               />
 
@@ -255,7 +258,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
                     label={getString('pipelineSteps.deploy.inputSet.branch')}
-                    placeholder={getString('manifestType.branchPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                     name="branch"
                     style={{ width: '370px' }}
                   />
@@ -276,8 +279,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                   <FormInput.MultiTextInput
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.commitId')}
-                    placeholder={getString('manifestType.commitPlaceholder')}
+                    label={getString('pipeline.manifestType.commitId')}
+                    placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                     name="commitId"
                     style={{ width: '370px' }}
                   />
@@ -301,13 +304,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 name={'paths'}
                 label={getString('fileFolderPathText')}
               >
-                <Text
-                  icon="info-sign"
-                  className={css.fileHelpText}
-                  iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}
-                >
-                  <String tagName="div" stringID="multipleFilesHelpText" />
-                </Text>
                 <FieldArray
                   name="paths"
                   render={arrayHelpers => (
@@ -336,7 +332,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                             {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
                             <FormInput.MultiTextInput
                               label={''}
-                              placeholder={getString('manifestType.filePathPlaceholder')}
+                              placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
                               name={`paths[${index}].path`}
                               style={{ width: '330px' }}
                               multiTextInputProps={{
@@ -384,7 +380,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           position="top"
                           content={
                             <div className={css.tooltipContent}>
-                              {getString('manifestType.helmSkipResourceVersion')}{' '}
+                              {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                             </div>
                           }
                           className={css.tooltip}

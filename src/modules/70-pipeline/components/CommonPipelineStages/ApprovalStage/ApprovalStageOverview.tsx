@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
 import { Accordion, Container, FormikForm, FormInput, Heading } from '@wings-software/uicore'
@@ -16,8 +17,8 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
@@ -54,8 +55,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     debounce((values: StageElementWrapper): void => {
       // approvalType is just used in the UI, to populate the default steps for different approval types
       // For BE, the stage type is always 'Approval' and approval type is defined inside the step
-      delete values.spec.approvalType
-      values.type = StageTypes.APPROVAL
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -80,7 +79,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   )
 
   return (
-    <div className={css.approvalStageOverviewWrapper}>
+    <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
       <div className={css.content} ref={scrollRef}>
         <Accordion className={cx(css.sectionCard, css.shadow)} activeId="stageOverview">
@@ -99,7 +98,16 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                     approvalType: cloneOriginalData?.stage.approvalType,
                     skipCondition: cloneOriginalData?.stage.skipCondition
                   }}
-                  validationSchema={{}}
+                  validationSchema={{
+                    name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
+                    identifier: Yup.string().when('name', {
+                      is: val => val?.length,
+                      then: Yup.string()
+                        .required(getString('validation.identifierRequired'))
+                        .matches(regexIdentifier, getString('validation.validIdRegex'))
+                        .notOneOf(illegalIdentifiers)
+                    })
+                  }}
                   validate={values => {
                     const errors: { name?: string } = {}
                     if (isDuplicateStageId(values.identifier, stages)) {
@@ -112,9 +120,9 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                         identifier: values?.identifier,
                         description: values?.description,
                         skipCondition: values?.skipCondition,
+                        approvalType: values?.approvalType,
                         spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
+                          ...cloneOriginalData.spec
                         }
                       })
                     }
@@ -128,9 +136,9 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                         identifier: values?.identifier,
                         description: values?.description,
                         skipCondition: values?.skipCondition,
+                        approvalType: values?.approvalType,
                         spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
+                          ...cloneOriginalData.spec
                         }
                       })
                     }

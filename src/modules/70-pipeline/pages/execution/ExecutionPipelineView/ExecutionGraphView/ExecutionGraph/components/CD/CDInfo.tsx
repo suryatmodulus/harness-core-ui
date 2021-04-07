@@ -28,8 +28,8 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
 
   return (
     <div>
-      {barrier?.barrierData?.data && (
-        <div className={classNames(css.section, css.borderSectionEnd)}>
+      {barrier?.barrierData?.data && data.status === 'Running' && (
+        <div className={classNames(css.section)}>
           <BarrierStageTooltip
             loading={!!barrier.barrierInfoLoading}
             stageName={data.name}

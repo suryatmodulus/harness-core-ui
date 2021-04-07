@@ -3,7 +3,7 @@ import { Text } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
 import css from './ExecutionStatusLabel.module.scss'
 
@@ -25,7 +25,7 @@ export default function ExecutionStatusLabel({
       className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
       font={{ weight: 'bold', size: 'xsmall' }}
     >
-      {getString(`executionStatus.${status}`)}
+      {getString(`executionStatus.${status}` as StringKeys /* TODO: fix this by using a map */)}
     </Text>
   )
 }

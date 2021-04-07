@@ -1,0 +1,68 @@
+.md {
+  width: 60%;
+}
+
+.connector {
+  margin-bottom: var(--spacing-medium) !important;
+}
+
+.deploymentViewMedium {
+  width: 44%;
+}
+
+.descriptionField {
+  :global {
+    textarea {
+      min-height: 50px;
+      max-height: 120px;
+    }
+  }
+}
+
+.fieldsPopover {
+  padding: var(--spacing-large);
+}
+
+.addFieldsModal {
+  padding: var(--spacing-large);
+}
+
+.jiraFieldSelectorSection {
+  width: 500px;
+  overflow-x: auto;
+  padding: var(--spacing-large);
+}
+
+.fieldsPopoverHeading {
+  font-size: 20px !important;
+  margin-bottom: var(--spacing-small) !important;
+  font-weight: bold !important;
+}
+
+.multiSelect {
+  :global {
+    .bp3-tag-input {
+      height: fit-content !important;
+    }
+  }
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 30px;
+  column-gap: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  align-items: center;
+
+  :global(.bp3-form-group) {
+    margin: 0;
+  }
+
+  .label {
+    color: var(--grey-400);
+  }
+
+  :global(.bp3-icon-trash) {
+    color: var(--grey-400) !important;
+  }
+}

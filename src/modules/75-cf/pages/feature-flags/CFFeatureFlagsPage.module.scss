@@ -144,3 +144,24 @@
     background: #f3f3fa !important;
   }
 }
+
+.tooltipTable {
+  width: 100%;
+
+  thead {
+    border: 1px solid rgba(204, 204, 204, 0.6);
+
+    th:last-of-type {
+      width: 100px;
+    }
+  }
+
+  th:first-of-type,
+  td:first-of-type {
+    padding-left: 0;
+  }
+
+  tr:first-of-type td {
+    padding-top: 12px;
+  }
+}

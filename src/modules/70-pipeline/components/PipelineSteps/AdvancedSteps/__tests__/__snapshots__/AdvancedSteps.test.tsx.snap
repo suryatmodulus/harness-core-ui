@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AdvancedSteps /> tests snapshot test 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main form"
+    >
+      <div>
+        <div>
+          <div
+            class="Accordion--accordion"
+          >
+            <div
+              class="Accordion--panel"
+              data-open="false"
+              data-testid="preRequisites-panel"
+            >
+              <div
+                class="Accordion--summary"
+                data-testid="preRequisites-summary"
+              >
+                <div
+                  class="Accordion--label"
+                >
+                  Pre-requisites
+                </div>
+                <div
+                  class="Accordion--chevron"
+                />
+              </div>
+              <div
+                class="bp3-collapse Accordion--collapse"
+              >
+                <div
+                  aria-hidden="false"
+                  class="bp3-collapse-body"
+                  style="transform: translateY(-undefinedpx);"
+                />
+              </div>
+            </div>
+            <div
+              class="Accordion--panel"
+              data-open="true"
+              data-testid="skipCondition-panel"
+            >
+              <div
+                class="Accordion--summary"
+                data-testid="skipCondition-summary"
+              >
+                <div
+                  class="Accordion--label"
+                >
+                  Skip Conditions
+                </div>
+                <div
+                  class="Accordion--chevron"
+                />
+              </div>
+              <div
+                class="bp3-collapse Accordion--collapse"
+                style="height: auto; overflow-y: visible; transition: none;"
+              >
+                <div
+                  aria-hidden="false"
+                  class="bp3-collapse-body"
+                  style="transform: translateY(0); transition: none;"
+                >
+                  <div
+                    class="Accordion--details"
+                    data-testid="skipCondition-details"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
+                    >
+                      <span>
+                        If the JEXL condition evaluates to true, skip this step
+                      </span>
+                    </p>
+                    <div
+                      class="bp3-form-group"
+                      data-id="skipCondition-0"
+                    >
+                      
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-popover-wrapper"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                class="bp3-input"
+                                name="skipCondition"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-small"
+                      style="white-space: break-spaces;"
+                    >
+                      <span>
+                        In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous steps.
+
+Examples:
+&lt;+steps.step1.output.result&gt; == “success”
+&lt;+environment.name&gt; != “QA”
+
+                      </span>
+                      <br />
+                      <a
+                        href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <span>
+                          Learn more
+                        </span>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Accordion--panel"
+              data-open="false"
+              data-testid="failureStrategy-panel"
+            >
+              <div
+                class="Accordion--summary"
+                data-testid="failureStrategy-summary"
+              >
+                <div
+                  class="Accordion--label"
+                >
+                  Failure Strategy
+                </div>
+                <div
+                  class="Accordion--chevron"
+                />
+              </div>
+              <div
+                class="bp3-collapse Accordion--collapse"
+              >
+                <div
+                  aria-hidden="false"
+                  class="bp3-collapse-body"
+                  style="transform: translateY(-undefinedpx);"
+                />
+              </div>
+            </div>
+            <div
+              class="Accordion--panel"
+              data-open="false"
+              data-testid="delegateSelectors-panel"
+            >
+              <div
+                class="Accordion--summary"
+                data-testid="delegateSelectors-summary"
+              >
+                <div
+                  class="Accordion--label"
+                >
+                  Delegate Selector
+                </div>
+                <div
+                  class="Accordion--chevron"
+                />
+              </div>
+              <div
+                class="bp3-collapse Accordion--collapse"
+              >
+                <div
+                  aria-hidden="false"
+                  class="bp3-collapse-body"
+                  style="transform: translateY(-undefinedpx);"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

@@ -33,7 +33,16 @@ enum StepCommandTabs {
 }
 
 export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): React.ReactElement {
-  const { step, onChange, isStepGroup, stepsFactory, hiddenPanels, hasStepGroupAncestor, withoutTabs } = props
+  const {
+    step,
+    onChange,
+    isStepGroup,
+    stepsFactory,
+    hiddenPanels,
+    hasStepGroupAncestor,
+    withoutTabs,
+    isNewStep = true
+  } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -107,6 +116,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     <StepWidgetWithFormikRef
       factory={stepsFactory}
       initialValues={step}
+      isNewStep={isNewStep}
       onUpdate={onChange}
       type={isStepGroup ? 'StepGroup' : step.type}
       ref={stepRef}

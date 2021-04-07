@@ -1,0 +1,201 @@
+createNewConnector: Create New Connector
+confirmDeleteTitle: Delete Connector
+confirmDelete: Are you sure you want to delete the Connector
+testInProgress: Test in progress
+label: Connectors
+artifactRepository: ' Artifact {{ $.repository }}'
+artifactRepoType: 'Artifact {{$.repositoryType}}'
+specifyArtifactRepoType: 'Specify Artifact {{ $.repositoryType }}'
+specifyArtifactRepo: 'Specify Artifact {{ $.repository }}'
+newArtifactRepository: 'New Artifact Repository Connector'
+selectConnectorLabel: Select Artifact Repository Connector
+stepThreeName: 'Test Connection'
+stepFourName: 'Artifact Location'
+name: Connector Name
+authTitle: '{{ $.authentication }}'
+updating: Updating connector
+successfullCreate: 'Connector {{name}} created successfully'
+successfullUpdate: 'Connector {{name}} updated successfully'
+connectorNotFound: Connector not found.
+createFromYaml: 'Create Connector from YAML'
+successfullyCreated: 'Connector created successfully'
+secretManagerDetails: 'Secret Manager Details'
+gcrConnectorDetails: 'Google Container Registry Overview'
+hashicorpVaultDetails: 'HashiCorp Vault Overview'
+appDynamicsDetails: 'AppDynamics Connector Details'
+splunkConnectorDetails: 'Splunk Connector Details'
+newRelicConnectorDetails: New Relic Connector Details
+title:
+  k8sCluster: 'Kubernetes Cluster'
+  gcpConnector: 'Google Cloud Provider'
+  helmConnector: 'HttpHelmRepo Connector'
+  gitConnector: 'Git Connector'
+  githubConnector: 'GitHub Connector'
+  gitlabConnector: 'GitLab Connector'
+  bitbucketConnector: 'Bitbucket Connector'
+  hashicorpVault: 'HashiCorp Vault'
+  secretManager: 'Secret Manager'
+  appdynamics: 'AppDynamics connector'
+  splunk: 'Splunk connector'
+  aws: 'AWS Cloud Provider'
+  awsCodeCommit: 'AWS CodeCommit'
+  nexus: 'Nexus Repository'
+  artifactory: 'Artifactory Repository'
+name_labels:
+  Kubernetes: 'Kubernetes Connector Name'
+  HttpHelmRepo: 'Helm Http Connector Name'
+  Git: 'Git Connector Name'
+  Github: 'GitHub Connector Name'
+  Gitlab: 'GitLab Connector Name'
+  Bitbucket: 'Bitbucket Connector Name'
+  Docker: 'Docker Connector Name'
+  GCP: 'GCP Connector Name'
+  AWS: 'AWS Connector Name'
+  ECR: ECR Connector Name'
+  Nexus: 'Nexus Connector Name'
+  Artifactory: 'Artifactory Connector Name'
+  SecretManager: 'Secret Manager Name'
+  AppDynamics: 'AppDynamics Connector Name'
+  Splunk: 'Splunk Connector Name'
+testConnectionStep:
+  errorDetails: Click to view error details
+  noDelegate: Unable to get delegate information
+  executingOn: 'Executed on : '
+  verificationSuccessful: Verification successful
+  viewPermissions: View permissions required
+  installNewDelegate: Install new delegate
+  placeholderError: Test failed for the connector
+  url:
+    k8s: 'Master URL : '
+    docker: 'Docker Registry URL : '
+    artifactory: 'Artifactory Repository URL : '
+    nexus: 'Nexus Repository URL : '
+    splunk: 'Splunk URL : '
+    appD: 'Controller URL : '
+    vault: 'Vault URL : '
+    bitbucket: 'URL : '
+    gcr: 'GCR URL : '
+  validationText:
+    k8s: Validating the cluster authentication and permissions
+    docker: Validating the Docker Registry authentication and permissions
+    artifactory: Validating the Artifactory Repository authentication and permissions
+    nexus: Validating the Nexus Repository authentication and permissions
+    gcp: Validating the Google Cloud Provider authentication and permissions
+    gcr: Validating the Google Container Registry authentication and permissions
+    aws: Validating the AWS Cloud Provider authentication and permissions
+    appD: Validating the AppDynamics authentication and permissions
+    splunk: Validating the Splunk authentication and permissions
+    vault: Validating the HashiCorp Vault authentication and permissions
+    bitbucket: Validating the Bitbucket authentication and permissions
+    gitlab: Validating the GitLab authentication and permissions
+    github: Validating the GitHub authentication and permissions
+    git: Validating the Git authentication and permissions
+httpHelm:
+  httpHelmRepoUrl: 'Helm Repo URL'
+jira:
+  jiraUrl: 'Jira URL'
+k8:
+  delegateOutClusterInfo: 'Specify master url and credentials'
+  delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
+  masterUrlLabel: 'Master URL'
+  serviceAccountToken: 'Service Account Token'
+  skipDefaultValidation: 'Skip default namespace validation'
+  OIDCIssuerUrl: OIDC Issuer URL
+  OIDCUsername: 'OIDC Username'
+  OIDCPassword: 'OIDC Password'
+  OIDCClientId: 'OIDC Client ID'
+  OIDCSecret: 'OIDC Secret'
+  OIDCScopes: 'OIDC Scopes (Optional)'
+  clientKey: 'Client Key'
+  clientKeyPassphrase: 'Client Key passphrase'
+  clientCertificate: 'Client Certificate'
+  clientKeyAlgorithm: 'Client Key Algorithm (optional)'
+  clientKeyCACertificate: 'CA Certificate (optional)'
+  placeholder:
+    masterUrl: '/url'
+  authLabels:
+    OIDC: 'OpenID Connect'
+    clientKeyCertificate: 'Client Key Certificate'
+hashiCorpVault:
+  appRoleId: 'App Role ID'
+  baseSecretPath: 'Base Secret Path (optional)'
+  secretId: 'Secret ID'
+  stepTwoName: 'HashiCorp Vault Details'
+  vaultUrl: 'Vault URL'
+  engineName: 'Secret Engine Name'
+  engineVersion: 'Secret Engine Version'
+  renewal: 'Renewal Interval (minutes)'
+  readOnly: 'Read Only'
+  readOnlyVault: 'Read-only Vault'
+  default: 'Default'
+  defaultVault: 'Use as Default Secrets Manager'
+nexus:
+  nexusServerUrl: 'Nexus Repository URL'
+artifactory:
+  artifactoryServerUrl: 'Artifactory Repository URL'
+GCP:
+  delegateOutClusterInfo: 'Specify credentials here'
+  delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+ECR:
+  name: ECR
+  fullName: ECR Container Registry
+GCR:
+  name: GCR
+  fullName: Google Container Registry
+  artifactServer: 'GCR Server'
+  stepTwoName: 'Google Container Registry Details'
+  registryHostname: 'GCR Registry URL'
+GCS:
+  name: GCS
+  fullName: Google Cloud Storage
+S3: S3
+git:
+  branchName: 'Branch name'
+  urlType: 'URL Type'
+  connectionType: 'Connection Type'
+  gitAccountUrl: 'Git Account URL'
+  gitHubAccountUrl: 'GitHub Account URL'
+  gitLabAccountUrl: 'GitLab Account URL'
+  bitbucketAccountUrl: 'Bitbucket Account URL'
+  gitRepoUrl: 'Git Repository URL'
+  gitHubRepoUrl: 'GitHub Repository URL'
+  gitLabRepoUrl: 'GitLab Repository URL'
+  bitbucketRepoUrl: 'Bitbucket Repository URL'
+  gitHubUrlPlaceholder: 'https://www.github.com/account/'
+  gitHubUrlPlaceholderSSH: 'git@github.com:account/'
+  gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
+  gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
+  bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
+  bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
+  accessToken: 'Personal Access Token'
+  enableAPIAccess: 'Enable API access'
+  APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+  APIAuthentication: 'API Authentication'
+  gitHubApp: 'GitHub App'
+  installationId: 'GitHub Installation ID'
+  applicationId: 'GitHub Application ID'
+  privateKey: 'GitHub Private Key'
+docker:
+  dockerRegistryURL: 'Docker Registry URL'
+  dockerProvideType: 'Provider Type'
+  dockerHub: 'DockerHub'
+  harbour: 'Harbour'
+  quay: 'Quay'
+  other: 'Other (Docker V2 compliant)'
+helmRepo:
+  helmRepoUrl: 'Helm Repository URL'
+aws:
+  awsAccessKey: AWS Access Key
+  accessKey: Access Key
+  secretKey: Secret Key
+  enableCrossAcc: Enable cross-account access
+  crossAccURN: Cross account role URN
+  externalId: External Id (Optional)
+  assumeIAMRole: Assume IAM role on delegate
+  validation:
+    delegateSelector: 'Delegate Tag is required'
+    secretKeyRef: 'Secret key is required'
+    accessKey: 'Access key is required'
+    crossAccountRoleArn: 'Role ARN is required'
+awsCodeCommit:
+  repoUrl: 'AWS CodeCommit Repository URL'

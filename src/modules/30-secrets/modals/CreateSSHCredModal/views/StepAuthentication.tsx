@@ -78,7 +78,9 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [saving, setSaving] = useState(false)
   const { showSuccess } = useToaster()
-  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: createSecret } = usePostSecret({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
   const { mutate: editSecret } = usePutSecret({
     identifier: prevStepData?.detailsData?.identifier || '',
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }

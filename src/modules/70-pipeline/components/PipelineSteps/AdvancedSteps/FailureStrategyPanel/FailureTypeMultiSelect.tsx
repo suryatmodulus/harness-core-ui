@@ -5,7 +5,7 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
 import { ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
@@ -13,6 +13,16 @@ import css from './FailureStrategyPanel.module.scss'
 interface Option {
   label: string
   value: ErrorType
+}
+
+const stringsMap: Record<ErrorType, StringKeys> = {
+  [ErrorType.AnyOther]: 'pipeline.failureStrategies.errorTypeLabels.AnyOther',
+  [ErrorType.Authentication]: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
+  [ErrorType.Authorization]: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
+  [ErrorType.Connectivity]: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
+  [ErrorType.DelegateProvisioning]: 'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning',
+  [ErrorType.Timeout]: 'pipeline.failureStrategies.errorTypeLabels.Timeout',
+  [ErrorType.Verification]: 'pipeline.failureStrategies.errorTypeLabels.Verification'
 }
 
 const MultiSelect = BPMultiSelect.ofType<Option>()
@@ -49,9 +59,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
     selectedValuesSet.forEach(val => filterTypesSet.delete(val))
 
-    return errorTypesOrder
-      .filter(e => !filterTypesSet.has(e))
-      .map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
+    return errorTypesOrder.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: stringsMap[e] }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   })()
 
@@ -85,7 +93,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
   const selectedOptions: Option[] = selectedValues.map((key: ErrorType) => ({
     value: key,
-    label: getString(`failureStrategies.errorTypeLabels.${key}`)
+    label: getString(stringsMap[key])
   }))
 
   function onRemove(value: string): void {

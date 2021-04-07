@@ -7,7 +7,7 @@ import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -132,7 +132,11 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               <UserLabel name={pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier || 'Anonymous'} />
               <String
                 className={css.triggerType}
-                stringID={`execution.triggerType.${pipelineExecution.executionTriggerInfo?.triggerType ?? 'MANUAL'}`}
+                stringID={
+                  `execution.triggerType.${
+                    pipelineExecution.executionTriggerInfo?.triggerType ?? 'MANUAL'
+                  }` as StringKeys
+                } // TODO: fix this properly later
               />
             </div>
             <div className={css.timers}>

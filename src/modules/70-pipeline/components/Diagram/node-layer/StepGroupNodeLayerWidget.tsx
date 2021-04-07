@@ -33,6 +33,7 @@ const onAddNodeClick = (
 export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): JSX.Element => {
   const options = props.layer.getOptions()
   const allowAdd = options.allowAdd
+  const childrenDistance = options.childrenDistance || 140
   const { getString } = useStrings()
   const rollBackProps = options.rollBackProps || {}
   const config = {
@@ -98,8 +99,10 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
     }
   })
   const depth = options.depth || 1
+  const headerDepth = options.headerDepth || 0
   const width = config.maxX - config.minX
-  const height = config.maxY - config.minY + 150 * depth
+
+  const height = childrenDistance * depth
   return (
     <>
       <div
@@ -107,7 +110,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         style={{
           left: config.minX,
           cursor: 'pointer',
-          top: config.minY - 40 * depth,
+          top: config.minY - childrenDistance * headerDepth,
           pointerEvents: allowAdd ? 'all' : 'none',
           position: 'absolute',
           height: height
@@ -138,6 +141,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             width,
             height,
             ...options.containerCss
+            //background: 'rgba(0,0,0,0.1)'
           }}
         ></div>
         {options.showRollback && (
@@ -172,7 +176,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         spacing="xsmall"
         className={css.header}
         style={{
-          top: config.minY - (40 * depth - 5),
+          top: config.minY - (childrenDistance * headerDepth - 5),
           left: config.minX + 10,
           width,
           alignItems: 'center'

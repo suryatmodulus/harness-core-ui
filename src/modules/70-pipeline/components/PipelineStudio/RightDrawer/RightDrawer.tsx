@@ -73,7 +73,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         title = (
           <div className={css.title}>
             <Icon name="failure-strategy" size={40} />
-            {getString('stageName', selectedStage?.stage)} / {getString('failureStrategy.title')}
+            {getString('stageName', selectedStage?.stage)} / {getString('pipeline.failureStrategies.title')}
           </div>
         )
         break
@@ -86,7 +86,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         )
         break
       case DrawerTypes.PipelineNotifications:
-        title = getString('notifications')
+        title = getString('notifications.name')
         break
       default:
         title = null
@@ -105,7 +105,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
       if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
         node.spec = {
-          ...(node.spec ? node.spec : {}),
+          ...(item.spec ? item.spec : {}),
           delegateSelectors: item.delegateSelectors
         }
       }
@@ -258,6 +258,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={onSubmitStep}
@@ -367,6 +368,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
@@ -445,6 +447,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={onSubmitStep}

@@ -20,11 +20,6 @@ import { PageError } from '@common/components/Page/PageError'
 import { SegmentRow } from './SegmentRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 
-//
-// TODO: Extend this component to support include/exclude target
-// @see https://harness.atlassian.net/browse/FFM-592 for more information
-//
-
 export interface SelectSegmentsModalButtonProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
   orgIdentifier: string
@@ -70,16 +65,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
         pageNumber,
         pageSize: CF_DEFAULT_PAGE_SIZE
       }),
-      [
-        accountId,
-        orgIdentifier,
-        projectIdentifier,
-        environmentIdentifier,
-        queryString,
-        sortOrder,
-        sortByField,
-        pageNumber
-      ]
+      [queryString, sortOrder, sortByField, pageNumber]
     )
     const { data, loading: loadingSegments, error, refetch } = useGetTargetAvailableSegments({
       identifier: targetIdentifier as string,
@@ -100,7 +86,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
     )
     const selectedCounter = Object.keys(checkedSegments || {}).length
     const [submitLoading, setSubmitLoading] = useState(false)
-    const handleSubmit = () => {
+    const handleSubmit = (): void => {
       setSubmitLoading(true)
 
       try {
@@ -122,7 +108,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
 
     useEffect(() => {
       refetch()
-    }, [queryString, sortOrder, sortByField, pageNumber])
+    }, [queryString, sortOrder, sortByField, pageNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const loading = loadingSegments || submitLoading
 
@@ -197,7 +183,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
                   <FlexExpander />
                   {/* Disable since backend does not support this info yet
                   <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}>
-                    {getString('cf.selectSegmentModal.flagsUsingThisSegment')}
+                    {getString('cf.segments.usingSegment').toLocaleUpperCase()}
                   </Text> */}
                 </Layout.Horizontal>
 
@@ -246,9 +232,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
             />
             <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
             <FlexExpander />
-            {!!selectedCounter && (
-              <Text>{getString('cf.selectSegmentModal.selected', { counter: selectedCounter })}</Text>
-            )}
+            {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
             {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
           </Layout.Horizontal>
         </Layout.Vertical>

@@ -1,6 +1,411 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
+<div
+  class="main"
+  data-testid="failure-strategy-panel"
+>
+  <span
+    class="helpText"
+  >
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
+
+  </span>
+  <div
+    class="header"
+  >
+    <div
+      class="tabs"
+    >
+      <ul
+        class="stepList"
+      >
+        <li
+          class="stepListItem"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
+            data-selected="true"
+            data-testid="failure-strategy-step-0"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              1
+            </span>
+          </button>
+        </li>
+      </ul>
+      <button
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        data-testid="add-failure-strategy"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-plus StyledProps--main"
+          icon="plus"
+        >
+          <svg
+            data-icon="plus"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
+          >
+            <desc>
+              plus
+            </desc>
+            <path
+              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          <span>
+            Add
+          </span>
+        </span>
+      </button>
+    </div>
+    <button
+      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+      data-testid="remove-failure-strategy"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-trash StyledProps--main"
+        icon="trash"
+      >
+        <svg
+          data-icon="trash"
+          height="12"
+          viewBox="0 0 16 16"
+          width="12"
+        >
+          <desc>
+            trash
+          </desc>
+          <path
+            d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="bp3-form-group"
+  >
+    <label
+      class="bp3-label"
+      for="failureStrategies[0].onFailure.errors"
+    >
+      On failure of type
+       
+      <span
+        class="bp3-text-muted"
+      />
+    </label>
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper errorSelect bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <div
+              class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+            >
+              <div
+                class="bp3-tag-input-values"
+              >
+                <input
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  name="failureStrategies[0].onFailure.errors"
+                  placeholder="Search..."
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bp3-form-group"
+  >
+    <label
+      class="bp3-label"
+      for="failureStrategies[0].onFailure.action"
+    >
+      Perform Action
+       
+      <span
+        class="bp3-text-muted"
+      />
+    </label>
+    <div
+      class="bp3-form-content"
+    >
+      <ul
+        class="stepsList"
+      >
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-hand-up StyledProps--main"
+                icon="hand-up"
+              >
+                <svg
+                  data-icon="hand-up"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    hand-up
+                  </desc>
+                  <path
+                    d="M16.46 7.74c-.38 0-.73.14-1 .36-.19-.6-.78-1.05-1.47-1.05-.47 0-.89.2-1.17.52-.26-.47-.77-.79-1.36-.79-.65 0-1.2.39-1.43.93L10 6.94V1.5c0-.48-.23-.91-.59-1.18C9.2.13 8.92 0 8.56 0H8.5C7.67 0 7 .67 7 1.5v8.24l-.01.67c-.84-.98-1.92-1.76-3.24-1.89-1.79-.18-2.08 1.33-1.43 1.65 1.77.84 3.41 3.35 4.23 4.94 1.05 2.47 1.25 4.9 5.58 4.9 2.38 0 3.92-.76 4.82-2.65.74-1.56 1.05-2.84 1.05-7.15v-.99c0-.81-.69-1.48-1.54-1.48z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Manual Intervention
+            </span>
+            <input
+              data-testid="failure-strategy-manualintervention"
+              name=""
+              type="checkbox"
+              value="ManualIntervention"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-repeat StyledProps--main"
+                icon="repeat"
+              >
+                <svg
+                  data-icon="repeat"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    repeat
+                  </desc>
+                  <path
+                    d="M14 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2.05C16.18 1.6 13.29 0 10 0 4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10c0-.55-.45-1-1-1s-1 .45-1 1c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c2.53 0 4.77 1.17 6.24 3H15c-.55 0-1 .45-1 1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Rollback Stage
+            </span>
+            <input
+              data-testid="failure-strategy-stagerollback"
+              name=""
+              type="checkbox"
+              value="StageRollback"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-delete StyledProps--main"
+                icon="delete"
+              >
+                <svg
+                  data-icon="delete"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    delete
+                  </desc>
+                  <path
+                    d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Ignore Failure
+            </span>
+            <input
+              data-testid="failure-strategy-ignore"
+              name=""
+              type="checkbox"
+              value="Ignore"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-refresh StyledProps--main"
+                icon="refresh"
+              >
+                <svg
+                  data-icon="refresh"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    refresh
+                  </desc>
+                  <path
+                    d="M19 1c-.55 0-1 .45-1 1v2.06C16.18 1.61 13.29 0 10 0 4.48 0 0 4.48 0 10c0 .55.45 1 1 1s1-.45 1-1c0-4.42 3.58-8 8-8 2.52 0 4.76 1.18 6.22 3H15c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zm0 8c-.55 0-1 .45-1 1 0 4.42-3.58 8-8 8-2.52 0-4.76-1.18-6.22-3H5c.55 0 1-.45 1-1s-.45-1-1-1H1c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-2.06C3.82 18.39 6.71 20 10 20c5.52 0 10-4.48 10-10 0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Retry
+            </span>
+            <input
+              data-testid="failure-strategy-retry"
+              name=""
+              type="checkbox"
+              value="Retry"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M17 4c-.28 0-.53.11-.71.29L7 13.59 3.71 10.3A.965.965 0 003 10a1.003 1.003 0 00-.71 1.71l4 4c.18.18.43.29.71.29s.53-.11.71-.29l10-10A1.003 1.003 0 0017 4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Mark As Success
+            </span>
+            <input
+              data-testid="failure-strategy-markassuccess"
+              name=""
+              type="checkbox"
+              value="MarkAsSuccess"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-ban-circle StyledProps--main"
+                icon="ban-circle"
+              >
+                <svg
+                  data-icon="ban-circle"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    ban-circle
+                  </desc>
+                  <path
+                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm5 11H5c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Abort
+            </span>
+            <input
+              data-testid="failure-strategy-abort"
+              name=""
+              type="checkbox"
+              value="Abort"
+            />
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<FailureStratergyPanel /> tests in stage mode cannot edit first error type 1`] = `
 <div>
   <div
     style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
@@ -15,6 +420,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
       </h3>
       <div
         class="main"
+        data-testid="failure-strategy-panel"
       >
         <span
           class="helpText"
@@ -81,75 +487,12 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
               </span>
             </button>
           </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
-            >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
         </div>
         <div
-          class="bp3-form-group"
+          class="defaultStageText"
         >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          On all errors other than those specified in failure strategies defined here, perform action:
+
         </div>
         <div
           class="bp3-form-group"
@@ -178,44 +521,6 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                     class="icon"
                   >
                     <span
-                      class="bp3-icon bp3-icon-hand-up StyledProps--main"
-                      icon="hand-up"
-                    >
-                      <svg
-                        data-icon="hand-up"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          hand-up
-                        </desc>
-                        <path
-                          d="M16.46 7.74c-.38 0-.73.14-1 .36-.19-.6-.78-1.05-1.47-1.05-.47 0-.89.2-1.17.52-.26-.47-.77-.79-1.36-.79-.65 0-1.2.39-1.43.93L10 6.94V1.5c0-.48-.23-.91-.59-1.18C9.2.13 8.92 0 8.56 0H8.5C7.67 0 7 .67 7 1.5v8.24l-.01.67c-.84-.98-1.92-1.76-3.24-1.89-1.79-.18-2.08 1.33-1.43 1.65 1.77.84 3.41 3.35 4.23 4.94 1.05 2.47 1.25 4.9 5.58 4.9 2.38 0 3.92-.76 4.82-2.65.74-1.56 1.05-2.84 1.05-7.15v-.99c0-.81-.69-1.48-1.54-1.48z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Manual Intervention
-                  </span>
-                  <input
-                    data-testid="failure-strategy-manualintervention"
-                    name=""
-                    type="checkbox"
-                    value="ManualIntervention"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
                       class="bp3-icon bp3-icon-repeat StyledProps--main"
                       icon="repeat"
                     >
@@ -235,7 +540,9 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                       </svg>
                     </span>
                   </div>
-                  <span>
+                  <span
+                    class="iconText"
+                  >
                     Rollback Stage
                   </span>
                   <input
@@ -273,7 +580,9 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                       </svg>
                     </span>
                   </div>
-                  <span>
+                  <span
+                    class="iconText"
+                  >
                     Ignore Failure
                   </span>
                   <input
@@ -311,7 +620,9 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                       </svg>
                     </span>
                   </div>
-                  <span>
+                  <span
+                    class="iconText"
+                  >
                     Retry
                   </span>
                   <input
@@ -349,7 +660,9 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                       </svg>
                     </span>
                   </div>
-                  <span>
+                  <span
+                    class="iconText"
+                  >
                     Mark As Success
                   </span>
                   <input
@@ -387,7 +700,9 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
                       </svg>
                     </span>
                   </div>
-                  <span>
+                  <span
+                    class="iconText"
+                  >
                     Abort
                   </span>
                   <input
@@ -410,7 +725,7 @@ exports[`<FailureStratergyPanel /> tests adding a new strategy works 1`] = `
         data-testid="code-output"
       >
         failureStrategies:
-  - onFailure: {}
+  - {}
 
       </pre>
     </div>
@@ -433,6 +748,7 @@ exports[`<FailureStratergyPanel /> tests initial render with no data 1`] = `
       </h3>
       <div
         class="main"
+        data-testid="failure-strategy-panel"
       >
         <span
           class="helpText"
@@ -497,1639 +813,509 @@ exports[`<FailureStratergyPanel /> tests initial render with no data 1`] = `
 `;
 
 exports[`<FailureStratergyPanel /> tests removing a strategy works 1`] = `
-<div>
-  <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
-  >
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <h3
-        class="bp3-heading"
-      >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
-        >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
-          >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
-              >
-                <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    plus
-                  </desc>
-                  <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
-            >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <ul
-              class="stepsList"
-            >
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-hand-up StyledProps--main"
-                      icon="hand-up"
-                    >
-                      <svg
-                        data-icon="hand-up"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          hand-up
-                        </desc>
-                        <path
-                          d="M16.46 7.74c-.38 0-.73.14-1 .36-.19-.6-.78-1.05-1.47-1.05-.47 0-.89.2-1.17.52-.26-.47-.77-.79-1.36-.79-.65 0-1.2.39-1.43.93L10 6.94V1.5c0-.48-.23-.91-.59-1.18C9.2.13 8.92 0 8.56 0H8.5C7.67 0 7 .67 7 1.5v8.24l-.01.67c-.84-.98-1.92-1.76-3.24-1.89-1.79-.18-2.08 1.33-1.43 1.65 1.77.84 3.41 3.35 4.23 4.94 1.05 2.47 1.25 4.9 5.58 4.9 2.38 0 3.92-.76 4.82-2.65.74-1.56 1.05-2.84 1.05-7.15v-.99c0-.81-.69-1.48-1.54-1.48z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Manual Intervention
-                  </span>
-                  <input
-                    data-testid="failure-strategy-manualintervention"
-                    name=""
-                    type="checkbox"
-                    value="ManualIntervention"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-repeat StyledProps--main"
-                      icon="repeat"
-                    >
-                      <svg
-                        data-icon="repeat"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          repeat
-                        </desc>
-                        <path
-                          d="M14 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2.05C16.18 1.6 13.29 0 10 0 4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10c0-.55-.45-1-1-1s-1 .45-1 1c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c2.53 0 4.77 1.17 6.24 3H15c-.55 0-1 .45-1 1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Rollback Stage
-                  </span>
-                  <input
-                    data-testid="failure-strategy-stagerollback"
-                    name=""
-                    type="checkbox"
-                    value="StageRollback"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-delete StyledProps--main"
-                      icon="delete"
-                    >
-                      <svg
-                        data-icon="delete"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          delete
-                        </desc>
-                        <path
-                          d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Ignore Failure
-                  </span>
-                  <input
-                    data-testid="failure-strategy-ignore"
-                    name=""
-                    type="checkbox"
-                    value="Ignore"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-refresh StyledProps--main"
-                      icon="refresh"
-                    >
-                      <svg
-                        data-icon="refresh"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          refresh
-                        </desc>
-                        <path
-                          d="M19 1c-.55 0-1 .45-1 1v2.06C16.18 1.61 13.29 0 10 0 4.48 0 0 4.48 0 10c0 .55.45 1 1 1s1-.45 1-1c0-4.42 3.58-8 8-8 2.52 0 4.76 1.18 6.22 3H15c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zm0 8c-.55 0-1 .45-1 1 0 4.42-3.58 8-8 8-2.52 0-4.76-1.18-6.22-3H5c.55 0 1-.45 1-1s-.45-1-1-1H1c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-2.06C3.82 18.39 6.71 20 10 20c5.52 0 10-4.48 10-10 0-.55-.45-1-1-1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Retry
-                  </span>
-                  <input
-                    data-testid="failure-strategy-retry"
-                    name=""
-                    type="checkbox"
-                    value="Retry"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-tick StyledProps--main"
-                      icon="tick"
-                    >
-                      <svg
-                        data-icon="tick"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          tick
-                        </desc>
-                        <path
-                          d="M17 4c-.28 0-.53.11-.71.29L7 13.59 3.71 10.3A.965.965 0 003 10a1.003 1.003 0 00-.71 1.71l4 4c.18.18.43.29.71.29s.53-.11.71-.29l10-10A1.003 1.003 0 0017 4z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Mark As Success
-                  </span>
-                  <input
-                    data-testid="failure-strategy-markassuccess"
-                    name=""
-                    type="checkbox"
-                    value="MarkAsSuccess"
-                  />
-                </label>
-              </li>
-              <li>
-                <label
-                  class="strategyIcon"
-                >
-                  <div
-                    class="icon"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-ban-circle StyledProps--main"
-                      icon="ban-circle"
-                    >
-                      <svg
-                        data-icon="ban-circle"
-                        height="22"
-                        viewBox="0 0 20 20"
-                        width="22"
-                      >
-                        <desc>
-                          ban-circle
-                        </desc>
-                        <path
-                          d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm5 11H5c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                  <span>
-                    Abort
-                  </span>
-                  <input
-                    data-testid="failure-strategy-abort"
-                    name=""
-                    type="checkbox"
-                    value="Abort"
-                  />
-                </label>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - {}
-
-      </pre>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "Abort" 1`] = `
-<div>
-  <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
-  >
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <h3
-        class="bp3-heading"
-      >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
-        >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
-          >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
-              >
-                <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    plus
-                  </desc>
-                  <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
-            <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
-            >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="step"
-            >
-              <label
-                class="strategyIcon"
-              >
-                <div
-                  class="icon"
-                >
-                  <div
-                    class="checkMark"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-ban-circle StyledProps--main"
-                    icon="ban-circle"
-                  >
-                    <svg
-                      data-icon="ban-circle"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      width="22"
-                    >
-                      <desc>
-                        ban-circle
-                      </desc>
-                      <path
-                        d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm5 11H5c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <span>
-                  Abort
-                </span>
-                <input
-                  checked=""
-                  data-testid="failure-strategy-abort"
-                  name=""
-                  type="checkbox"
-                  value="Abort"
-                />
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - onFailure:
-      action:
-        type: Abort
-
-      </pre>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "Abort": code 1`] = `
-<pre
-  data-testid="code-output"
+<div
+  class="main"
+  data-testid="failure-strategy-panel"
 >
-  failureStrategies:
-  - onFailure:
-      action:
-        type: Abort
+  <span
+    class="helpText"
+  >
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
 
-</pre>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "Ignore" 1`] = `
-<div>
+  </span>
   <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
+    class="header"
   >
     <div
-      class="bp3-card bp3-elevation-0"
+      class="tabs"
     >
-      <h3
-        class="bp3-heading"
+      <ul
+        class="stepList"
       >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
+        <li
+          class="stepListItem"
         >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
-          >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
-              >
-                <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    plus
-                  </desc>
-                  <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
+            data-selected="true"
+            data-testid="failure-strategy-step-0"
             type="button"
           >
             <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
+              class="bp3-button-text"
             >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+              1
             </span>
           </button>
-        </div>
-        <div
-          class="bp3-form-group"
+        </li>
+      </ul>
+      <button
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        data-testid="add-failure-strategy"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-plus StyledProps--main"
+          icon="plus"
         >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
+          <svg
+            data-icon="plus"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
           >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
+            <desc>
+              plus
+            </desc>
+            <path
+              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
             />
-          </label>
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          <span>
+            Add
+          </span>
+        </span>
+      </button>
+    </div>
+    <button
+      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+      data-testid="remove-failure-strategy"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-trash StyledProps--main"
+        icon="trash"
+      >
+        <svg
+          data-icon="trash"
+          height="12"
+          viewBox="0 0 16 16"
+          width="12"
+        >
+          <desc>
+            trash
+          </desc>
+          <path
+            d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
+    class="bp3-form-group"
+  >
+    <label
+      class="bp3-label"
+      for="failureStrategies[0].onFailure.errors"
+    >
+      On failure of type
+       
+      <span
+        class="bp3-text-muted"
+      />
+    </label>
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper errorSelect bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
           <div
-            class="bp3-form-content"
+            class=""
           >
             <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
+              class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
             >
               <div
-                class="bp3-popover-target"
+                class="bp3-tag-input-values"
               >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="step"
-            >
-              <label
-                class="strategyIcon"
-              >
-                <div
-                  class="icon"
-                >
-                  <div
-                    class="checkMark"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-delete StyledProps--main"
-                    icon="delete"
-                  >
-                    <svg
-                      data-icon="delete"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      width="22"
-                    >
-                      <desc>
-                        delete
-                      </desc>
-                      <path
-                        d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <span>
-                  Ignore Failure
-                </span>
                 <input
-                  checked=""
-                  data-testid="failure-strategy-ignore"
-                  name=""
-                  type="checkbox"
-                  value="Ignore"
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  name="failureStrategies[0].onFailure.errors"
+                  placeholder="Search..."
+                  value=""
                 />
-              </label>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - onFailure:
-      action:
-        type: Ignore
-
-      </pre>
-    </div>
   </div>
-</div>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "Ignore": code 1`] = `
-<pre
-  data-testid="code-output"
->
-  failureStrategies:
-  - onFailure:
-      action:
-        type: Ignore
-
-</pre>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "MarkAsSuccess" 1`] = `
-<div>
   <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
+    class="bp3-form-group"
   >
-    <div
-      class="bp3-card bp3-elevation-0"
+    <label
+      class="bp3-label"
+      for="failureStrategies[0].onFailure.action"
     >
-      <h3
-        class="bp3-heading"
+      Perform Action
+       
+      <span
+        class="bp3-text-muted"
+      />
+    </label>
+    <div
+      class="bp3-form-content"
+    >
+      <ul
+        class="stepsList"
       >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
-        >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
+        <li>
+          <label
+            class="strategyIcon"
           >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
+            <div
+              class="icon"
             >
               <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
+                class="bp3-icon bp3-icon-hand-up StyledProps--main"
+                icon="hand-up"
               >
                 <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
+                  data-icon="hand-up"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
                 >
                   <desc>
-                    plus
+                    hand-up
                   </desc>
                   <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                    d="M16.46 7.74c-.38 0-.73.14-1 .36-.19-.6-.78-1.05-1.47-1.05-.47 0-.89.2-1.17.52-.26-.47-.77-.79-1.36-.79-.65 0-1.2.39-1.43.93L10 6.94V1.5c0-.48-.23-.91-.59-1.18C9.2.13 8.92 0 8.56 0H8.5C7.67 0 7 .67 7 1.5v8.24l-.01.67c-.84-.98-1.92-1.76-3.24-1.89-1.79-.18-2.08 1.33-1.43 1.65 1.77.84 3.41 3.35 4.23 4.94 1.05 2.47 1.25 4.9 5.58 4.9 2.38 0 3.92-.76 4.82-2.65.74-1.56 1.05-2.84 1.05-7.15v-.99c0-.81-.69-1.48-1.54-1.48z"
                     fill-rule="evenodd"
                   />
                 </svg>
               </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
+            </div>
             <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
+              class="iconText"
             >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+              Manual Intervention
             </span>
-          </button>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
+            <input
+              data-testid="failure-strategy-manualintervention"
+              name=""
+              type="checkbox"
+              value="ManualIntervention"
             />
           </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
+        </li>
+        <li>
           <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
+            class="strategyIcon"
           >
             <div
-              class="step"
-            >
-              <label
-                class="strategyIcon"
-              >
-                <div
-                  class="icon"
-                >
-                  <div
-                    class="checkMark"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-tick StyledProps--main"
-                    icon="tick"
-                  >
-                    <svg
-                      data-icon="tick"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      width="22"
-                    >
-                      <desc>
-                        tick
-                      </desc>
-                      <path
-                        d="M17 4c-.28 0-.53.11-.71.29L7 13.59 3.71 10.3A.965.965 0 003 10a1.003 1.003 0 00-.71 1.71l4 4c.18.18.43.29.71.29s.53-.11.71-.29l10-10A1.003 1.003 0 0017 4z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <span>
-                  Mark As Success
-                </span>
-                <input
-                  checked=""
-                  data-testid="failure-strategy-markassuccess"
-                  name=""
-                  type="checkbox"
-                  value="MarkAsSuccess"
-                />
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - onFailure:
-      action:
-        type: MarkAsSuccess
-
-      </pre>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "MarkAsSuccess": code 1`] = `
-<pre
-  data-testid="code-output"
->
-  failureStrategies:
-  - onFailure:
-      action:
-        type: MarkAsSuccess
-
-</pre>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "StageRollback" 1`] = `
-<div>
-  <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
-  >
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <h3
-        class="bp3-heading"
-      >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
-        >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
-          >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
+              class="icon"
             >
               <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
+                class="bp3-icon bp3-icon-repeat StyledProps--main"
+                icon="repeat"
               >
                 <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
+                  data-icon="repeat"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
                 >
                   <desc>
-                    plus
+                    repeat
                   </desc>
                   <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                    d="M14 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2.05C16.18 1.6 13.29 0 10 0 4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10c0-.55-.45-1-1-1s-1 .45-1 1c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c2.53 0 4.77 1.17 6.24 3H15c-.55 0-1 .45-1 1z"
                     fill-rule="evenodd"
                   />
                 </svg>
               </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
+            </div>
             <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
+              class="iconText"
             >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+              Rollback Stage
             </span>
-          </button>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
+            <input
+              data-testid="failure-strategy-stagerollback"
+              name=""
+              type="checkbox"
+              value="StageRollback"
             />
           </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
+        </li>
+        <li>
           <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
+            class="strategyIcon"
           >
             <div
-              class="step"
-            >
-              <label
-                class="strategyIcon"
-              >
-                <div
-                  class="icon"
-                >
-                  <div
-                    class="checkMark"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-repeat StyledProps--main"
-                    icon="repeat"
-                  >
-                    <svg
-                      data-icon="repeat"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      width="22"
-                    >
-                      <desc>
-                        repeat
-                      </desc>
-                      <path
-                        d="M14 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2.05C16.18 1.6 13.29 0 10 0 4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10c0-.55-.45-1-1-1s-1 .45-1 1c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c2.53 0 4.77 1.17 6.24 3H15c-.55 0-1 .45-1 1z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <span>
-                  Rollback Stage
-                </span>
-                <input
-                  checked=""
-                  data-testid="failure-strategy-stagerollback"
-                  name=""
-                  type="checkbox"
-                  value="StageRollback"
-                />
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - onFailure:
-      action:
-        type: StageRollback
-
-      </pre>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "StageRollback": code 1`] = `
-<pre
-  data-testid="code-output"
->
-  failureStrategies:
-  - onFailure:
-      action:
-        type: StageRollback
-
-</pre>
-`;
-
-exports[`<FailureStratergyPanel /> tests simple strategy: "StepGroupRollback" 1`] = `
-<div>
-  <div
-    style="display: grid; grid-template-columns: 480px 1fr; column-gap: 20px;"
-  >
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <h3
-        class="bp3-heading"
-      >
-        Failure Strategies
-      </h3>
-      <div
-        class="main"
-      >
-        <span
-          class="helpText"
-        >
-          Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
-        </span>
-        <div
-          class="header"
-        >
-          <div
-            class="tabs"
-          >
-            <ul
-              class="stepList"
-            >
-              <li
-                class="stepListItem"
-              >
-                <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
-                  data-selected="true"
-                  data-testid="failure-strategy-step-0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    1
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <button
-              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-              data-testid="add-failure-strategy"
-              type="button"
+              class="icon"
             >
               <span
-                class="bp3-icon bp3-icon-plus StyledProps--main"
-                icon="plus"
+                class="bp3-icon bp3-icon-delete StyledProps--main"
+                icon="delete"
               >
                 <svg
-                  data-icon="plus"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
+                  data-icon="delete"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
                 >
                   <desc>
-                    plus
+                    delete
                   </desc>
                   <path
-                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                    d="M15 6a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10l3.29-3.29c.19-.18.3-.43.3-.71zm-5-6C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
                     fill-rule="evenodd"
                   />
                 </svg>
               </span>
-              <span
-                class="bp3-button-text"
-              >
-                <span>
-                  Add
-                </span>
-              </span>
-            </button>
-          </div>
-          <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-            data-testid="remove-failure-strategy"
-            type="button"
-          >
+            </div>
             <span
-              class="bp3-icon bp3-icon-trash StyledProps--main"
-              icon="trash"
+              class="iconText"
             >
-              <svg
-                data-icon="trash"
-                height="12"
-                viewBox="0 0 16 16"
-                width="12"
-              >
-                <desc>
-                  trash
-                </desc>
-                <path
-                  d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
-                  fill-rule="evenodd"
-                />
-              </svg>
+              Ignore Failure
             </span>
-          </button>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.errors"
-          >
-            On failure of type
-             
-            <span
-              class="bp3-text-muted"
+            <input
+              data-testid="failure-strategy-ignore"
+              name=""
+              type="checkbox"
+              value="Ignore"
             />
           </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-popover-wrapper errorSelect bp3-fill"
-            >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class=""
-                >
-                  <div
-                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                  >
-                    <div
-                      class="bp3-tag-input-values"
-                    >
-                      <input
-                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                        name="failureStrategies[0].onFailure.errors"
-                        placeholder="Search..."
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group"
-        >
+        </li>
+        <li>
           <label
-            class="bp3-label"
-            for="failureStrategies[0].onFailure.action"
-          >
-            Perform Action
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
+            class="strategyIcon"
           >
             <div
-              class="step"
+              class="icon"
             >
-              <label
-                class="strategyIcon"
+              <span
+                class="bp3-icon bp3-icon-refresh StyledProps--main"
+                icon="refresh"
               >
-                <div
-                  class="icon"
+                <svg
+                  data-icon="refresh"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
                 >
-                  <div
-                    class="checkMark"
+                  <desc>
+                    refresh
+                  </desc>
+                  <path
+                    d="M19 1c-.55 0-1 .45-1 1v2.06C16.18 1.61 13.29 0 10 0 4.48 0 0 4.48 0 10c0 .55.45 1 1 1s1-.45 1-1c0-4.42 3.58-8 8-8 2.52 0 4.76 1.18 6.22 3H15c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1zm0 8c-.55 0-1 .45-1 1 0 4.42-3.58 8-8 8-2.52 0-4.76-1.18-6.22-3H5c.55 0 1-.45 1-1s-.45-1-1-1H1c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-2.06C3.82 18.39 6.71 20 10 20c5.52 0 10-4.48 10-10 0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
                   />
-                  <span
-                    class="bp3-icon bp3-icon-repeat StyledProps--main"
-                    icon="repeat"
-                  >
-                    <svg
-                      data-icon="repeat"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      width="22"
-                    >
-                      <desc>
-                        repeat
-                      </desc>
-                      <path
-                        d="M14 6c0 .55.45 1 1 1h4c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1v2.05C16.18 1.6 13.29 0 10 0 4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10c0-.55-.45-1-1-1s-1 .45-1 1c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c2.53 0 4.77 1.17 6.24 3H15c-.55 0-1 .45-1 1z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <span>
-                  Rollback Step Group
-                </span>
-                <input
-                  checked=""
-                  data-testid="failure-strategy-stepgrouprollback"
-                  name=""
-                  type="checkbox"
-                  value="StepGroupRollback"
-                />
-              </label>
+                </svg>
+              </span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="bp3-card bp3-elevation-0"
-    >
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-  - onFailure:
-      action:
-        type: StepGroupRollback
-
-      </pre>
+            <span
+              class="iconText"
+            >
+              Retry
+            </span>
+            <input
+              data-testid="failure-strategy-retry"
+              name=""
+              type="checkbox"
+              value="Retry"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M17 4c-.28 0-.53.11-.71.29L7 13.59 3.71 10.3A.965.965 0 003 10a1.003 1.003 0 00-.71 1.71l4 4c.18.18.43.29.71.29s.53-.11.71-.29l10-10A1.003 1.003 0 0017 4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Mark As Success
+            </span>
+            <input
+              data-testid="failure-strategy-markassuccess"
+              name=""
+              type="checkbox"
+              value="MarkAsSuccess"
+            />
+          </label>
+        </li>
+        <li>
+          <label
+            class="strategyIcon"
+          >
+            <div
+              class="icon"
+            >
+              <span
+                class="bp3-icon bp3-icon-ban-circle StyledProps--main"
+                icon="ban-circle"
+              >
+                <svg
+                  data-icon="ban-circle"
+                  height="22"
+                  viewBox="0 0 20 20"
+                  width="22"
+                >
+                  <desc>
+                    ban-circle
+                  </desc>
+                  <path
+                    d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm5 11H5c-.55 0-1-.45-1-1s.45-1 1-1h10c.55 0 1 .45 1 1s-.45 1-1 1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <span
+              class="iconText"
+            >
+              Abort
+            </span>
+            <input
+              data-testid="failure-strategy-abort"
+              name=""
+              type="checkbox"
+              value="Abort"
+            />
+          </label>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 `;
 
-exports[`<FailureStratergyPanel /> tests simple strategy: "StepGroupRollback": code 1`] = `
-<pre
-  data-testid="code-output"
+exports[`<FailureStratergyPanel /> tests shows error for unsupported strategy 1`] = `
+<div
+  class="main"
+  data-testid="failure-strategy-panel"
 >
-  failureStrategies:
-  - onFailure:
-      action:
-        type: StepGroupRollback
+  <span
+    class="helpText"
+  >
+    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
 
-</pre>
+  </span>
+  <div
+    class="header"
+  >
+    <div
+      class="tabs"
+    >
+      <ul
+        class="stepList"
+      >
+        <li
+          class="stepListItem"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main stepListBtn StyledProps--intent-primary"
+            data-selected="true"
+            data-testid="failure-strategy-step-0"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              1
+            </span>
+          </button>
+        </li>
+      </ul>
+      <button
+        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        data-testid="add-failure-strategy"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-plus StyledProps--main"
+          icon="plus"
+        >
+          <svg
+            data-icon="plus"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
+          >
+            <desc>
+              plus
+            </desc>
+            <path
+              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          <span>
+            Add
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="defaultStageText"
+  >
+    On all errors other than those specified in failure strategies defined here, perform action:
+
+  </div>
+  <div
+    class="bp3-form-group"
+  >
+    <label
+      class="bp3-label"
+      for="failureStrategies[0].onFailure.action"
+    >
+      Perform Action
+       
+      <span
+        class="bp3-text-muted"
+      />
+    </label>
+    <div
+      class="bp3-form-content"
+    >
+      <div>
+        "
+        UNKNOWN
+        " in not supported
+      </div>
+    </div>
+  </div>
+</div>
 `;

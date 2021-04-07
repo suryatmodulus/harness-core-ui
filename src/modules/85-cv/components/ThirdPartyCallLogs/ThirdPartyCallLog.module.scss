@@ -24,6 +24,7 @@
 
     .requestCard {
       padding: var(--spacing-small);
+      padding-left: var(--spacing-large) !important;
       &:hover {
         background-color: var(--blue-200);
         cursor: pointer;

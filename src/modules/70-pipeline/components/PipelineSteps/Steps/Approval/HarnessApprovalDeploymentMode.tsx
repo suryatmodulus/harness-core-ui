@@ -1,20 +1,125 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import cx from 'classnames'
+import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { FormInput, getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  Avatar,
+  FormInput,
+  getMultiTypeFromValue,
+  Layout,
+  MultiSelectOption,
+  MultiTypeInputType,
+  Text
+} from '@wings-software/uicore'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useStrings } from 'framework/exports'
 import Map from '@common/components/Map/Map'
-import {
-  getUserGroupListPromise,
-  GetUserGroupListQueryParams,
-  ResponsePageUserGroupDTO,
-  UserGroupDTO
-} from 'services/cd-ng'
-import { APIStateInterface, AsyncStatus, HarnessApprovalDeploymentModeProps } from './types'
-import { INIT_API_STATE, setFailureApiState, setFetchingApiState, setSuccessApiState } from './helper'
+import { useGetUserGroupList } from 'services/cd-ng'
+import type { HarnessApprovalDeploymentModeProps, UGMultiSelectProps } from './types'
+import { isArrayOfStrings } from './helper'
 import css from './HarnessApproval.module.scss'
+
+const UGMultiSelect = ({
+  initialValues,
+  inputSetData,
+  userGroupsResponse,
+  userGroupsFetchError,
+  fetchingUserGroups,
+  onUpdate
+}: UGMultiSelectProps) => {
+  const [userGroupOptions, setUserGroupOptions] = useState<MultiSelectOption[]>([])
+  const path = inputSetData?.path
+  const prefix = isEmpty(path) ? '' : `${path}.`
+  const readonly = inputSetData?.readonly
+  const { getString } = useStrings()
+  useEffect(() => {
+    if (userGroupsResponse?.data?.content) {
+      const userGroupsContent = userGroupsResponse?.data?.content
+      const options: MultiSelectOption[] = userGroupsContent
+        ? userGroupsContent.map(ug => ({ label: ug.name || '', value: ug.identifier || '' }))
+        : []
+      setUserGroupOptions(options)
+      if (isArrayOfStrings(initialValues.spec.approvers.userGroups)) {
+        // When we open the form, we'll get the userGroups as string[] as saved in BE
+        // Convert the same as MultiSelectOption[], and update the formik values for auto populate
+        const selectedUgOptions: MultiSelectOption[] = []
+        initialValues.spec.approvers.userGroups.forEach(ugIdentifier => {
+          const matchedOption = options.find(opt => opt.value === ugIdentifier)
+          if (matchedOption) {
+            selectedUgOptions.push(matchedOption)
+          }
+        })
+
+        onUpdate?.({
+          ...initialValues,
+          spec: {
+            ...initialValues.spec,
+            approvers: {
+              ...initialValues.spec.approvers,
+              userGroups: selectedUgOptions
+            }
+          }
+        })
+      }
+    }
+  }, [userGroupsResponse?.data?.content])
+
+  return (
+    <FormInput.MultiSelect
+      className={css.multiSelect}
+      name={`${prefix}spec.approvers.userGroups`}
+      label={getString('userGroups')}
+      disabled={readonly}
+      items={
+        fetchingUserGroups
+          ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
+          : userGroupOptions
+      }
+      multiSelectProps={{
+        placeholder: fetchingUserGroups
+          ? getString('pipeline.approvalStep.fetchingUserGroups')
+          : userGroupsFetchError?.message
+          ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
+          : getString('pipeline.approvalStep.addUserGroups'),
+        // eslint-disable-next-line react/display-name
+        tagRenderer: item => (
+          <Layout.Horizontal key={item.label?.toString()} spacing="small">
+            <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
+            <Text>{item.label}</Text>
+          </Layout.Horizontal>
+        ),
+        // eslint-disable-next-line react/display-name
+        itemRender: (item, { handleClick }) => (
+          <div key={item.label.toString()}>
+            <Menu.Item
+              text={
+                <Layout.Horizontal spacing="small" className={css.align}>
+                  <Avatar email={item.label?.toString()} size="small" hoverCard={false} />
+                  <Text>{item.label}</Text>
+                </Layout.Horizontal>
+              }
+              onClick={handleClick}
+            />
+          </div>
+        )
+      }}
+      onChange={values => {
+        onUpdate?.({
+          ...initialValues,
+          spec: {
+            ...initialValues.spec,
+            approvers: {
+              ...initialValues.spec.approvers,
+              userGroups: (values as MultiSelectOption[]).map(val => val.value?.toString())
+            }
+          }
+        })
+      }}
+    />
+  )
+}
 
 /*
 Used for iput sets and deployment form
@@ -25,129 +130,85 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
   const { inputSetData, onUpdate, initialValues } = props
   const template = inputSetData?.template
   const path = inputSetData?.path
+  const prefix = isEmpty(path) ? '' : `${path}.`
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
 
-  const { accountId } = useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
-  const [userGroupOptions, setUserGroupOptions] = useState<APIStateInterface>(INIT_API_STATE)
-  let userOptionsTimerId: number | null = null
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<
+    PipelineType<PipelinePathProps & AccountPathProps>
+  >()
 
-  const getOptions = (searchString = '') => {
-    // Begin the API lifecycle
-    setFetchingApiState(setUserGroupOptions)
-
-    const queryParams: GetUserGroupListQueryParams = { accountIdentifier: accountId }
-    if (searchString) {
-      queryParams.searchTerm = searchString
+  const { data: userGroupsResponse, loading: fetchingUserGroups, error: userGroupsFetchError } = useGetUserGroupList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     }
-
-    const promise: Promise<ResponsePageUserGroupDTO> = getUserGroupListPromise({
-      queryParams
-    })
-    promise
-      .then(resolvedData => {
-        /*
-          Resolve the promised data based for the user groups.
-        */
-        let options: MultiSelectOption[] = []
-        const userGroupData: UserGroupDTO[] = (resolvedData as ResponsePageUserGroupDTO).data?.content || []
-        options =
-          userGroupData.map((userGroup: UserGroupDTO) => ({
-            label: userGroup.name || '',
-            value: userGroup.identifier || ''
-          })) || []
-
-        setSuccessApiState(options, setUserGroupOptions)
-      })
-      .catch(error => {
-        setFailureApiState(error, setUserGroupOptions)
-      })
-  }
-
-  function onComponentMount() {
-    /*
-    Only call the APIs once on every mount i.e. on status INIT
-    After first invokation, the status will change to success/inprogress/error
-    */
-
-    if (userGroupOptions.apiStatus === AsyncStatus.INIT) {
-      getOptions()
-    }
-  }
-
-  onComponentMount()
-
-  const setSearchDebounce = (searchString: string) => {
-    if (userOptionsTimerId) {
-      clearTimeout(userOptionsTimerId)
-    }
-    userOptionsTimerId = window.setTimeout(() => {
-      getOptions(searchString)
-    }, 300)
-  }
+  })
 
   return (
     <React.Fragment>
+      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
+        <DurationInputFieldForInputSet
+          label={getString('pipelineSteps.timeoutLabel')}
+          name={`${prefix}timeout`}
+          disabled={readonly}
+          className={css.md}
+        />
+      ) : null}
+
       {getMultiTypeFromValue(template?.spec?.approvalMessage) === MultiTypeInputType.RUNTIME ? (
         <FormInput.TextArea
-          className={css.approvalMessage}
-          label={getString('approvalStep.message')}
-          name="spec.approvalMessage"
+          className={cx(css.approvalMessage, css.md)}
+          label={getString('pipeline.approvalStep.message')}
+          name={`${prefix}spec.approvalMessage`}
           disabled={readonly}
         />
       ) : null}
       {getMultiTypeFromValue(template?.spec?.includePipelineExecutionHistory) === MultiTypeInputType.RUNTIME ? (
         <FormInput.CheckBox
-          className={css.execHistoryCheckbox}
-          label={getString('approvalStep.includePipelineExecutionHistory')}
-          name="spec.includePipelineExecutionHistory"
+          className={cx(css.execHistoryCheckbox, css.md)}
+          label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
+          name={`${prefix}spec.includePipelineExecutionHistory`}
           disabled={readonly}
         />
       ) : null}
 
       {typeof template?.spec?.approvers.userGroups === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvers.userGroups) === MultiTypeInputType.RUNTIME ? (
-        <FormInput.MultiSelect
-          label={getString('approvalStep.userGroups')}
-          name="spec.approvers.userGroups"
-          style={{ resize: 'vertical' }}
-          placeholder="Add Groups"
-          items={userGroupOptions.options}
-          onChange={selectedUGs =>
-            onUpdate?.({
-              ...initialValues,
-              spec: {
-                ...initialValues.spec,
-                approvers: {
-                  ...initialValues.spec.approvers,
-                  userGroups: selectedUGs?.map(selectedUG => selectedUG.value?.toString())
-                }
-              }
-            })
-          }
-          disabled={readonly}
-          multiSelectProps={{
-            onQueryChange: searchString => {
-              setSearchDebounce(searchString)
-            }
-          }}
+        <UGMultiSelect
+          {...props}
+          userGroupsResponse={userGroupsResponse}
+          fetchingUserGroups={fetchingUserGroups}
+          userGroupsFetchError={userGroupsFetchError}
         />
       ) : null}
 
       {typeof template?.spec?.approvers.minimumCount === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvers.minimumCount) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
-          label={getString('approvalStep.minimumCount')}
-          name="spec.approvers.minimumCount"
+          label={getString('pipeline.approvalStep.minimumCount')}
+          name={`${prefix}spec.approvers.minimumCount`}
           disabled={readonly}
+          className={css.md}
+          onChange={event => {
+            const changedValue = (event.target as HTMLInputElement).value
+            onUpdate?.({
+              ...initialValues,
+              spec: {
+                ...initialValues.spec,
+                approvers: { ...initialValues.spec.approvers, minimumCount: changedValue ? Number(changedValue) : 1 }
+              }
+            })
+          }}
         />
       ) : null}
 
       {getMultiTypeFromValue(template?.spec?.approvers.disallowPipelineExecutor) === MultiTypeInputType.RUNTIME ? (
         <FormInput.CheckBox
-          className={css.execHistoryCheckbox}
-          label={getString('approvalStep.disallowPipelineExecutor')}
-          name="spec.approvers.disallowPipelineExecutor"
+          className={cx(css.execHistoryCheckbox, css.md)}
+          label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
+          name={`${prefix}spec.approvers.disallowPipelineExecutor`}
           disabled={readonly}
         />
       ) : null}
@@ -156,19 +217,11 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
       getMultiTypeFromValue(template?.spec.approverInputs) === MultiTypeInputType.RUNTIME ? (
         <Map
           name={`${isEmpty(path) ? '' : `${path}.`}spec.approverInputs`}
-          label={getString('approvalStep.approverInputs')}
+          label={getString('pipeline.approvalStep.approverInputs')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
           valueLabel="Defaault value"
           keyLabel="Variable name"
-        />
-      ) : null}
-
-      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name="timeout"
-          disabled={readonly}
         />
       ) : null}
     </React.Fragment>

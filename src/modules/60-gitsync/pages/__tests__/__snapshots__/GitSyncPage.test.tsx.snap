@@ -14,7 +14,9 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
         <a
           class="breadCrumb"
           href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
-        />
+        >
+          dummy
+        </a>
         <span>
           /
         </span>

@@ -15,6 +15,7 @@ import { useEnvStrings } from '@cf/hooks/environment'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { withTableData } from '../../utils/table-utils'
 import css from './CFEnvironmentsPage.module.scss'
 
@@ -128,7 +129,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
 const CFEnvironmentsPage: React.FC<{}> = () => {
-  const { getEnvString, getString } = useEnvStrings()
+  const { getString } = useEnvStrings()
   const { showError, showSuccess } = useToaster()
   const history = useHistory()
   const [page, setPage] = useState(0)
@@ -212,9 +213,11 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       pageTitle={title}
       header={title}
       toolbar={
-        <Layout.Horizontal>
-          <EnvironmentDialog disabled={loading} onCreate={() => refetch()} />
-        </Layout.Horizontal>
+        hasEnvs && (
+          <Layout.Horizontal>
+            <EnvironmentDialog disabled={loading} onCreate={() => refetch()} />
+          </Layout.Horizontal>
+        )
       }
       content={
         <>
@@ -228,12 +231,9 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
             </Container>
           )}
           {emptyEnvs && (
-            <Layout.Vertical className={css.heightOverride}>
-              <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
-                {getEnvString('empty')}
-              </Text>
-              <EnvironmentDialog onCreate={() => refetch()} />
-            </Layout.Vertical>
+            <Container flex={{ align: 'center-center' }} height="100%">
+              <NoEnvironment onCreated={() => refetch()} />
+            </Container>
           )}
         </>
       }

@@ -1,16 +1,11 @@
 import React from 'react'
 import { render, fireEvent, findByText, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { GitSyncTestWrapper } from '@gitsync/common/gitSyncTestUtils'
 import GitSyncRepoTab from '../GitSyncRepoTab'
-
-import gitSyncListResponse from './mockData/gitSyncRepoListMock.json'
 
 const createGitSynRepo = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
-  useListGitSync: jest.fn().mockImplementation(() => {
-    return { data: gitSyncListResponse, loading: false }
-  }),
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
   useGetConnector: jest.fn().mockImplementation(() => Promise.resolve([]))
 }))
@@ -18,16 +13,16 @@ jest.mock('services/cd-ng', () => ({
 describe('Git Sync - repo tab', () => {
   test('rendering landing list view', async () => {
     const { container, getByText } = render(
-      <TestWrapper
+      <GitSyncTestWrapper
         path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
       >
         <GitSyncRepoTab />
-      </TestWrapper>
+      </GitSyncTestWrapper>
     )
 
     await waitFor(() => {
-      expect(getByText('Wings/githubRepo')).toBeTruthy()
+      expect(getByText('https://www.github.com/testRepo.git')).toBeTruthy()
     })
 
     expect(container).toMatchSnapshot()
@@ -35,12 +30,12 @@ describe('Git Sync - repo tab', () => {
 
   test('test for opening add repo modal in list view', async () => {
     const { container } = render(
-      <TestWrapper
+      <GitSyncTestWrapper
         path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
       >
         <GitSyncRepoTab />
-      </TestWrapper>
+      </GitSyncTestWrapper>
     )
     const addRepoBtn = document.getElementById('newRepoBtn')
     expect(addRepoBtn).toBeTruthy()

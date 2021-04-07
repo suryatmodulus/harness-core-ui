@@ -24,9 +24,13 @@ export const shellScriptType: SelectOption[] = [
   { label: 'PowerShell', value: 'PowerShell' }
 ]
 
-export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
+export default function BaseShellScript(props: {
+  formik: FormikProps<ShellScriptFormData>
+  isNewStep: boolean
+}): React.ReactElement {
   const {
-    formik: { values: formValues, setFieldValue }
+    formik: { values: formValues, setFieldValue },
+    isNewStep
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -35,7 +39,10 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('pipelineSteps.stepNameLabel')} />
+        <FormInput.InputWithIdentifier
+          inputLabel={getString('pipelineSteps.stepNameLabel')}
+          isIdentifierEditable={isNewStep}
+        />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.Select

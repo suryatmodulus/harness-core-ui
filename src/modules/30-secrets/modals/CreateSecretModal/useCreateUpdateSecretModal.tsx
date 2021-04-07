@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Text, Color } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
-import type { SecretDTOV2, SecretResponseWrapper } from 'services/cd-ng'
+import type { SecretDTOV2 } from 'services/cd-ng'
 
-import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
+import CreateUpdateSecret, {
+  SecretIdentifiers,
+  SecretFormData
+} from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 
 import { useStrings } from 'framework/exports'
 import css from './useCreateSecretModal.module.scss'
@@ -12,20 +15,20 @@ import css from './useCreateSecretModal.module.scss'
 type SecretType = SecretDTOV2['type']
 
 export interface UseCreateSecretModalProps {
-  onSuccess?: () => void
+  onSuccess?: ((data: SecretFormData) => void) | (() => void)
 }
 
 export interface UseCreateSecretModalReturn {
-  openCreateSecretModal: (type: SecretType, secret?: SecretResponseWrapper) => void
+  openCreateSecretModal: (type: SecretType, secret?: SecretIdentifiers) => void
   closeCreateSecretModal: () => void
 }
 
 const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
   const [type, setType] = useState<SecretType>()
-  const [secret, setSecret] = useState<SecretResponseWrapper>()
-  const handleSuccess = (): void => {
+  const [secret, setSecret] = useState<SecretIdentifiers>()
+  const handleSuccess = (data: SecretFormData) => {
     hideModal()
-    props.onSuccess?.()
+    props.onSuccess?.(data)
   }
   const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
@@ -38,7 +41,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
         className={css.dialog}
       >
         <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
-          {secret?.secret.identifier
+          {secret?.identifier
             ? !type || type === 'SecretText'
               ? getString('secret.titleEditText')
               : getString('secret.titleEditFile')
@@ -54,7 +57,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
   )
 
   return {
-    openCreateSecretModal: (_type: SecretType | undefined, _secret: SecretResponseWrapper | undefined) => {
+    openCreateSecretModal: (_type: SecretType | undefined, _secret: SecretIdentifiers | undefined) => {
       setType(_type)
       setSecret(_secret)
       showModal()

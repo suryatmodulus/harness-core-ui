@@ -44,7 +44,7 @@ const executionContext: ExecutionContextParams = {
     },
     approvalStepComplete: {
       stepType: 'JiraApproval',
-      status: 'Expired'
+      status: 'Failed'
     }
   },
   pipelineStagesMap: new Map(),

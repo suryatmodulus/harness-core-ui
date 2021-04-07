@@ -1,0 +1,23 @@
+.trend {
+  width: 676px !important;
+  height: 200px;
+  padding-bottom: 0 !important;
+  .header {
+    height: 20px;
+    margin-bottom: var(--spacing-xsmall) !important;
+    align-items: center;
+    .headerTitle {
+      flex-grow: 1;
+    }
+    .timeRangeSelectorContainer {
+      margin-right: var(--spacing-medium);
+    }
+  }
+  .trendPopoverCrossIcon {
+    position: absolute;
+    padding-right: var(--spacing-medium);
+    padding-top: var(--spacing-small);
+    right: 0;
+    top: 0;
+  }
+}

@@ -13,32 +13,74 @@ import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
 import css from './ExecutionStageDiagram.module.scss'
 
-export const calculateDepthCount = <T>(items: Array<ExecutionPipelineNode<T>>): number => {
-  let depth = 1 // half of gap
-  items?.forEach(node => {
-    if (node.group) {
-      depth += 0.8
-      const groupItems = node.group.items
-      let maxParallelLength = 0
-      let maxGroupDepth = 0
-      groupItems.forEach(groupItem => {
-        if (groupItem.parallel && groupItem.parallel.length > maxParallelLength) {
-          maxParallelLength = groupItem.parallel.length
+export const containGroup = <T>(nodes: Array<ExecutionPipelineNode<T>>): boolean => {
+  let contain = false
+  nodes.forEach(node => {
+    if (node.group) contain = true
+    else if (node.parallel) contain = contain || containGroup(node.parallel)
+  })
+  return contain
+}
+
+export const calculateDepth = <T>(
+  node: ExecutionPipelineNode<T>,
+  groupStatesMap: Map<string, GroupState<T>>,
+  spaceAfterGroup: number,
+  SPACE_AFTER_GROUP: number
+): number => {
+  const depth = 1
+  let groupMaxDepth = 0
+  if (node?.group) {
+    const stepState = groupStatesMap.get(node.group.identifier)
+    // collapsed group
+    if (stepState?.collapsed) {
+      return 1
+    }
+    // expanded group
+    if (node.group.items?.length > 0) {
+      groupMaxDepth = 0
+      node.group.items.forEach(nodeG => {
+        let depthInner = 0
+        if (nodeG?.group) {
+          // group
+          depthInner = calculateDepth(nodeG, groupStatesMap, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP) + SPACE_AFTER_GROUP
+        } else if (nodeG?.parallel) {
+          // parallel
+          nodeG?.parallel.forEach(nodeP => {
+            depthInner += calculateDepth(nodeP, groupStatesMap, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP)
+          })
+          // NOTE: adjustment for parallel stage
+          depthInner += nodeG?.parallel?.find(item => item.group) ? SPACE_AFTER_GROUP : 0
+        } else {
+          // step
+          depthInner = 1
         }
-        if (groupItem.group?.items) {
-          const groupDepth = calculateDepthCount(groupItem.group.items)
-          if (groupDepth > maxGroupDepth) {
-            maxGroupDepth = groupDepth
-          }
-        }
+        groupMaxDepth = Math.max(groupMaxDepth, depthInner)
       })
-      depth += maxParallelLength * 0.5
-      if (maxGroupDepth > 0) {
-        depth += maxGroupDepth
-      }
+    }
+    groupMaxDepth += spaceAfterGroup
+  }
+
+  return Math.max(groupMaxDepth, depth)
+}
+
+export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<T>>, HEADER_DEPTH: number): number => {
+  let maxNum = 0
+
+  items.forEach(node => {
+    let num = 0
+    if (node.group) {
+      num = HEADER_DEPTH
+      num += calculateGroupHeaderDepth(node.group.items, HEADER_DEPTH)
+      maxNum = Math.max(maxNum, num)
+    } else if (node.parallel && node.parallel[0]?.group) {
+      num = HEADER_DEPTH
+      num += calculateGroupHeaderDepth(node.parallel[0].group.items, HEADER_DEPTH)
+      maxNum = Math.max(maxNum, num)
     }
   })
-  return depth
+
+  return maxNum
 }
 
 export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItemStatus): React.CSSProperties => {
@@ -123,6 +165,12 @@ export const getStatusProps = (
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
+      case ExecutionPipelineItemStatus.WAITING:
+        secondaryIcon = 'execution-warning'
+        secondaryIconProps.size = 20
+        secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        break
       case ExecutionPipelineItemStatus.SUCCESS:
       case ExecutionPipelineItemStatus.SUCCEEDED:
         secondaryIcon = 'execution-success'
@@ -203,7 +251,10 @@ export interface GroupState<T> {
 export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Map<string, GroupState<T>> => {
   let groupState = new Map<string, GroupState<T>>()
   items.forEach(node => {
-    if (node.group) {
+    if (node.parallel) {
+      const itemsGroupState = getGroupsFromData(node.parallel)
+      groupState = new Map([...groupState, ...itemsGroupState])
+    } else if (node.group) {
       groupState.set(node.group.identifier, {
         collapsed: false,
         name: node.group.name,

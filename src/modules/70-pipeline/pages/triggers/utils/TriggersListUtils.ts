@@ -2,6 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 // temporary mock data
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { GetActionsListQueryParams } from 'services/pipeline-ng'
+import type { StringKeys } from 'framework/exports'
 import { TriggerTypes } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders: Record<
@@ -36,7 +37,7 @@ export const getTriggerIcon = ({
   return GitSourceProviders.GITHUB?.iconName as IconName
 }
 
-const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInterface => ({
+const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapInterface => ({
   drawerLabel: getString('pipeline-triggers.triggersLabel'),
   drawerSubLabel: getString('pipeline-triggers.triggersSubLabel'),
   showAllLabel: getString('pipeline-triggers.showAllTriggers'),
@@ -103,7 +104,7 @@ const triggerDrawerMap = (getString: (key: string) => string): AddDrawerMapInter
   ]
 })
 
-export const getSourceRepoOptions = (getString: (str: string) => string): { label: string; value: string }[] => [
+export const getSourceRepoOptions = (getString: (str: StringKeys) => string): { label: string; value: string }[] => [
   { label: getString('repo-provider.githubLabel'), value: GitSourceProviders.GITHUB.value },
   { label: getString('repo-provider.gitlabLabel'), value: GitSourceProviders.GITLAB.value },
   { label: getString('repo-provider.bitbucketLabel'), value: GitSourceProviders.BITBUCKET.value },
@@ -111,7 +112,7 @@ export const getSourceRepoOptions = (getString: (str: string) => string): { labe
   { label: getString('repo-provider.customLabel'), value: GitSourceProviders.CUSTOM.value }
 ]
 
-export const getCategoryItems = (getString: (key: string) => string): AddDrawerMapInterface =>
+export const getCategoryItems = (getString: (key: StringKeys) => string): AddDrawerMapInterface =>
   triggerDrawerMap(getString)
 
 export interface ItemInterface {

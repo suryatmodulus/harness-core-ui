@@ -1,6 +1,10 @@
 .container {
   padding: var(--spacing-small) var(--spacing-large);
-
+  :global {
+    .bp3-collapse-body {
+      max-height: calc(100vh - 250px);
+    }
+  }
   .header {
     display: grid;
     grid-template-columns: 50px 1fr 50px;

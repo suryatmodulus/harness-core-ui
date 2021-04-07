@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Project Page List User Profile 1`] = `
+exports[`User Profile Page User Profile 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody filled"
@@ -277,6 +277,9 @@ exports[`Project Page List User Profile 1`] = `
                   >
                     My Source Code Managers
                   </p>
+                  <div
+                    class="table"
+                  />
                   <div
                     class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
                   >

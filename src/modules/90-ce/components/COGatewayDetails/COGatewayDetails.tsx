@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, Tabs, Tab, Button, Container, Icon, Text } from '@wings-software/uicore'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
@@ -8,7 +9,7 @@ import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/exports'
-import { useSaveService, Service, useAttachTags } from 'services/lw'
+import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import css from './COGatewayDetails.module.scss'
 interface COGatewayDetailsProps {
@@ -24,6 +25,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
   const [saveInProgress, setSaveInProgress] = useState<boolean>(false)
+  const [activeConfigStep, setActiveConfigStep] = useState<{ count?: number; tabId?: string } | null>(null)
   const tabs = ['configuration', 'setupAccess', 'review']
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -49,13 +51,31 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       tagValue
     }
   })
+
+  const setInstancesFilterTags = async () => {
+    const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
+    await assignFilterTags({
+      Text: `id = [${instanceIDs}]` // eslint-disable-line
+    })
+  }
+
   const onSave = async (): Promise<void> => {
     try {
       setSaveInProgress(true)
-      const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
-      await assignFilterTags({
-        Text: `id = [${instanceIDs}]` // eslint-disable-line
-      })
+      const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+      const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
+      if (hasInstances) {
+        setInstancesFilterTags()
+        routing.instance = {
+          filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
+        }
+      } else {
+        routing.instance = {
+          filter_text: '', // eslint-disable-line
+          scale_group: props.gatewayDetails.routing.instance.scale_group // eslint-disable-line
+        }
+      }
+
       const gateway: Service = {
         name: props.gatewayDetails.name,
         org_id: orgIdentifier, // eslint-disable-line
@@ -68,13 +88,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
         // eslint-disable-next-line
         health_check: props.gatewayDetails.healthCheck,
-        routing: {
-          instance: {
-            filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
-          },
-          ports: props.gatewayDetails.routing.ports,
-          lb: undefined
-        },
+        routing,
         opts: {
           preserve_private_ip: false, // eslint-disable-line
           always_use_private_ip: false // eslint-disable-line
@@ -132,6 +146,24 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     }
     return getString('next')
   }
+
+  const handleReviewDetailsEdit = (tabDetails: {
+    id: string
+    metaData?: { activeStepCount?: number; activeStepTabId?: string }
+  }) => {
+    setSelectedTabId(tabDetails.id)
+    if (!_isEmpty(tabDetails.metaData)) {
+      const activeStepDetails: { count?: number; tabId?: string } = {}
+      if (tabDetails.metaData?.activeStepCount) {
+        activeStepDetails['count'] = tabDetails.metaData.activeStepCount
+      }
+      if (tabDetails.metaData?.activeStepCount) {
+        activeStepDetails['tabId'] = tabDetails.metaData.activeStepTabId
+      }
+      setActiveConfigStep(activeStepDetails)
+    }
+  }
+
   return (
     <Container style={{ overflow: 'scroll', maxHeight: '100vh', backgroundColor: 'var(--white)' }}>
       <Breadcrumbs
@@ -167,6 +199,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 setGatewayDetails={props.setGatewayDetails}
                 valid={validConfig}
                 setValidity={setValidConfig}
+                activeStepDetails={activeConfigStep}
               />
             }
           />
@@ -203,7 +236,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 <Text className={css.tabTitle}>3. {getString('review')}</Text>
               </Layout.Horizontal>
             }
-            panel={<COGatewayReview gatewayDetails={props.gatewayDetails} setSelectedTabId={setSelectedTabId} />}
+            panel={<COGatewayReview gatewayDetails={props.gatewayDetails} onEdit={handleReviewDetailsEdit} />}
           />
         </Tabs>
       </Container>

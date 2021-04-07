@@ -14,6 +14,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/framework/app/App.tsx',
+    '!src/**/*.d.ts',
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/__tests__/**',
@@ -50,10 +51,10 @@ module.exports = {
   },
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 50,
-      functions: 50,
-      lines: 70
+      statements: 60,
+      branches: 40,
+      functions: 40,
+      lines: 60
     }
   },
   transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es|p-debounce)/)']

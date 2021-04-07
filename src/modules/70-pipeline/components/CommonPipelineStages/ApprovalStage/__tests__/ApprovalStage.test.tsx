@@ -8,6 +8,7 @@ import { ApprovalStageSetupShellMode } from '../ApprovalStageSetupShellMode'
 import { ApprovalStage } from '../ApprovalStage'
 import {
   getDummyPipelineContextValue,
+  getDummyPipelineContextValueJiraApproval,
   getPropsForMinimalStage,
   mockYamlSnippetResponse
 } from './ApprovalStageTestsHelper'
@@ -80,7 +81,7 @@ describe('Approval Stage minimal view', () => {
       approvalType: 'HarnessApproval'
     })
     act(() => {
-      fireEvent.click(getByText('Harness UI Approval'))
+      fireEvent.click(getByText('Harness Approval'))
     })
 
     act(() => {
@@ -94,6 +95,64 @@ describe('Approval Stage minimal view', () => {
             identifier: 'stagename',
             description: undefined,
             approvalType: 'HarnessApproval'
+          }
+        },
+        'stagename'
+      )
+    )
+  })
+})
+
+describe('Jira Approval Stage minimal view', () => {
+  test('Basic render, selection and setup stage', async () => {
+    const props = getPropsForMinimalStage()
+    const { container, getByText, queryByText } = render(
+      <TestWrapper>
+        <ApprovalStage
+          minimal={true}
+          stageProps={props.stageProps}
+          name={''}
+          type={''}
+          icon={'service-jira'}
+          isDisabled={false}
+          isApproval={true}
+          title="My approval stage"
+          description={''}
+        />
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.click(getByText('Set Up Stage'))
+    })
+    await waitFor(() => queryByText('Stage name is mandatory'))
+
+    const nameInput = container.querySelector('.bp3-input')
+    act(() => {
+      fireEvent.change(nameInput!, { target: { value: 'stagename' } })
+    })
+    expect(props.stageProps?.onChange).toBeCalledTimes(5)
+    act(() => {
+      fireEvent.click(getByText('Jira'))
+    })
+    expect(props.stageProps?.onChange).toBeCalledWith({
+      name: 'stagename',
+      identifier: 'stagename',
+      description: undefined,
+      approvalType: 'JiraApproval'
+    })
+
+    act(() => {
+      fireEvent.click(getByText('Set Up Stage'))
+    })
+    await waitFor(() =>
+      expect(props.stageProps?.onSubmit).toBeCalledWith(
+        {
+          stage: {
+            name: 'stagename',
+            identifier: 'stagename',
+            description: undefined,
+            approvalType: 'JiraApproval'
           }
         },
         'stagename'
@@ -117,7 +176,9 @@ describe('Approval Stage shell view', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-
+    act(() => {
+      fireEvent.click(getByText('Approval Stage Overview'))
+    })
     act(() => {
       fireEvent.change(getByDisplayValue('ApprovalStep'), { target: { value: 'changedstagename' } })
     })
@@ -168,6 +229,80 @@ describe('Approval Stage shell view', () => {
       isSplitViewOpen: true,
       isDrawerOpened: true,
       splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'HarnessApproval' },
+      drawerData: { type: 'SkipCondition' }
+    })
+  })
+})
+
+describe('Jira Approval Stage shell view', () => {
+  beforeEach(() => {
+    jest
+      .spyOn(services, 'useGetInitialStageYamlSnippet')
+      .mockReturnValue(mockYamlSnippetResponse as UseGetReturn<any, services.Failure, any, unknown>)
+  })
+  test('Setup shell view tests', async () => {
+    const pipelineContextMockValue = getDummyPipelineContextValueJiraApproval()
+    const { container, getByDisplayValue, getByText, getAllByText, queryByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <ApprovalStageSetupShellMode />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.click(getByText('Approval Stage Overview'))
+    })
+    act(() => {
+      fireEvent.change(getByDisplayValue('ApprovalStep'), { target: { value: 'changedstagename' } })
+    })
+
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
+
+    const skipCoditionInputInOverview = container.querySelector('[name="skipCondition"]')
+    act(() => {
+      fireEvent.change(skipCoditionInputInOverview!, { target: { value: 'randomskipcondition' } })
+    })
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
+
+    // Move to next tab
+    act(() => {
+      fireEvent.click(getByText('Next'))
+    })
+    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
+    const nodeStart = container.querySelector('.nodeStart')
+    expect(nodeStart).toBeTruthy()
+
+    // Switch back to first tab
+    act(() => {
+      fireEvent.click(getByText('Approval Stage Overview'))
+    })
+    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
+    expect(
+      queryByText(
+        /In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages./
+      )
+    ).toBeTruthy()
+
+    // Open failure strategy panel
+    act(() => {
+      fireEvent.click(getByText('Failure Strategy'))
+    })
+    expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
+      isSplitViewOpen: true,
+      isDrawerOpened: true,
+      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'JiraApproval' },
+      drawerData: { type: 'FailureStrategy' }
+    })
+
+    // Open the skip conditions panel (next to failure strategy)
+    act(() => {
+      fireEvent.click(getAllByText('Skip Condition')[0])
+    })
+    expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
+      isSplitViewOpen: true,
+      isDrawerOpened: true,
+      splitViewData: { selectedStageId: 'ApprovalStep', type: 'StageView', stageType: 'JiraApproval' },
       drawerData: { type: 'SkipCondition' }
     })
   })

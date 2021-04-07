@@ -669,7 +669,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 </form>
               </div>
               <div
-                class="Accordion--accordion sectionCard"
+                class="Accordion--accordion sectionCard shadow"
               >
                 <div
                   class="Accordion--panel"
@@ -703,22 +703,17 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         class="Accordion--details"
                         data-testid="variables-details"
                       >
-                        <form
-                          class="FormikForm--main"
+                        <div
+                          class="stageSection"
                         >
-                          <div>
-                            <button
-                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-                              type="button"
-                            >
-                              <span
-                                class="bp3-button-text"
-                              >
-                                Add Variable
-                              </span>
-                            </button>
+                          <div
+                            class="stageDetails"
+                          >
+                            <div>
+                              {"a":"a","variables":[],"canAddVariable":true}
+                            </div>
                           </div>
-                        </form>
+                        </div>
                       </div>
                     </div>
                   </div>

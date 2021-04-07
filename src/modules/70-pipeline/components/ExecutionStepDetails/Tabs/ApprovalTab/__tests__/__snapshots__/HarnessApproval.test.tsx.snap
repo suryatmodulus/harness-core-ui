@@ -547,60 +547,88 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
         Approval inputs
       </div>
       <div
-        class="bp3-form-group"
+        class="formRow labels"
       >
-        <label
-          class="bp3-label"
-          for="approverInputs[0].value"
-        >
-          var1
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
+        <span>
+          Variable Name
+        </span>
+        <span>
+          Default value
+        </span>
+      </div>
+      <div
+        class="formRow"
+      >
         <div
-          class="bp3-form-content"
+          class="TextInput--main"
         >
           <div
-            class="bp3-input-group"
+            class="bp3-input-group bp3-disabled"
           >
             <input
-              autocomplete="off"
               class="bp3-input"
-              name="approverInputs[0].value"
+              disabled=""
+              name="approverInputs[0].name"
               type="text"
-              value="val10"
+              value="var1"
             />
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="approverInputs[0].value"
+                type="text"
+                value="val10"
+              />
+            </div>
           </div>
         </div>
       </div>
       <div
-        class="bp3-form-group"
+        class="formRow"
       >
-        <label
-          class="bp3-label"
-          for="approverInputs[1].value"
-        >
-          var2
-           
-          <span
-            class="bp3-text-muted"
-          />
-        </label>
         <div
-          class="bp3-form-content"
+          class="TextInput--main"
         >
           <div
-            class="bp3-input-group"
+            class="bp3-input-group bp3-disabled"
           >
             <input
-              autocomplete="off"
               class="bp3-input"
-              name="approverInputs[1].value"
+              disabled=""
+              name="approverInputs[1].name"
               type="text"
-              value="val20"
+              value="var2"
             />
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="approverInputs[1].value"
+                type="text"
+                value="val20"
+              />
+            </div>
           </div>
         </div>
       </div>

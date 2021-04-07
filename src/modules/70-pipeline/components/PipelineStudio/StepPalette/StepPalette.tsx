@@ -89,7 +89,6 @@ const dataSourceFactory = (stageType: StageTypes, isProvisioner?: boolean): any 
     case StageTypes.DEPLOY:
       return isProvisioner ? useGetProvisionerSteps : useGetSteps
     case StageTypes.APPROVAL:
-      // Replace this with approval step palette API
       return useGetSteps
     case StageTypes.FEATURE:
       return useGetFeatureSteps
@@ -152,13 +151,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
     /* istanbul ignore else */ if (stepsCategories) {
-      const flowControlStep = {
-        name: 'Flow Control',
-        stepsData: [{ name: 'Barriers', type: 'BARRIER' }],
-        stepCategories: []
-      }
-      setStepsCategories([...stepsCategories, flowControlStep])
-      setOriginalCategories([...stepsCategories, flowControlStep])
+      setStepsCategories(stepsCategories)
+      setOriginalCategories(stepsCategories)
     }
   }, [stepsData?.data?.stepCategories])
 

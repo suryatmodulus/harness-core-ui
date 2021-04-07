@@ -253,9 +253,11 @@ const RenderWebhookIcon = ({
       column.accountId
     }&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
 
-  if (webhookSourceRepo === GitSourceProviders.CUSTOM.value && webhookSecret) {
+  if (webhookSourceRepo === GitSourceProviders.CUSTOM.value) {
     const curlCommand = `curl -X POST 
-    -H 'X-Harness-Webhook-Token: ${webhookSecret}' -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}'
+    ${
+      (webhookSecret && `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || ''
+    } -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}'
      --url ${webhookUrl}
       -d '{
         "object_kind": "merge_request",

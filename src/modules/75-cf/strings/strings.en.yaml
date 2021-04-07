@@ -1,0 +1,320 @@
+shared:
+  individual: Individual
+  target: '{{ $.pipelineSteps.targetLabel }}'
+  segment: Segment
+  segments: Segments
+  environment: environment
+  lastEvaluated: Last Evaluated
+  variation: Variation
+  variations: Variations
+  prerequisites: Prerequisites
+  selectEnvironment: Select environment
+  evaluations: Evaluations
+  flags: Flags
+  rules: Rules
+  archived: archived
+  selected: '{{ counter }} selected'
+creationModal:
+  jsonType: JSON
+  variationSettingsHeading: Variation settings
+  flagType: Flag Type
+  defaultRules: Default rules for the flag
+  flagOn: If the flag is ON, serve
+  flagOff: If the flag is OFF, serve
+  saveAndClose: Save and Close
+  nameIsRequired: Variation name is required
+  valueIsRequired: Variation value is required
+  idIsRequired: Variation identifier is required
+  defaultVariationIsRequired: Default variation is required
+  dataType: Data type
+  defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
+  testFlagOption: Test the Flag
+  aboutFlag:
+    aboutFlagHeading: About the flag
+    permaFlag: This is a permanent flag
+    nameRequired: Flag name is required
+    idRequired: Flag identifier is required
+    ffNamePlaceholder: Enter Feature Flag name...
+    ffRegex: Identifier can only contain alphanumerics, _ and $
+    tagsOptional: Tags (optional)
+    tagsPlaceholder: Add Tags
+    permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
+testTheFlag:
+  testFlagHeading: Test the flag
+  setupAppText: "Let's set up your application and code so that it can communicate with our platform"
+  selectSdk: Select Your SDK
+  sdkClient: Client
+  sdkServer: Server
+  selectSdkLanguage: Select the language
+  installNode: Install Node.js dependency
+  initClient: Initialize Client SDK
+  codeSample: Place this sample code we generated of your feature flag into your code
+  codeSampleNote: Please note that in the above example, it is whatever gets generated. This is just an example. This area can contain some minor notes if necessary.
+  verify: '{{ $.verify }}'
+  verifyText: "Once you're done, run your application so that we can verify that we are able to receive analytic events for your feature."
+  testFlagTargetHeading: Testing feature flag on production environment
+  confirmClose: Are you sure you want to close this modal?
+editVariation:
+  title: Edit Variations
+  add: + Variation
+  defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
+  envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.
+  applyToExistingEnvironments: Also apply to existing environments
+addPrerequisites:
+  addPrerequisitesHeading: Add Prerequisites
+  addPrerequisitesDesc: The following must be met before your flag can be enabled
+  selectFlag: Select a Flag
+  selectVariation: Select a Variation
+  editPrerequisitesHeading: Edit Prerequisites
+editDetails:
+  editDetailsHeading: Edit Flag Details
+  permaFlag: '{{ $.cf.creationModal.aboutFlag.permaFlag }}'
+boolean: Boolean
+multivariate: Multivariate
+featureNotReady: This feature is not yet ready. Please check back later.
+noFlag: You currently have no flags
+noTarget: There are currently no targets
+noTargetForEnv: There are currently no targets for this environment
+homepage:
+  slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
+  learnMore: Learn more about Feature Flags
+clause:
+  operators:
+    and: and
+    startsWith: 'starts with'
+    endsWith: 'ends with'
+    match: 'match'
+    contains: 'contains'
+    equal: 'equals'
+    equalSensitive: 'equals (sensitive)'
+    in: 'in'
+    matchSegment: 'Match Segment'
+featureFlags:
+  newFlag: + Flag
+  typeOfFlag: Select the Type of Flag You Want to Create
+  startVariation: Start by selecting the variation type that the flag will use
+  booleanBtnText: This is a simple ON/OFF toggle
+  multi: '{{ $.cf.multivariate }}'
+  multiBtnText: This is suitable for experiments
+  percentageRollout: 'Percentage Rollout'
+  turnOnHeading: Turn ON Flag
+  turnOffHeading: Turn OFF Flag
+  turnOnMessage: 'Please confirm that you want to turn on <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+  turnOffMessage: 'Please confirm that you want to turn off <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
+  defaultWillBeServed: '<strong>{{defaultVariation}}</strong> will be served.'
+  customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
+  defaultServedOn: '{{defaultVariation}} when flag is ON'
+  defaultServedOff: '{{defaultVariation}} when flag is OFF'
+  createdDate: 'Created: {{date}}'
+  modifiedDate: 'Modified: {{date}}'
+  prerequisitesDesc: '(what’s required before enabling flags)'
+  ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
+  ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
+  bucketBy: Bucket by <strong>{{targetField}}</strong>
+  bucketOverflow: Cannot set above 100%
+  serveVariationToTarget: '+ Serve variation to Target'
+  serveVariationToTargetLabel: Serve Variation to Target
+  customRuleOnRequest: '+ On Request, check for condition and serve variation'
+  toTarget: to target
+  ifClause: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}'
+  ifClauseServe: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve'
+  ifClauseServePercentageRollout: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve <strong>percentage rollout</strong>'
+  andClause: '- and <strong>{{attribute}}</strong> {{operator}} {{values}}'
+  commaSeparator: ', '
+  serve: serve
+  servePercentageRollout: serve <strong>percentage rollout</strong>
+  deleteFlag: Delete Flag
+  deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
+  archiveFlag: Archive Flag
+  archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
+  deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
+  archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
+  flagOff: Flag Targeting is OFF
+  flagOn: Flag Targeting is ON
+  flagWillTurnOn: Turn flag on for this environment upon save
+  flagWillTurnOff: Turn flag off for this environment upon save
+  targeting: Targeting
+  activity: '{{ $.activity }}'
+  results: Results
+  makeSure: Make sure your code is deployed
+  rules:
+    editRules: Edit Rules
+    flagOn: '{{ $.cf.creationModal.flagOn }}'
+    flagOff: '{{ $.cf.creationModal.flagOff }}'
+    defaultRules: Default Rules
+    customRules: Custom Rules (Serve specific targets differently)
+    serveVariationToTarget: '{{ $.cf.featureFlags.serveVariationToTargetLabel }}'
+    add: '{{ $.add }}'
+    toTarget: '{{ $.cf.featureFlags.toTarget }}'
+    following: to following
+    serveToFollowing: 'serve to following:'
+    onRequest: On Request
+    onRequestVariation: 'On Request, check for condition and serve variation'
+  flagFilters:
+    environment: '{{ $.environment }}'
+    envDefault: Production (Default)
+    any: Any
+    term: Term
+    switchOnOff: Switch (ON/OFF)
+    status: '{{ $.status }}'
+    createdDate: '{{ $.cf.targets.createdDate }}'
+    modifiedDate: Modified Date
+    owner: Owner
+    ownerOrPinPlaceholder: Individual or Team
+    creator: Creator
+    tagsPlaceholder: '{{ $.valueLabel }}'
+    flagsBy: Only list flags pinned by
+    target: '{{ $.pipelineSteps.targetLabel }}'
+    individualTargets: Individual Target or Target Segment
+    apply: '{{ $.filters.apply }}'
+    saveFilters: Save Filters
+    overwriteRadio: Overwrite Existing
+    createFilter: Create New Filter
+    defaultFilter: Default Filter
+    defaultFilterText: This filter will be applied by default when this listing is viewed everytime
+    filterVisible: Who can see this filter?
+    onlyMe: Only Me
+    everyone: '{{ $.filters.visibleToEveryone }}'
+    save: '{{ $.save }}'
+    cancel: '{{ $.cancel }}'
+  metrics:
+    noMetrics: No metrics
+    evaluations: '{{ count }} evaluations'
+    evaluationStatistics: Evaluation Statistic
+targets:
+  title: Targets
+  ID: '{{ $.common.ID }}'
+  name: name
+  targetSegment: Target Segment
+  lastActivity: '{{ $.lastActivity }}'
+  createdDate: Created Date
+  create: + Target(s)
+  list: Add a target
+  upload: Upload a list of targets (CSV files only)
+  enterName: 'Enter a Name'
+  enterValue: 'Enter a Value'
+  addTargetsLabel: Add Target(s)
+  addTargets: + Add Target(s)
+  noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
+  noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
+  uploadHeadline: Please upload a CSV file according to our <a href="https://docs.harness.io" target="_blank" rel="noreferrer">template</a>.
+  uploadHelp: 'Target CSV entry format: Name,Identifier'
+  uploadYourFile: Click to upload your file
+  uploadStats: <strong>Targets</strong> ({{ count }})
+  noneDefined: None Defined
+  deleteTarget: Delete Target
+  deleteTargetMessage: Are you sure you want to delete target <strong>{{name}}</strong>? This action cannot be undone.
+  deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+targetDetail:
+  title: 'Targets: Individual'
+  environmentLine: '<strong>Environment</strong>: {{name}}'
+  createdOnDate: Created on {{ date }}, {{ time }} PST
+  targetSetting: Target Settings
+  flagSetting: Flag Settings
+  attribute: ATTRIBUTE
+  attributes: Attributes ({{ counter }})
+  learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://docs.harness.io" target="_blank" rel="noreferrer">documentation</a>.
+  manuallyAdded: MANUALLY ADDED
+  addToSegment: Add to Segment
+  autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
+  exclusionList: EXCLUSION LIST
+  excludefromSegment: Exclude from Segment
+  removeSegment: Remove from list
+  noSegmentAdded: No Segment added
+  noSegmentMatched: No Segment matched
+  noSegmentExcluded: No Segment excluded
+  addTargetToSegment: Add Target to Segment
+  excludeTargetFromSegment: Exclude Target from Segment
+  exclude: Exclude
+  removeFromIncludeListTitle: Remove from include list
+  removeFromIncludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from include segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+  removeFromExcludeListTitle: Remove from exclusion list
+  removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
+  noFlagConfigured: No feature flags configured for this target
+  searchPlaceholder: Search Feature Flags...
+  deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+selectSegmentModal:
+  searchSegmentPlaceholder: Search for Segment by Name or Description
+  flagsUsingSegment: '{{ counter }} flag'
+  flagsUsingThisSegment: FLAGS USING THIS SEGMENT
+  empty: No Segment found
+segments:
+  create: + Segment
+  targetDefinition: Target Definition
+  usingSegment: Flags using this segment
+  usingSegmentWithCount: Flags using this segment ({{ count }})
+  modalTitle: Create a Segment
+  displayIcon: Display Icon
+  uploadImage: Upload an image
+  delete:
+    message: 'Are you sure you want to delete Segment: {{segmentName}}'
+    title: Delete Segment
+  nameRequired: Segment name is required
+  idRequired: Segment identifier is required
+  noSegment: There are currently no segments
+  noSegmentForEnv: There are currently no segments for this environment
+environments:
+  title: '{{ $.environments }}'
+  empty: 'There are currently no environments'
+  createdBy: 'Created by'
+  modifiedBy: 'Modified by'
+  adminEnvironments: 'Admin: Environments'
+  delete:
+    message: 'Are you sure you want to delete environment <strong>{{name}}</strong>?'
+    title: 'Delete Environment'
+  create:
+    title: 'Create an Environment'
+    description: 'An environment is the representation of your production or non-production infrastructure'
+    envTypeLabel: 'Environment type'
+    nameLabel: 'Name of your environment'
+  apiKeys:
+    addKeyTitle: Create SDK Key
+    message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
+    title: 'SDK Keys'
+    addKey: '+ Add Key'
+    clientType: '{{ $.cf.testTheFlag.sdkClient }}'
+    clientId: 'Client ID'
+    serverType: '{{ $.cf.testTheFlag.sdkServer }}'
+    deleteTitle: 'Confirm Key Delete'
+    deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
+    keyType: 'Key Type'
+    noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
+auditLogs:
+  title: Audit Logs
+  last7days: Last 7 days
+  searchPlaceholder: Search Activity
+  viewEventSummary: View Event Summary
+  timePST: 'TIME (PST)'
+  user: USER
+  action: ACTION
+  moduleFF: 'Module: Feature Flags'
+  flagCreated: Feature activation created
+  segmentCreated: Segment created
+  flagUpdated: Feature activation updated
+  unknown: Unknown activity
+  empty: No activity found during this time.
+  eventSummary: Event Summary
+  createdMessageFF: 'created feature flag'
+  createdMessageFFUpdate: 'updated feature flag'
+  createdMessageSegment: 'created segment'
+  yamlDifference: YAML Difference
+noEnvironment:
+  title: No Environment Available
+  message: Create an environment and let’s start configuring the targeting rules of your flag
+pipeline:
+  default: Default Setting # Placeholder, not a real text
+  stages:
+    setup:
+      title: Flag Setup # Placeholder, not a real text
+    execution:
+      title: Flag Execution # Placeholder, not a real text
+segmentDetail:
+  directlyAdded: Directly Added
+  autoAdded: Automatically Added Through Conditions
+  removeFomFlag: Remove from Flag
+  noFlagsUseThisSegment: No Flags use this segment.
+  addToFlag: + Add to Flag
+  addSegmentToFlag: Add Segment to Flag
+selectFlagsModal:
+  empty: No feature flags found.
+  searchPlaceholder: Search for Flag by name or description

@@ -1,8 +1,6 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
-import { render, act, fireEvent, queryByAttribute } from '@testing-library/react'
+import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import * as services from 'services/cd-ng'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
 import { HarnessApproval } from '../HarnessApproval'
@@ -10,7 +8,6 @@ import {
   getHarnessApprovalDeploymentModeProps,
   getHarnessApprovalInputVariableModeProps,
   mockUserGroupsResponse,
-  mockUsersResponse,
   getHarnessApprovalEditModeProps
 } from './HarnessApprovalTestHelper'
 
@@ -18,20 +15,18 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
+jest.mock('services/cd-ng', () => ({
+  useGetUserGroupList: () => mockUserGroupsResponse
+}))
+
 describe('Harness Approval tests', () => {
   beforeEach(() => {
     factory.registerStep(new HarnessApproval())
-    jest
-      .spyOn(services, 'getUsersPromise')
-      .mockResolvedValue(mockUsersResponse as UseGetReturn<any, services.Failure, any, unknown>)
-    jest
-      .spyOn(services, 'getUserGroupListPromise')
-      .mockResolvedValue(mockUserGroupsResponse as UseGetReturn<any, services.Failure, any, unknown>)
   })
 
   test('Basic snapshot - inputset mode', async () => {
     const props = getHarnessApprovalDeploymentModeProps()
-    const { container } = render(
+    const { container, getByText, queryByText } = render(
       <TestStepWidget
         template={props.inputSetData.template}
         initialValues={props.initialValues}
@@ -41,7 +36,9 @@ describe('Harness Approval tests', () => {
       />
     )
 
-    expect(container).toMatchSnapshot('harness-approval-inputset')
+    fireEvent.click(getByText('Submit'))
+    await waitFor(() => queryByText('Errors'))
+    expect(container).toMatchSnapshot('input set with errors')
   })
 
   test('Basic snapshot - deploymentform mode', async () => {
@@ -117,5 +114,9 @@ describe('Harness Approval tests', () => {
 
     await act(() => ref.current?.submitForm())
     expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
+
+    fireEvent.click(getByText('Approvers'))
+    await act(() => ref.current?.submitForm())
+    expect(queryByText('Please provide user groups.')).toBeTruthy()
   })
 })

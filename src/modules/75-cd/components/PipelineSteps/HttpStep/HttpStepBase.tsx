@@ -25,17 +25,21 @@ export const httpStepType: SelectOption[] = [
   { value: 'OPTIONS', label: 'OPTIONS' }
 ]
 
-export default function HttpStepBase(props: { formik: FormikProps<HttpStepFormData> }): React.ReactElement {
+export default function HttpStepBase(props: {
+  formik: FormikProps<HttpStepFormData>
+  isNewStep?: boolean
+}): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const {
-    formik: { values: formValues, setFieldValue }
+    formik: { values: formValues, setFieldValue },
+    isNewStep = true
   } = props
 
   return (
     <div className={stepCss.stepPanel}>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+        <FormInput.InputWithIdentifier isIdentifierEditable={isNewStep} inputLabel={getString('name')} />
       </div>
       <div className={stepCss.formGroup}>
         <FormInput.MultiTextInput name="spec.url" label={getString('UrlLabel')} multiTextInputProps={{ expressions }} />

@@ -43,6 +43,7 @@ interface BarrierProps {
   initialValues: BarrierData
   onUpdate?: (data: BarrierData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: BarrierData
     path?: string
@@ -54,7 +55,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   const {
     state: { pipeline }
   } = React.useContext(PipelineContext)
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
 
   const { getString } = useStrings()
   let barriers: SelectOption[] = []
@@ -87,10 +88,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           setFormikRef(formikRef, formik)
           return (
             <>
-              <FormInput.InputWithIdentifier
-                inputLabel={getString('name')}
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
-              />
+              <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               <FormInput.Select
                 className={css.width50}
                 label="Barrier Reference"
@@ -153,7 +151,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   }
 
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -177,6 +175,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       <BarrierWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

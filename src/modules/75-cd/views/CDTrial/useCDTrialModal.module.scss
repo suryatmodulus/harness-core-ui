@@ -1,0 +1,14 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  &.cdTrial {
+    width: 1100px;
+    border-left: none !important;
+  }
+}
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}

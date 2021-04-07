@@ -1,7 +1,8 @@
 import React, { Reducer } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import cx from 'classnames'
 
-import { ExpandingSearchInput } from '@wings-software/uicore'
+import { ExpandingSearchInput, Icon } from '@wings-software/uicore'
 import { useGetToken, logBlobPromise } from 'services/logs'
 import { String } from 'framework/exports'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
@@ -27,6 +28,7 @@ const STATUSES_FOR_ACCORDION_SKIP: LogViewerAccordionStatus[] = ['LOADING', 'NOT
 export interface LogsContentProps {
   mode: 'step-details' | 'console-view'
   toConsoleView?: string
+  errorMessage?: string
 }
 
 type LogsReducer = Reducer<State, Action<ActionType>>
@@ -157,7 +159,7 @@ export function highlightSearchText(
 }
 
 export function LogsContent(props: LogsContentProps): React.ReactElement {
-  const { mode, toConsoleView = '' } = props
+  const { mode, toConsoleView = '', errorMessage } = props
   const requestQueue = React.useRef(new PQueue())
   const { accountId, pipelineIdentifier, projectIdentifier, executionIdentifier, orgIdentifier } = useParams<
     ExecutionPathProps
@@ -383,7 +385,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   })
 
   return (
-    <div className={css.main} data-mode={mode}>
+    <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
         <div className={css.searchContainer}>
@@ -418,6 +420,15 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           <String tagName="div" className={css.noLogs} stringID="logs.noLogsText" />
         )}
       </div>
+      {mode === 'console-view' && errorMessage ? (
+        <div className={css.errorMessage}>
+          <String className={css.summary} tagName="div" stringID="summary" />
+          <div className={css.error}>
+            <Icon name="circle-cross" />
+            <span>{errorMessage}</span>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

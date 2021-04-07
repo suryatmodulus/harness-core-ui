@@ -14,7 +14,7 @@ const ActiveServiceInstances: React.FC<ActiveServiceInstancesProps> = () => {
     <Container width={600} height={600} border={{ color: 'dark' }}>
       <Layout.Vertical spacing="medium">
         <Layout.Vertical spacing="medium">
-          <Text font="medium">{getString('serviceDashboard.activeServiceInstancesLabel')}</Text>
+          <Text font="medium">{getString('dashboards.serviceDashboard.activeServiceInstancesLabel')}</Text>
           <Layout.Horizontal spacing="medium">
             <Text font="large">{mockData.details.total}</Text>
           </Layout.Horizontal>

@@ -89,6 +89,7 @@ export const InfraProvisioningBase = (
                         hasDependencies={false}
                         stepsFactory={stepsFactory}
                         stage={formik.values.provisioner}
+                        originalStage={formik.values.originalProvisioner}
                         ref={executionRef}
                         updateStage={() => {
                           formik.submitForm()

@@ -1,0 +1,24 @@
+[
+  {
+    "identifier": "606312ffef03c30721080b85",
+    "name": "gitSyncRepoTest",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "gitSyncTest",
+    "repo": "https://github.com/wings-software/triggerNgDemo",
+    "branch": "master",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": null
+  },
+  {
+    "identifier": "6062f6e4ef03c30721080b81",
+    "name": "gitSyncRepo",
+    "projectIdentifier": "dummyProject",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "inline5656",
+    "repo": "https://www.github.com/testRepo.git",
+    "branch": "feature",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": null
+  }
+]

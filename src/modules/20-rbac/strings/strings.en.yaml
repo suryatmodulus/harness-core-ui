@@ -1,0 +1,6 @@
+permissionLabels:
+  createEdit: Create / Edit
+  view: View
+  pipelineExecution: Use in Pipeline Execution
+  delete: '{{ $.delete}}'
+  access: Access

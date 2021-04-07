@@ -132,7 +132,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  Helm Chart Version (optional)
                    
                   <span
                     class="bp3-text-muted"

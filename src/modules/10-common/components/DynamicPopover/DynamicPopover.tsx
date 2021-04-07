@@ -2,8 +2,14 @@ import React, { useState, useMemo } from 'react'
 import { usePopper } from 'react-popper'
 import cx from 'classnames'
 import type * as PopperJS from '@popperjs/core'
+import { useGlobalEventListener } from '@common/hooks'
 import css from './DynamicPopover.module.scss'
 
+declare global {
+  interface WindowEventMap {
+    UPDATE_POPOVER_POSITION: CustomEvent<string>
+  }
+}
 export interface DynamicPopoverHandlerBinding<T> {
   show: (
     ref: Element | PopperJS.VirtualElement | string,
@@ -33,6 +39,15 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const [referenceElement, setReferenceElement] = useState<Element | PopperJS.VirtualElement | null>(null)
   const [visible, setVisibility] = useState<boolean>(false)
   const [hideCallback, setHideCallBack] = useState<() => void | undefined>()
+
+  const { styles, attributes, forceUpdate } = usePopper(referenceElement, popperElement, {
+    modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
+    placement: 'auto'
+  })
+
+  useGlobalEventListener('UPDATE_POPOVER_POSITION', () => {
+    forceUpdate?.()
+  })
 
   const handler = useMemo(
     () =>
@@ -73,10 +88,6 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   React.useEffect(() => {
     bind(handler)
   }, [bind, handler])
-
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    modifiers: [{ name: 'arrow', options: { element: arrowElement } }]
-  })
 
   return (
     <>

@@ -34,6 +34,7 @@ type PatchKind =
   | 'addToExcludeList'
   | 'removeFromExcludeList'
   | 'updateRule'
+  | 'updatePermanent'
 
 export type PrerequisiteFeature = Pick<Prerequisite, 'feature'>
 export type VariationIdentifier = Pick<Variation, 'identifier'>[]
@@ -52,6 +53,9 @@ export interface UpdateDescriptionParams {
 }
 export interface SetStateParams {
   state: 'on' | 'off'
+}
+export interface UpdatePermanentParams {
+  state: boolean
 }
 export interface TargetToVariationParams {
   variation: string
@@ -137,6 +141,7 @@ type ParameterType =
   | UpdateClauseOnSegmentParams
   | RemoveClauseOnSegmentParams
   | UpdateRuleVariation
+  | UpdatePermanentParams
 
 export interface Instruction<Params extends ParameterType = ParameterType> {
   kind: PatchKind
@@ -338,6 +343,11 @@ const removeClauseOnSegment: (clauseID: string) => Instruction<RemoveClauseOnSeg
   'removeClause',
   shape<RemoveClauseOnSegmentParams>('clauseID')
 )
+
+const updatePermanent: (state: boolean) => Instruction<UpdatePermanentParams> = unaryInstructionCreator(
+  'updatePermanent',
+  shape<UpdatePermanentParams>('permanent')
+)
 function updateRuleVariation(ruleID: string, variation: string): Instruction<UpdateRuleVariation>
 function updateRuleVariation(
   ruleID: string,
@@ -450,6 +460,7 @@ export default {
     updateDescription,
     addPrerequisite,
     updatePrequisite,
+    updatePermanent,
     removePrerequisite,
     addVariation,
     updateVariation,

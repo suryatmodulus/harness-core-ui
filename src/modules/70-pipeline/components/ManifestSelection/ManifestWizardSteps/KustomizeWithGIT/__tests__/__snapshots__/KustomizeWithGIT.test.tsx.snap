@@ -40,7 +40,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -60,7 +60,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -286,7 +286,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  Kustomize plugin path
                    
                   <span
                     class="bp3-text-muted"
@@ -511,7 +511,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -531,7 +531,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -757,7 +757,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  Kustomize plugin path
                    
                   <span
                     class="bp3-text-muted"
@@ -982,7 +982,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="Enter Manifest Identifier"
                   type="text"
                   value=""
                 />
@@ -1002,7 +1002,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  GIT Fetch Type
                    
                   <span
                     class="bp3-text-muted"
@@ -1228,7 +1228,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  Kustomize plugin path
                    
                   <span
                     class="bp3-text-muted"

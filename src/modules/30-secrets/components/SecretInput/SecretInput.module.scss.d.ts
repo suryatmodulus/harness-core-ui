@@ -1,6 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly inputButton: string
+  readonly container: string
+  readonly containerLink: string
+  readonly containerLinkText: string
+  readonly containerEditBtn: string
 }
 export default styles

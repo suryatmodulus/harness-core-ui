@@ -17,7 +17,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { noop, pick } from 'lodash-es'
-import { useToaster } from '@common/exports'
+import { useToaster, StringUtils } from '@common/exports'
 import { usePostGitSync, GitSyncConfig } from 'services/cd-ng'
 
 import { useStrings } from 'framework/exports'
@@ -30,6 +30,7 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ConnectorCardInterface, gitCards } from '@gitsync/common/gitSyncUtils'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './GitSyncRepoForm.module.scss'
 
 interface GitSyncRepoFormProps {
@@ -49,6 +50,8 @@ interface ModalConfigureProps {
 interface GitSyncFormInterface {
   gitConnectorType: GitSyncConfig['gitConnectorType']
   repo: string
+  name: string
+  identifier: string
   branch: string
   gitConnector: ConnectorReferenceFieldProps['selected']
 }
@@ -66,6 +69,8 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
   const defaultInitialFormData: GitSyncFormInterface = {
     gitConnectorType: Connectors.GITHUB as GitSyncConfig['gitConnectorType'],
     repo: '',
+    name: '',
+    identifier: '',
     branch: '',
     gitConnector: undefined
   }
@@ -76,7 +81,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     try {
       modalErrorHandler?.hide()
       const response = await createGitSyncRepo(data)
-      showSuccess(getString('gitSync.successfullCreate'))
+      showSuccess(getString('gitsync.successfullCreate'))
       props.onSuccess?.(response)
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -88,18 +93,27 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.GREY_800}>
         {getString('enableGitExperience')}
       </Text>
-
+      <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
       <Layout.Horizontal>
         <Container width={'60%'}>
-          <Formik
+          <Formik<GitSyncFormInterface>
             initialValues={defaultInitialFormData}
             validationSchema={Yup.object().shape({
+              name: Yup.string().trim().required(getString('validation.nameRequired')),
+              identifier: Yup.string().when('name', {
+                is: val => val?.length,
+                then: Yup.string()
+                  .trim()
+                  .required(getString('validation.identifierRequired'))
+                  .matches(StringUtils.regexIdentifier, getString('validation.validIdRegex'))
+                  .notOneOf(StringUtils.illegalIdentifiers)
+              }),
               repo: Yup.string().trim().required(getString('validation.repositoryName')),
               branch: Yup.string().trim().required(getString('validation.branchName'))
             })}
             onSubmit={formData => {
               const gitSyncRepoData = {
-                ...pick(formData, ['gitConnectorType', 'repo', 'branch']),
+                ...pick(formData, ['gitConnectorType', 'repo', 'branch', 'name', 'identifier']),
                 gitConnectorRef: (formData.gitConnector as ConnectorSelectedValue)?.value,
                 projectIdentifier: projectIdentifier,
                 orgIdentifier: orgIdentifier
@@ -118,8 +132,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                   <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ top: 'large', bottom: 'large' }}>
                     {getString('selectGitProvider')}
                   </Text>
-
-                  <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
                   <Layout.Horizontal margin={{ bottom: 'large' }}>
                     {gitCards.map((cardData: ConnectorCardInterface) => {
                       const isSelected = cardData.type === formValues.gitConnectorType
@@ -158,6 +170,9 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       )
                     })}
                   </Layout.Horizontal>
+                  <Container className={css.formElm}>
+                    <NameId identifierProps={{ inputName: 'name' }} />
+                  </Container>
 
                   <ConnectorReferenceField
                     name="gitConnector"

@@ -3,6 +3,7 @@
 declare const styles: {
   readonly webhookConfigurationContainer: string
   readonly actionsContainer: string
+  readonly regenerateButton: string
   readonly nameIdDescriptionTags: string
   readonly heading: string
   readonly listenOnNewWebhook: string
@@ -11,6 +12,7 @@ declare const styles: {
   readonly payloadConditions: string
   readonly footer: string
   readonly fieldWarning: string
-  readonly eyeConOpen: string
+  readonly checkbox: string
+  readonly secureTokenLoader: string
 }
 export default styles

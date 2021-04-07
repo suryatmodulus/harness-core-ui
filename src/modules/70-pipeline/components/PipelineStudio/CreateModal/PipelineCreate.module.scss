@@ -8,10 +8,6 @@
     right: 10px;
   }
 
-  .helpText {
-    padding: 14px 0 31px !important;
-  }
-
   .layout {
     display: grid;
     grid-template-rows: 1fr auto auto auto;
@@ -19,6 +15,7 @@
     padding: 0 var(--spacing-xlarge) 0 var(--spacing-xlarge) !important;
     .formInput {
       width: 288px;
+      padding-bottom: var(--spacing-xlarge);
     }
 
     .startBtn {
@@ -32,7 +29,7 @@
   }
 }
 .heading {
-  padding: var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-small) var(--spacing-xlarge) !important;
+  padding: var(--spacing-xlarge) !important;
   font-size: 24px;
   line-height: 32px;
   font-weight: 600;

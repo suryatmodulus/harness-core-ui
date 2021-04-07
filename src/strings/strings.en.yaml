@@ -1,24 +1,3 @@
----
-common:
-  addVariable: Add Variable
-  editVariable: Edit variable
-  editVariableType: Edit variable type
-  removeThisVariable: Remove This Variable
-  durationPrefix: 'Duration: '
-  pipelineDetails: Pipeline Details
-  comments: Comments
-  approve: Approve
-  reject: Reject
-  My: My
-  jexlExpression: JEXL Expression
-  datePickerShortcuts:
-    Today: 'Today'
-    Yesterday: 'Yesterday'
-    Last2Days: 'Last 2 Days'
-    Last3Days: 'Last 3 Days'
-    LastWeek: 'Last Week'
-    LastMonth: 'Last Month'
-    Last2Months: 'Last 2 Months'
 harness: Harness # Name of the company
 signUp:
   signIn: 'Sign In'
@@ -33,7 +12,7 @@ signUp:
     emailPlaceholder: 'email@work.com'
     companyLabel: 'Company'
     companyPlaceholder: 'Your Company'
-    passwordPlaceholder: '6+ characters'
+    passwordPlaceholder: 6+ characters
   oAuth:
     signup: 'or sign up with'
     signin: 'or login with'
@@ -63,7 +42,6 @@ otherWorkloads: Other Workloads
 multipleService: Multiple Services
 orgLabel: Organization
 editPipeline: Edit Pipeline
-craetePipelineSubtitle: Let’s get you started by giving your pipeline a name
 users: Users
 roles: Roles
 newRole: New Role
@@ -135,6 +113,7 @@ addStage: Add Stage
 templates: Templates
 rollbackSteps: Rollback Steps
 noConnectorFound: No Connector Found
+noUserGroupsFound: No User Groups found
 saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
 kubernetesText: Kubernetes
@@ -154,7 +133,6 @@ refrencedBy: Referenced by
 activityHistoryLabel: Activity History
 connectionMode: Connection Mode
 credType: Credential Type
-secrets: 'Secrets'
 serviceDeploymentTypes:
   kubernetes: '{{$.kubernetesText}}'
   amazonEcs: '{{$.delegate.cardData.amazonECS.name}}'
@@ -238,7 +216,6 @@ tbd: TBD
 color: Color
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
-notifications: Notifications
 numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
 unsavedChanges: Unsaved changes
@@ -258,7 +235,6 @@ manifests: Manifests
 environments: Environments
 servicesWithCount: '{{ $.services }} ({{ count }})'
 buildText: Build
-pipeline: Pipeline
 pipelineStudio: Pipeline Studio
 stages: Stages
 buildsText: Builds
@@ -267,7 +243,7 @@ editService: Edit Service
 newEnvironment: New Environment
 editEnvironment: Edit Environment
 envType: Environment Type
-production: Production
+production: '{{$.common.production}}'
 nonProduction: Non Production
 primaryArtifactText: Primary Artifact
 artifactDisplay: '{{image}} (tag: #{{tag}})'
@@ -279,7 +255,7 @@ manifestsText: Manifest
 variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
-pluginPath: Path to Kustomize plugin
+pluginPath: Kustomize plugin path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
@@ -362,6 +338,7 @@ addNotification: + Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
 description: Description
+optionalField: '{{name}} (optional)'
 recentlyUsed: Recently Used
 applications: Applications
 stageDetails: Stage Details
@@ -443,11 +420,6 @@ review: 'Review'
 enabledLabel: 'Enabled'
 activity: 'Activity'
 store: Store
-permissionLabels:
-  createEdit: Create / Edit
-  view: View
-  pipelineExecution: Use in Pipeline Execution
-  delete: '{{ $.delete}}'
 canvasButtons:
   zoomIn: Zoom In
   zoomOut: Zoom Out
@@ -496,13 +468,6 @@ stepPalette:
   infrastructureProvisioners: 'Infrastructure Provisioners'
   showAllSteps: 'Show All Steps'
   searchPlaceholder: 'Search Step'
-cd:
-  continuousIntegration: 'Continuous Delivery'
-  dashboard:
-    subHeading: Let Harness take your software release process to the next level with Continuous Delivery
-    learnMore: Learn more about Continuous Delivery
-    createProject: '{{$.ci.dashboard.createProject}}'
-    orSelectExisting: '{{$.orSelectExisting}}'
 orgDetails:
   accessControlDescription: Manage users, create user groups and assign roles to your team. Fine tune your permissions with custom roles.
   governanceDescription: Precision control over all your Harness resources.
@@ -635,49 +600,6 @@ skipConditionText: |
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
-selectStrategy: Select a Strategy
-failureStrategy:
-  title: Failure Strategy
-  helpText: |
-    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-  defaultStageText: |
-    On all errors other than those specified in failure strategies defined here, perform action:
-failureTypeSelectLabel: On failure of type
-performAction: Perform Action
-failureStrategies:
-  fieldLabels:
-    retryCountLabel: Retry count
-    retryIntervalsLabel: Retry intervals
-    onTimeoutLabel: Post timeout action
-    onRetryFailureLabel: Post retry failure action
-  strategiesLabel:
-    Ignore: Ignore Failure
-    StageRollback: Rollback Stage
-    StepGroupRollback: Rollback Step Group
-    ManualIntervention: Manual Intervention
-    MarkAsSuccess: Mark As Success
-  errorTypeLabels:
-    Authentication: Authentication Errors
-    Authorization: Authorization Errors
-    Connectivity: Connectivity Errors
-    Timeout: Timeout Errors
-    Verification: Verification Errors
-    DelegateProvisioning: Delegate Provisioning Errors
-    AnyOther: Any Other
-  validation:
-    errorsRequired: At least one failure type is required
-    errorsMinimum: '{{ $.failureStrategies.validation.errorsRequired }}'
-    actionRequired: Action is required
-    retryCountInteger: Retry Count must be a positive integer
-    retryCountRequired: Retry Count is required
-    retryCountMinimum: Retry Count must be greater or equal to 1
-    retryCountMaximum: Retry Count cannot be more than {{ count }}
-    retryIntervalRequired: Retry Interval is Required
-    retryIntervalMinimum: At least one retry interval is Required
-    timeoutRequired: Timeout is required
-    onRetryFailureRequired: Retry failure action is required
-    onTimeoutRequired: Timeout failure action is required
-
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
 responseMapping: Response Mapping
@@ -761,7 +683,9 @@ authenticationSettings:
   selectUserGroup: Select User Group(s)
   allowLoginFromTheseDomains: Allow login from these domains
   domainNameRequired: At least one domain name is required
-gitFetchTypes: [{ label: 'Latest from Branch' }, { label: 'Specific Commit ID' }]
+gitFetchTypes:
+  fromBranch: 'Latest from Branch'
+  fromCommit: 'Specific Commit ID'
 snippets:
   copyToClipboard: Copy to Clipboard
   copied: Copied!
@@ -777,7 +701,7 @@ remote: 'Remote'
 resourcePage:
   title: RESOURCES
   connectors: '{{$.connectors.label}}'
-  secrets: '{{$.secrets}}'
+  secrets: '{{$.common.secrets}}'
   delegates: '{{$.delegate.delegates}}'
   templates: '{{$.templates}}'
   fileStore: File Store
@@ -876,15 +800,16 @@ secret:
   messageSelectSM: 'Please select a Secret Manager'
   placeholderSecretValue: 'Add your secret value'
   placeholderSecretReference: 'Add the Identifier of the secret to reference'
-  validationName: 'Name is required'
+  validationName: '{{ $.common.validation.nameIsRequired }}'
   validationNameChars: 'Name can only contain alphanumerics, _ and $'
-  validationValue: 'Value is required'
+  validationValue: '{{ $.common.validation.valueIsRequired }}'
   validationKms: 'Secret Manager is required'
   validationIdentifier: 'ID is required'
   labelText: 'Text'
   labelFile: 'File'
   labelSecretType: 'Secret type'
   noSecretsFound: 'No Secrets Found'
+  configureSecret: 'Configure Secret'
 usersPage:
   search: Search by Name or Email
 instanceFieldOptions:
@@ -894,21 +819,6 @@ instanceFieldOptions:
   instanceText: 'Instance Count'
   percentagePlaceHolder: 'Percentage'
   instanceHolder: 'Count'
-approvalStep:
-  message: 'Approval Message'
-  approvers: 'Approvers'
-  approverInputs: 'Inputs to be provided by approver'
-  includePipelineExecutionHistory: 'Include pipeline execution history'
-  userGroups: 'Groups'
-  minimumCount: 'Number of approvers that are required at this step'
-  disallowPipelineExecutor: 'Disallow the pipeline executor from approving the pipeline'
-  validation:
-    userGroups: 'Please provide user groups'
-    minimumCountOne: 'Minimum count cannot be less than one'
-    minimumCountRequired: 'Minimum count is required'
-  status:
-    APPROVE: Approved
-    REJECT: Rejected
 connected: Connected
 delegate:
   numberOfDelegates: 'Number of delegates'
@@ -1073,14 +983,11 @@ execution:
     statusMsg: '{{ count }} of {{ total }} approvals complete'
     criteriaMsg: Approval/Rejection Criteria Listed Below
     jiraTicket: 'JIRA Ticket Pending Approval:'
-    approvalCriteriaTitle: Approval Criteria
-    rejectionCriteriaTitle: Rejection Criteria
     allConditionsMsg: 'If all conditions are met for the following:'
     anyConditionsMsg: 'If any condition is met for the following:'
     conditions:
       equals: 'If {{ key }} equals'
       not_equals: 'If {{ key }} does not equals'
-      contains: 'If {{ key }} contains'
       in: 'If {{ key }} is in'
       not_in: 'If {{ key }} is not in'
 pipeline-notifications:
@@ -1180,12 +1087,10 @@ pipeline-triggers:
     event: 'Event'
     actions: Actions
     anyActions: Any Actions
-    viewToken: 'View Token'
-    copyToken: 'Copy Token'
     copiedToken: 'Successfully copied secure token'
     regenerateToken: 'Regenerate Token'
     regeneratedToken: 'Successfully regenerated secure token'
-    secureTokenRegenerateWarning: 'When the existing secure token is regenerated and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
+    secureTokenRegenerateWarning: 'When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.'
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
   conditionsPanel:
@@ -1282,6 +1187,7 @@ projectContextMenuRenderer:
   invite: 'Invite Collaborators'
 settingsLabel: 'Settings'
 pipelineSteps:
+  duplicateStep: Duplicate Step
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
@@ -1312,7 +1218,9 @@ pipelineSteps:
       manifestStore: STORE
       addManifest: + Add Manifest/Config File
   destroy: 'Destroy'
-  configTypes: [{ label: 'Inherit From Plan' }, { label: 'Inherit From Apply' }]
+  configTypes:
+    fromPlan: 'Inherit From Plan'
+    fromApply: 'Inherit From Apply'
   content: 'Content'
   InheritFromPlan: 'InheritFromPlan'
   InheritFromApply: 'InheritFromApply'
@@ -1658,899 +1566,6 @@ activityHistory:
   createdSuccessfully: Created Successfully
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found
-manifestType:
-  manifestIdentifier: Manifest Identifier
-  manifestPlaceholder: Add Manifest Identifier
-  helmManifestPlaceholder: Enter Manifest Identifier
-  manifestSource: Manifest Source
-  manifestDetails: Manifest Details
-  manifestRepoType: '{{ $.manifestsText }} {{ $.typeLabel }}'
-  specifyManifestRepoType: 'Specify {{ $.manifestsText }} {{ $.typeLabel }}'
-  specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
-  selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
-  helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
-  pluginPathHelperText: Enter the path to the dedicated directory for the plugin on the Delegate host(s). For example, '$HOME/plugin'. The default directory is named $XDG_CONFIG_HOME/kustomize/plugin and its value is $HOME/.config
-  kustomizePathHelperText: Enter the path from the root of the Source Provider repo to the folder containing kustomization.yaml
-  helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
-  helmCommandFlagLabel: Helm Command Flags (optional)
-  helmCommandType: Command Type
-  helmVersionRequired: 'Helm Version is required'
-  commandFlagRequired: 'Command Flag is required'
-  folderPathRequired: Folder Path is required
-  pathRequired: Path is required
-  path: 'Path'
-  osTemplatePath: 'Template File Path'
-  osTemplatePathPlaceHolder: 'Enter Template File Path'
-  osTemplatePathRequired: Template File Path is required
-  pathPlaceholder: Enter file path
-  bucketName: Bucket Name
-  gitFetchTypeLabel: Branch/Commit ID
-  commitId: Commit ID
-  branchPlaceholder: Enter branch name here
-  commitPlaceholder: Enter Commit ID here
-  filePathPlaceholder: Enter overrides file path
-  kustomizeFolderPath: Kustomize Folder Path
-  http:
-    chartName: 'Helm Chart Name'
-    chartVersion: 'Helm Chart Version'
-    chartNameRequired: 'Chart Name is required'
-    chartNamePlaceHolder: 'Enter Chart Name'
-    chartVersionPlaceHolder: 'Enter Chart Version'
-    chartVersionRequired: 'Chart Version is required'
-connectors:
-  createNewConnector: Create New Connector
-  confirmDeleteTitle: Delete Connector
-  confirmDelete: Are you sure you want to delete the Connector
-  testInProgress: Test in progress
-  label: 'Connectors'
-  artifactRepository: ' Artifact {{ $.repository }}'
-  artifactRepoType: 'Artifact {{$.repositoryType}}'
-  specifyArtifactRepoType: 'Specify Artifact {{ $.repositoryType }}'
-  specifyArtifactRepo: 'Specify Artifact {{ $.repository }}'
-  newArtifactRepository: 'New Artifact Repository Connector'
-  selectConnectorLabel: Select Artifact Repository Connector
-  stepThreeName: 'Test Connection'
-  stepFourName: 'Artifact Location'
-  name: 'Connector Name'
-  authTitle: '{{ $.authentication }}'
-  updating: Updating connector
-  successfullCreate: 'Connector {{name}} created successfully'
-  successfullUpdate: 'Connector {{name}} updated successfully'
-  connectorNotFound: Connector not found.
-  createFromYaml: 'Create Connector from YAML'
-  successfullyCreated: 'Connector created successfully'
-  secretManagerDetails: 'Secret Manager Details'
-  gcrConnectorDetails: 'Google Container Registry Overview'
-  hashicorpVaultDetails: 'HashiCorp Vault Overview'
-  appDynamicsDetails: 'AppDynamics Connector Details'
-  splunkConnectorDetails: 'Splunk Connector Details'
-  newRelicConnectorDetails: New Relic Connector Details
-  title:
-    k8sCluster: 'Kubernetes Cluster'
-    gcpConnector: 'Google Cloud Provider'
-    helmConnector: 'HttpHelmRepo Connector'
-    gitConnector: 'Git Connector'
-    githubConnector: 'GitHub Connector'
-    gitlabConnector: 'GitLab Connector'
-    bitbucketConnector: 'Bitbucket Connector'
-    hashicorpVault: 'HashiCorp Vault'
-    secretManager: 'Secret Manager'
-    appdynamics: 'AppDynamics connector'
-    splunk: 'Splunk connector'
-    aws: 'AWS Cloud Provider'
-    awsCodeCommit: 'AWS CodeCommit'
-    nexus: 'Nexus Repository'
-    artifactory: 'Artifactory Repository'
-  name_labels:
-    Kubernetes: 'Kubernetes Connector Name'
-    HttpHelmRepo: 'Helm Http Connector Name'
-    Git: 'Git Connector Name'
-    Github: 'GitHub Connector Name'
-    Gitlab: 'GitLab Connector Name'
-    Bitbucket: 'Bitbucket Connector Name'
-    Docker: 'Docker Connector Name'
-    GCP: 'GCP Connector Name'
-    AWS: 'AWS Connector Name'
-    ECR: ECR Connector Name'
-    Nexus: 'Nexus Connector Name'
-    Artifactory: 'Artifactory Connector Name'
-    SecretManager: 'Secret Manager Name'
-    AppDynamics: 'AppDynamics Connector Name'
-    Splunk: 'Splunk Connector Name'
-  testConnectionStep:
-    errorDetails: Click to view error details
-    noDelegate: Unable to get delegate information
-    executingOn: 'Executed on : '
-    verificationSuccessful: Verification successful
-    viewPermissions: View permissions required
-    installNewDelegate: Install new delegate
-    placeholderError: Test failed for the connector
-    url:
-      k8s: 'Master URL : '
-      docker: 'Docker Registry URL : '
-      artifactory: 'Artifactory Repository URL : '
-      nexus: 'Nexus Repository URL : '
-      splunk: 'Splunk URL : '
-      appD: 'Controller URL : '
-      vault: 'Vault URL : '
-      bitbucket: 'URL : '
-      gcr: 'GCR URL : '
-    validationText:
-      k8s: Validating the cluster authentication and permissions
-      docker: Validating the Docker Registry authentication and permissions
-      artifactory: Validating the Artifactory Repository authentication and permissions
-      nexus: Validating the Nexus Repository authentication and permissions
-      gcp: Validating the Google Cloud Provider authentication and permissions
-      gcr: Validating the Google Container Registry authentication and permissions
-      aws: Validating the AWS Cloud Provider authentication and permissions
-      appD: Validating the AppDynamics authentication and permissions
-      splunk: Validating the Splunk authentication and permissions
-      vault: Validating the HashiCorp Vault authentication and permissions
-      bitbucket: Validating the Bitbucket authentication and permissions
-      gitlab: Validating the GitLab authentication and permissions
-      github: Validating the GitHub authentication and permissions
-      git: Validating the Git authentication and permissions
-  httpHelm:
-    httpHelmRepoUrl: 'Helm Repo URL'
-  jira:
-    jiraUrl: 'Jira URL'
-  k8:
-    delegateOutClusterInfo: 'Specify master url and credentials'
-    delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
-    masterUrlLabel: 'Master URL'
-    serviceAccountToken: 'Service Account Token'
-    skipDefaultValidation: 'Skip default namespace validation'
-    OIDCIssuerUrl: OIDC Issuer URL
-    OIDCUsername: 'OIDC Username'
-    OIDCPassword: 'OIDC Password'
-    OIDCClientId: 'OIDC Client ID'
-    OIDCSecret: 'OIDC Secret'
-    OIDCScopes: 'OIDC Scopes (Optional)'
-    clientKey: 'Client Key'
-    clientKeyPassphrase: 'Client Key passphrase'
-    clientCertificate: 'Client Certificate'
-    clientKeyAlgorithm: 'Client Key Algorithm (optional)'
-    clientKeyCACertificate: 'CA Certificate (optional)'
-    placeholder:
-      masterUrl: '/url'
-    authLabels:
-      OIDC: 'OpenID Connect'
-      clientKeyCertificate: 'Client Key Certificate'
-  hashiCorpVault:
-    appRoleId: 'App Role ID'
-    baseSecretPath: 'Base Secret Path (optional)'
-    secretId: 'Secret ID'
-    stepTwoName: 'HashiCorp Vault Details'
-    vaultUrl: 'Vault URL'
-    engineName: 'Secret Engine Name'
-    engineVersion: 'Secret Engine Version'
-    renewal: 'Renewal Interval (minutes)'
-    readOnly: 'Read Only'
-    readOnlyVault: 'Read-only Vault'
-    default: 'Default'
-    defaultVault: 'Use as Default Secrets Manager'
-  nexus:
-    nexusServerUrl: 'Nexus Repository URL'
-  artifactory:
-    artifactoryServerUrl: 'Artifactory Repository URL'
-  GCP:
-    delegateOutClusterInfo: 'Specify credentials here'
-    delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
-  ECR:
-    name: ECR
-    fullName: ECR Container Registry
-  GCR:
-    name: GCR
-    fullName: Google Container Registry
-    artifactServer: 'GCR Server'
-    stepTwoName: 'Google Container Registry Details'
-    registryHostname: 'GCR Registry URL'
-  GCS:
-    name: GCS
-    fullName: Google Cloud Storage
-  S3: S3
-  git:
-    branchName: 'Branch name'
-    urlType: 'URL Type'
-    connectionType: 'Connection Type'
-    gitAccountUrl: 'Git Account URL'
-    gitHubAccountUrl: 'GitHub Account URL'
-    gitLabAccountUrl: 'GitLab Account URL'
-    bitbucketAccountUrl: 'Bitbucket Account URL'
-    gitRepoUrl: 'Git Repository URL'
-    gitHubRepoUrl: 'GitHub Repository URL'
-    gitLabRepoUrl: 'GitLab Repository URL'
-    bitbucketRepoUrl: 'Bitbucket Repository URL'
-    gitHubUrlPlaceholder: 'https://www.github.com/account/'
-    gitHubUrlPlaceholderSSH: 'git@github.com:account/'
-    gitLabUrlPlaceholder: 'https://www.gitlab.com/account/'
-    gitLabUrlPlaceholderSSH: 'git@gitlab.com:account/'
-    bitbucketUrlPlaceholder: 'https://www.bitbucket.com/account/'
-    bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
-    accessToken: 'Personal Access Token'
-    enableAPIAccess: 'Enable API access'
-    APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
-    APIAuthentication: 'API Authentication'
-    gitHubApp: 'GitHub App'
-    installationId: 'GitHub Installation ID'
-    applicationId: 'GitHub Application ID'
-    privateKey: 'GitHub Private Key'
-  docker:
-    dockerRegistryURL: 'Docker Registry URL'
-    dockerProvideType: 'Provider Type'
-    dockerHub: 'DockerHub'
-    harbour: 'Harbour'
-    quay: 'Quay'
-    other: 'Other (Docker V2 compliant)'
-  helmRepo:
-    helmRepoUrl: 'Helm Repository URL'
-  aws:
-    awsAccessKey: AWS Access Key
-    accessKey: Access Key
-    secretKey: Secret Key
-    enableCrossAcc: Enable cross-account access
-    crossAccURN: Cross account role URN
-    externalId: External Id (Optional)
-    assumeIAMRole: Assume IAM role on delegate
-    validation:
-      delegateSelector: 'Delegate Tag is required'
-      secretKeyRef: 'Secret key is required'
-      accessKey: 'Access key is required'
-      crossAccountRoleArn: 'Role ARN is required'
-  awsCodeCommit:
-    repoUrl: 'AWS CodeCommit Repository URL'
-gitSync:
-  label: 'Git Sync'
-  successfullCreate: 'Git sync repository created successfully'
-cf:
-  creationModal:
-    jsonType: JSON
-    variationSettingsHeading: Variation settings
-    flagType: Flag Type
-    defaultRules: Default rules for the flag
-    flagOn: If the flag is ON, serve
-    flagOff: If the flag is OFF, serve
-    saveAndClose: Save and Close
-    nameIsRequired: Variation name is required
-    valueIsRequired: Variation value is required
-    idIsRequired: Variation identifier is required
-    defaultVariationIsRequired: Default variation is required
-    dataType: Data type
-    defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
-    testFlagOption: Test the Flag
-    aboutFlag:
-      aboutFlagHeading: About the flag
-      permaFlag: This is a permanent flag
-      nameRequired: Flag name is required
-      idRequired: Flag identifier is required
-      ffNamePlaceholder: Enter Feature Flag name...
-      ffRegex: Identifier can only contain alphanumerics, _ and $
-      tagsOptional: Tags (optional)
-      tagsPlaceholder: Add Tags
-      permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
-  testTheFlag:
-    testFlagHeading: Test the flag
-    setupAppText: "Let's set up your application and code so that it can communicate with our platform"
-    selectSdk: Select Your SDK
-    sdkClient: Client
-    sdkServer: Server
-    selectSdkLanguage: Select the language
-    installNode: Install Node.js dependency
-    initClient: Initialize Client SDK
-    codeSample: Place this sample code we generated of your feature flag into your code
-    codeSampleNote: Please note that in the above example, it is whatever gets generated. This is just an example. This area can contain some minor notes if necessary.
-    verify: '{{ $.verify }}'
-    verifyText: "Once you're done, run your application so that we can verify that we are able to receive analytic events for your feature."
-    testFlagTargetHeading: Testing feature flag on production environment
-    confirmClose: Are you sure you want to close this modal?
-  editVariation:
-    title: Edit Variations
-    add: + Variation
-    defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected"
-    envNote: Changes will only apply to newly created environments. Existing environments won’t be affected.
-    applyToExistingEnvironments: Also apply to existing environments
-  addPrerequisites:
-    addPrerequisitesHeading: Add Prerequisites
-    addPrerequisitesDesc: The following must be met before your flag can be enabled
-    selectFlag: Select a Flag
-    selectVariation: Select a Variation
-    editPrerequisitesHeading: Edit Prerequisites
-  editDetails:
-    editDetailsHeading: Edit Flag Details
-    permaFlag: '{{ $.cf.creationModal.aboutFlag.permaFlag }}'
-  boolean: Boolean
-  multivariate: Multivariate
-  featureNotReady: This feature is not yet ready. Please check back later.
-  noFlag: You currently have no flags
-  noTarget: There are currently no targets
-  noTargetForEnv: There are currently no targets for this environment
-  homepage:
-    slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
-    learnMore: Learn more about Feature Flags
-  clause:
-    operators:
-      and: and
-      startsWith: 'starts with'
-      endsWith: 'ends with'
-      match: 'match'
-      contains: 'contains'
-      equal: 'equals'
-      equalSensitive: 'equals (sensitive)'
-      in: 'in'
-      matchSegment: 'Match Segment'
-  shared:
-    individual: Individual
-    target: '{{ $.pipelineSteps.targetLabel }}'
-    segment: Segment
-    segments: Segments
-    environment: environment
-    lastEvaluated: Last Evaluated
-    variation: Variation
-    variations: Variations
-    prerequisites: Prerequisites
-    selectEnvironment: Select environment
-  featureFlags:
-    newFlag: + Flag
-    typeOfFlag: Select the Type of Flag You Want to Create
-    startVariation: Start by selecting the variation type that the flag will use
-    booleanBtnText: This is a simple ON/OFF toggle
-    multi: '{{ $.cf.multivariate }}'
-    multiBtnText: This is suitable for experiments
-    percentageRollout: 'Percentage Rollout'
-    turnOnHeading: Turn ON Flag
-    turnOffHeading: Turn OFF Flag
-    turnOnMessage: 'Please confirm that you want to turn on <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
-    turnOffMessage: 'Please confirm that you want to turn off <strong>{{name}}</strong> on <strong>{{env}}</strong> environment.'
-    defaultWillBeServed: '<strong>{{defaultVariation}}</strong> will be served.'
-    customRuleMessage: There are custom rules configured for this flag, please review the rules on detail page.
-    defaultServedOn: '{{defaultVariation}} when flag is ON'
-    defaultServedOff: '{{defaultVariation}} when flag is OFF'
-    createdDate: 'Created: {{date}}'
-    modifiedDate: 'Modified: {{date}}'
-    prerequisitesDesc: '(what’s required before enabling flags)'
-    ifFlagOnServe: 'If the flag is <strong>ON</strong>, serve '
-    ifFlagOffServe: 'If the flag is <strong>OFF</strong>, serve '
-    bucketBy: Bucket by <strong>{{targetField}}</strong>
-    bucketOverflow: Cannot set above 100%
-    serveVariationToTarget: '+ Serve variation to Target'
-    serveVariationToTargetLabel: Serve Variation to Target
-    customRuleOnRequest: '+ On Request, check for condition and serve variation'
-    toTarget: to target
-    ifClause: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}'
-    ifClauseServe: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve'
-    ifClauseServePercentageRollout: 'If <strong>{{attribute}}</strong> {{operator}} {{values}}, serve <strong>percentage rollout</strong>'
-    andClause: '- and <strong>{{attribute}}</strong> {{operator}} {{values}}'
-    commaSeparator: ', '
-    serve: serve
-    servePercentageRollout: serve <strong>percentage rollout</strong>
-    deleteFlag: Delete Flag
-    deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
-    archiveFlag: Archive Flag
-    archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
-    deleteFlagSuccess: Flag <strong>{{name}}</strong> deleted.
-    archiveFlagSuccess: Flag <strong>{{name}}</strong> archived.
-    flagOff: Flag Targeting is OFF
-    flagOn: Flag Targeting is ON
-    flagWillTurnOn: Turn flag on for this environment upon save
-    flagWillTurnOff: Turn flag off for this environment upon save
-    targeting: Targeting
-    activity: '{{ $.activity }}'
-    rules:
-      editRules: Edit Rules
-      flagOn: '{{ $.cf.creationModal.flagOn }}'
-      flagOff: '{{ $.cf.creationModal.flagOff }}'
-      defaultRules: Default Rules
-      customRules: Custom Rules (Serve specific targets differently)
-      serveVariationToTarget: '{{ $.cf.featureFlags.serveVariationToTargetLabel }}'
-      add: '{{ $.add }}'
-      toTarget: '{{ $.cf.featureFlags.toTarget }}'
-      following: to following
-      serveToFollowing: 'serve to following:'
-      onRequest: On Request
-      onRequestVariation: 'On Request, check for condition and serve variation'
-    flagFilters:
-      environment: '{{ $.environment }}'
-      envDefault: Production (Default)
-      any: Any
-      term: Term
-      switchOnOff: Switch (ON/OFF)
-      status: '{{ $.status }}'
-      createdDate: '{{ $.cf.targets.createdDate }}'
-      modifiedDate: Modified Date
-      owner: Owner
-      ownerOrPinPlaceholder: Individual or Team
-      creator: Creator
-      tagsPlaceholder: '{{ $.valueLabel }}'
-      flagsBy: Only list flags pinned by
-      target: '{{ $.pipelineSteps.targetLabel }}'
-      individualTargets: Individual Target or Target Segment
-      apply: '{{ $.filters.apply }}'
-      saveFilters: Save Filters
-      overwriteRadio: Overwrite Existing
-      createFilter: Create New Filter
-      defaultFilter: Default Filter
-      defaultFilterText: This filter will be applied by default when this listing is viewed everytime
-      filterVisible: Who can see this filter?
-      onlyMe: Only Me
-      everyone: '{{ $.filters.visibleToEveryone }}'
-      save: '{{ $.save }}'
-      cancel: '{{ $.cancel }}'
-  targets:
-    title: Targets
-    ID: ID
-    name: name
-    targetSegment: Target Segment
-    lastActivity: '{{ $.lastActivity }}'
-    createdDate: Created Date
-    create: + Target(s)
-    list: Add a target
-    upload: Upload a list of targets (CSV files only)
-    enterName: 'Enter a Name'
-    enterValue: 'Enter a Value'
-    addTargetsLabel: Add Target(s)
-    addTargets: + Add Target(s)
-    noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
-    noSegmentFound: 'No segment found in this environment. Click the button above to create a segment.'
-    uploadHeadline: Please upload a CSV file according to our <a href="https://docs.harness.io" target="_blank" rel="noreferrer">template</a>.
-    uploadHelp: 'Target CSV entry format: Name,Identifier'
-    uploadYourFile: Click to upload your file
-    uploadStats: <strong>Targets</strong> ({{ count }})
-    noneDefined: None Defined
-    deleteTarget: Delete Target
-    deleteTargetMessage: Are you sure you want to delete target <strong>{{name}}</strong>? This action cannot be undone.
-    deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
-  targetDetail:
-    title: 'Targets: Individual'
-    environmentLine: '<strong>Environment</strong>: {{name}}'
-    createdOnDate: Created on {{ date }}, {{ time }} PST
-    targetSetting: Target Settings
-    flagSetting: Flag Settings
-    attribute: ATTRIBUTE
-    attributes: Attributes ({{ counter }})
-    learnMore: To learn how to mark specific target attributes or information as private, read <a href="https://docs.harness.io" target="_blank" rel="noreferrer">documentation</a>.
-    manuallyAdded: MANUALLY ADDED
-    addToSegment: Add to Segment
-    autoAdded: AUTOMATICALLY ADDED THROUGH CONDITIONS
-    exclusionList: EXCLUSION LIST
-    excludefromSegment: Exclude from Segment
-    removeSegment: Remove from list
-    noSegmentAdded: No Segment added
-    noSegmentMatched: No Segment matched
-    noSegmentExcluded: No Segment excluded
-    addTargetToSegment: Add Target to Segment
-    excludeTargetFromSegment: Exclude Target from Segment
-    exclude: Exclude
-    removeFromIncludeListTitle: Remove from include list
-    removeFromIncludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from include segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
-    removeFromExcludeListTitle: Remove from exclusion list
-    removeFromExcludeList: Are you sure you want to remove target <strong>{{targetName}}</strong> from exclusion segment <strong>{{ segmentName}}</strong>? This action cannot be undone.
-    noFlagConfigured: No feature flags configured for this target
-    searchPlaceholder: Search Feature Flags...
-  selectSegmentModal:
-    searchSegmentPlaceholder: Search for Segment by Name or Description
-    flagsUsingSegment: '{{ counter }} flag'
-    flagsUsingThisSegment: FLAGS USING THIS SEGMENT
-    selected: '{{ counter }} selected'
-    empty: No Segment found
-  segments:
-    create: + Segment
-    targetDefinition: Target Definition
-    usingSegment: Flags using this segment
-    modalTitle: Create a Segment
-    displayIcon: Display Icon
-    uploadImage: Upload an image
-    delete:
-      message: 'Are you sure you want to delete Segment: {{segmentName}}'
-      title: Delete Segment
-    nameRequired: Segment name is required
-    idRequired: Segment identifier is required
-    noSegment: There are currently no segments
-    noSegmentForEnv: There are currently no segments for this environment
-  environments:
-    title: '{{ $.environments }}'
-    empty: 'There are currently no environments'
-    createdBy: 'Created by'
-    modifiedBy: 'Modified by'
-    adminEnvironments: 'Admin: Environments'
-    delete:
-      message: 'Are you sure you want to delete environment <strong>{{name}}</strong>?'
-      title: 'Delete Environment'
-    create:
-      title: 'Create an Environment'
-      description: 'An environment is the representation of your production or non-production infrastructure'
-      envTypeLabel: 'Environment type'
-      nameLabel: 'Name of your environment'
-    apiKeys:
-      addKeyTitle: Create SDK Key
-      message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
-      title: 'SDK Keys'
-      addKey: '+ Add Key'
-      clientType: '{{ $.cf.testTheFlag.sdkClient }}'
-      clientId: 'Client ID'
-      serverType: '{{ $.cf.testTheFlag.sdkServer }}'
-      deleteTitle: 'Confirm Key Delete'
-      deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
-      keyType: 'Key Type'
-      noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
-  auditLogs:
-    title: Audit Logs
-    last7days: Last 7 days
-    searchPlaceholder: Search Activity
-    viewEventSummary: View Event Summary
-    timePST: 'TIME (PST)'
-    user: USER
-    action: ACTION
-    moduleFF: 'Module: Feature Flags'
-    flagCreated: Feature activation created
-    segmentCreated: Segment created
-    flagUpdated: Feature activation updated
-    unknown: Unknown activity
-    empty: No activity found during this time.
-    eventSummary: Event Summary
-    createdMessageFF: 'created feature flag'
-    createdMessageFFUpdate: 'updated feature flag'
-    createdMessageSegment: 'created segment'
-    jsonDifference: JSON DIFFERENCE
-  noEnvironment:
-    title: No Environment Available
-    message: Create an environment and let’s start configuring the targeting rules of your flag
-  pipeline:
-    default: Default Setting # Placeholder, not a real text
-    stages:
-      setup:
-        title: Flag Setup # Placeholder, not a real text
-      execution:
-        title: Flag Execution # Placeholder, not a real text
-cv:
-  continuousVerification: Continuous Verification
-  dashboard:
-    subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
-    learnMore: Learn more about Continuous Verification
-    createProject: '{{$.ci.dashboard.createProject}}'
-    notStarted: Not started
-  continuous: 'CONTINUOUS'
-  verification: 'VERIFICATION'
-  hostNamePlaceholder: '${host}'
-  harnessService: 'Harness Service'
-  harnessEnvironment: 'Harness Environment'
-  selectOrCreateEnv: 'Select or create an environment'
-  verificationErrored: 'Verification errored'
-  getRiskAssessment: 'Get risk assessment'
-  setup: 'Setup Continuous Verification'
-  riskScore: 'Risk Score'
-  noAnalysis: 'No Analysis'
-  overviewPage:
-    recentChangeVerifications: 'Recent Change Verifications'
-  riskCardTooltip:
-    header: Performance risk was computed based on metrics from your data providers
-    allServicesGreen: all services green
-  analysisScreens:
-    analysisTab:
-      metrics: 'Metrics'
-      logs: 'Logs'
-  navLinks:
-    activities: 'Activities'
-    dashboard: 'Dashboard'
-    adminSideNavLinks:
-      setup: 'Setup'
-      activitySources: 'Change Sources'
-      monitoringSources: 'Monitoring Sources'
-  changesPage:
-    changeSourceDetails: 'Change Source Details'
-    changeSummary: 'Change Summary'
-    eventCount: 'Event Count'
-    viewKubernetesEvents: 'View Kubernetes Change Summary'
-  admin:
-    mapsTo: maps to
-    notifications:
-      newNotification: 'New Notification Rule'
-      name: 'Name of the rule'
-      method: '{{$.notificationMethod}}'
-      createSuccess: Notification rule created succesfully
-      updateSuccess: 'Notification rule updated successfully'
-      deleteSuccess: 'Notification rule deleted succesfully'
-      create:
-        type: Notification Type
-        details: Detail
-        method: Configure Method
-        stepOne:
-          heading: Notification Rule Details
-          name: Give name to your notification rule
-        stepThree:
-          verification: Verification
-          headingOne: Select Condition for Notification
-          headingTwo: 'Choose the services and their corresponding conditions you’d like to be notified on.'
-          notifyVerification: Notify on completed verifications
-          activityType: Activity Type
-          verificationStatus: Verification Statuses
-          notifyRisk: Notify on reaching service risk score threshold
-          preDeployment: Pre-Deployment
-          duringDeployment: During Deployment
-          postDeployment: Post-Deployment
-          infrastructureChange: Infrastructure Change
-          configChange: Config Change
-        validation:
-          type: Select a notification type
-    activitySources:
-      searchBoxPlaceholder: 'Search by Change Source name'
-      noDataMessage: 'No Change Sources onboarded'
-      addActivitySource: '+ Add Change Source(s)'
-      dialogDeleteContent: 'Are you sure you want to delete Change Source: '
-      dialogDeleteTitle: 'Delete Change Source'
-      tableColumnNames:
-        environments: 'Number of Environments'
-        createdOn: 'Created on'
-        lastUpdatedOn: 'Last Updated on'
-    monitoringSources:
-      searchPlaceholder: 'Search by name, environments, services'
-      newMonitoringSource: 'New Monitoring Source'
-      noDataMessage: 'No Monitoring Sources onboarded'
-      importStatus: 'Import Status'
-      importedOn: 'Imported On'
-      applicationsImported: '{{num}}/{{total}} applications imported'
-      environmentsImported: '{{num}}/{{total}} environments imported'
-      confirmDeleteTitle: Delete Monitoring Source
-      confirmDeleteContent: 'Are you sure you want to delete Monitoring Source: {{ name }}'
-    verificationJobs:
-      newVerificationJob: 'New Verification Job'
-      noDataMessage: 'No Verification Jobs to show'
-      jobTypes:
-        test: Test Verification
-        canary: Canary Verification
-        blueGreen: Blue Green Verification
-        health: Health Verification
-      confirmDeleteTitle: Delete Verification Job
-      confirmDeleteContent: 'Are you sure you want to delete Verification Job: {{ jobName }}'
-  connectors:
-    connectorDetailsHeader: '{{type}} Connector Details'
-    addConnectorDetails: Add {{type}} Verification Provider
-    unableToCreateConnector: Unable to create connector
-    unableToUpdateConnector: Unable to update connector
-    appD:
-      controllerUrlValidation: Controller URL is a required field
-    newRelic:
-      subTitle: To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
-      urlFieldLabel: New Relic URL
-      accountIdFieldLabel: New Relic Account ID
-      encryptedAPIKeyLabel: Encrypted API Key
-      urlValidation: New Relic URL is required.
-      accountIdValidation: New Relic Account ID is required.
-      encryptedKeyValidation: Encrypted API Key is required.
-      accountIdTooltip: For steps to get New Relic Account ID
-      products:
-        fullStackObservability: 'Full Stack Observability: APM'
-  onboarding:
-    monitoringSources:
-      addMoreSources: Add more Monitoring Sources
-      addedStatus: You have added {{sourceCount}} Monitoring Source
-      defineMonitoringSource: Define your Monitoring Source
-      monitoringSourceSubheading: Which Monitoring Source are you setting up for this deployment?
-      specifyConnector: Specify your {{type}} connector
-      firstTimeSetupText: First time? You can setup a new connector to {{type}}. It takes 2 minutes.
-      selectConnector: Select your {{type}} connector
-      addConnector: + Add {{type}} connector
-      selectProduct: Select the {{type}} product that you would like to select {{entity}} from
-      selectMetricPacks: Select Metric Pack(s)
-      metricPacksToMonitor: Select metric packs you want to monitor.
-    activitySources:
-      addMoreSources: Add more Change Sources
-      addedStatus: You have added {{sourceCount}} Change Source
-    verificationJobs:
-      heading: Almost there
-      infoText: Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
-      subHeading: Default health verification jobs are applied automatically.
-      createJobQues: Would you like to create a new verification job?
-      createJob: Create Job
-      keepGoing: Want to keep going...
-    progress:
-      heading: 'Your Progress'
-      mapServices: 'Map the above {{serviceLabel}} to a Monitoring Source.'
-      serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
-      servicesUsedInActivitySources: '{{serviceCount}} service is used in Change Sources.'
-      multiServicesUsedInActivitySources: '{{serviceCount}} services are used in Change Sources.'
-      serviceUsedInMonitoringSources: '{{serviceCount}} service is used in Monitoring Sources.'
-      multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in Monitoring Sources.'
-      servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
-      multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
-    selectProductScreen:
-      validationText:
-        name: 'Name is required.'
-        identifier: 'Identifier is required'
-        connectorRef: 'Connector Selection is required.'
-        validIdRegex: 'Identifier can only contain alphanumerics, _ and $.'
-        product: 'Product selection is required.'
-  selectCreateService: Select or create a service
-  monitoringSources:
-    mapMetricsToServices: 'Map Metrics to Harness Services'
-    metricPackValidation: Metric Pack Validation
-    oneMetricMappingValidation: At least one application must be mapped
-    oneMetricPackValidation: At least one Metric Pack must be selected
-    oneMetricMappingValidationSubtext: You need to select one Metric Pack for verification
-    backToMapping: Back to Mapping
-    reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
-    appDName: App Dynamics
-    newRelicName: New Relic
-    appD:
-      envDescription: An Environment is the representation of your production or non-production infrastructure.
-      appDApplications: APPDYNAMICS APPLICATIONS
-      appDTier: APPDYNAMICS TIER
-      harnessEnv: HARNESS ENVIRONMENT
-      validationMsg: Services should be mapped uniquely to application services
-      mapApplicationsToEnv: Map the AppDynamics Application to a Harness Environment
-      mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
-      noAppsMsg: No Applications were found
-      noTiersMsg: No Tiers were found for selected application
-      mappingToHarnessService: MAPPING TO HARNESS SERVICE
-      mapToHarnessEnvironment: MAPPING TO HARNESS ENVIRONMENT
-      mappedToHarnessService: MAPPED TO HARNESS SERVICE
-      mappedToHarnessEnvironment: MAPPED TO HARNESS ENVIRONMENT
-      harnessServices: HARNESS SERVICES
-      status: STATUS
-      validation: VALIDATION
-      tiersMappedToServices: tiers mapped to services
-      errorsFound: errors found
-      verificationsInProgress: Verification in progress
-      noData: No data
-      metricsVerificationModalTitle: Metric Pack Connection Test
-      searchPlaceholderApplications: Search for Applications
-      validationsPassed: Validation passed
-      validationsFailed: Validation failed
-      validations:
-        selectApp: Please select application and its environment
-        selectTier: Please select tier and its service
-        selectMetricPack: Plese select metric packs
-      connectToMonitoringSource: 'Connect to your AppDynamics Monitoring Source'
-      firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
-      createConnectorText: '+ New AppDynamics Connector'
-      selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
-      product:
-        applicationMonitoring: 'Application Monitoring'
-        businessMonitoring: 'Business Performance Monitoring'
-        machineMonitoring: 'Machine Monitoring'
-        endUserMonitoring: 'End User Moniorting'
-      infoPanel:
-        mapDashboards: Map Dashboards to Harness Services
-        mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
-        applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
-        tiers: Tiers
-      searchTiersPlaceHolder: 'Search for Tiers'
-    gco:
-      connectToMonitoringSource: 'Connect to your Google Cloud Platform'
-      defaultName: 'My Google Cloud Operations Monitoring Source'
-      firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
-      createConnectorText: '+ New Google Cloud Platform Connector'
-      addManualInputQuery: '+ Manually input query'
-      selectProduct: 'Select the Google Cloud Operations feature that you would like to choose dashboards from'
-      searchForDashboardsPlaceholder: Search for dashboards
-      product:
-        metrics: 'Cloud Metrics'
-      productValidationText: 'Google Cloud Operations feature is required.'
-      selectDashboardsPage:
-        noDataText: 'No Google Cloud Operation dashboards found.'
-        dashboardColumnName: 'Google Cloud Operation Dashboards'
-      manualInputQueryModal:
-        modalTitle: 'Add your Google Cloud Operations query'
-        subtitle1: 'Make sure your provide'
-        subtitle2: 'string for filtering in query.'
-        subtitle3: 'For example: '
-        exampleString: 'resource.label.\"pod_name\"=\"${host}\"".'
-        validation:
-          query: 'Query is required.'
-          metricName: 'Metric Name is required.'
-          uniqueMetricName: '{{metricName}} is an already taken metric name'
-      mapMetricsToServicesPage:
-        metricTagsLabel: 'Metric Tags'
-        metricNameLabel: 'Metric Name'
-        riskCategoryLabel: 'Risk Category'
-        manuallyInputQueriesLabel: 'Manually input queries'
-        viewQuery: 'View Query'
-        baselineDeviation: 'Deviation compared to baseline'
-        operationsQueryLabel: 'Operations query'
-        mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
-        querySpecifications: 'Query Specifications'
-        configureRiskProfile: 'Configure Risk Profile'
-        higherCounts: 'Higher counts = higher risk'
-        lowerCounts: 'Lower counts = lower risk'
-        enterQueryForValidation: Please enter a query.
-        validation:
-          mainSetupValidation: 'All fields for at least one metric must be filled completely.'
-          validJSON: Please provide valid json.
-          riskCategory: Risk Category is required.
-          env: Environment is required.
-          service: Service is required.
-          tags: Tags are required.
-          baseline: One selection is required.
-        noDataForQuery: 'No data for provided query.'
-      reviewPage:
-        mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
-        gcoMetrics: Google Cloud Operation metrics
-      tabName:
-        selectDashboards: 'Select Dashboards'
-    newRelic:
-      mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
-      mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications
-      newRelicAppColumn: NEW RELIC APPLICATION
-      selectedApplications: Selected Applications
-      oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
-      totalMappedApplications: '{{total}} Application(s) mapped'
-
-  activitySources:
-    name: 'Name your Change Source'
-    harnessCD:
-      defaultName: 'My Harness CD'
-      select: 'Select your Change Source'
-      selectActivitySource: 'Select Change Source'
-      selectApplication: 'Select Applications'
-      selectEnvironment: 'Select Environments'
-      selectService: 'Select Services'
-      iconLabel: 'Harness FirstGen'
-      harnessApps: 'HARNESS FIRSTGEN APPLICATION'
-      application:
-        noData: 'No applications were found'
-        infoText: 'Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.'
-        servicesToBeImported: HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
-        searchPlaceholder: Search for FirstGen Applications
-      environment:
-        noData: 'No environments were found'
-        infoText: 'Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
-        harnessEnv: 'HARNESS FIRSTGEN ENVIRONMENTS'
-        env: 'HARNESS NEXTGEN ENVIRONMENTS'
-        searchPlaceholder: Search for FirstGen Environments
-      service:
-        noData: 'No services were found'
-        infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.'
-        harnessServices: 'HARNESS FIRSTGEN SERVICES'
-        services: 'HARNESS NEXTGEN SERVICES'
-        searchPlaceholder: Search for FirstGen Services
-      validation:
-        applicationValidation: At least one application must be selected.
-        serviceValidation: At least one service mapping must be selected.
-        environmentValidation: At least one environment mapping must be selected.
-    kubernetes:
-      tabNames:
-        - 'Select Kubernetes Connector'
-        - 'Select Kubernetes Namespace(s)'
-        - 'Map Workloads to Services'
-      namespaceMapping:
-        searchNamespacePlaceholder: Search for Namespaces
-      mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
-      noWorkloads: 'No workloads found.'
-      missingWorkloadMapping: Please add at least one workload mapping
-      searchWorkloadPlaceholder: Search for Workloads
-      workloadToServiceTableColumns:
-        workload: 'Kubernetes Workload'
-        mapToService: 'Map to Harness Service'
-        mapToEnvironment: 'Map to Harness Environment'
-      reviewPage:
-        heading: '{{namespaceCount}} Namespaces, {{workloadCount}} Workloads will be sourced into Harness CV'
-        reviewTableColumns:
-          namespace: 'KUBERNETES NAMESPACE'
-          workload: 'KUBERNETES WORKLOAD'
-          service: 'HARNESS SERVICE'
-  verificationJobs:
-    validation:
-      type: Please select Verification Job type
-      service: Please select a service
-      environment: Please select a environment
-      duration: Please select duration
-      dataSource: Please select a Monitoring Source
-      baseline: Please select a baseline
-      changeSource: Please select a Change Source
-    details:
-      name: Name of your job
-      tabName: Select Verification Job Type
-      heading: Create your verification job
-      verificationMonitoringSource: Verification Monitoring Sources (select multiple that apply)
-      selectType: Select the type of verification job
-      preDeploymentTests: Pre-Deployment Tests
-      productionDep: Production Deployments
-      postDeploymentTests: Post Deployment Tests
-    configure:
-      tabName: Configure Verification Job
-      heading: Verification Specification
-      preDepText: Create a new pre-deployment test verification job
-      prodDepText: Create a new production deployment verification job
-      postDepText: Create a new post-deployment test verification job
 none: 'None'
 configureOptions:
   configureOptions: 'configure options'
@@ -2569,61 +1584,6 @@ configureOptions:
     minOneAllowedValue: 'Minimum one allowed value'
   notValidExpression: 'Not a valid input Expression'
   advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
-ci:
-  continuousIntegration: 'Continuous Integration'
-  dashboard:
-    subHeading: Take your software build processes to the next level using our Harness Continuous Integration
-    learnMore: Learn more about Continuous Integration
-    createProject: Create Project
-    failedBuilds: Failed Builds
-    activeBuilds: Active Builds
-    noRepositories: No Repositories found
-    noFailedBuilds: No Failed Builds found
-    noActiveBuilds: No Active Builds found
-  testsReports:
-    executionOverview: Test Execution Overview
-    numberOfSelectedTests: '# of Selected Tests'
-    testsIntelligentlySkipped: Tests Intelligently Skipped
-    timeSaved: Time Saved
-    totalExecutedTest: Total Executed Tests
-    selectionBreakdown: Testcase Selection Breakdown
-    selectionBreakdownInfo: Shows aggregated data on how tests were selected
-    totalWithColon: 'TOTAL:'
-    failedWithColon: 'FAILED:'
-    successWithColon: 'SUCCESS:'
-    skippedWithColon: 'SKIPPED:'
-    skipped: Skipped
-    correlatedWithCodeChanges: Correlated with Code Changes
-    newTests: New Tests
-    updatedTests: Updated Tests
-    coverage: Files Coverage
-    coverageInfo: List of files that were added or changed in the build which don't have a proper testing coverage
-    onlyUncoveredFiles: Only Uncovered Files
-    filename: FILENAME
-    commitId: COMMIT ID
-    failedTests: Failed Tests
-    failureRate: Failure Rate
-    failureMessage: Failure Message
-    stackTrace: Stack Trace
-    consoleOutput: Console Output
-    testSuite: 'Test Suite:'
-    duration: Duration
-    totalTests: Total Tests
-    testCaseName: TEST CASE NAME
-    className: CLASS NAME
-    result: RESULT
-    testCasesExecution: Testcases Execution
-    testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
-    noFailedTestsFound: No failed tests found
-    showOnlyFailedTests: Show only failed tests
-    hangTight: Hang tight! Report is being generated...
-    nothing: Nothing here!
-    notfound: No tests were found to analyze.
-    willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
-    learnMore: Learn how to enable Unit test reporting
-    resultLabel: Testcase Execution Result
-    resultInfo: Heat Map showing a graphical over of the test results
-    sortBy: 'Sort by:'
 orgs:
   searchPlaceHolder: 'Search Organizations by name and tags'
   aboutTitle: 'About the Organization'
@@ -2648,34 +1608,12 @@ customVariables:
 
 approvalStage:
   title: Approval
-  description: Use this stage to approval section.
+  description: Use this stage to approve or reject the progression of your deployments.
   approvalTypeHeading: What type of approval would you like to add?
   stageNameRequired: Stage name is mandatory
   setupShellOverview: Approval Stage Overview
   setupShellExecution: Approval Execution
   # Custom Dashboards
-dashboards:
-  sideNav:
-    byHarness: 'BY HARNESS'
-    custom: 'CUSTOM'
-    noDashboard: 'No custom dashboard found'
-  homePage:
-    title: 'All Dashboards'
-    # addDashboard: 'Dashboard'
-  createModal:
-    stepOne: 'About the Dashboard'
-    # name: 'Name'
-    sampleTitle: 'Dashboard Title'
-    sampleDesc: 'Dashboard Description'
-    view: 'view'
-    fav: 'fav'
-    dataSource: 'Data Source'
-    namePlaceholder: 'Name your dashboard'
-    nameValidation: 'Dashboard name is a required field'
-    # description: 'Description'
-    descriptionPlaceholder: 'Provide dashboard purpose'
-    # submit: 'Submit'
-    submitFail: 'Dashboard creation failed, Please try again.'
 resourceGroup:
   newResourceGroup: 'New Resource Group'
   updateResourceGroupDialogTitle: 'Update Resource Group'
@@ -2697,228 +1635,8 @@ resourceGroup:
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
 configuration: Configuration
-ce:
-  headingText: 'Continuous Efficiency'
-  homepage:
-    slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
-    learnMore: 'Learn more about Continuous Efficiency'
-  co:
-    autoStopping: 'AutoStopping'
-    newAutoStoppingRule: 'New AutoStopping Rule'
-    landingPageText:
-      'AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you)
-      only when you’re using them, and never when they are idle. Additionally, run your workloads on fully
-      orchestrated spot instances without any worry of spot interruptions.'
-    breadCrumb:
-      rules: 'AutoStopping Rules'
-    noData: 'No data available. Please check after sometime'
-    autoStoppingRule:
-      helpText:
-        idleTime:
-          title: 'Idle Time'
-          description:
-            'Set the number of minutes you want AutoStopping to wait before optimizing idle instances. AutoStopping
-            will shut down (for on-demand) or snapshot and terminate (for spot) the instances after the idle time
-            period has elapsed.'
-        spotVsOD:
-          title: 'Spot vs On-Demand instances'
-          description:
-            'Your Linux on t3.2xlarge instance in US East (N. Virginia) region costs $240 on-demand and $72 on spot.
-            That’s 70% savings!'
-        readMore: 'Read More...'
-      providerSelector:
-        title: 'Let’s get you started'
-        description: 'Select the cloud account type'
-        helpText:
-          selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
-      review:
-        configDetails: 'Configuration Details'
-      setupAccess:
-        pageName: 'Setup Access'
-        customDomain:
-          helpText: 'Specify the URL used to access the instances(Optional)'
-          noHostedZones: 'Custom domain does not match to any of the existing domains'
-        autogeneratedHelpText: 'This auto-generated URL to access the resources managed by this AutoStopping Rule.'
-        helpText:
-          dns:
-            info: 'Select DNS Link if the instances managed by this AutoStopping Rule are currently accessed by a URL.'
-            setup:
-              title: 'To create a DNS Link, you need to:'
-              step1:
-                title: 'Enter the URL currently used to access the instances'
-                description:
-                  'Domain name should be entered without prefixing the scheme. A rule can have multiple URLs. You can
-                  enter comma separated values into Custom URL to support multiple URLs.'
-              step2:
-                title: 'Select and Configure the DNS Provider'
-                description:
-                  ' You will need to map your publicly accessible URL to the host name generated by this Lightwing
-                  AutoStopping Rule. Select your DNS Provider from the list to proceed with the mapping.'
-              step3:
-                title: 'Select an Access Point'
-                description:
-                  'Since your URL is not publicly accessible, you will need to create a new Access Point or select
-                  from an existing one. This will enable the AutoStopping Rule to manage your resources from within
-                  your private network.'
-              mapToDNS:
-                title: 'To map your custom domain to hostname, you need to:'
-                description:
-                  ' Navigate to your DNS provider and create a CNAME record that points your Custom domain to the
-                  default domain(generated by Harness) for your Instances.'
-                step1: 'Add a CNAME record with your Custom domain, {{customDomain}} as the host'
-                step2: 'Point the record to your Harness domain, {{hostName}}'
-                step3: 'Save your settings. It may take a full day for the settings to propagate across the global
-                  Domain Name System.'
-          ssh:
-            info: 'A description of how SSH is used to access the Rule securely over an unsecured network.'
-            setup:
-              title: 'To SSH into instances, you need to:'
-              download: 'Download CLI'
-              description:
-                'Lightwing CLI allows you to access the resources managed by this AutoStopping Rule via SSH and RDP
-                while still allowing Lightwing to detect usage and idleness in order to perform the required
-                optimization actions as needed.'
-          rdp:
-            info: 'RDP provides you with a graphical interface to connect to another computer over a network connection.'
-          bgTasks:
-            info: 'Background tasks description of how it works in accessing gateways'
-          ip:
-            info: 'IP addresses if the instances managed by this AutoStopping Rule are currently accessed by an IP.'
-
-      save: 'Save Rule'
-      confirm:
-        disableTitle: 'Disable Rule {{name}}'
-        disableDialogText: 'Are you sure you want to disable?'
-        enableTitle: 'Enable Rule {{name}}'
-        enableDialogText: 'Are you sure you want to enable?'
-        disable: 'Disable'
-        deleteServiceTitle: 'Delete Rule {{name}}'
-        deleteDialogText: 'Are you sure you want to delete?'
-
-    accessPoint:
-      ap: 'Access Point'
-      aps: 'Access Points'
-      new: 'New Access Point'
-      dnsProvider: 'DNS Provider'
-      asssociatedRules: 'Associated Rules'
-      lastActivity: '{{$.cf.targets.lastActivity}}'
-      mapDomain: 'Map the domain'
-      error: 'Could not create access point'
-      success: 'Access Point Created Succesfully'
-      create: 'Create Access Point'
-      route53: 'Route53'
-      others: '{{$.stepPalette.others}}'
-      proceed: 'Proceed'
-      domainName: 'Access Point Domain name'
-      enterDomain: 'Enter {{$.ce.co.accessPoint.domainName}}'
-      cloudAccount: 'Cloud Account'
-      cloudConnector: 'Cloud Connector'
-      createNewALB: 'Create new ALB'
-      select:
-        accessPoint: 'Select Access Point'
-        account: 'Select {{$.ce.co.accessPoint.cloudAccount}}'
-        connector: 'Select {{$.ce.co.accessPoint.cloudConnector}}'
-        region: 'Select region'
-        regionToInstall: '{{$.ce.co.accessPoint.select.region}} to install Access Point'
-        existingALB: 'Select from existing ALBs'
-        certificate: 'Select Certificate'
-        aCertificate: 'Select a certificate'
-        vpc: 'Select VPC'
-        securityGroups: 'Select security groups'
-        dnsProvider: 'Select the {{$.ce.co.accessPoint.dnsProvider}}'
-        route53: 'Select Route53 account'
-        route53zone: 'Select Route53 hosted zone'
-      validation:
-        connector: 'Connector is a required field'
-        name: 'Access point Name is a required field'
-        vpc: 'VPC is a required field'
-        subnets: 'Atleast 2 subnets are mandatory'
-        securityGroup: 'Atleast one security group is mandatory'
-      hostedZone:
-        noResult: 'Access point name does not match any of the existing domains'
-      delete:
-        withResource: 'Delete with all cloud resources'
-        success: 'Deleted successfully'
-    dnsSetup:
-      autoURL: 'Auto generated URL'
-      customURL: 'Custom URL (Example: qa.yourcompany.com)'
-      isURLaccessible: 'Is the URL publicly accessible?'
-    ipAddressSetup:
-      'This is just placeholder text. You can customize the domain name for your AutoStopping Rule. Domain name
-      should be entered without prefixing the scheme.'
-    sshSetup: 'This is just placeholder text. You can customize the domain name for your AutoStopping Rule.
-      Domain name should be entered without prefixing the scheme. A Rule can have multiple URLs. You can enter comma
-      separated values into Custom domain field to support multiple URLs.'
-    gatewayAccess:
-      subtitle: 'Now that you have the Rule configured, you need to choose how you would like to access the instances.'
-      accessDescription: 'How would you want to access the instances'
-      dnsLink: 'DNS Link'
-      sshRdp: 'SSH / RDP'
-      ip: 'IP Address'
-      rdp: 'RDP'
-      backgroundTasks: 'Background Tasks'
-    instanceSelector:
-      name: 'Name and ID'
-      ipAddress: '{{$.ce.co.gatewayAccess.ip}}'
-      launchTime: 'Launch Time'
-    gatewayReview:
-      nameYourGateway: 'Name your Rule'
-      selectCloudAccount: 'Select Cloud account'
-      gatewayDetails: 'Rule Details'
-      configurationDetails: 'ConfigurationDetails'
-      idleTime: 'Idle time (mins)'
-      instanceType: 'Instance Type'
-      instance: 'Instance'
-      nameAndID: 'NAME AND ID'
-      ipAddress: 'IP ADDRESS'
-      region: 'REGION'
-      type: 'TYPE'
-      tags: 'TAGS'
-      launchTime: 'LAUNCH TIME'
-      routing: 'Routing'
-      listenProtocol: 'LISTEN PROTOCOL'
-      listenPort: 'LISTEN PORT'
-    gatewayBasics:
-      connect: 'Connect to your'
-      account: 'account'
-      select: 'Select your Cloud Account'
-      new: 'Link a new'
-    gatewayConfig:
-      configHeading: 'Rule Configuration'
-      info: 'From the list below, select the instances that you want this AutoStopping Rule to manage. Multiple instances can be managed by a single Rule.'
-      addInstanceLabel: 'Add Instance'
-      addPortLabel: '+ add port'
-      addDependency: '+ add dependency'
-      customDomain: 'CUSTOM DOMAIN'
-      customDomainHelp: 'Custom domains allow you to srve your site from a domain othwer than autogenerated hostname'
-      allowTraffic: 'Alllow traffic from all subdomains'
-      disable: '{{$.ce.co.autoStoppingRule.confirm.disable}}'
-      usePrivateIP: 'Use Private IP'
-      healthCheck: 'Health check'
-      name: '{{$.ce.co.gatewayReview.nameYourGateway}}'
-      addSchedule: '+ add schedule'
-      scheduleDescription: 'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
-
 logs:
   noLogsText: 'No logs found'
-userProfile:
-  mysourceCodeManagers: My Source Code Managers
-  basicInformation: Basic Information
-  changePassword: Change Password
-  passwordReqs: 'Password must meet the requirements.'
-  passwordMatch: 'Passwords must match.'
-  currentPassword: 'Current Password'
-  requiredField: 'is a required field.'
-  newPassword: 'New Password'
-  confirmPassword: 'Confirm Password'
-  twofactorAuth: Two-Factor Authentication
-  myProjects: My Projects
-  myGroups: My Groups
-  myTools: My Collaboration Tools
-  addSCM: Add a Source Code Manager
-  plusSCM: + Add a Source Code Manager
-  selectSCM: Select an Source Code Manager
-  editProfile: Edit Profile
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'
@@ -2927,5 +1645,3 @@ characters: 'characters'
 uppercase: 'uppercase'
 lowercase: 'lowercase'
 specialChar: 'special character'
-serviceDashboard:
-  activeServiceInstancesLabel: Active Service Instances

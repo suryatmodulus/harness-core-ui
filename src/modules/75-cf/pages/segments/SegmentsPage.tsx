@@ -28,6 +28,7 @@ import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
@@ -70,6 +71,7 @@ export const SegmentsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingSegments
   const error = errEnvironments || errSegments
   const noSegmentExists = segmentsData?.segments?.length === 0
+  const noEnvironmentExists = environments?.length === 0
   const title = getString('cf.shared.segments')
 
   const header = (
@@ -247,7 +249,11 @@ export const SegmentsPage: React.FC = () => {
     }
   }, [clear])
 
-  const content = noSegmentExists ? (
+  const content = noEnvironmentExists ? (
+    <Container flex={{ align: 'center-center' }} height="100%">
+      <NoEnvironment onCreated={() => refetchEnvs()} />
+    </Container>
+  ) : noSegmentExists ? (
     <NoSegmentsView
       environmentIdentifier={environment?.value}
       hasEnvironment={!!environments.length}
@@ -273,9 +279,10 @@ export const SegmentsPage: React.FC = () => {
       pageTitle={title}
       header={header}
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noSegmentExists && toolbar}
+      toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
       content={(!error && content) || null}
       pagination={
+        !noEnvironmentExists &&
         !!segmentsData?.segments?.length && (
           <Pagination
             itemCount={segmentsData?.itemCount || 0}
@@ -284,7 +291,6 @@ export const SegmentsPage: React.FC = () => {
             pageIndex={pageNumber}
             gotoPage={index => {
               setPageNumber(index)
-              // refetchSegments({ queryParams: { ...queryParams, pageNumber: index } })
             }}
           />
         )

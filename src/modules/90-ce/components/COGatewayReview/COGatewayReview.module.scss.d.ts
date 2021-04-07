@@ -6,5 +6,10 @@ declare const styles: {
   readonly fulFilmentIcon: string
   readonly labelNormal: string
   readonly page: string
+  readonly reviewDetailsSection: string
+  readonly editCta: string
+  readonly equalSpacing: string
+  readonly borderSpacing: string
+  readonly reviewHeading: string
 }
 export default styles

@@ -16,6 +16,7 @@ import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCre
 import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModal'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -151,7 +152,13 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
-    data.type === 'SSHKey' ? openCreateSSHCredModal(data) : openCreateSecretModal(data.type, row.original)
+    data.type === 'SSHKey'
+      ? openCreateSSHCredModal(data)
+      : openCreateSecretModal(data.type, {
+          identifier: data.identifier,
+          orgIdentifier: data.orgIdentifier,
+          projectIdentifier: data.projectIdentifier
+        } as SecretIdentifiers)
   }
 
   return (

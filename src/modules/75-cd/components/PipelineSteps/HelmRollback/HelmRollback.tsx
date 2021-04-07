@@ -34,6 +34,7 @@ interface HelmRollbackProps {
   initialValues: StepElementConfig
   onUpdate?: (data: StepElementConfig) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: StepElementConfig
     path?: string
@@ -53,7 +54,7 @@ function HelmRollbackWidget(
   props: HelmRollbackProps,
   formikRef: StepFormikFowardRef<StepElementConfig>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -80,10 +81,7 @@ function HelmRollbackWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
 
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
@@ -148,7 +146,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<StepElementConfig>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -171,6 +169,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
     return (
       <HelmRollbackWithRef
         initialValues={initialValues}
+        isNewStep={isNewStep}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}

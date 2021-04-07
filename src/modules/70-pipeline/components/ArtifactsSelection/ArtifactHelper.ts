@@ -2,6 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { StringKeys } from 'framework/exports'
 
 export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
 
@@ -21,7 +22,7 @@ export const getArtifactIconByType = (type: string): IconName => {
   }
 }
 
-export const getArtifactTitleIdByType = (type: string): string => {
+export const getArtifactTitleIdByType = (type: string): StringKeys => {
   switch (type) {
     case Connectors.DOCKER:
       return 'dockerRegistry'

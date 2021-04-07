@@ -300,11 +300,10 @@ const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProp
   initialValues
 }) => {
   const infraVariables = variablesData?.infrastructureDefinition?.spec
-
   return infraVariables ? (
     <VariablesListTable
       data={infraVariables}
-      originalData={initialValues?.infrastructureDefinition?.spec}
+      originalData={initialValues?.infrastructureDefinition?.spec || initialValues}
       metadataMap={metadataMap}
     />
   ) : null

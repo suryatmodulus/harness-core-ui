@@ -75,7 +75,7 @@ describe('Create SSH Cred Wizard', () => {
     })
     expect(getAllByText('Key file is required')[0]).toBeDefined()
     await act(async () => {
-      fireEvent.click(container.querySelector('button[data-testid="key"]')!)
+      fireEvent.click(container.querySelector('a[data-testid="key"]')!)
     })
     const $selectTab = getByText(document.body, 'Select an existing secret')
     await act(async () => {

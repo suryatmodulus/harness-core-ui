@@ -120,7 +120,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                       <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
                         {getString('sidecar')}
                         <Text lineClamp={1} className={css.artifactId}>
-                          ({getString('cf.targets.ID')}: {sidecar?.identifier})
+                          ({getString('common.ID')}: {sidecar?.identifier})
                         </Text>
                       </Text>
                     </div>

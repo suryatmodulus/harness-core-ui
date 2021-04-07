@@ -1,0 +1,54 @@
+/* eslint-disable */
+/**
+ * This file is auto-generated. Please do not modify this file manually.
+ * Use the command `yarn strings` to regenerate this file.
+ */
+import React from 'react'
+
+import common from '@common/strings/strings.en.yaml'
+import notifications from '@notifications/strings/strings.en.yaml'
+import rbac from '@rbac/strings/strings.en.yaml'
+import secrets from '@secrets/strings/strings.en.yaml'
+import connectors from '@connectors/strings/strings.en.yaml'
+import userProfile from '@user-profile/strings/strings.en.yaml'
+import delegates from '@delegates/strings/strings.en.yaml'
+import projectsOrgs from '@projects-orgs/strings/strings.en.yaml'
+import dashboards from '@dashboards/strings/strings.en.yaml'
+import gitsync from '@gitsync/strings/strings.en.yaml'
+import pipeline from '@pipeline/strings/strings.en.yaml'
+import cd from '@cd/strings/strings.en.yaml'
+import cf from '@cf/strings/strings.en.yaml'
+import ci from '@ci/strings/strings.en.yaml'
+import cv from '@cv/strings/strings.en.yaml'
+import ce from '@ce/strings/strings.en.yaml'
+
+import oldStrings from 'strings/strings.en.yaml'
+import { StringsContext, StringsMap } from '../StringsContext'
+
+const strings = {
+  ...oldStrings,
+  common,
+  notifications,
+  rbac,
+  secrets,
+  connectors,
+  userProfile,
+  delegates,
+  projectsOrgs,
+  dashboards,
+  gitsync,
+  pipeline,
+  cd,
+  cf,
+  ci,
+  cv,
+  ce
+}
+
+export interface StringsContextProviderProps {
+  children: React.ReactNode
+}
+
+export function StringsContextProvider(props: StringsContextProviderProps): React.ReactElement {
+  return <StringsContext.Provider value={(strings as unknown) as StringsMap}>{props.children}</StringsContext.Provider>
+}

@@ -51,6 +51,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   const {
     state: {
       pipeline,
+      originalPipeline,
       pipelineView: {
         splitViewData: { selectedStageId = '' },
         isSplitViewOpen
@@ -137,6 +138,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
+  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
 
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -235,6 +237,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               hasDependencies={true}
               stepsFactory={stepsFactory}
               stage={selectedStage!}
+              originalStage={originalStage}
               ref={executionRef}
               updateStage={() => {
                 updatePipeline(pipeline)

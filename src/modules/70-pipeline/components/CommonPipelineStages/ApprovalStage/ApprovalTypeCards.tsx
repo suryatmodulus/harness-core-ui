@@ -7,15 +7,14 @@ import css from './ApprovalStageMinimalMode.module.scss'
 
 export const approvalTypeCardsData: ApprovalCardsViewData[] = [
   {
-    text: 'Harness UI Approval',
+    text: 'Harness Approval',
     value: StepType.HarnessApproval,
     icon: 'nav-harness'
   },
   {
     text: 'Jira',
     value: StepType.JiraApproval,
-    icon: 'service-jira',
-    disabled: true
+    icon: 'service-jira'
   },
   {
     text: 'ServiceNow',

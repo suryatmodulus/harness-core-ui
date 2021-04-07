@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Button, Text } from '@wings-software/uicore'
+import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
 import { useParams } from 'react-router-dom'
@@ -39,7 +39,6 @@ export default function CreatePipelines({
       <div className={css.heading}>{isEdit ? getString('editPipeline') : getString('moduleRenderer.newPipeLine')}</div>
       <Container padding="xsmall" className={css.layout}>
         <div>
-          {!isEdit && <Text className={css.helpText}>{getString('craetePipelineSubtitle')}</Text>}
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({

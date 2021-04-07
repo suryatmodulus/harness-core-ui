@@ -5,7 +5,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import css from './SavedConnectorDetails.module.scss'
 
@@ -17,7 +17,7 @@ interface ActivityDetailsRowInterface {
   label: string
   value: string | TagsInterface | number | boolean | null | undefined
   iconData?: {
-    textId: string
+    textId: StringKeys
     icon: IconName
     color?: string
   }
@@ -559,7 +559,7 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
               padding={{ top: 'medium', bottom: 'medium' }}
               key={`${item.value}${index}`}
             >
-              <Text font={{ size: 'small' }}>{getString(item.label)}</Text>
+              <Text font={{ size: 'small' }}>{getString(item.label as StringKeys)}</Text>
               {item.label === 'tagsLabel' && typeof item.value === 'object' ? (
                 renderTags(item.value)
               ) : (

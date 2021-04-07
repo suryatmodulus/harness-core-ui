@@ -3,10 +3,12 @@ import { render, waitFor } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import type { UseGetReturn } from 'restful-react'
 import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cdService from 'services/cd-ng'
 import {
+  getQueryParamsBasedOnScope,
   SelectOrCreateConnector,
   SelectOrCreateConnectorFieldNames,
   SelectOrCreateConnectorProps
@@ -119,5 +121,23 @@ describe('Unit tests for SelectorCreateConnector', () => {
 
     await waitFor(() => expect(container.querySelector('[class*="wrapperForm"]')).not.toBeNull())
     expect(container.querySelector('[class*="disabledConnector"] input')?.getAttribute('disabled')).toEqual('')
+  })
+
+  test('Ensure queryParams are correct', async () => {
+    const params: ProjectPathProps = {
+      accountId: '1234_accountId',
+      projectIdentifier: '1234_projectIdentifier',
+      orgIdentifier: '1234_orgIdentifier'
+    }
+    expect(getQueryParamsBasedOnScope('account.connectorName', params)).toEqual({ accountIdentifier: params.accountId })
+    expect(getQueryParamsBasedOnScope('org.connectorName', params)).toEqual({
+      accountIdentifier: params.accountId,
+      orgIdentifier: params.orgIdentifier
+    })
+    expect(getQueryParamsBasedOnScope('connectorName', params)).toEqual({
+      accountIdentifier: params.accountId,
+      orgIdentifier: params.orgIdentifier,
+      projectIdentifier: params.projectIdentifier
+    })
   })
 })

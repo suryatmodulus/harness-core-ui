@@ -8,7 +8,12 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
-import { getManifestIconByType, getManifestStoreTitle, ManifestToConnectorMap } from '../Manifesthelper'
+import {
+  getManifestIconByType,
+  getManifestStoreTitle,
+  ManifestStoreMap,
+  ManifestToConnectorMap
+} from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
 
 interface ManifestStorePropType {
@@ -119,7 +124,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     disabled={selectedManifest === ''}
                     label={
                       <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
-                        ManifestToConnectorMap[selectedManifest]
+                        selectedManifest === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[selectedManifest]
                       } ${getString('connector')}`}</Text>
                     }
                     placeholder={getString('selectServer')}

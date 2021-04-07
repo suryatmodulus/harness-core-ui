@@ -366,7 +366,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view for inputset 1`] = 
     >
       <label
         class="bp3-label"
-        for=".timeout"
+        for="timeout"
       >
         Timeout
          
@@ -382,10 +382,10 @@ exports[`Test K8sBlueGreenDeployStep should render edit view for inputset 1`] = 
         >
           <input
             class="bp3-input"
-            name=".timeout"
+            name="timeout"
             placeholder="Enter w/d/h/m/s/ms"
             type="text"
-            value=""
+            value="<+input>"
           />
         </div>
       </div>

@@ -121,7 +121,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 2,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${0}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames.tab1`),
             component: (
               <SelectKubernetesConnector
                 data={currentData as KubernetesActivitySourceInfo}
@@ -136,7 +136,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 3,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${1}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames.tab2`),
             component: (
               <SelectKubernetesNamespaces
                 data={currentData as KubernetesActivitySourceInfo}
@@ -150,7 +150,7 @@ export function KubernetesActivitySource(): JSX.Element {
           },
           {
             id: 4,
-            title: getString(`cv.activitySources.kubernetes.tabNames[${2}]`),
+            title: getString(`cv.activitySources.kubernetes.tabNames.tab3`),
             component: (
               <MapWorkloadsToServices
                 data={currentData as KubernetesActivitySourceInfo}

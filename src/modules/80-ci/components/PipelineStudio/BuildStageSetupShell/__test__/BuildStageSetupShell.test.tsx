@@ -1,10 +1,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import type { IconName } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import { PipelineContext } from '@pipeline/exports'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
 import type { PipelineContextInterface } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import BuildStageSetupShell from '../BuildStageSetupShell'
 
 import pipelineContextMock from './pipelineContext.json'
@@ -12,9 +16,31 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
+class StepFactory extends AbstractStepFactory {
+  protected type = 'test-factory'
+  protected stepName = 'stepOne'
+  protected stepIcon: IconName = 'cross'
+}
+
+class StepOne extends Step<object> {
+  protected type = StepType.CustomVariable
+  protected stepName = 'stepOne'
+  protected stepIcon: IconName = 'cross'
+  validateInputSet(): object {
+    return {}
+  }
+  protected defaultValues = { a: 'a' }
+  renderStep(props: StepProps<object>): JSX.Element {
+    return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
+  }
+}
+const stepFactory = new StepFactory()
+stepFactory.registerStep(new StepOne())
+
 const getContextValue = (): PipelineContextInterface => {
   return {
     ...pipelineContextMock,
+    stepsFactory: stepFactory,
     getStageFromPipeline: jest.fn(() => ({ stage: pipelineContextMock.state.pipeline.stages[0] })),
     updatePipeline: jest.fn()
   } as any

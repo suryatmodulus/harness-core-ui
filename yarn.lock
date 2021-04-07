@@ -4215,15 +4215,10 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/swagger-ts@1.55003.0":
-  version "1.55003.0"
-  resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
-  integrity "sha1-HCsjPS4B2HH61bzncb5aUvSTg1Q= sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ=="
-
-"@wings-software/uicore@0.1.104":
-  version "0.1.104"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.104/5607f97d103a58af0489fdb264e5d8d1a09eb9fc19084da35c297ac40184f6cc#bc770477ae8e17953e930e154780869525e03c52"
-  integrity sha512-03TPi9MjSKjJQ/R7CCuW8JQ5iFohqDq1hIKFGr42eH7LSR1sJWEoBtEdEhDojrV/HAlxC+5wp10Pk+UP/Z4VwA==
+"@wings-software/uicore@0.1.120":
+  version "0.1.120"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.120/5be4d7d331c18665af3690b6ef0dac6ec67e7f6ad0f6e6a6b7979a005e7c35be#50e72d56974656eb1d744f658a4bcaeb25ea16dc"
+  integrity sha512-dwfsf5LmnpSzSOlXTZUVXeCwRSWTCWO9IHafLab28+oiZlwKfX0B7NvuETArj1vTYYSX5iiOP36gohBrnURUsw==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"

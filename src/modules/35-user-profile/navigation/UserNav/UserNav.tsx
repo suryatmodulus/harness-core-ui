@@ -17,7 +17,7 @@ export default function UserNav(): React.ReactElement {
       <SidebarLink exact label={getString('profile')} to={routes.toUserProfile({ accountId })} />
       <SidebarLink label={getString('preferences')} to={routes.toUserPreferences({ accountId })} />
       <div className={css.signout}>
-        <Button minimal icon="log-out" iconProps={{ size: 20, padding: { right: 'medium' } }} onClick={signOut}>
+        <Button minimal icon="log-out" iconProps={{ size: 20, padding: { right: 'small' } }} onClick={signOut}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('signOut')}</Text>
         </Button>
       </div>

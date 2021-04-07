@@ -50,7 +50,7 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
         }}
       />
       <StrategySelection
-        label={getString('failureStrategies.fieldLabels.onTimeoutLabel')}
+        label={getString('pipeline.failureStrategies.fieldLabels.onTimeoutLabel')}
         name={`${specPath}.onTimeout.action`}
         formik={formik}
         parentStrategy={Strategy.ManualIntervention}
@@ -91,7 +91,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
     <div className={cx(css.step, css.retryStep)}>
       <StrategyIcon strategy={Strategy.Retry} checked onChange={handleChange} />
       <FormGroup
-        label={getString('failureStrategies.fieldLabels.retryCountLabel')}
+        label={getString('pipeline.failureStrategies.fieldLabels.retryCountLabel')}
         labelFor={retryCountFieldName}
         helperText={helperText}
         intent={intent}
@@ -99,7 +99,8 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         <MultiTextInput
           textProps={{
             type: 'number',
-            min: 0
+            min: 0,
+            name: retryCountFieldName
           }}
           name={retryCountFieldName}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
@@ -114,7 +115,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
       </FormGroup>
       <MultiTypeFieldSelector
         name={retryIntervalsFieldName}
-        label={getString('failureStrategies.fieldLabels.retryIntervalsLabel')}
+        label={getString('pipeline.failureStrategies.fieldLabels.retryIntervalsLabel')}
         defaultValueToReset={['1d']}
         disableTypeSelection
       >
@@ -152,7 +153,13 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                             defaultValueToReset: ''
                           }}
                         />
-                        <Button minimal small icon="trash" onClick={handleRemove} data-testid="remove-retry-interval" />
+                        <Button
+                          minimal
+                          small
+                          icon="trash"
+                          onClick={handleRemove}
+                          data-testid={`remove-retry-interval-${i}`}
+                        />
                       </div>
                     )
                   })}
@@ -166,7 +173,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         </FieldArray>
       </MultiTypeFieldSelector>
       <StrategySelection
-        label={getString('failureStrategies.fieldLabels.onRetryFailureLabel')}
+        label={getString('pipeline.failureStrategies.fieldLabels.onRetryFailureLabel')}
         name={`${specPath}.onRetryFailure.action`}
         formik={formik}
         parentStrategy={Strategy.Retry}

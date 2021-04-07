@@ -126,8 +126,8 @@ export default function RunPipelineListView({
       pagination={{
         itemCount: data?.totalElements || 0,
         pageSize: data?.size || 10,
-        pageCount: data?.totalPages || -1,
-        pageIndex: data?.number || 0,
+        pageCount: data?.totalPages ?? 1,
+        pageIndex: data?.number ?? 0,
         gotoPage
       }}
     />

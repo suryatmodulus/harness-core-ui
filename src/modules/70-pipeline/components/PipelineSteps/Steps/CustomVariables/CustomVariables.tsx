@@ -168,7 +168,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
       variables: data.variables.map(row => ({
         name: row.name,
         type: row.type,
-        default: row.default
+        default: !isNil(row.default)
           ? row.type === 'Number'
             ? parseFloat((row.default as unknown) as string)
             : row.default

@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetSelectionLogsV2 } from 'services/portal'
-import { useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
 import { PageSpinner } from '..'
 import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 
@@ -34,7 +34,13 @@ export function DelegateSelectionLogsTask({
     <>
       {data?.resource?.delegateSelectionLogs && data?.resource?.delegateSelectionLogs.length > 0 ? (
         <>
-          <Text>{getString('delegateForTask', { delegate: delegateName, taskName: taskName })}</Text>
+          <Text>
+            <String
+              stringID="common.delegateForTask"
+              vars={{ delegate: delegateName, taskName: taskName }}
+              useRichText
+            />
+          </Text>
           <DelegateSelectionLogsTable
             pageIndex={page}
             pageCount={Math.ceil(data.resource.delegateSelectionLogs.length / PAGE_SIZE)}
@@ -45,7 +51,7 @@ export function DelegateSelectionLogsTask({
           />
         </>
       ) : (
-        <Text>{getString('logs.noLogsText')}</Text>
+        <Text>{getString('common.logs.noLogsText')}</Text>
       )}
     </>
   )

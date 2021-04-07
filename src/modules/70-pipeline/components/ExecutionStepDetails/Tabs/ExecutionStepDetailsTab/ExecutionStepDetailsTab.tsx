@@ -77,7 +77,11 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                   {step.delegateInfoList.map((item, index) => (
                     <div key={`${item.id}-${index}`}>
                       <Text font={{ size: 'small', weight: 'semi-bold' }}>
-                        {getString('delegateForTask', { delegate: item.name, taskName: item.taskName })}
+                        <String
+                          stringID="common.delegateForTask"
+                          vars={{ delegate: item.name, taskName: item.taskName }}
+                          useRichText
+                        />
                       </Text>{' '}
                       (
                       <Text
@@ -94,7 +98,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
                         style={{ cursor: 'pointer' }}
                         color={Color.BLUE_500}
                       >
-                        {getString('delegateSelectionLogs')}
+                        {getString('common.logs.delegateSelectionLogs')}
                       </Text>
                       )
                     </div>

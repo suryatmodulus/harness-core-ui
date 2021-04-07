@@ -1,4 +1,5 @@
 secrets: Secrets
+delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 production: Production
 addVariable: Add Variable
@@ -16,6 +17,9 @@ ID: ID
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
+logs:
+  noLogsText: 'No logs found'
+  delegateSelectionLogs: Delegate selection logs
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday

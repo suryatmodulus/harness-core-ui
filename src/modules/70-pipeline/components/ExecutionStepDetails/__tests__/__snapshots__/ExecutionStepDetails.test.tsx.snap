@@ -731,6 +731,396 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
 </div>
 `;
 
+exports[`<ExecutionStepDetails /> tests renders normal error step 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        Step: 
+        Rollout Deployment
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-tabs tabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
+          role="tab"
+          tabindex="0"
+        >
+          Details
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_INPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
+          role="tab"
+          tabindex="0"
+        >
+          Input
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
+          role="tab"
+          tabindex="0"
+        >
+          Output
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
+        role="tabpanel"
+      >
+        <div
+          class="detailsTab"
+        >
+          <div
+            class="errorMsg error"
+          >
+            <div
+              class="title"
+            >
+              Error Summary
+            </div>
+            <p>
+              Failed to complete K8s task. Please check execution logs.
+            </p>
+          </div>
+          <table
+            class="detailsTable"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  Started at:
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Ended at:
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr
+                class="delegateRow"
+              >
+                <th>
+                  Delegate:
+                </th>
+                <td>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                  >
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      >
+                        <span>
+                          Kapil-Kumawat-MBP-2019.local for Git Fetch Files Task / test
+                        </span>
+                      </p>
+                       
+                      (
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        style="cursor: pointer;"
+                      >
+                        Delegate selection logs
+                      </p>
+                      )
+                    </div>
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      >
+                        <span>
+                          Kapil-Kumawat-MBP-2019.local for K8s Task : Rolling Deploy
+                        </span>
+                      </p>
+                       
+                      (
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        style="cursor: pointer;"
+                      >
+                        Delegate selection logs
+                      </p>
+                      )
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="main"
+            data-mode="step-details"
+          >
+            <div
+              class="header"
+            >
+              <div>
+                Step Logs
+              </div>
+              <div
+                class="searchContainer"
+              >
+                <div
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  data-name=""
+                >
+                  <span
+                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    icon="search"
+                  >
+                    <svg
+                      data-icon="search"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input "
+                    dir="auto"
+                    placeholder="Search"
+                    type="search"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  class="toConsoleView"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+                >
+                  <span>
+                    Console View
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div
+                class="noLogs"
+              >
+                No logs found
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
 <div>
   <div

@@ -1,0 +1,31 @@
+{
+  "metaData": {},
+  "resource": {
+    "delegateSelectionLogs": [
+      {
+        "delegateId": "kZPIujTnSgO0Yz04OztwiQ",
+        "delegateType": null,
+        "delegateName": "Delegate-MBP-2019.local",
+        "delegateHostName": "Delegate-MBP-2019.local",
+        "delegateProfileName": "Primary",
+        "conclusion": "Selected",
+        "message": "Delegate assigned for task execution",
+        "eventTimestamp": 1617771444161,
+        "profileScopingRulesDetails": null
+      },
+      {
+        "delegateId": "kZPIujTnSgO0Yz04OztwiQ",
+        "delegateType": null,
+        "delegateName": "Delegate-MBP-2019.local",
+        "delegateHostName": "Delegate-MBP-2019.local",
+        "delegateProfileName": "Primary",
+        "conclusion": "Accepted",
+        "message": "Successfully matched required delegate capabilities",
+        "eventTimestamp": 1617771444108,
+        "profileScopingRulesDetails": null
+      }
+    ],
+    "taskSetupAbstractions": {}
+  },
+  "responseMessages": []
+}

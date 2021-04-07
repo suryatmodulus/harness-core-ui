@@ -417,7 +417,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
             previousRowCounts={previousRowCounts}
           />
         ) : (
-          <String tagName="div" className={css.noLogs} stringID="logs.noLogsText" />
+          <String tagName="div" className={css.noLogs} stringID="common.logs.noLogsText" />
         )}
       </div>
       {mode === 'console-view' && errorMessage ? (

@@ -517,7 +517,6 @@ collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
 startedAt: 'Started at:'
 endedAt: 'Ended at:'
-delegateForTask: '{{delegate}} for {{taskName}}'
 lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
 delegateLabel: 'Delegate:'
@@ -567,7 +566,6 @@ inputSets:
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
-delegateSelectionLogs: Delegate selection logs
 assessment: Assessment
 workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
 manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
@@ -1635,8 +1633,6 @@ resourceGroup:
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
 configuration: Configuration
-logs:
-  noLogsText: 'No logs found'
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'

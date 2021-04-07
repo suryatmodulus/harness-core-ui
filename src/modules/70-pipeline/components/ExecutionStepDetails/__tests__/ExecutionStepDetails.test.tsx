@@ -45,6 +45,29 @@ const executionContext: ExecutionContextParams = {
     approvalStepComplete: {
       stepType: 'JiraApproval',
       status: 'Failed'
+    },
+    errorStep: {
+      name: 'Rollout Deployment',
+      identifier: 'rolloutDeployment',
+      outcomes: [],
+      stepType: 'K8sRollingDeploy',
+      status: 'Failed',
+      failureInfo: { errorMessage: 'Failed to complete K8s task. Please check execution logs.' },
+      nodeRunInfo: { whenCondition: '<+OnStageSuccess>', evaluatedCondition: true },
+      delegateInfoList: [
+        {
+          id: 'kZPIujTnSgO0Yz04OztwiQ',
+          name: 'Kapil-Kumawat-MBP-2019.local',
+          taskId: 'SKGvcBFRQCe2xKPPtx8i4Q',
+          taskName: 'Git Fetch Files Task / test'
+        },
+        {
+          id: 'kZPIujTnSgO0Yz04OztwiQ',
+          name: 'Kapil-Kumawat-MBP-2019.local',
+          taskId: 'J5L7EeGTQTC96-91Py6YIQ',
+          taskName: 'K8s Task : Rolling Deploy'
+        }
+      ]
     }
   },
   pipelineStagesMap: new Map(),
@@ -80,6 +103,10 @@ describe('<ExecutionStepDetails /> tests', () => {
 
   test('renders approval complete step', () => {
     const { container } = render(<TestComponent selectedStep="approvalStepComplete" closeDetails={jest.fn()} />)
+    expect(container).toMatchSnapshot()
+  })
+  test('renders normal error step', () => {
+    const { container } = render(<TestComponent selectedStep="errorStep" closeDetails={jest.fn()} />)
     expect(container).toMatchSnapshot()
   })
 

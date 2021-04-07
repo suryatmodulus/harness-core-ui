@@ -43,7 +43,7 @@ describe('<ManualInterventionTab /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data} />
+        <ManualInterventionTab step={data as any} />
       </TestWrapper>
     )
 
@@ -53,7 +53,7 @@ describe('<ManualInterventionTab /> tests', () => {
   test.each(flatten(STRATEGIES))('interrupt %s works', async strategy => {
     const { findByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data} />
+        <ManualInterventionTab step={data as any} />
       </TestWrapper>
     )
 
@@ -82,7 +82,7 @@ describe('<ManualInterventionTab /> tests', () => {
 
     render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data} />
+        <ManualInterventionTab step={data as any} />
       </TestWrapper>
     )
 

@@ -40,7 +40,7 @@ export function useDelegateSelectionLogsModal(): UseDelegateSelectionLogsModalRe
   const { getString } = useStrings()
   const [modalProps, setModalProps] = React.useState<IDialogProps>({
     isOpen: true,
-    title: upperFirst(getString('delegateSelectionLogs')),
+    title: upperFirst(getString('common.logs.delegateSelectionLogs')),
     isCloseButtonShown: true,
     onClose: () => {
       hideModal()

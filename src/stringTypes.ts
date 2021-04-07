@@ -16,10 +16,13 @@ export interface StringsMap {
   'common.datePickerShortcuts.LastWeek': string
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
+  'common.delegateForTask': string
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
   'common.jexlExpression': string
+  'common.logs.delegateSelectionLogs': string
+  'common.logs.noLogsText': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -2538,19 +2541,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  delegateForTask: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   delegateLabel: string
   /**
    * @deprecated migrate this string to module level file
    */
   delegateSelection: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  delegateSelectionLogs: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3579,10 +3574,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   loggedAt: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'logs.noLogsText': string
   /**
    * @deprecated migrate this string to module level file
    */

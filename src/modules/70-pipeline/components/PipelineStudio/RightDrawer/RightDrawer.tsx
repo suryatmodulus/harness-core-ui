@@ -96,9 +96,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
-    const node = data?.stepConfig?.node
-    const stepId = node?.identifier
-
+    // const node = data?.stepConfig?.node
+    // const stepId = node?.identifier
+    const node: ExecutionWrapper = {}
     if (node) {
       // Add/replace values only if they are presented
       if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
@@ -133,13 +133,15 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         node.spec = { ...item.spec }
       }
 
-      if (stepId && selectedStage?.stage?.spec?.execution) {
-        await updateStage(
-          produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
-            const originalNode = getStepFromId(draft?.stage?.spec?.execution, stepId)
-            originalNode.node = clone(node)
-          }).stage as StageElementConfig
-        )
+      node.type = item.type
+      if (data?.stepConfig?.node?.identifier && selectedStage?.stage?.spec?.execution) {
+        selectedStage.stage.spec.execution.steps?.forEach((xyz: any) => {
+          if (xyz?.step.identifier === data?.stepConfig?.node?.identifier) {
+            xyz.step = node
+          }
+        })
+
+        await updateStage(selectedStage.stage)
         data?.stepConfig?.onUpdate?.(node)
       }
 

@@ -86,9 +86,9 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
             orgIdentifier,
             projectIdentifier,
             ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
-            type: 'Vault',
+           // type: 'Vault',
             // TODO: uncomment
-            // type: 'AwsKms',
+            type: 'AwsKms',
             spec: {
               accessKey: formData?.accessKey,
               secretKey: formData?.secretKey?.identifier,

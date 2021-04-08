@@ -984,8 +984,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
     case Connectors.Jira:
       return 'service-jira'
     // TODO: uncomment
-    // case Connectors.AWS_KMS:
-    //   return 'aws-kms'
+    case Connectors.AWS_KMS:
+      return 'aws-kms'
     default:
       return 'cog'
   }

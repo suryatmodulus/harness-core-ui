@@ -46,7 +46,9 @@ const getTimelineNodes = (isProvisionerEnabled: boolean) => [
   }
 ]
 
-export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
+export default function DeployInfraSpecifications(
+  props: React.PropsWithChildren<{ errors: { isError: boolean; errors: [string, string[]][] } }>
+): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
@@ -76,6 +78,15 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
+
+  const { errors } = props
+
+  function isFieldError(fieldString: string): [string, string[]][] {
+    const fieldErrors = errors.errors.filter(error => {
+      return error[0].indexOf(fieldString) > -1
+    })
+    return fieldErrors
+  }
 
   const debounceUpdatePipeline = React.useRef(
     debounce((pipelineData: NgPipeline) => {
@@ -278,7 +289,17 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
           <div className={css.tabHeading} id="environment">
-            {<String stringID="environment" />}
+            {<String stringID="environment" />}{' '}
+            {isFieldError('stage.spec.infrastructure').length > 0 ? (
+              <Icon
+                name="warning-sign"
+                height={10}
+                size={10}
+                color={'orange500'}
+                margin={{ left: 'small', right: 0 }}
+                style={{ verticalAlign: 'baseline' }}
+              />
+            ) : null}
           </div>
           <Card className={cx(css.sectionCard, css.shadow)}>
             <StepWidget

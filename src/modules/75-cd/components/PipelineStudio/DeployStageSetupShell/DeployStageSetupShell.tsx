@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button, Icon, parseStringToTime } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import type {
@@ -78,34 +78,29 @@ export default function DeployStageSetupShell(): JSX.Element {
     })
   }
 
-  function isStageError(stageName: string): boolean {
-    //  const errorList = Array.from(errorMap).filter(item => {
-    //    return item[0].indexOf(path) > -1
-    //  })
-
+  function isStageError(stageName: string): { isError: boolean; errors: [string, string[]][] } {
     const { stage, parent } = getStageFromPipeline(selectedStageId)
-
     const { stages } = pipeline
 
     const path =
-      stages?.indexOf(stage) > -1
+      stages.indexOf(stage) > -1
         ? `pipeline.stages.${stages?.indexOf(stage)}`
         : parent.parallel
         ? `pipeline.stages.${stages?.indexOf(parent)}.parallel.${parent?.parallel.indexOf(stage)}`
         : ''
-    console.log(path)
-    console.log(errorMap)
 
     if (errorMap) {
-      return Array.from(errorMap.keys()).filter(item => item.indexOf(`${path}.stage.spec.${stageName}`) > -1).length > 0
+      return {
+        isError:
+          Array.from(errorMap.keys()).filter(item => item.indexOf(`${path}.stage.spec.${stageName}`) > -1).length > 0,
+        errors: Array.from(errorMap).filter(item => {
+          return item[0].indexOf(`${path}.stage.spec.${stageName}`) > -1
+        })
+      }
     } else {
-      return false
+      return { isError: false, errors: [] }
     }
   }
-
-  // console.log(stages?.indexOf(stage!))
-
-  // console.log(errorMap)
 
   React.useEffect(() => {
     if (layoutRef.current) {
@@ -190,6 +185,19 @@ export default function DeployStageSetupShell(): JSX.Element {
     </Layout.Horizontal>
   )
 
+  const errors = {
+    serviceConfig: {
+      ...isStageError('serviceConfig')
+    },
+    infrastructure: {
+      ...isStageError('infrastructure')
+    },
+
+    execution: {
+      ...isStageError('execution')
+    }
+  }
+
   return (
     <section
       ref={layoutRef}
@@ -223,12 +231,19 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="service" height={20} size={20} />
               {getString('service')}
-              {isStageError('serviceConfig') ? (
-                <Icon name="warning-sign" height={12} size={12} color={'orange400'} />
+              {errors.serviceConfig.isError ? (
+                <Icon
+                  name="warning-sign"
+                  height={10}
+                  size={10}
+                  color={'orange500'}
+                  margin={{ left: 'small', right: 0 }}
+                  style={{ verticalAlign: 'baseline' }}
+                />
               ) : null}
             </span>
           }
-          panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
+          panel={<DeployServiceSpecifications errors={errors.serviceConfig}>{navBtns}</DeployServiceSpecifications>}
         />
         <Icon
           name="chevron-right"
@@ -244,12 +259,19 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-stages" height={20} size={20} />
               {getString('infrastructureText')}
-              {isStageError('infrastructure') ? (
-                <Icon name="warning-sign" height={12} size={12} color={'orange400'} />
+              {errors.infrastructure.isError ? (
+                <Icon
+                  name="warning-sign"
+                  height={10}
+                  size={10}
+                  color={'orange500'}
+                  margin={{ left: 'small', right: 0 }}
+                  style={{ verticalAlign: 'baseline' }}
+                />
               ) : null}
             </span>
           }
-          panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
+          panel={<DeployInfraSpecifications errors={errors.infrastructure}>{navBtns}</DeployInfraSpecifications>}
         />
         <Icon
           name="chevron-right"
@@ -265,8 +287,15 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-steps" height={20} size={20} />
               {getString('executionText')}
-              {isStageError('execution') ? (
-                <Icon name="warning-sign" height={12} size={12} color={'orange400'} />
+              {errors.execution.isError ? (
+                <Icon
+                  name="warning-sign"
+                  height={10}
+                  size={10}
+                  color={'orange500'}
+                  margin={{ left: 'small', right: 0 }}
+                  style={{ verticalAlign: 'baseline' }}
+                />
               ) : null}
             </span>
           }
@@ -324,6 +353,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                   }
                 })
               }}
+              errors={errors.execution}
             />
           }
         />

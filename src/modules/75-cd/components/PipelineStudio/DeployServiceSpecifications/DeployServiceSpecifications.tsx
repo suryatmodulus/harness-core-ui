@@ -36,8 +36,19 @@ const setupMode = {
   DIFFERENT: 'DIFFERENT'
 }
 
-export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
+export default function DeployServiceSpecifications(
+  props: React.PropsWithChildren<{ errors: { isError: boolean; errors: [string, string[]][] } }>
+): JSX.Element {
   const { getString } = useStrings()
+
+  const { errors } = props
+
+  function isFieldError(fieldString: string): [string, string[]][] {
+    const fieldErrors = errors.errors.filter(error => {
+      return error[0].indexOf(fieldString) > -1
+    })
+    return fieldErrors
+  }
 
   const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
     {
@@ -418,7 +429,36 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>
-              <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
+              <div className={css.tabHeading}>
+                {getString('pipelineSteps.serviceTab.aboutYourService')}
+                {isFieldError('stage.spec.serviceConfig').length > 0 ? (
+                  // <Tooltip
+                  //   content={
+                  //     <div>
+                  //       {isFieldError('stage.spec.serviceConfig').map((error, ind) => {
+                  //         return (
+                  //           <div key={ind}>
+                  //             {error[1].map((message, index) => {
+                  //               return <div key={index}>{message}</div>
+                  //             })}
+                  //           </div>
+                  //         )
+                  //       })}
+                  //     </div>
+                  //   }
+                  //   position="auto"
+                  // >
+                  <Icon
+                    name="warning-sign"
+                    height={10}
+                    size={10}
+                    color={'orange500'}
+                    margin={{ left: 'small', right: 0 }}
+                    style={{ verticalAlign: 'baseline' }}
+                  />
+                ) : // </Tooltip>
+                null}
+              </div>
               <Card className={css.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}

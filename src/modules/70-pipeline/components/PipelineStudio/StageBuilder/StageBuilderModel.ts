@@ -42,6 +42,7 @@ export class StageBuilderModel extends DiagramModel {
       const type = stagesMap[node.stage.type]
       startX += this.gapX
       const isSelected = selectedStageId === node.stage.identifier
+
       const isError = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
 
       const errorList = Array.from(errorMap).filter(item => {

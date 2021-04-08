@@ -53,7 +53,7 @@ export default function BuildStageSetupShell(): JSX.Element {
       pipeline,
       originalPipeline,
       pipelineView: {
-        splitViewData: { selectedStageId = '' },
+        splitViewData: { selectedStageId = '', errorMap },
         isSplitViewOpen
       },
       pipelineView
@@ -136,6 +136,29 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }, [pipeline, selectedStageId])
 
+  function isStageError(stageName: string): boolean {
+    //  const errorList = Array.from(errorMap).filter(item => {
+    //    return item[0].indexOf(path) > -1
+    //  })
+
+    const { stage, parent } = getStageFromPipeline(selectedStageId)
+
+    const { stages } = pipeline
+
+    const path =
+      stages.indexOf(stage) > -1
+        ? `pipeline.stages.${stages?.indexOf(stage)}`
+        : parent.parallel
+        ? `pipeline.stages.${stages?.indexOf(parent)}.parallel.${parent?.parallel.indexOf(stage)}`
+        : ''
+
+    if (errorMap) {
+      return Array.from(errorMap.keys()).filter(item => item.indexOf(`${path}.stage.spec.${stageName}`) > -1).length > 0
+    } else {
+      return false
+    }
+  }
+
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
@@ -190,7 +213,8 @@ export default function BuildStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-stages" height={20} size={20} />
               {i18n.infraLabel}
-              {filledUpStages.infra ? null : (
+
+              {isStageError('infrastructure') ? (
                 <Icon
                   name="warning-sign"
                   height={10}
@@ -199,7 +223,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                   margin={{ left: 'small', right: 0 }}
                   style={{ verticalAlign: 'baseline' }}
                 />
-              )}
+              ) : null}
             </span>
           }
           panel={<BuildInfraSpecifications>{navBtns}</BuildInfraSpecifications>}
@@ -218,7 +242,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-steps" height={20} size={20} />
               {i18n.executionLabel}
-              {filledUpStages.execution ? null : (
+              {isStageError('execution') ? (
                 <Icon
                   name="warning-sign"
                   height={10}
@@ -227,7 +251,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                   margin={{ left: 'small', right: 0 }}
                   style={{ verticalAlign: 'baseline' }}
                 />
-              )}
+              ) : null}
             </span>
           }
           panel={

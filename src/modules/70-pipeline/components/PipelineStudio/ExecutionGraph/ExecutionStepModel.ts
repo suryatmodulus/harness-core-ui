@@ -469,7 +469,8 @@ export class ExecutionStepModel extends DiagramModel {
     factory: AbstractStepFactory,
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean,
-    getString: UseStringsReturn['getString']
+    getString: UseStringsReturn['getString'],
+    errors: [string, string[]][]
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
@@ -526,6 +527,9 @@ export class ExecutionStepModel extends DiagramModel {
         false,
         getString
       )
+      console.log(node)
+      console.log(errors)
+      console.log(prevNodes)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

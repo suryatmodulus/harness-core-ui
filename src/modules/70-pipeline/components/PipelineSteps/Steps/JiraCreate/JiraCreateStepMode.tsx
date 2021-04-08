@@ -53,6 +53,8 @@ const FormContent = ({
   refetchProjects,
   refetchProjectMetadata,
   projectsResponse,
+  projectMetadataFetchError,
+  projectsFetchError,
   projectMetaResponse,
   fetchingProjects,
   fetchingProjectMetadata,
@@ -267,6 +269,8 @@ const FormContent = ({
                 placeholder={
                   fetchingProjects
                     ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+                    : projectsFetchError?.message
+                    ? projectsFetchError?.message
                     : getString('select')
                 }
                 className={css.md}
@@ -289,6 +293,8 @@ const FormContent = ({
                 placeholder={
                   fetchingProjectMetadata
                     ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+                    : projectMetadataFetchError?.message
+                    ? projectMetadataFetchError?.message
                     : getString('select')
                 }
                 className={css.md}

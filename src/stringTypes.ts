@@ -382,6 +382,8 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.approvalCriteria': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
+  'pipeline.jiraApprovalStep.fetchIssueTypesError': string
+  'pipeline.jiraApprovalStep.fetchProjectsError': string
   'pipeline.jiraApprovalStep.fetchingFields': string
   'pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder': string
   'pipeline.jiraApprovalStep.fetchingProjectsPlaceholder': string

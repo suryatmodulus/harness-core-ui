@@ -4,12 +4,18 @@ import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/exports'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
-import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
+import type {
+  ApprovalStageConfig,
+  StageElementConfig,
+  StageElementWrapper,
+  StageElementWrapperConfig
+} from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import css from './ApprovalStageSetupShellMode.module.scss'
+import produce from 'immer'
 
 export const ApprovalStageSetupShellMode: React.FC = () => {
   const { getString } = useStrings()
@@ -78,14 +84,27 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
 
   useEffect(() => {
     // error handling if needed
+    // if (yamlSnippet?.data) {
+    //   // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
+    //   if (selectedStage && selectedStage.stage.spec && !selectedStage.stage.spec.execution) {
+    //     const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+    //     selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies || []
+    //     selectedStage.stage.spec.execution = jsonFromYaml?.spec?.execution
+    //     updateStage(selectedStage.stage)
+    //   }
+    // }
+
     if (yamlSnippet?.data) {
-      // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
-      if (selectedStage && selectedStage.stage.spec && !selectedStage.stage.spec.execution) {
-        const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-        selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies || []
-        selectedStage.stage.spec.execution = jsonFromYaml?.spec?.execution
-        updateStage(selectedStage.stage)
-      }
+      updateStage(
+        produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+          const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+          if (draft.stage && draft.stage.spec && !draft.stage.spec.execution) {
+            draft.stage.failureStrategies = jsonFromYaml.failureStrategies || []
+            ;(draft.stage.spec as ApprovalStageConfig).execution =
+              (jsonFromYaml.spec as ApprovalStageConfig)?.execution || {}
+          }
+        }).stage as StageElementConfig
+      )
     }
   }, [yamlSnippet?.data])
 

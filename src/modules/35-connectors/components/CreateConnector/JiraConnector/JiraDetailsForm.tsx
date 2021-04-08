@@ -55,20 +55,8 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
   const { prevStepData, nextStep, accountId } = props
   const [, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding | undefined>()
   const [initialValues, setInitialValues] = React.useState(defaultInitialFormData)
-<<<<<<< HEAD
   const [loadConnector] = React.useState(false)
 
-=======
-  const { mutate: createConnector } = useCreateConnector({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
-  })
-  const { mutate: updateConnector } = useUpdateConnector({
-    identifier: props.connectorInfo ? props.connectorInfo.identifier : prevStepData?.identifier || '',
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
-  })
-  const { showSuccess } = useToaster()
-  const [loadConnector, setLoadConnector] = React.useState(false)
->>>>>>> feat: [CDNG-5856]: Added scope identifiers as  query params to connector create and uodate api
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = React.useState(true && props.isEditMode)
 
   const { getString } = useStrings()

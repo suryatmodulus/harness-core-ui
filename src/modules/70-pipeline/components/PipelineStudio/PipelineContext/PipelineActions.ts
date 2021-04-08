@@ -84,6 +84,7 @@ export interface PipelineViewData {
     selectedStageId?: string
     stageType?: StageTypes
     type?: SplitViewTypes
+    errorMap?: Map<string, string[]>
   }
   isDrawerOpened: boolean
   drawerData: DrawerData

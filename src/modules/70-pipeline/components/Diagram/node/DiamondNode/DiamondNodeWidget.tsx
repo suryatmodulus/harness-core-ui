@@ -38,6 +38,10 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
 
+  const errors = options.errorList?.reduce((prev, curr) => {
+    return prev + curr[1].length
+  }, 0)
+
   // const errorList: { [key: string]: number } = {}
   // options.errorList
   //   ?.map(error => error[1])
@@ -59,7 +63,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         {options.icon && <Icon size={28} name={options.icon} />}
         {options.isInComplete && (
           <span className={css.inComplete}>
-            <Tooltip content={<div>{options.errorList?.length} error(s) at this node</div>} position="auto">
+            <Tooltip content={<div>{errors} error(s) at this node</div>} position="auto">
               <Icon size={12} name={'warning-sign'} color="orange500" />
             </Tooltip>
           </span>

@@ -247,7 +247,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           splitViewData: {
             selectedStageId: newStage.stage.identifier,
             type: SplitViewTypes.StageView,
-            stageType: newStage.stage.type
+            stageType: newStage.stage.type,
+            errorMap: errorMap
           }
         })
         moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)
@@ -304,7 +305,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   updatePipelineView({
                     ...pipelineView,
                     isSplitViewOpen: true,
-                    splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView, stageType: typeOfStage }
+                    splitViewData: {
+                      selectedStageId: stageId,
+                      type: SplitViewTypes.StageView,
+                      stageType: typeOfStage,
+                      errorMap: errorMap
+                    }
                   })
                   moveStageToFocusDelayed(engine, stageId, true, false)
                 },
@@ -335,7 +341,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                       splitViewData: {
                         selectedStageId: identifier,
                         type: SplitViewTypes.StageView,
-                        stageType: node.stage.type
+                        stageType: node.stage.type,
+                        errorMap: errorMap
                       }
                     })
                   },
@@ -356,7 +363,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 splitViewData: {
                   selectedStageId: data?.stage?.identifier,
                   type: SplitViewTypes.StageView,
-                  stageType: data?.stage?.type || 'Deployment'
+                  stageType: data?.stage?.type || 'Deployment',
+                  errorMap: errorMap
                 }
               })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
@@ -369,7 +377,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 splitViewData: {
                   selectedStageId: data?.stage?.identifier,
                   type: SplitViewTypes.StageView,
-                  stageType: data?.stage?.type || 'Deployment'
+                  stageType: data?.stage?.type || 'Deployment',
+                  errorMap: errorMap
                 }
               })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
@@ -391,7 +400,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                       splitViewData: {
                         selectedStageId: identifier,
                         type: SplitViewTypes.StageView,
-                        stageType: node.stage.type
+                        stageType: node.stage.type,
+                        errorMap: errorMap
                       }
                     })
                   },

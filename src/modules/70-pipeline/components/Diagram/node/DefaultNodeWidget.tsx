@@ -69,6 +69,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const [addClicked, setAddClicked] = React.useState(false)
   const [dragging, setDragging] = React.useState(false)
 
+  const errors = options.errorList?.reduce((prev, curr) => {
+    return prev + curr[1].length
+  }, 0)
+
   // const errorList: { [key: string]: number } = {}
   // options.errorList
   //   ?.map(error => error[1])
@@ -211,7 +215,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
 
         {options.isInComplete && (
           <span className={css.inComplete}>
-            <Tooltip content={<div>{options.errorList?.length} error(s) at this node</div>} position="auto">
+            <Tooltip content={<div>{errors} error(s) at this node</div>} position="auto">
               <Icon size={12} name={'warning-sign'} color="orange500" />
             </Tooltip>
           </span>

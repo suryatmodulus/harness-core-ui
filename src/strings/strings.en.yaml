@@ -10,8 +10,6 @@ signUp:
     namePlaceholder: 'John Smith'
     emailLabel: '{{ $.email }}'
     emailPlaceholder: 'email@work.com'
-    companyLabel: 'Company'
-    companyPlaceholder: 'Your Company'
     passwordPlaceholder: 6+ characters
   oAuth:
     signup: 'or sign up with'

@@ -81,6 +81,7 @@ purpose:
     subtitle: Decouple release from deployment and rollout features safely and quickly.
     description: CF description placeholder
 trialInProgress: Trial in-progress
+trialInProgressDescription: Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
 changePlan: Change Plan
 letsGetYouStarted: Let’s get you started
 accessKey: Access Key

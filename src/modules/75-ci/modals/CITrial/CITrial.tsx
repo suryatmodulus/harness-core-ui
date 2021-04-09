@@ -6,14 +6,15 @@ import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreateP
 import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
 import ciImage from '../images/illustration.png'
 
+type handleSelectSubmit = (value: string) => void
+type handleCreateSubmit = (value: NgPipeline) => void
 interface CITrialModalData {
-  handleSelectSubmit: (value: string) => void
-  handleCreateSubmit: (value: NgPipeline) => void
+  onSubmit: handleSelectSubmit | handleCreateSubmit
   closeModal?: () => void
   isSelect: boolean
 }
 
-const CITrial: React.FC<CITrialModalData> = ({ isSelect, handleCreateSubmit, handleSelectSubmit, closeModal }) => {
+const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal }) => {
   const { getString } = useStrings()
 
   const [select, setSelect] = useState(isSelect)
@@ -52,14 +53,14 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, handleCreateSubmit, han
         <Container width="30%" padding={{ left: 'xxxlarge' }} border={{ left: true }} height={400}>
           {select ? (
             <SelectOrCreatePipelineForm
-              handleSubmit={handleSelectSubmit}
+              handleSubmit={onSubmit as handleSelectSubmit}
               openCreatPipeLineModal={() => {
                 setSelect(false)
               }}
               closeModal={closeModal}
             />
           ) : (
-            <CreatePipelineForm handleSubmit={handleCreateSubmit} closeModal={closeModal} />
+            <CreatePipelineForm handleSubmit={onSubmit as handleCreateSubmit} closeModal={closeModal} />
           )}
         </Container>
       </Layout.Horizontal>

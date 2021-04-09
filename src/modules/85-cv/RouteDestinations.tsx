@@ -12,6 +12,7 @@ import {
   verificationPathProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { MinimalLayout } from '@common/layouts'
 
 import './components/PipelineSteps'
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
@@ -35,6 +36,7 @@ import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
 import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
 import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
 import VerificationJobs from './pages/verification-jobs/VerificationJobsSetup'
+import CVTrialHomePage from './pages/home/CVTrialHomePage'
 
 const RedirectToCVHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -73,6 +75,10 @@ export default (
 
     <RouteWithLayout exact sidebarProps={CVSideNavProps} path={routes.toCVHome({ ...accountPathProps })}>
       <CVHomePage />
+    </RouteWithLayout>
+
+    <RouteWithLayout layout={MinimalLayout} path={routes.toCVTrialHome({ ...accountPathProps })} exact>
+      <CVTrialHomePage />
     </RouteWithLayout>
 
     <Route path={routes.toCVProject({ ...accountPathProps, ...projectPathProps })} exact>

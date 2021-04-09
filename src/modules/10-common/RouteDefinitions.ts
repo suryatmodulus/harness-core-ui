@@ -222,6 +222,7 @@ const routes = {
       : routes.toCDDashboard(params as AccountPathProps),
   toCDDashboard: withAccountId(() => `/cd`),
   toCDHome: withAccountId(() => `/cd/home`),
+  toCDTrialHome: withAccountId(() => `/cd/home/trial`),
   toCDProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}`
@@ -419,6 +420,7 @@ const routes = {
       : routes.toCIDashboard(params as AccountPathProps),
   toCIDashboard: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
+  toCITrialHome: withAccountId(() => `/ci/home/trial`),
   toCIProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}`
@@ -517,6 +519,7 @@ const routes = {
       : routes.toCFDashboard(params as AccountPathProps),
   toCFDashboard: withAccountId(() => `/cf`),
   toCFHome: withAccountId(() => `/cf/home`),
+  toCFTrialHome: withAccountId(() => `/cf/home/trial`),
   toCFProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}`
@@ -612,6 +615,7 @@ const routes = {
       : routes.toCVDashboard(params as AccountPathProps),
   toCVDashboard: withAccountId(() => `/cv`),
   toCVHome: withAccountId(() => `/cv/home`),
+  toCVTrialHome: withAccountId(() => `/cv/home/trial`),
   toCVProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}`
@@ -794,6 +798,7 @@ const routes = {
       : routes.toCEDashboard(params as AccountPathProps),
   toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
+  toCETrialHome: withAccountId(() => '/ce/home/trial'),
   toCEProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`

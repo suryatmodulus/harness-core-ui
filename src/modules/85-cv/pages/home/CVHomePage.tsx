@@ -11,7 +11,7 @@ const CVHomePage: React.FC = () => {
       title={getString('cv.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('cv.dashboard.subHeading')}
-      documentText={getString('cv.dashboard.learnMore')}
+      documentText={getString('cv.learnMore')}
     />
   )
 }

@@ -3,18 +3,20 @@ import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/Sta
 import { ModuleName, useStrings } from 'framework/exports'
 import bgImageURL from './images/homeIllustration.svg'
 
-const CITrialHomePage: React.FC = () => {
+const CDTrialHomePage: React.FC = () => {
   const { getString } = useStrings()
 
   const startTrialProps = {
-    description: getString('ci.ciTrialHomePage.startTrial.description'),
+    description: getString('cd.cdTrialHomePage.startTrial.description'),
     learnMore: {
-      description: getString('ci.learnMore'),
+      description: getString('cd.learnMore'),
       // TODO: need replace learn more url
       url: ''
     },
     startBtn: {
-      description: getString('ci.ciTrialHomePage.startTrial.startBtn.description')
+      description: getString('cd.cdTrialHomePage.startTrial.startBtn.description'),
+      // TODO: need call licensing api and return value
+      onClick: () => true
     },
     changePlan: {
       description: getString('common.changePlan'),
@@ -25,12 +27,12 @@ const CITrialHomePage: React.FC = () => {
 
   return (
     <StartTrialTemplate
-      title={getString('ci.continuous')}
+      title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
       startTrialProps={startTrialProps}
-      module={ModuleName.CI}
+      module={ModuleName.CD}
     />
   )
 }
 
-export default CITrialHomePage
+export default CDTrialHomePage

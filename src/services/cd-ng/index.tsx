@@ -7243,6 +7243,7 @@ export interface PipelineInfoConfig {
   properties?: NGProperties
   stages?: StageElementWrapperConfig[]
   notificationRules?: NotificationRules[]
+  showOtherModal?: () => void
 }
 
 export type PmsEmailChannel = PmsNotificationChannel & {

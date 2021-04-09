@@ -133,6 +133,7 @@ export interface StringsMap {
   'common.selectStrategy': string
   'common.specify': string
   'common.trialInProgress': string
+  'common.trialInProgressDescription': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.fileIsRequired': string
@@ -654,17 +655,21 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.targets.title': string
   'cd.allowSimultaneousDeployments': string
-  'cd.continuousIntegration': string
+  'cd.cdTrialHomePage.startTrial.description': string
+  'cd.cdTrialHomePage.startTrial.startBtn.description': string
+  'cd.continuous': string
   'cd.dashboard.createProject': string
-  'cd.dashboard.learnMore': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
   'cd.folderPath': string
+  'cd.learnMore': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
+  'ce.ceTrialHomePage.startTrial.description': string
+  'ce.ceTrialHomePage.startTrial.startBtn.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
   'ce.co.accessPoint.asssociatedRules': string
@@ -820,8 +825,8 @@ export interface StringsMap {
   'ce.co.noData': string
   'ce.co.sshSetup': string
   'ce.continuous': string
-  'ce.homepage.learnMore': string
   'ce.homepage.slogan': string
+  'ce.learnMore': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string
@@ -875,6 +880,8 @@ export interface StringsMap {
   'cf.auditLogs.viewEventSummary': string
   'cf.auditLogs.yamlDifference': string
   'cf.boolean': string
+  'cf.cfTrialHomePage.startTrial.description': string
+  'cf.cfTrialHomePage.startTrial.startBtn.description': string
   'cf.clause.operators.and': string
   'cf.clause.operators.contains': string
   'cf.clause.operators.endsWith': string
@@ -1029,6 +1036,7 @@ export interface StringsMap {
   'cf.featureNotReady': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
+  'cf.learnMore': string
   'cf.messages.flagArchived': string
   'cf.messages.flagCreated': string
   'cf.messages.flagDeleted': string
@@ -1154,7 +1162,6 @@ export interface StringsMap {
   'cf.testTheFlag.verifyText': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
-  'ci.ciTrialHomePage.trialInProgress.description': string
   'ci.continuous': string
   'ci.dashboard.activeBuilds': string
   'ci.dashboard.createProject': string
@@ -1324,8 +1331,9 @@ export interface StringsMap {
   'cv.changesPage.viewKubernetesEvents': string
   'cv.continuous': string
   'cv.currentProductionRisk': string
+  'cv.cvTrialHomePage.startTrial.description': string
+  'cv.cvTrialHomePage.startTrial.startBtn.description': string
   'cv.dashboard.createProject': string
-  'cv.dashboard.learnMore': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
   'cv.evaluationPeriod': string
@@ -1335,6 +1343,7 @@ export interface StringsMap {
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
+  'cv.learnMore': string
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
@@ -6431,14 +6440,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'signUp.disclaimer.terms': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'signUp.form.companyLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'signUp.form.companyPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

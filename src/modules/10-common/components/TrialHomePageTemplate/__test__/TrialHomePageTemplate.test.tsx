@@ -1,18 +1,34 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TrialHomePageTemplate } from '../TrialHomePageTemplate'
+import { ModuleName } from 'framework/exports'
+import { StartTrialTemplate } from '../StartTrialTemplate'
+
+jest.mock('services/portal', () => ({
+  useGetModuleLicenseInfo: jest.fn().mockImplementation(() => {
+    return {
+      data: null
+    }
+  }),
+  useStartTrial: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementationOnce(() => {
+        return {
+          status: 'SUCCESS',
+          data: {
+            licenseType: 'TRIAL'
+          }
+        }
+      })
+    }
+  })
+}))
 
 const props = {
   title: 'Continuous Integration',
   bgImageUrl: '',
-  trialInProgressProps: {
-    description: 'trial in progress description',
-    startBtn: {
-      description: 'Create Project',
-      onClick: jest.fn
-    }
-  },
   startTrialProps: {
     description: 'start trial description',
     learnMore: {
@@ -27,13 +43,14 @@ const props = {
       description: 'Change Plan',
       url: ''
     }
-  }
+  },
+  module: ModuleName.CI
 }
 describe('TrialHomePageTemplate snapshot test', () => {
   test('should render start a trial by default', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <TrialHomePageTemplate {...props} />
+        <StartTrialTemplate {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -42,7 +59,7 @@ describe('TrialHomePageTemplate snapshot test', () => {
   test('should render trial in progress when click start button', async () => {
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <TrialHomePageTemplate {...props} />
+        <StartTrialTemplate {...props} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Start A Trial'))

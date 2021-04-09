@@ -8,10 +8,10 @@ export const CDHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('cd.continuousIntegration')}
+      title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('cd.dashboard.subHeading')}
-      documentText={getString('cd.dashboard.learnMore')}
+      documentText={getString('cd.learnMore')}
     />
   )
 }

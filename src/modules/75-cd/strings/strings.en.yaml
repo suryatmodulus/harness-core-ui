@@ -1,8 +1,8 @@
-continuousIntegration: 'Continuous Delivery'
 allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
+continuous: Continuous Delivery
+learnMore: Learn more about Continuous Delivery
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
-  learnMore: Learn more about Continuous Delivery
   createProject: '{{$.projectsOrgs.createProject}}'
   orSelectExisting: '{{$.orSelectExisting}}'
 steps:
@@ -14,3 +14,8 @@ steps:
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path
+cdTrialHomePage:
+  startTrial:
+    description: Take your software build processes to the next level using our Harness Continuous Delivery.
+    startBtn:
+      description: Start 14 day CD Enterprise trial

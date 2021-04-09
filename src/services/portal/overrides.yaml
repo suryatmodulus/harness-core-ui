@@ -10,6 +10,7 @@ allowpaths:
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
   - '/users/new-trial'
+  - '/ng/signup'
   - '/users/{userId}/logout'
   - '/users/refresh-token'
   - '/setup/delegates/delegate-tags.get'

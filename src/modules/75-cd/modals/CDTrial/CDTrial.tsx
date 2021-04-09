@@ -22,7 +22,7 @@ const CDTrial: React.FC<CDTrialModalData> = props => {
     <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge' }}>
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Icon name="cd-main" size={20} padding={{ right: 'small' }} />
-        <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('cd.continuousIntegration')}</Text>
+        <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('cd.continuous')}</Text>
       </Layout.Horizontal>
       <Layout.Horizontal>
         <Text

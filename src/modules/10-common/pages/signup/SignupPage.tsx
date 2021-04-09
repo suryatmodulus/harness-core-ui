@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import {
   Button,
@@ -14,49 +14,80 @@ import {
   Text
 } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
-import { URLS } from '@common/constants/OAuthProviders'
 import { useToaster } from '@common/components'
-import { UserInviteRequestBody, useTrialSignup } from 'services/portal'
+import { useQueryParams } from '@common/hooks'
+import { useSignupUser, SignupUserRequestBody } from 'services/portal'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
+import AppStorage from 'framework/utils/AppStorage'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/exports'
+import { getModuleNameByString, getTrialHomeLinkByAcctIdAndModuleName } from '../../utils/StringUtils'
 
 interface SignupForm {
   name: string
   email: string
-  company: string
   password: string
+}
+
+const createAuthToken = (login: string, password: string): string => {
+  const encodedToken = btoa(login + ':' + password)
+  return `Basic ${encodedToken}`
+}
+
+const refreshAppStore = async (email: string, password: string): Promise<void> => {
+  const response = await fetch('/api/users/login', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      authorization: createAuthToken(email, password)
+    })
+  })
+  if (response.ok) {
+    const json = await response.json()
+    AppStorage.set('token', json.resource.token)
+    AppStorage.set('acctId', json.resource.defaultAccountId)
+    AppStorage.set('uuid', json.resource.uuid)
+    AppStorage.set('lastTokenSetTime', +new Date())
+  }
 }
 
 const SignupPage: React.FC = () => {
   const { showError } = useToaster()
   const { getString } = useStrings()
-  const { mutate: createTrialAccount, loading: loadingTrialSignup } = useTrialSignup({})
+  const { module: moduleType } = useQueryParams<{ module?: string }>()
+  const { mutate: getUserInfo } = useSignupUser({})
+  const history = useHistory()
+  const [loading, setLoading] = useState(false)
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
 
   const handleSignup = async (data: SignupForm): Promise<void> => {
-    const { name, email, company: companyName, password } = data
+    setLoading(true)
+    const module = getModuleNameByString(moduleType)
+    const { name, email, password } = data
 
-    const dataToSubmit: UserInviteRequestBody = {
-      uuid: '',
-      appId: '',
-      lastUpdatedAt: 0,
+    const dataToSubmit: SignupUserRequestBody = {
       name,
       email,
-      companyName,
-      password: password.split('')
+      module,
+      password
     }
 
     try {
-      await createTrialAccount(dataToSubmit)
-
-      // Redirect to free-trial page
-      // This will be updated in the future
-      window.location.href = URLS.FREE_TRIAL
+      const userInfoResponse = await getUserInfo(dataToSubmit)
+      // call login api to refresh app store
+      // TODO: this work will get done on backend in near future
+      const accountId = userInfoResponse.resource.accountIds[0]
+      await refreshAppStore(email, password)
+      history.push(getTrialHomeLinkByAcctIdAndModuleName(accountId, module))
     } catch (error) {
       showError(error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -98,12 +129,11 @@ const SignupPage: React.FC = () => {
 
         <Container margin={{ top: 'xxxlarge' }}>
           <Formik
-            initialValues={{ name: '', email: '', company: '', password: '' }}
+            initialValues={{ name: '', email: '', password: '' }}
             onSubmit={handleSubmit}
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(),
               email: Yup.string().trim().email().required(),
-              company: Yup.string().trim().required(),
               password: Yup.string().trim().min(6).required()
             })}
           >
@@ -119,17 +149,12 @@ const SignupPage: React.FC = () => {
                 placeholder={getString('signUp.form.emailPlaceholder')}
               />
               <FormInput.Text
-                name="company"
-                label={getString('signUp.form.companyLabel')}
-                placeholder={getString('signUp.form.companyPlaceholder')}
-              />
-              <FormInput.Text
                 name="password"
                 label={getString('password')}
                 inputGroup={{ type: 'password' }}
                 placeholder={getString('signUp.form.passwordPlaceholder')}
               />
-              {loadingTrialSignup ? spinner : submitButton}
+              {loading ? spinner : submitButton}
             </FormikForm>
           </Formik>
         </Container>

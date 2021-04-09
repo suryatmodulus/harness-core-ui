@@ -39,7 +39,6 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       enableReinitialize={true}
       onSubmit={values => {
         handleSubmit(values)
-        closeModal?.()
       }}
     >
       {formikProps => {

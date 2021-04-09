@@ -33,7 +33,7 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          cv.dashboard.learnMore
+          cv.learnMore
         </span>
       </a>
       <div

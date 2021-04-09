@@ -26,6 +26,7 @@ import type {
   PipelineType,
   ProjectPathProps
 } from '@common/interfaces/RouteInterfaces'
+import { MinimalLayout } from '@common/layouts'
 
 import CFHomePage from '@cf/pages/home/CFHomePage'
 import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
@@ -59,6 +60,7 @@ import { SegmentsPage } from './pages/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
+import CFTrialHomePage from './pages/home/CFTrialHomePage'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -111,6 +113,10 @@ export default (
     <Route path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCFProject />
     </Route>
+
+    <RouteWithLayout layout={MinimalLayout} path={routes.toCFTrialHome({ ...accountPathProps })} exact>
+      <CFTrialHomePage />
+    </RouteWithLayout>
 
     <RouteWithLayout sidebarProps={CFSideNavProps} path={routes.toCFHome({ ...accountPathProps })} exact>
       <CFHomePage />

@@ -13,8 +13,9 @@ import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
-  onSuccess: () => void
+  onSuccess?: () => void
   onCloseModal?: () => void
+  onWizardComplete?: (projectData?: Project) => void
 }
 
 export interface UseProjectModalReturn {
@@ -22,7 +23,11 @@ export interface UseProjectModalReturn {
   closeProjectModal: () => void
 }
 
-export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProps): UseProjectModalReturn => {
+export const useProjectModal = ({
+  onSuccess,
+  onCloseModal,
+  onWizardComplete
+}: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
 
@@ -31,7 +36,8 @@ export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProp
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     }
-    onSuccess()
+    onSuccess?.()
+    onWizardComplete?.(wizardData)
   }
   const [showModal, hideModal] = useModalHook(
     () => (

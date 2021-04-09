@@ -143,38 +143,7 @@ exports[`Signup Page The signup page renders 1`] = `
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="company-2"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="company"
-                    >
-                      signUp.form.companyLabel
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="company"
-                          placeholder="signUp.form.companyPlaceholder"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="password-3"
+                    data-id="password-2"
                   >
                     <label
                       class="bp3-label"

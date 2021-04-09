@@ -1,8 +1,6 @@
 continuous: 'Continuous Integration'
 learnMore: Learn more about Continuous Integration
 ciTrialHomePage:
-  trialInProgress:
-    description: Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
   startTrial:
     description: '{{ $.ci.dashboard.subHeading }}'
     startBtn:

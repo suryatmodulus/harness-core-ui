@@ -316,6 +316,22 @@ export interface RestResponseBoolean {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseUserInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource: {
+    uuid: string
+    name: string
+    email: string
+    token: string
+    defaultAccountId: string
+    admin: boolean
+    twoFactorAuthenticationEnabled: boolean
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LicenseInfo {
   accountType?: string
   accountStatus?: string
@@ -11025,6 +11041,44 @@ export interface RestResponseUser {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseModuleLicense {
+  id: string
+  accountIdentifier: string
+  moduleType: string
+  edition: string
+  licenseType: string
+  startTime: number
+  expiryTime: number
+  status: string
+  createdAt: number
+  lastModifiedAt: number
+  numberOfCommitters?: number
+}
+export interface RestResponseModuleLicenseInfo {
+  status: string
+  data?: RestResponseModuleLicense
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  correlationId?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountLicenseInfo {
+  status: string
+  data: {
+    accountId: string
+    moduleLicenses: {
+      [key: string]: RestResponseModuleLicense
+    }
+  }
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  correlationId?: string
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AccountSettingsResponse {
   authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
   allowedDomains?: string[]
@@ -14302,6 +14356,11 @@ export interface UserInvite {
   marketPlaceToken?: string
   importedByScim?: boolean
   utmInfo?: UtmInfo
+}
+
+export interface SignupUser {
+  email: string
+  password: string
 }
 
 export interface UserInviteSource {
@@ -18515,6 +18574,8 @@ export type CEViewRequestBody = CEView
 
 export type YamlPayloadRequestBody = YamlPayload
 
+export type SignupUserRequestBody = SignupUser
+
 export interface GetDelegatesQueryParams {
   offset?: string
   limit?: string
@@ -18834,28 +18895,61 @@ export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseS
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
 
-export type TrialSignupProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+export type UseSignupUserProps = Omit<
+  UseMutateProps<RestResponseUserInfo, unknown, void, SignupUserRequestBody, void>,
   'path' | 'verb'
 >
 
-export const TrialSignup = (props: TrialSignupProps) => (
-  <Mutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>
-    verb="POST"
-    path="/users/new-trial"
-    base={getConfig('api')}
-    {...props}
-  />
-)
+export const useSignupUser = (props: UseSignupUserProps) =>
+  useMutate<RestResponseUserInfo, unknown, void, SignupUserRequestBody, void>('POST', `/signup`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
-export type UseTrialSignupProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+export interface ModuleLicenseInfoRequest {
+  moduleType: string
+}
+
+export interface AccountIdentifier {
+  accountIdentifier: string
+}
+
+export type StartTrialRequestBody = ModuleLicenseInfoRequest
+
+export type UseStartTrialProps = Omit<
+  UseMutateProps<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>,
   'path' | 'verb'
 >
 
-export const useTrialSignup = (props: UseTrialSignupProps) =>
-  useMutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>('POST', `/users/new-trial`, {
-    base: getConfig('api'),
+export const useStartTrial = (props: UseStartTrialProps) =>
+  useMutate<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>(
+    'POST',
+    `/licenses/trial`,
+    {
+      base: getConfig('ng/api'),
+      ...props
+    }
+  )
+
+export type UseGetModuleLicenseInfoProps = Omit<
+  UseGetProps<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>,
+  'path'
+>
+
+export const useGetModuleLicenseInfo = (props: UseGetModuleLicenseInfoProps) =>
+  useGet<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>(`/licenses`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export type UseGetAccountLicenseInfoProps = Omit<
+  UseGetProps<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>,
+  'path'
+>
+
+export const useGetAccountLicenseInfo = (props: UseGetAccountLicenseInfoProps) =>
+  useGet<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>(`/licenses/account`, {
+    base: getConfig('ng/api'),
     ...props
   })
 

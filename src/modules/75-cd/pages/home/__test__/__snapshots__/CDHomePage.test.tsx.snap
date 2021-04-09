@@ -13,7 +13,7 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold"
         style="color: rgb(34, 34, 42); font-size: 30px;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </h1>
       <p
         class="StyledProps--font StyledProps--main"
@@ -33,7 +33,7 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          cd.dashboard.learnMore
+          cd.learnMore
         </span>
       </a>
       <div

@@ -20,8 +20,7 @@ jest.mock('services/pipeline-ng', () => ({
 const onCloseModal = jest.fn()
 const TestComponent = ({ isSelect }: { isSelect: boolean }): React.ReactElement => {
   const { openCITrialModal, closeCITrialModal } = useCITrialModal({
-    onCreateSuccess: jest.fn(),
-    onSelectSuccess: jest.fn(),
+    onSubmit: jest.fn(),
     onCloseModal,
     isSelect
   })

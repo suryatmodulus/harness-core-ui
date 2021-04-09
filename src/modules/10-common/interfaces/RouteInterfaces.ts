@@ -80,6 +80,7 @@ export type Module =
   | 'cd'
   | 'cf'
   | 'cv'
+  | 'ce'
   | ':module(ci)'
   | ':module(cd)'
   | ':module(cf)'

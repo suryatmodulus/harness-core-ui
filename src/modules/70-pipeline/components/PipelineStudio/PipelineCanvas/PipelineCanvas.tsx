@@ -26,14 +26,24 @@ import StageBuilder from '../StageBuilder/StageBuilder'
 import { PipelineStudioView } from '../PipelineUtils'
 import css from './PipelineCanvas.module.scss'
 
+interface OtherModalProps {
+  onSubmit?: (values: NgPipeline) => void
+  initialValues?: NgPipeline
+  onClose?: () => void
+}
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps>>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
+  getOtherModal?: (onSubmit: (values: NgPipeline) => void, onClose: () => void) => React.ReactElement<OtherModalProps>
 }
 
-export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, toPipelineStudio }): JSX.Element => {
+export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
+  toPipelineList,
+  toPipelineStudio,
+  getOtherModal
+}): JSX.Element => {
   const {
     state,
     updatePipeline,
@@ -136,14 +146,19 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     yamlHandler
   ])
 
-  const [showModal, hideModal] = useModalHook(
-    () => (
-      <Dialog style={{ width: '385px', paddingBottom: 0 }} isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
-        <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
-      </Dialog>
-    ),
-    [pipeline?.identifier, pipeline]
-  )
+  const [showModal, hideModal] = useModalHook(() => {
+    if (getOtherModal) {
+      pipeline.identifier = ''
+      updatePipeline(pipeline)
+      return getOtherModal(onSubmit, onCloseCreate)
+    } else {
+      return (
+        <Dialog style={{ width: '385px', paddingBottom: 0 }} isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
+          <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
+        </Dialog>
+      )
+    }
+  }, [pipeline?.identifier, pipeline])
 
   React.useEffect(() => {
     // for new pipeline always use UI as default view
@@ -178,11 +193,21 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
   }, [pipeline?.name])
 
   const onCloseCreate = React.useCallback(() => {
-    if (pipeline?.identifier === DefaultNewPipelineId) {
+    if (pipeline?.identifier === DefaultNewPipelineId || getOtherModal) {
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideModal()
-  }, [accountId, hideModal, history, module, orgIdentifier, pipeline?.identifier, projectIdentifier, toPipelineList])
+  }, [
+    accountId,
+    hideModal,
+    history,
+    module,
+    orgIdentifier,
+    pipeline?.identifier,
+    projectIdentifier,
+    toPipelineList,
+    getOtherModal
+  ])
 
   const onSubmit = React.useCallback(
     (data: NgPipeline) => {
@@ -245,7 +270,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       }}
     >
       <NavigationCheck
-        when={true}
+        when={getOtherModal ? false : true}
         shouldBlockNavigation={nextLocation => {
           const matchDefault = matchPath(nextLocation.pathname, {
             path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),

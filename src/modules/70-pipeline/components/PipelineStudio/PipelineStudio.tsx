@@ -4,6 +4,7 @@ import { Button, Container, Layout, Text } from '@wings-software/uicore'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import { String } from 'framework/strings'
+import type { NgPipeline } from 'services/cd-ng'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { PipelineContext } from './PipelineContext/PipelineContext'
 import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
@@ -18,10 +19,17 @@ export interface PipelineStudioProps {
   routePipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   routePipelineList: PathFn<PipelineType<ProjectPathProps>>
   routePipelineProject: PathFn<PipelineType<ProjectPathProps>>
+  getOtherModal?: (onSubmit: (values: NgPipeline) => void, onClose: () => void) => React.ReactElement<OtherModalProps>
 }
 
 interface PipelineStudioState {
   error?: Error
+}
+
+interface OtherModalProps {
+  onSubmit?: (values: NgPipeline) => void
+  initialValues?: NgPipeline
+  onClose?: () => void
 }
 export class PipelineStudio extends React.Component<PipelineStudioProps, PipelineStudioState> {
   state: PipelineStudioState = { error: undefined }
@@ -82,7 +90,8 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
       routePipelineStudio,
       routePipelineDetail,
       routePipelineList,
-      routePipelineProject
+      routePipelineProject,
+      getOtherModal
     } = this.props
     return (
       <PipelineSchemaContextProvider>
@@ -93,6 +102,7 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
               toPipelineDetail={routePipelineDetail}
               toPipelineList={routePipelineList}
               toPipelineProject={routePipelineProject}
+              getOtherModal={getOtherModal}
             />
           </div>
         </PipelineVariablesContextProvider>

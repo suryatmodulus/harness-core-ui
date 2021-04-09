@@ -11,6 +11,7 @@ import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelect
 import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function CISideNav(): React.ReactElement {
@@ -22,6 +23,7 @@ export default function CISideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
   const { GIT_SYNC_NG } = useFeatureFlags()
+  const { trial } = useQueryParams<{ trial?: boolean }>()
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -39,13 +41,27 @@ export default function CISideNav(): React.ReactElement {
               })
             )
           } else {
-            history.push(
-              routes.toCIProjectOverview({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId
+            // when it's on trial page, forward to pipeline
+            if (trial) {
+              history.push({
+                pathname: routes.toPipelineStudio({
+                  orgIdentifier: data.orgIdentifier || '',
+                  projectIdentifier: data.identifier || '',
+                  pipelineIdentifier: '-1',
+                  accountId,
+                  module: 'ci'
+                }),
+                search: '?modal=trial'
               })
-            )
+            } else {
+              history.push(
+                routes.toCIProjectOverview({
+                  projectIdentifier: data.identifier,
+                  orgIdentifier: data.orgIdentifier || '',
+                  accountId
+                })
+              )
+            }
           }
         }}
       />

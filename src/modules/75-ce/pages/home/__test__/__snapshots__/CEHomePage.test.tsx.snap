@@ -33,7 +33,7 @@ exports[`CEHomePage snapshot test should render properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          ce.homepage.learnMore
+          ce.learnMore
         </span>
       </a>
       <div

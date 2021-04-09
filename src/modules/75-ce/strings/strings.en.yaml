@@ -1,7 +1,6 @@
 continuous: Continuous Efficiency
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
-  learnMore: 'Learn more about Continuous Efficiency'
 co:
   autoStopping: 'AutoStopping'
   newAutoStoppingRule: 'New AutoStopping Rule'
@@ -226,3 +225,9 @@ co:
     name: '{{$.ce.co.gatewayReview.nameYourGateway}}'
     addSchedule: '+ add schedule'
     scheduleDescription: 'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
+learnMore: Learn more about Continuous Efficiency
+ceTrialHomePage:
+  startTrial:
+    description: Take your software build processes to the next level using our Harness Continuous Efficiency.
+    startBtn:
+      description: Start 14 day CE Enterprise trial

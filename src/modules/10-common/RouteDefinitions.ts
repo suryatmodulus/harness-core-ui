@@ -35,6 +35,7 @@ const routes = {
   toAccountActivityLog: withAccountId(() => '/admin/authentication/activity-log'),
   toLogin: () => '/login',
   toSignup: () => '/signup',
+  toPurpose: withAccountId(() => '/purpose'),
   toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -306,6 +307,8 @@ const routes = {
       ? routes.toCDProject(params as ProjectPathProps)
       : routes.toCDDashboard(params as AccountPathProps),
   toCDDashboard: withAccountId(() => `/cd`),
+  toModuleHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home`),
+  toModuleTrialHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home/trial`),
   toCDHome: withAccountId(() => `/cd/home`),
   toCDProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -331,7 +334,6 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
   ),
-
   toCDResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, connectorId }: ProjectPathProps & ConnectorPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/${connectorId}`

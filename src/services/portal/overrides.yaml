@@ -11,6 +11,7 @@ allowpaths:
   - '/users/user.get'
   - '/users/set-default-account/{accountId}'
   - '/users/new-trial'
+  - '/ng/signup'
   - '/users/{userId}/logout'
   - '/users/refresh-token'
   - '/setup/delegates/delegate-tags.get'

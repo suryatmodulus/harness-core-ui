@@ -988,3 +988,9 @@ onboarding:
       # Install
 
       To be defined...
+learnMore: Learn more about Continuous Features
+cfTrialHomePage:
+  startTrial:
+    description: Take your software build processes to the next level using our Harness Continuous Features.
+    startBtn:
+      description: Start 14 day CF Enterprise trial

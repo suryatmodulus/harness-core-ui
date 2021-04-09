@@ -6,28 +6,27 @@ import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreateP
 import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
 import ciImage from '../images/illustration.png'
 
+type handleSelectSubmit = (value: string) => void
+type handleCreateSubmit = (value: NgPipeline) => void
 interface CITrialModalData {
-  handleSelectSubmit: (value: string) => void
-  handleCreateSubmit: (value: NgPipeline) => void
+  onSubmit: handleSelectSubmit | handleCreateSubmit
   closeModal?: () => void
   isSelect: boolean
 }
 
-const CITrial: React.FC<CITrialModalData> = ({ isSelect, handleCreateSubmit, handleSelectSubmit, closeModal }) => {
+const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal }) => {
   const { getString } = useStrings()
 
   const [select, setSelect] = useState(isSelect)
 
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge' }}>
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Icon name="ci-main" size={20} padding={{ right: 'small' }} />
+      <Layout.Horizontal padding={{ top: 'large' }} spacing="small">
+        <Icon name="ci-main" size={20} />
         <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('ci.continuous')}</Text>
-      </Layout.Horizontal>
-      <Layout.Horizontal>
         <Text
           style={{
-            backgroundColor: 'var(--purple-500)',
+            backgroundColor: 'var(--orange-500)',
             color: Color.WHITE,
             textAlign: 'center',
             width: 120,
@@ -52,14 +51,14 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, handleCreateSubmit, han
         <Container width="30%" padding={{ left: 'xxxlarge' }} border={{ left: true }} height={400}>
           {select ? (
             <SelectOrCreatePipelineForm
-              handleSubmit={handleSelectSubmit}
+              handleSubmit={onSubmit as handleSelectSubmit}
               openCreatPipeLineModal={() => {
                 setSelect(false)
               }}
               closeModal={closeModal}
             />
           ) : (
-            <CreatePipelineForm handleSubmit={handleCreateSubmit} closeModal={closeModal} />
+            <CreatePipelineForm handleSubmit={onSubmit as handleCreateSubmit} closeModal={closeModal} />
           )}
         </Container>
       </Layout.Horizontal>

@@ -23,6 +23,11 @@ jiraApprovalStep:
   project: Jira Project
   issueType: Issue Type
   issueKey: Issue Key
+  issueKeyPlaceholder: Enter Jira Issue key
+  fetchingProjectsPlaceholder: Fetching projects...
+  fetchProjectsError: Failed to fetch projects
+  fetchingIssueTypePlaceholder: Fetching issue types...
+  fetchIssueTypesError: Failed to fetch issue types
   approvalCriteria: Approval Criteria
   rejectionCriteria: Rejection Criteria
   jexlExpressionLabelApproval: If the JEXL Expression evaluates to true, approve this step

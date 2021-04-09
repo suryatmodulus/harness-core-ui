@@ -116,6 +116,7 @@ const FormContent = ({
                 }
                 multiSelectTypeInputProps={{
                   multiSelectProps: {
+                    allowCreatingNewItems: true,
                     tagInputProps: {
                       placeholder: fetchingUserGroups
                         ? getString('pipeline.approvalStep.fetchingUserGroups')

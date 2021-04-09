@@ -17,7 +17,7 @@ export interface JiraUpdateData extends StepElementConfig {
   spec: {
     connectorRef: string | SelectOption
     issueKey: string
-    transitionTo: {
+    transitionTo?: {
       status: string | SelectOption
       transitionName: string
     }

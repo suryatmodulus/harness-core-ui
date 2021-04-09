@@ -67,19 +67,6 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
       }
     }
 
-    if (
-      typeof template?.spec?.transitionTo.status === 'string' &&
-      getMultiTypeFromValue(template?.spec?.transitionTo.status) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.transitionTo.status)
-    ) {
-      errors.spec = {
-        ...errors.spec,
-        transitionTo: {
-          status: getString?.('pipeline.jiraUpdateStep.validations.status')
-        }
-      }
-    }
-
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))

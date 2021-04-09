@@ -96,7 +96,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.transitionTo.status) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec.transitionTo?.status) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Select
           items={
             fetchingStatuses
@@ -111,8 +111,8 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           selectProps={{
             // Need this to show the current selection when we switch from yaml to UI view
             defaultSelectedItem: {
-              label: initialValues.spec.transitionTo.status?.toString(),
-              value: initialValues.spec.transitionTo.status?.toString()
+              label: initialValues.spec.transitionTo?.status?.toString() || '',
+              value: initialValues.spec.transitionTo?.status?.toString() || ''
             }
           }}
           onChange={(opt: SelectOption) => {
@@ -120,14 +120,16 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
               ...initialValues,
               spec: {
                 ...initialValues.spec,
-                transitionTo: { ...initialValues.spec.transitionTo, status: (opt as SelectOption).value?.toString() }
+                transitionTo: initialValues.spec.transitionTo
+                  ? { ...initialValues.spec.transitionTo, status: (opt as SelectOption).value?.toString() }
+                  : undefined
               }
             })
           }}
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.transitionTo.transitionName) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec.transitionTo?.transitionName) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
           placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
           className={css.deploymentViewMedium}

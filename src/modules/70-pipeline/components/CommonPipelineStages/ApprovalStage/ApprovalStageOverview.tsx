@@ -3,9 +3,9 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
-import { Accordion, Container, FormikForm, FormInput, Heading } from '@wings-software/uicore'
+import { Accordion, Card, Container, FormikForm } from '@wings-software/uicore'
 import Timeline from '@common/components/Timeline/Timeline'
-import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/exports'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -67,6 +67,10 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
         id: 'stageOverview'
       },
       {
+        label: 'Approval Type',
+        id: 'approvalType'
+      },
+      {
         label: 'Stage Variables',
         id: 'variables-panel'
       },
@@ -82,86 +86,81 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
       <div className={css.content} ref={scrollRef}>
-        <Accordion className={cx(css.sectionCard, css.shadow)} activeId="stageOverview">
-          <Accordion.Panel
-            id="stageOverview"
-            summary={'Overview'}
-            addDomId={true}
-            details={
-              <Container padding="medium">
-                <Formik
-                  enableReinitialize
-                  initialValues={{
-                    identifier: cloneOriginalData?.stage.identifier,
-                    name: cloneOriginalData?.stage.name,
-                    description: cloneOriginalData?.stage.description,
-                    approvalType: cloneOriginalData?.stage.approvalType,
-                    skipCondition: cloneOriginalData?.stage.skipCondition
-                  }}
-                  validationSchema={{
-                    name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
-                    identifier: Yup.string().when('name', {
-                      is: val => val?.length,
-                      then: Yup.string()
-                        .required(getString('validation.identifierRequired'))
-                        .matches(regexIdentifier, getString('validation.validIdRegex'))
-                        .notOneOf(illegalIdentifiers)
-                    })
-                  }}
-                  validate={values => {
-                    const errors: { name?: string } = {}
-                    if (isDuplicateStageId(values.identifier, stages)) {
-                      errors.name = getString('validation.identifierDuplicate')
-                    }
-                    if (cloneOriginalData) {
-                      updateStageDebounced({
-                        ...cloneOriginalData.stage,
-                        name: values?.name,
-                        identifier: values?.identifier,
-                        description: values?.description,
-                        skipCondition: values?.skipCondition,
-                        approvalType: values?.approvalType,
-                        spec: {
-                          ...cloneOriginalData.spec
-                        }
-                      })
-                    }
-                    return errors
-                  }}
-                  onSubmit={values => {
-                    if (cloneOriginalData) {
-                      updateStageDebounced({
-                        ...cloneOriginalData.stage,
-                        name: values?.name,
-                        identifier: values?.identifier,
-                        description: values?.description,
-                        skipCondition: values?.skipCondition,
-                        approvalType: values?.approvalType,
-                        spec: {
-                          ...cloneOriginalData.spec
-                        }
-                      })
-                    }
-                  }}
-                >
-                  {formikProps => (
-                    <FormikForm>
-                      <FormInput.InputWithIdentifier
-                        inputLabel={getString('stageNameLabel')}
-                        isIdentifierEditable={false}
-                      />
-                      <Description />
-                      <Heading font={{ weight: 'semi-bold' }} level={3}>
-                        {getString('approvalStage.approvalTypeHeading')}
-                      </Heading>
-                      <ApprovalTypeCards formikProps={formikProps} />
-                    </FormikForm>
-                  )}
-                </Formik>
-              </Container>
-            }
-          />
-        </Accordion>
+        <div className={css.tabHeading} id="stageOverview">
+          {getString('stageOverview')}
+        </div>
+        <Container id="stageOverview" className={css.basicOverviewDetails}>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              identifier: cloneOriginalData?.stage.identifier,
+              name: cloneOriginalData?.stage.name,
+              description: cloneOriginalData?.stage.description,
+              approvalType: cloneOriginalData?.stage.approvalType,
+              skipCondition: cloneOriginalData?.stage.skipCondition,
+              tags: cloneOriginalData?.stage.tags || {}
+            }}
+            validationSchema={{
+              name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
+              identifier: Yup.string().when('name', {
+                is: val => val?.length,
+                then: Yup.string()
+                  .required(getString('validation.identifierRequired'))
+                  .matches(regexIdentifier, getString('validation.validIdRegex'))
+                  .notOneOf(illegalIdentifiers)
+              })
+            }}
+            validate={values => {
+              const errors: { name?: string } = {}
+              if (isDuplicateStageId(values.identifier, stages)) {
+                errors.name = getString('validation.identifierDuplicate')
+              }
+              if (cloneOriginalData) {
+                updateStageDebounced({
+                  ...cloneOriginalData.stage,
+                  name: values?.name,
+                  identifier: values?.identifier,
+                  description: values?.description,
+                  skipCondition: values?.skipCondition,
+                  approvalType: values?.approvalType
+                })
+              }
+              return errors
+            }}
+            onSubmit={values => {
+              if (cloneOriginalData) {
+                updateStageDebounced({
+                  ...cloneOriginalData.stage,
+                  name: values?.name,
+                  identifier: values?.identifier,
+                  description: values?.description,
+                  skipCondition: values?.skipCondition,
+                  approvalType: values?.approvalType
+                })
+              }
+            }}
+          >
+            {formikProps => (
+              <FormikForm>
+                <Card className={cx(css.sectionCard, css.shadow)}>
+                  <NameIdDescriptionTags
+                    formikProps={formikProps}
+                    identifierProps={{
+                      isIdentifierEditable: false
+                    }}
+                  />
+                </Card>
+
+                <div className={css.tabHeading} id="approvalType">
+                  {getString('approvalStage.approvalTypeHeading')}
+                </div>
+                <Card className={cx(css.sectionCard, css.shadow, css.approvalCards)}>
+                  <ApprovalTypeCards formikProps={formikProps} />
+                </Card>
+              </FormikForm>
+            )}
+          </Formik>
+        </Container>
 
         <Accordion className={cx(css.sectionCard, css.shadow)} activeId="variables">
           <Accordion.Panel

@@ -25,7 +25,8 @@ import {
   buildGcpPayload,
   buildGithubPayload,
   buildGitlabPayload,
-  buildGitPayload
+  buildGitPayload,
+  buildHelmPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
@@ -374,6 +375,13 @@ const ManifestListView = ({
               isEditMode={isEditMode}
               connectorInfo={undefined}
               setIsEditMode={setIsEditMode}
+            />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              connectorInfo={undefined}
+              buildPayload={buildHelmPayload}
             />
 
             <VerifyOutOfClusterDelegate

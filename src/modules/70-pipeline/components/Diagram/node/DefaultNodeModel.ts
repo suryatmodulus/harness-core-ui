@@ -21,6 +21,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   iconProps?: Omit<IconProps, 'name'>
   canDelete?: boolean
   errorList?: [string, string[]][]
+  showErrorDetails?: boolean
   isInComplete?: boolean
   skipCondition?: string
   secondaryIcon?: IconName | null

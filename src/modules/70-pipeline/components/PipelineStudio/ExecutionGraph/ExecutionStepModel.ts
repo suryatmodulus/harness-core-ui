@@ -72,7 +72,8 @@ export class ExecutionStepModel extends DiagramModel {
     factory: AbstractStepFactory,
     stepStates: StepStateMap,
     prevNodes?: DefaultNodeModel[],
-    getString?: UseStringsReturn['getString']
+    getString?: UseStringsReturn['getString'],
+    errors?: [string, string[]][]
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     const serviceState = stepStates.get(STATIC_SERVICE_GROUP_NAME)
     if (serviceState && serviceState.isStepGroupCollapsed) {
@@ -85,7 +86,9 @@ export class ExecutionStepModel extends DiagramModel {
         draggable: false,
         allowAdd: false,
         canDelete: false,
-        customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
+        customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' },
+        errorList: errors,
+        showErrorDetails: true
       })
 
       this.addNode(nodeRender)
@@ -147,7 +150,9 @@ export class ExecutionStepModel extends DiagramModel {
           isInComplete: isCustomGeneratedString(service.identifier),
           draggable: true,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
-          showPorts: false
+          showPorts: false,
+          errorList: errors,
+          showErrorDetails: true
         })
 
         this.addNode(nodeRender)
@@ -189,12 +194,14 @@ export class ExecutionStepModel extends DiagramModel {
     allowAdd?: boolean,
     isParallelNode = false,
     isStepGroupNode = false,
-    getString?: UseStringsReturn['getString']
+    getString?: UseStringsReturn['getString'],
+    errors?: [string, string[]][]
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
       const stepType = node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       startX += this.gapX
+
       const nodeRender =
         nodeType === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
@@ -202,9 +209,11 @@ export class ExecutionStepModel extends DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
               draggable: true,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: errors?.length || 0 > 0 ? true : false, // isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              errorList: errors,
+              showErrorDetails: true
             })
           : nodeType === ExecutionPipelineNodeType.ICON
           ? new IconNodeModel({
@@ -212,7 +221,7 @@ export class ExecutionStepModel extends DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: errors?.length || 0 > 0 ? true : false, //isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
@@ -226,10 +235,12 @@ export class ExecutionStepModel extends DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: errors?.length || 0 > 0 ? true : false, //isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
               draggable: true,
-              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+              customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+              errorList: errors,
+              showErrorDetails: true
             })
 
       this.addNode(nodeRender)
@@ -276,6 +287,8 @@ export class ExecutionStepModel extends DiagramModel {
         const prevNodesAr: DefaultNodeModel[] = []
 
         node.parallel.forEach((nodeP: ExecutionWrapper, index: number) => {
+          const parallelErrors = errors?.filter(error => error[0].indexOf(`parallel.${index}`) > -1)
+
           const isLastNode = node.parallel.length === index + 1
           const resp = this.renderGraphStepNodes(
             nodeP,
@@ -287,7 +300,9 @@ export class ExecutionStepModel extends DiagramModel {
             prevNodes,
             isLastNode,
             true,
-            isStepGroupNode
+            isStepGroupNode,
+            undefined,
+            parallelErrors
           )
           if (resp.startX > startX) {
             startX = resp.startX
@@ -325,6 +340,7 @@ export class ExecutionStepModel extends DiagramModel {
 
         return { startX, startY, prevNodes }
       } else if (node.parallel.length === 1) {
+        const parallelErrors = errors?.filter(error => error[0].indexOf(`parallel.0`) > -1)
         return this.renderGraphStepNodes(
           node.parallel[0],
           startX,
@@ -335,7 +351,9 @@ export class ExecutionStepModel extends DiagramModel {
           prevNodes,
           true,
           true,
-          isStepGroupNode
+          isStepGroupNode,
+          undefined,
+          parallelErrors
         )
       }
     } else if (node.stepGroup) {
@@ -418,7 +436,9 @@ export class ExecutionStepModel extends DiagramModel {
               prevNodes,
               true,
               false,
-              true
+              true,
+              undefined,
+              errors
             )
             startX = resp.startX
             startY = resp.startY
@@ -504,7 +524,8 @@ export class ExecutionStepModel extends DiagramModel {
         factory,
         stepStates,
         prevNodes,
-        getString
+        getString,
+        errors
       )
       startX = servicesResp.startX
       startY = servicesResp.startY
@@ -513,7 +534,14 @@ export class ExecutionStepModel extends DiagramModel {
       }
     }
 
+    // console.log(stepsData)
+    // console.log(errors)
+
     stepsData.forEach((node: ExecutionWrapper) => {
+      const path = findPath()
+
+      const filteredErrors = errors.filter(error => error[0].indexOf(path) > -1)
+
       const resp = this.renderGraphStepNodes(
         node,
         startX,
@@ -525,11 +553,21 @@ export class ExecutionStepModel extends DiagramModel {
         true,
         false,
         false,
-        getString
+        getString,
+        filteredErrors
       )
-      console.log(node)
-      console.log(errors)
-      console.log(prevNodes)
+
+      function findPath(): string {
+        if (stepsData.indexOf(node) > -1) {
+          if (stepsData[stepsData.indexOf(node)].parallel) {
+            return `steps.${stepsData.indexOf(node)}.parallel`
+          }
+          return `steps.${stepsData.indexOf(node)}.step`
+        } else {
+          return ''
+        }
+      }
+
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

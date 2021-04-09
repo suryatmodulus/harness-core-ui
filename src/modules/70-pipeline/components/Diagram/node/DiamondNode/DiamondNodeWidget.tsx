@@ -42,17 +42,20 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
     return prev + curr[1].length
   }, 0)
 
-  // const errorList: { [key: string]: number } = {}
-  // options.errorList
-  //   ?.map(error => error[1])
-  //   .reduce((prev, curr) => {
-  //     return prev.concat(curr)
-  //   }, [])
-  //   .forEach(function (i) {
-  //     errorList[i] = (errorList[i] || 0) + 1
-  //   })
-
-  // const errorListCount = Object.entries(errorList)
+  const errorList: { [key: string]: number } = {}
+  options.errorList
+    ?.map(error => {
+      const errorLocation = error[0].substring(error[0].lastIndexOf('.') + 1)
+      return error[1].map(errorDetail => {
+        return `${errorLocation}: ${errorDetail}`
+      })
+    })
+    .reduce((prev, curr) => {
+      return prev.concat(curr)
+    }, [])
+    .forEach(function (i) {
+      errorList[i] = (errorList[i] || 0) + 1
+    })
 
   return (
     <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
@@ -63,7 +66,24 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         {options.icon && <Icon size={28} name={options.icon} />}
         {options.isInComplete && (
           <span className={css.inComplete}>
-            <Tooltip content={<div>{errors} error(s) at this node</div>} position="auto">
+            <Tooltip
+              content={
+                options.showErrorDetails ? (
+                  <div>
+                    {Object.entries(errorList).map((error, index) => {
+                      return (
+                        <div key={`${error[0]}-${error[1]}-${index}`}>
+                          {error[1] > 1 ? `${error[0]} (${error[1]})` : error[0]}
+                        </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <div>{errors} error(s) at this node</div>
+                )
+              }
+              position="auto"
+            >
               <Icon size={12} name={'warning-sign'} color="orange500" />
             </Tooltip>
           </span>

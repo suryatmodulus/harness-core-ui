@@ -91,7 +91,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         style={{ cursor: 'pointer' }}
         padding="small"
         width={125}
-        lineClamp={1}
+        lineClamp={2}
       >
         {options.name}
       </Text>

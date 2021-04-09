@@ -7,7 +7,7 @@ import cx from 'classnames'
 import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 
 import { useStrings } from 'framework/exports'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import type { ExecutionWrapper, StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -44,6 +44,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       pipelineView
     },
     updatePipeline,
+    updateStage,
     updatePipelineView,
     getStageFromPipeline,
     stepsFactory
@@ -93,8 +94,38 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onSubmitStep = (item: ExecutionWrapper): void => {
-    const node = data?.stepConfig?.node
+  const updateStepWithinStage = (
+    stage: StageElementWrapper,
+    processingNodeIdentifier: string,
+    processedNode: ExecutionWrapper
+  ) => {
+    // Finds the step in the stage, and updates with the processed node
+    stage.stage.spec.execution.steps?.forEach((stepWithinStage: any) => {
+      if (stepWithinStage.stepGroup?.steps) {
+        // If stage has a step group, loop over the step group steps and update the matching identifier with node
+        stepWithinStage.stepGroup.steps.forEach((stepGroupStep: ExecutionWrapper) => {
+          if (stepGroupStep.step?.identifier === processingNodeIdentifier) {
+            stepGroupStep.step = processedNode
+          }
+        })
+      } else if (stepWithinStage.parallel) {
+        // If stage has a parallel steps, loop over and update the matching identifier with node
+        stepWithinStage.parallel.forEach((parallelStep: ExecutionWrapper) => {
+          if (parallelStep.step?.identifier === processingNodeIdentifier) {
+            parallelStep.step = processedNode
+          }
+        })
+      } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
+        // Else simply find the matching step ad update the node
+        stepWithinStage.step = processedNode
+      }
+    })
+  }
+
+  const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
+    // const node = data?.stepConfig?.node
+    // const stepId = node?.identifier
+    const node: ExecutionWrapper = {}
     if (node) {
       // Add/replace values only if they are presented
       if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
@@ -128,8 +159,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (item.spec && item.tab !== TabTypes.Advanced) {
         node.spec = { ...item.spec }
       }
-      data?.stepConfig?.onUpdate?.(item)
-      updatePipeline(pipeline)
+
+      node.type = data?.stepConfig?.node.type
+      if (data?.stepConfig?.node?.identifier && selectedStage?.stage?.spec?.execution) {
+        const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+        updateStepWithinStage(selectedStage, processingNodeIdentifier, node)
+        await updateStage(selectedStage.stage)
+        data?.stepConfig?.onUpdate?.(node)
+      }
 
       // TODO: temporary fix for FF
       // can be removed once the unified solution across modules is implemented

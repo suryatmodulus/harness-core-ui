@@ -143,7 +143,7 @@ export const getStepFromNode = (
   return getStepFromId(data, node.getIdentifier(), isComplete, isFindParallelNode)
 }
 
-const getStepFromId = (
+export const getStepFromId = (
   stageData: Required<ExecutionElement> | undefined,
   id: string,
   isComplete = false,

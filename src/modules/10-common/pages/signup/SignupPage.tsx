@@ -22,7 +22,7 @@ import AppStorage from 'framework/utils/AppStorage'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/exports'
-import { getModuleNameByString, getTrialHomeLinkByAcctIdAndModuleName } from '../../utils/StringUtils'
+import { getModuleNameByString, getHomeLinkByAcctIdAndModuleName } from '../../utils/StringUtils'
 
 interface SignupForm {
   name: string
@@ -83,7 +83,7 @@ const SignupPage: React.FC = () => {
       // TODO: this work will get done on backend in near future
       const accountId = userInfoResponse.resource.accountIds[0]
       await refreshAppStore(email, password)
-      history.push(getTrialHomeLinkByAcctIdAndModuleName(accountId, module))
+      history.push(getHomeLinkByAcctIdAndModuleName(accountId, module))
     } catch (error) {
       showError(error.message)
     } finally {

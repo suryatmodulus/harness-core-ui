@@ -2,12 +2,12 @@
 
 exports[`CIHomePage snapshot test should render properly 1`] = `
 <div>
-  <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: auto; background-position-y: center; height: calc(100% - 160px);"
-  >
+  <div>
+    <h1>
+      Not Found
+    </h1>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      data-testid="location"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

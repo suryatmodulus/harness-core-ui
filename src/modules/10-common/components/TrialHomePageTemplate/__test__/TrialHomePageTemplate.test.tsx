@@ -26,6 +26,28 @@ jest.mock('services/portal', () => ({
   })
 }))
 
+jest.mock('services/portal', () => ({
+  useGetModuleLicenseInfo: jest.fn().mockImplementation(() => {
+    return {
+      data: null
+    }
+  }),
+  useStartTrial: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementationOnce(() => {
+        return {
+          status: 'SUCCESS',
+          data: {
+            licenseType: 'TRIAL'
+          }
+        }
+      })
+    }
+  })
+}))
+
 const props = {
   title: 'Continuous Integration',
   bgImageUrl: '',

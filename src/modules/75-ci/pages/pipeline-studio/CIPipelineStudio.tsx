@@ -8,7 +8,6 @@ import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { useAppStore, useStrings } from 'framework/exports'

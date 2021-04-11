@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import produce from 'immer'
 import { useStrings, String } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
@@ -82,7 +83,7 @@ const manifestStoreTypes: Array<ManifestStores> = [
 
 const ManifestListView = ({
   pipeline,
-  updatePipeline,
+  updateStage,
   identifierName,
   isForOverrideSets,
   stage,
@@ -111,7 +112,7 @@ const ManifestListView = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const getManifestList = useCallback(() => {
+  let listOfManifests = useMemo(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
@@ -145,9 +146,15 @@ const ManifestListView = ({
         ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
         : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
       : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [isForOverrideSets, isPropagating, isForPredefinedSets, overrideSetIdentifier])
-
-  let listOfManifests = getManifestList()
+  }, [
+    overrideSetIdentifier,
+    isPropagating,
+    stage,
+    isForOverrideSets,
+    isForPredefinedSets,
+    stage?.stage?.spec?.serviceConfig?.useFromStage?.stage,
+    pipeline
+  ])
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
@@ -161,7 +168,12 @@ const ManifestListView = ({
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
-    updatePipeline(pipeline)
+    if (stage) {
+      produce(stage, data => {
+        set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
+        updateStage(data.stage)
+      })
+    }
   }
 
   const addNewManifest = (): void => {
@@ -214,7 +226,12 @@ const ManifestListView = ({
       } else {
         listOfManifests.push(manifestObj)
       }
-      updatePipeline(pipeline)
+      if (stage) {
+        produce(stage, data => {
+          set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
+          updateStage(data.stage)
+        })
+      }
       hideConnectorModal()
       return
     }
@@ -232,7 +249,12 @@ const ManifestListView = ({
       })
     }
 
-    updatePipeline(pipeline)
+    if (stage) {
+      produce(stage, data => {
+        set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
+        updateStage(data.stage)
+      })
+    }
     hideConnectorModal()
     setConnectorView(false)
     refetchConnectors()

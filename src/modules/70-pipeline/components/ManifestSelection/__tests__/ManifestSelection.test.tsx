@@ -69,7 +69,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -90,7 +90,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -111,7 +111,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: true,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: true,
       identifierName: '',
@@ -132,7 +132,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -158,7 +158,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',

@@ -462,7 +462,8 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         queryParams: {
           accountIdentifier: accountId,
           orgIdentifier,
-          projectIdentifier
+          projectIdentifier,
+          pipelineIdentifier
         },
         body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
       }).then(response => {

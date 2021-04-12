@@ -69,6 +69,37 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               plusAdd
             </p>
           </section>
+          <div
+            class="bp3-form-group"
+            data-id="jexlConditions-0"
+            style="width: 100%;"
+          >
+            <label
+              class="bp3-label"
+              for="jexlConditions"
+            >
+              JEXL Conditions
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="jexlConditions"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
@@ -357,6 +388,37 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               plusAdd
             </p>
           </section>
+          <div
+            class="bp3-form-group"
+            data-id="jexlConditions-4"
+            style="width: 100%;"
+          >
+            <label
+              class="bp3-label"
+              for="jexlConditions"
+            >
+              JEXL Conditions
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="jexlConditions"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"

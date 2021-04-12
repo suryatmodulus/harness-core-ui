@@ -1,12 +1,26 @@
 import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Layout, Button, Text, Formik, Color, StepProps, Card, Icon, Heading } from '@wings-software/uicore'
+import {
+  Layout,
+  Button,
+  Text,
+  Formik,
+  Color,
+  StepProps,
+  Card,
+  Icon,
+  Heading,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   getManifestIconByType,
@@ -68,7 +82,6 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
     return initValues
   }, [selectedManifest])
-
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
@@ -107,14 +120,20 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
-          connectorRef: Yup.string().trim().required(getString('validation.gitServerRequired'))
+          connectorRef: Yup.string()
+            .trim()
+            .required(
+              `${ManifestToConnectorMap[selectedManifest]} ${getString(
+                'pipelineSteps.build.create.connectorRequiredError'
+              )}`
+            )
         })}
         onSubmit={formData => {
           submitFirstStep({ ...formData, store: selectedManifest })
         }}
         enableReinitialize={true}
       >
-        {() => (
+        {formik => (
           <Form>
             <div className={css.formContainerStepOne}>
               {selectedManifest !== '' ? (
@@ -137,17 +156,33 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
                   />
-                  <Button
-                    intent="primary"
-                    minimal
-                    text={newConnectorLabel}
-                    className={css.addNewManifest}
-                    icon="plus"
-                    onClick={() => {
-                      handleConnectorViewChange()
-                      nextStep?.({ ...prevStepData, store: selectedManifest })
-                    }}
-                  />
+                  {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
+                    <div className={css.configureOptions}>
+                      <ConfigureOptions
+                        value={(formik.values.connectorRef as unknown) as string}
+                        type={ManifestToConnectorMap[selectedManifest]}
+                        variableName="connectorId"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formik.setFieldValue('connectoreRef', value)
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={newConnectorLabel}
+                      className={css.addNewManifest}
+                      icon="plus"
+                      onClick={() => {
+                        handleConnectorViewChange()
+                        nextStep?.({ ...prevStepData, store: selectedManifest })
+                      }}
+                    />
+                  )}
                 </div>
               ) : null}
             </div>

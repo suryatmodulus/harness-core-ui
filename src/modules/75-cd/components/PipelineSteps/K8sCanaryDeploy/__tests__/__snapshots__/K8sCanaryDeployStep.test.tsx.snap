@@ -70,7 +70,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -104,7 +104,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -122,7 +122,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                 <input
                   class="bp3-input"
                   min="0"
-                  placeholder="Count"
+                  placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
                   value="20"
                 />
@@ -168,7 +168,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Instance Count
+                    instanceFieldOptions.instanceText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -205,7 +205,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -282,7 +282,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -390,7 +390,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -424,7 +424,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -493,7 +493,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
                   <span
                     class="bp3-button-text"
                   >
-                    Instance Count
+                    instanceFieldOptions.instanceText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -555,7 +555,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -620,7 +620,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
             class="bp3-label"
             for="spec.skipDryRun"
           >
-            Skip Dry Run
+            pipelineSteps.skipDryRun
              
             <span
               class="bp3-text-muted"
@@ -752,7 +752,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -786,7 +786,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -804,7 +804,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
                 <input
                   class="bp3-input"
                   min="0"
-                  placeholder="Count"
+                  placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
                   value="1"
                 />
@@ -850,7 +850,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Instance Count
+                    instanceFieldOptions.instanceText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -887,7 +887,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -964,7 +964,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1023,7 +1023,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          Skip Dry Run
+          pipelineSteps.skipDryRun
         </label>
       </div>
     </div>
@@ -1034,7 +1034,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
         class="bp3-label"
         for="spec.instanceSelection"
       >
-        Instances
+        pipelineSteps.instanceLabel
          
         <span
           class="bp3-text-muted"
@@ -1052,7 +1052,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
             <input
               class="bp3-input"
               min="0"
-              placeholder="Count"
+              placeholder="instanceFieldOptions.instanceHolder"
               type="number"
               value="0"
             />
@@ -1100,7 +1100,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Instance Count
+                instanceFieldOptions.instanceText
               </span>
               <span
                 class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -1274,7 +1274,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -1308,7 +1308,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1326,7 +1326,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 <input
                   class="bp3-input"
                   min="0"
-                  placeholder="Count"
+                  placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
                   value="20"
                 />
@@ -1372,7 +1372,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                   <span
                     class="bp3-button-text"
                   >
-                    Instance Count
+                    instanceFieldOptions.instanceText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -1409,7 +1409,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -1486,7 +1486,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1594,7 +1594,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -1628,7 +1628,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1646,7 +1646,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 <input
                   class="bp3-input"
                   min="0"
-                  placeholder="Percentage"
+                  placeholder="instanceFieldOptions.percentagePlaceHolder"
                   type="number"
                   value="20"
                 />
@@ -1692,7 +1692,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                   <span
                     class="bp3-button-text"
                   >
-                    % Percentage
+                    instanceFieldOptions.percentageText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -1729,7 +1729,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -1806,7 +1806,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1914,7 +1914,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -1937,7 +1937,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
               <div
                 class="bp3-form-helper-text"
               >
-                Step Name is required
+                pipelineSteps.stepNameRequired
               </div>
             </div>
           </div>
@@ -1953,7 +1953,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             class="bp3-label"
             for="spec.instanceSelection"
           >
-            Instances
+            pipelineSteps.instanceLabel
              
             <span
               class="bp3-text-muted"
@@ -1971,7 +1971,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                 <input
                   class="bp3-input"
                   min="0"
-                  placeholder="Count"
+                  placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
                   value="0"
                 />
@@ -2017,7 +2017,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                   <span
                     class="bp3-button-text"
                   >
-                    Instance Count
+                    instanceFieldOptions.instanceText
                   </span>
                   <span
                     class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -2054,7 +2054,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -2131,7 +2131,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"

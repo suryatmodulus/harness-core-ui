@@ -172,7 +172,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     selectedStepId,
     logsToken,
     setLogsToken,
-    pipelineExecutionDetail
+    pipelineExecutionDetail,
+    queryParams
   } = useExecutionContext()
   const { data: tokenData } = useGetToken({ queryParams: { accountID: accountId }, lazy: !!logsToken })
   const { log: streamData, startStream, closeStream, unitId: streamKey } = useLogsStream()
@@ -276,7 +277,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   }, [])
 
   React.useEffect(() => {
-    const selectedStep = allNodeMap[selectedStepId]
+    const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
+    const selectedStep = allNodeMap[currentStepId]
     const selectedStage = pipelineStagesMap.get(selectedStageId)
 
     dispatch({
@@ -296,6 +298,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       }
     })
   }, [
+    queryParams.retryStep,
+    mode,
     selectedStepId,
     allNodeMap,
     accountId,

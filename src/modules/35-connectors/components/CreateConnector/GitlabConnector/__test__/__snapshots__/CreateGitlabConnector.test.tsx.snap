@@ -54,7 +54,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -68,7 +68,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -89,7 +89,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -104,7 +104,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -119,7 +119,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -134,7 +134,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -148,7 +148,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -225,7 +225,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -248,7 +248,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            Connector name is a required field
+                            validation.connectorName
                           </div>
                         </div>
                       </div>
@@ -260,7 +260,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -291,7 +291,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -328,7 +328,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -416,7 +416,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -448,7 +448,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -469,7 +469,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -484,7 +484,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -499,7 +499,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -514,7 +514,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -528,7 +528,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -547,7 +547,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -569,7 +569,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -582,7 +582,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -590,7 +590,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -638,7 +638,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      GitLab Account URL
+                      connectors.git.gitLabAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -654,7 +654,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.gitlab.com/account/"
+                          placeholder="connectors.git.gitLabUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -692,7 +692,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -703,7 +703,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -791,7 +791,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -823,7 +823,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -862,7 +862,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -877,7 +877,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -892,7 +892,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -907,7 +907,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -922,7 +922,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -944,7 +944,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -969,7 +969,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -1014,7 +1014,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -1039,7 +1039,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -1093,7 +1093,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Username is a required field
+                        validation.username
                       </div>
                     </div>
                   </div>
@@ -1110,7 +1110,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1147,7 +1147,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -1156,7 +1156,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Password is a required field
+                        validation.password
                       </div>
                     </div>
                   </div>
@@ -1178,7 +1178,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1213,7 +1213,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1223,7 +1223,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1309,7 +1309,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1341,7 +1341,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1362,7 +1362,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1377,7 +1377,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1392,7 +1392,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1407,7 +1407,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1421,7 +1421,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1440,7 +1440,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1462,7 +1462,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1475,7 +1475,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -1483,7 +1483,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1531,7 +1531,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      GitLab Account URL
+                      connectors.git.gitLabAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1547,7 +1547,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="git@gitlab.com:account/"
+                          placeholder="connectors.git.gitLabUrlPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1585,7 +1585,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -1596,7 +1596,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1684,7 +1684,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1716,7 +1716,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1755,7 +1755,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1770,7 +1770,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1785,7 +1785,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1800,7 +1800,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1815,7 +1815,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1834,7 +1834,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1849,7 +1849,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                         <label
                           class="bp3-label"
                         >
-                          SSH Key
+                          SSH_KEY
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1886,7 +1886,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -1895,7 +1895,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       <div
                         class="bp3-form-helper-text"
                       >
-                        SSH key is required
+                        validation.sshKey
                       </div>
                     </div>
                   </div>
@@ -1917,7 +1917,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1952,7 +1952,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1962,7 +1962,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2048,7 +2048,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2080,7 +2080,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2119,7 +2119,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2134,7 +2134,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2149,7 +2149,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2164,7 +2164,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2179,7 +2179,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2201,7 +2201,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2226,7 +2226,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2271,7 +2271,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2296,7 +2296,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -2362,7 +2362,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2399,7 +2399,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;gitlabPassword&gt;
@@ -2457,7 +2457,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2492,7 +2492,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -2502,7 +2502,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2588,7 +2588,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitLab Connector
+        connectors.title.gitlabConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2620,7 +2620,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2659,7 +2659,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2674,7 +2674,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2689,7 +2689,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2704,7 +2704,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2719,7 +2719,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2738,7 +2738,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group"
@@ -2753,7 +2753,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                         <label
                           class="bp3-label"
                         >
-                          SSH Key
+                          SSH_KEY
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2790,7 +2790,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;gitlabPassword&gt;
@@ -2849,14 +2849,14 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                  connectors.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -2865,7 +2865,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    API Authentication
+                    connectors.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -2890,7 +2890,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Personal Access Token"
+                              value="connectors.git.accessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -2938,7 +2938,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2975,7 +2975,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;gitlabPassword&gt;
@@ -3048,7 +3048,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3058,7 +3058,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

@@ -44,11 +44,11 @@ describe('Stepk8ClusterDetails', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      fireEvent.click(getByText('Save and Continue'))
+      fireEvent.click(getByText('saveAndContinue'))
     })
 
     expect(container).toMatchSnapshot()
-    expect(getByText('Username is a required field')).toBeDefined()
+    expect(getByText('validation.username')).toBeDefined()
 
     fillAtForm([
       {
@@ -100,7 +100,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('render edit mode  service token', async () => {
@@ -134,7 +134,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('render edit mode oidc update', async () => {
@@ -179,7 +179,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 
@@ -225,7 +225,7 @@ describe('Stepk8ClusterDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Details')).not.toBeNull())
+    await waitFor(() => expect(getByText('details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 })

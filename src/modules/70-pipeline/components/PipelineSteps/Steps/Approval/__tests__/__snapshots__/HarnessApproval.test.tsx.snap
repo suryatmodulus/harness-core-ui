@@ -12,7 +12,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        Approval Message
+        pipeline.approvalStep.message
          
         <span
           class="bp3-text-muted"
@@ -44,7 +44,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history in approval details
+          pipeline.approvalStep.includePipelineExecutionHistory
         </label>
       </div>
     </div>
@@ -55,7 +55,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        User Groups
+        common.userGroups
          
         <span
           class="bp3-text-muted"
@@ -82,7 +82,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                   <input
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Add User Groups"
+                    placeholder="pipeline.approvalStep.addUserGroups"
                     value=""
                   />
                 </div>
@@ -99,7 +99,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        Number of approvers that are required at this step
+        pipeline.approvalStep.minimumCount
          
         <span
           class="bp3-text-muted"
@@ -137,12 +137,12 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-control-indicator"
           />
-          Disallow the executor from approving the pipeline
+          pipeline.approvalStep.disallowPipelineExecutor
         </label>
       </div>
     </div>
     <div>
-      Inputs to be provided by approver
+      pipeline.approvalStep.approverInputs
       <div
         class="bp3-card bp3-elevation-0 Card--card"
         style="width: 100%;"
@@ -231,7 +231,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-button-text"
           >
-            + Add
+            plusAdd
           </span>
         </button>
       </div>
@@ -353,7 +353,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        Approval Message
+        pipeline.approvalStep.message
          
         <span
           class="bp3-text-muted"
@@ -370,7 +370,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         <div
           class="bp3-form-helper-text"
         >
-          Approval message is required.
+          pipeline.approvalStep.validation.approvalMessage
         </div>
       </div>
     </div>
@@ -390,7 +390,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history in approval details
+          pipeline.approvalStep.includePipelineExecutionHistory
         </label>
       </div>
     </div>
@@ -401,7 +401,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        User Groups
+        common.userGroups
          
         <span
           class="bp3-text-muted"
@@ -428,7 +428,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
                   <input
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Add User Groups"
+                    placeholder="pipeline.approvalStep.addUserGroups"
                     value=""
                   />
                 </div>
@@ -445,7 +445,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        Number of approvers that are required at this step
+        pipeline.approvalStep.minimumCount
          
         <span
           class="bp3-text-muted"
@@ -468,7 +468,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         <div
           class="bp3-form-helper-text"
         >
-          Minimum count is required.
+          pipeline.approvalStep.validation.minimumCountRequired
         </div>
       </div>
     </div>
@@ -488,12 +488,12 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
           <span
             class="bp3-control-indicator"
           />
-          Disallow the executor from approving the pipeline
+          pipeline.approvalStep.disallowPipelineExecutor
         </label>
       </div>
     </div>
     <div>
-      Inputs to be provided by approver
+      pipeline.approvalStep.approverInputs
       <div
         class="bp3-card bp3-elevation-0 Card--card"
         style="width: 100%;"
@@ -582,7 +582,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
           <span
             class="bp3-button-text"
           >
-            + Add
+            plusAdd
           </span>
         </button>
       </div>
@@ -596,9 +596,9 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
     <pre>
       {
   "spec": {
-    "approvalMessage": "Approval message is required.",
+    "approvalMessage": "pipeline.approvalStep.validation.approvalMessage",
     "approvers": {
-      "minimumCount": "Minimum count is required."
+      "minimumCount": "pipeline.approvalStep.validation.minimumCountRequired"
     }
   }
 }

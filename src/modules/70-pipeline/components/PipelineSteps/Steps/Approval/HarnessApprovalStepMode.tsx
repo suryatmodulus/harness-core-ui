@@ -106,7 +106,7 @@ const FormContent = ({
           details={
             <div>
               <FormInput.MultiSelectTypeInput
-                className={css.multiSelect}
+                className={cx(css.multiSelect, css.md)}
                 name="spec.approvers.userGroups"
                 label={getString('common.userGroups')}
                 selectItems={
@@ -116,6 +116,7 @@ const FormContent = ({
                 }
                 multiSelectTypeInputProps={{
                   multiSelectProps: {
+                    allowCreatingNewItems: true,
                     tagInputProps: {
                       placeholder: fetchingUserGroups
                         ? getString('pipeline.approvalStep.fetchingUserGroups')

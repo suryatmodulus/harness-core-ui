@@ -35,7 +35,7 @@ exports[`Role Details Page render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          New Role
+          newRole
         </span>
       </button>
     </div>
@@ -68,7 +68,7 @@ exports[`Role Details Page render data 1`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by Name or Email"
+          placeholder="rbac.usersPage.search"
           type="search"
           value=""
         />

@@ -144,7 +144,7 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
   }
 }
 
-const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   const tags = data.connector?.tags || {}
   return (
@@ -164,7 +164,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
     </Layout.Horizontal>
   )
 }
-const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
 
   return data.connector ? (
@@ -174,7 +174,7 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
   ) : null
 }
 
-const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -183,7 +183,7 @@ const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) =
     </Layout.Horizontal>
   )
 }
-const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">

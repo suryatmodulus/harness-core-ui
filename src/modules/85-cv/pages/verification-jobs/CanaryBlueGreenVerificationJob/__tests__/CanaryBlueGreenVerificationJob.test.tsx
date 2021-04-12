@@ -28,7 +28,7 @@ describe('CanaryBlueGreenVerificationJob', () => {
         <CanaryBlueGreenVerificationJob onNext={() => noop} stepData={{ type: 'CANARY' }} onPrevious={jest.fn()} />
       </TestWrapper>
     )
-    await waitFor(() => expect(queryByText(container, 'Verification Specification')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.configure.heading')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('Render initially for bluegreen', async () => {
@@ -44,7 +44,7 @@ describe('CanaryBlueGreenVerificationJob', () => {
         <CanaryBlueGreenVerificationJob onNext={() => noop} stepData={{ type: 'BLUE_GREEN' }} onPrevious={jest.fn()} />
       </TestWrapper>
     )
-    await waitFor(() => expect(queryByText(container, 'Verification Specification')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.configure.heading')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 })

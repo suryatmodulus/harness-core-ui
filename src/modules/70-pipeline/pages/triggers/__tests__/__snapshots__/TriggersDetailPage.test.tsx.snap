@@ -39,7 +39,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            pipelines
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -127,7 +127,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Enabled
+                  enabledLabel
                 </p>
                 <label
                   class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -171,12 +171,12 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <div
               class="item selected"
             >
-              VISUAL
+              visual
             </div>
             <div
               class="item"
             >
-              YAML
+              yaml
             </div>
           </div>
           <button
@@ -213,7 +213,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <span
               class="bp3-button-text"
             >
-              Edit
+              edit
             </span>
           </button>
         </div>
@@ -226,7 +226,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
-              Overview
+              overview
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
@@ -234,7 +234,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Trigger Name
+                pipeline-triggers.triggerConfigurationPanel.triggerName
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
@@ -246,7 +246,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Description
+                description
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
@@ -258,7 +258,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Identifier
+                identifier
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
@@ -270,7 +270,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Tags
+                tagsLabel
               </p>
             </div>
           </div>
@@ -280,7 +280,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
-              Details
+              details
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
@@ -289,7 +289,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Conditions
+                conditions
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
@@ -319,7 +319,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Pipeline Execution Input
+                pipeline-triggers.pipelineExecutionInput
               </p>
             </div>
           </div>
@@ -335,7 +335,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
           >
-            Last Execution Details
+            pipeline-triggers.lastExecutionDetails
           </p>
           <span
             class="bp3-popover-wrapper"
@@ -367,7 +367,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                     />
                   </svg>
                 </span>
-                Failed
+                failed
               </p>
             </span>
           </span>
@@ -379,7 +379,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Last execution at: MOCK_DATE MOCK_TIME
+              pipeline-triggers.lastExecutionAt: MOCK_DATE MOCK_TIME
             </p>
           </div>
           <hr />

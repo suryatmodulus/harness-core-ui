@@ -91,3 +91,9 @@
 .variablesList {
   margin-top: var(--spacing-large);
 }
+
+.minConfigBtn {
+  padding: 0 !important;
+  height: 28px !important;
+  min-height: auto;
+}

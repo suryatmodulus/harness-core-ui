@@ -8,7 +8,7 @@ const CVHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('cv.continuousVerification')}
+      title={getString('cv.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('cv.dashboard.subHeading')}
       documentText={getString('cv.dashboard.learnMore')}

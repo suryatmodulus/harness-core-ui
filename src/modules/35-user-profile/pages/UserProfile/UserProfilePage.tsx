@@ -1,28 +1,31 @@
 import React from 'react'
 import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
-import { noop } from 'lodash-es'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/components'
+import { useGetUserInfo } from 'services/cd-ng'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
-// Replace with actual api response
-const user = {
-  email: 'olivia@harness.io',
-  name: 'olivia'
-}
-
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
-  const { openUserProfile } = useUserProfile({ onSuccess: noop })
   const { openPasswordModal } = useChangePassword()
+
+  const { data, loading, error, refetch } = useGetUserInfo({})
+
+  const { openUserProfile } = useUserProfile({ onSuccess: refetch })
+
+  const user = data?.data
+
+  /* istanbul ignore next */ if (error) return <Page.Error message={error.message} onClick={() => refetch()} />
+  /* istanbul ignore next */ if (loading) return <Page.Spinner />
+  /* istanbul ignore next */ if (!user) return <Page.NoDataCard message={getString('noData')} icon="nav-project" />
 
   return (
     <Page.Body filled>
       <Layout.Horizontal height="inherit">
-        <Container width="30%" padding="huge" className={css.details}>
+        <Container width="30%" className={css.details}>
           <Layout.Vertical>
             <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
               <Button icon="edit" data-testid="editUserProfile" minimal onClick={() => openUserProfile(user)} />
@@ -41,7 +44,7 @@ const UserProfilePage: React.FC = () => {
               <Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}>
                 {user.email}
               </Text>
-              <Text icon="lock">
+              <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
                 <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
                   {getString('userProfile.changePassword')}
                 </Button>
@@ -55,7 +58,7 @@ const UserProfilePage: React.FC = () => {
             </Layout.Horizontal>
           </Layout.Vertical>
         </Container>
-        <Container width="70%">
+        <Container width="70%" className={css.overview}>
           <UserOverView />
         </Container>
       </Layout.Horizontal>

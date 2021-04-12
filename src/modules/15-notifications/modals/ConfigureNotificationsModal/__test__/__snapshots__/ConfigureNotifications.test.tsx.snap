@@ -69,7 +69,7 @@ exports[`ConfigureNotifications Email 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="Type and press enter to add user group"
+                    placeholder="pipeline-notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>
@@ -254,7 +254,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="Type and press enter to add user group"
+                    placeholder="pipeline-notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>
@@ -429,7 +429,7 @@ exports[`ConfigureNotifications Slack 1`] = `
                   <input
                     class="bp3-input-ghost"
                     data-mentions="multi-input-userGroups}"
-                    placeholder="Type and press enter to add user group"
+                    placeholder="pipeline-notifications.userGroupsPlaceholder"
                     value=""
                   />
                 </div>

@@ -76,23 +76,21 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
             </Button>
           </ButtonGroup>
         </div>
-        {module !== 'ci' && (
-          <>
+        <>
+          <div className={css.filterGroup}>
+            <String className={css.label} stringID="status" />
+            <StatusSelect value={queryParams.status} onSelect={handleStatusChange} />
+          </div>
+          {pipelineIdentifier ? null : (
             <div className={css.filterGroup}>
-              <String className={css.label} stringID="status" />
-              <StatusSelect value={queryParams.status} onSelect={handleStatusChange} />
+              <String className={css.label} stringID="pipelines" />
+              <PipelineSelect
+                selectedPipeline={queryParams.pipelineIdentifier}
+                onPipelineSelect={handlePipelineChange}
+              />
             </div>
-            {pipelineIdentifier ? null : (
-              <div className={css.filterGroup}>
-                <String className={css.label} stringID="pipelines" />
-                <PipelineSelect
-                  selectedPipeline={queryParams.pipelineIdentifier}
-                  onPipelineSelect={handlePipelineChange}
-                />
-              </div>
-            )}
-          </>
-        )}
+          )}
+        </>
       </div>
       <div className={css.rhs}>
         <ExecutionFilters />

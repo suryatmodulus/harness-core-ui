@@ -54,7 +54,7 @@ describe('Secret Details', () => {
     await act(async () => {
       const $editButton = await findByText(container, 'Edit Details')
       fireEvent.click($editButton)
-      await waitFor(() => getByText(document.body, 'Edit Encrypted Text'))
+      await waitFor(() => getByText(document.body, 'secret.titleEditText'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     })
@@ -95,7 +95,7 @@ describe('Secret Details', () => {
       </TestWrapper>
     )
     await act(async () => {
-      const yamlButton = await findByText(container, 'YAML')
+      const yamlButton = await findByText(container, 'yaml')
       expect(yamlButton).toBeDefined()
       fireEvent.click(yamlButton)
       const yamlDiv = await findByText(container, 'yamlDiv')

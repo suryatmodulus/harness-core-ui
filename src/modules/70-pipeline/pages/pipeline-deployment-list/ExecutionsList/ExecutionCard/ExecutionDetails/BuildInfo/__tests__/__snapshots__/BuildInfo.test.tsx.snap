@@ -65,7 +65,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 1`] = `
       <span
         color="grey500"
       >
-        Latest commit:
+        execution.latestCommit
       </span>
       <p
         class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
@@ -210,7 +210,7 @@ exports[`BuildInfo snapshot tests renders "builds" properly 2`] = `
       <span
         color="grey500"
       >
-        Latest commit:
+        execution.latestCommit
       </span>
       <p
         class="StyledProps--font StyledProps--main ellipsis commitOrPrTitle"
@@ -441,7 +441,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          #
+          execution.prSymbol
            
           5
         </span>
@@ -633,7 +633,7 @@ exports[`BuildInfo snapshot tests renders "pullRequest" properly 2`] = `
         <span
           class="bp3-button-text"
         >
-          #
+          execution.prSymbol
            
           5
         </span>

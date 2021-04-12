@@ -9,10 +9,10 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
       class="ioRow header"
     >
       <div>
-        Input Name
+        inputName
       </div>
       <div>
-        Input Value
+        inputValue
       </div>
     </div>
     <div
@@ -691,10 +691,10 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
       class="ioRow header"
     >
       <div>
-        Output Name
+        outputName
       </div>
       <div>
-        Output Value
+        outputValue
       </div>
     </div>
     <div

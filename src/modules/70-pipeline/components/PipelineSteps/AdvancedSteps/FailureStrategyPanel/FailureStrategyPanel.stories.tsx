@@ -29,7 +29,7 @@ export const Basic: Story<BasicArgs> = args => {
             <div style={{ display: 'grid', gridTemplateColumns: '480px 1fr', columnGap: '20px' }}>
               <Card>
                 <H3>Failure Strategies</H3>
-                <FailureStrategyPanel formikProps={formik} mode={args.mode} />
+                <FailureStrategyPanel isReadonly={false} formikProps={formik} mode={args.mode} />
               </Card>
               <Card>
                 <pre data-testid="code-output">{yaml.stringify(formik.values)}</pre>

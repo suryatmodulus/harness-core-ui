@@ -109,7 +109,7 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
                   />
                   <FormInput.MultiSelect
                     name="userList"
-                    label="Add User"
+                    label={getString('rbac.addUser')}
                     items={users}
                     multiSelectProps={{
                       allowCreatingNewItems: false,

@@ -60,7 +60,7 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        SSH Credential
+        ssh.sshCredential
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -334,7 +334,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        SSH Credential
+        ssh.sshCredential
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -624,7 +624,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Create or Select a Secret
+                            createOrSelectSecret
                           </div>
                         </p>
                       </a>
@@ -682,7 +682,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Create or Select a Secret
+                            createOrSelectSecret
                           </div>
                         </p>
                       </a>
@@ -730,7 +730,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -813,7 +813,7 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        SSH Credential
+        ssh.sshCredential
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"

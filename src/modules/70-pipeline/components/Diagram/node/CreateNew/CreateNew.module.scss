@@ -4,5 +4,10 @@
   .createNew {
     border-width: 2px !important;
     border-style: dashed !important;
+
+    &.disabled {
+      background-color: var(--grey-200);
+      cursor: not-allowed;
+    }
   }
 }

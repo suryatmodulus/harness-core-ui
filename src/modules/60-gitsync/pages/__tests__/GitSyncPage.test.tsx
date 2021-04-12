@@ -5,7 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { GitSyncLandingView } from '../GitSyncPage'
 import GitSyncRepoTab from '../repos/GitSyncRepoTab'
 
-const enableText = 'Enable Git Experience'
+const enableText = 'enableGitExperience'
 
 describe('GitSync Page', () => {
   test('render GitSync page for new user', async () => {

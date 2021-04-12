@@ -229,9 +229,9 @@ export const getStageFromExecutionPipeline = <T>(
       if (node?.item?.identifier === identifier) {
         stage = node?.item
       } else if (node?.parallel) {
-        stage = getStageFromExecutionPipeline({ items: node.parallel, identifier: '' }, identifier)
+        stage = getStageFromExecutionPipeline({ items: node.parallel, identifier: '', allNodes: [] }, identifier)
       } else if (node?.group) {
-        stage = getStageFromExecutionPipeline({ items: node.group.items, identifier: '' }, identifier)
+        stage = getStageFromExecutionPipeline({ items: node.group.items, identifier: '', allNodes: [] }, identifier)
       }
     }
   })
@@ -347,9 +347,9 @@ export const getRunningNode = <T>(data: ExecutionPipeline<T>): ExecutionPipeline
       if (node?.item?.status === 'Running') {
         stage = node?.item
       } else if (node?.parallel) {
-        stage = getRunningNode({ items: node.parallel, identifier: '' })
+        stage = getRunningNode({ items: node.parallel, identifier: '', allNodes: [] })
       } else if (node?.group) {
-        stage = getRunningNode({ items: node.group.items, identifier: '' })
+        stage = getRunningNode({ items: node.group.items, identifier: '', allNodes: [] })
       }
     }
   })

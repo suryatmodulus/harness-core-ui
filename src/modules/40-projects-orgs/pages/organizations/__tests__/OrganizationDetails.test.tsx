@@ -66,7 +66,7 @@ describe('Organization Details', () => {
     expect(getByTestId('location').innerHTML.endsWith(routes.toOrganizations({ accountId: 'testAcc' }))).toBeTruthy()
   })
   test('Route Resources', async () => {
-    const resources = getByText('Resources')
+    const resources = getByText('resources')
     fireEvent.click(resources)
     await waitFor(() => getByTestId('location'))
     expect(

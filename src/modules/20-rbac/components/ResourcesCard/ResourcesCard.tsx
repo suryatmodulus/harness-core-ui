@@ -36,7 +36,13 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
     <Card className={css.selectedResourceGroupCardDetails} key={resourceType}>
       <Layout.Vertical>
         <Layout.Horizontal className={css.resourceFields}>
-          <Text lineClamp={1} icon={icon} iconProps={{ size: 20, padding: { right: 'medium' } }}>
+          <Text
+            color={Color.BLACK}
+            font={{ weight: 'semi-bold' }}
+            lineClamp={1}
+            icon={icon}
+            iconProps={{ size: 20, padding: { right: 'medium' } }}
+          >
             {label}
           </Text>
           <Radio

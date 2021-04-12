@@ -70,7 +70,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -100,7 +100,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -131,7 +131,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -234,7 +234,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -265,7 +265,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
             </label>
             <div
               class="bp3-form-group"
@@ -291,7 +291,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
             </label>
             <div
               class="bp3-form-group"

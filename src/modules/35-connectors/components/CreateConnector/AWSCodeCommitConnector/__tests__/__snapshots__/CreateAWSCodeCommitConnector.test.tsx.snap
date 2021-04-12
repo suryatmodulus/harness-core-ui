@@ -65,7 +65,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS CodeCommit
+        connectors.title.awsCodeCommit
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -79,7 +79,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -100,7 +100,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -115,7 +115,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -130,7 +130,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -144,7 +144,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -221,7 +221,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -251,7 +251,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -282,7 +282,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -319,7 +319,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span

@@ -34,7 +34,7 @@ describe('Test Connection', () => {
         </MemoryRouter>
       </TestWrapper>
     )
-    expect(getByText('Test Connection')).toBeDefined()
+    expect(getByText('connectors.stepThreeName')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -54,7 +54,7 @@ describe('Test Connection', () => {
     expect(container).toMatchSnapshot()
     const testBtn = container.querySelector('[class*="testButton"]')
     expect(testBtn).not.toBeNull()
-    expect(getByText('Test Connection')).toBeDefined()
+    expect(getByText('connectors.stepThreeName')).toBeDefined()
     if (testBtn) {
       await act(async () => {
         fireEvent.click(testBtn)

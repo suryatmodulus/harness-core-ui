@@ -66,14 +66,15 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       accountId
     }
   })
+
   React.useEffect(() => {
     const regionValues = (regionData?.resource || []).map(region => ({
       value: region.value,
       label: region.name
     }))
+
     setRegions(regionValues as SelectOption[])
   }, [regionData?.resource])
-
   /* Code related to region */
 
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
@@ -98,6 +99,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
+
       return values
     }
     return {
@@ -151,12 +153,13 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        enableReinitialize={true}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex')),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired')),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(

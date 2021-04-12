@@ -263,6 +263,6 @@ describe('SelectEnvironment', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => expect(getByText('At least one environment mapping must be selected.')))
+    await waitFor(() => expect(getByText('cv.activitySources.harnessCD.validation.environmentValidation')))
   })
 })

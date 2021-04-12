@@ -19,7 +19,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large"
             >
-              Select your Change Source
+              cv.activitySources.harnessCD.select
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
@@ -95,7 +95,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               <p
                 class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
               >
-                Harness FirstGen
+                cv.activitySources.harnessCD.iconLabel
               </p>
             </div>
             <div
@@ -165,7 +165,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name your Change Source
+                        cv.activitySources.name
                          
                         <span
                           class="bp3-text-muted"

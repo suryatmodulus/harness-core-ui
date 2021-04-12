@@ -51,7 +51,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Dependency Name
+                dependencyNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -85,7 +85,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -146,7 +146,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -311,7 +311,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -363,7 +363,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="mysql:5"
+                        placeholder="dependencyImagePlaceholder"
                         type="text"
                         value="image"
                       />
@@ -408,7 +408,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -429,7 +429,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Environment Variables
+                    environmentVariables
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -491,7 +491,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -519,7 +519,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Key
+                        keyLabel
                       </p>
                       <div
                         class="bp3-form-group"
@@ -549,7 +549,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Value
+                        valueLabel
                       </p>
                       <div
                         class="group withoutAligning withoutSpacing"
@@ -858,7 +858,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -884,7 +884,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Entry Point
+                    entryPointLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -946,7 +946,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1204,7 +1204,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -1230,7 +1230,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Arguments
+                    argsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -1292,7 +1292,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1550,7 +1550,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -1560,7 +1560,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -1600,7 +1600,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -1623,7 +1623,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value="128Mi"
                         />
@@ -1666,7 +1666,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -1689,7 +1689,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value="0.2"
                         />
@@ -1785,7 +1785,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Dependency Name
+                dependencyNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -1819,7 +1819,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -1915,7 +1915,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2039,7 +2039,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2166,7 +2166,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -2188,7 +2188,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Environment Variables
+                      environmentVariables
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2255,7 +2255,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2317,7 +2317,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Entry Point
+                      entryPointLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2384,7 +2384,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2446,7 +2446,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Arguments
+                      argsLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2513,7 +2513,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2558,7 +2558,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -2598,7 +2598,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -2694,7 +2694,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -2862,7 +2862,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Dependency Name
+                dependencyNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -2896,7 +2896,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -2955,7 +2955,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3120,7 +3120,7 @@ exports[`Dependency Edit view should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3172,7 +3172,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="mysql:5"
+                        placeholder="dependencyImagePlaceholder"
                         type="text"
                         value=""
                       />
@@ -3217,7 +3217,7 @@ exports[`Dependency Edit view should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -3238,7 +3238,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Environment Variables
+                    environmentVariables
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -3300,7 +3300,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -3328,7 +3328,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Key
+                        keyLabel
                       </p>
                       <div
                         class="bp3-form-group"
@@ -3358,7 +3358,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Value
+                        valueLabel
                       </p>
                       <div
                         class="group withoutAligning withoutSpacing"
@@ -3447,7 +3447,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -3473,7 +3473,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Entry Point
+                    entryPointLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -3535,7 +3535,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -3639,7 +3639,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -3665,7 +3665,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Arguments
+                    argsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -3727,7 +3727,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -3831,7 +3831,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -3841,7 +3841,7 @@ exports[`Dependency Edit view should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -3881,7 +3881,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3904,7 +3904,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value=""
                         />
@@ -3947,7 +3947,7 @@ exports[`Dependency Edit view should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3970,7 +3970,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value=""
                         />
@@ -4064,7 +4064,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="description"
           >
-            Description
+            description
              
             <span
               class="bp3-text-muted"
@@ -4091,7 +4091,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4227,7 +4227,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4284,7 +4284,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Environment Variables
+            environmentVariables
             <span
               class="bp3-popover-wrapper"
             >
@@ -4328,7 +4328,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Key
+                  keyLabel
                 </p>
                 <div
                   class="TextInput--main"
@@ -4351,7 +4351,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Value
+                  valueLabel
                 </p>
                 <div
                   class="group withoutAligning withoutSpacing"
@@ -4403,7 +4403,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -4413,7 +4413,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Entry Point
+            entryPointLabel
             <span
               class="bp3-popover-wrapper"
             >
@@ -4500,7 +4500,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -4510,7 +4510,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Arguments
+            argsLabel
             <span
               class="bp3-popover-wrapper"
             >
@@ -4597,7 +4597,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -4605,7 +4605,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -4652,7 +4652,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
                
               <span
@@ -4669,7 +4669,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.memory"
-                  placeholder="128Mi"
+                  placeholder="pipelineSteps.limitMemoryPlaceholder"
                   type="text"
                   value=""
                 />
@@ -4689,7 +4689,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
                
               <span
@@ -4706,7 +4706,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.cpu"
-                  placeholder="0.2"
+                  placeholder="pipelineSteps.limitCPUPlaceholder"
                   type="text"
                   value=""
                 />

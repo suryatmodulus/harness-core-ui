@@ -96,8 +96,8 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
         <FormInput.Select
           items={gitFetchTypes}
           name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
-          label={getString('pipelineSteps.gitFetchType')}
-          placeholder={getString('pipelineSteps.gitFetchType')}
+          label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+          placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
         />
       </div>
       {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType === gitFetchTypes[0].value && (

@@ -123,7 +123,7 @@ describe('Input Set List - Actions tests', () => {
     const inputSetRow = getAllByText?.('OverLayInput')[0]
     await act(async () => {
       fireEvent.click(inputSetRow!)
-      await waitFor(() => getByText(document.body, 'Edit Overlay Input Set: OverLayInput'))
+      await waitFor(() => getByText(document.body, 'inputSets.editOverlayTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     })
@@ -132,10 +132,10 @@ describe('Input Set List - Actions tests', () => {
   test('click handler for edit Overlay Input Set from menu', async () => {
     const menu = container?.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu!)
-    const editMenu = getAllByText?.('Edit')[0]
+    const editMenu = getAllByText?.('edit')[0]
     await act(async () => {
       fireEvent.click(editMenu!)
-      await waitFor(() => getByText(document.body, 'Edit Overlay Input Set: OverLayInput'))
+      await waitFor(() => getByText(document.body, 'inputSets.editOverlayTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     })
@@ -144,7 +144,7 @@ describe('Input Set List - Actions tests', () => {
   test('click handler for edit Input Set from menu', async () => {
     const menu = container?.querySelectorAll("[icon='more']")[1]
     fireEvent.click(menu!)
-    const editMenu = getAllByText?.('Edit')[0]
+    const editMenu = getAllByText?.('edit')[0]
     await act(async () => {
       fireEvent.click(editMenu!)
       await waitFor(() => getByTestId(document.body, 'location'))
@@ -167,15 +167,15 @@ describe('Input Set List - Actions tests', () => {
     deleteInputSetMock.mockReset()
     const menu = container?.querySelectorAll("[icon='more']")[0]
     fireEvent.click(menu!)
-    const deleteMenu = getAllByText?.('Delete')[0]
+    const deleteMenu = getAllByText?.('delete')[0]
     await act(async () => {
       fireEvent.click(deleteMenu!)
-      await waitFor(() => getByText(document.body, 'Delete Overlay Input Set'))
+      await waitFor(() => getByText(document.body, 'inputSets.confirmDeleteTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-      const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+      const deleteBtn = queryByText(form as HTMLElement, 'delete')
       fireEvent.click(deleteBtn!)
-      await waitFor(() => getByText(document.body, 'Input Set "OverLayInput" deleted'))
+      await waitFor(() => getByText(document.body, 'inputSets.inputSetDeleted'))
       expect(deleteInputSetMock).toBeCalled()
     })
   })
@@ -184,27 +184,27 @@ describe('Input Set List - Actions tests', () => {
     deleteInputSetMock.mockReset()
     const menu = container?.querySelectorAll("[icon='more']")[1]
     fireEvent.click(menu!)
-    const deleteMenu = getAllByText?.('Delete')[0]
+    const deleteMenu = getAllByText?.('delete')[0]
     await act(async () => {
       fireEvent.click(deleteMenu!)
-      await waitFor(() => getByText(document.body, 'Delete Input Set'))
+      await waitFor(() => getByText(document.body, 'inputSets.confirmDeleteTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-      const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+      const deleteBtn = queryByText(form as HTMLElement, 'delete')
       fireEvent.click(deleteBtn!)
-      await waitFor(() => getByText(document.body, 'Input Set "asd" deleted'))
+      await waitFor(() => getByText(document.body, 'inputSets.inputSetDeleted'))
       expect(deleteInputSetMock).toBeCalled()
     })
   })
 
   test('click handler for new Overlay Input Set', async () => {
-    const menu = getAllByText?.('+ New Input Set')[0]
+    const menu = getAllByText?.('inputSets.newInputSet')[0]
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
-    const newInputSet = getByText(popover as HTMLElement, 'Overlay Input Set')
+    const newInputSet = getByText(popover as HTMLElement, 'inputSets.overlayInputSet')
     await act(async () => {
       fireEvent.click(newInputSet)
-      await waitFor(() => getByText(document.body, 'New Overlay Input Set'))
+      await waitFor(() => getByText(document.body, 'inputSets.newOverlayInputSet'))
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       // Close
@@ -215,10 +215,10 @@ describe('Input Set List - Actions tests', () => {
   })
 
   test('click handler for new Input Set', async () => {
-    const menu = getAllByText?.('+ New Input Set')[0]
+    const menu = getAllByText?.('inputSets.newInputSet')[0]
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
-    const newInputSet = getByText(popover as HTMLElement, 'Input Set')
+    const newInputSet = getByText(popover as HTMLElement, 'inputSets.inputSetLabel')
     await act(async () => {
       fireEvent.click(newInputSet)
       await waitFor(() => getByTestId(document.body, 'location'))
@@ -239,7 +239,7 @@ describe('Input Set List - Actions tests', () => {
 
   test('search Input Set list', async () => {
     getInputSetList.mockReset()
-    const searchInput = container?.querySelector('[placeholder="Search Input Set"]') as HTMLInputElement
+    const searchInput = container?.querySelector('[placeholder="inputSets.searchInputSet"]') as HTMLInputElement
     fireEvent.change(searchInput, { target: { value: 'asd' } })
     expect(getInputSetList).toBeCalledWith({
       debounce: 300,

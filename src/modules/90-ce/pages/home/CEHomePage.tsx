@@ -8,7 +8,7 @@ const CEHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('ce.headingText')}
+      title={getString('ce.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('ce.homepage.slogan')}
       documentText={getString('cf.homepage.learnMore')}

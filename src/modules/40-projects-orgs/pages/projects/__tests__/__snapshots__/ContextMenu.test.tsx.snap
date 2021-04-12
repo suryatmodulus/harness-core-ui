@@ -57,7 +57,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              Go to Continuous Delivery
+              projectContextMenuRenderer.gotoCD
             </p>
           </div>
         </div>
@@ -114,7 +114,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              Go to Continuous Verification
+              projectContextMenuRenderer.gotoCV
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              Go to Continuous Integration
+              projectContextMenuRenderer.gotoCI
             </p>
           </div>
         </div>
@@ -228,7 +228,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              Go to Continuous Features
+              projectContextMenuRenderer.gotoCF
             </p>
           </div>
         </div>
@@ -285,7 +285,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              Go to Continuous Efficiency
+              projectContextMenuRenderer.gotoCE
             </p>
           </div>
         </div>
@@ -296,6 +296,7 @@ exports[`Context Menu test render 1`] = `
     >
       <a
         class="bp3-menu-item bp3-popover-dismiss"
+        data-testid="edit-project"
       >
         <span
           class="bp3-icon bp3-icon-edit"
@@ -319,7 +320,7 @@ exports[`Context Menu test render 1`] = `
         <div
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
-          Edit
+          edit
         </div>
       </a>
     </li>
@@ -351,7 +352,7 @@ exports[`Context Menu test render 1`] = `
         <div
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
-          Invite Collaborators
+          projectContextMenuRenderer.invite
         </div>
       </a>
     </li>
@@ -386,7 +387,7 @@ exports[`Context Menu test render 1`] = `
         <div
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
-          Delete
+          delete
         </div>
       </a>
     </li>

@@ -155,7 +155,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   }
 
   const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
-    const manifestObj = {
+    const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
         spec: {
@@ -164,8 +164,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               paths:
                 typeof formData?.paths === 'string'
@@ -176,8 +174,16 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         }
       }
     }
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+      }
+    }
+
     if (selectedManifest === ManifestDataType.K8sManifest) {
-      ;(manifestObj.manifest.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
+      ;(manifestObj.manifest?.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }
     handleSubmit(manifestObj)
   }
@@ -195,6 +201,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
           paths: Yup.array(
             Yup.object().shape({
               path: Yup.string().trim().required(getString('pipeline.manifestType.pathRequired'))

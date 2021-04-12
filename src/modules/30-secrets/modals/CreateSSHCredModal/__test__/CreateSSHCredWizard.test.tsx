@@ -85,7 +85,7 @@ describe('Create SSH Cred Wizard', () => {
     await act(async () => {
       fireEvent.click($secret)
     })
-    const $applyBtn = getByText(document.body, 'Apply Selected')
+    const $applyBtn = getByText(document.body, 'entityReference.apply')
     await act(async () => {
       fireEvent.click($applyBtn)
     })

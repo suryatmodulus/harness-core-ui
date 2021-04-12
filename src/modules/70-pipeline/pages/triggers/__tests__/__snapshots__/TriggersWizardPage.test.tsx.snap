@@ -28,7 +28,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -111,7 +111,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -149,7 +149,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      conditions
                     </span>
                   </div>
                   <div
@@ -187,7 +187,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -204,7 +204,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                     <h2
                       class="heading"
                     >
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -249,7 +249,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                               class="bp3-label"
                               for="name"
                             >
-                              Name
+                              name
                                
                               <span
                                 class="bp3-text-muted"
@@ -279,7 +279,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Description (optional)
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -310,7 +310,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Tags (optional)
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -339,7 +339,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        Listen on New Webhook
+                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -352,7 +352,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            Payload Type
+                            pipeline-triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -377,7 +377,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="GitHub"
+                                    value="repo-provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -415,7 +415,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             <label
                               class="bp3-label"
                             >
-                              Connector
+                              connector
                                
                               <span
                                 class="bp3-text-muted"
@@ -513,7 +513,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                             style="cursor: pointer; width: 70px;"
                           >
-                            + Add
+                            plusAdd
                           </p>
                         </section>
                         <div
@@ -524,7 +524,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                             class="bp3-label"
                             for="event"
                           >
-                            Event
+                            pipeline-triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -587,7 +587,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              Actions
+                              pipeline-triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group bp3-disabled"
@@ -642,7 +642,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                Any Actions
+                                pipeline-triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -662,7 +662,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -687,7 +687,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>
@@ -730,7 +730,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -813,7 +813,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -851,7 +851,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      conditions
                     </span>
                   </div>
                   <div
@@ -889,7 +889,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -906,7 +906,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -951,7 +951,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              Name
+                              name
                                
                               <span
                                 class="bp3-text-muted"
@@ -982,7 +982,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Description (optional)
+                            optionalField
                           </label>
                           <div
                             class="bp3-form-group"
@@ -1008,7 +1008,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Tags (optional)
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1037,7 +1037,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        Listen on New Webhook
+                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -1050,7 +1050,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            Payload Type
+                            pipeline-triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -1075,7 +1075,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="GitHub"
+                                    value="repo-provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1113,7 +1113,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              Connector
+                              connector
                                
                               <span
                                 class="bp3-text-muted"
@@ -1211,7 +1211,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                             style="cursor: pointer; width: 70px;"
                           >
-                            + Add
+                            plusAdd
                           </p>
                         </section>
                         <div
@@ -1222,7 +1222,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            Event
+                            pipeline-triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -1285,7 +1285,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              Actions
+                              pipeline-triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group"
@@ -1439,7 +1439,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                Any Actions
+                                pipeline-triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -1459,7 +1459,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1484,7 +1484,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>
@@ -1527,7 +1527,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -1610,7 +1610,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -1648,7 +1648,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      conditions
                     </span>
                   </div>
                   <div
@@ -1686,7 +1686,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -1703,7 +1703,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -1748,7 +1748,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              Name
+                              name
                                
                               <span
                                 class="bp3-text-muted"
@@ -1778,7 +1778,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Description (optional)
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1809,7 +1809,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Tags (optional)
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1838,7 +1838,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        Listen on New Webhook
+                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -1851,7 +1851,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            Payload Type
+                            pipeline-triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -1876,7 +1876,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="GitHub"
+                                    value="repo-provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1914,7 +1914,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              Connector
+                              connector
                                
                               <span
                                 class="bp3-text-muted"
@@ -2012,12 +2012,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                             style="cursor: pointer; width: 70px;"
                           >
-                            + Add
+                            plusAdd
                           </p>
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                           >
-                            Repository URL
+                            repositoryUrlLabel
                           </p>
                           <div
                             class="TextInput--main"
@@ -2042,7 +2042,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            Event
+                            pipeline-triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -2105,7 +2105,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              Actions
+                              pipeline-triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group bp3-disabled"
@@ -2160,7 +2160,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                Any Actions
+                                pipeline-triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -2180,7 +2180,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2205,7 +2205,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>

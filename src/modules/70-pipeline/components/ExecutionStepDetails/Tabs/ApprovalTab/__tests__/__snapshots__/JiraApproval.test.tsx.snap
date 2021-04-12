@@ -13,14 +13,14 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
         MOCK DURATION
       </div>
       <span>
-        remaining till timeout
+        execution.approvals.timeRemainingSuffix
       </span>
     </div>
     <div
       class="jiraTicket"
     >
       <span>
-        JIRA Ticket Pending Approval:
+        execution.approvals.jiraTicket
       </span>
       <a
         href="https://harness.atlassian.net/browse/CDNG-1234"
@@ -29,11 +29,6 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
       >
         CDNG-1234
       </a>
-    </div>
-    <div
-      class="criteriaMsg"
-    >
-      Approval/Rejection Criteria Listed Below
     </div>
   </div>
   <div
@@ -46,7 +41,7 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
         class="title"
       >
         <span>
-          Approval Criteria
+          pipeline.jiraApprovalStep.approvalCriteria
         </span>
         <button
           class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
@@ -86,14 +81,14 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
             class="collapseContainer"
           >
             <div>
-              If all conditions are met for the following:
+              execution.approvals.allConditionsMsg
             </div>
             <ul
               class="conditions"
             >
               <li>
                 <span>
-                  If Status equals
+                  execution.approvals.conditions.equals
                 </span>
                 <span
                   class="key"
@@ -103,7 +98,7 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
               </li>
               <li>
                 <span>
-                  If Status is not in
+                  execution.approvals.conditions.not_in
                 </span>
                 <span
                   class="key"
@@ -128,7 +123,7 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
         class="title"
       >
         <span>
-          Rejection Criteria
+          pipeline.jiraApprovalStep.rejectionCriteria
         </span>
         <button
           class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
@@ -168,7 +163,7 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
             class="collapseContainer"
           >
             <span>
-              JEXL Expression
+              common.jexlExpression
             </span>
             <div
               class="jexl"
@@ -193,7 +188,7 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
       class="jiraTicket"
     >
       <span>
-        JIRA Ticket Pending Approval:
+        execution.approvals.jiraTicket
       </span>
       <a
         href="https://harness.atlassian.net/browse/CDNG-1234"
@@ -202,11 +197,6 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
       >
         CDNG-1234
       </a>
-    </div>
-    <div
-      class="criteriaMsg"
-    >
-      Approval/Rejection Criteria Listed Below
     </div>
   </div>
   <div
@@ -219,7 +209,7 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
         class="title"
       >
         <span>
-          Approval Criteria
+          pipeline.jiraApprovalStep.approvalCriteria
         </span>
         <button
           class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
@@ -259,14 +249,14 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
             class="collapseContainer"
           >
             <div>
-              If all conditions are met for the following:
+              execution.approvals.allConditionsMsg
             </div>
             <ul
               class="conditions"
             >
               <li>
                 <span>
-                  If Status equals
+                  execution.approvals.conditions.equals
                 </span>
                 <span
                   class="key"
@@ -276,7 +266,7 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
               </li>
               <li>
                 <span>
-                  If Status is not in
+                  execution.approvals.conditions.not_in
                 </span>
                 <span
                   class="key"
@@ -301,7 +291,7 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
         class="title"
       >
         <span>
-          Rejection Criteria
+          pipeline.jiraApprovalStep.rejectionCriteria
         </span>
         <button
           class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
@@ -341,7 +331,7 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
             class="collapseContainer"
           >
             <span>
-              JEXL Expression
+              common.jexlExpression
             </span>
             <div
               class="jexl"

@@ -4,12 +4,13 @@ import { Card, Icon, Layout, Text, Color } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
 import type { Permission } from 'services/rbac'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './PermissionCard.module.scss'
 
 interface PermissionCardProps {
-  resourceType: ResourceType | ResourceTypeGroup
+  resourceTypes?: ResourceType[]
+  resourceCategory: ResourceType | ResourceCategory
   permissionMap: Map<ResourceType, Permission[]>
   selected?: boolean
   isDefault?: boolean
@@ -18,7 +19,8 @@ interface PermissionCardProps {
 }
 
 const PermissionCard: React.FC<PermissionCardProps> = ({
-  resourceType,
+  resourceCategory,
+  resourceTypes,
   selected,
   isDefault,
   permissionMap,
@@ -49,19 +51,22 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
       </div>
     )
   }
-  const resourceGroupHandler = RbacFactory.getResourceGroupTypeHandler(resourceType)
-  const resourceTypes = resourceGroupHandler?.resourceTypes
-  return resourceGroupHandler ? (
+  const resourceHandler =
+    RbacFactory.getResourceCategoryHandler(resourceCategory as ResourceCategory) ||
+    RbacFactory.getResourceTypeHandler(resourceCategory as ResourceType)
+  return resourceHandler ? (
     <Card className={cx(css.card, { [css.selectedCard]: selected })}>
       <Layout.Vertical padding="small" width="100%">
         <Layout.Horizontal width="100%" className={css.permissionRow}>
           <Layout.Horizontal spacing="medium" className={css.center}>
-            <Icon name={resourceGroupHandler.icon} size={30} />
+            <Icon name={resourceHandler.icon} size={30} />
             <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-              {resourceGroupHandler.label}
+              {resourceHandler.label}
             </Text>
           </Layout.Horizontal>
-          {resourceTypes && Array.from(resourceTypes).length ? null : getPermissionList(resourceType as ResourceType)}
+          {resourceTypes && Array.from(resourceTypes).length
+            ? null
+            : getPermissionList(resourceCategory as ResourceType)}
         </Layout.Horizontal>
         {resourceTypes && Array.from(resourceTypes).length ? (
           <Layout.Vertical padding={{ top: 'large' }}>

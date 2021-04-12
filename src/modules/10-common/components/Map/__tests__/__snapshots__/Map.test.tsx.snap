@@ -23,7 +23,7 @@ exports[`<Map /> tests Readonly mode works 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Key
+                  keyLabel
                 </p>
                 <div
                   class="TextInput--main"
@@ -47,7 +47,7 @@ exports[`<Map /> tests Readonly mode works 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Value
+                  valueLabel
                 </p>
                 <div
                   class="group withoutAligning withoutSpacing"
@@ -101,7 +101,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Key
+                  keyLabel
                 </p>
                 <div
                   class="TextInput--main"
@@ -124,7 +124,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Value
+                  valueLabel
                 </p>
                 <div
                   class="group withoutAligning withoutSpacing"
@@ -176,7 +176,7 @@ exports[`<Map /> tests Should render properly 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>

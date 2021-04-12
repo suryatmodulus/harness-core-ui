@@ -17,7 +17,7 @@ exports[`Test TerraformDestroy should render edit view 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -133,7 +133,7 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -167,7 +167,7 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -230,7 +230,7 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            Configuration Type
+            pipelineSteps.configurationType
              
             <span
               class="bp3-text-muted"
@@ -252,7 +252,7 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.configuration.type"
-                    placeholder="Configuration Type"
+                    placeholder="pipelineSteps.configurationType"
                     style="padding-right: 0px;"
                     type="text"
                     value=""
@@ -296,7 +296,7 @@ exports[`Test TerraformDestroy should render edit view as edit step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -424,7 +424,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -458,7 +458,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -521,7 +521,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            Configuration Type
+            pipelineSteps.configurationType
              
             <span
               class="bp3-text-muted"
@@ -543,7 +543,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.configuration.type"
-                    placeholder="Configuration Type"
+                    placeholder="pipelineSteps.configurationType"
                     style="padding-right: 0px;"
                     type="text"
                     value=""
@@ -587,7 +587,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"

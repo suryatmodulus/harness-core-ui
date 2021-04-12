@@ -11,7 +11,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
       <label
         class="bp3-label"
       >
-        Jira Connector
+        pipeline.jiraApprovalStep.connectorRef
          
         <span
           class="bp3-text-muted"
@@ -112,7 +112,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-label"
         for="spec.issueKey"
       >
-        Issue Key
+        pipeline.jiraApprovalStep.issueKey
          
         <span
           class="bp3-text-muted"
@@ -128,7 +128,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
             autocomplete="off"
             class="bp3-input"
             name="spec.issueKey"
-            placeholder="Issue Key"
+            placeholder="pipeline.jiraApprovalStep.issueKey"
             type="text"
             value=""
           />
@@ -142,7 +142,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-label"
         for="spec.transitionTo.status"
       >
-        Issue Type
+        pipeline.jiraApprovalStep.issueType
          
         <span
           class="bp3-text-muted"
@@ -164,7 +164,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.transitionTo.status"
-                placeholder="Status"
+                placeholder="status"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -210,7 +210,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
             autocomplete="off"
             class="bp3-input"
             name="spec.transitionTo.transitionName"
-            placeholder="Transition Name (Optional)"
+            placeholder="pipeline.jiraUpdateStep.transitionLabel"
             type="text"
             value=""
           />
@@ -333,7 +333,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
       <label
         class="bp3-label"
       >
-        Jira Connector
+        pipeline.jiraApprovalStep.connectorRef
          
         <span
           class="bp3-text-muted"
@@ -434,7 +434,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.issueKey"
       >
-        Issue Key
+        pipeline.jiraApprovalStep.issueKey
          
         <span
           class="bp3-text-muted"
@@ -450,7 +450,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             autocomplete="off"
             class="bp3-input"
             name="spec.issueKey"
-            placeholder="Issue Key"
+            placeholder="pipeline.jiraApprovalStep.issueKey"
             type="text"
             value=""
           />
@@ -458,18 +458,18 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         <div
           class="bp3-form-helper-text"
         >
-          Issue Key is required.
+          pipeline.jiraApprovalStep.validations.issueKey
         </div>
       </div>
     </div>
     <div
-      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+      class="bp3-form-group deploymentViewMedium"
     >
       <label
         class="bp3-label"
         for="spec.transitionTo.status"
       >
-        Issue Type
+        pipeline.jiraApprovalStep.issueType
          
         <span
           class="bp3-text-muted"
@@ -485,13 +485,13 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group bp3-intent-danger"
+              class="bp3-input-group"
             >
               <input
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.transitionTo.status"
-                placeholder="Status"
+                placeholder="status"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -522,11 +522,6 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             </div>
           </div>
         </div>
-        <div
-          class="bp3-form-helper-text"
-        >
-          Status is required.
-        </div>
       </div>
     </div>
     <div
@@ -542,7 +537,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
             autocomplete="off"
             class="bp3-input"
             name="spec.transitionTo.transitionName"
-            placeholder="Transition Name (Optional)"
+            placeholder="pipeline.jiraUpdateStep.transitionLabel"
             type="text"
             value=""
           />
@@ -557,11 +552,8 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
     <pre>
       {
   "spec": {
-    "connectorRef": "Jira Connector is required.",
-    "issueKey": "Issue Key is required.",
-    "transitionTo": {
-      "status": "Status is required."
-    }
+    "connectorRef": "pipeline.jiraApprovalStep.validations.connectorRef",
+    "issueKey": "pipeline.jiraApprovalStep.validations.issueKey"
   }
 }
     </pre>

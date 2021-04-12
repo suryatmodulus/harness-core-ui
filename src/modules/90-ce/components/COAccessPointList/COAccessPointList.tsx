@@ -66,26 +66,33 @@ const COAccessPointList: React.FC = () => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(() => (
-    <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight}>
-      <CreateAccessPointWizard
-        accessPoint={{
-          account_id: accountId, // eslint-disable-line
-          project_id: projectIdentifier, // eslint-disable-line
-          org_id: orgIdentifier, // eslint-disable-line
-          metadata: {
-            security_groups: [] // eslint-disable-line
-          },
-          type: 'aws'
-        }}
-        closeModal={hidecreateAccessPointModal}
-        setAccessPoint={() => undefined}
-        refreshAccessPoints={() => undefined}
-      />
-    </Dialog>
-  ))
-  const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   const [allAccessPoints, setAllAccessPoints] = useState<AccessPoint[]>([])
+  const setAccessPoint = (newAccessPoint: AccessPoint) => {
+    const newAccessPoints = [...allAccessPoints, newAccessPoint]
+    setAllAccessPoints(newAccessPoints)
+  }
+  const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(
+    () => (
+      <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight}>
+        <CreateAccessPointWizard
+          accessPoint={{
+            account_id: accountId, // eslint-disable-line
+            project_id: projectIdentifier, // eslint-disable-line
+            org_id: orgIdentifier, // eslint-disable-line
+            metadata: {
+              security_groups: [] // eslint-disable-line
+            },
+            type: 'aws'
+          }}
+          closeModal={hidecreateAccessPointModal}
+          setAccessPoint={setAccessPoint}
+          refreshAccessPoints={() => undefined}
+        />
+      </Dialog>
+    ),
+    [allAccessPoints]
+  )
+  const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
     return (
       <input
@@ -226,8 +233,10 @@ const COAccessPointList: React.FC = () => {
     setAllAccessPoints(data?.response as AccessPoint[])
   }, [data?.response, loading])
 
-  const refreshList = () => refetch()
-
+  const refreshList = () => {
+    refetch()
+    setSelectedAccessPoints([])
+  }
   return (
     <Container background={Color.WHITE} height="100vh">
       <Breadcrumbs

@@ -30,7 +30,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Git Connector
+        connectors.title.gitConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -44,7 +44,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -65,7 +65,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -80,7 +80,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -95,7 +95,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -110,7 +110,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -124,7 +124,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -201,7 +201,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -224,7 +224,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            Connector name is a required field
+                            validation.connectorName
                           </div>
                         </div>
                       </div>
@@ -236,7 +236,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -267,7 +267,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -304,7 +304,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -368,7 +368,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Git Connector
+        connectors.title.gitConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -400,7 +400,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -421,7 +421,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -436,7 +436,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -451,7 +451,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -466,7 +466,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -480,7 +480,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -499,7 +499,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -521,7 +521,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -534,7 +534,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -542,7 +542,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -590,7 +590,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       class="bp3-label"
                       for="url"
                     >
-                      Git Account URL
+                      connectors.git.gitAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -606,7 +606,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.github.com/account/"
+                          placeholder="connectors.git.gitHubUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -644,7 +644,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -655,7 +655,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -719,7 +719,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Git Connector
+        connectors.title.gitConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -751,7 +751,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -790,7 +790,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -805,7 +805,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -820,7 +820,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -835,7 +835,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -850,7 +850,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -877,7 +877,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                         class="label"
                       >
                         <label>
-                          Username
+                          username
                         </label>
                         <div
                           class="bp3-form-group labelSelect"
@@ -902,7 +902,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="Plaintext"
+                                    value="plaintext"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -956,7 +956,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                     <div
                       class="bp3-form-helper-text"
                     >
-                      Username is a required field
+                      validation.username
                     </div>
                   </div>
                 </div>
@@ -973,7 +973,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       <label
                         class="bp3-label"
                       >
-                        Password
+                        password
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1010,7 +1010,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Create or Select a Secret
+                              createOrSelectSecret
                             </div>
                           </p>
                         </a>
@@ -1019,7 +1019,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                     <div
                       class="bp3-form-helper-text"
                     >
-                      Password is a required field
+                      validation.password
                     </div>
                   </div>
                 </div>
@@ -1054,7 +1054,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1064,7 +1064,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1126,7 +1126,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Git Connector
+        connectors.title.gitConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1140,7 +1140,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1161,7 +1161,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1176,7 +1176,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1191,7 +1191,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1206,7 +1206,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1220,7 +1220,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1278,7 +1278,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -1308,7 +1308,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1339,7 +1339,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1376,7 +1376,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1440,7 +1440,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Git Connector
+        connectors.title.gitConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1472,7 +1472,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1511,7 +1511,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1526,7 +1526,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1541,7 +1541,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1556,7 +1556,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1571,7 +1571,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1598,7 +1598,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                         class="label"
                       >
                         <label>
-                          Username
+                          username
                         </label>
                         <div
                           class="bp3-form-group labelSelect"
@@ -1623,7 +1623,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="Plaintext"
+                                    value="plaintext"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1689,7 +1689,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                       <label
                         class="bp3-label"
                       >
-                        Password
+                        password
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1726,7 +1726,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Configure Secret
+                              secret.configureSecret
                             </div>
                             <div>
                               &lt;ConnectorPass&gt;
@@ -1797,7 +1797,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1807,7 +1807,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

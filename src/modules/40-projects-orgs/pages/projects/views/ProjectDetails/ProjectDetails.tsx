@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Text, AvatarGroup } from '@wings-software/uicore'
+import { AvatarGroup, Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
@@ -12,8 +12,6 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { PageSpinner } from '@common/components'
-import { PageError } from '@common/components/Page/PageError'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import i18n from './ProjectDetails.i18n'
@@ -50,7 +48,10 @@ const ProjectDetails: React.FC = () => {
   const { openCollaboratorModal } = useCollaboratorModal()
 
   const showCollaborators = (project: Project): void => {
-    openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
+    openCollaboratorModal({
+      projectIdentifier: project.identifier,
+      orgIdentifier: project.orgIdentifier || 'default'
+    })
   }
 
   const history = useHistory()
@@ -75,9 +76,10 @@ const ProjectDetails: React.FC = () => {
     return modulesPresent.filter(module => !projectData?.modules?.includes(module))
   }
 
-  if (loading) return <PageSpinner />
-  if (error) return <PageError message={error.message} onClick={() => refetch()} />
-  if (!projectData) return <></>
+  /* istanbul ignore next */ if (loading) return <Page.Spinner />
+  /* istanbul ignore next */ if (error)
+    return <Page.Error message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  /* istanbul ignore next */ if (!projectData) return <></>
   return (
     <>
       <Page.Header
@@ -112,6 +114,7 @@ const ProjectDetails: React.FC = () => {
                   event.stopPropagation()
                   showCollaborators(projectData as Project)
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>
                 {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
@@ -125,6 +128,7 @@ const ProjectDetails: React.FC = () => {
                   event.stopPropagation()
                   showCollaborators(projectData as Project)
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>{`${getString('collaboratorsLabel')} ${
                 data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``

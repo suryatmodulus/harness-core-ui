@@ -76,13 +76,24 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
       }))
     })
   }, [bucketByValue, percentageValues])
-  const bucketByItems = useBucketByItems()
+  const { bucketByItems, addBucketByItem } = useBucketByItems()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === bucketByValue)
   }, [bucketByItems, bucketByValue])
   const bucketByDisplayName = useMemo(() => {
     return bucketByItems.find(item => item.value === bucketByValue)?.label
   }, [bucketByItems, bucketByValue])
+
+  type InputEventType = { target: { value: string } }
+  const onSelectEvent = (event: InputEventType): void => {
+    const { value } = event.target
+    setBucketByValue(value)
+    addBucketByItem(value)
+  }
+
+  useEffect(() => {
+    addBucketByItem(bucketBy as string)
+  }, [bucketBy, addBucketByItem])
 
   return (
     <Container margin={{ left: editing ? 'small' : 'xsmall' }} style={style}>
@@ -93,7 +104,9 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
         <Text margin={{ right: 'small' }} style={{ fontSize: '14px', lineHeight: '24px', whiteSpace: 'nowrap' }}>
           <span
             dangerouslySetInnerHTML={{
-              __html: getString('cf.featureFlags.bucketBy', { targetField: editing ? undefined : bucketByDisplayName })
+              __html: getString('cf.featureFlags.bucketBy', {
+                targetField: editing ? undefined : bucketByDisplayName || bucketBy
+              })
             }}
           />
         </Text>
@@ -103,8 +116,18 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
             value={bucketBySelectValue}
             items={bucketByItems}
             onChange={({ value }) => {
+              addBucketByItem(value as string)
               setBucketByValue(value as string)
             }}
+            inputProps={{
+              onBlur: onSelectEvent,
+              onKeyUp: event => {
+                if (event.keyCode === 13) {
+                  onSelectEvent((event as unknown) as InputEventType)
+                }
+              }
+            }}
+            allowCreatingNewItems
           />
         )}
       </Layout.Horizontal>

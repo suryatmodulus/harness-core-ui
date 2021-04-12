@@ -94,6 +94,7 @@ interface DeployServiceProps {
   initialValues: DeployServiceData
   onUpdate?: (data: DeployServiceData) => void
   stepViewType?: StepViewType
+  readonly: boolean
   inputSetData?: {
     template?: DeployServiceData
     path?: string
@@ -115,7 +116,7 @@ function isEditService(data: DeployServiceData): boolean {
   return false
 }
 
-const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUpdate, readonly }): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -235,6 +236,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
               <FormInput.MultiTypeInput
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
+                disabled={readonly}
                 placeholder={getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
                   width: 300,
@@ -246,7 +248,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                   },
                   expressions,
                   selectProps: {
-                    addClearBtn: true,
+                    addClearBtn: true && !readonly,
                     items: services
                   }
                 }}
@@ -256,6 +258,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 <Button
                   minimal
                   intent="primary"
+                  disabled={readonly}
                   onClick={() => {
                     const isEdit = isEditService(values)
                     if (isEdit) {
@@ -392,18 +395,26 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     })
   }
   renderStep(props: StepProps<DeployServiceData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DeployServiceInputStep
           initialValues={initialValues}
+          readonly={readonly}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
         />
       )
     }
-    return <DeployServiceWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <DeployServiceWidget
+        readonly={readonly}
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+      />
+    )
   }
   validateInputSet(
     data: DeployServiceData,

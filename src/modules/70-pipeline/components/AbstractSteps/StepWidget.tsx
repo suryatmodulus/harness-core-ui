@@ -57,6 +57,7 @@ export function StepWidget<T = unknown, U = unknown>(
           stepViewType,
           inputSetData: { template, allValues, path, readonly },
           factory,
+          readonly,
           path,
           customStepProps
         })}

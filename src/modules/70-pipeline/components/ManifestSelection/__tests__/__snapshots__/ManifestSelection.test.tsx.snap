@@ -9,16 +9,16 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
       class="manifestList listHeader"
     >
       <span>
-        ID
+        common.ID
       </span>
       <span>
-        MANIFEST TYPE
+        pipelineSteps.serviceTab.manifestList.manifestType
       </span>
       <span>
-        STORE
+        pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
       <span>
-        LOCATION
+        location
       </span>
       <span />
     </div>
@@ -752,7 +752,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
         style="cursor: pointer;"
       >
         <span>
-          + Add Manifest/Config File
+          pipelineSteps.serviceTab.manifestList.addManifest
         </span>
       </p>
     </div>
@@ -769,16 +769,16 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
       class="manifestList listHeader"
     >
       <span>
-        ID
+        common.ID
       </span>
       <span>
-        MANIFEST TYPE
+        pipelineSteps.serviceTab.manifestList.manifestType
       </span>
       <span>
-        STORE
+        pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
       <span>
-        LOCATION
+        location
       </span>
       <span />
     </div>
@@ -1332,7 +1332,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
         style="cursor: pointer;"
       >
         <span>
-          + Add Manifest/Config File
+          pipelineSteps.serviceTab.manifestList.addManifest
         </span>
       </p>
     </div>
@@ -1349,16 +1349,16 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
       class="manifestList listHeader"
     >
       <span>
-        ID
+        common.ID
       </span>
       <span>
-        MANIFEST TYPE
+        pipelineSteps.serviceTab.manifestList.manifestType
       </span>
       <span>
-        STORE
+        pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
       <span>
-        LOCATION
+        location
       </span>
       <span />
     </div>
@@ -2092,7 +2092,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
         style="cursor: pointer;"
       >
         <span>
-          + Add Manifest/Config File
+          pipelineSteps.serviceTab.manifestList.addManifest
         </span>
       </p>
     </div>
@@ -2109,16 +2109,16 @@ exports[`ManifestSelection tests renders Manifest Listview with overrideSetIdent
       class="manifestList listHeader"
     >
       <span>
-        ID
+        common.ID
       </span>
       <span>
-        MANIFEST TYPE
+        pipelineSteps.serviceTab.manifestList.manifestType
       </span>
       <span>
-        STORE
+        pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
       <span>
-        LOCATION
+        location
       </span>
       <span />
     </div>
@@ -2140,16 +2140,16 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
       class="manifestList listHeader"
     >
       <span>
-        ID
+        common.ID
       </span>
       <span>
-        MANIFEST TYPE
+        pipelineSteps.serviceTab.manifestList.manifestType
       </span>
       <span>
-        STORE
+        pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
       <span>
-        LOCATION
+        location
       </span>
       <span />
     </div>
@@ -2883,7 +2883,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
         style="cursor: pointer;"
       >
         <span>
-          + Add Manifest/Config File
+          pipelineSteps.serviceTab.manifestList.addManifest
         </span>
       </p>
     </div>
@@ -2903,16 +2903,16 @@ exports[`ManifestSelection tests renders Manifest Wizard popover 1`] = `
         class="manifestList listHeader"
       >
         <span>
-          ID
+          common.ID
         </span>
         <span>
-          MANIFEST TYPE
+          pipelineSteps.serviceTab.manifestList.manifestType
         </span>
         <span>
-          STORE
+          pipelineSteps.serviceTab.manifestList.manifestStore
         </span>
         <span>
-          LOCATION
+          location
         </span>
         <span />
       </div>
@@ -2925,7 +2925,7 @@ exports[`ManifestSelection tests renders Manifest Wizard popover 1`] = `
           style="cursor: pointer;"
         >
           <span>
-            + Add Manifest/Config File
+            pipelineSteps.serviceTab.manifestList.addManifest
           </span>
         </p>
       </div>
@@ -2946,16 +2946,16 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
         class="manifestList listHeader"
       >
         <span>
-          ID
+          common.ID
         </span>
         <span>
-          MANIFEST TYPE
+          pipelineSteps.serviceTab.manifestList.manifestType
         </span>
         <span>
-          STORE
+          pipelineSteps.serviceTab.manifestList.manifestStore
         </span>
         <span>
-          LOCATION
+          location
         </span>
         <span />
       </div>
@@ -2968,7 +2968,7 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
           style="cursor: pointer;"
         >
           <span>
-            + Add Manifest/Config File
+            pipelineSteps.serviceTab.manifestList.addManifest
           </span>
         </p>
       </div>
@@ -2989,16 +2989,16 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
         class="manifestList listHeader"
       >
         <span>
-          ID
+          common.ID
         </span>
         <span>
-          MANIFEST TYPE
+          pipelineSteps.serviceTab.manifestList.manifestType
         </span>
         <span>
-          STORE
+          pipelineSteps.serviceTab.manifestList.manifestStore
         </span>
         <span>
-          LOCATION
+          location
         </span>
         <span />
       </div>
@@ -3011,7 +3011,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           style="cursor: pointer;"
         >
           <span>
-            + Add Manifest/Config File
+            pipelineSteps.serviceTab.manifestList.addManifest
           </span>
         </p>
       </div>

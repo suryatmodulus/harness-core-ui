@@ -8,7 +8,12 @@ import { backButtonTest } from '../../commonTest'
 
 const createConnector = jest.fn()
 const updateConnector = jest.fn()
+const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
+  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return []
+  }),
   useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn())
 }))
 jest.mock('services/cd-ng', () => ({
@@ -84,12 +89,17 @@ describe('Create Helm Connector  Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
     expect(updateConnector).toBeCalledWith({
       connector: {
         description: 'devConnector description',
         identifier: 'devConnector',
         name: 'dummy name',
         spec: {
+          delegateSelectors: [],
           auth: { type: 'Anonymous' },
           helmRepoUrl: 'https://index.docker.io/v2/'
         },

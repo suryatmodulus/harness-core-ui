@@ -27,7 +27,8 @@ export const InfraProvisioningBase = (
   const {
     stepsFactory,
     state: { pipelineView },
-    updatePipelineView
+    updatePipelineView,
+    isReadonly
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
@@ -85,6 +86,7 @@ export const InfraProvisioningBase = (
                         canvasButtonsLayout={'horizontal'}
                         canvasButtonsTooltipPosition={'top'}
                         allowAddGroup={true}
+                        isReadonly={isReadonly}
                         hasRollback={true}
                         hasDependencies={false}
                         stepsFactory={stepsFactory}

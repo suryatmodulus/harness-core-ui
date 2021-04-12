@@ -78,7 +78,7 @@ describe('ArtifactsSelection tests', () => {
       const editButton = container.querySelector('span[data-icon="Edit"]')
       expect(editButton).toBeDefined()
       fireEvent.click(editButton as HTMLElement)
-      const artifactEditModalTitle = await waitFor(() => findByText(container, 'ARTIFACT REPOSITORY'))
+      const artifactEditModalTitle = await waitFor(() => findByText(container, 'artifactRepository'))
       expect(artifactEditModalTitle).toBeDefined()
 
       expect(container).toMatchSnapshot('Edit Modal')

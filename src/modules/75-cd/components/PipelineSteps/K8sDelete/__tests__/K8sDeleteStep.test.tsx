@@ -127,7 +127,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
       type: 'K8sDelete',
       spec: {
         deleteResources: {
-          type: 'ReleaseName',
+          type: 'pipelineSteps.releaseNameValue',
           spec: {
             deleteNamespace: false
           }

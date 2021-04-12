@@ -74,7 +74,7 @@ export default function DeployInfraSpecifications(
         splitViewData: { selectedStageId }
       }
     },
-
+    isReadonly,
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
@@ -304,6 +304,7 @@ export default function DeployInfraSpecifications(
           <Card className={cx(css.sectionCard, css.shadow)}>
             <StepWidget
               type={StepType.DeployEnvironment}
+              readonly={isReadonly}
               initialValues={get(stage, 'stage.spec.infrastructure', {})}
               onUpdate={(value: PipelineInfrastructure) => {
                 const infraObj: PipelineInfrastructure = get(stage, 'stage.spec.infrastructure', {})
@@ -341,6 +342,7 @@ export default function DeployInfraSpecifications(
               details={
                 <StepWidget<InfraProvisioningData>
                   factory={factory}
+                  readonly={isReadonly}
                   key={updateKey}
                   initialValues={getProvisionerData(stage || {})}
                   type={StepType.InfraProvisioning}
@@ -365,6 +367,7 @@ export default function DeployInfraSpecifications(
             details={
               <StepWidget<K8SDirectInfrastructure>
                 factory={factory}
+                readonly={isReadonly}
                 key={updateKey}
                 initialValues={initialValues || {}}
                 type={StepType.KubernetesDirect}

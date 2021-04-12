@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, queryByAttribute, fireEvent, act, wait } from '@testing-library/react'
+import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import HelmWithGcs from '../HelmWithGcs'
 
@@ -35,8 +35,14 @@ describe('helm with http tests', () => {
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
+      store: {
+        type: 'Gcs',
+        spec: {
+          connectorRef: '',
+          bucketName: '',
+          folderPath: ''
+        }
+      },
       commandFlags: [{ commandType: undefined, flag: undefined, id: 'id2' }]
     }
 
@@ -55,9 +61,15 @@ describe('helm with http tests', () => {
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'a1' }]
+      store: {
+        type: 'Gcs',
+        spec: {
+          connectorRef: 'connectorref',
+          bucketName: 'bucketName',
+          folderPath: 'folderPath'
+        }
+      },
+      commandFlags: [{ commandType: 'Template', flag: 'testflag', id: 'a1' }]
     }
 
     const { container } = render(
@@ -71,13 +83,19 @@ describe('helm with http tests', () => {
   test('submits with the right payload', async () => {
     const initialValues = {
       identifier: '',
-      helmVersion: '',
+      helmVersion: 'V2',
       chartName: '',
       chartVersion: '',
       skipResourceVersioning: false,
-      bucketName: '',
-      folderPath: '',
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'a1' }]
+      store: {
+        type: 'Gcs',
+        spec: {
+          connectorRef: 'connectorref',
+          bucketName: 'bucketName',
+          folderPath: 'folderPath'
+        }
+      },
+      commandFlags: [{ commandType: 'Fetch', flag: 'flag', id: 'a1' }]
     }
 
     const { container } = render(
@@ -94,7 +112,7 @@ describe('helm with http tests', () => {
       fireEvent.change(queryByNameAttribute('chartVersion')!, { target: { value: 'v1' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',

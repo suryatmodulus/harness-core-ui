@@ -39,7 +39,7 @@ describe('BuildStageSpecifications tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const addDescriptionBtn = await findByText(container, 'description')
+    const addDescriptionBtn = await findByText(container, 'pipelineSteps.build.stageSpecifications.addDescription')
     expect(addDescriptionBtn).toBeDefined()
     await act(async () => {
       fireEvent.click(addDescriptionBtn)

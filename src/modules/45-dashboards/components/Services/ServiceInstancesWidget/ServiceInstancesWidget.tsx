@@ -47,7 +47,9 @@ export const ServiceInstancesWidget: React.FC<ServicesInstanceWidget> = props =>
       <Layout.Vertical>
         <Layout.Horizontal className={css.topSection} padding={{ bottom: 'small' }}>
           <Layout.Vertical width={'100%'}>
-            <Text font={{ weight: 'semi-bold' }}>{getString('services')}</Text>
+            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+              {getString('services')}
+            </Text>
             <Layout.Horizontal flex={{ distribution: 'space-between' }}>
               <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
                 {serviceCount}
@@ -60,7 +62,9 @@ export const ServiceInstancesWidget: React.FC<ServicesInstanceWidget> = props =>
         </Layout.Horizontal>
         <Layout.Vertical padding={{ top: 'small' }}>
           <Layout.Vertical margin={{ bottom: 'xlarge' }}>
-            <Text font={{ weight: 'semi-bold' }}>{getString('dashboards.serviceDashboard.serviceInstances')}</Text>
+            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+              {getString('dashboards.serviceDashboard.serviceInstances')}
+            </Text>
             <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
               {serviceInstancesCount}
             </Text>

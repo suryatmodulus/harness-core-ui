@@ -137,7 +137,7 @@ describe('Saved Connector Details', () => {
       </TestWrapper>
     )
     await waitFor(() => queryByText(container, 'Connector Activity'))
-    expect(getByText('Connector Created')).toBeDefined()
+    expect(getByText('connectorCreated')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

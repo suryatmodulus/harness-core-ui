@@ -13,7 +13,6 @@ RUN chmod 700 -R /tmp
 USER 101
 # end on-prem
 
-RUN ls -lh
 
 EXPOSE 8080
 

@@ -5,4 +5,5 @@ export type AllNGVariables = StringNGVariable | NumberNGVariable | SecretNGVaria
 export interface ExecutionPageQueryParams {
   stage?: string
   step?: string
+  retryStep?: string
 }

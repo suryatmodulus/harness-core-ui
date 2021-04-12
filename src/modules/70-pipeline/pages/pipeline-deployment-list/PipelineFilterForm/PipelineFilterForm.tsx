@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import { FormInput, SelectOption, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router'
 import { useStrings } from 'framework/exports'
 import type { FilterProperties } from 'services/pipeline-ng'
 import {
@@ -10,6 +11,7 @@ import {
   BuildTypeContext
 } from '@pipeline/utils/PipelineExecutionFilterRequestUtils'
 
+import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import css from './PipelineFilterForm.module.scss'
 
 export type FormView = 'PIPELINE-META'
@@ -31,8 +33,8 @@ export default function PipelineFilterForm<
   }
 >(props: PipelineFilterFormProps<T>): React.ReactElement {
   const { getString } = useStrings()
+  const { module } = useParams<ModulePathParams>()
   const { type, formikProps, isCDEnabled, isCIEnabled, initialValues } = props
-
   const getBuildTypeOptions = (): React.ReactElement => {
     let buildTypeField: JSX.Element = <></>
     const buildType = formikProps?.values?.buildType as BuildTypeContext['buildType']
@@ -93,7 +95,7 @@ export default function PipelineFilterForm<
           <span className={css.separator} key="buildsSeparator">
             <Text>{getString('buildsText').toUpperCase()}</Text>
           </span>
-          {type === 'PipelineSetup' ? (
+          {(type === 'PipelineExecution' && module === 'ci') || type === 'PipelineSetup' ? (
             <FormInput.Text
               name={'repositoryName'}
               label={getString('pipelineSteps.build.create.repositoryNameLabel')}

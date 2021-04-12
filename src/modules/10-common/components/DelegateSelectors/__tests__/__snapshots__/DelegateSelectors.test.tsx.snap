@@ -22,7 +22,7 @@ exports[`Delegate Selectors test snapshot testing 1`] = `
             >
               <input
                 class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                placeholder="Add specific selectors or leave empty to target any delegate"
+                placeholder="delegate.Delegate_Selector_placeholder"
                 value=""
               />
             </div>

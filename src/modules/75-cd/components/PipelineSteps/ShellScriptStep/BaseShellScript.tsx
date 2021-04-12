@@ -17,6 +17,7 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import type { ShellScriptFormData } from './shellScriptTypes'
 import { ShellScriptMonacoField, ScriptType } from './ShellScriptMonaco'
 
+import css from './ShellScript.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const shellScriptType: SelectOption[] = [
@@ -53,7 +54,7 @@ export default function BaseShellScript(props: {
           disabled
         />
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
         <MultiTypeFieldSelector
           name="spec.source.spec.script"
           label={getString('script')}
@@ -76,6 +77,7 @@ export default function BaseShellScript(props: {
             value={formValues.spec.source?.spec?.script as string}
             type="String"
             variableName="spec.source.spec.script"
+            className={css.minConfigBtn}
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}

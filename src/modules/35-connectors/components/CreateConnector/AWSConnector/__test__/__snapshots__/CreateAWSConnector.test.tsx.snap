@@ -40,7 +40,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS Cloud Provider
+        connectors.title.aws
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -54,7 +54,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -75,7 +75,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -90,7 +90,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -105,7 +105,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -119,7 +119,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -177,7 +177,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -207,7 +207,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -238,7 +238,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -275,7 +275,7 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -349,7 +349,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS Cloud Provider
+        connectors.title.aws
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -363,7 +363,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -384,7 +384,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -399,7 +399,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -414,7 +414,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -428,7 +428,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -507,7 +507,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -537,7 +537,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -568,7 +568,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -605,7 +605,7 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -679,7 +679,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS Cloud Provider
+        connectors.title.aws
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -711,7 +711,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -732,7 +732,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -747,7 +747,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -762,7 +762,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -777,7 +777,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -809,7 +809,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        AWS Access Key
+                        connectors.aws.awsAccessKey
                       </label>
                       <label
                         class="bp3-control bp3-radio Radio--radio"
@@ -822,7 +822,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        Assume IAM role on delegate
+                        connectors.aws.assumeIAMRole
                       </label>
                     </div>
                   </div>
@@ -834,7 +834,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group"
@@ -850,7 +850,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                           class="label"
                         >
                           <label>
-                            Access Key
+                            connectors.aws.accessKey
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -875,7 +875,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -941,7 +941,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         <label
                           class="bp3-label"
                         >
-                          Secret Key
+                          connectors.aws.secretKey
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -978,7 +978,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -1007,7 +1007,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        Enable cross-account access
+                        connectors.aws.enableCrossAcc
                       </label>
                     </div>
                   </div>
@@ -1043,7 +1043,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1053,7 +1053,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1125,7 +1125,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS Cloud Provider
+        connectors.title.aws
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1139,7 +1139,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1160,7 +1160,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1175,7 +1175,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1190,7 +1190,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1204,7 +1204,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1262,7 +1262,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -1293,7 +1293,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -1319,7 +1319,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1356,7 +1356,7 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1430,7 +1430,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        AWS Cloud Provider
+        connectors.title.aws
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1462,7 +1462,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1483,7 +1483,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1498,7 +1498,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1513,7 +1513,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1528,7 +1528,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1560,7 +1560,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        AWS Access Key
+                        connectors.aws.awsAccessKey
                       </label>
                       <label
                         class="bp3-control bp3-radio Radio--radio"
@@ -1573,7 +1573,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        Assume IAM role on delegate
+                        connectors.aws.assumeIAMRole
                       </label>
                     </div>
                   </div>
@@ -1585,7 +1585,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1601,7 +1601,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                           class="label"
                         >
                           <label>
-                            Access Key
+                            connectors.aws.accessKey
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -1626,7 +1626,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -1692,7 +1692,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         <label
                           class="bp3-label"
                         >
-                          Secret Key
+                          connectors.aws.secretKey
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1729,7 +1729,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;connectorPass&gt;
@@ -1791,7 +1791,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        Enable cross-account access
+                        connectors.aws.enableCrossAcc
                       </label>
                     </div>
                   </div>
@@ -1803,7 +1803,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="crossAccountRoleArn"
                     >
-                      Cross account role URN
+                      connectors.aws.crossAccURN
                        
                       <span
                         class="bp3-text-muted"
@@ -1833,7 +1833,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="externalId"
                     >
-                      External Id (Optional)
+                      connectors.aws.externalId
                        
                       <span
                         class="bp3-text-muted"
@@ -1887,7 +1887,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1897,7 +1897,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

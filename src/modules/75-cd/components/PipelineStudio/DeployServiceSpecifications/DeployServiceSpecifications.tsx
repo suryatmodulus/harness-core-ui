@@ -106,6 +106,7 @@ export default function DeployServiceSpecifications(
         splitViewData: { selectedStageId }
       }
     },
+    isReadonly,
     getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
@@ -398,7 +399,7 @@ export default function DeployServiceSpecifications(
               </Text>
             </div>
             <Select
-              disabled={setupModeType === setupMode.DIFFERENT}
+              disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
               className={css.propagatedropdown}
               items={previousStageList}
               value={selectedPropagatedState}
@@ -407,7 +408,11 @@ export default function DeployServiceSpecifications(
           </section>
 
           <section className={css.radioColumn}>
-            <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefinition()} />
+            <Radio
+              checked={setupModeType === setupMode.DIFFERENT}
+              disabled={isReadonly}
+              onClick={() => initWithServiceDefinition()}
+            />
             <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
               {' '}
               {getString('serviceDeploymentTypes.deployDifferentLabel')}
@@ -462,6 +467,7 @@ export default function DeployServiceSpecifications(
               <Card className={css.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
+                  readonly={isReadonly}
                   initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
@@ -518,6 +524,7 @@ export default function DeployServiceSpecifications(
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}
+                  readonly={isReadonly}
                   initialValues={{ stageIndex, setupModeType }}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
@@ -537,6 +544,7 @@ export default function DeployServiceSpecifications(
                 <Layout.Horizontal>
                   <StepWidget<K8SDirectServiceStep>
                     factory={factory}
+                    readonly={isReadonly}
                     initialValues={{ stageIndex, setupModeType }}
                     type={StepType.K8sServiceSpec}
                     stepViewType={StepViewType.Edit}

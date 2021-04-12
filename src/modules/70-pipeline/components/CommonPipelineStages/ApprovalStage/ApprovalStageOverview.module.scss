@@ -4,6 +4,10 @@
   height: calc(100%);
 }
 
+.basicOverviewDetails {
+  padding: var(--spacing-medium) 0;
+}
+
 .content {
   overflow-y: auto;
   padding-left: 60px;
@@ -11,13 +15,17 @@
 
 .section-card {
   width: 1024px;
-  margin-bottom: var(--spacing-large);
+  margin: var(--spacing-large) 0;
   &.shadow {
     box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
   }
   &.notwide {
     width: auto;
   }
+}
+
+.approvalCards {
+  padding: 0 var(--spacing-medium) !important;
 }
 
 .stageSection {
@@ -34,6 +42,7 @@
   .tabHeading {
     font-weight: 500;
     font-size: var(--font-size-medium);
+    color: var(--black-color-3);
   }
   &.noPadVertical {
     padding-top: 0px;

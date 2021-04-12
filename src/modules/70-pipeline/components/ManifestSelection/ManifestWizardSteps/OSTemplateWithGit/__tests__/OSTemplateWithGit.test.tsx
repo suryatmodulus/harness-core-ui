@@ -1,36 +1,62 @@
 import React from 'react'
-import { render, fireEvent, act, wait, queryByAttribute } from '@testing-library/react'
+import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import OpenShiftTemplateWithGit from '../OSTemplateWithGit'
 
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  initialValues: {
-    identifier: 'test',
-    branch: 'master',
-    commitId: 'test-commit',
-    gitFetchType: 'Branch',
-    paths: ['test'],
-    skipResourceVersioning: false,
-    repoName: 'repo-test'
-  },
   handleSubmit: jest.fn()
 }
 describe('Open shift template with git tests', () => {
   test(`renders without crashing`, () => {
+    const initialValues = {
+      identifier: '',
+      branch: '',
+      commitId: '',
+      gitFetchType: 'Branch',
+      paths: [],
+      skipResourceVersioning: false,
+      repoName: ''
+    }
     const { container } = render(
       <TestWrapper>
-        <OpenShiftTemplateWithGit {...props} />
+        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`renders correctly in edit case`, () => {
+    const initialValues = {
+      identifier: 'test',
+      commitId: 'test-commit',
+      gitFetchType: 'Commit',
+      paths: ['test'],
+      skipResourceVersioning: false,
+      repoName: 'repo-test'
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
 
   test('submits with right payload', async () => {
+    const initialValues = {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      paths: [],
+      skipResourceVersioning: false,
+      repoName: ''
+    }
     const { container } = render(
       <TestWrapper>
-        <OpenShiftTemplateWithGit {...props} />
+        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} />
       </TestWrapper>
     )
 
@@ -42,7 +68,7 @@ describe('Open shift template with git tests', () => {
       fireEvent.change(queryByNameAttribute('path')!, { target: { value: 'test-path' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',

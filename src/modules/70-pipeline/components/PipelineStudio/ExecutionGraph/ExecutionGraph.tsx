@@ -115,6 +115,7 @@ export interface ExecutionGraphProp {
   hasRollback?: boolean
   /*Set to true if  model has spec.serviceDependencies array */
   hasDependencies?: boolean
+  isReadonly: boolean
   stepsFactory: AbstractStepFactory // REQUIRED (pass to addUpdateGraph)
   stage: StageElementWrapper
   originalStage?: StageElementWrapper
@@ -139,6 +140,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     originalStage,
     updateStage,
     onAddStep,
+    isReadonly,
     onEditStep,
     gridStyle = {},
     rollBackPropsStyle = {},
@@ -467,6 +469,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     { nodeListeners, linkListeners, layerListeners },
     state.isRollback,
     getString,
+    isReadonly,
     errors?.errors
   )
 

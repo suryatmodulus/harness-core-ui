@@ -194,7 +194,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -219,7 +219,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>
@@ -391,7 +391,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -416,7 +416,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>

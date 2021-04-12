@@ -35,7 +35,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           </span>
           <input
             class="bp3-input"
-            placeholder="Search for dashboards"
+            placeholder="cv.monitoringSources.gco.searchForDashboardsPlaceholder"
             type="text"
             value=""
           />
@@ -75,13 +75,13 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
               <span
                 class="bp3-button-text"
               >
-                + Manually input query
+                cv.monitoringSources.gco.addManualInputQuery
               </span>
             </a>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
-              Google Cloud Operation Dashboards
+              cv.monitoringSources.gco.selectDashboardsPage.dashboardColumnName
             </p>
           </div>
         </div>

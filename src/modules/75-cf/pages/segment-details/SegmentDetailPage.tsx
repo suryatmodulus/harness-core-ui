@@ -1,15 +1,16 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Container, Layout, Text, Avatar, Intent, Color } from '@wings-software/uicore'
+import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import { useDeleteSegment, useGetSegment } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
-import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage } from '@cf/utils/CFUtils'
+import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
@@ -25,7 +26,7 @@ export const fullSizeContentStyle: React.CSSProperties = {
 
 export const SegmentDetailPage: React.FC = () => {
   const { getString } = useStrings()
-  const { showError, showSuccess, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
     Record<string, string>
   >()
@@ -44,9 +45,10 @@ export const SegmentDetailPage: React.FC = () => {
     projectIdentifier,
     environmentIdentifier
   })
+  const title = getString('cf.shared.segments')
   const breadcrumbs = [
     {
-      title: getString('cf.shared.segments'),
+      title,
       url: routes.toCFSegments({
         accountId,
         orgIdentifier,
@@ -88,16 +90,7 @@ export const SegmentDetailPage: React.FC = () => {
                 accountId
               })
             )
-
-            showSuccess(
-              <Text color={Color.WHITE}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: segment?.name })
-                  }}
-                />
-              </Text>
-            )
+            showToaster(getString('cf.messages.segmentDeleted'))
           })
           .catch(error => {
             showError(getErrorMessage(error), 0)
@@ -107,6 +100,8 @@ export const SegmentDetailPage: React.FC = () => {
       }
     }
   })
+
+  useDocumentTitle(title)
 
   const loading = segmentLoading || envLoading
   const error = segmentError || envError

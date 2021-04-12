@@ -11,7 +11,9 @@ import {
   triggerPathProps,
   executionPathProps,
   modulePathProps,
-  orgPathProps
+  orgPathProps,
+  rolePathProps,
+  resourceGroupPathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -51,6 +53,7 @@ import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
+import { String } from 'framework/exports'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/BuildStage'
@@ -58,6 +61,64 @@ import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
+import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
+import UsersPage from '@rbac/pages/Users/UsersPage'
+import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
+import Roles from '@rbac/pages/Roles/Roles'
+import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
+import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
+import UserGroups from '@rbac/pages/UserGroups/UserGroups'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import PipelineResourceModal from '@cd/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
+import ServiceResourceModal from '@cd/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
+import EnvironmentResourceModal from '@cd/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+
+RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
+  icon: 'pipeline',
+  label: 'Pipeline',
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_PIPELINE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_PIPELINE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_PIPELINE]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.EXECUTE_PIPELINE]: <String stringID="rbac.permissionLabels.execute" />
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <PipelineResourceModal {...props} />
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
+  icon: 'lock',
+  label: 'Service',
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_SERVICE]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.RUNTIMEACCESS_SERVICE]: <String stringID="rbac.permissionLabels.runtimeAccess" />
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <ServiceResourceModal {...props} />
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
+  icon: 'lock',
+  label: 'Environment',
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_ENVIRONMENT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_ENVIRONMENT]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_ENVIRONMENT]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.RUNTIMEACCESS_ENVIRONMENT]: <String stringID="rbac.permissionLabels.runtimeAccess" />
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <EnvironmentResourceModal {...props} />
+})
+
+const RedirectToAccessControlHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams()
+
+  return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
+}
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
@@ -427,6 +488,71 @@ export default (
       })}
     >
       <CIPipelineDeploymentList />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toAccessControl({ ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <RedirectToAccessControlHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toUsers({ ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <UsersPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <UserGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toResourceGroups({ ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <ResourceGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toRoles({ ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <AccessControlPage>
+        <Roles />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[routes.toRoleDetails({ ...projectPathProps, ...rolePathProps })]}
+      exact
+    >
+      <RoleDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CISideNavProps}
+      path={[
+        routes.toResourceGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...resourceGroupPathProps })
+      ]}
+      exact
+    >
+      <ResourceGroupDetails />
     </RouteWithLayout>
   </>
 )

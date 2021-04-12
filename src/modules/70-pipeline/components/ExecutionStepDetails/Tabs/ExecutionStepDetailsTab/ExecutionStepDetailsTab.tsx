@@ -40,7 +40,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
     history.push(`${logUrl}?view=log`)
   }
 
-  const errorMessage = step?.failureInfo?.errorMessage || step.executableResponses?.[0]?.skipTask?.message
+  const errorMessage = step?.failureInfo?.message || step.executableResponses?.[0]?.skipTask?.message
   const isFailed = isExecutionFailed(step.status)
   const isSkipped = isExecutionSkipped(step.status)
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()

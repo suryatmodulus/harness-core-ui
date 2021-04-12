@@ -32,13 +32,13 @@ describe('Git Sync - repo tab', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Select your Git Provider')).toBeTruthy()
+      expect(getByText('selectGitProvider')).toBeTruthy()
     })
     expect(container).toMatchSnapshot()
 
     // All required validation test
     await act(async () => {
-      fireEvent.click(getByText('Save'))
+      fireEvent.click(getByText('save'))
     })
 
     expect(container).toMatchSnapshot()

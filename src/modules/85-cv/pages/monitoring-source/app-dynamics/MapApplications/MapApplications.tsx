@@ -1,7 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { Container, Text, Checkbox, Color, SelectOption, Utils } from '@wings-software/uicore'
-import xhr from '@wings-software/xhr-async'
-import qs from 'qs'
 import { useParams } from 'react-router-dom'
 import cloneDeep from 'lodash-es/cloneDeep'
 import type { CellProps } from 'react-table'
@@ -13,7 +11,9 @@ import {
   useGetAppDynamicsTiers,
   useGetMetricPacks,
   AppDynamicsTier,
-  MetricPackDTOArrayRequestBody
+  MetricPackDTOArrayRequestBody,
+  getAppDynamicsMetricDataPromise,
+  GetAppDynamicsMetricDataQueryParams
 } from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -25,8 +25,6 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { getConfig } from 'services/config'
-
 import { ValidationCell, ServiceCell } from './MapApplicationsTableCells'
 import AppDApplicationSelector from './AppDApplicationSelector'
 import {
@@ -44,22 +42,34 @@ export interface MapApplicationsProps {
   onPrevious?: () => void
 }
 
-export async function validateTier(metricPacks: MetricPackDTOArrayRequestBody, queryParams: object) {
-  const url = `${getConfig('cv/api')}/appdynamics/metric-data?${qs.stringify(queryParams)}`
-  const { response }: any = await xhr.post(url, { data: metricPacks })
-  const responseData = response?.data ?? response.resource
-  if (responseData?.length) {
-    let status
-    if (responseData?.some((val: any) => val.overallStatus === 'FAILED')) {
-      status = ValidationStatus.ERROR
-    } else if (responseData?.some((val: any) => val.overallStatus === 'NO_DATA')) {
-      status = ValidationStatus.NO_DATA
-    } else if (responseData?.every((val: any) => val.overallStatus === 'SUCCESS')) {
-      status = ValidationStatus.SUCCESS
+export async function validateTier(
+  metricPacks: MetricPackDTOArrayRequestBody,
+  queryParams: GetAppDynamicsMetricDataQueryParams
+) {
+  try {
+    const response = await getAppDynamicsMetricDataPromise({ queryParams, body: metricPacks })
+
+    if (response.status === 'ERROR') {
+      return { validationStatus: undefined, error: getErrorMessage({ data: response }) }
     }
-    return { validationStatus: status, validationResult: responseData }
+
+    const { data } = response
+
+    if (data?.length) {
+      let status
+      if (data.some(val => val.overallStatus === 'FAILED')) {
+        status = ValidationStatus.ERROR
+      } else if (data.some(val => val.overallStatus === 'NO_DATA')) {
+        status = ValidationStatus.NO_DATA
+      } else if (data.every(val => val.overallStatus === 'SUCCESS')) {
+        status = ValidationStatus.SUCCESS
+      }
+      return { validationStatus: status, validationResult: data }
+    }
+    return { validationStatus: undefined }
+  } catch (e) {
+    return { validationStatus: undefined, error: getErrorMessage(e) }
   }
-  return { validationStatus: undefined }
 }
 
 function hasMetricPackSelected(app?: ApplicationRecord, identifier?: string): boolean {
@@ -86,7 +96,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
   const [validationResult, setValidationResult] = useState<TierRecord['validationResult']>()
   const { errors, setError, renderError, hasError } = useValidationErrors()
   const [guidMap, setGuidMap] = useState(new Map())
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
   const haveMPacksChanged = useRef<(name: string, val: any) => boolean>(() => false)
   const [metricPackChanged, setMetricPackChanged] = useState(false)
 
@@ -161,7 +171,8 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
 
   useEffect(() => {
     if (serviceError) {
-      showError(serviceError, 5000)
+      clear()
+      showError(serviceError, 7000)
     }
   }, [serviceError])
 
@@ -209,6 +220,10 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
         projectIdentifier,
         requestGuid: guid
       })
+      if (update?.error) {
+        clear()
+        showError(update.error, 7000)
+      }
       if (!haveMPacksChanged.current(appName, state[appName]?.metricPacks)) {
         onSetTierData(appName, tierName, update)
       }

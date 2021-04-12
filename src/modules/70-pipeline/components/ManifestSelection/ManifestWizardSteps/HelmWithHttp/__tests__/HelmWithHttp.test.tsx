@@ -1,32 +1,76 @@
 import React from 'react'
-import { render, fireEvent, act, wait, queryByAttribute } from '@testing-library/react'
+import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import HelmWithHttp from '../HelmWithHttp'
 
 const props = {
   stepName: 'Manifest details',
   expressions: [],
-  initialValues: {
-    helmVersion: 'test',
-    chartName: 'test',
-    chartVersion: 'v3'
-  },
   handleSubmit: jest.fn()
 }
+
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
+    const initialValues = {
+      identifier: 'test',
+      spec: {
+        helmVersion: 'test',
+        chartName: 'test',
+        chartVersion: 'v3'
+      }
+    }
     const { container } = render(
       <TestWrapper>
-        <HelmWithHttp {...props} />
+        <HelmWithHttp {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`renders correctly in edit mode with connectorref`, () => {
+    const initialValues = {
+      identifier: 'test',
+      spec: {
+        store: {
+          type: 'Http',
+          spec: {
+            connectorRef: 'test'
+          }
+        },
+        helmVersion: 'test',
+        chartName: 'test',
+        chartVersion: 'v3',
+        skipResourceVersioning: false
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <HelmWithHttp {...props} initialValues={initialValues} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
 
   test('submits with the right payload', async () => {
+    const initialValues = {
+      identifier: 'test',
+      spec: {
+        store: {
+          type: 'Http',
+          spec: {
+            connectorRef: 'test'
+          }
+        },
+        helmVersion: 'V2',
+        chartName: 'test',
+        chartVersion: 'v3',
+        skipResourceVersioning: false,
+        commandFlags: [{ commandType: 'Template', flag: 'flag' }]
+      }
+    }
     const { container } = render(
       <TestWrapper>
-        <HelmWithHttp {...props} />
+        <HelmWithHttp {...props} initialValues={initialValues} />
       </TestWrapper>
     )
 
@@ -37,7 +81,7 @@ describe('helm with http tests', () => {
       fireEvent.change(queryByNameAttribute('chartVersion')!, { target: { value: 'v1' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
@@ -51,7 +95,8 @@ describe('helm with http tests', () => {
               type: undefined
             },
             helmVersion: 'V2',
-            skipResourceVersioning: false
+            skipResourceVersioning: false,
+            commandFlags: [{ commandType: 'Template', flag: 'flag' }]
           }
         }
       })

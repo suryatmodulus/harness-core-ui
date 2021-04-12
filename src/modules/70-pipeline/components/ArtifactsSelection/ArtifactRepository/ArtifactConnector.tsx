@@ -38,7 +38,9 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const { getString } = useStrings()
 
   const primarySchema = Yup.object().shape({
-    connectorId: Yup.string().trim().required(getString('validation.artifactServerRequired'))
+    connectorId: Yup.string()
+      .trim()
+      .required(`${connectorType} ${getString('pipelineSteps.build.create.connectorRequiredError')}`)
   })
 
   const submitFirstStep = async (formData: any): Promise<void> => {

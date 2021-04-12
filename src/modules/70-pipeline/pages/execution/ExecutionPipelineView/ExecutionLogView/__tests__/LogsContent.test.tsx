@@ -44,7 +44,8 @@ const getContextValue = (selectedStepId?: string, stepStatus?: 'Success' | 'Runn
   pipelineExecutionDetail: { pipelineExecutionSummary: { runSequence: 123 } },
   allNodeMap: getAllNodeMap(stepStatus),
   loading: false,
-  queryParams: {}
+  queryParams: {},
+  addNewNodeToMap: jest.fn()
 })
 
 const TEST_PATH = routes.toExecutionPipelineView({

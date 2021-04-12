@@ -70,7 +70,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -104,7 +104,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
             class="bp3-label"
             for="spec.deleteResources.type"
           >
-            Delete resources by
+            pipelineSteps.deleteResourcesBy
              
             <span
               class="bp3-text-muted"
@@ -120,12 +120,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ReleaseName"
+                  value="pipelineSteps.releaseNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Release Name
+                pipelineSteps.releaseNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -133,12 +133,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ResourceName"
+                  value="pipelineSteps.resourceNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Resource Name
+                pipelineSteps.resourceNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -147,12 +147,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                   checked=""
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ManifestPath"
+                  value="pipelineSteps.manifestPathValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Manifest Path
+                pipelineSteps.manifestPathLabel
               </label>
             </div>
           </div>
@@ -185,7 +185,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                     <input
                       class="bp3-input"
                       name="spec.deleteResources.spec.manifestPaths[0].value"
-                      placeholder="Specify file paths"
+                      placeholder="pipelineSteps.manifestPathsPlaceHolder"
                       type="text"
                       value="testA"
                     />
@@ -266,7 +266,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
                     <input
                       class="bp3-input"
                       name="spec.deleteResources.spec.manifestPaths[1].value"
-                      placeholder="Specify file paths"
+                      placeholder="pipelineSteps.manifestPathsPlaceHolder"
                       type="text"
                       value="testB"
                     />
@@ -334,7 +334,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               <span
                 class="bp3-button-text"
               >
-                + Add File
+                addFileText
               </span>
             </button>
           </span>
@@ -354,7 +354,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ManifestPaths
               class="bp3-label"
               for="timeout"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
                
               <span
                 class="bp3-text-muted"
@@ -485,7 +485,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -519,7 +519,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
             class="bp3-label"
             for="spec.deleteResources.type"
           >
-            Delete resources by
+            pipelineSteps.deleteResourcesBy
              
             <span
               class="bp3-text-muted"
@@ -536,12 +536,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                   checked=""
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ReleaseName"
+                  value="pipelineSteps.releaseNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Release Name
+                pipelineSteps.releaseNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -549,12 +549,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ResourceName"
+                  value="pipelineSteps.resourceNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Resource Name
+                pipelineSteps.resourceNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -562,12 +562,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ManifestPath"
+                  value="pipelineSteps.manifestPathValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Manifest Path
+                pipelineSteps.manifestPathLabel
               </label>
             </div>
           </div>
@@ -596,7 +596,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
                 <span
                   class="bp3-control-indicator"
                 />
-                Delete namespace
+                pipelineSteps.deleteNamespace
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -643,7 +643,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
               class="bp3-label"
               for="timeout"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
                
               <span
                 class="bp3-text-muted"
@@ -707,7 +707,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ReleaseName s
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Warning: Ensure that you are not deleting a namespace that is used by other deployments
+        pipelineSteps.deleteNamespaceWarning
       </p>
     </div>
   </div>
@@ -784,7 +784,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -818,7 +818,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
             class="bp3-label"
             for="spec.deleteResources.type"
           >
-            Delete resources by
+            pipelineSteps.deleteResourcesBy
              
             <span
               class="bp3-text-muted"
@@ -834,12 +834,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ReleaseName"
+                  value="pipelineSteps.releaseNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Release Name
+                pipelineSteps.releaseNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -848,12 +848,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                   checked=""
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ResourceName"
+                  value="pipelineSteps.resourceNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Resource Name
+                pipelineSteps.resourceNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -861,12 +861,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ManifestPath"
+                  value="pipelineSteps.manifestPathValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Manifest Path
+                pipelineSteps.manifestPathLabel
               </label>
             </div>
           </div>
@@ -899,7 +899,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                     <input
                       class="bp3-input"
                       name="spec.deleteResources.spec.resourceNames[0].value"
-                      placeholder="Specify resources to be delete"
+                      placeholder="pipelineSteps.deleteResourcesPlaceHolder"
                       type="text"
                       value="testABC"
                     />
@@ -980,7 +980,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
                     <input
                       class="bp3-input"
                       name="spec.deleteResources.spec.resourceNames[1].value"
-                      placeholder="Specify resources to be delete"
+                      placeholder="pipelineSteps.deleteResourcesPlaceHolder"
                       type="text"
                       value="test123"
                     />
@@ -1048,7 +1048,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </span>
@@ -1068,7 +1068,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view -with ResourceName 
               class="bp3-label"
               for="timeout"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
                
               <span
                 class="bp3-text-muted"
@@ -1197,7 +1197,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -1231,7 +1231,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.deleteResources.type"
           >
-            Delete resources by
+            pipelineSteps.deleteResourcesBy
              
             <span
               class="bp3-text-muted"
@@ -1248,12 +1248,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   checked=""
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ReleaseName"
+                  value="pipelineSteps.releaseNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Release Name
+                pipelineSteps.releaseNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1261,12 +1261,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ResourceName"
+                  value="pipelineSteps.resourceNameValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Resource Name
+                pipelineSteps.resourceNameLabel
               </label>
               <label
                 class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1274,12 +1274,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="ManifestPath"
+                  value="pipelineSteps.manifestPathValue"
                 />
                 <span
                   class="bp3-control-indicator"
                 />
-                Manifest Path
+                pipelineSteps.manifestPathLabel
               </label>
             </div>
           </div>
@@ -1307,7 +1307,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Delete namespace
+                pipelineSteps.deleteNamespace
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1354,7 +1354,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="timeout"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
                
               <span
                 class="bp3-text-muted"

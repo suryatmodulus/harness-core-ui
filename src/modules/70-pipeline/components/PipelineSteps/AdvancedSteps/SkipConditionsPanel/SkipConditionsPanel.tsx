@@ -9,6 +9,7 @@ import css from '../AdvancedSteps.module.scss'
 
 export interface SkipConditionPanelProps {
   mode?: Modes
+  isReadonly: boolean
 }
 
 export const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
@@ -22,7 +23,12 @@ export default function SkipConditionsPanel(props: SkipConditionPanelProps): Rea
       <Text className={css.skipConditionLabel} font={{ weight: 'semi-bold' }} margin={{ bottom: 'large' }}>
         <String stringID={labelStringID} />
       </Text>
-      <FormInput.ExpressionInput items={expressions} name="skipCondition" label="" />
+      <FormInput.ExpressionInput
+        expressionInputProps={{ inputProps: { disabled: props.isReadonly } }}
+        items={expressions}
+        name="skipCondition"
+        label=""
+      />
       <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
         <String stringID={helpTextStringId} />
         <br />

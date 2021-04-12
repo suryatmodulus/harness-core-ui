@@ -54,7 +54,7 @@ describe('<MultiTypeFieldSelector /> tests', () => {
       <TestComponent onSubmit={onSubmit} initialValues={{ test: 'Some Value' }} />
     )
 
-    const fil = await findByText(container, 'Fixed value')
+    const fil = await findByText(container, 'inputTypes.FIXED')
 
     fireEvent.click(fil.closest('button')!)
 
@@ -94,7 +94,7 @@ describe('<MultiTypeFieldSelector /> tests', () => {
       <TestComponent onSubmit={onSubmit} initialValues={{ test: RUNTIME_INPUT_VALUE }} />
     )
 
-    expect(container).toMatchSnapshot('Runtime input')
+    expect(container).toMatchSnapshot('inputTypes.RUNTIME')
     expect(() => getByTestId('children')).toThrow()
   })
 
@@ -103,14 +103,13 @@ describe('<MultiTypeFieldSelector /> tests', () => {
     const { container, getByTestId } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: RUNTIME_INPUT_VALUE }} />
     )
-
-    const ri = await findByText(document.body, 'Runtime input')
+    const ri = await findByText(document.body, 'inputTypes.RUNTIME')
     fireEvent.click(ri)
 
     const fil = await findByText(document.body, 'Fixed value')
     fireEvent.click(fil)
 
-    expect(container).toMatchSnapshot('Fixed value')
+    expect(container).toMatchSnapshot('inputTypes.FIXED')
     expect(getByTestId('children')).toMatchInlineSnapshot(`
       <div
         data-testid="children"

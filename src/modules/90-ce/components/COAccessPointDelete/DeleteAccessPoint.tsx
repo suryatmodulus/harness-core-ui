@@ -77,6 +77,7 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
                 label={getString('ce.co.accessPoint.delete.withResource')}
                 margin={{ left: 'xlarge' }}
                 font={{ weight: 'semi-bold' }}
+                disabled={loading}
               />
               <Layout.Horizontal spacing="xlarge">
                 <Button

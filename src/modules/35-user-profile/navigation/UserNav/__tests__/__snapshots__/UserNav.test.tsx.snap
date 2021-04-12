@@ -10,17 +10,7 @@ exports[`User Profile Page To Profile 1`] = `
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        Profile
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/testAcc/user/preferences"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Preferences
+        profile
       </p>
     </a>
     <div
@@ -55,7 +45,7 @@ exports[`User Profile Page To Profile 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Sign Out
+            signOut
           </p>
         </span>
       </button>

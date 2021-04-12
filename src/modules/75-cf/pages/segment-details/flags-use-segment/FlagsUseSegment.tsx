@@ -3,39 +3,82 @@ import { useParams } from 'react-router'
 import { Container, FlexExpander, Heading, Layout, Text } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/exports'
-import { Feature, Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags } from 'services/cf'
+import { Segment, SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags, usePatchFeature } from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { getErrorMessage, SegmentFlagType } from '@cf/utils/CFUtils'
+import { getErrorMessage, EntityAddingMode } from '@cf/utils/CFUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton } from '@common/components'
-import { SelectFeatureFlagsModalButton } from '@cf/components/SelectFeatureFlagsModalButton/SelectFeatureFlagsModalButton'
+import {
+  SelectedFeatureFlag,
+  SelectFeatureFlagsModalButton
+} from '@cf/components/SelectFeatureFlagsModalButton/SelectFeatureFlagsModalButton'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
+import { useToaster } from '@common/components'
 import { DetailHeading } from '../DetailHeading'
 
 export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }> = () => {
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
     Record<string, string>
   >()
+  const queryParams = {
+    account: accountId,
+    org: orgIdentifier,
+    project: projectIdentifier,
+    environment: environmentIdentifier
+  }
   const { loading, error, data: flags, refetch: refetchFlags } = useGetSegmentFlags({
     identifier: segmentIdentifier,
-    queryParams: {
-      account: accountId,
-      org: orgIdentifier,
-      project: projectIdentifier,
-      environment: environmentIdentifier
-    }
+    queryParams
   })
-  const addSegmentToFlags = async (_featureFlags: Feature[]): Promise<void> => {
-    // Note: Due to https://harness.atlassian.net/browse/FFM-603 not done, we make
-    // multiple patch APIs instead of one
+  const { mutate: patchFeature } = usePatchFeature({
+    identifier: '',
+    queryParams
+  })
+  const addSegmentToFlags = async (selectedFeatureFlags: SelectedFeatureFlag[]): Promise<void> => {
+    // Note: Due to https://harness.atlassian.net/browse/FFM-713 not done, we make
+    // multiple patch APIs instead of single one
     return await Promise.all(
-      // segments.map(segment => _useAddTargetsToExcludeList(segment.identifier, [targetIdentifier]))
-      []
-    ).then(() => {
-      refetchFlags()
-    })
+      selectedFeatureFlags.map(({ feature, variationIdentifier }) =>
+        patchFeature(
+          {
+            instructions: [
+              {
+                kind: 'addSegmentToVariationTargetMap',
+                parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
+              }
+            ]
+          },
+          { pathParams: { identifier: feature.identifier } }
+        )
+      )
+    )
+      .then(() => {
+        refetchFlags()
+      })
+      .catch(exception => showError(getErrorMessage(exception)))
+  }
+  const removeSegmentToVariationTargetMap = async (
+    featureFlagIdentifier: string,
+    variationIdentifier: string
+  ): Promise<void> => {
+    patchFeature(
+      {
+        instructions: [
+          {
+            kind: 'removeSegmentToVariationTargetMap',
+            parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
+          }
+        ]
+      },
+      { pathParams: { identifier: featureFlagIdentifier } }
+    )
+      .then(() => {
+        refetchFlags()
+      })
+      .catch(exception => showError(getErrorMessage(exception)))
   }
 
   return (
@@ -58,6 +101,11 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
           onSubmit={addSegmentToFlags}
+          shouldDisableItem={feature =>
+            (flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || [])
+              .map(flag => flag.identifier)
+              .includes(feature.identifier)
+          }
         />
       </Layout.Horizontal>
       <Container
@@ -66,7 +114,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
         style={{ overflow: 'auto', padding: '0 var(--spacing-xxlarge) var(--spacing-xxlarge)' }}
       >
         {error && <PageError message={getErrorMessage(error)} onClick={() => refetchFlags()} />}
-        {!error && !loading && <FlagsList flags={flags} />}
+        {!error && !loading && <FlagsList flags={flags} onRemoveVariationMapping={removeSegmentToVariationTargetMap} />}
         {loading && <ContainerSpinner />}
       </Container>
     </Container>
@@ -111,10 +159,13 @@ const SectionHeader: React.FC<HeadingProps> = ({ children, ...props }) => {
   )
 }
 
-const FlagsList: React.FC<{ flags: SegmentFlagsResponseResponse | null }> = ({ flags }) => {
+const FlagsList: React.FC<{
+  flags: SegmentFlagsResponseResponse | null
+  onRemoveVariationMapping: (featureFlagIdentifier: string, variationIdentifier: string) => Promise<void>
+}> = ({ flags, onRemoveVariationMapping }) => {
   const { getString } = useStrings()
-  const directAddedFlags = flags?.filter(flag => flag.type === SegmentFlagType.DIRECT) || []
-  const conditionalAddedFlags = flags?.filter(flag => flag.type === SegmentFlagType.CONDITION) || []
+  const directAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || []
+  const conditionalAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.CONDITION) || []
 
   if (!flags?.length) {
     return <NoDataFoundRow message={getString('cf.segmentDetail.noFlagsUseThisSegment')} margin={{ top: 'xxlarge' }} />
@@ -128,7 +179,7 @@ const FlagsList: React.FC<{ flags: SegmentFlagsResponseResponse | null }> = ({ f
           <SectionHeader>{getString('cf.segmentDetail.directlyAdded')}</SectionHeader>
           <Layout.Vertical spacing="small" style={{ padding: '1px' }}>
             {directAddedFlags.map(_flag => (
-              <FlagItem key={_flag.identifier} flag={_flag} />
+              <FlagItem key={_flag.identifier} flag={_flag} onRemoveVariationMapping={onRemoveVariationMapping} />
             ))}
           </Layout.Vertical>
         </>
@@ -149,13 +200,13 @@ const FlagsList: React.FC<{ flags: SegmentFlagsResponseResponse | null }> = ({ f
 
 interface FlagItemProps extends ItemContainerProps {
   flag: SegmentFlag
-  onRemoveClick?: () => void
+  onRemoveVariationMapping?: (featureFlagIdentifier: string, variationIdentifier: string) => void
 }
 
-const FlagItem: React.FC<FlagItemProps> = ({ flag, onRemoveClick, ...props }) => {
+const FlagItem: React.FC<FlagItemProps> = ({ flag, onRemoveVariationMapping, ...props }) => {
   const { name, description, variation } = flag
   const { getString } = useStrings()
-  const variationTextWidth = onRemoveClick ? '88px' : '135px'
+  const variationTextWidth = onRemoveVariationMapping ? '88px' : '135px'
 
   return (
     <ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}>
@@ -163,20 +214,28 @@ const FlagItem: React.FC<FlagItemProps> = ({ flag, onRemoveClick, ...props }) =>
         <Container style={{ flexGrow: 1 }} padding={{ left: 'xsmall', right: 'small' }}>
           <Text
             margin={{ bottom: description?.length ? 'xsmall' : undefined }}
-            style={{ color: '#22222A', fontSize: '12px', fontWeight: 500, lineHeight: '16px' }}
+            style={{ color: '#22222A', fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}
           >
             {name}
           </Text>
-          {description && <Text style={{ color: '#22222A' }}>{description}</Text>}
+          {description && <Text style={{ color: '#22222ac7' }}>{description}</Text>}
         </Container>
 
         {/* NOTE: flag does not have enough info to render variation icon.
-            Only text for now. See: https://harness.atlassian.net/browse/FFM-699 */}
+            Only identifier text for now. See: https://harness.atlassian.net/browse/FFM-699 */}
         <Text style={{ minWidth: variationTextWidth, maxWidth: variationTextWidth }}>{variation}</Text>
 
-        {onRemoveClick && (
+        {onRemoveVariationMapping && (
           <OptionsMenuButton
-            items={[{ text: getString('cf.segmentDetail.removeFomFlag'), icon: 'cross', onClick: onRemoveClick }]}
+            items={[
+              {
+                text: getString('cf.segmentDetail.removeFomFlag'),
+                icon: 'cross',
+                onClick: () => {
+                  onRemoveVariationMapping(flag.identifier, variation)
+                }
+              }
+            ]}
           />
         )}
       </Layout.Horizontal>

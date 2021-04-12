@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Service Resource Modal Body test initializes ok  1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="table"
+    >
+      <div
+        class="header"
+        role="row"
+      >
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 5%;"
+        >
+           
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 150px;"
+        >
+          common.pipeline
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <label
+            class="bp3-control bp3-checkbox"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 150px;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            data-testid="manager"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            >
+              manager
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <label
+            class="bp3-control bp3-checkbox"
+          >
+            <input
+              type="checkbox"
+            />
+            <span
+              class="bp3-control-indicator"
+            />
+          </label>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 150px;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            data-testid="ManagerServiceLatest"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            >
+              ManagerService
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+      >
+        <span
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+        >
+          Showing 
+          <strong>
+            2
+          </strong>
+           of 
+          <strong>
+            2
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

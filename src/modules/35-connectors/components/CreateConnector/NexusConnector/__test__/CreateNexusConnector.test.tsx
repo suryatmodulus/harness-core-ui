@@ -77,7 +77,7 @@ describe('Create Nexus connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     // step 2
-    expect(queryByText(container, 'Nexus Repository URL')).toBeTruthy()
+    expect(queryByText(container, 'connectors.nexus.nexusServerUrl')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector

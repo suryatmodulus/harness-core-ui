@@ -15,18 +15,18 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
           class="StyledProps--font StyledProps--main main"
           style="color: rgb(30, 92, 31);"
         >
-          Step 1 of 2
+          step 1 of 2
         </p>
         <h2
           class="StyledProps--font StyledProps--font-h2 StyledProps--main mainHeading"
           level="2"
         >
-          Specify your New Relic connector
+          cv.onboarding.monitoringSources.specifyConnector
         </h2>
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          First time? You can setup a new connector to New Relic. It takes 2 minutes.
+          cv.onboarding.monitoringSources.firstTimeSetupText
         </p>
       </div>
       <hr
@@ -39,7 +39,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
       <p
         class="StyledProps--font StyledProps--main connectorLabel"
       >
-        Select your New Relic connector
+        cv.onboarding.monitoringSources.selectConnector
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
@@ -135,7 +135,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
             <span
               class="bp3-button-text"
             >
-              + Add New Relic connector
+              cv.onboarding.monitoringSources.addConnector
             </span>
           </a>
         </div>

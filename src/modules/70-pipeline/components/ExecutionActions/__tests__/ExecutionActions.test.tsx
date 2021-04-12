@@ -63,7 +63,7 @@ describe('<ExecutionActions /> tests', () => {
       fireEvent.click(btn!)
     })
 
-    await findByText(document.body, 'Edit Pipeline')
+    await findByText(document.body, 'editPipeline')
 
     expect(document.body.querySelector('.bp3-menu')).toMatchSnapshot('Menu')
   })

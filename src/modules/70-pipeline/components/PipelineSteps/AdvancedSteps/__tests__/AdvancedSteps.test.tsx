@@ -12,6 +12,7 @@ describe('<AdvancedSteps /> tests', () => {
       <TestWrapper>
         <AdvancedStepsWithRef
           isStepGroup={false}
+          isReadonly={false}
           step={{}}
           stepsFactory={{ getStep: jest.fn(() => ({ hasDelegateSelectionVisible: true })) } as any}
           onChange={jest.fn()}
@@ -31,6 +32,7 @@ describe('<AdvancedSteps /> tests', () => {
         <AdvancedStepsWithRef
           isStepGroup={false}
           step={{}}
+          isReadonly={false}
           stepsFactory={{ getStep: jest.fn() } as any}
           ref={ref}
           onChange={onSubmit}

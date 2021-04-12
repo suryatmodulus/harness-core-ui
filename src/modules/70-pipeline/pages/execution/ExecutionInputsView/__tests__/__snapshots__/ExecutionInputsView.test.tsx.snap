@@ -14,7 +14,7 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
-          Pipeline
+          common.pipeline
         </p>
       </div>
       <div
@@ -52,7 +52,7 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      No Runtime input in pipeline
+                      runPipelineForm.noRuntimeInput
                     </p>
                   </div>
                 </div>

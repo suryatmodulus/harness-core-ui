@@ -15,7 +15,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           class="breadCrumb"
           href="/account/dummy/resources/connectors"
         >
-          Resources
+          resources
         </a>
         <span>
           /
@@ -24,7 +24,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           class="breadCrumb"
           href="/account/dummy/resources/connectors"
         >
-          Connectors
+          connectors.label
         </a>
       </div>
       <div
@@ -78,7 +78,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Connection
+            connection
           </span>
         </span>
         <span
@@ -87,7 +87,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Referenced by
+            refrencedBy
           </span>
         </span>
         <span
@@ -96,7 +96,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Activity History
+            activityHistoryLabel
           </span>
         </span>
       </div>
@@ -122,12 +122,12 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             <div
               class="item selected"
             >
-              VISUAL
+              visual
             </div>
             <div
               class="item"
             >
-              YAML
+              yaml
             </div>
           </div>
           <button
@@ -157,7 +157,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             <span
               class="bp3-button-text"
             >
-              Edit Details
+              editDetails
             </span>
           </button>
         </div>
@@ -178,7 +178,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
                 >
-                  Overview
+                  overview
                 </p>
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -186,7 +186,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Docker Connector Name
+                    connectors.name_labels.Docker
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -204,7 +204,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Identifier
+                    identifier
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -222,7 +222,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Tags
+                    tagsLabel
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -249,7 +249,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
                 >
-                  Credentials
+                  credentials
                 </p>
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -257,7 +257,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Provider Type
+                    connectors.docker.dockerProvideType
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -275,7 +275,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Docker Registry URL
+                    connectors.docker.dockerRegistryURL
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -293,7 +293,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Credential Type
+                    credType
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -311,7 +311,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Username
+                    username
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -329,7 +329,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Password
+                    password
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -358,27 +358,27 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             <span
               class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
             >
-              Connectivity Status
+              connectivityStatus
             </span>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
             >
-              N/A
+              na
             </span>
           </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
           >
-            Last status check at 
+            lastStatusCheckAt
              
-            N/A
+            na
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
           >
-            Last successful status check at 
+            lastSuccessfulStatusCheckAt
              
-            N/A
+            na
           </p>
           <div
             class="Layout--vertical StyledProps--main"
@@ -390,7 +390,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               <span
                 class="bp3-button-text"
               >
-                Test Connection
+                connectors.stepThreeName
               </span>
             </button>
           </div>
@@ -401,12 +401,12 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
           >
-            Change History
+            changeHistory
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
           >
-            Last Updated
+            lastUpdated
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -417,7 +417,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
           >
-            Connector Created
+            connectorCreated
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
@@ -457,7 +457,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             class="breadCrumb"
             href="/account/dummy/org/dummyOrg/resources/connectors"
           >
-            Resources
+            resources
           </a>
           <span>
             /
@@ -466,7 +466,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             class="breadCrumb"
             href="/account/dummy/org/dummyOrg/resources/connectors"
           >
-            Connectors
+            connectors.label
           </a>
         </div>
       </div>
@@ -521,7 +521,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Connection
+            connection
           </span>
         </span>
         <span
@@ -530,7 +530,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Referenced by
+            refrencedBy
           </span>
         </span>
         <span
@@ -539,7 +539,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
           >
-            Activity History
+            activityHistoryLabel
           </span>
         </span>
       </div>
@@ -565,12 +565,12 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             <div
               class="item selected"
             >
-              VISUAL
+              visual
             </div>
             <div
               class="item"
             >
-              YAML
+              yaml
             </div>
           </div>
           <button
@@ -600,7 +600,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             <span
               class="bp3-button-text"
             >
-              Edit Details
+              editDetails
             </span>
           </button>
         </div>
@@ -621,7 +621,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
                 >
-                  Overview
+                  overview
                 </p>
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -629,7 +629,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Docker Connector Name
+                    connectors.name_labels.Docker
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -647,7 +647,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Identifier
+                    identifier
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -665,7 +665,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Tags
+                    tagsLabel
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -692,7 +692,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
                 >
-                  Credentials
+                  credentials
                 </p>
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -700,7 +700,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Provider Type
+                    connectors.docker.dockerProvideType
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -718,7 +718,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Docker Registry URL
+                    connectors.docker.dockerRegistryURL
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -736,7 +736,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Credential Type
+                    credType
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -754,7 +754,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Username
+                    username
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -772,7 +772,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                   >
-                    Password
+                    password
                   </p>
                   <div
                     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -801,27 +801,27 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             <span
               class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
             >
-              Connectivity Status
+              connectivityStatus
             </span>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
             >
-              N/A
+              na
             </span>
           </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
           >
-            Last status check at 
+            lastStatusCheckAt
              
-            N/A
+            na
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
           >
-            Last successful status check at 
+            lastSuccessfulStatusCheckAt
              
-            N/A
+            na
           </p>
           <div
             class="Layout--vertical StyledProps--main"
@@ -833,7 +833,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               <span
                 class="bp3-button-text"
               >
-                Test Connection
+                connectors.stepThreeName
               </span>
             </button>
           </div>
@@ -844,12 +844,12 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
           >
-            Change History
+            changeHistory
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
           >
-            Last Updated
+            lastUpdated
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -860,7 +860,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
           >
-            Connector Created
+            connectorCreated
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"

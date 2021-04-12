@@ -23,13 +23,13 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Git Management
+          gitManagement
         </p>
       </div>
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium"
       >
-        Git Management
+        gitManagement
       </p>
     </div>
   </div>
@@ -63,12 +63,12 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--margin-medium StyledProps--color StyledProps--color-grey600 StyledProps--font-size-large StyledProps--font-weight-semi-bold"
       >
-        Enable Git Experience
+        enableGitExperience
       </p>
       <p
         class="StyledProps--font StyledProps--main"
       >
-        Git Experience allows you to store the pipeline and other harness configurations in git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+        gitExperienceNewUserText
       </p>
       <button
         class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main gitEnableBtn StyledProps--intent-primary StyledProps--margin-large StyledProps--font-size-medium"
@@ -77,7 +77,7 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
         <span
           class="bp3-button-text"
         >
-          Enable Git Experience
+          enableGitExperience
         </span>
       </button>
     </div>

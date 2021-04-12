@@ -77,7 +77,7 @@ describe('SecretInput', () => {
       fireEvent.click(secret)
     })
 
-    const applyBtn = await waitFor(() => findByText(modal!, 'Apply Selected'))
+    const applyBtn = await waitFor(() => findByText(modal!, 'entityReference.apply'))
 
     act(() => {
       fireEvent.click(applyBtn)
@@ -120,7 +120,7 @@ describe('SecretInput', () => {
     })
 
     const modal = findDialogContainer()
-    const saveBtn = await findByText(modal!, 'Save')
+    const saveBtn = await findByText(modal!, 'save')
 
     await waitFor(() => expect(modal).toBeTruthy())
 

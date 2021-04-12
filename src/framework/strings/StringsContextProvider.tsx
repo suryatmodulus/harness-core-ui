@@ -1,9 +1,9 @@
 import React from 'react'
 import languageLoader from './languageLoader'
 
-import { StringsContext } from './StringsContext'
+import { StringsContext, StringsContextValue } from './StringsContext'
 
-export interface StringsContextProviderProps {
+export interface StringsContextProviderProps extends Pick<StringsContextValue, 'getString'> {
   children: React.ReactNode
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialStrings?: Record<string, any> // temp prop for backward compatability
@@ -30,9 +30,12 @@ export function StringsContextProvider(props: StringsContextProviderProps): Reac
   return (
     <StringsContext.Provider
       value={{
-        ...props.initialStrings,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...(languageLoader() as any)
+        data: {
+          ...props.initialStrings,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...(languageLoader() as any)
+        },
+        getString: props.getString
       }}
     >
       {props.children}

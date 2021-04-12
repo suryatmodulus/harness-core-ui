@@ -22,6 +22,7 @@ import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/C
 import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'
 import { AuthTypes, getAuthentication, SourceCodeTypes } from '@user-profile/utils/utils'
 import type { TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
+import { useToaster } from '@common/exports'
 import Authentication from './Authentication'
 import css from '../useSourceCodeManager.module.scss'
 
@@ -49,6 +50,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
   const { onSubmit, onClose } = props
   const { getString } = useStrings()
   const [selected, setSelected] = useState<SourceCodeType>()
+  const { showSuccess, showError } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const { mutate: saveSourceCodeManager } = useSaveSourceCodeManagers({})
@@ -158,7 +160,10 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
       try {
         if (dataToSubmit) {
           const saved = await saveSourceCodeManager(dataToSubmit)
-          saved && onSubmit()
+          if (saved) {
+            onSubmit()
+            showSuccess(getString('userProfile.scmCreateSuccess'))
+          } else showError(getString('userProfile.scmCreateFail'))
         }
       } catch (e) {
         modalErrorHandler?.showDanger(e.data?.message || e.message)

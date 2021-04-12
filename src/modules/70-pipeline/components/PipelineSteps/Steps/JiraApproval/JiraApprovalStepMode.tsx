@@ -38,6 +38,8 @@ const FormContent = ({
   refetchProjects,
   refetchProjectMetadata,
   projectsResponse,
+  projectsFetchError,
+  projectMetadataFetchError,
   projectMetaResponse,
   fetchingProjects,
   fetchingProjectMetadata
@@ -161,10 +163,20 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTypeInput
-                selectItems={fetchingProjects ? [{ label: 'Fetching Projects...', value: '' }] : projectOptions}
+                selectItems={
+                  fetchingProjects
+                    ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
+                    : projectOptions
+                }
                 label={getString('pipeline.jiraApprovalStep.project')}
                 name="spec.projectKey"
-                placeholder={fetchingProjects ? 'Fetching Projects...' : 'Projects'}
+                placeholder={
+                  fetchingProjects
+                    ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+                    : projectsFetchError?.message
+                    ? projectsFetchError?.message
+                    : getString('select')
+                }
                 className={css.md}
                 disabled={fetchingProjects}
                 multiTypeInputProps={{
@@ -177,12 +189,18 @@ const FormContent = ({
               <FormInput.MultiTypeInput
                 selectItems={
                   fetchingProjectMetadata
-                    ? [{ label: 'Fetching Issue Types...', value: '' }]
+                    ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
                     : setIssueTypeOptions(projectMetadata?.issuetypes)
                 }
                 label={getString('pipeline.jiraApprovalStep.issueType')}
                 name="spec.issueType"
-                placeholder={fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Issue Type'}
+                placeholder={
+                  fetchingProjectMetadata
+                    ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+                    : projectMetadataFetchError?.message
+                    ? projectMetadataFetchError?.message
+                    : getString('select')
+                }
                 className={css.md}
                 disabled={fetchingProjectMetadata}
                 multiTypeInputProps={{
@@ -195,7 +213,7 @@ const FormContent = ({
               <FormInput.MultiTextInput
                 label={getString('pipeline.jiraApprovalStep.issueKey')}
                 name="spec.issueKey"
-                placeholder="Enter Issue Key/ID"
+                placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
                 className={css.md}
               />
             </div>

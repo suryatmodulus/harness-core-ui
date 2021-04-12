@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import css from './AccessControlPage.module.scss'
 
 const AccessControlPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams()
   const { getString } = useStrings()
   return (
     <>
@@ -20,28 +20,28 @@ const AccessControlPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toUsers({ accountId, orgIdentifier, projectIdentifier })}
+                to={routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('users')}
               </NavLink>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier })}
+                to={routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('common.userGroups')}
               </NavLink>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier })}
+                to={routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('resourceGroups')}
               </NavLink>
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toRoles({ accountId, orgIdentifier, projectIdentifier })}
+                to={routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('roles')}
               </NavLink>

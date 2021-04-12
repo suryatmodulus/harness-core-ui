@@ -6,10 +6,12 @@ import { String, useStrings } from '../String'
 import { StringsContext } from '../StringsContext'
 
 const value = {
-  a: { b: 'Test Value 1' },
-  harness: 'Harness',
-  test: '{{ $.a.b }} in template',
-  test2: '{{ $.test }} again'
+  data: {
+    a: { b: 'Test Value 1' },
+    harness: 'Harness',
+    test: '{{ $.a.b }} in template',
+    test2: '{{ $.test }} again'
+  }
 }
 describe('String tests', () => {
   test('renders strings with simple id', () => {
@@ -141,5 +143,21 @@ describe('useString tests', () => {
         'No valid template with id "harnes" found in any namespace'
       )
     })
+  })
+
+  test('Works with custom getString', () => {
+    const { container } = render(
+      <StringsContext.Provider value={{ ...value, getString: (key: string) => key } as any}>
+        <String stringID={'harness.foo.bar.baz' as any} />
+      </StringsContext.Provider>
+    )
+
+    expect(container).toMatchInlineSnapshot(`
+      <div>
+        <span>
+          harness.foo.bar.baz
+        </span>
+      </div>
+    `)
   })
 })

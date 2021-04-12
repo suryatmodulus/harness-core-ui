@@ -124,8 +124,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
@@ -135,10 +133,12 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       }
     }
-    if (formData?.gitFetchType === 'Branch') {
-      delete manifestObj.manifest?.spec?.store?.spec?.commitId
-    } else if (formData?.gitFetchType === 'Commit') {
-      delete manifestObj.manifest?.spec?.store?.spec?.branch
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+      }
     }
 
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
@@ -164,7 +164,15 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired')),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({

@@ -105,23 +105,23 @@ describe('Jira Update tests', () => {
 
     // Submit with empty form
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Step Name is required')).toBeTruthy()
+    expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira update step' } })
 
     act(() => {
-      fireEvent.click(getByText('Timeout'))
+      fireEvent.click(getByText('pipelineSteps.timeoutLabel'))
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
+    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to Jira'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Issue Key is required.')).toBeTruthy()
+    expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
   })
 
   test('Open a saved step - edit stage view', async () => {
@@ -149,24 +149,22 @@ describe('Jira Update tests', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira update step' } })
     expect(queryByDisplayValue('1d')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to Jira'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('<+issueKey>')).toBeTruthy()
 
-    fireEvent.click(getByText('Status and Transition (Optional)'))
+    fireEvent.click(getByText('pipeline.jiraUpdateStep.statusTransitionAccordion'))
     expect(queryByDisplayValue('Done')).toBeTruthy()
 
-    fireEvent.click(getByText('Jira Fields'))
+    fireEvent.click(getByText('pipeline.jiraCreateStep.fields'))
     expect(queryByDisplayValue('value1')).toBeTruthy()
     expect(queryByDisplayValue('2233')).toBeTruthy()
     expect(queryByDisplayValue('23-march')).toBeTruthy()
 
     act(() => {
-      fireEvent.click(getByText('+ Fields'))
+      fireEvent.click(getByText('pipeline.jiraCreateStep.fieldSelectorAdd'))
     })
 
-    await waitFor(() =>
-      expect(queryByText('Select your project and issue type to list available fields to choose from.')).toBeTruthy()
-    )
+    await waitFor(() => expect(queryByText('pipeline.jiraCreateStep.selectFieldListHelp')).toBeTruthy())
     const dialogContainer = document.body.querySelector('.bp3-portal')
     const icon = dialogContainer?.querySelectorAll('[icon="caret-down"]')
 
@@ -186,17 +184,17 @@ describe('Jira Update tests', () => {
     expect(queryByPlaceholderText('f1')).toBeTruthy()
 
     act(() => {
-      fireEvent.click(getByText('+ Fields'))
+      fireEvent.click(getByText('pipeline.jiraCreateStep.fieldSelectorAdd'))
     })
-    const provideFieldListElement = getByText('Provide Field List')
+    const provideFieldListElement = getByText('pipeline.jiraCreateStep.provideFieldList')
     fireEvent.click(provideFieldListElement)
 
     const dialogContainerPostUpdate = document.body.querySelector('.bp3-portal')
     act(() => {
       fireEvent.click(getByText('Field'))
     })
-    fireEvent.change(getByPlaceholderText('Key'), { target: { value: 'issueKey1' } })
-    fireEvent.change(getByPlaceholderText('Value'), { target: { value: 'issueKey1Value' } })
+    fireEvent.change(getByPlaceholderText('keyLabel'), { target: { value: 'issueKey1' } })
+    fireEvent.change(getByPlaceholderText('valueLabel'), { target: { value: 'issueKey1Value' } })
     const addButton = dialogContainerPostUpdate?.querySelector('.bp3-button-text')
     fireEvent.click(addButton!)
 

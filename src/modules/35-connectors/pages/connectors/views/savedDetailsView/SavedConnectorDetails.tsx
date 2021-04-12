@@ -64,6 +64,8 @@ const getLabelByType = (type: string): string => {
       return 'connectors.name_labels.AppDynamics'
     case Connectors.SPLUNK:
       return 'connectors.name_labels.Splunk'
+    case Connectors.Jira:
+      return 'connectors.title.jira'
     case Connectors.VAULT:
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:

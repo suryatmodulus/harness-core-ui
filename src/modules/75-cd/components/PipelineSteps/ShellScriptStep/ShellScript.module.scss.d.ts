@@ -14,5 +14,6 @@ declare const styles: {
   readonly expandBtn: string
   readonly monacoDialog: string
   readonly variablesList: string
+  readonly minConfigBtn: string
 }
 export default styles

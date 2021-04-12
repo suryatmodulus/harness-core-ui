@@ -128,7 +128,7 @@ exports[`CVSetupPage check next and previous 1`] = `
             <span
               class="bp3-button-text"
             >
-              Next
+              next
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -493,7 +493,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             <span
               class="bp3-button-text"
             >
-              Previous
+              previous
             </span>
           </button>
           <button
@@ -531,7 +531,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             <span
               class="bp3-button-text"
             >
-              Next
+              next
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -867,7 +867,7 @@ exports[`CVSetupPage check next and previous 3`] = `
             <span
               class="bp3-button-text"
             >
-              Next
+              next
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1199,7 +1199,7 @@ exports[`CVSetupPage render initial state 1`] = `
             <span
               class="bp3-button-text"
             >
-              Next
+              next
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

@@ -45,7 +45,7 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
                   <span
                     class="btnText"
                   >
-                    Fixed value
+                    inputTypes.FIXED
                   </span>
                 </span>
               </button>
@@ -176,7 +176,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
                   <span
                     class="btnText"
                   >
-                    Runtime input
+                    inputTypes.RUNTIME
                   </span>
                 </span>
               </button>
@@ -201,7 +201,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
 </div>
 `;
 
-exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed value" updates value: Fixed value 1`] = `
+exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed value" updates value: inputTypes.FIXED 1`] = `
 <div>
   <form>
     <div
@@ -246,7 +246,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
                   <span
                     class="btnText"
                   >
-                    Fixed value
+                    inputTypes.FIXED
                   </span>
                 </span>
               </button>
@@ -279,7 +279,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
 </div>
 `;
 
-exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: Runtime input 1`] = `
+exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inputTypes.RUNTIME 1`] = `
 <div>
   <form>
     <div
@@ -330,7 +330,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: Run
                   <span
                     class="btnText"
                   >
-                    Runtime input
+                    inputTypes.RUNTIME
                   </span>
                 </span>
               </button>

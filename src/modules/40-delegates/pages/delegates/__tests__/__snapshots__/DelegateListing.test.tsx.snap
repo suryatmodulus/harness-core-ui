@@ -34,7 +34,7 @@ exports[`Delegates Listing render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          New Delegate
+          delegate.NEW_DELEGATE
         </span>
       </button>
       <span
@@ -118,7 +118,7 @@ exports[`Delegates Listing render data 1`] = `
             style="width: 30%;"
             title="Toggle SortBy"
           >
-            DELEGATE
+            DELEGATE.DELEGATENAME
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -146,7 +146,7 @@ exports[`Delegates Listing render data 1`] = `
             style="width: 30%;"
             title="Toggle SortBy"
           >
-            TAGS
+            TAGSLABEL
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -174,7 +174,7 @@ exports[`Delegates Listing render data 1`] = `
             style="width: calc(20% - 10px);"
             title="Toggle SortBy"
           >
-            LAST HEARTBEAT
+            DELEGATE.LASTHEARTBEAT
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -202,7 +202,7 @@ exports[`Delegates Listing render data 1`] = `
             style="width: calc(15% - 20px);"
             title="Toggle SortBy"
           >
-            CONNECTIVITY STATUS
+            CONNECTIVITYSTATUS
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -404,7 +404,7 @@ exports[`Delegates Listing render data 1`] = `
                   />
                 </svg>
               </span>
-              Not Connected
+              delegate.notConnected
             </p>
           </div>
           <div

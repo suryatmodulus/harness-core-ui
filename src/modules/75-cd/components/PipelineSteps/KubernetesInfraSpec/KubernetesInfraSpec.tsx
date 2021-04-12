@@ -78,7 +78,8 @@ const getConnectorName = (connector?: ConnectorResponse): string =>
 
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
   initialValues,
-  onUpdate
+  onUpdate,
+  readonly
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -115,7 +116,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormMultiTypeConnectorField
                   name="connectorRef"
-                  label={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel')}
+                  label={getString('connector')}
+                  disabled={readonly}
                   placeholder={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownPlaceholder')}
                   // disabled={loading}
                   accountIdentifier={accountId}
@@ -126,7 +128,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   enableConfigureOptions={false}
                   style={{ marginBottom: 'var(--spacing-small)' }}
                 />
-                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.connectorRef as string}
                     type={
@@ -151,9 +153,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   label={getString('pipelineSteps.kubernetesInfraStep.nameSpaceLabel')}
                   placeholder={getString('pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                 />
-                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
                     type="String"
@@ -173,9 +175,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   label={getString('pipelineSteps.kubernetesInfraStep.releaseName')}
                   placeholder={getString('pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
                     type="String"
@@ -258,7 +260,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           orgIdentifier={orgIdentifier}
           width={400}
           name="connectorRef"
-          label={getString('pipelineSteps.kubernetesInfraStep.k8ConnectorDropDownLabel')}
+          label={getString('connector')}
           placeholder={
             loading
               ? getString('pipelineSteps.kubernetesInfraStep.loading')
@@ -395,7 +397,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   }
 
   renderStep(props: StepProps<K8SDirectInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <KubernetesInfraSpecInputForm
@@ -423,6 +425,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     return (
       <KubernetesInfraSpecEditable
         onUpdate={onUpdate}
+        readonly={readonly}
         stepViewType={stepViewType}
         {...(customStepProps as KubernetesInfraSpecEditableProps)}
         initialValues={initialValues}

@@ -32,6 +32,7 @@ const itemRenderer: ItemRenderer<Option> = (item, itemProps) => {
 }
 
 const tagRenderer = (item: Option): string => {
+  /* istanbul ignore next */
   return item?.label
 }
 
@@ -46,7 +47,7 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik, filterTypes = [] } = props
+  const { name, label, formik, filterTypes } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
@@ -55,11 +56,11 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   const selectedValues = get(formik.values, name) || []
   const selectedValuesSet = new Set<ErrorType>(selectedValues)
   const options: Option[] = (() => {
-    const filterTypesSet = new Set(filterTypes)
+    const filterTypesSet = new Set(filterTypes || /* istanbul ignore next */ [])
 
     selectedValuesSet.forEach(val => filterTypesSet.delete(val))
 
-    return errorTypesOrder.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: stringsMap[e] }))
+    return errorTypesOrder.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: getString(stringsMap[e]) }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   })()
 
@@ -116,6 +117,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
         tagRenderer={tagRenderer}
         tagInputProps={{ onRemove, tagProps: { className: css.tag }, inputProps: { name } }}
         itemsEqual="value"
+        resetOnSelect
       />
     </FormGroup>
   )

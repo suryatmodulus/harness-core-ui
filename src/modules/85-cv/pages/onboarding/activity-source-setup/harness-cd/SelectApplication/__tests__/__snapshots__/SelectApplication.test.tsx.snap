@@ -8,7 +8,7 @@ exports[`SelectApplication render 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      Harness CV can verify change activities by automatically sourcing them from your Harness FirstGen applications. Select which applications and services you’d like to import over to your current project.
+      cv.activitySources.harnessCD.application.infoText
     </p>
     <div
       class="StyledProps--font StyledProps--main filterComponent"
@@ -26,7 +26,7 @@ exports[`SelectApplication render 1`] = `
           role="columnheader"
           style="width: 40%;"
         >
-          HARNESS FIRSTGEN APPLICATION
+          cv.activitySources.harnessCD.harnessApps
         </div>
         <div
           class="cell"
@@ -34,7 +34,7 @@ exports[`SelectApplication render 1`] = `
           role="columnheader"
           style="width: 60%;"
         >
-          HARNESS FIRSTGEN SERVICES (TO BE IMPORTED)
+          cv.activitySources.harnessCD.application.servicesToBeImported
         </div>
       </div>
       <div

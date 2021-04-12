@@ -99,6 +99,8 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.awsCodeCommit'
     case Connectors.NEXUS:
       return 'connectors.title.nexus'
+    case Connectors.Jira:
+      return 'connectors.title.jira'
     case Connectors.ARTIFACTORY:
       return 'connectors.title.artifactory'
     case Connectors.GCP:

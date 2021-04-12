@@ -31,6 +31,16 @@ function getCreateSectionsAction(statuses: LogViewerAccordionStatus[]): Action<A
   }
 }
 
+function getUpdateSectionsDataAction(statuses: LogViewerAccordionStatus[]): Action<ActionType.UpdateSectionData>{
+  return {
+    type: ActionType.UpdateSectionData,
+    payload: {
+      id: '',
+      data: 
+    }
+  }
+}
+
 interface GetStateDataProps {
   status: LogViewerAccordionStatus
   unitStatus: LogViewerAccordionStatus

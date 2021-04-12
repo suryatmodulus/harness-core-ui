@@ -48,7 +48,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.executionGraph),
     identifier: `${executionIdentifier}-${props.selectedStage}`,
-    status: stage?.status as any
+    status: stage?.status as any,
+    allNodes: Object.keys(pipelineExecutionDetail?.executionGraph?.nodeMap || {})
   }
   const fetchData = debounce(refetch, 1000)
   // open details view when a step is selected

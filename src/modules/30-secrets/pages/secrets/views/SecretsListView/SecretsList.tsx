@@ -17,6 +17,7 @@ import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModa
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -119,6 +120,10 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
         accountIdentifier: accountId,
         orgIdentifier,
         projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.SECRET,
+        resourceIdentifier: data.identifier
       },
       permissions: [PermissionIdentifier.UPDATE_SECRET, PermissionIdentifier.DELETE_SECRET]
     },

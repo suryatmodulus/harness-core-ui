@@ -22,7 +22,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container } = render(
       <DeployEnvironment type={StepType.DeployEnvironment} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
-    fireEvent.click(getByText(container, '+ New Environment'))
+    fireEvent.click(getByText(container, 'pipelineSteps.environmentTab.newEnvironment'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([
@@ -33,9 +33,9 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Project'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'Production'))
+    fireEvent.click(getByText(dialog!, 'production'))
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "environment:
@@ -53,7 +53,7 @@ describe('Test DeployEnvironment Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Environment'))
+    fireEvent.click(getByText(container, 'editEnvironment'))
     const dialog = findDialogContainer()
     fillAtForm([
       {
@@ -63,9 +63,9 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Environment'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'Non Production'))
+    fireEvent.click(getByText(dialog!, 'nonProduction'))
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "environment:
@@ -98,10 +98,10 @@ describe('Test DeployEnvironment Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Environment'))
+    fireEvent.click(getByText(container, 'editEnvironment'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
-    fireEvent.click(getByText(dialog!, 'Production'))
+    fireEvent.click(getByText(dialog!, 'production'))
     fillAtForm([
       {
         container: dialog!,
@@ -111,7 +111,7 @@ describe('Test DeployEnvironment Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "environment:

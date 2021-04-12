@@ -35,7 +35,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         <span
           class="lastBreadcrumb"
         >
-          Monitoring Sources
+          cv.navLinks.adminSideNavLinks.monitoringSources
         </span>
       </div>
     </div>
@@ -66,7 +66,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
         </span>
         <input
           class="bp3-input"
-          placeholder="Search by name, environments, services"
+          placeholder="cv.admin.monitoringSources.searchPlaceholder"
           type="text"
         />
       </div>
@@ -101,7 +101,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
       <span
         class="bp3-button-text"
       >
-        New Monitoring Source
+        cv.admin.monitoringSources.newMonitoringSource
       </span>
     </button>
     <div
@@ -118,7 +118,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          Name
+          name
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -146,7 +146,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 15%;"
           title="Toggle SortBy"
         >
-          Type
+          typeLabel
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -174,7 +174,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 20%;"
           title="Toggle SortBy"
         >
-          Number of Services
+          numberOfServices
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -202,7 +202,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
           style="width: 40%;"
           title="Toggle SortBy"
         >
-          Last Updated on
+          cv.admin.activitySources.tableColumnNames.lastUpdatedOn
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"

@@ -51,7 +51,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -85,7 +85,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -144,7 +144,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -309,7 +309,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -361,7 +361,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="maven:3.6.3-jdk-8"
+                        placeholder="imagePlaceholder"
                         type="text"
                         value="image"
                       />
@@ -417,7 +417,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Command
+                    commandLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -479,7 +479,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -537,7 +537,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -558,7 +558,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Report Paths
+                    pipelineSteps.reportPathsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -620,7 +620,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -660,7 +660,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value="path1.xml"
                             />
@@ -738,7 +738,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[1].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value="path2.xml"
                             />
@@ -816,7 +816,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[2].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value="path3.xml"
                             />
@@ -894,7 +894,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[3].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value="path4.xml"
                             />
@@ -972,7 +972,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[4].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value="path5.xml"
                             />
@@ -1037,7 +1037,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -1063,7 +1063,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Environment Variables
+                    environmentVariables
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -1125,7 +1125,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1153,7 +1153,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Key
+                        keyLabel
                       </p>
                       <div
                         class="bp3-form-group"
@@ -1183,7 +1183,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Value
+                        valueLabel
                       </p>
                       <div
                         class="group withoutAligning withoutSpacing"
@@ -1492,7 +1492,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -1518,7 +1518,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Output Variables
+                    pipelineSteps.outputVariablesLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -1580,7 +1580,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1915,7 +1915,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -1925,7 +1925,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -1965,7 +1965,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -1988,7 +1988,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value="128Mi"
                         />
@@ -2031,7 +2031,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -2054,7 +2054,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value="0.2"
                         />
@@ -2105,7 +2105,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -2251,7 +2251,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -2285,7 +2285,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -2379,7 +2379,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2503,7 +2503,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2642,7 +2642,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Command
+                      commandLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2709,7 +2709,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2758,7 +2758,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -2780,7 +2780,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Report Paths
+                      pipelineSteps.reportPathsLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2847,7 +2847,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2909,7 +2909,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Environment Variables
+                      environmentVariables
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -2976,7 +2976,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -3038,7 +3038,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Output Variables
+                      pipelineSteps.outputVariablesLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -3105,7 +3105,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -3150,7 +3150,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -3190,7 +3190,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3286,7 +3286,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3390,7 +3390,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -3585,7 +3585,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -3619,7 +3619,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Description
+                description
               </p>
                
               <span
@@ -3676,7 +3676,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3841,7 +3841,7 @@ exports[`Run Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3893,7 +3893,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="maven:3.6.3-jdk-8"
+                        placeholder="imagePlaceholder"
                         type="text"
                         value=""
                       />
@@ -3949,7 +3949,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Command
+                    commandLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -4011,7 +4011,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -4067,7 +4067,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div
             class="group withoutSpacing"
@@ -4088,7 +4088,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Report Paths
+                    pipelineSteps.reportPathsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -4150,7 +4150,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -4190,7 +4190,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                             <input
                               class="bp3-input"
                               name="spec.reportPaths[0].value"
-                              placeholder="/target/*.xml"
+                              placeholder="pipelineSteps.reportPathsPlaceholder"
                               type="text"
                               value=""
                             />
@@ -4255,7 +4255,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -4281,7 +4281,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Environment Variables
+                    environmentVariables
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -4343,7 +4343,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -4371,7 +4371,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Key
+                        keyLabel
                       </p>
                       <div
                         class="bp3-form-group"
@@ -4401,7 +4401,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                       >
-                        Value
+                        valueLabel
                       </p>
                       <div
                         class="group withoutAligning withoutSpacing"
@@ -4490,7 +4490,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -4516,7 +4516,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Output Variables
+                    pipelineSteps.outputVariablesLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -4578,7 +4578,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -4682,7 +4682,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -4692,7 +4692,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -4732,7 +4732,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -4755,7 +4755,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value=""
                         />
@@ -4798,7 +4798,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -4821,7 +4821,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value=""
                         />
@@ -4872,7 +4872,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -5016,7 +5016,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="description"
           >
-            Description
+            description
              
             <span
               class="bp3-text-muted"
@@ -5043,7 +5043,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Container Registry
+              pipelineSteps.connectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5179,7 +5179,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Image
+              imageLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5242,7 +5242,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Command
+              commandLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5319,7 +5319,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Report Paths
+            pipelineSteps.reportPathsLabel
             <span
               class="bp3-popover-wrapper"
             >
@@ -5369,7 +5369,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                     <input
                       class="bp3-input"
                       data-testid="value-spec.reports.spec.paths-[0]"
-                      placeholder="/target/*.xml"
+                      placeholder="pipelineSteps.reportPathsPlaceholder"
                       type="text"
                       value=""
                     />
@@ -5407,7 +5407,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -5417,7 +5417,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Environment Variables
+            environmentVariables
             <span
               class="bp3-popover-wrapper"
             >
@@ -5461,7 +5461,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Key
+                  keyLabel
                 </p>
                 <div
                   class="TextInput--main"
@@ -5484,7 +5484,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Value
+                  valueLabel
                 </p>
                 <div
                   class="group withoutAligning withoutSpacing"
@@ -5536,7 +5536,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -5546,7 +5546,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Output Variables
+            pipelineSteps.outputVariablesLabel
             <span
               class="bp3-popover-wrapper"
             >
@@ -5633,7 +5633,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -5641,7 +5641,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -5688,7 +5688,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
                
               <span
@@ -5705,7 +5705,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.memory"
-                  placeholder="128Mi"
+                  placeholder="pipelineSteps.limitMemoryPlaceholder"
                   type="text"
                   value=""
                 />
@@ -5725,7 +5725,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
                
               <span
@@ -5742,7 +5742,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.cpu"
-                  placeholder="0.2"
+                  placeholder="pipelineSteps.limitCPUPlaceholder"
                   type="text"
                   value=""
                 />
@@ -5762,7 +5762,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -5807,7 +5807,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               <input
                 class="bp3-input"
                 name="timeout"
-                placeholder="120s"
+                placeholder="pipelineSteps.timeoutPlaceholder"
                 type="text"
                 value=""
               />

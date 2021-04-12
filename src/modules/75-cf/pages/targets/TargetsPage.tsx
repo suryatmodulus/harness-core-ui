@@ -16,6 +16,7 @@ import {
   getErrorMessage,
   NO_ENVIRONMENT_IDENTIFIER,
   SEGMENT_PRIMARY_COLOR,
+  showToaster,
   TARGET_PRIMARY_COLOR
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
@@ -93,6 +94,7 @@ export const TargetsPage: React.FC = () => {
         onCreated={() => {
           setPageNumber(0)
           refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
+          showToaster(getString('cf.messages.targetCreated'))
         }}
       />
     </Layout.Horizontal>
@@ -221,15 +223,7 @@ export const TargetsPage: React.FC = () => {
                 deleteTarget(cell.row.original.identifier as string)
                   .then(() => {
                     refetchTargets()
-                    showSuccess(
-                      <Text color={Color.WHITE}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: getString('cf.featureFlags.deleteFlagSuccess', { name: cell.row.original.name })
-                          }}
-                        />
-                      </Text>
-                    )
+                    showToaster(getString('cf.messages.targetDeleted'))
                   })
                   .catch(_error => {
                     showError(getErrorMessage(_error), 0)
@@ -292,6 +286,7 @@ export const TargetsPage: React.FC = () => {
       onNewTargetsCreated={() => {
         setPageNumber(0)
         refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
+        showToaster(getString('cf.messages.targetCreated'))
       }}
       hasEnvironment={!!environments.length}
     />
@@ -313,7 +308,7 @@ export const TargetsPage: React.FC = () => {
       header={header}
       headerStyle={{ display: 'flex' }}
       toolbar={!error && !noEnvironmentExists && !noTargetExists && toolbar}
-      content={(!error && content) || null}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&
         !!targetsData?.targets?.length && (
@@ -330,7 +325,7 @@ export const TargetsPage: React.FC = () => {
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchTargets()

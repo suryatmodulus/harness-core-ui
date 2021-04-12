@@ -8,7 +8,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -19,7 +19,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -33,7 +33,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -47,7 +47,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -61,7 +61,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -75,7 +75,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -164,7 +164,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -175,7 +175,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -189,7 +189,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -203,7 +203,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -217,7 +217,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -231,7 +231,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -320,7 +320,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -331,7 +331,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -345,7 +345,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -359,7 +359,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -373,7 +373,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -387,7 +387,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -476,7 +476,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -488,7 +488,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -501,7 +501,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -514,7 +514,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -528,7 +528,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -542,7 +542,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -664,7 +664,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -676,7 +676,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -690,7 +690,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -703,7 +703,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -716,7 +716,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -730,7 +730,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -852,7 +852,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -864,7 +864,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -877,7 +877,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -890,7 +890,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -904,7 +904,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -918,7 +918,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1040,7 +1040,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -1052,7 +1052,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -1065,7 +1065,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -1078,7 +1078,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -1092,7 +1092,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -1106,7 +1106,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1228,7 +1228,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -1239,7 +1239,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -1253,7 +1253,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -1267,7 +1267,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -1281,7 +1281,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -1295,7 +1295,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1384,7 +1384,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -1395,7 +1395,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -1409,7 +1409,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -1423,7 +1423,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -1437,7 +1437,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -1451,7 +1451,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>
@@ -1540,7 +1540,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
     class="bp3-menu-item"
     href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/pipeline-studio/"
   >
-    Edit Pipeline
+    editPipeline
   </a>
   <li
     class=""
@@ -1552,7 +1552,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Re-run Pipeline
+        execution.actions.rerun
       </div>
     </a>
   </li>
@@ -1565,7 +1565,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Pause Pipeline
+        execution.actions.pause
       </div>
     </a>
   </li>
@@ -1578,7 +1578,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Abort Pipeline
+        execution.actions.abort
       </div>
     </a>
   </li>
@@ -1592,7 +1592,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Resume Pipeline
+        execution.actions.resume
       </div>
     </a>
   </li>
@@ -1606,7 +1606,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
       <div
         class="bp3-text-overflow-ellipsis bp3-fill"
       >
-        Download logs
+        execution.actions.downloadLogs
       </div>
     </a>
   </li>

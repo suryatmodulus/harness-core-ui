@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
+import { Intent, IToaster, IToasterProps, Position, Toaster } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import type { Feature } from 'services/cf'
+import type { Feature, Variation } from 'services/cf'
 
 const LOCALE = 'en'
 
@@ -37,6 +38,12 @@ export enum FFDetailPageTab {
   ACTIVITY = 'activity'
 }
 
+export enum FeatureFlagMutivariateKind {
+  json = 'json',
+  string = 'string',
+  number = 'int'
+}
+
 export const CF_LOCAL_STORAGE_ENV_KEY = 'cf_selected_env'
 export const DEFAULT_ENV = { label: '', value: '' }
 export const CF_DEFAULT_PAGE_SIZE = 15
@@ -66,28 +73,49 @@ export const featureFlagHasCustomRules = (featureFlag: Feature) => {
   return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
 }
 
-export enum FeatureFlagBucketBy {
+enum FeatureFlagBucketBy {
   IDENTIFIER = 'identifier',
   NAME = 'name'
 }
 
 export const useBucketByItems = () => {
   const { getString } = useStrings()
-  const bucketByItems = useMemo(
-    () => [
+  const [additions, setAdditions] = useState<string[]>([])
+  const addBucketByItem = useCallback(
+    (item: string) => {
+      const _item = (item || '').trim()
+
+      if (
+        _item &&
+        _item !== FeatureFlagBucketBy.NAME &&
+        _item !== FeatureFlagBucketBy.IDENTIFIER &&
+        !additions.includes(_item)
+      ) {
+        setAdditions([...additions, _item])
+      }
+    },
+    [additions, setAdditions]
+  )
+  const bucketByItems = useMemo(() => {
+    const _items = [
       {
         label: getString('identifier'),
-        value: FeatureFlagBucketBy.IDENTIFIER
+        value: FeatureFlagBucketBy.IDENTIFIER as string
       },
       {
         label: getString('name'),
-        value: FeatureFlagBucketBy.NAME
+        value: FeatureFlagBucketBy.NAME as string
       }
-    ],
-    [getString]
-  )
+    ]
 
-  return bucketByItems
+    if (additions.length) {
+      additions.forEach(addition => _items.push({ label: addition, value: addition }))
+    }
+
+    return _items
+  }, [getString, additions])
+
+  return { bucketByItems, addBucketByItem }
 }
 
 // This util unescape <strong/> sequences in i18n output to support bold text
@@ -154,7 +182,73 @@ export function formatNumber(n: number): string {
   return suffix ? round(n / Math.pow(1000, base), 2) + suffix : '' + n
 }
 
-export enum SegmentFlagType {
+export enum EntityAddingMode {
   DIRECT = 'DIRECT',
   CONDITION = 'CONDITION'
+}
+
+export const useFeatureFlagTypeToStringMapping = (): { string: string; boolean: string; int: string; json: string } => {
+  const { getString } = useStrings()
+  const typeMapping = useMemo(
+    () => ({
+      string: getString('string'),
+      boolean: getString('cf.boolean'),
+      int: getString('number'),
+      json: getString('cf.creationModal.jsonType')
+    }),
+    [getString]
+  )
+
+  return typeMapping
+}
+
+/** This utility shows a toaster without being bound to any component.
+ * It's useful to show cross-page/component messages */
+export function showToaster(message: string, props?: IToasterProps): IToaster {
+  const toaster = Toaster.create({ position: Position.TOP })
+  toaster.show({ message, intent: Intent.SUCCESS, ...props })
+  return toaster
+}
+
+export const isNumeric = (input: string): boolean => /^-{0,1}\d*\.{0,1}\d+$/.test(input)
+
+export type UseValidateVariationValuesResult = (
+  variations: Variation[],
+  featureFlagKind: string
+) => { variations?: Array<{ value?: string }> }
+
+export function useValidateVariationValues(): UseValidateVariationValuesResult {
+  const { getString } = useStrings()
+  const validateVariationValues = useCallback<UseValidateVariationValuesResult>(
+    (variations, featureFlagKind) => {
+      const isTypeNumber = featureFlagKind === FeatureFlagMutivariateKind.number
+      let variationErrors: Array<{ value?: string }> | undefined = undefined
+
+      // Values must be number when type is number and valid JSON when type is JSON
+      if (isTypeNumber || featureFlagKind === FeatureFlagMutivariateKind.json) {
+        variationErrors = variations.map((variation: Variation) => {
+          if (isTypeNumber) {
+            return isNumeric(variation.value) ? {} : { value: getString('cf.creationModal.mustBeNumber') }
+          } else {
+            try {
+              JSON.parse(variation.value)
+            } catch (_e) {
+              return { value: getString('cf.creationModal.mustBeValidJSON') }
+            }
+            return {}
+          }
+        })
+        variationErrors = variationErrors.find((error: { value?: string }) => error.value) ? variationErrors : undefined
+      }
+
+      const result = {
+        ...(variationErrors ? { variations: variationErrors } : undefined)
+      }
+
+      return result
+    },
+    [getString]
+  )
+
+  return validateVariationValues
 }

@@ -35,6 +35,7 @@ export interface StepProps<T, U = unknown> {
   inputSetData?: InputSetData<T>
   factory: AbstractStepFactory
   path: string
+  readonly?: boolean
   formikRef?: StepFormikFowardRef<T>
   customStepProps?: U
 }

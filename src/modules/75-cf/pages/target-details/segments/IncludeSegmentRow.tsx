@@ -6,7 +6,7 @@ import { useRemoveTargetsFromIncludeList, TargetSegmentParams } from '@cf/utils/
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
 import type { Target, TargetDetailSegment } from 'services/cf'
-import { SegmentItem } from './SegmentItem'
+import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
 
 export const IncludeSegmentRow: React.FC<{
   target?: Target | null
@@ -46,5 +46,5 @@ export const IncludeSegmentRow: React.FC<{
     }
   })
 
-  return <SegmentItem key={identifier} name={name as string} description={description} onRemoveClick={remove} />
+  return <ItemBriefInfo key={identifier} name={name as string} description={description} onRemoveClick={remove} />
 }

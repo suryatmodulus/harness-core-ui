@@ -8,8 +8,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
   <span
     class="helpText"
   >
-    Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-
+    pipeline.failureStrategies.helpText
   </span>
   <div
     class="header"
@@ -65,7 +64,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Add
+            add
           </span>
         </span>
       </button>
@@ -103,7 +102,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
       class="bp3-label"
       for="failureStrategies[0].onFailure.errors"
     >
-      On failure of type
+      pipeline.failureStrategies.onFailureOfType
        
       <span
         class="bp3-text-muted"
@@ -147,7 +146,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
       class="bp3-label"
       for="failureStrategies[0].onFailure.action"
     >
-      Perform Action
+      pipeline.failureStrategies.performAction
        
       <span
         class="bp3-text-muted"
@@ -191,7 +190,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
           <span
             class="iconText"
           >
-            Rollback Stage
+            pipeline.failureStrategies.strategiesLabel.StageRollback
           </span>
           <input
             checked=""

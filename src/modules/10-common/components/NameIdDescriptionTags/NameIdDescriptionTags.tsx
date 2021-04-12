@@ -39,7 +39,7 @@ export const NameId = (props: NameIdProps): JSX.Element => {
 }
 
 export const Description = (props: DescriptionComponentProps): JSX.Element => {
-  const { descriptionProps = {}, hasValue } = props
+  const { descriptionProps = {}, hasValue, disabled = false } = props
   const { isOptional = true, ...restDescriptionProps } = descriptionProps
   const { getString } = useStrings()
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
@@ -67,6 +67,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
       {isDescriptionOpen && (
         <FormInput.TextArea
           data-name="description"
+          disabled={disabled}
           autoFocus={isDescriptionFocus}
           name="description"
           {...restDescriptionProps}

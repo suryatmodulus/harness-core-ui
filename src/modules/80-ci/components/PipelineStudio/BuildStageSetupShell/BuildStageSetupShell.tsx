@@ -11,6 +11,7 @@ import type {
   ExecutionGraphEditStepEvent,
   ExecutionGraphRefObj
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
+
 import {
   generateRandomString,
   STATIC_SERVICE_GROUP_NAME,
@@ -40,9 +41,11 @@ interface StagesFilledStateFlags {
 
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
+  const { errorMap } = useValidationErrors()
 
   const stageNames: string[] = [i18n.defaultId, i18n.infraLabel, i18n.executionLabel]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.defaultId)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
     infra: false,
@@ -62,6 +65,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     stepsFactory,
     getStageFromPipeline,
     updatePipelineView,
+    isReadonly,
     updatePipeline
   } = React.useContext(PipelineContext)
 
@@ -79,7 +83,8 @@ export default function BuildStageSetupShell(): JSX.Element {
     stageData?.identifier,
     stageData?.spec?.infrastructure?.spec?.connectorRef,
     stageData?.spec?.infrastructure?.useFromStage?.stage,
-    stageData?.spec?.execution?.steps?.length
+    stageData?.spec?.execution?.steps?.length,
+    errorMap
   ])
 
   React.useEffect(() => {
@@ -93,7 +98,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     if (stageNames.indexOf(selectedStageId) !== -1) {
       setSelectedTabId(selectedStageId)
     }
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames, errorMap, getStageFromPipeline])
 
   const handleTabChange = (data: string) => {
     setSelectedTabId(data)
@@ -135,9 +140,8 @@ export default function BuildStageSetupShell(): JSX.Element {
         updatePipeline(pipeline)
       }
     }
-  }, [pipeline, selectedStageId])
+  }, [pipeline, selectedStageId, errorMap, getStageFromPipeline, updatePipeline])
 
-  const { errorMap } = useValidationErrors()
   function isStageError(stageName: string): boolean {
     const { stage, parent } = getStageFromPipeline(selectedStageId)
 
@@ -255,6 +259,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={false}
               hasRollback={false}
+              isReadonly={isReadonly}
               hasDependencies={true}
               stepsFactory={stepsFactory}
               stage={selectedStage!}

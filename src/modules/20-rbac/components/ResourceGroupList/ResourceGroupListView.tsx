@@ -10,7 +10,7 @@ import { useStrings } from 'framework/exports'
 import type { PageResourceGroupResponse, ResourceGroupResponse, ResourceSelector } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import ResourceGroupColumnMenu from './ResourceGroupColumnMenu'
@@ -94,7 +94,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
 }
 const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
   const { data, reload, openResourceGroupModal, goToPage } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const listData: ResourceGroupResponse[] = data?.content || []
   const { getString } = useStrings()
   const history = useHistory()
@@ -104,7 +104,8 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
         resourceGroupIdentifier: resourceGroupIdentifier || '',
         accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        module
       })
     )
   }

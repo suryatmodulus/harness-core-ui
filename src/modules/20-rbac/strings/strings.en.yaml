@@ -4,9 +4,12 @@ permissionLabels:
   pipelineExecution: Use in Pipeline Execution
   delete: '{{ $.delete}}'
   access: Access
+  execute: '{{$.common.execute}}'
+  runtimeAccess: 'Runtime Access'
 roleBinding: Role Bindings (Role - Resource Group)
 activeUsers: Active Users
 addRole: Add Role
+addUser: Add User
 pendingUsers: Pending Users
 userGroupPage:
   newUserGroup: New {{ $.common.userGroups}}

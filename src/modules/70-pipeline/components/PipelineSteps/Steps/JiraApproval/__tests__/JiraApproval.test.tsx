@@ -105,31 +105,31 @@ describe('Jira Approval tests', () => {
 
     // Submit with empty form
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Step Name is required')).toBeTruthy()
+    expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
 
     act(() => {
-      fireEvent.click(getByText('Timeout'))
+      fireEvent.click(getByText('pipelineSteps.timeoutLabel'))
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
+    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to Jira'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     await act(() => ref.current?.submitForm())
 
-    expect(queryByText('Project is required.')).toBeTruthy()
-    expect(queryByText('Issue Type is required.')).toBeTruthy()
-    expect(queryByText('Issue Key is required.')).toBeTruthy()
+    expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
+    expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
+    expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy()
 
-    fireEvent.click(getByText('Approval Criteria'))
-    expect(queryByText('Expression value is required.')).toBeTruthy()
-    fireEvent.click(getByText('Conditions'))
-    await waitFor(() => getByText('Atleast one condition is required.'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
+    expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy()
+    fireEvent.click(getByText('conditions'))
+    await waitFor(() => getByText('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition'))
   })
 
   test('Open a saved jira approval step - edit stage view', async () => {
@@ -148,15 +148,15 @@ describe('Jira Approval tests', () => {
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira approval step' } })
     expect(queryByDisplayValue('5s')).toBeTruthy()
 
-    fireEvent.click(getByText('Connect to Jira'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
     expect(queryByDisplayValue('tdc-2345')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
 
-    fireEvent.click(getByText('Approval Criteria'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
     expect(queryByDisplayValue('somevalue for f1')).toBeTruthy()
 
-    fireEvent.click(getByText('Rejection Criteria'))
+    fireEvent.click(getByText('pipeline.jiraApprovalStep.rejectionCriteria'))
     expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()
   })
 })

@@ -47,7 +47,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -61,7 +61,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -82,7 +82,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -97,7 +97,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -112,7 +112,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -127,7 +127,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -141,7 +141,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -218,7 +218,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -241,7 +241,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <div
                             class="bp3-form-helper-text"
                           >
-                            Connector name is a required field
+                            validation.connectorName
                           </div>
                         </div>
                       </div>
@@ -253,7 +253,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -284,7 +284,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -321,7 +321,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -402,7 +402,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -434,7 +434,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -455,7 +455,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -470,7 +470,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -485,7 +485,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -500,7 +500,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -514,7 +514,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -533,7 +533,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -555,7 +555,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -568,7 +568,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -576,7 +576,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -624,7 +624,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-label"
                       for="url"
                     >
-                      Bitbucket Account URL
+                      connectors.git.bitbucketAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -640,7 +640,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.bitbucket.com/account/"
+                          placeholder="connectors.git.bitbucketUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -678,7 +678,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -689,7 +689,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -770,7 +770,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -802,7 +802,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -841,7 +841,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -856,7 +856,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -871,7 +871,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -886,7 +886,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -901,7 +901,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -923,7 +923,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -948,7 +948,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -993,7 +993,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -1018,7 +1018,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -1072,7 +1072,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Username is a required field
+                        validation.username
                       </div>
                     </div>
                   </div>
@@ -1089,7 +1089,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1126,7 +1126,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -1135,7 +1135,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Password is a required field
+                        validation.password
                       </div>
                     </div>
                   </div>
@@ -1157,7 +1157,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1192,7 +1192,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1202,7 +1202,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1281,7 +1281,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1313,7 +1313,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1334,7 +1334,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1349,7 +1349,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1364,7 +1364,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1379,7 +1379,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1393,7 +1393,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1412,7 +1412,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1434,7 +1434,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1447,7 +1447,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -1455,7 +1455,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1503,7 +1503,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-label"
                       for="url"
                     >
-                      Bitbucket Account URL
+                      connectors.git.bitbucketAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1519,7 +1519,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="git@bitbucket.com:account/"
+                          placeholder="connectors.git.bitbucketPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1557,7 +1557,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -1568,7 +1568,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1649,7 +1649,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1681,7 +1681,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1720,7 +1720,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1735,7 +1735,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1750,7 +1750,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1765,7 +1765,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1780,7 +1780,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1799,7 +1799,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1814,7 +1814,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                         <label
                           class="bp3-label"
                         >
-                          SSH Key
+                          SSH_KEY
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1851,7 +1851,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -1860,7 +1860,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       <div
                         class="bp3-form-helper-text"
                       >
-                        SSH key is required
+                        validation.sshKey
                       </div>
                     </div>
                   </div>
@@ -1882,7 +1882,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1917,7 +1917,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1927,7 +1927,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2006,7 +2006,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2038,7 +2038,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2077,7 +2077,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2092,7 +2092,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2107,7 +2107,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2122,7 +2122,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2137,7 +2137,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2159,7 +2159,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2184,7 +2184,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2229,7 +2229,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2254,7 +2254,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -2320,7 +2320,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2357,7 +2357,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -2415,7 +2415,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2450,7 +2450,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -2460,7 +2460,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2539,7 +2539,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Bitbucket Connector
+        connectors.title.bitbucketConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2571,7 +2571,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2610,7 +2610,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2625,7 +2625,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2640,7 +2640,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2655,7 +2655,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2670,7 +2670,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2692,7 +2692,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2717,7 +2717,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2762,7 +2762,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2787,7 +2787,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -2853,7 +2853,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2890,7 +2890,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -2949,14 +2949,14 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                  connectors.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main"
@@ -2968,7 +2968,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      API Authentication
+                      connectors.git.APIAuthentication
                     </span>
                     <div
                       class="bp3-form-group"
@@ -3038,7 +3038,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -3063,7 +3063,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -3129,7 +3129,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3166,7 +3166,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -3238,7 +3238,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3248,7 +3248,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

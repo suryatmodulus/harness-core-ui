@@ -33,11 +33,13 @@ describe('ManifestSelection tests', () => {
         <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
       </TestWrapper>
     )
-    const addFileButton = await findByText(container, '+ Add Manifest/Config File')
+    const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
     expect(addFileButton).toBeDefined()
     fireEvent.click(addFileButton)
     const portal = document.getElementsByClassName('bp3-dialog')[0]
-    const manifestLabel = await waitFor(() => findByText(portal as HTMLElement, 'Specify Manifest Type'))
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
     expect(manifestLabel).toBeDefined()
     const closeButton = portal.querySelector("button[class*='crossIcon']") as Element
     fireEvent.click(closeButton)
@@ -50,16 +52,18 @@ describe('ManifestSelection tests', () => {
         <ManifestSelection isForOverrideSets={false} isForPredefinedSets={false} />
       </TestWrapper>
     )
-    const addFileButton = await findByText(container, '+ Add Manifest/Config File')
+    const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
     expect(addFileButton).toBeDefined()
     fireEvent.click(addFileButton)
     const portal = document.getElementsByClassName('bp3-dialog')[0]
-    const manifestLabel = await waitFor(() => findByText(portal as HTMLElement, 'Specify Manifest Type'))
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
     expect(manifestLabel).toBeDefined()
     const manifestTypes = await waitFor(() => findAllByText(portal as HTMLElement, 'K8s Manifest'))
     expect(manifestTypes).toBeDefined()
     fireEvent.click(manifestTypes[0])
-    const continueButton = await findByText(portal as HTMLElement, 'Continue')
+    const continueButton = await findByText(portal as HTMLElement, 'continue')
     expect(continueButton).toBeDefined()
 
     expect(container).toMatchSnapshot()
@@ -69,7 +73,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -90,7 +94,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -111,7 +115,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: true,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: true,
       identifierName: '',
@@ -132,7 +136,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -158,7 +162,7 @@ describe('ManifestSelection tests', () => {
     const props = {
       isPropagating: false,
       pipeline: pipelineContextMock,
-      updatePipeline: jest.fn(),
+      updateStage: jest.fn(),
       stage: pipelineContextMock.stages[0],
       isForOverrideSets: false,
       identifierName: '',
@@ -177,7 +181,9 @@ describe('ManifestSelection tests', () => {
     expect(editManifestBtn).toBeDefined()
     fireEvent.click(editManifestBtn)
     const portal = document.getElementsByClassName('bp3-dialog')[0]
-    const manifestLabel = await waitFor(() => findByText(portal as HTMLElement, 'Specify Manifest Type'))
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
     expect(manifestLabel).toBeDefined()
     const closeButton = portal.querySelector("button[class*='crossIcon']") as Element
     fireEvent.click(closeButton)

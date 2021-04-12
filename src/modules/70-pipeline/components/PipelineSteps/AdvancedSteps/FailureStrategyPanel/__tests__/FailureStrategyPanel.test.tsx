@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitFor, act, queryByAttribute } from '@testing-library/react'
+import { render, fireEvent, waitFor, act, queryByAttribute, queryAllByAttribute } from '@testing-library/react'
 
 import { Basic } from '../FailureStrategyPanel.stories'
 import { Modes } from '../../common'
@@ -136,5 +136,150 @@ describe('<FailureStratergyPanel /> tests', () => {
 
     const panel = await findByTestId('failure-strategy-panel')
     expect(panel).toMatchSnapshot()
+  })
+
+  test('error type selection does not show already selected error types', async () => {
+    const { container, findByText, findByTestId } = render(<Basic data={{ failureStrategies: [] }} mode={Modes.STEP} />)
+
+    const getErrorTypeField = (): HTMLElement =>
+      queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
+    const menuItemSelector = '.bp3-menu-item > div'
+    const authErrorTxt = 'pipeline.failureStrategies.errorTypeLabels.Authentication'
+
+    const add = await findByTestId('add-failure-strategy')
+
+    await act(() => {
+      fireEvent.click(add)
+      return Promise.resolve()
+    })
+
+    await waitFor(() => findByTestId('failure-strategy-step-0'))
+
+    fireEvent.change(getErrorTypeField(), { target: { value: 'auth' } })
+
+    const opt1 = await findByText(authErrorTxt, { selector: menuItemSelector })
+
+    fireEvent.click(opt1)
+
+    fireEvent.focus(getErrorTypeField())
+
+    await expect(() => findByText(authErrorTxt, { selector: menuItemSelector })).rejects.toThrow()
+
+    const code = await findByTestId('code-output')
+
+    expect(code).toMatchInlineSnapshot(`
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors:
+              - Authentication
+
+      </pre>
+    `)
+  })
+
+  test('when AnyOther is selected, all other options are removed', async () => {
+    const { container, findByText, findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: [
+            {
+              onFailure: { errors: ['Authentication', 'Authorization'] }
+            }
+          ]
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    const getErrorTypeField = (): HTMLElement =>
+      queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
+    const menuItemSelector = '.bp3-menu-item > div'
+
+    await waitFor(() => findByTestId('failure-strategy-step-0'))
+
+    const code1 = await findByTestId('code-output')
+
+    expect(code1).toMatchInlineSnapshot(`
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors:
+              - Authentication
+              - Authorization
+
+      </pre>
+    `)
+
+    fireEvent.change(getErrorTypeField(), { target: { value: 'any' } })
+
+    const opt1 = await findByText('pipeline.failureStrategies.errorTypeLabels.AnyOther', { selector: menuItemSelector })
+
+    fireEvent.click(opt1)
+
+    const code2 = await findByTestId('code-output')
+
+    expect(code2).toMatchInlineSnapshot(`
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors:
+              - AnyOther
+
+      </pre>
+    `)
+  })
+
+  test('removing error type works', async () => {
+    const { container, findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: [
+            {
+              onFailure: { errors: ['Authentication', 'Authorization'] }
+            }
+          ]
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    const code1 = await findByTestId('code-output')
+
+    expect(code1).toMatchInlineSnapshot(`
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors:
+              - Authentication
+              - Authorization
+
+      </pre>
+    `)
+    const removeTags = queryAllByAttribute('class', container, 'bp3-tag-remove')
+
+    fireEvent.click(removeTags[removeTags.length - 1])
+
+    const code2 = await findByTestId('code-output')
+
+    expect(code2).toMatchInlineSnapshot(`
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors:
+              - Authentication
+
+      </pre>
+    `)
   })
 })

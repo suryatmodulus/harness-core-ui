@@ -58,7 +58,7 @@ describe('CVSetupPage', () => {
     await waitFor(() => queryByText(container, 'Setup'))
     expect(container).toMatchSnapshot()
     act(() => {
-      const nextBtn = getByText('Next')
+      const nextBtn = getByText('next')
       fireEvent.click(nextBtn)
     })
     expect(getByText('MONITORING SOURCES')).toBeDefined()
@@ -66,7 +66,7 @@ describe('CVSetupPage', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      const prevBtn = getByText('Previous')
+      const prevBtn = getByText('previous')
       fireEvent.click(prevBtn)
     })
     expect(getByText('Let’s get you started')).toBeDefined()
@@ -94,7 +94,7 @@ describe('CVSetupPage', () => {
     )
 
     await waitFor(() => expect(getByText('CHANGE SOURCES')?.getAttribute('class')).toContain('--color-black'))
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('MONITORING SOURCES')?.getAttribute('class')).toContain('--color-black'))
     await waitFor(() => expect(getByText('CHANGE SOURCES')?.getAttribute('class')).toContain('--color-grey500'))
     expect(container.querySelectorAll('button')[1].getAttribute('disabled')).toEqual('')
@@ -125,7 +125,7 @@ describe('CVSetupPage', () => {
 
     // ensure you are still on same step, this might not actually be desired, but will revisit later
     await waitFor(() => expect(getByText('MONITORING SOURCES')?.getAttribute('class')).toContain('--color-black'))
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('VERIFICATION JOBS')?.getAttribute('class')).toContain('--color-black'))
   })
 })

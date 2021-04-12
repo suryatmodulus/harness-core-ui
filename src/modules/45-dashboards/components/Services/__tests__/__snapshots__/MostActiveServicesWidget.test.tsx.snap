@@ -1,0 +1,430 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MostActiveServicesWidget render 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card card"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--margin-bottom-xxlarge"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--intent-primary"
+            >
+              all
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+            >
+              dashboards.serviceDashboard.prod
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+            >
+              dashboards.serviceDashboard.nonProd
+            </p>
+          </div>
+          <span
+            class="bp3-popover-wrapper timeRangeSelector"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main timeRangeButton StyledProps--font-size-xsmall"
+                style="height: 20px;"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  dashboards.serviceDashboard.months
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+        >
+          Most active services
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-large"
+      >
+        <div
+          class="typeContainer typeSelected"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-white"
+          >
+            deploymentsText
+          </p>
+        </div>
+        <div
+          class="typeContainer"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+          >
+            errors
+          </p>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main stackTickerContainer StyledProps--flex StyledProps--flex-distribution-space-between"
+        style="height: 150px;"
+      >
+        <div
+          class="weightedStackContainer"
+        >
+          <div
+            class="StyledProps--font StyledProps--main WeightedStack--main"
+          >
+            <div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 100%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Login
+                         (
+                        23
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 86.95652173913044%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Backend
+                         (
+                        20
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 69.56521739130434%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Portal
+                         (
+                        16
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 52.17391304347826%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Test
+                         (
+                        12
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="WeightedStack--stack stack"
+              >
+                <div
+                  class="progress-bar progressBar"
+                >
+                  <div
+                    class="progress-track"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width: 34.78260869565217%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel label StyledProps--padding-left-small StyledProps--padding-right-small"
+                      >
+                        Others
+                         (
+                        8
+                        )
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tickerContainer"
+          >
+            <div
+              class="tickerContainer"
+            >
+              <div
+                class="ticker"
+              >
+                <div
+                  class="iconContainer"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                    data-icon="main-caret-up"
+                  >
+                    <svg
+                      height="6"
+                      viewBox="0 0 14 9"
+                      width="6"
+                    >
+                      <path
+                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <div
+                  class="tickerValue"
+                >
+                  5%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

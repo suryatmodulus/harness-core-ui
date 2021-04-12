@@ -43,7 +43,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Projects
+                  projectsText
                 </span>
               </p>
             </div>
@@ -100,7 +100,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Deployments
+                  deploymentsText
                 </span>
               </p>
             </div>
@@ -157,7 +157,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Builds
+                  buildsText
                 </span>
               </p>
             </div>
@@ -214,7 +214,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Feature Flags
+                  featureFlagsText
                 </span>
               </p>
             </div>
@@ -271,7 +271,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Cloud Costs
+                  cloudCostsText
                 </span>
               </p>
             </div>
@@ -329,7 +329,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Change Verifications
+                  changeVerificationText
                 </span>
               </p>
             </div>
@@ -472,7 +472,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Projects
+                  projectsText
                 </span>
               </p>
             </div>
@@ -529,7 +529,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Deployments
+                  deploymentsText
                 </span>
               </p>
             </div>
@@ -586,7 +586,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Builds
+                  buildsText
                 </span>
               </p>
             </div>
@@ -643,7 +643,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Feature Flags
+                  featureFlagsText
                 </span>
               </p>
             </div>
@@ -700,7 +700,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Cloud Costs
+                  cloudCostsText
                 </span>
               </p>
             </div>
@@ -758,7 +758,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Change Verifications
+                  changeVerificationText
                 </span>
               </p>
             </div>

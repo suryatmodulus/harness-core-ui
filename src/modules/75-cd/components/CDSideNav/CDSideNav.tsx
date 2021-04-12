@@ -19,7 +19,7 @@ export default function CDSideNav(): React.ReactElement {
   const history = useHistory()
   const module = 'cd'
   const { updateAppStore } = useAppStore()
-  const { SERVICE_DASHBOARD_NG } = useFeatureFlags()
+  const { SERVICE_DASHBOARD_NG, NG_RBAC_ENABLED } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -56,9 +56,15 @@ export default function CDSideNav(): React.ReactElement {
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
+            {NG_RBAC_ENABLED && (
+              <AdminSelectorLink
+                label="Access Control"
+                iconName="user"
+                to={routes.toAccessControl({ orgIdentifier, projectIdentifier, module, accountId })}
+              />
+            )}
             {/* <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
             <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
-            <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />
             <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled /> */}
           </AdminSelector>
         </React.Fragment>

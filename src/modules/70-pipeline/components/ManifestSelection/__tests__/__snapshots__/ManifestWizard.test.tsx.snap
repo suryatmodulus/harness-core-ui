@@ -20,7 +20,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -67,7 +67,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
     </div>
@@ -102,7 +102,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -151,7 +151,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -198,7 +198,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
       <div
@@ -345,7 +345,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -394,7 +394,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -441,7 +441,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
       <div
@@ -588,7 +588,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -655,7 +655,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -702,7 +702,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
     </div>
@@ -776,7 +776,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              Git
+              pipeline.manifestType.gitConnectorLabel
             </p>
           </div>
           <div
@@ -804,7 +804,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              GitHub
+              repo-provider.githubLabel
             </p>
           </div>
           <div
@@ -857,7 +857,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              GitLab
+              repo-provider.gitlabLabel
             </p>
           </div>
           <div
@@ -927,7 +927,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="font-size: 12px; text-align: center;"
             >
-              Bitbucket
+              pipeline.manifestType.bitBucketLabel
             </p>
           </div>
         </div>
@@ -946,7 +946,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="margin-bottom: 5px;"
                   >
-                    Select Git Connector
+                    select Git connector
                   </p>
                   <div
                     class="bp3-form-group"
@@ -970,7 +970,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                             <span
                               class="placeholder"
                             >
-                              Select Server
+                              selectServer
                             </span>
                           </span>
                           <span
@@ -1084,7 +1084,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Back
+                  back
                 </span>
               </button>
               <button
@@ -1094,7 +1094,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Continue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1145,7 +1145,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1192,7 +1192,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
     </div>
@@ -1324,7 +1324,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1373,7 +1373,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Type
+          pipeline.manifestType.manifestRepoType
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1420,7 +1420,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Manifest Source
+          pipeline.manifestType.manifestSource
         </p>
       </div>
     </div>
@@ -1455,7 +1455,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Continue
+              continue
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

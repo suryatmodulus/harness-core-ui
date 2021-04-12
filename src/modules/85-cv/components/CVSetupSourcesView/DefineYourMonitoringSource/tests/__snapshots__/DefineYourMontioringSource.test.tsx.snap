@@ -21,7 +21,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
               <p
                 class="StyledProps--font StyledProps--main main"
               >
-                Step 2 of 3
+                step 2 of 3
               </p>
               <h2
                 class="StyledProps--font StyledProps--font-h2 StyledProps--main mainHeading"
@@ -135,7 +135,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                     class="bp3-label"
                     for="monitoringSourceName"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -165,7 +165,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -196,7 +196,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"

@@ -1,15 +1,16 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Container, Layout, Text, Avatar, Intent, Color } from '@wings-software/uicore'
+import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import { useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
-import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage } from '@cf/utils/CFUtils'
+import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
@@ -25,7 +26,7 @@ export const fullSizeContentStyle: React.CSSProperties = {
 
 export const TargetDetailPage: React.FC = () => {
   const { getString } = useStrings()
-  const { showError, showSuccess, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
     Record<string, string>
   >()
@@ -44,9 +45,10 @@ export const TargetDetailPage: React.FC = () => {
     projectIdentifier,
     environmentIdentifier
   })
+  const title = getString('cf.targets.title')
   const breadcrumbs = [
     {
-      title: getString('cf.targets.title'),
+      title,
       url: routes.toCFTargets({
         accountId,
         orgIdentifier,
@@ -88,16 +90,7 @@ export const TargetDetailPage: React.FC = () => {
                 accountId
               })
             )
-
-            showSuccess(
-              <Text color={Color.WHITE}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: getString('cf.targetDetail.deleteTargetSuccess', { name: target?.name })
-                  }}
-                />
-              </Text>
-            )
+            showToaster(getString('cf.messages.targetDeleted'))
           })
           .catch(error => {
             showError(getErrorMessage(error), 0)
@@ -107,6 +100,8 @@ export const TargetDetailPage: React.FC = () => {
       }
     }
   })
+
+  useDocumentTitle(title)
 
   const loading = targetLoading || envLoading
   const error = targetError || envError

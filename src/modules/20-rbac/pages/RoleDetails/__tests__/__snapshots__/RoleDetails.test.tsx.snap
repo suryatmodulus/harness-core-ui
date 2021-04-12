@@ -16,7 +16,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control"
           >
-            Access Control
+            accessControl
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -39,7 +39,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control/roles"
           >
-            Roles
+            roles
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -146,7 +146,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Created
+          created
         </p>
         dummy date
       </div>
@@ -156,7 +156,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Last Updated
+          lastUpdated
         </p>
         dummy date
       </div>
@@ -174,37 +174,6 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex"
         >
-          <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-            data-testid="resourceCard-PROJECT_RESOURCES"
-            tabindex="0"
-          >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="nav-project"
-              >
-                <svg
-                  height="20"
-                  viewBox="0 0 22 22"
-                  width="20"
-                >
-                  <path
-                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                    fill="#56778d"
-                  />
-                </svg>
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Project Resources
-                 
-              </p>
-            </div>
-          </div>
           <div
             class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
             data-testid="resourceCard-ADMINSTRATIVE_FUNCTIONS"
@@ -236,6 +205,37 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               </p>
             </div>
           </div>
+          <div
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
+            data-testid="resourceCard-PROJECT_RESOURCES"
+            tabindex="0"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="nav-project"
+              >
+                <svg
+                  height="20"
+                  viewBox="0 0 22 22"
+                  width="20"
+                >
+                  <path
+                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                    fill="#56778d"
+                  />
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                Project Resources
+                 
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -250,7 +250,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              Update Role permissions
+              roleDetails.updateRolePermissions
             </p>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
@@ -264,9 +264,182 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Apply Changes
+                  applyChanges
                 </span>
               </button>
+            </div>
+          </div>
+          <div>
+            <div
+              class="bp3-card bp3-elevation-0 Card--card card"
+            >
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--padding-small"
+                style="width: 100%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main permissionRow"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main center"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="nav-project"
+                    >
+                      <svg
+                        height="30"
+                        viewBox="0 0 22 22"
+                        width="30"
+                      >
+                        <path
+                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                          fill="#56778d"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+                    >
+                      Administrative Fucntions
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--padding-top-large"
+                >
+                  <div
+                    class="permissionRow groupRow"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+                    >
+                      Organizations
+                    </p>
+                    <div
+                      class="permissionList"
+                    >
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-ORGANIZATION-edit"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        edit
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-ORGANIZATION-create"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        create
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-ORGANIZATION-delete"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        delete
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          data-testid="checkBox-ORGANIZATION-view"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        view
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="permissionRow groupRow"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+                    >
+                      Projects
+                    </p>
+                    <div
+                      class="permissionList"
+                    >
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-PROJECT-edit"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        edit
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-PROJECT-create"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        create
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-PROJECT-view"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        view
+                      </label>
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          checked=""
+                          data-testid="checkBox-PROJECT-delete"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        delete
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div>
@@ -338,179 +511,6 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               </div>
             </div>
           </div>
-          <div>
-            <div
-              class="bp3-card bp3-elevation-0 Card--card card"
-            >
-              <div
-                class="Layout--vertical StyledProps--main StyledProps--padding-small"
-                style="width: 100%;"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main permissionRow"
-                  style="width: 100%;"
-                >
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main center"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="nav-project"
-                    >
-                      <svg
-                        height="30"
-                        viewBox="0 0 22 22"
-                        width="30"
-                      >
-                        <path
-                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                          fill="#56778d"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
-                    >
-                      Administrative Fucntions
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="Layout--vertical StyledProps--main StyledProps--padding-top-large"
-                >
-                  <div
-                    class="permissionRow groupRow"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
-                    >
-                      Organizations
-                    </p>
-                    <div
-                      class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          data-testid="checkBox-ORGANIZATION-view"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        view
-                      </label>
-                    </div>
-                  </div>
-                  <div
-                    class="permissionRow groupRow"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
-                    >
-                      Projects
-                    </p>
-                    <div
-                      class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-view"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        view
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -534,7 +534,7 @@ exports[`Role Details Page render data 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control"
           >
-            Access Control
+            accessControl
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -557,7 +557,7 @@ exports[`Role Details Page render data 1`] = `
             class="breadcrumb"
             href="/account/dummy/admin/access-control/roles"
           >
-            Roles
+            roles
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -664,7 +664,7 @@ exports[`Role Details Page render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Created
+          created
         </p>
         dummy date
       </div>
@@ -674,7 +674,7 @@ exports[`Role Details Page render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Last Updated
+          lastUpdated
         </p>
         dummy date
       </div>
@@ -692,37 +692,6 @@ exports[`Role Details Page render data 1`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex"
         >
-          <div
-            class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-            data-testid="resourceCard-PROJECT_RESOURCES"
-            tabindex="0"
-          >
-            <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="nav-project"
-              >
-                <svg
-                  height="20"
-                  viewBox="0 0 22 22"
-                  width="20"
-                >
-                  <path
-                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                    fill="#56778d"
-                  />
-                </svg>
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Project Resources
-                 
-              </p>
-            </div>
-          </div>
           <div
             class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
             data-testid="resourceCard-ADMINSTRATIVE_FUNCTIONS"
@@ -754,6 +723,37 @@ exports[`Role Details Page render data 1`] = `
               </p>
             </div>
           </div>
+          <div
+            class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
+            data-testid="resourceCard-PROJECT_RESOURCES"
+            tabindex="0"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="nav-project"
+              >
+                <svg
+                  height="20"
+                  viewBox="0 0 22 22"
+                  width="20"
+                >
+                  <path
+                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                    fill="#56778d"
+                  />
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              >
+                Project Resources
+                 
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -768,7 +768,7 @@ exports[`Role Details Page render data 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-left-medium"
             >
-              Update Role permissions
+              roleDetails.updateRolePermissions
             </p>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
@@ -782,78 +782,9 @@ exports[`Role Details Page render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Apply Changes
+                  applyChanges
                 </span>
               </button>
-            </div>
-          </div>
-          <div>
-            <div
-              class="bp3-card bp3-elevation-0 Card--card card"
-            >
-              <div
-                class="Layout--vertical StyledProps--main StyledProps--padding-small"
-                style="width: 100%;"
-              >
-                <div
-                  class="Layout--horizontal StyledProps--main permissionRow"
-                  style="width: 100%;"
-                >
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main center"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="nav-project"
-                    >
-                      <svg
-                        height="30"
-                        viewBox="0 0 22 22"
-                        width="30"
-                      >
-                        <path
-                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
-                          fill="#56778d"
-                        />
-                      </svg>
-                    </span>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
-                    >
-                      Project Resources
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="Layout--vertical StyledProps--main StyledProps--padding-top-large"
-                >
-                  <div
-                    class="permissionRow groupRow"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
-                    >
-                      Secrets
-                    </p>
-                    <div
-                      class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          data-testid="checkBox-SECRET-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div>
@@ -1022,6 +953,75 @@ exports[`Role Details Page render data 1`] = `
                           class="bp3-control-indicator"
                         />
                         delete
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="bp3-card bp3-elevation-0 Card--card card"
+            >
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--padding-small"
+                style="width: 100%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main permissionRow"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main center"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="nav-project"
+                    >
+                      <svg
+                        height="30"
+                        viewBox="0 0 22 22"
+                        width="30"
+                      >
+                        <path
+                          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                          fill="#56778d"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+                    >
+                      Project Resources
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--padding-top-large"
+                >
+                  <div
+                    class="permissionRow groupRow"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
+                    >
+                      Secrets
+                    </p>
+                    <div
+                      class="permissionList"
+                    >
+                      <label
+                        class="bp3-control bp3-checkbox checkbox"
+                      >
+                        <input
+                          data-testid="checkBox-SECRET-create"
+                          type="checkbox"
+                        />
+                        <span
+                          class="bp3-control-indicator"
+                        />
+                        create
                       </label>
                     </div>
                   </div>

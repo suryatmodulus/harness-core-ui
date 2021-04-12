@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`open and close CITrial Modal Rendering should open and close CITrial and default as Create Pipeline Form 1`] = `
+<div>
+  <button
+    class="open"
+  />
+  <button
+    class="close"
+  />
+</div>
+`;

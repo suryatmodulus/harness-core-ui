@@ -23,7 +23,8 @@ const contextValue: ExecutionContextParams = {
   queryParams: {},
   loading: false,
   logsToken: 'token',
-  setLogsToken: jest.fn()
+  setLogsToken: jest.fn(),
+  addNewNodeToMap: jest.fn()
 }
 
 const fetchMock = jest.spyOn(global, 'fetch' as any)

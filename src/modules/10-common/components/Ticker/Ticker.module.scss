@@ -1,0 +1,36 @@
+.tickerContainer {
+  display: flex;
+  .ticker {
+    display: flex;
+    align-self: flex-end;
+    align-items: flex-end;
+    height: fit-content;
+    .iconContainer {
+      padding: 2px;
+    }
+    .tickerValue {
+      line-height: normal;
+      padding: 0px 2px;
+    }
+  }
+  .tickerTopAlign {
+    align-self: flex-start;
+  }
+  .tickerCenterAlign {
+    align-self: center;
+  }
+  :last-child {
+    margin-left: auto;
+  }
+  .tickerReverseAlignment {
+    flex-direction: row-reverse;
+  }
+}
+
+.reverseAlignment {
+  flex-direction: row-reverse;
+  :last-child {
+    margin-left: initial;
+    margin-right: auto;
+  }
+}

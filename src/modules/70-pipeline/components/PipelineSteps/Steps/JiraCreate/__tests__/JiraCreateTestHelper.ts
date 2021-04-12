@@ -34,7 +34,9 @@ export const getJiraCreateEditModePropsWithValues = (): JiraCreateStepModeProps 
       fields: [
         { name: 'f1', value: 'value1' },
         { name: 'f2', value: 2233 },
-        { name: 'date', value: '23-march' }
+        { name: 'date', value: '23-march' },
+        { name: 'Summary', value: 'summaryval' },
+        { name: 'Description', value: 'descriptionval' }
       ]
     }
   }

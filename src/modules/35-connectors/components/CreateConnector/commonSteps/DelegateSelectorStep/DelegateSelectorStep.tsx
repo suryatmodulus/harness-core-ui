@@ -115,7 +115,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       setDelegateSelectors(delegate)
     }
   }, [])
-
   return (
     <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>

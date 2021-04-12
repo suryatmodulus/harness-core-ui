@@ -1,9 +1,13 @@
 import React from 'react'
-import { render, act, fireEvent, waitFor, RenderResult } from '@testing-library/react'
+import { render, act, fireEvent, waitFor, RenderResult, queryByAttribute } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, resourceGroupPathProps } from '@common/utils/routeUtils'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import {
+  getResourceTypeHandlerMock,
+  getResourceGroupTypeHandlerMock,
+  getResourceCategoryListMock
+} from '@rbac/utils/RbacFactoryMockData'
 import ResourceGroupDetails from '../ResourceGroupDetails'
 import { resourceTypes, resourceGroupDetails, resourceGroupDetailsWithHarnessManaged } from './mock'
 
@@ -26,31 +30,11 @@ jest.mock('services/cd-ng', () => ({
     return getResourceGroupDetailsMock()
   })
 }))
+
 jest.mock('@rbac/factories/RbacFactory', () => ({
-  getResourceTypeHandler: jest.fn().mockImplementation(ele => {
-    switch (ele) {
-      case ResourceType.SECRET:
-        return {
-          icon: 'lock',
-          label: 'Secrets'
-        }
-      case ResourceType.CONNECTOR:
-        return {
-          icon: 'lock',
-          label: 'Connectors'
-        }
-      case ResourceType.PROJECT:
-        return {
-          icon: 'nav-project',
-          label: 'Projects'
-        }
-      case ResourceType.ORGANIZATION:
-        return {
-          icon: 'settings',
-          label: 'Organizations'
-        }
-    }
-  })
+  getResourceTypeHandler: jest.fn().mockImplementation(resource => getResourceTypeHandlerMock(resource)),
+  getResourceCategoryHandler: jest.fn().mockImplementation(resource => getResourceGroupTypeHandlerMock(resource)),
+  getResourceCategoryList: jest.fn().mockImplementation(() => getResourceCategoryListMock())
 }))
 
 describe('Resource Groups Page', () => {
@@ -73,15 +57,15 @@ describe('Resource Groups Page', () => {
     expect(container).toMatchSnapshot()
   })
   test('test projects selection and save', async () => {
-    const { getByText } = renderObj
-    act(() => {
-      fireEvent.click(getByText('Projects'))
-    })
+    const { getByText, getAllByText, container } = renderObj
+    const project = queryByAttribute('data-testid', container, 'CHECK-BOX-PROJECT')
+    expect(project).toBeTruthy()
+    fireEvent.click(project!)
     await waitFor(() => {
-      expect(getByText('All Projects')).toBeDefined()
+      expect(getAllByText('resourceGroup.all')[0]).toBeDefined()
     })
     act(() => {
-      fireEvent.click(getByText('Apply Changes'))
+      fireEvent.click(getByText('applyChanges'))
     })
     expect(updateResourceGroupDetails).toBeCalledWith({
       accountIdentifier: 'kmpySmUISimoRrJL6NL73w',

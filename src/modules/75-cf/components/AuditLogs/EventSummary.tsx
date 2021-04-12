@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
 import { stringify } from 'yaml'
-import { Layout, Container, Text, Color, Button, useToggle } from '@wings-software/uicore'
+import { Layout, Container, Text, Color, Button, useToggle, Heading } from '@wings-software/uicore'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
@@ -19,6 +19,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useAppStore, useStrings } from 'framework/exports'
 import { AuditTrail, Feature, useGetOSById } from 'services/cf'
+import { translateEvents } from './AuditLogsUtils'
 import css from './EventSummary.module.scss'
 
 const drawerStates: IDrawerProps = {
@@ -57,13 +58,14 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const { selectedProject } = useAppStore()
   let text = getString('cf.auditLogs.createdMessageFF')
-  const [showDiff, toggleShowDiff] = useToggle(true)
+  const [showDiff, toggleShowDiff] = useToggle(false)
   const { objectBefore, objectAfter } = data
   const isNewObject = objectBefore === ADIT_LOG_EMPTY_ENTRY_ID
   const { data: diffData, loading, error, refetch } = useGetOSById({
     identifiers: isNewObject ? [objectAfter] : [objectBefore, objectAfter],
     lazy: !showDiff
   })
+  const eventStrings = translateEvents(data.instructionSet, getString)
 
   switch (data.action) {
     case AuditLogAction.SegmentCreated:
@@ -76,6 +78,13 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   const date = `${formatDate(data.executedOn)}, ${formatTime(data.executedOn)} PST`
   const [valueBefore, setValueBefore] = useState<string | undefined>()
   const [valueAfter, setValueAfter] = useState<string | undefined>()
+  const [buttonClientY, setButtonClientY] = useState(0)
+  const editorHeight = useMemo(() => `calc(100vh - ${buttonClientY + 60}px)`, [buttonClientY])
+  const style = {
+    color: '#22222A',
+    fontWeight: 600,
+    fontSize: '10px'
+  }
 
   useEffect(() => {
     const _before = isNewObject ? undefined : get(diffData, 'data.objectsnapshots[0].value')
@@ -87,7 +96,7 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
     if (_after) {
       setValueAfter(stringify(_after))
     }
-  }, [diffData])
+  }, [diffData, isNewObject])
 
   return (
     <Drawer
@@ -101,8 +110,10 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
           <Layout.Vertical spacing="medium">
             <Text style={{ fontSize: '14px', fontWeight: 'bold', color: '#9293AB' }}>{date}</Text>
             <Text color={Color.GREY_400}>
-              {getString('cf.auditLogs.moduleFF')} | Project: {selectedProject?.name} | Environment:{' '}
-              {environment?.label}
+              {getString('cf.auditLogs.summaryHeading', {
+                project: selectedProject?.name,
+                environment: environment?.label
+              })}
             </Text>
           </Layout.Vertical>
           <Container style={{ marginTop: 'var(--spacing-xxlarge)' }}>
@@ -112,26 +123,59 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
               <strong>{flagData.name}</strong>
             </Text>
           </Container>
-          <Container margin={{ top: 'large', left: 'small' }}>
+
+          <Container>
+            <Heading level={4} style={{ ...style, padding: 'var(--spacing-xlarge) 0 0 var(--spacing-large)' }}>
+              {getString('cf.auditLogs.changeDetails').toLocaleUpperCase()}
+            </Heading>
+            <ul>
+              {eventStrings.map(message => (
+                <li key={message}>
+                  <Text>{message}</Text>
+                </li>
+              ))}
+            </ul>
+          </Container>
+
+          <Container margin={{ top: 'small' }}>
             <Button
               minimal
               rightIcon={showDiff ? 'chevron-up' : 'chevron-down'}
               text={getString('cf.auditLogs.yamlDifference').toLocaleUpperCase()}
-              onClick={() => {
+              onClick={e => {
+                e.persist()
+                setButtonClientY(e.clientY)
                 toggleShowDiff()
                 refetch()
               }}
+              style={style}
             />
             {showDiff && (
-              <Container margin={{ top: 'xsmall', left: 'small', right: 'small' }} height={480}>
+              <Container margin={{ top: 'xsmall', left: 'small', right: 'small' }} height={editorHeight}>
                 {!!diffData && (
                   <MonacoDiffEditor
                     width="670"
-                    height="480"
+                    height={editorHeight}
                     language="javascript"
                     original={valueBefore}
                     value={valueAfter}
                     options={DIFF_VIEWER_OPTIONS}
+                    editorDidMount={editor => {
+                      setTimeout(() => {
+                        ;((editor as unknown) as {
+                          setSelection: (param: Record<string, number>) => void
+                        }).setSelection({
+                          startLineNumber: 0,
+                          startColumn: 0,
+                          endLineNumber: 0,
+                          endColumn: 0,
+                          selectionStartLineNumber: 0,
+                          selectionStartColumn: 0,
+                          positionLineNumber: 0,
+                          positionColumn: 0
+                        })
+                      }, 0)
+                    }}
                   />
                 )}
 
@@ -148,10 +192,11 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                   <Container
                     style={{
                       position: 'fixed',
-                      top: '240px',
-                      right: '29px',
-                      width: '733px',
-                      height: '507px'
+                      top: `${buttonClientY + 16}px`,
+                      right: '40px',
+                      width: '715px',
+                      bottom: '20px',
+                      zIndex: 9
                     }}
                   >
                     <ContainerSpinner />

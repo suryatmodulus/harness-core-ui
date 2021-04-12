@@ -31,18 +31,20 @@ export default function DeployStageSetupShell(): JSX.Element {
   const stageNames: string[] = [getString('service'), getString('infrastructureText'), getString('executionText')]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('service'))
   const layoutRef = React.useRef<HTMLDivElement>(null)
+  const { errorMap } = useValidationErrors()
 
   const {
     state: {
       pipeline,
       originalPipeline,
       pipelineView: {
-        splitViewData: { selectedStageId = '', stageType },
+        splitViewData: { selectedStageId = '', stageType, errorMap: sourceErrorMap },
         isSplitViewOpen
       },
       pipelineView
     },
     stagesMap,
+    isReadonly,
     stepsFactory,
     updatePipeline,
     getStageFromPipeline,
@@ -53,7 +55,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     if (stageNames.indexOf(selectedStageId) !== -1) {
       setSelectedTabId(selectedStageId)
     }
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames, errorMap, sourceErrorMap])
 
   const handleTabChange = (data: string): void => {
     setSelectedTabId(data)
@@ -79,23 +81,26 @@ export default function DeployStageSetupShell(): JSX.Element {
     })
   }
 
-  const { errorMap } = useValidationErrors()
-
   function isStageError(stageName: string): { isError: boolean; errors: [string, string[]][] } {
     const { stage, parent } = getStageFromPipeline(selectedStageId)
     const { stages } = pipeline
 
     const path =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stages!.indexOf(stage!) > -1
-        ? `pipeline.stages.${stages?.indexOf(stage!)}`
-        : parent!.parallel
-        ? `pipeline.stages.${stages?.indexOf(parent!)}.parallel.${parent?.parallel.indexOf(stage)}`
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          `pipeline.stages.${stages?.indexOf(stage!)}`
+        : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        parent!.parallel
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          `pipeline.stages.${stages?.indexOf(parent!)}.parallel.${parent?.parallel.indexOf(stage)}`
         : ''
 
     if (errorMap) {
       return {
         isError:
-          Array.from(errorMap.keys()).filter(item => item.indexOf(`${path}.stage.spec.${stageName}`) > -1).length > 0,
+          Array.from(sourceErrorMap!.keys()).filter(item => item.indexOf(`${path}.stage.spec.${stageName}`) > -1)
+            .length > 0,
         errors: Array.from(errorMap).filter(item => {
           return item[0].indexOf(`${path}.stage.spec.${stageName}`) > -1
         })
@@ -143,7 +148,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pipeline, selectedTabId, selectedStageId, errorMap])
+  }, [pipeline, selectedTabId, selectedStageId, errorMap, sourceErrorMap])
 
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
@@ -188,19 +193,6 @@ export default function DeployStageSetupShell(): JSX.Element {
     </Layout.Horizontal>
   )
 
-  const errors = {
-    serviceConfig: {
-      ...isStageError('serviceConfig')
-    },
-    infrastructure: {
-      ...isStageError('infrastructure')
-    },
-
-    execution: {
-      ...isStageError('execution')
-    }
-  }
-
   return (
     <section
       ref={layoutRef}
@@ -234,7 +226,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="service" height={20} size={20} />
               {getString('service')}
-              {errors.serviceConfig.isError ? (
+              {isStageError('serviceConfig').isError ? (
                 <Icon
                   name="warning-sign"
                   height={10}
@@ -246,7 +238,9 @@ export default function DeployStageSetupShell(): JSX.Element {
               ) : null}
             </span>
           }
-          panel={<DeployServiceSpecifications errors={errors.serviceConfig}>{navBtns}</DeployServiceSpecifications>}
+          panel={
+            <DeployServiceSpecifications errors={isStageError('serviceConfig')}>{navBtns}</DeployServiceSpecifications>
+          }
         />
         <Icon
           name="chevron-right"
@@ -262,7 +256,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-stages" height={20} size={20} />
               {getString('infrastructureText')}
-              {errors.infrastructure.isError ? (
+              {isStageError('infrastructure').isError ? (
                 <Icon
                   name="warning-sign"
                   height={10}
@@ -274,7 +268,9 @@ export default function DeployStageSetupShell(): JSX.Element {
               ) : null}
             </span>
           }
-          panel={<DeployInfraSpecifications errors={errors.infrastructure}>{navBtns}</DeployInfraSpecifications>}
+          panel={
+            <DeployInfraSpecifications errors={isStageError('infrastructure')}>{navBtns}</DeployInfraSpecifications>
+          }
         />
         <Icon
           name="chevron-right"
@@ -290,7 +286,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <span className={css.tab}>
               <Icon name="yaml-builder-steps" height={20} size={20} />
               {getString('executionText')}
-              {errors.execution.isError ? (
+              {isStageError('execution').isError ? (
                 <Icon
                   name="warning-sign"
                   height={10}
@@ -307,6 +303,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={true}
               hasRollback={true}
+              isReadonly={isReadonly}
               hasDependencies={false}
               stepsFactory={stepsFactory}
               originalStage={originalStage}
@@ -356,7 +353,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                   }
                 })
               }}
-              errors={errors.execution}
+              errors={isStageError('execution')}
             />
           }
         />

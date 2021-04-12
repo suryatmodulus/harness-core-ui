@@ -13,11 +13,11 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
       >
         <span />
         <span>
-          ARTIFACT REPOSITORY
+          artifactRepository
         </span>
         <span>
            
-          LOCATION
+          location
         </span>
         <span />
         <span />
@@ -38,7 +38,7 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
           class="StyledProps--font StyledProps--main"
         >
           <span>
-            + Add Primary Artifact
+            pipelineSteps.serviceTab.artifactList.addPrimary
           </span>
         </p>
       </div>
@@ -49,7 +49,7 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
           class="StyledProps--font StyledProps--main"
         >
           <span>
-            + Add Sidecar
+            pipelineSteps.serviceTab.artifactList.addSidecar
           </span>
         </p>
       </div>
@@ -71,11 +71,11 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
       >
         <span />
         <span>
-          ARTIFACT REPOSITORY
+          artifactRepository
         </span>
         <span>
            
-          LOCATION
+          location
         </span>
         <span />
         <span />
@@ -255,7 +255,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <span>
-            + Add Sidecar
+            pipelineSteps.serviceTab.artifactList.addSidecar
           </span>
         </p>
       </div>
@@ -277,11 +277,11 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
       >
         <span />
         <span>
-          ARTIFACT REPOSITORY
+          artifactRepository
         </span>
         <span>
            
-          LOCATION
+          location
         </span>
         <span />
         <span />
@@ -461,7 +461,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
           class="StyledProps--font StyledProps--main"
         >
           <span>
-            + Add Sidecar
+            pipelineSteps.serviceTab.artifactList.addSidecar
           </span>
         </p>
       </div>
@@ -483,11 +483,11 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       >
         <span />
         <span>
-          ARTIFACT REPOSITORY
+          artifactRepository
         </span>
         <span>
            
-          LOCATION
+          location
         </span>
         <span />
         <span />
@@ -667,7 +667,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
           class="StyledProps--font StyledProps--main"
         >
           <span>
-            + Add Sidecar
+            pipelineSteps.serviceTab.artifactList.addSidecar
           </span>
         </p>
       </div>

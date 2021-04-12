@@ -54,7 +54,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       <span
                         class="bp3-button-text"
                       >
-                        Apply
+                        filters.apply
                       </span>
                     </button>
                     <button
@@ -64,7 +64,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       <span
                         class="bp3-button-text"
                       >
-                        Clear All
+                        filters.clearAll
                       </span>
                     </button>
                   </div>
@@ -173,7 +173,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                     <span
                       class="bp3-button-text"
                     >
-                      New Filter
+                      filters.newFilter
                     </span>
                   </button>
                 </div>

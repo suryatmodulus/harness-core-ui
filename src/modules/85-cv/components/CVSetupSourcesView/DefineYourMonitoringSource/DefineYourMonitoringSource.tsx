@@ -9,11 +9,12 @@ import css from './DefineYourMonitoringSource.module.scss'
 export interface DefineYourMonitoringSourceProps extends SetupSourceCardHeaderProps {
   sourceIcon: IconProps
   iconLabel: string
+  isEdit?: boolean
   formikProps: FormikProps<any>
 }
 
 export function DefineYourMonitoringSource(props: DefineYourMonitoringSourceProps): JSX.Element {
-  const { sourceIcon, iconLabel, formikProps, ...defineYourSourceProps } = props
+  const { sourceIcon, iconLabel, formikProps, isEdit, ...defineYourSourceProps } = props
   return (
     <Container className={css.defineMonitoringSource}>
       <SetupSourceCardHeader {...defineYourSourceProps} />
@@ -22,7 +23,10 @@ export function DefineYourMonitoringSource(props: DefineYourMonitoringSourceProp
           <CardBody.Icon icon={sourceIcon.name} iconSize={sourceIcon.size || 40} />
           <Text color={Color.BLACK}>{iconLabel}</Text>
         </Card>
-        <NameIdDescriptionTags formikProps={formikProps} identifierProps={{ inputName: 'monitoringSourceName' }} />
+        <NameIdDescriptionTags
+          formikProps={formikProps}
+          identifierProps={{ inputName: 'monitoringSourceName', isIdentifierEditable: !isEdit }}
+        />
       </Container>
     </Container>
   )

@@ -1,0 +1,71 @@
+{
+  "pipelineExecutionDetail": null,
+  "allNodeMap": {
+    "normalStep": {
+      "stepType": "ShellScript",
+      "status": "Success"
+    },
+    "approvalStepWaiting": {
+      "stepType": "HarnessApproval",
+      "status": "Waiting"
+    },
+    "approvalStepComplete": {
+      "stepType": "JiraApproval",
+      "status": "Failed"
+    },
+    "errorStep": {
+      "name": "Rollout Deployment",
+      "identifier": "rolloutDeployment",
+      "outcomes": [],
+      "stepType": "K8sRollingDeploy",
+      "status": "Failed",
+      "failureInfo": {
+        "message": "Failed to complete K8s task. Please check execution logs."
+      },
+      "nodeRunInfo": {
+        "whenCondition": "<+OnStageSuccess>",
+        "evaluatedCondition": true
+      },
+      "delegateInfoList": [
+        {
+          "id": "kZPIujTnSgO0Yz04OztwiQ",
+          "name": "Kapil-Kumawat-MBP-2019.local",
+          "taskId": "SKGvcBFRQCe2xKPPtx8i4Q",
+          "taskName": "Git Fetch Files Task / test"
+        },
+        {
+          "id": "kZPIujTnSgO0Yz04OztwiQ",
+          "name": "Kapil-Kumawat-MBP-2019.local",
+          "taskId": "J5L7EeGTQTC96-91Py6YIQ",
+          "taskName": "K8s Task : Rolling Deploy"
+        }
+      ]
+    },
+    "retriedStep": {
+      "interruptHistories": [
+        {
+          "interruptId": "interruptId_1",
+          "interruptConfig": {
+            "retryInterruptConfig": {
+              "retryId": "retryId_1"
+            }
+          }
+        },
+        {
+          "interruptId": "interruptId_2",
+          "interruptConfig": {
+            "retryInterruptConfig": {
+              "retryId": "retryId_2"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "pipelineStagesMap": {},
+  "selectedStageId": "",
+  "selectedStepId": "",
+  "loading": false,
+  "queryParams": {},
+  "logsToken": "logsToken"
+}

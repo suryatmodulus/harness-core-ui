@@ -80,43 +80,6 @@ export default function languageLoader() {
   await fs.promises.writeFile(path.resolve(process.cwd(), `src/framework/strings/languageLoader.ts`), content, 'utf8')
 }
 
-async function makeLangFileForTesting(modules) {
-  let content = `/* eslint-disable */
-/**
-  * This file is auto-generated. Please do not modify this file manually.
-  * Use the command \`yarn strings\` to regenerate this file.
-  */
-import React from 'react'
-
-`
-
-  modules.forEach(({ moduleName, moduleRef }) => {
-    content += `import ${moduleRef} from '@${moduleName}/strings/strings.en.yaml'\n`
-  })
-
-  content += `
-import oldStrings from 'strings/strings.en.yaml'
-import { StringsContext, StringsMap } from '../StringsContext'
-
-const strings = { ...oldStrings, ${modules.map(({ moduleRef }) => moduleRef).join(', ')} }
-
-export interface StringsContextProviderProps {
-  children: React.ReactNode
-}
-
-export function StringsContextProvider(props: StringsContextProviderProps): React.ReactElement {
-  return <StringsContext.Provider value={(strings as unknown) as StringsMap}>{props.children}</StringsContext.Provider>
-}
-`
-  content = await runPrettier(content, 'typescript')
-
-  await fs.promises.writeFile(
-    path.resolve(process.cwd(), `src/framework/strings/__mocks__/StringsContextProvider.tsx`),
-    content,
-    'utf8'
-  )
-}
-
 // create common modules
 const modules = await getModules()
 
@@ -128,5 +91,3 @@ const extensionEntries = Object.entries(extensionToLanguageMap)
 
 await makeLangLoaderFile(restModules, extensionEntries)
 console.log('✅  Generated Language Loader file successfully!')
-await makeLangFileForTesting(restModules)
-console.log('✅  Generated StringContextProvider mock successfully!')

@@ -11,7 +11,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
     <h4
       class="bp3-heading"
     >
-      Delegate selection logs
+      Common.logs.delegateSelectionLogs
     </h4>
     <button
       aria-label="Close"
@@ -46,7 +46,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
       class="StyledProps--font StyledProps--main"
     >
       <span>
-        delegateName for taskName
+        common.delegateForTask
       </span>
     </p>
     <div
@@ -65,7 +65,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             role="columnheader"
             style="width: 30%;"
           >
-            DELEGATE
+            DELEGATE.DELEGATENAME
           </div>
           <div
             class="cell"
@@ -108,7 +108,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1;"
               >
-                TaskId: kZPIujTnSgO0Yz04OztwiQ
+                taskId
               </p>
             </div>
           </div>
@@ -164,7 +164,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 style="--text-line-clamp: 1;"
               >
                 <span>
-                  Logged at 2020-04-15 4:15
+                  loggedAt
                 </span>
               </p>
             </div>
@@ -194,7 +194,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1;"
               >
-                TaskId: kZPIujTnSgO0Yz04OztwiQ
+                taskId
               </p>
             </div>
           </div>
@@ -230,7 +230,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 style="--text-line-clamp: 1;"
               >
                 <span>
-                  Logged at 2020-04-15 4:15
+                  loggedAt
                 </span>
               </p>
             </div>

@@ -12,6 +12,7 @@ export interface StepCommandsProps {
   onChange: (step: ExecutionWrapper) => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
+  isReadonly: boolean
   isNewStep?: boolean
   hasStepGroupAncestor?: boolean
   hiddenPanels?: AdvancedPanels[]

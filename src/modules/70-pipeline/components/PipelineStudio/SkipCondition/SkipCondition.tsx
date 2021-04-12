@@ -13,13 +13,15 @@ This file will be used for stage level skip conditions, hence passing the mode =
 */
 export interface SkipConditionProps {
   selectedStage: any
+  isReadonly: boolean
   onUpdate(data: { skipCondition: string }): void
 }
 
 export default function SkipCondition(props: SkipConditionProps): React.ReactElement {
   const {
     selectedStage: { stage },
-    onUpdate
+    onUpdate,
+    isReadonly
   } = props
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(debounce(onUpdate, 300), [onUpdate])
@@ -33,7 +35,7 @@ export default function SkipCondition(props: SkipConditionProps): React.ReactEle
       validate={debouncedUpdate}
     >
       <div className={Classes.DIALOG_BODY}>
-        <SkipConditionsPanel mode={Modes.STAGE} />
+        <SkipConditionsPanel isReadonly={isReadonly} mode={Modes.STAGE} />
       </div>
     </Formik>
   )

@@ -163,6 +163,10 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
         fetchFlags({ queryParams: { ...queryParams, queryString: _searchTerm } })
       }
     }
+    const updateSelectFromVariation = (entry: PrerequisiteEntry): void => {
+      setSearchTerm(entry.feature)
+      fetchFlags({ queryParams: { ...queryParams, queryString: entry.feature } })
+    }
 
     return (
       <Dialog title={title} onClose={hideModalPrerequisites} isOpen={true}>
@@ -224,6 +228,11 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
                                         ]
                                       : [])
                                   }
+                                  selectProps={{
+                                    inputProps: {
+                                      onFocus: () => updateSelectFromVariation(elem)
+                                    }
+                                  }}
                                 />
                               </Layout.Horizontal>
                             )

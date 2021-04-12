@@ -16,7 +16,7 @@ exports[`Delegates Details Page render data 1`] = `
           href="/account/dummy/resources/delegates/delegateId"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          Resources
+          resources
         </a>
         <span>
           /
@@ -25,7 +25,7 @@ exports[`Delegates Details Page render data 1`] = `
           href="/account/dummy/resources/delegates/delegateId"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          Delegates
+          delegate.delegates
         </a>
         <span>
           /
@@ -155,7 +155,7 @@ exports[`Delegates Details Page render data 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               style="font-weight: 600;"
             >
-              Delegate size
+              delegate.delegateSizeLower
             </p>
             <span
               style="flex-grow: 1;"
@@ -164,7 +164,7 @@ exports[`Delegates Details Page render data 1`] = `
               class="StyledProps--font StyledProps--main"
               style="background: rgb(207, 180, 255); border-radius: 10px; color: rgb(77, 11, 143); text-align: center; padding: 3px 34px; font-weight: 600;"
             >
-              Large
+              delegate.delegateSizeLarge
             </p>
           </div>
           <div
@@ -187,7 +187,7 @@ exports[`Delegates Details Page render data 1`] = `
                 <span
                   style="width: 105px; display: inline-block;"
                 >
-                  Runs upto concurrent tasks
+                  delegate.delegateSizeUpto
                 </span>
               </p>
             </div>
@@ -205,7 +205,7 @@ exports[`Delegates Details Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main delegateMachineSpec"
                 >
-                  MEM
+                  delegate.delegateMEM
                    
                   <span>
                     16
@@ -217,7 +217,7 @@ exports[`Delegates Details Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main delegateMachineSpec"
                 >
-                  CPU
+                  delegate.delegateCPU
                    
                   <span>
                     4
@@ -226,7 +226,7 @@ exports[`Delegates Details Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main delegateMachineSpec"
                 >
-                  DISK
+                  delegate.delegateDISK
                    
                   <span>
                     15

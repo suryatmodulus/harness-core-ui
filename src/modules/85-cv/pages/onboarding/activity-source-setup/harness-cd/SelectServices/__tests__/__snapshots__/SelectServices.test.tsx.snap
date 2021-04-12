@@ -8,7 +8,7 @@ exports[`Select Services render services for application 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification Monitoring Source to your servcies.
+      cv.activitySources.harnessCD.service.infoText
     </p>
     <div
       class="StyledProps--font StyledProps--main filterComponent"
@@ -26,7 +26,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 28%;"
         >
-          HARNESS FIRSTGEN APPLICATION
+          cv.activitySources.harnessCD.harnessApps
         </div>
         <div
           class="cell"
@@ -34,7 +34,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 28%;"
         >
-          HARNESS FIRSTGEN SERVICES
+          cv.activitySources.harnessCD.service.harnessServices
         </div>
         <div
           class="cell"
@@ -42,7 +42,7 @@ exports[`Select Services render services for application 1`] = `
           role="columnheader"
           style="width: 44%;"
         >
-          HARNESS NEXTGEN SERVICES
+          cv.activitySources.harnessCD.service.services
         </div>
       </div>
       <div
@@ -157,7 +157,7 @@ exports[`Select Services render services for application 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Select or create a service"
+                      placeholder="cv.selectCreateService"
                       style="padding-right: 0px;"
                       type="text"
                       value=""
@@ -304,7 +304,7 @@ exports[`Select Services render services for application 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Select or create a service"
+                      placeholder="cv.selectCreateService"
                       style="padding-right: 0px;"
                       type="text"
                       value=""
@@ -502,7 +502,7 @@ exports[`Select Services render services for application 1`] = `
         <span
           class="bp3-button-text"
         >
-          Submit
+          submit
         </span>
         <span
           class="bp3-icon bp3-icon-chevron-right StyledProps--main"

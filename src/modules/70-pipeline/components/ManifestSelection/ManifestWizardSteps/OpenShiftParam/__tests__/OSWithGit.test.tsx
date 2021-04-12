@@ -8,6 +8,7 @@ const props = {
   expressions: [],
   initialValues: {
     identifier: 'test',
+
     branch: 'master',
     commitId: 'test-commit',
     gitFetchType: 'Branch',
@@ -16,6 +17,7 @@ const props = {
     repoName: 'repo-test'
   },
   prevStepData: {
+    connectorRef: 'connectorRef',
     store: 'Git'
   },
   handleSubmit: jest.fn()
@@ -52,10 +54,10 @@ describe('Open shift params with git tests', () => {
               spec: {
                 branch: 'testBranch',
                 commitId: undefined,
-                connectorRef: '',
+                connectorRef: undefined,
                 gitFetchType: 'Branch',
                 paths: [],
-                repoName: ''
+                repoName: undefined
               },
               type: 'Git'
             }
@@ -63,5 +65,39 @@ describe('Open shift params with git tests', () => {
         }
       })
     })
+  })
+
+  test('renders form in edit mode', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              branch: 'testBranch',
+              commitId: undefined,
+              connectorRef: '',
+              gitFetchType: 'Branch',
+              paths: [],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
   })
 })

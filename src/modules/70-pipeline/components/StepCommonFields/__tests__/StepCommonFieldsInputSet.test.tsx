@@ -42,9 +42,15 @@ describe('<StepCommonFieldsInputSet /> tests', () => {
   })
   test('Readonly mode works', () => {
     const { container } = render(<TestComponent template={template} readonly />)
-    expect((getByPlaceholderText(container, '128Mi') as HTMLInputElement).disabled).toBeTruthy()
-    expect((getByPlaceholderText(container, '0.2') as HTMLInputElement).disabled).toBeTruthy()
-    expect((getByPlaceholderText(container, '120s') as HTMLInputElement).disabled).toBeTruthy()
+    expect(
+      (getByPlaceholderText(container, 'pipelineSteps.limitMemoryPlaceholder') as HTMLInputElement).disabled
+    ).toBeTruthy()
+    expect(
+      (getByPlaceholderText(container, 'pipelineSteps.limitCPUPlaceholder') as HTMLInputElement).disabled
+    ).toBeTruthy()
+    expect(
+      (getByPlaceholderText(container, 'pipelineSteps.timeoutPlaceholder') as HTMLInputElement).disabled
+    ).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

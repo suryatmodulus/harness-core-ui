@@ -23,13 +23,13 @@ exports[`Sidenav render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small"
             >
-              Project
+              projectLabel
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
               style="--text-line-clamp: 1; width: 100px;"
             >
-              Select a Project
+              selectProject
             </p>
           </div>
         </span>
@@ -76,7 +76,7 @@ exports[`Sidenav render 1`] = `
       class="pickProjectHelp"
       style="background-image: url(test-file-stub);"
     >
-      Pick a project and drill down to see your information.
+      pickProject
     </div>
     <a
       class="link"

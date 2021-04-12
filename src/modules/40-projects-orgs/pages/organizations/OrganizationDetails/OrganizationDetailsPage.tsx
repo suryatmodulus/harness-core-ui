@@ -9,8 +9,6 @@ import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useColl
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { PageError } from '@common/components/Page/PageError'
-import { PageSpinner } from '@common/components'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
@@ -27,9 +25,10 @@ const OrganizationDetailsPage: React.FC = () => {
   const { openCollaboratorModal } = useCollaboratorModal()
   useDocumentTitle([getString('orgsText'), organization?.name || ''])
 
-  if (loading) return <PageSpinner />
-  if (error) return <PageError message={error.message} onClick={() => refetch()} />
-  if (!organization) return <></>
+  /* istanbul ignore next */ if (loading) return <Page.Spinner />
+  /* istanbul ignore next */ if (error)
+    return <Page.Error message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  /* istanbul ignore next */ if (!organization) return <></>
 
   return (
     <>
@@ -61,7 +60,11 @@ const OrganizationDetailsPage: React.FC = () => {
               <Icon name="nav-project-selected" size={30}></Icon>
               <Text font="medium">{data?.data?.projectsCount}</Text>
             </Layout.Horizontal>
-            <Link to={`${routes.toProjects({ accountId })}?orgId=${orgIdentifier}`}>
+            <Link
+              to={`${routes.toProjects({
+                accountId
+              })}?orgId=${orgIdentifier}`}
+            >
               <Text>{i18n.viewProjects}</Text>
             </Link>
           </Layout.Vertical>
@@ -75,6 +78,7 @@ const OrganizationDetailsPage: React.FC = () => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall">{i18n.admin}</Text>
             </Layout.Vertical>
@@ -85,6 +89,7 @@ const OrganizationDetailsPage: React.FC = () => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
+                restrictLengthTo={6}
               />
               <Text font="xsmall">{i18n.collaborators}</Text>
             </Layout.Vertical>

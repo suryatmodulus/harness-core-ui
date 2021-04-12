@@ -74,7 +74,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
 
   const path = options.path || ''
 
-  const isInComplete = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
+  // const isInComplete = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
 
   const _errorList = Array.from(errorMap).filter(item => {
     return item[0].indexOf(path) > -1
@@ -228,7 +228,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           />
         )}
 
-        {isInComplete && (
+        {options.isInComplete && (
           <span className={css.inComplete}>
             <Tooltip
               content={

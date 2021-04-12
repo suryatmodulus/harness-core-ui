@@ -27,7 +27,7 @@ export interface NewSegmentButtonProps {
   orgIdentifier: string
   projectIdentifier: string
   environmentIdentifier?: string
-  onCreated: () => void
+  onCreated: (segmentIdentifier: string) => void
 }
 
 export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
@@ -50,8 +50,10 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
       environment: environmentIdentifier as string,
       project: projectIdentifier
     })
-      .then(hideModal)
-      .then(onCreated)
+      .then(() => {
+        hideModal()
+        onCreated(values.identifier)
+      })
       .catch(e => {
         showError(getErrorMessage(e), 0)
       })

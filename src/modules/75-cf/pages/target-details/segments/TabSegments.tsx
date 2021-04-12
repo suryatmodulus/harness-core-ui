@@ -9,7 +9,7 @@ import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/exports'
 import { useAddTargetsToExcludeList, useAddTargetsToIncludeList } from '@cf/utils/SegmentUtils'
 import { Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
-import { SegmentItem } from './SegmentItem'
+import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
 import { IncludeSegmentRow } from './IncludeSegmentRow'
 import { ExcludeSegmentRow } from './ExcludeSegmentRow'
 
@@ -125,7 +125,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
           <Layout.Vertical spacing="small">
             {data.ruleSegments.map(segment => {
               const { identifier, name, description } = segment as TargetDetailSegment & { description: string }
-              return <SegmentItem key={identifier} name={name as string} description={description} />
+              return <ItemBriefInfo key={identifier} name={name as string} description={description} />
             })}
           </Layout.Vertical>
         )) || <NoDataFoundRow message={getString('cf.targetDetail.noSegmentMatched')} />}

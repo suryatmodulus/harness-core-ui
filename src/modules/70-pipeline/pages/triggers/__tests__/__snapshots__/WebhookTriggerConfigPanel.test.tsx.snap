@@ -15,7 +15,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            Trigger Configuration: On New Webhook
+            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -79,7 +79,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -109,7 +109,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -140,7 +140,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -169,7 +169,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              Listen on New Webhook
+              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -182,7 +182,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  Payload Type
+                  pipeline-triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -207,7 +207,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Custom"
+                          value="repo-provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -261,7 +261,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            Trigger Configuration: On New Webhook
+            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -325,7 +325,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -355,7 +355,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -386,7 +386,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -415,7 +415,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              Listen on New Webhook
+              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -428,7 +428,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  Payload Type
+                  pipeline-triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -453,7 +453,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Custom"
+                          value="repo-provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -507,7 +507,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="bp3-control-indicator"
                         />
-                        Secure Token
+                        secureToken
                       </label>
                     </div>
                   </div>
@@ -540,7 +540,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            Trigger Configuration
+            pipeline-triggers.triggerConfigurationLabel
           </h2>
           <div>
             <div
@@ -583,7 +583,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -613,7 +613,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -644,7 +644,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -673,7 +673,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              Listen on New Webhook
+              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -686,7 +686,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  Payload Type
+                  pipeline-triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -711,7 +711,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Custom"
+                          value="repo-provider.customLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -766,7 +766,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="bp3-control-indicator"
                         />
-                        Secure Token
+                        secureToken
                       </label>
                     </div>
                   </div>
@@ -827,7 +827,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                 >
-                  When the existing secure token is regenerated or removed and the trigger is saved, the existing webhook configured in third party tools will be invalid. You will need to navigate to them and update the webhook.
+                  pipeline-triggers.triggerConfigurationPanel.secureTokenRegenerateWarning
                 </p>
               </div>
             </section>
@@ -854,7 +854,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            Trigger Configuration: On New Webhook
+            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -918,7 +918,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    name
                      
                     <span
                       class="bp3-text-muted"
@@ -948,7 +948,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Description (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -979,7 +979,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="Label--main"
                   style="font-size: 13px;"
                 >
-                  Tags (optional)
+                  optionalField
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                     data-name="edit"
@@ -1008,7 +1008,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              Listen on New Webhook
+              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -1021,7 +1021,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  Payload Type
+                  pipeline-triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -1046,7 +1046,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="GitHub"
+                          value="repo-provider.githubLabel"
                         />
                         <span
                           class="bp3-input-action"
@@ -1084,7 +1084,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   <label
                     class="bp3-label"
                   >
-                    Connector
+                    connector
                      
                     <span
                       class="bp3-text-muted"
@@ -1104,7 +1104,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="placeholder"
                         >
-                          Select
+                          select
                         </span>
                       </span>
                       <span
@@ -1133,7 +1133,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                   style="cursor: pointer; width: 70px;"
                 >
-                  + Add
+                  plusAdd
                 </p>
               </section>
               <div
@@ -1144,7 +1144,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="event"
                 >
-                  Event
+                  pipeline-triggers.triggerConfigurationPanel.event
                    
                   <span
                     class="bp3-text-muted"

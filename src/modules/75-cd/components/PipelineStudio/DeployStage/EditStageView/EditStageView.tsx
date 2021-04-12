@@ -46,6 +46,7 @@ export interface EditStageView {
   onSubmit?: (values: StageElementWrapper, identifier: string) => void
   onChange?: (values: StageElementWrapper) => void
   context?: string
+  isReadonly: boolean
 }
 
 export const EditStageView: React.FC<EditStageView> = ({
@@ -53,6 +54,7 @@ export const EditStageView: React.FC<EditStageView> = ({
   onSubmit,
   context,
   onChange,
+  isReadonly,
   children
 }): JSX.Element => {
   const {
@@ -184,16 +186,22 @@ export const EditStageView: React.FC<EditStageView> = ({
                           <NameIdDescriptionTags
                             formikProps={formikProps}
                             identifierProps={{
-                              isIdentifierEditable: !context
+                              isIdentifierEditable: !context,
+                              inputGroupProps: { disabled: isReadonly }
                             }}
+                            descriptionProps={{ disabled: isReadonly }}
+                            tagsProps={{ disabled: isReadonly }}
                           />
                         </Card>
                       ) : (
                         <NameIdDescriptionTags
                           formikProps={formikProps}
                           identifierProps={{
-                            isIdentifierEditable: !context
+                            isIdentifierEditable: !context && !isReadonly,
+                            inputGroupProps: { disabled: isReadonly }
                           }}
+                          descriptionProps={{ disabled: isReadonly }}
+                          tagsProps={{ disabled: isReadonly }}
                         />
                       )}
 
@@ -275,6 +283,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                           variables: ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                           canAddVariable: true
                         }}
+                        readonly={isReadonly}
                         type={StepType.CustomVariable}
                         stepViewType={StepViewType.StageVariable}
                         onUpdate={({ variables }: CustomVariablesData) => {
@@ -318,6 +327,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                           items={expressions}
                           name="skipCondition"
                           value={data?.stage.skipCondition}
+                          inputProps={{ disabled: isReadonly }}
                           onChange={str => {
                             onChange?.({ ...data?.stage, skipCondition: str } as any)
                           }}

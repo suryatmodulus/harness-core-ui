@@ -100,7 +100,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -194,7 +194,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -282,7 +282,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -376,7 +376,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -460,7 +460,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -549,7 +549,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -643,7 +643,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -727,7 +727,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>
@@ -821,7 +821,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
           <div
             class="snippetVersion"
           >
-            Version
+            version
              
             0.1
           </div>

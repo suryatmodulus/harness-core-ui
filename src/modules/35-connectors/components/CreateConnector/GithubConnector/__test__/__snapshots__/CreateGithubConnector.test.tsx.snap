@@ -29,7 +29,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -43,7 +43,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -64,7 +64,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -79,7 +79,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -94,7 +94,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -109,7 +109,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -123,7 +123,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -200,7 +200,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -223,7 +223,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            Connector name is a required field
+                            validation.connectorName
                           </div>
                         </div>
                       </div>
@@ -235,7 +235,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -266,7 +266,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -303,7 +303,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -366,7 +366,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -398,7 +398,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -419,7 +419,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -434,7 +434,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -449,7 +449,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -464,7 +464,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -478,7 +478,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -497,7 +497,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -519,7 +519,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -532,7 +532,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -540,7 +540,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -588,7 +588,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      GitHub Account URL
+                      connectors.git.gitHubAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -604,7 +604,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="https://www.github.com/account/"
+                          placeholder="connectors.git.gitHubUrlPlaceholder"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -642,7 +642,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -653,7 +653,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -716,7 +716,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -748,7 +748,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -787,7 +787,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -802,7 +802,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -817,7 +817,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -832,7 +832,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -847,7 +847,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -869,7 +869,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -894,7 +894,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -939,7 +939,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -964,7 +964,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -1018,7 +1018,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Username is a required field
+                        validation.username
                       </div>
                     </div>
                   </div>
@@ -1035,54 +1035,53 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
-                          data-testid="password"
-                          type="button"
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                         >
-                          <span
-                            class="bp3-button-text"
+                          <a
+                            class="containerLink"
+                            data-testid="password"
+                            href="/account/dummy/resources/connectors"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
                             >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                              <svg
+                                height="24"
+                                width="24"
                               >
-                                <svg
-                                  height="24"
-                                  width="24"
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                Create or Select a Secret
-                              </span>
-                            </div>
-                          </span>
-                        </button>
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </a>
+                        </div>
                       </div>
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Password is a required field
+                        validation.password
                       </div>
                     </div>
                   </div>
@@ -1104,7 +1103,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1139,7 +1138,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1149,7 +1148,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1210,7 +1209,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1242,7 +1241,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1263,7 +1262,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1278,7 +1277,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1293,7 +1292,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1308,7 +1307,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1322,7 +1321,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
         <div
           class="heading"
         >
-          Details
+          details
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1341,7 +1340,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    URL Type
+                    connectors.git.urlType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1363,7 +1362,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Account
+                          account
                         </label>
                         <label
                           class="bp3-control bp3-radio bp3-inline Radio--radio"
@@ -1376,7 +1375,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           <span
                             class="bp3-control-indicator"
                           />
-                          Repository
+                          repository
                         </label>
                       </div>
                     </div>
@@ -1384,7 +1383,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    Connection Type
+                    connectors.git.connectionType
                   </p>
                   <div
                     class="bp3-form-group"
@@ -1432,7 +1431,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      GitHub Account URL
+                      connectors.git.gitHubAccountUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1448,7 +1447,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           autocomplete="off"
                           class="bp3-input"
                           name="url"
-                          placeholder="git@github.com:account/"
+                          placeholder="connectors.git.gitHubUrlPlaceholderSSH"
                           type="text"
                           value="githubTestUrl"
                         />
@@ -1486,7 +1485,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                     <span
                       class="bp3-button-text"
                     >
-                      Back
+                      back
                     </span>
                   </button>
                   <button
@@ -1497,7 +1496,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1560,7 +1559,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1592,7 +1591,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1631,7 +1630,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1646,7 +1645,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1661,7 +1660,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1676,7 +1675,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1691,7 +1690,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1710,7 +1709,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                   <p
                     class="StyledProps--font StyledProps--main authTitle StyledProps--font-weight-bold"
                   >
-                    Authentication
+                    connectors.authTitle
                   </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
@@ -1725,54 +1724,53 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                         <label
                           class="bp3-label"
                         >
-                          SSH Key
+                          SSH_KEY
                         </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
-                          data-testid="sshKey"
-                          type="button"
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                         >
-                          <span
-                            class="bp3-button-text"
+                          <a
+                            class="containerLink"
+                            data-testid="sshKey"
+                            href="/account/dummy/resources/connectors"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
                             >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                              <svg
+                                height="24"
+                                width="24"
                               >
-                                <svg
-                                  height="24"
-                                  width="24"
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <span>
-                                Create or Select a Secret
-                              </span>
-                            </div>
-                          </span>
-                        </button>
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
+                          </a>
+                        </div>
                       </div>
                       <div
                         class="bp3-form-helper-text"
                       >
-                        SSH key is required
+                        validation.sshKey
                       </div>
                     </div>
                   </div>
@@ -1794,7 +1792,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -1829,7 +1827,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1839,7 +1837,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1900,7 +1898,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -1914,7 +1912,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1935,7 +1933,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1950,7 +1948,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -1965,7 +1963,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1980,7 +1978,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1994,7 +1992,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -2052,7 +2050,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -2083,7 +2081,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -2109,7 +2107,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -2146,7 +2144,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -2209,7 +2207,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2241,7 +2239,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2280,7 +2278,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2295,7 +2293,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2310,7 +2308,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2325,7 +2323,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2340,7 +2338,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2362,7 +2360,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2387,7 +2385,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Password"
+                                value="usernamePassword"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2432,7 +2430,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2457,7 +2455,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -2523,49 +2521,80 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
-                          data-testid="password"
-                          type="button"
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                         >
-                          <span
-                            class="bp3-button-text"
+                          <a
+                            class="containerLink"
+                            data-testid="password"
+                            href="/account/dummy/resources/connectors"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;githubPassword&gt;
+                              </div>
+                            </p>
+                          </a>
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                            data-testid="password-edit"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                icon="edit"
                               >
                                 <svg
-                                  height="24"
-                                  width="24"
+                                  data-icon="edit"
+                                  height="16"
+                                  viewBox="0 0 16 16"
+                                  width="16"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
                                 </svg>
                               </span>
-                              <span>
-                                githubPassword
-                              </span>
-                            </div>
-                          </span>
-                        </button>
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2587,7 +2616,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
@@ -2622,7 +2651,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -2632,7 +2661,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2693,7 +2722,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2725,7 +2754,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2764,7 +2793,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2779,7 +2808,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -2794,7 +2823,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2809,7 +2838,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2824,7 +2853,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2846,7 +2875,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -2871,7 +2900,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Token"
+                                value="usernameToken"
                               />
                               <span
                                 class="bp3-input-action"
@@ -2916,7 +2945,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2941,7 +2970,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -3007,7 +3036,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3044,7 +3073,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -3103,14 +3132,14 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                  connectors.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -3119,7 +3148,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    API Authentication
+                    connectors.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -3144,7 +3173,754 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Personal Access Token"
+                              value="connectors.git.gitHubApp"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main formRow"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="installationId-7"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="installationId"
+                      >
+                        connectors.git.installationId
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="installationId"
+                            type="text"
+                            value="1234"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="applicationId-8"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="applicationId"
+                      >
+                        connectors.git.applicationId
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="applicationId"
+                            type="text"
+                            value="1234"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main formRow"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="null-9"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="Layout--vertical StyledProps--main"
+                        >
+                          <label
+                            class="bp3-label"
+                          >
+                            connectors.git.privateKey
+                          </label>
+                          <div
+                            class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          >
+                            <a
+                              class="containerLink"
+                              data-testid="privateKey"
+                              href="/account/dummy/resources/connectors"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;githubPassword&gt;
+                                </div>
+                              </p>
+                            </a>
+                            <button
+                              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                              data-testid="privateKey-edit"
+                              type="button"
+                            >
+                              <span
+                                class="bp3-button-text"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                  icon="edit"
+                                >
+                                  <svg
+                                    data-icon="edit"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    width="16"
+                                  >
+                                    <desc>
+                                      edit
+                                    </desc>
+                                    <path
+                                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+              >
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  data-name="githubBackButton"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                    icon="chevron-left"
+                  >
+                    <svg
+                      data-icon="chevron-left"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-left
+                      </desc>
+                      <path
+                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    back
+                  </span>
+                </button>
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    saveAndContinue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create Github connector Wizard should form for edit http and authtype username-token with API access 2`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-black"
+          data-icon="github"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 24 24"
+            width="37"
+          >
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        connectors.title.githubConnector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          details
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          credentials
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          delegate.DelegateselectionLabel
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.stepThreeName
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        >
+          credentials
+        </p>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main stepFormWrapper"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 52%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main authHeaderRow"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      connectors.authTitle
+                    </span>
+                    <div
+                      class="bp3-form-group"
+                      data-id="authType-0"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-popover-wrapper Select--main bp3-fill"
+                        >
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="authType"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value="usernameToken"
+                              />
+                              <span
+                                class="bp3-input-action"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="usernamefieldType-1"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <div
+                          class="label"
+                        >
+                          <label>
+                            username
+                          </label>
+                          <div
+                            class="bp3-form-group labelSelect"
+                            data-id="usernamefieldType-2"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-popover-wrapper Select--main bp3-fill"
+                              >
+                                <div
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-input-group"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="usernamefieldType"
+                                      placeholder="Search..."
+                                      style="padding-right: 0px;"
+                                      type="text"
+                                      value="plaintext"
+                                    />
+                                    <span
+                                      class="bp3-input-action"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                        icon="caret-down"
+                                      >
+                                        <svg
+                                          data-icon="caret-down"
+                                          height="14"
+                                          viewBox="0 0 16 16"
+                                          width="14"
+                                        >
+                                          <desc>
+                                            caret-down
+                                          </desc>
+                                          <path
+                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group textCss"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="usernametextField"
+                                type="text"
+                                value="dev"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="null-4"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main"
+                      >
+                        <label
+                          class="bp3-label"
+                        >
+                          connectors.git.accessToken
+                        </label>
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                        >
+                          <a
+                            class="containerLink"
+                            data-testid="accessToken"
+                            href="/account/dummy/resources/connectors"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;githubPassword&gt;
+                              </div>
+                            </p>
+                          </a>
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                            data-testid="accessToken-edit"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                icon="edit"
+                              >
+                                <svg
+                                  data-icon="edit"
+                                  height="16"
+                                  viewBox="0 0 16 16"
+                                  width="16"
+                                >
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="enableAPIAccess-5"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                    >
+                      <input
+                        checked=""
+                        name="enableAPIAccess"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      connectors.git.enableAPIAccess
+                    </label>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
+                >
+                  connectors.git.APIAccessDescriptipn
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main authHeaderRow"
+                  style="width: 52%;"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  >
+                    connectors.git.APIAuthentication
+                  </span>
+                  <div
+                    class="bp3-form-group"
+                    data-id="apiAuthType-6"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="apiAuthType"
+                              placeholder="Search..."
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="connectors.git.accessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -3192,7 +3968,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3229,7 +4005,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -3302,7 +4078,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3312,7 +4088,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -3344,7 +4120,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
 </div>
 `;
 
-exports[`Create Github connector Wizard should form for edit http and authtype username-token with API access 2`] = `
+exports[`Create Github connector Wizard should form for edit http and authtype username-token with API access 3`] = `
 <div>
   <div
     class="StepWizard--main StepWizard--navBar"
@@ -3373,7 +4149,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
       <span
         class="StepWizard--title StepWizard--header"
       >
-        GitHub Connector
+        connectors.title.githubConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -3405,7 +4181,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3444,7 +4220,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -3459,7 +4235,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -3474,7 +4250,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate (Optional)
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -3489,7 +4265,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -3504,7 +4280,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Credentials
+          credentials
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -3526,7 +4302,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                     <span
                       class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                     >
-                      Authentication
+                      connectors.authTitle
                     </span>
                     <div
                       class="bp3-form-group"
@@ -3551,7 +4327,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 placeholder="Search..."
                                 style="padding-right: 0px;"
                                 type="text"
-                                value="Username and Token"
+                                value="usernameToken"
                               />
                               <span
                                 class="bp3-input-action"
@@ -3596,7 +4372,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -3621,7 +4397,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -3687,49 +4463,80 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
-                          data-testid="accessToken"
-                          type="button"
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                         >
-                          <span
-                            class="bp3-button-text"
+                          <a
+                            class="containerLink"
+                            data-testid="accessToken"
+                            href="/account/dummy/resources/connectors"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;githubPassword&gt;
+                              </div>
+                            </p>
+                          </a>
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                            data-testid="accessToken-edit"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                icon="edit"
                               >
                                 <svg
-                                  height="24"
-                                  width="24"
+                                  data-icon="edit"
+                                  height="16"
+                                  viewBox="0 0 16 16"
+                                  width="16"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
                                 </svg>
                               </span>
-                              <span>
-                                githubPassword
-                              </span>
-                            </div>
-                          </span>
-                        </button>
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -3752,14 +4559,14 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      Enable API access
+                      connectors.git.enableAPIAccess
                     </label>
                   </div>
                 </div>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-bottom-small"
                 >
-                  API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses
+                  connectors.git.APIAccessDescriptipn
                 </p>
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
@@ -3768,7 +4575,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    API Authentication
+                    connectors.git.APIAuthentication
                   </span>
                   <div
                     class="bp3-form-group"
@@ -3793,7 +4600,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Personal Access Token"
+                              value="connectors.git.accessToken"
                             />
                             <span
                               class="bp3-input-action"
@@ -3841,49 +4648,80 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         <label
                           class="bp3-label"
                         >
-                          Personal Access Token
+                          connectors.git.accessToken
                         </label>
-                        <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main inputButton"
-                          data-testid="apiAccessToken"
-                          type="button"
+                        <div
+                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                         >
-                          <span
-                            class="bp3-button-text"
+                          <a
+                            class="containerLink"
+                            data-testid="apiAccessToken"
+                            href="/account/dummy/resources/connectors"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                              style="align-items: center; width: 100%;"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;githubPassword&gt;
+                              </div>
+                            </p>
+                          </a>
+                          <button
+                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                            data-testid="apiAccessToken-edit"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                icon="edit"
                               >
                                 <svg
-                                  height="24"
-                                  width="24"
+                                  data-icon="edit"
+                                  height="16"
+                                  viewBox="0 0 16 16"
+                                  width="16"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
                                 </svg>
                               </span>
-                              <span>
-                                githubPassword
-                              </span>
-                            </div>
-                          </span>
-                        </button>
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -3920,7 +4758,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3930,7 +4768,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

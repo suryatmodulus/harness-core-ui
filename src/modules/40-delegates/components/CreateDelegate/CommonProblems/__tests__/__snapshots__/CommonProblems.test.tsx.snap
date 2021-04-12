@@ -35,7 +35,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold"
         style="line-height: 22px;"
       >
-        Here is what you can do
+        delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo
       </p>
     </div>
     <div
@@ -45,13 +45,13 @@ exports[`Create Common Problems Tab render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
       >
-        Check the status of your delegate on your cluster
+        delegate.delegateNotInstalled.statusOfCluster
       </p>
       <a
         href="/"
         style="text-align: end; font-size: 13px;"
       >
-        Troubleshoot
+        delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot
       </a>
       <div
         class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
@@ -60,7 +60,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-right: 24px;"
         >
-          kubectl describe pod &lt;your-delegate-pod&gt; -n harness-delegate
+          delegate.delegateNotInstalled.podCommand
         </p>
         <span
           class="bp3-popover-wrapper"
@@ -107,13 +107,13 @@ exports[`Create Common Problems Tab render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
       >
-        Check the Delegate Logs
+        delegate.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs
       </p>
       <a
         href="/"
         style="text-align: end; font-size: 13px;"
       >
-        Troubleshoot
+        delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot
       </a>
       <div
         class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
@@ -122,7 +122,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-right: 24px;"
         >
-          kubectl logs -f &lt;harness-delegate&gt; -n harness-delegate
+          delegate.delegateNotInstalled.verifyField2
         </p>
         <span
           class="bp3-popover-wrapper"
@@ -170,7 +170,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey700"
         style="line-height: 24px; --text-line-clamp: 3;"
       >
-        If the pod is not up, in your cluster you see the delegate pod in a CrashLoopBackOff:Kubernetes CLuster Resources are not available. Check the Kubernetes Cluster Resources (CPU, Memory)
+        delegate.delegateNotInstalled.tabs.commonProblems.description1
       </p>
     </div>
     <div
@@ -180,13 +180,13 @@ exports[`Create Common Problems Tab render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
       >
-        If the Delegate didn’t reach a healthy state
+        delegate.delegateNotInstalled.tabs.commonProblems.description2
       </p>
       <a
         href="/"
         style="text-align: end; font-size: 13px;"
       >
-        Troubleshoot
+        delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot
       </a>
       <div
         class="StyledProps--font StyledProps--main verificationField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
@@ -195,7 +195,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-right: 24px;"
         >
-          kubectl describe pod_name -n harness-delegate
+          delegate.delegateNotInstalled.verifyField3
         </p>
         <span
           class="bp3-popover-wrapper"
@@ -243,7 +243,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey700"
         style="line-height: 24px; --text-line-clamp: 2;"
       >
-        Check the Health Check Endpoint in the Delegate. Search YAML for healthCheckEndpoint
+        delegate.delegateNotInstalled.tabs.commonProblems.checkEndPoint
       </p>
     </div>
   </div>

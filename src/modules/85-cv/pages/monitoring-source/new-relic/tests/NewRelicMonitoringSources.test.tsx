@@ -55,7 +55,7 @@ describe('Unit tests for NewRelicMonitoringSources', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('.bp3-tabs')).not.toBeNull())
-    expect(getAllByText('Define your Monitoring Source').length).toBe(2)
+    expect(getAllByText('cv.onboarding.monitoringSources.defineMonitoringSource').length).toBe(2)
   })
 
   test('Ensure edit flow is handled', async () => {
@@ -68,10 +68,10 @@ describe('Unit tests for NewRelicMonitoringSources', () => {
       })
     ).toEqual({
       accountId: '1234_accountId',
-      identifier: 'MyNewRelicSource1234_org-1234_project',
+      identifier: 'NewRelic',
       isEdit: false,
       mappedServicesAndEnvs: new Map(),
-      monitoringSourceName: 'MyNewRelicSource1234_org-1234_project',
+      monitoringSourceName: 'NewRelic',
       orgIdentifier: '1234_org',
       productName: 'apm',
       projectIdentifier: '1234_project',

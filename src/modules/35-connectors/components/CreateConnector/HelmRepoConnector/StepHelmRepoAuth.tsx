@@ -14,19 +14,8 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import {
-  buildHelmPayload,
-  SecretReferenceInterface,
-  setupDockerFormData
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from '@common/exports'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO
-} from 'services/cd-ng'
+import { SecretReferenceInterface, setupDockerFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
@@ -67,13 +56,11 @@ const defaultInitialFormData: HelmFormInterface = {
 
 const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps> & AuthenticationProps> = props => {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
-  const { prevStepData, nextStep, accountId, projectIdentifier, orgIdentifier } = props
 
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { prevStepData, nextStep, accountId } = props
+
+  const [, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [loadConnector] = useState(false)
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
@@ -87,37 +74,6 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
       value: AuthTypes.ANNONYMOUS
     }
   ]
-
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepHelmRepoAuthenticationProps)
-      props?.onConnectorCreated?.(response.data)
-      props.setIsEditMode(true)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as StepHelmRepoAuthenticationProps)
-      props?.onConnectorCreated?.(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
 
   useEffect(() => {
     if (loadingConnectorSecrets) {
@@ -162,18 +118,19 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
           })
         })}
         onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildHelmPayload(connectorData)
-          if (props.isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
-          }
+          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData } as StepHelmRepoAuthenticationProps)
+          // const connectorData = {
+          //   ...prevStepData,
+          //   ...stepData,
+          //   projectIdentifier: projectIdentifier,
+          //   orgIdentifier: orgIdentifier
+          // }
+          // const data = buildHelmPayload(connectorData)
+          // if (props.isEditMode) {
+          //   handleUpdate(data, stepData)
+          // } else {
+          //   handleCreate(data, stepData)
+          // }
         }}
       >
         {formikProps => (

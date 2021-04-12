@@ -96,7 +96,7 @@ describe('Create Secret Manager Wizard', () => {
     })
 
     // match step 2
-    expect(getAllByText('HashiCorp Vault Details')[1]).toBeDefined()
+    expect(getAllByText('connectors.hashiCorpVault.stepTwoName')[1]).toBeDefined()
     fillAtForm([
       {
         container,

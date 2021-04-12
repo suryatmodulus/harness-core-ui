@@ -295,7 +295,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     <Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipelineSteps.paths')}</Text>
                   )
                 }}
-                style={{ marginBottom: 'var(--spacing-small)', height: '350' }}
+                style={{ marginBottom: 'var(--spacing-small)', height: '350', width: '400px' }}
               />
             </div>
 

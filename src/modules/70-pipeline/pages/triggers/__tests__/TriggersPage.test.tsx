@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
+import { render, waitFor, queryByText, fireEvent, queryAllByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { useStrings } from 'framework/exports'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -97,7 +97,7 @@ describe('TriggersPage Triggers tests', () => {
       }
       fireEvent.click(firstActionButton)
 
-      const editButton = queryByText(document.body, result.current.getString('edit'))
+      const editButton = queryAllByText(document.body, 'edit')[0]
 
       if (!editButton) {
         throw Error('No edit button')

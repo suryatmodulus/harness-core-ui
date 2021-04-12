@@ -1,0 +1,15 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  &.ciTrial {
+    width: 1100px;
+    height: 600px;
+    border-left: none !important;
+  }
+}
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}

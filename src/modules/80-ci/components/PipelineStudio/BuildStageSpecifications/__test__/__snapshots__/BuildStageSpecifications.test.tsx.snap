@@ -82,7 +82,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           class="tabHeading"
           id="stageDetails"
         >
-          Stage Details
+          stageDetails
         </div>
         <div
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -133,7 +133,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                       class="bp3-label"
                       for="name"
                     >
-                      Stage Name
+                      stageNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -149,7 +149,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
-                          placeholder="Enter your stage name"
+                          placeholder="pipelineSteps.build.stageSpecifications.stageNamePlaceholder"
                           type="text"
                           value="BuildStage"
                         />
@@ -167,7 +167,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                 <span
                   class="removeLink"
                 >
-                  remove
+                  removeLabel
                 </span>
                 <div
                   class="bp3-form-group"
@@ -176,7 +176,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                     class="bp3-label"
                     for="description"
                   >
-                    Description
+                    description
                      
                     <span
                       class="bp3-text-muted"
@@ -202,7 +202,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                 <span
                   class="bp3-control-indicator"
                 />
-                Clone Codebase
+                cloneCodebaseLabel
               </label>
             </div>
           </form>
@@ -211,7 +211,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           class="tabHeading"
           id="sharedPaths"
         >
-          Shared Paths
+          pipelineSteps.build.stageSpecifications.sharedPaths
         </div>
         <div
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -239,7 +239,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         class="StyledProps--font StyledProps--main"
                         style="display: flex; align-items: center;"
                       >
-                        Shared Paths
+                        pipelineSteps.build.stageSpecifications.sharedPaths
                         <span
                           class="bp3-popover-wrapper"
                         >
@@ -301,7 +301,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -405,7 +405,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         <span
                           class="bp3-button-text"
                         >
-                          + Add
+                          plusAdd
                         </span>
                       </button>
                     </div>
@@ -482,7 +482,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
               <div
                 class="Accordion--label"
               >
-                Skip Conditions
+                skipConditionsTitle
               </div>
               <div
                 class="Accordion--chevron"
@@ -514,7 +514,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           class="bp3-label"
                           for="skipCondition"
                         >
-                          If the JEXL condition evaluates to true, skip this stage
+                          skipConditionStageLabel
                            
                           <span
                             class="bp3-text-muted"
@@ -547,19 +547,14 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                         class="StyledProps--font StyledProps--main StyledProps--font-small"
                         style="white-space: break-spaces;"
                       >
-                        In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages.
-
-Examples:
-&lt;+steps.step1.output.result&gt; == “success”
-&lt;+environment.name&gt; != “QA”
-
+                        skipConditionText
                         <br />
                         <a
                           href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
                           rel="noreferrer"
                           target="_blank"
                         >
-                          Learn more
+                          learnMore
                         </a>
                       </p>
                     </div>
@@ -660,7 +655,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           class="tabHeading"
           id="stageDetails"
         >
-          Stage Details
+          stageDetails
         </div>
         <div
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -711,7 +706,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Stage Name
+                      stageNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -727,7 +722,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
-                          placeholder="Enter your stage name"
+                          placeholder="pipelineSteps.build.stageSpecifications.stageNamePlaceholder"
                           type="text"
                           value="BuildStage"
                         />
@@ -764,7 +759,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      description
+                      pipelineSteps.build.stageSpecifications.addDescription
                     </span>
                   </button>
                 </div>
@@ -779,7 +774,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Clone Codebase
+                cloneCodebaseLabel
               </label>
             </div>
           </form>
@@ -788,7 +783,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           class="tabHeading"
           id="sharedPaths"
         >
-          Shared Paths
+          pipelineSteps.build.stageSpecifications.sharedPaths
         </div>
         <div
           class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -816,7 +811,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         class="StyledProps--font StyledProps--main"
                         style="display: flex; align-items: center;"
                       >
-                        Shared Paths
+                        pipelineSteps.build.stageSpecifications.sharedPaths
                         <span
                           class="bp3-popover-wrapper"
                         >
@@ -878,7 +873,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -982,7 +977,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         <span
                           class="bp3-button-text"
                         >
-                          + Add
+                          plusAdd
                         </span>
                       </button>
                     </div>
@@ -1059,7 +1054,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
               <div
                 class="Accordion--label"
               >
-                Skip Conditions
+                skipConditionsTitle
               </div>
               <div
                 class="Accordion--chevron"
@@ -1091,7 +1086,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           class="bp3-label"
                           for="skipCondition"
                         >
-                          If the JEXL condition evaluates to true, skip this stage
+                          skipConditionStageLabel
                            
                           <span
                             class="bp3-text-muted"
@@ -1124,19 +1119,14 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                         class="StyledProps--font StyledProps--main StyledProps--font-small"
                         style="white-space: break-spaces;"
                       >
-                        In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages.
-
-Examples:
-&lt;+steps.step1.output.result&gt; == “success”
-&lt;+environment.name&gt; != “QA”
-
+                        skipConditionText
                         <br />
                         <a
                           href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
                           rel="noreferrer"
                           target="_blank"
                         >
-                          Learn more
+                          learnMore
                         </a>
                       </p>
                     </div>

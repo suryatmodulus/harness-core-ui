@@ -27,15 +27,11 @@ const UserGroupsPage: React.FC = () => {
   })
 
   const { openUserGroupModal } = useUserGroupModal({
-    onSuccess: () => {
-      refetch()
-    }
+    onSuccess: refetch
   })
 
   const { openRoleAssignmentModal } = useRoleAssignmentModal({
-    onSuccess: () => {
-      refetch()
-    }
+    onSuccess: refetch
   })
 
   return (
@@ -65,9 +61,7 @@ const UserGroupsPage: React.FC = () => {
       <Page.Body
         loading={loading}
         error={error?.message}
-        retryOnError={() => {
-          refetch()
-        }}
+        retryOnError={() => refetch()}
         noData={
           !searchTerm
             ? {
@@ -88,9 +82,7 @@ const UserGroupsPage: React.FC = () => {
           data={data}
           openRoleAssignmentModal={openRoleAssignmentModal}
           gotoPage={(pageNumber: number) => setPage(pageNumber)}
-          reload={async () => {
-            refetch()
-          }}
+          reload={refetch}
         />
       </Page.Body>
     </>

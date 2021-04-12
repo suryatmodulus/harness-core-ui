@@ -35,6 +35,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isUpdated: true
   },
   stagesMap: {},
+  isReadonly: false,
   renderPipelineStage: jest.fn(),
   fetchPipeline: jest.fn(),
   setYamlHandler: jest.fn(),

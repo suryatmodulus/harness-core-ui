@@ -41,7 +41,7 @@ describe('Git Sync - repo tab', () => {
     expect(addRepoBtn).toBeTruthy()
     fireEvent.click(addRepoBtn!)
     const addRepoModal = document.getElementsByClassName('bp3-dialog')[0]
-    await waitFor(() => findByText(addRepoModal as HTMLElement, 'Select your Git Provider'))
+    await waitFor(() => findByText(addRepoModal as HTMLElement, 'selectGitProvider'))
     expect(container).toMatchSnapshot()
   })
 })

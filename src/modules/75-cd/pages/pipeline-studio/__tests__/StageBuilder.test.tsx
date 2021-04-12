@@ -115,21 +115,21 @@ describe('Stage Builder Test', () => {
 
     // Select Deploy
     fireEvent.click(deployBtn as Element)
-    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
     fireEvent.change(stageName!, { target: { value: 'New Stage' } })
     await waitFor(() => getByTextBody(document.body, 'New_Stage'))
-    const setupStage = getByTextBody(document.body, 'Set Up Stage')
+    const setupStage = getByTextBody(document.body, 'pipelineSteps.build.create.setupStage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextBody(document.body, 'Specify your service'))
-    let next = getByTextContainer('Next')
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.serviceTab.specifyYourService'))
+    let next = getByTextContainer('next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextBody(document.body, 'Specify your environment'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.environmentTab.specifyYourEnvironment'))
     // Click Next to go to Execution Tab
-    next = getByTextContainer('Next')
+    next = getByTextContainer('next')
     fireEvent.click(next)
     await waitFor(() => expect(stageBuilder.querySelector('.bp3-tab-panel [icon="plus"]')).toBeDefined())
   }, 20000)
@@ -139,14 +139,14 @@ describe('Stage Builder Test', () => {
     // Select an Existing Stage
     const stage = getByTextContainer('asd')
     fireEvent.click(stage)
-    await waitFor(() => getByTextContainer('Specify your service'))
+    await waitFor(() => getByTextContainer('pipelineSteps.serviceTab.specifyYourService'))
 
-    let next = getByTextContainer('Next')
+    let next = getByTextContainer('next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextContainer('Specify your environment'))
+    await waitFor(() => getByTextContainer('pipelineSteps.environmentTab.specifyYourEnvironment'))
     // Click Next to go to Execution Tab
-    next = getByTextContainer('Next')
+    next = getByTextContainer('next')
     fireEvent.click(next)
     await waitFor(() => expect(stageBuilder.querySelector('.bp3-tab-panel [icon="plus"]')).toBeDefined())
     // Click New Step
@@ -206,17 +206,17 @@ describe('Stage Builder Test', () => {
     const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
     // Select Deploy
     fireEvent.click(deployBtn as Element)
-    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Enter Stage Name
     fireEvent.change(stageName!, { target: { value: 'New Stage 1' } })
     await waitFor(() => expect(getByTextBody(document.body, 'New_Stage_1')).toBeDefined())
-    const setupStage = getByTextBody(document.body, 'Set Up Stage')
+    const setupStage = getByTextBody(document.body, 'pipelineSteps.build.create.setupStage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextBody(document.body, 'Specify your service'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.serviceTab.specifyYourService'))
     // Click Next to go to Execution Tab
-    const executionTab = getByTextContainer('Execution')
+    const executionTab = getByTextContainer('executionText')
     fireEvent.click(executionTab)
     // await waitFor(() => expect(getByTextBody(document.body, 'Execution Strategy')).toBeDefined())
     // Select Execution Strategy
@@ -231,26 +231,28 @@ describe('Stage Builder Test', () => {
     const deployBtn = await waitFor(() => getByTestId(document.body, 'stage-Deployment'))
     // Select Deploy
     fireEvent.click(deployBtn as Element)
-    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage'))
     const stageName = document.body.querySelector('[name="name"]')
     // Give duplicate stage name and check for error message
     fireEvent.change(stageName!, { target: { value: 'New Stage' } })
     await waitFor(() => expect(getByTextBody(document.body, 'New_Stage')).toBeDefined())
-    const setupStage = getByTextBody(document.body, 'Set Up Stage')
+    const setupStage = getByTextBody(document.body, 'pipelineSteps.build.create.setupStage')
     // Click Setup
     fireEvent.click(setupStage)
     // Dialog box should still be open
-    expect(getByTextBody(document.body, 'About Your Stage')).toBeDefined()
-    await waitFor(() => expect(getByTextBody(document.body, 'Stage with same identifier already exists')).toBeDefined())
+    expect(getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage')).toBeDefined()
+    await waitFor(() => expect(getByTextBody(document.body, 'validation.identifierDuplicate')).toBeDefined())
 
     // Give empty stage name and check for error message
     fireEvent.click(createNewBtn as HTMLElement)
     fireEvent.click(deployBtn as Element)
-    await waitFor(() => getByTextBody(document.body, 'About Your Stage'))
+    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage'))
     fireEvent.change(stageName!, { target: { value: '' } })
     fireEvent.click(setupStage)
     // Dialog box should still be open
-    expect(getByTextBody(document.body, 'About Your Stage')).toBeDefined()
-    await waitFor(() => expect(getByTextBody(document.body, 'Stage Name is required')).toBeDefined())
+    expect(getByTextBody(document.body, 'pipelineSteps.build.create.aboutYourStage')).toBeDefined()
+    await waitFor(() =>
+      expect(getByTextBody(document.body, 'pipelineSteps.build.create.stageNameRequiredError')).toBeDefined()
+    )
   }, 20000)
 })

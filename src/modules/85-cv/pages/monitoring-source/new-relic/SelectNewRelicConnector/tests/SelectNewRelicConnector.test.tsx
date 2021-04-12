@@ -19,8 +19,10 @@ describe('Unit test for SelectNewRelic Connector', () => {
     const { container, getByText } = render(<WrapperComponent />)
     await waitFor(() => expect(container.querySelector('[class*="defineMonitoringSource"]')).not.toBeNull())
 
-    fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Connector Selection is required.')).not.toBeNull())
-    expect(getByText('Name is required.')).not.toBeNull()
+    fireEvent.click(getByText('next'))
+    await waitFor(() =>
+      expect(getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')).not.toBeNull()
+    )
+    expect(getByText('cv.onboarding.selectProductScreen.validationText.name')).not.toBeNull()
   })
 })

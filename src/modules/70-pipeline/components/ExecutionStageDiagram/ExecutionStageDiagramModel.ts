@@ -287,7 +287,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     } /* istanbul ignore else */ else if (node.group) {
       /* istanbul ignore else */ if (!groupStage.get(node.group.identifier)?.collapsed) {
         this.clearAllLinksForNodeAndNode(node.group.identifier)
-
+        this.activeNodeLayer.removeModel(node.group.identifier)
         let depthY = calculateDepth(node, groupStage, 0, SPACE_AFTER_GROUP)
         const headerDepth = calculateGroupHeaderDepth(node.group.items, GROUP_HEADER_DEPTH)
         //NOTE: decrease depth if its a  (1)root group that (3)has group (2)group is not at first level
@@ -411,18 +411,30 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
   clearAllStageGroups<T>(node: ExecutionPipelineNode<T>): void {
     if (node.group && this.getGroupLayer(node.group.identifier)) {
+      const layer = this.getGroupLayer(node.group.identifier)
       this.clearAllLinksForGroupLayer(node.group.identifier)
       const items = node.group.items
       if (items.length > 0) {
         items.forEach(item => {
           if (item.item) {
             this.clearAllLinksForNodeAndNode(item.item.identifier)
+            layer?.removeModel(item.item.identifier)
           } else if (item.group) {
             this.clearAllStageGroups(item)
+            layer?.removeModel(item.group.identifier)
           } else if (item.parallel && item.parallel.length > 0) {
-            item.parallel.forEach(nodeP => this.clearAllStageGroups(nodeP))
+            item.parallel.forEach(nodeP => {
+              this.clearAllStageGroups(nodeP)
+              layer?.removeModel(nodeP.group?.identifier || '')
+            })
+
             // NOTE: clear end node for parallel
             this.clearAllLinksForNodeAndNode(
+              `${EmptyNodeSeparator}${
+                item.parallel[0].item?.identifier || item.parallel[0].group?.identifier
+              }${EmptyNodeSeparator}-End`
+            )
+            layer?.removeModel(
               `${EmptyNodeSeparator}${
                 item.parallel[0].item?.identifier || item.parallel[0].group?.identifier
               }${EmptyNodeSeparator}-End`
@@ -505,7 +517,16 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {
       const node = nodes[key]
-      node.registerListener(listeners.nodeListeners)
+      if (
+        pipeline.allNodes.indexOf(node.getID()) === -1 &&
+        !(node instanceof Diagram.NodeStartModel) &&
+        !(node instanceof Diagram.EmptyNodeModel)
+      ) {
+        node.remove()
+        this.activeNodeLayer.removeModel(node.getID())
+      } else {
+        node.registerListener(listeners.nodeListeners)
+      }
     }
     const links = this.getActiveLinkLayer().getLinks()
     for (const key in links) {
@@ -518,7 +539,16 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const nodesInLayer = layer.getNodes()
       for (const key in nodesInLayer) {
         const node = nodesInLayer[key]
-        node.registerListener(listeners.nodeListeners)
+        if (
+          pipeline.allNodes.indexOf(node.getID()) === -1 &&
+          !(node instanceof Diagram.NodeStartModel) &&
+          !(node instanceof Diagram.EmptyNodeModel)
+        ) {
+          node.remove()
+          layer.removeModel(node.getID())
+        } else {
+          node.registerListener(listeners.nodeListeners)
+        }
       }
     })
     // Lock the graph back

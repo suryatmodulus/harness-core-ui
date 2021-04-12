@@ -8,13 +8,13 @@ exports[`ConditionForm render ConditionForm  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
     >
-      Select Condition for Notification
+      cv.admin.notifications.create.stepThree.headingOne
     </p>
     <p
       class="StyledProps--font StyledProps--main"
     >
        
-      Choose the services and their corresponding conditions you’d like to be notified on.
+      cv.admin.notifications.create.stepThree.headingTwo
        
     </p>
     <div
@@ -113,7 +113,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                 class="bp3-label"
                 for="environments"
               >
-                Environment
+                environment
                  
                 <span
                   class="bp3-text-muted"
@@ -203,7 +203,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    Notify on completed verifications
+                    cv.admin.notifications.create.stepThree.notifyVerification
                   </label>
                 </div>
               </div>
@@ -224,7 +224,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    Notify on reaching service risk score threshold
+                    cv.admin.notifications.create.stepThree.notifyRisk
                   </label>
                 </div>
               </div>
@@ -240,7 +240,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -250,7 +250,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Submit
+                submit
               </span>
             </button>
           </div>

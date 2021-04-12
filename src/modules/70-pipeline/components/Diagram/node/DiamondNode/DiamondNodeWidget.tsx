@@ -36,6 +36,16 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
   node.fireEvent({}, Event.ClickNode)
 }
 
+const onMouseEnterNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseEnterNode)
+}
+
+const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
+}
+
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
 
@@ -43,7 +53,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
 
   const path = options.path || ''
 
-  const isInComplete = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
+  // const isInComplete = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
 
   const _errorList = Array.from(errorMap).filter(item => {
     return item[0].indexOf(path) > -1
@@ -69,13 +79,18 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
     })
 
   return (
-    <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
+    <div
+      className={cssDefault.defaultNode}
+      onClick={e => onClickNode(e, props.node)}
+      onMouseEnter={event => onMouseEnterNode((event as unknown) as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeaveNode((event as unknown) as MouseEvent, props.node)}
+    >
       <div
         className={cx(cssDefault.defaultCard, css.diamond, { [cssDefault.selected]: props.node.isSelected() })}
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
         {options.icon && <Icon size={28} name={options.icon} />}
-        {isInComplete && (
+        {options.isInComplete && (
           <span className={css.inComplete}>
             <Tooltip
               content={
@@ -159,7 +174,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         style={{ cursor: 'pointer' }}
         padding="small"
         width={125}
-        lineClamp={1}
+        lineClamp={2}
       >
         {options.name}
       </Text>

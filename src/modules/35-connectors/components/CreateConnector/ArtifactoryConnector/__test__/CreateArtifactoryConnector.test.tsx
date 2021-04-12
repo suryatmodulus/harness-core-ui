@@ -82,7 +82,7 @@ describe('Create Artifactory connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     // step 2
-    expect(queryByText(container, 'Artifactory Repository URL')).not.toBeNull()
+    expect(queryByText(container, 'connectors.artifactory.artifactoryServerUrl')).not.toBeNull()
     expect(container).toMatchSnapshot()
 
     //updating connector

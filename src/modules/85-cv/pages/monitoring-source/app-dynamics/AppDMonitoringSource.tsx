@@ -60,7 +60,7 @@ const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: DSConfig | null }) => {
   return (
     <CVOnboardingTabs
       iconName="service-appdynamics"
-      defaultEntityName={currentData?.name || 'Default Name'}
+      defaultEntityName={currentData?.name || getString('cv.monitoringSources.appDName')}
       setName={val => {
         setCurrentData({ ...currentData, name: val })
       }}
@@ -74,7 +74,13 @@ const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: DSConfig | null }) => {
           title: getString('selectProduct'),
           component: (
             <SelectProduct
-              stepData={currentData}
+              stepData={
+                currentData || {
+                  name: getString('cv.monitoringSources.appDName'),
+                  identifier: getString('cv.monitoringSources.appDName'),
+                  product: 'Application Monitoring'
+                }
+              }
               type="AppDynamics"
               onCompleteStep={stepData => {
                 if (currentData?.connectorRef?.value !== stepData?.connectorRef?.value) {

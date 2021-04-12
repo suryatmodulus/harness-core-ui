@@ -10,7 +10,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
     <h4
       class="bp3-heading"
     >
-      Edit Environment
+      editEnvironment
     </h4>
     <button
       aria-label="Close"
@@ -88,7 +88,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -119,7 +119,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
             </label>
             <div
               class="bp3-form-group"
@@ -144,7 +144,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
             </label>
             <div
               class="bp3-form-group"
@@ -244,7 +244,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
             class="bp3-label"
             for="type"
           >
-            Environment Type
+            envType
              
             <span
               class="bp3-text-muted"
@@ -268,7 +268,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                     class="StyledProps--font StyledProps--main StyledProps--font-align-center"
                     style="font-size: 12px;"
                   >
-                    Production
+                    production
                   </p>
                 </div>
               </div>
@@ -310,7 +310,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                     class="StyledProps--font StyledProps--main StyledProps--font-align-center"
                     style="font-size: 12px;"
                   >
-                    Non Production
+                    nonProduction
                   </p>
                 </div>
               </div>
@@ -326,7 +326,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
             <span
               class="bp3-button-text"
             >
-              Save
+              save
             </span>
           </button>
         </div>
@@ -346,7 +346,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
     <h4
       class="bp3-heading"
     >
-      New Environment
+      newEnvironment
     </h4>
     <button
       aria-label="Close"
@@ -443,7 +443,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                 class="bp3-label"
                 for="name"
               >
-                Name
+                name
                  
                 <span
                   class="bp3-text-muted"
@@ -473,7 +473,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="Label--main"
               style="font-size: 13px;"
             >
-              Description (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -504,7 +504,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
               class="Label--main"
               style="font-size: 13px;"
             >
-              Tags (optional)
+              optionalField
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                 data-name="edit"
@@ -536,7 +536,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
             class="bp3-label"
             for="type"
           >
-            Environment Type
+            envType
              
             <span
               class="bp3-text-muted"
@@ -560,7 +560,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                     class="StyledProps--font StyledProps--main StyledProps--font-align-center"
                     style="font-size: 12px;"
                   >
-                    Production
+                    production
                   </p>
                 </div>
               </div>
@@ -602,7 +602,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                     class="StyledProps--font StyledProps--main StyledProps--font-align-center"
                     style="font-size: 12px;"
                   >
-                    Non Production
+                    nonProduction
                   </p>
                 </div>
               </div>
@@ -618,7 +618,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
             <span
               class="bp3-button-text"
             >
-              Save
+              save
             </span>
           </button>
         </div>

@@ -3,21 +3,36 @@
 exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
 <div>
   <div
-    class="info"
-    data-type="harness"
+    class="Layout--vertical Layout--layout-spacing-large StyledProps--main harnessApproval StyledProps--padding-large"
   >
     <div
-      class="reviewMsg"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
     >
-      Please review the following information and approve the pipeline progression
-    </div>
-    <div>
-      2 of 3 approvals complete
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        <span>
+          startedAt
+        </span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+      >
+        XX:YY
+      </p>
     </div>
   </div>
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >
@@ -53,7 +68,7 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
             </svg>
           </span>
           <span>
-            Approved
+            pipeline.approvalStep.status.APPROVE
           </span>
         </div>
         <div>
@@ -129,7 +144,7 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
             </svg>
           </span>
           <span>
-            Rejected
+            pipeline.approvalStep.status.REJECT
           </span>
         </div>
         <div>
@@ -187,7 +202,7 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
         MOCK DURATION
       </div>
       <span>
-        remaining till timeout
+        execution.approvals.timeRemainingSuffix
       </span>
     </div>
     <div
@@ -196,12 +211,20 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
       Please review the following information and approve the pipeline progression
     </div>
     <div>
-      2 of 3 approvals complete
+      execution.approvals.statusMsg
     </div>
   </div>
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >
@@ -237,7 +260,7 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
             </svg>
           </span>
           <span>
-            Approved
+            pipeline.approvalStep.status.APPROVE
           </span>
         </div>
         <div>
@@ -313,7 +336,7 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
             </svg>
           </span>
           <span>
-            Rejected
+            pipeline.approvalStep.status.REJECT
           </span>
         </div>
         <div>
@@ -371,7 +394,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
         MOCK DURATION
       </div>
       <span>
-        remaining till timeout
+        execution.approvals.timeRemainingSuffix
       </span>
     </div>
     <div
@@ -380,12 +403,20 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
       Please review the following information and approve the pipeline progression
     </div>
     <div>
-      2 of 3 approvals complete
+      execution.approvals.statusMsg
     </div>
   </div>
   <div
     class="harnessApproval"
   >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      <span>
+        pipeline.approvalStep.approvers
+      </span>
+      :
+    </p>
     <div
       class="approver"
     >
@@ -421,7 +452,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
             </svg>
           </span>
           <span>
-            Approved
+            pipeline.approvalStep.status.APPROVE
           </span>
         </div>
         <div>
@@ -497,7 +528,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
             </svg>
           </span>
           <span>
-            Rejected
+            pipeline.approvalStep.status.REJECT
           </span>
         </div>
         <div>
@@ -544,16 +575,16 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
       <div
         class="heading"
       >
-        Approval inputs
+        execution.approvals.inputsTitle
       </div>
       <div
         class="formRow labels"
       >
         <span>
-          Variable Name
+          variableNameLabel
         </span>
         <span>
-          Default value
+          configureOptions.defaultValue
         </span>
       </div>
       <div
@@ -666,7 +697,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
             class="bp3-button-text"
           >
             <span>
-              Approve
+              common.approve
             </span>
           </span>
         </button>
@@ -697,7 +728,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
             class="bp3-button-text"
           >
             <span>
-              Reject
+              common.reject
             </span>
           </span>
         </button>

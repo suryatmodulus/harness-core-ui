@@ -26,7 +26,6 @@ signOut: Sign Out
 featureFlagsText: Feature Flags
 flag: Flag
 newLabel: New
-continuousFeatures: Continuous Features
 featureNA: This feature is not available as of now
 logView: Log View
 projectsText: Projects
@@ -1188,7 +1187,6 @@ pipelineSteps:
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
-    k8ConnectorDropDownLabel: '{{$.connector}}'
     k8ConnectorDropDownPlaceholder: Select a connector
     nameSpaceLabel: '{{$.pipelineSteps.build.infraSpecifications.namespace}}'
     releaseName: Release name
@@ -1234,7 +1232,6 @@ pipelineSteps:
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'
   workspace: Workspace
-  gitFetchType: 'Git Fetch Type'
   repoName: 'Repo Name'
   stepNameLabel: '{{ $.name }}'
   storeTypeRequired: 'Store Type is required.'

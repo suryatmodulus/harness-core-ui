@@ -4,10 +4,18 @@ import { Icon, Button } from '@wings-software/uicore'
 import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
-import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
-
+import produce from 'immer'
 import { useStrings } from 'framework/exports'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
+import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
+import { processFormData as processFormDataHarnessApproval } from '@pipeline/components/PipelineSteps/Steps/Approval/helper'
+import { processFormData as processFormDataJiraApproval } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/helper'
+import { processFormData as processFormDataJiraCreate } from '@pipeline/components/PipelineSteps/Steps/JiraCreate/helper'
+import { processFormData as processFormDataJiraUpdate } from '@pipeline/components/PipelineSteps/Steps/JiraUpdate/helper'
+import type { HarnessApprovalData } from '@pipeline/components/PipelineSteps/Steps/Approval/types'
+import type { JiraApprovalData } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/types'
+import type { JiraCreateData } from '@pipeline/components/PipelineSteps/Steps/JiraCreate/types'
+import type { JiraUpdateData } from '@pipeline/components/PipelineSteps/Steps/JiraUpdate/types'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -43,7 +51,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       },
       pipelineView
     },
+    isReadonly,
     updatePipeline,
+    updateStage,
     updatePipelineView,
     getStageFromPipeline,
     stepsFactory
@@ -93,53 +103,89 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onSubmitStep = (item: ExecutionWrapper): void => {
-    const node = data?.stepConfig?.node
-    if (node) {
-      // Add/replace values only if they are presented
-      if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
-      if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
-      if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
-      if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
-      if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
-      if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
-      if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
-        node.spec = {
-          ...(item.spec ? item.spec : {}),
-          delegateSelectors: item.delegateSelectors
+  const updateStepWithinStage = (
+    execution: ExecutionElementConfig,
+    processingNodeIdentifier: string,
+    processedNode: ExecutionWrapper
+  ): void => {
+    // Finds the step in the stage, and updates with the processed node
+    execution.steps?.forEach(stepWithinStage => {
+      if (stepWithinStage.stepGroup) {
+        // If stage has a step group, loop over the step group steps and update the matching identifier with node
+        if (stepWithinStage.stepGroup?.identifier === processingNodeIdentifier) {
+          stepWithinStage.stepGroup = processedNode as any
+        } else {
+          updateStepWithinStage(stepWithinStage.stepGroup, processingNodeIdentifier, processedNode)
         }
-      }
-
-      // Delete values if they were already added and now removed
-      if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
-      if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
-      if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
-      if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
-        delete node.failureStrategies
-      if (
-        node.spec?.delegateSelectors &&
-        node.spec.delegateSelectors.length > 0 &&
-        (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
-        item.tab === TabTypes.Advanced
-      ) {
-        delete node.spec.delegateSelectors
-      }
-
-      if (item.spec && item.tab !== TabTypes.Advanced) {
-        node.spec = { ...item.spec }
-      }
-      data?.stepConfig?.onUpdate?.(item)
-      updatePipeline(pipeline)
-
-      // TODO: temporary fix for FF
-      // can be removed once the unified solution across modules is implemented
-      if (stageType === StageTypes.FEATURE) {
-        updatePipelineView({
-          ...pipelineView,
-          isDrawerOpened: false,
-          drawerData: { type: DrawerTypes.StepConfig }
+      } else if (stepWithinStage.parallel) {
+        // If stage has a parallel steps, loop over and update the matching identifier with node
+        stepWithinStage.parallel.forEach((parallelStep: ExecutionWrapper) => {
+          if (parallelStep.step?.identifier === processingNodeIdentifier) {
+            parallelStep.step = processedNode
+          }
         })
+      } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
+        // Else simply find the matching step ad update the node
+        stepWithinStage.step = processedNode
       }
+    })
+    if (execution.rollbackSteps) {
+      updateStepWithinStage({ steps: execution.rollbackSteps }, processingNodeIdentifier, processedNode)
+    }
+  }
+
+  const onSubmitStep = async (item: ExecutionWrapper): Promise<void> => {
+    if (data?.stepConfig?.node) {
+      const processNode = produce<ExecutionWrapper>(data.stepConfig.node, node => {
+        // Add/replace values only if they are presented
+        if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
+        if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
+        if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
+        if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+        if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+        if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
+        if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+          node.spec = {
+            ...(node.spec ? node.spec : {}),
+            delegateSelectors: item.delegateSelectors
+          }
+        }
+
+        // Delete values if they were already added and now removed
+        if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
+        if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
+        if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+        if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
+          delete node.failureStrategies
+        if (
+          node.spec?.delegateSelectors &&
+          node.spec.delegateSelectors.length > 0 &&
+          (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
+          item.tab === TabTypes.Advanced
+        ) {
+          delete node.spec.delegateSelectors
+        }
+
+        if (item.spec && item.tab !== TabTypes.Advanced) {
+          node.spec = { ...item.spec }
+        }
+      })
+      if (data?.stepConfig?.node?.identifier && selectedStage?.stage?.spec?.execution) {
+        const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+        updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
+        await updateStage(selectedStage.stage)
+        data?.stepConfig?.onUpdate?.(processNode)
+      }
+    }
+
+    // TODO: temporary fix for FF
+    // can be removed once the unified solution across modules is implemented
+    if (stageType === StageTypes.FEATURE) {
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.StepConfig }
+      })
     }
   }
 
@@ -210,7 +256,17 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
             values
           ) {
-            onSubmitStep(values)
+            if (values.type === StepType.HarnessApproval) {
+              onSubmitStep(processFormDataHarnessApproval(values as HarnessApprovalData))
+            } else if (values.type === StepType.JiraApproval) {
+              onSubmitStep(processFormDataJiraApproval(values as JiraApprovalData))
+            } else if (values.type === StepType.JiraCreate) {
+              onSubmitStep(processFormDataJiraCreate(values as JiraCreateData))
+            } else if (values.type === StepType.JiraUpdate) {
+              onSubmitStep(processFormDataJiraUpdate(values as JiraUpdateData))
+            } else {
+              onSubmitStep(values)
+            }
           } else {
             // please do not remove the await below.
             // This is required for errors to be populated correctly
@@ -257,6 +313,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
@@ -340,8 +397,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
-        <FailureStrategy
+        <FailureStrategyWithRef
           selectedStage={selectedStage}
+          isReadonly={isReadonly}
+          ref={formikRef}
           onUpdate={({ failureStrategies }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
@@ -354,6 +413,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
       {type === DrawerTypes.SkipCondition && selectedStageId ? (
         <SkipCondition
+          isReadonly={isReadonly}
           selectedStage={selectedStage || {}}
           onUpdate={({ skipCondition }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
@@ -367,6 +427,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
@@ -447,6 +508,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isReadonly={isReadonly}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}

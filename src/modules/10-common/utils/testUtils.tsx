@@ -10,7 +10,7 @@ import { enableMapSet } from 'immer'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
-import { StringsContextProvider } from 'framework/strings/__mocks__/StringsContextProvider'
+import { StringsContext } from 'framework/strings/StringsContext'
 
 import './testUtils.scss'
 
@@ -101,7 +101,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   // }, [path, pathParams, queryParams])
 
   return (
-    <StringsContextProvider>
+    <StringsContext.Provider value={{ data: {} as any, getString: key => key }}>
       <AppStoreContext.Provider
         value={{
           featureFlags: {},
@@ -126,6 +126,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           </ModalProvider>
         </Router>
       </AppStoreContext.Provider>
-    </StringsContextProvider>
+    </StringsContext.Provider>
   )
 }

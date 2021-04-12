@@ -65,7 +65,7 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
       />
       <Container style={{ margin: '0 auto', paddingTop: 100, paddingLeft: 50 }}>
         <Layout.Vertical spacing="large" padding="large">
-          <Heading className={css.title}>{getString('ce.co.autoStoppingRule.providerSelector.title')}</Heading>
+          <Heading className={css.title}>{getString('common.letsGetYouStarted')}</Heading>
           <Heading level={2}>{getString('ce.co.autoStoppingRule.providerSelector.description')}</Heading>
           <Layout.Vertical spacing="small">
             <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>

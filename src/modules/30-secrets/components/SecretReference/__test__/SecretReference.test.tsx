@@ -13,8 +13,8 @@ describe('Secret Reference', () => {
         <SecretReference type="SecretText" accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, 'Apply Selected'))
-    expect(getByText(container, 'Account')).toBeTruthy()
+    await waitFor(() => getByText(container, 'entityReference.apply'))
+    expect(getByText(container, 'account')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -24,8 +24,8 @@ describe('Secret Reference', () => {
         <SecretReference type="SecretFile" accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, 'Apply Selected'))
-    expect(getByText(container, 'Account')).toBeTruthy()
+    await waitFor(() => getByText(container, 'entityReference.apply'))
+    expect(getByText(container, 'account')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -35,8 +35,8 @@ describe('Secret Reference', () => {
         <SecretReference accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, 'Apply Selected'))
-    expect(getByText(container, 'Account')).toBeTruthy()
+    await waitFor(() => getByText(container, 'entityReference.apply'))
+    expect(getByText(container, 'account')).toBeTruthy()
     expect(queryByAttribute('class', container, /secretTypeSelect/)).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
@@ -46,7 +46,7 @@ describe('Secret Reference', () => {
         <SecretReference accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
       </TestWrapper>
     )
-    expect(getByText(container, 'Account')).toBeTruthy()
+    expect(getByText(container, 'account')).toBeTruthy()
     expect(queryByAttribute('data-icon', container, /spinner/)).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
@@ -58,8 +58,8 @@ describe('Secret Reference', () => {
         <SecretReference accountIdentifier="dummy" mock={mockData as any} onSelect={noop} />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, 'Apply Selected'))
-    expect(getByText(container, 'No Secrets Found')).toBeTruthy()
+    await waitFor(() => getByText(container, 'entityReference.apply'))
+    expect(getByText(container, 'secret.noSecretsFound')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

@@ -101,7 +101,7 @@ describe('Http Step', () => {
       target: { value: '{ "message": "Hello world!" }' }
     })
 
-    fireEvent.click(getByText('Response Mapping'))
+    fireEvent.click(getByText('responseMapping'))
     fireEvent.click(getByTestId('add-response-mapping'))
 
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'myVar' } })

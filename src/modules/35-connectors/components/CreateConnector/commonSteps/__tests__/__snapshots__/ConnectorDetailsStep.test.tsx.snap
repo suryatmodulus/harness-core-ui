@@ -8,7 +8,7 @@ exports[`Connector details step Test for  create  connector step one required fe
     <div
       class="heading"
     >
-      Overview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -85,7 +85,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      name
                        
                       <span
                         class="bp3-text-muted"
@@ -108,7 +108,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Connector name is a required field
+                        validation.connectorName
                       </div>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Description (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -151,7 +151,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Tags (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -188,7 +188,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                   class="bp3-button-text"
                 >
                   <span>
-                    Save and Continue
+                    saveAndContinue
                   </span>
                 </span>
                 <span
@@ -228,7 +228,7 @@ exports[`Connector details step Test for going to next step 1`] = `
     <div
       class="heading"
     >
-      Overview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -307,7 +307,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      name
                        
                       <span
                         class="bp3-text-muted"
@@ -337,7 +337,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Description (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -368,7 +368,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Tags (optional)
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -405,7 +405,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                   class="bp3-button-text"
                 >
                   <span>
-                    Save and Continue
+                    saveAndContinue
                   </span>
                 </span>
                 <span

@@ -215,7 +215,7 @@ describe('Unit tests for Third Party call logs', () => {
       'https://harness-test.saas.appdynamics.com/controller/rest/applications/Harness-Dev/metric-data?output=JSON&amp;time-range-type=BEFORE_NOW&amp;duration-in-mins=60&amp;rollup=true&amp;metric-path=Overall%20Application%20Performance|verification_service|Exceptions%20per%20Minute'
     )
 
-    fireEvent.click(getByText('Back'))
+    fireEvent.click(getByText('back'))
     await waitFor(() => expect(onHideFn).toHaveBeenCalled())
   })
 })

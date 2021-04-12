@@ -1,0 +1,45 @@
+.card {
+  width: 260px;
+  height: 280px;
+  margin-right: var(--spacing-xlarge);
+  padding: var(--spacing-small) var(--spacing-large);
+  .environmentType {
+    padding: 0px var(--spacing-xsmall) !important;
+    cursor: pointer;
+    &:not(:last-of-type) {
+      border-right: 1px solid var(--grey-500);
+    }
+    &:first-of-type {
+      padding-left: 0 !important;
+    }
+  }
+  .stack {
+    padding-bottom: 2px;
+  }
+
+  .typeContainer {
+    padding: var(--spacing-xsmall) var(--spacing-medium);
+    border-radius: 16px;
+    cursor: pointer;
+  }
+  .typeSelected {
+    background: var(--blue-800);
+  }
+
+  .stackTickerContainer {
+    overflow: auto;
+  }
+
+  .tickerContainer {
+    height: 26px;
+  }
+  .weightedStackContainer {
+    width: 158px;
+    .progressBar {
+      height: 24px;
+    }
+    .label {
+      color: var(--white);
+    }
+  }
+}

@@ -11,7 +11,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -19,7 +19,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          AWS Connector Name
+          connectors.name_labels.AWS
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -37,7 +37,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -55,7 +55,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -73,7 +73,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -113,7 +113,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -121,7 +121,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -139,7 +139,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Cross account role URN
+          connectors.aws.crossAccURN
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -157,7 +157,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          External Id (Optional)
+          connectors.aws.externalId
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -185,7 +185,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -193,7 +193,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Artifactory Connector Name
+          connectors.name_labels.Artifactory
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -211,7 +211,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -230,7 +230,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -238,7 +238,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Artifactory Repository URL
+          connectors.artifactory.artifactoryServerUrl
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -256,7 +256,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -274,7 +274,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Username
+          username
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -292,7 +292,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          password
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -320,7 +320,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -328,7 +328,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Docker Connector Name
+          connectors.name_labels.Docker
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -346,7 +346,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -364,7 +364,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -382,7 +382,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -409,7 +409,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -417,7 +417,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Docker Registry URL
+          connectors.docker.dockerRegistryURL
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -435,7 +435,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -453,7 +453,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Username
+          username
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -471,7 +471,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          password
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -499,7 +499,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -507,7 +507,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          GCP Connector Name
+          connectors.name_labels.GCP
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -525,7 +525,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -543,7 +543,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -561,7 +561,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -601,7 +601,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -609,7 +609,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -627,7 +627,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Encrypted Key
+          encryptedKeyLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -655,7 +655,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -663,7 +663,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Git Connector Name
+          connectors.name_labels.Git
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -681,7 +681,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -699,7 +699,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -717,7 +717,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -744,7 +744,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -752,7 +752,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          URL Type
+          connectors.git.urlType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -770,7 +770,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Connection Type
+          connectors.git.connectionType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -788,7 +788,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          URL
+          UrlLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -806,7 +806,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Username
+          username
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -824,7 +824,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          password
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -852,7 +852,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -860,7 +860,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Kubernetes Connector Name
+          connectors.name_labels.Kubernetes
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -878,7 +878,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -896,7 +896,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -914,7 +914,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -941,7 +941,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -949,7 +949,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Connection Mode
+          connectionMode
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -967,7 +967,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Delegate Tags
+          delegate.delegateTags
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -995,7 +995,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -1003,7 +1003,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Kubernetes Connector Name
+          connectors.name_labels.Kubernetes
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1021,7 +1021,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1039,7 +1039,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1058,7 +1058,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -1066,7 +1066,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Connection Mode
+          connectionMode
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1084,7 +1084,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Master URL
+          connectors.k8.masterUrlLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1102,7 +1102,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1120,7 +1120,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Username
+          username
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1138,7 +1138,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          password
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1166,7 +1166,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -1174,7 +1174,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Nexus Connector Name
+          connectors.name_labels.Nexus
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1192,7 +1192,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1210,7 +1210,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1229,7 +1229,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -1237,7 +1237,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Nexus Repository URL
+          connectors.nexus.nexusServerUrl
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1255,7 +1255,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Version
+          version
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1273,7 +1273,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Credential Type
+          credType
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1291,7 +1291,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Username
+          username
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1309,7 +1309,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Password
+          password
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1337,7 +1337,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Overview
+        overview
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
@@ -1345,7 +1345,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Secret Manager Name
+          connectors.name_labels.SecretManager
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1363,7 +1363,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Description
+          description
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1381,7 +1381,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Identifier
+          identifier
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1399,7 +1399,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          Tags
+          tagsLabel
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1426,7 +1426,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Credentials
+        credentials
       </p>
     </div>
   </div>
@@ -1449,7 +1449,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        Connector Created
+        connectorCreated
       </p>
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1467,7 +1467,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        Last Updated
+        lastUpdated
       </p>
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1485,7 +1485,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        Last Tested
+        lastTested
       </p>
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -1509,7 +1509,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
               width="14"
             >
               <desc>
-                Failed
+                failed
               </desc>
               <path
                 d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
@@ -1520,7 +1520,7 @@ exports[`Saved Connector Details render for connector activity details 1`] = `
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline"
           >
-            Failed
+            failed
           </span>
         </div>
       </div>

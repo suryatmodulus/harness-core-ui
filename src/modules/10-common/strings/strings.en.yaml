@@ -17,9 +17,12 @@ ID: ID
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
+input: Input
+refresh: Refresh
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
+execute: Execute
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday
@@ -39,3 +42,37 @@ accViewer: Account Viewer
 plusNumber: + {{number}}
 userGroup: User Group
 userGroups: User Groups
+purpose:
+  welcome: 'Welcome {{userName}}, Let’s get you started!'
+  continuous: CONTINUOUS
+  moduleSuccess: Module Added Successfully
+  startATrial: Start A Trial
+  setup: 15 min setup
+  selectAModule: Select a module
+  cd:
+    delivery: Delivery
+    subtitle: Deploy your services with blazingly fast pipelines.
+    description: CD description placeholder
+
+  cv:
+    subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
+    description: CV description placeholder
+  ci:
+    integration: Integration
+    subtitle: Commit, build, and test your code at a whole new level.
+    description:
+      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      <br><br>You can access this module via your free trial. Benefits include:
+      Your software delivery pipeline can now include build stages
+      Test intelligence - faster and more reliable build processes'
+  ce:
+    efficiency: Efficiency
+    subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
+    description: CE description placeholder
+  cf:
+    features: Features
+    subtitle: Decouple release from deployment and rollout features safely and quickly.
+    description: CF description placeholder
+trialInProgress: Trial in-progress
+changePlan: Change Plan
+letsGetYouStarted: Let’s get you started

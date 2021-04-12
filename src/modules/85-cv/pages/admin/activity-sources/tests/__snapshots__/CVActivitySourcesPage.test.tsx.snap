@@ -33,7 +33,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         <span
           class="lastBreadcrumb"
         >
-          Change Sources
+          cv.navLinks.adminSideNavLinks.activitySources
         </span>
       </div>
     </div>
@@ -64,7 +64,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         </span>
         <input
           class="bp3-input"
-          placeholder="Search by Change Source name"
+          placeholder="cv.admin.activitySources.searchBoxPlaceholder"
           type="text"
           value=""
         />
@@ -84,7 +84,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
         <span
           class="bp3-button-text"
         >
-          + Add Change Source(s)
+          cv.admin.activitySources.addActivitySource
         </span>
       </button>
       <div
@@ -101,7 +101,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 25%;"
             title="Toggle SortBy"
           >
-            Name
+            name
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -128,7 +128,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             role="columnheader"
             style="width: 16.5%;"
           >
-            Type
+            typeLabel
           </div>
           <div
             class="cell"
@@ -137,7 +137,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
             title="Toggle SortBy"
           >
-            Number of Services
+            numberOfServices
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -165,7 +165,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
             title="Toggle SortBy"
           >
-            Number of Environments
+            cv.admin.activitySources.tableColumnNames.environments
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -193,7 +193,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 25%;"
             title="Toggle SortBy"
           >
-            Last Updated on
+            cv.admin.activitySources.tableColumnNames.lastUpdatedOn
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"

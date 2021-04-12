@@ -1,4 +1,4 @@
-headingText: 'Continuous Efficiency'
+continuous: Continuous Efficiency
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
   learnMore: 'Learn more about Continuous Efficiency'
@@ -36,7 +36,6 @@ co:
           additionalInfo: 'A Spot Instance is an unused EC2 instance that is available for less than the On-Demand price. Because Spot Instances enable you to request unused EC2 instances at steep discounts, you can lower your Amazon EC2 costs significantly.'
       readMore: 'Read More...'
     providerSelector:
-      title: 'Let’s get you started'
       description: 'Select the cloud account type'
       helpText:
         selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
@@ -131,7 +130,7 @@ co:
     new: 'New Access Point'
     dnsProvider: 'DNS Provider'
     asssociatedRules: 'Associated Rules'
-    lastActivity: '{{$.cf.targets.lastActivity}}'
+    lastActivity: 'last activity'
     mapDomain: 'Map the domain'
     error: 'Could not create access point'
     success: 'Access Point Created Succesfully'

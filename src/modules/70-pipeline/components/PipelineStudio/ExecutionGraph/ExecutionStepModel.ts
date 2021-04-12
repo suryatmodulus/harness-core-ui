@@ -71,6 +71,7 @@ export class ExecutionStepModel extends DiagramModel {
     startY: number,
     factory: AbstractStepFactory,
     stepStates: StepStateMap,
+    isReadonly: boolean,
     prevNodes?: DefaultNodeModel[],
     getString?: UseStringsReturn['getString'],
     errors?: [string, string[]][]
@@ -95,7 +96,7 @@ export class ExecutionStepModel extends DiagramModel {
       nodeRender.setPosition(startX, startY)
       if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(nodeRender, prevNode, true, 0)
+          this.connectedParentToNode(nodeRender, prevNode, !isReadonly, 0)
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
@@ -113,7 +114,7 @@ export class ExecutionStepModel extends DiagramModel {
         startX += this.gapX
         stepGroupLayer.startNode.setPosition(startX, startY)
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(stepGroupLayer.startNode, prevNode, true)
+          this.connectedParentToNode(stepGroupLayer.startNode, prevNode, !isReadonly)
         })
         prevNodes = [stepGroupLayer.startNode]
         startX = startX - this.gapX / 2 - 20
@@ -129,7 +130,8 @@ export class ExecutionStepModel extends DiagramModel {
         customNodeStyle: {
           borderColor: 'var(--pipeline-grey-border)'
         },
-        showPorts: false
+        showPorts: false,
+        disabled: isReadonly
       })
       this.addNode(createNode)
       createNode.setPosition(newX, newY)
@@ -147,7 +149,7 @@ export class ExecutionStepModel extends DiagramModel {
           name: service.name,
           icon: factory.getStepIcon(service.type),
           allowAdd: false,
-          isInComplete: isCustomGeneratedString(service.identifier),
+          isInComplete: errors?.length || 0 > 0 ? true : false, // isCustomGeneratedString(service.identifier),
           draggable: true,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
           showPorts: false,
@@ -188,6 +190,7 @@ export class ExecutionStepModel extends DiagramModel {
     startX: number,
     startY: number,
     factory: AbstractStepFactory,
+    isReadonly: boolean,
     stepStates: StepStateMap,
     isRollback = false,
     prevNodes?: DefaultNodeModel[],
@@ -208,7 +211,9 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              draggable: true,
+              allowAdd: !isReadonly,
+              canDelete: !isReadonly,
+              draggable: !isReadonly,
               isInComplete: errors?.length || 0 > 0 ? true : false, // isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
@@ -220,10 +225,11 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              allowAdd: allowAdd === true,
+              allowAdd: allowAdd === true && !isReadonly,
+              canDelete: !isReadonly,
               isInComplete: errors?.length || 0 > 0 ? true : false, //isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              draggable: true,
+              draggable: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               iconSize: 70,
               iconStyle: {
@@ -234,10 +240,11 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              allowAdd: allowAdd === true,
+              allowAdd: allowAdd === true && !isReadonly,
               isInComplete: errors?.length || 0 > 0 ? true : false, //isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              draggable: true,
+              draggable: !isReadonly,
+              canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               errorList: errors,
               showErrorDetails: true
@@ -250,7 +257,7 @@ export class ExecutionStepModel extends DiagramModel {
           this.connectedParentToNode(
             nodeRender,
             prevNode,
-            !isParallelNode,
+            !isParallelNode && !isReadonly,
             isStepGroupNode ? 4 : 0,
             isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
             { type: 'in', size: LINE_SEGMENT_LENGTH }
@@ -276,7 +283,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               emptyNode,
               prevNode,
-              true,
+              !isReadonly,
               isStepGroupNode ? 4 : 0,
               isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
             )
@@ -295,6 +302,7 @@ export class ExecutionStepModel extends DiagramModel {
             newX,
             newY,
             factory,
+            isReadonly,
             stepStates,
             isRollback,
             prevNodes,
@@ -346,6 +354,7 @@ export class ExecutionStepModel extends DiagramModel {
           startX,
           startY,
           factory,
+          isReadonly,
           stepStates,
           isRollback,
           prevNodes,
@@ -365,9 +374,10 @@ export class ExecutionStepModel extends DiagramModel {
           name: node.stepGroup.name,
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
-          draggable: true,
+          draggable: !isReadonly,
+          canDelete: !isReadonly,
           skipCondition: node.stepGroup.skipCondition,
-          allowAdd: allowAdd === true,
+          allowAdd: allowAdd === true && !isReadonly,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
         })
 
@@ -375,7 +385,7 @@ export class ExecutionStepModel extends DiagramModel {
         nodeRender.setPosition(startX, startY)
         if (!isEmpty(prevNodes) && prevNodes) {
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
-            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode, 0, undefined, {
+            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode && !isReadonly, 0, undefined, {
               type: 'in',
               size: LINE_SEGMENT_LENGTH
             })
@@ -393,7 +403,7 @@ export class ExecutionStepModel extends DiagramModel {
           inComplete: isCustomGeneratedString(node.stepGroup.identifier),
           depth: depthY,
           headerDepth: GROUP_HEADER_DEPTH,
-          allowAdd: allowAdd === true,
+          allowAdd: allowAdd === true && !isReadonly,
           showRollback: !isRollback,
           rollBackProps: {
             active: stepState?.isStepGroupRollback ? StepsType.Rollback : StepsType.Normal
@@ -406,7 +416,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               stepGroupLayer.startNode,
               prevNode,
-              !isParallelNode,
+              !isParallelNode && !isReadonly,
               isStepGroupNode ? 4 : 0,
               isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
               { type: 'in', size: LINE_SEGMENT_LENGTH }
@@ -431,6 +441,7 @@ export class ExecutionStepModel extends DiagramModel {
               startX,
               startY,
               factory,
+              isReadonly,
               stepStates,
               isRollback,
               prevNodes,
@@ -451,7 +462,8 @@ export class ExecutionStepModel extends DiagramModel {
           const createNode = new CreateNewModel({
             name: getString?.('pipelines-studio.addStep'),
             identifier: `${EmptyNodeSeparator}${node.stepGroup.identifier}${EmptyNodeSeparator}`,
-            customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+            customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+            disabled: isReadonly
           })
           this.addNode(createNode)
           startX += this.gapX
@@ -466,7 +478,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               stepGroupLayer.endNode,
               prevNode,
-              node.stepGroup.steps?.length > 0,
+              node.stepGroup.steps?.length > 0 && !isReadonly,
               4,
               'var(--pipeline-grey-border)'
             )
@@ -490,6 +502,7 @@ export class ExecutionStepModel extends DiagramModel {
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean,
     getString: UseStringsReturn['getString'],
+    isReadonly: boolean,
     errors?: [string, string[]][]
   ): void {
     let { startX, startY } = this
@@ -523,6 +536,7 @@ export class ExecutionStepModel extends DiagramModel {
         startY,
         factory,
         stepStates,
+        isReadonly,
         prevNodes,
         getString,
         errors
@@ -544,6 +558,7 @@ export class ExecutionStepModel extends DiagramModel {
         startX,
         startY,
         factory,
+        isReadonly,
         stepStates,
         isRollback,
         prevNodes,
@@ -572,17 +587,25 @@ export class ExecutionStepModel extends DiagramModel {
       }
     })
 
-    if (tempStartX !== startX || stepsData.length === 0) {
-      createNode.setPosition(startX + this.gapX, startY)
-    }
-    prevNodes.forEach((prevNode: DefaultNodeModel) => {
-      this.connectedParentToNode(createNode, prevNode, false)
-    })
-    this.addNode(createNode)
+    if (isReadonly) {
+      stopNode.setPosition(startX + this.gapX, startY)
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(stopNode, prevNode, false)
+      })
+      this.addNode(stopNode)
+    } else {
+      if (tempStartX !== startX || stepsData.length === 0) {
+        createNode.setPosition(startX + this.gapX, startY)
+      }
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(createNode, prevNode, false)
+      })
+      this.addNode(createNode)
 
-    stopNode.setPosition(startX + 2 * this.gapX, startY)
-    this.connectedParentToNode(stopNode, createNode, false)
-    this.addNode(stopNode)
+      stopNode.setPosition(startX + 2 * this.gapX, startY)
+      this.connectedParentToNode(stopNode, createNode, false)
+      this.addNode(stopNode)
+    }
 
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {

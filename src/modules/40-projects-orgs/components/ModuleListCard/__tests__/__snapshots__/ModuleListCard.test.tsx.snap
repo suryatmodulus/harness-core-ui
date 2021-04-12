@@ -216,7 +216,7 @@ exports[`Project Details render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            DEPLOYMENTS IN LAST 7 DAYS
+            PROJECTCARD.CDRENDERERTEXT
           </p>
         </div>
       </div>
@@ -231,14 +231,14 @@ exports[`Project Details render 1`] = `
             href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/pipeline-studio/"
           >
             <span>
-              Create New Pipeline
+              moduleRenderer.newPipeLine
             </span>
           </a>
           <a
             href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines"
           >
             <span>
-              View Pipelines
+              moduleRenderer.viewPipelines
             </span>
           </a>
         </div>
@@ -464,7 +464,7 @@ exports[`Project Details render 2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            VERIFICATIONS IN LAST 7 DAYS
+            PROJECTCARD.CVRENDERERTEXT
           </p>
         </div>
       </div>
@@ -479,14 +479,14 @@ exports[`Project Details render 2`] = `
             href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup"
           >
             <span>
-              Set Up Change Sources
+              moduleRenderer.setupChanges
             </span>
           </a>
           <a
             href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup?step=2"
           >
             <span>
-              Set Up Monitoring Sources
+              moduleRenderer.monitoringSources
             </span>
           </a>
         </div>
@@ -712,7 +712,7 @@ exports[`Project Details render 3`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            COST SAVINGS IN LAST 7 DAYS
+            PROJECTCARD.CERENDERERTEXT
           </p>
         </div>
       </div>
@@ -958,7 +958,7 @@ exports[`Project Details render 4`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            FEATURE FLAGS IN LAST 7 DAYS
+            PROJECTCARD.CFRENDERERTEXT
           </p>
         </div>
       </div>
@@ -1204,7 +1204,7 @@ exports[`Project Details render 5`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
           >
-            BUILDS IN LAST 7 DAYS
+            PROJECTCARD.CIRENDERERTEXT
           </p>
         </div>
       </div>
@@ -1219,14 +1219,14 @@ exports[`Project Details render 5`] = `
             href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/pipeline-studio/"
           >
             <span>
-              Create New Pipeline
+              moduleRenderer.newPipeLine
             </span>
           </a>
           <a
             href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines"
           >
             <span>
-              View Pipelines
+              moduleRenderer.viewPipelines
             </span>
           </a>
         </div>

@@ -131,14 +131,14 @@ describe('ManifestSelection tests', () => {
     expect(HelmmanifestType).toBeDefined()
     fireEvent.click(HelmmanifestType)
 
-    const continueButton = await findByText(container, 'Continue')
+    const continueButton = await findByText(container, 'continue')
     expect(continueButton).toBeDefined()
     fireEvent.click(continueButton)
 
     const manifeststoreLabel = await findByText(container, 'Specify Manifest Store')
     expect(manifeststoreLabel).toBeDefined()
 
-    const gitConnector = await findByText(container, 'Git')
+    const gitConnector = await findByText(container, 'pipeline.manifestType.manifestSource')
     expect(gitConnector).toBeDefined()
     const gitconnectorCard = container.getElementsByClassName('squareCard')[0]
     fireEvent.click(gitconnectorCard)
@@ -148,7 +148,7 @@ describe('ManifestSelection tests', () => {
     const newConnectorBtn = container.getElementsByClassName('addNewManifest')[0]
     expect(newConnectorBtn).toBeDefined()
     fireEvent.click(newConnectorLabel)
-    const nextStepButton = await findByText(container, 'Continue')
+    const nextStepButton = await findByText(container, 'continue')
     expect(nextStepButton).toBeDefined()
     fireEvent.click(nextStepButton)
     // const createConnectorLabel = await findByText(container, 'Create New Connector')

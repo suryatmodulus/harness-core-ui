@@ -22,6 +22,9 @@ import {
   Failure
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage } from '@common/hooks'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -140,6 +143,7 @@ export interface PipelineContextInterface {
   stagesMap: StagesMap
   stepsFactory: AbstractStepFactory
   view: string
+  isReadonly: boolean
   setView: (view: PipelineStudioView) => void
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean, newPipelineId?: string) => Promise<void>
@@ -405,6 +409,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   stepsFactory: {} as AbstractStepFactory,
   stagesMap: {},
+  isReadonly: false,
   view: PipelineStudioView.ui,
   setView: () => void 0,
   runPipeline: () => undefined,
@@ -434,6 +439,23 @@ export const PipelineProvider: React.FC<{
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
 
+  const [isEdit] = usePermission(
+    {
+      resourceScope: {
+        ...queryParams
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [queryParams, pipelineIdentifier]
+  )
+  const isReadonly = !isEdit
   const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
     async (pipeline: PipelineInfoConfig) => {
@@ -515,6 +537,7 @@ export const PipelineProvider: React.FC<{
         updatePipelineView,
         pipelineSaved,
         deletePipelineCache,
+        isReadonly,
         setYamlHandler
       }}
     >

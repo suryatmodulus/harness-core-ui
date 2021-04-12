@@ -172,9 +172,15 @@ describe('StepWidget tests', () => {
         />
       </TestWrapper>
     )
-    const artifacts = await findByText(container, 'Artifacts')
+    const artifacts = await findByText(
+      container,
+      'pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts'
+    )
     expect(artifacts).toBeDefined()
-    const manifests = await findByText(container, 'Manifests')
+    const manifests = await findByText(
+      container,
+      'pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests'
+    )
     expect(manifests).toBeDefined()
   })
 

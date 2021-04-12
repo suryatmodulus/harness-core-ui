@@ -31,7 +31,7 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
-import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
@@ -58,7 +58,7 @@ const ProjectDetailsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   icon: 'nav-project',
   label: 'Projects',
-  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_PROJECT]: <String stringID="rbac.permissionLabels.view" />,
@@ -71,7 +71,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
 RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'settings',
   label: 'Organizations',
-  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_ORG]: <String stringID="rbac.permissionLabels.view" />,

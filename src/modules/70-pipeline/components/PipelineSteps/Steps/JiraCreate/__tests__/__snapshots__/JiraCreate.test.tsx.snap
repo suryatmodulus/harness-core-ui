@@ -11,7 +11,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
       <label
         class="bp3-label"
       >
-        Jira Connector
+        pipeline.jiraApprovalStep.connectorRef
          
         <span
           class="bp3-text-muted"
@@ -112,7 +112,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.projectKey"
       >
-        Jira Project
+        pipeline.jiraApprovalStep.project
          
         <span
           class="bp3-text-muted"
@@ -134,7 +134,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.projectKey"
-                placeholder="Jira Project"
+                placeholder="select"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -174,7 +174,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.issueType"
       >
-        Issue Type
+        pipeline.jiraApprovalStep.issueType
          
         <span
           class="bp3-text-muted"
@@ -196,7 +196,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.issueType"
-                placeholder="Issue Type"
+                placeholder="select"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -345,7 +345,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
       <label
         class="bp3-label"
       >
-        Jira Connector
+        pipeline.jiraApprovalStep.connectorRef
          
         <span
           class="bp3-text-muted"
@@ -446,7 +446,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.projectKey"
       >
-        Jira Project
+        pipeline.jiraApprovalStep.project
          
         <span
           class="bp3-text-muted"
@@ -468,7 +468,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.projectKey"
-                placeholder="Jira Project"
+                placeholder="select"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -502,7 +502,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         <div
           class="bp3-form-helper-text"
         >
-          Project is required.
+          pipeline.jiraApprovalStep.validations.project
         </div>
       </div>
     </div>
@@ -513,7 +513,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.issueType"
       >
-        Issue Type
+        pipeline.jiraApprovalStep.issueType
          
         <span
           class="bp3-text-muted"
@@ -535,7 +535,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.issueType"
-                placeholder="Issue Type"
+                placeholder="select"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -569,7 +569,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         <div
           class="bp3-form-helper-text"
         >
-          Issue Type is required.
+          pipeline.jiraApprovalStep.validations.issueType
         </div>
       </div>
     </div>
@@ -581,9 +581,9 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
     <pre>
       {
   "spec": {
-    "connectorRef": "Jira Connector is required.",
-    "projectKey": "Project is required.",
-    "issueType": "Issue Type is required."
+    "connectorRef": "pipeline.jiraApprovalStep.validations.connectorRef",
+    "projectKey": "pipeline.jiraApprovalStep.validations.project",
+    "issueType": "pipeline.jiraApprovalStep.validations.issueType"
   }
 }
     </pre>

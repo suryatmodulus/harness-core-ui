@@ -797,7 +797,7 @@ describe('SelectApplication', () => {
         </TestWrapper>
       </MemoryRouter>
     )
-    expect(getByText('HARNESS FIRSTGEN APPLICATION')).toBeDefined()
+    expect(getByText('cv.activitySources.harnessCD.harnessApps')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -946,6 +946,6 @@ describe('SelectApplication', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => expect(getByText('At least one application must be selected.')))
+    await waitFor(() => expect(getByText('cv.activitySources.harnessCD.validation.applicationValidation')))
   })
 })

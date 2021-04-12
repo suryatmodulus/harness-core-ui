@@ -284,7 +284,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     expect(getByText(MockSelectedMetricInfo.widgetName)).not.toBeNull()
 
     fireEvent.click(getByText('Next'))
-    await waitFor(() => getByText('All fields for at least one metric must be filled completely.'))
+    await waitFor(() => getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.mainSetupValidation'))
   })
 
   test('Ensure that when validation api throws error or returns no data, correct content is displayed', async () => {
@@ -349,10 +349,10 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       fieldId: FieldNames.QUERY,
       value: '{ "dsadd": "dsfs" }'
     })
-    await waitFor(() => expect(getByText('No data for provided query.')))
+    await waitFor(() => expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')))
 
     //retry api
-    fireEvent.click(getByText('Retry'))
+    fireEvent.click(getByText('retry'))
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(3))
   })
 

@@ -19,6 +19,7 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
       },
       pipelineView
     },
+    isReadonly,
     stepsFactory,
     updatePipeline,
     updatePipelineView,
@@ -30,6 +31,7 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
   return (
     <ExecutionGraph
       allowAddGroup={true}
+      isReadonly={isReadonly}
       hasDependencies={false}
       stepsFactory={stepsFactory}
       ref={executionRef}

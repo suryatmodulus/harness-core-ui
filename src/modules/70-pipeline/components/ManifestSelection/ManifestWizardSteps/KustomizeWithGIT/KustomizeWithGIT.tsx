@@ -118,8 +118,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
@@ -130,10 +128,12 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       }
     }
 
-    if (formData?.gitFetchType === 'Branch') {
-      delete manifestObj.manifest?.spec?.store?.spec?.commitId
-    } else if (formData?.gitFetchType === 'Commit') {
-      delete manifestObj.manifest?.spec?.store?.spec?.branch
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+      }
     }
 
     handleSubmit(manifestObj)
@@ -152,7 +152,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.folderPathRequired'))
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired'))
         })}
         onSubmit={formData => {
           submitFormData({

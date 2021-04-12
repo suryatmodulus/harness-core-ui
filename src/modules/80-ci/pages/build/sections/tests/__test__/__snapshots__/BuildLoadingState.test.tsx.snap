@@ -49,12 +49,12 @@ exports[`BuildLoadingState snapshot test should render properly 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-top-medium"
     >
-      Nothing here!
+      ci.testsReports.nothing
     </p>
     <p
       class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-large"
     >
-      Test reports will be displayed here if they are configured and available.
+      ci.testsReports.willBeDisplayedIfAvailable
     </p>
     <a
       class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
@@ -67,7 +67,7 @@ exports[`BuildLoadingState snapshot test should render properly 1`] = `
       <span
         class="bp3-button-text"
       >
-        Learn how to enable Unit test reporting
+        ci.testsReports.learnMore
       </span>
     </a>
   </div>

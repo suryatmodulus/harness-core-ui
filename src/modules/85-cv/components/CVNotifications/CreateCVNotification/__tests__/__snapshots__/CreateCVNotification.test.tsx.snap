@@ -23,7 +23,7 @@ exports[`Create CV Notification Rule should render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Detail
+            cv.admin.notifications.create.details
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -44,7 +44,7 @@ exports[`Create CV Notification Rule should render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Configure Method
+            cv.admin.notifications.create.method
           </p>
         </div>
         <div
@@ -59,7 +59,7 @@ exports[`Create CV Notification Rule should render 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Conditions
+            conditions
           </p>
         </div>
       </div>
@@ -74,7 +74,7 @@ exports[`Create CV Notification Rule should render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
           >
-            Notification Rule Details
+            cv.admin.notifications.create.stepOne.heading
           </p>
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -144,7 +144,7 @@ exports[`Create CV Notification Rule should render 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Give name to your notification rule
+                        cv.admin.notifications.create.stepOne.name
                          
                         <span
                           class="bp3-text-muted"
@@ -175,7 +175,7 @@ exports[`Create CV Notification Rule should render 1`] = `
                       class="bp3-label"
                       for="notificationSettingType"
                     >
-                      Notification Type
+                      cv.admin.notifications.create.type
                        
                       <span
                         class="bp3-text-muted"
@@ -274,7 +274,7 @@ exports[`Create CV Notification Rule should render 2`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Detail
+            cv.admin.notifications.create.details
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -295,7 +295,7 @@ exports[`Create CV Notification Rule should render 2`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Configure Method
+            cv.admin.notifications.create.method
           </p>
         </div>
         <div
@@ -310,7 +310,7 @@ exports[`Create CV Notification Rule should render 2`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            Conditions
+            conditions
           </p>
         </div>
       </div>
@@ -325,7 +325,7 @@ exports[`Create CV Notification Rule should render 2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
           >
-            Notification Rule Details
+            cv.admin.notifications.create.stepOne.heading
           </p>
           <div
             class="OverlaySpinner--overlaySpinner"
@@ -397,7 +397,7 @@ exports[`Create CV Notification Rule should render 2`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Give name to your notification rule
+                        cv.admin.notifications.create.stepOne.name
                          
                         <span
                           class="bp3-text-muted"
@@ -428,7 +428,7 @@ exports[`Create CV Notification Rule should render 2`] = `
                       class="bp3-label"
                       for="notificationSettingType"
                     >
-                      Notification Type
+                      cv.admin.notifications.create.type
                        
                       <span
                         class="bp3-text-muted"
@@ -484,7 +484,7 @@ exports[`Create CV Notification Rule should render 2`] = `
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Select a notification type
+                        cv.admin.notifications.create.validation.type
                       </div>
                     </div>
                   </div>

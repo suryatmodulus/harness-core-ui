@@ -1,11 +1,23 @@
-import React from 'react'
-import { Button, Color, Formik, FormikForm as Form, Layout, Text, FormInput, Container } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import {
+  Button,
+  Color,
+  Formik,
+  FormikForm as Form,
+  Layout,
+  Text,
+  FormInput,
+  Container,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/exports'
-import type { User } from 'services/cd-ng'
+import { UserInfo, useUpdateUserInfo } from 'services/cd-ng'
+import { useToaster } from '@common/exports'
 
 interface UserProfileData {
-  user?: User
+  user: UserInfo
   onSubmit: () => void
   onClose: () => void
 }
@@ -13,10 +25,23 @@ interface UserProfileData {
 const EditUserProfile: React.FC<UserProfileData> = props => {
   const { user, onSubmit, onClose } = props
   const { getString } = useStrings()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const { mutate: updateProfile, loading } = useUpdateUserInfo({})
+  const { showError, showSuccess } = useToaster()
 
-  const handleSubmit = async (): Promise<void> => {
-    //Handle Submit
-    onSubmit()
+  const handleSubmit = async (values: UserInfo): Promise<void> => {
+    try {
+      const updated = await updateProfile(values)
+      /* istanbul ignore else */ if (updated) {
+        onSubmit()
+        showSuccess(getString('userProfile.userEditSuccess'))
+      } /* istanbul ignore next */ else {
+        showError(getString('userProfile.userEditFail'))
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
+    }
   }
 
   return (
@@ -25,25 +50,26 @@ const EditUserProfile: React.FC<UserProfileData> = props => {
         <Text color={Color.BLACK} font="medium">
           {getString('userProfile.editProfile')}
         </Text>
-        <Formik
+        <Formik<UserInfo>
           initialValues={{
-            name: user?.name || ''
+            ...user
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(getString('validation.nameRequired'))
           })}
-          onSubmit={() => {
-            handleSubmit()
+          onSubmit={values => {
+            handleSubmit(values)
           }}
         >
           {() => {
             return (
               <Form>
                 <Container width={300}>
+                  <ModalErrorHandler bind={setModalErrorHandler} />
                   <FormInput.Text name="name" label={getString('name')} />
                 </Container>
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
-                  <Button intent="primary" text={getString('save')} type="submit" />
+                  <Button intent="primary" text={getString('save')} type="submit" disabled={loading} />
                   <Button text={getString('cancel')} onClick={onClose} />
                 </Layout.Horizontal>
               </Form>

@@ -4215,10 +4215,10 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/uicore@0.1.120":
-  version "0.1.120"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.120/5be4d7d331c18665af3690b6ef0dac6ec67e7f6ad0f6e6a6b7979a005e7c35be#50e72d56974656eb1d744f658a4bcaeb25ea16dc"
-  integrity sha512-dwfsf5LmnpSzSOlXTZUVXeCwRSWTCWO9IHafLab28+oiZlwKfX0B7NvuETArj1vTYYSX5iiOP36gohBrnURUsw==
+"@wings-software/uicore@0.1.124":
+  version "0.1.124"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.124/fb97fc17042aaa15762ecf47e3f7cb71971c927d0ea35a9983a2ab1e22cc4a1a#d8ae3354d9df427c91b7dd202ee05906308ae93e"
+  integrity sha512-sYIP0C3OnzhmH1S36LEsYDTBIF7ATqZHnDdkmqQuC59D8ocGJH85ZJJCRgm+RdiHjapwDhPTbqIVTeNSb4bx4w==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"

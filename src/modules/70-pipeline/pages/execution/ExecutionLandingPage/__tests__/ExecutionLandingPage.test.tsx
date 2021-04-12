@@ -76,8 +76,8 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    ['Pipelines', routes.toExecutionPipelineView(pathParams)],
-    ['Inputs', routes.toExecutionInputsView(pathParams)]
+    ['pipelines', routes.toExecutionPipelineView(pathParams)],
+    ['inputs', routes.toExecutionInputsView(pathParams)]
     // [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
     ;(useGetExecutionDetail as jest.Mock).mockImplementation(() => ({

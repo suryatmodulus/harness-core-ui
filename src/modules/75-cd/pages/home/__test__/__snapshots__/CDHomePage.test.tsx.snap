@@ -13,13 +13,13 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
         class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold"
         style="color: rgb(34, 34, 42); font-size: 30px;"
       >
-        Continuous Delivery
+        cd.continuous
       </h1>
       <p
         class="StyledProps--font StyledProps--main"
         style="color: rgb(79, 81, 98); line-height: 24px; font-size: 16px; width: 400px;"
       >
-        Let Harness take your software release process to the next level with Continuous Delivery
+        cd.dashboard.subHeading
       </p>
       <a
         class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
@@ -33,7 +33,7 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          Learn more about Continuous Delivery
+          cd.dashboard.learnMore
         </span>
       </a>
       <div
@@ -44,13 +44,13 @@ exports[`CIHomePage snapshot test should render properly 1`] = `
           href="/account/undefined/projects"
           style="border-radius: 4px; font-size: 14px; font-weight: bold; line-height: 16px; width: 200px; height: 45px; background: rgb(25, 119, 212); display: flex; align-items: center; justify-content: center;"
         >
-          + Create Project
+          createProject
         </a>
         <p
           class="StyledProps--font StyledProps--main"
           style="font-size: 16px; color: rgb(79, 81, 98);"
         >
-          Or select an existing project
+          orSelectExisting
         </p>
         <span
           style="flex-grow: 1;"

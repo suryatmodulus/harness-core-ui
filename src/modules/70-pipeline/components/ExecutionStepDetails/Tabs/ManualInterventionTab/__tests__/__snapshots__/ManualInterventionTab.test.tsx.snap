@@ -8,7 +8,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
     <div
       class="title"
     >
-      Permissible Actions
+      common.PermissibleActions
     </div>
     <div
       class="actionRow"
@@ -42,7 +42,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         <span
           class="iconText"
         >
-          Retry
+          pipeline.failureStrategies.strategiesLabel.Retry
         </span>
         <input
           data-testid="failure-strategy-retry"
@@ -80,7 +80,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         <span
           class="iconText"
         >
-          Ignore Failure
+          pipeline.failureStrategies.strategiesLabel.Ignore
         </span>
         <input
           data-testid="failure-strategy-ignore"
@@ -118,7 +118,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         <span
           class="iconText"
         >
-          Mark As Success
+          pipeline.failureStrategies.strategiesLabel.MarkAsSuccess
         </span>
         <input
           data-testid="failure-strategy-markassuccess"
@@ -156,7 +156,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         <span
           class="iconText"
         >
-          Abort
+          pipeline.failureStrategies.strategiesLabel.Abort
         </span>
         <input
           data-testid="failure-strategy-abort"

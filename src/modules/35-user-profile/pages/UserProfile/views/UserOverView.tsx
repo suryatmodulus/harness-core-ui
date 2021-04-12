@@ -2,9 +2,6 @@ import React from 'react'
 import { Text, Tab, Container, Tabs, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
 import UserSummaryTab from './UserSummaryTab'
-import UserAuthenticationTab from './UserAuthenticationTab'
-import UserPermissionsTab from './UserPermissionsTab'
-import UserActivityLogTab from './UserActivityLogTab'
 
 const UserOverView: React.FC = () => {
   const { getString } = useStrings()
@@ -12,7 +9,7 @@ const UserOverView: React.FC = () => {
     <Container padding={{ left: 'xlarge', right: 'xlarge' }}>
       <Tabs id="overview">
         <Tab id="summary" title={<Text color={Color.BLACK}>{getString('summary')}</Text>} panel={<UserSummaryTab />} />
-        <Tab
+        {/* <Tab
           id="authentication"
           title={<Text color={Color.BLACK}>{getString('authentication')}</Text>}
           panel={<UserAuthenticationTab />}
@@ -26,7 +23,7 @@ const UserOverView: React.FC = () => {
           id="activityLog"
           title={<Text color={Color.BLACK}>{getString('activityLog')}</Text>}
           panel={<UserActivityLogTab />}
-        />
+        /> */}
       </Tabs>
     </Container>
   )

@@ -51,7 +51,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -79,7 +79,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              AWS Connector
+              pipelineSteps.awsConnectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -244,7 +244,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Region
+              pipelineSteps.regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -296,7 +296,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.region"
-                        placeholder="us-east-1"
+                        placeholder="pipelineSteps.regionPlaceholder"
                         type="text"
                         value="us-east-1"
                       />
@@ -337,7 +337,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Bucket
+              pipelineSteps.bucketLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -429,7 +429,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Key
+              keyLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -536,7 +536,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Source Paths
+                    pipelineSteps.sourcePathsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -598,7 +598,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -702,7 +702,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -716,13 +716,13 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Endpoint URL
+              pipelineSteps.endpointLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -774,7 +774,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.endpoint"
-                        placeholder="http://minio.company.com"
+                        placeholder="pipelineSteps.endpointPlaceholder"
                         type="text"
                         value="Endpoint"
                       />
@@ -815,7 +815,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Archive Format
+              archiveFormat
               <span
                 class="bp3-popover-wrapper"
               >
@@ -958,7 +958,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Override Cache
+                  override
                 </label>
                 <span
                   class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1011,7 +1011,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Path Style
+                  pathStyle
                 </label>
                 <span
                   class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -1046,7 +1046,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -1086,7 +1086,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -1109,7 +1109,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value="128Mi"
                         />
@@ -1152,7 +1152,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -1175,7 +1175,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value="0.2"
                         />
@@ -1226,7 +1226,7 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -1372,7 +1372,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -1400,7 +1400,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              AWS Connector
+              pipelineSteps.awsConnectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -1524,7 +1524,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Region
+              pipelineSteps.regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -1647,7 +1647,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Bucket
+              pipelineSteps.bucketLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -1770,7 +1770,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Key
+              keyLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -1909,7 +1909,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="display: flex; align-items: center;"
                     >
-                      Source Paths
+                      pipelineSteps.sourcePathsLabel
                       <span
                         class="bp3-popover-wrapper"
                       >
@@ -1976,7 +1976,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
                           <span
                             class="btnText"
                           >
-                            Runtime input
+                            inputTypes.RUNTIME
                           </span>
                         </span>
                       </button>
@@ -2025,13 +2025,13 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Endpoint URL
+              pipelineSteps.endpointLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2154,7 +2154,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Archive Format
+              archiveFormat
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2281,7 +2281,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
               class="bp3-label"
               for="spec.override"
             >
-              Override Cache
+              override
                
               <span
                 class="bp3-text-muted"
@@ -2347,7 +2347,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
               class="bp3-label"
               for="spec.pathStyle"
             >
-              Path Style
+              pathStyle
                
               <span
                 class="bp3-text-muted"
@@ -2408,7 +2408,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -2448,7 +2448,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -2544,7 +2544,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -2648,7 +2648,7 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -2843,7 +2843,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                Name
+                pipelineSteps.stepNameLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -2871,7 +2871,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              AWS Connector
+              pipelineSteps.awsConnectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3036,7 +3036,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Region
+              pipelineSteps.regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3088,7 +3088,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.region"
-                        placeholder="us-east-1"
+                        placeholder="pipelineSteps.regionPlaceholder"
                         type="text"
                         value=""
                       />
@@ -3129,7 +3129,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Bucket
+              pipelineSteps.bucketLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3221,7 +3221,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Key
+              keyLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3328,7 +3328,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Source Paths
+                    pipelineSteps.sourcePathsLabel
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -3390,7 +3390,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                           <span
                             class="btnText"
                           >
-                            Fixed value
+                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -3494,7 +3494,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      + Add
+                      plusAdd
                     </span>
                   </button>
                 </div>
@@ -3508,13 +3508,13 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
           >
-            OPTIONAL CONFIGURATIONS
+            pipelineSteps.optionalConfiguration
           </p>
           <div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Endpoint URL
+              pipelineSteps.endpointLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3566,7 +3566,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                       <input
                         class="bp3-input"
                         name="spec.endpoint"
-                        placeholder="http://minio.company.com"
+                        placeholder="pipelineSteps.endpointPlaceholder"
                         type="text"
                         value=""
                       />
@@ -3607,7 +3607,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              Archive Format
+              archiveFormat
               <span
                 class="bp3-popover-wrapper"
               >
@@ -3749,7 +3749,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Override Cache
+                  override
                 </label>
                 <span
                   class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -3801,7 +3801,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Path Style
+                  pathStyle
                 </label>
                 <span
                   class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -3836,7 +3836,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
           >
-            Set container Resources
+            pipelineSteps.setContainerResources
             <span
               class="bp3-popover-wrapper"
             >
@@ -3876,7 +3876,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3899,7 +3899,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitMemory"
-                          placeholder="128Mi"
+                          placeholder="pipelineSteps.limitMemoryPlaceholder"
                           type="text"
                           value=""
                         />
@@ -3942,7 +3942,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
               <div
                 style="display: flex; align-items: center;"
@@ -3965,7 +3965,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                         <input
                           class="bp3-input"
                           name="spec.limitCPU"
-                          placeholder="0.2"
+                          placeholder="pipelineSteps.limitCPUPlaceholder"
                           type="text"
                           value=""
                         />
@@ -4016,7 +4016,7 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Timeout
+                pipelineSteps.timeoutLabel
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -4158,7 +4158,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              AWS Connector
+              pipelineSteps.awsConnectorLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4294,7 +4294,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Region
+              pipelineSteps.regionLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4340,7 +4340,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.region"
-                placeholder="us-east-1"
+                placeholder="pipelineSteps.regionPlaceholder"
                 type="text"
                 value=""
               />
@@ -4359,7 +4359,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Bucket
+              pipelineSteps.bucketLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4423,7 +4423,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Key
+              keyLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4480,7 +4480,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="display: flex; align-items: center;"
           >
-            Source Paths
+            pipelineSteps.sourcePathsLabel
             <span
               class="bp3-popover-wrapper"
             >
@@ -4567,7 +4567,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>
@@ -4584,7 +4584,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Endpoint URL
+              pipelineSteps.endpointLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4630,7 +4630,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="spec.endpoint"
-                placeholder="http://minio.company.com"
+                placeholder="pipelineSteps.endpointPlaceholder"
                 type="text"
                 value=""
               />
@@ -4649,7 +4649,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Archive Format
+              archiveFormat
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4751,7 +4751,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              Override Cache
+              override
             </label>
           </div>
         </div>
@@ -4772,14 +4772,14 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              Path Style
+              pathStyle
             </label>
           </div>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -4826,7 +4826,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
                
               <span
@@ -4843,7 +4843,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.memory"
-                  placeholder="128Mi"
+                  placeholder="pipelineSteps.limitMemoryPlaceholder"
                   type="text"
                   value=""
                 />
@@ -4863,7 +4863,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
                
               <span
@@ -4880,7 +4880,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.cpu"
-                  placeholder="0.2"
+                  placeholder="pipelineSteps.limitCPUPlaceholder"
                   type="text"
                   value=""
                 />
@@ -4900,7 +4900,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4945,7 +4945,7 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
               <input
                 class="bp3-input"
                 name="timeout"
-                placeholder="120s"
+                placeholder="pipelineSteps.timeoutPlaceholder"
                 type="text"
                 value=""
               />

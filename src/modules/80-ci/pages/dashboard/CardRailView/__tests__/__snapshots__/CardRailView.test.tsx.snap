@@ -31,7 +31,7 @@ exports[`CardRailView renders correctly 1`] = `
       <p
         class="StyledProps--font StyledProps--main title StyledProps--font-size-medium"
       >
-        Active Builds
+        ci.dashboard.activeBuilds
       </p>
     </div>
     <div
@@ -239,7 +239,7 @@ exports[`CardRailView renders correctly 1`] = `
       <span
         class="bp3-button-text"
       >
-        See All
+        seeAll
       </span>
     </a>
   </div>
@@ -277,7 +277,7 @@ exports[`CardRailView renders correctly when content is empty 1`] = `
       <p
         class="StyledProps--font StyledProps--main title StyledProps--font-size-medium"
       >
-        Repositories
+        repositories
       </p>
     </div>
     <div
@@ -301,7 +301,7 @@ exports[`CardRailView renders correctly when content is empty 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            No Repositories found
+            ci.dashboard.noRepositories
           </p>
         </div>
       </div>
@@ -341,7 +341,7 @@ exports[`CardRailView renders correctly while loading="true" 1`] = `
       <p
         class="StyledProps--font StyledProps--main title StyledProps--font-size-medium"
       >
-        Active Builds
+        ci.dashboard.activeBuilds
       </p>
     </div>
     <div

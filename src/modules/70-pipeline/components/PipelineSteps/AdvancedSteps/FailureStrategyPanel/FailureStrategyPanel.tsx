@@ -24,12 +24,14 @@ export interface FailureStrategyPanelProps {
     failureStrategies?: FailureStrategyConfig[]
   }>
   mode: Modes
+  isReadonly: boolean
 }
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
   const {
     formikProps: { values: formValues, submitForm, errors },
-    mode
+    mode,
+    isReadonly
   } = props
   const [selectedStategyNum, setSelectedStategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
@@ -107,7 +109,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     iconProps={{ size: 12 }}
                     data-testid="add-failure-strategy"
                     onClick={handleAdd}
-                    disabled={filterTypes.length === errorTypesOrder.length}
+                    disabled={filterTypes.length === errorTypesOrder.length || isReadonly}
                   >
                     <String stringID="add" />
                   </Button>
@@ -117,6 +119,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     icon="trash"
                     minimal
                     small
+                    disabled={isReadonly}
                     onClick={handleRemove}
                     iconProps={{ size: 12 }}
                     data-testid="remove-failure-strategy"

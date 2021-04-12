@@ -20,7 +20,7 @@ import Roles from '@rbac/pages/Roles/Roles'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import { String } from 'framework/exports'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
-import { ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import { ResourceCategory } from '@rbac/interfaces/ResourceType'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import RbacFactory from '@rbac/factories/RbacFactory'
@@ -31,12 +31,12 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings'
 }
 
-RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.PROJECT_RESOURCES, {
+RbacFactory.registerResourceCategory(ResourceCategory.PROJECT_RESOURCES, {
   icon: 'support-tour',
   label: <String stringID="projectResources" />
 })
 
-RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS, {
+RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
   icon: 'support-account',
   label: <String stringID="adminFunctions" />
 })

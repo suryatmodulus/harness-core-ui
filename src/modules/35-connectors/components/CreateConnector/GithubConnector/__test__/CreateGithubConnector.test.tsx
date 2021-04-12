@@ -158,7 +158,7 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
     // step 3
-    expect(queryByText(container, 'Enable API access')).toBeTruthy()
+    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -180,7 +180,7 @@ describe('Create Github connector Wizard', () => {
       clickSubmit(container)
     })
     // step 3
-    expect(queryByText(container, 'Enable API access')).toBeTruthy()
+    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -198,7 +198,7 @@ describe('Create Github connector Wizard', () => {
     })
   })
 
-  test.only('should form for edit http and authtype username-token with API access', async () => {
+  test('should form for edit http and authtype username-token with API access', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGithubConnector
@@ -215,8 +215,9 @@ describe('Create Github connector Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
+    expect(container).toMatchSnapshot()
     // step 3
-    expect(queryByText(container, 'Enable API access')).toBeTruthy()
+    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     await act(async () => {

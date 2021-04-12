@@ -100,7 +100,7 @@ export function ExecutionFilters(): React.ReactElement {
   const { name = '', filterVisibility, identifier = '' } = appliedFilter || {}
   const { ci, cd } = moduleProperties || {}
   const { serviceDefinitionTypes, infrastructureType, serviceIdentifiers, envIdentifiers } = cd || {}
-  const { branch, tag, ciExecutionInfoDTO } = ci || {}
+  const { branch, tag, ciExecutionInfoDTO, repoNames } = ci || {}
   const { sourceBranch, targetBranch } = ciExecutionInfoDTO?.pullRequest || {}
   const buildType = getBuildType(moduleProperties || {})
   const fieldToLabelMapping = React.useMemo(
@@ -113,6 +113,7 @@ export function ExecutionFilters(): React.ReactElement {
         ['branch', getString('pipelineSteps.deploy.inputSet.branch')],
         ['tag', getString('tagLabel')],
         ['buildType', getString('filters.executions.buildType')],
+        ['repoNames', getString('pipelineSteps.build.create.repositoryNameLabel')],
         ['serviceDefinitionTypes', getString('deploymentTypeText')],
         ['infrastructureType', getString('infrastructureTypeText')],
         ['serviceIdentifiers', getString('services')],
@@ -241,6 +242,7 @@ export function ExecutionFilters(): React.ReactElement {
         initialFilter={{
           formValues: {
             pipelineName,
+            repositoryName: repoNames?.[0] || undefined,
             status: getMultiSelectFormOptions(status),
             branch,
             tag,

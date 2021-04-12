@@ -56,7 +56,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -85,7 +85,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          AppDynamics Connector Details
+          connectors.appDynamicsDetails
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -162,7 +162,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -192,7 +192,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -223,7 +223,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -260,7 +260,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -368,7 +368,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -623,7 +623,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -719,7 +719,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Account Name is a required field
+                  validation.accountName
                 </div>
               </div>
             </div>
@@ -754,7 +754,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Username is a required field
+                  validation.username
                 </div>
               </div>
             </div>
@@ -782,7 +782,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Password is a required field
+                    validation.password
                   </div>
                 </div>
               </div>

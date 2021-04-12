@@ -40,7 +40,7 @@ describe('CreateSecretFromYamlPage', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Create'))
+      fireEvent.click(getByText('createSecretYAML.create'))
     })
   })
 })

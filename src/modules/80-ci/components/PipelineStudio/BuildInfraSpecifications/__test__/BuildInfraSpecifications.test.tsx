@@ -74,7 +74,7 @@ describe('BuildInfraSpecifications snapshot test', () => {
     await act(async () => {
       const portal = document.getElementsByClassName('bp3-portal')[0]
       expect(portal).toBeDefined()
-      fireEvent.click(await findByText(portal as HTMLElement, 'Account'))
+      fireEvent.click(await findByText(portal as HTMLElement, 'account'))
       const connector = await findAllByText(portal as HTMLElement, 'tesa_1')
       await waitFor(() => expect(connector?.[0]).toBeDefined())
       fireEvent.click(connector?.[0])

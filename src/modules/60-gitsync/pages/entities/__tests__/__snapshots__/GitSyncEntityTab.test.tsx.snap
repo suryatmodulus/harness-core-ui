@@ -8,7 +8,7 @@ exports[`Git Sync - entity tab rendering landing view 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-large"
     >
-      Entities By repositories
+      gitsync.entitiesByRepositories
     </p>
     <div
       class="StyledProps--font StyledProps--main collapseFeatures"
@@ -302,7 +302,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-large"
     >
-      Entities By repositories
+      gitsync.entitiesByRepositories
     </p>
     <div
       class="StyledProps--font StyledProps--main collapseFeatures"
@@ -1000,7 +1000,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--padding-left-huge StyledProps--padding-bottom-large"
                       style="cursor: pointer;"
                     >
-                      See more
+                      gitsync.seeMore
                     </p>
                   </div>
                 </div>

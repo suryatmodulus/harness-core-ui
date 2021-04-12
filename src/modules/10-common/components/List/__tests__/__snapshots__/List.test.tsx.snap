@@ -111,7 +111,7 @@ exports[`<List /> tests Should render properly 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>

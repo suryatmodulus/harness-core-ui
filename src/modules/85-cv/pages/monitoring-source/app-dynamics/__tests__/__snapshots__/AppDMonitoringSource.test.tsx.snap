@@ -56,7 +56,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
               contenteditable="false"
               disabled=""
             >
-              Default Name
+              cv.monitoringSources.appDName
             </span>
             <span
               class="bp3-icon bp3-icon-edit StyledProps--main nameEditIcon"
@@ -90,7 +90,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           role="tab"
           tabindex="0"
         >
-          Select Product
+          selectProduct
         </div>
         <div
           aria-controls="bp3-tab-panel_monitoring-sources_2"
@@ -102,7 +102,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           id="bp3-tab-title_monitoring-sources_2"
           role="tab"
         >
-          Map Applications to Harness Environments
+          mapApplicationsToEnvs
         </div>
         <div
           aria-controls="bp3-tab-panel_monitoring-sources_3"
@@ -114,7 +114,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           id="bp3-tab-title_monitoring-sources_3"
           role="tab"
         >
-          Map Applications to Harness Services
+          mapApplications
         </div>
         <div
           aria-controls="bp3-tab-panel_monitoring-sources_4"
@@ -126,7 +126,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           id="bp3-tab-title_monitoring-sources_4"
           role="tab"
         >
-          Review
+          review
         </div>
       </div>
       <div
@@ -250,7 +250,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                     class="bp3-editable-text-content"
                                     style="height: 1px; line-height: 1px; min-width: 0;"
                                   >
-                                    Default_Name
+                                    cv.monitoringSources.appDName
                                   </span>
                                 </div>
                               </span>
@@ -301,11 +301,16 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                   class="bp3-input"
                                   name="name"
                                   type="text"
-                                  value="Default Name"
+                                  value="cv.monitoringSources.appDName"
                                 />
                               </div>
                             </div>
                           </div>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--intent-danger StyledProps--padding-bottom-medium"
+                          >
+                            cv.onboarding.selectProductScreen.validationText.validIdRegex
+                          </p>
                         </div>
                       </div>
                       <div
@@ -334,12 +339,12 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main"
                     >
-                      Connect to your AppDynamics Monitoring Source
+                      cv.monitoringSources.appD.connectToMonitoringSource
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
                     >
-                      First time? You can setup a new connector to AppDynamics. It takes 2 minutes.
+                      cv.monitoringSources.appD.firstTimeSetupText
                     </p>
                     <div
                       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -433,7 +438,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                         <span
                           class="bp3-button-text"
                         >
-                          + New AppDynamics Connector
+                          cv.monitoringSources.appD.createConnectorText
                         </span>
                       </a>
                     </div>
@@ -447,7 +452,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                     class="bp3-label"
                     for="product"
                   >
-                    Select the AppDynamics Product that you would like to select applications from
+                    cv.monitoringSources.appD.selectProduct
                      
                     <span
                       class="bp3-text-muted"
@@ -463,11 +468,34 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                       >
                         <div
-                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard largeCard Card--interactive"
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card selectionCard selectedCard largeCard Card--selected Card--interactive"
                           tabindex="0"
                         >
                           <div
-                            class="Card--cardIcon cardIcon"
+                            class="triangle"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-tick StyledProps--main tick StyledProps--color StyledProps--color-white"
+                              icon="tick"
+                            >
+                              <svg
+                                data-icon="tick"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  tick
+                                </desc>
+                                <path
+                                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="Card--cardIcon cardIcon cardIconSelected"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -492,7 +520,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                           >
-                            Application Monitoring
+                            cv.monitoringSources.appD.product.applicationMonitoring
                           </p>
                         </div>
                       </div>

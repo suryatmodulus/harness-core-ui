@@ -40,8 +40,6 @@ export function JiraApproval(props: JiraApprovalProps): React.ReactElement {
             </a>
           </div>
         ) : null}
-
-        <String tagName="div" className={css.criteriaMsg} stringID="execution.approvals.criteriaMsg" />
       </div>
       <div className={css.jiraApproval}>
         {approvalData.details?.approvalCriteria ? (

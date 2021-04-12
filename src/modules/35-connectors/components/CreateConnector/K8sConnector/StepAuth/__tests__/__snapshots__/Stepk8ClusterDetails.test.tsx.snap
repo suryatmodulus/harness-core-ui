@@ -9,7 +9,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -35,7 +35,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -69,7 +69,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -82,7 +82,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -98,7 +98,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value=""
                   />
@@ -111,7 +111,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -136,7 +136,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Username and Password"
+                          value="usernamePassword"
                         />
                         <span
                           class="bp3-input-action"
@@ -185,7 +185,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                       class="label"
                     >
                       <label>
-                        Username
+                        username
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
@@ -210,7 +210,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
-                                  value="Plaintext"
+                                  value="plaintext"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -276,7 +276,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     <label
                       class="bp3-label"
                     >
-                      Password
+                      password
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -313,7 +313,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Create or Select a Secret
+                            createOrSelectSecret
                           </div>
                         </p>
                       </a>
@@ -339,7 +339,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -374,7 +374,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -384,7 +384,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -423,7 +423,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -449,7 +449,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -483,7 +483,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -496,7 +496,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -512,7 +512,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value=""
                   />
@@ -520,7 +520,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Master URL is required
+                  validation.masterUrl
                 </div>
               </div>
             </div>
@@ -530,7 +530,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -555,7 +555,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Username and Password"
+                          value="usernamePassword"
                         />
                         <span
                           class="bp3-input-action"
@@ -604,7 +604,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                       class="label"
                     >
                       <label>
-                        Username
+                        username
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
@@ -629,7 +629,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
-                                  value="Plaintext"
+                                  value="plaintext"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -683,7 +683,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Username is a required field
+                    validation.username
                   </div>
                 </div>
               </div>
@@ -700,7 +700,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     <label
                       class="bp3-label"
                     >
-                      Password
+                      password
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -737,7 +737,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Create or Select a Secret
+                            createOrSelectSecret
                           </div>
                         </p>
                       </a>
@@ -746,7 +746,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Password is a required field
+                    validation.password
                   </div>
                 </div>
               </div>
@@ -768,7 +768,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -803,7 +803,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -813,7 +813,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -852,7 +852,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -878,7 +878,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -912,7 +912,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -925,7 +925,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -941,7 +941,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value="dummyMasterUrl"
                   />
@@ -949,7 +949,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Master URL is required
+                  validation.masterUrl
                 </div>
               </div>
             </div>
@@ -959,7 +959,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -984,7 +984,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Username and Password"
+                          value="usernamePassword"
                         />
                         <span
                           class="bp3-input-action"
@@ -1033,7 +1033,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                       class="label"
                     >
                       <label>
-                        Username
+                        username
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
@@ -1058,7 +1058,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
-                                  value="Plaintext"
+                                  value="plaintext"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -1112,7 +1112,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Username is a required field
+                    validation.username
                   </div>
                 </div>
               </div>
@@ -1129,7 +1129,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     <label
                       class="bp3-label"
                     >
-                      Password
+                      password
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1166,7 +1166,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Create or Select a Secret
+                            createOrSelectSecret
                           </div>
                         </p>
                       </a>
@@ -1175,7 +1175,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Password is a required field
+                    validation.password
                   </div>
                 </div>
               </div>
@@ -1197,7 +1197,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -1232,7 +1232,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -1242,7 +1242,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1281,7 +1281,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -1307,7 +1307,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1341,7 +1341,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -1354,7 +1354,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -1370,7 +1370,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value="dummymasterUrl"
                   />
@@ -1383,7 +1383,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -1408,7 +1408,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Username and Password"
+                          value="usernamePassword"
                         />
                         <span
                           class="bp3-input-action"
@@ -1457,7 +1457,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                       class="label"
                     >
                       <label>
-                        Username
+                        username
                       </label>
                       <div
                         class="bp3-form-group labelSelect"
@@ -1482,7 +1482,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                                   placeholder="Search..."
                                   style="padding-right: 0px;"
                                   type="text"
-                                  value="Plaintext"
+                                  value="plaintext"
                                 />
                                 <span
                                   class="bp3-input-action"
@@ -1548,7 +1548,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     <label
                       class="bp3-label"
                     >
-                      Password
+                      password
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1585,7 +1585,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Configure Secret
+                            secret.configureSecret
                           </div>
                           <div>
                             &lt;k8serviceToken&gt;
@@ -1643,7 +1643,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -1678,7 +1678,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -1688,7 +1688,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1727,7 +1727,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -1753,7 +1753,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1787,7 +1787,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -1800,7 +1800,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -1816,7 +1816,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value="master"
                   />
@@ -1829,7 +1829,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -1854,7 +1854,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="Service Account"
+                          value="serviceAccount"
                         />
                         <span
                           class="bp3-input-action"
@@ -1902,7 +1902,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                     <label
                       class="bp3-label"
                     >
-                      Service Account Token
+                      connectors.k8.serviceAccountToken
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1939,7 +1939,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            Configure Secret
+                            secret.configureSecret
                           </div>
                           <div>
                             &lt;k8serviceToken&gt;
@@ -1997,7 +1997,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -2032,7 +2032,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -2042,7 +2042,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2081,7 +2081,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -2107,7 +2107,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2141,7 +2141,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -2154,7 +2154,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -2170,7 +2170,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value="nmbshg"
                   />
@@ -2183,7 +2183,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -2256,7 +2256,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -2291,7 +2291,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -2301,7 +2301,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2340,7 +2340,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
     >
-      Details
+      details
     </p>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -2366,7 +2366,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify master url and credentials
+                    connectors.k8.delegateOutClusterInfo
                   </span>
                   <span
                     class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2400,7 +2400,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                   >
-                    Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                    connectors.k8.delegateInClusterInfo
                   </span>
                 </div>
               </div>
@@ -2413,7 +2413,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 class="bp3-label"
                 for="masterUrl"
               >
-                Master URL
+                connectors.k8.masterUrlLabel
                  
                 <span
                   class="bp3-text-muted"
@@ -2429,7 +2429,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="masterUrl"
-                    placeholder="/url"
+                    placeholder="connectors.k8.placeholder.masterUrl"
                     type="text"
                     value="nmbshg"
                   />
@@ -2442,7 +2442,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
               >
-                Authentication
+                connectors.authTitle
               </span>
               <div
                 class="bp3-form-group authTypeSelect"
@@ -2467,7 +2467,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="OpenID Connect"
+                          value="connectors.k8.authLabels.OIDC"
                         />
                         <span
                           class="bp3-input-action"
@@ -2506,7 +2506,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 class="bp3-label"
                 for="oidcIssuerUrl"
               >
-                OIDC Issuer URL
+                connectors.k8.OIDCIssuerUrl
                  
                 <span
                   class="bp3-text-muted"
@@ -2549,7 +2549,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                         class="label"
                       >
                         <label>
-                          OIDC Username
+                          connectors.k8.OIDCUsername
                         </label>
                         <div
                           class="bp3-form-group labelSelect"
@@ -2574,7 +2574,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="Plaintext"
+                                    value="plaintext"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -2640,7 +2640,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        OIDC Password
+                        connectors.k8.OIDCPassword
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2677,7 +2677,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Configure Secret
+                              secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;
@@ -2735,7 +2735,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        OIDC Client ID
+                        connectors.k8.OIDCClientId
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2772,7 +2772,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Configure Secret
+                              secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;
@@ -2825,7 +2825,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        OIDC Secret
+                        connectors.k8.OIDCSecret
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2862,7 +2862,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Configure Secret
+                              secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;
@@ -2912,7 +2912,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                 class="bp3-label"
                 for="oidcScopes"
               >
-                OIDC Scopes (Optional)
+                connectors.k8.OIDCScopes
                  
                 <span
                   class="bp3-text-muted"
@@ -2951,7 +2951,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Skip default namespace validation
+                  connectors.k8.skipDefaultValidation
                 </label>
               </div>
             </div>
@@ -2986,7 +2986,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
@@ -2996,7 +2996,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Save and Continue
+                saveAndContinue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"

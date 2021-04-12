@@ -43,7 +43,7 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
               </Text>
             </Layout.Horizontal>
             <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('projectCard.cdRendererText').toUpperCase()}
+              {getString('projectCard.cdRendererText')}
             </Text>
           </Layout.Vertical>
         </Container>

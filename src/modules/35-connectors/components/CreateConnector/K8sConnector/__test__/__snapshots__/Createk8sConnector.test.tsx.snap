@@ -40,7 +40,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -54,7 +54,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -75,7 +75,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -90,7 +90,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -105,7 +105,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -119,7 +119,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -198,7 +198,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -228,7 +228,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -259,7 +259,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -296,7 +296,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -370,7 +370,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -402,7 +402,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -423,7 +423,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -438,7 +438,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -453,7 +453,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -468,7 +468,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -494,7 +494,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify master url and credentials
+                        connectors.k8.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -528,7 +528,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.k8.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -541,7 +541,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                     class="bp3-label"
                     for="masterUrl"
                   >
-                    Master URL
+                    connectors.k8.masterUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -557,7 +557,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="/url"
+                        placeholder="connectors.k8.placeholder.masterUrl"
                         type="text"
                         value=""
                       />
@@ -570,7 +570,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -595,7 +595,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Username and Password"
+                              value="usernamePassword"
                             />
                             <span
                               class="bp3-input-action"
@@ -644,7 +644,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -669,7 +669,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -735,7 +735,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -772,7 +772,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -798,7 +798,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      Skip default namespace validation
+                      connectors.k8.skipDefaultValidation
                     </label>
                   </div>
                 </div>
@@ -833,7 +833,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -843,7 +843,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -915,7 +915,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -947,7 +947,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -968,7 +968,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -983,7 +983,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -998,7 +998,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1013,7 +1013,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1039,7 +1039,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify master url and credentials
+                        connectors.k8.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1073,7 +1073,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.k8.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -1086,7 +1086,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                     class="bp3-label"
                     for="masterUrl"
                   >
-                    Master URL
+                    connectors.k8.masterUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -1102,7 +1102,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="/url"
+                        placeholder="connectors.k8.placeholder.masterUrl"
                         type="text"
                         value="/url"
                       />
@@ -1115,7 +1115,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -1140,7 +1140,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="OpenID Connect"
+                              value="connectors.k8.authLabels.OIDC"
                             />
                             <span
                               class="bp3-input-action"
@@ -1179,7 +1179,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                     class="bp3-label"
                     for="oidcIssuerUrl"
                   >
-                    OIDC Issuer URL
+                    connectors.k8.OIDCIssuerUrl
                      
                     <span
                       class="bp3-text-muted"
@@ -1222,7 +1222,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             class="label"
                           >
                             <label>
-                              OIDC Username
+                              connectors.k8.OIDCUsername
                             </label>
                             <div
                               class="bp3-form-group labelSelect"
@@ -1247,7 +1247,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                         placeholder="Search..."
                                         style="padding-right: 0px;"
                                         type="text"
-                                        value="Plaintext"
+                                        value="plaintext"
                                       />
                                       <span
                                         class="bp3-input-action"
@@ -1313,7 +1313,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            OIDC Password
+                            connectors.k8.OIDCPassword
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1350,7 +1350,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
                                 <div>
-                                  Configure Secret
+                                  secret.configureSecret
                                 </div>
                                 <div>
                                   &lt;k8serviceToken&gt;
@@ -1408,7 +1408,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            OIDC Client ID
+                            connectors.k8.OIDCClientId
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1445,7 +1445,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
                                 <div>
-                                  Configure Secret
+                                  secret.configureSecret
                                 </div>
                                 <div>
                                   &lt;k8serviceToken&gt;
@@ -1498,7 +1498,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            OIDC Secret
+                            connectors.k8.OIDCSecret
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1535,7 +1535,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
                                 <div>
-                                  Configure Secret
+                                  secret.configureSecret
                                 </div>
                                 <div>
                                   &lt;k8serviceToken&gt;
@@ -1585,7 +1585,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                     class="bp3-label"
                     for="oidcScopes"
                   >
-                    OIDC Scopes (Optional)
+                    connectors.k8.OIDCScopes
                      
                     <span
                       class="bp3-text-muted"
@@ -1624,7 +1624,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      Skip default namespace validation
+                      connectors.k8.skipDefaultValidation
                     </label>
                   </div>
                 </div>
@@ -1659,7 +1659,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1669,7 +1669,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1741,7 +1741,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1773,7 +1773,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1794,7 +1794,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1809,7 +1809,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1824,7 +1824,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1839,7 +1839,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1865,7 +1865,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify master url and credentials
+                        connectors.k8.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1899,7 +1899,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.k8.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -1912,7 +1912,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                     class="bp3-label"
                     for="masterUrl"
                   >
-                    Master URL
+                    connectors.k8.masterUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -1928,7 +1928,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="/url"
+                        placeholder="connectors.k8.placeholder.masterUrl"
                         type="text"
                         value="/url"
                       />
@@ -1941,7 +1941,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -1966,7 +1966,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Service Account"
+                              value="serviceAccount"
                             />
                             <span
                               class="bp3-input-action"
@@ -2014,7 +2014,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         <label
                           class="bp3-label"
                         >
-                          Service Account Token
+                          connectors.k8.serviceAccountToken
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2051,7 +2051,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -2109,7 +2109,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                       <span
                         class="bp3-control-indicator"
                       />
-                      Skip default namespace validation
+                      connectors.k8.skipDefaultValidation
                     </label>
                   </div>
                 </div>
@@ -2144,7 +2144,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -2154,7 +2154,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2226,7 +2226,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -2240,7 +2240,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2261,7 +2261,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2276,7 +2276,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2291,7 +2291,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2305,7 +2305,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -2363,7 +2363,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -2394,7 +2394,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -2420,7 +2420,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -2492,7 +2492,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -2566,7 +2566,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -2598,7 +2598,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -2619,7 +2619,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -2634,7 +2634,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -2649,7 +2649,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -2664,7 +2664,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -2690,7 +2690,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify master url and credentials
+                        connectors.k8.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -2724,7 +2724,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.k8.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -2737,7 +2737,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                     class="bp3-label"
                     for="masterUrl"
                   >
-                    Master URL
+                    connectors.k8.masterUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -2753,7 +2753,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="/url"
+                        placeholder="connectors.k8.placeholder.masterUrl"
                         type="text"
                         value="/url7878"
                       />
@@ -2766,7 +2766,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -2791,7 +2791,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Username and Password"
+                              value="usernamePassword"
                             />
                             <span
                               class="bp3-input-action"
@@ -2840,7 +2840,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -2865,7 +2865,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -2931,7 +2931,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2968,7 +2968,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -3026,7 +3026,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                       <span
                         class="bp3-control-indicator"
                       />
-                      Skip default namespace validation
+                      connectors.k8.skipDefaultValidation
                     </label>
                   </div>
                 </div>
@@ -3061,7 +3061,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3071,7 +3071,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -3143,7 +3143,7 @@ exports[`should form for edit authtype clientKey 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -3175,7 +3175,7 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -3196,7 +3196,7 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -3211,7 +3211,7 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -3226,7 +3226,7 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -3241,7 +3241,7 @@ exports[`should form for edit authtype clientKey 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -3267,7 +3267,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify master url and credentials
+                        connectors.k8.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -3301,7 +3301,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.k8.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -3314,7 +3314,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                     class="bp3-label"
                     for="masterUrl"
                   >
-                    Master URL
+                    connectors.k8.masterUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -3330,7 +3330,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="masterUrl"
-                        placeholder="/url"
+                        placeholder="connectors.k8.placeholder.masterUrl"
                         type="text"
                         value="/url"
                       />
@@ -3343,7 +3343,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group authTypeSelect"
@@ -3368,7 +3368,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Client Key Certificate"
+                              value="connectors.k8.authLabels.clientKeyCertificate"
                             />
                             <span
                               class="bp3-input-action"
@@ -3415,7 +3415,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         <label
                           class="bp3-label"
                         >
-                          Client Key
+                          connectors.k8.clientKey
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3452,7 +3452,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -3505,7 +3505,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         <label
                           class="bp3-label"
                         >
-                          Client Key passphrase
+                          connectors.k8.clientKeyPassphrase
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3542,7 +3542,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -3599,7 +3599,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         <label
                           class="bp3-label"
                         >
-                          Client Certificate
+                          connectors.k8.clientCertificate
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3636,7 +3636,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -3684,7 +3684,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                       class="bp3-label"
                       for="clientKeyAlgo"
                     >
-                      Client Key Algorithm (optional)
+                      connectors.k8.clientKeyAlgorithm
                        
                       <span
                         class="bp3-text-muted"
@@ -3724,7 +3724,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                         <label
                           class="bp3-label"
                         >
-                          CA Certificate (optional)
+                          connectors.k8.clientKeyCACertificate
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3761,7 +3761,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;k8serviceToken&gt;
@@ -3819,7 +3819,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      Skip default namespace validation
+                      connectors.k8.skipDefaultValidation
                     </label>
                   </div>
                 </div>
@@ -3854,7 +3854,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -3864,7 +3864,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -3936,7 +3936,7 @@ exports[`should form for edit authtype clientKey 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Kubernetes Cluster
+        connectors.title.k8sCluster
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -3968,7 +3968,7 @@ exports[`should form for edit authtype clientKey 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -4007,7 +4007,7 @@ exports[`should form for edit authtype clientKey 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -4022,7 +4022,7 @@ exports[`should form for edit authtype clientKey 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -4037,7 +4037,7 @@ exports[`should form for edit authtype clientKey 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -4052,7 +4052,7 @@ exports[`should form for edit authtype clientKey 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Delegation Selection
+          delegateSelection
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -4107,7 +4107,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
                 >
-                  Limit usage of this connector to the delegates which have the following tags
+                  delegate.DelegateselectionConnectorText
                 </p>
                 <div
                   data-name="DelegateSelectors"
@@ -4202,7 +4202,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -4212,7 +4212,7 @@ exports[`should form for edit authtype clientKey 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

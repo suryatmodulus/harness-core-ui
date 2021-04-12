@@ -6,8 +6,13 @@ export type StringKeys = keyof StringsMap
 
 export type { StringsMap }
 
-export const StringsContext = React.createContext<StringsMap>({} as StringsMap)
+export interface StringsContextValue {
+  data: StringsMap
+  getString?(key: StringKeys, vars?: Record<string, any>): string
+}
 
-export function useStringsContext(): StringsMap {
+export const StringsContext = React.createContext<StringsContextValue>({} as StringsContextValue)
+
+export function useStringsContext(): StringsContextValue {
   return React.useContext(StringsContext)
 }

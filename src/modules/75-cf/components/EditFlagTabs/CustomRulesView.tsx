@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
@@ -38,6 +38,7 @@ import {
   Target,
   ServingRule,
   TargetMap
+  // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/exports'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
@@ -140,10 +141,14 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
   const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     handleValuesChange([toOption(e.target.value)])
-  const bucketByItems = useBucketByItems()
+  const { bucketByItems, addBucketByItem } = useBucketByItems()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === attribute)
   }, [bucketByItems, attribute])
+
+  useEffect(() => {
+    addBucketByItem(attribute as string)
+  }, [attribute, addBucketByItem])
 
   const actions = [
     <Icon
@@ -169,6 +174,12 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   }
 
   const height = '36px'
+  type InputEventType = { target: { value: string } }
+  const onSelectEvent = (event: InputEventType): void => {
+    const { value } = event.target
+    onAttributeChange(value)
+    addBucketByItem(value)
+  }
 
   return (
     <Container>
@@ -183,11 +194,20 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
           <Select
             name="bucketBy"
             value={bucketBySelectValue}
-            inputProps={{ style: { height } }}
             items={bucketByItems}
             disabled={operator.value === matchSegment.value}
             onChange={({ value }) => {
+              addBucketByItem(value as string)
               onAttributeChange(value as string)
+            }}
+            inputProps={{
+              style: { height },
+              onBlur: onSelectEvent,
+              onKeyUp: event => {
+                if (event.keyCode === 13) {
+                  onSelectEvent((event as unknown) as InputEventType)
+                }
+              }
             }}
             allowCreatingNewItems
           />
@@ -421,6 +441,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         <PercentageRollout
                           editing={true}
                           variations={variations}
+                          bucketBy={rule.clauses?.[index]?.attribute}
                           weightedVariations={rule.serve.distribution?.variations || []}
                           onSetPercentageValues={handleRolloutChange}
                           style={{ marginLeft: 'var(--spacing-small)' }}
@@ -616,6 +637,19 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     }
   })
 
+  // TODO:
+  // Mapping should have both Targets and Segments
+  // Ticket: https://harness.atlassian.net/browse/FFM-722
+  //
+  // const { data: targetsSegments, loading: loadingTargetsSegments } = useGetTargetsAndSegments({
+  //   queryParams: {
+  //     environment,
+  //     project,
+  //     account: accountId,
+  //     org: orgIdentifier
+  //   }
+  // })
+
   const targetIdentidiersFromForm = uniq(
     formikProps.values.variationMap
       .map((map: { targets: TargetMap[] }) => map.targets || [])
@@ -804,7 +838,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
               targets={targets}
               formikProps={formikProps}
               variations={variations}
-              index={variations.findIndex(v => v.value === variation)}
+              index={variations.findIndex(v => v.identifier === variation)}
               variation={variation}
               variationOps={variationOps}
               targetAvatars={targetAvatars ?? []}

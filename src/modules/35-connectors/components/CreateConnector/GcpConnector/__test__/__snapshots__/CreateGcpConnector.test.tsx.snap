@@ -88,7 +88,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Google Cloud Provider
+        connectors.title.gcpConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -102,7 +102,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -123,7 +123,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -138,7 +138,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -153,7 +153,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -167,7 +167,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -246,7 +246,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -276,7 +276,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -307,7 +307,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -344,7 +344,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -466,7 +466,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Google Cloud Provider
+        connectors.title.gcpConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -498,7 +498,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -519,7 +519,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -534,7 +534,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -549,7 +549,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -564,7 +564,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -590,7 +590,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify credentials here
+                        connectors.GCP.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -624,7 +624,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.GCP.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -642,7 +642,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                       <label
                         class="bp3-label"
                       >
-                        Encrypted Key
+                        encryptedKeyLabel
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -679,7 +679,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Create or Select a Secret
+                              createOrSelectSecret
                             </div>
                           </p>
                         </a>
@@ -718,7 +718,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -728,7 +728,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -848,7 +848,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Google Cloud Provider
+        connectors.title.gcpConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -862,7 +862,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -883,7 +883,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -898,7 +898,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -913,7 +913,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -927,7 +927,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -985,7 +985,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -1016,7 +1016,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -1042,7 +1042,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1079,7 +1079,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1201,7 +1201,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Google Cloud Provider
+        connectors.title.gcpConnector
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1233,7 +1233,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1254,7 +1254,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1269,7 +1269,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1284,7 +1284,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1299,7 +1299,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1325,7 +1325,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify credentials here
+                        connectors.GCP.delegateOutClusterInfo
                       </span>
                       <span
                         class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -1359,7 +1359,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       <span
                         class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
                       >
-                        Specify credentials in harness-delegate.yaml files on your Harness Delegates
+                        connectors.GCP.delegateInClusterInfo
                       </span>
                     </div>
                   </div>
@@ -1377,7 +1377,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       <label
                         class="bp3-label"
                       >
-                        Encrypted Key
+                        encryptedKeyLabel
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1414,7 +1414,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              Configure Secret
+                              secret.configureSecret
                             </div>
                             <div>
                               &lt;s15656&gt;
@@ -1485,7 +1485,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1495,7 +1495,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

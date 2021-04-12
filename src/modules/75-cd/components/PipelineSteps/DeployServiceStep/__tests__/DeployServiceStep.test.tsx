@@ -22,7 +22,7 @@ describe('Test DeployService Step', () => {
     const { container } = render(
       <DeployService type={StepType.DeployService} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
-    fireEvent.click(getByText(container, '+ New Service'))
+    fireEvent.click(getByText(container, 'pipelineSteps.serviceTab.newService'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([
@@ -34,7 +34,7 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:
@@ -51,7 +51,7 @@ describe('Test DeployService Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Service'))
+    fireEvent.click(getByText(container, 'editService'))
     const dialog = findDialogContainer()
     fillAtForm([
       {
@@ -62,7 +62,7 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:
@@ -93,7 +93,7 @@ describe('Test DeployService Step', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText(container, 'Edit Service'))
+    fireEvent.click(getByText(container, 'editService'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([
@@ -105,11 +105,59 @@ describe('Test DeployService Step', () => {
       }
     ])
     await act(async () => {
-      fireEvent.click(getByText(dialog!, 'Save'))
+      fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
       "service:
         name: Edit Service
+        identifier: pass_service
+        description: test
+        tags:
+          tag1: \\"\\"
+          tag2: asd
+      "
+    `)
+  })
+
+  test('Should be able save even if there is 63 characters limit warning for name', async () => {
+    const { container } = render(
+      <DeployService
+        type={StepType.DeployService}
+        initialValues={{
+          service: {
+            identifier: 'pass_service',
+            name: 'Pass Service',
+            description: 'test',
+            tags: {
+              tag1: '',
+              tag2: 'asd'
+            }
+          }
+        }}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText(container, 'editService'))
+    const dialog = findDialogContainer()
+    expect(dialog).toMatchSnapshot()
+    fillAtForm([
+      {
+        container: dialog!,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'ljdlkcjv vldjvldkj dlvjdlvkj vljdlkvjd vlmdlfvm vlmdlkvj dlvdkl'
+      }
+    ])
+
+    expect(getByText(dialog!, 'Limit of 63 characters is reached for name')).not.toBeNull()
+
+    await act(async () => {
+      fireEvent.click(getByText(dialog!, 'save'))
+    })
+
+    expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
+      "service:
+        name: ljdlkcjv vldjvldkj dlvjdlvkj vljdlkvjd vlmdlfvm vlmdlkvj dlvdkl
         identifier: pass_service
         description: test
         tags:

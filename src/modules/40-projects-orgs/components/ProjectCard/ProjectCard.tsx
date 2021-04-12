@@ -121,7 +121,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
 
           <Layout.Horizontal padding={{ top: 'medium' }}>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Text font="small">{`${getString('adminLabel')} ${
+              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
                 adminList?.length ? `(${adminList?.length})` : ``
               }`}</Text>
               <AvatarGroup
@@ -131,10 +131,11 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   event.stopPropagation()
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
+                restrictLengthTo={1}
               />
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall">
-              <Text font="small">{`${getString('collaboratorsLabel')} ${
+              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('collaboratorsLabel')} ${
                 collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
               }`}</Text>
               <AvatarGroup
@@ -145,6 +146,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
 
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
+                restrictLengthTo={1}
               />
             </Layout.Vertical>
           </Layout.Horizontal>

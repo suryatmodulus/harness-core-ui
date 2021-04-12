@@ -9,10 +9,13 @@ const props = {
   handleSubmit: jest.fn()
 }
 
+const mockRegions = {
+  resource: [{ name: 'region1', value: 'region1' }]
+}
+
 jest.mock('services/portal', () => ({
-  useListAwsRegions: () => ({
-    data: {},
-    refetch: jest.fn()
+  useListAwsRegions: jest.fn().mockImplementation(() => {
+    return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 describe('helm with http tests', () => {
@@ -20,13 +23,39 @@ describe('helm with http tests', () => {
     const initialValues = {
       identifier: 'test',
       bucketName: 'test-bucket',
-      region: { label: '', value: '' },
+      region: { name: '', value: '' },
       folderPath: 'testfolder',
       helmVersion: 'V2',
       chartName: 'testChart',
       chartVersion: 'v1',
-      skipResourceVersioning: false,
-      commandFlags: [{ commandType: undefined, flag: undefined, id: 'id1' }]
+      skipResourceVersioning: false
+    }
+    const { container } = render(
+      <TestWrapper>
+        <HelmWithS3 {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('load form correctly in edit mode and fill region', () => {
+    const initialValues = {
+      identifier: 'test',
+      spec: {
+        store: {
+          type: 'S3',
+          spec: {
+            connectorRef: 'test',
+            bucketName: 'test-bucket',
+            folderPath: 'testfolder',
+            region: 'region1'
+          }
+        },
+        chartName: 'testChart',
+        chartVersion: 'v1',
+        helmVersion: 'V2',
+        skipResourceVersioning: false
+      }
     }
     const { container } = render(
       <TestWrapper>

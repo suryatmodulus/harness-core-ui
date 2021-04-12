@@ -20,7 +20,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          New Relic Connector Details
+          connectors.newRelicConnectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -41,7 +41,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -56,7 +56,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify Connection
+          verify connection
         </p>
       </div>
     </div>
@@ -70,7 +70,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -147,7 +147,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -177,7 +177,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -208,7 +208,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -245,7 +245,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -317,7 +317,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          New Relic Connector Details
+          connectors.newRelicConnectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -338,7 +338,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -353,7 +353,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify Connection
+          verify connection
         </p>
       </div>
     </div>
@@ -387,17 +387,17 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
               />
             </svg>
           </span>
-          New Relic Connector Details
+          cv.connectors.connectorDetailsHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main heading"
         >
-          Add New Relic Verification Provider
+          cv.connectors.addConnectorDetails
         </p>
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
+          cv.connectors.newRelic.subTitle
         </p>
         <form
           class="FormikForm--main form"
@@ -415,7 +415,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                   class="bp3-label"
                   for="url"
                 >
-                  New Relic URL
+                  cv.connectors.newRelic.urlFieldLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -484,7 +484,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
                     >
-                      New Relic Account ID
+                      cv.connectors.newRelic.accountIdFieldLabel
                     </span>
                     <span
                       class="bp3-popover-wrapper"
@@ -568,7 +568,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Back
+                  back
                 </span>
               </button>
               <button
@@ -578,7 +578,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Next
+                  next
                 </span>
               </button>
             </div>
@@ -628,7 +628,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          New Relic Connector Details
+          connectors.newRelicConnectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -649,7 +649,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -664,7 +664,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify Connection
+          verify connection
         </p>
       </div>
     </div>
@@ -698,17 +698,17 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
               />
             </svg>
           </span>
-          New Relic Connector Details
+          cv.connectors.connectorDetailsHeader
         </p>
         <p
           class="StyledProps--font StyledProps--main heading"
         >
-          Add New Relic Verification Provider
+          cv.connectors.addConnectorDetails
         </p>
         <p
           class="StyledProps--font StyledProps--main subHeading"
         >
-          To add New Relic connector, you will need access to New Relic Insights API. Verification analysis is limited to APM only.
+          cv.connectors.newRelic.subTitle
         </p>
         <form
           class="FormikForm--main form"
@@ -726,7 +726,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                   class="bp3-label"
                   for="url"
                 >
-                  New Relic URL
+                  cv.connectors.newRelic.urlFieldLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -795,7 +795,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
                     >
-                      New Relic Account ID
+                      cv.connectors.newRelic.accountIdFieldLabel
                     </span>
                     <span
                       class="bp3-popover-wrapper"
@@ -845,7 +845,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    New Relic Account ID is required.
+                    cv.connectors.newRelic.accountIdValidation
                   </div>
                 </div>
               </div>
@@ -873,7 +873,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                     <div
                       class="bp3-form-helper-text"
                     >
-                      Encrypted API Key is required.
+                      cv.connectors.newRelic.encryptedKeyValidation
                     </div>
                   </div>
                 </div>
@@ -889,7 +889,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Back
+                  back
                 </span>
               </button>
               <button
@@ -899,7 +899,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Next
+                  next
                 </span>
               </button>
             </div>

@@ -46,7 +46,7 @@ describe('MetricsVerificationModal unit tests', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Metric Pack Connection Test')))
+    await waitFor(() => expect(getByText('cv.metricVerificationModal.modalTitle')))
 
     // verify total cards and their content
     expect(document.body.querySelectorAll('[class*="successCard"]').length).toBe(4)
@@ -58,11 +58,11 @@ describe('MetricsVerificationModal unit tests', () => {
     ).toEqual('Error Metric')
 
     // verify that when you click on failures only error cards are shown
-    fireEvent.click(getByText('FAILURES'))
+    fireEvent.click(getByText('CV.FAILURES'))
     await waitFor(() => expect(document.body.querySelectorAll('[class*="statusCard"]').length).toBe(1))
 
     // click on view calls logs and make sure 3rd party call logs are displayed and hit back button
-    fireEvent.click(getByText('View calls to AppDynamics'))
+    fireEvent.click(getByText('cv.metricVerificationModal.viewCalls'))
     await waitFor(() => expect(document.querySelector('[class*="thirdpartycalllogs"]')).not.toBeNull())
     expect(document.body.querySelectorAll('[class*="statusCard"]').length).toBe(0)
     let backButton = document.querySelector('[class*="thirdpartycalllogs"]')
@@ -76,11 +76,11 @@ describe('MetricsVerificationModal unit tests', () => {
     fireEvent.click(getByText('SUCCESS'))
     await waitFor(() => expect(document.body.querySelectorAll('[class*="statusCard"]').length).toBe(4))
 
-    fireEvent.click(getByText('NO DATA'))
+    fireEvent.click(getByText('NODATA'))
     await waitFor(() => expect(document.body.querySelectorAll('[class*="statusCard"]').length).toBe(2))
 
     // click on view calls logs and make sure 3rd party call logs are displayed
-    fireEvent.click(getByText('View calls to AppDynamics'))
+    fireEvent.click(getByText('cv.metricVerificationModal.viewCalls'))
     await waitFor(() => expect(document.querySelector('[class*="thirdpartycalllogs"]')).not.toBeNull())
     expect(document.body.querySelectorAll('[class*="statusCard"]').length).toBe(0)
 

@@ -76,7 +76,8 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
   const data: ExecutionPipeline<GraphLayoutNode> = {
     items: processExecutionData(nodeData),
     identifier: pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || /* istanbul ignore next */ '',
-    status: pipelineExecutionDetail?.pipelineExecutionSummary?.status as any
+    status: pipelineExecutionDetail?.pipelineExecutionSummary?.status as any,
+    allNodes: Object.keys(pipelineExecutionDetail?.pipelineExecutionSummary?.layoutNodeMap || {})
   }
 
   const { data: barrierInfoData, refetch, loading: barrierInfoLoading } = useGetBarriersExecutionInfo({

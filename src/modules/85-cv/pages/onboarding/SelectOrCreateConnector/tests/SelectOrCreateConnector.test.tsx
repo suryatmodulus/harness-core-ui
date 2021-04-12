@@ -93,7 +93,7 @@ describe('Unit tests for SelectorCreateConnector', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="wrapperForm"]')).not.toBeNull())
-    expect(container.querySelector('input[value="Loading..."]')).not.toBeNull()
+    expect(container.querySelector('input[value="loading"]')).not.toBeNull()
   })
 
   test('Ensure that when connectorDisabled prop is passed, the connector selection is disabled', async () => {

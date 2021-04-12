@@ -37,6 +37,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     step,
     onChange,
     isStepGroup,
+    isReadonly,
     stepsFactory,
     hiddenPanels,
     hasStepGroupAncestor,
@@ -116,6 +117,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
     <StepWidgetWithFormikRef
       factory={stepsFactory}
       initialValues={step}
+      readonly={isReadonly}
       isNewStep={isNewStep}
       onUpdate={onChange}
       type={isStepGroup ? 'StepGroup' : step.type}
@@ -142,6 +144,7 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
             panel={
               <AdvancedStepsWithRef
                 step={step}
+                isReadonly={isReadonly}
                 stepsFactory={stepsFactory}
                 onChange={onChange}
                 hiddenPanels={hiddenPanels}

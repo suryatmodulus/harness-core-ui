@@ -72,7 +72,7 @@ describe('Create GCP connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(queryByText(container, 'Specify credentials here')).toBeTruthy()
+    expect(queryByText(container, 'connectors.GCP.delegateOutClusterInfo')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     await act(async () => {

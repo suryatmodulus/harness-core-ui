@@ -10,7 +10,7 @@ describe('Tests for Validate Mapping cell', () => {
         <ValidateMappingCell validationStatus="LOADING" onCellClick={jest.fn()} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('Verification in progress')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.monitoringSources.appD.verificationsInProgress')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('Ensure that when error state is passed error state is displayed', async () => {
@@ -20,7 +20,7 @@ describe('Tests for Validate Mapping cell', () => {
         <ValidateMappingCell validationStatus="FAILED" onCellClick={jest.fn()} onRetry={retryFn} />{' '}
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('Validation failed')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.monitoringSources.appD.validationsFailed')).not.toBeNull())
     expect(container).toMatchSnapshot()
     const retry = container.querySelector('button')
     if (!retry) {
@@ -37,7 +37,7 @@ describe('Tests for Validate Mapping cell', () => {
         <ValidateMappingCell validationStatus="SUCCESS" onCellClick={onClickFn} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('Validation passed')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.monitoringSources.appD.validationsPassed')).not.toBeNull())
     const text = container.querySelector('p')
     if (!text) {
       throw Error('Text has not been rendered.')
@@ -53,7 +53,7 @@ describe('Tests for Validate Mapping cell', () => {
         <ValidateMappingCell validationStatus="NO_DATA" onCellClick={onClickFn} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('No data')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.monitoringSources.appD.noData')).not.toBeNull())
     const text = container.querySelector('p')
     if (!text) {
       throw Error('Text has not been rendered.')

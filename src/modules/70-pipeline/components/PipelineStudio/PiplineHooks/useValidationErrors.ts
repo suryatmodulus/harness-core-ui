@@ -16,11 +16,11 @@ export function useValidationErrors(): { errorMap: Map<string, string[]> } {
   const validateErrors = useCallback(
     async (_originalPipeline: PipelineInfoConfig, _pipelineSchema: ResponseJsonNode | null): Promise<void> => {
       if (!isNil(_pipelineSchema) && _pipelineSchema.data) {
-        const error = await validateJSONWithSchema({ pipeline: originalPipeline }, _pipelineSchema.data)
+        const error = await validateJSONWithSchema({ pipeline: _originalPipeline }, _pipelineSchema.data)
         setErrorMap(error)
       }
     },
-    [originalPipeline]
+    []
   )
   useDeepCompareEffect(() => {
     validateErrors(originalPipeline, pipelineSchema)

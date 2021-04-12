@@ -46,7 +46,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Nexus Repository
+        connectors.title.nexus
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -60,7 +60,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -81,7 +81,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -96,7 +96,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -111,7 +111,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -125,7 +125,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -204,7 +204,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -234,7 +234,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -265,7 +265,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -302,7 +302,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -382,7 +382,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Nexus Repository
+        connectors.title.nexus
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -414,7 +414,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -435,7 +435,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -450,7 +450,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -465,7 +465,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -480,7 +480,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -503,7 +503,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       class="bp3-label"
                       for="nexusServerUrl"
                     >
-                      Nexus Repository URL
+                      connectors.nexus.nexusServerUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -519,7 +519,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="nexusServerUrl"
-                          placeholder="URL"
+                          placeholder="UrlLabel"
                           type="text"
                           value=""
                         />
@@ -527,7 +527,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Nexus URL is required
+                        validation.nexusServerURL
                       </div>
                     </div>
                   </div>
@@ -539,7 +539,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       class="bp3-label"
                       for="nexusVersion"
                     >
-                      Version
+                      version
                        
                       <span
                         class="bp3-text-muted"
@@ -595,7 +595,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Version is required
+                        validation.nexusVersion
                       </div>
                     </div>
                   </div>
@@ -606,7 +606,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group"
@@ -631,7 +631,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Username and Password"
+                              value="usernamePassword"
                             />
                             <span
                               class="bp3-input-action"
@@ -679,7 +679,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -704,7 +704,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -758,7 +758,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Username is a required field
+                        validation.username
                       </div>
                     </div>
                   </div>
@@ -775,7 +775,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -812,7 +812,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Create or Select a Secret
+                                createOrSelectSecret
                               </div>
                             </p>
                           </a>
@@ -821,7 +821,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       <div
                         class="bp3-form-helper-text"
                       >
-                        Password is a required field
+                        validation.password
                       </div>
                     </div>
                   </div>
@@ -857,7 +857,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -867,7 +867,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -945,7 +945,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Nexus Repository
+        connectors.title.nexus
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -959,7 +959,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -980,7 +980,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -995,7 +995,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1010,7 +1010,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1024,7 +1024,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
         <div
           class="heading"
         >
-          Overview
+          overview
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -1082,7 +1082,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -1113,7 +1113,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -1139,7 +1139,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -1176,7 +1176,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -1256,7 +1256,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        Nexus Repository
+        connectors.title.nexus
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1288,7 +1288,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1309,7 +1309,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Details
+          details
         </p>
       </div>
       <div
@@ -1324,7 +1324,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -1339,7 +1339,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1354,7 +1354,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
         >
-          Details
+          details
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -1377,7 +1377,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="nexusServerUrl"
                     >
-                      Nexus Repository URL
+                      connectors.nexus.nexusServerUrl
                        
                       <span
                         class="bp3-text-muted"
@@ -1393,7 +1393,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="nexusServerUrl"
-                          placeholder="URL"
+                          placeholder="UrlLabel"
                           type="text"
                           value="dummyRespositoryUrl"
                         />
@@ -1408,7 +1408,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="nexusVersion"
                     >
-                      Version
+                      version
                        
                       <span
                         class="bp3-text-muted"
@@ -1470,7 +1470,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                   <span
                     class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
                   >
-                    Authentication
+                    connectors.authTitle
                   </span>
                   <div
                     class="bp3-form-group"
@@ -1495,7 +1495,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                               placeholder="Search..."
                               style="padding-right: 0px;"
                               type="text"
-                              value="Username and Password"
+                              value="usernamePassword"
                             />
                             <span
                               class="bp3-input-action"
@@ -1543,7 +1543,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                           class="label"
                         >
                           <label>
-                            Username
+                            username
                           </label>
                           <div
                             class="bp3-form-group labelSelect"
@@ -1568,7 +1568,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                                       placeholder="Search..."
                                       style="padding-right: 0px;"
                                       type="text"
-                                      value="Plaintext"
+                                      value="plaintext"
                                     />
                                     <span
                                       class="bp3-input-action"
@@ -1634,7 +1634,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                         <label
                           class="bp3-label"
                         >
-                          Password
+                          password
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1671,7 +1671,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                Configure Secret
+                                secret.configureSecret
                               </div>
                               <div>
                                 &lt;connectorPass&gt;
@@ -1743,7 +1743,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1753,7 +1753,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

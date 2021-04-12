@@ -19,6 +19,9 @@ export const resetForm = (formik: FormikProps<JiraCreateData>, parent: string) =
   }
 }
 
+export const omitSummaryDescription = (fields: JiraCreateFieldType[]): JiraCreateFieldType[] =>
+  fields.filter(field => field.name !== 'Summary' && field.name !== 'Description')
+
 export const processFieldsForSubmit = (values: JiraCreateData): JiraCreateFieldType[] => {
   const toReturn: JiraCreateFieldType[] = [
     {
@@ -91,7 +94,7 @@ export const processFormData = (values: JiraCreateData): JiraCreateData => {
 }
 
 export const getKVFields = (values: JiraCreateData): JiraCreateFieldType[] => {
-  return processFieldsForSubmit(values)
+  return omitSummaryDescription(processFieldsForSubmit(values))
 }
 
 export const processInitialValues = (values: JiraCreateData): JiraCreateData => {
@@ -117,7 +120,7 @@ export const processInitialValues = (values: JiraCreateData): JiraCreateData => 
           : values.spec.issueType,
       summary: values.spec.fields.find(field => field.name === 'Summary')?.value.toString(),
       description: values.spec.fields.find(field => field.name === 'Description')?.value.toString(),
-      fields: values.spec.fields
+      fields: omitSummaryDescription(values.spec.fields)
     }
   }
 }

@@ -18,12 +18,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
             <h2
               class="heading"
             >
-              Pipeline Input
+              pipeline-triggers.pipelineInputLabel
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              No Runtime Inputs
+              pipeline-triggers.pipelineInputPanel.noRuntimeInputs
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                             style="font-weight: 500;"
                           >
-                            Pipeline Variables
+                            customVariables.pipelineVariablesTitle
                           </p>
                         </span>
                       </div>
@@ -122,7 +122,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-size-normal"
                             style="font-weight: 500;"
                           >
-                            Stages
+                            stages
                           </p>
                         </span>
                       </div>
@@ -200,7 +200,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   class="StyledProps--font StyledProps--font-h2 StyledProps--main"
                   level="2"
                 >
-                  Pipeline Input
+                  pipeline-triggers.pipelineInputLabel
                 </h2>
                 <span
                   class="bp3-popover-wrapper"
@@ -219,7 +219,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="placeholder"
                         >
-                          Select Input Set
+                          inputSets.selectPlaceholder
                         </span>
                       </span>
                       <span
@@ -252,7 +252,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   class="header"
                 >
                   <span>
-                    Stages
+                    pipeline-list.listStages
                   </span>
                 </div>
                 <div
@@ -311,7 +311,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                   class="stagesTreeBulletCircle"
                                 >
                                   <span>
-                                    Infrastructure
+                                    infrastructureText
                                   </span>
                                 </div>
                               </div>
@@ -342,7 +342,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                         class="bp3-label"
                                         for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                       >
-                                        Namespace
+                                        pipelineSteps.kubernetesInfraStep.nameSpaceLabel
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -358,7 +358,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             autocomplete="off"
                                             class="bp3-input"
                                             name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                            placeholder="Specify a namespace"
+                                            placeholder="pipelineSteps.kubernetesInfraStep.nameSpacePlaceholder"
                                             type="text"
                                             value="<+input>"
                                           />
@@ -372,7 +372,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                         class="bp3-label"
                                         for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                       >
-                                        Release name
+                                        pipelineSteps.kubernetesInfraStep.releaseName
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -388,7 +388,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             autocomplete="off"
                                             class="bp3-input"
                                             name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            placeholder="Specify a release name"
+                                            placeholder="pipelineSteps.kubernetesInfraStep.releaseNamePlaceholder"
                                             type="text"
                                             value="<+input>"
                                           />

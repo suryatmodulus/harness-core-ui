@@ -35,7 +35,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
         <span
           class="lastBreadcrumb"
         >
-          Verification Jobs
+          verificationJobs
         </span>
       </div>
     </div>
@@ -66,7 +66,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
         </span>
         <input
           class="bp3-input"
-          placeholder="Search by name, environments, services"
+          placeholder="cv.admin.monitoringSources.searchPlaceholder"
           type="text"
         />
       </div>
@@ -101,7 +101,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
       <span
         class="bp3-button-text"
       >
-        New Verification Job
+        cv.admin.verificationJobs.newVerificationJob
       </span>
     </button>
     <div
@@ -118,7 +118,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 15%;"
           title="Toggle SortBy"
         >
-          Name
+          name
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -146,7 +146,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 5%;"
           title="Toggle SortBy"
         >
-          Type
+          typeLabel
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -174,7 +174,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Services
+          services
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -202,7 +202,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Environment
+          environment
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -230,7 +230,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Change Source
+          changeSource
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -258,7 +258,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 10%;"
           title="Toggle SortBy"
         >
-          Duration:
+          duration
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -285,7 +285,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           role="columnheader"
           style="width: 33%;"
         >
-          Webhook
+          execution.triggerType.WEBHOOK
         </div>
       </div>
       <div
@@ -805,7 +805,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>
@@ -821,7 +821,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>
@@ -837,7 +837,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>

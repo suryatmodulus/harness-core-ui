@@ -36,14 +36,14 @@ export function ShellScriptWidget(
   const { getString } = useStrings()
 
   const defaultSSHSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    name: Yup.string().trim().required(getString('pipelineSteps.stepNameRequired')),
 
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
+      shell: Yup.string().trim().required(getString('validation.scriptTypeRequired')),
       source: Yup.object().shape({
         spec: Yup.object().shape({
-          script: Yup.string().required(getString('validation.scriptTypeRequired'))
+          script: Yup.string().trim().required(getString('validation.scriptTypeRequired'))
         })
       })
     }),

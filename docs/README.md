@@ -3,3 +3,4 @@
 ## Achitectures
 
 - [String Externalization and Internationalization](./architectures/Strings.md)
+- [Access Control](./architectures/AccessControl.md)

@@ -32,7 +32,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
     <div
       class="heading"
     >
-      Edit Pipeline
+      editPipeline
     </div>
     <div
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
@@ -90,7 +90,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -121,7 +121,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description (optional)
+                      optionalField
                     </label>
                     <div
                       class="bp3-form-group"
@@ -147,7 +147,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -180,7 +180,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save
+                  save
                 </span>
               </button>
             </div>
@@ -224,7 +224,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
     <div
       class="heading"
     >
-      Create New Pipeline
+      moduleRenderer.newPipeLine
     </div>
     <div
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
@@ -301,7 +301,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -331,7 +331,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -362,7 +362,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -395,7 +395,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Start
+                  start
                 </span>
               </button>
             </div>
@@ -439,7 +439,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
     <div
       class="heading"
     >
-      Create New Pipeline
+      moduleRenderer.newPipeLine
     </div>
     <div
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
@@ -516,7 +516,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -546,7 +546,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -577,7 +577,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -610,7 +610,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Start
+                  start
                 </span>
               </button>
             </div>
@@ -654,7 +654,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
     <div
       class="heading"
     >
-      Create New Pipeline
+      moduleRenderer.newPipeLine
     </div>
     <div
       class="StyledProps--font StyledProps--main layout StyledProps--padding-xsmall"
@@ -710,7 +710,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -741,7 +741,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Description (optional)
+                      optionalField
                     </label>
                     <div
                       class="bp3-form-group"
@@ -767,7 +767,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                       class="Label--main"
                       style="font-size: 13px;"
                     >
-                      Tags (optional)
+                      optionalField
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                         data-name="edit"
@@ -800,7 +800,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Start
+                  start
                 </span>
               </button>
             </div>

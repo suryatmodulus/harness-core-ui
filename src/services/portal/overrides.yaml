@@ -10,6 +10,7 @@ allowpaths:
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
   - '/users/new-trial'
+  - '/users/{userId}/logout'
   - '/setup/delegates/delegate-tags.get'
   - '/apps'
   - '/services'
@@ -37,6 +38,7 @@ operationIdOverrides:
   /delegate-profiles/v2.get: getDelegateProfilesV2
   /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames
   /users/user.get: getUser
+  /users/{userId}/logout: logout
   /setup/delegates/delegate-tags.get: getDelegateTags
   /apps.get: getListApplications
   /services.get: getListServices

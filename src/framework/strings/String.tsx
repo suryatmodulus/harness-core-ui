@@ -13,11 +13,15 @@ export interface UseStringsReturn {
 }
 
 export function useStrings(): UseStringsReturn {
-  const strings = useStringsContext()
+  const { data: strings, getString } = useStringsContext()
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getString(key: StringKeys, vars: Record<string, any> = {}) {
+      if (typeof getString === 'function') {
+        return getString(key, vars)
+      }
+
       const template = get(strings, key)
 
       if (typeof template !== 'string') {

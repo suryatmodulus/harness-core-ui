@@ -43,13 +43,13 @@ describe('Custom Variables', () => {
       />
     )
 
-    const add = await findByText('Add Variable')
+    const add = await findByText('common.addVariable')
 
     act(() => {
       fireEvent.click(add)
     })
 
-    await waitFor(() => findByTextGlobal(document.body, 'Add Variable', { selector: 'h4.bp3-heading' }))
+    await waitFor(() => findByTextGlobal(document.body, 'common.addVariable', { selector: 'h4.bp3-heading' }))
 
     const name = queryByAttribute('name', document.body.querySelector('.bp3-dialog-body') as HTMLElement, 'name')
 
@@ -57,13 +57,13 @@ describe('Custom Variables', () => {
       fireEvent.change(name!, { target: { value: 'myVar' } })
     })
 
-    const save = await findByTextGlobal(document.body, 'Save')
+    const save = await findByTextGlobal(document.body, 'save')
 
     act(() => {
       fireEvent.click(save)
     })
 
-    await waitFor(() => findByText('myVar [Type: String]', { selector: 'span' }))
+    await waitFor(() => findByText('customVariables.variableAndType', { selector: 'span' }))
 
     const value = queryByAttribute('name', container, 'variables[0].value')
 

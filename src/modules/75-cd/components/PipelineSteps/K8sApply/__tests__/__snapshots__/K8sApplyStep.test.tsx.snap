@@ -22,7 +22,7 @@ exports[`Test K8sApplyStep should render edit view 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          Skip Dry Run
+          pipelineSteps.skipDryRun
         </label>
       </div>
     </div>
@@ -118,7 +118,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -155,7 +155,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             <div
               class="formLabel"
             >
-              File/Folder Path
+              fileFolderPathText
             </div>
              
             <span
@@ -338,7 +338,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    + Add File
+                    addFileText
                   </span>
                 </button>
               </span>
@@ -356,7 +356,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -421,7 +421,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.skipDryRun"
           >
-            Skip Dry Run
+            pipelineSteps.skipDryRun
              
             <span
               class="bp3-text-muted"
@@ -502,7 +502,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Steady State Check
+                pipelineSteps.skipSteadyStateCheck
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -608,7 +608,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -645,7 +645,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             <div
               class="formLabel"
             >
-              File/Folder Path
+              fileFolderPathText
             </div>
              
             <span
@@ -666,7 +666,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    + Add File
+                    addFileText
                   </span>
                 </button>
               </span>
@@ -684,7 +684,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -761,7 +761,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Dry Run
+                pipelineSteps.skipDryRun
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -816,7 +816,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Skip Steady State Check
+                pipelineSteps.skipSteadyStateCheck
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"

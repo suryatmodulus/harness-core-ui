@@ -1,0 +1,30 @@
+{
+  "loading": false,
+  "data": {
+    "totalPages": 1,
+    "totalItems": 1,
+    "pageItemCount": 1,
+    "pageSize": 100,
+    "content": [
+      {
+        "accountId": "kmpySmUISimoRrJL6NL73w",
+        "orgIdentifier": "org_1",
+        "projectIdentifier": "proj_1",
+        "identifier": "stagingInfra",
+        "name": "stagingInfra",
+        "description": null,
+        "color": "#0063F7",
+        "type": "PreProduction",
+        "deleted": false,
+        "tags": {
+          "cloud": "GCP",
+          "team": "cdp",
+          "uuid": "fOw-C7A1Shy_U1RRCCsVIQ"
+        },
+        "version": 32
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  }
+}

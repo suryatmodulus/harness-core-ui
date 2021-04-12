@@ -73,7 +73,7 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
     <p
       class="StyledProps--font StyledProps--main StyledProps--padding-large StyledProps--color StyledProps--color-blue500"
     >
-      See less
+      gitsync.seeLess
     </p>
   </div>
 </div>

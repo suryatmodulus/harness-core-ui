@@ -85,7 +85,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
             class="tabHeading"
             id="stageOverview"
           >
-            Stage Overview
+            stageOverview
           </div>
           <div
             class="StyledProps--font StyledProps--main"
@@ -140,7 +140,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="bp3-label"
                             for="name"
                           >
-                            Name
+                            name
                              
                             <span
                               class="bp3-text-muted"
@@ -170,7 +170,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description (optional)
+                          optionalField
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -201,7 +201,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags (optional)
+                          optionalField
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -231,7 +231,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="tabHeading"
                     id="whatToDeploy"
                   >
-                    What would you like to deploy?
+                    whatToDeploy
                   </div>
                   <div
                     class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
@@ -297,7 +297,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="StyledProps--font StyledProps--main"
                             style="font-size: 12px; text-align: center;"
                           >
-                            Service
+                            service
                           </p>
                         </div>
                       </div>
@@ -332,7 +332,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="StyledProps--font StyledProps--main"
                             style="font-size: 12px; text-align: center;"
                           >
-                            Multiple Services
+                            multipleService
                           </p>
                         </div>
                       </div>
@@ -367,7 +367,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="StyledProps--font StyledProps--main"
                             style="font-size: 12px; text-align: center;"
                           >
-                            Functions
+                            functions
                           </p>
                         </div>
                       </div>
@@ -402,7 +402,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                             class="StyledProps--font StyledProps--main"
                             style="font-size: 12px; text-align: center;"
                           >
-                            Other Workloads
+                            otherWorkloads
                           </p>
                         </div>
                       </div>
@@ -485,7 +485,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="bp3-button-text"
                         >
                           <span>
-                            Add Variable
+                            common.addVariable
                           </span>
                         </span>
                       </button>
@@ -513,7 +513,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
             <div
               class="Accordion--label"
             >
-              Skip Conditions
+              skipConditionsTitle
             </div>
             <div
               class="Accordion--chevron"
@@ -548,7 +548,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           class="Label--main"
                         >
                           <span>
-                            If the JEXL condition evaluates to true, skip this stage
+                            skipConditionStageLabel
                           </span>
                         </label>
                       </div>
@@ -576,12 +576,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                           style="white-space: break-spaces;"
                         >
                           <span>
-                            In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages.
-
-Examples:
-&lt;+steps.step1.output.result&gt; == “success”
-&lt;+environment.name&gt; != “QA”
-
+                            skipConditionText
                           </span>
                           <br />
                           <a
@@ -590,7 +585,7 @@ Examples:
                             target="_blank"
                           >
                             <span>
-                              Learn more
+                              learnMore
                             </span>
                           </a>
                         </p>

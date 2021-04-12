@@ -105,7 +105,7 @@ const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) =
           name={`${prefix}spec.conectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues.spec.connectorRef as string) || ''}
-          placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
+          placeholder={getString('select')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
@@ -126,7 +126,7 @@ const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) =
           className={css.deploymentViewMedium}
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
-          placeholder={getString('pipeline.jiraApprovalStep.project')}
+          placeholder={getString('select')}
           selectProps={{
             // Need this to show the current selection when we switch from yaml to UI view
             defaultSelectedItem: {
@@ -148,7 +148,7 @@ const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) =
         <FormInput.Select
           items={setIssueTypeOptions(projectMetadata?.issuetypes)}
           className={css.deploymentViewMedium}
-          placeholder={getString('pipeline.jiraApprovalStep.issueType')}
+          placeholder={getString('select')}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={readonly}
@@ -174,7 +174,7 @@ const FormContent = (formContentProps: JiraDeploymentModeFormContentInterface) =
           className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
           disabled={readonly}
-          placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
+          placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
         />
       ) : null}
 

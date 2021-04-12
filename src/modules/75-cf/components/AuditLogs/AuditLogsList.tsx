@@ -12,11 +12,12 @@ import { AuditTrail, Feature, useGetAuditByParams } from 'services/cf'
 import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { EventSummary } from './EventSummary'
+import { translateEvents } from './AuditLogsUtils'
 
 const RenderCellTime: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   const data = row.original
   return (
-    <Text flex style={{ flexDirection: 'column', alignItems: 'baseline' }}>
+    <Text flex style={{ flexDirection: 'column', alignItems: 'baseline' }} padding={{ left: 'xsmall' }}>
       <span>{formatTime(data.executedOn)}</span>
       <span>{formatDate(data.executedOn)}</span>
     </Text>
@@ -38,6 +39,7 @@ const RenderCellAction: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   let text = getString('cf.auditLogs.unknown')
   let icon: IconName | HarnessIconName = 'audit-log-created'
   let color = 'var(--purple-500)'
+  const eventStrings = translateEvents(data.instructionSet, getString)
 
   switch (data.action) {
     case AuditLogAction.FeatureActivationCreated:
@@ -55,11 +57,21 @@ const RenderCellAction: Renderer<CellProps<AuditTrail>> = ({ row }) => {
 
   return (
     <Layout.Vertical spacing="xsmall" padding={{ right: 'small' }}>
-      {/* <Text icon="trigger-schedule" lineClamp={1}>
-      </Text> */}
-      <Text icon={icon} lineClamp={1} iconProps={{ style: { color } }}>
-        {text}
-      </Text>
+      {!eventStrings.length && (
+        <Text icon={icon} lineClamp={1} iconProps={{ style: { color } }}>
+          {text}
+        </Text>
+      )}
+      {eventStrings.map(message => (
+        <Text
+          key={message}
+          icon="symbol-triangle-up"
+          lineClamp={1}
+          iconProps={{ style: { color: 'var(--sea-green-500)' } }}
+        >
+          {message}
+        </Text>
+      ))}
     </Layout.Vertical>
   )
 }
@@ -72,8 +84,7 @@ const RenderCellDetails = (onViewButtonClick: (data: AuditTrail) => void) => {
 
     return (
       <Container flex>
-        <Layout.Vertical spacing="xsmall" padding={{ left: 'small', right: 'small' }}>
-          {/*
+        {/*<Layout.Vertical spacing="xsmall" padding={{ left: 'small', right: 'small' }}>
          Note: These below are for future use
          <Text font={{ weight: 'bold' }}>
           <span
@@ -100,8 +111,8 @@ const RenderCellDetails = (onViewButtonClick: (data: AuditTrail) => void) => {
         <Text icon="trigger-schedule">
           <strong style={{ display: 'inline-block', paddingRight: 'var(--spacing-xsmall' }}>Approver:</strong>
           Olivia Dunham
-        </Text> */}
-        </Layout.Vertical>
+        </Text>
+        </Layout.Vertical>*/}
         <Button
           minimal
           icon="main-notes"
@@ -168,14 +179,14 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
       {
         Header: getString('cf.auditLogs.action'),
         accessor: row => row.action,
-        width: 'calc(40% - 50px)',
+        width: 'calc(80% - 140px)',
         Cell: RenderCellAction
       },
       {
         Header: '',
         id: 'DETAILS',
         accessor: row => row.objectIdentifier,
-        width: 'calc(40% - 50px)',
+        width: '40px',
         Cell: RenderCellDetails(auditItem => {
           setAuditItemForSummary(auditItem)
           setShowEventSummary(true)

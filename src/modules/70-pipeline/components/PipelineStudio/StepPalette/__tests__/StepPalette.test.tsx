@@ -101,7 +101,7 @@ describe('Step Palette tests', () => {
 
     expect(queryByText('Show All Steps (4)')).toBeDefined()
     fireEvent.change(container.querySelector('input[type="search"]')!, { target: { value: 'tttt' } })
-    await waitFor(() => expect(queryByText('No results found. Please try another step name.')).not.toBeNull())
+    await waitFor(() => expect(queryByText('stepPalette.noSearchResultsFound')).not.toBeNull())
   })
 
   test('Loading indicator', () => {
@@ -126,7 +126,7 @@ describe('Step Palette tests', () => {
       </TestWrapper>
     )
 
-    expect(queryByText('No results found. Please try another step name.')).toBeNull()
+    expect(queryByText('stepPalette.noSearchResultsFound')).toBeNull()
     expect(queryByText('Loading steps...')).toBeDefined()
     expect(queryByText('Show All Steps (0)')).toBeDefined()
   })
@@ -153,7 +153,7 @@ describe('Step Palette tests', () => {
       </TestWrapper>
     )
 
-    expect(queryByText('No results found. Please try another step name.')).toBeDefined()
+    expect(queryByText('stepPalette.noSearchResultsFound')).toBeDefined()
     expect(queryByText('Show All Steps (0)')).toBeDefined()
   })
 })

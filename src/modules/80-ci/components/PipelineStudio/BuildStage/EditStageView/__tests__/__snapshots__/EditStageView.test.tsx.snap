@@ -55,7 +55,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   </defs>
                 </svg>
               </span>
-              About Your Stage
+              pipelineSteps.build.create.aboutYourStage
             </p>
             <div
               class="InputWithIdentifier--txtNameContainer"
@@ -117,7 +117,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   class="bp3-label"
                   for="name"
                 >
-                  Stage Name
+                  stageNameLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -174,7 +174,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -223,7 +223,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              Clone Codebase
+              cloneCodebaseLabel
             </label>
             <div
               class="cloneCodebaseInfo"
@@ -247,7 +247,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
               >
-                Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage
+                pipelineSteps.build.create.cloneCodebaseHelperText
               </p>
             </div>
             <button
@@ -257,7 +257,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Set Up Stage
+                pipelineSteps.build.create.setupStage
               </span>
             </button>
           </div>
@@ -323,7 +323,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   </defs>
                 </svg>
               </span>
-              About Your Stage
+              pipelineSteps.build.create.aboutYourStage
             </p>
             <div
               class="InputWithIdentifier--txtNameContainer"
@@ -383,7 +383,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-label"
                   for="name"
                 >
-                  Stage Name
+                  stageNameLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -440,7 +440,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main CollapseHeader--title"
                     >
-                      Description
+                      description
                     </p>
                   </div>
                   <div
@@ -472,7 +472,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              Clone Codebase
+              cloneCodebaseLabel
             </label>
             <div
               class="cloneCodebaseInfo"
@@ -496,7 +496,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
               >
-                Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage
+                pipelineSteps.build.create.cloneCodebaseHelperText
               </p>
             </div>
             <div
@@ -525,12 +525,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                     />
                   </svg>
                 </span>
-                Configure Codebase
+                pipelineSteps.build.create.configureCodebase
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
               >
-                Help text to tell the user this is only for the first time.
+                pipelineSteps.build.create.configureCodebaseHelperText
               </p>
               <div
                 class="bp3-form-group"
@@ -539,7 +539,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 <label
                   class="bp3-label"
                 >
-                  Connector
+                  connector
                    
                   <span
                     class="bp3-text-muted"
@@ -672,7 +672,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Set Up Stage
+                pipelineSteps.build.create.setupStage
               </span>
             </button>
           </div>

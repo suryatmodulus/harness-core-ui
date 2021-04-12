@@ -4,7 +4,7 @@ import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Color, Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import { useEnvironments } from '@cf/hooks/environment'
@@ -15,7 +15,8 @@ import {
   DEFAULT_ENV,
   getErrorMessage,
   NO_ENVIRONMENT_IDENTIFIER,
-  SEGMENT_PRIMARY_COLOR
+  SEGMENT_PRIMARY_COLOR,
+  showToaster
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import { useStrings } from 'framework/exports'
@@ -88,20 +89,6 @@ export const SegmentsPage: React.FC = () => {
       )}
     </Layout.Horizontal>
   )
-  const toolbar = (
-    <Layout.Horizontal>
-      <NewSegmentButton
-        accountId={accountId}
-        orgIdentifier={orgIdentifier}
-        projectIdentifier={projectIdentifier}
-        environmentIdentifier={environment?.value}
-        onCreated={() => {
-          setPageNumber(0)
-          refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
-        }}
-      />
-    </Layout.Horizontal>
-  )
   const gotoTargeDetailPage = (identifier: string): void => {
     history.push(
       routes.toCFSegmentDetails({
@@ -113,7 +100,21 @@ export const SegmentsPage: React.FC = () => {
       })
     )
   }
-  const { showSuccess, showError, clear } = useToaster()
+  const toolbar = (
+    <Layout.Horizontal>
+      <NewSegmentButton
+        accountId={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        environmentIdentifier={environment?.value}
+        onCreated={segmentIdentifier => {
+          gotoTargeDetailPage(segmentIdentifier)
+          showToaster(getString('cf.messages.segmentCreated'))
+        }}
+      />
+    </Layout.Horizontal>
+  )
+  const { showError, clear } = useToaster()
   const deleteSegmentParams = useMemo(
     () => ({
       account: accountId,
@@ -188,15 +189,7 @@ export const SegmentsPage: React.FC = () => {
                 deleteSegment(cell.row.original.identifier as string)
                   .then(() => {
                     refetchSegments()
-                    showSuccess(
-                      <Text color={Color.WHITE}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: getString('cf.featureFlags.deleteFlagSuccess', { name: cell.row.original.name })
-                          }}
-                        />
-                      </Text>
-                    )
+                    showToaster(getString('cf.messages.segmentDeleted'))
                   })
                   .catch(_error => {
                     showError(getErrorMessage(_error), 0)
@@ -260,6 +253,7 @@ export const SegmentsPage: React.FC = () => {
       onNewSegmentCreated={() => {
         setPageNumber(0)
         refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
+        showToaster(getString('cf.messages.segmentCreated'))
       }}
     />
   ) : (
@@ -280,7 +274,7 @@ export const SegmentsPage: React.FC = () => {
       header={header}
       headerStyle={{ display: 'flex' }}
       toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
-      content={(!error && content) || null}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
         !noEnvironmentExists &&
         !!segmentsData?.segments?.length && (
@@ -296,7 +290,7 @@ export const SegmentsPage: React.FC = () => {
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchSegments()

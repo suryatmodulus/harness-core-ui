@@ -41,25 +41,12 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
 
 const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
   const data = row.original
-  const { getString } = useStrings()
   const avatars =
     data.users?.map(user => {
       return { email: user.email, name: user.name }
     }) || []
 
-  const remainingLength = avatars.length - 5
-
-  return (
-    <Layout.Horizontal spacing="large" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <AvatarGroup
-        avatars={avatars.slice(0, 5)}
-        onAdd={event => {
-          event.stopPropagation()
-        }}
-      />
-      {remainingLength > 0 && <Text>{getString('common.plusNumber', { number: remainingLength })}</Text>}
-    </Layout.Horizontal>
-  )
+  return <AvatarGroup avatars={avatars} restrictLengthTo={6} />
 }
 const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original.roleAssignmentsMetadataDTO?.map(item => ({
@@ -74,6 +61,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
       <Button
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
+        data-testid={`addRole-${row.original.userGroupDTO.identifier}`}
         className={css.roleButton}
         onClick={event => {
           event.stopPropagation()
@@ -143,6 +131,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
         <Button
           minimal
           icon="Options"
+          data-testid={`menu-${data.identifier}`}
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -203,7 +192,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
       className={css.table}
       columns={columns}
       data={data?.data?.content || []}
-      onRowClick={userGroup =>
+      onRowClick={userGroup => {
         history.push(
           routes.toUserGroupDetails({
             accountId,
@@ -212,7 +201,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
             userGroupIdentifier: userGroup.userGroupDTO.identifier
           })
         )
-      }
+      }}
       pagination={{
         itemCount: data?.data?.totalItems || 0,
         pageSize: data?.data?.pageSize || 10,

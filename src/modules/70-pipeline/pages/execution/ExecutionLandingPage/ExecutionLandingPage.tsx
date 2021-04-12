@@ -21,7 +21,7 @@ import {
   getRunningStep,
   LITE_ENGINE_TASK
 } from '@pipeline/utils/executionUtils'
-import { useQueryParams } from '@common/hooks'
+import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -63,6 +63,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
   >()
+  const [allNodeMap, setAllNodeMap] = React.useState({})
 
   /* cache token required for retrieving logs */
   const [logsToken, setLogsToken] = React.useState('')
@@ -100,11 +101,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   }, [data?.data?.pipelineExecutionSummary?.layoutNodeMap, data?.data?.pipelineExecutionSummary?.startingNodeId])
 
   // combine steps and dependencies(ci stage)
-  const allNodeMap = React.useMemo(() => {
+  useDeepCompareEffect(() => {
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
     // NOTE: add dependencies from "liteEngineTask" (ci stage)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
-    return nodeMap
+    setAllNodeMap(nodeMap)
+    setAllNodeMap(oldNodeMap => ({ ...oldNodeMap, ...nodeMap }))
   }, [data?.data?.executionGraph?.nodeMap])
 
   // setup polling
@@ -174,7 +176,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         queryParams,
         logsToken,
         setLogsToken,
-        refetch
+        refetch,
+        addNewNodeToMap(id, node) {
+          setAllNodeMap(nodeMap => ({ ...nodeMap, [id]: node }))
+        }
       }}
     >
       {loading && !data ? <PageSpinner /> : null}

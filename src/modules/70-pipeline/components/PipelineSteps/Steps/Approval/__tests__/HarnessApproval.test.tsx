@@ -99,7 +99,7 @@ describe('Harness Approval tests', () => {
 
     // Submit with empty form
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Step Name is required')).toBeTruthy()
+    expect(getByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
@@ -108,15 +108,15 @@ describe('Harness Approval tests', () => {
     fireEvent.click(queryByNameAttribute('spec.includePipelineExecutionHistory')!)
 
     act(() => {
-      fireEvent.click(getByText('Timeout'))
+      fireEvent.click(getByText('pipelineSteps.timeoutLabel'))
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
+    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
-    fireEvent.click(getByText('Approvers'))
+    fireEvent.click(getByText('pipeline.approvalStep.approvers'))
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Please provide user groups.')).toBeTruthy()
+    expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy()
   })
 })

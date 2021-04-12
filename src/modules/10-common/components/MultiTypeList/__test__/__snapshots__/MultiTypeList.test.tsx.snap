@@ -49,7 +49,7 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
                     <span
                       class="btnText"
                     >
-                      Fixed value
+                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -76,7 +76,7 @@ exports[`<MultiTypeList /> tests Should render properly 1`] = `
               <span
                 class="bp3-button-text"
               >
-                + Add
+                plusAdd
               </span>
             </button>
           </div>

@@ -147,7 +147,7 @@ describe('Deployment progress and nodes unit tests', () => {
         <DeploymentProgressAndNodes {...CanaryDeploymentMockData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('Canary'))
+    await waitFor(() => getByText('canary'))
     expect(container.querySelector('[class*="bp3-intent-danger"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 58%;')
 

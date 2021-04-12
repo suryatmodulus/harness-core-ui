@@ -99,7 +99,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Role :
+                collaborators.roleLabel
               </p>
               <span
                 class="bp3-popover-wrapper"
@@ -117,7 +117,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        Project Viewer
+                        common.projectViewer
                       </span>
                       <span
                         class="bp3-icon bp3-icon-chevron-down StyledProps--main"

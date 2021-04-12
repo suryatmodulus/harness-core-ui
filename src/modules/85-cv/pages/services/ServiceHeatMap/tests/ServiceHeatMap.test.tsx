@@ -212,7 +212,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
     await waitFor(() =>
       expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000, {
         data: MockData.resource.Performance,
-        name: 'Performance'
+        name: 'performance'
       })
     )
     let stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
@@ -220,7 +220,9 @@ describe('Unit tests for Service Heatmap componnt', () => {
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
       '12/18/2020 9:00 am - 12/19/2020 12:00 am'
     )
-    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual('High Performance Risk Score')
+    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual(
+      'High performance cv.riskScore'
+    )
 
     const resetButton = document.body.querySelector('[class*="resetButton"]')
     if (!resetButton) {
@@ -228,7 +230,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
     }
 
     fireEvent.click(resetButton)
-    fireEvent.click(getByText('Errors'))
+    fireEvent.click(getByText('errors'))
     await waitFor(() => expect(document.body.querySelector('[class*="heatmapTooltip"]')).toBeNull())
 
     // click on another square with time range in the same day
@@ -236,7 +238,7 @@ describe('Unit tests for Service Heatmap componnt', () => {
     await waitFor(() =>
       expect(onClickHeatMapCellMock).toHaveBeenCalledWith(1608282000000, 1608336000000, {
         data: MockData.resource.Performance,
-        name: 'Performance'
+        name: 'performance'
       })
     )
     stickyTooltip = document.body.querySelector('[class*="heatmapTooltip"]')
@@ -244,6 +246,8 @@ describe('Unit tests for Service Heatmap componnt', () => {
     expect(document.body?.querySelector('[class*="tooltipTimestamp"]')?.innerHTML).toEqual(
       '12/17/2020 3:00 am - 6:00 pm'
     )
-    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual('Low Performance Risk Score')
+    expect(document.body.querySelector('[class*="overallRiskScore"]')?.innerHTML).toEqual(
+      'Low performance cv.riskScore'
+    )
   })
 })

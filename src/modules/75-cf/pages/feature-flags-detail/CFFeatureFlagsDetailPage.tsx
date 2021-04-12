@@ -11,6 +11,8 @@ import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/util
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useLocalStorage } from '@common/hooks'
+import { useStrings } from 'framework/exports'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
 import css from './CFFeatureFlagsDetailPage.module.scss'
@@ -21,7 +23,10 @@ const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 
 const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
-  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<any>()
+  const { getString } = useStrings()
+  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<
+    Record<string, string>
+  >()
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { data: environments, error: errorEnvs, loading: envsLoading, refetch: refetchEnvironments } = useEnvironments({
@@ -31,6 +36,8 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   } as GetEnvironmentListForProjectQueryParams)
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
+  useDocumentTitle(getString('featureFlagsText'))
+
   useEffect(() => {
     if (!envsLoading) {
       let index = 0
@@ -39,25 +46,19 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       }
       setEnvironmentOption(environments?.length > 0 ? environments[index] : null)
     }
-  }, [environments?.length, envsLoading, environmentIdentifier])
-  const environmentId = (environmentOption?.value as string) || environmentIdentifier
+  }, [environments?.length, envsLoading, environmentIdentifier]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const { data: featureFlag, loading: loadingFlag, error: errorFlag, refetch: fetchFeatureFlag } = useGetFeatureFlag({
-    lazy: true,
     identifier: featureFlagIdentifier as string,
     queryParams: {
       project: projectIdentifier as string,
-      environment: environmentId === 'undefined' ? '' : environmentId,
+      environment: environmentIdentifier === 'undefined' ? '' : environmentIdentifier,
       account: accountId,
       org: orgIdentifier
     }
   })
 
-  useEffect(() => {
-    fetchFeatureFlag()
-  }, [environmentOption])
-
-  const onEnvChange = (item: SelectOption) => {
+  const onEnvChange = (item: SelectOption): void => {
     setEnvironment({ label: item?.label, value: item?.value as string })
 
     if (item?.value) {
@@ -75,12 +76,11 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (environmentOption) {
-      fetchFeatureFlag()
       if (environment) {
         onEnvChange(environment as SelectOption)
       }
     }
-  }, [environmentOption])
+  }, [environmentOption]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const error = errorFlag || errorEnvs
   const loading = envsLoading || loadingFlag || newEnvironmentCreateLoading

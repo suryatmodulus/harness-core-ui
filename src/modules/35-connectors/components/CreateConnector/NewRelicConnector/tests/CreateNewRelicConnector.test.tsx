@@ -77,7 +77,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'newRelicAccountId')).toBeDefined()
-    fireEvent.click(getByText('Next')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('next')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {
@@ -85,7 +85,7 @@ describe('Create newrelic connector Wizard', () => {
       })
     })
     expect(container).toMatchSnapshot()
-    const backBtn = getByText('Back')
+    const backBtn = getByText('back')
     fireEvent.click(backBtn)
     // Coonector name should be retained in step 1
     expect(queryByText(container, 'dummy name')).toBeDefined()
@@ -291,7 +291,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // second step
     await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
-    expect(document.body.querySelector('input[placeholder="Loading..."]')).not.toBeNull()
+    expect(document.body.querySelector('input[placeholder="loading"]')).not.toBeNull()
   })
 
   test('Ensure that when endpoint api is ini error state toaster is displayed', async () => {

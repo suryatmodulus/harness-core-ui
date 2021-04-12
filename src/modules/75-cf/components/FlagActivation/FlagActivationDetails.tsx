@@ -25,7 +25,7 @@ import { MenuDivider, OptionsMenuButton } from '@common/components'
 import { Feature, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { useConfirmAction } from '@common/hooks'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -55,6 +55,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
   const isFlagTypeBoolean = featureFlag.kind === FlagTypeVariations.booleanFlag
   const { variations } = featureFlag
   const { getString } = useStrings()
+  const typeToStringMapping = useFeatureFlagTypeToStringMapping()
 
   return (
     <Layout.Vertical padding="large" margin={{ top: 'large' }} className={css.module}>
@@ -80,11 +81,20 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
         <Text
           border={{ bottom: true, color: Color.GREY_300 }}
           padding={{ bottom: 'small' }}
+          flex
           style={{ fontSize: '14px', lineHeight: '20px' }}
         >
           <VariationTypeIcon style={{ transform: 'translateY(1px)' }} multivariate={!isFlagTypeBoolean} />
-          {isFlagTypeBoolean ? getString('cf.boolean') : getString('cf.multivariate')} ({variations.length}{' '}
-          {getString('cf.shared.variations').toLocaleLowerCase()})
+          {isFlagTypeBoolean ? getString('cf.boolean') : getString('cf.multivariate')}
+          {!isFlagTypeBoolean && (
+            <Text color={Color.GREY_400} padding={{ left: 'xsmall' }}>
+              ({typeToStringMapping[featureFlag.kind] || ''})
+            </Text>
+          )}
+          <FlexExpander />
+          <Text color={Color.GREY_400}>
+            {getString('cf.featureFlagDetail.variationCount', { count: variations.length })}
+          </Text>
         </Text>
 
         {featureFlag.variations.map((variation, index) => (
@@ -97,7 +107,7 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const { featureFlag, refetchFlag } = props
-  const { showError, showSuccess } = useToaster()
+  const { showError } = useToaster()
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
   const featureFlagListURL = routes.toCFFeatureFlags({
@@ -160,6 +170,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               patch.feature.reset()
               hideEditDetailsModal()
               refetchFlag()
+              showToaster(getString('cf.messages.flagUpdated'))
             })
             .catch(() => {
               patch.feature.reset()
@@ -227,7 +238,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       account: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: '' // TODO: is environment really needed?
+      environment: featureFlag.envProperties?.environment as string
     }
   })
   const archiveFlag = useConfirmAction({
@@ -254,7 +265,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         ]
       })
         .then(() => {
-          showSuccess('good to go')
+          showToaster(getString('cf.messages.flagArchived'))
           refetchFlag()
         })
         .catch(error => showError(getErrorMessage(error)))
@@ -277,15 +288,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         deleteFeatureFlag(featureFlag.identifier)
           .then(() => {
             history.replace(featureFlagListURL)
-            showSuccess(
-              <Text color={Color.WHITE}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: featureFlag.name })
-                  }}
-                />
-              </Text>
-            )
+            showToaster(getString('cf.messages.flagDeleted'))
           })
           .catch(error => {
             showError(getErrorMessage(error), 0)

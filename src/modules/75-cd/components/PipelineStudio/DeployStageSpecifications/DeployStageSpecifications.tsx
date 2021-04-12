@@ -12,6 +12,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
       }
     },
     updateStage,
+    isReadonly,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
   const { stage } = getStageFromPipeline(selectedStageId || '')
@@ -25,7 +26,7 @@ export default function DeployStageSpecifications(props: React.PropsWithChildren
   )
 
   return (
-    <EditStageView data={stage} context={'setup'} onChange={handleChange}>
+    <EditStageView isReadonly={isReadonly} data={stage} context={'setup'} onChange={handleChange}>
       {props.children}
     </EditStageView>
   )

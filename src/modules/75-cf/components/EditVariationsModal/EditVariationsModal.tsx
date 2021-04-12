@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog, Intent } from '@blueprintjs/core'
 import * as yup from 'yup'
-import { isEqual, zip, orderBy } from 'lodash-es'
+import { isEqual, zip, orderBy, clone } from 'lodash-es'
 import {
   Button,
   useModalHook,
@@ -17,12 +17,13 @@ import {
   Color,
   SelectOption
 } from '@wings-software/uicore'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, useFeatureFlagTypeToStringMapping, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, usePatchFeature, Variation } from 'services/cf'
 import patch from '../../utils/instructions'
+import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 
 export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
@@ -49,18 +50,20 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
 }) => {
   const ModalComponent: React.FC = () => {
     const { getString } = useStrings()
+    const validateVariationValues = useValidateVariationValues()
     const { showError, clear } = useToaster()
     const [loading, setLoading] = useState(false)
     const initialValues = {
       defaultOnVariation: feature.defaultOnVariation,
       defaultOffVariation: feature.defaultOffVariation,
-      variations: feature.variations,
+      variations: clone(feature.variations),
       defaultOnAppliedToCurrentEnvironment: false,
       defaultOffAppliedToCurrentEnvironment: false
     }
     const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
       initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))
     )
+    const typeToStringMapping = useFeatureFlagTypeToStringMapping()
     const { mutate: submitPatch } = usePatchFeature({
       identifier: feature.identifier as string,
       queryParams: {
@@ -157,18 +160,20 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             }}
           >
             {getString('cf.editVariation.title')}
+            {feature.kind !== FlagTypeVariations.booleanFlag && (
+              <Text color={Color.GREY_400} margin={{ top: 'xsmall' }}>
+                {getString('cf.editVariation.subTitle', {
+                  type: typeToStringMapping[feature.kind] || '',
+                  count: feature.variations.length
+                })}
+              </Text>
+            )}
           </Text>
         }
         style={{ width: 800, height: 560 }}
       >
         <Formik
-          initialValues={{
-            variations: feature.variations,
-            defaultOnVariation: feature.defaultOnVariation,
-            defaultOffVariation: feature.defaultOffVariation,
-            defaultOnAppliedToCurrentEnvironment: false,
-            defaultOffAppliedToCurrentEnvironment: false
-          }}
+          initialValues={initialValues}
           validationSchema={yup.object().shape({
             variations: yup.array().of(
               yup.object().shape({
@@ -178,6 +183,9 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
               })
             )
           })}
+          validate={(values: typeof initialValues) => {
+            return validateVariationValues(values.variations, feature.kind)
+          }}
           validateOnChange
           validateOnBlur
           onSubmit={onSubmit}
@@ -186,7 +194,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             <Form>
               <FormikEffect onChange={onFormikEffect} formik={formikProps} />
               <Container padding="xlarge">
-                <Container height={410} style={{ overflow: 'auto' }} padding="xsmall">
+                <Container height={390} style={{ overflow: 'auto' }} padding="xsmall">
                   {formikProps.values?.variations?.map((_: Variation, index: number) => (
                     <Layout.Horizontal
                       key={`flagElem-${index}`}
@@ -228,8 +236,9 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           icon="trash"
                           style={{ visibility: formikProps.values?.variations.length === 2 ? 'hidden' : 'visible' }}
                           onClick={() => {
-                            formikProps.values?.variations.splice(index, 1)
-                            formikProps.setFieldValue('variations', formikProps.values?.variations)
+                            const _variations = clone(formikProps.values?.variations)
+                            _variations.splice(index, 1)
+                            formikProps.setFieldValue('variations', _variations)
                           }}
                         />
                       </Container>

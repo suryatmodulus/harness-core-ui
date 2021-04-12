@@ -9,7 +9,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
-      Enable Git Experience
+      enableGitExperience
     </p>
     <div
       class="Layout--horizontal StyledProps--main"
@@ -31,7 +31,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-top-large StyledProps--margin-bottom-large"
                 >
-                  Select your Git Provider
+                  selectGitProvider
                 </p>
                 <div
                   class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-large"
@@ -191,7 +191,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -222,7 +222,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   <label
                     class="bp3-label"
                   >
-                    Select the connector to your GitHub
+                    selectGitConnectorTypeLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -242,7 +242,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                         <span
                           class="placeholder"
                         >
-                          Select
+                          select
                         </span>
                       </span>
                       <span
@@ -275,7 +275,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                     class="bp3-label"
                     for="repo"
                   >
-                    Repository URL
+                    repositoryUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -305,7 +305,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                     class="bp3-label"
                     for="branch"
                   >
-                    Branch name
+                    connectors.git.branchName
                      
                     <span
                       class="bp3-text-muted"
@@ -338,7 +338,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save
+                    save
                   </span>
                 </button>
                 <button
@@ -348,7 +348,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Cancel
+                    cancel
                   </span>
                 </button>
               </div>
@@ -404,13 +404,13 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700"
             >
-              What is a Connector?
+              connecectorHelpHeader
             </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
                
-              Connectors integrate Harness with your cloud platforms, codebase and artifact repos, and collaboration and monitoring tools.
+              connecectorHelpText
             </p>
           </div>
         </div>
@@ -429,7 +429,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
-      Enable Git Experience
+      enableGitExperience
     </p>
     <div
       class="Layout--horizontal StyledProps--main"
@@ -451,7 +451,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-top-large StyledProps--margin-bottom-large"
                 >
-                  Select your Git Provider
+                  selectGitProvider
                 </p>
                 <div
                   class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-large"
@@ -611,7 +611,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        name
                          
                         <span
                           class="bp3-text-muted"
@@ -634,7 +634,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                         <div
                           class="bp3-form-helper-text"
                         >
-                          Name is a required field
+                          validation.nameRequired
                         </div>
                       </div>
                     </div>
@@ -647,7 +647,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   <label
                     class="bp3-label"
                   >
-                    Select the connector to your GitHub
+                    selectGitConnectorTypeLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -667,7 +667,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                         <span
                           class="placeholder"
                         >
-                          Select
+                          select
                         </span>
                       </span>
                       <span
@@ -700,7 +700,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     class="bp3-label"
                     for="repo"
                   >
-                    Repository URL
+                    repositoryUrlLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -723,7 +723,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     <div
                       class="bp3-form-helper-text"
                     >
-                      Repository Name is required
+                      validation.repositoryName
                     </div>
                   </div>
                 </div>
@@ -735,7 +735,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     class="bp3-label"
                     for="branch"
                   >
-                    Branch name
+                    connectors.git.branchName
                      
                     <span
                       class="bp3-text-muted"
@@ -758,7 +758,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     <div
                       class="bp3-form-helper-text"
                     >
-                      Branch Name is required
+                      validation.branchName
                     </div>
                   </div>
                 </div>
@@ -773,7 +773,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save
+                    save
                   </span>
                 </button>
                 <button
@@ -783,7 +783,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Cancel
+                    cancel
                   </span>
                 </button>
               </div>
@@ -839,13 +839,13 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700"
             >
-              What is a Connector?
+              connecectorHelpHeader
             </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
                
-              Connectors integrate Harness with your cloud platforms, codebase and artifact repos, and collaboration and monitoring tools.
+              connecectorHelpText
             </p>
           </div>
         </div>

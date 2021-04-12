@@ -125,17 +125,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
-        data-testid="Manifests-panel"
-        id="Manifests-panel"
+        data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-panel"
+        id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-panel"
       >
         <div
           class="Accordion--summary"
-          data-testid="Manifests-summary"
+          data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-summary"
         >
           <div
             class="Accordion--label"
           >
-            Manifests
+            pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
           </div>
           <div
             class="Accordion--chevron"
@@ -152,7 +152,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           >
             <div
               class="Accordion--details"
-              data-testid="Manifests-details"
+              data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-details"
             >
               <div
                 class="Layout--vertical StyledProps--main"
@@ -164,16 +164,16 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                     class="manifestList listHeader"
                   >
                     <span>
-                      ID
+                      common.ID
                     </span>
                     <span>
-                      MANIFEST TYPE
+                      pipelineSteps.serviceTab.manifestList.manifestType
                     </span>
                     <span>
-                      STORE
+                      pipelineSteps.serviceTab.manifestList.manifestStore
                     </span>
                     <span>
-                      LOCATION
+                      location
                     </span>
                     <span />
                   </div>
@@ -186,7 +186,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       style="cursor: pointer;"
                     >
                       <span>
-                        + Add Manifest/Config File
+                        pipelineSteps.serviceTab.manifestList.addManifest
                       </span>
                     </p>
                   </div>
@@ -203,17 +203,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
-        data-testid="Artifacts-panel"
-        id="Artifacts-panel"
+        data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-panel"
+        id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-panel"
       >
         <div
           class="Accordion--summary"
-          data-testid="Artifacts-summary"
+          data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-summary"
         >
           <div
             class="Accordion--label"
           >
-            Artifacts
+            pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts
           </div>
           <div
             class="Accordion--chevron"
@@ -230,7 +230,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           >
             <div
               class="Accordion--details"
-              data-testid="Artifacts-details"
+              data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-details"
             >
               <div
                 class="Layout--vertical StyledProps--main"
@@ -243,11 +243,11 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                   >
                     <span />
                     <span>
-                      ARTIFACT REPOSITORY
+                      artifactRepository
                     </span>
                     <span>
                        
-                      LOCATION
+                      location
                     </span>
                     <span />
                     <span />
@@ -268,7 +268,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <span>
-                        + Add Primary Artifact
+                        pipelineSteps.serviceTab.artifactList.addPrimary
                       </span>
                     </p>
                   </div>
@@ -279,7 +279,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <span>
-                        + Add Sidecar
+                        pipelineSteps.serviceTab.artifactList.addSidecar
                       </span>
                     </p>
                   </div>
@@ -296,17 +296,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
-        data-testid="Variables-panel"
-        id="Variables-panel"
+        data-testid="variablesText-panel"
+        id="variablesText-panel"
       >
         <div
           class="Accordion--summary"
-          data-testid="Variables-summary"
+          data-testid="variablesText-summary"
         >
           <div
             class="Accordion--label"
           >
-            Variables
+            variablesText
           </div>
           <div
             class="Accordion--chevron"
@@ -323,7 +323,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           >
             <div
               class="Accordion--details"
-              data-testid="Variables-details"
+              data-testid="variablesText-details"
             >
               <div
                 class="Layout--vertical StyledProps--main"
@@ -336,7 +336,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="line-height: 24px;"
                   >
-                    Specify additional overrides for any existing variables or define new variables.
+                    workflowVariableInfo
                   </p>
                 </section>
               </div>

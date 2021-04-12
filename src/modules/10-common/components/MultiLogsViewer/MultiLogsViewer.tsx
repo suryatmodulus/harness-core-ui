@@ -61,7 +61,7 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
 
   const flattenedRows = memoizedData
     .map(row => {
-      return row.linesData
+      return row.isOpen ? row.linesData : []
     })
     .reduce(function (prev, curr) {
       return prev.concat(curr)
@@ -72,7 +72,7 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
       <GroupedVirtuoso
         id="logContent"
         ref={virtuosoRef}
-        groupCounts={memoizedData.map(row => row.totalLines)}
+        groupCounts={memoizedData.map(row => (row.isOpen ? row.totalLines : 0))}
         groupContent={index => (
           <LogViewerAccordion key={memoizedData[index].id} {...memoizedData[index]} onSectionClick={onSectionClick} />
         )}
@@ -82,11 +82,11 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
               {memoizedData.filter(row => row.id === flattenedRows[index].sectionId && row.isOpen).length > 0 ? (
                 <LogLine data={flattenedRows[index]} lineNumber={flattenedRows[index].lineNumber + 1} />
               ) : (
-                <div style={{ height: '0.1px' }} />
+                <div style={{ height: '1px' }} />
               )}
             </div>
           ) : (
-            <div style={{ height: '0.1px' }} />
+            <div style={{ height: '1px' }} />
           )
         }
       />

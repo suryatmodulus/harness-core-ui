@@ -258,7 +258,7 @@ describe('VerificationJobsSetup', () => {
         <VerificationJobsSetup />
       </TestWrapper>
     )
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 
@@ -300,10 +300,10 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
-    await waitFor(() => expect(getByText('Health')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
+    await waitFor(() => expect(getByText('health')).not.toBeNull())
   })
 
   test('Ensure tabs are rendered in edit mode - test verification', async () => {
@@ -348,10 +348,10 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
-    await waitFor(() => expect(getByText('Test')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
+    await waitFor(() => expect(getByText('test')).not.toBeNull())
   })
 
   test('Ensure tabs are rendered in edit mode - blue green verification', async () => {
@@ -390,10 +390,10 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
-    await waitFor(() => expect(getByText('BlueGreen')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
+    await waitFor(() => expect(getByText('blueGreen')).not.toBeNull())
   })
 
   test('Ensure that when api returns runtime values, it is transformed correctly for test verification', async () => {
@@ -455,9 +455,9 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     const runTimeParams = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
     expect(container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`).length).toBe(5)
     const expectedRunTimeParams = [
@@ -532,9 +532,9 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     await waitFor(() => expect(container.querySelector(`input[value="${RUNTIME_INPUT_VALUE}"]`)).not.toBeNull())
     const dynamicFields = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
     expect(dynamicFields.length).toBe(5)
@@ -599,9 +599,9 @@ describe('VerificationJobsSetup', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Verification Jobs')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Verification Specification')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     const dynamicFields = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
     expect(dynamicFields.length).toBe(2)
     expect(dynamicFields[1].getAttribute('name')).toEqual('trafficSplit')

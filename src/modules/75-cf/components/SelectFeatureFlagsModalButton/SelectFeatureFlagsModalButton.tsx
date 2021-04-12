@@ -20,6 +20,11 @@ import { PageError } from '@common/components/Page/PageError'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 
+export interface SelectedFeatureFlag {
+  feature: Feature
+  variationIdentifier: string
+}
+
 export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
   orgIdentifier: string
@@ -31,7 +36,8 @@ export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'o
   submitButtonTitle?: string
   cancelButtonTitle?: string
 
-  onSubmit: (selectedFeatureFlags: Feature[]) => Promise<{ error: any } | any>
+  shouldDisableItem: (feature: Feature) => boolean
+  onSubmit: (selectedFeatureFlags: SelectedFeatureFlag[]) => Promise<{ error: any } | any>
 }
 
 export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButtonProps> = ({
@@ -44,6 +50,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
   submitButtonTitle,
   cancelButtonTitle,
   onSubmit,
+  shouldDisableItem,
   ...props
 }) => {
   const ModalComponent: React.FC = () => {
@@ -71,25 +78,28 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       queryParams,
       lazy: true
     })
-    const [checkedSegments, setCheckedSegments] = useState<Record<string, Feature>>({})
+    const [checkedFeatureFlags, setCheckedFeatureFlags] = useState<Record<string, SelectedFeatureFlag>>({})
     const checkOrUncheckSegment = useCallback(
-      (checked: boolean, segment: Feature) => {
+      (checked: boolean, feature: Feature, variationIdentifier: string) => {
         if (checked) {
-          checkedSegments[segment.identifier] = segment
+          checkedFeatureFlags[feature.identifier] = {
+            feature,
+            variationIdentifier
+          }
         } else {
-          delete checkedSegments[segment.identifier]
+          delete checkedFeatureFlags[feature.identifier]
         }
-        setCheckedSegments({ ...checkedSegments })
+        setCheckedFeatureFlags({ ...checkedFeatureFlags })
       },
-      [checkedSegments, setCheckedSegments]
+      [checkedFeatureFlags, setCheckedFeatureFlags]
     )
-    const selectedCounter = Object.keys(checkedSegments || {}).length
+    const selectedCounter = Object.keys(checkedFeatureFlags || {}).length
     const [submitLoading, setSubmitLoading] = useState(false)
     const handleSubmit = (): void => {
       setSubmitLoading(true)
 
       try {
-        onSubmit(Object.values(checkedSegments))
+        onSubmit(Object.values(checkedFeatureFlags))
           .then(() => {
             hideModal()
           })
@@ -180,7 +190,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
                     {getString('flag').toUpperCase()}
                   </Text>
                   <FlexExpander />
-                  <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}>
+                  <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} width={148}>
                     {getString('cf.shared.variation').toLocaleUpperCase()}
                   </Text>
                 </Layout.Horizontal>
@@ -196,6 +206,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
                         key={feature.identifier}
                         feature={feature}
                         checked={false}
+                        disabled={shouldDisableItem(feature)}
                         onChecked={checkOrUncheckSegment}
                       />
                     ))}
@@ -228,15 +239,15 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             />
             <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
             <FlexExpander />
-            {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
             {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
+            {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
           </Layout.Horizontal>
         </Layout.Vertical>
       </Dialog>
     )
   }
 
-  const [openModal, hideModal] = useModalHook(ModalComponent, [])
+  const [openModal, hideModal] = useModalHook(ModalComponent, [onSubmit, shouldDisableItem])
 
   return <Button onClick={openModal} {...props} />
 }

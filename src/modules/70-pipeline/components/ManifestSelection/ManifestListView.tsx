@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -7,13 +7,20 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import produce from 'immer'
 import { useStrings, String } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
-import type { ConnectorConfigDTO, ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import type {
+  ConnectorConfigDTO,
+  ConnectorInfoDTO,
+  ManifestConfig,
+  ManifestConfigWrapper,
+  StageElementConfig
+} from 'services/cd-ng'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
@@ -25,7 +32,8 @@ import {
   buildGcpPayload,
   buildGithubPayload,
   buildGitlabPayload,
-  buildGitPayload
+  buildGitPayload,
+  buildHelmPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
@@ -81,7 +89,7 @@ const manifestStoreTypes: Array<ManifestStores> = [
 
 const ManifestListView = ({
   pipeline,
-  updatePipeline,
+  updateStage,
   identifierName,
   isForOverrideSets,
   stage,
@@ -110,7 +118,7 @@ const ManifestListView = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const getManifestList = useCallback(() => {
+  let listOfManifests = useMemo(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
@@ -144,9 +152,15 @@ const ManifestListView = ({
         ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
         : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
       : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [isForOverrideSets, isPropagating, isForPredefinedSets, overrideSetIdentifier])
-
-  let listOfManifests = getManifestList()
+  }, [
+    overrideSetIdentifier,
+    isPropagating,
+    stage,
+    isForOverrideSets,
+    isForPredefinedSets,
+    stage?.stage?.spec?.serviceConfig?.useFromStage?.stage,
+    pipeline
+  ])
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
@@ -160,7 +174,14 @@ const ManifestListView = ({
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
-    updatePipeline(pipeline)
+
+    if (stage) {
+      updateStage(
+        produce(stage, draft => {
+          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+        }).stage as StageElementConfig
+      )
+    }
   }
 
   const addNewManifest = (): void => {
@@ -213,7 +234,14 @@ const ManifestListView = ({
       } else {
         listOfManifests.push(manifestObj)
       }
-      updatePipeline(pipeline)
+
+      if (stage) {
+        updateStage(
+          produce(stage, draft => {
+            set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+          }).stage as StageElementConfig
+        )
+      }
       hideConnectorModal()
       return
     }
@@ -231,7 +259,13 @@ const ManifestListView = ({
       })
     }
 
-    updatePipeline(pipeline)
+    if (stage) {
+      updateStage(
+        produce(stage, draft => {
+          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+        }).stage as StageElementConfig
+      )
+    }
     hideConnectorModal()
     setConnectorView(false)
     refetchConnectors()
@@ -375,6 +409,13 @@ const ManifestListView = ({
               connectorInfo={undefined}
               setIsEditMode={setIsEditMode}
             />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              connectorInfo={undefined}
+              buildPayload={buildHelmPayload}
+            />
 
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
@@ -455,7 +496,7 @@ const ManifestListView = ({
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
-              isLastStep={true}
+              isLastStep={false}
               type={Connectors.GCP}
             />
           </StepWizard>

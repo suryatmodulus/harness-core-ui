@@ -74,13 +74,13 @@ export function buildDefaultNewRelicMonitoringSource({
   accountId
 }: ProjectPathProps): NewRelicSetupSource {
   return {
-    monitoringSourceName: `MyNewRelicSource${orgIdentifier}-${projectIdentifier}`,
+    monitoringSourceName: 'NewRelic',
     accountId,
     orgIdentifier,
     projectIdentifier,
     isEdit: false,
     productName: NewRelicProductNames.APM,
-    identifier: `MyNewRelicSource${orgIdentifier}-${projectIdentifier}`,
+    identifier: 'NewRelic',
     type: 'NEW_RELIC',
     mappedServicesAndEnvs: new Map()
   }

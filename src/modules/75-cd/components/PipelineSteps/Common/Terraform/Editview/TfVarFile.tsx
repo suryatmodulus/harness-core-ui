@@ -135,8 +135,8 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       <FormInput.Select
                         items={gitFetchTypes}
                         name="store.spec.gitFetchType"
-                        label={getString('pipelineSteps.gitFetchType')}
-                        placeholder={getString('pipelineSteps.gitFetchType')}
+                        label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                        placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
                       />
                     </div>
 

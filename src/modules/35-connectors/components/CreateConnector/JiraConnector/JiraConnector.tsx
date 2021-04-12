@@ -8,6 +8,8 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
+import { buildJiraPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import JiraDetailsForm from './JiraDetailsForm'
 
@@ -48,6 +50,15 @@ const JiraConnector: React.FC<CreateJiraConnectorProps> = props => {
         isEditMode={isEditMode}
         connectorInfo={props.connectorInfo}
         setIsEditMode={setIsEditMode}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={isEditMode}
+        setIsEditMode={setIsEditMode}
+        buildPayload={buildJiraPayload}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onConnectorCreated}
+        connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

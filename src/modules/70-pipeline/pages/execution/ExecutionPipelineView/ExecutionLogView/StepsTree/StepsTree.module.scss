@@ -81,7 +81,7 @@ $height: 40px;
 
     .name {
       display: inline-block !important;
-      white-space: nowrap;
+      white-space: nowrap !important;
       overflow: hidden;
       text-overflow: ellipsis;
       color: currentColor !important;

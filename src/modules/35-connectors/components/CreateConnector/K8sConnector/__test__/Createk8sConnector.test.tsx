@@ -39,7 +39,7 @@ jest.mock('services/cd-ng', () => ({
   useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
 
-const masterUrlComponentText = 'Specify master url and credentials'
+const masterUrlComponentText = 'connectors.k8.delegateOutClusterInfo'
 
 describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {

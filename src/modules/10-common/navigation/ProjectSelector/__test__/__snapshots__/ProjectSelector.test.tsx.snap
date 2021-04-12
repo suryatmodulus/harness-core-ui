@@ -20,13 +20,13 @@ exports[`ProjectSelector render with projects 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"
           >
-            Project
+            projectLabel
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
             style="--text-line-clamp: 1; width: 100px;"
           >
-            Select a Project
+            selectProject
           </p>
         </div>
       </span>
@@ -73,7 +73,7 @@ exports[`ProjectSelector render with projects 1`] = `
     class="pickProjectHelp"
     style="background-image: url(test-file-stub);"
   >
-    Pick a project and drill down to see your information.
+    pickProject
   </div>
 </div>
 `;
@@ -98,13 +98,13 @@ exports[`ProjectSelector render with projects 2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"
           >
-            Project
+            projectLabel
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
             style="--text-line-clamp: 1; width: 100px;"
           >
-            Select a Project
+            selectProject
           </p>
         </div>
       </span>
@@ -183,7 +183,7 @@ exports[`ProjectSelector render with projects 2`] = `
                   </span>
                   <input
                     class="bp3-input"
-                    placeholder="Start typing to search"
+                    placeholder="projectSelector.placeholder"
                     type="text"
                     value=""
                   />
@@ -287,7 +287,7 @@ exports[`ProjectSelector render with projects 2`] = `
     class="pickProjectHelp"
     style="background-image: url(test-file-stub);"
   >
-    Pick a project and drill down to see your information.
+    pickProject
   </div>
 </div>
 `;

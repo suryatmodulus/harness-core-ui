@@ -36,6 +36,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
       pipelineView
     },
     stepsFactory,
+    isReadonly,
     updatePipeline,
     getStageFromPipeline,
     updatePipelineView
@@ -156,6 +157,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={false}
               hasRollback={false}
+              isReadonly={isReadonly}
               hasDependencies={false}
               stepsFactory={stepsFactory}
               ref={executionRef}

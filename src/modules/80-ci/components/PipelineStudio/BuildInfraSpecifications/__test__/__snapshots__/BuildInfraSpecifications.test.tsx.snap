@@ -49,7 +49,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
             class="tabHeading"
             id="infrastructureDefinition"
           >
-            Where do you want the builds to run?
+            pipelineSteps.build.infraSpecifications.whereToRun
           </div>
           <form
             class="FormikForm--main"
@@ -65,7 +65,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                   <label
                     class="bp3-label"
                   >
-                    Select a Kubernetes Cluster
+                    pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -162,7 +162,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Namespace
+                  pipelineSteps.build.infraSpecifications.namespace
                 </p>
                 <div
                   class="fieldsGroup withoutSpacing"
@@ -291,7 +291,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
             class="tabHeading"
             id="infrastructureDefinition"
           >
-            Where do you want the builds to run?
+            pipelineSteps.build.infraSpecifications.whereToRun
           </div>
           <form
             class="FormikForm--main"
@@ -307,7 +307,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   <label
                     class="bp3-label"
                   >
-                    Select a Kubernetes Cluster
+                    pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -404,7 +404,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                 >
-                  Namespace
+                  pipelineSteps.build.infraSpecifications.namespace
                 </p>
                 <div
                   class="fieldsGroup withoutSpacing"

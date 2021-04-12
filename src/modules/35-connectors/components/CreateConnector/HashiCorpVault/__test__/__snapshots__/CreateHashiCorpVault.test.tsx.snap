@@ -31,7 +31,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HashiCorp Vault
+        connectors.title.hashicorpVault
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -45,7 +45,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -66,7 +66,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
       </div>
       <div
@@ -81,7 +81,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -95,7 +95,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          HashiCorp Vault Overview
+          connectors.hashicorpVaultDetails
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -172,7 +172,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -202,7 +202,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -233,7 +233,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -270,7 +270,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -335,7 +335,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HashiCorp Vault
+        connectors.title.hashicorpVault
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -367,7 +367,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -406,7 +406,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
       </div>
       <div
@@ -421,7 +421,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -439,7 +439,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
           >
-            Test Connection
+            connectors.stepThreeName
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
@@ -447,7 +447,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             <p
               class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
             >
-              Vault URL : 
+              connectors.testConnectionStep.url.vault
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
@@ -511,12 +511,12 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                       >
-                        Validating the HashiCorp Vault authentication and permissions
+                        connectors.testConnectionStep.validationText.vault
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                       >
-                        Test failed for the connector
+                        connectors.testConnectionStep.placeholderError
                       </p>
                     </div>
                   </div>
@@ -537,7 +537,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             <span
               class="bp3-button-text"
             >
-              Finish
+              finish
             </span>
           </button>
         </div>
@@ -578,7 +578,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HashiCorp Vault
+        connectors.title.hashicorpVault
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -592,7 +592,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -613,7 +613,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
       </div>
       <div
@@ -628,7 +628,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -642,7 +642,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
         <div
           class="heading"
         >
-          HashiCorp Vault Overview
+          connectors.hashicorpVaultDetails
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -700,7 +700,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -731,7 +731,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description (optional)
+                        optionalField
                       </label>
                       <div
                         class="bp3-form-group"
@@ -757,7 +757,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags (optional)
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -794,7 +794,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -859,7 +859,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HashiCorp Vault
+        connectors.title.hashicorpVault
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -891,7 +891,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -912,7 +912,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
       </div>
       <div
@@ -927,7 +927,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -942,7 +942,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xlarge"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
         <div
           class="OverlaySpinner--overlaySpinner"
@@ -959,7 +959,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="vaultUrl"
                 >
-                  Vault URL
+                  connectors.hashiCorpVault.vaultUrl
                    
                   <span
                     class="bp3-text-muted"
@@ -989,7 +989,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="basePath"
                 >
-                  Base Secret Path (optional)
+                  connectors.hashiCorpVault.baseSecretPath
                    
                   <span
                     class="bp3-text-muted"
@@ -1019,7 +1019,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="accessType"
                 >
-                  Authentication
+                  authentication
                    
                   <span
                     class="bp3-text-muted"
@@ -1070,7 +1070,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     class="bp3-label"
                     for="appRoleId"
                   >
-                    App Role ID
+                    connectors.hashiCorpVault.appRoleId
                      
                     <span
                       class="bp3-text-muted"
@@ -1100,7 +1100,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     class="bp3-label"
                     for="secretId"
                   >
-                    Secret ID
+                    connectors.hashiCorpVault.secretId
                      
                     <span
                       class="bp3-text-muted"
@@ -1248,7 +1248,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="renewalIntervalMinutes"
                 >
-                  Renewal Interval (minutes)
+                  connectors.hashiCorpVault.renewal
                    
                   <span
                     class="bp3-text-muted"
@@ -1287,7 +1287,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    Read-only Vault
+                    connectors.hashiCorpVault.readOnlyVault
                   </label>
                 </div>
               </div>
@@ -1308,7 +1308,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    Use as Default Secrets Manager
+                    connectors.hashiCorpVault.defaultVault
                   </label>
                 </div>
               </div>
@@ -1322,7 +1322,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Back
+                    back
                   </span>
                 </button>
                 <button
@@ -1332,7 +1332,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Save and Continue
+                    saveAndContinue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1395,7 +1395,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
       <span
         class="StepWizard--title StepWizard--header"
       >
-        HashiCorp Vault
+        connectors.title.hashicorpVault
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1427,7 +1427,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Overview
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -1466,7 +1466,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          HashiCorp Vault Details
+          connectors.hashiCorpVault.stepTwoName
         </p>
       </div>
       <div
@@ -1481,7 +1481,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Test Connection
+          connectors.stepThreeName
         </p>
       </div>
     </div>
@@ -1499,7 +1499,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
           >
-            Test Connection
+            connectors.stepThreeName
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xsmall"
@@ -1507,7 +1507,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             <p
               class="StyledProps--font StyledProps--main subHeading StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small"
             >
-              Vault URL : 
+              connectors.testConnectionStep.url.vault
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
@@ -1571,12 +1571,12 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                       >
-                        Validating the HashiCorp Vault authentication and permissions
+                        connectors.testConnectionStep.validationText.vault
                       </p>
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                       >
-                        Test failed for the connector
+                        connectors.testConnectionStep.placeholderError
                       </p>
                     </div>
                   </div>
@@ -1597,7 +1597,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             <span
               class="bp3-button-text"
             >
-              Finish
+              finish
             </span>
           </button>
         </div>

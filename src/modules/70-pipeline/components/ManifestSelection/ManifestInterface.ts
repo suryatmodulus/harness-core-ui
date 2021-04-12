@@ -1,4 +1,10 @@
-import type { ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper, PageConnectorResponse } from 'services/cd-ng'
+import type {
+  ConnectorInfoDTO,
+  ManifestConfig,
+  ManifestConfigWrapper,
+  PageConnectorResponse,
+  StageElementConfig
+} from 'services/cd-ng'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 
 export type ManifestTypes =
@@ -22,7 +28,7 @@ export interface ManifestSelectionProps {
 export interface ManifestListViewProps {
   pipeline: NgPipeline
   isForOverrideSets: boolean
-  updatePipeline: (pipeline: NgPipeline) => Promise<void>
+  updateStage: (stage: StageElementConfig) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
   isForPredefinedSets: boolean

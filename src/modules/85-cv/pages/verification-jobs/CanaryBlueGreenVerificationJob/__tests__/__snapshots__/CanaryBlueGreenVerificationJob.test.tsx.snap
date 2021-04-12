@@ -20,7 +20,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
             >
-              Verification Specification
+              cv.verificationJobs.configure.heading
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -179,14 +179,14 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                 >
-                  BlueGreen
+                  blueGreen
                 </p>
               </div>
             </div>
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large StyledProps--padding-top-xlarge"
             >
-              Create a new production deployment verification job
+              cv.verificationJobs.configure.prodDepText
             </p>
             <div
               class="Layout--horizontal StyledProps--main"
@@ -716,7 +716,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Submit
+                  submit
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -767,7 +767,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
             >
-              Verification Specification
+              cv.verificationJobs.configure.heading
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -822,14 +822,14 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                 >
-                  Canary
+                  canary
                 </p>
               </div>
             </div>
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large StyledProps--padding-top-xlarge"
             >
-              Create a new production deployment verification job
+              cv.verificationJobs.configure.prodDepText
             </p>
             <div
               class="Layout--horizontal StyledProps--main"
@@ -1359,7 +1359,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Submit
+                  submit
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"

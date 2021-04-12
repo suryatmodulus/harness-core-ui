@@ -169,10 +169,11 @@ const ManifestListView = ({
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
     if (stage) {
-      produce(stage, data => {
-        set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
-        updateStage(data.stage)
-      })
+      updateStage(
+        produce(stage, data => {
+          set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
+        }).stage
+      )
     }
   }
 
@@ -227,10 +228,11 @@ const ManifestListView = ({
         listOfManifests.push(manifestObj)
       }
       if (stage) {
-        produce(stage, data => {
-          set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
-          updateStage(data.stage)
-        })
+        updateStage(
+          produce(stage, data => {
+            set(data, 'stage.spec.serviceConfig.stageOverrides.manifests', listOfManifests)
+          }).stage
+        )
       }
       hideConnectorModal()
       return

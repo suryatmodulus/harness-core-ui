@@ -1909,6 +1909,7 @@ connectors:
     loggedAt: 'Logged at'
     validation:
       selectDelegate: 'Please select a Delegate'
+      selectRegion: 'Please select a Region'
 gitSync:
   label: 'Git Sync'
   successfullCreate: 'Git sync repository created successfully'

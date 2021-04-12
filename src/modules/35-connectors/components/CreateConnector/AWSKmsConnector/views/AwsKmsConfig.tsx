@@ -30,18 +30,21 @@ export interface AwsKmsConfigFormData {
   secretKey?: SecretReference
   awsArn?: SecretReference
   region?: SelectOption
-  credType?: SelectOption
-  delegate?: string
+  credType?: string | SelectOption
+  delegate?: string[]
 }
-
+export enum CredTypeValues {
+  ManualConfig = 'ManualConfig',
+  AssumeIAMRole = 'AssumeIAMRole'
+}
 const credTypeOptions: SelectOption[] = [
   {
     label: 'AWS Access Key',
-    value: 'awsAccessKey'
+    value: CredTypeValues.ManualConfig
   },
   {
     label: 'Assume IAM role on delegate',
-    value: 'assumeIamRole'
+    value: CredTypeValues.AssumeIAMRole
   }
 ]
 
@@ -50,7 +53,7 @@ const defaultInitialFormData: AwsKmsConfigFormData = {
   secretKey: undefined,
   awsArn: undefined,
   region: undefined,
-  credType: credTypeOptions[0],
+  credType: credTypeOptions[0].value as string,
   delegate: undefined
 }
 
@@ -66,7 +69,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [credType, setCredType] = useState(credTypeOptions[0])
+  //const [credType, setCredType] = useState(credTypeOptions[0])
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && isEditMode)
 
@@ -79,27 +82,38 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
 
   const handleSubmit = async (formData: AwsKmsConfigFormData): Promise<void> => {
     if (prevStepData) {
-      let dataToSubmit: ConnectorRequestBody
-      if (credType === credTypeOptions[0]) {
-        dataToSubmit = {
-          connector: {
-            orgIdentifier,
-            projectIdentifier,
-            ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
-           // type: 'Vault',
-            // TODO: uncomment
-            type: 'AwsKms',
-            spec: {
-              accessKey: formData?.accessKey,
-              secretKey: formData?.secretKey?.identifier,
-              awsArn: formData?.awsArn?.identifier,
-              region: formData?.region
-            }
+      const credTypeValue = formData?.credType as string
+      let cred = {}
+      if (credTypeValue === CredTypeValues.ManualConfig) {
+        cred = {
+          type: credTypeValue,
+          spec: {
+            accessKey: formData?.accessKey,
+            secretKey: formData?.secretKey
           }
         }
-      } else {
-        // TODO: add dataToSubmit for second step
-        dataToSubmit = {}
+      } else if (credTypeValue === CredTypeValues.AssumeIAMRole) {
+        cred = {
+          type: credTypeValue,
+          spec: {
+            delegateSelectors: formData.delegate
+          }
+        }
+      }
+
+      const dataToSubmit: ConnectorRequestBody = {
+        connector: {
+          orgIdentifier,
+          projectIdentifier,
+          ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
+          type: 'AwsKms',
+          spec: {
+            credential: cred,
+            kmsArn: formData?.awsArn,
+            region: formData?.region?.value,
+            default: false
+          }
+        }
       }
 
       try {
@@ -146,20 +160,18 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
       <Formik
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
-          accessKey: Yup.string().when('credType', {
-            is: credTypeOptions[0],
+          accessKey: Yup.string().when(['credType'], {
+            is: credentials => credentials === credTypeOptions[0].value,
             then: Yup.string().trim().required(getString('connectors.aws.validation.accessKey'))
           }),
-          secretKey: Yup.string().when('credType', {
-            is: credTypeOptions[0],
+          secretKey: Yup.string().when(['credType'], {
+            is: credentials => credentials === credTypeOptions[0].value,
             then: Yup.string().trim().required(getString('connectors.aws.validation.secretKeyRef'))
           }),
-          awsArn: Yup.string().when('credType', {
-            is: credTypeOptions[0],
-            then: Yup.string().trim().required(getString('connectors.aws.validation.crossAccountRoleArn'))
-          }),
-          delegate: Yup.string().when('credType', {
-            is: credTypeOptions[1],
+          awsArn: Yup.string().trim().required(getString('connectors.aws.validation.crossAccountRoleArn')),
+          region: Yup.string().trim().required(getString('connectors.awsKms.validation.selectRegion')),
+          delegate: Yup.string().when(['credType'], {
+            is: credentials => credentials === credTypeOptions[1].value,
             then: Yup.string().trim().required(getString('connectors.awsKms.validation.selectDelegate'))
           })
         })}
@@ -171,19 +183,10 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           return (
             <FormikForm>
               <Container style={{ minHeight: 460 }}>
-                <FormInput.Select
-                  name="credType"
-                  label={getString('credType')}
-                  items={credTypeOptions}
-                  value={credType}
-                  onChange={value => {
-                    formik.resetForm()
-                    setCredType(value)
-                  }}
-                />
-                {credType === credTypeOptions[0] ? (
-                  <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
-                ) : (
+                <FormInput.Select name="credType" label={getString('credType')} items={credTypeOptions} />
+
+                <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
+                {formik.values?.credType === credTypeOptions[1].value && (
                   <AwsKmsDelegateSelection formik={formik} connectorInfo={connectorInfo} isEditMode={isEditMode} />
                 )}
               </Container>

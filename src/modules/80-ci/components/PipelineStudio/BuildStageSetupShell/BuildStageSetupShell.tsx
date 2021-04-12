@@ -18,6 +18,7 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import i18n from './BuildStageSetupShell.i18n'
@@ -53,7 +54,7 @@ export default function BuildStageSetupShell(): JSX.Element {
       pipeline,
       originalPipeline,
       pipelineView: {
-        splitViewData: { selectedStageId = '', errorMap },
+        splitViewData: { selectedStageId = '' },
         isSplitViewOpen
       },
       pipelineView
@@ -136,20 +137,16 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }, [pipeline, selectedStageId])
 
+  const { errorMap } = useValidationErrors()
   function isStageError(stageName: string): boolean {
-    //  const errorList = Array.from(errorMap).filter(item => {
-    //    return item[0].indexOf(path) > -1
-    //  })
-
     const { stage, parent } = getStageFromPipeline(selectedStageId)
 
     const { stages } = pipeline
-
     const path =
-      stages.indexOf(stage) > -1
-        ? `pipeline.stages.${stages?.indexOf(stage)}`
-        : parent.parallel
-        ? `pipeline.stages.${stages?.indexOf(parent)}.parallel.${parent?.parallel.indexOf(stage)}`
+      stages!.indexOf(stage!) > -1
+        ? `pipeline.stages.${stages?.indexOf(stage!)}`
+        : parent!.parallel
+        ? `pipeline.stages.${stages?.indexOf(parent!)}.parallel.${parent?.parallel.indexOf(stage)}`
         : ''
 
     if (errorMap) {

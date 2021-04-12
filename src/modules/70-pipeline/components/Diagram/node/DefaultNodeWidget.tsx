@@ -3,6 +3,7 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position, Tooltip } from '@blueprintjs/core'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
@@ -69,12 +70,22 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const [addClicked, setAddClicked] = React.useState(false)
   const [dragging, setDragging] = React.useState(false)
 
-  const errors = options.errorList?.reduce((prev, curr) => {
+  const { errorMap } = useValidationErrors()
+
+  const path = options.path || ''
+
+  const isInComplete = Array.from(errorMap.keys()).filter(item => item.indexOf(path) > -1).length > 0
+
+  const _errorList = Array.from(errorMap).filter(item => {
+    return item[0].indexOf(path) > -1
+  })
+
+  const errors = _errorList?.reduce((prev, curr) => {
     return prev + curr[1].length
   }, 0)
 
   const errorList: { [key: string]: number } = {}
-  options.errorList
+  _errorList
     ?.map(error => {
       const errorLocation = error[0].substring(error[0].lastIndexOf('.') + 1)
       return error[1].map(errorDetail => {
@@ -217,7 +228,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           />
         )}
 
-        {options.isInComplete && (
+        {isInComplete && (
           <span className={css.inComplete}>
             <Tooltip
               content={
@@ -232,7 +243,20 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
                     })}
                   </div>
                 ) : (
-                  <div>{errors} error(s) at this node</div>
+                  <>
+                    <div>{errors} error(s) at this node</div>
+                    {Object.entries(errorList).map((error, index) => {
+                      if (error[0].startsWith('spec: ')) {
+                        return (
+                          <div key={`${error[0]}-${error[1]}-${index}`}>
+                            {error[1] > 1
+                              ? `${error[0].replace('spec: ', '')} (${error[1]})`
+                              : error[0].replace('spec: ', '')}
+                          </div>
+                        )
+                      } else return null
+                    })}
+                  </>
                 )
               }
               position="auto"

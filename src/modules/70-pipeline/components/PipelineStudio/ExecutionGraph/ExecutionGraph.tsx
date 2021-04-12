@@ -126,7 +126,7 @@ export interface ExecutionGraphProp {
   rollBackBannerStyle?: React.CSSProperties
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
-  errors: { isError: boolean; errors: [string, string[]][] }
+  errors?: { isError: boolean; errors: [string, string[]][] }
 }
 
 function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {
@@ -467,7 +467,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     { nodeListeners, linkListeners, layerListeners },
     state.isRollback,
     getString,
-    errors.errors
+    errors?.errors
   )
 
   // load model into engine

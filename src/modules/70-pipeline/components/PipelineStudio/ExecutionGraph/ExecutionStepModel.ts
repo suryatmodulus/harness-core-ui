@@ -490,7 +490,7 @@ export class ExecutionStepModel extends DiagramModel {
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean,
     getString: UseStringsReturn['getString'],
-    errors: [string, string[]][]
+    errors?: [string, string[]][]
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
@@ -534,13 +534,10 @@ export class ExecutionStepModel extends DiagramModel {
       }
     }
 
-    // console.log(stepsData)
-    // console.log(errors)
-
     stepsData.forEach((node: ExecutionWrapper) => {
       const path = findPath()
 
-      const filteredErrors = errors.filter(error => error[0].indexOf(path) > -1)
+      const filteredErrors = errors?.filter(error => error[0].indexOf(path) > -1)
 
       const resp = this.renderGraphStepNodes(
         node,

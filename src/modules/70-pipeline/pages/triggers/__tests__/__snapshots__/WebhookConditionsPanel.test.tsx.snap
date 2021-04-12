@@ -78,7 +78,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="bp3-label"
               for="jexlConditions"
             >
-              JEXL Conditions
+              pipeline-triggers.conditionsPanel.jexlConditions
                
               <span
                 class="bp3-text-muted"
@@ -397,7 +397,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="bp3-label"
               for="jexlConditions"
             >
-              JEXL Conditions
+              pipeline-triggers.conditionsPanel.jexlConditions
                
               <span
                 class="bp3-text-muted"

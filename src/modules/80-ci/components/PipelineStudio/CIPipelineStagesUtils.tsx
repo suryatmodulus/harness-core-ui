@@ -9,13 +9,15 @@ export const getCIPipelineStages: (
   getString: UseStringsReturn['getString'],
   isCIEnabled?: boolean,
   isCDEnabled?: boolean,
-  isCFEnabled?: boolean
+  isCFEnabled?: boolean,
+  isApprovalStageEnabled?: boolean
 ) => React.ReactElement<PipelineStagesProps> = (
   args,
   getString,
   isCIEnabled = false,
   isCDEnabled = false,
-  isCFEnabled = false
+  isCFEnabled = false,
+  isApprovalStageEnabled = false
 ) => {
   return (
     <PipelineStages {...args}>
@@ -23,7 +25,7 @@ export const getCIPipelineStages: (
       {stagesCollection.getStage(StageTypes.DEPLOY, isCDEnabled, getString)}
       {stagesCollection.getStage(StageTypes.FEATURE, isCFEnabled, getString)}
       {stagesCollection.getStage(StageTypes.PIPELINE, false, getString)}
-      {stagesCollection.getStage(StageTypes.APPROVAL, false, getString)}
+      {stagesCollection.getStage(StageTypes.APPROVAL, isApprovalStageEnabled, getString)}
       {stagesCollection.getStage(StageTypes.CUSTOM, false, getString)}
     </PipelineStages>
   )

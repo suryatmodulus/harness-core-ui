@@ -22,7 +22,6 @@ interface AwsKmsDelegateSelectionProps {
 const AwsKmsDelegateSelection: React.FC<AwsKmsDelegateSelectionProps> = ({ connectorInfo, isEditMode, formik }) => {
   const { getString } = useStrings()
   const { accountId, module } = useParams<Record<string, string>>()
-
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   const [selectedDelegate, setSelectedDelegate] = useState<Array<string>>([])
   useEffect(() => {
@@ -32,7 +31,7 @@ const AwsKmsDelegateSelection: React.FC<AwsKmsDelegateSelectionProps> = ({ conne
   }, [])
 
   useEffect(() => {
-    const delegate = (connectorInfo as ConnectorInfoDTO)?.spec?.delegateSelectors || []
+    const delegate = (connectorInfo as ConnectorInfoDTO)?.spec?.credential?.spec?.delegateSelectors || []
     if (isEditMode) {
       setDelegateSelectors(delegate)
     }
@@ -158,6 +157,7 @@ const AwsKmsDelegateSelection: React.FC<AwsKmsDelegateSelectionProps> = ({ conne
         selectedItems={delegateSelectors}
         onChange={tags => {
           setDelegateSelectors(tags as Array<string>)
+          formik.setFieldValue('delegate', tags)
         }}
       ></DelegateSelectors>
       <Table
@@ -173,7 +173,7 @@ const AwsKmsDelegateSelection: React.FC<AwsKmsDelegateSelectionProps> = ({ conne
               } else {
                 combinedVal.add(delegate?.uuid)
               }
-              formik.setFieldValue('delegate', [...combinedVal])
+              //formik.setFieldValue('delegate', [...combinedVal])
               return [...combinedVal]
             }
             return val

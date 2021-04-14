@@ -1,8 +1,9 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Color, SelectOption } from '@wings-software/uicore'
+import { FormInput, Text, Color, SelectOption, Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/exports'
-import { NameValuePair, useListAwsRegions } from 'services/portal'
+import { useListAwsRegions } from 'services/portal'
+import { useToaster } from '@common/exports'
 import { AwsKmsConfigFormData, CredTypeValues } from './AwsKmsConfig'
 
 interface AwsKmsAccessKeyFormProps {
@@ -13,18 +14,24 @@ interface AwsKmsAccessKeyFormProps {
 const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accountId }) => {
   const { getString } = useStrings()
 
-  const { data: regionData } = useListAwsRegions({
+  const [regions, setRegions] = React.useState<SelectOption[]>([])
+
+  const { showError } = useToaster()
+  const { data: regionData, loading, error } = useListAwsRegions({
     queryParams: {
       accountId
     }
   })
-  const regions = (regionData?.resource || []).map(
-    (region: NameValuePair) =>
-      ({
-        value: region.value,
-        label: region.name
-      } as SelectOption)
-  )
+  if (error) {
+    showError(error.message)
+  }
+  React.useEffect(() => {
+    const regionValues = (regionData?.resource || []).map(region => ({
+      value: region.value,
+      label: region.name
+    }))
+    setRegions(regionValues as SelectOption[])
+  }, [regionData?.resource])
 
   return (
     <>
@@ -43,17 +50,11 @@ const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accou
       )}
 
       <FormInput.Text name="awsArn" label={getString('connectors.awsKms.arnLabel')} />
-      <FormInput.MultiTypeInput
-        name="region"
-        selectItems={regions}
-        multiTypeInputProps={{
-          selectProps: {
-            defaultSelectedItem: formik.values.region,
-            items: regions
-          }
-        }}
-        label={getString('pipelineSteps.regionLabel')}
-      />
+      {loading ? (
+        <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
+      ) : (
+        <FormInput.Select name="region" items={regions} label={getString('pipelineSteps.regionLabel')} />
+      )}
     </>
   )
 }

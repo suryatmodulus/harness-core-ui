@@ -21,15 +21,15 @@ import { ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'se
 import { useStrings } from 'framework/exports'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { DelegateSelectors } from '@common/components'
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
-import AwsKmsDelegateSelection from './AwsKmsDelegateSelection'
 import type { CreateAwsKmsConnectorProps, StepSecretManagerProps } from '../CreateAwsKmsConnector'
 
 export interface AwsKmsConfigFormData {
   accessKey?: string
   secretKey?: SecretReference
   awsArn?: SecretReference
-  region?: SelectOption
+  region?: string | SelectOption
   credType?: string | SelectOption
   delegate?: string[]
 }
@@ -110,7 +110,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           spec: {
             credential: cred,
             kmsArn: formData?.awsArn,
-            region: formData?.region?.value,
+            region: formData?.region as SelectOption,
             default: false
           }
         }
@@ -139,7 +139,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     if (loadingConnectorSecrets) {
       if (isEditMode) {
         if (connectorInfo) {
-          setupAwsKmsFormData(connectorInfo, accountIdentifier).then(data => {
+          setupAwsKmsFormData(connectorInfo).then(data => {
             setInitialValues(data as AwsKmsConfigFormData)
             setLoadingConnectorSecrets(false)
           })
@@ -158,7 +158,8 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
       <ModalErrorHandler bind={setModalErrorHandler} />
 
       <Formik
-        initialValues={{ ...initialValues }}
+        enableReinitialize
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           accessKey: Yup.string().when(['credType'], {
             is: credentials => credentials === credTypeOptions[0].value,
@@ -184,10 +185,23 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
             <FormikForm>
               <Container style={{ minHeight: 460 }}>
                 <FormInput.Select name="credType" label={getString('credType')} items={credTypeOptions} />
-
                 <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
                 {formik.values?.credType === credTypeOptions[1].value && (
-                  <AwsKmsDelegateSelection formik={formik} connectorInfo={connectorInfo} isEditMode={isEditMode} />
+                  <>
+                    <Text lineClamp={1} margin={{ bottom: 'medium' }}>
+                      {getString('delegate.DelegateSelector')}
+                    </Text>
+                    <DelegateSelectors
+                      fill
+                      allowNewTag={false}
+                      placeholder={getString('delegate.DelegateselectionPlaceholder')}
+                      selectedItems={formik.values.delegate}
+                      onChange={tags => {
+                        formik.setFieldValue('delegate', tags)
+                      }}
+                    ></DelegateSelectors>
+                    <Text intent="danger">{formik.errors.delegate}</Text>
+                  </>
                 )}
               </Container>
               <Layout.Horizontal spacing="medium">

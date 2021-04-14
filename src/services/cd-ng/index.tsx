@@ -2796,6 +2796,7 @@ export interface ConnectorCatalogueItem {
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
     | 'NewRelic'
+    | 'AwsKms'
   )[]
 }
 
@@ -3020,6 +3021,8 @@ export interface ConnectorInfoDTO {
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
     | 'NewRelic'
+    | 'AwsKms'
+
   spec: ConnectorConfigDTO
 }
 
@@ -8198,6 +8201,7 @@ export interface GetConnectorListQueryParams {
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
     | 'NewRelic'
+    | 'AwsKms'
   category?:
     | 'CLOUD_PROVIDER'
     | 'SECRET_MANAGER'

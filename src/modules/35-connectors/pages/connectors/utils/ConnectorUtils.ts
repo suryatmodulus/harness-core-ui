@@ -604,18 +604,14 @@ export const setupArtifactoryFormData = async (
   return formData
 }
 
-export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
-  const scopeQueryParams: GetSecretV2QueryParams = {
-    accountIdentifier: accountId,
-    projectIdentifier: connectorInfo.projectIdentifier,
-    orgIdentifier: connectorInfo.orgIdentifier
-  }
-
+export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
   const formData = {
-    accessKey: connectorInfo.spec.accessKey,
-    secretKey: await setSecretField(connectorInfo.spec.secretKey, scopeQueryParams),
-    awsArn: await setSecretField(connectorInfo.spec.awsArn, scopeQueryParams),
-    region: connectorInfo.spec.region
+    accessKey: connectorInfo?.spec?.credential?.spec?.accessKey,
+    secretKey: connectorInfo?.spec?.credential?.spec?.secretKey,
+    awsArn: connectorInfo?.spec?.kmsArn,
+    region: connectorInfo.spec?.region,
+    credType: connectorInfo.spec?.credential?.type,
+    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors
   }
 
   return formData

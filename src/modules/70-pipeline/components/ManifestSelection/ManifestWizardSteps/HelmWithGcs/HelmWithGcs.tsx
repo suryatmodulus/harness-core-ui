@@ -9,7 +9,8 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color
+  Color,
+  SelectOption
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -104,9 +105,9 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         }
       }
     }
-    if (formData?.commandFlags[0].commandType) {
+    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
       ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: commandFlag.commandType,
+        commandType: (commandFlag.commandType as SelectOption)?.value as string,
         flag: commandFlag.flag
       }))
     }

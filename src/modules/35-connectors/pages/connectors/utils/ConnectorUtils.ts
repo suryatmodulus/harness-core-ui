@@ -618,7 +618,10 @@ export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Prom
     awsArn: connectorInfo?.spec?.kmsArn,
     region: connectorInfo.spec?.region,
     credType: connectorInfo.spec?.credential?.type,
-    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors
+    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors,
+    roleArn: connectorInfo.spec?.credential?.spec?.roleArn,
+    externalName: connectorInfo.spec?.credential?.spec?.externalName,
+    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration
   }
 
   return formData

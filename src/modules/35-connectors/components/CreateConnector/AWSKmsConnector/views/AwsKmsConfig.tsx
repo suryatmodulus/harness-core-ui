@@ -32,31 +32,15 @@ export interface AwsKmsConfigFormData {
   region?: string | SelectOption
   credType?: string | SelectOption
   delegate?: string[]
+  roleArn?: string
+  externalName?: string
+  assumeStsRoleDuration?: string
 }
 export enum CredTypeValues {
   ManualConfig = 'ManualConfig',
-  AssumeIAMRole = 'AssumeIAMRole'
+  AssumeIAMRole = 'AssumeIAMRole',
+  AssuemRoleSTS = 'AssumeSTSRole'
 }
-const credTypeOptions: SelectOption[] = [
-  {
-    label: 'AWS Access Key',
-    value: CredTypeValues.ManualConfig
-  },
-  {
-    label: 'Assume IAM role on delegate',
-    value: CredTypeValues.AssumeIAMRole
-  }
-]
-
-const defaultInitialFormData: AwsKmsConfigFormData = {
-  accessKey: undefined,
-  secretKey: undefined,
-  awsArn: undefined,
-  region: undefined,
-  credType: credTypeOptions[0].value as string,
-  delegate: undefined
-}
-
 const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsConnectorProps> = ({
   prevStepData,
   previousStep,
@@ -70,6 +54,31 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   //const [credType, setCredType] = useState(credTypeOptions[0])
+  const credTypeOptions: SelectOption[] = [
+    {
+      label: getString('connectors.aws.awsAccessKey'),
+      value: CredTypeValues.ManualConfig
+    },
+    {
+      label: getString('connectors.aws.assumeIAMRole'),
+      value: CredTypeValues.AssumeIAMRole
+    },
+    {
+      label: getString('connectors.awsKms.awsSTS'),
+      value: CredTypeValues.AssuemRoleSTS
+    }
+  ]
+  const defaultInitialFormData: AwsKmsConfigFormData = {
+    accessKey: undefined,
+    secretKey: undefined,
+    awsArn: undefined,
+    region: undefined,
+    credType: credTypeOptions[0].value as string,
+    delegate: undefined,
+    roleArn: undefined,
+    externalName: undefined,
+    assumeStsRoleDuration: undefined
+  }
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && isEditMode)
 
@@ -97,6 +106,16 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           type: credTypeValue,
           spec: {
             delegateSelectors: formData.delegate
+          }
+        }
+      } else if (credTypeValue === CredTypeValues.AssuemRoleSTS) {
+        cred = {
+          type: credTypeValue,
+          spec: {
+            delegateSelectors: formData.delegate,
+            roleArn: formData.roleArn,
+            externalName: formData.externalName,
+            assumeStsRoleDuration: formData.assumeStsRoleDuration
           }
         }
       }
@@ -172,8 +191,18 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           awsArn: Yup.string().trim().required(getString('connectors.aws.validation.crossAccountRoleArn')),
           region: Yup.string().trim().required(getString('connectors.awsKms.validation.selectRegion')),
           delegate: Yup.string().when(['credType'], {
-            is: credentials => credentials === credTypeOptions[1].value,
+            is: credentials => credentials === credTypeOptions[1].value || credentials === credTypeOptions[2].value,
             then: Yup.string().trim().required(getString('connectors.awsKms.validation.selectDelegate'))
+          }),
+          roleArn: Yup.string().when(['credType'], {
+            is: credentials => credentials === credTypeOptions[2].value,
+            then: Yup.string().trim().required(getString('connectors.awsKms.validation.selectRoleArn'))
+          }),
+          assumeStsRoleDuration: Yup.number().when(['credType'], {
+            is: credentials => credentials === credTypeOptions[2].value,
+            then: Yup.number()
+              .min(0, getString('connectors.awsKms.validation.durationNumber'))
+              .typeError(getString('connectors.awsKms.validation.durationError'))
           })
         })}
         onSubmit={formData => {
@@ -183,11 +212,23 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
         {formik => {
           return (
             <FormikForm>
-              <Container style={{ minHeight: 460 }}>
+              <Container style={{ minHeight: 500 }}>
                 <FormInput.Select name="credType" label={getString('credType')} items={credTypeOptions} />
                 <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
-                {formik.values?.credType === credTypeOptions[1].value && (
+                {formik.values?.credType === credTypeOptions[2].value && (
                   <>
+                    <FormInput.Text name="roleArn" label={getString('connectors.awsKms.roleArnLabel')} />
+                    <FormInput.Text name="externalName" label={getString('connectors.awsKms.externalId')} />
+                    <FormInput.Text
+                      name="assumeStsRoleDuration"
+                      label={getString('connectors.awsKms.assumedRoleDuration')}
+                    />
+                  </>
+                )}
+
+                {(formik.values?.credType === credTypeOptions[1].value ||
+                  formik.values?.credType === credTypeOptions[2].value) && (
+                  <Layout.Vertical>
                     <Text lineClamp={1} margin={{ bottom: 'medium' }}>
                       {getString('delegate.DelegateSelector')}
                     </Text>
@@ -201,7 +242,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
                       }}
                     ></DelegateSelectors>
                     <Text intent="danger">{formik.errors.delegate}</Text>
-                  </>
+                  </Layout.Vertical>
                 )}
               </Container>
               <Layout.Horizontal spacing="medium">

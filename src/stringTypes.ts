@@ -155,6 +155,19 @@ export interface StringsMap {
   'connectors.aws.validation.delegateSelector': string
   'connectors.aws.validation.secretKeyRef': string
   'connectors.awsCodeCommit.repoUrl': string
+  'connectors.awsKms.accessKeyLabel': string
+  'connectors.awsKms.arnLabel': string
+  'connectors.awsKms.assumedRoleDuration': string
+  'connectors.awsKms.awsSTS': string
+  'connectors.awsKms.externalId': string
+  'connectors.awsKms.loggedAt': string
+  'connectors.awsKms.roleArnLabel': string
+  'connectors.awsKms.secretKeyLabel': string
+  'connectors.awsKms.validation.durationError': string
+  'connectors.awsKms.validation.durationNumber': string
+  'connectors.awsKms.validation.selectDelegate': string
+  'connectors.awsKms.validation.selectRegion': string
+  'connectors.awsKms.validation.selectRoleArn': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectorNotFound': string
@@ -292,7 +305,9 @@ export interface StringsMap {
   'connectors.title.artifactory': string
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
+  'connectors.title.awsKms': string
   'connectors.title.bitbucketConnector': string
+  'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string
   'connectors.title.gitConnector': string
   'connectors.title.githubConnector': string

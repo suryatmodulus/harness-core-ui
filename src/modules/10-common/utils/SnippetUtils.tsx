@@ -27,6 +27,7 @@ const entitySubTypeToTagMap: {
   Vault: 'vault',
   DockerRegistry: 'docker',
   Local: 'local',
+  AwsKms: 'awskms',
   GcpKms: 'gcpkms',
   Gcp: 'gcp',
   Aws: 'aws',
@@ -41,8 +42,7 @@ const entitySubTypeToTagMap: {
   CEK8sCluster: 'cek8s',
   Codecommit: 'codecommit',
   HttpHelmRepo: 'httphelmrepo',
-  NewRelic: 'newrelic',
-  AwsKms: 'AwsKms'
+  NewRelic: 'newrelic'
 }
 
 export const getSnippetTags = (

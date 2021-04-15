@@ -1,6 +1,8 @@
 import React from 'react'
-import type { ResourceHandler, ResourceTypeGroupHandler } from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import type { ResourceHandler, ResourceCategoryHandler } from '@rbac/factories/RbacFactory'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { String } from 'framework/exports'
 
 export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHandler | undefined => {
   switch (resource) {
@@ -8,13 +10,25 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
       return {
         icon: 'nav-project',
         label: 'Projects',
+        category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+        permissionLabels: {
+          [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
+          [PermissionIdentifier.VIEW_PROJECT]: <String stringID="rbac.permissionLabels.view" />,
+          [PermissionIdentifier.DELETE_PROJECT]: <String stringID="rbac.permissionLabels.delete" />
+        },
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
       }
     case ResourceType.ORGANIZATION:
       return {
-        icon: 'nav-project',
+        icon: 'settings',
         label: 'Organizations',
+        category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+        permissionLabels: {
+          [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
+          [PermissionIdentifier.VIEW_ORG]: <String stringID="rbac.permissionLabels.view" />,
+          [PermissionIdentifier.DELETE_ORG]: <String stringID="rbac.permissionLabels.delete" />
+        },
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
       }
@@ -22,7 +36,7 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
       return {
         icon: 'lock',
         label: 'Secrets',
-        category: ResourceTypeGroup.PROJECT_RESOURCES,
+        category: ResourceCategory.PROJECT_RESOURCES,
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
       }
@@ -30,20 +44,25 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
 }
 
 export const getResourceGroupTypeHandlerMock = (
-  resource: ResourceType | ResourceTypeGroup
-): ResourceTypeGroupHandler | undefined => {
+  resource: ResourceType | ResourceCategory
+): ResourceCategoryHandler | undefined => {
   switch (resource) {
-    case ResourceTypeGroup.PROJECT_RESOURCES:
+    case ResourceCategory.PROJECT_RESOURCES:
       return {
         icon: 'nav-project',
-        label: 'Project Resources',
-        resourceTypes: new Set([ResourceType.SECRET])
+        label: 'Project Resources'
       }
-    case ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS:
+    case ResourceCategory.ADMINSTRATIVE_FUNCTIONS:
       return {
         icon: 'nav-project',
-        label: 'Administrative Fucntions',
-        resourceTypes: new Set([ResourceType.ORGANIZATION, ResourceType.PROJECT])
+        label: 'Administrative Fucntions'
       }
   }
+}
+
+export const getResourceCategoryListMock = (): Map<ResourceCategory | ResourceType, ResourceType[] | undefined> => {
+  const mockMap = new Map()
+  mockMap.set(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, [ResourceType.ORGANIZATION, ResourceType.PROJECT])
+  mockMap.set(ResourceCategory.PROJECT_RESOURCES, [ResourceType.SECRET, ResourceType.CONNECTOR])
+  return mockMap
 }

@@ -1,7 +1,8 @@
 .serviceOverrides {
   display: grid;
   grid-template-columns: auto 1fr;
-  height: 100%;
+  // tabs height 50px + margin-top 20px = 70px
+  height: calc(100% - 70px);
   :global {
     .bp3-tab-panel {
       margin: 0;
@@ -89,6 +90,25 @@
   }
 }
 
+.deploymentTypeGroups {
+  display: flex;
+
+  .deploymentTypeGroup {
+    &:not(:last-of-type) {
+      margin-right: var(--spacing-xxlarge);
+    }
+  }
+
+  .connectionType {
+    color: #0b0b0d;
+    padding-bottom: var(--spacing-small);
+  }
+}
+
+.changeButton {
+  align-self: flex-end;
+}
+
 .squareCardContainer {
   display: flex;
   flex-direction: column;
@@ -145,16 +165,6 @@
   margin-bottom: 20px;
   .subheading {
     color: #6b6d85;
-    padding-bottom: var(--spacing-small);
-  }
-}
-
-.infraSelection {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-
-  .connectionType {
-    color: #0b0b0d;
     padding-bottom: var(--spacing-small);
   }
 }

@@ -2,15 +2,10 @@ import React from 'react'
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/exports'
-// import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
-import type {
-  ArtifactSpecWrapper,
-  PageConnectorResponse,
-  SidecarArtifactWrapper,
-  StageElementWrapper
-} from 'services/cd-ng'
+import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { CreationType, getArtifactIconByType } from '../ArtifactHelper'
+import type { ArtifactListViewProps } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {
@@ -18,28 +13,20 @@ export enum ModalViewFor {
   SIDECAR = 2
 }
 
-interface ArtifactListViewProps {
-  isForPredefinedSets?: boolean
-  stage: StageElementWrapper | undefined
-  overrideSetIdentifier?: string
-  primaryArtifact: ArtifactSpecWrapper
-  sideCarArtifact: SidecarArtifactWrapper[]
-  addNewArtifact: (view: number) => void
-  editArtifact: (view: number, type: CreationType, index?: number) => void
-  removePrimary: () => void
-  removeSidecar: (index: number) => void
-  fetchedConnectorResponse: PageConnectorResponse | undefined
-  accountId: string
-  refetchConnectors: () => void
-}
-
-const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
+const ArtifactListView: React.FC<ArtifactListViewProps> = ({
+  accountId,
+  fetchedConnectorResponse,
+  primaryArtifact,
+  sideCarArtifact,
+  isReadonly,
+  editArtifact,
+  overrideSetIdentifier,
+  removePrimary,
+  removeSidecar,
+  addNewArtifact
+}) => {
   const { getString } = useStrings()
-  const { color } = getStatus(
-    props.primaryArtifact?.spec?.connectorRef,
-    props.fetchedConnectorResponse,
-    props.accountId
-  )
+  const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
     <Layout.Vertical>
       {/* {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />} */}
@@ -55,7 +42,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
 
         <Layout.Vertical>
           <section>
-            {props.primaryArtifact && (
+            {primaryArtifact && (
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
@@ -66,30 +53,30 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                 <div className={css.server}>
                   <Text
                     inline
-                    icon={getArtifactIconByType(props.primaryArtifact.type)}
+                    icon={getArtifactIconByType(primaryArtifact.type)}
                     iconProps={{ size: 18 }}
                     width={180}
                     lineClamp={1}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
-                    {props.primaryArtifact.type}
+                    {primaryArtifact.type}
                   </Text>
 
                   <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
                 </div>
                 <div>
                   <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {props.primaryArtifact?.spec?.imagePath}
+                    {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </div>
                 <div>{/* WIP artifact validation */}</div>
-                {props.overrideSetIdentifier?.length === 0 && (
+                {overrideSetIdentifier?.length === 0 && !isReadonly && (
                   <span>
                     <Layout.Horizontal spacing="medium" className={css.actionGrid}>
                       <Icon
                         name="Edit"
                         size={16}
-                        onClick={() => props.editArtifact(ModalViewFor.PRIMARY, props.primaryArtifact.type)}
+                        onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                       />
                       {/* <Icon
                               name="main-clone"
@@ -98,21 +85,21 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                               className={css.cloneIcon}
                               // onClick={() => cloneArtifact(manifest)}
                             /> */}
-                      <Icon name="bin-main" size={25} onClick={props.removePrimary} />
+                      <Icon name="bin-main" size={25} onClick={removePrimary} />
                     </Layout.Horizontal>
                   </span>
                 )}
               </section>
             )}
           </section>
-          {props.sideCarArtifact?.length > 0 && (
+          {sideCarArtifact?.length > 0 && (
             <section>
-              {props?.sideCarArtifact.map((data: SidecarArtifactWrapper, index: number) => {
+              {sideCarArtifact?.map((data: SidecarArtifactWrapper, index: number) => {
                 const { sidecar } = data
                 const { color: sideCarConnectionColor } = getStatus(
                   sidecar?.spec?.connectorRef,
-                  props.fetchedConnectorResponse,
-                  props.accountId
+                  fetchedConnectorResponse,
+                  accountId
                 )
                 return (
                   <section className={cx(css.artifactList, css.rowItem)} key={`${sidecar?.identifier}-${index}`}>
@@ -120,7 +107,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                       <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
                         {getString('sidecar')}
                         <Text lineClamp={1} className={css.artifactId}>
-                          ({getString('cf.targets.ID')}: {sidecar?.identifier})
+                          ({getString('common.ID')}: {sidecar?.identifier})
                         </Text>
                       </Text>
                     </div>
@@ -144,14 +131,14 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                       </Text>
                     </div>
                     <div>{/* WIP artifact validation */}</div>
-                    {props.overrideSetIdentifier?.length === 0 && (
+                    {overrideSetIdentifier?.length === 0 && !isReadonly && (
                       <span>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
                           <Icon
                             name="Edit"
                             size={16}
                             onClick={() => {
-                              props.editArtifact(ModalViewFor.SIDECAR, sidecar?.type as CreationType, index)
+                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as CreationType, index)
                             }}
                           />
                           {/* <Icon
@@ -161,7 +148,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
                                     className={css.cloneIcon}
                                     // onClick={() => cloneArtifact(manifest)}
                                   /> */}
-                          <Icon name="bin-main" size={25} onClick={() => props.removeSidecar(index)} />
+                          <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
                         </Layout.Horizontal>
                       </span>
                     )}
@@ -170,13 +157,9 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
               })}
             </section>
           )}
-          {props.sideCarArtifact?.length > 0 && props.overrideSetIdentifier?.length === 0 && (
+          {sideCarArtifact?.length > 0 && overrideSetIdentifier?.length === 0 && !isReadonly && (
             <div className={css.paddingVertical}>
-              <Text
-                intent="primary"
-                style={{ cursor: 'pointer' }}
-                onClick={() => props.addNewArtifact(ModalViewFor.SIDECAR)}
-              >
+              <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
                 <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
               </Text>
             </div>
@@ -184,16 +167,16 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = props => {
         </Layout.Vertical>
       </Layout.Vertical>
       <Layout.Vertical>
-        {!props.primaryArtifact && props.overrideSetIdentifier?.length === 0 && (
+        {!primaryArtifact && overrideSetIdentifier?.length === 0 && !isReadonly && (
           <div className={css.rowItem}>
-            <Text onClick={() => props.addNewArtifact(ModalViewFor.PRIMARY)}>
+            <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
             </Text>
           </div>
         )}
-        {(!props.sideCarArtifact || props.sideCarArtifact?.length === 0) && props.overrideSetIdentifier?.length === 0 && (
+        {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier?.length === 0 && !isReadonly && (
           <div className={css.rowItem}>
-            <Text onClick={() => props.addNewArtifact(ModalViewFor.SIDECAR)}>
+            <Text onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
             </Text>
           </div>

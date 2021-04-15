@@ -4,6 +4,7 @@ import { DefaultPortModel } from '../../port/DefaultPortModel'
 
 export interface CreateNewModelOptions extends Omit<DefaultNodeModelOptions, 'name'> {
   name?: string
+  disabled?: boolean
 }
 
 export class CreateNewModel extends DefaultNodeModel {

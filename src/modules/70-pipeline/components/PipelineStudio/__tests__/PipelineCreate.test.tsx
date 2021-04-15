@@ -92,9 +92,9 @@ describe('PipelineCreate test', () => {
         <PipelineCreate {...getEditProps()} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('Save'))
+    await waitFor(() => getByText('save'))
     expect(container).toMatchSnapshot()
-    const saveBtn = getByText('Save')
+    const saveBtn = getByText('save')
     fireEvent.click(saveBtn)
     await waitFor(() => expect(afterSave).toBeCalledTimes(1))
     expect(afterSave).toBeCalledWith({
@@ -119,7 +119,7 @@ describe('PipelineCreate test', () => {
         <PipelineCreate {...getEditProps(DefaultNewPipelineId)} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('Start'))
+    await waitFor(() => getByText('start'))
     expect(container).toMatchSnapshot()
   })
 })

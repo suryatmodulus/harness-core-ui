@@ -217,7 +217,7 @@ describe('unit tests for dashboard widget metric', () => {
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
 
     // click on manual input query and expect modal to appear
-    fireEvent.click(getByText('+ Manually input query'))
+    fireEvent.click(getByText('cv.monitoringSources.gco.addManualInputQuery'))
     await waitFor(() => expect(document.body.querySelector(`input[name="${FieldNames.METRIC_NAME}"]`)).not.toBeNull())
 
     // fill out value and submit modal

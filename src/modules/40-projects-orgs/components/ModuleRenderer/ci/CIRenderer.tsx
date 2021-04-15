@@ -44,7 +44,7 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
               </Text>
             </Layout.Horizontal>
             <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('projectCard.ciRendererText').toUpperCase()}
+              {getString('projectCard.ciRendererText')}
             </Text>
           </Layout.Vertical>
         </Container>

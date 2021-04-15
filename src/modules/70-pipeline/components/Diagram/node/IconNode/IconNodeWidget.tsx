@@ -2,7 +2,7 @@ import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
-import { Text, IconName, Icon } from '@wings-software/uicore'
+import { Text, IconName, Icon, Button } from '@wings-software/uicore'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
 import type { IconNodeModel } from './IconNodeModel'
@@ -25,6 +25,10 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
   node.fireEvent({}, Event.ClickNode)
 }
 
+const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: IconNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({}, Event.RemoveNode)
+}
 const onMouseEnterNode = (e: MouseEvent, node: DefaultNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({ target: e.target }, Event.MouseEnterNode)
@@ -90,6 +94,18 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         }}
       >
         <div>
+          {options.isInComplete && (
+            <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />
+          )}
+          {options.canDelete && (
+            <Button
+              className={cx(cssDefault.closeNode)}
+              minimal
+              icon="cross"
+              iconProps={{ size: 10 }}
+              onMouseDown={e => onClick(e, props.node)}
+            />
+          )}
           <Icon name={options.icon as IconName} size={options.iconSize} style={options.iconStyle} />
           <div>
             <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -7,13 +7,20 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get, set } from 'lodash-es'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import produce from 'immer'
 import { useStrings, String } from 'framework/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import StepGitAuthentication from '@connectors/components/CreateConnector/GitConnector/StepAuth/StepGitAuthentication'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
-import type { ConnectorConfigDTO, ConnectorInfoDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import type {
+  ConnectorConfigDTO,
+  ConnectorInfoDTO,
+  ManifestConfig,
+  ManifestConfigWrapper,
+  StageElementConfig
+} from 'services/cd-ng'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import StepGithubAuthentication from '@connectors/components/CreateConnector/GithubConnector/StepAuth/StepGithubAuthentication'
 import StepBitbucketAuthentication from '@connectors/components/CreateConnector/BitbucketConnector/StepAuth/StepBitbucketAuthentication'
@@ -25,7 +32,8 @@ import {
   buildGcpPayload,
   buildGithubPayload,
   buildGitlabPayload,
-  buildGitPayload
+  buildGitPayload,
+  buildHelmPayload
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
@@ -42,7 +50,8 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeText
+  manifestTypeText,
+  manifestTypeLabels
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -66,10 +75,10 @@ import css from './ManifestSelection.module.scss'
 const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
-  ManifestDataType.HelmChart
-  // ManifestDataType.Kustomize,
-  // ManifestDataType.OpenshiftTemplate,
-  // ManifestDataType.OpenshiftParam
+  ManifestDataType.HelmChart,
+  ManifestDataType.Kustomize,
+  ManifestDataType.OpenshiftTemplate,
+  ManifestDataType.OpenshiftParam
 ]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
@@ -80,7 +89,7 @@ const manifestStoreTypes: Array<ManifestStores> = [
 
 const ManifestListView = ({
   pipeline,
-  updatePipeline,
+  updateStage,
   identifierName,
   isForOverrideSets,
   stage,
@@ -88,7 +97,8 @@ const ManifestListView = ({
   isPropagating,
   overrideSetIdentifier,
   connectors,
-  refetchConnectors
+  refetchConnectors,
+  isReadonly
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)
@@ -109,7 +119,7 @@ const ManifestListView = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const getManifestList = useCallback(() => {
+  let listOfManifests = useMemo(() => {
     if (overrideSetIdentifier && overrideSetIdentifier.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
@@ -143,9 +153,15 @@ const ManifestListView = ({
         ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
         : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
       : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [isForOverrideSets, isPropagating, isForPredefinedSets, overrideSetIdentifier])
-
-  let listOfManifests = getManifestList()
+  }, [
+    overrideSetIdentifier,
+    isPropagating,
+    stage,
+    isForOverrideSets,
+    isForPredefinedSets,
+    stage?.stage?.spec?.serviceConfig?.useFromStage?.stage,
+    pipeline
+  ])
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
@@ -159,7 +175,14 @@ const ManifestListView = ({
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
-    updatePipeline(pipeline)
+
+    if (stage) {
+      updateStage(
+        produce(stage, draft => {
+          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+        }).stage as StageElementConfig
+      )
+    }
   }
 
   const addNewManifest = (): void => {
@@ -212,7 +235,14 @@ const ManifestListView = ({
       } else {
         listOfManifests.push(manifestObj)
       }
-      updatePipeline(pipeline)
+
+      if (stage) {
+        updateStage(
+          produce(stage, draft => {
+            set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+          }).stage as StageElementConfig
+        )
+      }
       hideConnectorModal()
       return
     }
@@ -230,7 +260,13 @@ const ManifestListView = ({
       })
     }
 
-    updatePipeline(pipeline)
+    if (stage) {
+      updateStage(
+        produce(stage, draft => {
+          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+        }).stage as StageElementConfig
+      )
+    }
     hideConnectorModal()
     setConnectorView(false)
     refetchConnectors()
@@ -249,10 +285,10 @@ const ManifestListView = ({
 
   const lastStepProps = (): ManifestLastStepProps => {
     return {
-      key: getString('manifestType.manifestDetails'),
-      name: getString('manifestType.manifestDetails'),
+      key: getString('pipeline.manifestType.manifestDetails'),
+      name: getString('pipeline.manifestType.manifestDetails'),
       expressions,
-      stepName: getString('manifestType.manifestDetails'),
+      stepName: getString('pipeline.manifestType.manifestDetails'),
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
       selectedManifest
@@ -261,9 +297,11 @@ const ManifestListView = ({
 
   const getLabels = (): ConnectorRefLabelType => {
     return {
-      firstStepName: getString('manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('select')} ${selectedManifest} ${getString('store')}`,
-      newConnector: `${getString('newLabel')} ${ManifestToConnectorMap[manifestStore]} ${getString('connector')}`
+      firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
+      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`,
+      newConnector: `${getString('newLabel')} ${
+        manifestStore === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[manifestStore]
+      } ${getString('connector')}`
     }
   }
 
@@ -372,6 +410,13 @@ const ManifestListView = ({
               connectorInfo={undefined}
               setIsEditMode={setIsEditMode}
             />
+            <DelegateSelectorStep
+              name={getString('delegate.DelegateselectionLabel')}
+              isEditMode={isEditMode}
+              setIsEditMode={setIsEditMode}
+              connectorInfo={undefined}
+              buildPayload={buildHelmPayload}
+            />
 
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
@@ -452,7 +497,7 @@ const ManifestListView = ({
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
               isStep={true}
-              isLastStep={true}
+              isLastStep={false}
               type={Connectors.GCP}
             />
           </StepWizard>
@@ -557,13 +602,9 @@ const ManifestListView = ({
       setIsEditMode(false)
     }
     //S3 and GCS are disabled till BE is ready
-    // const storeTypes =
-    //   selectedManifest === ManifestDataType.HelmChart
-    //     ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
-    //     : manifestStoreTypes
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
-        ? [...manifestStoreTypes, ManifestStoreMap.Http]
+        ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]
         : manifestStoreTypes
 
     return (
@@ -593,7 +634,7 @@ const ManifestListView = ({
   return (
     <Layout.Vertical spacing="small">
       <div className={cx(css.manifestList, css.listHeader)}>
-        <span>{getString('cf.targets.ID')}</span>
+        <span>{getString('common.ID')}</span>
         <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
         <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
         <span>{getString('location')}</span>
@@ -657,7 +698,7 @@ const ManifestListView = ({
                     </span>
                   )}
 
-                  {!overrideSetIdentifier?.length && (
+                  {!overrideSetIdentifier?.length && !isReadonly && (
                     <span className={css.lastColumn}>
                       <Layout.Horizontal spacing="medium" className={css.actionGrid}>
                         <Icon
@@ -687,7 +728,7 @@ const ManifestListView = ({
             })}
         </section>
 
-        {!overrideSetIdentifier?.length && (
+        {!overrideSetIdentifier?.length && !isReadonly && (
           <Text
             intent="primary"
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}

@@ -42,7 +42,9 @@ export interface K8RollingRollbackVariableStepProps {
 interface K8sRollingRollbackProps {
   initialValues: K8sRollingRollbackData
   onUpdate?: (data: K8sRollingRollbackData) => void
+  readonly?: boolean
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: K8sRollingRollbackData
     path?: string
@@ -54,7 +56,7 @@ function K8sRollingRollbackWidget(
   props: K8sRollingRollbackProps,
   formikRef: StepFormikFowardRef<K8sRollingRollbackData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -81,14 +83,15 @@ function K8sRollingRollbackWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
-                  isIdentifierEditable={isEmpty(initialValues.identifier)}
+                  isIdentifierEditable={isNewStep}
+                  inputGroupProps={{ disabled: readonly }}
                 />
               </div>
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
-                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -151,7 +154,16 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8sRollingRollbackInputStep
@@ -174,7 +186,9 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
       <K8sRollingRollbackWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
+        readonly={readonly}
         ref={formikRef}
       />
     )

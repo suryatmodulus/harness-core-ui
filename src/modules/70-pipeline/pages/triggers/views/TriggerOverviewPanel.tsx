@@ -6,7 +6,7 @@ import { useStrings } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './TriggerOverviewPanel.module.scss'
 
-interface TriggerOverviewPanelPropsInterface {
+export interface TriggerOverviewPanelPropsInterface {
   formikProps?: any
   isEdit?: boolean
 }

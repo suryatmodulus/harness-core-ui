@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Formik, FormikForm, Layout } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { useParams } from 'react-router'
 import { FooterCTA, SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import {
   DefineYourMonitoringSource,
@@ -11,6 +12,7 @@ import { SelectCVConnector } from '@cv/components/CVSetupSourcesView/SelectCVCon
 import type { StepLabelProps } from '@cv/components/CVSetupSourcesView/StepLabel/StepLabel'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StringUtils } from '@common/exports'
 import { SelectMonitoringSourceProduct } from '@cv/components/CVSetupSourcesView/SelectMonitoringSourceProduct/SelectMonitoringSourceProduct'
 import { NewRelicProductNames } from '../NewRelicMonitoringSourceUtils'
@@ -58,6 +60,7 @@ function getValidationSchema(getString: UseStringsReturn['getString']): object {
 
 export function SelectNewRelicConnector(): JSX.Element {
   const { getString } = useStrings()
+  const { identifier } = useParams<ProjectPathProps & { identifier: string }>()
   const { onPrevious, onNext, sourceData } = useContext(SetupSourceTabsContext)
   return (
     <SetupSourceLayout
@@ -74,12 +77,14 @@ export function SelectNewRelicConnector(): JSX.Element {
                 <DefineYourMonitoringSource
                   {...DefineYourMonitoringSourceBaseProps}
                   formikProps={formikProps}
+                  isEdit={Boolean(identifier)}
                   mainHeading={getString('cv.onboarding.monitoringSources.defineMonitoringSource')}
                   subHeading={getString('cv.onboarding.monitoringSources.monitoringSourceSubheading')}
                 />
                 <SelectCVConnector
-                  connectorTypeLabel="New Relic"
+                  connectorTypeLabel={getString('cv.monitoringSources.newRelicName')}
                   connectorType="NewRelic"
+                  isEdit={Boolean(identifier)}
                   stepLabelProps={SelectCVConnectorStepProps}
                   onCreateConnector={val => formikProps.setFieldValue('connectorRef', buildConnectorRef(val))}
                 />
@@ -93,7 +98,7 @@ export function SelectNewRelicConnector(): JSX.Element {
                       }
                     ]}
                     stepLabelProps={SelectMonitoringSourceStepProps}
-                    monitoringSourceName="New Relic"
+                    monitoringSourceName={getString('cv.monitoringSources.newRelicName')}
                     monitoringSourceEntityName={getString('applications').toLocaleLowerCase()}
                   />
                 )}

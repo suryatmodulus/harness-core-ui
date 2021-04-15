@@ -15,6 +15,7 @@ export interface ExecutionContextParams {
   logsToken: string
   setLogsToken: (token: string) => void
   refetch?: (() => Promise<void>) | undefined
+  addNewNodeToMap(id: string, node: ExecutionNode): void
 }
 
 const ExecutionContext = createContext<ExecutionContextParams>({
@@ -27,7 +28,8 @@ const ExecutionContext = createContext<ExecutionContextParams>({
   queryParams: {},
   logsToken: '',
   setLogsToken: () => void 0,
-  refetch: undefined
+  refetch: undefined,
+  addNewNodeToMap: () => void 0
 })
 
 export default ExecutionContext

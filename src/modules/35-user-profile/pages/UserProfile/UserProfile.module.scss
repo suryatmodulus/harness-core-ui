@@ -1,6 +1,7 @@
 .details {
   background-color: var(--grey-100) !important;
   height: calc(100%);
+  padding: var(--spacing-large) var(--spacing-large) var(--spacing-huge) var(--spacing-huge) !important;
 }
 
 .authentication {
@@ -13,6 +14,11 @@
   margin: 0px !important;
 }
 
+.overview {
+  background-color: var(--white) !important;
+}
+
 .button {
   color: var(--blue-500) !important;
+  padding: 0 !important;
 }

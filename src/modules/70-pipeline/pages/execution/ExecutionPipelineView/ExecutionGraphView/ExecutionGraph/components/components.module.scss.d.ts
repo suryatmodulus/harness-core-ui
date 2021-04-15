@@ -12,7 +12,7 @@ declare const styles: {
   readonly stagePadLeft: string
   readonly spinner: string
   readonly section: string
-  readonly borderSectionEnd: string
+  readonly borderSection: string
   readonly sectionHeading: string
   readonly sectionData: string
   readonly sectionGrid: string

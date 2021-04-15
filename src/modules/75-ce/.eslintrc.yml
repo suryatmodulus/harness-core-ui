@@ -1,0 +1,15 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/75-cd/*
+        - modules/75-cf/*
+        - modules/75-ci/*
+        - modules/85-cv/*
+        - '@cd/*'
+        - '@cf/*'
+        - '@ci/*'
+        - '@cv/*'
+      paths:
+        - lodash

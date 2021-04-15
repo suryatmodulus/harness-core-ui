@@ -8,7 +8,8 @@ import {
   orgPathProps,
   projectPathProps,
   resourceGroupPathProps,
-  rolePathProps
+  rolePathProps,
+  userGroupPathProps
 } from '@common/utils/routeUtils'
 import { MinimalLayout } from '@common/layouts'
 
@@ -30,16 +31,17 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
-import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import Roles from '@rbac/pages/Roles/Roles'
-import UserGroups from '@rbac/pages/UserGroups/UsersGroups'
+import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/exports'
+import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -56,11 +58,11 @@ const ProjectDetailsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
   icon: 'nav-project',
   label: 'Projects',
-  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="permissionLabels.createEdit" />,
-    [PermissionIdentifier.VIEW_PROJECT]: <String stringID="permissionLabels.view" />,
-    [PermissionIdentifier.DELETE_PROJECT]: <String stringID="permissionLabels.delete" />
+    [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_PROJECT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_PROJECT]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <AddProjectResourceModalBody {...props} />
@@ -69,11 +71,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PROJECT, {
 RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'settings',
   label: 'Organizations',
-  category: ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_ORG]: <String stringID="permissionLabels.createEdit" />,
-    [PermissionIdentifier.VIEW_ORG]: <String stringID="permissionLabels.view" />,
-    [PermissionIdentifier.DELETE_ORG]: <String stringID="permissionLabels.delete" />
+    [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_ORG]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_ORG]: <String stringID="rbac.permissionLabels.delete" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <OrgResourceModalBody {...props} />
@@ -189,6 +191,14 @@ export default (
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={AccountSettingsSideNavProps}
+      path={[routes.toUserGroupDetails({ ...projectPathProps, ...userGroupPathProps })]}
+      exact
+    >
+      <UserGroupDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

@@ -44,7 +44,7 @@ exports[`Snippet Test Initial render should match snapshots 1`] = `
       <div
         class="snippetVersion"
       >
-        Version
+        version
          
         1.0
       </div>

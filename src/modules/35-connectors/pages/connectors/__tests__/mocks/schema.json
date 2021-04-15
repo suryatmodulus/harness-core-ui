@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "connector": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the entity. Required"
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Non-changeable identifier of the entity, can not contain spaces or special chars. Required"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the entity. Required"
+        }
+      }
+    }
+  }
+}

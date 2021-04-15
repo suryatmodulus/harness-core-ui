@@ -16,6 +16,7 @@ import {
   getErrorMessage,
   NO_ENVIRONMENT_IDENTIFIER,
   SEGMENT_PRIMARY_COLOR,
+  showToaster,
   TARGET_PRIMARY_COLOR
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
@@ -30,6 +31,7 @@ import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 
@@ -66,6 +68,7 @@ export const TargetsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingTargets
   const error = errEnvironments || errTargets
   const noTargetExists = targetsData?.targets?.length === 0
+  const noEnvironmentExists = environments?.length === 0
   const title = getString('cf.targets.title')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
@@ -91,6 +94,7 @@ export const TargetsPage: React.FC = () => {
         onCreated={() => {
           setPageNumber(0)
           refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
+          showToaster(getString('cf.messages.targetCreated'))
         }}
       />
     </Layout.Horizontal>
@@ -219,15 +223,7 @@ export const TargetsPage: React.FC = () => {
                 deleteTarget(cell.row.original.identifier as string)
                   .then(() => {
                     refetchTargets()
-                    showSuccess(
-                      <Text color={Color.WHITE}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: getString('cf.featureFlags.deleteFlagSuccess', { name: cell.row.original.name })
-                          }}
-                        />
-                      </Text>
-                    )
+                    showToaster(getString('cf.messages.targetDeleted'))
                   })
                   .catch(_error => {
                     showError(getErrorMessage(_error), 0)
@@ -275,17 +271,26 @@ export const TargetsPage: React.FC = () => {
   )
 
   useEffect(() => {
+    if (environments?.[0] && !environment?.label) {
+      setEnvironment(environments[0] as typeof environment)
+    }
+
     return () => {
       clear()
     }
-  }, [clear])
+  }, [clear, environments, environment, environment?.label, setEnvironment])
 
-  const content = noTargetExists ? (
+  const content = noEnvironmentExists ? (
+    <Container flex={{ align: 'center-center' }} height="100%">
+      <NoEnvironment onCreated={() => refetchEnvs()} />
+    </Container>
+  ) : noTargetExists ? (
     <NoTargetsView
       environmentIdentifier={environment?.value}
       onNewTargetsCreated={() => {
         setPageNumber(0)
         refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
+        showToaster(getString('cf.messages.targetCreated'))
       }}
       hasEnvironment={!!environments.length}
     />
@@ -306,9 +311,10 @@ export const TargetsPage: React.FC = () => {
       pageTitle={title}
       header={header}
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noTargetExists && toolbar}
-      content={(!error && content) || null}
+      toolbar={!error && !noEnvironmentExists && !noTargetExists && toolbar}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
+        !noEnvironmentExists &&
         !!targetsData?.targets?.length && (
           <Pagination
             itemCount={targetsData?.itemCount || 0}
@@ -323,7 +329,7 @@ export const TargetsPage: React.FC = () => {
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchTargets()

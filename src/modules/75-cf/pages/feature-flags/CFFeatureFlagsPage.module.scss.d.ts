@@ -16,5 +16,6 @@ declare const styles: {
   readonly toggleFlagButton: string
   readonly status: string
   readonly archived: string
+  readonly tooltipTable: string
 }
 export default styles

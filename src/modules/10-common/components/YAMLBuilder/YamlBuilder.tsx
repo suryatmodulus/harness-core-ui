@@ -100,6 +100,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     entityType,
     existingJSON,
     isReadOnlyMode,
+    isEditModeSupported = true,
     showSnippetSection = true,
     invocationMap,
     bind,
@@ -353,7 +354,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   })
 
   const handleEditorKeyDownEvent = (event: IKeyboardEvent, editor: any): void => {
-    if (props.isReadOnlyMode) {
+    if (props.isReadOnlyMode && isEditModeSupported) {
       openDialog()
     }
     try {
@@ -469,7 +470,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         editorDidMount={editorDidMount}
         options={
           {
-            readOnly: isReadOnlyMode,
+            readOnly: isReadOnlyMode || !isEditModeSupported,
             wordBasedSuggestions: false,
             fontFamily: "'Roboto Mono', monospace",
             fontSize: 13,

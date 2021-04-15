@@ -45,7 +45,7 @@ describe('Connector DetailsPage Page Test', () => {
         <ConnectorDetailsPage />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('Connectors')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.label')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
   test('Initial snapshot should match render at org level', async () => {
@@ -57,7 +57,7 @@ describe('Connector DetailsPage Page Test', () => {
         <ConnectorDetailsPage />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('Connectors')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.label')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 })

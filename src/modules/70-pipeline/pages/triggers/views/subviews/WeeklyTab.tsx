@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Text, Container, Color, Layout, Icon, Button, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
 import { TimeSelect } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'
@@ -83,7 +83,11 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
                   size={16}
                   name="deployment-success-new"
                 />
-                <Text>{getString(`pipeline-triggers.schedulePanel.${day}`)}</Text>
+                <Text>
+                  {getString(
+                    `pipeline-triggers.schedulePanel.${day}` as StringKeys /* TODO: fix this by using a map */
+                  )}
+                </Text>
               </Layout.Horizontal>
             </Button>
           ))}

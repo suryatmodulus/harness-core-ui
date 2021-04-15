@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popover, Button, Layout, TextInput, useModalHook } from '@wings-software/uicore'
+import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -9,6 +9,10 @@ import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/exports'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
@@ -54,6 +58,23 @@ const InputSetList: React.FC = (): JSX.Element => {
     },
     [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module, history]
   )
+
+  const [canUpdateInputSet] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE]
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier]
+  )
+
   const [showOverlayInputSetForm, hideOverlayInputSetForm] = useModalHook(
     () => (
       <OverlayInputSetForm
@@ -62,10 +83,12 @@ const InputSetList: React.FC = (): JSX.Element => {
           refetch()
           hideOverlayInputSetForm()
         }}
+        isReadOnly={!canUpdateInputSet}
       />
     ),
     [selectedInputSet]
   )
+
   return (
     <>
       <Page.Header
@@ -90,7 +113,23 @@ const InputSetList: React.FC = (): JSX.Element => {
             }
             position={Position.BOTTOM}
           >
-            <Button text={getString('inputSets.newInputSet')} rightIcon="caret-down" intent="primary"></Button>
+            <RbacButton
+              text={getString('inputSets.newInputSet')}
+              rightIcon="caret-down"
+              intent="primary"
+              permission={{
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                },
+                resource: {
+                  resourceType: ResourceType.PIPELINE,
+                  resourceIdentifier: pipelineIdentifier
+                },
+                permission: PermissionIdentifier.EDIT_PIPELINE
+              }}
+            />
           </Popover>
         }
         toolbar={
@@ -116,7 +155,8 @@ const InputSetList: React.FC = (): JSX.Element => {
           icon: 'yaml-builder-input-sets',
           message: getString('inputSets.aboutInputSets'),
           buttonText: getString('inputSets.addInputSet'),
-          onClick: () => goToInputSetForm()
+          onClick: () => goToInputSetForm(),
+          buttonDisabled: !canUpdateInputSet
         }}
       >
         <InputSetListView
@@ -131,6 +171,7 @@ const InputSetList: React.FC = (): JSX.Element => {
             }
           }}
           refetchInputSet={refetch}
+          canUpdate={canUpdateInputSet}
         />
       </Page.Body>
     </>

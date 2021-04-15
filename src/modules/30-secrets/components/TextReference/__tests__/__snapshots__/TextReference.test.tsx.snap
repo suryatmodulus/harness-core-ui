@@ -46,7 +46,7 @@ exports[`Text Reference render create mode 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Plaintext"
+                            value="plaintext"
                           />
                           <span
                             class="bp3-input-action"
@@ -151,7 +151,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Plaintext"
+                            value="plaintext"
                           />
                           <span
                             class="bp3-input-action"
@@ -256,7 +256,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Plaintext"
+                            value="plaintext"
                           />
                           <span
                             class="bp3-input-action"

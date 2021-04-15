@@ -6,7 +6,7 @@ import { get } from 'lodash-es'
 import { Container, Button, Layout, Text } from '@wings-software/uicore'
 import { Menu } from '@blueprintjs/core'
 import type { CellProps, Column } from 'react-table'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
@@ -54,7 +54,8 @@ const IndividualTargets: React.FC<IndividualProps> = ({
   onDeleteTarget
 }) => {
   const { getString } = useStrings()
-  const getPageString = (key: string) => getString(`cf.targets.${key}`)
+  const getPageString = (key: string) =>
+    getString(`cf.targets.${key}` as StringKeys /* TODO: fix this by using a map */)
   const { showError } = useToaster()
 
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)

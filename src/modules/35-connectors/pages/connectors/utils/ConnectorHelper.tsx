@@ -1,6 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
+import type { StringKeys } from 'framework/exports'
 
 export const AuthTypes = {
   CLIENT_KEY_CERT: 'ClientKeyCert',
@@ -49,7 +50,7 @@ export const getKubInitialValues = () => {
   }
 }
 
-export const getHeadingIdByType = (type: string): string => {
+export const getHeadingIdByType = (type: string): StringKeys => {
   switch (type) {
     case Connectors.VAULT:
       return 'connectors.hashicorpVaultDetails'
@@ -67,7 +68,7 @@ export const getHeadingIdByType = (type: string): string => {
   }
 }
 
-export const getConnectorTitleIdByType = (type: string): string => {
+export const getConnectorTitleIdByType = (type: string): StringKeys => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'connectors.title.k8sCluster'
@@ -98,6 +99,8 @@ export const getConnectorTitleIdByType = (type: string): string => {
       return 'connectors.title.awsCodeCommit'
     case Connectors.NEXUS:
       return 'connectors.title.nexus'
+    case Connectors.Jira:
+      return 'connectors.title.jira'
     case Connectors.ARTIFACTORY:
       return 'connectors.title.artifactory'
     case Connectors.GCP:

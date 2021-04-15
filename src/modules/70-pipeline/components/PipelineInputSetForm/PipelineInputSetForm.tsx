@@ -72,6 +72,7 @@ function StageForm({
                     canAddVariable: true
                   }}
                   type={StepType.CustomVariable}
+                  readonly={readonly}
                   stepViewType={StepViewType.InputSet}
                   customStepProps={{
                     template: { variables: template?.stage?.variables as AllNGVariables[] },
@@ -110,6 +111,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
+              readonly={readonly}
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
               customStepProps={{

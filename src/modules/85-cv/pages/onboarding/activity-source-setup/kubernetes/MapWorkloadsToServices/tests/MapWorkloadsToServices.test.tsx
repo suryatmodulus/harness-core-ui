@@ -346,6 +346,6 @@ describe('Unit tests for MapWorkloadsToServices', () => {
 
     await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
     fireEvent.click(getByText('Next'))
-    await waitFor(() => expect(getByText('Please add at least one workload mapping')).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.activitySources.kubernetes.missingWorkloadMapping')).not.toBeNull())
   })
 })

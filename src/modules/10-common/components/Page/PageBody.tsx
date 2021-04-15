@@ -40,6 +40,9 @@ export interface PageBodyProps {
 
     /** class name to pass for no data */
     className?: string
+
+    /** boolean value to decide button state in <NoDataCard/> */
+    buttonDisabled?: boolean
   }
 
   /** True if Page does not have header */
@@ -74,6 +77,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
           buttonText={noData?.buttonText || ''}
           onClick={noData?.onClick}
           className={noData?.className}
+          buttonDisabled={noData?.buttonDisabled || false}
         />
       )}
       {!error && !noData?.when?.() && children}

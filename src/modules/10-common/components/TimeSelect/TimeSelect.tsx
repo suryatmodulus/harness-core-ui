@@ -43,7 +43,7 @@ const TimeSelect: React.FC<TimeSelectPropsInterface> = props => {
   } = props
 
   return (
-    <Container className={className ? className : ''}>
+    <Container data-name="timeselect" className={className ? className : ''}>
       {label && <Text className={css.label}>{label}</Text>}
       <Layout.Horizontal spacing="xsmall">
         <Select

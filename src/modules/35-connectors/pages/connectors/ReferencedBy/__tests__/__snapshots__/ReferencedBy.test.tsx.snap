@@ -47,7 +47,7 @@ exports[`Referenced By render for data 1`] = `
           style="width: 66%;"
           title="Toggle SortBy"
         >
-          LAST ACTIVITY
+          LASTACTIVITY
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -432,7 +432,7 @@ exports[`Referenced By render for no data 1`] = `
           class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
           level="2"
         >
-          There are no references of this Connector.
+          noReferencesData
         </h2>
       </div>
     </div>

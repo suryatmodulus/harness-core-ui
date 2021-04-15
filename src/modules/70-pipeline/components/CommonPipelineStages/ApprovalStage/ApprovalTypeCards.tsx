@@ -7,15 +7,14 @@ import css from './ApprovalStageMinimalMode.module.scss'
 
 export const approvalTypeCardsData: ApprovalCardsViewData[] = [
   {
-    text: 'Harness UI Approval',
+    text: 'Harness Approval',
     value: StepType.HarnessApproval,
     icon: 'nav-harness'
   },
   {
     text: 'Jira',
     value: StepType.JiraApproval,
-    icon: 'service-jira',
-    disabled: true
+    icon: 'service-jira'
   },
   {
     text: 'ServiceNow',
@@ -35,7 +34,7 @@ export const approvalTypeCardsData: ApprovalCardsViewData[] = [
 The component to select approval type card in stage
 Used in both minimal view as well as detailed view
 */
-export const ApprovalTypeCards = ({ formikProps }: FormikValues) => {
+export const ApprovalTypeCards = ({ formikProps, isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }) => {
   return (
     <CardSelect
       data={approvalTypeCardsData}
@@ -46,7 +45,7 @@ export const ApprovalTypeCards = ({ formikProps }: FormikValues) => {
           key={item.text}
           className={css.squareCardContainer}
           onClick={e => {
-            if (item.disabled) {
+            if (item.disabled || isReadonly) {
               e.stopPropagation()
             }
           }}
@@ -54,8 +53,8 @@ export const ApprovalTypeCards = ({ formikProps }: FormikValues) => {
           <Card
             selected={selected}
             cornerSelected={selected}
-            interactive={!item.disabled}
-            disabled={item.disabled}
+            interactive={!(item.disabled && isReadonly)}
+            disabled={item.disabled || isReadonly}
             className={css.squareCard}
           >
             <Icon name={item.icon} size={26} height={26} />

@@ -35,9 +35,14 @@ export enum StepType {
   HelmRollback = 'HelmRollback',
   HarnessApproval = 'HarnessApproval',
   JiraApproval = 'JiraApproval',
+  Verify = 'Verify',
+  JiraCreate = 'JiraCreate',
+  JiraUpdate = 'JiraUpdate',
   TerraformRollback = 'TerraformRollback',
   TerraformDestroy = 'TerraformDestroy',
   TerraformPlan = 'TerraformPlan',
   TerraformApply = 'TerraformApply',
-  InfraProvisioning = 'InfraProvisioning'
+  InfraProvisioning = 'InfraProvisioning',
+  KubernetesGcp = 'KubernetesGcp',
+  ResourceConstraint = 'ResourceConstraint'
 }

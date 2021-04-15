@@ -6,6 +6,8 @@ import type { tagsType } from '@common/utils/types'
 
 export interface DescriptionProps {
   placeholder?: string
+  isOptional?: boolean
+  disabled?: boolean
 }
 
 export interface FormikForNameIdDescriptionTags {
@@ -18,6 +20,7 @@ export interface FormikForNameIdDescriptionTags {
 export interface DescriptionComponentProps {
   descriptionProps?: DescriptionProps
   hasValue?: boolean
+  disabled?: boolean
 }
 
 export interface TagsProps {
@@ -27,6 +30,7 @@ export interface TagsProps {
 export interface TagsComponentProps {
   tagsProps?: Partial<ITagInputProps>
   hasValue?: boolean
+  isOptional?: boolean
 }
 
 export interface TagsDeprecatedComponentProps {

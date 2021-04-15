@@ -90,11 +90,13 @@ const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colu
         const { collaborators } = column as any
         collaborators(data.projectResponse.project)
       }}
+      restrictLengthTo={2}
     />
   )
 }
 const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
   const data = row.original
+  const { getString } = useStrings()
   return (
     <Layout.Horizontal flex={{ alignItems: 'center', inline: true }}>
       <AvatarGroup
@@ -104,10 +106,11 @@ const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ ro
           const { collaborators } = column as any
           collaborators(data.projectResponse.project)
         }}
+        restrictLengthTo={2}
       />
       {!data.collaborators?.length ? (
         <Text font={{ size: 'small' }} color={Color.GREY_350}>
-          No Collaborators
+          {getString('projectsOrgs.noCollaborators')}
         </Text>
       ) : null}
     </Layout.Horizontal>

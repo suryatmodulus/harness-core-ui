@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Layout,
-  FormInput,
-  SelectOption,
-  Text,
-  Heading,
-  Container,
-  Icon,
-  Button,
-  Color,
-  TextInput
-} from '@wings-software/uicore'
+import { Layout, FormInput, SelectOption, Text, Heading, Container, Icon, Button, Color } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import copy from 'clipboard-copy'
+import { Spinner } from '@blueprintjs/core'
 import { useGetActionsList, useGetSourceRepoToEvent, useGenerateWebhookToken } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
@@ -26,38 +16,34 @@ import css from './WebhookTriggerConfigPanel.module.scss'
 export interface WebhookTriggerConfigPanelPropsInterface {
   formikProps?: any
   isEdit?: boolean
+  enableSecureToken?: boolean
 }
 
 const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterface> = ({
   formikProps,
+  enableSecureToken = false, // enable later with proper security handling
   isEdit = false
 }) => {
-  const {
-    sourceRepo,
-    identifier,
-    actions,
-    anyAction,
-    event,
-    connectorRef,
-    secureToken,
-    originalPipeline
-  } = formikProps.values
+  const { sourceRepo, identifier, actions, anyAction, event, connectorRef } = formikProps.values
   const { data: ResponseSourceRepoToEvent, loading: loadingGetSourceRepoToEvent } = useGetSourceRepoToEvent({})
   const { data: actionsListResponse, refetch: refetchActions } = useGetActionsList({
     queryParams: { sourceRepo, event },
     lazy: true,
     debounce: 300
   })
-  const { data: generateWebhookTokenResponse, refetch: refetchGenerateWebhookToken } = useGenerateWebhookToken({
+  const {
+    data: generateWebhookTokenResponse,
+    loading: loadingSecureToken,
+    refetch: refetchGenerateWebhookToken
+  } = useGenerateWebhookToken({
     lazy: true
   })
 
   const [eventOptions, setEventOptions] = useState<SelectOption[]>([])
   const [actionsOptions, setActionsOptions] = useState<SelectOption[]>([]) // will need to get actions from api
-  const [tokenVisibility, setTokenVisibility] = useState<boolean>(false)
   const { getString } = useStrings()
   const loading = loadingGetSourceRepoToEvent
-  const { showSuccess } = useToaster()
+  const { showSuccess, showError } = useToaster()
 
   useEffect(() => {
     if (sourceRepo && ResponseSourceRepoToEvent?.data?.[sourceRepo]) {
@@ -70,12 +56,6 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       }
     }
   }, [ResponseSourceRepoToEvent?.data, sourceRepo])
-
-  useEffect(() => {
-    if (!secureToken && sourceRepo === GitSourceProviders.CUSTOM.value && originalPipeline) {
-      refetchGenerateWebhookToken()
-    }
-  }, [sourceRepo, originalPipeline])
 
   useEffect(() => {
     if (generateWebhookTokenResponse?.resource) {
@@ -238,64 +218,47 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 </div>
               )}
             </>
-          ) : (
+          ) : enableSecureToken ? (
             <>
               <Layout.Horizontal width={'324px'} style={{ justifyContent: 'space-between' }}>
-                <Text style={{ alignSelf: 'center' }}>{getString('secureToken')}</Text>
+                <Layout.Horizontal spacing="small">
+                  <FormInput.CheckBox
+                    style={{ paddingTop: 'var(--spacing-xsmall' }}
+                    className={css.checkbox}
+                    label={getString('secureToken')}
+                    name="secureToken"
+                    onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                      if (!e.currentTarget.checked) {
+                        formikProps.setFieldValue('secureToken', undefined)
+                      } else {
+                        refetchGenerateWebhookToken()
+                      }
+                    }}
+                  />
+                  {loadingSecureToken && <Spinner className={css.secureTokenLoader} size={Spinner.SIZE_SMALL} />}
+                </Layout.Horizontal>
                 <Container style={{ paddingBottom: 'var(--spacing-xsmall)' }}>
-                  <Button
-                    data-name="eye-con"
-                    className={tokenVisibility ? css.eyeConOpen : ''}
-                    tooltip={getString('pipeline-triggers.triggerConfigurationPanel.viewToken')}
-                    tooltipProps={{ hoverOpenDelay: 300 }}
-                    icon={tokenVisibility ? 'eye-open' : 'eye-off'}
-                    minimal
-                    onClick={e => {
-                      e.stopPropagation()
-                      setTokenVisibility(!tokenVisibility)
-                    }}
-                  />
-                  <Button
-                    data-name="copy"
-                    tooltip={getString('pipeline-triggers.triggerConfigurationPanel.copyToken')}
-                    tooltipProps={{ hoverOpenDelay: 300 }}
-                    icon="duplicate"
-                    minimal
-                    onClick={e => {
-                      e.stopPropagation()
-                      copy(secureToken)
-                      showSuccess(getString('copiedToClipboard'))
-                    }}
-                  />
-                  <Button
-                    data-name="regenerate-token"
-                    icon="main-refresh"
-                    tooltip={getString('pipeline-triggers.triggerConfigurationPanel.regenerateToken')}
-                    tooltipProps={{ hoverOpenDelay: 300 }}
-                    minimal
-                    style={{ paddingLeft: 'var(--spacing-small)' }}
-                    onClick={() => {
-                      refetchGenerateWebhookToken()
-                      showSuccess(getString('pipeline-triggers.triggerConfigurationPanel.regeneratedToken'))
-                    }}
-                  />
+                  {isEdit && formikProps.initialValues.secureToken && (
+                    <Button
+                      className={css.regenerateButton}
+                      data-name="regenerate-token"
+                      icon="main-refresh"
+                      tooltip={getString('pipeline-triggers.triggerConfigurationPanel.regenerateToken')}
+                      tooltipProps={{ hoverOpenDelay: 300 }}
+                      minimal
+                      style={{ paddingLeft: 'var(--spacing-small)' }}
+                      onClick={() => {
+                        refetchGenerateWebhookToken()
+                          .then(_res => {
+                            showSuccess(getString('pipeline-triggers.triggerConfigurationPanel.regeneratedToken'))
+                          })
+                          .catch(_err => showError(getString('commonError')))
+                      }}
+                    />
+                  )}
                 </Container>
               </Layout.Horizontal>
-              {tokenVisibility ? (
-                <FormInput.Text name="secureToken" disabled={true} />
-              ) : (
-                <TextInput
-                  style={{
-                    border: '1px solid var(--bp3-intent-color, #dddddd)',
-                    marginBottom: 'var(--spacing-medium)'
-                  }}
-                  name="test"
-                  type="password"
-                  value="************"
-                  disabled={true}
-                />
-              )}
-              {isEdit && (
+              {isEdit && formikProps.initialValues.secureToken && (
                 <Layout.Horizontal spacing="small" className={css.fieldWarning}>
                   <Icon name="main-warning" color={Color.YELLOW_500} />
                   <Text color={Color.GREY_800}>
@@ -304,7 +267,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 </Layout.Horizontal>
               )}
             </>
-          )}
+          ) : null}
         </section>
       </div>
     </Layout.Vertical>

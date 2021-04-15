@@ -11,6 +11,11 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { String } from 'framework/exports'
+import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/ConnectorResourceModalBody'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
@@ -24,6 +29,20 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings',
   icon: 'nav-settings'
 }
+
+RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
+  icon: 'lock',
+  label: 'Connectors',
+  category: ResourceCategory.PROJECT_RESOURCES,
+  permissionLabels: {
+    [PermissionIdentifier.UPDATE_CONNECTOR]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_CONNECTOR]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_CONNECTOR]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.ACCESS_CONNECTOR]: <String stringID="rbac.permissionLabels.access" />
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <ConnectorResourceModalBody {...props} />
+})
 
 export default (
   <>

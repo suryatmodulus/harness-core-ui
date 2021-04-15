@@ -23,13 +23,13 @@ exports[`Render Delegates4Ways render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
           >
-            Docker
+            delegate.cardData.docker.name
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
             style="color: rgb(107, 109, 133);"
           >
-            Runs Harness Delegate as a Docker container on any Linux or Mac.
+            delegate.cardData.docker.text
           </p>
         </div>
       </div>
@@ -70,13 +70,13 @@ exports[`Render Delegates4Ways render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
           >
-            Kubernetes
+            kubernetesText
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
             style="color: rgb(107, 109, 133);"
           >
-            Runs Harness Delegate as a workload on your Kubernetes Cluster.
+            delegate.cardData.kubernetes.text
           </p>
         </div>
       </div>
@@ -99,13 +99,13 @@ exports[`Render Delegates4Ways render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
           >
-            Amazon ECS
+            delegate.cardData.amazonECS.name
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
             style="color: rgb(107, 109, 133);"
           >
-            Runs Harness Delegate as an Amazon process.
+            delegate.cardData.amazonECS.text
           </p>
         </div>
       </div>
@@ -128,13 +128,13 @@ exports[`Render Delegates4Ways render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
           >
-            Linux
+            delegate.cardData.linux.name
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
             style="color: rgb(107, 109, 133);"
           >
-            Runs Harness Delegate as a Linux process.
+            delegate.cardData.linux.text
           </p>
         </div>
       </div>

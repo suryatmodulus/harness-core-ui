@@ -26,11 +26,12 @@ import {
   useUpdateConnector
 } from 'services/cd-ng'
 import { useGetNewRelicEndPoints } from 'services/cv'
-import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { buildNewRelicPayload, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/exports'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import css from './CreateNewRelicConnector.module.scss'
 
 const NewRelicLabel = { type: 'New Relic' }
@@ -43,8 +44,6 @@ interface ConnectionConfigProps extends StepProps<ConnectorConfigDTO> {
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
-  handleCreate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
-  handleUpdate: (data: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
   isEditMode: boolean
   connectorInfo?: ConnectorInfoDTO | void
 }
@@ -77,29 +76,55 @@ function AccountIdTooltip(): JSX.Element {
 }
 
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const [loadingSecrets, setLoadingSecrets] = useState(props.isEditMode)
+  const { nextStep, prevStepData, connectorInfo, isEditMode, accountId, projectIdentifier, orgIdentifier } = props
+  const [loadingSecrets, setLoadingSecrets] = useState(
+    Boolean(props.prevStepData?.spec || props.prevStepData?.newRelicAccountId)
+  )
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { data: endPoints, error: endPointError, loading: loadingEndpoints } = useGetNewRelicEndPoints({})
   const [initialValues, setInitialValues] = useState<ConnectorConfigDTO>({
-    url: props.isEditMode ? { label: props.prevStepData?.spec?.url, value: props.prevStepData?.spec?.url } : undefined,
-    newRelicAccountId: props.isEditMode ? props.prevStepData?.spec?.newRelicAccountId : '',
-    apiKeyRef: undefined
+    url: undefined,
+    newRelicAccountId: '',
+    apiKeyRef: undefined,
+    accountId,
+    projectIdentifier,
+    orgIdentifier
   })
   useEffect(() => {
-    ;(async () => {
-      if (props.isEditMode) {
-        setInitialValues({
-          ...initialValues,
-          apiKeyRef: await setSecretField((props.connectorInfo as ConnectorInfoDTO)?.spec?.apiKeyRef, {
-            accountIdentifier: props.accountId,
-            projectIdentifier: props.projectIdentifier,
-            orgIdentifier: props.orgIdentifier
-          })
+    if (!props.prevStepData) {
+      return
+    }
+
+    const { spec, ...prevData } = props.prevStepData
+    const updatedInitialValues = {
+      ...spec,
+      ...prevData
+    }
+
+    if (prevData?.url) {
+      updatedInitialValues.url = prevData.url
+    } else if (spec?.url) {
+      updatedInitialValues.url = { label: spec.url, value: spec.url }
+    }
+
+    if (prevData.apiKeyRef || spec?.apiKeyRef) {
+      setSecretField(prevData.apiKeyRef?.referenceString || spec.apiKeyRef, {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier
+      })
+        .then(result => {
+          updatedInitialValues.apiKeyRef = result
+          setLoadingSecrets(false)
+          setInitialValues(currInitialVals => ({ ...currInitialVals, ...updatedInitialValues }))
         })
-        setLoadingSecrets(false)
-      }
-    })()
+        .catch(() => {
+          setLoadingSecrets(false)
+        })
+    }
+
+    setInitialValues(currInitialVals => ({ ...currInitialVals, ...updatedInitialValues }))
   }, [])
 
   const endPointOptions = useMemo(() => {
@@ -118,30 +143,11 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
     }
 
     // set default value
-    if (!props.isEditMode && !initialValues.url) {
+    if (!isEditMode && !initialValues.url) {
       setInitialValues({ ...initialValues, url: filteredPoints[0] })
     }
     return filteredPoints
   }, [endPoints, endPointError, loadingEndpoints])
-
-  const handleFormSubmission = async (formData: ConnectorConfigDTO) => {
-    clear()
-    if (props.isEditMode) {
-      try {
-        const res = await props.handleUpdate(formData)
-        props.nextStep?.({ ...(res || {}), ...formData })
-      } catch (error) {
-        showError(error?.data?.message, 7000)
-      }
-    } else {
-      try {
-        const res = await props.handleCreate(formData)
-        props.nextStep?.({ ...(res || {}), ...formData })
-      } catch (error) {
-        showError(error?.data?.message, 7000)
-      }
-    }
-  }
 
   if (loadingSecrets) {
     return <PageSpinner />
@@ -156,17 +162,14 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       <Text className={css.subHeading}>{getString('cv.connectors.newRelic.subTitle', NewRelicLabel)}</Text>
       <Formik
         enableReinitialize
-        initialValues={{
-          ...props.prevStepData,
-          ...initialValues
-        }}
+        initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('cv.connectors.newRelic.urlValidation')),
           newRelicAccountId: Yup.string().trim().required(getString('cv.connectors.newRelic.accountIdValidation')),
           apiKeyRef: Yup.string().trim().required(getString('cv.connectors.newRelic.encryptedKeyValidation'))
         })}
-        onSubmit={formData => {
-          handleFormSubmission({ ...formData, url: (formData as any).url.value })
+        onSubmit={(formData: ConnectorConfigDTO) => {
+          nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
         }}
       >
         {formikProps => (
@@ -208,55 +211,32 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
-  const handleCreate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
-    const res = await createConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'NewRelic',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          newRelicAccountId: data.newRelicAccountId,
-          apiKeyRef: data.apiKeyRef.referenceString,
-          url: data.url
-        }
-      }
-    })
+  const handleSubmit = async (
+    payload: ConnectorConfigDTO,
+    prevData: ConnectorConfigDTO,
+    stepProps: StepProps<ConnectorConfigDTO>
+  ): Promise<ConnectorInfoDTO | undefined> => {
+    const { isEditMode } = props
+    const res = await (isEditMode ? updateConnector : createConnector)(payload)
     if (res && res.status === 'SUCCESS') {
-      showSuccess(getString('connectors.successfullCreate', { name: data?.name || '' }))
+      showSuccess(
+        isEditMode
+          ? getString('connectors.successfullUpdate', { name: payload.name || '' })
+          : getString('connectors.successfullCreate', { name: payload.name || '' })
+      )
       if (res.data) {
         setSuccessfullyCreated(true)
+        // props.onConnectorCreated?.(res.data)
         props.onSuccess?.(res.data)
+        stepProps?.nextStep?.(prevData)
+        props.setIsEditMode?.(true)
       }
     } else {
-      throw new Error(getString('cv.connectors.unableToCreateConnector'))
-    }
-    return res.data?.connector
-  }
-
-  const handleUpdate = async (data: ConnectorConfigDTO): Promise<ConnectorInfoDTO | undefined> => {
-    const res = await updateConnector({
-      connector: {
-        name: data.name,
-        identifier: data.identifier,
-        type: 'NewRelic',
-        projectIdentifier: props.projectIdentifier,
-        orgIdentifier: props.orgIdentifier,
-        spec: {
-          newRelicAccountId: data.newRelicAccountId,
-          apiKeyRef: data.apiKeyRef.referenceString,
-          url: data.url
-        }
-      }
-    })
-    if (res && res.status === 'SUCCESS') {
-      showSuccess(getString('connectors.successfullUpdate', { name: data?.name || '' }))
-      if (res.data) {
-        props.onSuccess?.(res.data)
-      }
-    } else {
-      throw new Error(getString('cv.connectors.unableToUpdateConnector'))
+      throw new Error(
+        isEditMode
+          ? getString('cv.connectors.unableToUpdateConnector')
+          : getString('cv.connectors.unableToCreateConnector')
+      )
     }
     return res.data?.connector
   }
@@ -279,10 +259,18 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
           projectIdentifier={props.projectIdentifier}
           name={getString('credentials')}
           identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-          handleCreate={handleCreate}
-          handleUpdate={handleUpdate}
           isEditMode={isEditMode}
           connectorInfo={props.connectorInfo}
+        />
+        <DelegateSelectorStep
+          name={getString('delegate.DelegateselectionLabel')}
+          customHandleCreate={handleSubmit}
+          customHandleUpdate={handleSubmit}
+          hideModal={props.onClose}
+          onConnectorCreated={props.onSuccess}
+          connectorInfo={props.connectorInfo}
+          isEditMode={props.isEditMode}
+          buildPayload={buildNewRelicPayload}
         />
         <VerifyOutOfClusterDelegate
           name={`${getString('verify')} ${getString('connection')}`}

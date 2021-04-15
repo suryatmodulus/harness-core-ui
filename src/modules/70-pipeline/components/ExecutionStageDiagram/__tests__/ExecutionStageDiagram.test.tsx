@@ -158,7 +158,8 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
       }
     ],
     identifier: 'Test_Pipline',
-    status: ExecutionPipelineItemStatus.ERROR
+    status: ExecutionPipelineItemStatus.ERROR,
+    allNodes: []
   },
   selectedIdentifier: 'qaStage',
   showStageSelection: true,
@@ -185,7 +186,7 @@ jest.mock('resize-observer-polyfill', () => {
 })
 
 // eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Test Execution StageDiagram', () => {
+describe('Test Execution StageDiagram', () => {
   beforeAll(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.12345)
   })

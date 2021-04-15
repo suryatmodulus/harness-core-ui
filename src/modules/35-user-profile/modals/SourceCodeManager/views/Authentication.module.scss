@@ -1,0 +1,22 @@
+.authHeaderRow {
+  padding-bottom: var(--spacing-medium) !important;
+  .authTypeSelect {
+    margin: 0px !important;
+    :global {
+      .bp3-input-group {
+        > input {
+          width: 100% !important;
+          border: none !important;
+          text-align: end !important;
+          min-width: 200px;
+        }
+      }
+      .bp3-input-action {
+        > span {
+          padding-left: var(--spacing-xsmall) !important;
+          padding-right: 0px !important;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.containerProps {
+  table {
+    border: 0px !important;
+  }
+  :global {
+    .FieldArray--noData {
+      border: 0px !important;
+    }
+  }
+}
+
+.userName {
+  border: 1px solid var(--bp3-intent-color, #dddddd) !important;
+  border-radius: 4px;
+  padding: 2px !important;
+}
+
+.roleAssignments {
+  height: 400px;
+  overflow: scroll;
+}

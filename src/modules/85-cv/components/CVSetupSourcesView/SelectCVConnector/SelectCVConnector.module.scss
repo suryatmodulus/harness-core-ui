@@ -9,5 +9,9 @@
       margin-bottom: var(--spacing-small) !important;
       color: var(--black) !important;
     }
+
+    input[disabled] {
+      width: 57% !important;
+    }
   }
 }

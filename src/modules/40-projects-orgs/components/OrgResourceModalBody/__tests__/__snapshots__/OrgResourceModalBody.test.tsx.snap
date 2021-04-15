@@ -26,7 +26,7 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          Organization
+          orgLabel
         </div>
       </div>
       <div

@@ -2,6 +2,8 @@ import React from 'react'
 import { Layout, Button, FormInput, MultiTypeInputType, Color, Icon } from '@wings-software/uicore'
 import { Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
+
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FieldArray } from 'formik'
 
@@ -27,7 +29,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
   const commandFlagLabel = (): React.ReactElement => {
     return (
       <Layout.Horizontal flex spacing="small">
-        <String tagName="div" stringID="manifestType.helmCommandFlagLabel" />
+        <String tagName="div" stringID="pipeline.manifestType.helmCommandFlagLabel" />
       </Layout.Horizontal>
     )
   }
@@ -43,7 +45,9 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
         />
         <Tooltip
           position="top"
-          content={<div className={helmcss.tooltipContent}>{getString('manifestType.helmSkipResourceVersion')} </div>}
+          content={
+            <div className={helmcss.tooltipContent}>{getString('pipeline.manifestType.helmSkipResourceVersion')} </div>
+          }
           className={helmcss.tooltip}
         >
           <Icon name="info-sign" color={Color.BLUE_450} size={16} />
@@ -62,13 +66,32 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
             render={({ push, remove }) => (
               <Layout.Vertical>
                 {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
-                  <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" flex margin={{ top: 'small' }}>
+                  <Layout.Horizontal
+                    key={commandFlag.id || commandFlag.commandType}
+                    spacing="xxlarge"
+                    flex
+                    margin={{ top: 'small' }}
+                  >
                     <div className={helmcss.halfWidth}>
-                      <FormInput.Select
+                      <FormInput.MultiTypeInput
                         name={`commandFlags[${index}].commandType`}
-                        label={index === 0 ? getString('manifestType.helmCommandType') : ''}
-                        items={commandFlagOptions}
-                        placeholder={getString('manifestType.helmCommandType')}
+                        label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
+                        selectItems={commandFlagOptions}
+                        placeholder={getString('pipeline.manifestType.helmCommandType')}
+                        multiTypeInputProps={{
+                          width: 300,
+                          onChange: value => {
+                            if (isEmpty(value)) {
+                              formik.setFieldValue(`commandFlags[${index}].commandType`, '')
+                              formik.setFieldValue(`commandFlags[${index}].flag`, '')
+                            }
+                          },
+                          expressions,
+                          selectProps: {
+                            addClearBtn: true,
+                            items: commandFlagOptions
+                          }
+                        }}
                       />
                     </div>
                     <div className={helmcss.halfWidth}>

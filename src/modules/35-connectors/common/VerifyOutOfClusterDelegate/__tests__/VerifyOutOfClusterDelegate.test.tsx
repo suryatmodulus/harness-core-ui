@@ -27,7 +27,7 @@ describe('Verification step for out of cluster delegate', () => {
       </MemoryRouter>
     )
 
-    await waitFor(() => expect(getByText('Validating the cluster authentication and permissions')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.testConnectionStep.validationText.k8s')).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   }),

@@ -1,0 +1,227 @@
+{
+  "name": "variables_pipeline",
+  "identifier": "variables_pipeline",
+  "description": "",
+  "tags": {},
+  "stages": [
+    {
+      "stage": {
+        "name": "stage_1",
+        "identifier": "stage_1",
+        "description": "",
+        "type": "Deployment",
+        "spec": {
+          "serviceConfig": {
+            "serviceDefinition": {
+              "type": "Kubernetes",
+              "spec": {
+                "manifestOverrideSets": [],
+                "manifests": [],
+                "artifacts": { "sidecars": [] },
+                "variables": [
+                  { "name": "svc_var1", "type": "String", "value": "myvar" },
+                  { "name": "svc_var2", "type": "String", "value": "myvar" }
+                ]
+              }
+            },
+            "service": { "name": "test_svc", "identifier": "test_svc" }
+          },
+          "infrastructure": {
+            "environmentRef": "test",
+            "infrastructureDefinition": {},
+            "allowSimultaneousDeployments": false
+          },
+          "execution": {
+            "steps": [
+              {
+                "step": {
+                  "type": "Http",
+                  "name": "step_1",
+                  "identifier": "step_1",
+                  "timeout": "10s",
+                  "spec": {
+                    "url": "https://reqres.in/api/users",
+                    "method": "GET",
+                    "headers": [],
+                    "outputVariables": []
+                  }
+                }
+              },
+              {
+                "stepGroup": {
+                  "name": "step_group_1",
+                  "identifier": "step_group_1",
+                  "steps": [
+                    {
+                      "parallel": [
+                        {
+                          "step": {
+                            "type": "Http",
+                            "name": "p_step_1",
+                            "identifier": "p_step_1",
+                            "timeout": "10s",
+                            "spec": {
+                              "url": "https://reqres.in/api/users",
+                              "method": "GET",
+                              "headers": [],
+                              "outputVariables": []
+                            }
+                          }
+                        },
+                        {
+                          "step": {
+                            "type": "Http",
+                            "name": "p_step_2",
+                            "identifier": "p_step_2",
+                            "timeout": "10s",
+                            "spec": {
+                              "url": "https://reqres.in/api/users",
+                              "method": "GET",
+                              "headers": [],
+                              "outputVariables": []
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "rollbackSteps": []
+          }
+        },
+        "tags": {},
+        "failureStrategies": [{ "onFailure": { "errors": ["AnyOther"], "action": { "type": "StageRollback" } } }],
+        "variables": [
+          { "name": "stage_var1", "type": "String", "value": "myvar" },
+          { "name": "stage_var2", "type": "String", "value": "myvar" }
+        ]
+      }
+    },
+    {
+      "stage": {
+        "name": "stage_2",
+        "identifier": "stage_2",
+        "description": "",
+        "type": "Deployment",
+        "spec": {
+          "serviceConfig": {
+            "service": { "name": "test_svc", "identifier": "test_svc" },
+            "useFromStage": { "stage": "stage_1" }
+          },
+          "infrastructure": {
+            "environmentRef": "test",
+            "infrastructureDefinition": {},
+            "allowSimultaneousDeployments": false
+          },
+          "execution": {
+            "steps": [
+              {
+                "step": {
+                  "type": "Http",
+                  "name": "step_1",
+                  "identifier": "step_1",
+                  "timeout": "10s",
+                  "spec": {
+                    "url": "https://reqres.in/api/users",
+                    "method": "GET",
+                    "headers": [],
+                    "outputVariables": []
+                  }
+                }
+              }
+            ],
+            "rollbackSteps": []
+          }
+        },
+        "tags": {},
+        "failureStrategies": [{ "onFailure": { "errors": ["AnyOther"], "action": { "type": "StageRollback" } } }]
+      }
+    },
+    {
+      "parallel": [
+        {
+          "stage": {
+            "name": "parallel_stage_1",
+            "identifier": "parallel_stage_",
+            "description": "",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": { "useFromStage": { "stage": "stage_1" } },
+              "infrastructure": {
+                "environmentRef": "test",
+                "infrastructureDefinition": {},
+                "allowSimultaneousDeployments": false
+              },
+              "execution": {
+                "steps": [
+                  {
+                    "step": {
+                      "type": "Http",
+                      "name": "step_1",
+                      "identifier": "step_1",
+                      "timeout": "10s",
+                      "spec": {
+                        "url": "https://reqres.in/api/users",
+                        "method": "GET",
+                        "headers": [],
+                        "outputVariables": []
+                      }
+                    }
+                  }
+                ],
+                "rollbackSteps": []
+              }
+            },
+            "tags": {},
+            "skipCondition": "",
+            "serviceType": { "text": "Service", "value": "service", "icon": "service", "disabled": false }
+          }
+        },
+        {
+          "stage": {
+            "name": "parallel_stage_2",
+            "identifier": "parallel_stage_2",
+            "description": "",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": { "useFromStage": { "stage": "stage_1" } },
+              "infrastructure": {
+                "environmentRef": "test",
+                "infrastructureDefinition": {},
+                "allowSimultaneousDeployments": false
+              },
+              "execution": {
+                "steps": [
+                  {
+                    "step": {
+                      "type": "Http",
+                      "name": "step_1",
+                      "identifier": "step_1",
+                      "timeout": "10s",
+                      "spec": {
+                        "url": "https://reqres.in/api/users",
+                        "method": "GET",
+                        "headers": [],
+                        "outputVariables": []
+                      }
+                    }
+                  }
+                ],
+                "rollbackSteps": []
+              }
+            },
+            "tags": {}
+          }
+        }
+      ]
+    }
+  ],
+  "projectIdentifier": "vivektest",
+  "orgIdentifier": "Default",
+  "variables": [
+    { "name": "pvar", "type": "String", "value": "myvar" },
+    { "name": "pvar2", "type": "String", "value": "myvar" }
+  ]
+}

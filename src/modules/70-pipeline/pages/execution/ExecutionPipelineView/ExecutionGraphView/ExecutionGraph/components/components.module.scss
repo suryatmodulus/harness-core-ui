@@ -2,6 +2,7 @@
   display: grid;
   padding: var(--spacing-small) 0;
   grid-row-gap: var(--spacing-large);
+  border-top: 1px solid var(--grey-350);
   .barrierRow {
     display: grid;
     grid-template-columns: 50px 1fr 50px;
@@ -43,8 +44,8 @@
 }
 .section {
   padding: var(--spacing-small) 0;
-  &.borderSectionEnd {
-    border-bottom: 1px solid var(--grey-350);
+  &.borderSection {
+    border-top: 1px solid var(--grey-350);
   }
   .sectionHeading {
     font-weight: 500;

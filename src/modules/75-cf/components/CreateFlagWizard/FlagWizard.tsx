@@ -6,12 +6,12 @@ import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
-import { getErrorMessage } from '@cf/utils/CFUtils'
+import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
 import FlagElemTest from './FlagElemTest'
-import { FlagTypeVariations, FlagTypeVariationsSelect } from '../CreateFlagDialog/FlagDialogUtils'
+import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import css from './FlagWizard.module.scss'
 
 interface FlagWizardProps {
@@ -26,7 +26,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { getString } = useStrings()
   const flagTypeOptions: SelectOption[] = [
     { label: getString('cf.boolean'), value: FlagTypeVariations.booleanFlag },
-    { label: getString('cf.multivariate'), value: FlagTypeVariationsSelect.string }
+    { label: getString('cf.multivariate'), value: FeatureFlagMutivariateKind.string }
   ]
   const { flagTypeView, environmentIdentifier, toggleFlagType, hideModal, goBackToTypeSelections } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -62,6 +62,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
               accountId
             })
           )
+          showToaster(getString('cf.messages.flagCreated'))
         })
         .catch(error => {
           showError(getErrorMessage(error), 0)

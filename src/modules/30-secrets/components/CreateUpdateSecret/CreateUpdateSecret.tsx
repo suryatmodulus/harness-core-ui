@@ -109,10 +109,10 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     lazy: true
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
-    queryParams: { accountIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
   const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFileV2({
-    queryParams: { accountIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,

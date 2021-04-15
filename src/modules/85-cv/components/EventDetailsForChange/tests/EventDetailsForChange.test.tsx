@@ -255,7 +255,7 @@ describe('Unit tests for EventDetailsForChange', () => {
     const activities = document.body.querySelectorAll('[class*="activityItem"]')
     expect(activities?.length).toBe(3)
     expect(activities[0].getAttribute('class')).toContain('selectedActivity')
-    const viewJSONButton = getByText(document.body, 'View JSON')
+    const viewJSONButton = getByText(document.body, 'viewJSON')
     fireEvent.click(viewJSONButton)
 
     await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
@@ -330,7 +330,7 @@ describe('Unit tests for EventDetailsForChange', () => {
 
     await waitFor(() => expect(document.body.querySelector('[class*="main"]')).not.toBeNull())
     expect(getByText(document.body, 'Production')).not.toBeNull()
-    expect(getByText(document.body, 'Passed')).not.toBeNull()
+    expect(getByText(document.body, 'passed')).not.toBeNull()
 
     const deploymentCard = document.body.querySelector('[class*="deploymentContent"]')
     if (!deploymentCard) {

@@ -1,0 +1,102 @@
+secrets: Secrets
+delegateForTask: '{{delegate}} for {{taskName}}'
+pipeline: Pipeline
+production: Production
+addVariable: Add Variable
+editVariable: Edit variable
+editVariableType: Edit variable type
+removeThisVariable: Remove This Variable
+durationPrefix: 'Duration: '
+pipelineDetails: Pipeline Details
+comments: Comments
+approve: Approve
+reject: Reject
+PermissibleActions: Permissible Actions
+My: My
+ID: ID
+selectStrategy: Select a Strategy
+performAction: Perform Action
+jexlExpression: JEXL Expression
+input: Input
+refresh: Refresh
+logs:
+  noLogsText: 'No logs found'
+  delegateSelectionLogs: Delegate selection logs
+execute: Execute
+namespace: Namespace
+cluster: Cluster
+releaseName: Release name
+datePickerShortcuts:
+  Today: Today
+  Yesterday: Yesterday
+  Last2Days: Last 2 Days
+  Last3Days: Last 3 Days
+  LastWeek: Last Week
+  LastMonth: Last Month
+  Last2Months: Last 2 Months
+validation:
+  nameIsRequired: Name is required
+  valueIsRequired: Value is required
+specify: Specify
+role: Role
+projectViewer: Project Viewer
+orgViewer: Organization Viewer
+accViewer: Account Viewer
+plusNumber: + {{number}}
+userGroup: User Group
+userGroups: User Groups
+purpose:
+  welcome: 'Welcome {{userName}}, Let’s get you started!'
+  continuous: CONTINUOUS
+  moduleSuccess: Module Added Successfully
+  startATrial: Start A Trial
+  setup: 15 min setup
+  selectAModule: Select a module
+  cd:
+    delivery: Delivery
+    subtitle: Deploy your services with blazingly fast pipelines.
+    description: CD description placeholder
+
+  cv:
+    subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
+    description: CV description placeholder
+  ci:
+    integration: Integration
+    subtitle: Commit, build, and test your code at a whole new level.
+    description:
+      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      <br><br>You can access this module via your free trial. Benefits include:
+      Your software delivery pipeline can now include build stages
+      Test intelligence - faster and more reliable build processes'
+  ce:
+    efficiency: Efficiency
+    subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
+    description: CE description placeholder
+  cf:
+    features: Features
+    subtitle: Decouple release from deployment and rollout features safely and quickly.
+    description: CF description placeholder
+trialInProgress: Trial in-progress
+changePlan: Change Plan
+letsGetYouStarted: Let’s get you started
+accessKey: Access Key
+secretKey: Secret Key
+repo_provider:
+  bitbucketLabel: BitBucket
+  customLabel: Custom
+  githubLabel: GitHub
+  gitlabLabel: GitLab
+  codecommit: CodeCommit
+  awscodecommit: AWS Code Commit
+  azureDev: Azure Devops
+git:
+  saveResourceLabel: 'Save {{resource}} to Git'
+  selectRepoLabel: 'Select a repo where you want to save the {{resource}}'
+  filePath: File path
+  commitMessage: Commit message
+  branchSelectHeader: SELECT A BRANCH TO COMMIT
+  existingBranchCommitLabel: Commit to an existing branch
+  newBranchCommitLabel: Commit to a new branch
+  startPRLabel: Start a pull request
+  validation:
+    filePath: '{{$.common.git.filePath}} is required'

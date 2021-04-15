@@ -2,18 +2,14 @@ import React from 'react'
 import { render, queryAllByText } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import GitSyncPage from '../GitSyncPage'
+import { GitSyncLandingView } from '../GitSyncPage'
 import GitSyncRepoTab from '../repos/GitSyncRepoTab'
 
-const enableText = 'Enable Git Experience'
+const enableText = 'enableGitExperience'
 
 describe('GitSync Page', () => {
   test('render GitSync page for new user', async () => {
     const disabledProps = {
-      mockIsEnabled: {
-        data: false,
-        loading: false
-      },
       children: <GitSyncRepoTab />
     }
 
@@ -21,8 +17,16 @@ describe('GitSync Page', () => {
       <TestWrapper
         path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync"
         pathParams={{ accountId: 'dummyAccount', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+        defaultAppStoreValues={{
+          isGitSyncEnabled: false,
+          selectedProject: {
+            identifier: 'dummy',
+            name: 'dummy',
+            modules: ['CI']
+          }
+        }}
       >
-        <GitSyncPage {...disabledProps}></GitSyncPage>
+        <GitSyncLandingView {...disabledProps}></GitSyncLandingView>
       </TestWrapper>
     )
 

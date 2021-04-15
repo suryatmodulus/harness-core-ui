@@ -49,7 +49,6 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   iconsProps
 }) => {
   const { getString } = useStrings()
-
   const onStepChange = (arg: StepChangeData<any>): void => {
     if (arg?.prevStep && arg?.nextStep && arg.prevStep > arg.nextStep && arg.nextStep <= 2) {
       handleConnectorViewChange(false)
@@ -73,13 +72,13 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
     <StepWizard className={css.manifestWizard} subtitle={renderSubtitle()} onStepChange={onStepChange}>
       <ManifestRepoTypes
         manifestTypes={types}
-        name={getString('manifestType.manifestRepoType')}
+        name={getString('pipeline.manifestType.manifestRepoType')}
         stepName={labels.firstStepName}
         selectedManifest={selectedManifest}
         changeManifestType={changeManifestType}
       />
       <ManifestStore
-        name={getString('manifestType.manifestSource')}
+        name={getString('pipeline.manifestType.manifestSource')}
         stepName={labels.secondStepName}
         expressions={expressions}
         newConnectorLabel={labels.newConnector}

@@ -3,13 +3,13 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/75-ce/*
         - modules/75-cf/*
-        - modules/80-ci/*
+        - modules/75-ci/*
         - modules/85-cv/*
-        - modules/90-ce/*
+        - '@ce/*'
         - '@cf/*'
         - '@ci/*'
         - '@cv/*'
-        - '@ce/*'
       paths:
         - lodash

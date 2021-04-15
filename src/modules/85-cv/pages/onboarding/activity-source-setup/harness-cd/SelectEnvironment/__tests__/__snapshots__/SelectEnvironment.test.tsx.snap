@@ -8,7 +8,7 @@ exports[`SelectEnvironment render 1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-black"
     >
-      Select the FirstGen Environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.
+      cv.activitySources.harnessCD.environment.infoText
     </p>
     <div
       class="StyledProps--font StyledProps--main filterComponent"
@@ -26,7 +26,7 @@ exports[`SelectEnvironment render 1`] = `
           role="columnheader"
           style="width: 30%;"
         >
-          HARNESS FIRSTGEN APPLICATION
+          cv.activitySources.harnessCD.harnessApps
         </div>
         <div
           class="cell"
@@ -34,7 +34,7 @@ exports[`SelectEnvironment render 1`] = `
           role="columnheader"
           style="width: 33%;"
         >
-          HARNESS FIRSTGEN ENVIRONMENTS
+          cv.activitySources.harnessCD.environment.harnessEnv
         </div>
         <div
           class="cell"
@@ -42,7 +42,7 @@ exports[`SelectEnvironment render 1`] = `
           role="columnheader"
           style="width: 36%;"
         >
-          HARNESS NEXTGEN ENVIRONMENTS
+          cv.activitySources.harnessCD.environment.env
         </div>
       </div>
       <div
@@ -157,7 +157,7 @@ exports[`SelectEnvironment render 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Select or create an environment"
+                      placeholder="cv.selectOrCreateEnv"
                       style="padding-right: 0px;"
                       type="text"
                       value=""

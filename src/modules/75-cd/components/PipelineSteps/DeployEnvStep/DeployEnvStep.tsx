@@ -137,6 +137,7 @@ interface DeployEnvironmentProps {
   initialValues: DeployEnvData
   onUpdate?: (data: DeployEnvData) => void
   stepViewType?: StepViewType
+  readonly: boolean
   inputSetData?: {
     template?: DeployEnvData
     path?: string
@@ -158,7 +159,11 @@ function isEditEnvironment(data: DeployEnvData): boolean {
   return false
 }
 
-const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
+  initialValues,
+  onUpdate,
+  readonly
+}): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -285,6 +290,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
               <FormInput.MultiTypeInput
                 label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
                 name="environmentRef"
+                disabled={readonly}
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
                   width: 300,
@@ -295,7 +301,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
                     setFieldValue('environment', undefined)
                   },
                   selectProps: {
-                    addClearBtn: true,
+                    addClearBtn: true && !readonly,
                     items: environments
                   },
                   expressions
@@ -306,6 +312,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({ initialValu
                 <Button
                   minimal
                   intent="primary"
+                  disabled={readonly}
                   onClick={() => {
                     const isEdit = isEditEnvironment(values)
                     if (isEdit) {
@@ -447,18 +454,26 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
     })
   }
   renderStep(props: StepProps<DeployEnvData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DeployEnvironmentInputStep
           initialValues={initialValues}
+          readonly={readonly}
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
         />
       )
     }
-    return <DeployEnvironmentWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return (
+      <DeployEnvironmentWidget
+        readonly={readonly}
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+      />
+    )
   }
   validateInputSet(data: DeployEnvData, template: DeployEnvData, getString?: UseStringsReturn['getString']): object {
     const errors = {} as any

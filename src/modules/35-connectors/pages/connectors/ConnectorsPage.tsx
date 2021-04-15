@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {
   Layout,
-  Button,
   useModalHook,
   SelectOption,
   FormInput,
@@ -57,6 +56,8 @@ import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterC
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { shouldShowError } from '@common/utils/errorUtils'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -543,18 +544,36 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal flex className={css.header}>
         <Container>
-          <Button
+          <RbacButton
             intent="primary"
             text={getString('newConnector')}
             icon="plus"
+            permission={{
+              permission: PermissionIdentifier.UPDATE_CONNECTOR,
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }}
             onClick={openDrawer}
             id="newConnectorBtn"
+            data-test="newConnectorButton"
           />
-          <Button
+          <RbacButton
             margin={{ left: 'small' }}
             text={getString('createViaYaml')}
+            permission={{
+              permission: PermissionIdentifier.UPDATE_CONNECTOR,
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }}
             onClick={rerouteBasedOnContext}
             id="newYamlConnectorBtn"
+            data-test="createViaYamlButton"
           />
         </Container>
 

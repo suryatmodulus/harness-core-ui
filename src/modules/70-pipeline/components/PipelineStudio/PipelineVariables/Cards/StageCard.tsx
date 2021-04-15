@@ -26,10 +26,11 @@ export interface StageCardProps {
   stage: StageElement
   originalStage: StageElement
   metadataMap: PipelineVariablesData['metadataMap']
+  readonly?: boolean
 }
 
 export default function StageCard(props: StageCardProps): React.ReactElement {
-  const { stage, originalStage, metadataMap } = props
+  const { stage, originalStage, metadataMap, readonly } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
   const stageSpec = stage.spec as DeploymentStage
@@ -60,6 +61,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   variables: ((originalStage as DeploymentStage).variables || []) as AllNGVariables[],
                   canAddVariable: true
                 }}
+                readonly={readonly}
                 type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}
                 onUpdate={({ variables }: CustomVariablesData) => {
@@ -71,7 +73,9 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   className: css.customVariables,
                   heading: <b>{getString('customVariables.title')}</b>,
                   yamlProperties: ((stage as DeploymentStage).variables as AllNGVariables[])?.map?.(
-                    variable => metadataMap[variable.value || '']?.yamlProperties || {}
+                    variable =>
+                      metadataMap[variable.value || /* istanbul ignore next */ '']?.yamlProperties ||
+                      /* istanbul ignore next */ {}
                   )
                 }}
               />
@@ -83,6 +87,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       serviceConfig={stageSpec.serviceConfig}
                       originalServiceConfig={originalSpec.serviceConfig}
                       metadataMap={metadataMap}
+                      readonly={readonly}
                       stageIdentifier={originalStage.identifier}
                       onUpdateServiceConfig={serviceSpec => {
                         updateStage(
@@ -100,13 +105,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         )
                       }}
                     />
-                  ) : null}
+                  ) : /* istanbul ignore next */ null}
                   {stageSpec.infrastructure && originalSpec.infrastructure ? (
                     <InfrastructureCardPanel
                       infrastructure={stageSpec.infrastructure}
                       originalInfrastructure={originalSpec.infrastructure}
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
+                      readonly={readonly}
                       onUpdateInfrastructure={infrastructure => {
                         updateStage(
                           produce(originalStage, draft => {
@@ -115,13 +121,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         )
                       }}
                     />
-                  ) : null}
+                  ) : /* istanbul ignore next */ null}
                   {stageSpec.execution && originalSpec.execution ? (
                     <ExecutionCardPanel
                       execution={stageSpec.execution}
                       originalExecution={originalSpec.execution}
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
+                      readonly={readonly}
                       onUpdateExecution={execution => {
                         updateStage(
                           produce(originalStage, draft => {
@@ -130,9 +137,9 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         )
                       }}
                     />
-                  ) : null}
+                  ) : /* istanbul ignore next */ null}
                 </>
-              ) : null}
+              ) : /* istanbul ignore next */ null}
             </React.Fragment>
           )}
         </div>

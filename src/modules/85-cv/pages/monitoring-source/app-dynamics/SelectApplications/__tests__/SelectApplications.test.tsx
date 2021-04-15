@@ -115,8 +115,8 @@ describe('SelectApplications', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('Retry')).not.toBeNull())
-    fireEvent.click(getByText('Retry'))
+    await waitFor(() => expect(getByText('retry')).not.toBeNull())
+    fireEvent.click(getByText('retry'))
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
   })
 })

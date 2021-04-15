@@ -1,16 +1,14 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
-import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wings-software/uicore'
+import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook, Layout } from '@wings-software/uicore'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 
 import cx from 'classnames'
 import type { AppdynamicsValidationResponse, AppdynamicsMetricValueValidationResponse } from 'services/cv'
 import { useStrings } from 'framework/exports'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
-import i18n from './MetricsVerificationModal.i18n'
-
 import css from './MetricsVerificationModal.module.scss'
 
-const MAX_TEXT_WIDTH = 90
+const MAX_TEXT_WIDTH = 85
 const ICON_SIZE = 8
 
 interface MetricsVerificationModalProps {
@@ -90,7 +88,7 @@ function SuccessMetricCard(props: SuccessMetricCardProps): JSX.Element {
 }
 
 function ErrorMetricCard(props: ErrorMetricCardProps): JSX.Element {
-  const { metricName, errorMsg, viewCallLogs, metricPackName } = props
+  const { metricName, errorMsg } = props
   return (
     <Card className={cx(css.errorCard, css.statusCard)}>
       <Icon name="deployment-failed-legacy" className={css.statusIcon} size={ICON_SIZE} />
@@ -101,20 +99,14 @@ function ErrorMetricCard(props: ErrorMetricCardProps): JSX.Element {
         <Text intent="danger" lineClamp={1} width={MAX_TEXT_WIDTH} className={css.smallFont}>
           {errorMsg}
         </Text>
-        <Text
-          intent="primary"
-          className={cx(css.smallFont, css.callLogs)}
-          onClick={() => viewCallLogs(metricPackName, metricName)}
-        >
-          {i18n.viewCalls}
-        </Text>
       </Container>
     </Card>
   )
 }
 
 function NoDataErrorCard(props: NoDataErrorCardProps): JSX.Element {
-  const { metricName, viewCallLogs, metricPackName } = props
+  const { metricName } = props
+  const { getString } = useStrings()
   return (
     <Card className={cx(css.noDataCard, css.statusCard)}>
       <Icon name="small-minus" className={css.statusIcon} size={ICON_SIZE} />
@@ -123,14 +115,7 @@ function NoDataErrorCard(props: NoDataErrorCardProps): JSX.Element {
           {metricName}
         </Text>
         <Text intent="none" className={css.smallFont}>
-          {i18n.noData}
-        </Text>
-        <Text
-          intent="primary"
-          className={cx(css.smallFont, css.callLogs)}
-          onClick={() => viewCallLogs(metricPackName, metricName)}
-        >
-          {i18n.viewCalls}
+          {getString('noData')}
         </Text>
       </Container>
     </Card>
@@ -188,56 +173,55 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
   const successMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'SUCCESS'), [
     verificationData
   ])
-  const [{ displayCallLog, guidWithMetricFilter }, setCallLogDisplay] = useState({
-    displayCallLog: false,
-    guidWithMetricFilter: guid
+  const [{ displayCallLog }, setCallLogDisplay] = useState({
+    displayCallLog: false
   })
-  const displayCallLogCallback = useCallback(
-    (metricPackName, metricName) =>
-      setCallLogDisplay({ displayCallLog: true, guidWithMetricFilter: `${metricPackName}:${metricName}:${guid}` }),
-    [guid]
-  )
-  const hideCallLogCallback = useCallback(
-    () => () => setCallLogDisplay({ displayCallLog: false, guidWithMetricFilter: guid }),
-    [guid]
-  )
-  const onHideCallback = useCallback(() => onHide(), [onHide])
+  const displayCallLogCallback = useCallback(() => setCallLogDisplay({ displayCallLog: true }), [])
   const { getString } = useStrings()
   return (
     <Dialog
       {...modalPropsLight}
-      onClose={onHideCallback}
+      onClose={onHide}
       className={css.main}
-      title={getString('cv.monitoringSources.appD.metricsVerificationModalTitle')}
+      title={
+        <Layout.Vertical>
+          <Text color={Color.BLACK} font={{ size: 'medium' }}>
+            {getString('cv.metricVerificationModal.modalTitle')}
+          </Text>
+          <Text intent="primary" className={cx(css.smallFont, css.callLogs)} onClick={() => displayCallLogCallback()}>
+            {getString('cv.metricVerificationModal.viewCalls', { type: verificationType })}
+          </Text>
+        </Layout.Vertical>
+      }
     >
       {!displayCallLog ? (
         <Tabs id="tabsId1">
           <Tab
-            id={i18n.tabTitles.all}
-            title={i18n.tabTitles.all}
+            id={getString('all').toLocaleUpperCase()}
+            title={getString('all').toLocaleUpperCase()}
             panel={<MetricPackValidationResult data={verificationData} viewCallLogs={displayCallLogCallback} />}
           />
           <Tab
-            id={i18n.tabTitles.error}
-            title={i18n.tabTitles.error}
+            id={getString('cv.failures').toLocaleUpperCase()}
+            title={getString('cv.failures').toLocaleUpperCase()}
             panel={<MetricPackValidationResult data={errorMetrics} viewCallLogs={displayCallLogCallback} />}
           />
           <Tab
-            id={i18n.tabTitles.noData}
-            title={i18n.tabTitles.noData}
+            id={getString('noData').toLocaleUpperCase()}
+            title={getString('noData').toLocaleUpperCase()}
             panel={<MetricPackValidationResult data={noDataMetrics} viewCallLogs={displayCallLogCallback} />}
           />
           <Tab
-            id={i18n.tabTitles.success}
-            title={i18n.tabTitles.success}
+            id={getString('success').toLocaleUpperCase()}
+            title={getString('success').toLocaleUpperCase()}
             panel={<MetricPackValidationResult data={successMetrics} viewCallLogs={displayCallLogCallback} />}
           />
         </Tabs>
       ) : (
         <ThirdPartyCallLogModal
-          guid={guidWithMetricFilter}
+          guid={guid}
           onHide={onHide}
-          onBackButtonClick={hideCallLogCallback()}
+          onBackButtonClick={() => setCallLogDisplay({ displayCallLog: false })}
           verificationType={verificationType}
         />
       )}

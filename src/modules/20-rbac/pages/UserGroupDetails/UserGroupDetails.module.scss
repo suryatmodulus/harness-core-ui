@@ -1,0 +1,13 @@
+.header {
+  background-color: var(--blue-200) !important;
+}
+
+.body {
+  padding: var(--spacing-large);
+}
+
+.card {
+  box-shadow: var(--card-box-shadow);
+  align-items: center;
+  justify-content: center;
+}

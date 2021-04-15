@@ -27,6 +27,7 @@ export interface ConfigureOptionsProps {
   showDefaultField?: boolean
   showRequiredField?: boolean
   showAdvanced?: boolean
+  className?: string
   fetchValues?: (done: (response: SelectOption[] | MultiSelectOption[]) => void) => void
   style?: CSSProperties
 }
@@ -55,7 +56,8 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     type,
     showRequiredField = false,
     showAdvanced = false,
-    fetchValues
+    fetchValues,
+    className
   } = props
   const [input, setInput] = React.useState(value)
   const { showError } = useToaster()
@@ -206,9 +208,11 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             minimal
                             intent="primary"
                             tooltip={
-                              <Layout.Horizontal padding="medium">
-                                <String stringID="configureOptions.advancedHelp" useRichText={true} />
-                              </Layout.Horizontal>
+                              values.isAdvanced ? undefined : (
+                                <Layout.Horizontal padding="medium">
+                                  <String stringID="configureOptions.advancedHelp" useRichText={true} />
+                                </Layout.Horizontal>
+                              )
                             }
                             tooltipProps={{ position: Position.RIGHT }}
                             text={
@@ -296,6 +300,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   return (
     <Button
       style={{ color: 'var(--grey-400)', ...props.style }}
+      className={className}
       minimal
       rightIcon="cog"
       id="configureOptions"

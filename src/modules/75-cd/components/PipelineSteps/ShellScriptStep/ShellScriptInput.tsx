@@ -15,9 +15,13 @@ export const scriptInputType: SelectOption[] = [
   { label: 'Number', value: 'Number' }
 ]
 
-export default function ShellScriptInput(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
+export default function ShellScriptInput(props: {
+  formik: FormikProps<ShellScriptFormData>
+  readonly?: boolean
+}): React.ReactElement {
   const {
-    formik: { values: formValues, setFieldValue }
+    formik: { values: formValues, setFieldValue },
+    readonly
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -44,11 +48,12 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
               </div>
               {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => (
                 <div className={css.environmentVarHeader} key={id}>
-                  <FormInput.Text name={`spec.environmentVariables[${i}].name`} />
+                  <FormInput.Text name={`spec.environmentVariables[${i}].name`} disabled={readonly} />
                   <FormInput.Select
                     items={scriptInputType}
                     name={`spec.environmentVariables[${i}].type`}
                     placeholder={getString('typeLabel')}
+                    disabled={readonly}
                   />
                   <MultiTextInput
                     name={`spec.environmentVariables[${i}].value`}
@@ -61,8 +66,15 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                     onChange={value =>
                       updateInputFieldValue(value as string | number, i, `spec.environmentVariables[${i}].value`)
                     }
+                    disabled={readonly}
                   />
-                  <Button minimal icon="cross" data-testid={`remove-environmentVar-${i}`} onClick={() => remove(i)} />
+                  <Button
+                    minimal
+                    icon="cross"
+                    data-testid={`remove-environmentVar-${i}`}
+                    onClick={() => remove(i)}
+                    disabled={readonly}
+                  />
                 </div>
               ))}
               <Button
@@ -70,6 +82,7 @@ export default function ShellScriptInput(props: { formik: FormikProps<ShellScrip
                 minimal
                 intent="primary"
                 data-testid="add-environmentVar"
+                disabled={readonly}
                 onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
               >
                 {getString('addInputVar')}

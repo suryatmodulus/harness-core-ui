@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, timeToDisplayText } from '@wings-software/uicore'
+import { Icon, timeToDisplayText, Text } from '@wings-software/uicore'
 import { ExecutionStatusLabel } from '@pipeline/exports'
 import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import css from './HoverCard.module.scss'
@@ -24,8 +24,14 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
           <div>{data.name}</div>
           {data.status === ExecutionPipelineItemStatus.FAILED && (
             <div className={css.failureMessage}>
-              <Icon name="warning-sign" />
-              {data?.data?.failureInfo?.message}
+              <Icon name="warning-sign" className={css.warningIcon} />
+              <Text
+                title={data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
+                width={150}
+                lineClamp={2}
+              >
+                {data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
+              </Text>
             </div>
           )}
         </div>

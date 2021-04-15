@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty, debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { ExecutionNode, useGetBarrierInfo } from 'services/pipeline-ng'
+import { ExecutionNode, useGetBarrierInfo, useGetResourceConstraintsExecutionInfo } from 'services/pipeline-ng'
 import { ExecutionPathParams, getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
@@ -13,6 +13,7 @@ import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHel
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
+import ResourceConstraintTooltip from './components/ResourceConstraints'
 import css from './ExecutionStageDetails.module.scss'
 export interface ExecutionStageDetailsProps {
   onStepSelect(step?: string): void
@@ -25,6 +26,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const { pipelineExecutionDetail, pipelineStagesMap, loading } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
+  const [resourceUnit, setResourceUnit] = React.useState({ id: null })
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<{}> | undefined
   >()
@@ -32,10 +34,11 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
     label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
     value: item[1].nodeUuid || /* istanbul ignore next */ '',
-    icon: { name: getIconFromStageModule(item[1].module) },
+    icon: { name: getIconFromStageModule(item[1].module, item[1].nodeType) },
     disabled: item[1].status === 'NotStarted'
   }))
-  const { executionIdentifier } = useParams<ExecutionPathParams>()
+
+  const { executionIdentifier, accountId } = useParams<ExecutionPathParams>()
   const stage = pipelineStagesMap.get(props.selectedStage)
   const { data: barrierInfo, loading: barrierInfoLoading, refetch } = useGetBarrierInfo({
     queryParams: {
@@ -44,19 +47,34 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     },
     lazy: true
   })
-
+  const {
+    data: resourceConstraintsData,
+    loading: resourceConstraintsLoading,
+    refetch: fetchResourceData
+  } = useGetResourceConstraintsExecutionInfo({
+    queryParams: {
+      resourceUnit: resourceUnit.id || '',
+      accountId
+    },
+    lazy: true
+  })
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.executionGraph),
     identifier: `${executionIdentifier}-${props.selectedStage}`,
-    status: stage?.status as any
+    status: stage?.status as any,
+    allNodes: Object.keys(pipelineExecutionDetail?.executionGraph?.nodeMap || {})
   }
   const fetchData = debounce(refetch, 1000)
+  const fetchResourceConstraints = debounce(fetchResourceData, 1000)
   // open details view when a step is selected
   React.useEffect(() => {
     if (barrierSetupId) {
       fetchData()
     }
-  }, [barrierSetupId])
+    if (resourceUnit.id) {
+      fetchResourceConstraints()
+    }
+  }, [barrierSetupId, resourceUnit])
   // open details view when a step is selected
   React.useEffect(() => {
     setStepDetailsVisibility(!!props.selectedStep)
@@ -78,6 +96,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
       if (currentStage?.data?.stepType === StepType.Barrier && status !== 'Success') {
         setBarrierSetupId(currentStage?.data?.setupId)
       }
+      if (currentStage?.data?.stepType === StepType.ResourceConstraint) {
+        setResourceUnit({ id: currentStage?.data?.stepParameters?.resourceUnit })
+      }
     }
   }
 
@@ -94,17 +115,22 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         }}
         data={stepInfo}
       >
-        {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status !== 'Success' && (
+        {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
             loading={barrierInfoLoading}
             data={{ ...barrierInfo?.data, stepParameters: stepInfo?.data?.stepParameters }}
             startTs={stepInfo?.data?.startTs}
           />
         )}
+        {stepInfo?.data?.stepType === StepType.ResourceConstraint && stepInfo?.data?.status === 'Waiting' && (
+          <ResourceConstraintTooltip
+            loading={resourceConstraintsLoading}
+            data={{ executionList: resourceConstraintsData?.data, ...stepInfo, executionId: executionIdentifier }}
+          />
+        )}
       </HoverCard>
     )
   }
-
   return (
     <div className={css.main}>
       {!isEmpty(props.selectedStage) && data.items?.length > 0 && (
@@ -127,7 +153,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           selectedStage={{
             label: stage?.nodeIdentifier || /* istanbul ignore next */ '',
             value: stage?.nodeUuid || /* istanbul ignore next */ '',
-            icon: { name: getIconFromStageModule(stage?.module) }
+            icon: { name: getIconFromStageModule(stage?.module, stage?.nodeType) }
           }}
           itemMouseEnter={onMouseEnter}
           itemMouseLeave={() => {
@@ -141,7 +167,13 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           canvasBtnsClass={css.canvasBtns}
         />
       )}
-      <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler as any} />
+      <DynamicPopover
+        className={css.popoverHeight}
+        darkMode={true}
+        render={renderPopover}
+        bind={setDynamicPopoverHandler as any}
+        closeOnMouseOut
+      />
     </div>
   )
 }

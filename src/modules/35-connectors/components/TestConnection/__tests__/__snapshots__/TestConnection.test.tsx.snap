@@ -12,7 +12,7 @@ exports[`Test Connection render test connection 1`] = `
       <span
         class="bp3-button-text"
       >
-        Test Connection
+        connectors.stepThreeName
       </span>
     </button>
   </div>
@@ -31,7 +31,7 @@ exports[`Test Connection render test connection verify out of cluster  1`] = `
       <span
         class="bp3-button-text"
       >
-        Test Connection
+        connectors.stepThreeName
       </span>
     </button>
   </div>
@@ -50,7 +50,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
       <span
         class="bp3-button-text"
       >
-        Test Connection
+        connectors.stepThreeName
       </span>
     </button>
   </div>

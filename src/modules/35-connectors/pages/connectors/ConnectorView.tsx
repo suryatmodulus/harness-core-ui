@@ -36,6 +36,10 @@ import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/exports'
 import { ConnectorStatus } from '@connectors/constants'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { getInvocationPathsForSecrets, getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
@@ -89,6 +93,22 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   const { getString } = useStrings()
   const isHarnessManaged = props.response?.harnessManaged
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
+
+  const [canEditConnector] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: connector.identifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
 
   const onConnectorChange = (isEditorDirty: boolean): void => {
     setHasConnectorChanged(isEditorDirty)
@@ -417,11 +437,19 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             </div>
           )}
           {state.enableEdit || isHarnessManaged ? null : (
-            <Button
+            <RbacButton
               id="editDetailsBtn"
               className={css.editButton}
               text={getString('editDetails')}
               icon="edit"
+              permission={{
+                permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
               onClick={() => {
                 state.setEnableEdit(true)
                 selectedView === SelectedView.VISUAL ? openConnectorModal(true, props.type, connector) : undefined
@@ -474,6 +502,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   {...yamlBuilderReadOnlyModeProps}
                   showSnippetSection={false}
                   onEnableEditMode={() => setEnableEdit(true)}
+                  isEditModeSupported={canEditConnector}
                 />
               </div>
             </Layout.Horizontal>

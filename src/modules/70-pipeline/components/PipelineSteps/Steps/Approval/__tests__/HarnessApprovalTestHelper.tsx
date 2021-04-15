@@ -1,5 +1,8 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { ResponsePageUserGroupDTO } from 'services/cd-ng'
+import type { HarnessApprovalStepModeProps } from '../types'
 
 export const getHarnessApprovalEditModeProps = () => ({
   initialValues: {
@@ -10,9 +13,32 @@ export const getHarnessApprovalEditModeProps = () => ({
       approverInputs: '',
       approvers: {
         userGroups: [],
-        users: [],
         minimumCount: '',
         disallowPipelineExecutor: ''
+      }
+    }
+  },
+  onUpdate: jest.fn()
+})
+
+export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStepModeProps => ({
+  initialValues: {
+    timeout: '10m',
+    name: 'harness approval step',
+    identifier: 'hhaass',
+    spec: {
+      approvalMessage: 'Approving pipeline <+pname>',
+      includePipelineExecutionHistory: true,
+      approverInputs: [
+        {
+          name: 'somekey',
+          defaultValue: 'somevalue'
+        }
+      ],
+      approvers: {
+        userGroups: ['ug1', 'ug2'],
+        minimumCount: 1,
+        disallowPipelineExecutor: true
       }
     }
   },
@@ -22,14 +48,13 @@ export const getHarnessApprovalEditModeProps = () => ({
 export const getHarnessApprovalDeploymentModeProps = () => ({
   initialValues: {
     spec: {
-      approvalMessage: RUNTIME_INPUT_VALUE,
-      includePipelineExecutionHistory: RUNTIME_INPUT_VALUE,
-      approverInputs: RUNTIME_INPUT_VALUE,
+      approvalMessage: '',
+      includePipelineExecutionHistory: false,
+      approverInputs: [],
       approvers: {
         userGroups: [],
-        users: [],
-        minimumCount: RUNTIME_INPUT_VALUE,
-        disallowPipelineExecutor: RUNTIME_INPUT_VALUE
+        minimumCount: 0,
+        disallowPipelineExecutor: false
       }
     }
   },
@@ -42,7 +67,6 @@ export const getHarnessApprovalDeploymentModeProps = () => ({
         approverInputs: RUNTIME_INPUT_VALUE,
         approvers: {
           userGroups: RUNTIME_INPUT_VALUE,
-          users: RUNTIME_INPUT_VALUE,
           minimumCount: RUNTIME_INPUT_VALUE,
           disallowPipelineExecutor: RUNTIME_INPUT_VALUE
         }
@@ -124,7 +148,6 @@ export const getHarnessApprovalInputVariableModeProps = () => ({
         approvalMessage: 'step-approvalMessage',
         includePipelineExecutionHistory: 'step-includePipelineExecutionHistory',
         approvers: {
-          users: 'step-approverusers',
           userGroups: 'step-approvergroups',
           minimumCount: 'step-minimumCount'
         },
@@ -141,19 +164,24 @@ export const mockUsersResponse = {
   error: null,
   data: {
     status: 'SUCCESS',
-    content: [{ name: 'u1', uuid: 'uv1' }],
+    content: [{ name: 'ug11', uuid: 'uv1' }],
     metaData: (null as unknown) as undefined,
     correlationId: 'someId'
   }
 }
 
-export const mockUserGroupsResponse = {
+export const mockUserGroupsResponse: UseGetMockData<ResponsePageUserGroupDTO> = {
   loading: false,
-  error: null,
   data: {
+    correlationId: '',
     status: 'SUCCESS',
-    content: [{ name: 'ug1', identifier: 'ugv1' }],
     metaData: (null as unknown) as undefined,
-    correlationId: 'someId'
+    data: {
+      content: [
+        { name: 'ug1', identifier: 'ug1' },
+        { name: 'ug2', identifier: 'ug2' },
+        { name: 'ug3', identifier: 'ug3' }
+      ]
+    }
   }
 }

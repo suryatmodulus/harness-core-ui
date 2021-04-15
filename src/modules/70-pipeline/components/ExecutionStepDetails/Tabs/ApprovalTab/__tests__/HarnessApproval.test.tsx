@@ -12,6 +12,12 @@ jest.mock('@common/components/Duration/Duration', () => ({
   }
 }))
 
+jest.mock('moment', () => {
+  const original = jest.requireActual('moment')
+  original().__proto__.format = () => 'XX:YY'
+  return original
+})
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
 jest.mock('services/pipeline-ng', () => ({
   useGetHarnessApprovalInstanceAuthorization: jest.fn(() => ({ data: {}, loading: false })),
@@ -50,7 +56,7 @@ describe('<HarnessApproval /> tests', () => {
         </TestWrapper>
       )
 
-      await findByText('Approve', { selector: '.bp3-button-text > span' })
+      await findByText('common.approve', { selector: '.bp3-button-text > span' })
 
       expect(container).toMatchSnapshot()
     })
@@ -65,7 +71,7 @@ describe('<HarnessApproval /> tests', () => {
         </TestWrapper>
       )
 
-      expect(() => getByText('Approve', { selector: '.bp3-button-text > span' })).toThrowError()
+      expect(() => getByText('common.approve', { selector: '.bp3-button-text > span' })).toThrowError()
 
       expect(container).toMatchSnapshot()
     })
@@ -84,7 +90,7 @@ describe('<HarnessApproval /> tests', () => {
 
       const queryByName = (id: string): HTMLElement | null => queryByAttribute('name', container, id)
 
-      const approve = await findByText('Approve', { selector: '.bp3-button-text > span' })
+      const approve = await findByText('common.approve', { selector: '.bp3-button-text > span' })
 
       fireEvent.change(queryByName('approverInputs[0].value')!, { target: { value: 'value1' } })
       fireEvent.change(queryByName('approverInputs[1].value')!, { target: { value: 'value2' } })
@@ -120,7 +126,7 @@ describe('<HarnessApproval /> tests', () => {
 
       const queryByName = (id: string): HTMLElement | null => queryByAttribute('name', container, id)
 
-      const reject = await findByText('Reject', { selector: '.bp3-button-text > span' })
+      const reject = await findByText('common.reject', { selector: '.bp3-button-text > span' })
 
       fireEvent.change(queryByName('approverInputs[0].value')!, { target: { value: 'value1' } })
       fireEvent.change(queryByName('approverInputs[1].value')!, { target: { value: 'value2' } })
@@ -156,7 +162,7 @@ describe('<HarnessApproval /> tests', () => {
         </TestWrapper>
       )
 
-      expect(() => getByText('Approve', { selector: '.bp3-button-text > span' })).toThrowError()
+      expect(() => getByText('common.approve', { selector: '.bp3-button-text > span' })).toThrowError()
 
       expect(container).toMatchSnapshot()
     })

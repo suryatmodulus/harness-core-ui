@@ -8,7 +8,7 @@
   border-radius: 11px;
   position: relative;
   padding-bottom: var(--spacing-none);
-  min-width: 600px;
+  min-width: 700px;
 }
 
 .cardRow {
@@ -18,8 +18,9 @@
 .card {
   display: flex !important;
   justify-content: center;
+  align-items: center;
   box-shadow: var(--card-box-shadow);
   margin: var(--spacing-small);
-  width: 90px;
-  height: 80px;
+  width: 100px;
+  height: 90px;
 }

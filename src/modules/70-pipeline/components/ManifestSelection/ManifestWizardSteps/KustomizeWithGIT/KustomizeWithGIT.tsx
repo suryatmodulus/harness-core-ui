@@ -66,7 +66,10 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }
@@ -115,8 +118,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
@@ -124,6 +125,14 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
           pluginPath: formData?.pluginPath,
           skipResourceVersioning: formData?.skipResourceVersioning
         }
+      }
+    }
+
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
       }
     }
 
@@ -143,7 +152,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired'))
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired'))
         })}
         onSubmit={formData => {
           submitFormData({
@@ -164,8 +173,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             <div className={helmcss.helmGitForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
@@ -196,7 +205,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select
                     name="gitFetchType"
-                    label={getString('manifestType.gitFetchTypeLabel')}
+                    label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                     items={gitFetchTypes}
                   />
                 </div>
@@ -210,7 +219,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   >
                     <FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      placeholder={getString('manifestType.branchPlaceholder')}
+                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -237,8 +246,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={getString('manifestType.commitId')}
-                      placeholder={getString('manifestType.commitPlaceholder')}
+                      label={getString('pipeline.manifestType.commitId')}
+                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="commitId"
                     />
@@ -266,8 +275,8 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('manifestType.kustomizeFolderPath')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    label={getString('pipeline.manifestType.kustomizeFolderPath')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />
@@ -286,7 +295,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   <Tooltip
                     position="top"
                     content={
-                      <div className={helmcss.tooltipContent}>{getString('manifestType.kustomizePathHelperText')} </div>
+                      <div className={helmcss.tooltipContent}>
+                        {getString('pipeline.manifestType.kustomizePathHelperText')}{' '}
+                      </div>
                     }
                     className={helmcss.tooltip}
                   >
@@ -302,7 +313,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                 >
                   <FormInput.MultiTextInput
                     label={getString('pluginPath')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="pluginPath"
                     multiTextInputProps={{ expressions }}
                   />
@@ -321,7 +332,9 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   <Tooltip
                     position="top"
                     content={
-                      <div className={helmcss.tooltipContent}>{getString('manifestType.pluginPathHelperText')} </div>
+                      <div className={helmcss.tooltipContent}>
+                        {getString('pipeline.manifestType.pluginPathHelperText')}{' '}
+                      </div>
                     }
                     className={helmcss.tooltip}
                   >
@@ -351,7 +364,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         position="top"
                         content={
                           <div className={helmcss.tooltipContent}>
-                            {getString('manifestType.helmSkipResourceVersion')}{' '}
+                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           </div>
                         }
                         className={helmcss.tooltip}

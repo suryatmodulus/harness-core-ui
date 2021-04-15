@@ -32,8 +32,8 @@ describe('Activity Graph', () => {
         </TestWrapper>
       </MemoryRouter>
     )
-    expect(getByText('Successful Activity')).toBeDefined()
-    expect(getByText('Failed Activity')).toBeDefined()
+    expect(getByText('activityHistory.successfulActivity')).toBeDefined()
+    expect(getByText('activityHistory.failedActivity')).toBeDefined()
 
     await act(async () => {
       const point = container.getElementsByClassName(
@@ -62,7 +62,7 @@ describe('Activity Graph', () => {
           </TestWrapper>
         </MemoryRouter>
       )
-      expect(getByText('Successful Activity')).toBeDefined()
-      expect(getByText('Failed Activity')).toBeDefined()
+      expect(getByText('activityHistory.successfulActivity')).toBeDefined()
+      expect(getByText('activityHistory.failedActivity')).toBeDefined()
     })
 })

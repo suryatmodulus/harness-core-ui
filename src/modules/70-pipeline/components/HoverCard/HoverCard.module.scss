@@ -1,20 +1,21 @@
 .hovercard {
   display: grid;
   padding: var(--spacing-medium);
+  padding-bottom: 0;
   max-width: 380px;
+  .warningIcon {
+    vertical-align: top;
+  }
 
   .header {
     display: grid;
     grid-template-columns: 1fr 100px;
-    border-bottom: 1px solid var(--grey-350);
     margin-bottom: var(--spacing-xsmall);
   }
   .title {
     display: grid;
     grid-template-rows: 1fr 1fr;
     font-weight: 500;
-    padding: var(--spacing-small) 0;
-    padding-top: 0;
     .failure-message {
       font-size: var(--font-size-small);
       color: var(--red-500);
@@ -35,6 +36,7 @@
     }
     .timeElapsed {
       color: var(--grey-350);
+      text-align: right;
       :global {
         span[icon='time'] {
           color: var(--grey-350);

@@ -1,0 +1,1236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Artifact ConnectorRefSteps tests last step data without initial values 1`] = `
+<div>
+  <div
+    class="StepWizard--main existingDocker StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepoType
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          <div
+            class="subtitle"
+            style="display: flex;"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="26"
+                viewBox="0 0 12 12"
+                width="26"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              style="align-self: center;"
+            >
+              dockerRegistry
+            </span>
+          </div>
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepository
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Artifact Location
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="StyledProps--font StyledProps--main optionsViewContainer"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
+          level="2"
+          style="color: black; font-size: 24px;"
+        >
+          first step
+        </h2>
+        <div
+          class="headerContainer"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon Card--selected"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-dockerhub"
+                  style="height: 26px;"
+                >
+                  <svg
+                    height="26"
+                    viewBox="0 0 14 10"
+                    width="26"
+                  >
+                    <path
+                      d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+                    />
+                    <path
+                      d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+                    />
+                    <path
+                      d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                dockerRegistry
+              </p>
+            </div>
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-gcp"
+                  style="height: 26px;"
+                >
+                  <svg
+                    height="26"
+                    viewBox="0 0 14 12"
+                    width="26"
+                  >
+                    <mask
+                      height="8.5"
+                      id="service-gcp_svg__a"
+                      maskUnits="userSpaceOnUse"
+                      width="9.1"
+                      x="0"
+                      y="0"
+                    >
+                      <path
+                        d="M0 0h9.1v8.5H0z"
+                        fill="#fff"
+                      />
+                    </mask>
+                    <path
+                      d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+                      fill="#cac9c2"
+                    />
+                    <path
+                      d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+                      fill="#5072aa"
+                    />
+                    <path
+                      d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+                      fill="#4d6796"
+                    />
+                    <path
+                      d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+                      fill="#cc4232"
+                    />
+                    <path
+                      d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+                      fill="#b23f33"
+                    />
+                    <path
+                      d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+                      fill="#ecb02a"
+                      mask="url(#service-gcp_svg__a)"
+                      transform="translate(0 3.421)"
+                    />
+                    <path
+                      d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+                      fill="#c79732"
+                    />
+                    <g
+                      fill="#fff"
+                    >
+                      <path
+                        d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                connectors.GCR.name
+              </p>
+            </div>
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="ecr-step"
+                  style="height: 26px;"
+                >
+                  <svg
+                    fill="none"
+                    height="26"
+                    viewBox="0 0 31 32"
+                    width="26"
+                  >
+                    <g
+                      clip-path="url(#ecr-step_svg__clip0)"
+                    >
+                      <path
+                        d="M30.47 0H0v32h30.47V0z"
+                        fill="url(#ecr-step_svg__pattern0)"
+                      />
+                    </g>
+                    <defs>
+                      <clippath
+                        id="ecr-step_svg__clip0"
+                      >
+                        <path
+                          d="M0 0h30.47v32H0z"
+                          fill="#fff"
+                        />
+                      </clippath>
+                      <pattern
+                        height="1"
+                        id="ecr-step_svg__pattern0"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                      >
+                        <use
+                          transform="scale(.00457 .00435)"
+                          xlink:href="#ecr-step_svg__image0"
+                        />
+                      </pattern>
+                      <image
+                        height="230"
+                        id="ecr-step_svg__image0"
+                        width="219"
+                        xlink:href="data:image/png;base64,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"
+                      />
+                    </defs>
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                connectors.ECR.name
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              continue
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`] = `
+<div>
+  <div
+    class="StepWizard--main existingDocker StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepoType
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          <div
+            class="subtitle"
+            style="display: flex;"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="26"
+                viewBox="0 0 12 12"
+                width="26"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              style="align-self: center;"
+            >
+              dockerRegistry
+            </span>
+          </div>
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepository
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
+        data-id="connectors.artifactRepository"
+      >
+        <div
+          class="heading"
+        >
+          second step
+        </div>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form>
+            <div
+              class="connectorForm"
+            >
+              <div
+                class="connectorContainer"
+              >
+                <div>
+                  select DockerRegistry connector
+                  <div
+                    class="bp3-form-group"
+                    style="margin-bottom: 0px;"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                        style="width: 410px;"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          style="width: 382px;"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main label"
+                              />
+                              <div
+                                class="rightStatus"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                  icon="full-circle"
+                                >
+                                  <svg
+                                    data-icon="full-circle"
+                                    height="6"
+                                    viewBox="0 0 16 16"
+                                    width="6"
+                                  >
+                                    <desc>
+                                      full-circle
+                                    </desc>
+                                    <path
+                                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                                <span
+                                  class="Tag--main"
+                                >
+                                  <span
+                                    class="bp3-tag bp3-minimal tag"
+                                  >
+                                    <span
+                                      class="bp3-text-overflow-ellipsis bp3-fill"
+                                    >
+                                      project
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <span
+                          class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <button
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="fixed-input"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 9 9"
+                                  width="12"
+                                >
+                                  <path
+                                    d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addNewArtifact StyledProps--intent-primary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+                    icon="plus"
+                  >
+                    <svg
+                      data-icon="plus"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        plus
+                      </desc>
+                      <path
+                        d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    new connector
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                  icon="chevron-left"
+                >
+                  <svg
+                    data-icon="chevron-left"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-left
+                    </desc>
+                    <path
+                      d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="bp3-button-text"
+                >
+                  back
+                </span>
+              </button>
+              <button
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  continue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Artifact ConnectorRefSteps tests renders correctly with connector Data 1`] = `
+<div>
+  <div
+    class="StepWizard--main existingDocker StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepoType
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          <div
+            class="subtitle"
+            style="display: flex;"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="26"
+                viewBox="0 0 12 12"
+                width="26"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              style="align-self: center;"
+            >
+              dockerRegistry
+            </span>
+          </div>
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepository
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="StyledProps--font StyledProps--main optionsViewContainer"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
+          level="2"
+          style="color: black; font-size: 24px;"
+        >
+          first step
+        </h2>
+        <div
+          class="headerContainer"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          />
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              continue
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Artifact ConnectorRefSteps tests renders correctly with differnet artifact types 1`] = `
+<div>
+  <div
+    class="StepWizard--main existingDocker StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepoType
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          <div
+            class="subtitle"
+            style="display: flex;"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="26"
+                viewBox="0 0 12 12"
+                width="26"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              style="align-self: center;"
+            >
+              connectors.GCR.name
+            </span>
+          </div>
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepository
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="StyledProps--font StyledProps--main optionsViewContainer"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
+          level="2"
+          style="color: black; font-size: 24px;"
+        >
+          first step
+        </h2>
+        <div
+          class="headerContainer"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-dockerhub"
+                  style="height: 26px;"
+                >
+                  <svg
+                    height="26"
+                    viewBox="0 0 14 10"
+                    width="26"
+                  >
+                    <path
+                      d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+                    />
+                    <path
+                      d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+                    />
+                    <path
+                      d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                dockerRegistry
+              </p>
+            </div>
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon Card--selected"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-gcp"
+                  style="height: 26px;"
+                >
+                  <svg
+                    height="26"
+                    viewBox="0 0 14 12"
+                    width="26"
+                  >
+                    <mask
+                      height="8.5"
+                      id="service-gcp_svg__a"
+                      maskUnits="userSpaceOnUse"
+                      width="9.1"
+                      x="0"
+                      y="0"
+                    >
+                      <path
+                        d="M0 0h9.1v8.5H0z"
+                        fill="#fff"
+                      />
+                    </mask>
+                    <path
+                      d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+                      fill="#cac9c2"
+                    />
+                    <path
+                      d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+                      fill="#5072aa"
+                    />
+                    <path
+                      d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+                      fill="#4d6796"
+                    />
+                    <path
+                      d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+                      fill="#cc4232"
+                    />
+                    <path
+                      d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+                      fill="#b23f33"
+                    />
+                    <path
+                      d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+                      fill="#ecb02a"
+                      mask="url(#service-gcp_svg__a)"
+                      transform="translate(0 3.421)"
+                    />
+                    <path
+                      d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+                      fill="#c79732"
+                    />
+                    <g
+                      fill="#fff"
+                    >
+                      <path
+                        d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                connectors.GCR.name
+              </p>
+            </div>
+            <div
+              class="squareCardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card artifactIcon"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="ecr-step"
+                  style="height: 26px;"
+                >
+                  <svg
+                    fill="none"
+                    height="26"
+                    viewBox="0 0 31 32"
+                    width="26"
+                  >
+                    <g
+                      clip-path="url(#ecr-step_svg__clip0)"
+                    >
+                      <path
+                        d="M30.47 0H0v32h30.47V0z"
+                        fill="url(#ecr-step_svg__pattern0)"
+                      />
+                    </g>
+                    <defs>
+                      <clippath
+                        id="ecr-step_svg__clip0"
+                      >
+                        <path
+                          d="M0 0h30.47v32H0z"
+                          fill="#fff"
+                        />
+                      </clippath>
+                      <pattern
+                        height="1"
+                        id="ecr-step_svg__pattern0"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                      >
+                        <use
+                          transform="scale(.00457 .00435)"
+                          xlink:href="#ecr-step_svg__image0"
+                        />
+                      </pattern>
+                      <image
+                        height="230"
+                        id="ecr-step_svg__image0"
+                        width="219"
+                        xlink:href="data:image/png;base64,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"
+                      />
+                    </defs>
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
+                style="font-size: 12px; text-align: center;"
+              >
+                connectors.ECR.name
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              continue
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Artifact ConnectorRefSteps tests renders without crashing 1`] = `
+<div>
+  <div
+    class="StepWizard--main existingDocker StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepoType
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          <div
+            class="subtitle"
+            style="display: flex;"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="info"
+            >
+              <svg
+                height="26"
+                viewBox="0 0 12 12"
+                width="26"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              style="align-self: center;"
+            >
+              dockerRegistry
+            </span>
+          </div>
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.artifactRepository
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="StyledProps--font StyledProps--main optionsViewContainer"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--margin-bottom-large"
+          level="2"
+          style="color: black; font-size: 24px;"
+        >
+          first step
+        </h2>
+        <div
+          class="headerContainer"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          />
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              continue
+            </span>
+            <span
+              class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+              icon="chevron-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-right
+                </desc>
+                <path
+                  d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

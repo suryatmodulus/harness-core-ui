@@ -1,5 +1,14 @@
 import React from 'react'
-import { act, fireEvent, getByText, queryByText, render, RenderResult, waitFor } from '@testing-library/react'
+import {
+  act,
+  fireEvent,
+  getByText,
+  findAllByText,
+  queryByText,
+  render,
+  RenderResult,
+  waitFor
+} from '@testing-library/react'
 
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
@@ -40,7 +49,7 @@ describe('Role Details Page', () => {
     container = renderObj.container
     getAllByText = renderObj.getAllByText
     getByTestId = renderObj.getByTestId
-    await waitFor(() => getAllByText('New Role'))
+    await waitFor(() => getAllByText('newRole'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()
@@ -78,10 +87,10 @@ describe('Role Details Page', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const edit = getByText(popover as HTMLElement, 'Edit')
+      const edit = await findAllByText(popover as HTMLElement, 'edit')
       await act(async () => {
-        fireEvent.click(edit)
-        await waitFor(() => getByText(document.body, 'Edit Role'))
+        fireEvent.click(edit[0])
+        await waitFor(() => getByText(document.body, 'editRole'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
         if (form) clickSubmit(form)
@@ -94,13 +103,13 @@ describe('Role Details Page', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const deleteMenu = getByText(popover as HTMLElement, 'Delete')
+      const deleteMenu = getByText(popover as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'Delete Role'))
+        await waitFor(() => getByText(document.body, 'roleCard.confirmDeleteTitle'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
-        const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+        const deleteBtn = queryByText(form as HTMLElement, 'delete')
         fireEvent.click(deleteBtn!)
         expect(deleteRole).toBeCalled()
       })

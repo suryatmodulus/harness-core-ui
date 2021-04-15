@@ -21,6 +21,7 @@ interface InputSetListViewProps {
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
   gotoPage: (pageNumber: number) => void
+  canUpdate?: boolean
 }
 
 interface InputSetLocal extends InputSetSummaryResponse {
@@ -68,7 +69,7 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
     </Text>
   )
 }
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const { getString } = useStrings()
   return (
@@ -82,7 +83,13 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         }
       ]}
     >
-      <Button icon="run-pipeline" className={css.runPipelineBtn} intent="primary" text={getString('runPipeline')} />
+      <Button
+        icon="run-pipeline"
+        className={css.runPipelineBtn}
+        intent="primary"
+        text={getString('runPipeline')}
+        disabled={!(column as any).canUpdate}
+      />
     </RunPipelineModal>
   )
 }
@@ -163,6 +170,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
               ;(column as any).goToInputSetDetail?.(data.identifier, data.inputSetType)
               setMenuOpen(false)
             }}
+            disabled={!(column as any).canUpdate}
           />
           <Menu.Item
             icon="duplicate"
@@ -186,6 +194,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
               confirmDelete()
               setMenuOpen(false)
             }}
+            disabled={!(column as any).canUpdate}
           />
         </Menu>
       </Popover>
@@ -198,7 +207,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   gotoPage,
   goToInputSetDetail,
   refetchInputSet,
-  cloneInputSet
+  cloneInputSet,
+  canUpdate = true
 }): JSX.Element => {
   const { getString } = useStrings()
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
@@ -240,7 +250,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         width: '15%',
         Cell: RenderColumnActions,
         disableSortBy: true,
-        goToInputSetDetail
+        goToInputSetDetail,
+        canUpdate
       },
       {
         Header: '',
@@ -250,7 +261,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         disableSortBy: true,
         goToInputSetDetail,
         refetchInputSet,
-        cloneInputSet
+        cloneInputSet,
+        canUpdate
       }
     ],
     [goToInputSetDetail, refetchInputSet, cloneInputSet]

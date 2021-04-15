@@ -25,11 +25,11 @@ export interface MultiTypeSecretInputFixedTypeComponentProps
 export function MultiTypeSecretInputFixedTypeComponent(
   props: MultiTypeSecretInputFixedTypeComponentProps
 ): React.ReactElement {
-  const { value, onChange, ...rest } = props
+  const { value, onChange, disabled, ...rest } = props
   const { getString } = useStrings()
 
   return (
-    <Button {...rest} className={css.value} icon="key-main" iconProps={{ size: 24, height: 12 }}>
+    <Button {...rest} className={css.value} icon="key-main" disabled={disabled} iconProps={{ size: 24, height: 12 }}>
       {value || getString('createOrSelectSecret')}
     </Button>
   )
@@ -92,6 +92,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
         <ExpressionAndRuntimeType
           name={name}
           value={value}
+          disabled={disabled}
           onChange={handleChange}
           style={{ flexGrow: 1 }}
           fixedTypeComponentProps={{ onClick: openCreateOrSelectSecretModal }}
@@ -103,6 +104,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
           value={value}
           onChange={handleChange}
           onClick={openCreateOrSelectSecretModal}
+          disabled={disabled}
         />
       )}
     </FormGroup>

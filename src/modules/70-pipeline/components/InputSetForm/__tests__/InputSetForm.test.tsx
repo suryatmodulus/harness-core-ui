@@ -110,14 +110,14 @@ describe('Render Forms - Snapshot Testing', () => {
     )
 
     // Switch Mode
-    fireEvent.click(getByText('YAML'))
+    fireEvent.click(getByText('yaml'))
     await waitFor(() => getAllByText('Yaml View'))
     // Switch Mode
-    fireEvent.click(getByText('VISUAL'))
+    fireEvent.click(getByText('visual'))
     const stages = container.querySelector('.header')
     fireEvent.click(stages as Element)
     // Close Form
-    fireEvent.click(getByText('Cancel'))
+    fireEvent.click(getByText('cancel'))
     expect(container).toMatchSnapshot()
   })
 
@@ -138,8 +138,8 @@ describe('Render Forms - Snapshot Testing', () => {
       </TestWrapper>
     )
     const container = findDialogContainer()
-    await waitFor(() => getAllByText('+ Add Input Set'))
-    const addNew = getAllByText('+ Add Input Set')[0]
+    await waitFor(() => getAllByText('inputSets.addInputSetPlus'))
+    const addNew = getAllByText('inputSets.addInputSetPlus')[0]
     // Add two
     fireEvent.click(addNew)
     fireEvent.click(addNew)
@@ -183,11 +183,11 @@ describe('Render Forms - Snapshot Testing', () => {
     fireEvent.click(infraPanel as Element)
     expect(container).toMatchSnapshot('expanded')
     await waitFor(() => getAllByText('tesa1'))
-    fireEvent.click(getByText('Save'))
+    fireEvent.click(getByText('save'))
     // Switch Mode
-    fireEvent.click(getByText('YAML'))
+    fireEvent.click(getByText('yaml'))
     await waitFor(() => getAllByText('Yaml View'))
-    fireEvent.click(getByText('Save'))
+    fireEvent.click(getByText('save'))
     expect(container).toMatchSnapshot()
   })
 
@@ -210,11 +210,11 @@ describe('Render Forms - Snapshot Testing', () => {
     const container = findDialogContainer()
     await waitFor(() => getAllByText('2.'))
     expect(container).toMatchSnapshot()
-    fireEvent.click(getByText('Save'))
+    fireEvent.click(getByText('save'))
     // Switch Mode
-    fireEvent.click(getByText('YAML'))
+    fireEvent.click(getByText('yaml'))
     await waitFor(() => getAllByText('Yaml View'))
-    fireEvent.click(getByText('Save'))
+    fireEvent.click(getByText('save'))
   })
 
   test('render Edit Overlay Input Set Form and test drag drop', async () => {

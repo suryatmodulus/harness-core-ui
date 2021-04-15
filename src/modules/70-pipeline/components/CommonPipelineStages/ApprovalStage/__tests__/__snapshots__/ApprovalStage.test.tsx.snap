@@ -1,0 +1,843 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Approval Stage readonly view if readonly view works: readonly view apprvoal step overview 1`] = `
+<div>
+  <section
+    class="approvalStageSetupShellWrapper"
+  >
+    <div
+      class="bp3-tabs Tabs--main Tabs--horizontal"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellOverview"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="approvalStage.setupShellOverview"
+          id="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellOverview"
+          role="tab"
+          tabindex="0"
+        >
+          <span
+            class="tab"
+          >
+            <span
+              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-green800"
+              icon="tick"
+              style="height: 20px;"
+            >
+              <svg
+                data-icon="tick"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <desc>
+                  tick
+                </desc>
+                <path
+                  d="M17 4c-.28 0-.53.11-.71.29L7 13.59 3.71 10.3A.965.965 0 003 10a1.003 1.003 0 00-.71 1.71l4 4c.18.18.43.29.71.29s.53-.11.71-.29l10-10A1.003 1.003 0 0017 4z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            approvalStage.setupShellOverview
+          </span>
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellExecution"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="approvalStage.setupShellExecution"
+          id="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellExecution"
+          role="tab"
+          tabindex="0"
+        >
+          <span
+            class="tab"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="deployment-success-legacy"
+              style="height: 20px;"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 14 14"
+                width="20"
+              >
+                <circle
+                  cx="7"
+                  cy="7"
+                  fill="#38d168"
+                  r="7"
+                />
+                <circle
+                  cx="7"
+                  cy="7"
+                  fill="#fff"
+                  r="5.2"
+                />
+                <path
+                  d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                  fill="#38d168"
+                />
+              </svg>
+            </span>
+            approvalStage.setupShellExecution
+          </span>
+        </div>
+        <div
+          class="spacer"
+        />
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main failureStrategy"
+          type="button"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
+            data-icon="conditional-skip"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 16 11"
+              width="16"
+            >
+              <path
+                d="M13.333 9.333h1.334V8h-1.334zm-6 0h1.334V8H7.333zm-6 0h1.334V8H1.333zM12 6.667v4h4v-4zm-6 0v4h4v-4zm-6 0v4h4v-4zM8 0A8.666 8.666 0 00.96 3.61l1.083.78a7.318 7.318 0 0110.974-1.057h-2.35v1.334h4.666V0H14v2.432A8.634 8.634 0 008 0z"
+                fill="#e59c0b"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            skipConditionTitle
+          </span>
+        </button>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main failureStrategy"
+          type="button"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
+            data-icon="failure-strategy"
+          >
+            <svg
+              height="28"
+              viewBox="0 0 22 10"
+              width="28"
+            >
+              <defs>
+                <mask
+                  id="failure-strategy_svg__b"
+                >
+                  <path
+                    d="M16.137 6.5h5.4v5.848h-5.4z"
+                    fill="#fff"
+                    stroke="#fff"
+                    stroke-width="1.1"
+                  />
+                  <use
+                    xlink:href="#failure-strategy_svg__a"
+                  />
+                </mask>
+                <mask
+                  id="failure-strategy_svg__c"
+                >
+                  <path
+                    d="M23.5 9H26v1h-2.5z"
+                    fill="#fff"
+                  />
+                  <use
+                    xlink:href="#failure-strategy_svg__a"
+                  />
+                </mask>
+                <path
+                  d="M19.972 4l.707-.707-.707-.707-.707.707.707.707zM21.5 5.528l-.707.707.707.707.707-.707-.707-.707zM19 4.972l-.707-.707-.707.707.707.707.707-.707zM20.528 6.5l.707.707.707-.707-.707-.707-.707.707zM19 8.028l-.707-.707-.707.707.707.707.707-.707zm.972.972l-.707.708.707.707.707-.707L19.972 9zM21.5 7.472l.707-.707-.707-.707-.707.707.707.707zM23.028 9l-.707.707.707.707.707-.707L23.028 9zM24 8.028l.707.707.707-.707-.707-.707-.707.707zM22.473 6.5l-.708-.707-.707.707.707.707.707-.707zM24 4.973l.707.707.707-.707-.707-.708-.707.708zM23.028 4l.707-.707-.707-.707-.707.707.707.707zm-3.763.707l1.528 1.528 1.414-1.414-1.528-1.528-1.414 1.414zm.442.972l.972-.972-1.414-1.414-.972.972 1.414 1.414zm1.528.114l-1.528-1.528-1.414 1.414 1.528 1.528 1.414-1.414zm-1.528 2.942l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414zm.972-.442l-.972-.972-1.414 1.414.972.973 1.414-1.415zm.114-1.528l-1.528 1.528 1.414 1.415 1.528-1.528-1.414-1.415zm2.942 1.528l-1.528-1.528-1.414 1.415 1.528 1.527 1.414-1.414zm-.442-.972l-.972.972 1.414 1.414.972-.972-1.414-1.414zm-1.528-.114l1.528 1.528 1.414-1.414-1.527-1.528-1.415 1.414zm1.528-2.942l-1.528 1.528 1.415 1.414 1.527-1.527-1.414-1.415zm-.972.442l.972.973 1.414-1.415-.972-.972-1.414 1.414zm-.114 1.528l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414z"
+                  fill="#000"
+                  id="failure-strategy_svg__a"
+                />
+              </defs>
+              <g
+                transform="translate(-12 -3.7)"
+              >
+                <path
+                  d="M12.731 9.462h1.359"
+                  stroke="currentColor"
+                  stroke-linecap="square"
+                />
+                <rect
+                  fill="none"
+                  height="5.848"
+                  mask="url(#failure-strategy_svg__b)"
+                  rx="0.5"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  width="5.4"
+                  x="16.137"
+                  y="6.5"
+                />
+                <path
+                  d="M23.5 9h2.4v1.1h-2.4z"
+                  fill="currentColor"
+                  mask="url(#failure-strategy_svg__c)"
+                />
+                <rect
+                  fill="none"
+                  height="5.848"
+                  rx="0.5"
+                  stroke="currentColor"
+                  stroke-width="1.1"
+                  width="5.4"
+                  x="27.099"
+                  y="6.5"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M21.5 5.528L19.972 4 19 4.972 20.528 6.5 19 8.028l.972.972L21.5 7.472 23.028 9 24 8.028 22.473 6.5 24 4.973 23.028 4 21.5 5.528z"
+                  fill="#DA291D"
+                  fill-rule="evenodd"
+                />
+              </g>
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            pipeline.failureStrategies.title
+          </span>
+        </button>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellOverview"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellOverview"
+        role="tabpanel"
+      >
+        <div
+          class="approvalStageOverviewWrapper stageSection"
+        >
+          <div
+            class="timelineSidebar"
+          >
+            <div
+              class="timeline timeline-sidebar-main"
+            >
+              <ul>
+                <li
+                  class="timelineItem active"
+                  data-id="stageOverview"
+                  id="timeline--stageOverview"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 1;"
+                  >
+                    Stage Overview
+                  </p>
+                </li>
+                <li
+                  class="timelineItem"
+                  data-id="approvalType"
+                  id="timeline--approvalType"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 1;"
+                  >
+                    Approval Type
+                  </p>
+                </li>
+                <li
+                  class="timelineItem"
+                  data-id="variables-panel"
+                  id="timeline--variables-panel"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 1;"
+                  >
+                    Stage Variables
+                  </p>
+                </li>
+                <li
+                  class="timelineItem"
+                  data-id="skipCondition-panel"
+                  id="timeline--skipCondition-panel"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 1;"
+                  >
+                    Skip Condition
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="sidebarToggle"
+            >
+              <span
+                class="sidebarToggleContent"
+              >
+                &lt;
+              </span>
+            </div>
+          </div>
+          <div
+            class="content"
+          >
+            <div
+              class="tabHeading"
+              id="stageOverview"
+            >
+              stageOverview
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main basicOverviewDetails"
+              id="stageOverview"
+            >
+              <form
+                class="FormikForm--main"
+              >
+                <div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main main"
+                    >
+                      <div
+                        class="InputWithIdentifier--txtNameContainer"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                              >
+                                <span
+                                  class="bp3-editable-text-content"
+                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                >
+                                  ApprovalStep
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group bp3-disabled"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group bp3-disabled"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                disabled=""
+                                name="name"
+                                type="text"
+                                value="ApprovalStep"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                            data-name="edit"
+                            data-testid="description-edit"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                            data-name="edit"
+                            data-testid="tags-edit"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="tabHeading"
+                    id="approvalType"
+                  >
+                    approvalStage.approvalTypeHeading
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card sectionCard shadow approvalCards"
+                  >
+                    <div
+                      class="grid"
+                    >
+                      <div
+                        class=""
+                        data-index="0"
+                      >
+                        <div
+                          class="squareCardContainer"
+                        >
+                          <div
+                            class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="nav-harness"
+                              style="height: 26px;"
+                            >
+                              <svg
+                                height="26"
+                                viewBox="0 0 24 24"
+                                width="26"
+                              >
+                                <mask
+                                  fill="#fff"
+                                  id="nav-harness_svg__a"
+                                >
+                                  <path
+                                    d="M0 0h23.897v23.907H0z"
+                                    fill-rule="evenodd"
+                                  />
+                                </mask>
+                                <path
+                                  d="M20.387 12.467c-.24.64-.64 1.2-.72 1.2l-1.76 1.76-3.52-3.44 3.44-3.44 1.76 1.76c.56.48 1.04 1.12.8 2.16m-8.88 7.92c-.64-.24-1.2-.64-1.2-.72l-1.76-1.76 3.44-3.44 3.44 3.44-1.76 1.76c-.48.48-1.2.96-2.16.72m-7.92-8.88c.24-.64.64-1.2.72-1.2l1.76-1.76 3.44 3.44-3.44 3.44-1.84-1.76c-.48-.48-.96-1.2-.64-2.16m8.88-7.92c.64.24 1.2.64 1.2.72l1.76 1.76-3.44 3.44-3.44-3.44 1.76-1.76c.48-.48 1.12-1.04 2.16-.72m9.68 4.24l-6-6c-.08-.08-1.04-1.04-2.48-1.52-2.08-.72-4.08-.16-5.76 1.52l-6.08 6c-.08.08-1.04 1.04-1.52 2.48-.72 2.08-.16 4.08 1.52 5.76l6 6c.08.08 1.04 1.04 2.48 1.52.56.16 1.2.32 1.76.32 1.44 0 2.8-.64 4-1.76l6-6c.08-.08 1.04-1.04 1.52-2.48.72-2.08.16-4.16-1.44-5.84"
+                                  fill="#1987cb"
+                                  fill-rule="evenodd"
+                                  mask="url(#nav-harness_svg__a)"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="font-size: 12px; text-align: center;"
+                          >
+                            Harness Approval
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class=""
+                        data-index="1"
+                      >
+                        <div
+                          class="squareCardContainer"
+                        >
+                          <div
+                            class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="service-jira"
+                              style="height: 26px;"
+                            >
+                              <svg
+                                height="26"
+                                viewBox="0 0 14 14"
+                                width="26"
+                              >
+                                <lineargradient
+                                  id="service-jira_svg__a"
+                                >
+                                  <stop
+                                    offset="0.18"
+                                    stop-color="#0052cc"
+                                  />
+                                  <stop
+                                    offset="1"
+                                    stop-color="#2684ff"
+                                  />
+                                </lineargradient>
+                                <lineargradient
+                                  gradientTransform="matrix(4.5 0 0 -7 1045.5 2440)"
+                                  gradientUnits="userSpaceOnUse"
+                                  id="service-jira_svg__b"
+                                  x1="-231.106"
+                                  x2="-231.372"
+                                  xlink:href="#service-jira_svg__a"
+                                  y1="348.167"
+                                  y2="347.754"
+                                />
+                                <lineargradient
+                                  gradientTransform="matrix(4.5 0 0 -7 1050 2447)"
+                                  gradientUnits="userSpaceOnUse"
+                                  id="service-jira_svg__c"
+                                  x1="-231.447"
+                                  x2="-231.182"
+                                  xlink:href="#service-jira_svg__a"
+                                  y1="347.979"
+                                  y2="348.392"
+                                />
+                                <path
+                                  d="M13.6 6.6l-6-6L7 0 2.5 4.5.4 6.6c-.2.2-.2.6 0 .8l4.1 4.1L7 14l4.5-4.5.1-.1 2-2c.2-.2.2-.6 0-.8zM7 9.1L4.9 7 7 4.9 9.1 7z"
+                                  fill="#2684ff"
+                                />
+                                <path
+                                  d="M7 4.9C5.6 3.6 5.6 1.4 7 0L2.5 4.5 4.9 7z"
+                                  fill="url(#service-jira_svg__b)"
+                                />
+                                <path
+                                  d="M9.1 7L7 9.1c1.4 1.4 1.4 3.6 0 4.9l4.5-4.5z"
+                                  fill="url(#service-jira_svg__c)"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="font-size: 12px; text-align: center;"
+                          >
+                            Jira
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class=""
+                        data-index="2"
+                      >
+                        <div
+                          class="squareCardContainer"
+                        >
+                          <div
+                            class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="service-servicenow"
+                              style="height: 26px;"
+                            >
+                              <svg
+                                height="26"
+                                viewBox="0 0 14 14"
+                                width="26"
+                              >
+                                <path
+                                  d="M7.5.8c.1.1.2 0 .3 0 .3 0 .7.1 1 .2.4.1.8.3 1.2.5s.8.4 1.1.7c.2.2.5.4.7.6.4.4.8.9 1.1 1.4s.6 1.1.7 1.7c.1.3.1.7.2 1 0 .3.1.6 0 .9 0 .6-.1 1.2-.3 1.7-.1.5-.3.9-.5 1.4-.2.4-.5.8-.8 1.2-.1.2-.3.3-.4.5-.3.3-.7.5-1.2.5-.3 0-.5-.2-.8-.3-.3-.3-.7-.5-1.1-.6l-1.2-.3h-.9c-.4 0-.9.1-1.3.3-.5.2-.9.4-1.2.7-.4.3-1.1.4-1.6.1-.3-.2-.5-.4-.7-.7-.2-.2-.4-.5-.6-.8-.2-.6-.4-1-.6-1.5-.2-.4-.3-.8-.4-1.2V7.5c0-.5.1-1 .2-1.5s.3-1.1.6-1.6c.2-.5.5-.9.9-1.3.5-.6 1.2-1.1 1.9-1.6.5-.2 1.2-.5 2-.6.2 0 .4-.1.6-.1h.1z"
+                                  fill="#80b4a0"
+                                />
+                                <path
+                                  d="M3.6 7.3c0-.8.2-1.4.6-2 .5-.8 1.3-1.3 2.2-1.4.2 0 .4-.1.6-.1.6 0 1.2.2 1.8.5.3.2.5.3.7.5.4.5.8 1.1.9 1.7.1.3.1.7.1 1 0 .7-.3 1.4-.7 2-.5.6-1.1 1-1.9 1.2-.4.1-.7.1-1.1.1-.6-.1-1.2-.3-1.7-.7-.4-.3-.7-.6-.9-1-.4-.5-.5-.9-.5-1.3-.1-.2-.1-.4-.1-.5z"
+                                  fill="#fefefe"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="font-size: 12px; text-align: center;"
+                          >
+                            ServiceNow
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class=""
+                        data-index="3"
+                      >
+                        <div
+                          class="squareCardContainer"
+                        >
+                          <div
+                            class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="other-workload"
+                              style="height: 26px;"
+                            >
+                              <svg
+                                height="26"
+                                viewBox="0 0 16 4"
+                                width="26"
+                              >
+                                <path
+                                  d="M2.72.08C1.664.08.8.944.8 2s.864 1.92 1.92 1.92S4.64 3.056 4.64 2 3.776.08 2.72.08zm0 3.2c-.704 0-1.28-.576-1.28-1.28 0-.704.576-1.28 1.28-1.28C3.424.72 4 1.296 4 2c0 .704-.576 1.28-1.28 1.28zM13.28.08c-1.056 0-1.92.864-1.92 1.92s.864 1.92 1.92 1.92S15.2 3.056 15.2 2 14.336.08 13.28.08zm0 3.2C12.576 3.28 12 2.704 12 2c0-.704.576-1.28 1.28-1.28.704 0 1.28.576 1.28 1.28 0 .704-.576 1.28-1.28 1.28zM8 .08C6.944.08 6.08.944 6.08 2S6.944 3.92 8 3.92 9.92 3.056 9.92 2 9.056.08 8 .08zm0 3.2c-.704 0-1.28-.576-1.28-1.28 0-.704.576-1.28 1.28-1.28.704 0 1.28.576 1.28 1.28 0 .704-.576 1.28-1.28 1.28z"
+                                  fill="#25A6F7"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="font-size: 12px; text-align: center;"
+                          >
+                            Custom
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div
+              class="Accordion--accordion sectionCard shadow"
+            >
+              <div
+                class="Accordion--panel"
+                data-open="true"
+                data-testid="variables-panel"
+                id="variables-panel"
+              >
+                <div
+                  class="Accordion--summary"
+                  data-testid="variables-summary"
+                >
+                  <div
+                    class="Accordion--label"
+                  >
+                    Variables
+                  </div>
+                  <div
+                    class="Accordion--chevron"
+                  />
+                </div>
+                <div
+                  class="bp3-collapse Accordion--collapse"
+                  style="height: auto; overflow-y: visible; transition: none;"
+                >
+                  <div
+                    aria-hidden="false"
+                    class="bp3-collapse-body"
+                    style="transform: translateY(0); transition: none;"
+                  >
+                    <div
+                      class="Accordion--details"
+                      data-testid="variables-details"
+                    >
+                      <div>
+                        {"a":"a","variables":[],"canAddVariable":true}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Accordion--accordion sectionCard shadow"
+            >
+              <div
+                class="Accordion--panel"
+                data-open="true"
+                data-testid="skipCondition-panel"
+                id="skipCondition-panel"
+              >
+                <div
+                  class="Accordion--summary"
+                  data-testid="skipCondition-summary"
+                >
+                  <div
+                    class="Accordion--label"
+                  >
+                    Skip Condition
+                  </div>
+                  <div
+                    class="Accordion--chevron"
+                  />
+                </div>
+                <div
+                  class="bp3-collapse Accordion--collapse"
+                  style="height: auto; overflow-y: visible; transition: none;"
+                >
+                  <div
+                    aria-hidden="false"
+                    class="bp3-collapse-body"
+                    style="transform: translateY(0); transition: none;"
+                  >
+                    <div
+                      class="Accordion--details"
+                      data-testid="skipCondition-details"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
+                      >
+                        <span>
+                          skipConditionStageLabel
+                        </span>
+                      </p>
+                      <div
+                        class="bp3-form-group"
+                      >
+                        
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-popover-wrapper"
+                          >
+                            <div
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="bp3-input-group bp3-disabled"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  disabled=""
+                                  name="skipCondition"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        style="white-space: break-spaces;"
+                      >
+                        <span>
+                          skipConditionText
+                        </span>
+                        <br />
+                        <a
+                          href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          <span>
+                            learnMore
+                          </span>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer StyledProps--padding-medium"
+            >
+              <button
+                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  next
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;

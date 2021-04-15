@@ -1,11 +1,20 @@
-import { shallowCompare } from './PermissionsContext'
+import { getStringKeyFromObjectValues, keysToCompare } from './PermissionsContext'
 
-describe('shallowCompare', () => {
-  test('check behaviour', () => {
-    expect(shallowCompare({ a: 1, b: 2 }, { a: 1, b: 2 }, ['a', 'b'])).toBe(true)
-    expect(shallowCompare({ a: 1, b: 3 }, { a: 1, b: 2 }, ['a', 'b'])).toBe(false)
-    expect(shallowCompare({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }, ['a', 'b'])).toBe(true)
-    expect(shallowCompare({}, {}, [])).toBe(true)
-    expect(shallowCompare({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 }, ['a', 'b', 'c'])).toBe(false)
+describe('PermissionContext', () => {
+  test('getStringKeyFromObjectValues', () => {
+    expect(
+      getStringKeyFromObjectValues(
+        {
+          resourceScope: {
+            accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+            orgIdentifier: 'org2'
+          },
+          resourceType: 'PROJECT',
+          resourceIdentifier: 'asdas',
+          permission: 'core_project_edit'
+        },
+        keysToCompare
+      )
+    ).toEqual('kmpySmUISimoRrJL6NL73w/org2/PROJECT/asdas/core_project_edit')
   })
 })

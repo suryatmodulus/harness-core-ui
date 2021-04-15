@@ -11,7 +11,7 @@ import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/Create
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody/SecretResourceModalBody'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/exports'
@@ -26,11 +26,12 @@ const AccountSettingsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'lock',
   label: 'Secrets',
-  category: ResourceTypeGroup.PROJECT_RESOURCES,
+  category: ResourceCategory.PROJECT_RESOURCES,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_SECRET]: <String stringID="permissionLabels.createEdit" />,
-    [PermissionIdentifier.VIEW_SECRET]: <String stringID="permissionLabels.view" />,
-    [PermissionIdentifier.DELETE_SECRET]: <String stringID="permissionLabels.delete" />
+    [PermissionIdentifier.UPDATE_SECRET]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.VIEW_SECRET]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.DELETE_SECRET]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.ACCESS_SECRET]: <String stringID="rbac.permissionLabels.access" />
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <SecretResourceModalBody {...props} />

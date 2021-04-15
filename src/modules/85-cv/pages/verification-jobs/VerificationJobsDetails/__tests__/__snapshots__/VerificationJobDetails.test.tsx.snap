@@ -20,12 +20,12 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-small"
             >
-              Create your verification job
+              cv.verificationJobs.details.heading
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
             >
-              Verification jobs trigger automatically whenever a relevant change is sourced from a Change Source. They verify the risk of the change by analyzing the data collected from the Verification Monitoring Sources.
+              cv.onboarding.verificationJobs.infoText
             </p>
             <div
               class="StyledProps--font StyledProps--main main"
@@ -94,7 +94,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name of your job
+                        cv.verificationJobs.details.name
                          
                         <span
                           class="bp3-text-muted"
@@ -151,7 +151,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                     class="bp3-label"
                     for="activitySource"
                   >
-                    Change Source
+                    changeSource
                      
                     <span
                       class="bp3-text-muted"
@@ -245,6 +245,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                               class="bp3-tag-input-values"
                             >
                               <input
+                                autocomplete="off"
                                 class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                 name="dataSource"
                                 placeholder="Search..."
@@ -270,7 +271,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                 >
-                  Select the type of verification job
+                  cv.verificationJobs.details.selectType
                 </p>
                  
                 <span
@@ -290,7 +291,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                       class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                       style="width: 150px;"
                     >
-                      Pre-Deployment Tests
+                      cv.verificationJobs.details.preDeploymentTests
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -325,7 +326,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                         >
-                          Test
+                          test
                         </p>
                       </div>
                     </div>
@@ -337,7 +338,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                       class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                       style="width: 200px;"
                     >
-                      Production Deployments
+                      cv.verificationJobs.details.productionDep
                     </p>
                     <div
                       class="Layout--horizontal StyledProps--main"
@@ -476,7 +477,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                           >
-                            BlueGreen
+                            blueGreen
                           </p>
                         </div>
                       </div>
@@ -510,7 +511,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                           >
-                            Canary
+                            canary
                           </p>
                         </div>
                       </div>
@@ -523,7 +524,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                       class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
                       style="width: 150px;"
                     >
-                      Post Deployment Tests
+                      cv.verificationJobs.details.postDeploymentTests
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -556,7 +557,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                         >
-                          Health
+                          health
                         </p>
                       </div>
                     </div>

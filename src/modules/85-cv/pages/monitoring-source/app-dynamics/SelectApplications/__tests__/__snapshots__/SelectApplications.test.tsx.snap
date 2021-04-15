@@ -41,7 +41,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             </span>
             <input
               class="bp3-input"
-              placeholder="Search for Applications"
+              placeholder="cv.monitoringSources.appD.searchPlaceholderApplications"
               type="text"
               value=""
             />
@@ -72,7 +72,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
             >
-              APPDYNAMICS APPLICATIONS
+              cv.monitoringSources.appD.appDApplications
             </p>
           </div>
           <div
@@ -81,7 +81,7 @@ exports[`SelectApplications Matches snapshot 1`] = `
             role="columnheader"
             style="width: 45%;"
           >
-            MAPPING TO HARNESS ENVIRONMENT
+            cv.monitoringSources.appD.mapToHarnessEnvironment
           </div>
         </div>
         <div

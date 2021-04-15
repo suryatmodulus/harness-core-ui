@@ -19,7 +19,8 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_USERPROFILE } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+
   return (
     <Switch>
       {...commonRoutes.props.children}
@@ -28,7 +29,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
       {...connectorRoutes.props.children}
-      {...NG_USERPROFILE ? userProfileRoutes.props.children : []}
+      {...userProfileRoutes.props.children}
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}

@@ -107,7 +107,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       defaultScope={defaultScope}
       recordClassName={css.listItem}
       fetchRecords={(scope, search = '', done) => {
-        const selectedType = (secretType?.value as SecretDTOV2['type']) || type || 'SecretText'
+        const selectedType = type || (secretType?.value as SecretDTOV2['type'])
         fetchRecords(scope, search, done, selectedType, accountIdentifier, projectIdentifier, orgIdentifier, mock)
       }}
       projectIdentifier={projectIdentifier}

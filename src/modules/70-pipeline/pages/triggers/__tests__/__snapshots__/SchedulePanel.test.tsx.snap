@@ -1,0 +1,1589 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Hourly selection updates expression breakdown and expression: Updated hourly 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main schedulePanelContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            pipeline-triggers.schedulePanel.title
+          </h2>
+          <div
+            class="bp3-tabs Tabs--main Tabs--horizontal"
+          >
+            <div
+              class="bp3-tab-list"
+              role="tablist"
+            >
+              <div
+                class="bp3-tab-indicator-wrapper"
+                style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+              >
+                <div
+                  class="bp3-tab-indicator"
+                />
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Minutes"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Minutes"
+                id="bp3-tab-title_Wizard_Minutes"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.minutesLabel
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Hourly"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-selected="true"
+                class="bp3-tab"
+                data-tab-id="Hourly"
+                id="bp3-tab-title_Wizard_Hourly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.hourlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Daily"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Daily"
+                id="bp3-tab-title_Wizard_Daily"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.dailyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Weekly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Weekly"
+                id="bp3-tab-title_Wizard_Weekly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.weeklyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Monthly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Monthly"
+                id="bp3-tab-title_Wizard_Monthly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.monthlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Yearly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Yearly"
+                id="bp3-tab-title_Wizard_Yearly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.yearlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Custom"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Custom"
+                id="bp3-tab-title_Wizard_Custom"
+                role="tab"
+                tabindex="0"
+              >
+                common.repo_provider.customLabel
+              </div>
+            </div>
+            <div
+              aria-hidden="false"
+              aria-labelledby="bp3-tab-title_Wizard_Hourly"
+              class="bp3-tab-panel"
+              id="bp3-tab-panel_Wizard_Hourly"
+              role="tabpanel"
+            >
+              <div
+                class="hourlyTab"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  data-name="toothpick"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                  >
+                    pipeline-triggers.schedulePanel.runEvery
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main toothpick"
+                  >
+                    <div
+                      class="bp3-popover-wrapper selectStyle Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value="4"
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="bp3-overlay bp3-overlay-inline"
+                      />
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main adjoiningText"
+                    >
+                      pipeline-triggers.schedulePanel.hoursAnd
+                    </p>
+                    <div
+                      class="bp3-popover-wrapper selectStyle Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value="03"
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="bp3-overlay bp3-overlay-inline"
+                      >
+                        <div
+                          class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+                        >
+                          <div
+                            class="bp3-popover bp3-minimal bp3-select-popover"
+                            style="transform-origin: center top;"
+                          >
+                            <div
+                              class="bp3-popover-content"
+                            >
+                              <div>
+                                <ul
+                                  class="bp3-menu"
+                                >
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    00
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    01
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    02
+                                  </li>
+                                  <li
+                                    class="Select--menuItem Select--active"
+                                  >
+                                    03
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    04
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    05
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    06
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    07
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    08
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    09
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    10
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    11
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    12
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    13
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    14
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    15
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    16
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    17
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    18
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    19
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    20
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    21
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    22
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    23
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    24
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    25
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    26
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    27
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    28
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    29
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    30
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    31
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    32
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    33
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    34
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    35
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    36
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    37
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    38
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    39
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    40
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    41
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    42
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    43
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    44
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    45
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    46
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    47
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    48
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    49
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    50
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    51
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    52
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    53
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    54
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    55
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    56
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    57
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    58
+                                  </li>
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    59
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main adjoiningText"
+                    >
+                      pipeline-triggers.schedulePanel.minutesAfterTheHour
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expressionBreakdown"
+                  data-name="expressionBreakdown"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main title"
+                  >
+                    pipeline-triggers.schedulePanel.expressionBreakdown
+                  </p>
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.minutesLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          3
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.hoursLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          0/4
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 125px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfMonthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.monthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 250px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfWeekLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-top: 0px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expression"
+                  data-name="expression"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                  >
+                    pipeline-triggers.schedulePanel.cronExpression
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main field"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      3 0/4 * * *
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Minutes selection updates expression breakdown and expression 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main schedulePanelContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            pipeline-triggers.schedulePanel.title
+          </h2>
+          <div
+            class="bp3-tabs Tabs--main Tabs--horizontal"
+          >
+            <div
+              class="bp3-tab-list"
+              role="tablist"
+            >
+              <div
+                class="bp3-tab-indicator-wrapper"
+                style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+              >
+                <div
+                  class="bp3-tab-indicator"
+                />
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Minutes"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-selected="true"
+                class="bp3-tab"
+                data-tab-id="Minutes"
+                id="bp3-tab-title_Wizard_Minutes"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.minutesLabel
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Hourly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Hourly"
+                id="bp3-tab-title_Wizard_Hourly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.hourlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Daily"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Daily"
+                id="bp3-tab-title_Wizard_Daily"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.dailyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Weekly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Weekly"
+                id="bp3-tab-title_Wizard_Weekly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.weeklyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Monthly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Monthly"
+                id="bp3-tab-title_Wizard_Monthly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.monthlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Yearly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Yearly"
+                id="bp3-tab-title_Wizard_Yearly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.yearlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Custom"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Custom"
+                id="bp3-tab-title_Wizard_Custom"
+                role="tab"
+                tabindex="0"
+              >
+                common.repo_provider.customLabel
+              </div>
+            </div>
+            <div
+              aria-hidden="false"
+              aria-labelledby="bp3-tab-title_Wizard_Minutes"
+              class="bp3-tab-panel"
+              id="bp3-tab-panel_Wizard_Minutes"
+              role="tabpanel"
+            >
+              <div
+                class="minutesTab"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main label"
+                >
+                  pipeline-triggers.schedulePanel.runEvery
+                </p>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                  style="align-items: center;"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="minutes-0"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="minutes"
+                              placeholder="Select"
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="30"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-overlay bp3-overlay-inline"
+                        >
+                          <div
+                            class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                            style="position: absolute; top: 0px; left: 0px; opacity: 0; pointer-events: none;"
+                          >
+                            <div
+                              class="bp3-popover bp3-minimal bp3-select-popover"
+                            >
+                              <div
+                                class="bp3-popover-content"
+                              >
+                                <div>
+                                  <ul
+                                    class="bp3-menu"
+                                  >
+                                    <li
+                                      class="Select--menuItem"
+                                    >
+                                      5
+                                    </li>
+                                    <li
+                                      class="Select--menuItem"
+                                    >
+                                      10
+                                    </li>
+                                    <li
+                                      class="Select--menuItem"
+                                    >
+                                      15
+                                    </li>
+                                    <li
+                                      class="Select--menuItem"
+                                    >
+                                      20
+                                    </li>
+                                    <li
+                                      class="Select--menuItem Select--active"
+                                    >
+                                      30
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                  >
+                    pipeline-triggers.schedulePanel.minutesParentheses
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expressionBreakdown"
+                  data-name="expressionBreakdown"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main title"
+                  >
+                    pipeline-triggers.schedulePanel.expressionBreakdown
+                  </p>
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.minutesLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          0/30
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.hoursLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 125px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfMonthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.monthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 250px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfWeekLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-top: 0px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expression"
+                  data-name="expression"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                  >
+                    pipeline-triggers.schedulePanel.cronExpression
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main field"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      0/30 * * * *
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`SchedulePanel Triggers tests Renders/snapshots Initial Render - Schedule Panel 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main schedulePanelContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            pipeline-triggers.schedulePanel.title
+          </h2>
+          <div
+            class="bp3-tabs Tabs--main Tabs--horizontal"
+          >
+            <div
+              class="bp3-tab-list"
+              role="tablist"
+            >
+              <div
+                class="bp3-tab-indicator-wrapper"
+                style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+              >
+                <div
+                  class="bp3-tab-indicator"
+                />
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Minutes"
+                aria-disabled="false"
+                aria-expanded="true"
+                aria-selected="true"
+                class="bp3-tab"
+                data-tab-id="Minutes"
+                id="bp3-tab-title_Wizard_Minutes"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.minutesLabel
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Hourly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Hourly"
+                id="bp3-tab-title_Wizard_Hourly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.hourlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Daily"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Daily"
+                id="bp3-tab-title_Wizard_Daily"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.dailyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Weekly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Weekly"
+                id="bp3-tab-title_Wizard_Weekly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.weeklyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Monthly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Monthly"
+                id="bp3-tab-title_Wizard_Monthly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.monthlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Yearly"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Yearly"
+                id="bp3-tab-title_Wizard_Yearly"
+                role="tab"
+                tabindex="0"
+              >
+                pipeline-triggers.schedulePanel.yearlyTabTitle
+              </div>
+              <div
+                aria-controls="bp3-tab-panel_Wizard_Custom"
+                aria-disabled="false"
+                aria-expanded="false"
+                aria-selected="false"
+                class="bp3-tab"
+                data-tab-id="Custom"
+                id="bp3-tab-title_Wizard_Custom"
+                role="tab"
+                tabindex="0"
+              >
+                common.repo_provider.customLabel
+              </div>
+            </div>
+            <div
+              aria-hidden="false"
+              aria-labelledby="bp3-tab-title_Wizard_Minutes"
+              class="bp3-tab-panel"
+              id="bp3-tab-panel_Wizard_Minutes"
+              role="tabpanel"
+            >
+              <div
+                class="minutesTab"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main label"
+                >
+                  pipeline-triggers.schedulePanel.runEvery
+                </p>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                  style="align-items: center;"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="minutes-0"
+                  >
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="minutes"
+                              placeholder="Select"
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="5"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                icon="caret-down"
+                              >
+                                <svg
+                                  data-icon="caret-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    caret-down
+                                  </desc>
+                                  <path
+                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                  >
+                    pipeline-triggers.schedulePanel.minutesParentheses
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expressionBreakdown"
+                  data-name="expressionBreakdown"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main title"
+                  >
+                    pipeline-triggers.schedulePanel.expressionBreakdown
+                  </p>
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.minutesLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          0/5
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.hoursLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 125px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfMonthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 100px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.monthLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main column"
+                      data-name="column"
+                      style="width: 250px;"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main label"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          pipeline-triggers.schedulePanel.dayOfWeekLabel
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main value inactive"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          *
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main spacer"
+                  style="padding-top: 0px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main expression"
+                  data-name="expression"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label"
+                  >
+                    pipeline-triggers.schedulePanel.cronExpression
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main field"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

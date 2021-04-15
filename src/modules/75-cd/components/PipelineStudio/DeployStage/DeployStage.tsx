@@ -13,7 +13,7 @@ export class DeployStage extends PipelineStage<DeployStageProps> {
   render(): JSX.Element {
     const { minimal, stageProps } = this.props
     if (minimal) {
-      return <EditStageView {...stageProps} />
+      return <EditStageView isReadonly={false} {...stageProps} />
     }
     return <DeployStageSetupShell />
   }

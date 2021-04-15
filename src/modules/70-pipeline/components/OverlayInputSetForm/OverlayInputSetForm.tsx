@@ -52,6 +52,7 @@ const getDefaultInputSet = (): OverlayInputSetDTO => ({
 export interface OverlayInputSetFormProps {
   hideForm: () => void
   identifier?: string
+  isReadOnly?: boolean
 }
 
 enum SelectedView {
@@ -84,7 +85,11 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideForm, identifier }): JSX.Element => {
+export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
+  hideForm,
+  identifier,
+  isReadOnly = false
+}): JSX.Element => {
   const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
@@ -97,7 +102,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess, showError, clear } = useToaster()
 
   const {
     data: overlayInputSetResponse,
@@ -238,8 +243,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
           /* istanbul ignore else */
           if (response) {
             if (response.data?.errorResponse) {
+              clear()
               showError(getString('inputSets.overlayInputSetSavedError'))
             } else {
+              clear()
               showSuccess(getString('inputSets.overlayInputSetSaved'))
             }
           }
@@ -299,6 +306,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
     errorInputSetList
   ) {
     /* istanbul ignore next */
+    clear()
     showError(
       (errorPipeline?.data as Failure)?.message ||
         (createOverlayInputSetError?.data as Failure)?.message ||
@@ -382,7 +390,14 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                           className={css.inputSetName}
                           identifierProps={{
                             inputLabel: getString('inputSets.overlaySetName'),
-                            isIdentifierEditable: !isEdit
+                            isIdentifierEditable: !isEdit && !isReadOnly,
+                            inputGroupProps: {
+                              disabled: isReadOnly
+                            }
+                          }}
+                          descriptionProps={{ disabled: isReadOnly }}
+                          tagsProps={{
+                            disabled: isReadOnly
                           }}
                           formikProps={formikProps}
                         />
@@ -423,9 +438,15 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                                           name={`inputSetReferences[${index}]`}
                                           style={{ width: 400 }}
                                           placeholder={getString('inputSetsText')}
+                                          disabled={isReadOnly}
                                         />
                                       </Layout.Horizontal>
-                                      <Button minimal icon="delete" onClick={() => arrayHelpers.remove(index)} />
+                                      <Button
+                                        minimal
+                                        icon="delete"
+                                        onClick={() => arrayHelpers.remove(index)}
+                                        disabled={isReadOnly}
+                                      />
                                     </Layout.Horizontal>
                                   ))}
                                   <span>
@@ -434,6 +455,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                                       text={getString('inputSets.addInputSetPlus')}
                                       intent="primary"
                                       onClick={() => arrayHelpers.push('')}
+                                      disabled={isReadOnly}
                                     />
                                   </span>
                                 </Layout.Vertical>
@@ -443,7 +465,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                         </Layout.Vertical>
                       </div>
                       <div className={Classes.DIALOG_FOOTER}>
-                        <Button intent="primary" type="submit" text={getString('save')} />
+                        <Button intent="primary" type="submit" text={getString('save')} disabled={isReadOnly} />
                         &nbsp; &nbsp;
                         <Button onClick={closeForm} text={getString('cancel')} />
                       </div>
@@ -459,6 +481,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
                           invocationMap={invocationMap}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}
+                          isReadOnlyMode={isReadOnly}
                         />
                       )}
                       <Layout.Horizontal padding={{ top: 'medium' }}>
@@ -471,6 +494,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({ hideFo
 
                             handleSubmit(parse(latestYaml)?.overlayInputSet)
                           }}
+                          disabled={isReadOnly}
                         />
                         &nbsp; &nbsp;
                         <Button onClick={closeForm} text={getString('cancel')} />

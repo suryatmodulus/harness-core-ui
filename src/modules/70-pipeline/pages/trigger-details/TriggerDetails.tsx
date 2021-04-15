@@ -98,19 +98,6 @@ const GetTriggerRightNav = (): JSX.Element => {
         >
           {getString('pipelineStudio')}
         </NavLink>
-        <NavLink
-          className={css.tags}
-          activeClassName={css.activeTag}
-          to={routes.toPipelineDeploymentList({
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            accountId,
-            module
-          })}
-        >
-          {getString('executionsText')}
-        </NavLink>
 
         <NavLink
           className={css.tags}
@@ -125,6 +112,19 @@ const GetTriggerRightNav = (): JSX.Element => {
           to={routes.toTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
         >
           {getString('pipeline-triggers.triggersLabel')}
+        </NavLink>
+        <NavLink
+          className={css.tags}
+          activeClassName={css.activeTag}
+          to={routes.toPipelineDeploymentList({
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            accountId,
+            module
+          })}
+        >
+          {getString('executionHeaderText')}
         </NavLink>
       </Layout.Horizontal>
     </Container>

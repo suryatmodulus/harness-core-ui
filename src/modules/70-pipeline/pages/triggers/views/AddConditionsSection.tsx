@@ -2,7 +2,7 @@ import React from 'react'
 import { FormInput, Text, Icon, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import css from './WebhookConditionsPanel.module.scss'
 
 export const mockOperators = [
@@ -32,7 +32,7 @@ interface AddConditionsSectionPropsInterface {
 interface AddConditionRowInterface {
   fieldId: string
   index: number
-  getString: (key: string) => string
+  getString: UseStringsReturn['getString']
 }
 
 const AddConditionRow: React.FC<AddConditionRowInterface> = ({ fieldId, index, getString }) => (

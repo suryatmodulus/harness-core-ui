@@ -40,6 +40,10 @@
     width: 55%;
   }
 
+  &.alignStart {
+    align-items: start;
+  }
+
   textarea.code {
     min-height: 200px;
     font-family: var(--font-family-mono);

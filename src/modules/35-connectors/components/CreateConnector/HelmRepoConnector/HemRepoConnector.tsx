@@ -9,7 +9,9 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/exports'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
+import { buildHelmPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
 interface CreateHelmConnectorProps {
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
@@ -49,7 +51,15 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
         connectorInfo={props.connectorInfo}
         setIsEditMode={setIsEditMode}
       />
-
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={isEditMode}
+        setIsEditMode={setIsEditMode}
+        buildPayload={buildHelmPayload}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onConnectorCreated}
+        connectorInfo={props.connectorInfo}
+      />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
         isStep={true}

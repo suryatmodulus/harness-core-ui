@@ -30,7 +30,8 @@ import {
   EmptyNodeSeparator,
   StageState,
   resetDiagram,
-  removeNodeFromPipeline
+  removeNodeFromPipeline,
+  mayBeStripCIProps
 } from './StageBuilderUtil'
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
@@ -126,6 +127,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       pipelineView,
       isInitialized
     },
+    isReadonly,
     stagesMap,
     updatePipeline,
     updatePipelineView,
@@ -150,7 +152,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
         const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId), pipeline, stageMap)
-        if (isRemove) {
+        const isStripped = mayBeStripCIProps(pipeline)
+        if (isRemove || isStripped) {
           updatePipeline(pipeline)
           showSuccess(getString('deleteStageSuccess'))
         } else {
@@ -232,7 +235,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString, isReadonly)
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
     }
@@ -514,7 +517,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
 
-  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, getString, selectedStageId, splitPaneSize)
+  model.addUpdateGraph(
+    pipeline,
+    { nodeListeners, linkListeners },
+    stagesMap,
+    getString,
+    isReadonly,
+    selectedStageId,
+    splitPaneSize
+  )
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)

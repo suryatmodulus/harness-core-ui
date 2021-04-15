@@ -200,12 +200,12 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Connect to your AppDynamics Monitoring Source
+                cv.monitoringSources.appD.connectToMonitoringSource
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
               >
-                First time? You can setup a new connector to AppDynamics. It takes 2 minutes.
+                cv.monitoringSources.appD.firstTimeSetupText
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -299,7 +299,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    + New AppDynamics Connector
+                    cv.monitoringSources.appD.createConnectorText
                   </span>
                 </a>
               </div>
@@ -313,7 +313,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
               class="bp3-label"
               for="product"
             >
-              Select the AppDynamics Product that you would like to select applications from
+              cv.monitoringSources.appD.selectProduct
                
               <span
                 class="bp3-text-muted"
@@ -358,7 +358,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
                     >
-                      Application Monitoring
+                      cv.monitoringSources.appD.product.applicationMonitoring
                     </p>
                   </div>
                 </div>

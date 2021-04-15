@@ -5,6 +5,7 @@ declare const styles: {
   readonly input: string
   readonly popoverWrapper: string
   readonly btn: string
+  readonly disabled: string
   readonly menu: string
   readonly menuItem: string
   readonly menuItemLabel: string

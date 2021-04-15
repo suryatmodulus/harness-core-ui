@@ -12,7 +12,7 @@ exports[`ProgressStatus render initial state with services and env 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black StyledProps--padding-small"
       >
-        Your Progress
+        cv.onboarding.progress.heading
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
@@ -40,11 +40,11 @@ exports[`ProgressStatus render initial state with services and env 1`] = `
             </svg>
           </span>
           <span>
-            You have 2 services and 2 environments.
+            cv.onboarding.progress.serviceEnvCount
           </span>
         </div>
         <span>
-          Map the above services to a Monitoring Source.
+          cv.onboarding.progress.mapServices
         </span>
       </div>
     </div>
@@ -64,7 +64,7 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black StyledProps--padding-small"
       >
-        Your Progress
+        cv.onboarding.progress.heading
       </p>
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
@@ -92,7 +92,7 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
             </svg>
           </span>
           <span>
-            You have 2 services and 2 environments.
+            cv.onboarding.progress.serviceEnvCount
           </span>
         </div>
         <div
@@ -118,7 +118,7 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
             </svg>
           </span>
           <span>
-            1 service is used in Change Sources.
+            cv.onboarding.progress.servicesUsedInActivitySources
           </span>
         </div>
         <div
@@ -144,7 +144,7 @@ exports[`ProgressStatus render with some services in activity and monitoring 1`]
             </svg>
           </span>
           <span>
-            2 services are used in Monitoring Sources.
+            cv.onboarding.progress.multiServiceUsedInMonitoringSources
           </span>
         </div>
       </div>

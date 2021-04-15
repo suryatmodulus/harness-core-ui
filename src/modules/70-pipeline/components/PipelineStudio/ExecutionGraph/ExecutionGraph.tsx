@@ -25,7 +25,9 @@ import {
   DependenciesWrapper,
   getDefaultStepState,
   getDefaultStepGroupState,
-  getDefaultDependencyServiceState
+  getDefaultDependencyServiceState,
+  updateStepsState,
+  updateDependenciesState
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -113,8 +115,10 @@ export interface ExecutionGraphProp {
   hasRollback?: boolean
   /*Set to true if  model has spec.serviceDependencies array */
   hasDependencies?: boolean
+  isReadonly: boolean
   stepsFactory: AbstractStepFactory // REQUIRED (pass to addUpdateGraph)
   stage: StageElementWrapper
+  originalStage?: StageElementWrapper
   updateStage: (stage: StageElementWrapper) => void
   onAddStep: (event: ExecutionGraphAddStepEvent) => void
   onEditStep: (event: ExecutionGraphEditStepEvent) => void
@@ -132,8 +136,10 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     hasRollback = true,
     stepsFactory,
     stage,
+    originalStage,
     updateStage,
     onAddStep,
+    isReadonly,
     onEditStep,
     gridStyle = {},
     rollBackPropsStyle = {},
@@ -460,7 +466,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     stepsFactory,
     { nodeListeners, linkListeners, layerListeners },
     state.isRollback,
-    getString
+    getString,
+    isReadonly
   )
 
   // load model into engine
@@ -475,6 +482,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         getStepsState(data.stage.spec.execution, newStateMap)
         if (hasDependencies && data?.stage?.spec?.serviceDependencies) {
           getDependenciesState(data.stage.spec.serviceDependencies, newStateMap)
+          if (originalStage?.stage?.spec?.serviceDependencies) {
+            updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
+          }
+        }
+        if (originalStage?.stage?.spec?.execution) {
+          updateStepsState(originalStage.stage.spec.execution, newStateMap)
         }
 
         setState(prevState => ({
@@ -491,7 +504,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         updateStage(stage)
       }
     }
-  }, [stage, ref])
+  }, [stage, ref, originalStage])
 
   const stepGroupUpdated = React.useCallback(
     stepOrGroup => {

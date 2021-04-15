@@ -241,7 +241,7 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
   const status = preFlightCheckData?.pipelineInputWrapperResponse?.status
 
   if (status === 'IN_PROGRESS' && isEmpty(data)) {
-    return <Text>{getString('pipeline-notification.gettingResults')}</Text>
+    return <Text>{getString('pre-flight-check.gettingResults')}</Text>
   }
   if (status === 'SUCCESS' && isEmpty(data)) {
     // No connectors to verify
@@ -249,7 +249,7 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
   }
   if (status === 'FAILURE' && isEmpty(data)) {
     // No connectors to verify
-    return <Text intent="danger">{getString('pipeline-notification.couldNotVerifyInputSets')}</Text>
+    return <Text intent="danger">{getString('pre-flight-check.couldNotVerifyInputSets')}</Text>
   }
 
   const getDetails = (row: PipelineInputResponse) => (

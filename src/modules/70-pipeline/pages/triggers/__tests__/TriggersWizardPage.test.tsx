@@ -4,6 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { useStrings } from 'framework/exports'
 import * as pipelineNg from 'services/pipeline-ng'
+import { InputTypes, fillAtForm } from '@common/utils/JestFormHelper'
 import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -17,10 +18,13 @@ import {
   GetTriggerEmptyActionsResponse,
   GetTriggerWithPushEventResponse,
   GetTriggerWithMergeRequestEventResponse,
+  GetSchemaYaml,
   updateTriggerMockResponseYaml,
   enabledFalseUpdateTriggerMockResponseYaml,
   GenerateWebhookTokenResponse
 } from './webhookMockResponses'
+
+import { GetTriggerScheduleResponse } from './ScheduleMockResponses'
 import {
   GetPipelineResponse,
   GetTemplateFromPipelineResponse,
@@ -51,6 +55,17 @@ describe('TriggersWizardPage Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('OnEdit Render - GitHub Show all fields filled', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -78,7 +93,10 @@ describe('TriggersWizardPage Triggers tests', () => {
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.listenOnNewWebhook'))
+          queryByText(
+            document.body,
+            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
         ).not.toBeNull()
       )
       expect(container).toMatchSnapshot()
@@ -87,6 +105,17 @@ describe('TriggersWizardPage Triggers tests', () => {
     test('OnEdit Render - GitHub with repo org level connector', async () => {
       // anyAction checked due to empty actions,
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(RepoConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -122,8 +151,50 @@ describe('TriggersWizardPage Triggers tests', () => {
       expect(container).toMatchSnapshot()
     })
 
+    test('OnEdit Render - Schedule ', async () => {
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() => expect(() => queryByText(document.body, result.current.getString('name'))).not.toBeNull())
+      expect(container).toMatchSnapshot()
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Schedule"]')
+      if (!tab2) {
+        throw Error('No Schedule tab')
+      }
+      fireEvent.click(tab2)
+      await waitFor(() =>
+        expect(() =>
+          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+        ).not.toBeNull()
+      )
+      expect(container).toMatchSnapshot()
+    })
+
     test('Invalid yaml shows error message', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -167,6 +238,17 @@ describe('TriggersWizardPage Triggers tests', () => {
     })
     test('Submit shows all onEdit values were parsed into FormikValues for re-submission', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -213,6 +295,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit values with Enabled False', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -266,6 +359,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit shows toast to fill out actions', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -320,6 +424,17 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit does not require push because empty actions response', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -369,11 +484,78 @@ describe('TriggersWizardPage Triggers tests', () => {
       fireEvent.click(updateButton)
       await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
     })
+
+    test('OnEdit Schedule submit', async () => {
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+        mutate: mockUpdate as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() => expect(() => queryByText(document.body, result.current.getString('name'))).not.toBeNull())
+      expect(container).toMatchSnapshot()
+      const tab2 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Schedule"]')
+      if (!tab2) {
+        throw Error('No Schedule tab')
+      }
+      fireEvent.click(tab2)
+      await waitFor(() =>
+        expect(() =>
+          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+        ).not.toBeNull()
+      )
+      fillAtForm([
+        {
+          container: container,
+          type: InputTypes.TEXTFIELD,
+          fieldId: 'expression',
+          value: '4 3 * * MON'
+        }
+      ])
+      await waitFor(() => expect(() => queryByText(document.body, '4 3 * * MON')).not.toBeNull())
+      const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Pipeline Input"]')
+      if (!tab3) {
+        throw Error('No Pipeline Input tab')
+      }
+      fireEvent.click(tab3)
+
+      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      if (!updateButton) {
+        throw Error('Cannot find Update Trigger button')
+      }
+
+      fireEvent.click(updateButton)
+      await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
+      // does not equal for comparison due to yaml spaces
+    })
   })
 
   describe('Missed Tests', () => {
     test('OnEdit Render - Show all fields filled with any actions checked', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
       jest
         .spyOn(pipelineNg, 'useGetSourceRepoToEvent')
         .mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
@@ -399,14 +581,18 @@ describe('TriggersWizardPage Triggers tests', () => {
       jest
         .spyOn(pipelineNg, 'useGetActionsList')
         .mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
-      const { container } = render(<WrapperComponent />)
+      render(<WrapperComponent />)
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.listenOnNewWebhook'))
+          queryByText(
+            document.body,
+            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
         ).not.toBeNull()
       )
-      expect(container).toMatchSnapshot()
+      expect(document.querySelector('[name="actions"]')).toHaveProperty('disabled', true)
+      expect(document.querySelector('[name="anyAction"]')).toHaveProperty('checked', true)
     })
   })
 })

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import * as mockSchemaData from '@common/services/mocks/schema.json'
+import * as mockSchemaData from './schema.json'
 import CreateSecretFromYamlPage from '../CreateSecretFromYamlPage'
 import mockData from '../../secretDetails/__test__/secretDetailsMocks.json'
 
@@ -40,7 +40,7 @@ describe('CreateSecretFromYamlPage', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Create'))
+      fireEvent.click(getByText('createSecretYAML.create'))
     })
   })
 })

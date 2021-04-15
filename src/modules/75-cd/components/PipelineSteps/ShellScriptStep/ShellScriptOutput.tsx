@@ -11,9 +11,13 @@ import css from './ShellScript.module.scss'
 
 export const scriptOutputType: SelectOption[] = [{ label: 'String', value: 'String' }]
 
-export default function ShellScriptOutput(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
+export default function ShellScriptOutput(props: {
+  formik: FormikProps<ShellScriptFormData>
+  readonly?: boolean
+}): React.ReactElement {
   const {
-    formik: { values: formValues }
+    formik: { values: formValues },
+    readonly
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -35,21 +39,24 @@ export default function ShellScriptOutput(props: { formik: FormikProps<ShellScri
                 </div>
                 {formValues.spec.outputVariables?.map(({ id }: ShellScriptOutputStepVariable, i: number) => (
                   <div className={css.outputVarHeader} key={id}>
-                    <FormInput.Text name={`spec.outputVariables[${i}].name`} />
+                    <FormInput.Text name={`spec.outputVariables[${i}].name`} disabled={readonly} />
                     <FormInput.Select
                       items={scriptOutputType}
                       name={`spec.outputVariables[${i}].type`}
                       placeholder={getString('typeLabel')}
+                      disabled={readonly}
                     />
                     <FormInput.MultiTextInput
                       name={`spec.outputVariables[${i}].value`}
                       multiTextInputProps={{
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                        expressions
+                        expressions,
+                        disabled: readonly
                       }}
                       label=""
+                      disabled={readonly}
                     />
-                    <Button minimal icon="cross" onClick={() => remove(i)} />
+                    <Button minimal icon="cross" onClick={() => remove(i)} disabled={readonly} />
                   </div>
                 ))}
                 <Button
@@ -57,6 +64,7 @@ export default function ShellScriptOutput(props: { formik: FormikProps<ShellScri
                   minimal
                   intent="primary"
                   onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
+                  disabled={readonly}
                 >
                   {getString('addOutputVar')}
                 </Button>

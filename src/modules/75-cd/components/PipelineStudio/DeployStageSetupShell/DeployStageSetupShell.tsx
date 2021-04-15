@@ -33,6 +33,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const {
     state: {
       pipeline,
+      originalPipeline,
       pipelineView: {
         splitViewData: { selectedStageId = '', stageType },
         isSplitViewOpen
@@ -40,6 +41,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       pipelineView
     },
     stagesMap,
+    isReadonly,
     stepsFactory,
     updatePipeline,
     getStageFromPipeline,
@@ -117,6 +119,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [pipeline, selectedTabId, selectedStageId])
 
   const selectedStage = getStageFromPipeline(selectedStageId).stage
+  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
@@ -234,8 +237,10 @@ export default function DeployStageSetupShell(): JSX.Element {
             <ExecutionGraph
               allowAddGroup={true}
               hasRollback={true}
+              isReadonly={isReadonly}
               hasDependencies={false}
               stepsFactory={stepsFactory}
+              originalStage={originalStage}
               ref={executionRef}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
@@ -303,7 +308,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             onClick={openFailureStrategyPanel}
             icon="failure-strategy"
           >
-            {getString('failureStrategy.title')}
+            {getString('pipeline.failureStrategies.title')}
           </Button>
         </React.Fragment>
       </Tabs>

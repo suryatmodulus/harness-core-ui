@@ -151,6 +151,27 @@ export const getFlattenedStages = (
   return { stages }
 }
 
+export const mayBeStripCIProps = (pipeline: StageElementWrapper): boolean => {
+  // no CI stages exist
+  const areCIStagesAbsent = pipeline?.stages?.every(
+    (stage: StageElementWrapper) => (stage as StageElementWrapper).stage.type !== 'CI'
+  )
+  if (areCIStagesAbsent) {
+    const props = Object.keys(pipeline.properties)
+    // figure out if only properties that are left is related to ci
+    const isCIOnly = props.length === 1 && props[0] === 'ci'
+    if (isCIOnly) {
+      return delete pipeline.properties
+    }
+    // otherwise figure out if properties object has a ci prop
+    const hasCI = props.some(prop => prop === 'ci')
+    if (hasCI) {
+      return delete pipeline.properties.ci
+    }
+  }
+  return false
+}
+
 export const removeNodeFromPipeline = (
   nodeResponse: { stage?: StageElementWrapper; parent?: StageElementWrapper },
   data: NgPipeline | StageElementWrapper,
@@ -210,5 +231,5 @@ export const resetDiagram = (engine: DiagramEngine): void => {
 }
 
 export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]): boolean => {
-  return stages?.some(({ stage }) => stage.identifier === id)
+  return getFlattenedStages({ stages }).stages?.some(({ stage }) => stage.identifier === id)
 }

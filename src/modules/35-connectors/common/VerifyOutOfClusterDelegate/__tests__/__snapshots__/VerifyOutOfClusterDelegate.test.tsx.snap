@@ -12,7 +12,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -69,12 +69,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the AppDynamics authentication and permissions
+                    connectors.testConnectionStep.validationText.appD
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -93,7 +93,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>
@@ -113,7 +113,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -170,12 +170,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the Artifactory Repository authentication and permissions
+                    connectors.testConnectionStep.validationText.artifactory
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>
@@ -214,7 +214,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -271,12 +271,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the Docker Registry authentication and permissions
+                    connectors.testConnectionStep.validationText.docker
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -295,7 +295,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>
@@ -315,7 +315,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -372,12 +372,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the cluster authentication and permissions
+                    connectors.testConnectionStep.validationText.k8s
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -396,7 +396,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>
@@ -416,7 +416,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content StyledProps--padding-top-xxlarge"
@@ -473,12 +473,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the cluster authentication and permissions
+                    connectors.testConnectionStep.validationText.k8s
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -503,7 +503,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -560,12 +560,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the Nexus Repository authentication and permissions
+                    connectors.testConnectionStep.validationText.nexus
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -584,7 +584,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>
@@ -604,7 +604,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
       >
-        Test Connection
+        connectors.stepThreeName
       </p>
       <div
         class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
@@ -661,12 +661,12 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    Validating the Splunk authentication and permissions
+                    connectors.testConnectionStep.validationText.splunk
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
                   >
-                    Test failed for the connector
+                    connectors.testConnectionStep.placeholderError
                   </p>
                 </div>
               </div>
@@ -685,7 +685,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
         <span
           class="bp3-button-text"
         >
-          Continue
+          continue
         </span>
       </button>
     </div>

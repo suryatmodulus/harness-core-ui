@@ -3,12 +3,6 @@ export enum FlagTypeVariations {
   multiFlag = 'multivariate'
 }
 
-export enum FlagTypeVariationsSelect {
-  json = 'json',
-  string = 'string',
-  number = 'int'
-}
-
 export enum FlagTypeSdk {
   client = 'client',
   server = 'server'

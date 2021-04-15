@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all fields filled with any actions checked 1`] = `
+exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Schedule submit 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
@@ -23,17 +23,18 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
               class="StyledProps--font StyledProps--font-h2 StyledProps--main"
               level="2"
             >
-              Trigger: github-connector
+              Trigger: test-schedule
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
             >
               <input
+                checked=""
                 data-name="enabled-switch"
                 type="checkbox"
               />
@@ -77,13 +78,13 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                     />
                   </div>
                   <div
-                    aria-controls="bp3-tab-panel_Wizard_Trigger Configuration"
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Overview"
                     aria-disabled="false"
                     aria-expanded="true"
                     aria-selected="true"
                     class="bp3-tab"
-                    data-tab-id="Trigger Configuration"
-                    id="bp3-tab-title_Wizard_Trigger Configuration"
+                    data-tab-id="Trigger Overview"
+                    id="bp3-tab-title_Wizard_Trigger Overview"
                     role="tab"
                     style="width: 218px;"
                     tabindex="0"
@@ -92,36 +93,36 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                       class="tab"
                     >
                       <span
-                        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500"
-                        icon="warning-sign"
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
                       >
                         <svg
-                          data-icon="warning-sign"
+                          data-icon="tick-circle"
                           height="14"
                           viewBox="0 0 16 16"
                           width="14"
                         >
                           <desc>
-                            warning-sign
+                            tick-circle
                           </desc>
                           <path
-                            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerOverviewPanel.title
                     </span>
                   </div>
                   <div
-                    aria-controls="bp3-tab-panel_Wizard_Conditions"
+                    aria-controls="bp3-tab-panel_Wizard_Schedule"
                     aria-disabled="false"
                     aria-expanded="false"
                     aria-selected="false"
                     class="bp3-tab"
-                    data-tab-id="Conditions"
-                    id="bp3-tab-title_Wizard_Conditions"
+                    data-tab-id="Schedule"
+                    id="bp3-tab-title_Wizard_Schedule"
                     role="tab"
                     style="width: 218px;"
                     tabindex="0"
@@ -149,7 +150,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      pipeline-triggers.schedulePanel.title
                     </span>
                   </div>
                   <div
@@ -187,467 +188,181 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
                 <div
                   aria-hidden="false"
-                  aria-labelledby="bp3-tab-title_Wizard_Trigger Configuration"
+                  aria-labelledby="bp3-tab-title_Wizard_Trigger Overview"
                   class="bp3-tab-panel"
-                  id="bp3-tab-panel_Wizard_Trigger Configuration"
+                  id="bp3-tab-panel_Wizard_Trigger Overview"
                   role="tabpanel"
                 >
                   <div
-                    class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
+                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
                   >
-                    <h2
-                      class="heading"
-                    >
-                      Trigger Configuration
+                    <h2>
+                      pipeline-triggers.triggerOverviewPanel.title
                     </h2>
-                    <div>
+                    <div
+                      class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                    >
                       <div
-                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                        class="InputWithIdentifier--txtNameContainer"
                       >
                         <div
-                          class="InputWithIdentifier--txtNameContainer"
+                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                          <p
+                            class="StyledProps--font StyledProps--main"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              ID
-                              :
-                            </p>
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
                             <span
-                              class="bp3-popover-wrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <div
-                                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
-                                >
-                                  <span
-                                    class="bp3-editable-text-content"
-                                    style="height: 1px; line-height: 1px; min-width: 0;"
-                                  >
-                                    githubconnector
-                                  </span>
-                                </div>
-                              </span>
-                            </span>
-                          </div>
-                          <div
-                            class="bp3-form-group"
-                            data-id="name-0"
-                          >
-                            <label
-                              class="bp3-label"
-                              for="name"
-                            >
-                              Name
-                               
-                              <span
-                                class="bp3-text-muted"
-                              />
-                            </label>
-                            <div
-                              class="bp3-form-content"
+                              class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-input-group"
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                               >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="name"
-                                  type="text"
-                                  value="github-connector"
-                                />
+                                <span
+                                  class="bp3-editable-text-content"
+                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                >
+                                  testschedule
+                                </span>
                               </div>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="name"
+                                type="text"
+                                value="test-schedule"
+                              />
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          <label
-                            class="Label--main"
-                            style="font-size: 13px;"
-                          >
-                            Description
-                            <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                              data-name="edit"
-                              data-testid="description-edit"
-                              icon="edit"
-                            >
-                              <svg
-                                data-icon="edit"
-                                height="12"
-                                viewBox="0 0 16 16"
-                                width="12"
-                              >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </label>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          <label
-                            class="Label--main"
-                            style="font-size: 13px;"
-                          >
-                            Tags
-                            <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                              data-name="edit"
-                              data-testid="tags-edit"
-                              icon="edit"
-                            >
-                              <svg
-                                data-icon="edit"
-                                height="12"
-                                viewBox="0 0 16 16"
-                                width="12"
-                              >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </label>
                         </div>
                       </div>
-                      <h2
-                        class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-                        level="2"
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
                       >
-                        Listen on New Webhook
-                      </h2>
-                      <section
-                        style="width: 650px;"
-                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
                         <div
                           class="bp3-form-group"
-                          data-id="sourceRepo-1"
+                          data-id="description-1"
                         >
-                          <label
-                            class="bp3-label"
-                            for="sourceRepo"
+                          <div
+                            class="bp3-form-content"
                           >
-                            Payload Type
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              name="description"
+                            >
+                              desc
+                            </textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="undefined-2"
+                        >
                           <div
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper Select--main bp3-fill"
+                              class="bp3-input bp3-tag-input"
                             >
                               <div
-                                class="bp3-popover-target"
+                                class="bp3-tag-input-values"
                               >
-                                <div
-                                  class="bp3-input-group"
+                                <span
+                                  class="bp3-tag"
+                                  data-tag-index="0"
                                 >
-                                  <input
-                                    autocomplete="off"
-                                    class="bp3-input"
-                                    name="sourceRepo"
-                                    placeholder="Search..."
-                                    style="padding-right: 0px;"
-                                    type="text"
-                                    value="GitHub"
-                                  />
                                   <span
-                                    class="bp3-input-action"
+                                    class="bp3-text-overflow-ellipsis bp3-fill"
+                                  >
+                                    tag1
+                                  </span>
+                                  <button
+                                    class="bp3-tag-remove"
+                                    type="button"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-small-cross"
+                                      icon="small-cross"
                                     >
                                       <svg
-                                        data-icon="caret-down"
-                                        height="14"
+                                        data-icon="small-cross"
+                                        height="16"
                                         viewBox="0 0 16 16"
-                                        width="14"
+                                        width="16"
                                       >
                                         <desc>
-                                          caret-down
+                                          small-cross
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>
                                     </span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <section>
-                          <div
-                            class="bp3-form-group"
-                            data-id="null-2"
-                          >
-                            <label
-                              class="bp3-label"
-                            >
-                              Connector
-                               
-                              <span
-                                class="bp3-text-muted"
-                              />
-                            </label>
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
-                                style="width: 324px;"
-                                type="button"
-                              >
-                                <span
-                                  class="bp3-button-text"
-                                >
-                                  <div
-                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
-                                  >
-                                    <span
-                                      class="bp3-popover-wrapper"
-                                    >
-                                      <span
-                                        class="bp3-popover-target"
-                                      >
-                                        <p
-                                          class="StyledProps--font StyledProps--main label"
-                                          tabindex="0"
-                                        >
-                                          tesa1
-                                        </p>
-                                      </span>
-                                    </span>
-                                    <div
-                                      class="rightStatus"
-                                    >
-                                      <span
-                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                                        icon="full-circle"
-                                      >
-                                        <svg
-                                          data-icon="full-circle"
-                                          height="6"
-                                          viewBox="0 0 16 16"
-                                          width="6"
-                                        >
-                                          <desc>
-                                            full-circle
-                                          </desc>
-                                          <path
-                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                      <span
-                                        class="Tag--main"
-                                      >
-                                        <span
-                                          class="bp3-tag bp3-minimal tag"
-                                        >
-                                          <span
-                                            class="bp3-text-overflow-ellipsis bp3-fill"
-                                          >
-                                            project
-                                          </span>
-                                        </span>
-                                      </span>
-                                    </div>
-                                  </div>
+                                  </button>
                                 </span>
-                                <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                                  icon="caret-down"
-                                >
-                                  <svg
-                                    data-icon="caret-down"
-                                    height="16"
-                                    viewBox="0 0 16 16"
-                                    width="16"
-                                  >
-                                    <desc>
-                                      caret-down
-                                    </desc>
-                                    <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
-                            </div>
-                          </div>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                            style="cursor: pointer; width: 70px;"
-                          >
-                            + Add
-                          </p>
-                        </section>
-                        <div
-                          class="bp3-form-group"
-                          data-id="event-3"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="event"
-                          >
-                            Event
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-popover-wrapper Select--main bp3-fill"
-                            >
-                              <div
-                                class="bp3-popover-target"
-                              >
-                                <div
-                                  class="bp3-input-group"
-                                >
-                                  <input
-                                    autocomplete="off"
-                                    class="bp3-input"
-                                    name="event"
-                                    placeholder="Search..."
-                                    style="padding-right: 0px;"
-                                    type="text"
-                                    value="Pull Request"
-                                  />
-                                  <span
-                                    class="bp3-input-action"
-                                  >
-                                    <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
-                                    >
-                                      <svg
-                                        data-icon="caret-down"
-                                        height="14"
-                                        viewBox="0 0 16 16"
-                                        width="14"
-                                      >
-                                        <desc>
-                                          caret-down
-                                        </desc>
-                                        <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="actionsContainer"
-                        >
-                          <div>
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="font-size: 13px;"
-                            >
-                              Actions
-                            </p>
-                            <div
-                              class="bp3-form-group bp3-disabled"
-                            >
-                              <div
-                                class="bp3-form-content"
-                              >
-                                <div
-                                  class="bp3-popover-wrapper MultiSelect--main bp3-fill"
-                                >
-                                  <div
-                                    class="bp3-popover-target"
-                                  >
-                                    <div
-                                      class=""
-                                    >
-                                      <div
-                                        class="bp3-input bp3-tag-input bp3-disabled bp3-multi-select"
-                                      >
-                                        <div
-                                          class="bp3-tag-input-values"
-                                        >
-                                          <input
-                                            class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                                            disabled=""
-                                            name="actions"
-                                            placeholder="Search..."
-                                            value=""
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="bp3-form-group"
-                          >
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox anyAction StyledProps--main StyledProps--inline"
-                              >
                                 <input
-                                  checked=""
-                                  name="anyAction"
-                                  type="checkbox"
+                                  class="bp3-input-ghost"
+                                  data-mentions="kv-tag-input-tags}"
+                                  value=""
                                 />
-                                <span
-                                  class="bp3-control-indicator"
-                                />
-                                Any Actions
-                              </label>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </section>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -662,7 +377,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -687,7 +402,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests OnEdit Render - Show all
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>
@@ -730,7 +445,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -744,6 +459,24 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               />
               
             </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            role="button"
+            tabindex="0"
+          >
+            yaml
           </div>
         </div>
         <div
@@ -813,7 +546,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -851,7 +584,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      conditions
                     </span>
                   </div>
                   <div
@@ -889,7 +622,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -906,7 +639,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -951,7 +684,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              Name
+                              name
                                
                               <span
                                 class="bp3-text-muted"
@@ -982,7 +715,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Description
+                            optionalField
                           </label>
                           <div
                             class="bp3-form-group"
@@ -1008,7 +741,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Tags
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1037,7 +770,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        Listen on New Webhook
+                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -1050,7 +783,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            Payload Type
+                            pipeline-triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -1075,7 +808,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="GitHub"
+                                    value="common.repo_provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1113,7 +846,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              Connector
+                              connector
                                
                               <span
                                 class="bp3-text-muted"
@@ -1211,7 +944,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                             style="cursor: pointer; width: 70px;"
                           >
-                            + Add
+                            plusAdd
                           </p>
                         </section>
                         <div
@@ -1222,7 +955,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            Event
+                            pipeline-triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -1285,7 +1018,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              Actions
+                              pipeline-triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group"
@@ -1411,6 +1144,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                             </button>
                                           </span>
                                           <input
+                                            autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                             name="actions"
                                             value=""
@@ -1439,7 +1173,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                Any Actions
+                                pipeline-triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -1459,7 +1193,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1484,7 +1218,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
                 </p>
               </div>
             </div>
@@ -1527,7 +1261,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             <p
               class="StyledProps--font StyledProps--main"
             >
-              Enabled
+              enabledLabel
             </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -1541,6 +1275,24 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               />
               
             </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            role="button"
+            tabindex="0"
+          >
+            yaml
           </div>
         </div>
         <div
@@ -1610,7 +1362,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -1648,7 +1400,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       2. 
-                      Conditions
+                      conditions
                     </span>
                   </div>
                   <div
@@ -1686,7 +1438,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      Pipeline Input
+                      pipeline-triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -1703,7 +1455,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      Trigger Configuration
+                      pipeline-triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -1748,7 +1500,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              Name
+                              name
                                
                               <span
                                 class="bp3-text-muted"
@@ -1778,7 +1530,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Description
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1809,7 +1561,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="Label--main"
                             style="font-size: 13px;"
                           >
-                            Tags
+                            optionalField
                             <span
                               class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                               data-name="edit"
@@ -1838,7 +1590,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        Listen on New Webhook
+                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -1851,7 +1603,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            Payload Type
+                            pipeline-triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -1876,7 +1628,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                     placeholder="Search..."
                                     style="padding-right: 0px;"
                                     type="text"
-                                    value="GitHub"
+                                    value="common.repo_provider.githubLabel"
                                   />
                                   <span
                                     class="bp3-input-action"
@@ -1914,7 +1666,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             <label
                               class="bp3-label"
                             >
-                              Connector
+                              connector
                                
                               <span
                                 class="bp3-text-muted"
@@ -2012,12 +1764,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="StyledProps--font StyledProps--main StyledProps--intent-primary"
                             style="cursor: pointer; width: 70px;"
                           >
-                            + Add
+                            plusAdd
                           </p>
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                           >
-                            Repository URL
+                            repositoryUrlLabel
                           </p>
                           <div
                             class="TextInput--main"
@@ -2042,7 +1794,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            Event
+                            pipeline-triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -2105,7 +1857,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              Actions
+                              pipeline-triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group bp3-disabled"
@@ -2129,6 +1881,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                           class="bp3-tag-input-values"
                                         >
                                           <input
+                                            autocomplete="off"
                                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                             disabled=""
                                             name="actions"
@@ -2160,7 +1913,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                Any Actions
+                                pipeline-triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -2180,7 +1933,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <span
                     class="bp3-button-text"
                   >
-                    Continue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2205,7 +1958,950 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 <p
                   class="StyledProps--font StyledProps--main cancel"
                 >
-                  Cancel
+                  cancel
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</div>
+`;
+
+exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Schedule  1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    
+    <section
+      class="wizardShell tabs"
+    >
+      <section
+        class="extendedNav"
+      >
+        <div
+          class="sideItems"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            style="align-items: baseline;"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+              level="2"
+            >
+              Trigger: test-schedule
+            </h2>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              enabledLabel
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                checked=""
+                data-name="enabled-switch"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              
+            </label>
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="headerLine"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Overview"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Trigger Overview"
+                    id="bp3-tab-title_Wizard_Trigger Overview"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      1. 
+                      pipeline-triggers.triggerOverviewPanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Schedule"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Schedule"
+                    id="bp3-tab-title_Wizard_Schedule"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      2. 
+                      pipeline-triggers.schedulePanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Pipeline Input"
+                    id="bp3-tab-title_Wizard_Pipeline Input"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      3. 
+                      pipeline-triggers.pipelineInputLabel
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Trigger Overview"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Trigger Overview"
+                  role="tabpanel"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
+                  >
+                    <h2>
+                      pipeline-triggers.triggerOverviewPanel.title
+                    </h2>
+                    <div
+                      class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                    >
+                      <div
+                        class="InputWithIdentifier--txtNameContainer"
+                      >
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                              >
+                                <span
+                                  class="bp3-editable-text-content"
+                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                >
+                                  testschedule
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="name"
+                                type="text"
+                                value="test-schedule"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              name="description"
+                            >
+                              desc
+                            </textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px;"
+                        >
+                          optionalField
+                        </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="undefined-2"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input bp3-tag-input"
+                            >
+                              <div
+                                class="bp3-tag-input-values"
+                              >
+                                <span
+                                  class="bp3-tag"
+                                  data-tag-index="0"
+                                >
+                                  <span
+                                    class="bp3-text-overflow-ellipsis bp3-fill"
+                                  >
+                                    tag1
+                                  </span>
+                                  <button
+                                    class="bp3-tag-remove"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-small-cross"
+                                      icon="small-cross"
+                                    >
+                                      <svg
+                                        data-icon="small-cross"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                      >
+                                        <desc>
+                                          small-cross
+                                        </desc>
+                                        <path
+                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                                <input
+                                  class="bp3-input-ghost"
+                                  data-mentions="kv-tag-input-tags}"
+                                  value=""
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+              >
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main cancel"
+                >
+                  cancel
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</div>
+`;
+
+exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Schedule  2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    
+    <section
+      class="wizardShell tabs"
+    >
+      <section
+        class="extendedNav"
+      >
+        <div
+          class="sideItems"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            style="align-items: baseline;"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+              level="2"
+            >
+              Trigger: test-schedule
+            </h2>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              enabledLabel
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                checked=""
+                data-name="enabled-switch"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              
+            </label>
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="headerLine"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Overview"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Trigger Overview"
+                    id="bp3-tab-title_Wizard_Trigger Overview"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      1. 
+                      pipeline-triggers.triggerOverviewPanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Schedule"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Schedule"
+                    id="bp3-tab-title_Wizard_Schedule"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      2. 
+                      pipeline-triggers.schedulePanel.title
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Pipeline Input"
+                    id="bp3-tab-title_Wizard_Pipeline Input"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      3. 
+                      pipeline-triggers.pipelineInputLabel
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Schedule"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Schedule"
+                  role="tabpanel"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main schedulePanelContainer StyledProps--padding-xxlarge"
+                  >
+                    <h2
+                      class="heading"
+                    >
+                      pipeline-triggers.schedulePanel.title
+                    </h2>
+                    <div
+                      class="bp3-tabs Tabs--main Tabs--horizontal"
+                    >
+                      <div
+                        class="bp3-tab-list"
+                        role="tablist"
+                      >
+                        <div
+                          class="bp3-tab-indicator-wrapper"
+                          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                        >
+                          <div
+                            class="bp3-tab-indicator"
+                          />
+                        </div>
+                        <div
+                          aria-controls="bp3-tab-panel_Wizard_Custom"
+                          aria-disabled="false"
+                          aria-expanded="true"
+                          aria-selected="true"
+                          class="bp3-tab"
+                          data-tab-id="Custom"
+                          id="bp3-tab-title_Wizard_Custom"
+                          role="tab"
+                          tabindex="0"
+                        >
+                          common.repo_provider.customLabel
+                        </div>
+                      </div>
+                      <div
+                        aria-hidden="false"
+                        aria-labelledby="bp3-tab-title_Wizard_Custom"
+                        class="bp3-tab-panel"
+                        id="bp3-tab-panel_Wizard_Custom"
+                        role="tabpanel"
+                      >
+                        <div
+                          class="bp3-form-group"
+                          style="margin: 0px;"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="expression"
+                          >
+                            pipeline-triggers.schedulePanel.enterCustomCron
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="expression"
+                                type="text"
+                                value="0/5 * * * *"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main spacer"
+                          style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                        >
+                          <div
+                            class="StyledProps--font StyledProps--main"
+                          />
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main expressionBreakdown"
+                          data-name="expressionBreakdown"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main title"
+                          >
+                            pipeline-triggers.schedulePanel.expressionBreakdown
+                          </p>
+                          <div
+                            class="Layout--horizontal StyledProps--main"
+                          >
+                            <div
+                              class="Layout--vertical StyledProps--main column"
+                              data-name="column"
+                              style="width: 100px;"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main label"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipeline-triggers.schedulePanel.minutesLabel
+                                </p>
+                              </div>
+                              <div
+                                class="StyledProps--font StyledProps--main value"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  0/5
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="Layout--vertical StyledProps--main column"
+                              data-name="column"
+                              style="width: 100px;"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main label"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipeline-triggers.schedulePanel.hoursLabel
+                                </p>
+                              </div>
+                              <div
+                                class="StyledProps--font StyledProps--main value"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  *
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="Layout--vertical StyledProps--main column"
+                              data-name="column"
+                              style="width: 125px;"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main label"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipeline-triggers.schedulePanel.dayOfMonthLabel
+                                </p>
+                              </div>
+                              <div
+                                class="StyledProps--font StyledProps--main value"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  *
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="Layout--vertical StyledProps--main column"
+                              data-name="column"
+                              style="width: 100px;"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main label"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipeline-triggers.schedulePanel.monthLabel
+                                </p>
+                              </div>
+                              <div
+                                class="StyledProps--font StyledProps--main value"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  *
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              class="Layout--vertical StyledProps--main column"
+                              data-name="column"
+                              style="width: 250px;"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main label"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  pipeline-triggers.schedulePanel.dayOfWeekLabel
+                                </p>
+                              </div>
+                              <div
+                                class="StyledProps--font StyledProps--main value"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                >
+                                  *
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main spacer"
+                          style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                        >
+                          <div
+                            class="StyledProps--font StyledProps--main"
+                          />
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main expression"
+                          data-name="expression"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main label"
+                          >
+                            pipeline-triggers.schedulePanel.cronExpression
+                          </p>
+                          <div
+                            class="StyledProps--font StyledProps--main field"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              0/5 * * * *
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                    icon="chevron-left"
+                  >
+                    <svg
+                      data-icon="chevron-left"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-left
+                      </desc>
+                      <path
+                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    back
+                  </span>
+                </button>
+                <button
+                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main cancel"
+                >
+                  cancel
                 </p>
               </div>
             </div>

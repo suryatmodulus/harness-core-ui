@@ -33,7 +33,7 @@ describe('Activity History', () => {
         </TestWrapper>
       </MemoryRouter>
     )
-    await waitFor(() => getByText('No Activity Found'))
+    await waitFor(() => getByText('activityHistory.noData'))
     expect(container.querySelector('[icon="calendar"]')).toBeDefined()
   })
 })

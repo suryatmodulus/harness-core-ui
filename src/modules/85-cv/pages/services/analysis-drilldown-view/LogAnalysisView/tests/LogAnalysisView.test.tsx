@@ -1,14 +1,9 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import { useStrings } from 'framework/exports'
 import LogAnalysisView from '../LogAnalysisView'
-
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
-const { result } = renderHook(() => useStrings(), { wrapper })
 
 describe('Unit tests for log analysis view', () => {
   test('Ensure no data state is rendered when no data is provided', async () => {
@@ -51,7 +46,7 @@ describe('Unit tests for log analysis view', () => {
     await waitFor(() => expect(getByText('mockError')).not.toBeNull)
 
     // click retry button
-    fireEvent.click(getByText(result.current.getString('retry')))
+    fireEvent.click(getByText('Retry'))
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(2))
   })
 

@@ -22,7 +22,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   canDelete?: boolean
   isInComplete?: boolean
   skipCondition?: string
-  secondaryIcon?: IconName
+  secondaryIcon?: IconName | null
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: React.CSSProperties
   showPorts?: boolean

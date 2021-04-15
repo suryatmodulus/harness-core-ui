@@ -12,25 +12,15 @@ import {
   StepProps
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import {
-  useCreateConnector,
-  useUpdateConnector,
-  ConnectorConfigDTO,
-  ConnectorRequestBody,
-  ConnectorInfoDTO
-} from 'services/cd-ng'
-import { useToaster } from '@common/exports'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+
 import { useStrings } from 'framework/exports'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
-import {
-  buildJiraPayload,
-  SecretReferenceInterface,
-  setupJiraFormData
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { SecretReferenceInterface, setupJiraFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 
 import css from './JiraConnector.module.scss'
 
@@ -62,47 +52,14 @@ const defaultInitialFormData: JiraFormData = {
 }
 
 const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> = props => {
-  const { prevStepData, nextStep, accountId, projectIdentifier, orgIdentifier } = props
-  const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding | undefined>()
+  const { prevStepData, nextStep, accountId } = props
+  const [, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding | undefined>()
   const [initialValues, setInitialValues] = React.useState(defaultInitialFormData)
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { showSuccess } = useToaster()
-  const [loadConnector, setLoadConnector] = React.useState(false)
+  const [loadConnector] = React.useState(false)
+
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = React.useState(true && props.isEditMode)
 
   const { getString } = useStrings()
-
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      showSuccess(getString('connectors.successfullCreate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as JiraFormProps)
-      props?.onConnectorCreated?.(response.data)
-      props.setIsEditMode(true)
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
-  }
-
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      showSuccess(getString('connectors.successfullUpdate', { name: data.connector?.name }))
-      setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData } as JiraFormProps)
-      props?.onConnectorCreated?.(response.data)
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
-    }
-  }
 
   React.useEffect(() => {
     if (loadingConnectorSecrets) {
@@ -137,19 +94,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
           passwordRef: Yup.object().required(getString('validation.password'))
         })}
         onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildJiraPayload(connectorData)
-
-          if (props.isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
-          }
+          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData } as JiraFormProps)
         }}
       >
         {() => (

@@ -14,5 +14,7 @@ declare const styles: {
   readonly fadeIn: string
   readonly stageItem: string
   readonly stageButton: string
+  readonly stageError: string
+  readonly errorTooltip: string
 }
 export default styles

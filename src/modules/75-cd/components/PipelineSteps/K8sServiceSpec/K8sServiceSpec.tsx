@@ -113,12 +113,25 @@ const setupMode = {
 }
 const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues: { stageIndex = 0, setupModeType },
-  factory
+  factory,
+  readonly
 }) => {
   const { getString } = useStrings()
   const isPropagating = stageIndex > 0 && setupModeType === setupMode.PROPAGATE
   return (
     <div className={css.serviceDefinition}>
+      <Accordion
+        className={css.cardSection}
+        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+      >
+        <Accordion.Panel
+          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          addDomId={true}
+          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          details={<ManifestSelection isPropagating={isPropagating} />}
+        />
+      </Accordion>
+
       <Accordion
         className={css.cardSection}
         activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
@@ -131,23 +144,12 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         />
       </Accordion>
 
-      <Accordion
-        className={css.cardSection}
-        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-      >
-        <Accordion.Panel
-          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          addDomId={true}
-          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          details={<ManifestSelection isPropagating={isPropagating} />}
-        />
-      </Accordion>
       <Accordion className={css.cardSection} activeId={getString('variablesText')}>
         <Accordion.Panel
           id={getString('variablesText')}
           addDomId={true}
           summary={getString('variablesText')}
-          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} />}
+          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />}
         />
       </Accordion>
     </div>
@@ -354,7 +356,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     </div>
   ))
   const isTagSelectionDisabled = (connectorType: string, index = -1): boolean => {
-    let imagePath, connectorRef, registryHostname
+    let imagePath, connectorRef, registryHostname, region
     if (index > -1) {
       imagePath =
         getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
@@ -365,6 +367,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           ? artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
           : initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
       registryHostname = artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+      region =
+        getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) !== MultiTypeInputType.RUNTIME
+          ? artifacts?.sidecars?.[index]?.sidecar?.spec?.region
+          : initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
     } else {
       imagePath =
         getMultiTypeFromValue(artifacts?.primary?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
@@ -375,9 +381,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           ? artifacts?.primary?.spec?.connectorRef
           : initialValues.artifacts?.primary?.spec?.connectorRef
       registryHostname = artifacts?.primary?.spec?.registryHostname
+      region =
+        getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
+          ? artifacts?.primary?.spec?.region
+          : initialValues.artifacts?.primary?.spec?.region
     }
     if (connectorType === 'Dockerhub') {
       return !imagePath?.length || !connectorRef?.length
+    } else if (connectorType === 'Ecr') {
+      return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
       return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
     }
@@ -467,6 +479,37 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       />
                     </FormGroup>
                   )}
+
+                  {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
+                    MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
+                      <FormInput.Text
+                        disabled={readonly}
+                        style={{ width: 400 }}
+                        name={`${path}.artifacts.primary.spec.registryHostname`}
+                      />
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.Select
+                      selectProps={{
+                        usePortal: true,
+                        addClearBtn: true && !readonly
+                      }}
+                      disabled={readonly}
+                      value={
+                        initialValues?.artifacts?.primary?.spec?.region
+                          ? {
+                              label: initialValues?.artifacts?.primary?.spec?.region,
+                              value: initialValues?.artifacts?.primary?.spec?.region
+                            }
+                          : { label: '', value: '' }
+                      }
+                      items={regions}
+                      label={getString('pipelineSteps.regionLabel')}
+                      name={`${path}.artifacts.primary.spec.region`}
+                    />
+                  )}
                   {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                     <div
                       onClick={() => {
@@ -499,7 +542,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         }
                         selectProps={{
                           usePortal: true,
-                          addClearBtn: true,
+                          addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
                           noResults: (
                             <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                           ),
@@ -515,6 +558,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               }
                             : { label: '', value: '' }
                         }
+                        label={getString('tagLabel')}
                         name={`${path}.artifacts.primary.spec.tag`}
                       />
                     </div>
@@ -526,26 +570,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       name={`${path}.artifacts.primary.spec.tagRegex`}
                     />
                   )}
-
-                  {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.Select
-                      selectProps={{
-                        usePortal: true,
-                        addClearBtn: true
-                      }}
-                      value={
-                        initialValues?.artifacts?.primary?.spec?.region
-                          ? {
-                              label: initialValues?.artifacts?.primary?.spec?.region,
-                              value: initialValues?.artifacts?.primary?.spec?.region
-                            }
-                          : { label: '', value: '' }
-                      }
-                      items={regions}
-                      label={getString('pipelineSteps.regionLabel')}
-                      name={`${path}.artifacts.primary.spec.region`}
-                    />
-                  )}
                 </Layout.Vertical>
               )}
 
@@ -554,7 +578,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               )}
               {template?.artifacts?.sidecars?.map(
                 (
-                  { sidecar: { identifier = '', spec: { connectorRef = '', imagePath = '' } = {} } = {} }: any,
+                  {
+                    sidecar: {
+                      identifier = '',
+                      spec: { connectorRef = '', imagePath = '', registryHostname = '' } = {}
+                    } = {}
+                  }: any,
                   index: number
                 ) => {
                   const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
@@ -625,6 +654,36 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </FormGroup>
                       )}
+                      {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
+                        <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
+                          <FormInput.Text
+                            disabled={readonly}
+                            style={{ width: 400 }}
+                            name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
+                          />
+                        </FormGroup>
+                      )}
+                      {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
+                        MultiTypeInputType.RUNTIME && (
+                        <FormInput.Select
+                          selectProps={{
+                            usePortal: true,
+                            addClearBtn: true && !readonly
+                          }}
+                          disabled={readonly}
+                          value={
+                            initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
+                              ? {
+                                  label: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region,
+                                  value: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
+                                }
+                              : { label: '', value: '' }
+                          }
+                          items={regions}
+                          label={getString('pipelineSteps.regionLabel')}
+                          name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
+                        />
+                      )}
                       {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                         MultiTypeInputType.RUNTIME && (
                         <div
@@ -661,7 +720,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             }
                             selectProps={{
                               usePortal: true,
-                              addClearBtn: true,
+                              addClearBtn: true && !readonly,
                               noResults: (
                                 <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
                               ),
@@ -674,6 +733,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 ? { label: currentSidecarSpec.tag, value: currentSidecarSpec?.tag }
                                 : { label: '', value: '' }
                             }
+                            label={getString('tagLabel')}
                             name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`}
                           />
                         </div>
@@ -684,26 +744,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           disabled={readonly}
                           label={getString('tagRegex')}
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tagRegex`}
-                        />
-                      )}
-                      {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
-                        MultiTypeInputType.RUNTIME && (
-                        <FormInput.Select
-                          selectProps={{
-                            usePortal: true,
-                            addClearBtn: true
-                          }}
-                          value={
-                            initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
-                              ? {
-                                  label: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region,
-                                  value: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
-                                }
-                              : { label: '', value: '' }
-                          }
-                          items={regions}
-                          label={getString('pipelineSteps.regionLabel')}
-                          name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
                         />
                       )}
                     </Layout.Vertical>
@@ -740,7 +780,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       identifier = '',
                       spec: {
                         skipResourceVersioning = '',
-                        store: { spec: { branch = '', connectorRef = '', folderPath = '' } = {}, type = '' } = {}
+                        store: {
+                          spec: { branch = '', connectorRef = '', folderPath = '', commitId = '' } = {},
+                          type = ''
+                        } = {}
                       } = {}
                     } = {}
                   }: any,
@@ -750,7 +793,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <Layout.Vertical key={identifier}>
                       <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                       {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                        <FormGroup labelFor={'connectorRef'} label={getString('manifestType.selectManifestStore')}>
+                        <FormGroup
+                          labelFor={'connectorRef'}
+                          label={getString('pipeline.manifestType.selectManifestStore')}
+                        >
                           <ConnectorReferenceField
                             disabled={readonly}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
@@ -791,7 +837,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </FormGroup>
                       )}
-
+                      {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
+                        <FormGroup labelFor={'commitId'} label={getString('pipelineSteps.commitIdValue')}>
+                          <FormInput.Text
+                            disabled={readonly}
+                            className={css.inputWidth}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                          />
+                        </FormGroup>
+                      )}
                       {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                         <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
                           <FormInput.Text
@@ -848,6 +902,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
                 path
               }}
+              readonly={readonly}
             />
           }
         />
@@ -1139,7 +1194,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   }
 
   renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputVariable) {
       return (
@@ -1148,6 +1203,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           initialValues={initialValues}
           stepsFactory={factory}
           onUpdate={onUpdate}
+          readonly={readonly}
         />
       )
     }
@@ -1161,7 +1217,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           stepViewType={stepViewType}
           template={inputSetData?.template}
           path={inputSetData?.path}
-          readonly={inputSetData?.readonly}
+          readonly={inputSetData?.readonly || readonly}
           factory={factory}
         />
       )
@@ -1175,6 +1231,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         path={inputSetData?.path}
+        readonly={readonly}
       />
     )
   }

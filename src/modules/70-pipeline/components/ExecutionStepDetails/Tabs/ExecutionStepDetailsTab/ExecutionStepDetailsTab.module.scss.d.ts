@@ -6,6 +6,7 @@ declare const styles: {
   readonly title: string
   readonly error: string
   readonly warn: string
+  readonly timer: string
   readonly detailsTable: string
   readonly delegateRow: string
 }

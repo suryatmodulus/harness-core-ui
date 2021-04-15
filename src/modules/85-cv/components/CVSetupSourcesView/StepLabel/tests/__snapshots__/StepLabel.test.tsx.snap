@@ -5,7 +5,7 @@ exports[`Unit tests for StepLabel Ensure that label colors are correct when step
   <p
     class="StyledProps--font StyledProps--main main"
   >
-    Step 2 of 2
+    step 2 of 2
   </p>
 </div>
 `;

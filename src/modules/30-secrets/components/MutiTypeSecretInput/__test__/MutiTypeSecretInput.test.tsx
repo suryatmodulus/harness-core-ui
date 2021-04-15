@@ -52,7 +52,7 @@ describe('SecretInput', () => {
     expect(container).toMatchSnapshot()
 
     act(() => {
-      fireEvent.click(getByText('Create or Select a Secret'))
+      fireEvent.click(getByText('createOrSelectSecret'))
     })
 
     const modal = findDialogContainer()
@@ -64,7 +64,7 @@ describe('SecretInput', () => {
       fireEvent.click(secret)
     })
 
-    const applyBtn = await waitFor(() => findByText(modal!, 'Apply Selected'))
+    const applyBtn = await waitFor(() => findByText(modal!, 'entityReference.apply'))
 
     act(() => {
       fireEvent.click(applyBtn)

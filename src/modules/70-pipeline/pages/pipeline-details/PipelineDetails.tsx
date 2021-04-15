@@ -94,7 +94,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
               </NavLink>
 
               <NavLink
-                className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}
+                className={cx(css.tags, {
+                  [css.disabled]: pipelineIdentifier === DefaultNewPipelineId
+                })}
                 activeClassName={css.activeTag}
                 onClick={e => pipelineIdentifier === DefaultNewPipelineId && e.preventDefault()}
                 to={routes.toInputSetList({

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { yupToFormErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
@@ -9,7 +9,8 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
-import { flatObject, processFormData, processForInitialValues } from './helper'
+import { flatObject } from '../ApprovalCommons'
+import { processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
@@ -30,7 +31,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     timeout: '1d',
     spec: {
       approvalMessage: '',
-      includePipelineExecutionHistory: false,
+      includePipelineExecutionHistory: true,
       approvers: {
         userGroups: [],
         minimumCount: 1,
@@ -49,25 +50,51 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     data: HarnessApprovalData,
     template: HarnessApprovalData,
     getString?: UseStringsReturn['getString']
-  ): object {
-    const errors = { spec: {} } as any
+  ): FormikErrors<HarnessApprovalData> {
+    const errors: FormikErrors<HarnessApprovalData> = {}
+
+    if (
+      typeof template?.spec?.approvalMessage === 'string' &&
+      getMultiTypeFromValue(template?.spec?.approvalMessage) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.approvalMessage)
+    ) {
+      errors.spec = {
+        ...errors.spec,
+        approvalMessage: getString?.('pipeline.approvalStep.validation.approvalMessage')
+      }
+    }
 
     if (
       typeof template?.spec?.approvers.userGroups === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvers.userGroups) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.approvers.userGroups)
     ) {
-      errors.spec.approvers = getString?.('approvalStep.validation.userGroups')
+      errors.spec = {
+        ...errors.spec,
+        approvers: {
+          userGroups: getString?.('pipeline.approvalStep.validation.userGroups')
+        }
+      }
     }
 
     if (
       typeof template?.spec?.approvers.minimumCount === 'string' &&
       getMultiTypeFromValue(template?.spec?.approvers.minimumCount) === MultiTypeInputType.RUNTIME
     ) {
-      if (isEmpty(data?.spec?.approvers.minimumCount)) {
-        errors.spec.minimumCount = getString?.('approvalStep.validation.minimumCountRequired')
+      if (!data?.spec?.approvers.minimumCount) {
+        errors.spec = {
+          ...errors.spec,
+          approvers: {
+            minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountRequired')
+          }
+        }
       } else if (data?.spec?.approvers.minimumCount < 1) {
-        errors.spec.minimumCount = getString?.('approvalStep.validation.minimumCountOne')
+        errors.spec = {
+          ...errors.spec,
+          approvers: {
+            minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountOne')
+          }
+        }
       }
     }
 
@@ -91,14 +118,18 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     return errors
   }
 
+  processFormData(values: HarnessApprovalData) {
+    return processFormData(values)
+  }
+
   renderStep(this: HarnessApproval, props: StepProps<HarnessApprovalData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <HarnessApprovalDeploymentMode
           stepViewType={stepViewType}
-          initialValues={processForInitialValues(initialValues)}
+          initialValues={processForInitialValues(initialValues, true)}
           onUpdate={values => onUpdate?.(processFormData(values))}
           inputSetData={inputSetData}
         />
@@ -116,9 +147,10 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     return (
       <HarnessApprovalStepModeWithRef
         ref={formikRef}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         initialValues={processForInitialValues(initialValues)}
-        onUpdate={values => onUpdate?.(processFormData(values))}
+        onUpdate={values => onUpdate?.(values)}
       />
     )
   }

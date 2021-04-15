@@ -68,7 +68,7 @@ const OrgResourceModalBody: React.FC<RbacResourceModalProps> = ({
       />
     </Container>
   ) : (
-    <Layout.Vertical flex={{ align: 'center-center' }} height="100vh" spacing="small">
+    <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
       <Icon name="nav-project" size={20} />
       <Text font="medium" color={Color.BLACK}>
         {getString('noData')}

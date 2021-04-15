@@ -38,7 +38,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
           <span
             class="bp3-button-text"
           >
-            Notifications
+            notifications.name
           </span>
         </button>
         <div
@@ -102,7 +102,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 15%;"
           >
-            ENABLED
+            ENABLEDLABEL
           </div>
           <div
             class="cell"
@@ -110,7 +110,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 20%;"
           >
-            NAME OF THE RULE
+            PIPELINE-NOTIFICATIONS.NAMEOFTHERULE
           </div>
           <div
             class="cell"
@@ -118,7 +118,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 35%;"
           >
-            PIPELINE EVENTS
+            PIPELINE-NOTIFICATIONS.PIPELINEEVENTS
           </div>
           <div
             class="cell"
@@ -126,7 +126,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             role="columnheader"
             style="width: 25%;"
           >
-            NOTIFICATION METHOD
+            PIPELINE-NOTIFICATIONS.NOTIFICATIONMETHOD
           </div>
           <div
             class="cell"

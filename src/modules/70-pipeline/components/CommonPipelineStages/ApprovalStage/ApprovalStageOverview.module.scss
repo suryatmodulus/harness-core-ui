@@ -4,19 +4,92 @@
   height: calc(100%);
 }
 
+.basicOverviewDetails {
+  padding: var(--spacing-medium) 0;
+}
+
 .content {
   overflow-y: auto;
+  padding-left: 60px;
 }
 
 .section-card {
   width: 1024px;
-  margin-bottom: var(--spacing-large);
-
-  margin-top: var(--spacing-medium);
+  margin: var(--spacing-large) 0;
   &.shadow {
     box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
   }
   &.notwide {
     width: auto;
+  }
+}
+
+.approvalCards {
+  padding: 0 var(--spacing-medium) !important;
+}
+
+.stageSection {
+  :global(.bp3-collapse-body > div) {
+    background-color: var(--white) !important;
+  }
+
+  background-color: var(--white);
+
+  &.stagePopover {
+    padding: var(--spacing-medium);
+  }
+
+  .tabHeading {
+    font-weight: 500;
+    font-size: var(--font-size-medium);
+    color: var(--black-color-3);
+  }
+  &.noPadVertical {
+    padding-top: 0px;
+    padding-bottom: 0;
+  }
+  .disabled {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    cursor: not-allowed !important;
+  }
+
+  .stageDetails {
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    :global {
+      .customVariables {
+        width: 700px !important;
+      }
+    }
+  }
+  .inputContainer {
+    display: grid;
+    grid-template-columns: none;
+    align-items: center;
+    button {
+      width: fit-content;
+      margin-bottom: var(--spacing-small);
+    }
+    &.sideDescription {
+      grid-template-columns: 1fr 40px;
+    }
+  }
+  .removeLink {
+    color: var(--blue-500);
+    cursor: pointer;
+    position: relative;
+    top: 16px;
+    left: 395px;
+    &.dialogView {
+      left: 276px;
+    }
+  }
+  .squareCardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    margin-right: var(--spacing-small);
   }
 }

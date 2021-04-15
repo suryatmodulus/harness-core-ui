@@ -63,7 +63,7 @@ export interface StepState {
 }
 
 export const getDefaultStepGroupState = (): StepState => ({
-  isSaved: true,
+  isSaved: false,
   isStepGroupCollapsed: false,
   isStepGroupRollback: false,
   isStepGroup: true,
@@ -71,38 +71,51 @@ export const getDefaultStepGroupState = (): StepState => ({
   stepType: StepType.STEP_GROUP
 })
 
-export const getDefaultStepState = (): StepState => ({ isSaved: true, isStepGroup: false, stepType: StepType.STEP })
+export const getDefaultStepState = (): StepState => ({ isSaved: false, isStepGroup: false, stepType: StepType.STEP })
 
 export const getDefaultDependencyServiceState = (): StepState => ({
-  isSaved: true,
+  isSaved: false,
   isStepGroup: false,
   stepType: StepType.SERVICE
 })
 
 export type StepStateMap = Map<string, StepState>
 
-export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStateMap): number => {
-  let depth = 0.7 // half of gap
-  if (node?.stepGroup) {
+export const calculateDepthPS = (
+  node: ExecutionWrapper,
+  stepStates: StepStateMap,
+  spaceAfterGroup: number,
+  SPACE_AFTER_GROUP: number
+): number => {
+  const depth = 1
+  let groupMaxDepth = 0
+  if (node.stepGroup) {
     const stepState = stepStates.get(node.stepGroup.identifier)
-    // If Group is collapsed then send the same depth
+    // collapsed group
     if (stepState && stepState.isStepGroupCollapsed) {
-      return depth
+      return 1
     }
-    depth = 1
+    // expanded group
     if (node.stepGroup.steps?.length > 0) {
-      let maxParallelSteps = 0
-      node.stepGroup.steps.forEach((nodeP: ExecutionWrapper) => {
-        if (nodeP.parallel?.length > 0 && nodeP.parallel?.length > maxParallelSteps) {
-          maxParallelSteps = nodeP.parallel.length
+      groupMaxDepth = 0
+      node.stepGroup.steps.forEach((nodeG: ExecutionWrapper) => {
+        let depthInner = 0
+        if (nodeG?.parallel) {
+          // parallel
+          nodeG?.parallel.forEach((nodeP: ExecutionWrapper) => {
+            depthInner += calculateDepthPS(nodeP, stepStates, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP)
+          })
+        } else {
+          // step
+          depthInner = 1
         }
+        groupMaxDepth = Math.max(groupMaxDepth, depthInner)
       })
-      if (maxParallelSteps > 0) {
-        depth += 0.5 * (maxParallelSteps - 1)
-      }
     }
+    groupMaxDepth += spaceAfterGroup
   }
-  return depth
+
+  return Math.max(groupMaxDepth, depth)
 }
 
 export const getDependencyFromNode = (
@@ -255,7 +268,7 @@ export const STATIC_SERVICE_GROUP_NAME = 'static_service_group'
 export const getDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
   // we have one service group
   mapState.set(STATIC_SERVICE_GROUP_NAME, {
-    isSaved: true,
+    isSaved: false,
     isStepGroupCollapsed: false,
     isStepGroupRollback: false,
     isStepGroup: true,
@@ -267,9 +280,26 @@ export const getDependenciesState = (services: DependenciesWrapper[], mapState: 
     mapState.set(service.identifier, getDefaultDependencyServiceState())
   })
 }
+
+export const updateDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
+  // we have one service group
+  const serviceGroupData = mapState.get(STATIC_SERVICE_GROUP_NAME)
+  if (serviceGroupData) {
+    mapState.set(STATIC_SERVICE_GROUP_NAME, {
+      ...serviceGroupData,
+      isSaved: true
+    })
+  }
+  services.forEach((service: DependenciesWrapper) => {
+    const serviceData = mapState.get(service.identifier)
+    if (serviceData) {
+      mapState.set(service.identifier, { ...serviceData, isSaved: true })
+    }
+  })
+}
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
   if (node.step) {
-    mapState.set(node.step.identifier, { isSaved: true, isStepGroup: false, stepType: StepType.STEP })
+    mapState.set(node.step.identifier, getDefaultStepState())
   } else if (node.steps) {
     node.steps.forEach((step: ExecutionWrapper) => {
       getStepsState(step, mapState)
@@ -295,6 +325,42 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
       getStepsState(step, mapState)
     })
     mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
+  }
+}
+export const updateStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
+  if (node.step && mapState.get(node.step.identifier)) {
+    const data = mapState.get(node.step.identifier)
+    if (data) {
+      mapState.set(node.step.identifier, { ...data, isSaved: true })
+    }
+  } else if (node.steps) {
+    node.steps.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    if (node.rollbackSteps) {
+      node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+        updateStepsState(step, mapState)
+      })
+    }
+  } else if (node.rollbackSteps) {
+    node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+  } else if (node.parallel) {
+    node.parallel.forEach((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+  } else if (node.stepGroup) {
+    node.stepGroup.steps?.forEach?.((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
+      updateStepsState(step, mapState)
+    })
+    const groupData = mapState.get(node.stepGroup.identifier)
+    if (groupData) {
+      mapState.set(node.stepGroup.identifier, { ...groupData, isSaved: true })
+    }
   }
 }
 
@@ -475,6 +541,12 @@ export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps
     model: IconNodeModel,
     defaultProps: {
       icon: 'barrier-open'
+    }
+  },
+  ResourceConstraint: {
+    model: IconNodeModel,
+    defaultProps: {
+      icon: 'traffic-lights'
     }
   },
   Default: {

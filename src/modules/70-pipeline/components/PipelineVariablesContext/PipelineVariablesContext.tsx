@@ -17,7 +17,7 @@ export interface PipelineVariablesData {
   loading: boolean
 }
 
-const PipelineVariablesContext = React.createContext<PipelineVariablesData>({
+export const PipelineVariablesContext = React.createContext<PipelineVariablesData>({
   variablesPipeline: { name: '', identifier: '' },
   metadataMap: {},
   error: null,

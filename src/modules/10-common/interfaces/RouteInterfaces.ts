@@ -86,3 +86,7 @@ export type PathFn<T> = (props: AccountPathProps & T) => string
 export interface ResourceGroupDetailsPathProps extends ProjectPathProps {
   resourceGroupIdentifier: string
 }
+
+export interface UserGroupPathProps {
+  userGroupIdentifier: string
+}

@@ -19,6 +19,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
   manifestTypes,
   changeManifestType,
   stepName,
+  prevStepData,
   nextStep
 }) => {
   const [selectedManifestType, setselectedManifestType] = React.useState(selectedManifest)
@@ -66,7 +67,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
           rightIcon="chevron-right"
           onClick={() => {
             changeManifestType(selectedManifestType)
-            nextStep?.()
+            nextStep?.({ ...prevStepData })
           }}
           className={css.saveBtn}
         />

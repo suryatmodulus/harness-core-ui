@@ -1,0 +1,405 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 2,
+    "totalItems": 19,
+    "pageItemCount": 10,
+    "pageSize": 10,
+    "content": [
+      {
+        "connector": {
+          "name": "asdasd",
+          "identifier": "asdasd",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "K8sCluster",
+          "spec": {
+            "credential": {
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["abcd"]
+          }
+        },
+        "createdAt": 1617192362622,
+        "lastModifiedAt": 1617192362607,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1617192362887,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1617192362642
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "repromybug2",
+          "identifier": "repromybug2",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "DockerRegistry",
+          "spec": {
+            "dockerRegistryUrl": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabc",
+            "providerType": "DockerHub",
+            "auth": {
+              "type": "Anonymous"
+            },
+            "delegateSelectors": ["sadas"]
+          }
+        },
+        "createdAt": 1617129347107,
+        "lastModifiedAt": 1617129347107,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1617129347180,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1617129347126
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "repromybug",
+          "identifier": "repromybug",
+          "description": null,
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "K8sCluster",
+          "spec": {
+            "credential": {
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["asdf"]
+          }
+        },
+        "createdAt": 1617129210083,
+        "lastModifiedAt": 1617129210078,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1617129210161,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1617129210096
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "asfsadf",
+          "identifier": "asfsadf",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {
+            "testTag": ""
+          },
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["asd"]
+          }
+        },
+        "createdAt": 1617097871577,
+        "lastModifiedAt": 1617097871576,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1617128547247,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1617097871605
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "sdfadf",
+          "identifier": "sdfadf",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["asdf"]
+          }
+        },
+        "createdAt": 1617097729345,
+        "lastModifiedAt": 1617097729304,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1617128548093,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1617097729390
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "abcde",
+          "identifier": "abcde",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["sdfsd"]
+          }
+        },
+        "createdAt": 1616658926454,
+        "lastModifiedAt": 1616658926434,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1616658926790,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1616658926492
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "dsfsadfdsafsadf",
+          "identifier": "dsfsadfdsafsadf",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["safasd"]
+          }
+        },
+        "createdAt": 1616614942133,
+        "lastModifiedAt": 1616614942130,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1616614942528,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1616614942172
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "sfasdfasdf",
+          "identifier": "sfasdfasdf",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["sdafdsaf"]
+          }
+        },
+        "createdAt": 1616612802018,
+        "lastModifiedAt": 1616612802017,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1616612802283,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1616612802025
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "sadfdsafa",
+          "identifier": "sadfdsafa",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["sdafa"]
+          }
+        },
+        "createdAt": 1616612777901,
+        "lastModifiedAt": 1616612777901,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1616612778156,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1616612777906
+        },
+        "harnessManaged": false
+      },
+      {
+        "connector": {
+          "name": "dsafasfasdfsadf",
+          "identifier": "dsafasfasdfsadf",
+          "description": "",
+          "orgIdentifier": null,
+          "projectIdentifier": null,
+          "tags": {},
+          "type": "Aws",
+          "spec": {
+            "credential": {
+              "crossAccountAccess": null,
+              "type": "InheritFromDelegate",
+              "spec": null
+            },
+            "delegateSelectors": ["sdfasdf"]
+          }
+        },
+        "createdAt": 1616612709491,
+        "lastModifiedAt": 1616612709488,
+        "status": {
+          "status": "FAILURE",
+          "errorSummary": " No Delegate Found ( No Delegate Eligible to perform the request)",
+          "errors": [
+            {
+              "reason": " No Delegate Found",
+              "message": " No Delegate Eligible to perform the request",
+              "code": 463
+            }
+          ],
+          "testedAt": 1616612737523,
+          "lastTestedAt": 0,
+          "lastConnectedAt": 0
+        },
+        "activityDetails": {
+          "lastActivityTime": 1616612709524
+        },
+        "harnessManaged": false
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "bc2a5b59-526f-4f61-9eaf-c59f18e2fa28"
+}

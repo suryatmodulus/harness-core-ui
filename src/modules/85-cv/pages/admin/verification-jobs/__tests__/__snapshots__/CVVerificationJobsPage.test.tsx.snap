@@ -35,7 +35,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
         <span
           class="lastBreadcrumb"
         >
-          Verification Jobs
+          verificationJobs
         </span>
       </div>
     </div>
@@ -66,7 +66,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
         </span>
         <input
           class="bp3-input"
-          placeholder="Search by name, environments, services"
+          placeholder="cv.admin.monitoringSources.searchPlaceholder"
           type="text"
         />
       </div>
@@ -101,7 +101,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
       <span
         class="bp3-button-text"
       >
-        New Verification Job
+        cv.admin.verificationJobs.newVerificationJob
       </span>
     </button>
     <div
@@ -118,7 +118,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 15%;"
           title="Toggle SortBy"
         >
-          Name
+          name
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -146,7 +146,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 5%;"
           title="Toggle SortBy"
         >
-          Type
+          typeLabel
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -174,7 +174,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Services
+          services
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -202,7 +202,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Environment
+          environment
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -230,7 +230,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 12%;"
           title="Toggle SortBy"
         >
-          Change Source
+          changeSource
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -258,7 +258,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           style="width: 10%;"
           title="Toggle SortBy"
         >
-          Duration:
+          duration
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -285,7 +285,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
           role="columnheader"
           style="width: 33%;"
         >
-          Webhook
+          execution.triggerType.WEBHOOK
         </div>
       </div>
       <div
@@ -805,7 +805,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>
@@ -821,7 +821,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>
@@ -837,7 +837,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
               style="--text-line-clamp: 1;"
             >
-              All
+              all
             </p>
           </div>
         </div>
@@ -868,45 +868,7 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
             <div
               class="StyledProps--font StyledProps--main webhook"
             >
-              <div
-                class="main"
-              >
-                <div
-                  class="text"
-                />
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
-              </div>
+              cv.admin.verificationJobs.cantBeCopied
             </div>
           </div>
         </div>

@@ -14,6 +14,8 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/framework/app/App.tsx',
+    '!src/framework/AppStore/AppStoreContext.tsx',
+    '!src/**/*.d.ts',
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
     '!src/**/__tests__/**',
@@ -28,10 +30,7 @@ module.exports = {
     '!src/modules/10-common/RouteDefinitions.ts',
     '!src/modules/10-common/utils/testUtils.tsx',
     '!src/modules/10-common/utils/JestFormHelper.ts',
-    '!src/modules/85-cv/pages/metric-pack/**',
-    '!src/modules/cf/pages/feature-flags/**',
-    '!src/modules/cf/pages/feature-flags-detail/**',
-    '!src/modules/cf/pages/targets/**'
+    '!src/modules/85-cv/pages/metric-pack/**'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {
@@ -50,10 +49,10 @@ module.exports = {
   },
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 50,
-      functions: 50,
-      lines: 70
+      statements: 60,
+      branches: 40,
+      functions: 40,
+      lines: 60
     }
   },
   transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es|p-debounce)/)']

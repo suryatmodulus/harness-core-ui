@@ -101,6 +101,7 @@ interface InstanceDropdownFieldProps extends Omit<IFormGroupProps, 'label' | 'pl
   value: InstanceFieldValue
   label: string
   disabledType?: boolean
+  readonly?: boolean
   name: string
   textProps?: Omit<IInputGroupProps & HTMLInputProps, 'onChange' | 'value' | 'type' | 'placeholder'>
 }
@@ -112,6 +113,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
   onChange,
   disabledType = false,
   textProps,
+  readonly,
   ...restProps
 }): JSX.Element => {
   const { getString } = useStrings()
@@ -153,6 +155,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             }
           }
         }}
+        disabled={readonly}
         key={isPercentageType ? 'percent' : 'count'}
         value={((isPercentageType ? value.spec.percentage : value.spec.count) as unknown) as string}
       />
@@ -167,6 +170,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
                 onChange?.({ spec: { percentage: undefined }, type: InstanceTypes.Percentage })
               }}
               data-name="percentage"
+              disabled={readonly}
             />
             <MenuItem
               text={getString('instanceFieldOptions.instanceText')}
@@ -174,6 +178,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
                 onChange?.({ spec: { count: undefined }, type: InstanceTypes.Instances })
               }}
               data-name="instances"
+              disabled={readonly}
             />
           </Menu>
         }
@@ -189,10 +194,11 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
 export interface FormInstanceDropdownFieldProps extends Omit<InstanceDropdownFieldProps, 'value'> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any
+  readonly?: boolean
 }
 
 const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (props): JSX.Element => {
-  const { label, textProps, formik, name, onChange, ...restProps } = props
+  const { label, textProps, formik, name, onChange, readonly, ...restProps } = props
   const hasError = errorCheck(`${name}.type`, formik)
 
   const {
@@ -212,6 +218,7 @@ const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (pro
       value={value}
       intent={intent}
       helperText={helperText}
+      readonly={readonly}
       onChange={valueObj => {
         /* istanbul ignore next */
         formik.setFieldValue(name, { ...valueObj })

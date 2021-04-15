@@ -6,8 +6,8 @@ import { act } from 'react-dom/test-utils'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import * as toaster from '@common/components/Toaster/useToaster.tsx'
-
+import * as toaster from '@common/components/Toaster/useToaster'
+import * as portalService from 'services/portal'
 import * as cdService from 'services/cd-ng'
 import * as cvService from 'services/cv'
 import CreateNewRelicConnector from '../CreateNewRelicConnector'
@@ -35,6 +35,10 @@ jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
 }))
 
 describe('Create newrelic connector Wizard', () => {
+  beforeEach(() => {
+    jest.spyOn(portalService, 'useGetDelegateSelectors')
+  })
+
   test('should render form', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
@@ -77,7 +81,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'newRelicAccountId')).toBeDefined()
-    fireEvent.click(getByText('Next')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('next')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {
@@ -85,7 +89,7 @@ describe('Create newrelic connector Wizard', () => {
       })
     })
     expect(container).toMatchSnapshot()
-    const backBtn = getByText('Back')
+    const backBtn = getByText('back')
     fireEvent.click(backBtn)
     // Coonector name should be retained in step 1
     expect(queryByText(container, 'dummy name')).toBeDefined()
@@ -103,6 +107,7 @@ describe('Create newrelic connector Wizard', () => {
     jest.spyOn(cdService, 'useCreateConnector').mockReturnValue({
       mutate: jest.fn().mockReturnValue({ status: 'SUCCESS', data: {} }) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
+
     const onSuccessMock = jest.fn()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -160,12 +165,15 @@ describe('Create newrelic connector Wizard', () => {
       value: 'dsf-auto'
     })
 
+    jest
+      .spyOn(portalService, 'useGetDelegateSelectors')
+      .mockReturnValue({ data: [] } as UseGetReturn<any, any, any, any>)
     const submitButton = document.body.querySelector('button[type="submit"]')
     if (!submitButton) {
       throw Error('submit button is not rendered.')
     }
     fireEvent.click(submitButton)
-    await waitFor(() => expect(onSuccessMock).toHaveBeenCalledWith({}))
+    await waitFor(() => expect(portalService.useGetDelegateSelectors).toHaveBeenCalled())
   })
 
   test('update works as expected', async () => {
@@ -186,6 +194,7 @@ describe('Create newrelic connector Wizard', () => {
         }
       }) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
+
     const onSuccessMock = jest.fn()
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -236,14 +245,13 @@ describe('Create newrelic connector Wizard', () => {
 
     await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
 
+    jest
+      .spyOn(portalService, 'useGetDelegateSelectors')
+      .mockReturnValue({ data: [] } as UseGetReturn<any, any, any, any>)
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-
-    expect(onSuccessMock).toHaveBeenCalledWith({
-      name: 'mockResponseName',
-      identifier: 'mockResponseIdentifier'
-    })
+    await waitFor(() => expect(portalService.useGetDelegateSelectors).toHaveBeenCalled())
   })
 
   test('Ensure that when endpoint api is loading select says loading', async () => {
@@ -291,7 +299,7 @@ describe('Create newrelic connector Wizard', () => {
 
     // second step
     await waitFor(() => expect(document.body.querySelector('input[name="apiKeyRef"]')).not.toBeNull())
-    expect(document.body.querySelector('input[placeholder="Loading..."]')).not.toBeNull()
+    expect(document.body.querySelector('input[placeholder="loading"]')).not.toBeNull()
   })
 
   test('Ensure that when endpoint api is ini error state toaster is displayed', async () => {

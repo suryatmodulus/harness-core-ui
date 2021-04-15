@@ -45,6 +45,9 @@ import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useAppStore, useStrings } from 'framework/exports'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
@@ -136,6 +139,25 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     lazy: true
   })
+
+  const [isEditable] = usePermission(
+    {
+      resourceScope: {
+        projectIdentifier,
+        orgIdentifier,
+        accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
+  )
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -350,7 +372,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               className={css.nameiddescription}
                               identifierProps={{
                                 inputLabel: getString('inputSets.inputSetName'),
-                                isIdentifierEditable: !isEdit
+                                isIdentifierEditable: !isEdit && isEditable,
+                                inputGroupProps: {
+                                  disabled: !isEditable
+                                }
+                              }}
+                              descriptionProps={{ disabled: !isEditable }}
+                              tagsProps={{
+                                disabled: !isEditable
                               }}
                               formikProps={formikProps}
                             />
@@ -359,6 +388,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               parse(template.data.inputSetTemplateYaml) && (
                                 <PipelineInputSetForm
                                   path="pipeline"
+                                  readonly={!isEditable}
                                   originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
                                   template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
                                 />
@@ -400,6 +430,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           {...yamlBuilderReadOnlyModeProps}
                           existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
                           bind={setYamlHandler}
+                          isReadOnlyMode={!isEditable}
                           invocationMap={factory.getInvocationMap()}
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"
@@ -411,6 +442,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       <Button
                         intent="primary"
                         type="submit"
+                        disabled={!isEditable}
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''

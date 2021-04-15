@@ -7,6 +7,7 @@ declare const styles: {
   readonly card: string
   readonly selectedCard: string
   readonly connectorTypeIcon: string
+  readonly formElm: string
   readonly formButton: string
 }
 export default styles

@@ -20,6 +20,7 @@ import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import css from './FeatureAddStageView.module.scss'
 
 const newStageData = [
@@ -73,7 +74,16 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
   const validationSchema = () =>
     Yup.lazy((_values: Values): any =>
       Yup.object().shape({
-        name: Yup.string().required(getString('fieldRequired', { field: getString('stageNameLabel') }))
+        name: Yup.string()
+          .trim()
+          .required(getString('fieldRequired', { field: getString('stageNameLabel') })),
+        identifier: Yup.string().when('name', {
+          is: val => val?.length,
+          then: Yup.string()
+            .required(getString('validation.identifierRequired'))
+            .matches(regexIdentifier, getString('validation.validIdRegex'))
+            .notOneOf(illegalIdentifiers)
+        })
       })
     )
 

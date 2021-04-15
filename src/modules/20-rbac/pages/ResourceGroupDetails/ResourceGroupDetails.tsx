@@ -11,15 +11,17 @@ import {
   useGetResourceGroup,
   useUpdateResourceGroup,
   ResourceGroupRequestRequestBody,
-  ResourceGroupDTO
+  ResourceGroupDTO,
+  useGetResourceTypes
 } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
+import RbacFactory from '@rbac/factories/RbacFactory'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -27,8 +29,15 @@ const ResourceGroupDetails: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } = useParams<
     ResourceGroupDetailsPathProps
   >()
-
   const { getString } = useStrings()
+  const { showError, showSuccess } = useToaster()
+  const [isUpdated, setIsUpdated] = useState<boolean>(false)
+
+  const [selectedResourcesMap, setSelectedResourceMap] = useState<Map<ResourceType, string[] | string>>(new Map())
+  const [resourceCategoryMap, setResourceCategoryMap] = useState<
+    Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
+  >()
+
   const { data: resourceGroupDetails, error: errorInGettingResourceGroup, loading, refetch } = useGetResourceGroup({
     identifier: resourceGroupIdentifier,
     queryParams: {
@@ -37,8 +46,22 @@ const ResourceGroupDetails: React.FC = () => {
       orgIdentifier
     }
   })
-  const { showError, showSuccess } = useToaster()
-  const [selectedResourcesMap, setSelectedResourceMap] = useState<Map<ResourceType, string[] | string>>(new Map())
+
+  const { data: resourceTypeData } = useGetResourceTypes({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
+  })
+
+  useEffect(() => {
+    setResourceCategoryMap(
+      RbacFactory.getResourceCategoryList(
+        (resourceTypeData?.data?.resourceTypes.map(val => val.name) || []) as ResourceType[]
+      )
+    )
+  }, [resourceTypeData?.data])
 
   useEffect(() => {
     setSelectedResourceMap(getSelectedResourcesMap(resourceGroupDetails?.data?.resourceGroup.resourceSelectors))
@@ -72,6 +95,7 @@ const ResourceGroupDetails: React.FC = () => {
   }
 
   const onResourceSelectionChange = (resourceType: ResourceType, isAdd: boolean, identifiers?: string[]): void => {
+    setIsUpdated(true)
     if (identifiers) {
       if (isAdd) {
         setSelectedResourceMap(
@@ -106,6 +130,17 @@ const ResourceGroupDetails: React.FC = () => {
           })
         )
     }
+  }
+
+  const onDragCategory = (types: ResourceType[]): void => {
+    setIsUpdated(true)
+    setSelectedResourceMap(
+      produce(selectedResourcesMap, draft => {
+        types.map(resourceType => {
+          draft.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+        })
+      })
+    )
   }
 
   if (errorInGettingResourceGroup) {
@@ -195,6 +230,7 @@ const ResourceGroupDetails: React.FC = () => {
             border={{ right: true, color: Color.GREY_250 }}
           >
             <ResourceTypeList
+              resourceCategoryMap={resourceCategoryMap}
               onResourceSelectionChange={onResourceSelectionChange}
               preSelectedResourceList={Array.from(selectedResourcesMap.keys())}
               disableAddingResources={isHarnessManaged}
@@ -203,7 +239,14 @@ const ResourceGroupDetails: React.FC = () => {
           <Container
             padding="xlarge"
             onDrop={event => {
-              onResourceSelectionChange(event.dataTransfer.getData('text/plain') as ResourceType, true)
+              const resourceCategory: ResourceType | ResourceCategory = event.dataTransfer.getData('text/plain') as
+                | ResourceType
+                | ResourceCategory
+              const types = resourceCategoryMap?.get(resourceCategory)
+              if (types) {
+                onDragCategory(types)
+              } else onResourceSelectionChange(resourceCategory as ResourceType, true)
+
               event.preventDefault()
               event.stopPropagation()
             }}
@@ -213,10 +256,16 @@ const ResourceGroupDetails: React.FC = () => {
             }}
           >
             {!isHarnessManaged && (
-              <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="small">
-                <Button onClick={() => updateResourceGroupData(resourceGroup)} disabled={updating} intent="primary">
-                  {getString('applyChanges')}
-                </Button>
+              <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="medium">
+                <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
+                  {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
+                  <Button
+                    text={getString('applyChanges')}
+                    onClick={() => updateResourceGroupData(resourceGroup)}
+                    disabled={updating || !isUpdated}
+                    intent="primary"
+                  />
+                </Layout.Horizontal>
               </Layout.Vertical>
             )}
             <Layout.Vertical spacing="small" height="100%">

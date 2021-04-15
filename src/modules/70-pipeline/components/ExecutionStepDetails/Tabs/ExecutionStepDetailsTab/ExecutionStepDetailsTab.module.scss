@@ -31,6 +31,11 @@
     }
   }
 
+  .timer {
+    font-size: var(--font-size-small) !important;
+    color: var(--grey-500) !important;
+  }
+
   .detailsTable {
     border-collapse: collapse;
     margin: var(--spacing-large) var(--spacing-xsmall);

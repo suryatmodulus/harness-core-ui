@@ -39,7 +39,7 @@ exports[`Tests for Validate Mapping cell Ensure that when error state is passed 
           />
         </svg>
       </span>
-      Validation failed
+      cv.monitoringSources.appD.validationsFailed
     </p>
     <button
       class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--color StyledProps--color-blue500"
@@ -67,7 +67,7 @@ exports[`Tests for Validate Mapping cell Ensure that when error state is passed 
       <span
         class="bp3-button-text"
       >
-        Retry
+        retry
       </span>
     </button>
   </div>
@@ -141,7 +141,7 @@ exports[`Tests for Validate Mapping cell Ensure that when in progress is passed 
         </g>
       </svg>
     </span>
-    Verification in progress
+    cv.monitoringSources.appD.verificationsInProgress
   </p>
 </div>
 `;
@@ -171,7 +171,7 @@ exports[`Tests for Validate Mapping cell Ensure that when no data is available m
         />
       </svg>
     </span>
-    No data
+    cv.monitoringSources.appD.noData
   </p>
 </div>
 `;
@@ -209,7 +209,7 @@ exports[`Tests for Validate Mapping cell Ensure that when success is passed chec
         />
       </svg>
     </span>
-    Validation passed
+    cv.monitoringSources.appD.validationsPassed
   </p>
 </div>
 `;

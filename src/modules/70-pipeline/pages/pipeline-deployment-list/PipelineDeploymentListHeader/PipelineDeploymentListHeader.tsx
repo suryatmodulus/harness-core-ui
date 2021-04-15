@@ -62,8 +62,8 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="run-pipeline" intent="primary">
-          <String className={css.runText} stringID="runPipelineText" onClick={props.onRunPipeline} />
+        <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline}>
+          <String className={css.runText} stringID="runPipelineText" />
         </Button>
         <div className={cx(css.filterGroup, css.btnGroup)}>
           <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
@@ -76,23 +76,21 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
             </Button>
           </ButtonGroup>
         </div>
-        {module !== 'ci' && (
-          <>
+        <>
+          <div className={css.filterGroup}>
+            <String className={css.label} stringID="status" />
+            <StatusSelect value={queryParams.status} onSelect={handleStatusChange} />
+          </div>
+          {pipelineIdentifier ? null : (
             <div className={css.filterGroup}>
-              <String className={css.label} stringID="status" />
-              <StatusSelect value={queryParams.status} onSelect={handleStatusChange} />
+              <String className={css.label} stringID="pipelines" />
+              <PipelineSelect
+                selectedPipeline={queryParams.pipelineIdentifier}
+                onPipelineSelect={handlePipelineChange}
+              />
             </div>
-            {pipelineIdentifier ? null : (
-              <div className={css.filterGroup}>
-                <String className={css.label} stringID="pipelines" />
-                <PipelineSelect
-                  selectedPipeline={queryParams.pipelineIdentifier}
-                  onPipelineSelect={handlePipelineChange}
-                />
-              </div>
-            )}
-          </>
-        )}
+          )}
+        </>
       </div>
       <div className={css.rhs}>
         <ExecutionFilters />

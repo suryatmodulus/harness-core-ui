@@ -453,7 +453,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                   )
                 </section>
                 <section>
-                  Recently Used
+                  recentlyUsed
                    (0)
                 </section>
               </section>
@@ -463,7 +463,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 <section
                   class="title"
                 >
-                  Categories
+                  categories
                 </section>
                 <div
                   class="Layout--vertical StyledProps--main"

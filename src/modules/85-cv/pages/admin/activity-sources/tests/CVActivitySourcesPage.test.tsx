@@ -167,7 +167,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    fireEvent.click(getByText('+ Add Change Source(s)'))
+    fireEvent.click(getByText('cv.admin.activitySources.addActivitySource'))
     await waitFor(() => expect(routeCVAdminSetupSpy).toHaveBeenCalledTimes(1))
   })
 
@@ -183,8 +183,8 @@ describe('CVActivitySourcesPage unit tests', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('No Change Sources onboarded')).not.toBeNull())
-    const retryButton = getByText('+ Add Change Source(s)')
+    await waitFor(() => expect(getByText('cv.admin.activitySources.noDataMessage')).not.toBeNull())
+    const retryButton = getByText('cv.admin.activitySources.addActivitySource')
     if (!retryButton) {
       throw new Error('Retry button is missing.')
     }

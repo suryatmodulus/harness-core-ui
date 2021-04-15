@@ -136,7 +136,7 @@ describe('Unit tests for ReviewNewRelicMapping', () => {
     expect(getByText('gateway')).not.toBeNull()
     expect(getByText('prod')).not.toBeNull()
 
-    fireEvent.click(getByText('Submit'))
+    fireEvent.click(getByText('submit'))
     await waitFor(() =>
       expect(createFuncMock).toHaveBeenCalledWith(
         {
@@ -226,7 +226,7 @@ describe('Unit tests for ReviewNewRelicMapping', () => {
     expect(getByText('gateway')).not.toBeNull()
     expect(getByText('prod')).not.toBeNull()
 
-    fireEvent.click(getByText('Submit'))
+    fireEvent.click(getByText('submit'))
     await waitFor(() =>
       expect(updateFuncMock).toHaveBeenCalledWith(
         {
@@ -322,7 +322,7 @@ describe('Unit tests for ReviewNewRelicMapping', () => {
     expect(getByText('gateway')).not.toBeNull()
     expect(getByText('prod')).not.toBeNull()
 
-    fireEvent.click(getByText('Submit'))
+    fireEvent.click(getByText('submit'))
     await waitFor(() => expect(showErrorMock).toHaveBeenCalledWith('mockError', 7000))
   })
 })

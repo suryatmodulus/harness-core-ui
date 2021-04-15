@@ -24,7 +24,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -40,7 +40,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -60,7 +60,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +126,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -142,9 +142,10 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -194,7 +195,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  chartPath
                    
                   <span
                     class="bp3-text-muted"
@@ -210,9 +211,10 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -258,7 +260,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -321,17 +323,17 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -378,7 +380,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -388,7 +390,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -441,7 +443,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -457,7 +459,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -477,7 +479,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -543,7 +545,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -559,9 +561,10 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -611,7 +614,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  chartPath
                    
                   <span
                     class="bp3-text-muted"
@@ -627,9 +630,10 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -675,7 +679,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -738,17 +742,17 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -795,7 +799,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -805,7 +809,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -858,7 +862,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -874,7 +878,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -894,7 +898,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -960,7 +964,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -976,9 +980,10 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1028,7 +1033,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Chart Path
+                  chartPath
                    
                   <span
                     class="bp3-text-muted"
@@ -1044,9 +1049,10 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1092,7 +1098,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -1155,17 +1161,17 @@ exports[`helm with GIT tests renders without crashing 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -1212,7 +1218,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -1222,7 +1228,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

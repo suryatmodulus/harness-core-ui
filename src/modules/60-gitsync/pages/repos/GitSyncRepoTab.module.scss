@@ -2,6 +2,23 @@
   padding: var(--spacing-small) var(--spacing-xlarge);
   background-color: var(--grey-100);
 
+  .wrapper {
+    width: calc(100% - 20px);
+    .name {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      white-space: nowrap !important;
+    }
+  }
+
+  [role='row'] [role='cell']:first-child div div {
+    width: calc(100% - 50px); // extra 30px for icons of size 30 in 1st column
+  }
+
   .menuContainer {
     text-align: right;
   }

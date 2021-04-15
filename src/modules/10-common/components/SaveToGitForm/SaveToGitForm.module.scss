@@ -1,0 +1,37 @@
+.modalContainer {
+  padding: 0 var(--spacing-large) !important;
+
+  .modalHeader {
+    font-size: 20px !important;
+    border-bottom: thin solid var(--grey-300);
+  }
+
+  .formBody {
+    min-height: 480px;
+
+    .sectionHeader {
+      border-bottom: thin solid var(--grey-300);
+
+      .branchInput {
+        width: 280px;
+        margin-top: var(--spacing-small);
+      }
+    }
+
+    :global {
+      .bp3-form-content {
+        font-size: var(--font-size-normal);
+        color: var(--grey-500);
+
+        textarea {
+          max-height: 200px;
+          resize: vertical;
+        }
+      }
+    }
+  }
+
+  .formButton {
+    padding: 0 var(--spacing-large) !important;
+  }
+}

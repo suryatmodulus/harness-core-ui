@@ -1,9 +1,11 @@
 import React from 'react'
-import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/uicore'
+import { Container, Heading, Text, Icon, Layout } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useAppStore, useStrings } from 'framework/exports'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, accountId } = useParams()
@@ -18,7 +20,7 @@ export const CDDashboardPage: React.FC = () => {
           <Heading>{getString('cdDashboard.welcome')}</Heading>
           <Text>{getString('cdDashboard.description')}</Text>
           <Icon name="cd-main" size={200} />
-          <Button
+          <RbacButton
             width={200}
             text={getString('cdDashboard.creatPipeline')}
             intent="primary"
@@ -33,6 +35,14 @@ export const CDDashboardPage: React.FC = () => {
                 })
               )
             }
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier: project?.orgIdentifier,
+                projectIdentifier
+              },
+              permission: PermissionIdentifier.EDIT_PIPELINE
+            }}
           />
         </Layout.Vertical>
       </Container>

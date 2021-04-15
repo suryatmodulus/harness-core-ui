@@ -109,11 +109,11 @@ describe('PreflightCheck', () => {
       </TestWrapper>
     )
 
-    const connectorsSectionTitle = getByText('Verifying connectors')
+    const connectorsSectionTitle = getByText('pre-flight-check.verifyingPipelineInputs')
     fireEvent.click(connectorsSectionTitle)
     expect(container).toMatchSnapshot()
 
-    const inputsSectionTitle = getByText('Verifying pipeline inputs')
+    const inputsSectionTitle = getByText('pre-flight-check.verifyingConnectors')
     fireEvent.click(inputsSectionTitle)
     expect(container).toMatchSnapshot()
   })

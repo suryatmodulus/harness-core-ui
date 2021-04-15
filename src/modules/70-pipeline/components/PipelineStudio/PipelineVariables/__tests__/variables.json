@@ -1,0 +1,340 @@
+{
+  "name": "oLNUD_JzQyyA30Zf-zRilA",
+  "identifier": "variables_pipeline",
+  "description": "7FhA43aLTzibOqwUeYXC4A",
+  "tags": { "uuid": "_Au68GWXRdSYfZm4CCrU5w" },
+  "stages": [
+    {
+      "stage": {
+        "name": "GlScNh7eTwu-0QrmRt9V6g",
+        "identifier": "stage_1",
+        "description": "blPabypJQLyto4w0vYXbLQ",
+        "type": "Deployment",
+        "spec": {
+          "serviceConfig": {
+            "serviceDefinition": {
+              "type": "Kubernetes",
+              "spec": {
+                "manifestOverrideSets": [],
+                "manifests": [],
+                "artifacts": { "sidecars": [], "uuid": "K-8RxEugQpuG67wR0hehgA" },
+                "variables": [
+                  {
+                    "name": "svc_var1",
+                    "type": "String",
+                    "default": "P63K50oSQP6i3n4gzpW6QA",
+                    "value": "Im8_6V1pTj6ge09Y7jGWwA",
+                    "uuid": "6QcJpFfdT2C1D_B_u03-hg"
+                  },
+                  {
+                    "name": "svc_var2",
+                    "type": "String",
+                    "default": "QCcuNP3BSTWtTs3q4ZAu2A",
+                    "value": "a-jDU5EJTiy5nk1SXasipQ",
+                    "uuid": "yzJgpiLWR9G3nZF4OI5_3Q"
+                  }
+                ],
+                "uuid": "9HjhJpP_RF251nRHDttgfw"
+              },
+              "uuid": "atwadgOBRQapfodmFp2fwA"
+            },
+            "service": { "name": "ZAaAUL8yROa5TPio6zf_iw", "identifier": "test_svc", "uuid": "E4FEmK6mTnap58UsOChJxQ" },
+            "uuid": "vwgoyqs8Tyihj7ACDLZVgw"
+          },
+          "infrastructure": {
+            "environmentRef": "DVJubeNWTZii6cKK_8jKUg",
+            "infrastructureDefinition": { "uuid": "CmlsN8UkSjGElmqAVEGsCg" },
+            "allowSimultaneousDeployments": "WzfX-xgRQy2Jv-AgzOTXUA",
+            "uuid": "LNZOcEyjRHyUJNLxVb6E6g"
+          },
+          "execution": {
+            "steps": [
+              {
+                "step": {
+                  "type": "Http",
+                  "name": "0Fh2Z_1wRw2yd1_Z2qjz7w",
+                  "identifier": "step_1",
+                  "timeout": "SiJPRhdARNOBk_upDwl26g",
+                  "spec": {
+                    "url": "CT9VNCzoS8i7iFMLCNmngQ",
+                    "method": "S1VrzTLSTiyhkG-HY9HW9w",
+                    "headers": [],
+                    "outputVariables": [],
+                    "uuid": "1ftSVxreRue5ynBjjw9nxg"
+                  },
+                  "uuid": "UxjGAQ0nTJOh5MqkkrW9aQ"
+                },
+                "uuid": "3cjYDzZ8SgCy47xEOLdnHA"
+              },
+              {
+                "stepGroup": {
+                  "name": "Ge-83g2CRzeApldsDG7hmw",
+                  "identifier": "step_group_1",
+                  "steps": [
+                    {
+                      "parallel": [
+                        {
+                          "step": {
+                            "type": "Http",
+                            "name": "a-2OQbBFQqC3uPMBq_lk8w",
+                            "identifier": "p_step_1",
+                            "timeout": "jGmpCoJ4QB-9HPJVGkgTNw",
+                            "spec": {
+                              "url": "Ui6PiXF0Qoux9vf60eDMVw",
+                              "method": "N-uHdqh3Qviln3VMQZFrdg",
+                              "headers": [],
+                              "outputVariables": [],
+                              "uuid": "GRf2stLVThu-BH-iCF9jZA"
+                            },
+                            "uuid": "dL_kzfndTZaQ0JYZy-tIgQ"
+                          },
+                          "uuid": "UankqZF9R5WexKtFag4a1w"
+                        },
+                        {
+                          "step": {
+                            "type": "Http",
+                            "name": "jn0EpwlyQZWkIpuhqN34eQ",
+                            "identifier": "p_step_2",
+                            "timeout": "NQ_x8N3GT-eHfhvAT2Qb-Q",
+                            "spec": {
+                              "url": "GYD36152TCuQFClh6Bx1Bw",
+                              "method": "u43AtmT-Q8i4p_nDMLQd1w",
+                              "headers": [],
+                              "outputVariables": [],
+                              "uuid": "ylSGhOk_SeGn850N5UcZuw"
+                            },
+                            "uuid": "MPzh5O8eRtCWqNgLbYaVZA"
+                          },
+                          "uuid": "7IgbluKNT7u-TeqexfiVBQ"
+                        }
+                      ],
+                      "uuid": "NH9gZuC6RZWiXTE_-AaC7A"
+                    }
+                  ],
+                  "uuid": "o02e4Sg8TKiBk4EPhu5dXw"
+                },
+                "uuid": "QrS5zgZVREuiVaeTmEdiWg"
+              }
+            ],
+            "rollbackSteps": [],
+            "uuid": "a2SPSzpoSumVjhFiStcphQ"
+          },
+          "uuid": "Hm2_-xHwQ7aDANE3IuXQ4w"
+        },
+        "tags": { "uuid": "x_M2MNSRTF2rO05KPH6CEQ" },
+        "failureStrategies": [
+          {
+            "onFailure": {
+              "errors": "h_vVxJpFREegTslImRYUuA",
+              "action": { "type": "StageRollback", "uuid": "URYy-1reRZ-Acclulyw8lw" },
+              "uuid": "52ygg2ZJQKylNpoznevQjw"
+            },
+            "uuid": "6Y4jbNW8S7i1b7_bH63iLA"
+          }
+        ],
+        "variables": [
+          {
+            "name": "stage_var1",
+            "type": "String",
+            "default": "4Jh6F-cCTQu45w4LsNAd9A",
+            "value": "-NkClQtMQl-gG8umQxYnTw",
+            "uuid": "6-LTrgkoR6iNRwjkolIvJA"
+          },
+          {
+            "name": "stage_var2",
+            "type": "String",
+            "default": "MOP-q5vwT-WQK_H4_vqlPQ",
+            "value": "BLiJ2bL0RO6xTL3YxjXqdA",
+            "uuid": "buN8S_u8Qquf80da9n8THw"
+          }
+        ],
+        "uuid": "n6TQTHXPSI62SZnnpZdVhg"
+      },
+      "uuid": "d4pjI3YLRhqwg_IffM_-Gw"
+    },
+    {
+      "stage": {
+        "name": "V7SAA-LlRlKRJk2cy7N9RQ",
+        "identifier": "stage_2",
+        "description": "rPnO_oZRTKObc4fMgtOS9A",
+        "type": "Deployment",
+        "spec": {
+          "serviceConfig": {
+            "service": { "name": "gIcSk6dmTbmUOgWC081cPA", "identifier": "test_svc", "uuid": "pi0lYutmTEeGvz8xYyexww" },
+            "useFromStage": { "stage": "Wr7JvX6yRByvEKUAS6XEGw", "uuid": "a8FEwuhMRxeH-n8ehYWGHQ" },
+            "uuid": "FWmG_whUT2ao_6ZjdeRbSQ"
+          },
+          "infrastructure": {
+            "environmentRef": "ILSLS3w7S46k0Jw5cdVEvw",
+            "infrastructureDefinition": { "uuid": "l62KqYABSSOY5lWVtdk5Dw" },
+            "allowSimultaneousDeployments": "lCruvLr7Twi6K_eddxbhhg",
+            "uuid": "bUbRjpMIQGWQ-RDyAT5Hgw"
+          },
+          "execution": {
+            "steps": [
+              {
+                "step": {
+                  "type": "Http",
+                  "name": "RDsGHqudSE6D65aXAl6DIA",
+                  "identifier": "step_1",
+                  "timeout": "qt2v27XdSmOPR9d2tCf-lQ",
+                  "spec": {
+                    "url": "SQU7q7qsQp6di9ILVOGcqg",
+                    "method": "HoEeBbwHR7-Fke1ylR7keQ",
+                    "headers": [],
+                    "outputVariables": [],
+                    "uuid": "i4CHXcdsROmWDBsGLFsxpQ"
+                  },
+                  "uuid": "O8GSef0ATaejsE_zaElp5w"
+                },
+                "uuid": "hBQ8gBAsR2KsX1xW3f3NoA"
+              }
+            ],
+            "rollbackSteps": [],
+            "uuid": "1PpUry9PRKSLcclxL19kVQ"
+          },
+          "uuid": "xEWSBlyERv2hal4boPwq5w"
+        },
+        "tags": { "uuid": "BKBSf5hXT9SIEBH8Ta5a-Q" },
+        "failureStrategies": [
+          {
+            "onFailure": {
+              "errors": "O8cnfBzvSq-Su0lqw3KGDw",
+              "action": { "type": "StageRollback", "uuid": "N8Zl5LT8QGm8UrNEr1qotA" },
+              "uuid": "PLfo6zVQR2O5Zek0rKYoFQ"
+            },
+            "uuid": "cOcVo9NDQpeo-avppIBV4A"
+          }
+        ],
+        "uuid": "CbdI1aDVT1i7gZaXIE_ztg"
+      },
+      "uuid": "j_v5HYvxSEupTRLmqKKWhQ"
+    },
+    {
+      "parallel": [
+        {
+          "stage": {
+            "name": "KffJvZPeRISSdKoDKmAGgA",
+            "identifier": "parallel_stage_",
+            "description": "Gp5rjV7UQuKZuyGsX7A_DA",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": {
+                "useFromStage": { "stage": "D3hevYiyTFu09y1cr2nXJw", "uuid": "ZDr64zWYSx6ogZVML6wENw" },
+                "uuid": "-tazzObrSp2BF0IQLkhkBQ"
+              },
+              "infrastructure": {
+                "environmentRef": "oswADnx5Tc6PgzuWUeW5CQ",
+                "infrastructureDefinition": { "uuid": "Nch6yebtTdqXXrGVbMfYSA" },
+                "allowSimultaneousDeployments": "PZMv7ZueQcCay-tRhVozOQ",
+                "uuid": "jrI7aG6SQ_mjFwG61Qyj2w"
+              },
+              "execution": {
+                "steps": [
+                  {
+                    "step": {
+                      "type": "Http",
+                      "name": "C67Wy65jTvKHY5jzl9zpWA",
+                      "identifier": "step_1",
+                      "timeout": "sXN2nv5yQQWzPQbRligU9w",
+                      "spec": {
+                        "url": "uldfCL10Taa_WpCredl82Q",
+                        "method": "KbHTOPq1QIK87LAGPnQ9uw",
+                        "headers": [],
+                        "outputVariables": [],
+                        "uuid": "Ld8QY5fNR_--lqbGdb1Xjg"
+                      },
+                      "uuid": "v00MZK3cQUOtjv83Std_VA"
+                    },
+                    "uuid": "_Y2N7-guSTyZe4fRE2I3yw"
+                  }
+                ],
+                "rollbackSteps": [],
+                "uuid": "qTYCZlpFTgmf6k6QZxFLrg"
+              },
+              "uuid": "JtVD3mAXRM6RyRpxtPhD5g"
+            },
+            "tags": { "uuid": "Dgj0DmytSZiy4vx6wSfw-Q" },
+            "skipCondition": "imh649hTTTS9BSx6vQ75Vg",
+            "serviceType": {
+              "text": "TC4AGKdFT3yTKAUf_wspVg",
+              "value": "cz0LevqzTHuVFXQ8NgnUsQ",
+              "icon": "iBxMIfeDTtWZUyqeg_PeLQ",
+              "disabled": "wbB50opjQz-CkKRodA8ngQ",
+              "uuid": "kylyqOX1SNyWSVptF7UnGQ"
+            },
+            "uuid": "AEIx7QORSPOsMhktbCxI7g"
+          },
+          "uuid": "Hv110S_tRROBjQMZ_Bt8iw"
+        },
+        {
+          "stage": {
+            "name": "R9FKBEndTqi3smHtRrrWbA",
+            "identifier": "parallel_stage_2",
+            "description": "Qd4IYN80TdK6nOiSTruR0w",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": {
+                "useFromStage": { "stage": "vKfNKnNISXaBeekSK7sHyA", "uuid": "h_TycU2qT_e-ff4RCKZJ1w" },
+                "uuid": "Bbr6v6F9T1WvtjEV2dmpfQ"
+              },
+              "infrastructure": {
+                "environmentRef": "hbiGsvbMTM2ujyrhtu5nKg",
+                "infrastructureDefinition": { "uuid": "MUuTK6DUT-e3zSTYxQYy4w" },
+                "allowSimultaneousDeployments": "NHWsYKs0TEiKd0hUXBPKEw",
+                "uuid": "DIWrR1URQP6t9wrp1VDC7A"
+              },
+              "execution": {
+                "steps": [
+                  {
+                    "step": {
+                      "type": "Http",
+                      "name": "Yo-qZmfeQyO4AITX2mGeWQ",
+                      "identifier": "step_1",
+                      "timeout": "RWSj9OMURBOpuarMSt_B1Q",
+                      "spec": {
+                        "url": "NPU5nOAeSR66fSkD20UTaA",
+                        "method": "OgUp9DCPTCC3DRxCU2_dFw",
+                        "headers": [],
+                        "outputVariables": [],
+                        "uuid": "E5NHDfB3TDCnV2VAlYfdaQ"
+                      },
+                      "uuid": "7vzI47JkRHGD6P1ZzRf7DQ"
+                    },
+                    "uuid": "8pIatZXvQEm1gkhIunPXAQ"
+                  }
+                ],
+                "rollbackSteps": [],
+                "uuid": "S8yQA_nBQUKOzD1q7QGqlQ"
+              },
+              "uuid": "Y_BHTVSFSm6RYSF3hYVQKQ"
+            },
+            "tags": { "uuid": "8O7289bbRZSM1O8vwPPUBg" },
+            "uuid": "xiQTFEV3T8Obu7MSCJdn3Q"
+          },
+          "uuid": "NUW1_3_uS6WGkVyacfqidQ"
+        }
+      ],
+      "uuid": "67Uc0mocRsS5d-Fk765RkA"
+    }
+  ],
+  "projectIdentifier": "iUOaGSO9S-KteP8GFMI3qA",
+  "orgIdentifier": "YaSE2dSxQimFFmVBmE7j-A",
+  "variables": [
+    {
+      "name": "pvar",
+      "type": "String",
+      "default": "Dh8Hy_BWQlex2yrSmf-DmQ",
+      "value": "4e-mYM9vSfa6qdzuFRMBoA",
+      "uuid": "LfmX6YTGSDCv1LdKS466IQ"
+    },
+    {
+      "name": "pvar2",
+      "type": "String",
+      "default": "p4UJq5U4Th-3QD9YcI97AA",
+      "value": "2Xfnrk2hTseDs-Kk5Dj3zw",
+      "uuid": "lYncpqGmRD2z4HD8FEchtQ"
+    }
+  ],
+  "uuid": "kubfSzPWTX-OyKtTNXLA0g"
+}

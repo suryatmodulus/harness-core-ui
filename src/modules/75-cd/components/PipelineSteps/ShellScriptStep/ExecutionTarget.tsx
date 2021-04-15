@@ -13,9 +13,13 @@ import css from './ShellScript.module.scss'
 
 export const connectionTypeOptions = [{ label: 'SSH', value: 'SSH' }]
 
-export default function ExecutionTarget(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
+export default function ExecutionTarget(props: {
+  formik: FormikProps<ShellScriptFormData>
+  readonly?: boolean
+}): React.ReactElement {
   const {
-    formik: { values: formValues, setFieldValue }
+    formik: { values: formValues, setFieldValue },
+    readonly
   } = props
 
   const { getString } = useStrings()
@@ -43,6 +47,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
           radioGroup={{ inline: true }}
           items={targetTypeOptions}
           className={css.radioGroup}
+          disabled={readonly}
         />
       </div>
       {formValues.spec.onDelegate === 'targethost' ? (
@@ -52,7 +57,8 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
               name="spec.executionTarget.host"
               label={getString('targetHost')}
               style={{ marginTop: 'var(--spacing-small)' }}
-              multiTextInputProps={{ expressions }}
+              multiTextInputProps={{ expressions, disabled: readonly }}
+              disabled={readonly}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions
@@ -72,6 +78,7 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
               type="SSHKey"
               name="spec.executionTarget.connectorRef"
               label={getString('sshConnector')}
+              disabled={readonly}
             />
             {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions
@@ -97,7 +104,8 @@ export default function ExecutionTarget(props: { formik: FormikProps<ShellScript
               name="spec.executionTarget.workingDirectory"
               label={getString('workingDirectory')}
               style={{ marginTop: 'var(--spacing-medium)' }}
-              multiTextInputProps={{ expressions }}
+              disabled={readonly}
+              multiTextInputProps={{ expressions, disabled: readonly }}
             />
             {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) === MultiTypeInputType.RUNTIME && (
               <ConfigureOptions

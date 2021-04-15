@@ -58,16 +58,16 @@ describe('Resource Groups Page', () => {
       fireEvent.click(getByTestId('resourceGroupDetailsEditMenuss33'))
     })
     await waitFor(() => {
-      expect(getByText('Delete')).toBeDefined()
+      expect(getByText('delete')).toBeDefined()
     })
     await act(async () => {
-      fireEvent.click(getByText('Delete'))
+      fireEvent.click(getByText('delete'))
     })
     await waitFor(() => {
-      expect(getByText('Delete Resource Group')).toBeDefined()
+      expect(getByText('resourceGroup.confirmDeleteTitle')).toBeDefined()
     })
     await waitFor(() => {
-      fireEvent.click(getByText('Delete'))
+      fireEvent.click(getByText('delete'))
     })
     await waitFor(() => {
       expect(deleteResourceGroup).toBeCalled()
@@ -110,15 +110,15 @@ describe('Resource Groups Page', () => {
   })
   test('edit  resource group data', async () => {
     updateResourceGroup.mockReset()
-    const { getByTestId, getByText } = renderObj
+    const { getByTestId, getAllByText } = renderObj
     await act(async () => {
       fireEvent.click(getByTestId('resourceGroupDetailsEditMenuss33'))
     })
     await waitFor(() => {
-      expect(getByText('Edit')).toBeDefined()
+      expect(getAllByText('edit')[0]).toBeDefined()
     })
     await act(async () => {
-      fireEvent.click(getByText('Edit'))
+      fireEvent.click(getAllByText('edit')[0])
     })
 
     const form = findDialogContainer()

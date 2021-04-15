@@ -25,24 +25,26 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 interface ShellScriptWidgetProps {
   initialValues: ShellScriptFormData
   onUpdate?: (data: ShellScriptFormData) => void
+  readonly?: boolean
   stepViewType?: StepViewType
+  isNewStep?: boolean
 }
 
 export function ShellScriptWidget(
-  { initialValues, onUpdate }: ShellScriptWidgetProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: ShellScriptWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
   const { getString } = useStrings()
 
   const defaultSSHSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    name: Yup.string().trim().required(getString('pipelineSteps.stepNameRequired')),
 
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      shell: Yup.string().required(getString('validation.scriptTypeRequired')),
+      shell: Yup.string().trim().required(getString('validation.scriptTypeRequired')),
       source: Yup.object().shape({
         spec: Yup.object().shape({
-          script: Yup.string().required(getString('validation.scriptTypeRequired'))
+          script: Yup.string().trim().required(getString('validation.scriptTypeRequired'))
         })
       })
     }),
@@ -76,21 +78,25 @@ export function ShellScriptWidget(
 
         return (
           <Accordion activeId="step-1" className={stepCss.accordion}>
-            <Accordion.Panel id="step-1" summary={getString('basic')} details={<BaseShellScript formik={formik} />} />
+            <Accordion.Panel
+              id="step-1"
+              summary={getString('basic')}
+              details={<BaseShellScript isNewStep={isNewStep} formik={formik} readonly={readonly} />}
+            />
             <Accordion.Panel
               id="step-2"
               summary={getString('scriptInputVariables')}
-              details={<ShellScriptInput formik={formik} />}
+              details={<ShellScriptInput formik={formik} readonly={readonly} />}
             />
             <Accordion.Panel
               id="step-4"
               summary={getString('scriptOutputVariables')}
-              details={<ShellScriptOutput formik={formik} />}
+              details={<ShellScriptOutput formik={formik} readonly={readonly} />}
             />
             <Accordion.Panel
               id="step-3"
               summary={getString('executionTarget')}
-              details={<ExecutionTarget formik={formik} />}
+              details={<ExecutionTarget formik={formik} readonly={readonly} />}
             />
           </Accordion>
         )

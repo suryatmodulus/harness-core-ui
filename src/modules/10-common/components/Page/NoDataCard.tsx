@@ -11,6 +11,7 @@ export interface NoDataCardProps {
   buttonWidth?: number
   onClick?: ButtonProps['onClick']
   className?: string
+  buttonDisabled?: boolean
 }
 
 export const NoDataCard: React.FC<NoDataCardProps> = props => {
@@ -38,7 +39,13 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
           {props.message}
         </Heading>
         {props.buttonText ? (
-          <Button intent="primary" text={props.buttonText} width={props.buttonWidth} onClick={props.onClick} />
+          <Button
+            intent="primary"
+            text={props.buttonText}
+            width={props.buttonWidth}
+            onClick={props.onClick}
+            disabled={typeof props.buttonDisabled !== undefined && props.buttonDisabled}
+          />
         ) : null}
       </Layout.Vertical>
     </Container>

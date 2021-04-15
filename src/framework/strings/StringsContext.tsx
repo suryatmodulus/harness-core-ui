@@ -1,10 +1,18 @@
 import React from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StringsMap = Record<string, any>
+import type { StringsMap } from 'stringTypes'
 
-export const StringsContext = React.createContext<StringsMap>({})
+export type StringKeys = keyof StringsMap
 
-export function useStringsContext(): StringsMap {
+export type { StringsMap }
+
+export interface StringsContextValue {
+  data: StringsMap
+  getString?(key: StringKeys, vars?: Record<string, any>): string
+}
+
+export const StringsContext = React.createContext<StringsContextValue>({} as StringsContextValue)
+
+export function useStringsContext(): StringsContextValue {
   return React.useContext(StringsContext)
 }

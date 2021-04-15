@@ -1,10 +1,11 @@
 import React, { useCallback, useRef } from 'react'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
-import { Accordion, Container, FormikForm, FormInput, Heading } from '@wings-software/uicore'
+import { Accordion, Card, Container, FormikForm } from '@wings-software/uicore'
 import Timeline from '@common/components/Timeline/Timeline'
-import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/exports'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -16,8 +17,8 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
 import type { ApprovalStageOverviewProps } from './types'
 import css from './ApprovalStageOverview.module.scss'
@@ -31,6 +32,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
       }
     },
     stepsFactory,
+    isReadonly,
     updateStage,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
@@ -42,7 +44,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const onTimelineItemClick = (id: string): void => {
     const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
+    if (scrollRef.current && typeof scrollRef.current.scrollTo === 'function' && element) {
       const elementTop = element.getBoundingClientRect().top
       const parentTop = scrollRef.current.getBoundingClientRect().top
       scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
@@ -54,8 +56,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     debounce((values: StageElementWrapper): void => {
       // approvalType is just used in the UI, to populate the default steps for different approval types
       // For BE, the stage type is always 'Approval' and approval type is defined inside the step
-      delete values.spec.approvalType
-      values.type = StageTypes.APPROVAL
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -66,6 +66,10 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
       {
         label: 'Stage Overview',
         id: 'stageOverview'
+      },
+      {
+        label: 'Approval Type',
+        id: 'approvalType'
       },
       {
         label: 'Stage Variables',
@@ -80,80 +84,91 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   )
 
   return (
-    <div className={css.approvalStageOverviewWrapper}>
+    <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
       <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
       <div className={css.content} ref={scrollRef}>
-        <Accordion className={cx(css.sectionCard, css.shadow)} activeId="stageOverview">
-          <Accordion.Panel
-            id="stageOverview"
-            summary={'Overview'}
-            addDomId={true}
-            details={
-              <Container padding="medium">
-                <Formik
-                  enableReinitialize
-                  initialValues={{
-                    identifier: cloneOriginalData?.stage.identifier,
-                    name: cloneOriginalData?.stage.name,
-                    description: cloneOriginalData?.stage.description,
-                    approvalType: cloneOriginalData?.stage.approvalType,
-                    skipCondition: cloneOriginalData?.stage.skipCondition
-                  }}
-                  validationSchema={{}}
-                  validate={values => {
-                    const errors: { name?: string } = {}
-                    if (isDuplicateStageId(values.identifier, stages)) {
-                      errors.name = getString('validation.identifierDuplicate')
-                    }
-                    if (cloneOriginalData) {
-                      updateStageDebounced({
-                        ...cloneOriginalData.stage,
-                        name: values?.name,
-                        identifier: values?.identifier,
-                        description: values?.description,
-                        skipCondition: values?.skipCondition,
-                        spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
-                        }
-                      })
-                    }
-                    return errors
-                  }}
-                  onSubmit={values => {
-                    if (cloneOriginalData) {
-                      updateStageDebounced({
-                        ...cloneOriginalData.stage,
-                        name: values?.name,
-                        identifier: values?.identifier,
-                        description: values?.description,
-                        skipCondition: values?.skipCondition,
-                        spec: {
-                          ...cloneOriginalData.spec,
-                          approvalType: values?.approvalType
-                        }
-                      })
-                    }
-                  }}
-                >
-                  {formikProps => (
-                    <FormikForm>
-                      <FormInput.InputWithIdentifier
-                        inputLabel={getString('stageNameLabel')}
-                        isIdentifierEditable={false}
-                      />
-                      <Description />
-                      <Heading font={{ weight: 'semi-bold' }} level={3}>
-                        {getString('approvalStage.approvalTypeHeading')}
-                      </Heading>
-                      <ApprovalTypeCards formikProps={formikProps} />
-                    </FormikForm>
-                  )}
-                </Formik>
-              </Container>
-            }
-          />
-        </Accordion>
+        <div className={css.tabHeading} id="stageOverview">
+          {getString('stageOverview')}
+        </div>
+        <Container id="stageOverview" className={css.basicOverviewDetails}>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              identifier: cloneOriginalData?.stage.identifier,
+              name: cloneOriginalData?.stage.name,
+              description: cloneOriginalData?.stage.description,
+              approvalType: cloneOriginalData?.stage.approvalType,
+              skipCondition: cloneOriginalData?.stage.skipCondition,
+              tags: cloneOriginalData?.stage.tags || {}
+            }}
+            validationSchema={{
+              name: Yup.string().trim().required(getString('approvalStage.stageNameRequired')),
+              identifier: Yup.string().when('name', {
+                is: val => val?.length,
+                then: Yup.string()
+                  .required(getString('validation.identifierRequired'))
+                  .matches(regexIdentifier, getString('validation.validIdRegex'))
+                  .notOneOf(illegalIdentifiers)
+              })
+            }}
+            validate={values => {
+              const errors: { name?: string } = {}
+              if (isDuplicateStageId(values.identifier, stages)) {
+                errors.name = getString('validation.identifierDuplicate')
+              }
+              if (cloneOriginalData) {
+                updateStageDebounced({
+                  ...cloneOriginalData.stage,
+                  name: values?.name,
+                  identifier: values?.identifier,
+                  description: values?.description,
+                  skipCondition: values?.skipCondition,
+                  approvalType: values?.approvalType
+                })
+              }
+              return errors
+            }}
+            onSubmit={values => {
+              if (cloneOriginalData) {
+                updateStageDebounced({
+                  ...cloneOriginalData.stage,
+                  name: values?.name,
+                  identifier: values?.identifier,
+                  description: values?.description,
+                  skipCondition: values?.skipCondition,
+                  approvalType: values?.approvalType
+                })
+              }
+            }}
+          >
+            {formikProps => (
+              <FormikForm>
+                <Card className={cx(css.sectionCard, css.shadow)}>
+                  <NameIdDescriptionTags
+                    formikProps={formikProps}
+                    descriptionProps={{
+                      disabled: isReadonly
+                    }}
+                    identifierProps={{
+                      isIdentifierEditable: false,
+                      inputGroupProps: { disabled: isReadonly }
+                    }}
+                    tagsProps={{
+                      disabled: isReadonly
+                    }}
+                  />
+                </Card>
+
+                <div className={css.tabHeading} id="approvalType">
+                  {getString('approvalStage.approvalTypeHeading')}
+                </div>
+                <Card className={cx(css.sectionCard, css.shadow, css.approvalCards)}>
+                  <ApprovalTypeCards formikProps={formikProps} isReadonly={isReadonly} />
+                </Card>
+              </FormikForm>
+            )}
+          </Formik>
+        </Container>
 
         <Accordion className={cx(css.sectionCard, css.shadow)} activeId="variables">
           <Accordion.Panel
@@ -163,6 +178,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
             details={
               <StepWidget<CustomVariablesData>
                 factory={stepsFactory}
+                readonly={isReadonly}
                 initialValues={{
                   variables: ((cloneOriginalData?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                   canAddVariable: true
@@ -214,7 +230,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
                   })
                 }}
               >
-                <SkipConditionsPanel mode={Modes.STAGE} />
+                <SkipConditionsPanel isReadonly={isReadonly} mode={Modes.STAGE} />
               </Formik>
             }
           />

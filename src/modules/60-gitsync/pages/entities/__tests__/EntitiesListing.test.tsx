@@ -12,8 +12,17 @@ jest.mock('services/cd-ng', () => ({
 describe('Git Sync - EntitiesPreview', () => {
   test('render Git Sync EntitiesPreview wrapper', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/git-sync/entities" pathParams={{ accountId: 'dummy' }}>
-        <EntitiesListing backToSummary={noop} entityType="Pipelines" selectedProduct={'CD'} />
+      <TestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/entities"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+      >
+        <EntitiesListing
+          backToSummary={noop}
+          entityType="Connectors"
+          selectedProduct={'CI'}
+          gitSyncConfigId=""
+          branch="feature"
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

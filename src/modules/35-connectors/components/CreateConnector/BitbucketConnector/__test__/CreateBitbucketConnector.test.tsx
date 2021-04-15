@@ -152,7 +152,7 @@ describe('Create Bitbucketconnector Wizard', () => {
       clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'Enable API access')).toBeTruthy()
+    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -165,9 +165,12 @@ describe('Create Bitbucketconnector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: usernamePassword
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernamePassword
+      },
+      { queryParams: {} }
+    )
   })
 
   test('should form for edit http and authtype username-password with API access', async () => {
@@ -189,7 +192,7 @@ describe('Create Bitbucketconnector Wizard', () => {
       clickSubmit(container)
     })
     // step 2
-    expect(queryByText(container, 'Enable API access')).toBeTruthy()
+    expect(queryByText(container, 'connectors.git.enableAPIAccess')).toBeTruthy()
     expect(container).toMatchSnapshot()
 
     //updating connector
@@ -202,9 +205,12 @@ describe('Create Bitbucketconnector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: usernameTokenWithAPIAccess
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernameTokenWithAPIAccess
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

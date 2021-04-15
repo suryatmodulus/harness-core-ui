@@ -4,7 +4,7 @@ import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Menu, Position } from '@blueprintjs/core'
 import { Button, Container, Layout, Pagination, Text } from '@wings-software/uicore'
-import { EnvironmentResponseDTO, useDeleteEnvironment, useGetEnvironmentListForProject } from 'services/cd-ng'
+import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
 import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
@@ -15,6 +15,7 @@ import { useEnvStrings } from '@cf/hooks/environment'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { withTableData } from '../../utils/table-utils'
 import css from './CFEnvironmentsPage.module.scss'
 
@@ -128,7 +129,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
 const CFEnvironmentsPage: React.FC<{}> = () => {
-  const { getEnvString, getString } = useEnvStrings()
+  const { getString } = useEnvStrings()
   const { showError, showSuccess } = useToaster()
   const history = useHistory()
   const [page, setPage] = useState(0)
@@ -145,9 +146,9 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
   const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
     queryParams
   })
-  const { mutate: deleteEnvironment } = useDeleteEnvironment({
+  const { mutate: deleteEnvironment } = useDeleteEnvironmentV2({
     queryParams: {
-      accountId,
+      accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier
     }
@@ -212,9 +213,23 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
       pageTitle={title}
       header={title}
       toolbar={
-        <Layout.Horizontal>
-          <EnvironmentDialog disabled={loading} onCreate={() => refetch()} />
-        </Layout.Horizontal>
+        hasEnvs && (
+          <Layout.Horizontal>
+            <EnvironmentDialog
+              disabled={loading}
+              onCreate={response => {
+                history.push(
+                  routes.toCFEnvironmentDetails({
+                    environmentIdentifier: response?.data?.identifier as string,
+                    projectIdentifier,
+                    orgIdentifier,
+                    accountId
+                  })
+                )
+              }}
+            />
+          </Layout.Horizontal>
+        )
       }
       content={
         <>
@@ -228,12 +243,20 @@ const CFEnvironmentsPage: React.FC<{}> = () => {
             </Container>
           )}
           {emptyEnvs && (
-            <Layout.Vertical className={css.heightOverride}>
-              <Text font="large" margin={{ bottom: 'huge' }} color="grey400">
-                {getEnvString('empty')}
-              </Text>
-              <EnvironmentDialog onCreate={() => refetch()} />
-            </Layout.Vertical>
+            <Container flex={{ align: 'center-center' }} height="100%">
+              <NoEnvironment
+                onCreated={response =>
+                  history.push(
+                    routes.toCFEnvironmentDetails({
+                      environmentIdentifier: response?.data?.identifier as string,
+                      projectIdentifier,
+                      orgIdentifier,
+                      accountId
+                    })
+                  )
+                }
+              />
+            </Container>
           )}
         </>
       }

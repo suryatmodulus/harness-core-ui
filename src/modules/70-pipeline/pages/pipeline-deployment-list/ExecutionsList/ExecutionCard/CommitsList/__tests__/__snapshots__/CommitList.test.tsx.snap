@@ -12,7 +12,7 @@ exports[`Commit list snapshot tests renders commits properly 1`] = `
       <span
         class="commitsHeader"
       >
-        Last 2 commits:
+        execution.latestNCommits
       </span>
       <div
         class="commitsHolder"
@@ -164,7 +164,7 @@ exports[`Commit list snapshot tests renders commits properly 2`] = `
       <span
         class="commitsHeader"
       >
-        Last 5 commits:
+        execution.latestNCommits
       </span>
       <div
         class="commitsHolder"
@@ -505,7 +505,7 @@ exports[`Commit list snapshot tests renders commits properly 3`] = `
       <span
         class="commitsHeader"
       >
-        Last 5 commits:
+        execution.latestNCommits
       </span>
       <div
         class="commitsHolder"

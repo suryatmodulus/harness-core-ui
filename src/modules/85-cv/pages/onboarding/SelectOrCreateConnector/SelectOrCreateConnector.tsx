@@ -13,8 +13,10 @@ import {
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/exports'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import { ConnectorInfoDTO, GetConnectorQueryParams, useGetConnector } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import useCreateConnectorModal, {
   UseCreateConnectorModalProps
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -46,6 +48,22 @@ export const SelectOrCreateConnectorFieldNames = {
   CONNECTOR_REF: 'connectorRef'
 }
 
+export function getQueryParamsBasedOnScope(value: string, params: ProjectPathProps): GetConnectorQueryParams {
+  switch (getScopeFromValue(value)) {
+    case Scope.ACCOUNT:
+      return { accountIdentifier: params.accountId }
+    case Scope.ORG:
+      return { accountIdentifier: params.accountId, orgIdentifier: params.orgIdentifier }
+    case Scope.PROJECT:
+    default:
+      return {
+        accountIdentifier: params.accountId,
+        orgIdentifier: params.orgIdentifier,
+        projectIdentifier: params.projectIdentifier
+      }
+  }
+}
+
 export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element {
   const {
     connectToMonitoringSourceText,
@@ -61,12 +79,12 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { data, loading, error, refetch: fetchConnector } = useGetConnector({
-    identifier: (value?.value as string) || '',
-    queryParams: {
+    identifier: getIdentifierFromValue(value?.value as string) || '',
+    queryParams: getQueryParamsBasedOnScope((value?.value as string) || '', {
       projectIdentifier,
       orgIdentifier,
-      accountIdentifier: accountId
-    },
+      accountId
+    }),
     lazy: true
   })
 

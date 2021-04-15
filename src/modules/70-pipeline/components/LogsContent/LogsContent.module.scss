@@ -7,6 +7,25 @@
   grid-template-rows: 32px 1fr;
   max-height: 100%;
 
+  .errorMessage {
+    background-color: var(--grey-800);
+    padding: var(--spacing-small) var(--spacing-huge);
+    font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
+    border-top: 1px solid var(--grey-700);
+
+    .summary {
+      margin-bottom: var(--spacing-small);
+    }
+
+    .error {
+      color: var(--red-500);
+      display: flex;
+      align-items: center;
+      column-gap: var(--spacing-xsmall);
+      --intent-color: var(--red-500);
+    }
+  }
+
   .header {
     display: flex;
     align-items: center;
@@ -18,6 +37,10 @@
 
   &[data-mode='console-view'] {
     grid-template-rows: 52px 1fr;
+
+    &.hasErrorMessage {
+      grid-template-rows: 52px 1fr 70px;
+    }
 
     & .header {
       font-size: var(--font-size-normal);

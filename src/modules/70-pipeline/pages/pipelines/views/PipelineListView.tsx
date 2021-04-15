@@ -10,6 +10,10 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -73,6 +77,23 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
       }
     }
   })
+
+  const [canDelete, canRun] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: data.identifier as string
+      },
+      permissions: [PermissionIdentifier.DELETE_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [data.identifier]
+  )
+
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
       <Popover
@@ -94,7 +115,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
         />
         <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
           <RunPipelineModal pipelineIdentifier={data.identifier || /* istanbul ignore next */ ''}>
-            <Menu.Item icon="play" text={getString('runPipelineText')} />
+            <Menu.Item icon="play" text={getString('runPipelineText')} disabled={!canRun} />
           </RunPipelineModal>
           <Menu.Item
             icon="list-detail-view"
@@ -126,6 +147,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           <Menu.Item
             icon="trash"
             text={getString('delete')}
+            disabled={!canDelete}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               confirmDelete()
@@ -242,9 +264,31 @@ const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 
 const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
   const rowdata = row.original
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
   return (
     <RunPipelineModal pipelineIdentifier={rowdata.identifier || ''}>
-      <Button style={{ textAlign: 'end' }} intent="primary" icon="run-pipeline" className={css.runPipelineListBtn} />
+      <RbacButton
+        style={{ textAlign: 'end' }}
+        intent="primary"
+        icon="run-pipeline"
+        className={css.runPipelineListBtn}
+        permission={{
+          resourceScope: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier
+          },
+          resource: {
+            resourceType: ResourceType.PIPELINE,
+            resourceIdentifier: rowdata.identifier as string
+          },
+          permission: PermissionIdentifier.EXECUTE_PIPELINE
+        }}
+      />
     </RunPipelineModal>
   )
 }
@@ -260,7 +304,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
     () => [
       {
-        Header: getString('pipeline').toUpperCase(),
+        Header: getString('common.pipeline').toUpperCase(),
         accessor: 'name',
         width: '35%',
         Cell: RenderColumnPipeline

@@ -7,6 +7,7 @@ export interface DelegatePanelProps {
   formikProps: FormikProps<{
     delegateSelectors?: string[]
   }>
+  isReadonly: boolean
 }
 
 export default function DelegateSelectorPanel(props: DelegatePanelProps): React.ReactElement {
@@ -22,6 +23,7 @@ export default function DelegateSelectorPanel(props: DelegatePanelProps): React.
       onChange={data => {
         setFieldValue('delegateSelectors', data)
       }}
+      readonly={props.isReadonly}
       selectedItems={values.delegateSelectors}
     />
   )

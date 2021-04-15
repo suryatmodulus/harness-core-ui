@@ -13,7 +13,9 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { KubernetesActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/kubernetes/KubernetesActivitySourceUtils'
 import type { CDActivitySourceDTO } from '@cv/pages/onboarding/activity-source-setup/harness-cd/SelectServices/SelectServices'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ContextMenuActions from '../../../components/ContextMenuActions/ContextMenuActions'
+
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
@@ -24,6 +26,7 @@ type TableData = {
   createdOn?: string
   lastUpdatedOn?: string
   identifier: string
+  editable?: boolean
 }
 
 const DATE_FORMAT_STRING = 'MMM D, YYYY h:mm a'
@@ -68,7 +71,8 @@ function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
       name: activitySource.name,
       identifier: activitySource.identifier || '',
       type: activitySource.type,
-      lastUpdatedOn: moment(activitySource.lastUpdatedAt).format(DATE_FORMAT_STRING)
+      lastUpdatedOn: moment(activitySource.lastUpdatedAt).format(DATE_FORMAT_STRING),
+      editable: activitySource.editable
     })
   }
 
@@ -88,11 +92,12 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
     <Container>
       {tableProps.value === 'KUBERNETES' && <Icon name="service-kubernetes" size={18} />}
       {tableProps.value === 'HARNESS_CD10' && <Icon name="cd-main" size={18} />}
+      {tableProps.value === 'CDNG' && <Icon name="cd-main" size={18} />}
     </Container>
   )
 }
 
-function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
+function LastUpdatedOnWithMenu(tableProps: CellProps<TableData> & { cvngCdngIntFeatureFlag: boolean }): JSX.Element {
   const params = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
@@ -119,22 +124,45 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData>): JSX.Element {
   return (
     <Container flex>
       <Text color={Color.BLACK}>{tableProps.value}</Text>
-      <ContextMenuActions
-        titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
-        contentText={`${getString('cv.admin.activitySources.dialogDeleteContent')}${tableProps.row.original?.name} ?`}
-        onDelete={onDelete}
-        onEdit={() =>
-          history.push(
-            routes.toCVActivitySourceEditSetup({
-              projectIdentifier: params.projectIdentifier,
-              orgIdentifier: params.orgIdentifier,
-              activitySource: typeToPathParam(tableProps.row.original.type),
-              activitySourceId: tableProps.row.original.identifier,
-              accountId: params.accountId
-            })
-          )
-        }
-      />
+      {tableProps.cvngCdngIntFeatureFlag ? (
+        !!tableProps.row.original?.editable && (
+          <ContextMenuActions
+            titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
+            contentText={`${getString('cv.admin.activitySources.dialogDeleteContent')}${
+              tableProps.row.original?.name
+            } ?`}
+            onDelete={onDelete}
+            onEdit={() =>
+              history.push(
+                routes.toCVActivitySourceEditSetup({
+                  projectIdentifier: params.projectIdentifier,
+                  orgIdentifier: params.orgIdentifier,
+                  activitySource: typeToPathParam(tableProps.row.original.type),
+                  activitySourceId: tableProps.row.original.identifier,
+                  accountId: params.accountId
+                })
+              )
+            }
+          />
+        )
+      ) : (
+        <ContextMenuActions
+          titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
+          contentText={`${getString('cv.admin.activitySources.dialogDeleteContent')}${tableProps.row.original?.name} ?`}
+          onDelete={onDelete}
+          onEdit={() =>
+            history.push(
+              routes.toCVActivitySourceEditSetup({
+                projectIdentifier: params.projectIdentifier,
+                orgIdentifier: params.orgIdentifier,
+                activitySource: typeToPathParam(tableProps.row.original.type),
+                activitySourceId: tableProps.row.original.identifier,
+                accountId: params.accountId
+              })
+            )
+          }
+        />
+      )}
     </Container>
   )
 }
@@ -154,6 +182,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
     debounce: 0,
     filter: undefined
   })
+  const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
   const { data, loading, error, refetch: refetchSources } = useListActivitySources({
     debounce,
     queryParams: {
@@ -218,17 +247,30 @@ export default function CVActivitySourcesPage(): JSX.Element {
           />
           <Table<TableData>
             data={tableData}
-            onRowClick={(rowData: TableData) =>
-              history.push(
-                routes.toCVActivitySourceEditSetup({
-                  projectIdentifier: params.projectIdentifier,
-                  orgIdentifier: params.orgIdentifier,
-                  activitySource: typeToPathParam(rowData.type),
-                  activitySourceId: rowData.identifier,
-                  accountId: params.accountId
-                })
-              )
-            }
+            onRowClick={(rowData: TableData) => {
+              if (CVNG_CDNG_INTEGRATION) {
+                !!rowData.editable &&
+                  history.push(
+                    routes.toCVActivitySourceEditSetup({
+                      projectIdentifier: params.projectIdentifier,
+                      orgIdentifier: params.orgIdentifier,
+                      activitySource: typeToPathParam(rowData.type),
+                      activitySourceId: rowData.identifier,
+                      accountId: params.accountId
+                    })
+                  )
+              } else {
+                history.push(
+                  routes.toCVActivitySourceEditSetup({
+                    projectIdentifier: params.projectIdentifier,
+                    orgIdentifier: params.orgIdentifier,
+                    activitySource: typeToPathParam(rowData.type),
+                    activitySourceId: rowData.identifier,
+                    accountId: params.accountId
+                  })
+                )
+              }
+            }}
             pagination={{
               pageSize: pageSize || 0,
               pageIndex: pageIndex,
@@ -267,7 +309,13 @@ export default function CVActivitySourcesPage(): JSX.Element {
                 Header: getString('cv.admin.activitySources.tableColumnNames.lastUpdatedOn'),
                 width: '25%',
                 Cell: function LastColumn(cellProps: CellProps<TableData>) {
-                  return <LastUpdatedOnWithMenu {...cellProps} onDelete={refetchSources} />
+                  return (
+                    <LastUpdatedOnWithMenu
+                      {...cellProps}
+                      onDelete={refetchSources}
+                      cvngCdngIntFeatureFlag={CVNG_CDNG_INTEGRATION}
+                    />
+                  )
                 }
               }
             ]}

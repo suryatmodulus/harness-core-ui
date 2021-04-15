@@ -1,28 +1,24 @@
 import React from 'react'
 import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
-import { noop } from 'lodash-es'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
-import { useStrings } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import { Page } from '@common/components'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
-// Replace with actual api response
-const user = {
-  email: 'olivia@harness.io',
-  name: 'olivia'
-}
-
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
-  const { openUserProfile } = useUserProfile({ onSuccess: noop })
   const { openPasswordModal } = useChangePassword()
+
+  const { currentUserInfo: user } = useAppStore()
+
+  const { openUserProfile } = useUserProfile({})
 
   return (
     <Page.Body filled>
       <Layout.Horizontal height="inherit">
-        <Container width="30%" padding="huge" className={css.details}>
+        <Container width="30%" className={css.details}>
           <Layout.Vertical>
             <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
               <Button icon="edit" data-testid="editUserProfile" minimal onClick={() => openUserProfile(user)} />
@@ -41,21 +37,25 @@ const UserProfilePage: React.FC = () => {
               <Text icon="main-email" iconProps={{ padding: { right: 'medium' } }}>
                 {user.email}
               </Text>
-              <Text icon="lock">
-                <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
-                  {getString('userProfile.changePassword')}
-                </Button>
-              </Text>
+              {__DEV__ ? (
+                <Text icon="lock" iconProps={{ padding: { right: 'medium' } }}>
+                  <Button minimal onClick={openPasswordModal} font={{ weight: 'semi-bold' }} className={css.button}>
+                    {getString('userProfile.changePassword')}
+                  </Button>
+                </Text>
+              ) : null}
             </Layout.Vertical>
-            <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
-              <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-                {getString('userProfile.twofactorAuth')}
-              </Text>
-              <Switch />
-            </Layout.Horizontal>
+            {__DEV__ ? (
+              <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+                  {getString('userProfile.twofactorAuth')}
+                </Text>
+                <Switch />
+              </Layout.Horizontal>
+            ) : null}
           </Layout.Vertical>
         </Container>
-        <Container width="70%">
+        <Container width="70%" className={css.overview}>
           <UserOverView />
         </Container>
       </Layout.Horizontal>

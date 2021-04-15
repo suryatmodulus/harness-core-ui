@@ -9,7 +9,7 @@ exports[`ResourcesPage snapshot test should render properly 1`] = `
       class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
       level="2"
     >
-      RESOURCES
+      resourcePage.title
     </h2>
     <div
       class="StyledProps--font StyledProps--main"
@@ -22,20 +22,20 @@ exports[`ResourcesPage snapshot test should render properly 1`] = `
           class="tags activeTag"
           href="/account/dummy/cd/orgs/dummy/projects/dummy/admin/resources/connectors"
         >
-          Connectors
+          resourcePage.connectors
         </a>
         <a
           class="tags"
           href="/account/dummy/cd/orgs/dummy/projects/dummy/admin/resources/secrets"
         >
-          Secrets
+          resourcePage.secrets
         </a>
         <a
           aria-current="page"
           class="tags active"
           href="/account/dummy/cd/orgs/dummy/projects/dummy/admin/resources/connectors#TBD"
         >
-          Delegates
+          resourcePage.delegates
         </a>
       </div>
     </div>

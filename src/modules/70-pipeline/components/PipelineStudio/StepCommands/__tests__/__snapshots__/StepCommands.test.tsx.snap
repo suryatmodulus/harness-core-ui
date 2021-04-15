@@ -1,0 +1,485 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepCommands /> tests able to switch tab 1`] = `
+<div>
+  <div
+    class="stepCommand"
+  >
+    <div
+      class="stepTabs"
+    >
+      <div
+        class="bp3-tabs Tabs--main Tabs--horizontal"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_step-commands_StepConfiguration"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="StepConfiguration"
+            id="bp3-tab-title_step-commands_StepConfiguration"
+            role="tab"
+            tabindex="0"
+          >
+            stepConfiguration
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_step-commands_Advanced"
+            aria-disabled="false"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="Advanced"
+            id="bp3-tab-title_step-commands_Advanced"
+            role="tab"
+            tabindex="0"
+          >
+            advancedTitle
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_step-commands_StepConfiguration"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_step-commands_StepConfiguration"
+          role="tabpanel"
+        >
+          <div>
+            {"a":"a","identifier":"testStep","name":"testStep","type":"Run","spec":{"connectorRef":"account.dockerdev","image":"maven:3-openjdk-8","command":"mvn clean compile war:war"}}
+          </div>
+        </div>
+        <div
+          aria-hidden="true"
+          aria-labelledby="bp3-tab-title_step-commands_Advanced"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_step-commands_Advanced"
+          role="tabpanel"
+        >
+          <div
+            class="OverlaySpinner--overlaySpinner"
+          >
+            <form
+              class="FormikForm--main form"
+            >
+              <div>
+                <div>
+                  <div
+                    class="Accordion--accordion"
+                  >
+                    <div
+                      class="Accordion--panel"
+                      data-open="false"
+                      data-testid="preRequisites-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="preRequisites-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          preRequisitesTitle
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="Accordion--panel"
+                      data-open="true"
+                      data-testid="skipCondition-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="skipCondition-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          skipConditionsTitle
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                        style="height: auto; overflow-y: visible; transition: none;"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(0); transition: none;"
+                        >
+                          <div
+                            class="Accordion--details"
+                            data-testid="skipCondition-details"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
+                            >
+                              <span>
+                                skipConditionLabel
+                              </span>
+                            </p>
+                            <div
+                              class="bp3-form-group"
+                              data-id="skipCondition-0"
+                            >
+                              
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="bp3-popover-wrapper"
+                                >
+                                  <div
+                                    class="bp3-popover-target"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="skipCondition"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-small"
+                              style="white-space: break-spaces;"
+                            >
+                              <span>
+                                skipConditionHelpText
+                              </span>
+                              <br />
+                              <a
+                                href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <span>
+                                  learnMore
+                                </span>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="Accordion--panel"
+                      data-open="false"
+                      data-testid="failureStrategy-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="failureStrategy-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          pipeline.failureStrategies.title
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<StepCommands /> tests renders ok 1`] = `
+<div>
+  <div
+    class="stepCommand"
+  >
+    <div
+      class="stepTabs"
+    >
+      <div
+        class="bp3-tabs Tabs--main Tabs--horizontal"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_step-commands_StepConfiguration"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="StepConfiguration"
+            id="bp3-tab-title_step-commands_StepConfiguration"
+            role="tab"
+            tabindex="0"
+          >
+            stepConfiguration
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_step-commands_Advanced"
+            aria-disabled="false"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="Advanced"
+            id="bp3-tab-title_step-commands_Advanced"
+            role="tab"
+            tabindex="0"
+          >
+            advancedTitle
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_step-commands_StepConfiguration"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_step-commands_StepConfiguration"
+          role="tabpanel"
+        >
+          <div>
+            {"a":"a","identifier":"testStep","name":"testStep","type":"Run","spec":{"connectorRef":"account.dockerdev","image":"maven:3-openjdk-8","command":"mvn clean compile war:war"}}
+          </div>
+        </div>
+        <div
+          aria-hidden="true"
+          aria-labelledby="bp3-tab-title_step-commands_Advanced"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_step-commands_Advanced"
+          role="tabpanel"
+        >
+          <div
+            class="OverlaySpinner--overlaySpinner"
+          >
+            <form
+              class="FormikForm--main form"
+            >
+              <div>
+                <div>
+                  <div
+                    class="Accordion--accordion"
+                  >
+                    <div
+                      class="Accordion--panel"
+                      data-open="false"
+                      data-testid="preRequisites-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="preRequisites-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          preRequisitesTitle
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="Accordion--panel"
+                      data-open="true"
+                      data-testid="skipCondition-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="skipCondition-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          skipConditionsTitle
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                        style="height: auto; overflow-y: visible; transition: none;"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(0); transition: none;"
+                        >
+                          <div
+                            class="Accordion--details"
+                            data-testid="skipCondition-details"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
+                            >
+                              <span>
+                                skipConditionLabel
+                              </span>
+                            </p>
+                            <div
+                              class="bp3-form-group"
+                              data-id="skipCondition-0"
+                            >
+                              
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="bp3-popover-wrapper"
+                                >
+                                  <div
+                                    class="bp3-popover-target"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="skipCondition"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-small"
+                              style="white-space: break-spaces;"
+                            >
+                              <span>
+                                skipConditionHelpText
+                              </span>
+                              <br />
+                              <a
+                                href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <span>
+                                  learnMore
+                                </span>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="Accordion--panel"
+                      data-open="false"
+                      data-testid="failureStrategy-panel"
+                    >
+                      <div
+                        class="Accordion--summary"
+                        data-testid="failureStrategy-summary"
+                      >
+                        <div
+                          class="Accordion--label"
+                        >
+                          pipeline.failureStrategies.title
+                        </div>
+                        <div
+                          class="Accordion--chevron"
+                        />
+                      </div>
+                      <div
+                        class="bp3-collapse Accordion--collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<StepCommands /> tests renders ok without tabs 1`] = `
+<div>
+  <div
+    class="stepCommand withoutTabs"
+  >
+    <div>
+      {"a":"a","identifier":"testStep","name":"testStep","type":"Run","spec":{"connectorRef":"account.dockerdev","image":"maven:3-openjdk-8","command":"mvn clean compile war:war"}}
+    </div>
+  </div>
+</div>
+`;

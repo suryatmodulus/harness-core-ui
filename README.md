@@ -2,12 +2,16 @@
 
 Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
 
+## Documentation
+
+[Documentation](./docs/README.md)
+
 ### Getting Started
 
-1. Install **NodeJS v13.8**. There are many ways to do this (**choose any one**):
+1. Install **NodeJS v14.16** or above. There are many ways to do this (**choose any one**):
 
-   - Download relevant package from https://nodejs.org/download/release/v13.8.0/, unpack and install.
-   - Use Homebrew: `brew install node@13.8`
+   - Download relevant package from https://nodejs.org/download/release/v14.16.0/, unpack and install.
+   - Use Homebrew: `brew install node@14.16`
    - If you already have Node installed, use `nvm` or `n` to install/select correct version. (see https://www.npmjs.com/package/n)
 
 2. Install **yarn** package manager
@@ -56,8 +60,9 @@ For login, you need to run `wingsui` repo first. Once logged in, come back here 
 <details>
   <summary>Details</summary>
   Login and credential management is not implemented in `nextgenui` yet. When you login in `wingsui`, your auth tokens are set against `localhost:8181`, which can be read by this server since it is running on the same port.
-  
-  You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
+
+You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
+
 </details>
 
 [NextGen Setup and Onboarding Slides (With Troubleshoot section)](https://docs.google.com/presentation/d/1xGl8JJPzEVDz1yew6cz7ADOZ7J-geI0dXk159EgAauA/edit?usp=sharing)
@@ -111,8 +116,11 @@ $ yarn test
 
 ### Hotfix Process
 
-1. Create a branch from the corresponding release branch (eg. `release/0.53.x`) which you want to hotfix
-2. Commit your changes on your branch
-3. Bump up the patch version in `package.json` (eg. 0.53.0 -> 0.53.1)
-4. Raise PR with these changes
-5. When this PR gets merged, this [Jenkins job](https://jenkinsk8s.harness.io/view/UI-release/job/ng-ui-build-release/) will create a new build for you automatically
+1. Find out which release branch you need to hotfix. You can do that checking the currently deployed version in the environment you want to hotfix. For eg. For UAT environment, you can hit https://uat.harness.io/ng/static/version.json to get the currently deployed version. (eg. `0.53.4`)
+2. Create a branch from the corresponding release branch (eg. `release/0.53.x`) which you want to hotfix
+3. Commit your changes on your branch
+4. Bump up the patch version in `package.json` (eg. 0.53.0 -> 0.53.1)
+5. Raise PR with these changes
+6. When this PR gets merged, this [Jenkins job](https://jenkinsk8s.harness.io/view/UI-release/job/ng-ui-build-release/) will create a new build for you automatically
+7. Please inform Ops/QE team to deploy your new build, especially in QA, UAT or prod environment.
+8. Make sure to raise a PR with the same changes (minus the version bump) for `master` branch too. Otherwise your changes will get overriden with next deployment.

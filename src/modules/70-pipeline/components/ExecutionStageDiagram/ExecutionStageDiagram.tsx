@@ -4,11 +4,15 @@ import classNames from 'classnames'
 import { noop } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Layout } from '@wings-software/uicore'
+import { Button, Layout, Icon } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
-import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { Tooltip } from '@blueprintjs/core'
+import ExecutionContext, { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ExecutionPipeline, ExecutionPipelineItem, StageOptions } from './ExecutionPipelineModel'
 import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
@@ -107,6 +111,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     PipelineType<ExecutionPathParams>
   >()
 
+  const { pipelineStagesMap } = useExecutionContext()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
   const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
@@ -116,6 +121,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     setGroupStage(stageData)
   }, [data])
 
+  const currentStage = pipelineStagesMap.get(selectedStage?.value || '')
   const updateGroupStage = (event: Diagram.DefaultNodeEvent): void => {
     const group = groupStage?.get(event.entity.getIdentifier())
     if (group && groupStage) {
@@ -202,9 +208,24 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     showEndNode
   ])
 
+  const [canEdit, canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier as string
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
+  )
+
   //Load model into engine
   engine.setModel(model)
-
   autoPosition && focusRunningNode(engine, data)
 
   return (
@@ -264,11 +285,15 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                   }}
                   noMenu
                   stageId={selectedStage.value}
+                  canEdit={canEdit}
+                  canExecute={canExecute}
                 />
               )}
             </ExecutionContext.Consumer>
           </div>
-          {groupStage && groupStage.size > 0 && (
+          {groupStage && groupStage.size > 1 && (
+            // Do not render groupStage if the size is less than 1
+            // In approval stage, we do not have service/innfra/execution sections
             <div className={css.groupLabels}>
               {[...groupStage]
                 .filter(item => item[1].showInLabel)
@@ -287,6 +312,13 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                     {item[1].name}
                   </span>
                 ))}
+            </div>
+          )}
+          {currentStage?.failureInfo?.message && (
+            <div>
+              <Tooltip content={currentStage?.failureInfo?.message} portalClassName={css.errorTooltip}>
+                <Icon data-testId="stage-error-tooltip" className={css.stageError} name="warning-sign" size={18} />
+              </Tooltip>
             </div>
           )}
         </Layout.Horizontal>

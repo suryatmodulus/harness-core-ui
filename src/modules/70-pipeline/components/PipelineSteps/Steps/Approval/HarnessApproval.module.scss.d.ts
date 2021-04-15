@@ -8,5 +8,7 @@ declare const styles: {
   readonly responseMappingRow: string
   readonly label: string
   readonly align: string
+  readonly md: string
+  readonly sm: string
 }
 export default styles

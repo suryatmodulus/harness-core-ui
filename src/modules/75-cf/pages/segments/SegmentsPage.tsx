@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Color, Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import { useEnvironments } from '@cf/hooks/environment'
@@ -15,7 +15,8 @@ import {
   DEFAULT_ENV,
   getErrorMessage,
   NO_ENVIRONMENT_IDENTIFIER,
-  SEGMENT_PRIMARY_COLOR
+  SEGMENT_PRIMARY_COLOR,
+  showToaster
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import { useStrings } from 'framework/exports'
@@ -28,6 +29,7 @@ import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
+import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
@@ -70,6 +72,7 @@ export const SegmentsPage: React.FC = () => {
   const loading = loadingEnvironments || loadingSegments
   const error = errEnvironments || errSegments
   const noSegmentExists = segmentsData?.segments?.length === 0
+  const noEnvironmentExists = environments?.length === 0
   const title = getString('cf.shared.segments')
 
   const header = (
@@ -86,6 +89,23 @@ export const SegmentsPage: React.FC = () => {
       )}
     </Layout.Horizontal>
   )
+  const gotoSegmentDetailPage = useCallback(
+    (identifier: string): void => {
+      const _environmentIdentifier =
+        environment?.value || (environments?.[0].value as string) || NO_ENVIRONMENT_IDENTIFIER
+
+      history.push(
+        routes.toCFSegmentDetails({
+          segmentIdentifier: identifier as string,
+          environmentIdentifier: _environmentIdentifier,
+          projectIdentifier,
+          orgIdentifier,
+          accountId
+        })
+      )
+    },
+    [history, accountId, orgIdentifier, projectIdentifier, environment?.value, environments]
+  )
   const toolbar = (
     <Layout.Horizontal>
       <NewSegmentButton
@@ -93,25 +113,14 @@ export const SegmentsPage: React.FC = () => {
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
         environmentIdentifier={environment?.value}
-        onCreated={() => {
-          setPageNumber(0)
-          refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
+        onCreated={segmentIdentifier => {
+          gotoSegmentDetailPage(segmentIdentifier)
+          showToaster(getString('cf.messages.segmentCreated'))
         }}
       />
     </Layout.Horizontal>
   )
-  const gotoTargeDetailPage = (identifier: string): void => {
-    history.push(
-      routes.toCFSegmentDetails({
-        segmentIdentifier: identifier as string,
-        environmentIdentifier: environment.value || NO_ENVIRONMENT_IDENTIFIER,
-        projectIdentifier,
-        orgIdentifier,
-        accountId
-      })
-    )
-  }
-  const { showSuccess, showError, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const deleteSegmentParams = useMemo(
     () => ({
       account: accountId,
@@ -167,13 +176,13 @@ export const SegmentsPage: React.FC = () => {
         accessor: 'createdAt',
         width: '30%',
         Cell: function CreateAtCell(cell: Cell<Segment>) {
-          const deleteTargetConfirm = useConfirmAction({
-            title: getString('cf.targets.deleteTarget'),
+          const deleteSegmentConfirm = useConfirmAction({
+            title: getString('cf.segments.delete.title'),
             message: (
               <Text>
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: getString('cf.targets.deleteTargetMessage', { name: cell.row.original.name })
+                    __html: getString('cf.segments.delete.message', { segmentName: cell.row.original.name })
                   }}
                 ></span>
               </Text>
@@ -186,15 +195,7 @@ export const SegmentsPage: React.FC = () => {
                 deleteSegment(cell.row.original.identifier as string)
                   .then(() => {
                     refetchSegments()
-                    showSuccess(
-                      <Text color={Color.WHITE}>
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: getString('cf.featureFlags.deleteFlagSuccess', { name: cell.row.original.name })
-                          }}
-                        />
-                      </Text>
-                    )
+                    showToaster(getString('cf.messages.segmentDeleted'))
                   })
                   .catch(_error => {
                     showError(getErrorMessage(_error), 0)
@@ -222,13 +223,13 @@ export const SegmentsPage: React.FC = () => {
                       icon: 'edit',
                       text: getString('edit'),
                       onClick: () => {
-                        gotoTargeDetailPage(cell.row.original.identifier as string)
+                        gotoSegmentDetailPage(cell.row.original.identifier as string)
                       }
                     },
                     {
                       icon: 'cross',
                       text: getString('delete'),
-                      onClick: deleteTargetConfirm
+                      onClick: deleteSegmentConfirm
                     }
                   ]}
                 />
@@ -242,18 +243,26 @@ export const SegmentsPage: React.FC = () => {
   )
 
   useEffect(() => {
+    if (environments?.[0] && !environment?.value) {
+      setEnvironment(environments[0] as typeof environment)
+    }
+
     return () => {
       clear()
     }
-  }, [clear])
+  }, [clear, environments, environment, environment?.value, setEnvironment])
 
-  const content = noSegmentExists ? (
+  const content = noEnvironmentExists ? (
+    <Container flex={{ align: 'center-center' }} height="100%">
+      <NoEnvironment onCreated={() => refetchEnvs()} />
+    </Container>
+  ) : noSegmentExists ? (
     <NoSegmentsView
       environmentIdentifier={environment?.value}
       hasEnvironment={!!environments.length}
-      onNewSegmentCreated={() => {
-        setPageNumber(0)
-        refetchSegments({ queryParams: { ...queryParams, pageNumber: 0 } })
+      onNewSegmentCreated={segmentIdentifier => {
+        gotoSegmentDetailPage(segmentIdentifier)
+        showToaster(getString('cf.messages.segmentCreated'))
       }}
     />
   ) : (
@@ -261,8 +270,8 @@ export const SegmentsPage: React.FC = () => {
       <Table<Segment>
         columns={columns}
         data={segmentsData?.segments || []}
-        onRowClick={target => {
-          gotoTargeDetailPage(target.identifier as string)
+        onRowClick={segment => {
+          gotoSegmentDetailPage(segment.identifier as string)
         }}
       />
     </Container>
@@ -273,9 +282,10 @@ export const SegmentsPage: React.FC = () => {
       pageTitle={title}
       header={header}
       headerStyle={{ display: 'flex' }}
-      toolbar={!error && !noSegmentExists && toolbar}
-      content={(!error && content) || null}
+      toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
+      content={((!error || noEnvironmentExists) && content) || null}
       pagination={
+        !noEnvironmentExists &&
         !!segmentsData?.segments?.length && (
           <Pagination
             itemCount={segmentsData?.itemCount || 0}
@@ -284,13 +294,12 @@ export const SegmentsPage: React.FC = () => {
             pageIndex={pageNumber}
             gotoPage={index => {
               setPageNumber(index)
-              // refetchSegments({ queryParams: { ...queryParams, pageNumber: index } })
             }}
           />
         )
       }
       loading={loading}
-      error={error}
+      error={noEnvironmentExists ? undefined : error}
       retryOnError={() => {
         refetchEnvs()
         refetchSegments()

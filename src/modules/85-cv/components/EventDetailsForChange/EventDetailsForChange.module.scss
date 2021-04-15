@@ -122,7 +122,12 @@
         padding: var(--spacing-medium) !important;
         display: flex;
         border-bottom: 1px solid var(--grey-300);
+
+        &:last-of-type {
+          margin-bottom: 50px !important; // so that last element is visible on scroll
+        }
       }
+
       .listHeader > p {
         font-weight: bold;
       }

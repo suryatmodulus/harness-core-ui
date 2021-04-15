@@ -63,7 +63,7 @@ describe('Project List', () => {
     container = renderObj.container
     getAllByText = renderObj.getAllByText
     getByTestId = renderObj.getByTestId
-    await waitFor(() => getAllByText('Project'))
+    await waitFor(() => getAllByText('projectLabel'))
   })
   test('render', async () => {
     expect(container).toMatchSnapshot()
@@ -71,7 +71,7 @@ describe('Project List', () => {
   test('click on Edit Project', async () => {
     const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
     fireEvent.click(menu!)
-    const editMenu = getAllByText('Edit')[0]
+    const editMenu = getAllByText('edit')[0]
     expect(editMenu).toBeDefined()
     await act(async () => {
       fireEvent.click(editMenu!)
@@ -82,7 +82,7 @@ describe('Project List', () => {
       collaboratorModal.mockReset()
       const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
       fireEvent.click(menu!)
-      const colMenu = getAllByText('Invite Collaborators')[0]
+      const colMenu = getAllByText('projectContextMenuRenderer.invite')[0]
       expect(colMenu).toBeDefined()
       await act(async () => {
         fireEvent.click(colMenu!)
@@ -93,14 +93,14 @@ describe('Project List', () => {
       deleteProject.mockReset()
       const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
       fireEvent.click(menu!)
-      const delMenu = getAllByText('Delete')[0]
+      const delMenu = getAllByText('delete')[0]
       expect(delMenu).toBeDefined()
       await act(async () => {
         fireEvent.click(delMenu!)
-        await waitFor(() => getByText(document.body, 'Delete Project'))
+        await waitFor(() => getByText(document.body, 'projectCard.confirmDeleteTitle'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
-        const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+        const deleteBtn = queryByText(form as HTMLElement, 'delete')
         fireEvent.click(deleteBtn!)
         expect(deleteProject).toBeCalled()
       })

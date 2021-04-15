@@ -88,6 +88,7 @@
     grid-template-columns: 2fr 1fr 3fr 1fr;
     column-gap: var(--spacing-medium);
     margin-bottom: var(--spacing-medium);
+    align-items: baseline;
 
     & :global(.bp3-form-group) {
       margin: 0;

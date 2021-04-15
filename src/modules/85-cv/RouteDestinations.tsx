@@ -13,6 +13,7 @@ import {
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
+import './components/PipelineSteps'
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'

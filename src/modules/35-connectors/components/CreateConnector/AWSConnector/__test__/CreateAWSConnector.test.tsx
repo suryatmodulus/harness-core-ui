@@ -93,12 +93,15 @@ describe('Create AWS connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        ...mockConnector.data.connector,
-        name: updatedName
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          ...mockConnector.data.connector,
+          name: updatedName
+        }
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({
@@ -151,11 +154,14 @@ describe('Create AWS connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        ...awsWithDelegate.data.connector,
-        name: updatedName
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          ...awsWithDelegate.data.connector,
+          name: updatedName
+        }
+      },
+      { queryParams: {} }
+    )
   })
 })

@@ -23,13 +23,13 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             class="StyledProps--font StyledProps--main"
             style="line-height: 24px;"
           >
-            Configure pre-defined override sets (Advanced)
+            overrideSets.configure
           </p>
           <p
             class="StyledProps--font StyledProps--main"
             style="line-height: 24px;"
           >
-            Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
+            overrideSets.overrideSetInfo
           </p>
         </div>
         <div
@@ -54,7 +54,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
                 class="StyledProps--font StyledProps--main overrideBtn StyledProps--intent-primary"
                 style="cursor: pointer;"
               >
-                + Create new override set
+                overrideSets.createOverrideSetPlus
               </p>
               <section
                 class="collapseContainer"

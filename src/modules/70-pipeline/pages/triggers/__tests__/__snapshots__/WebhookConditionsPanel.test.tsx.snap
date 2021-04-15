@@ -15,19 +15,19 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           <h2
             class="heading"
           >
-            Conditions
+            conditions
              
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               style="display: inline-block;"
             >
-              (OPTIONAL)
+              pipeline-triggers.conditionsPanel.titleOptional
             </p>
           </h2>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.
+            pipeline-triggers.conditionsPanel.subtitle
           </p>
           <section
             data-name="headerConditions"
@@ -36,7 +36,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              Header Conditions
+              pipeline-triggers.conditionsPanel.headerConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -46,7 +46,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               data-name="plusAdd"
               style="cursor: pointer; width: 70px;"
             >
-              + Add
+              plusAdd
             </p>
           </section>
           <section
@@ -56,7 +56,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              Payload Conditions
+              pipeline-triggers.conditionsPanel.payloadConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -66,7 +66,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               data-name="plusAdd"
               style="cursor: pointer; width: 70px;"
             >
-              + Add
+              plusAdd
             </p>
           </section>
         </div>
@@ -101,26 +101,26 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           <h2
             class="heading"
           >
-            Conditions
+            conditions
              
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               style="display: inline-block;"
             >
-              (OPTIONAL)
+              pipeline-triggers.conditionsPanel.titleOptional
             </p>
           </h2>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.
+            pipeline-triggers.conditionsPanel.subtitle
           </p>
           <section>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              Branch Conditions
+              pipeline-triggers.conditionsPanel.branchConditions
             </h2>
             <div
               class="conditionsRow"
@@ -130,7 +130,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
-                  Source Branch
+                  pipeline-triggers.conditionsPanel.sourceBranch
                 </p>
               </div>
               <div
@@ -142,7 +142,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="sourceBranchOperator"
                 >
-                  Operator
+                  pipeline-triggers.conditionsPanel.operator
                    
                   <span
                     class="bp3-text-muted"
@@ -206,7 +206,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="sourceBranchValue"
                 >
-                  Matches Value
+                  pipeline-triggers.conditionsPanel.matchesValue
                    
                   <span
                     class="bp3-text-muted"
@@ -237,7 +237,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
-                  Target Branch
+                  pipeline-triggers.conditionsPanel.targetBranch
                 </p>
               </div>
               <div
@@ -249,7 +249,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="targetBranchOperator"
                 >
-                  Operator
+                  pipeline-triggers.conditionsPanel.operator
                    
                   <span
                     class="bp3-text-muted"
@@ -313,7 +313,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="targetBranchValue"
                 >
-                  Matches Value
+                  pipeline-triggers.conditionsPanel.matchesValue
                    
                   <span
                     class="bp3-text-muted"
@@ -344,7 +344,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              Payload Conditions
+              pipeline-triggers.conditionsPanel.payloadConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -354,7 +354,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               data-name="plusAdd"
               style="cursor: pointer; width: 70px;"
             >
-              + Add
+              plusAdd
             </p>
           </section>
         </div>

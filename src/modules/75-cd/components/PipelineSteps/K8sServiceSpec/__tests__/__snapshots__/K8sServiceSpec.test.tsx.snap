@@ -125,17 +125,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
-        data-testid="Artifacts-panel"
-        id="Artifacts-panel"
+        data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-panel"
+        id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-panel"
       >
         <div
           class="Accordion--summary"
-          data-testid="Artifacts-summary"
+          data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-summary"
         >
           <div
             class="Accordion--label"
           >
-            Artifacts
+            pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests
           </div>
           <div
             class="Accordion--chevron"
@@ -152,7 +152,85 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           >
             <div
               class="Accordion--details"
-              data-testid="Artifacts-details"
+              data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests-details"
+            >
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="manifestList listHeader"
+                  >
+                    <span>
+                      common.ID
+                    </span>
+                    <span>
+                      pipelineSteps.serviceTab.manifestList.manifestType
+                    </span>
+                    <span>
+                      pipelineSteps.serviceTab.manifestList.manifestStore
+                    </span>
+                    <span>
+                      location
+                    </span>
+                    <span />
+                  </div>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  >
+                    <section />
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                      style="cursor: pointer;"
+                    >
+                      <span>
+                        pipelineSteps.serviceTab.manifestList.addManifest
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Accordion--accordion cardSection"
+    >
+      <div
+        class="Accordion--panel"
+        data-open="true"
+        data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-panel"
+        id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-panel"
+      >
+        <div
+          class="Accordion--summary"
+          data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-summary"
+        >
+          <div
+            class="Accordion--label"
+          >
+            pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts
+          </div>
+          <div
+            class="Accordion--chevron"
+          />
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          >
+            <div
+              class="Accordion--details"
+              data-testid="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts-details"
             >
               <div
                 class="Layout--vertical StyledProps--main"
@@ -165,11 +243,11 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                   >
                     <span />
                     <span>
-                      ARTIFACT REPOSITORY
+                      artifactRepository
                     </span>
                     <span>
                        
-                      LOCATION
+                      location
                     </span>
                     <span />
                     <span />
@@ -190,7 +268,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <span>
-                        + Add Primary Artifact
+                        pipelineSteps.serviceTab.artifactList.addPrimary
                       </span>
                     </p>
                   </div>
@@ -201,7 +279,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <span>
-                        + Add Sidecar
+                        pipelineSteps.serviceTab.artifactList.addSidecar
                       </span>
                     </p>
                   </div>
@@ -218,17 +296,17 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       <div
         class="Accordion--panel"
         data-open="true"
-        data-testid="Manifests-panel"
-        id="Manifests-panel"
+        data-testid="variablesText-panel"
+        id="variablesText-panel"
       >
         <div
           class="Accordion--summary"
-          data-testid="Manifests-summary"
+          data-testid="variablesText-summary"
         >
           <div
             class="Accordion--label"
           >
-            Manifests
+            variablesText
           </div>
           <div
             class="Accordion--chevron"
@@ -245,85 +323,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           >
             <div
               class="Accordion--details"
-              data-testid="Manifests-details"
-            >
-              <div
-                class="Layout--vertical StyledProps--main"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <div
-                    class="manifestList listHeader"
-                  >
-                    <span>
-                      ID
-                    </span>
-                    <span>
-                      MANIFEST TYPE
-                    </span>
-                    <span>
-                      STORE
-                    </span>
-                    <span>
-                      LOCATION
-                    </span>
-                    <span />
-                  </div>
-                  <div
-                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                  >
-                    <section />
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--intent-primary"
-                      style="cursor: pointer;"
-                    >
-                      <span>
-                        + Add Manifest/Config File
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="Accordion--accordion cardSection"
-    >
-      <div
-        class="Accordion--panel"
-        data-open="true"
-        data-testid="Variables-panel"
-        id="Variables-panel"
-      >
-        <div
-          class="Accordion--summary"
-          data-testid="Variables-summary"
-        >
-          <div
-            class="Accordion--label"
-          >
-            Variables
-          </div>
-          <div
-            class="Accordion--chevron"
-          />
-        </div>
-        <div
-          class="bp3-collapse Accordion--collapse"
-          style="height: auto; overflow-y: visible; transition: none;"
-        >
-          <div
-            aria-hidden="false"
-            class="bp3-collapse-body"
-            style="transform: translateY(0); transition: none;"
-          >
-            <div
-              class="Accordion--details"
-              data-testid="Variables-details"
+              data-testid="variablesText-details"
             >
               <div
                 class="Layout--vertical StyledProps--main"
@@ -336,7 +336,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="line-height: 24px;"
                   >
-                    Specify additional overrides for any existing variables or define new variables.
+                    workflowVariableInfo
                   </p>
                 </section>
               </div>

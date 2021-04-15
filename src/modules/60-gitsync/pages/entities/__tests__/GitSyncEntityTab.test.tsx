@@ -1,21 +1,37 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { render, waitFor, act, fireEvent } from '@testing-library/react'
+import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import GitSyncEntityTab from '../GitSyncEntityTab'
+import mockData from './mockData/entitiesMockResponse.json'
+
+const fetchEntities = jest.fn().mockImplementation(() => Promise.resolve(mockData))
 
 jest.mock('services/cd-ng', () => ({
-  useListGitSyncEntitiesByProduct: jest.fn(() => [])
+  useListGitSyncEntitiesSummaryForRepoAndTypes: jest.fn().mockImplementation(() => ({ mutate: fetchEntities }))
 }))
+
+const mockRepoName = 'gitSyncRepo'
 
 describe('Git Sync - entity tab', () => {
   test('rendering landing view', async () => {
-    const { getAllByText, container } = render(
-      <TestWrapper path="/account/:accountId/git-sync/entities" pathParams={{ accountId: 'dummy' }}>
+    const { getByText, container } = render(
+      <GitSyncTestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/entities"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+      >
         <GitSyncEntityTab />
-      </TestWrapper>
+      </GitSyncTestWrapper>
     )
 
-    await waitFor(() => getAllByText('CONTINUOUS DEPLOYMENT'))
+    await waitFor(() => {
+      expect(getByText(mockRepoName)).toBeTruthy()
+    })
+
+    expect(container).toMatchSnapshot()
+    await act(async () => {
+      fireEvent.click(getByText(mockRepoName))
+    })
+
     expect(container).toMatchSnapshot()
   })
 })

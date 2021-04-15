@@ -12,11 +12,12 @@ import { useStrings } from 'framework/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { ShellScriptMonacoField, ScriptType } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import type { ShellScriptFormData } from './shellScriptTypes'
-import { ShellScriptMonacoField, ScriptType } from './ShellScriptMonaco'
 
+import css from './ShellScript.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const shellScriptType: SelectOption[] = [
@@ -24,9 +25,15 @@ export const shellScriptType: SelectOption[] = [
   { label: 'PowerShell', value: 'PowerShell' }
 ]
 
-export default function BaseShellScript(props: { formik: FormikProps<ShellScriptFormData> }): React.ReactElement {
+export default function BaseShellScript(props: {
+  formik: FormikProps<ShellScriptFormData>
+  isNewStep: boolean
+  readonly?: boolean
+}): React.ReactElement {
   const {
-    formik: { values: formValues, setFieldValue }
+    formik: { values: formValues, setFieldValue },
+    isNewStep,
+    readonly
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -35,7 +42,11 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('pipelineSteps.stepNameLabel')} />
+        <FormInput.InputWithIdentifier
+          inputLabel={getString('pipelineSteps.stepNameLabel')}
+          isIdentifierEditable={isNewStep}
+          inputGroupProps={{ disabled: readonly }}
+        />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.Select
@@ -46,11 +57,12 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
           disabled
         />
       </div>
-      <div className={stepCss.formGroup}>
+      <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
         <MultiTypeFieldSelector
           name="spec.source.spec.script"
           label={getString('script')}
           defaultValueToReset=""
+          disabled={readonly}
           allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
           expressionRender={() => {
             return (
@@ -58,6 +70,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
                 value={formValues?.spec?.source?.spec?.script || ''}
                 name="spec.source.spec.script"
                 onChange={value => setFieldValue('spec.source.spec.script', value)}
+                disabled={readonly}
               />
             )
           }}
@@ -69,6 +82,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
             value={formValues.spec.source?.spec?.script as string}
             type="String"
             variableName="spec.source.spec.script"
+            className={css.minConfigBtn}
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
@@ -80,7 +94,7 @@ export default function BaseShellScript(props: { formik: FormikProps<ShellScript
         <FormMultiTypeDurationField
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
           className={stepCss.duration}
         />
         {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (

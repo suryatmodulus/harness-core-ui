@@ -1,7 +1,6 @@
 import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
-import { pick } from 'lodash-es'
-import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 
@@ -19,10 +18,10 @@ export interface ResourceHandler {
     [key in PermissionIdentifier]?: string | React.ReactElement
   }
   addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
-  category?: ResourceTypeGroup
+  category?: ResourceCategory
 }
 
-export interface ResourceTypeGroupHandler {
+export interface ResourceCategoryHandler {
   icon: IconName
   label: string | React.ReactElement
   resourceTypes?: Set<ResourceType>
@@ -30,45 +29,43 @@ export interface ResourceTypeGroupHandler {
 
 class RbacFactory {
   private map: Map<ResourceType, ResourceHandler>
-  private resourceTypeGroupMap: Map<ResourceTypeGroup | ResourceType, ResourceTypeGroupHandler>
+  private resourceCategoryMap: Map<ResourceCategory, ResourceCategoryHandler>
 
   constructor() {
     this.map = new Map()
-    this.resourceTypeGroupMap = new Map()
+    this.resourceCategoryMap = new Map()
   }
 
-  registerResourceTypeGroup(resourceTypeGroup: ResourceTypeGroup, handler: ResourceTypeGroupHandler): void {
-    this.resourceTypeGroupMap.set(resourceTypeGroup, handler)
+  registerResourceCategory(resourceCategory: ResourceCategory, handler: ResourceCategoryHandler): void {
+    this.resourceCategoryMap.set(resourceCategory, handler)
   }
 
   registerResourceTypeHandler(resourceType: ResourceType, handler: ResourceHandler): void {
     this.map.set(resourceType, handler)
   }
 
-  getResourceGroupTypeList(resources: ResourceType[]): (ResourceTypeGroup | ResourceType)[] {
+  getResourceCategoryList(resources: ResourceType[]): Map<ResourceCategory | ResourceType, ResourceType[] | undefined> {
+    const categoryMap: Map<ResourceCategory | ResourceType, ResourceType[] | undefined> = new Map()
+
     resources.map(resourceType => {
       const handler = this.map.get(resourceType)
       if (handler) {
         if (handler.category) {
-          const resourceTypeGroupHandler = this.resourceTypeGroupMap.get(handler.category)
-          if (resourceTypeGroupHandler) {
-            if (resourceTypeGroupHandler.resourceTypes) resourceTypeGroupHandler.resourceTypes.add(resourceType)
-            else resourceTypeGroupHandler.resourceTypes = new Set([resourceType])
-            this.resourceTypeGroupMap.set(handler.category, resourceTypeGroupHandler)
-          }
+          const resourceTypes = categoryMap.get(handler.category)
+          if (resourceTypes) {
+            categoryMap.set(handler.category, [...resourceTypes, resourceType])
+          } else categoryMap.set(handler.category, [resourceType])
         } else {
-          this.resourceTypeGroupMap.set(resourceType, pick(handler, ['icon', 'label']))
+          categoryMap.set(resourceType, undefined)
         }
       }
     })
 
-    return Array.from(this.resourceTypeGroupMap.keys())
+    return categoryMap
   }
 
-  getResourceGroupTypeHandler(
-    resourceGroupType: ResourceType | ResourceTypeGroup
-  ): ResourceTypeGroupHandler | undefined {
-    return this.resourceTypeGroupMap.get(resourceGroupType)
+  getResourceCategoryHandler(resourceCategory: ResourceCategory): ResourceCategoryHandler | undefined {
+    return this.resourceCategoryMap.get(resourceCategory)
   }
 
   getResourceTypeHandler(resourceType: ResourceType): ResourceHandler | undefined {

@@ -32,25 +32,22 @@ export interface StepGroupRenderData {
   type: 'StepGroupRenderData'
 }
 
-// function isStepRenderData(obj: unknown): obj is StepRenderData {
-
-// }
-
 export interface ExecutionCardProps {
   execution: ExecutionElementConfig
   originalExecution: ExecutionElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
   stageIdentifier: string
   onUpdateExecution(data: ExecutionElementConfig): void
+  readonly?: boolean
 }
 
 export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution } = props
+  const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution, readonly } = props
   const allSteps = React.useMemo(() => {
     function addToCards({
       steps,
       originalSteps,
-      parentPath = ''
+      parentPath = /* istanbul ignore next */ ''
     }: AddStepsParams): Array<StepRenderData | StepGroupRenderData> {
       if (!steps || !Array.isArray(steps)) return []
 
@@ -59,7 +56,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
           cards.push({
             type: 'StepRenderData',
             step,
-            originalStep: originalSteps?.[i]?.step || { timeout: '10m' },
+            originalStep: originalSteps?.[i]?.step || /* istanbul ignore next */ { timeout: '10m' },
             path: `${parentPath}[${i}].step`
           })
         } else if (stepGroup) {
@@ -78,11 +75,11 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               }) as StepRenderData[])
             ],
             name: stepGroup.name || '',
-            originalName: originalSteps?.[i]?.stepGroup?.name || '',
-            identifier: originalSteps?.[i]?.stepGroup?.identifier || '',
+            originalName: originalSteps?.[i]?.stepGroup?.name || /* istanbul ignore next */ '',
+            identifier: originalSteps?.[i]?.stepGroup?.identifier || /* istanbul ignore next */ '',
             path: `${parentPath}[${i}].stepGroup`
           })
-        } else if (parallel) {
+        } /* istanbul ignore else */ else if (parallel) {
           cards.push(
             ...addToCards({
               steps: parallel,
@@ -119,6 +116,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               metadataMap={metadataMap}
               stageIdentifier={stageIdentifier}
               stepPath={path}
+              readonly={readonly}
               onUpdateStep={(data: StepElementConfig, stepPath: string) => {
                 onUpdateExecution(
                   produce(originalExecution, draft => {
@@ -130,6 +128,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
           )
         }
 
+        /* istanbul ignore else */
         if (row.type === 'StepGroupRenderData') {
           return (
             <StepGroupCardPanel
@@ -139,6 +138,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               stepGroupName={row.name}
               stepGroupOriginalName={row.originalName}
               metadataMap={metadataMap}
+              readonly={readonly}
               stageIdentifier={stageIdentifier}
               onUpdateStep={(data: StepElementConfig, stepPath: string) => {
                 onUpdateExecution(

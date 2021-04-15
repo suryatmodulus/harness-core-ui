@@ -38,14 +38,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
           <span
             class="lastBreadcrumb"
           >
-            Pipelines
+            pipelines
           </span>
         </div>
       </div>
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Pipelines
+        pipelines
       </p>
     </div>
   </div>
@@ -63,7 +63,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         <span
           class="bp3-button-text"
         >
-          + Pipeline
+          addPipeline
         </span>
       </button>
     </div>
@@ -100,7 +100,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="Search"
+            placeholder="search"
             type="search"
             value=""
           />
@@ -121,7 +121,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Select a saved filter"
+                placeholder="filters.selectFilter"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -254,7 +254,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
       >
-        Total
+        total
         : 
         3
       </p>
@@ -273,7 +273,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               placeholder="Search..."
               style="padding-right: 0px;"
               type="text"
-              value="Last Updated"
+              value="lastUpdatedSort"
             />
             <span
               class="bp3-input-action"
@@ -451,7 +451,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
                   >
-                    ID: 
+                    idLabel
                     pipeline1
                   </p>
                 </div>
@@ -472,7 +472,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
-                  Services
+                  services
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
@@ -488,7 +488,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                 >
                   <span>
-                    Last Run: 
+                    lastRunAtDate
                   </span>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -530,14 +530,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
-                        Executions
+                        executionsText
                       </p>
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
                         (
-                        last 7 days
+                        lastSevenDays
                         )
                       </p>
                     </div>
@@ -724,7 +724,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run
+                        runPipelineText
                       </span>
                     </span>
                   </button>
@@ -835,7 +835,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
                   >
-                    ID: 
+                    idLabel
                     First_pipeline
                   </p>
                 </div>
@@ -846,7 +846,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey400"
                 >
-                  Services
+                  services
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey500"
@@ -862,7 +862,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                 >
                   <span>
-                    Last Run: 
+                    lastRunAtDate
                   </span>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -904,14 +904,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
-                        Executions
+                        executionsText
                       </p>
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
                         (
-                        last 7 days
+                        lastSevenDays
                         )
                       </p>
                     </div>
@@ -1098,7 +1098,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run
+                        runPipelineText
                       </span>
                     </span>
                   </button>
@@ -1209,7 +1209,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
                   >
-                    ID: 
+                    idLabel
                     Second_Pipeline
                   </p>
                 </div>
@@ -1221,7 +1221,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                 >
                   <span>
-                    Last Run: 
+                    lastRunAtDate
                   </span>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
@@ -1263,14 +1263,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
-                        Executions
+                        executionsText
                       </p>
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                         style="--text-line-clamp: 2;"
                       >
                         (
-                        last 7 days
+                        lastSevenDays
                         )
                       </p>
                     </div>
@@ -1457,7 +1457,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Run
+                        runPipelineText
                       </span>
                     </span>
                   </button>
@@ -1530,14 +1530,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
           <span
             class="lastBreadcrumb"
           >
-            Pipelines
+            pipelines
           </span>
         </div>
       </div>
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
       >
-        Pipelines
+        pipelines
       </p>
     </div>
   </div>
@@ -1555,7 +1555,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <span
           class="bp3-button-text"
         >
-          + Pipeline
+          addPipeline
         </span>
       </button>
     </div>
@@ -1592,7 +1592,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="Search"
+            placeholder="search"
             type="search"
             value=""
           />
@@ -1613,7 +1613,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Select a saved filter"
+                placeholder="filters.selectFilter"
                 style="padding-right: 0px;"
                 type="text"
                 value=""
@@ -1746,7 +1746,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
       >
-        Total
+        total
         : 
         3
       </p>
@@ -1765,7 +1765,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               placeholder="Search..."
               style="padding-right: 0px;"
               type="text"
-              value="Last Updated"
+              value="lastUpdatedSort"
             />
             <span
               class="bp3-input-action"
@@ -1808,7 +1808,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           style="width: 35%;"
           title="Toggle SortBy"
         >
-          PIPELINE
+          COMMON.PIPELINE
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -1843,7 +1843,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          LAST RUN
+          LASTEXECUTIONTS
         </div>
         <div
           class="cell"
@@ -1851,7 +1851,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          RUN
+          RUNPIPELINETEXT
         </div>
         <div
           class="cell"
@@ -1974,7 +1974,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  ID: pipeline1
+                  idLabel
                 </p>
               </div>
             </div>
@@ -1994,14 +1994,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                 style="--text-line-clamp: 2;"
               >
-                Executions
+                executionsText
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (
-                last 7 days
+                lastSevenDays
                 )
               </p>
             </div>
@@ -2348,7 +2348,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  ID: First_pipeline
+                  idLabel
                 </p>
               </div>
             </div>
@@ -2368,14 +2368,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                 style="--text-line-clamp: 2;"
               >
-                Executions
+                executionsText
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (
-                last 7 days
+                lastSevenDays
                 )
               </p>
             </div>
@@ -2722,7 +2722,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 >
-                  ID: Second_Pipeline
+                  idLabel
                 </p>
               </div>
             </div>
@@ -2742,14 +2742,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                 style="--text-line-clamp: 2;"
               >
-                Executions
+                executionsText
               </p>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-blue500 StyledProps--font-small"
                 style="max-width: 100px; --text-line-clamp: 2;"
               >
                 (
-                last 7 days
+                lastSevenDays
                 )
               </p>
             </div>

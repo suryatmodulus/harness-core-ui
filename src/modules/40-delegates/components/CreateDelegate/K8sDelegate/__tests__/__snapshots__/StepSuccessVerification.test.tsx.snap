@@ -15,7 +15,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
           class="StyledProps--font StyledProps--font-h2 StyledProps--main titleYamlVerification"
           level="2"
         >
-           Apply YAML and verify connection
+          delegate.successVerification.applyYAMLTitle
         </h2>
       </div>
       <div
@@ -25,7 +25,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
           style="--text-line-clamp: 2; width: 407px;"
         >
-          Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.
+          delegate.successVerification.description1
         </p>
       </div>
       <div
@@ -35,7 +35,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
           style="--text-line-clamp: 2; width: 407px;"
         >
-          Run the following command to apply the Harness delegate to your Kubernetes Cluster
+          delegate.successVerification.description2
         </p>
       </div>
       <div
@@ -48,7 +48,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--font-small"
             style="margin-right: 24px;"
           >
-            $ kubectl apply -f harness-delegate.yaml
+            delegate.verifyDelegateYamlCmnd
           </p>
           <span
             class="bp3-popover-wrapper"
@@ -94,7 +94,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
           <span
             class="bp3-button-text"
           >
-            Verify
+            verify
           </span>
         </button>
       </div>
@@ -137,7 +137,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
       <span
         class="bp3-button-text"
       >
-        Back
+        back
       </span>
     </button>
     <button
@@ -147,7 +147,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
       <span
         class="bp3-button-text"
       >
-        Done
+        done
       </span>
     </button>
   </div>
@@ -169,7 +169,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
           class="StyledProps--font StyledProps--font-h2 StyledProps--main titleYamlVerification"
           level="2"
         >
-           Apply YAML and verify connection
+          delegate.successVerification.applyYAMLTitle
         </h2>
       </div>
       <div
@@ -179,7 +179,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
           style="--text-line-clamp: 2; width: 407px;"
         >
-          Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.
+          delegate.successVerification.description1
         </p>
       </div>
       <div
@@ -189,7 +189,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
           style="--text-line-clamp: 2; width: 407px;"
         >
-          Run the following command to apply the Harness delegate to your Kubernetes Cluster
+          delegate.successVerification.description2
         </p>
       </div>
       <div
@@ -202,7 +202,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--font-small"
             style="margin-right: 24px;"
           >
-            $ kubectl apply -f harness-delegate.yaml
+            delegate.verifyDelegateYamlCmnd
           </p>
           <span
             class="bp3-popover-wrapper"
@@ -248,7 +248,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
           <span
             class="bp3-button-text"
           >
-            Verify
+            verify
           </span>
         </button>
       </div>
@@ -291,7 +291,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
       <span
         class="bp3-button-text"
       >
-        Back
+        back
       </span>
     </button>
     <button
@@ -301,7 +301,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
       <span
         class="bp3-button-text"
       >
-        Done
+        done
       </span>
     </button>
   </div>

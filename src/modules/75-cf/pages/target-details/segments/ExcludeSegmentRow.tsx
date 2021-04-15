@@ -6,7 +6,7 @@ import { TargetSegmentParams, useRemoveTargetsFromExcludeList } from '@cf/utils/
 import type { Target, TargetDetailSegment } from 'services/cf'
 import { useConfirmAction } from '@common/hooks'
 import { useToaster } from '@common/exports'
-import { SegmentItem } from './SegmentItem'
+import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
 
 export const ExcludeSegmentRow: React.FC<{
   target?: Target | null
@@ -46,5 +46,5 @@ export const ExcludeSegmentRow: React.FC<{
     }
   })
 
-  return <SegmentItem key={identifier} name={name as string} description={description} onRemoveClick={remove} />
+  return <ItemBriefInfo key={identifier} name={name as string} description={description} onRemoveClick={remove} />
 }

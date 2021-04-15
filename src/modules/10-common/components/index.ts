@@ -25,7 +25,6 @@ import { FormMultiTypeCheckboxField, MultiTypeCheckbox } from './MultiTypeCheckb
 import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRadioGroup/MultiTypeRadioGroup'
 import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownField/InstanceDropdownField'
 import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
-import Wizard from './Wizard/Wizard'
 import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
@@ -62,7 +61,6 @@ export {
   MultiTypeCheckbox,
   NameIdDescriptionTags,
   UserLabel,
-  Wizard,
   DelegateSelectors,
   WizardWithProgress,
   OptionsMenuButton,

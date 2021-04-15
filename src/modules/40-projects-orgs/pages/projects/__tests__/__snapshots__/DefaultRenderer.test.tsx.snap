@@ -8,7 +8,7 @@ exports[`Default Renderer test initializes ok  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
     >
-      No modules-specific data
+      moduleRenderer.start
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

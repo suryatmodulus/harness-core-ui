@@ -12,7 +12,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -52,7 +52,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
             >
-              Limit Memory
+              pipelineSteps.limitMemoryLabel
             </p>
             <div
               style="display: flex; align-items: center;"
@@ -73,9 +73,10 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitMemory"
-                        placeholder="128Mi"
+                        placeholder="pipelineSteps.limitMemoryPlaceholder"
                         type="text"
                         value=""
                       />
@@ -118,7 +119,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
             >
-              Limit CPU
+              pipelineSteps.limitCPULabel
             </p>
             <div
               style="display: flex; align-items: center;"
@@ -139,9 +140,10 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitCPU"
-                        placeholder="0.2"
+                        placeholder="pipelineSteps.limitCPUPlaceholder"
                         type="text"
                         value=""
                       />
@@ -192,7 +194,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -298,7 +300,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -338,7 +340,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
             >
-              Limit Memory
+              pipelineSteps.limitMemoryLabel
             </p>
             <div
               style="display: flex; align-items: center;"
@@ -359,9 +361,10 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitMemory"
-                        placeholder="128Mi"
+                        placeholder="pipelineSteps.limitMemoryPlaceholder"
                         type="text"
                         value="128Mi"
                       />
@@ -404,7 +407,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
             >
-              Limit CPU
+              pipelineSteps.limitCPULabel
             </p>
             <div
               style="display: flex; align-items: center;"
@@ -425,9 +428,10 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="spec.limitCPU"
-                        placeholder="0.2"
+                        placeholder="pipelineSteps.limitCPUPlaceholder"
                         type="text"
                         value="0.1"
                       />
@@ -478,7 +482,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >

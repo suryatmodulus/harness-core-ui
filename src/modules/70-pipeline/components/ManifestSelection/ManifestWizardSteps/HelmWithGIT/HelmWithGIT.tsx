@@ -27,10 +27,7 @@ import { gitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../.
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
-const commandFlagOptions = [
-  { label: 'Version ', value: 'Version' },
-  { label: 'Template ', value: 'Template' }
-]
+const commandFlagOptions = [{ label: 'Template ', value: 'Template' }]
 interface HelmWithGITPropType {
   stepName: string
   expressions: string[]
@@ -69,7 +66,10 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }
@@ -124,8 +124,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
               repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
@@ -135,6 +133,14 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       }
     }
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+      } else if (formData?.gitFetchType === 'Commit') {
+        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+      }
+    }
+
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
       ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
@@ -158,13 +164,21 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('manifestType.folderPathRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
+          helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
                 is: val => val?.length,
-                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+                then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
           )
@@ -188,8 +202,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             <div className={helmcss.helmGitForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
@@ -209,6 +223,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                       name="repoName"
                       className={helmcss.repoName}
+                      isOptional={true}
                     />
                   </div>
                   <div
@@ -220,7 +235,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select
                     name="gitFetchType"
-                    label={getString('manifestType.gitFetchTypeLabel')}
+                    label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                     items={gitFetchTypes}
                   />
                 </div>
@@ -234,7 +249,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                   >
                     <FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      placeholder={getString('manifestType.branchPlaceholder')}
+                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="branch"
                     />
@@ -261,8 +276,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                     })}
                   >
                     <FormInput.MultiTextInput
-                      label={getString('manifestType.commitId')}
-                      placeholder={getString('manifestType.commitPlaceholder')}
+                      label={getString('pipeline.manifestType.commitId')}
+                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       multiTextInputProps={{ expressions }}
                       name="commitId"
                     />
@@ -291,7 +306,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />

@@ -1,57 +1,17 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import xhr, { XhrPromise } from '@wings-software/xhr-async'
-import { useSaveDSConfig } from 'services/cv'
+import type { UseGetReturn, UseMutateReturn } from 'restful-react'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import * as cvService from 'services/cv'
 import ReviewTiersAndApps from '../ReviewTiersAndApps'
 
-jest.mock('react-router-dom', () => ({
-  useParams: () => ({
-    accountId: 'accountIdMock',
-    projectIdentifier: 'projectIdMock',
-    orgIdentifier: 'orgIdMock'
-  }),
-  useHistory: jest.fn(() => {
-    return {
-      push: jest.fn(),
-      location: {
-        search: '' // edit mode otherwise e.g. "?triggerType=Webhook&sourceRepo=GITHUB"
-      }
-    }
-  })
-}))
 jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
   useIndexedDBHook: jest.fn().mockImplementation(() => {
     return { isInitializingDB: false, dbInstance: { get: jest.fn() } }
   }),
   CVObjectStoreNames: {}
 }))
-
-jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
-  useStrings: () => ({
-    getString: () => 'xx'
-  })
-}))
-
-jest.mock('@wings-software/xhr-async')
-
-jest.mock('services/cv', () => ({
-  useSaveDSConfig: jest.fn().mockReturnValue({
-    loading: false,
-    mutate: jest.fn()
-  })
-}))
-
-jest.spyOn(xhr, 'get').mockImplementation(
-  () =>
-    Promise.resolve({
-      response: {
-        resource: {
-          totalItems: 3
-        }
-      }
-    }) as XhrPromise<any>
-)
 
 const applications = {
   app1: {
@@ -82,7 +42,11 @@ const applications = {
         service: 'service-1-2'
       }
     }
-  }
+  },
+  shouldNotBeRenderedApp: {
+    name: 'shouldNotBeRenderedApp',
+    environment: 'dev'
+  } // this app should not be rendered since it has no tiers and should not be sent in submit payload
 }
 
 describe('ReviewTiersAndApps', () => {
@@ -91,32 +55,57 @@ describe('ReviewTiersAndApps', () => {
     mutateCallback.mockClear()
   })
   test('matches snapshot', () => {
-    const { container } = render(<ReviewTiersAndApps stepData={{ applications }} onCompleteStep={jest.fn()} />)
+    jest.spyOn(cvService, 'getAppDynamicsTiersPromise').mockResolvedValue({
+      data: {
+        totalItems: 3
+      }
+    } as UseGetReturn<any, any, any, any>)
+    const { container } = render(
+      <TestWrapper>
+        <ReviewTiersAndApps stepData={{ applications }} onCompleteStep={jest.fn()} />
+      </TestWrapper>
+    )
     expect(container).toMatchSnapshot()
   })
 
   test('onNext handles saving correctly', () => {
-    ;(useSaveDSConfig as any).mockReturnValue({
+    jest.spyOn(cvService, 'useSaveDSConfig').mockReturnValue({
       loading: false,
-      mutate: mutateCallback
-    })
+      mutate: mutateCallback as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+
+    jest.spyOn(cvService, 'getAppDynamicsTiersPromise').mockResolvedValue({
+      data: {
+        totalItems: 3
+      }
+    } as UseGetReturn<any, any, any, any>)
+
     const { container } = render(
-      <ReviewTiersAndApps
-        stepData={{
-          applications,
-          identifier: 'testID',
-          connectorRef: { value: 'test' },
-          product: 'Application Monitoring',
-          metricPacks: [{ identifier: 'mp1' }, { identifier: 'mp2' }]
-        }}
-        onCompleteStep={jest.fn()}
-      />
+      <TestWrapper
+        path={routes.toCVAdminSetupMonitoringSource({
+          accountId: 'accountIdMock',
+          projectIdentifier: 'projectIdMock',
+          orgIdentifier: 'orgIdMock',
+          monitoringSource: 'appdynamics'
+        })}
+        pathParams={{ accountId: 'accountIdMock', projectIdentifier: 'projectIdMock', orgIdentifier: 'orgIdMock' }}
+      >
+        <ReviewTiersAndApps
+          stepData={{
+            applications,
+            identifier: 'testID',
+            connectorRef: { value: 'test' },
+            product: 'Application Monitoring',
+            metricPacks: [{ identifier: 'mp1' }, { identifier: 'mp2' }]
+          }}
+          onCompleteStep={jest.fn()}
+        />
+      </TestWrapper>
     )
     fireEvent.click(container.querySelector('button[type=submit]')!)
     const payload = mutateCallback.mock.calls[0][0]
     expect(payload.connectorIdentifier).toEqual('test')
     expect(payload.type).toEqual('APP_DYNAMICS')
-    expect(payload.accountId).toEqual('accountIdMock')
     expect(payload.productName).toEqual('Application Monitoring')
     expect(payload.appConfigs[0].applicationName).toEqual('app1')
     expect(payload.appConfigs[0].envIdentifier).toEqual('qa')

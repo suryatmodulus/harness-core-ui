@@ -1,0 +1,11 @@
+.select {
+  > div > div > button {
+    width: 75%;
+  }
+}
+
+.pipelineRequired {
+  > div > div > input {
+    display: none;
+  }
+}

@@ -247,7 +247,7 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
         }
       })
     )
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
   })
 
   test('Ensure modal is displayed when noo metricpacks are selected', async () => {
@@ -289,10 +289,10 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
     }
 
     fireEvent.click(clearSelectedPacksButton)
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() =>
       expect(document.body.querySelector('.bp3-dialog-header h4')?.innerHTML).toEqual(
-        'At least one Metric Pack must be selected'
+        'cv.monitoringSources.oneMetricPackValidation'
       )
     )
   })
@@ -315,10 +315,10 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
       expect(container.querySelectorAll('div[role="row"]').length).toBe(MockApplicationsResponse.data.length + 1)
     )
 
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() =>
       expect(document.body.querySelector('.bp3-dialog-header h4')?.innerHTML).toEqual(
-        'At least one application must be mapped'
+        'cv.monitoringSources.oneMetricMappingValidation'
       )
     )
   })

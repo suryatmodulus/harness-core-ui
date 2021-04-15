@@ -54,7 +54,7 @@ describe('CreateOrSelectSecret', () => {
       fireEvent.click($secret)
     })
 
-    const $applyBtn = getByText('Apply Selected')
+    const $applyBtn = getByText('entityReference.apply')
     await act(async () => {
       fireEvent.click($applyBtn)
     })

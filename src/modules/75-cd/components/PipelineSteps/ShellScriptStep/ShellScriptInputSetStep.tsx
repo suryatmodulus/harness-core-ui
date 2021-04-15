@@ -7,8 +7,8 @@ import { useStrings } from 'framework/exports'
 import type { StepViewType } from '@pipeline/exports'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { ShellScriptMonacoField, ScriptType } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 
-import { ShellScriptMonacoField, ScriptType } from './ShellScriptMonaco'
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
 
 export interface ShellScriptInputSetStepProps {

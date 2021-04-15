@@ -27,7 +27,7 @@ describe('Test TerraformApply', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('should render edit view as edit step', () => {
+  test('should render edit view as edit step - Inheritfromplan', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{
@@ -62,7 +62,24 @@ describe('Test TerraformApply', () => {
           spec: {
             provisionerIdentifier: 'test',
             configuration: {
-              type: 'Inline'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                varFiles: [
+                  {
+                    type: 'Remote',
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        gitFetchType: 'Branch',
+                        branch: 'main',
+                        paths: ['test-1', 'test-2'],
+                        connectorRef: 'test-connectore'
+                      }
+                    }
+                  }
+                ]
+              }
             }
           }
         }}
@@ -208,7 +225,7 @@ describe('Test TerraformApply', () => {
             }
           }
         }}
-        type={StepType.TerraformDestroy}
+        type={StepType.TerraformApply}
         stepViewType={StepViewType.InputVariable}
       />
     )

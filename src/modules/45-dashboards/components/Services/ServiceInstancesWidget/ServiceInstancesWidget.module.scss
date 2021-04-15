@@ -1,0 +1,12 @@
+.card {
+  width: 260px;
+  height: 280px;
+  margin-right: var(--spacing-xlarge);
+  padding: var(--spacing-xlarge) var(--spacing-large);
+  .text {
+    font-size: 40px !important;
+  }
+  .topSection {
+    border-bottom: 1px solid var(--grey-300);
+  }
+}

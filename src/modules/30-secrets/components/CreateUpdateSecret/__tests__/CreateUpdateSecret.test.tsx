@@ -56,8 +56,8 @@ describe('CreateUpdateSecret', () => {
         <CreateUpdateSecret />
       </TestWrapper>
     )
-    expect(getByText(container, 'Secret type')).toBeDefined()
-    expect(getByText(container, 'Secret Value*')).toBeDefined()
+    expect(getByText(container, 'secret.labelSecretType')).toBeDefined()
+    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -67,10 +67,10 @@ describe('CreateUpdateSecret', () => {
         <CreateUpdateSecret />
       </TestWrapper>
     )
-    expect(getByText(container, 'Secret Value*')).toBeDefined()
-    fireEvent.click(getByText(container, 'File'))
-    expect(getByText(container, 'Select File')).toBeDefined()
-    expect(queryByText(container, 'Secret Value*')).toBeNull()
+    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    fireEvent.click(getByText(container, 'secret.labelFile'))
+    expect(getByText(container, 'secret.labelSecretFile')).toBeDefined()
+    expect(queryByText(container, 'secret.labelSecretValue')).toBeNull()
     expect(container).toMatchSnapshot()
   })
 
@@ -80,13 +80,13 @@ describe('CreateUpdateSecret', () => {
         <CreateUpdateSecret />
       </TestWrapper>
     )
-    expect(getByText(container, 'Secret Value*')).toBeDefined()
-    fireEvent.click(getByText(container, 'File'))
-    expect(getByText(container, 'Select File')).toBeDefined()
-    expect(queryByText(container, 'Secret Value*')).toBeNull()
-    fireEvent.click(getByText(container, 'Text'))
-    expect(queryByText(container, 'Select File')).toBeNull()
-    expect(getByText(container, 'Secret Value*')).toBeDefined()
+    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
+    fireEvent.click(getByText(container, 'secret.labelFile'))
+    expect(getByText(container, 'secret.labelSecretFile')).toBeDefined()
+    expect(queryByText(container, 'secret.labelSecretValue')).toBeNull()
+    fireEvent.click(getByText(container, 'secret.labelText'))
+    expect(queryByText(container, 'secret.labelSecretFile')).toBeNull()
+    expect(getByText(container, 'secret.labelSecretValue')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -100,7 +100,7 @@ describe('CreateUpdateSecret', () => {
 
     await act(async () => {
       fireEvent.change(container.querySelector("textarea[name='description']")!, { target: { value: 'new desc' } })
-      const submitBtn = await findByText(container, 'Save')
+      const submitBtn = await findByText(container, 'save')
       fireEvent.click(submitBtn)
     })
 

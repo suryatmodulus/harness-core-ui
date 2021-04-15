@@ -114,9 +114,12 @@ describe('Create Git connector Wizard', () => {
     })
 
     expect(updateConnector).toBeCalledTimes(1)
-    expect(updateConnector).toBeCalledWith({
-      connector: usernamePassword
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernamePassword
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

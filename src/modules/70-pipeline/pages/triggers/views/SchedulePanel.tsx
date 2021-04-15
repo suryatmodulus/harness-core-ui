@@ -75,7 +75,7 @@ const SchedulePanel: React.FC<SchedulePanelPropsInterface> = ({
         )}
         <Tab
           id={scheduleTabsId.CUSTOM}
-          title={getString('repo-provider.customLabel')}
+          title={getString('common.repo_provider.customLabel')}
           panel={<CustomTab formikProps={formikProps} />}
         />
       </Tabs>

@@ -134,7 +134,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                 <label
                   class="delegateSizeLabel"
                 >
-                  Delegate Size
+                  delegate.delegateSize
                 </label>
                 <div
                   class="formGroup"
@@ -193,7 +193,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main replicaText"
                           >
-                            Runs upto concurrent tasks Replicas=
+                            delegate.replicaText
                             1
                              
                           </p>
@@ -208,7 +208,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                               class="StyledProps--font StyledProps--main footerHeader"
                             >
                                
-                              Total Mem
+                              delegate.totalMem
                             </p>
                             <p
                               class="StyledProps--font StyledProps--main footerContent"
@@ -223,7 +223,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                             <p
                               class="StyledProps--font StyledProps--main footerHeader"
                             >
-                              Total CPU
+                              delegate.totalCpu
                             </p>
                             <p
                               class="StyledProps--font StyledProps--main footerContent"
@@ -242,7 +242,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange500"
                   >
-                    For Production Workloads
+                    delegate.productionWorkloads
                   </p>
                 </div>
               </div>
@@ -257,7 +257,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                     class="bp3-label"
                     for="delegateConfigurationId"
                   >
-                    Delegate Configurations
+                    delegate.delegateConfigurations
                      
                     <span
                       class="bp3-text-muted"
@@ -345,7 +345,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Back
+                  back
                 </span>
               </button>
               <button
@@ -355,7 +355,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Continue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"

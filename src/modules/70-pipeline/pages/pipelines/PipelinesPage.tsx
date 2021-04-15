@@ -51,6 +51,8 @@ import {
   removeNullAndEmpty,
   flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
@@ -482,11 +484,19 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       />
       <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
         <Layout.Horizontal>
-          <Button
+          <RbacButton
             intent="primary"
             data-testid="add-pipeline"
             text={getString('addPipeline')}
             onClick={() => goToPipeline()}
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              permission: PermissionIdentifier.EDIT_PIPELINE
+            }}
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>

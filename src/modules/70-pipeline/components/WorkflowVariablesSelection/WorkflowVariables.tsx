@@ -15,9 +15,23 @@ import { PipelineContext } from '@pipeline/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 
 import { useStrings } from 'framework/exports'
 import css from './WorkflowVariables.module.scss'
+
+export interface WorkflowVariablesProps {
+  isForOverrideSets?: boolean
+  identifierName?: string
+  isForPredefinedSets?: boolean
+  overrideSetIdentifier?: string
+  isPropagating?: boolean
+  factory: AbstractStepFactory
+  readonly?: boolean
+}
 
 export default function WorkflowVariables({
   isForOverrideSets = false,
@@ -25,15 +39,9 @@ export default function WorkflowVariables({
   isForPredefinedSets = false,
   overrideSetIdentifier = '',
   isPropagating = false,
-  factory
-}: {
-  isForOverrideSets?: boolean
-  identifierName?: string
-  isForPredefinedSets?: boolean
-  overrideSetIdentifier?: string
-  isPropagating?: boolean
-  factory: AbstractStepFactory
-}): JSX.Element {
+  factory,
+  readonly
+}: WorkflowVariablesProps): JSX.Element {
   const {
     state: {
       pipeline,
@@ -148,7 +156,7 @@ export default function WorkflowVariables({
         {overrideSetIdentifier?.length === 0 && !isForOverrideSets && (
           <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{getString('workflowVariableInfo')}</Text>
         )}
-        <StepWidget<{ variables: Variable[]; isPropagating?: boolean; canAddVariable: boolean }>
+        <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
           factory={factory}
           stepViewType={StepViewType.StageVariable}
           initialValues={{
@@ -156,6 +164,7 @@ export default function WorkflowVariables({
             isPropagating,
             canAddVariable: !overrideSetIdentifier?.length
           }}
+          readonly={readonly}
           type={StepType.CustomVariable}
           onUpdate={({ variables }: { variables: Variable[] }) => {
             updateVariables(variables)
@@ -163,7 +172,8 @@ export default function WorkflowVariables({
           customStepProps={{
             yamlProperties: getYamlPropertiesForVariables().map(
               variable => metadataMap[variable.value || '']?.yamlProperties || {}
-            )
+            ),
+            enableValidation: true
           }}
         />
       </section>

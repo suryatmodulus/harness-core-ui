@@ -6,13 +6,13 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group approvalMessage"
+      class="bp3-form-group approvalMessage md"
     >
       <label
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        Approval Message
+        pipeline.approvalStep.message
          
         <span
           class="bp3-text-muted"
@@ -25,9 +25,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           autocomplete="off"
           class="bp3-input bp3-fill"
           name="spec.approvalMessage"
-        >
-          &lt;+input&gt;
-        </textarea>
+        />
       </div>
     </div>
     <div
@@ -37,29 +35,27 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
-            checked=""
             name="spec.includePipelineExecutionHistory"
             type="checkbox"
           />
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history
+          pipeline.approvalStep.includePipelineExecutionHistory
         </label>
       </div>
     </div>
     <div
-      class="bp3-form-group"
-      style="resize: vertical;"
+      class="bp3-form-group multiSelect"
     >
       <label
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        Groups
+        common.userGroups
          
         <span
           class="bp3-text-muted"
@@ -84,9 +80,10 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                   class="bp3-tag-input-values"
                 >
                   <input
+                    autocomplete="off"
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Search..."
+                    placeholder="pipeline.approvalStep.addUserGroups"
                     value=""
                   />
                 </div>
@@ -97,13 +94,13 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
       </div>
     </div>
     <div
-      class="bp3-form-group"
+      class="bp3-form-group md"
     >
       <label
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        Number of approvers that are required at this step
+        pipeline.approvalStep.minimumCount
          
         <span
           class="bp3-text-muted"
@@ -120,7 +117,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
             class="bp3-input"
             name="spec.approvers.minimumCount"
             type="text"
-            value="<+input>"
+            value="0"
           />
         </div>
       </div>
@@ -132,22 +129,21 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
-            checked=""
             name="spec.approvers.disallowPipelineExecutor"
             type="checkbox"
           />
           <span
             class="bp3-control-indicator"
           />
-          Disallow the pipeline executor from approving the pipeline
+          pipeline.approvalStep.disallowPipelineExecutor
         </label>
       </div>
     </div>
     <div>
-      Inputs to be provided by approver
+      pipeline.approvalStep.approverInputs
       <div
         class="bp3-card bp3-elevation-0 Card--card"
         style="width: 100%;"
@@ -173,7 +169,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                   class="bp3-input"
                   data-testid="key-spec.approverInputs-[0]"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
             </div>
@@ -199,475 +195,13 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                     class="bp3-input"
                     data-testid="value-spec.approverInputs-[0]"
                     type="text"
-                    value="<"
+                    value=""
                   />
                 </div>
               </div>
               <button
                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="remove-spec.approverInputs-[0]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[1]"
-                  type="text"
-                  value="1"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[1]"
-                    type="text"
-                    value="+"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[1]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[2]"
-                  type="text"
-                  value="2"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[2]"
-                    type="text"
-                    value="i"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[2]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[3]"
-                  type="text"
-                  value="3"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[3]"
-                    type="text"
-                    value="n"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[3]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[4]"
-                  type="text"
-                  value="4"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[4]"
-                    type="text"
-                    value="p"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[4]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[5]"
-                  type="text"
-                  value="5"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[5]"
-                    type="text"
-                    value="u"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[5]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[6]"
-                  type="text"
-                  value="6"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[6]"
-                    type="text"
-                    value="t"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[6]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[7]"
-                  type="text"
-                  value="7"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[7]"
-                    type="text"
-                    value=">"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[7]"
                 style="margin-top: 4px;"
                 type="button"
               >
@@ -698,7 +232,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <span
             class="bp3-button-text"
           >
-            + Add
+            plusAdd
           </span>
         </button>
       </div>
@@ -808,19 +342,19 @@ exports[`Harness Approval tests Basic snapshot - inputset mode but no runtime va
 </div>
 `;
 
-exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval-inputset 1`] = `
+exports[`Harness Approval tests Basic snapshot - inputset mode: input set with errors 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group approvalMessage"
+      class="bp3-form-group bp3-intent-danger approvalMessage md"
     >
       <label
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        Approval Message
+        pipeline.approvalStep.message
          
         <span
           class="bp3-text-muted"
@@ -831,11 +365,14 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
       >
         <textarea
           autocomplete="off"
-          class="bp3-input bp3-fill"
+          class="bp3-input bp3-intent-danger bp3-fill"
           name="spec.approvalMessage"
+        />
+        <div
+          class="bp3-form-helper-text"
         >
-          &lt;+input&gt;
-        </textarea>
+          pipeline.approvalStep.validation.approvalMessage
+        </div>
       </div>
     </div>
     <div
@@ -845,29 +382,27 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
-            checked=""
             name="spec.includePipelineExecutionHistory"
             type="checkbox"
           />
           <span
             class="bp3-control-indicator"
           />
-          Include pipeline execution history
+          pipeline.approvalStep.includePipelineExecutionHistory
         </label>
       </div>
     </div>
     <div
-      class="bp3-form-group"
-      style="resize: vertical;"
+      class="bp3-form-group multiSelect"
     >
       <label
         class="bp3-label"
         for="spec.approvers.userGroups"
       >
-        Groups
+        common.userGroups
          
         <span
           class="bp3-text-muted"
@@ -892,9 +427,10 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
                   class="bp3-tag-input-values"
                 >
                   <input
+                    autocomplete="off"
                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                     name="spec.approvers.userGroups"
-                    placeholder="Search..."
+                    placeholder="pipeline.approvalStep.addUserGroups"
                     value=""
                   />
                 </div>
@@ -905,13 +441,13 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
       </div>
     </div>
     <div
-      class="bp3-form-group"
+      class="bp3-form-group bp3-intent-danger md"
     >
       <label
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        Number of approvers that are required at this step
+        pipeline.approvalStep.minimumCount
          
         <span
           class="bp3-text-muted"
@@ -921,15 +457,20 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
         class="bp3-form-content"
       >
         <div
-          class="bp3-input-group"
+          class="bp3-input-group bp3-intent-danger"
         >
           <input
             autocomplete="off"
             class="bp3-input"
             name="spec.approvers.minimumCount"
             type="text"
-            value="<+input>"
+            value="0"
           />
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          pipeline.approvalStep.validation.minimumCountRequired
         </div>
       </div>
     </div>
@@ -940,22 +481,21 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
         class="bp3-form-content"
       >
         <label
-          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox execHistoryCheckbox md StyledProps--main StyledProps--inline"
         >
           <input
-            checked=""
             name="spec.approvers.disallowPipelineExecutor"
             type="checkbox"
           />
           <span
             class="bp3-control-indicator"
           />
-          Disallow the pipeline executor from approving the pipeline
+          pipeline.approvalStep.disallowPipelineExecutor
         </label>
       </div>
     </div>
     <div>
-      Inputs to be provided by approver
+      pipeline.approvalStep.approverInputs
       <div
         class="bp3-card bp3-elevation-0 Card--card"
         style="width: 100%;"
@@ -981,7 +521,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
                   class="bp3-input"
                   data-testid="key-spec.approverInputs-[0]"
                   type="text"
-                  value="0"
+                  value=""
                 />
               </div>
             </div>
@@ -1007,475 +547,13 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
                     class="bp3-input"
                     data-testid="value-spec.approverInputs-[0]"
                     type="text"
-                    value="<"
+                    value=""
                   />
                 </div>
               </div>
               <button
                 class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
                 data-testid="remove-spec.approverInputs-[0]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[1]"
-                  type="text"
-                  value="1"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[1]"
-                    type="text"
-                    value="+"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[1]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[2]"
-                  type="text"
-                  value="2"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[2]"
-                    type="text"
-                    value="i"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[2]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[3]"
-                  type="text"
-                  value="3"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[3]"
-                    type="text"
-                    value="n"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[3]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[4]"
-                  type="text"
-                  value="4"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[4]"
-                    type="text"
-                    value="p"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[4]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[5]"
-                  type="text"
-                  value="5"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[5]"
-                    type="text"
-                    value="u"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[5]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[6]"
-                  type="text"
-                  value="6"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[6]"
-                    type="text"
-                    value="t"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[6]"
-                style="margin-top: 4px;"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="main-trash"
-                >
-                  <svg
-                    height="20"
-                    viewBox="0 0 11 14"
-                    width="20"
-                  >
-                    <path
-                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                      fill="#4d5969"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="group withoutAligning"
-        >
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="TextInput--main"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  class="bp3-input"
-                  data-testid="key-spec.approverInputs-[7]"
-                  type="text"
-                  value="7"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            style="flex-grow: 1;"
-          >
-            <div
-              class="group withoutAligning withoutSpacing"
-            >
-              <div
-                class="TextInput--main"
-              >
-                <div
-                  class="bp3-input-group"
-                >
-                  <input
-                    class="bp3-input"
-                    data-testid="value-spec.approverInputs-[7]"
-                    type="text"
-                    value=">"
-                  />
-                </div>
-              </div>
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-                data-testid="remove-spec.approverInputs-[7]"
                 style="margin-top: 4px;"
                 type="button"
               >
@@ -1506,10 +584,11 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
           <span
             class="bp3-button-text"
           >
-            + Add
+            plusAdd
           </span>
         </button>
       </div>
+      
     </div>
     <p
       class="StyledProps--font StyledProps--main"
@@ -1517,7 +596,14 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: harness-approval
       Errors
     </p>
     <pre>
-      {}
+      {
+  "spec": {
+    "approvalMessage": "pipeline.approvalStep.validation.approvalMessage",
+    "approvers": {
+      "minimumCount": "pipeline.approvalStep.validation.minimumCountRequired"
+    }
+  }
+}
     </pre>
     <button
       class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"

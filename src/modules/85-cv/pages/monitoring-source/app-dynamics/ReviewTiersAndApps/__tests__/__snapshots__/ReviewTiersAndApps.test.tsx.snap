@@ -18,7 +18,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          xx
+          cv.monitoringSources.appD.appDApplications
         </div>
         <div
           class="cell"
@@ -34,7 +34,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          xx
+          cv.monitoringSources.appD.mappedToHarnessEnvironment
         </div>
         <div
           class="cell"
@@ -42,7 +42,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          xx
+          cv.monitoringSources.appD.mappedToHarnessService
         </div>
         <div
           class="cell"
@@ -50,7 +50,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          xx
+          cv.monitoringSources.appD.validation
         </div>
       </div>
       <div
@@ -142,7 +142,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              xx
+              cv.monitoringSources.appD.tiersMappedToServices
             </p>
           </div>
         </div>
@@ -302,7 +302,7 @@ exports[`ReviewTiersAndApps matches snapshot 1`] = `
         <span
           class="bp3-button-text"
         >
-          xx
+          submit
         </span>
         <span
           class="bp3-icon bp3-icon-chevron-right StyledProps--main"

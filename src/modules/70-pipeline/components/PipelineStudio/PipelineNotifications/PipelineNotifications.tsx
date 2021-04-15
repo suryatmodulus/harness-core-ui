@@ -13,7 +13,8 @@ const PAGE_SIZE = 10
 export const PipelineNotifications: React.FC = (): JSX.Element => {
   const {
     state: { pipeline },
-    updatePipeline
+    updatePipeline,
+    isReadonly
   } = React.useContext(PipelineContext)
 
   const [page, setPage] = React.useState(0)
@@ -86,6 +87,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
             })
           }
         }}
+        isReadonly={isReadonly}
       />
     </div>
   )

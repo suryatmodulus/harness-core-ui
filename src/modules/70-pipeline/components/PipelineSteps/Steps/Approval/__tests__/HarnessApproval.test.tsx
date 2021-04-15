@@ -1,8 +1,6 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
-import { render, act, fireEvent, queryByAttribute } from '@testing-library/react'
+import { render, act, fireEvent, queryByAttribute, waitFor } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import * as services from 'services/cd-ng'
 import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { TestStepWidget, factory } from '../../__tests__/StepTestUtil'
 import { HarnessApproval } from '../HarnessApproval'
@@ -10,28 +8,26 @@ import {
   getHarnessApprovalDeploymentModeProps,
   getHarnessApprovalInputVariableModeProps,
   mockUserGroupsResponse,
-  mockUsersResponse,
-  getHarnessApprovalEditModeProps
+  getHarnessApprovalEditModeProps,
+  getHarnessApprovalEditModePropsWithValues
 } from './HarnessApprovalTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
 
+jest.mock('services/cd-ng', () => ({
+  useGetUserGroupList: () => mockUserGroupsResponse
+}))
+
 describe('Harness Approval tests', () => {
   beforeEach(() => {
     factory.registerStep(new HarnessApproval())
-    jest
-      .spyOn(services, 'getUsersPromise')
-      .mockResolvedValue(mockUsersResponse as UseGetReturn<any, services.Failure, any, unknown>)
-    jest
-      .spyOn(services, 'getUserGroupListPromise')
-      .mockResolvedValue(mockUserGroupsResponse as UseGetReturn<any, services.Failure, any, unknown>)
   })
 
   test('Basic snapshot - inputset mode', async () => {
     const props = getHarnessApprovalDeploymentModeProps()
-    const { container } = render(
+    const { container, getByText, queryByText } = render(
       <TestStepWidget
         template={props.inputSetData.template}
         initialValues={props.initialValues}
@@ -41,7 +37,9 @@ describe('Harness Approval tests', () => {
       />
     )
 
-    expect(container).toMatchSnapshot('harness-approval-inputset')
+    fireEvent.click(getByText('Submit'))
+    await waitFor(() => queryByText('Errors'))
+    expect(container).toMatchSnapshot('input set with errors')
   })
 
   test('Basic snapshot - deploymentform mode', async () => {
@@ -102,7 +100,7 @@ describe('Harness Approval tests', () => {
 
     // Submit with empty form
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Step Name is required')).toBeTruthy()
+    expect(getByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
@@ -111,11 +109,70 @@ describe('Harness Approval tests', () => {
     fireEvent.click(queryByNameAttribute('spec.includePipelineExecutionHistory')!)
 
     act(() => {
-      fireEvent.click(getByText('Timeout'))
+      fireEvent.click(getByText('pipelineSteps.timeoutLabel'))
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
     await act(() => ref.current?.submitForm())
-    expect(queryByText('Min Timeout is 10 Seconds')).toBeTruthy()
+    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
+
+    fireEvent.click(getByText('pipeline.approvalStep.approvers'))
+    await act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
+  })
+
+  test('On submit call', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModePropsWithValues()
+    const { queryByDisplayValue, queryByText, getByText } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={props.onUpdate}
+      />
+    )
+
+    expect(queryByDisplayValue('10m')).toBeTruthy()
+    expect(queryByDisplayValue('harness approval step')).toBeTruthy()
+
+    // Open first accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.message'))
+    })
+    expect(queryByDisplayValue('Approving pipeline <+pname>')).toBeTruthy()
+
+    // Open second accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.approvers'))
+    })
+    expect(queryByDisplayValue('1')).toBeTruthy()
+    expect(queryByText('ug1')).toBeTruthy()
+    expect(queryByText('ug2')).toBeTruthy()
+
+    // Open third accordion
+    act(() => {
+      fireEvent.click(getByText('pipeline.approvalStep.approverInputs'))
+    })
+    expect(queryByDisplayValue('somekey')).toBeTruthy()
+    expect(queryByDisplayValue('somevalue')).toBeTruthy()
+
+    await act(() => ref.current?.submitForm())
+    expect(props.onUpdate).toBeCalledWith({
+      identifier: 'hhaass',
+      timeout: '10m',
+      spec: {
+        approvalMessage: 'Approving pipeline <+pname>',
+        includePipelineExecutionHistory: true,
+        approverInputs: [{ name: 'somekey', defaultValue: 'somevalue' }],
+        approvers: {
+          userGroups: ['ug1', 'ug2'],
+          minimumCount: 1,
+          disallowPipelineExecutor: true
+        }
+      },
+      name: 'harness approval step'
+    })
   })
 })

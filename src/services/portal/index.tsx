@@ -18827,6 +18827,35 @@ export const useTrialSignup = (props: UseTrialSignupProps) =>
     ...props
   })
 
+export interface Logout1PathParams {
+  userId: string
+}
+
+export type Logout1Props = Omit<MutateProps<RestResponse, unknown, void, void, Logout1PathParams>, 'path' | 'verb'> &
+  Logout1PathParams
+
+export const Logout1 = ({ userId, ...props }: Logout1Props) => (
+  <Mutate<RestResponse, unknown, void, void, Logout1PathParams>
+    verb="POST"
+    path="/users/${userId}/logout"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseLogout1Props = Omit<
+  UseMutateProps<RestResponse, unknown, void, void, Logout1PathParams>,
+  'path' | 'verb'
+> &
+  Logout1PathParams
+
+export const useLogout1 = ({ userId, ...props }: UseLogout1Props) =>
+  useMutate<RestResponse, unknown, void, void, Logout1PathParams>(
+    'POST',
+    (paramsInPath: Logout1PathParams) => `/users/${paramsInPath.userId}/logout`,
+    { base: getConfig('api'), pathParams: { userId }, ...props }
+  )
+
 export interface GetDelegateTagsQueryParams {
   accountId?: string
 }

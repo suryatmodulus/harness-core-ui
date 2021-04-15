@@ -80,7 +80,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
           <label
             class="bp3-label"
           >
-            Script
+            script
              
             <span
               class="bp3-text-muted"
@@ -129,7 +129,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
           <label
             class="bp3-label"
           >
-            Target Host
+            targetHost
              
             <span
               class="bp3-text-muted"
@@ -168,7 +168,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
             class="bp3-label"
             for="spec.executionTarget.connectorRef"
           >
-            SSH Connection Attribute
+            sshConnector
              
             <span
               class="bp3-text-muted"
@@ -211,7 +211,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Create or Select a Secret
+                  createOrSelectSecret
                 </span>
               </button>
               <span
@@ -251,7 +251,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
           <label
             class="bp3-label"
           >
-            Working Directory
+            workingDirectory
              
             <span
               class="bp3-text-muted"
@@ -326,7 +326,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="Accordion--label"
           >
-            Basic
+            basic
           </div>
           <div
             class="Accordion--chevron"
@@ -407,7 +407,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      pipelineSteps.stepNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -441,7 +441,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    Script Type
+                    scriptType
                      
                     <span
                       class="bp3-text-muted"
@@ -464,7 +464,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.shell"
-                            placeholder="Script Type"
+                            placeholder="scriptType"
                             style="padding-right: 0px;"
                             type="text"
                             value="Bash"
@@ -499,7 +499,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -511,7 +511,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                     <div
                       class="formLabel"
                     >
-                      Script
+                      script
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -543,7 +543,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -602,7 +602,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                     class="bp3-label"
                     for="timeout"
                   >
-                    Timeout
+                    pipelineSteps.timeoutLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -673,7 +673,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Input Variables
+            scriptInputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -701,7 +701,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Output Variables
+            scriptOutputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -729,7 +729,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           <div
             class="Accordion--label"
           >
-            Execution Target
+            executionTarget
           </div>
           <div
             class="Accordion--chevron"
@@ -770,7 +770,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="Accordion--label"
           >
-            Basic
+            basic
           </div>
           <div
             class="Accordion--chevron"
@@ -851,7 +851,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      pipelineSteps.stepNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -885,7 +885,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    Script Type
+                    scriptType
                      
                     <span
                       class="bp3-text-muted"
@@ -908,7 +908,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.shell"
-                            placeholder="Script Type"
+                            placeholder="scriptType"
                             style="padding-right: 0px;"
                             type="text"
                             value="Bash"
@@ -943,7 +943,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -955,7 +955,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                     <div
                       class="formLabel"
                     >
-                      Script
+                      script
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -987,7 +987,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -1048,7 +1048,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                     class="bp3-label"
                     for="timeout"
                   >
-                    Timeout
+                    pipelineSteps.timeoutLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -1119,7 +1119,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Input Variables
+            scriptInputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -1147,7 +1147,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Output Variables
+            scriptOutputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -1175,7 +1175,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           <div
             class="Accordion--label"
           >
-            Execution Target
+            executionTarget
           </div>
           <div
             class="Accordion--chevron"
@@ -1216,7 +1216,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="Accordion--label"
           >
-            Basic
+            basic
           </div>
           <div
             class="Accordion--chevron"
@@ -1297,7 +1297,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      pipelineSteps.stepNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -1331,7 +1331,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    Script Type
+                    scriptType
                      
                     <span
                       class="bp3-text-muted"
@@ -1354,7 +1354,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.shell"
-                            placeholder="Script Type"
+                            placeholder="scriptType"
                             style="padding-right: 0px;"
                             type="text"
                             value="Bash"
@@ -1389,7 +1389,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -1401,7 +1401,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                     <div
                       class="formLabel"
                     >
-                      Script
+                      script
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -1433,7 +1433,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -1494,7 +1494,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                     class="bp3-label"
                     for="timeout"
                   >
-                    Timeout
+                    pipelineSteps.timeoutLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -1565,7 +1565,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="Accordion--label"
           >
-            Script Input Variables
+            scriptInputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -1593,7 +1593,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="Accordion--label"
           >
-            Script Output Variables
+            scriptOutputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -1621,7 +1621,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           <div
             class="Accordion--label"
           >
-            Execution Target
+            executionTarget
           </div>
           <div
             class="Accordion--chevron"
@@ -1662,7 +1662,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="Accordion--label"
           >
-            Basic
+            basic
           </div>
           <div
             class="Accordion--chevron"
@@ -1743,7 +1743,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      pipelineSteps.stepNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -1777,7 +1777,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    Script Type
+                    scriptType
                      
                     <span
                       class="bp3-text-muted"
@@ -1800,7 +1800,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.shell"
-                            placeholder="Script Type"
+                            placeholder="scriptType"
                             style="padding-right: 0px;"
                             type="text"
                             value="Bash"
@@ -1835,7 +1835,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -1847,7 +1847,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                     <div
                       class="formLabel"
                     >
-                      Script
+                      script
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -1879,7 +1879,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -1938,7 +1938,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                     class="bp3-label"
                     for="timeout"
                   >
-                    Timeout
+                    pipelineSteps.timeoutLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -2009,7 +2009,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Input Variables
+            scriptInputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -2037,7 +2037,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Output Variables
+            scriptOutputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -2065,7 +2065,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           <div
             class="Accordion--label"
           >
-            Execution Target
+            executionTarget
           </div>
           <div
             class="Accordion--chevron"
@@ -2106,7 +2106,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="Accordion--label"
           >
-            Basic
+            basic
           </div>
           <div
             class="Accordion--chevron"
@@ -2185,7 +2185,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      pipelineSteps.stepNameLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -2219,7 +2219,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    Script Type
+                    scriptType
                      
                     <span
                       class="bp3-text-muted"
@@ -2242,7 +2242,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                             class="bp3-input"
                             disabled=""
                             name="spec.shell"
-                            placeholder="Script Type"
+                            placeholder="scriptType"
                             style="padding-right: 0px;"
                             type="text"
                             value="Bash"
@@ -2277,7 +2277,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 </div>
               </div>
               <div
-                class="formGroup"
+                class="formGroup alignStart"
               >
                 <div
                   class="bp3-form-group"
@@ -2289,7 +2289,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                     <div
                       class="formLabel"
                     >
-                      Script
+                      script
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -2321,7 +2321,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                               <span
                                 class="btnText"
                               >
-                                Fixed value
+                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -2380,7 +2380,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                     class="bp3-label"
                     for="timeout"
                   >
-                    Timeout
+                    pipelineSteps.timeoutLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -2451,7 +2451,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Input Variables
+            scriptInputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -2479,7 +2479,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="Accordion--label"
           >
-            Script Output Variables
+            scriptOutputVariables
           </div>
           <div
             class="Accordion--chevron"
@@ -2507,7 +2507,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           <div
             class="Accordion--label"
           >
-            Execution Target
+            executionTarget
           </div>
           <div
             class="Accordion--chevron"

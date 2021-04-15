@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDeepCompareEffect } from '@common/hooks'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -56,6 +57,14 @@ export function PipelineStages<T = {}>({
     }
   }, [showSelectMenu])
   const selected = stages.get(type || '')
+
+  // We are using this to deep compare the selected var and run forceUpdate from popper js to recompute the position of the popover.
+  // This stops an expanding popover from overflowing
+
+  useDeepCompareEffect(() => {
+    window.dispatchEvent(new CustomEvent('UPDATE_POPOVER_POSITION'))
+  }, [selected])
+
   const selectedStageIndex = selected?.index || 0
   const stage = React.Children.toArray(children)[selectedStageIndex] as React.ReactElement<PipelineStageProps>
   return (

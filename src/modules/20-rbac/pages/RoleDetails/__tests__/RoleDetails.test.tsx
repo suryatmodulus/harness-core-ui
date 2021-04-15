@@ -2,11 +2,14 @@ import React from 'react'
 import { act, fireEvent, queryByAttribute, render, RenderResult } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import { getResourceTypeHandlerMock, getResourceGroupTypeHandlerMock } from '@rbac/utils/RbacFactoryMockData'
+import {
+  getResourceTypeHandlerMock,
+  getResourceGroupTypeHandlerMock,
+  getResourceCategoryListMock
+} from '@rbac/utils/RbacFactoryMockData'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
-import { ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
 import { permissionListMockData, resourceTypesMockData, roleMockData } from './mock'
 
 jest.useFakeTimers()
@@ -27,10 +30,8 @@ jest.mock('services/rbac', () => ({
 
 jest.mock('@rbac/factories/RbacFactory', () => ({
   getResourceTypeHandler: jest.fn().mockImplementation(resource => getResourceTypeHandlerMock(resource)),
-  getResourceGroupTypeHandler: jest.fn().mockImplementation(resource => getResourceGroupTypeHandlerMock(resource)),
-  getResourceGroupTypeList: jest
-    .fn()
-    .mockImplementation(() => [ResourceTypeGroup.PROJECT_RESOURCES, ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS])
+  getResourceCategoryHandler: jest.fn().mockImplementation(resource => getResourceGroupTypeHandlerMock(resource)),
+  getResourceCategoryList: jest.fn().mockImplementation(() => getResourceCategoryListMock())
 }))
 
 jest.mock('react-timeago', () => () => 'dummy date')
@@ -59,7 +60,7 @@ describe('Role Details Page', () => {
       expect(organizationView).toBeTruthy()
       if (organizationView) fireEvent.click(organizationView)
 
-      const applyChanges = getByText('Apply Changes')
+      const applyChanges = getByText('applyChanges')
       expect(applyChanges).toBeTruthy()
 
       await act(async () => {

@@ -308,6 +308,6 @@ describe('Select Services', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => expect(getByText('At least one service mapping must be selected.')))
+    await waitFor(() => expect(getByText('cv.activitySources.harnessCD.validation.serviceValidation')))
   })
 })

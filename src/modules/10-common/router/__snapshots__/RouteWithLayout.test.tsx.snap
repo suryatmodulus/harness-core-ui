@@ -43,7 +43,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Projects
+                  projectsText
                 </span>
               </p>
             </div>
@@ -100,7 +100,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Deployments
+                  deploymentsText
                 </span>
               </p>
             </div>
@@ -157,7 +157,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Builds
+                  buildsText
                 </span>
               </p>
             </div>
@@ -214,7 +214,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Feature Flags
+                  featureFlagsText
                 </span>
               </p>
             </div>
@@ -271,7 +271,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Cloud Costs
+                  cloudCostsText
                 </span>
               </p>
             </div>
@@ -329,7 +329,7 @@ exports[`RouteWithLayout basic 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Change Verifications
+                  changeVerificationText
                 </span>
               </p>
             </div>
@@ -370,6 +370,47 @@ exports[`RouteWithLayout basic 1`] = `
                 />
               </svg>
             </span>
+          </a>
+        </li>
+        <li
+          class="navItem"
+        >
+          <a
+            class="navLink"
+            href="/account/dummy/user"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+              style="width: 90px;"
+            >
+              <div
+                class="Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      D
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
+                style="--text-line-clamp: 2;"
+              >
+                <span>
+                  account
+                </span>
+              </p>
+            </div>
           </a>
         </li>
       </ul>
@@ -472,7 +513,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Projects
+                  projectsText
                 </span>
               </p>
             </div>
@@ -529,7 +570,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Deployments
+                  deploymentsText
                 </span>
               </p>
             </div>
@@ -586,7 +627,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Builds
+                  buildsText
                 </span>
               </p>
             </div>
@@ -643,7 +684,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Feature Flags
+                  featureFlagsText
                 </span>
               </p>
             </div>
@@ -700,7 +741,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Cloud Costs
+                  cloudCostsText
                 </span>
               </p>
             </div>
@@ -758,7 +799,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 style="--text-line-clamp: 2;"
               >
                 <span>
-                  Change Verifications
+                  changeVerificationText
                 </span>
               </p>
             </div>
@@ -799,6 +840,47 @@ exports[`RouteWithLayout minimal 1`] = `
                 />
               </svg>
             </span>
+          </a>
+        </li>
+        <li
+          class="navItem"
+        >
+          <a
+            class="navLink"
+            href="/account/dummy/user"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+              style="width: 90px;"
+            >
+              <div
+                class="Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      D
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
+                style="--text-line-clamp: 2;"
+              >
+                <span>
+                  account
+                </span>
+              </p>
+            </div>
           </a>
         </li>
       </ul>

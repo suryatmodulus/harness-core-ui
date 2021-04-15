@@ -5,7 +5,7 @@ import { parse, stringify } from 'yaml'
 import { isEmpty, isUndefined, merge } from 'lodash-es'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { Wizard } from '@common/components'
+import Wizard from '@common/components/Wizard/Wizard'
 import { PageError } from '@common/components/Page/PageError'
 import routes from '@common/RouteDefinitions'
 import { NgPipeline, useGetConnector, GetConnectorQueryParams } from 'services/cd-ng'
@@ -16,13 +16,18 @@ import {
   useGetTrigger,
   useUpdateTrigger,
   NGTriggerConfig,
-  NGTriggerSource
+  NGTriggerSource,
+  useGetSchemaYaml
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
@@ -96,9 +101,49 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
+  const { loading: loadingYamlSchema, data: triggerSchema } = useGetSchemaYaml({
+    queryParams: {
+      entityType: 'Triggers',
+      projectIdentifier,
+      orgIdentifier,
+      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+    }
+  })
+
+  const convertFormikValuesToYaml = (
+    values: FlatValidWebhookFormikValuesInterface
+  ): { trigger: NGTriggerConfig } | undefined => {
+    const res = getWebhookTriggerYaml({ values, persistIncomplete: true })
+    // remove invalid values
+    if (res?.source?.spec?.spec && !res.source.spec.spec.actions) {
+      delete res.source.spec.spec.actions
+    }
+    if (res?.source?.spec?.spec && !res.source.spec.spec.event) {
+      delete res.source.spec.spec.event
+    }
+
+    if (values.triggerType === TriggerTypes.WEBHOOK) {
+      return { trigger: res }
+    }
+  }
+
+  const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
+    fileName: `${triggerResponse?.data?.identifier ?? 'Trigger'}.yaml`,
+    entityType: 'Triggers',
+    width: 'calc(100vw - 350px)',
+    height: 'calc(100vh - 280px)',
+    showSnippetSection: false,
+    yamlSanityConfig: {
+      removeEmptyString: false,
+      removeEmptyObject: false,
+      removeEmptyArray: false
+    }
+  }
+
   const [enabledStatus, setEnabledStatus] = useState<boolean>(true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
+  const [wizardKey, setWizardKey] = useState<number>(0)
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
     | {
@@ -156,108 +201,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.WEBHOOK) {
-      let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
-      let gitRepoSpecCopy
-      try {
-        const triggerResponseJson = parse(triggerResponse.data.yaml)
-        const {
-          trigger: {
-            name,
-            identifier,
-            description,
-            tags,
-            source: {
-              spec: {
-                spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken },
-                type
-              }
-            },
-            target: {
-              targetIdentifier,
-              spec: { runtimeInputYaml: pipelineYaml }
-            }
-          }
-        } = triggerResponseJson
-        const { value: sourceBranchValue, operator: sourceBranchOperator } =
-          payloadConditions?.find(
-            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.SOURCE_BRANCH
-          ) || {}
-        const { value: targetBranchValue, operator: targetBranchOperator } =
-          payloadConditions?.find(
-            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TARGET_BRANCH
-          ) || {}
-        const { value: tagConditionValue, operator: tagConditionOperator } =
-          payloadConditions?.find(
-            (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TAG
-          ) || {}
-
-        let pipelineJson = undefined
-        try {
-          pipelineJson = parse(pipelineYaml)?.pipeline
-        } catch (e) {
-          // set error
-          setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
-        }
-
-        newOnEditInitialValues = {
-          name,
-          identifier,
-          description,
-          tags,
-          pipeline: pipelineJson,
-          sourceRepo: type,
-          triggerType: triggerResponse.data.type,
-          event: event,
-          targetIdentifier,
-          secureToken: authToken?.spec?.value,
-          actions: actions?.map((action: string) => ({ label: action, value: action })),
-          anyAction: actions?.length === 0,
-          sourceBranchOperator,
-          sourceBranchValue,
-          targetBranchOperator,
-          targetBranchValue,
-          tagConditionOperator,
-          tagConditionValue,
-          headerConditions,
-          payloadConditions: payloadConditions?.filter(
-            (payloadCondition: AddConditionInterface) =>
-              payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
-              payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH &&
-              payloadCondition.key !== PayloadConditionTypes.TAG
-          )
-        }
-        gitRepoSpecCopy = gitRepoSpec
-      } catch (e) {
-        // set error
-        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
-      }
-
-      if (
-        newOnEditInitialValues &&
-        newOnEditInitialValues.sourceRepo !== GitSourceProviders.CUSTOM.value &&
-        gitRepoSpecCopy?.identifier
-      ) {
-        const connectorRef: ConnectorRefInterface = {
-          identifier: gitRepoSpecCopy.identifier,
-          value: gitRepoSpecCopy.identifier
-        }
-        const connectorParams: GetConnectorQueryParams = {
-          accountIdentifier: accountId
-        }
-
-        if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.ORG) {
-          connectorParams.orgIdentifier = orgIdentifier
-        } else if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.PROJECT) {
-          connectorParams.orgIdentifier = orgIdentifier
-          connectorParams.projectIdentifier = projectIdentifier
-        }
-
-        setConnectorScopeParams(connectorParams)
-
-        newOnEditInitialValues.connectorRef = connectorRef
-
-        newOnEditInitialValues.repoName = gitRepoSpecCopy?.repoName ?? ''
-      }
+      const newOnEditInitialValues = getWebhookTriggerValues({ triggerResponseYaml: triggerResponse.data.yaml })
 
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.SCHEDULE) {
@@ -331,40 +275,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     )
   }
   const { showSuccess } = useToaster()
-  const submitTrigger = async (triggerJson: NGTriggerConfig) => {
-    if (onEditInitialValues?.identifier) {
-      const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
-      if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
-        history.push(
-          routes.toTriggersPage({
-            accountId,
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            module
-          })
-        )
-      }
-      // error flow sent to Wizard
-    } else {
-      const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerJson) }) as any)
-      if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
-        history.push(
-          routes.toTriggersPage({
-            accountId,
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier,
-            module
-          })
-        )
-      }
-    }
-  }
 
-  const handleWebhookSubmit = async (val: FlatValidWebhookFormikValuesInterface): Promise<void> => {
+  const getWebhookTriggerYaml = ({
+    values: val,
+    persistIncomplete = false
+  }: {
+    values: FlatValidWebhookFormikValuesInterface
+    persistIncomplete?: boolean
+  }): NGTriggerConfig => {
     const {
       name,
       identifier,
@@ -390,25 +308,41 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } = val
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
-      if (targetBranchOperator && targetBranchValue?.trim() && event !== eventTypes.TAG) {
+      if (
+        ((targetBranchOperator && targetBranchValue?.trim()) ||
+          (persistIncomplete && (targetBranchOperator || targetBranchValue?.trim()))) &&
+        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.TARGET_BRANCH) &&
+        event !== eventTypes.TAG
+      ) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.TARGET_BRANCH,
-          operator: targetBranchOperator,
-          value: targetBranchValue
+          operator: targetBranchOperator || '',
+          value: targetBranchValue || ''
         })
       }
-      if (sourceBranchOperator && sourceBranchValue?.trim() && event !== eventTypes.PUSH && event !== eventTypes.TAG) {
+      if (
+        ((sourceBranchOperator && sourceBranchValue?.trim()) ||
+          (persistIncomplete && (sourceBranchOperator || sourceBranchValue?.trim()))) &&
+        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.SOURCE_BRANCH) &&
+        event !== eventTypes.PUSH &&
+        event !== eventTypes.TAG
+      ) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.SOURCE_BRANCH,
-          operator: sourceBranchOperator,
-          value: sourceBranchValue
+          operator: sourceBranchOperator || '',
+          value: sourceBranchValue || ''
         })
       }
-      if (tagConditionOperator && tagConditionValue?.trim() && event === eventTypes.TAG) {
+      if (
+        ((tagConditionOperator && tagConditionValue?.trim()) ||
+          (persistIncomplete && (tagConditionOperator || tagConditionValue?.trim()))) &&
+        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.TAG) &&
+        event === eventTypes.TAG
+      ) {
         payloadConditions.unshift({
           key: PayloadConditionTypes.TAG,
-          operator: tagConditionOperator,
-          value: tagConditionValue
+          operator: tagConditionOperator || '',
+          value: tagConditionValue || ''
         })
       }
     }
@@ -416,7 +350,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     // actions will be required thru validation
     const actionsValues = ((actions as unknown) as SelectOption[])?.map(action => action.value)
     const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
-    const triggerJson: NGTriggerConfig = {
+    const triggerYaml: NGTriggerConfig = {
       name,
       identifier,
       enabled: enabledStatus,
@@ -442,19 +376,183 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     }
 
-    if (formikValueSourceRepo === GitSourceProviders.CUSTOM.value && secureToken && triggerJson.source?.spec) {
-      triggerJson.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
+    if (formikValueSourceRepo === GitSourceProviders.CUSTOM.value && secureToken && triggerYaml.source?.spec) {
+      triggerYaml.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
     }
 
-    if (!isEmpty(payloadConditions) && triggerJson.source?.spec) {
-      triggerJson.source.spec.spec.payloadConditions = payloadConditions
+    if (!isEmpty(payloadConditions) && triggerYaml.source?.spec) {
+      triggerYaml.source.spec.spec.payloadConditions = payloadConditions
     }
 
-    if (!isEmpty(headerConditions) && triggerJson.source?.spec) {
-      triggerJson.source.spec.spec.headerConditions = headerConditions
+    if (!isEmpty(headerConditions) && triggerYaml.source?.spec) {
+      triggerYaml.source.spec.spec.headerConditions = headerConditions
     }
 
-    submitTrigger(triggerJson)
+    return triggerYaml
+  }
+
+  const getWebhookTriggerValues = ({
+    triggerResponseYaml,
+    triggerYaml
+  }: {
+    triggerResponseYaml?: string
+    triggerYaml?: { trigger: NGTriggerConfig }
+  }): FlatOnEditValuesInterface | undefined => {
+    // triggerResponseYaml comes from onEdit render, triggerYaml comes from visualYaml toggle
+    let triggerValues: FlatOnEditValuesInterface | undefined
+    let gitRepoSpecCopy
+    try {
+      const triggerResponseJson = triggerYaml ? triggerYaml : triggerResponseYaml ? parse(triggerResponseYaml) : {}
+      const {
+        trigger: {
+          name,
+          identifier,
+          description,
+          tags,
+          source: {
+            spec: {
+              spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken },
+              type: sourceRepo
+            }
+          },
+          target: {
+            targetIdentifier,
+            spec: { runtimeInputYaml: pipelineYaml }
+          }
+        }
+      } = triggerResponseJson
+      const { value: sourceBranchValue, operator: sourceBranchOperator } =
+        payloadConditions?.find(
+          (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.SOURCE_BRANCH
+        ) || {}
+      const { value: targetBranchValue, operator: targetBranchOperator } =
+        payloadConditions?.find(
+          (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TARGET_BRANCH
+        ) || {}
+      const { value: tagConditionValue, operator: tagConditionOperator } =
+        payloadConditions?.find(
+          (payloadCondition: AddConditionInterface) => payloadCondition.key === PayloadConditionTypes.TAG
+        ) || {}
+
+      let pipelineJson = undefined
+      try {
+        pipelineJson = parse(pipelineYaml)?.pipeline
+      } catch (e) {
+        // set error
+        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+      }
+
+      triggerValues = {
+        name,
+        identifier,
+        description,
+        tags,
+        pipeline: pipelineJson,
+        sourceRepo,
+        triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
+        event,
+        targetIdentifier,
+        secureToken: authToken?.spec?.value,
+        actions: actions?.map((action: string) => ({ label: action, value: action })),
+        anyAction: actions?.length === 0,
+        sourceBranchOperator,
+        sourceBranchValue,
+        targetBranchOperator,
+        targetBranchValue,
+        tagConditionOperator,
+        tagConditionValue,
+        headerConditions,
+        payloadConditions: payloadConditions?.filter(
+          (payloadCondition: AddConditionInterface) =>
+            payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
+            payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH &&
+            payloadCondition.key !== PayloadConditionTypes.TAG
+        )
+      }
+      gitRepoSpecCopy = gitRepoSpec
+    } catch (e) {
+      // set error
+      setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
+    }
+
+    if (triggerValues && triggerValues.sourceRepo !== GitSourceProviders.CUSTOM.value && gitRepoSpecCopy?.identifier) {
+      const connectorRef: ConnectorRefInterface = {
+        identifier: gitRepoSpecCopy.identifier,
+        value: gitRepoSpecCopy.identifier
+      }
+
+      if (triggerYaml && connectorData?.data?.connector?.name) {
+        // add back in label from connectorData
+        const { connector } = connectorData.data
+
+        connectorRef.connector = connector
+        connectorRef.label = connector.name
+      }
+
+      const connectorParams: GetConnectorQueryParams = {
+        accountIdentifier: accountId
+      }
+
+      if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.ORG) {
+        connectorParams.orgIdentifier = orgIdentifier
+      } else if (getScopeFromValue(gitRepoSpecCopy.identifier) === Scope.PROJECT) {
+        connectorParams.orgIdentifier = orgIdentifier
+        connectorParams.projectIdentifier = projectIdentifier
+      }
+
+      setConnectorScopeParams(connectorParams)
+
+      triggerValues.connectorRef = connectorRef
+
+      triggerValues.repoName = gitRepoSpecCopy?.repoName ?? ''
+    }
+
+    if (triggerYaml && triggerYaml?.trigger?.enabled === false) {
+      setEnabledStatus(false)
+    } else if (triggerYaml && triggerYaml?.trigger?.enabled === true) {
+      setEnabledStatus(true)
+    }
+
+    return triggerValues
+  }
+
+  const submitTrigger = async (triggerYaml: NGTriggerConfig) => {
+    if (onEditInitialValues?.identifier) {
+      const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
+      if (status === ResponseStatus.SUCCESS) {
+        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
+        history.push(
+          routes.toTriggersPage({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            module
+          })
+        )
+      }
+      // error flow sent to Wizard
+    } else {
+      const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
+      if (status === ResponseStatus.SUCCESS) {
+        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
+        history.push(
+          routes.toTriggersPage({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            module
+          })
+        )
+      }
+    }
+  }
+
+  const handleWebhookSubmit = async (val: FlatValidWebhookFormikValuesInterface): Promise<void> => {
+    const triggerYaml = getWebhookTriggerYaml({ values: val })
+
+    submitTrigger(triggerYaml)
   }
 
   const handleScheduleSubmit = async (val: FlatValidScheduleFormikValuesInterface): Promise<void> => {
@@ -471,7 +569,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
     // actions will be required thru validation
     const stringifyPipelineRuntimeInput = stringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
-    const triggerJson: NGTriggerConfig = {
+    const triggerYaml: NGTriggerConfig = {
       name,
       identifier,
       enabled: enabledStatus,
@@ -495,7 +593,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     }
 
-    submitTrigger(triggerJson)
+    submitTrigger(triggerYaml)
   }
 
   const getInitialValues = (triggerType: NGTriggerSource['type']): FlatInitialValuesInterface | undefined => {
@@ -520,30 +618,50 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
     }
   }
-  const initialValues: FlatInitialValuesInterface = Object.assign(
-    (triggerTypeOnNew && getInitialValues(triggerTypeOnNew)) || {},
-    onEditInitialValues
+
+  const [initialValues, setInitialValues] = useState<FlatInitialValuesInterface>(
+    Object.assign((triggerTypeOnNew && getInitialValues(triggerTypeOnNew)) || {}, onEditInitialValues)
   )
+
+  useEffect(() => {
+    setInitialValues(Object.assign((triggerTypeOnNew && getInitialValues(triggerTypeOnNew)) || {}, onEditInitialValues))
+  }, [onEditInitialValues, currentPipeline])
+
+  const handleModeSwitch = (view: SelectedView, yamlHandler?: YamlBuilderHandlerBinding): void => {
+    if (view === SelectedView.VISUAL) {
+      const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+      try {
+        const triggerYaml = parse(yaml)
+        setInitialValues({ ...initialValues, ...getWebhookTriggerValues({ triggerYaml }) })
+        setWizardKey(wizardKey + 1)
+      } catch (e) {
+        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+      }
+    }
+  }
 
   const wizardMap = initialValues.triggerType
     ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })
     : undefined
 
-  const titleWithSwitch = (
+  const titleWithSwitch = ({ selectedView }: { selectedView: SelectedView }): JSX.Element => (
     <Layout.Horizontal
       spacing="medium"
       style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
     >
       <Heading level={2}>{wizardMap?.wizardLabel}</Heading>
-      <Text>{getString('enabledLabel')}</Text>
-
-      <Switch
-        label=""
-        data-name="enabled-switch"
-        key={Date.now()}
-        checked={enabledStatus}
-        onChange={() => setEnabledStatus(!enabledStatus)}
-      />
+      {selectedView !== SelectedView.YAML ? (
+        <>
+          <Text>{getString('enabledLabel')}</Text>
+          <Switch
+            label=""
+            data-name="enabled-switch"
+            key={Date.now()}
+            checked={enabledStatus}
+            onChange={() => setEnabledStatus(!enabledStatus)}
+          />
+        </>
+      ) : null}
     </Layout.Horizontal>
   )
 
@@ -556,6 +674,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     if (!wizardMap) return undefined
     return (
       <Wizard
+        key={wizardKey} // re-renders with yaml to visual initialValues
         formikInitialProps={{
           initialValues,
           onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
@@ -576,7 +695,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
-        showVisualYaml={false}
+        visualYamlProps={{
+          handleModeSwitch,
+          yamlBuilderReadOnlyModeProps,
+          yamlObjectKey: 'trigger',
+          showVisualYaml: true,
+          convertFormikValuesToYaml,
+          schema: triggerSchema?.data,
+          onYamlSubmit: submitTrigger,
+          loading: loadingYamlSchema
+        }}
         leftNav={titleWithSwitch}
       >
         <WebhookTriggerConfigPanel />
@@ -611,7 +739,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
-        showVisualYaml={false}
         leftNav={titleWithSwitch}
       >
         <TriggerOverviewPanel />

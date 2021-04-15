@@ -59,6 +59,8 @@ allowpaths:
   - /newrelic/endpoints
   - /newrelic/applications
   - /newrelic/metric-data
+  - /cvng-log
+  - /verification-job/eligible-cdng-verification-jobs
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -85,3 +87,4 @@ operationIdOverrides:
   /setup/supported-providers.get: listAllSupportedDataSource
   /activity/{identifier}: deleteActivitySource
   /activity/source.post: saveActivitySource
+  /verification-job/eligible-cdng-verification-jobs.get: CDNGVerificationJobs

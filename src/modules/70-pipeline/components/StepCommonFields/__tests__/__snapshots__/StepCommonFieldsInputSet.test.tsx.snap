@@ -12,7 +12,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -59,7 +59,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
                
               <span
@@ -77,7 +77,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                   class="bp3-input"
                   disabled=""
                   name="spec.resources.limits.memory"
-                  placeholder="128Mi"
+                  placeholder="pipelineSteps.limitMemoryPlaceholder"
                   type="text"
                   value=""
                 />
@@ -97,7 +97,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
                
               <span
@@ -115,7 +115,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                   class="bp3-input"
                   disabled=""
                   name="spec.resources.limits.cpu"
-                  placeholder="0.2"
+                  placeholder="pipelineSteps.limitCPUPlaceholder"
                   type="text"
                   value=""
                 />
@@ -135,7 +135,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -181,7 +181,7 @@ exports[`<StepCommonFieldsInputSet /> tests Readonly mode works 1`] = `
                 class="bp3-input"
                 disabled=""
                 name="timeout"
-                placeholder="120s"
+                placeholder="pipelineSteps.timeoutPlaceholder"
                 type="text"
                 value=""
               />
@@ -206,7 +206,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
         >
-          Set container Resources
+          pipelineSteps.setContainerResources
           <span
             class="bp3-popover-wrapper"
           >
@@ -253,7 +253,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit Memory
+                pipelineSteps.limitMemoryLabel
               </p>
                
               <span
@@ -270,7 +270,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.memory"
-                  placeholder="128Mi"
+                  placeholder="pipelineSteps.limitMemoryPlaceholder"
                   type="text"
                   value=""
                 />
@@ -290,7 +290,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="display: flex; align-items: center;"
               >
-                Limit CPU
+                pipelineSteps.limitCPULabel
               </p>
                
               <span
@@ -307,7 +307,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.resources.limits.cpu"
-                  placeholder="0.2"
+                  placeholder="pipelineSteps.limitCPUPlaceholder"
                   type="text"
                   value=""
                 />
@@ -327,7 +327,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              Timeout
+              pipelineSteps.timeoutLabel
               <span
                 class="bp3-popover-wrapper"
               >
@@ -372,7 +372,7 @@ exports[`<StepCommonFieldsInputSet /> tests Should render properly 1`] = `
               <input
                 class="bp3-input"
                 name="timeout"
-                placeholder="120s"
+                placeholder="pipelineSteps.timeoutPlaceholder"
                 type="text"
                 value=""
               />

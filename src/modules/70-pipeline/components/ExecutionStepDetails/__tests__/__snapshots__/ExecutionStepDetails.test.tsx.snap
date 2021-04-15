@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval call 1`] = `
+exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers new approval call 1`] = `
 <div>
   <div
     class="main"
@@ -11,7 +11,7 @@ exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval c
       <div
         class="title"
       >
-        Step: 
+        pipeline.execution.stepTitlePrefix
       </div>
       <button
         class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
@@ -20,7 +20,7 @@ exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval c
         <span
           class="bp3-button-text"
         >
-          Refresh
+          common.refresh
         </span>
       </button>
       <div
@@ -155,7 +155,7 @@ exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval c
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
           type="button"
         >
           <span
@@ -196,50 +196,50 @@ exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval c
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_details"
+          aria-controls="bp3-tab-panel_step-details_APPROVAL"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="details"
-          id="bp3-tab-title_step-details_details"
+          data-tab-id="APPROVAL"
+          id="bp3-tab-title_step-details_APPROVAL"
           role="tab"
           tabindex="0"
         >
-          Approval
+          approvalStage.title
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_input"
+          aria-controls="bp3-tab-panel_step-details_INPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="input"
-          id="bp3-tab-title_step-details_input"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
           role="tab"
           tabindex="0"
         >
-          Input
+          common.input
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_output"
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="output"
-          id="bp3-tab-title_step-details_output"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
           role="tab"
           tabindex="0"
         >
-          Output
+          outputLabel
         </div>
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_step-details_details"
+        aria-labelledby="bp3-tab-title_step-details_APPROVAL"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_step-details_details"
+        id="bp3-tab-panel_step-details_APPROVAL"
         role="tabpanel"
       />
     </div>
@@ -247,7 +247,7 @@ exports[`<ExecutionStepDetails /> tests click on refresh triggers new approval c
 </div>
 `;
 
-exports[`<ExecutionStepDetails /> tests renders approval complete step 1`] = `
+exports[`<ExecutionStepDetails /> tests approval steps renders approval complete step 1`] = `
 <div>
   <div
     class="main"
@@ -258,7 +258,7 @@ exports[`<ExecutionStepDetails /> tests renders approval complete step 1`] = `
       <div
         class="title"
       >
-        Step: 
+        pipeline.execution.stepTitlePrefix
       </div>
       <div
         class="actions"
@@ -392,7 +392,7 @@ exports[`<ExecutionStepDetails /> tests renders approval complete step 1`] = `
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
           type="button"
         >
           <span
@@ -433,50 +433,50 @@ exports[`<ExecutionStepDetails /> tests renders approval complete step 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_details"
+          aria-controls="bp3-tab-panel_step-details_APPROVAL"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="details"
-          id="bp3-tab-title_step-details_details"
+          data-tab-id="APPROVAL"
+          id="bp3-tab-title_step-details_APPROVAL"
           role="tab"
           tabindex="0"
         >
-          Approval
+          approvalStage.title
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_input"
+          aria-controls="bp3-tab-panel_step-details_INPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="input"
-          id="bp3-tab-title_step-details_input"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
           role="tab"
           tabindex="0"
         >
-          Input
+          common.input
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_output"
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="output"
-          id="bp3-tab-title_step-details_output"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
           role="tab"
           tabindex="0"
         >
-          Output
+          outputLabel
         </div>
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_step-details_details"
+        aria-labelledby="bp3-tab-title_step-details_APPROVAL"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_step-details_details"
+        id="bp3-tab-panel_step-details_APPROVAL"
         role="tabpanel"
       />
     </div>
@@ -484,7 +484,7 @@ exports[`<ExecutionStepDetails /> tests renders approval complete step 1`] = `
 </div>
 `;
 
-exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
+exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting step 1`] = `
 <div>
   <div
     class="main"
@@ -495,7 +495,7 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
       <div
         class="title"
       >
-        Step: 
+        pipeline.execution.stepTitlePrefix
       </div>
       <button
         class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
@@ -504,7 +504,7 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
         <span
           class="bp3-button-text"
         >
-          Refresh
+          common.refresh
         </span>
       </button>
       <div
@@ -639,7 +639,7 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
           type="button"
         >
           <span
@@ -680,50 +680,50 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_details"
+          aria-controls="bp3-tab-panel_step-details_APPROVAL"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="details"
-          id="bp3-tab-title_step-details_details"
+          data-tab-id="APPROVAL"
+          id="bp3-tab-title_step-details_APPROVAL"
           role="tab"
           tabindex="0"
         >
-          Approval
+          approvalStage.title
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_input"
+          aria-controls="bp3-tab-panel_step-details_INPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="input"
-          id="bp3-tab-title_step-details_input"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
           role="tab"
           tabindex="0"
         >
-          Input
+          common.input
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_output"
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="output"
-          id="bp3-tab-title_step-details_output"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
           role="tab"
           tabindex="0"
         >
-          Output
+          outputLabel
         </div>
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_step-details_details"
+        aria-labelledby="bp3-tab-title_step-details_APPROVAL"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_step-details_details"
+        id="bp3-tab-panel_step-details_APPROVAL"
         role="tabpanel"
       />
     </div>
@@ -731,7 +731,7 @@ exports[`<ExecutionStepDetails /> tests renders approval waiting step 1`] = `
 </div>
 `;
 
-exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
+exports[`<ExecutionStepDetails /> tests approval steps renders normal error step 1`] = `
 <div>
   <div
     class="main"
@@ -742,7 +742,8 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
       <div
         class="title"
       >
-        Step: 
+        pipeline.execution.stepTitlePrefix
+        Rollout Deployment
       </div>
       <div
         class="actions"
@@ -876,7 +877,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
           type="button"
         >
           <span
@@ -917,62 +918,74 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_details"
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="details"
-          id="bp3-tab-title_step-details_details"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
           role="tab"
           tabindex="0"
         >
-          Details
+          details
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_input"
+          aria-controls="bp3-tab-panel_step-details_INPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="input"
-          id="bp3-tab-title_step-details_input"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
           role="tab"
           tabindex="0"
         >
-          Input
+          common.input
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_output"
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="output"
-          id="bp3-tab-title_step-details_output"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
           role="tab"
           tabindex="0"
         >
-          Output
+          outputLabel
         </div>
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_step-details_details"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_step-details_details"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
         role="tabpanel"
       >
         <div
           class="detailsTab"
         >
+          <div
+            class="errorMsg error"
+          >
+            <div
+              class="title"
+            >
+              errorSummaryText
+            </div>
+            <p>
+              Failed to complete K8s task. Please check execution logs.
+            </p>
+          </div>
           <table
             class="detailsTable"
           >
             <tbody>
               <tr>
                 <th>
-                  Started at:
+                  startedAt
                 </th>
                 <td>
                   -
@@ -980,10 +993,69 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               </tr>
               <tr>
                 <th>
-                  Ended at:
+                  endedAt
                 </th>
                 <td>
                   -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="delegateRow"
+              >
+                <th>
+                  delegateLabel
+                </th>
+                <td>
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                  >
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      >
+                        <span>
+                          common.delegateForTask
+                        </span>
+                      </p>
+                       
+                      (
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        style="cursor: pointer;"
+                      >
+                        common.logs.delegateSelectionLogs
+                      </p>
+                      )
+                    </div>
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                      >
+                        <span>
+                          common.delegateForTask
+                        </span>
+                      </p>
+                       
+                      (
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        style="cursor: pointer;"
+                      >
+                        common.logs.delegateSelectionLogs
+                      </p>
+                      )
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -996,7 +1068,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               class="header"
             >
               <div>
-                Step Logs
+                execution.stepLogs
               </div>
               <div
                 class="searchContainer"
@@ -1039,7 +1111,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
                 >
                   <span>
-                    Console View
+                    consoleView
                   </span>
                 </a>
               </div>
@@ -1048,12 +1120,1708 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               <div
                 class="noLogs"
               >
-                No logs found
+                common.logs.noLogsText
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        pipeline.execution.stepTitlePrefix
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="bp3-tabs tabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
+          role="tab"
+          tabindex="0"
+        >
+          details
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_INPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
+          role="tab"
+          tabindex="0"
+        >
+          common.input
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
+          role="tab"
+          tabindex="0"
+        >
+          outputLabel
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
+        role="tabpanel"
+      >
+        <div
+          class="detailsTab"
+        >
+          <table
+            class="detailsTable"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  startedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  endedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="main"
+            data-mode="step-details"
+          >
+            <div
+              class="header"
+            >
+              <div>
+                execution.stepLogs
+              </div>
+              <div
+                class="searchContainer"
+              >
+                <div
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  data-name=""
+                >
+                  <span
+                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    icon="search"
+                  >
+                    <svg
+                      data-icon="search"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input "
+                    dir="auto"
+                    placeholder="Search"
+                    type="search"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  class="toConsoleView"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+                >
+                  <span>
+                    consoleView
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div
+                class="noLogs"
+              >
+                common.logs.noLogsText
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for retry step, if already present 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        pipeline.execution.stepTitlePrefix
+        Already_Present_Data
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-more StyledProps--main"
+                icon="more"
+              >
+                <svg
+                  data-icon="more"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    more
+                  </desc>
+                  <path
+                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-tabs tabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
+          role="tab"
+          tabindex="0"
+        >
+          details
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_INPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
+          role="tab"
+          tabindex="0"
+        >
+          common.input
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
+          role="tab"
+          tabindex="0"
+        >
+          outputLabel
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
+        role="tabpanel"
+      >
+        <div
+          class="detailsTab"
+        >
+          <table
+            class="detailsTable"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  startedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  endedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="main"
+            data-mode="step-details"
+          >
+            <div
+              class="header"
+            >
+              <div>
+                execution.stepLogs
+              </div>
+              <div
+                class="searchContainer"
+              >
+                <div
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  data-name=""
+                >
+                  <span
+                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    icon="search"
+                  >
+                    <svg
+                      data-icon="search"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input "
+                    dir="auto"
+                    placeholder="Search"
+                    type="search"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  class="toConsoleView"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+                >
+                  <span>
+                    consoleView
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div
+                class="noLogs"
+              >
+                common.logs.noLogsText
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry step, if not present 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        pipeline.execution.stepTitlePrefix
+        Retried Step 1
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-more StyledProps--main"
+                icon="more"
+              >
+                <svg
+                  data-icon="more"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    more
+                  </desc>
+                  <path
+                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-tabs tabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
+          role="tab"
+          tabindex="0"
+        >
+          details
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_INPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
+          role="tab"
+          tabindex="0"
+        >
+          common.input
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
+          role="tab"
+          tabindex="0"
+        >
+          outputLabel
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
+        role="tabpanel"
+      >
+        <div
+          class="detailsTab"
+        >
+          <table
+            class="detailsTable"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  startedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  endedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="main"
+            data-mode="step-details"
+          >
+            <div
+              class="header"
+            >
+              <div>
+                execution.stepLogs
+              </div>
+              <div
+                class="searchContainer"
+              >
+                <div
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  data-name=""
+                >
+                  <span
+                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    icon="search"
+                  >
+                    <svg
+                      data-icon="search"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input "
+                    dir="auto"
+                    placeholder="Search"
+                    type="search"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  class="toConsoleView"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+                >
+                  <span>
+                    consoleView
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div
+                class="noLogs"
+              >
+                common.logs.noLogsText
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        pipeline.execution.stepTitlePrefix
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-more StyledProps--main"
+                icon="more"
+              >
+                <svg
+                  data-icon="more"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    more
+                  </desc>
+                  <path
+                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-spinner"
+    >
+      <div
+        class="bp3-spinner-animation"
+      >
+        <svg
+          height="50"
+          stroke-width="8.00"
+          viewBox="1.00 1.00 98.00 98.00"
+          width="50"
+        >
+          <path
+            class="bp3-spinner-track"
+            d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+          />
+          <path
+            class="bp3-spinner-head"
+            d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+            pathLength="280"
+            stroke-dasharray="280 280"
+            stroke-dashoffset="210"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="header"
+    >
+      <div
+        class="title"
+      >
+        pipeline.execution.stepTitlePrefix
+      </div>
+      <div
+        class="actions"
+      >
+        <div
+          class="toggle"
+        >
+          <label
+            class="label"
+            title="Align right"
+          >
+            <input
+              checked=""
+              name="layout"
+              type="radio"
+              value="RIGHT"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-right"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  transform="translate(0 .423) scale(.21167)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="Align floating"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="FLOATING"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-float"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+              >
+                <g
+                  fill="none"
+                  transform="translate(0 .403) scale(.20982)"
+                >
+                  <rect
+                    fill="#000"
+                    fill-opacity="0.05"
+                    height="16.333"
+                    rx="1"
+                    width="20.176"
+                  />
+                  <rect
+                    height="15.333"
+                    rx="0.5"
+                    stroke="#66798b"
+                    stroke-opacity="0.6"
+                    width="19.176"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+        </div>
+        <button
+          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-more StyledProps--main"
+                icon="more"
+              >
+                <svg
+                  data-icon="more"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    more
+                  </desc>
+                  <path
+                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-tabs tabs"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
+          role="tab"
+          tabindex="0"
+        >
+          details
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_INPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="INPUT"
+          id="bp3-tab-title_step-details_INPUT"
+          role="tab"
+          tabindex="0"
+        >
+          common.input
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_step-details_OUTPUT"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="OUTPUT"
+          id="bp3-tab-title_step-details_OUTPUT"
+          role="tab"
+          tabindex="0"
+        >
+          outputLabel
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_step-details_STEP_DETAILS"
+        role="tabpanel"
+      >
+        <div
+          class="detailsTab"
+        >
+          <table
+            class="detailsTable"
+          >
+            <tbody>
+              <tr>
+                <th>
+                  startedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  endedAt
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  duration
+                </th>
+                <td>
+                  <div>
+                    MOCK DURATION
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="main"
+            data-mode="step-details"
+          >
+            <div
+              class="header"
+            >
+              <div>
+                execution.stepLogs
+              </div>
+              <div
+                class="searchContainer"
+              >
+                <div
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--flip"
+                  data-name=""
+                >
+                  <span
+                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    icon="search"
+                  >
+                    <svg
+                      data-icon="search"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        search
+                      </desc>
+                      <path
+                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input "
+                    dir="auto"
+                    placeholder="Search"
+                    type="search"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  class="toConsoleView"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
+                >
+                  <span>
+                    consoleView
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div>
+              <div
+                class="noLogs"
+              >
+                common.logs.noLogsText
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1>
+      Not Found
+    </h1>
+    <div
+      data-testid="location"
+    >
+      /account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline
     </div>
   </div>
 </div>

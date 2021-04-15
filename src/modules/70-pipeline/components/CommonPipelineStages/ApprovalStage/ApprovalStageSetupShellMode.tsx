@@ -6,6 +6,7 @@ import { useStrings } from 'framework/exports'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
 import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
 import css from './ApprovalStageSetupShellMode.module.scss'
@@ -15,7 +16,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   const tabHeadings = [getString('approvalStage.setupShellOverview'), getString('approvalStage.setupShellExecution')]
 
   const layoutRef = useRef<HTMLDivElement>(null)
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[0])
+  const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[1])
   const {
     state: {
       pipeline,
@@ -29,6 +30,8 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     updateStage,
     updatePipelineView
   } = React.useContext(PipelineContext)
+
+  const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
 
   const ActionButtons = () => {
     return (
@@ -69,19 +72,18 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
 
   const { data: yamlSnippet } = useGetInitialStageYamlSnippet({
     queryParams: {
-      approvalType: 'HarnessApproval'
+      approvalType: selectedStage.stage.approvalType || StepType.HarnessApproval
     }
   })
 
   useEffect(() => {
     // error handling if needed
     if (yamlSnippet?.data) {
-      const selectedStage = getStageFromPipeline(selectedStageId) as StageElementWrapper
       // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
-      if (selectedStage && selectedStage.stage.stage.spec && !selectedStage.stage.stage.spec.execution) {
+      if (selectedStage && selectedStage.stage.spec && !selectedStage.stage.spec.execution) {
         const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-        selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies
-        selectedStage.stage.stage.spec.execution = jsonFromYaml?.spec?.execution
+        selectedStage.stage.failureStrategies = jsonFromYaml.failureStrategies || []
+        selectedStage.stage.spec.execution = jsonFromYaml?.spec?.execution
         updateStage(selectedStage.stage)
       }
     }
@@ -141,7 +143,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
             onClick={() => openDrawer(DrawerTypes.FailureStrategy)}
             icon="failure-strategy"
           >
-            {getString('failureStrategy.title')}
+            {getString('pipeline.failureStrategies.title')}
           </Button>
         </React.Fragment>
       </Tabs>

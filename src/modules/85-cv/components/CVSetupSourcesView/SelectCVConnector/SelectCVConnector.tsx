@@ -14,11 +14,12 @@ interface SelectCVConnectorProps {
   connectorTypeLabel: string
   connectorType: ConnectorSelectionProps['connectorType']
   stepLabelProps: StepLabelProps
+  isEdit?: boolean
   onCreateConnector?: UseCreateConnectorModalProps['onSuccess']
 }
 
 export function SelectCVConnector(props: SelectCVConnectorProps): JSX.Element {
-  const { connectorTypeLabel, stepLabelProps, connectorType, onCreateConnector } = props
+  const { connectorTypeLabel, stepLabelProps, connectorType, onCreateConnector, isEdit } = props
   const { getString } = useStrings()
   const connectorTypeObj = { type: connectorTypeLabel }
 
@@ -35,6 +36,7 @@ export function SelectCVConnector(props: SelectCVConnectorProps): JSX.Element {
         </Text>
         <ConnectorSelection
           connectorType={connectorType}
+          disableConnector={isEdit}
           createConnectorText={getString('cv.onboarding.monitoringSources.addConnector', connectorTypeObj)}
           onSuccess={onCreateConnector}
         />

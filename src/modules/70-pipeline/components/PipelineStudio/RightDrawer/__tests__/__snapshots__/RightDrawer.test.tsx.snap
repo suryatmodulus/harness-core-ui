@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Right Drawer tests Basic snapshot - Failure Strategy drawer 1`] = `<div />`;
+
+exports[`Right Drawer tests Basic snapshot - Skip Condition drawer 1`] = `<div />`;

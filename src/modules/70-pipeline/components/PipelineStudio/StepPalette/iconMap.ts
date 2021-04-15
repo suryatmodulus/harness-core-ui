@@ -33,7 +33,8 @@ export const iconMap: iconMapOptions = {
   JIRA: 'service-jira',
   'Approval Step': 'command-approval',
   HTTP: 'command-http',
-  Plugin: 'git-clone-step'
+  Plugin: 'git-clone-step',
+  ResourceConstraint: 'traffic-lights'
   // << end
 }
 

@@ -3,6 +3,7 @@ import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { UseStringsReturn } from 'framework/exports'
 import {
   DiagramModel,
   CreateNewModel,
@@ -16,11 +17,11 @@ import {
 } from '../../Diagram'
 import {
   Listeners,
-  calculateDepthCount,
   StepStateMap,
   isCustomGeneratedString,
   STATIC_SERVICE_GROUP_NAME,
-  DependenciesWrapper
+  DependenciesWrapper,
+  calculateDepthPS
 } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
@@ -29,8 +30,12 @@ export interface GridStyleInterface {
   gridSize?: number
   startX?: number
   startY?: number
-  gap?: number
+  gapX?: number
+  gapY?: number
 }
+
+const SPACE_AFTER_GROUP = 0.2
+const GROUP_HEADER_DEPTH = 0.3
 
 const LINE_SEGMENT_LENGTH = 50
 
@@ -51,7 +56,8 @@ export class ExecutionStepModel extends DiagramModel {
       gridSize: 100,
       startX: -100,
       startY: 100,
-      gap: 200
+      gapX: 200,
+      gapY: 140
     })
   }
 
@@ -65,12 +71,13 @@ export class ExecutionStepModel extends DiagramModel {
     startY: number,
     factory: AbstractStepFactory,
     stepStates: StepStateMap,
+    isReadonly: boolean,
     prevNodes?: DefaultNodeModel[],
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: UseStringsReturn['getString']
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     const serviceState = stepStates.get(STATIC_SERVICE_GROUP_NAME)
     if (serviceState && serviceState.isStepGroupCollapsed) {
-      startX += this.gap
+      startX += this.gapX
       const nodeRender = new DefaultNodeModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
         name: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
@@ -86,39 +93,42 @@ export class ExecutionStepModel extends DiagramModel {
       nodeRender.setPosition(startX, startY)
       if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(nodeRender, prevNode, true, 0)
+          this.connectedParentToNode(nodeRender, prevNode, !isReadonly, 0)
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
     } else {
       const stepGroupLayer = new StepGroupNodeLayerModel({
         identifier: STATIC_SERVICE_GROUP_NAME,
+        childrenDistance: this.gapY,
         label: getString?.('pipelines-studio.dependenciesGroupTitle') as string,
-        depth: 1,
+        depth: services.length + 1,
+        headerDepth: GROUP_HEADER_DEPTH,
         allowAdd: false,
         showRollback: false
       })
       if (prevNodes && prevNodes.length > 0) {
-        startX += this.gap
+        startX += this.gapX
         stepGroupLayer.startNode.setPosition(startX, startY)
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
-          this.connectedParentToNode(stepGroupLayer.startNode, prevNode, true)
+          this.connectedParentToNode(stepGroupLayer.startNode, prevNode, !isReadonly)
         })
         prevNodes = [stepGroupLayer.startNode]
-        startX = startX - this.gap / 2 - 20
+        startX = startX - this.gapX / 2 - 20
       }
       this.useStepGroupLayer(stepGroupLayer)
 
       let newX = startX
       let newY = startY
-      newX += this.gap * 0.75
+      newX += this.gapX * 0.75
 
       const createNode = new CreateNewModel({
         name: getString?.('pipelines-studio.addDependency') as string,
         customNodeStyle: {
           borderColor: 'var(--pipeline-grey-border)'
         },
-        showPorts: false
+        showPorts: false,
+        disabled: isReadonly
       })
       this.addNode(createNode)
       createNode.setPosition(newX, newY)
@@ -129,7 +139,7 @@ export class ExecutionStepModel extends DiagramModel {
       }
       prevNodes = [createNode]
 
-      newY += this.gap * 0.5
+      newY += this.gapY
       services.forEach((service: DependenciesWrapper) => {
         const nodeRender = new DefaultNodeModel({
           identifier: service.identifier,
@@ -150,19 +160,19 @@ export class ExecutionStepModel extends DiagramModel {
           })
         }
         prevNodes = [nodeRender]
-        newY += this.gap * 0.5
+        newY += this.gapY
       })
 
-      startX += this.gap / 2
+      startX += this.gapX / 2
 
       if (prevNodes && prevNodes.length > 0) {
-        startX = startX + this.gap
+        startX = startX + this.gapX
         stepGroupLayer.endNode.setPosition(startX, startY)
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
           this.connectedParentToNode(stepGroupLayer.endNode, prevNode, false, 0, 'var(--pipeline-transparent-border)')
         })
         prevNodes = [stepGroupLayer.endNode]
-        startX = startX - this.gap / 2 - 20
+        startX = startX - this.gapX / 2 - 20
       }
       this.useNormalLayer()
 
@@ -175,25 +185,28 @@ export class ExecutionStepModel extends DiagramModel {
     startX: number,
     startY: number,
     factory: AbstractStepFactory,
+    isReadonly: boolean,
     stepStates: StepStateMap,
     isRollback = false,
     prevNodes?: DefaultNodeModel[],
     allowAdd?: boolean,
     isParallelNode = false,
     isStepGroupNode = false,
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: UseStringsReturn['getString']
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
     if (node.step) {
       const stepType = node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
-      startX += this.gap
+      startX += this.gapX
       const nodeRender =
         nodeType === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              draggable: true,
+              allowAdd: !isReadonly,
+              canDelete: !isReadonly,
+              draggable: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
@@ -203,10 +216,11 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              allowAdd: allowAdd === true,
+              allowAdd: allowAdd === true && !isReadonly,
+              canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              draggable: true,
+              draggable: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               iconSize: 70,
               iconStyle: {
@@ -217,10 +231,11 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
-              allowAdd: allowAdd === true,
+              allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
-              draggable: true,
+              draggable: !isReadonly,
+              canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
 
@@ -231,7 +246,7 @@ export class ExecutionStepModel extends DiagramModel {
           this.connectedParentToNode(
             nodeRender,
             prevNode,
-            !isParallelNode,
+            !isParallelNode && !isReadonly,
             isStepGroupNode ? 4 : 0,
             isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
             { type: 'in', size: LINE_SEGMENT_LENGTH }
@@ -251,19 +266,19 @@ export class ExecutionStepModel extends DiagramModel {
             name: 'Empty'
           })
           this.addNode(emptyNode)
-          newX += this.gap
+          newX += this.gapX
           emptyNode.setPosition(newX, newY)
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
             this.connectedParentToNode(
               emptyNode,
               prevNode,
-              true,
+              !isReadonly,
               isStepGroupNode ? 4 : 0,
               isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
             )
           })
           prevNodes = [emptyNode]
-          newX = newX - this.gap / 2 - 20
+          newX = newX - this.gapX / 2 - 20
         }
         const prevNodesAr: DefaultNodeModel[] = []
 
@@ -274,6 +289,7 @@ export class ExecutionStepModel extends DiagramModel {
             newX,
             newY,
             factory,
+            isReadonly,
             stepStates,
             isRollback,
             prevNodes,
@@ -284,7 +300,8 @@ export class ExecutionStepModel extends DiagramModel {
           if (resp.startX > startX) {
             startX = resp.startX
           }
-          newY = resp.startY + this.gap * calculateDepthCount(nodeP, stepStates)
+          const depthYParallel = calculateDepthPS(nodeP, stepStates, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP)
+          newY = resp.startY + 140 * depthYParallel
           if (resp.prevNodes) {
             prevNodesAr.push(...resp.prevNodes)
           }
@@ -297,7 +314,7 @@ export class ExecutionStepModel extends DiagramModel {
             name: 'Empty'
           })
           this.addNode(emptyNodeEnd)
-          startX += this.gap
+          startX += this.gapX
           emptyNodeEnd.setPosition(startX, startY)
 
           prevNodesAr.forEach((prevNode: DefaultNodeModel) => {
@@ -311,7 +328,7 @@ export class ExecutionStepModel extends DiagramModel {
             )
           })
           prevNodes = [emptyNodeEnd]
-          startX = startX - this.gap / 2 - 20
+          startX = startX - this.gapX / 2 - 20
         }
 
         return { startX, startY, prevNodes }
@@ -321,6 +338,7 @@ export class ExecutionStepModel extends DiagramModel {
           startX,
           startY,
           factory,
+          isReadonly,
           stepStates,
           isRollback,
           prevNodes,
@@ -332,15 +350,16 @@ export class ExecutionStepModel extends DiagramModel {
     } else if (node.stepGroup) {
       const stepState = stepStates.get(node.stepGroup.identifier)
       if (stepState && stepState.isStepGroupCollapsed) {
-        startX += this.gap
+        startX += this.gapX
         const nodeRender = new DefaultNodeModel({
           identifier: node.stepGroup.identifier,
           name: node.stepGroup.name,
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
-          draggable: true,
+          draggable: !isReadonly,
+          canDelete: !isReadonly,
           skipCondition: node.stepGroup.skipCondition,
-          allowAdd: allowAdd === true,
+          allowAdd: allowAdd === true && !isReadonly,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
         })
 
@@ -348,7 +367,7 @@ export class ExecutionStepModel extends DiagramModel {
         nodeRender.setPosition(startX, startY)
         if (!isEmpty(prevNodes) && prevNodes) {
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
-            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode, 0, undefined, {
+            this.connectedParentToNode(nodeRender, prevNode, !isParallelNode && !isReadonly, 0, undefined, {
               type: 'in',
               size: LINE_SEGMENT_LENGTH
             })
@@ -356,33 +375,37 @@ export class ExecutionStepModel extends DiagramModel {
         }
         return { startX, startY, prevNodes: [nodeRender] }
       } else {
+        const depthY = calculateDepthPS(node, stepStates, 0, SPACE_AFTER_GROUP)
+
         const stepGroupLayer = new StepGroupNodeLayerModel({
           identifier: node.stepGroup.identifier,
+          childrenDistance: this.gapY,
           label: node.stepGroup.name,
           skipCondition: node.stepGroup.skipCondition,
           inComplete: isCustomGeneratedString(node.stepGroup.identifier),
-          depth: stepState?.inheritedSG || 1,
-          allowAdd: allowAdd === true,
+          depth: depthY,
+          headerDepth: GROUP_HEADER_DEPTH,
+          allowAdd: allowAdd === true && !isReadonly,
           showRollback: !isRollback,
           rollBackProps: {
             active: stepState?.isStepGroupRollback ? StepsType.Rollback : StepsType.Normal
           }
         })
         if (prevNodes && prevNodes.length > 0) {
-          startX += this.gap
+          startX += this.gapX
           stepGroupLayer.startNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
             this.connectedParentToNode(
               stepGroupLayer.startNode,
               prevNode,
-              !isParallelNode,
+              !isParallelNode && !isReadonly,
               isStepGroupNode ? 4 : 0,
               isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)',
               { type: 'in', size: LINE_SEGMENT_LENGTH }
             )
           })
           prevNodes = [stepGroupLayer.startNode]
-          startX = startX - this.gap / 2 - 20
+          startX = startX - this.gapX / 2 - 20
         }
         this.useStepGroupLayer(stepGroupLayer)
         let steps = node.stepGroup.steps
@@ -400,6 +423,7 @@ export class ExecutionStepModel extends DiagramModel {
               startX,
               startY,
               factory,
+              isReadonly,
               stepStates,
               isRollback,
               prevNodes,
@@ -418,28 +442,29 @@ export class ExecutionStepModel extends DiagramModel {
           const createNode = new CreateNewModel({
             name: getString?.('pipelines-studio.addStep'),
             identifier: `${EmptyNodeSeparator}${node.stepGroup.identifier}${EmptyNodeSeparator}`,
-            customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
+            customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+            disabled: isReadonly
           })
           this.addNode(createNode)
-          startX += this.gap
+          startX += this.gapX
           createNode.setPosition(startX, startY)
           this.connectedParentToNode(createNode, stepGroupLayer.startNode, false, 4, 'var(--pipeline-grey-border)')
           prevNodes = [createNode]
         }
         if (prevNodes && prevNodes.length > 0) {
-          startX = startX + this.gap
+          startX = startX + this.gapX
           stepGroupLayer.endNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: DefaultNodeModel) => {
             this.connectedParentToNode(
               stepGroupLayer.endNode,
               prevNode,
-              node.stepGroup.steps?.length > 0,
+              node.stepGroup.steps?.length > 0 && !isReadonly,
               4,
               'var(--pipeline-grey-border)'
             )
           })
           prevNodes = [stepGroupLayer.endNode]
-          startX = startX - this.gap / 2 - 20
+          startX = startX - this.gapX / 2 - 20
         }
         this.useNormalLayer()
         return { startX, startY, prevNodes: prevNodes }
@@ -456,7 +481,8 @@ export class ExecutionStepModel extends DiagramModel {
     factory: AbstractStepFactory,
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean,
-    getString: (key: string, vars?: Record<string, any>) => string
+    getString: UseStringsReturn['getString'],
+    isReadonly: boolean
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
@@ -464,9 +490,9 @@ export class ExecutionStepModel extends DiagramModel {
 
     // Start Node
     const startNode = (this.getNode('start-new') as DefaultNodeModel) || new NodeStartModel({ id: 'start-new' })
-    startX += this.gap
+    startX += this.gapX
     startNode.setPosition(startX, startY)
-    startX -= this.gap / 2 // Start Node is very small thats why reduce the margin for next
+    startX -= this.gapX / 2 // Start Node is very small thats why reduce the margin for next
     const tempStartX = startX
     this.addNode(startNode)
 
@@ -489,6 +515,7 @@ export class ExecutionStepModel extends DiagramModel {
         startY,
         factory,
         stepStates,
+        isReadonly,
         prevNodes,
         getString
       )
@@ -505,6 +532,7 @@ export class ExecutionStepModel extends DiagramModel {
         startX,
         startY,
         factory,
+        isReadonly,
         stepStates,
         isRollback,
         prevNodes,
@@ -520,17 +548,25 @@ export class ExecutionStepModel extends DiagramModel {
       }
     })
 
-    if (tempStartX !== startX || stepsData.length === 0) {
-      createNode.setPosition(startX + this.gap, startY)
-    }
-    prevNodes.forEach((prevNode: DefaultNodeModel) => {
-      this.connectedParentToNode(createNode, prevNode, false)
-    })
-    this.addNode(createNode)
+    if (isReadonly) {
+      stopNode.setPosition(startX + this.gapX, startY)
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(stopNode, prevNode, false)
+      })
+      this.addNode(stopNode)
+    } else {
+      if (tempStartX !== startX || stepsData.length === 0) {
+        createNode.setPosition(startX + this.gapX, startY)
+      }
+      prevNodes.forEach((prevNode: DefaultNodeModel) => {
+        this.connectedParentToNode(createNode, prevNode, false)
+      })
+      this.addNode(createNode)
 
-    stopNode.setPosition(startX + 2 * this.gap, startY)
-    this.connectedParentToNode(stopNode, createNode, false)
-    this.addNode(stopNode)
+      stopNode.setPosition(startX + 2 * this.gapX, startY)
+      this.connectedParentToNode(stopNode, createNode, false)
+      this.addNode(stopNode)
+    }
 
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {

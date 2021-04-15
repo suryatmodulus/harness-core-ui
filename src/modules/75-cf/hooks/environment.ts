@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import { GetEnvironmentListForProjectQueryParams, useGetEnvironmentListForProject } from 'services/cd-ng'
 
 export const useEnvironments = (queryParams: GetEnvironmentListForProjectQueryParams) => {
@@ -28,7 +28,8 @@ export const useEnvironments = (queryParams: GetEnvironmentListForProjectQueryPa
 export const useEnvStrings = () => {
   const { getString } = useStrings()
   return {
-    getEnvString: (key: string, vars?: Record<string, any>) => getString(`cf.environments.${key}`, vars),
+    getEnvString: (key: string, vars?: Record<string, any>) =>
+      getString(`cf.environments.${key}` as StringKeys /* TODO: fix this by using a map */, vars),
     getString
   }
 }

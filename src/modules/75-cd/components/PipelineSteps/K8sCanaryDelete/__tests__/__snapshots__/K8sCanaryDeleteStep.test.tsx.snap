@@ -68,7 +68,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -102,7 +102,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -260,7 +260,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -294,7 +294,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -366,7 +366,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view for inputset 1`] = `
         class="bp3-label"
         for="timeout"
       >
-        Timeout
+        pipelineSteps.timeoutLabel
          
         <span
           class="bp3-text-muted"

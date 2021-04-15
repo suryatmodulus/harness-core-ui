@@ -1,3 +1,6 @@
 src/modules/10-common/components/YAMLBuilder/*
 src/services
 jest.config.js
+scripts/
+node_modules
+dist

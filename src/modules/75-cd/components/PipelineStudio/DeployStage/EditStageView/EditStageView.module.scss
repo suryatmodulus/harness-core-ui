@@ -238,7 +238,8 @@
 .edit-stage-grid {
   display: grid;
   grid-template-columns: auto 1fr;
-  height: 100%;
+  // tabs height 50px + margin-top 20px = 70px
+  height: calc(100% - 70px);
 }
 .content-section {
   padding-left: 60px;

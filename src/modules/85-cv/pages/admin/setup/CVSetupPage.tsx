@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Text, Layout, Container, Button, Color, Icon, Link, Card, CardBody, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
@@ -20,6 +20,7 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/exports'
 import { pluralize } from '@common/utils/StringUtils'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
 import { SetupIndexDBData, Step, getCardLabelByType, getIconBySourceType } from './SetupUtils'
@@ -72,14 +73,14 @@ const MonitoringSources = [
     label: 'Google Cloud Operations',
     routeName: MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS,
     routeUrl: routes.toCVAdminSetupMonitoringSource
+  },
+  {
+    type: 'NewRelic',
+    icon: 'service-newrelic',
+    label: 'New Relic',
+    routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
+    routeUrl: routes.toCVAdminSetupMonitoringSource
   }
-  // {
-  //   type: 'NewRelic',
-  //   icon: 'service-newrelic',
-  //   label: 'New Relic',
-  //   routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
-  //   routeUrl: routes.toCVAdminSetupMonitoringSource
-  // }
 ]
 interface CVSetupPageProps {
   setupStatusMockData?: UseGetMockData<RestResponseCVSetupStatus>
@@ -96,7 +97,20 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const [showSummary, setShowSummary] = useState(Boolean(props.step))
+  const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
+
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+
+  const DefaultChangeSource = useMemo(
+    () => [
+      {
+        type: getString('cv.onboarding.changeSourceTypes.HarnessCDNextGen.name'),
+        icon: getString('cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon'),
+        label: getString('cv.onboarding.changeSourceTypes.HarnessCDNextGen.name')
+      }
+    ],
+    []
+  )
 
   return (
     <Container>
@@ -175,6 +189,30 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                   </div>
                 </Layout.Vertical>
               </Layout.Horizontal>
+              {CVNG_CDNG_INTEGRATION && (
+                <>
+                  <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
+                    {getString('cv.onboarding.defaultChangeSource')}
+                  </Text>
+                  <Layout.Horizontal margin={{ top: 'xxlarge' }}>
+                    <Layout.Vertical margin={{ right: 'xxlarge' }}>
+                      <Text>{i18n.harness} </Text>
+                      <div className={css.items}>
+                        {DefaultChangeSource.map((item, index) => {
+                          return (
+                            <div className={css.cardWrapper} key={`${index}${item}`}>
+                              <Card className={css.cardCss}>
+                                <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                              </Card>
+                              <div className={css.cardLabel}>{item.label}</div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </Layout.Vertical>
+                  </Layout.Horizontal>
+                </>
+              )}
             </>
           )}
         </div>

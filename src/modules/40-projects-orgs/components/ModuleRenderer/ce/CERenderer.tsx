@@ -42,7 +42,7 @@ const CERenderer: React.FC<CERendererProps> = ({ isPreview }) => {
               </Text>
             </Layout.Horizontal>
             <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('projectCard.ceRendererText').toUpperCase()}
+              {getString('projectCard.ceRendererText')}
             </Text>
           </Layout.Vertical>
         </Container>

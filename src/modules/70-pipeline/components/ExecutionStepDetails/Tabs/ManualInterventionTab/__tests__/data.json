@@ -1,0 +1,48 @@
+{
+  "uuid": "KHpXVHKKQsKiYH00KH5dZA",
+  "setupId": "N5ckGWbETjiA7bIztMVehA",
+  "name": "step1",
+  "identifier": "step1",
+  "baseFqn": "pipeline.stages.stage_1.execution.steps.step1",
+  "outcomes": null,
+  "stepParameters": {
+    "name": "step1",
+    "identifier": "step1",
+    "type": "ShellScript",
+    "description": null,
+    "skipCondition": null,
+    "timeout": "1d",
+    "outputVariables": null,
+    "environmentVariables": null,
+    "delegateSelectors": null,
+    "shell": "Bash",
+    "source": { "type": "Inline", "spec": { "script": "sleep 10\nexit 1" } },
+    "executionTarget": { "host": null, "connectorRef": "", "workingDirectory": null },
+    "onDelegate": true
+  },
+  "startTs": 1617767863950,
+  "endTs": 1617767883693,
+  "stepType": "ShellScript",
+  "status": "Waiting",
+  "failureInfo": {},
+  "skipInfo": null,
+  "nodeRunInfo": { "whenCondition": "<+OnStageSuccess>", "evaluatedCondition": true },
+  "executableResponses": [
+    {
+      "task": {
+        "taskId": "mr2EWU-QTvang5jZeRS4VQ",
+        "taskCategory": "DELEGATE_TASK_V2",
+        "logKeys": [
+          "accountId:AQ8xhfNCRtGIUjq5bSM8Fg/orgId:Default/projectId:vivektest/pipelineExecutionId:awExIZQ2RiS8UGXpySEPqg/stageId:stage_1/stepRuntimeId:KHpXVHKKQsKiYH00KH5dZA-commandUnit:Execute"
+        ],
+        "units": ["Execute"],
+        "taskName": "Shell Script Task"
+      }
+    }
+  ],
+  "taskIdToProgressDataMap": {},
+  "unitProgresses": [
+    { "unitName": "Execute", "status": "FAILURE", "startTime": "1617767866321", "endTime": "1617767877031" }
+  ],
+  "delegateInfoList": []
+}

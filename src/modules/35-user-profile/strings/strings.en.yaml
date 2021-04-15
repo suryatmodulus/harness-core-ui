@@ -1,0 +1,29 @@
+mysourceCodeManagers: My Source Code Managers
+basicInformation: Basic Information
+changePassword: Change Password
+passwordReqs: 'Password must meet the requirements.'
+passwordMatch: 'Passwords must match.'
+currentPassword: 'Current Password'
+requiredField: 'is a required field.'
+newPassword: 'New Password'
+confirmPassword: 'Confirm Password'
+twofactorAuth: Two-Factor Authentication
+myProjects: My Projects
+myGroups: My Groups
+myTools: My Collaboration Tools
+addSCM: Add a Source Code Manager
+plusSCM: + Add a Source Code Manager
+selectSCM: Select a Source Code Manager
+editProfile: Edit Profile
+scmCreateSuccess: Source Code Manager added successfully
+scmCreateFail: Could not add your Source Code Manager
+scmDeleteSuccess: Source Code Manager "{{ name }}" deleted successfully
+scmDeleteFailure: Could not delete Source Code Manager "{{ name }}"
+confirmDeleteTitle: Delete Source Code Manager
+confirmDelete: Are you sure you want to delete the Source Code Manager "{{ name }}"
+userEditSuccess: User details updated successfully
+userEditFail: Could not update user details
+awsCredentials: AWS Credentials
+scmValidation:
+  accessKey: Access Key is a required field
+  secretKey: Secret Key is a required field

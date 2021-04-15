@@ -22,7 +22,8 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline }
+    state: { pipeline: originalPipeline },
+    isReadonly
   } = usePipelineContext()
   const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
   const { getString } = useStrings()
@@ -63,6 +64,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             stage={data.stage}
             originalStage={get(originalPipeline, `stages[${i}].stage`)}
             metadataMap={metadataMap}
+            readonly={isReadonly}
           />
         )
       }
@@ -100,7 +102,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           <div className={css.variableList}>
             <String tagName="h4" className="bp3-heading" stringID="customVariables.pipelineVariablesTitle" />
             <String className={css.description} stringID="customVariables.pipelineVariablesDescription" />
-            <String stringID="pipeline" className={css.title} />
+            <String stringID="common.pipeline" className={css.title} />
             <div className={css.variableListHeader}>
               <String stringID="variableLabel" />
               <String stringID="valueLabel" />
@@ -111,9 +113,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               stepsFactory={stepsFactory}
               updatePipeline={updatePipeline}
               metadataMap={metadataMap}
+              readonly={isReadonly}
             />
             {stagesCards.length > 0 ? (
-              <React.Fragment>
+              <React.Fragment key="stages">
                 <String stringID="stages" className={css.title} />
                 <div className={css.variableListHeader}>
                   <String stringID="variableLabel" />
@@ -121,7 +124,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
                 </div>
                 {stagesCards}
               </React.Fragment>
-            ) : null}
+            ) : /* istanbul ignore next */ null}
           </div>
         </div>
       )}

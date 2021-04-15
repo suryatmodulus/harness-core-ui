@@ -38,6 +38,8 @@ interface K8sBGSwapProps {
   initialValues: K8sBGSwapServicesData
   onUpdate?: (data: K8sBGSwapServicesData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
+  readonly?: boolean
   inputSetData?: {
     template?: K8sBGSwapServicesData
     path?: string
@@ -57,7 +59,7 @@ function K8sBGSwapWidget(
   props: K8sBGSwapProps,
   formikRef: StepFormikFowardRef<K8sBGSwapServicesData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
@@ -86,7 +88,8 @@ function K8sBGSwapWidget(
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
+                    isIdentifierEditable={isNewStep}
+                    inputGroupProps={{ disabled: readonly }}
                   />
                 </div>
 
@@ -95,7 +98,7 @@ function K8sBGSwapWidget(
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -127,7 +130,7 @@ const K8sBGSwapInputStep: React.FC<K8sBGSwapProps> = ({ inputSetData }) => {
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
         <DurationInputFieldForInputSet
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}.timeout`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={inputSetData?.readonly}
         />
@@ -152,7 +155,16 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGSwapServicesData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -176,8 +188,10 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
       <K8sBGSwapWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={readonly}
       />
     )
   }

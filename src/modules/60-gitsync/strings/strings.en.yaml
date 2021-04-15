@@ -1,0 +1,6 @@
+label: 'Git Sync'
+successfullCreate: 'Git sync repository {{name}} created successfully'
+repositoryPath: Repository Path
+entitiesByRepositories: 'Entities By repositories'
+seeMore: 'See more'
+seeLess: 'See less'

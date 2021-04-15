@@ -21,7 +21,8 @@ const Roles: React.FC = () => {
       projectIdentifier,
       orgIdentifier,
       pageIndex: page,
-      pageSize: 10
+      pageSize: 10,
+      searchTerm
     }
   })
 
@@ -48,7 +49,7 @@ const Roles: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
-              placeholder={getString('usersPage.search')}
+              placeholder={getString('rbac.usersPage.search')}
               onChange={text => {
                 setSearchTerm(text.trim())
               }}

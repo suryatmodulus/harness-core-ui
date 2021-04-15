@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceInstancesWidget render 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card card"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main topSection StyledProps--padding-bottom-small"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+          style="width: 100%;"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+          >
+            services
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
+          >
+            <p
+              class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+            >
+              57
+            </p>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="sparklineChartContainer"
+                >
+                  <div
+                    class="title"
+                  >
+                    6 month trend
+                  </div>
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--vertical StyledProps--main StyledProps--padding-top-small"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--margin-bottom-xlarge"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
+          >
+            dashboards.serviceDashboard.serviceInstances
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main text StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+          >
+            130
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main WeightedStack--main"
+        >
+          <div>
+            <div
+              class="WeightedStack--stack WeightedStack--stackRow"
+            >
+              <p
+                class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
+                style="width: 100px;"
+              >
+                dashboards.serviceDashboard.nonProd
+                 (
+                120
+                )
+              </p>
+              <div
+                class="progress-bar"
+              >
+                <div
+                  class="progress-track"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 100%;"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="WeightedStack--stack WeightedStack--stackRow"
+            >
+              <p
+                class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
+                style="width: 100px;"
+              >
+                dashboards.serviceDashboard.prod
+                 (
+                20
+                )
+              </p>
+              <div
+                class="progress-bar"
+              >
+                <div
+                  class="progress-track"
+                >
+                  <div
+                    class="progress-fill"
+                    style="width: 16.666666666666664%;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

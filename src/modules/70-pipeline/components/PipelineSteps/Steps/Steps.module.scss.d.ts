@@ -9,6 +9,7 @@ declare const styles: {
   readonly formGroup: string
   readonly sm: string
   readonly md: string
+  readonly alignStart: string
   readonly code: string
   readonly fieldsSection: string
   readonly fieldsGroup: string

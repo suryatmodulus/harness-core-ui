@@ -39,7 +39,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            pipelineBreadcrumb
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -76,25 +76,25 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/pipeline-studio/"
         >
-          Pipeline Studio
+          pipelineStudio
         </a>
         <a
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
         >
-          Input Sets
+          inputSetsText
         </a>
         <a
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
-          Triggers
+          pipeline-triggers.triggersLabel
         </a>
         <a
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/executions"
         >
-          Execution History
+          executionHeaderText
         </a>
       </div>
     </div>

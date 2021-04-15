@@ -1,15 +1,19 @@
 import React from 'react'
-import { act, fireEvent, getAllByText, getByText, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, getAllByText, getByText, render, waitFor, getByTestId } from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
 import {
   createMockData,
+  invitesMockData,
   OrgMockData,
   projectMockDataWithModules,
+  response,
   responseProjectAggregateDTO,
-  responseProjectAggregateDTOWithNoModules
+  responseProjectAggregateDTOWithNoModules,
+  roleMockData,
+  userMockData
 } from './ProjectPageMock'
 
 const getProject = jest.fn()
@@ -42,10 +46,15 @@ jest.mock('services/cd-ng', () => ({
     getOrg(args)
     return { ...OrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: () => jest.fn(),
-  useGetInvites: () => jest.fn(),
-  useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
+}))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
 }))
 
 describe('Project Details', () => {
@@ -63,7 +72,7 @@ describe('Project Details', () => {
     const menu = container.querySelector("[data-icon='Options']")
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
-    const edit = getByText(popover as HTMLElement, 'Edit')
+    const edit = getByTestId(popover as HTMLElement, 'edit-project')
     await act(async () => {
       fireEvent.click(edit)
       await waitFor(() => getByText(document.body, 'Edit Project'))
@@ -87,7 +96,7 @@ describe('Project Details', () => {
       const menu = container.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
+      const invite = getByText(popover as HTMLElement, 'projectContextMenuRenderer.invite')
       await act(async () => {
         fireEvent.click(invite)
         await waitFor(() => getByText(document.body, 'Invite Collaborators'))
@@ -99,7 +108,7 @@ describe('Project Details', () => {
       })
     }),
     test('Manage Projects', async () => {
-      const { container, getByTestId } = render(
+      const { container, getByTestId: localGetByTestId } = render(
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
@@ -110,8 +119,8 @@ describe('Project Details', () => {
       )
       const back = getByText(container, 'Manage Projects /')
       fireEvent.click(back)
-      await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()
+      await waitFor(() => localGetByTestId('location'))
+      expect(localGetByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()
     }),
     test('Click on Add Admin', async () => {
       const { container } = render(

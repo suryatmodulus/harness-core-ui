@@ -7,7 +7,6 @@ import { ModalProvider } from '@wings-software/uicore'
 import qs from 'qs'
 
 import { enableMapSet } from 'immer'
-import strings from 'strings/strings.en.yaml'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
@@ -102,11 +101,12 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   // }, [path, pathParams, queryParams])
 
   return (
-    <StringsContext.Provider value={strings}>
+    <StringsContext.Provider value={{ data: {} as any, getString: key => key }}>
       <AppStoreContext.Provider
         value={{
           featureFlags: {},
           updateAppStore: () => void 0,
+          currentUserInfo: {},
           ...defaultAppStoreValues
         }}
       >

@@ -5,6 +5,7 @@ declare const styles: {
   readonly tabsContainer: string
   readonly tab: string
   readonly tabPanel: string
+  readonly yamlContainer: string
   readonly footer: string
   readonly cancel: string
   readonly headerLine: string

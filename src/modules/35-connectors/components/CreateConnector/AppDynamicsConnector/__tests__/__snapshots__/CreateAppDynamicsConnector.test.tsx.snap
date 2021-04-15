@@ -20,7 +20,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -41,7 +41,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -56,7 +56,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -71,7 +71,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -85,7 +85,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
         <div
           class="heading"
         >
-          AppDynamics Connector Details
+          connectors.appDynamicsDetails
         </div>
         <div
           class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
@@ -162,7 +162,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          Name
+                          name
                            
                           <span
                             class="bp3-text-muted"
@@ -192,7 +192,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Description
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -223,7 +223,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                         class="Label--main"
                         style="font-size: 13px;"
                       >
-                        Tags
+                        optionalField
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                           data-name="edit"
@@ -260,7 +260,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        Save and Continue
+                        saveAndContinue
                       </span>
                     </span>
                     <span
@@ -332,7 +332,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -353,7 +353,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -368,7 +368,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -383,7 +383,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -401,7 +401,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              AppDynamics Connection Details
+              cv.connectors.appD.connectionDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -411,7 +411,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="url"
               >
-                Controller URL
+                cv.connectors.appD.controllerURL
                  
                 <span
                   class="bp3-text-muted"
@@ -441,7 +441,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                 class="bp3-label"
                 for="accountName"
               >
-                Account Name
+                cv.connectors.appD.accountName
                  
                 <span
                   class="bp3-text-muted"
@@ -464,42 +464,85 @@ exports[`Create AppD connector Wizard should render form 2`] = `
               </div>
             </div>
             <div
-              class="bp3-form-group"
-              data-id="username-2"
+              class="StyledProps--font StyledProps--main"
             >
-              <label
-                class="bp3-label"
-                for="username"
-              >
-                Username
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
               <div
-                class="bp3-form-content"
+                class="StyledProps--font StyledProps--main StyledProps--flex"
+                style="align-items: baseline;"
               >
-                <div
-                  class="bp3-input-group"
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="username"
-                    type="text"
-                    value=""
-                  />
+                  authentication
+                </p>
+                <div
+                  class="bp3-form-group authTypeSelect"
+                  data-id="authType-2"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="authType"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value="usernamePassword"
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main secret-mock"
-            >
               <div
                 class="bp3-form-group"
-                data-id="password-3"
+                data-id="username-3"
               >
+                <label
+                  class="bp3-label"
+                  for="username"
+                >
+                  username
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
                   class="bp3-form-content"
                 >
@@ -509,10 +552,34 @@ exports[`Create AppD connector Wizard should render form 2`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="password"
+                      name="username"
                       type="text"
                       value=""
                     />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main secret-mock"
+              >
+                <div
+                  class="bp3-form-group"
+                  data-id="password-4"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="password"
+                        type="text"
+                        value=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -528,17 +595,17 @@ exports[`Create AppD connector Wizard should render form 2`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
                 class="bp3-button-text"
               >
-                Connect and Save
+                cv.connectors.connectAndSave
               </span>
             </button>
           </div>
@@ -587,7 +654,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Connector Details
+          cv.connectors.connectorDetails
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -608,7 +675,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Credentials
+          credentials
         </p>
       </div>
       <div
@@ -623,7 +690,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Delegate selection
+          delegate.DelegateselectionLabel
         </p>
       </div>
       <div
@@ -638,7 +705,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Verify connection
+          cv.connectors.verifyConnection
         </p>
       </div>
     </div>
@@ -656,7 +723,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-medium"
             >
-              AppDynamics Connection Details
+              cv.connectors.appD.connectionDetailsHeader
             </p>
             <div
               class="bp3-form-group"
@@ -666,7 +733,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="url"
               >
-                Controller URL
+                cv.connectors.appD.controllerURL
                  
                 <span
                   class="bp3-text-muted"
@@ -696,7 +763,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 class="bp3-label"
                 for="accountName"
               >
-                Account Name
+                cv.connectors.appD.accountName
                  
                 <span
                   class="bp3-text-muted"
@@ -719,52 +786,90 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  Account Name is a required field
+                  validation.accountName
                 </div>
               </div>
             </div>
             <div
-              class="bp3-form-group bp3-intent-danger"
-              data-id="username-2"
+              class="StyledProps--font StyledProps--main"
             >
-              <label
-                class="bp3-label"
-                for="username"
-              >
-                Username
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
               <div
-                class="bp3-form-content"
+                class="StyledProps--font StyledProps--main StyledProps--flex"
+                style="align-items: baseline;"
               >
-                <div
-                  class="bp3-input-group bp3-intent-danger"
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="username"
-                    type="text"
-                    value=""
-                  />
-                </div>
+                  authentication
+                </p>
                 <div
-                  class="bp3-form-helper-text"
+                  class="bp3-form-group authTypeSelect"
+                  data-id="authType-2"
                 >
-                  Username is a required field
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="authType"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value="usernamePassword"
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main secret-mock"
-            >
               <div
                 class="bp3-form-group bp3-intent-danger"
-                data-id="password-3"
+                data-id="username-3"
               >
+                <label
+                  class="bp3-label"
+                  for="username"
+                >
+                  username
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
                   class="bp3-form-content"
                 >
@@ -774,7 +879,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="password"
+                      name="username"
                       type="text"
                       value=""
                     />
@@ -782,7 +887,36 @@ exports[`Create AppD connector Wizard should render form 3`] = `
                   <div
                     class="bp3-form-helper-text"
                   >
-                    Password is a required field
+                    validation.username
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main secret-mock"
+              >
+                <div
+                  class="bp3-form-group bp3-intent-danger"
+                  data-id="password-4"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-intent-danger"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="password"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      validation.password
+                    </div>
                   </div>
                 </div>
               </div>
@@ -798,17 +932,17 @@ exports[`Create AppD connector Wizard should render form 3`] = `
               <span
                 class="bp3-button-text"
               >
-                Back
+                back
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
               type="submit"
             >
               <span
                 class="bp3-button-text"
               >
-                Connect and Save
+                cv.connectors.connectAndSave
               </span>
             </button>
           </div>

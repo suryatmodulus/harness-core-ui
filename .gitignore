@@ -5,3 +5,4 @@ dist
 tsconfig.tmp
 .idea
 yarn-error.log
+temp

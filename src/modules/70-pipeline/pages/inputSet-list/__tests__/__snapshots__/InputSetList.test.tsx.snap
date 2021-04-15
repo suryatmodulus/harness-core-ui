@@ -18,7 +18,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           <span
             class="bp3-button-text"
           >
-            + New Input Set
+            inputSets.newInputSet
           </span>
           <span
             class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -72,7 +72,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           </span>
           <input
             class="bp3-input"
-            placeholder="Search Input Set"
+            placeholder="inputSets.searchInputSet"
             type="text"
             value=""
           />
@@ -97,7 +97,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          INPUT SET
+          INPUTSETS.INPUTSETLABEL
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -132,7 +132,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          INPUT FIELD SUMMARY
+          INPUTSETS.INPUTFIELDSUMMARY
         </div>
         <div
           class="cell"
@@ -140,7 +140,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          LAST UPDATED BY
+          LASTUPDATEDBY
         </div>
         <div
           class="cell"
@@ -148,7 +148,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          CREATED BY
+          CF.ENVIRONMENTS.CREATEDBY
         </div>
         <div
           class="cell"
@@ -309,7 +309,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Run Pipeline
+                runPipeline
               </span>
             </button>
           </span>
@@ -488,7 +488,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Run Pipeline
+                runPipeline
               </span>
             </button>
           </span>

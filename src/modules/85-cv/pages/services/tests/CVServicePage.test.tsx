@@ -63,7 +63,7 @@ describe('Unit tests for CV service page', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
-    expect(getByText('Get risk assessment')).not.toBeNull()
+    expect(getByText('cv.getRiskAssessment')).not.toBeNull()
   })
 
   test('Ensure that when an error is encountered the error message is displayed', async () => {

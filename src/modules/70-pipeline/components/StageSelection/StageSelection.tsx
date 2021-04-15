@@ -41,7 +41,10 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
             disabled={disabled}
             text={
               <React.Fragment>
-                <Icon className={css.icon} name={getIconFromStageModule(item.type.toLowerCase())} />
+                <Icon
+                  className={css.icon}
+                  name={getIconFromStageModule(item.type.toLowerCase(), item.node?.nodeType)}
+                />
                 <span>{item.label}</span>
               </React.Fragment>
             }
@@ -58,7 +61,10 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
       <Button className={css.btn} rightIcon={chevronIcon} iconProps={{ className: css.icon }}>
         {selectedStage ? (
           <React.Fragment>
-            <Icon className={css.icon} name={getIconFromStageModule(selectedStage.type.toLowerCase())} />
+            <Icon
+              className={css.icon}
+              name={getIconFromStageModule(selectedStage.type.toLowerCase(), selectedStage.node.nodeType)}
+            />
             <span>{selectedStage.label}</span>
           </React.Fragment>
         ) : (

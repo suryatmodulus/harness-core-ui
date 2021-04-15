@@ -1,0 +1,32 @@
+.fieldsSection {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  flex-wrap: wrap;
+  padding-top: var(--spacing-medium) !important;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  padding: var(--spacing-xsmall) 0 !important;
+  :global {
+    label {
+      padding-left: 0 !important;
+      color: var(--black) !important;
+      font-size: 14px !important;
+    }
+
+    .bp3-control-indicator {
+      margin-left: 0 !important;
+      margin-right: var(--spacing-small) !important;
+    }
+  }
+}
+
+.secondButton {
+  margin-left: var(--spacing-medium) !important;
+}

@@ -12,11 +12,15 @@ import type { HttpStepFormData, HttpStepOutputVariable } from './types'
 import css from './HttpStep.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export default function ResponseMapping(props: { formik: FormikProps<HttpStepFormData> }): React.ReactElement {
+export default function ResponseMapping(props: {
+  formik: FormikProps<HttpStepFormData>
+  readonly?: boolean
+}): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const {
-    formik: { values: formValues }
+    formik: { values: formValues },
+    readonly
   } = props
 
   return (
@@ -35,12 +39,14 @@ export default function ResponseMapping(props: { formik: FormikProps<HttpStepFor
                   {((formValues.spec.outputVariables as HttpStepOutputVariable[]) || []).map(
                     ({ id }: HttpStepOutputVariable, i: number) => (
                       <div className={css.responseMappingRow} key={id}>
-                        <FormInput.Text name={`spec.outputVariables[${i}].name`} />
+                        <FormInput.Text name={`spec.outputVariables[${i}].name`} disabled={readonly} />
                         <FormInput.MultiTextInput
                           name={`spec.outputVariables[${i}].value`}
+                          disabled={readonly}
                           multiTextInputProps={{
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                            expressions
+                            expressions,
+                            disabled: readonly
                           }}
                           label=""
                         />
@@ -49,6 +55,7 @@ export default function ResponseMapping(props: { formik: FormikProps<HttpStepFor
                           icon="trash"
                           data-testid={`remove-response-mapping-${i}`}
                           onClick={() => remove(i)}
+                          disabled={readonly}
                         />
                       </div>
                     )
@@ -59,6 +66,7 @@ export default function ResponseMapping(props: { formik: FormikProps<HttpStepFor
                     intent="primary"
                     data-testid="add-response-mapping"
                     onClick={() => push({ name: '', value: '', type: 'String', id: uuid() })}
+                    disabled={readonly}
                   >
                     Add
                   </Button>

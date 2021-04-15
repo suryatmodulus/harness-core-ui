@@ -10,6 +10,7 @@ import {
   filters
 } from '@connectors/pages/connectors/__tests__/mockData'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import * as usePermission from '@rbac/hooks/usePermission'
 import ConnectorsListView from '../ConnectorsListView'
 
 jest.mock('react-timeago', () => () => 'dummy date')
@@ -115,7 +116,7 @@ describe('Connectors List Test', () => {
       fireEvent.click(testBtn)
     })
     expect(container).toMatchSnapshot()
-    expect(getByText('Test in progress')).toBeDefined()
+    expect(getByText('connectors.testInProgress')).toBeDefined()
 
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
     await waitFor(() => expect(getAllByText('error')[0]).not.toBeNull())
@@ -136,7 +137,7 @@ describe('Connectors List Test', () => {
       fireEvent.click(testBtn)
     })
     expect(container).toMatchSnapshot()
-    expect(getByText('Test in progress')).toBeDefined()
+    expect(getByText('connectors.testInProgress')).toBeDefined()
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
 
     await waitFor(() => expect(getAllByText('active')[0]).not.toBeNull())
@@ -157,7 +158,7 @@ describe('Connectors List Test', () => {
       fireEvent.click(testBtn)
     })
     expect(container).toMatchSnapshot()
-    expect(getByText('Test in progress')).toBeDefined()
+    expect(getByText('connectors.testInProgress')).toBeDefined()
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
@@ -202,7 +203,7 @@ describe('Connectors List Test', () => {
     const openConnectorModal = jest.fn()
     const { container } = setup({ openConnectorModal })
     const currentConnector = connectorsData.data.content[0].connector
-    const deleteText = `Are you sure you want to delete the Connector `
+    const deleteText = `connectors.confirmDelete `
     const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])
     act(() => {
       fireEvent.click(menuIcon!)
@@ -212,11 +213,23 @@ describe('Connectors List Test', () => {
     })
     await waitFor(() => expect(queryByText(document.body, `${deleteText}${currentConnector.name}`)).toBeTruthy())
     act(() => {
-      fireEvent.click(queryByText(document.body.querySelector('.bp3-dialog')! as HTMLElement, 'Cancel')!)
+      fireEvent.click(queryByText(document.body.querySelector('.bp3-dialog')! as HTMLElement, 'cancel')!)
     })
     act(() => {
       fireEvent.click(getEditButton()!)
     })
     expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, currentConnector)
+  })
+
+  test('Edit and delete methods should be called with correct data', async () => {
+    jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [false])
+    const { container } = setup()
+    const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])
+    act(() => {
+      fireEvent.click(menuIcon!)
+    })
+    const [editButton, deleteButton] = [getEditButton(), getDeleteButton()]
+    expect(editButton!.parentElement?.getAttribute('class')).toContain('disabled')
+    expect(deleteButton!.parentElement?.getAttribute('class')).toContain('disabled')
   })
 })

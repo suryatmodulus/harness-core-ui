@@ -20,11 +20,17 @@ import {
   useGetMonitoringSources,
   useListBaselineExecutions
 } from 'services/cv'
+import type { ContinousVerificationFormData } from '@cv/components/PipelineSteps/ContinousVerification/continousVerificationTypes'
 import i18n from './VerificationJobForms.i18n'
 import css from './VerificationJobFields.module.scss'
 
 interface BaseFieldProps {
   zIndex?: Pick<CSSProperties, 'zIndex'>
+  label?: string
+  name?: string
+  disabled?: boolean
+  formik?: FormikProps<ContinousVerificationFormData>
+  expressions?: string[]
 }
 
 function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconProps {
@@ -37,6 +43,11 @@ function activityTypeToIconProps(activityType: ActivitySourceDTO['type']): IconP
     case 'KUBERNETES':
       return {
         name: 'service-kubernetes',
+        size: 15
+      }
+    case 'CDNG':
+      return {
+        name: 'cd-main',
         size: 15
       }
     default:
@@ -78,19 +89,37 @@ export const DefaultBaselineOptions: SelectOption[] = [
 ]
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
-  const { zIndex } = props
+  const { zIndex, label, name, expressions, disabled, formik } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
-  return (
-    <FormInput.MultiTypeInput
-      name="sensitivity"
-      style={style}
-      label={i18n.fieldLabels.sensitivity}
-      selectItems={VerificationSensitivityOptions}
-      multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-      }}
-    />
-  )
+  if (!disabled) {
+    return (
+      <FormInput.MultiTypeInput
+        name={name ? name : 'sensitivity'}
+        style={style}
+        disabled={disabled}
+        label={label ? label : i18n.fieldLabels.sensitivity}
+        selectItems={VerificationSensitivityOptions}
+        multiTypeInputProps={
+          expressions
+            ? { expressions }
+            : {
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+              }
+        }
+      />
+    )
+  } else {
+    return (
+      <FormInput.Select
+        name={name ? name : 'sensitivity'}
+        label={label ? label : i18n.fieldLabels.sensitivity}
+        style={style}
+        items={VerificationSensitivityOptions}
+        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.sensitivity as SelectOption}
+        disabled={true}
+      />
+    )
+  }
 }
 
 export function ServiceName(props: BaseFieldProps): JSX.Element {
@@ -134,19 +163,37 @@ export function Duration(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { zIndex } = props
+  const { zIndex, label, name, expressions, disabled, formik } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 8 }), [zIndex]) as CSSProperties
-  return (
-    <FormInput.MultiTypeInput
-      name="duration"
-      style={style}
-      label={i18n.fieldLabels.duration}
-      selectItems={selectProps.items}
-      multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-      }}
-    />
-  )
+  if (!disabled) {
+    return (
+      <FormInput.MultiTypeInput
+        name={name ? name : 'duration'}
+        style={style}
+        disabled={disabled}
+        label={label ? label : i18n.fieldLabels.duration}
+        selectItems={selectProps.items}
+        multiTypeInputProps={
+          expressions
+            ? { expressions }
+            : {
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+              }
+        }
+      />
+    )
+  } else {
+    return (
+      <FormInput.Select
+        name={name ? name : 'duration'}
+        style={style}
+        label={label ? label : i18n.fieldLabels.duration}
+        items={selectProps.items}
+        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.duration as SelectOption}
+        disabled={true}
+      />
+    )
+  }
 }
 
 export function EnvironmentName(props: BaseFieldProps): JSX.Element {
@@ -189,19 +236,36 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { zIndex } = props
+  const { zIndex, label, name, expressions, disabled, formik } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 6 }), [zIndex]) as CSSProperties
-  return (
-    <FormInput.MultiTypeInput
-      name="trafficSplit"
-      style={style}
-      label={i18n.fieldLabels.trafficSplit}
-      selectItems={selectProps.items}
-      multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-      }}
-    />
-  )
+  if (!disabled) {
+    return (
+      <FormInput.MultiTypeInput
+        name={name ? name : 'trafficSplit'}
+        style={style}
+        label={label ? label : i18n.fieldLabels.trafficSplit}
+        selectItems={selectProps.items}
+        multiTypeInputProps={
+          expressions
+            ? { expressions }
+            : {
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+              }
+        }
+      />
+    )
+  } else {
+    return (
+      <FormInput.Select
+        name={name ? name : 'trafficSplit'}
+        label={label ? label : i18n.fieldLabels.trafficSplit}
+        style={style}
+        items={selectProps.items}
+        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.trafficsplit as SelectOption}
+        disabled={true}
+      />
+    )
+  }
 }
 
 export function Baseline(props: BaseFieldProps): JSX.Element {
@@ -252,19 +316,37 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
     }
   }, [data])
 
-  const { zIndex } = props
+  const { zIndex, label, name, expressions, disabled, formik } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 5 }), [zIndex]) as CSSProperties
-  return (
-    <FormInput.MultiTypeInput
-      name="baseline"
-      style={style}
-      label={i18n.fieldLabels.baseline}
-      selectItems={baselineOption}
-      multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.FIXED]
-      }}
-    />
-  )
+  if (!disabled) {
+    return (
+      <FormInput.MultiTypeInput
+        name={name ? name : 'baseline'}
+        style={style}
+        disabled={disabled}
+        label={label ? label : i18n.fieldLabels.baseline}
+        selectItems={baselineOption}
+        multiTypeInputProps={
+          expressions
+            ? { expressions }
+            : {
+                allowableTypes: [MultiTypeInputType.FIXED]
+              }
+        }
+      />
+    )
+  } else {
+    return (
+      <FormInput.Select
+        name={name ? name : 'baseline'}
+        style={style}
+        label={label ? label : i18n.fieldLabels.baseline}
+        items={baselineOption}
+        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.baseline as SelectOption}
+        disabled={true}
+      />
+    )
+  }
 }
 
 // Remove this after old onboarding is removed

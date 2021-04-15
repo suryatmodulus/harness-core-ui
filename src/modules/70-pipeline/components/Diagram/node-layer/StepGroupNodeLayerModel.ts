@@ -5,7 +5,9 @@ import type { RollbackToggleSwitchProps } from '../canvas/RollbackToggleSwitch/R
 
 export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   label?: string
+  childrenDistance?: number
   depth?: number
+  headerDepth?: number
   allowAdd?: boolean
   identifier?: string
   showRollback?: boolean
@@ -45,6 +47,10 @@ export class StepGroupNodeLayerModel<
     this.endNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty' })
     this.addModel(this.startNode)
     this.addModel(this.endNode)
+  }
+
+  setOptions(options: StepGroupNodeLayerOptions): void {
+    this.options = { ...this.options, ...options }
   }
 
   addModel(model: G['CHILDREN']): void {

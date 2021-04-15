@@ -39,7 +39,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            pipelines
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -94,7 +94,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
-          Edit Input Set: asd
+          inputSets.editTitle
         </p>
         <div
           class="optionBtns"
@@ -102,12 +102,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
           <div
             class="item"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item selected"
           >
-            YAML
+            yaml
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Save
+                  save
                 </span>
               </button>
                  
@@ -186,7 +186,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Cancel
+                  cancel
                 </span>
               </button>
             </div>
@@ -237,7 +237,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            pipelines
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -290,7 +290,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
-          Edit Input Set: 
+          inputSets.editTitle
         </p>
         <div
           class="optionBtns"
@@ -298,12 +298,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
           <div
             class="item selected"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item"
           >
-            YAML
+            yaml
           </div>
         </div>
       </div>
@@ -352,7 +352,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                             style="font-weight: 500;"
                           >
-                            Pipeline Variables
+                            customVariables.pipelineVariablesTitle
                           </p>
                         </span>
                       </div>
@@ -398,7 +398,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-size-normal"
                             style="font-weight: 500;"
                           >
-                            Stages
+                            stages
                           </p>
                         </span>
                       </div>
@@ -516,7 +516,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             class="bp3-label"
                             for="name"
                           >
-                            Input set name
+                            inputSets.inputSetName
                              
                             <span
                               class="bp3-text-muted"
@@ -546,7 +546,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          optionalField
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -577,7 +577,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          optionalField
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -609,7 +609,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                         class="header"
                       >
                         <span>
-                          Stages
+                          pipeline-list.listStages
                         </span>
                       </div>
                       <div
@@ -670,7 +670,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                         class="stagesTreeBulletCircle"
                                       >
                                         <span>
-                                          Infrastructure
+                                          infrastructureText
                                         </span>
                                       </div>
                                     </div>
@@ -700,7 +700,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             <label
                                               class="bp3-label"
                                             >
-                                              Connector
+                                              connector
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -801,7 +801,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               class="bp3-label"
                                               for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                             >
-                                              Namespace
+                                              common.namespace
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -817,7 +817,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   autocomplete="off"
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                                  placeholder="Specify a namespace"
+                                                  placeholder="cd.steps.common.namespacePlaceholder"
                                                   type="text"
                                                   value=""
                                                 />
@@ -831,7 +831,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               class="bp3-label"
                                               for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                             >
-                                              Release name
+                                              common.releaseName
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -847,7 +847,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   autocomplete="off"
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                                  placeholder="Specify a release name"
+                                                  placeholder="cd.steps.common.releaseNamePlaceholder"
                                                   type="text"
                                                   value=""
                                                 />
@@ -876,7 +876,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       <span
                         class="bp3-button-text"
                       >
-                        Save
+                        save
                       </span>
                     </button>
                        
@@ -887,7 +887,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       <span
                         class="bp3-button-text"
                       >
-                        Cancel
+                        cancel
                       </span>
                     </button>
                   </div>
@@ -954,7 +954,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               autocomplete="off"
               class="bp3-input"
               name="inputSetReferences[0]"
-              placeholder="Input Sets"
+              placeholder="inputSetsText"
               style="padding-right: 0px;"
               type="text"
               value="asd"
@@ -1042,7 +1042,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               autocomplete="off"
               class="bp3-input"
               name="inputSetReferences[0]"
-              placeholder="Input Sets"
+              placeholder="inputSetsText"
               style="padding-right: 0px;"
               type="text"
               value="asd"
@@ -1089,7 +1089,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
     <h4
       class="bp3-heading"
     >
-      Edit Overlay Input Set: OverLayInput
+      inputSets.editOverlayTitle
     </h4>
     <button
       aria-label="Close"
@@ -1129,12 +1129,12 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
         <div
           class="item selected"
         >
-          VISUAL
+          visual
         </div>
         <div
           class="item"
         >
-          YAML
+          yaml
         </div>
       </div>
       <div
@@ -1189,7 +1189,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       class="bp3-label"
                       for="name"
                     >
-                      Overlay set name
+                      inputSets.overlaySetName
                        
                       <span
                         class="bp3-text-muted"
@@ -1220,7 +1220,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Description
+                    optionalField
                   </label>
                   <div
                     class="bp3-form-group"
@@ -1246,7 +1246,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Tags
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -1277,7 +1277,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                 >
-                  Select Input Sets
+                  inputSets.selectInputSets
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main"
@@ -1302,7 +1302,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       />
                     </svg>
                   </span>
-                  Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+                  inputSets.selectInputSetsHelp
                 </p>
                 <div
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xxxlarge StyledProps--padding-bottom-large"
@@ -1365,7 +1365,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[0]"
-                                    placeholder="Input Sets"
+                                    placeholder="inputSetsText"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="asd"
@@ -1479,7 +1479,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[1]"
-                                    placeholder="Input Sets"
+                                    placeholder="inputSetsText"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="test"
@@ -1546,7 +1546,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         <span
                           class="bp3-button-text"
                         >
-                          + Add Input Set
+                          inputSets.addInputSetPlus
                         </span>
                       </button>
                     </span>
@@ -1564,7 +1564,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                 <span
                   class="bp3-button-text"
                 >
-                  Save
+                  save
                 </span>
               </button>
                  
@@ -1575,7 +1575,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                 <span
                   class="bp3-button-text"
                 >
-                  Cancel
+                  cancel
                 </span>
               </button>
             </div>
@@ -1626,7 +1626,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
             class="breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            Pipelines
+            pipelines
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -1671,7 +1671,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
           <span
             class="lastBreadcrumb"
           >
-            New Input Set
+            inputSets.newInputSetLabel
           </span>
         </div>
       </div>
@@ -1681,7 +1681,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-medium"
         >
-          New Input Set
+          inputSets.newInputSetLabel
         </p>
         <div
           class="optionBtns"
@@ -1689,12 +1689,12 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
           <div
             class="item selected"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item"
           >
-            YAML
+            yaml
           </div>
         </div>
       </div>
@@ -1743,7 +1743,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                             style="font-weight: 500;"
                           >
-                            Pipeline Variables
+                            customVariables.pipelineVariablesTitle
                           </p>
                         </span>
                       </div>
@@ -1789,7 +1789,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-size-normal"
                             style="font-weight: 500;"
                           >
-                            Stages
+                            stages
                           </p>
                         </span>
                       </div>
@@ -1930,7 +1930,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             class="bp3-label"
                             for="name"
                           >
-                            Input set name
+                            inputSets.inputSetName
                              
                             <span
                               class="bp3-text-muted"
@@ -1961,7 +1961,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Description
+                          optionalField
                         </label>
                         <div
                           class="bp3-form-group"
@@ -1987,7 +1987,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           class="Label--main"
                           style="font-size: 13px;"
                         >
-                          Tags
+                          optionalField
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                             data-name="edit"
@@ -2019,7 +2019,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                         class="header"
                       >
                         <span>
-                          Stages
+                          pipeline-list.listStages
                         </span>
                       </div>
                       <div
@@ -2080,7 +2080,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                         class="stagesTreeBulletCircle"
                                       >
                                         <span>
-                                          Infrastructure
+                                          infrastructureText
                                         </span>
                                       </div>
                                     </div>
@@ -2111,7 +2111,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             <label
                                               class="bp3-label"
                                             >
-                                              Connector
+                                              connector
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -2213,7 +2213,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               class="bp3-label"
                                               for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                             >
-                                              Namespace
+                                              common.namespace
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -2229,7 +2229,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   autocomplete="off"
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                                  placeholder="Specify a namespace"
+                                                  placeholder="cd.steps.common.namespacePlaceholder"
                                                   type="text"
                                                   value="asd"
                                                 />
@@ -2244,7 +2244,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               class="bp3-label"
                                               for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                             >
-                                              Release name
+                                              common.releaseName
                                                
                                               <span
                                                 class="bp3-text-muted"
@@ -2260,7 +2260,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   autocomplete="off"
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                                  placeholder="Specify a release name"
+                                                  placeholder="cd.steps.common.releaseNamePlaceholder"
                                                   type="text"
                                                   value="asd"
                                                 />
@@ -2289,7 +2289,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        Save
+                        save
                       </span>
                     </button>
                        
@@ -2328,7 +2328,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       <span
                         class="bp3-button-text"
                       >
-                        Cancel
+                        cancel
                       </span>
                     </button>
                   </div>
@@ -2354,7 +2354,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
     <h4
       class="bp3-heading"
     >
-      New Overlay Input Set
+      inputSets.newOverlayInputSet
     </h4>
     <button
       aria-label="Close"
@@ -2394,12 +2394,12 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
         <div
           class="item selected"
         >
-          VISUAL
+          visual
         </div>
         <div
           class="item"
         >
-          YAML
+          yaml
         </div>
       </div>
       <div
@@ -2475,7 +2475,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       class="bp3-label"
                       for="name"
                     >
-                      Overlay set name
+                      inputSets.overlaySetName
                        
                       <span
                         class="bp3-text-muted"
@@ -2506,7 +2506,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Description
+                    optionalField
                   </label>
                   <div
                     class="bp3-form-group"
@@ -2532,7 +2532,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                     class="Label--main"
                     style="font-size: 13px;"
                   >
-                    Tags
+                    optionalField
                     <span
                       class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
                       data-name="edit"
@@ -2563,7 +2563,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
                 >
-                  Select Input Sets
+                  inputSets.selectInputSets
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main"
@@ -2588,7 +2588,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       />
                     </svg>
                   </span>
-                  Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+                  inputSets.selectInputSetsHelp
                 </p>
                 <div
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xxxlarge StyledProps--padding-bottom-large"
@@ -2651,7 +2651,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[0]"
-                                    placeholder="Input Sets"
+                                    placeholder="inputSetsText"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="asd"
@@ -2764,7 +2764,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[1]"
-                                    placeholder="Input Sets"
+                                    placeholder="inputSetsText"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value=""
@@ -2859,7 +2859,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         <span
                           class="bp3-button-text"
                         >
-                          + Add Input Set
+                          inputSets.addInputSetPlus
                         </span>
                       </button>
                     </span>
@@ -2877,7 +2877,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                 <span
                   class="bp3-button-text"
                 >
-                  Save
+                  save
                 </span>
               </button>
                  
@@ -2888,7 +2888,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                 <span
                   class="bp3-button-text"
                 >
-                  Cancel
+                  cancel
                 </span>
               </button>
             </div>

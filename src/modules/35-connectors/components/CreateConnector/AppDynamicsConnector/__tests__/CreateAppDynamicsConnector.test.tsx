@@ -76,7 +76,7 @@ describe('Create AppD connector Wizard', () => {
 
     // step 2
     expect(queryByText(container, 'Username')).toBeDefined()
-    fireEvent.click(getByText('Connect and Save')) // trying to create coonector with step 2 data
+    fireEvent.click(getByText('cv.connectors.connectAndSave')) // trying to create coonector with step 2 data
 
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="url"]')!, {
@@ -84,7 +84,7 @@ describe('Create AppD connector Wizard', () => {
       })
     })
     expect(container).toMatchSnapshot()
-    const backBtn = getByText('Back')
+    const backBtn = getByText('back')
     fireEvent.click(backBtn)
     // Coonector name should be retained in step 1
     expect(queryByText(container, 'dummy name')).toBeDefined()
@@ -157,6 +157,74 @@ describe('Create AppD connector Wizard', () => {
     await waitFor(() => expect(onSuccessMock).toHaveBeenCalledWith({}))
   })
 
+  test('Ensure create works for clientid option', async () => {
+    const mockCreate = jest.fn().mockReturnValue({ status: 'SUCCESS', data: {} }) as unknown
+    jest.spyOn(cdService, 'useCreateConnector').mockReturnValue({
+      mutate: mockCreate
+    } as UseMutateReturn<any, any, any, any, any>)
+    const onSuccessMock = jest.fn()
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateAppDynamicsConnector
+          accountId="dummyAccountId"
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+          onClose={noop}
+          onSuccess={noop}
+          onConnectorCreated={onSuccessMock}
+          isEditMode={false}
+          setIsEditMode={noop}
+          connectorInfo={undefined}
+          mockIdentifierValidate={mockIdentifierValidate}
+        />
+      </TestWrapper>
+    )
+
+    // fill step 1
+    await act(async () => {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
+        target: { value: 'dummy name' }
+      })
+    })
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+
+    await waitFor(() => expect(document.body.querySelector('input[name="password"]')).not.toBeNull())
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'url',
+      value: 'https://sdfs.com'
+    })
+    await setFieldValue({ container: document.body, type: InputTypes.TEXTFIELD, fieldId: 'username', value: 'sdffsf' })
+
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'accountName',
+      value: 'semi-auto'
+    })
+
+    const caret = document.body
+      .querySelector(`[name="authType"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+
+    // set authtype drop down
+    fireEvent.click(caret!)
+    await waitFor(() => expect(document.body.querySelector('[class*="menuItem"]')).not.toBeNull())
+    fireEvent.click(document.body.querySelectorAll('[class*="menuItem"]')[1])
+    await waitFor(() => expect(document.body.querySelector('input[value="API Client"]')))
+
+    await setFieldValue({
+      container: document.body,
+      type: InputTypes.TEXTFIELD,
+      fieldId: 'clientId',
+      value: 'clientId'
+    })
+  })
+
   test('update works as expected', async () => {
     jest.spyOn(cdService, 'useUpdateConnector').mockReturnValue({
       mutate: jest.fn().mockReturnValue({
@@ -197,6 +265,7 @@ describe('Create AppD connector Wizard', () => {
 
     await waitFor(() => expect(document.body.querySelector('input[name="name"]')).not.toBeNull())
 
+    // update the name field to a new value
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
@@ -204,12 +273,12 @@ describe('Create AppD connector Wizard', () => {
       value: 'Connector1update'
     })
 
+    // transition to credentials step
     await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() => expect(container.querySelector('input[name="password"]')).not.toBeNull())
 
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-
+    // update the password
     await setFieldValue({
       container: document.body,
       type: InputTypes.TEXTFIELD,
@@ -217,19 +286,14 @@ describe('Create AppD connector Wizard', () => {
       value: 'newPass'
     })
 
+    // ensure all fields are filled with correct values
+    expect(container.querySelector('input[value="test.com"]')).not.toBeNull()
+    expect(container.querySelector('input[value="harness-test"]')).not.toBeNull()
+    expect(container.querySelector('input[value="uitest@harness.io"]')).not.toBeNull()
+    await waitFor(() => expect(container.querySelector('input[value="newPass"]')).not.toBeNull())
+
+    // move to delegate step
     await waitFor(() => expect(container.querySelector('button[type="submit"]')).not.toBeNull())
-
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-
-    expect(onSuccessMock).toHaveBeenCalledWith({
-      name: 'mockResponseName',
-      identifier: 'mockResponseIdentifier'
-    })
+    fireEvent.click(document.body.querySelector('button[type="submit"]')!)
   })
 })

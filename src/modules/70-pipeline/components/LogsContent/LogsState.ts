@@ -130,7 +130,8 @@ export function reducer<T extends ActionType>(state: State, action: Action<T>): 
          * It can be either be a `taskChain`, `task` or `sync`
          */
         const executableResponse = node?.executableResponses?.[0] || {}
-        const task = executableResponse.taskChain || executableResponse.task || executableResponse.sync
+        const task =
+          executableResponse.taskChain || executableResponse.task || executableResponse.sync || executableResponse.async
 
         const { units = [], logKeys = [] } = task || ({} as any)
         const progressMap = new Map<string, ProgressMapValue>()

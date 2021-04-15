@@ -1,8 +1,11 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { RightDrawer } from '../RightDrawer'
-import { DrawerTypes } from '../../PipelineContext/PipelineActions'
+import { DrawerTypes, PipelineViewData, SplitViewTypes } from '../../PipelineContext/PipelineActions'
+import { PipelineContext } from '../../PipelineContext/PipelineContext'
+import { StageTypes } from '../../Stages/StageTypes'
+import { getDummyPipelineContextValue } from './RightDrawerTestHelper'
 
 jest.mock('framework/exports', () => ({
   ...(jest.requireActual('framework/exports') as object),
@@ -25,65 +28,50 @@ jest.mock('../../PiplineHooks/useVariablesExpression', () => ({
 }))
 
 describe('Right Drawer tests', () => {
-  let useContextMock
-  const updatePipelineSpy = jest.fn()
-  const updatePipelineViewSpy = jest.fn()
-  const getStageFromPipelineSpy = jest.fn().mockReturnValue({
-    stage: {
-      stage: {
-        skipCondition: '',
-        stageName: 'stageName',
-        name: 'stageName'
-      }
-    }
-  })
-  beforeEach(() => {
-    useContextMock = jest.fn().mockReturnValue({
-      state: {
-        pipeline: {},
-        pipelineView: {
-          drawerData: {
-            type: DrawerTypes.SkipCondition,
-            data: {}
-          },
-          isDrawerOpened: true,
-          splitViewData: { selectedStageId: 'selectedStageId', stageType: 'DEPLOYMENT' }
-        }
-      },
-      updatePipeline: updatePipelineSpy,
-      updatePipelineView: updatePipelineViewSpy,
-      getStageFromPipeline: getStageFromPipelineSpy,
-      stepsFactory: {}
-    })
-    React.useContext = useContextMock
-  })
-
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Basic snapshot - Skip Condition drawer', async () => {
-    const { queryByText, container, getByText } = render(
+  test('Basic snapshot - Skip Condition drawer', async () => {
+    const skipConditionPipelineView: PipelineViewData = {
+      isSplitViewOpen: false,
+      isDrawerOpened: true,
+      splitViewData: {
+        selectedStageId: 'ApprovalStageId',
+        type: SplitViewTypes.StageView,
+        stageType: StageTypes.APPROVAL
+      },
+      drawerData: { type: DrawerTypes.SkipCondition }
+    }
+    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView)
+    const { container } = render(
       <TestWrapper>
-        <RightDrawer />
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <RightDrawer />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
-    expect(queryByText('stageName / skipConditionTitle')).toBeTruthy()
+    // Todo fix this test as it's incomplete
+    expect(container).toMatchSnapshot()
+  })
 
-    const input = container.querySelector('input[name="skipCondition"]')
-    fireEvent.change(input!, { target: { value: ' changedcondition ' } })
-
-    fireEvent.click(getByText('submit'))
-    await waitFor(() => {
-      expect(getStageFromPipelineSpy).toBeCalledWith('selectedStageId')
-      expect(updatePipelineSpy).toBeCalledWith({})
-      expect(updatePipelineViewSpy).toBeCalledWith({
-        drawerData: {
-          type: 'ConfigureService'
-        },
-        isDrawerOpened: false,
-        splitViewData: {
-          selectedStageId: 'selectedStageId',
-          stageType: 'DEPLOYMENT'
-        }
-      })
-    })
+  test('Basic snapshot - Failure Strategy drawer', async () => {
+    const skipConditionPipelineView: PipelineViewData = {
+      isSplitViewOpen: false,
+      isDrawerOpened: true,
+      splitViewData: {
+        selectedStageId: 'ApprovalStageId',
+        type: SplitViewTypes.StageView,
+        stageType: StageTypes.APPROVAL
+      },
+      drawerData: { type: DrawerTypes.FailureStrategy }
+    }
+    const pipelineContextMockValue = getDummyPipelineContextValue(skipConditionPipelineView)
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <RightDrawer />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    // Todo fix this test as it's incomplete
+    expect(container).toMatchSnapshot()
   })
 })

@@ -35,6 +35,8 @@
 
   .allowed-options {
     position: relative;
+    overflow: hidden;
+    padding-right: 5px;
 
     .advanced-btn {
       position: absolute;

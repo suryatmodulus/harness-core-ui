@@ -27,7 +27,16 @@ export interface AdvancedStepsProps extends StepCommandsProps {
 }
 
 export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: StepFormikFowardRef): React.ReactElement {
-  const { step, onChange, hiddenPanels = [], hasStepGroupAncestor, isStepGroup, stepsFactory } = props
+  const {
+    step,
+    onChange,
+    hiddenPanels = [],
+    hasStepGroupAncestor,
+    isStepGroup,
+    stepsFactory,
+    isReadonly,
+    domain
+  } = props
   const { getString } = useStrings()
   const stepType = isStepGroup ? StepType.StepGroup : step.type
   return (
@@ -61,17 +70,19 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                   <Accordion.Panel
                     id={AdvancedPanels.SkipCondition}
                     summary={getString('skipConditionsTitle')}
-                    details={<SkipConditionsPanel />}
+                    details={<SkipConditionsPanel isReadonly={isReadonly} />}
                   />
                 )}
                 {hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1 && (
                   <Accordion.Panel
                     id={AdvancedPanels.FailureStrategy}
-                    summary={getString('failureStrategy.title')}
+                    summary={getString('pipeline.failureStrategies.title')}
                     details={
                       <FailureStrategyPanel
                         mode={hasStepGroupAncestor || isStepGroup ? Modes.STEP_GROUP : Modes.STEP}
+                        domain={domain}
                         formikProps={formikProps}
+                        isReadonly={isReadonly}
                       />
                     }
                   />
@@ -81,7 +92,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     <Accordion.Panel
                       id={AdvancedPanels.DelegateSelectors}
                       summary={getString('delegate.DelegateSelector')}
-                      details={<DelegateSelectorPanel formikProps={formikProps} />}
+                      details={<DelegateSelectorPanel isReadonly={isReadonly} formikProps={formikProps} />}
                     />
                   )}
               </Accordion>

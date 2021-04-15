@@ -128,7 +128,7 @@ describe('VerificationJobsDetails', () => {
         <VerificationJobsDetails onNext={() => noop} stepData={{}} />
       </TestWrapper>
     )
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 
@@ -153,7 +153,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
 
     const submitButton = container.querySelector('button[type="submit"]')
     if (!submitButton) {
@@ -161,9 +161,9 @@ describe('VerificationJobsDetails', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => getByText('Name is a required field'))
-    getByText('Please select a Monitoring Source')
-    getByText('Please select Verification Job type')
+    await waitFor(() => getByText('validation.nameRequired'))
+    getByText('cv.verificationJobs.validation.dataSource')
+    getByText('cv.verificationJobs.validation.type')
   })
 
   test('Ensure that edit data is rendered, correctly', async () => {
@@ -189,7 +189,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
 
     await fillAtForm([
       {
@@ -226,7 +226,7 @@ describe('VerificationJobsDetails', () => {
     ])
 
     // select verification job
-    fireEvent.click(getByText('BlueGreen'))
+    fireEvent.click(getByText('blueGreen'))
     await waitFor(() => expect(container.querySelector('div[class*="cardIconSelected"]')))
 
     const submitButton = container.querySelector('button[type="submit"]')
@@ -304,7 +304,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     const jobTypes = container.querySelectorAll('[class*="largeCard"]')
     fireEvent.click(jobTypes[3])
 
@@ -387,7 +387,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     const jobTypes = container.querySelectorAll('[class*="largeCard"]')
     fireEvent.click(jobTypes[1])
 
@@ -474,7 +474,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     const jobTypes = container.querySelectorAll('[class*="largeCard"]')
     fireEvent.click(jobTypes[1])
 
@@ -559,7 +559,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     const jobTypes = container.querySelectorAll('[class*="largeCard"]')
     fireEvent.click(jobTypes[2])
 
@@ -640,7 +640,7 @@ describe('VerificationJobsDetails', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Create your verification job')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     fireEvent.click(getByText('Previous'))
 
     await waitFor(() =>

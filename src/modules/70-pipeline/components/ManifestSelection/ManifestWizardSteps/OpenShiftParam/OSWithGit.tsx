@@ -63,7 +63,10 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName = initialValues?.spec?.store.spec.repoName || ''
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
       return repoName
     }
@@ -186,8 +189,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
             <div className={templateCss.templateForm}>
               <FormInput.Text
                 name="identifier"
-                label={getString('manifestType.manifestIdentifier')}
-                placeholder={getString('manifestType.manifestPlaceholder')}
+                label={getString('pipeline.manifestType.manifestIdentifier')}
+                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={templateCss.halfWidth}
               />
               {connectionType === GitRepoName.Repo && (
@@ -196,6 +199,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                     disabled
                     name="repoName"
+                    isOptional={true}
                     style={{ width: '370px' }}
                   />
                 </div>
@@ -207,6 +211,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     <FormInput.Text
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                       name="repoName"
+                      isOptional={true}
                       className={templateCss.repoName}
                     />
                   </div>
@@ -215,12 +220,17 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                   >{`${accountUrl}/${formik.values?.repoName}`}</div>
                 </div>
               )}
-              {prevStepData?.store === ManifestStoreMap.Git && (
+              {[
+                ManifestStoreMap.Git,
+                ManifestStoreMap.Github,
+                ManifestStoreMap.GitLab,
+                ManifestStoreMap.Bitbucket
+              ].includes(prevStepData?.store) && (
                 <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                   <div className={templateCss.halfWidth}>
                     <FormInput.Select
                       name="gitFetchType"
-                      label={getString('manifestType.gitFetchTypeLabel')}
+                      label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                       items={gitFetchTypes}
                     />
                   </div>
@@ -234,7 +244,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     >
                       <FormInput.MultiTextInput
                         label={getString('pipelineSteps.deploy.inputSet.branch')}
-                        placeholder={getString('manifestType.branchPlaceholder')}
+                        placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                         multiTextInputProps={{ expressions }}
                         name="branch"
                       />
@@ -261,8 +271,8 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                       })}
                     >
                       <FormInput.MultiTextInput
-                        label={getString('manifestType.commitId')}
-                        placeholder={getString('manifestType.commitPlaceholder')}
+                        label={getString('pipeline.manifestType.commitId')}
+                        placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                         multiTextInputProps={{ expressions }}
                         name="commitId"
                       />
@@ -290,7 +300,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
                     <Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipelineSteps.paths')}</Text>
                   )
                 }}
-                style={{ marginBottom: 'var(--spacing-small)', height: '350' }}
+                style={{ marginBottom: 'var(--spacing-small)', height: '350', width: '400px' }}
               />
             </div>
 

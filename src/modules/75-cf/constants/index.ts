@@ -1,4 +1,4 @@
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
 export type OperatorOption = {
   label: string
@@ -9,8 +9,8 @@ export type OperatorOption = {
 export type IsSingleValued = (operatorValue: string) => boolean
 
 export const useOperators = (
-  i18nFn: (key: string) => string,
-  keyMapper: (key: string) => string = x => x,
+  i18nFn: (key: StringKeys) => string,
+  keyMapper: (key: string) => StringKeys = x => x as StringKeys,
   extraOperators: OperatorOption[] = []
 ): [OperatorOption[], IsSingleValued] => {
   const getString = i18nFn
@@ -39,7 +39,7 @@ export const useOperators = (
 
 export const useOperatorsFromYaml = (extraOperators: OperatorOption[] = []): [OperatorOption[], IsSingleValued] => {
   const { getString } = useStrings()
-  return useOperators(getString, key => `cf.clause.operators.${key}`, extraOperators)
+  return useOperators(getString, key => `cf.clause.operators.${key}` as StringKeys, extraOperators)
 }
 
 export const extraOperatorReference: Record<string, Record<string, OperatorOption>> = {

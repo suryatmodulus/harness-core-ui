@@ -27,7 +27,7 @@ exports[`InfraProvisioning Edit View should render properly - loading case 1`] =
               <span
                 class="bp3-control-indicator"
               />
-              Provision your infrastructure dynamically during the execution of your pipeline
+              pipelineSteps.deploy.provisioner.enableProvisionerLabel
             </label>
           </div>
         </div>
@@ -93,7 +93,7 @@ exports[`InfraProvisioning Edit View should render properly - not enabled case 1
               <span
                 class="bp3-control-indicator"
               />
-              Provision your infrastructure dynamically during the execution of your pipeline
+              pipelineSteps.deploy.provisioner.enableProvisionerLabel
             </label>
           </div>
         </div>

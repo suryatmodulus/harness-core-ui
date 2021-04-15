@@ -93,7 +93,7 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
 
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(strings['pipeline-triggers'].pipelineInputLabel).toBeTruthy())
-      await waitFor(() => queryByAttribute('placeholder', container, 'Specify a namespace'))
+      await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
       expect(container).toMatchSnapshot()
     })
   })

@@ -28,7 +28,9 @@ describe('Trigger Details tests', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <TriggerDetails />
+        <TriggerDetails>
+          <div />
+        </TriggerDetails>
       </TestWrapper>
     )
 

@@ -17,7 +17,7 @@ describe('ProgressStatus', () => {
       </TestWrapper>
     )
 
-    expect(getByText('You have 2 services and 2 environments.')).toBeDefined()
+    expect(getByText('cv.onboarding.progress.serviceEnvCount')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })
@@ -34,7 +34,7 @@ describe('ProgressStatus', () => {
       </TestWrapper>
     )
 
-    expect(getByText('2 services are used in Monitoring Sources.')).toBeDefined()
+    expect(getByText('cv.onboarding.progress.multiServiceUsedInMonitoringSources')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })

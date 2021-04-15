@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -27,7 +27,30 @@ describe('Test TerraformDestroy', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('should render edit view as edit step', () => {
+  test('should render edit view as edit step - inheritfromplan', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'InheritFromPlan'
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render edit view as edit step - inheritfromplan', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{
@@ -49,7 +72,165 @@ describe('Test TerraformDestroy', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('should render edit view', () => {
+
+  test('should render edit view as edit step - Inline', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                varFiles: [
+                  {
+                    type: 'Remote',
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        gitFetchType: 'Branch',
+                        branch: 'main',
+                        paths: ['test-1', 'test-2'],
+                        connectorRef: 'test-connectore'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('with inline config and expand config files section', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                varFiles: [
+                  {
+                    type: 'Inline',
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        content: 'Test Content'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.configFiles'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('with inline var file and expand the varfiles sections', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                varFiles: [
+                  {
+                    type: 'Inline',
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        content: 'Test Content'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('add new terraform var file', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                varFiles: [
+                  {
+                    type: 'Inline',
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        content: 'Test Content'
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+
+    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render inputSet View', () => {
     const { container } = render(
       <TestStepWidget
         initialValues={{

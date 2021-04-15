@@ -13,27 +13,32 @@ export const ApprovalStageExecution: React.FC<ApprovalStageExecutionProps> = () 
   const {
     state: {
       pipeline,
+      originalPipeline,
       pipelineView: {
         splitViewData: { selectedStageId = '' }
       },
       pipelineView
     },
+    isReadonly,
     stepsFactory,
     updatePipeline,
     updatePipelineView,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
+  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   return (
     <ExecutionGraph
       allowAddGroup={true}
+      isReadonly={isReadonly}
       hasDependencies={false}
       stepsFactory={stepsFactory}
       ref={executionRef}
       hasRollback={false}
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stage={selectedStage!}
+      originalStage={originalStage}
       updateStage={() => {
         updatePipeline(pipeline)
       }}

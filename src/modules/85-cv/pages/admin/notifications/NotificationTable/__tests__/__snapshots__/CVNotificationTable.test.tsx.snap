@@ -15,7 +15,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         role="columnheader"
         style="width: 10%;"
       >
-        Enabled
+        enabledLabel
       </div>
       <div
         class="cell"
@@ -23,7 +23,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         role="columnheader"
         style="width: 25%;"
       >
-        Name of the rule
+        cv.admin.notifications.name
       </div>
       <div
         class="cell"
@@ -31,7 +31,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         role="columnheader"
         style="width: 30%;"
       >
-        Conditions
+        conditions
       </div>
       <div
         class="cell"
@@ -39,7 +39,7 @@ exports[`CVNotificationTable render notification table 1`] = `
         role="columnheader"
         style="width: 30%;"
       >
-        Notification Method
+        cv.admin.notifications.method
       </div>
       <div
         class="cell"
@@ -100,7 +100,7 @@ exports[`CVNotificationTable render notification table 1`] = `
           >
             2
              
-            Services
+            services
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -127,7 +127,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
-              Verification
+              cv.admin.notifications.create.stepThree.verification
             </p>
           </div>
           <div
@@ -155,7 +155,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
-              Risk
+              risk
             </p>
           </div>
         </div>
@@ -307,7 +307,7 @@ exports[`CVNotificationTable render notification table 1`] = `
           >
             2
              
-            Services
+            services
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -334,7 +334,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
-              Verification
+              cv.admin.notifications.create.stepThree.verification
             </p>
           </div>
           <div
@@ -362,7 +362,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
-              Risk
+              risk
             </p>
           </div>
         </div>
@@ -514,7 +514,7 @@ exports[`CVNotificationTable render notification table 1`] = `
           >
             1
              
-            Service
+            service
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -541,7 +541,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-medium StyledProps--color StyledProps--color-black"
             >
-              Verification
+              cv.admin.notifications.create.stepThree.verification
             </p>
           </div>
           <div
@@ -569,7 +569,7 @@ exports[`CVNotificationTable render notification table 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-black"
             >
-              Risk
+              risk
             </p>
           </div>
         </div>

@@ -8,7 +8,13 @@ import { String, useStrings } from 'framework/exports'
 import type { FailureStrategyConfig } from 'services/cd-ng'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import { allowedStrategiesAsPerStep, ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
+import {
+  allowedStrategiesAsPerStep,
+  ErrorType,
+  errorTypesOrderForCD,
+  errorTypesOrderForCI,
+  Domain
+} from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import { Modes } from '../common'
 import css from './FailureStrategyPanel.module.scss'
@@ -24,38 +30,51 @@ export interface FailureStrategyPanelProps {
     failureStrategies?: FailureStrategyConfig[]
   }>
   mode: Modes
+  isReadonly: boolean
+  domain?: Domain
 }
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
   const {
     formikProps: { values: formValues, submitForm, errors },
-    mode
+    mode,
+    isReadonly,
+    domain = 'Deployment'
   } = props
-  const [selectedStategyNum, setSelectedStategyNum] = React.useState(0)
+  const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
+
   const { getString } = useStrings()
+
   const uids = React.useRef<string[]>([])
-  const isDefaultStageStrategy = mode === Modes.STAGE && selectedStategyNum === 0
+
+  const isDefaultStageStrategy = mode === Modes.STAGE && domain === 'Deployment' && selectedStrategyNum === 0
   const filterTypes = flatMap(formValues.failureStrategies || [], e => (e.onFailure?.errors as ErrorType[]) || [])
+
+  const isAddBtnDisabled =
+    domain === 'CI'
+      ? filterTypes.length === errorTypesOrderForCI.length || isReadonly
+      : filterTypes.length === errorTypesOrderForCD.length || isReadonly
+
   async function handleTabChange(n: number): Promise<void> {
     await submitForm()
 
     // only change tab if current tab has no errors
-    if (isEmpty(get(errors, `failureStrategies[${selectedStategyNum}]`))) {
-      setSelectedStategyNum(n)
+    if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
+      setSelectedStrategyNum(n)
     }
   }
 
   React.useEffect(() => {
     /* istanbul ignore else */
-    if (Array.isArray(formValues.failureStrategies) && selectedStategyNum >= formValues.failureStrategies.length) {
-      setSelectedStategyNum(Math.max(0, formValues.failureStrategies.length - 1))
+    if (Array.isArray(formValues.failureStrategies) && selectedStrategyNum >= formValues.failureStrategies.length) {
+      setSelectedStrategyNum(Math.max(0, formValues.failureStrategies.length - 1))
     }
-  }, [formValues.failureStrategies, selectedStategyNum])
+  }, [formValues.failureStrategies, selectedStrategyNum])
 
   return (
-    <div className={css.main}>
-      <String className={css.helpText} stringID="failureStrategy.helpText" />
+    <div data-testid="failure-strategy-panel" className={css.main}>
+      <String className={css.helpText} stringID="pipeline.failureStrategies.helpText" />
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
@@ -65,8 +84,8 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
             }
 
             function handleRemove(): void {
-              uids.current.splice(selectedStategyNum, 1)
-              remove(selectedStategyNum)
+              uids.current.splice(selectedStrategyNum, 1)
+              remove(selectedStrategyNum)
             }
 
             return (
@@ -85,8 +104,8 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                         return (
                           <li key={key} className={css.stepListItem}>
                             <Button
-                              intent={i === selectedStategyNum ? 'primary' : 'none'}
-                              data-selected={i === selectedStategyNum}
+                              intent={i === selectedStrategyNum ? 'primary' : 'none'}
+                              data-selected={i === selectedStrategyNum}
                               onClick={() => handleTabChange(i)}
                               className={css.stepListBtn}
                               data-testid={`failure-strategy-step-${i}`}
@@ -106,7 +125,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     iconProps={{ size: 12 }}
                     data-testid="add-failure-strategy"
                     onClick={handleAdd}
-                    disabled={filterTypes.length === errorTypesOrder.length}
+                    disabled={isAddBtnDisabled}
                   >
                     <String stringID="add" />
                   </Button>
@@ -116,6 +135,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     icon="trash"
                     minimal
                     small
+                    disabled={isReadonly}
                     onClick={handleRemove}
                     iconProps={{ size: 12 }}
                     data-testid="remove-failure-strategy"
@@ -129,19 +149,24 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
       {hasFailureStrategies ? (
         <React.Fragment>
           {isDefaultStageStrategy ? (
-            <String tagName="div" className={css.defaultStageText} stringID="failureStrategy.defaultStageText" />
+            <String
+              tagName="div"
+              className={css.defaultStageText}
+              stringID="pipeline.failureStrategies.defaultStageText"
+            />
           ) : (
             <FailureTypeMultiSelect
-              name={`failureStrategies[${selectedStategyNum}].onFailure.errors`}
-              label={getString('failureTypeSelectLabel')}
+              name={`failureStrategies[${selectedStrategyNum}].onFailure.errors`}
+              label={getString('pipeline.failureStrategies.onFailureOfType')}
               filterTypes={filterTypes}
+              minimal={domain === 'CI'}
             />
           )}
 
           <StrategySelection
-            name={`failureStrategies[${selectedStategyNum}].onFailure.action`}
-            label={getString('performAction')}
-            allowedStrategies={allowedStrategiesAsPerStep[mode]}
+            name={`failureStrategies[${selectedStrategyNum}].onFailure.action`}
+            label={getString('pipeline.failureStrategies.performAction')}
+            allowedStrategies={allowedStrategiesAsPerStep(domain)[mode]}
           />
         </React.Fragment>
       ) : null}

@@ -9,7 +9,7 @@ import imageURL from './segment.svg'
 export interface NoSegmentsViewProps {
   environmentIdentifier?: string
   hasEnvironment: boolean
-  onNewSegmentCreated: () => void
+  onNewSegmentCreated: (segmentIdentifier: string) => void
 }
 
 export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({
@@ -24,7 +24,7 @@ export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({
     <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
       <NoData
         imageURL={imageURL}
-        message={getString(`cf.segments.${hasEnvironment ? 'noSegmentForEnv' : 'noSegment'}`)}
+        message={getString(hasEnvironment ? 'cf.segments.noSegmentForEnv' : 'cf.segments.noSegment')}
       >
         <NewSegmentButton
           accountId={accountId}

@@ -5,6 +5,42 @@ exports[`Test TerraformApply should render edit view 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.provisionerIdentifier-0"
+        >
+          <label
+            class="bp3-label"
+            for="spec.provisionerIdentifier"
+          >
+            pipelineSteps.provisionerIdentifier
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.provisionerIdentifier"
+                type="text"
+                value="<+input>"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -27,7 +63,7 @@ exports[`Test TerraformApply should render edit view 1`] = `
 </div>
 `;
 
-exports[`Test TerraformApply should render edit view as edit step 1`] = `
+exports[`Test TerraformApply should render edit view as edit step - Inheritfromplan 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -57,7 +93,8 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -68,6 +105,26 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
                 </div>
               </span>
             </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </div>
           <div
             class="bp3-form-group"
@@ -76,7 +133,7 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -110,7 +167,7 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -126,6 +183,7 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -173,7 +231,7 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            Configuration Type
+            pipelineSteps.configurationType
              
             <span
               class="bp3-text-muted"
@@ -195,10 +253,10 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.configuration.type"
-                    placeholder="Configuration Type"
+                    placeholder="pipelineSteps.configurationType"
                     style="padding-right: 0px;"
                     type="text"
-                    value="Inherit From Plan"
+                    value="pipelineSteps.configTypes.fromPlan"
                   />
                   <span
                     class="bp3-input-action"
@@ -239,7 +297,7 @@ exports[`Test TerraformApply should render edit view as edit step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -329,7 +387,8 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                 class="bp3-popover-target"
               >
                 <div
-                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  class="bp3-editable-text InputWithIdentifier--idValue"
+                  tabindex="0"
                 >
                   <span
                     class="bp3-editable-text-content"
@@ -340,6 +399,26 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                 </div>
               </span>
             </span>
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps--main"
+              icon="edit"
+              style="vertical-align: middle;"
+            >
+              <svg
+                data-icon="edit"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
           </div>
           <div
             class="bp3-form-group"
@@ -348,7 +427,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -382,7 +461,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -398,6 +477,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -445,7 +525,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            Configuration Type
+            pipelineSteps.configurationType
              
             <span
               class="bp3-text-muted"
@@ -467,10 +547,10 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.configuration.type"
-                    placeholder="Configuration Type"
+                    placeholder="pipelineSteps.configurationType"
                     style="padding-right: 0px;"
                     type="text"
-                    value="Inline"
+                    value="inline"
                   />
                   <span
                     class="bp3-input-action"
@@ -511,7 +591,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -581,7 +661,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              Config Files
+              pipelineSteps.configFiles
             </div>
             <div
               class="Accordion--chevron"
@@ -610,7 +690,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.workspace"
                     >
-                      Workspace
+                      pipelineSteps.workspace
                        
                       <span
                         class="bp3-text-muted"
@@ -626,10 +706,11 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.workspace"
                             type="text"
-                            value=""
+                            value="testworkspace"
                           />
                         </div>
                         <span
@@ -670,7 +751,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                     class="StyledProps--font StyledProps--main"
                     style="display: flex; align-items: center;"
                   >
-                    Git Connector
+                    connectors.title.gitConnector
                     <span
                       class="bp3-popover-wrapper"
                     >
@@ -726,7 +807,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                               <span
                                 class="placeholder"
                               >
-                                Select
+                                select
                               </span>
                             </span>
                             <span
@@ -791,7 +872,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.gitFetchType"
                     >
-                      Git Fetch Type
+                      pipeline.manifestType.gitFetchTypeLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -813,7 +894,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
-                              placeholder="Git Fetch Type"
+                              placeholder="pipeline.manifestType.gitFetchTypeLabel"
                               style="padding-right: 0px;"
                               type="text"
                               value=""
@@ -857,7 +938,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      Chart Path
+                      cd.folderPath
                        
                       <span
                         class="bp3-text-muted"
@@ -873,9 +954,10 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
                           class="bp3-input-group MultiTypeInput--input"
                         >
                           <input
+                            autocomplete="off"
                             class="bp3-input"
                             name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                            placeholder="Enter file path"
+                            placeholder="pipeline.manifestType.pathPlaceholder"
                             type="text"
                             value=""
                           />
@@ -927,7 +1009,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              Terraform Var Files
+              pipelineSteps.terraformVarFiles
             </div>
             <div
               class="Accordion--chevron"
@@ -955,7 +1037,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              Backend Config
+              pipelineSteps.backendConfig
             </div>
             <div
               class="Accordion--chevron"
@@ -983,7 +1065,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              Targets
+              cf.targets.title
             </div>
             <div
               class="Accordion--chevron"
@@ -1011,7 +1093,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              Environment Variables
+              environmentVariables
             </div>
             <div
               class="Accordion--chevron"
@@ -1101,7 +1183,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              Name
+              name
                
               <span
                 class="bp3-text-muted"
@@ -1135,7 +1217,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            Provisioner Identifier
+            pipelineSteps.provisionerIdentifier
              
             <span
               class="bp3-text-muted"
@@ -1151,6 +1233,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                 class="bp3-input-group MultiTypeInput--input"
               >
                 <input
+                  autocomplete="off"
                   class="bp3-input"
                   name="spec.provisionerIdentifier"
                   type="text"
@@ -1198,7 +1281,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            Configuration Type
+            pipelineSteps.configurationType
              
             <span
               class="bp3-text-muted"
@@ -1220,7 +1303,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="spec.configuration.type"
-                    placeholder="Configuration Type"
+                    placeholder="pipelineSteps.configurationType"
                     style="padding-right: 0px;"
                     type="text"
                     value=""
@@ -1264,7 +1347,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            Timeout
+            pipelineSteps.timeoutLabel
              
             <span
               class="bp3-text-muted"
@@ -1324,4 +1407,105 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
 </div>
 `;
 
-exports[`Test TerraformApply should render variable view 1`] = `<div />`;
+exports[`Test TerraformApply should render variable view 1`] = `
+<div>
+  <div
+    class="variablesListTable"
+  >
+    <div
+      class="main"
+    >
+      <div
+        class="text"
+      >
+        step.terraformDestroy.name
+      </div>
+      <div
+        class="bp3-popover-wrapper btnWrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="copy-alt"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 8 9"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
+    >
+      Test A
+    </p>
+    <div
+      class="main"
+    >
+      <div
+        class="text"
+      >
+        step.terraformDestroy.timeout
+      </div>
+      <div
+        class="bp3-popover-wrapper btnWrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="copy-alt"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 8 9"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
+    >
+      10m
+    </p>
+  </div>
+</div>
+`;

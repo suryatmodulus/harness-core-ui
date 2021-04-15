@@ -8,7 +8,7 @@ const CFHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('continuousFeatures')}
+      title={getString('cf.continuous')}
       bgImageUrl={bgImageURL}
       subTitle={getString('cf.homepage.slogan')}
       documentText={getString('cf.homepage.learnMore')}

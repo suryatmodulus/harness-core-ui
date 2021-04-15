@@ -56,7 +56,11 @@ function transformNewRelicDataToAppd(metricData: MetricPackValidationResponse): 
     values: []
   }
   for (const newRelicData of metricData.metricValidationResponses || []) {
-    appDMeticData.values?.push(newRelicData)
+    appDMeticData.values?.push({
+      value: newRelicData.value,
+      apiResponseStatus: newRelicData.status,
+      metricName: newRelicData.metricName
+    })
   }
   return [appDMeticData]
 }

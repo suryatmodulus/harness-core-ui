@@ -8,7 +8,7 @@ exports[`Unit tests for SelectedAppsSideNav Ensure that when apps are provided, 
     <p
       class="StyledProps--font StyledProps--main navHeader"
     >
-      Selected Applications
+      cv.monitoringSources.newRelic.selectedApplications
     </p>
     <div
       class="StyledProps--font StyledProps--main seletedAppContainer"

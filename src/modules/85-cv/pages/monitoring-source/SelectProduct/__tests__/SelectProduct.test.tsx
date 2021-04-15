@@ -32,7 +32,7 @@ describe('SelectProduct', () => {
     )
     await waitFor(() => queryByText(container, 'Monitoring Source'))
     expect(getByText('AppDynamics')).toBeDefined()
-    expect(getByText('+ New AppDynamics Connector')).toBeDefined()
+    expect(getByText('cv.monitoringSources.appD.createConnectorText')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -55,7 +55,7 @@ describe('SelectProduct', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'Monitoring Source')).not.toBeNull())
-    fireEvent.click(getByText('+ New Google Cloud Platform Connector'))
+    fireEvent.click(getByText('cv.monitoringSources.gco.createConnectorText'))
     await waitFor(() => expect(document.body.querySelector('[class*="StepWizard"]')).not.toBeNull())
 
     const closeModalButton = document.querySelector('svg[data-icon="cross"]')
@@ -67,7 +67,7 @@ describe('SelectProduct', () => {
 
     fireEvent.click(getByText('Next'))
     await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.FORM_HELPER_TEXT}"]`).length).toBe(2))
-    getByText('Connector Selection is required.')
+    getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')
     getByText('Product is required.')
   })
 

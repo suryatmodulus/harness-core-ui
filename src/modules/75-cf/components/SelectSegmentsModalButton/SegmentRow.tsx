@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container } from '@wings-software/uicore'
-import { SegmentItem } from '@cf/pages/target-details/segments/SegmentItem'
+import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
 import type { Segment } from 'services/cf'
 import { ItemContainer } from '../ItemContainer/ItemContainer'
 
@@ -38,7 +38,7 @@ export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChec
       <Container flex style={{ alignItems: 'center', width: '25px', justifyContent: 'center' }}>
         <input type="checkbox" checked={isChecked} style={{ cursor: 'pointer' }} />
       </Container>
-      <SegmentItem
+      <ItemBriefInfo
         name={segment.name}
         description={((segment as unknown) as { desciption: string }).desciption} // cast util API supports it
         style={{ boxShadow: 'none', flexGrow: 1, paddingLeft: 'var(--spacing-xsmall)' }}

@@ -21,7 +21,7 @@ describe('Activity List', () => {
         />
       </TestWrapper>
     )
-    expect(getByText('Connectivity Check')).toBeDefined()
+    expect(getByText('activityHistory.connectivityCheck')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
   test('render only connectivity check activity', () => {

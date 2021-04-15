@@ -26,7 +26,16 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   }
 
   renderStep(this: HttpStep, props: StepProps<HttpStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -50,7 +59,9 @@ export class HttpStep extends PipelineStep<HttpStepData> {
         initialValues={this.processInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         stepViewType={stepViewType}
+        isNewStep={isNewStep}
         readonly={!!inputSetData?.readonly}
+        isDisabled={readonly}
         ref={formikRef}
       />
     )

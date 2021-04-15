@@ -34,12 +34,12 @@ exports[`Login Page The login page renders 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
           >
-            Sign In
+            signUp.signIn
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--margin-top-xsmall"
           >
-            and get ship done
+            signUp.message.secondary
           </p>
           <div
             class="StyledProps--font StyledProps--main StyledProps--margin-top-xxxlarge"
@@ -59,7 +59,7 @@ exports[`Login Page The login page renders 1`] = `
                       class="bp3-label"
                       for="email"
                     >
-                      Email
+                      signUp.form.emailLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -89,7 +89,7 @@ exports[`Login Page The login page renders 1`] = `
                       class="bp3-label"
                       for="password"
                     >
-                      Password
+                      password
                        
                       <span
                         class="bp3-text-muted"
@@ -119,7 +119,7 @@ exports[`Login Page The login page renders 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      Sign In
+                      signUp.signIn
                     </span>
                   </button>
                 </div>
@@ -132,7 +132,7 @@ exports[`Login Page The login page renders 1`] = `
             <span
               class="message"
             >
-              or login with
+              signUp.oAuth.signin
             </span>
           </h2>
           <div
@@ -337,7 +337,7 @@ exports[`Login Page The login page renders 1`] = `
                     />
                   </svg>
                 </span>
-                Single Sign-On
+                signUp.ssoButton
               </p>
             </button>
           </div>
@@ -347,12 +347,12 @@ exports[`Login Page The login page renders 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              No Account?
+              signUp.noAccount
             </p>
             <a
               href="/signup"
             >
-              Get Started
+              getStarted
             </a>
           </div>
         </div>

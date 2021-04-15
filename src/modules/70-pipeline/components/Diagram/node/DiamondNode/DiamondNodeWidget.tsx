@@ -34,10 +34,25 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
   node.fireEvent({}, Event.ClickNode)
 }
 
+const onMouseEnterNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseEnterNode)
+}
+
+const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
+}
+
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
   return (
-    <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
+    <div
+      className={cssDefault.defaultNode}
+      onClick={e => onClickNode(e, props.node)}
+      onMouseEnter={event => onMouseEnterNode((event as unknown) as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeaveNode((event as unknown) as MouseEvent, props.node)}
+    >
       <div
         className={cx(cssDefault.defaultCard, css.diamond, { [cssDefault.selected]: props.node.isSelected() })}
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
@@ -91,7 +106,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         style={{ cursor: 'pointer' }}
         padding="small"
         width={125}
-        lineClamp={1}
+        lineClamp={2}
       >
         {options.name}
       </Text>

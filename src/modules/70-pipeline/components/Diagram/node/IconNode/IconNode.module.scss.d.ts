@@ -3,5 +3,6 @@
 declare const styles: {
   readonly iconNodeContainer: string
   readonly iconNode: string
+  readonly inComplete: string
 }
 export default styles

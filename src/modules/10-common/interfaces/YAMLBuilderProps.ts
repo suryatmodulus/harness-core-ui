@@ -27,6 +27,7 @@ export interface YamlBuilderProps {
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
+  isEditModeSupported?: boolean
   onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>
   schema?: Record<string, string | any>
   onEnableEditMode?: () => void

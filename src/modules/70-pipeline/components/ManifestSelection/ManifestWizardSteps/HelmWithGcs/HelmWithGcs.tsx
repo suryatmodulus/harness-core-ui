@@ -36,12 +36,10 @@ interface HelmWithGcsPropType {
 
 const commandFlagOptionsV2 = [
   { label: 'Fetch', value: 'Fetch' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 const commandFlagOptionsV3 = [
   { label: 'Pull', value: 'Pull' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 
@@ -64,6 +62,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         ...specValues,
         identifier: initialValues.identifier,
         helmVersion: initialValues.spec?.helmVersion,
+        chartVersion: initialValues.spec?.chartVersion,
         chartName: initialValues.spec?.chartName,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
@@ -128,13 +127,13 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
+          helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
                 is: val => val?.length,
-                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+                then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
           )
@@ -160,8 +159,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Text
                     name="identifier"
-                    label={getString('manifestType.manifestIdentifier')}
-                    placeholder={getString('manifestType.manifestPlaceholder')}
+                    label={getString('pipeline.manifestType.manifestIdentifier')}
+                    placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                   />
                 </div>
                 <div
@@ -171,10 +170,11 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('manifestType.bucketName')}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    label={getString('pipeline.manifestType.bucketName')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="bucketName"
                     multiTextInputProps={{ expressions }}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -198,10 +198,11 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('manifestType.path')}
+                    label={getString('pipeline.manifestType.path')}
                     multiTextInputProps={{ expressions }}
-                    placeholder={getString('manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="folderPath"
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -226,8 +227,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   <FormInput.MultiTextInput
                     name="chartName"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartName')}
-                    placeholder={getString('manifestType.http.chartNamePlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartName')}
+                    placeholder={getString('pipeline.manifestType.http.chartNamePlaceHolder')}
                   />
                   {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -253,8 +254,9 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   <FormInput.MultiTextInput
                     name="chartVersion"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartVersion')}
-                    placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartVersion')}
+                    placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

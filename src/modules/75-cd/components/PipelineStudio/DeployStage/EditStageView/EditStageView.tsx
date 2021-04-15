@@ -12,8 +12,7 @@ import {
   Label,
   Layout,
   ExpressionInput,
-  Accordion,
-  Color
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -21,7 +20,10 @@ import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings, String } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
+import type {
+  CustomVariablesData,
+  CustomVariableEditableExtraProps
+} from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
@@ -34,6 +36,7 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import Timeline from '@common/components/Timeline/Timeline'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import css from './EditStageView.module.scss'
 
 const skipConditionsNgDocsLink = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
@@ -43,6 +46,7 @@ export interface EditStageView {
   onSubmit?: (values: StageElementWrapper, identifier: string) => void
   onChange?: (values: StageElementWrapper) => void
   context?: string
+  isReadonly: boolean
 }
 
 export const EditStageView: React.FC<EditStageView> = ({
@@ -50,6 +54,7 @@ export const EditStageView: React.FC<EditStageView> = ({
   onSubmit,
   context,
   onChange,
+  isReadonly,
   children
 }): JSX.Element => {
   const {
@@ -129,11 +134,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                 {getString('stageOverview')}
               </div>
             ) : (
-              <Text
-                icon="cd-main"
-                iconProps={{ size: 16, color: Color.GREEN_500 }}
-                style={{ paddingBottom: 'var(--spacing-medium)' }}
-              >
+              <Text icon="cd-main" iconProps={{ size: 16 }} style={{ paddingBottom: 'var(--spacing-medium)' }}>
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
             )}
@@ -167,7 +168,14 @@ export const EditStageView: React.FC<EditStageView> = ({
                   return errors
                 }}
                 validationSchema={Yup.object().shape({
-                  name: Yup.string().required(getString('pipelineSteps.build.create.stageNameRequiredError'))
+                  name: Yup.string().trim().required(getString('pipelineSteps.build.create.stageNameRequiredError')),
+                  identifier: Yup.string().when('name', {
+                    is: val => val?.length,
+                    then: Yup.string()
+                      .required(getString('validation.identifierRequired'))
+                      .matches(regexIdentifier, getString('validation.validIdRegex'))
+                      .notOneOf(illegalIdentifiers)
+                  })
                 })}
               >
                 {formikProps => {
@@ -178,16 +186,22 @@ export const EditStageView: React.FC<EditStageView> = ({
                           <NameIdDescriptionTags
                             formikProps={formikProps}
                             identifierProps={{
-                              isIdentifierEditable: !context
+                              isIdentifierEditable: !context,
+                              inputGroupProps: { disabled: isReadonly }
                             }}
+                            descriptionProps={{ disabled: isReadonly }}
+                            tagsProps={{ disabled: isReadonly }}
                           />
                         </Card>
                       ) : (
                         <NameIdDescriptionTags
                           formikProps={formikProps}
                           identifierProps={{
-                            isIdentifierEditable: !context
+                            isIdentifierEditable: !context && !isReadonly,
+                            inputGroupProps: { disabled: isReadonly }
                           }}
+                          descriptionProps={{ disabled: isReadonly }}
+                          tagsProps={{ disabled: isReadonly }}
                         />
                       )}
 
@@ -263,12 +277,13 @@ export const EditStageView: React.FC<EditStageView> = ({
                 <div className={css.stageSection}>
                   <div className={cx(css.stageDetails)}>
                     {context ? (
-                      <StepWidget<CustomVariablesData>
+                      <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                         factory={stepsFactory}
                         initialValues={{
                           variables: ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                           canAddVariable: true
                         }}
+                        readonly={isReadonly}
                         type={StepType.CustomVariable}
                         stepViewType={StepViewType.StageVariable}
                         onUpdate={({ variables }: CustomVariablesData) => {
@@ -276,9 +291,13 @@ export const EditStageView: React.FC<EditStageView> = ({
                         }}
                         customStepProps={{
                           yamlProperties:
-                            getStageFromPipeline(data?.stage?.identifier, variablesPipeline)?.stage?.variables?.map?.(
+                            getStageFromPipeline(
+                              data?.stage?.identifier,
+                              variablesPipeline
+                            )?.stage?.stage?.variables?.map?.(
                               (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
-                            ) || []
+                            ) || [],
+                          enableValidation: true
                         }}
                       />
                     ) : null}
@@ -308,6 +327,8 @@ export const EditStageView: React.FC<EditStageView> = ({
                           items={expressions}
                           name="skipCondition"
                           value={data?.stage.skipCondition}
+                          disabled={isReadonly}
+                          inputProps={{ disabled: isReadonly }}
                           onChange={str => {
                             onChange?.({ ...data?.stage, skipCondition: str } as any)
                           }}

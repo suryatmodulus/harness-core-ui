@@ -18,10 +18,18 @@ export interface InfrastructureCardProps {
   metadataMap: PipelineVariablesData['metadataMap']
   stageIdentifier: string
   onUpdateInfrastructure(data: Infrastructure): void
+  readonly?: boolean
 }
 
 export function InfrastructureCard(props: InfrastructureCardProps): React.ReactElement {
-  const { infrastructure, originalInfrastructure, onUpdateInfrastructure, stageIdentifier, metadataMap } = props
+  const {
+    infrastructure,
+    originalInfrastructure,
+    onUpdateInfrastructure,
+    stageIdentifier,
+    metadataMap,
+    readonly
+  } = props
   const { stepsFactory } = usePipelineContext()
 
   return (
@@ -37,6 +45,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         type={originalInfrastructure.infrastructureDefinition?.type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={onUpdateInfrastructure}
+        readonly={readonly}
         customStepProps={{
           stageIdentifier,
           metadataMap,

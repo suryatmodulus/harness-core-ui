@@ -20,14 +20,14 @@ describe('Create CV Notification Rule', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    expect(getByText('Configure Method')).toBeDefined()
+    expect(getByText('cv.admin.notifications.create.method')).toBeDefined()
 
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
 
     await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
-    expect(getByText('Select a notification type')).toBeDefined()
+    expect(getByText('cv.admin.notifications.create.validation.type')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

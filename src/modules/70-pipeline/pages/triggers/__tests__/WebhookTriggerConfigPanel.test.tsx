@@ -39,19 +39,21 @@ const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerP
 
 jest.mock('clipboard-copy', () => jest.fn())
 
-const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
-
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 
-function WrapperComponent(props: { initialValues: any }): JSX.Element {
-  const { initialValues } = props
+function WrapperComponent(props: { initialValues: any; isEdit?: boolean; enableSecureToken?: boolean }): JSX.Element {
+  const { initialValues, isEdit = false, enableSecureToken = false } = props
   return (
     <Formik initialValues={initialValues} onSubmit={() => undefined}>
       {formikProps => (
         <FormikForm>
           <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-            <WebhookTriggerConfigPanel {...defaultTriggerConfigDefaultProps} formikProps={formikProps} />
+            <WebhookTriggerConfigPanel
+              {...getTriggerConfigDefaultProps({ isEdit })}
+              formikProps={formikProps}
+              enableSecureToken={enableSecureToken}
+            />
           </TestWrapper>
         </FormikForm>
       )}
@@ -77,7 +79,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       )
       expect(container).toMatchSnapshot()
     })
-    test('Initial Render - Custom Trigger Configuration Panel', async () => {
+    test('Initial Render - Custom Trigger Configuration Panel (enableSecureToken: false) ', async () => {
       const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
       getSourceRepoToEvent.mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
       const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
@@ -92,6 +94,63 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
 
       const { container } = render(
         <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+      )
+      await waitFor(() =>
+        queryByText(
+          container,
+          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+        )
+      )
+      expect(container).toMatchSnapshot()
+    })
+
+    test('Initial Render - Custom Trigger Configuration Panel (enableSecureToken:true, isEdit: false)', async () => {
+      const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
+      getSourceRepoToEvent.mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
+      const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
+      generateWebhookToken.mockImplementation((): any => {
+        return {
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
+        }
+      })
+
+      const { container } = render(
+        <WrapperComponent
+          initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })}
+          enableSecureToken={true}
+        />
+      )
+      await waitFor(() =>
+        queryByText(
+          container,
+          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+        )
+      )
+      expect(container).toMatchSnapshot()
+    })
+
+    test('Initial Render - Custom Trigger Configuration Panel (enableSecureToken:true, isEdit: true)', async () => {
+      const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
+      getSourceRepoToEvent.mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
+      const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
+      generateWebhookToken.mockImplementation((): any => {
+        return {
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
+        }
+      })
+
+      const { container } = render(
+        <WrapperComponent
+          initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM', secureToken: 'secureToken' })}
+          enableSecureToken={true}
+          isEdit={true}
+        />
       )
       await waitFor(() =>
         queryByText(
@@ -143,79 +202,6 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
     })
   })
   describe('Interactivity: Custom Source Repo/Payload Type', () => {
-    test('Click eye-closed shows secure token', async () => {
-      const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
-      getSourceRepoToEvent.mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
-
-      const getActionsList = jest.spyOn(pipelineNg, 'useGetActionsList')
-      getActionsList.mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
-
-      const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
-      generateWebhookToken.mockImplementation((): any => {
-        return {
-          refetch: jest.fn(),
-          error: null,
-          loading: false,
-          data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
-        }
-      })
-
-      const { container } = render(
-        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
-      )
-      await waitFor(() =>
-        queryByText(
-          container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
-        )
-      )
-
-      const eyeCon = document.body.querySelector('[data-name="eye-con"]')
-      if (!eyeCon) {
-        throw Error('cannot find eyeCon')
-      }
-      fireEvent.click(eyeCon)
-
-      expect(container.querySelector('[name="secureToken"]')?.getAttribute('value')).toEqual('token')
-      expect(container.querySelector('[class*="eyeConOpen"]')).not.toBeNull()
-    })
-
-    test('Copy eyecon shows toast', async () => {
-      const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
-
-      getSourceRepoToEvent.mockReturnValue(GetSourceRepoToEventResponse as UseGetReturn<any, any, any, any>)
-      const getActionsList = jest.spyOn(pipelineNg, 'useGetActionsList')
-
-      getActionsList.mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
-      const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
-
-      generateWebhookToken.mockImplementation((): any => {
-        return {
-          refetch: jest.fn(),
-          error: null,
-          loading: false,
-          data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
-        }
-      })
-
-      const { container } = render(
-        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
-      )
-      await waitFor(() =>
-        queryByText(
-          container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
-        )
-      )
-
-      const copyIcon = document.body.querySelector('[data-name="copy"]')
-      if (!copyIcon) {
-        throw Error('cannot find copyIcon')
-      }
-      fireEvent.click(copyIcon)
-      expect(queryByText(document.body, result.current.getString('copiedToClipboard'))).not.toBeNull()
-    })
-
     test('Regenerate token shows toast', async () => {
       const getSourceRepoToEvent = jest.spyOn(pipelineNg, 'useGetSourceRepoToEvent')
 
@@ -223,19 +209,23 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       const getActionsList = jest.spyOn(pipelineNg, 'useGetActionsList')
 
       getActionsList.mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
-      const generateWebhookToken = jest.spyOn(pipelineNg, 'useGenerateWebhookToken')
-
-      generateWebhookToken.mockImplementation((): any => {
-        return {
-          refetch: jest.fn(),
-          error: null,
-          loading: false,
-          data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
-        }
-      })
+      jest.spyOn(pipelineNg, 'useGenerateWebhookToken').mockReturnValue({
+        refetch: jest.fn().mockReturnValue(
+          Promise.resolve({
+            status: 'SUCCESS'
+          })
+        ),
+        error: null,
+        loading: false,
+        data: (GenerateWebhookTokenResponse as unknown) as UseGetReturn<any, any, any, any>
+      } as any)
 
       const { container } = render(
-        <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM' })} />
+        <WrapperComponent
+          initialValues={getTriggerConfigInitialValues({ sourceRepo: 'CUSTOM', secureToken: 'secureToken' })}
+          isEdit={true}
+          enableSecureToken={true}
+        />
       )
       await waitFor(() =>
         queryByText(
@@ -249,6 +239,8 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
         throw Error('cannot find regenerateIcon')
       }
       fireEvent.click(regenerateIcon)
+      await waitFor(() => Promise.resolve({ status: 'SUCCESS' }))
+
       expect(
         queryByText(
           document.body,

@@ -12,6 +12,8 @@ import css from './PipelineSelect.module.scss'
 export interface PipelineSelectProps {
   selectedPipeline?: string
   onPipelineSelect(id: string): void
+  defaultSelect?: string
+  className?: string
 }
 
 const Select = BPSelect.ofType<PMSPipelineSummaryResponse>()
@@ -73,6 +75,8 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
     props.onPipelineSelect(item.identifier || '')
   }
 
+  const { defaultSelect, className } = props
+
   return (
     <Select
       items={data?.content || []}
@@ -84,9 +88,10 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
       query={query}
       onQueryChange={setQuery}
       itemListRenderer={itemListRender}
+      className={className}
     >
       <Button className={css.main} rightIcon="chevron-down" data-testid="pipeline-select">
-        {selectedValue ? selectedValue?.name : <String stringID="all" />}
+        {selectedValue ? selectedValue?.name : defaultSelect ? defaultSelect : <String stringID="all" />}
       </Button>
     </Select>
   )

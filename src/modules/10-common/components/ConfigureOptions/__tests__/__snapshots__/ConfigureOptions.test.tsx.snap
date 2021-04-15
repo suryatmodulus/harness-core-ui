@@ -10,7 +10,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
     <h4
       class="bp3-heading"
     >
-      configure options
+      configureOptions.configureOptions
     </h4>
     <button
       aria-label="Close"
@@ -50,7 +50,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
         <label
           class="bp3-label"
         >
-          Variable
+          variableLabel
            
           <span
             class="bp3-text-muted"
@@ -72,7 +72,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
         <label
           class="bp3-label"
         >
-          Type
+          typeLabel
            
           <span
             class="bp3-text-muted"
@@ -95,7 +95,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          Default value
+          configureOptions.defaultValue
            
           <span
             class="bp3-text-muted"
@@ -160,7 +160,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
             class="bp3-label"
             for="validation"
           >
-            Validation
+            configureOptions.validation
              
             <span
               class="bp3-text-muted"
@@ -182,7 +182,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                None
+                none
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -195,7 +195,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Allowed values
+                allowedValues
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -208,7 +208,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Regex
+                configureOptions.regex
               </label>
             </div>
           </div>
@@ -226,7 +226,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Submit
+            submit
           </span>
         </span>
       </button>
@@ -239,7 +239,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Cancel
+            cancel
           </span>
         </span>
       </button>
@@ -258,7 +258,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
     <h4
       class="bp3-heading"
     >
-      configure options
+      configureOptions.configureOptions
     </h4>
     <button
       aria-label="Close"
@@ -298,7 +298,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
         <label
           class="bp3-label"
         >
-          Variable
+          variableLabel
            
           <span
             class="bp3-text-muted"
@@ -320,7 +320,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
         <label
           class="bp3-label"
         >
-          Type
+          typeLabel
            
           <span
             class="bp3-text-muted"
@@ -344,7 +344,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
             class="bp3-label"
             for="validation"
           >
-            Validation
+            configureOptions.validation
              
             <span
               class="bp3-text-muted"
@@ -365,7 +365,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                None
+                none
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -379,7 +379,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Allowed values
+                allowedValues
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -392,7 +392,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Regex
+                configureOptions.regex
               </label>
             </div>
           </div>
@@ -406,25 +406,16 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
           <span
             class="advancedBtn"
           >
-            <span
-              class="bp3-popover-wrapper"
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              type="button"
             >
               <span
-                class="bp3-popover-target"
+                class="bp3-button-text"
               >
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    return to basic
-                  </span>
-                </button>
+                configureOptions.returnToBasic
               </span>
-            </span>
+            </button>
           </span>
           <div
             class="bp3-form-group secondColumn"
@@ -433,7 +424,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
               class="bp3-label"
               for="advancedValue"
             >
-              Values (JEXL Expression)
+              configureOptions.jexlLabel
                
               <span
                 class="bp3-text-muted"
@@ -446,7 +437,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 autocomplete="off"
                 class="bp3-input bp3-fill"
                 name="advancedValue"
-                placeholder="Expression"
+                placeholder="inputTypes.EXPRESSION"
               >
                 \${env.type} == “prod” ? aws1, aws2 : aws3, aws4
               </textarea>
@@ -466,7 +457,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Submit
+            submit
           </span>
         </span>
       </button>
@@ -479,7 +470,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Cancel
+            cancel
           </span>
         </span>
       </button>
@@ -498,7 +489,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
     <h4
       class="bp3-heading"
     >
-      configure options
+      configureOptions.configureOptions
     </h4>
     <button
       aria-label="Close"
@@ -538,7 +529,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
         <label
           class="bp3-label"
         >
-          Variable
+          variableLabel
            
           <span
             class="bp3-text-muted"
@@ -560,7 +551,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
         <label
           class="bp3-label"
         >
-          Type
+          typeLabel
            
           <span
             class="bp3-text-muted"
@@ -583,7 +574,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          Default value
+          configureOptions.defaultValue
            
           <span
             class="bp3-text-muted"
@@ -655,7 +646,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            Required during execution
+            configureOptions.requiredDuringExecution
           </label>
         </div>
       </div>
@@ -669,7 +660,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
             class="bp3-label"
             for="validation"
           >
-            Validation
+            configureOptions.validation
              
             <span
               class="bp3-text-muted"
@@ -690,7 +681,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                None
+                none
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -704,7 +695,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Allowed values
+                allowedValues
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -717,7 +708,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Regex
+                configureOptions.regex
               </label>
             </div>
           </div>
@@ -745,7 +736,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Advanced
+                    advancedTitle
                   </span>
                 </button>
               </span>
@@ -758,7 +749,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
               class="bp3-label"
               for="allowedValues"
             >
-              Values
+              configureOptions.values
                
               <span
                 class="bp3-text-muted"
@@ -783,6 +774,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                         class="bp3-tag-input-values"
                       >
                         <input
+                          autocomplete="off"
                           class="bp3-input-ghost bp3-multi-select-tag-input-input"
                           name="allowedValues"
                           placeholder="Search..."
@@ -809,7 +801,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Submit
+            submit
           </span>
         </span>
       </button>
@@ -822,7 +814,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Cancel
+            cancel
           </span>
         </span>
       </button>
@@ -841,7 +833,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
     <h4
       class="bp3-heading"
     >
-      configure options
+      configureOptions.configureOptions
     </h4>
     <button
       aria-label="Close"
@@ -881,7 +873,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
         <label
           class="bp3-label"
         >
-          Variable
+          variableLabel
            
           <span
             class="bp3-text-muted"
@@ -903,7 +895,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
         <label
           class="bp3-label"
         >
-          Type
+          typeLabel
            
           <span
             class="bp3-text-muted"
@@ -926,7 +918,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          Default value
+          configureOptions.defaultValue
            
           <span
             class="bp3-text-muted"
@@ -991,7 +983,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
             class="bp3-label"
             for="validation"
           >
-            Validation
+            configureOptions.validation
              
             <span
               class="bp3-text-muted"
@@ -1012,7 +1004,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                None
+                none
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -1025,7 +1017,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Allowed values
+                allowedValues
               </label>
               <label
                 class="bp3-control bp3-radio Radio--radio"
@@ -1039,7 +1031,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                Regex
+                configureOptions.regex
               </label>
             </div>
           </div>
@@ -1054,7 +1046,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
             class="bp3-label"
             for="regExValues"
           >
-            Regex
+            configureOptions.regex
              
             <span
               class="bp3-text-muted"
@@ -1085,7 +1077,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Submit
+            submit
           </span>
         </span>
       </button>
@@ -1098,7 +1090,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
           class="bp3-button-text"
         >
           <span>
-            Cancel
+            cancel
           </span>
         </span>
       </button>

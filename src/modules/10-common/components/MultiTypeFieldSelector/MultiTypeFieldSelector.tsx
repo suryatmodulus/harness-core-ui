@@ -14,7 +14,7 @@ import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
 
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 import { errorCheck } from '@common/utils/formikHelpers'
 
 import css from './MultiTypeFieldSelctor.module.scss'
@@ -60,7 +60,10 @@ function TypeSelector(props: TypeSelectorProps): React.ReactElement {
           size={TypeIconSize[type]}
           name={TypeIcon[type]}
         />
-        <String className={css.btnText} stringID={`inputTypes.${type}`} />
+        <String
+          className={css.btnText}
+          stringID={`inputTypes.${type}` as StringKeys /* TODO: fix this properly using a map */}
+        />
       </Button>
       <MultiTypeInputMenu allowedTypes={allowedTypes} onTypeSelect={onChange} />
     </Popover>

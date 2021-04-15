@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   AvatarGroup,
@@ -18,6 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { Dialog, Menu, Spinner } from '@blueprintjs/core'
 import { assoc, compose, prop } from 'lodash/fp'
+import { uniq } from 'lodash-es'
 import cx from 'classnames'
 import {
   DragDropContext,
@@ -27,7 +28,18 @@ import {
   DraggableStateSnapshot,
   DroppableStateSnapshot
 } from 'react-beautiful-dnd'
-import { Clause, Feature, Variation, Serve, VariationMap, useGetAllTargets, Target, ServingRule } from 'services/cf'
+import {
+  Clause,
+  Feature,
+  Variation,
+  Serve,
+  VariationMap,
+  useGetAllTargets,
+  Target,
+  ServingRule,
+  TargetMap
+  // useGetTargetsAndSegments
+} from 'services/cf'
 import { useStrings } from 'framework/exports'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
@@ -129,10 +141,14 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const handleValuesChange = (data: MultiSelectOption[]) => onValuesChange(data.map(x => x.value as string))
   const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     handleValuesChange([toOption(e.target.value)])
-  const bucketByItems = useBucketByItems()
+  const { bucketByItems, addBucketByItem } = useBucketByItems()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === attribute)
   }, [bucketByItems, attribute])
+
+  useEffect(() => {
+    addBucketByItem(attribute as string)
+  }, [attribute, addBucketByItem])
 
   const actions = [
     <Icon
@@ -158,6 +174,12 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   }
 
   const height = '36px'
+  type InputEventType = { target: { value: string } }
+  const onSelectEvent = (event: InputEventType): void => {
+    const { value } = event.target
+    onAttributeChange(value)
+    addBucketByItem(value)
+  }
 
   return (
     <Container>
@@ -172,11 +194,20 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
           <Select
             name="bucketBy"
             value={bucketBySelectValue}
-            inputProps={{ style: { height } }}
             items={bucketByItems}
             disabled={operator.value === matchSegment.value}
             onChange={({ value }) => {
+              addBucketByItem(value as string)
               onAttributeChange(value as string)
+            }}
+            inputProps={{
+              style: { height },
+              onBlur: onSelectEvent,
+              onKeyUp: event => {
+                if (event.keyCode === 13) {
+                  onSelectEvent((event as unknown) as InputEventType)
+                }
+              }
             }}
             allowCreatingNewItems
           />
@@ -389,7 +420,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                             minWidth: '80px'
                           }}
                         >
-                          {getString('cf.featureFlags.rules.serve').toLocaleLowerCase()}
+                          {getString('cf.featureFlags.serve').toLocaleLowerCase()}
                         </Text>
                         <div style={{ flexGrow: 0 }}>
                           <Select
@@ -410,6 +441,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         <PercentageRollout
                           editing={true}
                           variations={variations}
+                          bucketBy={rule.clauses?.[index]?.attribute}
                           weightedVariations={rule.serve.distribution?.variations || []}
                           onSetPercentageValues={handleRolloutChange}
                           style={{ marginLeft: 'var(--spacing-small)' }}
@@ -495,7 +527,7 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
         <Text style={{ fontSize: '14px', lineHeight: '24px' }}>
           <span
             dangerouslySetInnerHTML={{
-              __html: getString(`cf.featureFlags.${isPercentage ? 'servePercentageRollout' : 'serve'}`)
+              __html: getString(isPercentage ? 'cf.featureFlags.servePercentageRollout' : 'cf.featureFlags.serve')
             }}
           />
           {!isPercentage && (
@@ -516,13 +548,16 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
           <span
             dangerouslySetInnerHTML={{
               __html: unescapeI18nSupportedTags(
-                getString(`cf.featureFlags.${isPercentage ? 'ifClauseServePercentageRollout' : 'ifClauseServe'}`, {
-                  attribute: firstClause.attribute,
-                  operator: operators.find(op => op.value === firstClause.op)?.label,
-                  values: firstClause.values
-                    .map(val => `<strong>${val}</strong>`)
-                    .join(getString('cf.featureFlags.commaSeparator'))
-                })
+                getString(
+                  isPercentage ? 'cf.featureFlags.ifClauseServePercentageRollout' : 'cf.featureFlags.ifClauseServe',
+                  {
+                    attribute: firstClause.attribute,
+                    operator: operators.find(op => op.value === firstClause.op)?.label,
+                    values: firstClause.values
+                      .map(val => `<strong>${val}</strong>`)
+                      .join(getString('cf.featureFlags.commaSeparator'))
+                  }
+                )
               )
             }}
           />
@@ -558,7 +593,10 @@ const RuleViewCard: React.FC<RuleViewCardProps> = ({ rule, variations }) => {
 }
 
 interface ServingCardRowProps {
+  formikProps: CustomRulesViewProps['formikProps']
+  feature: Feature
   variations: Variation[]
+  targets: TargetMap[] | undefined
   index: number
   variation: string
   variationOps: Option<string>[]
@@ -573,6 +611,7 @@ interface ServingCardRowProps {
 }
 
 const ServingCardRow: React.FC<ServingCardRowProps> = ({
+  formikProps,
   editing,
   variationOps,
   variations,
@@ -598,12 +637,33 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     }
   })
 
+  // TODO:
+  // Mapping should have both Targets and Segments
+  // Ticket: https://harness.atlassian.net/browse/FFM-722
+  //
+  // const { data: targetsSegments, loading: loadingTargetsSegments } = useGetTargetsAndSegments({
+  //   queryParams: {
+  //     environment,
+  //     project,
+  //     account: accountId,
+  //     org: orgIdentifier
+  //   }
+  // })
+
+  const targetIdentidiersFromForm = uniq(
+    formikProps.values.variationMap
+      .map((map: { targets: TargetMap[] }) => map.targets || [])
+      .flat()
+      .map((val: TargetMap) => val.identifier || val)
+  )
   const availableTargets: Option<string>[] =
-    ((data?.targets || []) as Target[]).map(compose(toOption, prop('identifier'))) || []
+    ((data?.targets || []) as Target[])
+      .filter(target => !targetIdentidiersFromForm.includes(target.identifier))
+      .map(compose(toOption, prop('identifier'))) || []
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
   const [openEditModal, hideModal] = useModalHook(() => {
-    const handleTempTargetChange = (newData: (string | { label: string; value: string })[]) => {
+    const handleTempTargetChange = (newData: (string | { label: string; value: string })[]): void => {
       const _newData = newData.map(_entry => {
         if (typeof _entry === 'string') {
           return { label: _entry, value: _entry }
@@ -611,6 +671,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
           return _entry
         }
       })
+
       setTempTargets(_newData)
     }
 
@@ -635,7 +696,6 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
               allowNewTag={false}
               selectedItems={tempTargets}
               items={availableTargets}
-              tagInputProps={{}}
               onChange={handleTempTargetChange}
             />
           )}
@@ -653,7 +713,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
         </Layout.Vertical>
       </Dialog>
     )
-  }, [tagOpts, availableTargets, tempTargets])
+  }, [tagOpts, availableTargets, tempTargets, targetAvatars])
 
   const avatars = editing ? targetAvatars.concat([addTargetAvatar(openEditModal)]) : targetAvatars
   const selectValue = variationOps.find(v => v.value === variation)
@@ -722,6 +782,8 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
 }
 
 interface ServingCardProps {
+  formikProps: CustomRulesViewProps['formikProps']
+  feature: Feature
   variations: Variation[]
   servings: Serving[]
   editing: boolean
@@ -734,6 +796,8 @@ interface ServingCardProps {
 }
 
 const ServingCard: React.FC<ServingCardProps> = ({
+  formikProps,
+  feature,
   servings,
   variations,
   editing,
@@ -770,8 +834,11 @@ const ServingCard: React.FC<ServingCardProps> = ({
           return (
             <ServingCardRow
               key={idx}
+              feature={feature}
+              targets={targets}
+              formikProps={formikProps}
               variations={variations}
-              index={variations.findIndex(v => v.value === variation)}
+              index={variations.findIndex(v => v.identifier === variation)}
               variation={variation}
               variationOps={variationOps}
               targetAvatars={targetAvatars ?? []}
@@ -794,6 +861,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
 }
 
 interface CustomRulesViewProps {
+  feature: Feature
   formikProps: any
   target: Feature
   editing: boolean
@@ -809,7 +877,14 @@ function arrayMove<T>(arr: T[], from: number, to: number): T[] {
   }
 }
 
-const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, editing, enviroment, project }) => {
+const CustomRulesView: React.FC<CustomRulesViewProps> = ({
+  feature,
+  formikProps,
+  target,
+  editing,
+  enviroment,
+  project
+}) => {
   const { getString } = useStrings()
   const tempRules: ServingRule[] = formikProps.values.customRules
   const setTempRules = (data: RuleData[]) => formikProps.setFieldValue('customRules', data)
@@ -862,6 +937,8 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({ formikProps, target, 
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">
             <ServingCard
+              feature={feature}
+              formikProps={formikProps}
               editing={editing}
               servings={servings}
               variations={target.variations}

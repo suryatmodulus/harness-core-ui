@@ -1,15 +1,16 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Container, Layout, Text, Avatar, Intent, Color } from '@wings-software/uicore'
-import { useAppStore, useStrings } from 'framework/exports'
+import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
+import { useStrings } from 'framework/exports'
 import { useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
-import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage } from '@cf/utils/CFUtils'
+import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useConfirmAction } from '@common/hooks'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
@@ -23,10 +24,9 @@ export const fullSizeContentStyle: React.CSSProperties = {
   height: 'calc(100% - 135px)'
 }
 
-export const TargetDetailPage: React.FC<any> = () => {
+export const TargetDetailPage: React.FC = () => {
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
-  const { showError, showSuccess, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
     Record<string, string>
   >()
@@ -45,13 +45,10 @@ export const TargetDetailPage: React.FC<any> = () => {
     projectIdentifier,
     environmentIdentifier
   })
+  const title = getString('cf.targets.title')
   const breadcrumbs = [
     {
-      title: selectedProject?.name as string,
-      url: routes.toProjectDetails({ orgIdentifier, projectIdentifier, accountId })
-    },
-    {
-      title: getString('cf.targetDetail.title'),
+      title,
       url: routes.toCFTargets({
         accountId,
         orgIdentifier,
@@ -93,16 +90,7 @@ export const TargetDetailPage: React.FC<any> = () => {
                 accountId
               })
             )
-
-            showSuccess(
-              <Text color={Color.WHITE}>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: getString('cf.featureFlags.deleteFlagSuccess', { name: target?.name })
-                  }}
-                />
-              </Text>
-            )
+            showToaster(getString('cf.messages.targetDeleted'))
           })
           .catch(error => {
             showError(getErrorMessage(error), 0)
@@ -112,6 +100,8 @@ export const TargetDetailPage: React.FC<any> = () => {
       }
     }
   })
+
+  useDocumentTitle(title)
 
   const loading = targetLoading || envLoading
   const error = targetError || envError

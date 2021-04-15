@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
-import { ModuleName, String, useStrings } from 'framework/exports'
+import { ModuleName, String, useStrings, StringKeys } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
@@ -121,7 +121,11 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
                 </Text>
               </Layout.Horizontal>
               <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-                {getString(`projectCard.${module.toString().toLowerCase()}RendererText`.toString()).toUpperCase()}
+                {getString(
+                  `projectCard.${module
+                    .toString()
+                    .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
+                ).toUpperCase()}
               </Text>
             </Layout.Vertical>
           </Container>

@@ -6,7 +6,7 @@ import cx from 'classnames'
 import { Text } from '@wings-software/uicore'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
-import type { CreateNewModel } from './CreateNewModel'
+import type { CreateNewModel, CreateNewModelOptions } from './CreateNewModel'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
 import { Event, DiagramDrag } from '../../Constants'
 import cssDefault from '../DefaultNode.module.scss'
@@ -26,15 +26,16 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
 }
 
 export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Element => {
-  const options = props.node.getOptions()
+  const options: CreateNewModelOptions = props.node.getOptions()
+  const { disabled = false } = options
   const [dropable, setDropable] = React.useState(false)
   return (
     <div
       className={cx(cssDefault.defaultNode, css.createNode)}
-      onClick={e => onClickNode(e, props.node)}
+      onClick={e => !disabled && onClickNode(e, props.node)}
       onMouseDown={e => {
         e.stopPropagation()
-        props.node.setSelected(true)
+        !disabled && props.node.setSelected(true)
       }}
       onDragOver={event => {
         setDropable(true)
@@ -56,6 +57,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
         className={cx(
           cssDefault.defaultCard,
           css.createNew,
+          { [css.disabled]: disabled },
           { [cssDefault.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}

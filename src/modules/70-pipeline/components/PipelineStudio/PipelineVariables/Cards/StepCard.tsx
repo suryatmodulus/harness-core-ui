@@ -17,10 +17,11 @@ export interface StepCardProps {
   metadataMap: PipelineVariablesData['metadataMap']
   onUpdateStep(data: StepElementConfig, path: string): void
   stepPath: string
+  readonly?: boolean
 }
 
 export function StepCard(props: StepCardProps): React.ReactElement {
-  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath } = props
+  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly } = props
   const { stepsFactory } = usePipelineContext()
 
   return (
@@ -32,6 +33,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
         type={originalStep.type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}
+        readonly={readonly}
         customStepProps={{
           stageIdentifier,
           metadataMap,
@@ -62,10 +64,11 @@ export interface StepGroupCardProps {
   stepGroupIdentifier: string
   stepGroupName: string
   stepGroupOriginalName: string
+  readonly?: boolean
 }
 
 export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
-  const { steps, metadataMap, onUpdateStep, stageIdentifier, stepGroupName, stepGroupOriginalName } = props
+  const { steps, metadataMap, onUpdateStep, stageIdentifier, stepGroupName, stepGroupOriginalName, readonly } = props
 
   return (
     <React.Fragment>
@@ -83,6 +86,7 @@ export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
             originalStep={originalStep}
             metadataMap={metadataMap}
             stepPath={path}
+            readonly={readonly}
             stageIdentifier={stageIdentifier}
             onUpdateStep={onUpdateStep}
           />

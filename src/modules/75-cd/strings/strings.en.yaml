@@ -1,0 +1,16 @@
+continuousIntegration: 'Continuous Delivery'
+allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
+dashboard:
+  subHeading: Let Harness take your software release process to the next level with Continuous Delivery
+  learnMore: Learn more about Continuous Delivery
+  createProject: '{{$.projectsOrgs.createProject}}'
+  orSelectExisting: '{{$.orSelectExisting}}'
+steps:
+  common:
+    selectConnectorPlaceholder: Select a connector
+    selectOrEnterClusterPlaceholder: Select or add cluster
+    releaseNamePlaceholder: Specify a release name
+    namespacePlaceholder: Specify a namespace
+  kubernetesGcpStep:
+    stepName: Specify your GCP Connector
+folderPath: Folder Path

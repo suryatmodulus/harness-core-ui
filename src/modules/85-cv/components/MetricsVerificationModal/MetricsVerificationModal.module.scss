@@ -53,6 +53,7 @@
     .smallFont {
       font-size: var(--font-size-small) !important;
       white-space: nowrap;
+      margin-top: var(--spacing-xsmall) !important;
     }
 
     .statusIcon {
@@ -87,6 +88,8 @@
       .count {
         font-size: var(--font-size-medium) !important;
         margin-top: var(--spacing-small);
+        text-overflow: ellipsis;
+        overflow-wrap: anywhere;
       }
     }
     .errorCard {
@@ -110,12 +113,11 @@
       border: 1px solid var(--grey-300);
       color: var(--grey-300);
     }
-
-    .callLogs {
-      cursor: pointer;
-      margin-top: var(--spacing-xsmall) !important;
-    }
   }
+}
+
+.callLogs {
+  cursor: pointer !important;
 }
 
 :global {

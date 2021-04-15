@@ -30,7 +30,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  Manifest Identifier
+                  pipeline.manifestType.manifestIdentifier
                    
                   <span
                     class="bp3-text-muted"
@@ -46,7 +46,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="pipeline.manifestType.manifestPlaceholder"
                       type="text"
                       value=""
                     />
@@ -64,7 +64,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  pipeline.manifestType.bucketName (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -80,9 +80,10 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -132,7 +133,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  pipeline.manifestType.path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -148,9 +149,10 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -196,7 +198,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  Helm Chart Name
+                  pipeline.manifestType.http.chartName
                    
                   <span
                     class="bp3-text-muted"
@@ -212,9 +214,10 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
-                        placeholder="Enter Chart Name"
+                        placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
                         type="text"
                         value=""
                       />
@@ -264,7 +267,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  pipeline.manifestType.http.chartVersion (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -280,9 +283,10 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
-                        placeholder="Enter Chart Version"
+                        placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
                         type="text"
                         value=""
                       />
@@ -328,7 +332,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -391,17 +395,17 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -448,7 +452,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -458,7 +462,7 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -517,7 +521,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  Manifest Identifier
+                  pipeline.manifestType.manifestIdentifier
                    
                   <span
                     class="bp3-text-muted"
@@ -533,7 +537,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="pipeline.manifestType.manifestPlaceholder"
                       type="text"
                       value=""
                     />
@@ -551,7 +555,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  pipeline.manifestType.bucketName (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -567,9 +571,10 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -619,7 +624,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  pipeline.manifestType.path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -635,9 +640,10 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -683,7 +689,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  Helm Chart Name
+                  pipeline.manifestType.http.chartName
                    
                   <span
                     class="bp3-text-muted"
@@ -699,9 +705,10 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
-                        placeholder="Enter Chart Name"
+                        placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
                         type="text"
                         value=""
                       />
@@ -751,7 +758,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  pipeline.manifestType.http.chartVersion (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -767,9 +774,10 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
-                        placeholder="Enter Chart Version"
+                        placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
                         type="text"
                         value=""
                       />
@@ -815,7 +823,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -878,17 +886,17 @@ exports[`helm with http tests renders while adding step first time 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -935,7 +943,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -945,7 +953,7 @@ exports[`helm with http tests renders while adding step first time 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1004,7 +1012,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  Manifest Identifier
+                  pipeline.manifestType.manifestIdentifier
                    
                   <span
                     class="bp3-text-muted"
@@ -1020,7 +1028,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="identifier"
-                      placeholder="Add Manifest Identifier"
+                      placeholder="pipeline.manifestType.manifestPlaceholder"
                       type="text"
                       value=""
                     />
@@ -1038,7 +1046,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  Bucket Name
+                  pipeline.manifestType.bucketName (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1054,9 +1062,10 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="bucketName"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1106,7 +1115,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Path
+                  pipeline.manifestType.path (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1122,9 +1131,10 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1170,7 +1180,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  Helm Chart Name
+                  pipeline.manifestType.http.chartName
                    
                   <span
                     class="bp3-text-muted"
@@ -1186,9 +1196,10 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartName"
-                        placeholder="Enter Chart Name"
+                        placeholder="pipeline.manifestType.http.chartNamePlaceHolder"
                         type="text"
                         value=""
                       />
@@ -1238,7 +1249,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  Helm Chart Version
+                  pipeline.manifestType.http.chartVersion (optional)
                    
                   <span
                     class="bp3-text-muted"
@@ -1254,9 +1265,10 @@ exports[`helm with http tests renders without crashing 1`] = `
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="chartVersion"
-                        placeholder="Enter Chart Version"
+                        placeholder="pipeline.manifestType.http.chartVersionPlaceHolder"
                         type="text"
                         value=""
                       />
@@ -1302,7 +1314,7 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  Helm Version
+                  helmVersion
                    
                   <span
                     class="bp3-text-muted"
@@ -1365,17 +1377,17 @@ exports[`helm with http tests renders without crashing 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -1422,7 +1434,7 @@ exports[`helm with http tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -1432,7 +1444,7 @@ exports[`helm with http tests renders without crashing 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

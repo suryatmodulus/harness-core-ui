@@ -25,6 +25,7 @@ export const MultiTypeCheckbox: React.FC<MultiTypeCheckboxProps> = ({
   textboxProps,
   value = false,
   children,
+  disabled,
   ...rest
 }) => {
   const { className = '', ...restProps } = textboxProps || {}
@@ -34,6 +35,7 @@ export const MultiTypeCheckbox: React.FC<MultiTypeCheckboxProps> = ({
       return (
         <Checkbox
           className={cx(css.input, className)}
+          disabled={disabled}
           {...restProps}
           checked={value as boolean}
           onChange={(event: React.FormEvent<HTMLInputElement>) => {
@@ -46,7 +48,14 @@ export const MultiTypeCheckbox: React.FC<MultiTypeCheckboxProps> = ({
     },
     [value]
   )
-  return <ExpressionAndRuntimeType value={value as string} {...rest} fixedTypeComponent={fixedTypeComponent} />
+  return (
+    <ExpressionAndRuntimeType
+      value={value as string}
+      disabled={disabled}
+      {...rest}
+      fixedTypeComponent={fixedTypeComponent}
+    />
+  )
 }
 
 export interface FormMultiTypeTextboxProps extends Omit<IFormGroupProps, 'label'> {
@@ -85,8 +94,9 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
     >
       <MultiTypeCheckbox
         name={name}
-        textboxProps={{ name, label, ...textboxProps }}
+        textboxProps={{ name, label, disabled, ...textboxProps }}
         value={value}
+        disabled={disabled}
         {...restMultiProps}
         onChange={(val, valueType, typeVal) => {
           if (typeVal === MultiTypeInputType.EXPRESSION && isNil(val)) {

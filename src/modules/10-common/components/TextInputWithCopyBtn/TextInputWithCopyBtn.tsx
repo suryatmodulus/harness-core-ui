@@ -32,12 +32,17 @@ export interface TextInputWithCopyBtnProps extends Omit<IFormGroupProps, 'labelF
 }
 
 export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.ReactElement {
-  const { localName, fullName, ...rest } = props
+  const { localName, fullName, disabled, ...rest } = props
   const { getString } = useStrings()
 
   return (
-    <div className={css.textInputWithCopyBtn}>
-      <FormInput.Text {...rest} className={cx(css.input, rest.className)} />
+    <div className={cx(css.textInputWithCopyBtn, { [css.disabled]: disabled })}>
+      <FormInput.Text
+        {...rest}
+        inputGroup={{ disabled }}
+        disabled={disabled}
+        className={cx(css.input, rest.className)}
+      />
       <Popover
         interactionKind="click"
         minimal

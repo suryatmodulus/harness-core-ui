@@ -8,6 +8,11 @@
   border-right: 1px solid var(--grey-250);
 }
 
+.details {
+  max-width: calc(50vh);
+  overflow: wrap;
+}
+
 .card {
   width: 250px;
   display: flex !important;

@@ -7,7 +7,7 @@ import { get } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import { withTableData } from '@cf/utils/table-utils'
 import { Feature, Segment, useDeleteSegment } from 'services/cf'
 import CreateTargetSegmentModal from './CreateTargetSegmentModal'
@@ -94,7 +94,8 @@ const TargetSegmentsView: React.FC<TargetSegmentsProps> = ({
 }) => {
   const { showError, showSuccess } = useToaster()
   const { getString } = useStrings()
-  const getPageString = (key: string): string => getString(`cf.targets.${key}`)
+  const getPageString = (key: string): string =>
+    getString(`cf.targets.${key}` as StringKeys /* TODO: fix this by using a map */)
   const { mutate: deleteSegment } = useDeleteSegment({
     queryParams: {
       account: accountId,

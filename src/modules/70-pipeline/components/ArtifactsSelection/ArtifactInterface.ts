@@ -1,4 +1,26 @@
-import type { ArtifactConfig } from 'services/cd-ng'
+import type {
+  ArtifactConfig,
+  ArtifactSpecWrapper,
+  PageConnectorResponse,
+  SidecarArtifactWrapper,
+  StageElementWrapper
+} from 'services/cd-ng'
+
+export interface ArtifactListViewProps {
+  isForPredefinedSets?: boolean
+  stage: StageElementWrapper | undefined
+  overrideSetIdentifier?: string
+  primaryArtifact: ArtifactSpecWrapper
+  sideCarArtifact: SidecarArtifactWrapper[]
+  addNewArtifact: (view: number) => void
+  editArtifact: (view: number, type: CreationType, index?: number) => void
+  removePrimary: () => void
+  removeSidecar: (index: number) => void
+  fetchedConnectorResponse: PageConnectorResponse | undefined
+  accountId: string
+  refetchConnectors: () => void
+  isReadonly: boolean
+}
 export interface ArtifactsSelectionProps {
   isForOverrideSets?: boolean
   isForPredefinedSets?: boolean

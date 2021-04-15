@@ -55,19 +55,19 @@ exports[`Signup Page The signup page renders 1`] = `
               <span
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--inline StyledProps--font-size-medium"
               >
-                Sign In
+                signUp.signIn
               </span>
             </a>
           </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
           >
-            Sign up for an account
+            signUp.message.primary
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--margin-top-xsmall"
           >
-            and get ship done
+            signUp.message.secondary
           </p>
           <div
             class="StyledProps--font StyledProps--main StyledProps--margin-top-xxxlarge"
@@ -87,7 +87,7 @@ exports[`Signup Page The signup page renders 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      name
                        
                       <span
                         class="bp3-text-muted"
@@ -103,7 +103,7 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
-                          placeholder="John Smith"
+                          placeholder="signUp.form.namePlaceholder"
                           type="text"
                           value=""
                         />
@@ -118,7 +118,7 @@ exports[`Signup Page The signup page renders 1`] = `
                       class="bp3-label"
                       for="email"
                     >
-                      Email
+                      signUp.form.emailLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -134,7 +134,7 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="email"
-                          placeholder="email@work.com"
+                          placeholder="signUp.form.emailPlaceholder"
                           type="text"
                           value=""
                         />
@@ -149,7 +149,7 @@ exports[`Signup Page The signup page renders 1`] = `
                       class="bp3-label"
                       for="company"
                     >
-                      Company
+                      signUp.form.companyLabel
                        
                       <span
                         class="bp3-text-muted"
@@ -165,7 +165,7 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="company"
-                          placeholder="Your Company"
+                          placeholder="signUp.form.companyPlaceholder"
                           type="text"
                           value=""
                         />
@@ -180,7 +180,7 @@ exports[`Signup Page The signup page renders 1`] = `
                       class="bp3-label"
                       for="password"
                     >
-                      Password
+                      password
                        
                       <span
                         class="bp3-text-muted"
@@ -196,7 +196,7 @@ exports[`Signup Page The signup page renders 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="password"
-                          placeholder="6+ characters"
+                          placeholder="signUp.form.passwordPlaceholder"
                           type="password"
                           value=""
                         />
@@ -211,7 +211,7 @@ exports[`Signup Page The signup page renders 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      Sign Up
+                      signUp.signUp
                     </span>
                   </button>
                 </div>
@@ -224,7 +224,7 @@ exports[`Signup Page The signup page renders 1`] = `
             <span
               class="message"
             >
-              or sign up with
+              signUp.oAuth.signup
             </span>
           </h2>
           <div
@@ -407,23 +407,23 @@ exports[`Signup Page The signup page renders 1`] = `
             <div
               class="disclaimer"
             >
-              By signing up you agree to our 
+              signUp.disclaimer.initial
               <a
                 class="externalLink"
                 href="https://harness.io/privacy/"
                 rel="noreferrer"
                 target="_blank"
               >
-                Privacy Policy
+                signUp.disclaimer.privacyPolicy
               </a>
-               and our 
+              signUp.disclaimer.middle
               <a
                 class="externalLink"
                 href="https://harness.io/subscriptionterms/"
                 rel="noreferrer"
                 target="_blank"
               >
-                Terms of Use
+                signUp.disclaimer.terms
               </a>
             </div>
           </div>

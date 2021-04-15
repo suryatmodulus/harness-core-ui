@@ -49,6 +49,35 @@ describe('Test TerraformPlan', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('should render edit view as new step', () => {
+    const { container } = render(
+      <TestStepWidget initialValues={{}} type={StepType.TerraformPlan} stepViewType={StepViewType.Edit} />
+    )
+    expect(container).toMatchSnapshot()
+  })
+  test('should render edit view with command Destroy', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Destroy'
+            }
+          }
+        }}
+        type={StepType.TerraformPlan}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
   test('should render edit view', () => {
     const { container } = render(
       <TestStepWidget

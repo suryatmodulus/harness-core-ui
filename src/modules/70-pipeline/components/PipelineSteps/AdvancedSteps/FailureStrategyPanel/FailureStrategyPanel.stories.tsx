@@ -7,6 +7,7 @@ import { Card, H3 } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
 import FailureStrategyPanel from './FailureStrategyPanel'
 import type { Modes } from '../common'
+import type { Domain } from './StrategySelection/StrategyConfig'
 
 export default {
   title: 'Pipelines / Pipeline Steps / Failure Strategies',
@@ -18,6 +19,7 @@ interface BasicArgs {
     failureStrategies: any[]
   }
   mode: Modes
+  domain?: Domain
 }
 
 export const Basic: Story<BasicArgs> = args => {
@@ -29,7 +31,12 @@ export const Basic: Story<BasicArgs> = args => {
             <div style={{ display: 'grid', gridTemplateColumns: '480px 1fr', columnGap: '20px' }}>
               <Card>
                 <H3>Failure Strategies</H3>
-                <FailureStrategyPanel formikProps={formik} mode={args.mode} />
+                <FailureStrategyPanel
+                  formikProps={formik}
+                  mode={args.mode}
+                  domain={args.domain || 'Deployment'}
+                  isReadonly={false}
+                />
               </Card>
               <Card>
                 <pre data-testid="code-output">{yaml.stringify(formik.values)}</pre>

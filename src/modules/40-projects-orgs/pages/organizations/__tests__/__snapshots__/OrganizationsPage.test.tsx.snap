@@ -80,7 +80,7 @@ exports[`Org Page List Create New Org 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="Search Organizations by name and tags"
+            placeholder="orgs.searchPlaceHolder"
             type="search"
             value=""
           />
@@ -197,80 +197,84 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                   >
                     <div
-                      class="AvatarGroup--stack"
-                      style="--avatar-over-lap: -13px;"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                     >
                       <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        class="AvatarGroup--stack"
+                        style="--avatar-over-lap: -13px;"
                       >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              +
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                +
+                              </div>
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                      <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                        uuid="lv0efduRhKRCyiXWzS7pOg6g"
-                      >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        </div>
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          uuid="lv0efduRhKRCyiXWzS7pOg6g"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              A
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                A
+                              </div>
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                      <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                        uuid="lv0euRhKRCyiXWzS7pOg6g"
-                      >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        </div>
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          uuid="lv0euRhKRCyiXWzS7pOg6g"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              A
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                A
+                              </div>
+                            </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      2 Members
+                      2 members
                     </p>
                   </div>
                 </div>
@@ -403,7 +407,7 @@ exports[`Org Page List Create New Org 1`] = `
                         class="StyledProps--font StyledProps--main"
                         tabindex="0"
                       >
-                        +2
+                        plus2
                       </p>
                     </span>
                   </span>
@@ -441,60 +445,64 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                   >
                     <div
-                      class="AvatarGroup--stack"
-                      style="--avatar-over-lap: -13px;"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                     >
                       <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        class="AvatarGroup--stack"
+                        style="--avatar-over-lap: -13px;"
                       >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              +
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                +
+                              </div>
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                      <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                        uuid="lv0euRhKRCyiXWzS7pOg6g"
-                      >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        </div>
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                          uuid="lv0euRhKRCyiXWzS7pOg6g"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              A
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                A
+                              </div>
+                            </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      1 Members
+                      1 members
                     </p>
                   </div>
                 </div>
@@ -608,40 +616,44 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      Projects
+                      projectsText
                     </p>
                   </div>
                   <div
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-left-huge StyledProps--flex"
                   >
                     <div
-                      class="AvatarGroup--stack"
-                      style="--avatar-over-lap: -13px;"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                     >
                       <div
-                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                        class="AvatarGroup--stack"
+                        style="--avatar-over-lap: -13px;"
                       >
-                        <span
-                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        <div
+                          class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
                         >
                           <span
-                            class="bp3-popover-target"
+                            class="bp3-popover-wrapper Avatar--avatarPopOver"
                           >
-                            <div
-                              class="Avatar--AvatarInner"
-                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                              tabindex="0"
+                            <span
+                              class="bp3-popover-target"
                             >
-                              +
-                            </div>
+                              <div
+                                class="Avatar--AvatarInner"
+                                style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                                tabindex="0"
+                              >
+                                +
+                              </div>
+                            </span>
                           </span>
-                        </span>
+                        </div>
                       </div>
                     </div>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      0 Members
+                      0 members
                     </p>
                   </div>
                 </div>

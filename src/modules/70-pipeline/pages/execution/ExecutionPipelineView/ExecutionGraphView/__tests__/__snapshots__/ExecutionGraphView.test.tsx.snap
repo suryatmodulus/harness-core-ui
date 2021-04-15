@@ -361,7 +361,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                     <div
                       class="title"
                     >
-                      Step: 
+                      pipeline.execution.stepTitlePrefix
                       Rollout Deployment
                     </div>
                     <div
@@ -496,7 +496,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         </label>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
                         type="button"
                       >
                         <span
@@ -537,50 +537,50 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         />
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_details"
+                        aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
                         aria-disabled="false"
                         aria-expanded="true"
                         aria-selected="true"
                         class="bp3-tab"
-                        data-tab-id="details"
-                        id="bp3-tab-title_step-details_details"
+                        data-tab-id="STEP_DETAILS"
+                        id="bp3-tab-title_step-details_STEP_DETAILS"
                         role="tab"
                         tabindex="0"
                       >
-                        Details
+                        details
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_input"
+                        aria-controls="bp3-tab-panel_step-details_INPUT"
                         aria-disabled="false"
                         aria-expanded="false"
                         aria-selected="false"
                         class="bp3-tab"
-                        data-tab-id="input"
-                        id="bp3-tab-title_step-details_input"
+                        data-tab-id="INPUT"
+                        id="bp3-tab-title_step-details_INPUT"
                         role="tab"
                         tabindex="0"
                       >
-                        Input
+                        common.input
                       </div>
                       <div
-                        aria-controls="bp3-tab-panel_step-details_output"
+                        aria-controls="bp3-tab-panel_step-details_OUTPUT"
                         aria-disabled="false"
                         aria-expanded="false"
                         aria-selected="false"
                         class="bp3-tab"
-                        data-tab-id="output"
-                        id="bp3-tab-title_step-details_output"
+                        data-tab-id="OUTPUT"
+                        id="bp3-tab-title_step-details_OUTPUT"
                         role="tab"
                         tabindex="0"
                       >
-                        Output
+                        outputLabel
                       </div>
                     </div>
                     <div
                       aria-hidden="false"
-                      aria-labelledby="bp3-tab-title_step-details_details"
+                      aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
                       class="bp3-tab-panel"
-                      id="bp3-tab-panel_step-details_details"
+                      id="bp3-tab-panel_step-details_STEP_DETAILS"
                       role="tabpanel"
                     >
                       <div
@@ -592,7 +592,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                           <tbody>
                             <tr>
                               <th>
-                                Started at:
+                                startedAt
                               </th>
                               <td>
                                 DUMMY DATE
@@ -600,7 +600,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                             <tr>
                               <th>
-                                Ended at:
+                                endedAt
                               </th>
                               <td>
                                 DUMMY DATE
@@ -608,9 +608,16 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </tr>
                             <tr>
                               <th>
-                                Duration:
+                                duration
                               </th>
-                              <td />
+                              <td>
+                                <span
+                                  class="StyledProps--font StyledProps--main timer StyledProps--inline"
+                                >
+                                  
+                                  
+                                </span>
+                              </td>
                             </tr>
                           </tbody>
                         </table>

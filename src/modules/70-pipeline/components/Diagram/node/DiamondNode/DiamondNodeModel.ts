@@ -13,6 +13,7 @@ export class DiamondNodeModel extends DefaultNodeModel {
       type: DiagramType.DiamondNode,
       name: 'Approve',
       icon: 'add',
+      secondaryIcon: null,
       ...options
     })
   }

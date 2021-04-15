@@ -34,4 +34,19 @@ describe('Unit tests for DefineYourMonitoringSource', () => {
     await waitFor(() => expect(container.querySelector('[class*="defineMonitoringSource"]')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
+
+  test('Ensure that identifier is disabled oon edit', async () => {
+    const { container } = render(
+      <WrapperComponent
+        iconLabel="New Relic"
+        mainHeading="sdfsdfsd"
+        subHeading="sdfsdf"
+        sourceIcon={{ name: 'service-newrelic' }}
+        stepLabelProps={{ stepNumber: 2, totalSteps: 3 }}
+        isEdit={true}
+      />
+    )
+    await waitFor(() => expect(container.querySelector('[class*="defineMonitoringSource"]')).not.toBeNull())
+    expect(container.querySelector('[class*="txtIdContainer"] span[icon="edit"]')).toBeNull()
+  })
 })

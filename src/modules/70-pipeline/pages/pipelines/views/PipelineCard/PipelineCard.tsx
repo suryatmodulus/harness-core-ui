@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Text, Color, Container, Button, Layout, SparkChart, CardBody, Icon } from '@wings-software/uicore'
+import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
@@ -12,6 +12,10 @@ import { String, useStrings } from 'framework/exports'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import { getIconsForPipeline, getStatusColor } from '../../PipelineListUtils'
 import css from '../../PipelinesPage.module.scss'
 
@@ -75,10 +79,26 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     }
   })
 
+  const [canDelete, canRun] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipeline.identifier as string
+      },
+      permissions: [PermissionIdentifier.DELETE_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountIdentifier, pipeline.identifier]
+  )
+
   return (
     <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
       <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
-        <Menu.Item icon="play" text={getString('runPipelineText')} />
+        <Menu.Item icon="play" text={getString('runPipelineText')} disabled={!canRun} />
       </RunPipelineModal>
       <Menu.Item
         icon="cog"
@@ -108,6 +128,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
       <Menu.Item
         icon="trash"
         text={getString('delete')}
+        disabled={!canDelete}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
           confirmDelete()
@@ -293,13 +314,25 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       </Container>
       <Container padding={{ left: 'large', right: 'large', bottom: 'small' }}>
         <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
-          <Button
+          <RbacButton
             data-testid="card-run-pipeline"
             intent="primary"
             minimal
             icon="run-pipeline"
             className={css.runPipelineBtn}
             text={<String stringID="runPipelineText" />}
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              resource: {
+                resourceType: ResourceType.PIPELINE,
+                resourceIdentifier: pipeline.identifier as string
+              },
+              permission: PermissionIdentifier.EXECUTE_PIPELINE
+            }}
           />
         </RunPipelineModal>
       </Container>

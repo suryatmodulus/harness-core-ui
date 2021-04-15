@@ -1,5 +1,6 @@
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import type { ExecutionWrapper } from 'services/cd-ng'
+import type { Domain } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 export enum AdvancedPanels {
   PreRequisites = 'preRequisites',
@@ -12,9 +13,12 @@ export interface StepCommandsProps {
   onChange: (step: ExecutionWrapper) => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
+  isReadonly: boolean
+  isNewStep?: boolean
   hasStepGroupAncestor?: boolean
   hiddenPanels?: AdvancedPanels[]
   withoutTabs?: boolean
+  domain?: Domain
 }
 
 export enum TabTypes {

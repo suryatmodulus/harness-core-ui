@@ -90,7 +90,7 @@ describe('SelectGCODashboards unit tests', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
 
-    fireEvent.click(getAllByText('+ Manually input query')[1])
+    fireEvent.click(getAllByText('cv.monitoringSources.gco.addManualInputQuery')[1])
     await waitFor(() => expect(document.body.querySelector('input[name="metricName"]')).not.toBeNull())
   })
 

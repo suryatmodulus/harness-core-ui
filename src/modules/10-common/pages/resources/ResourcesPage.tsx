@@ -11,7 +11,7 @@ import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const { CDNG_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { getString } = useStrings()
 
   return (
@@ -46,10 +46,10 @@ const ResourcesPage: React.FC = ({ children }) => {
                     : routes.toResourcesSecretsListing({ accountId })
                 }
               >
-                {getString('secrets')}
+                {getString('common.secrets')}
               </NavLink>
 
-              {CDNG_ENABLED && !(projectIdentifier || orgIdentifier) ? (
+              {CDNG_ENABLED && NG_SHOW_DELEGATE && !(projectIdentifier || orgIdentifier) ? (
                 <NavLink
                   className={css.tags}
                   activeClassName={css.activeTag}

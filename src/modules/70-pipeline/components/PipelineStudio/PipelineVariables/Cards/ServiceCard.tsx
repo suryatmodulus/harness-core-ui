@@ -22,10 +22,11 @@ export interface ServiceCardProps {
   metadataMap: PipelineVariablesData['metadataMap']
   stageIdentifier: string
   onUpdateServiceConfig(data: ServiceSpec): void
+  readonly?: boolean
 }
 
 export function ServiceCard(props: ServiceCardProps): React.ReactElement {
-  const { serviceConfig, originalServiceConfig, metadataMap, stageIdentifier, onUpdateServiceConfig } = props
+  const { serviceConfig, originalServiceConfig, metadataMap, stageIdentifier, onUpdateServiceConfig, readonly } = props
   const { stepsFactory } = usePipelineContext()
 
   return (
@@ -41,6 +42,7 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
         type={StepsMap[originalServiceConfig.serviceDefinition?.type || '']}
         stepViewType={StepViewType.InputVariable}
         onUpdate={onUpdateServiceConfig}
+        readonly={readonly}
         customStepProps={{
           stageIdentifier,
           metadataMap,

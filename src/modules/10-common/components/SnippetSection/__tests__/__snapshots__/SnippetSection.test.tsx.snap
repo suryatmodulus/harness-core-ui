@@ -209,7 +209,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -303,7 +303,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -391,7 +391,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -485,7 +485,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -569,7 +569,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -658,7 +658,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -752,7 +752,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -836,7 +836,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>
@@ -930,7 +930,7 @@ exports[`SnippetSection Test Initial render should match snapshots 1`] = `
               <div
                 class="snippetVersion"
               >
-                Version
+                version
                  
                 0.1
               </div>

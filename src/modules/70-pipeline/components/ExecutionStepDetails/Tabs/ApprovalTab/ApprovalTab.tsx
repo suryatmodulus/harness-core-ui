@@ -66,6 +66,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
           isWaiting={isWaiting}
           updateState={setApprovalData}
           getApprovalAuthorizationMock={getApprovalAuthorizationMock}
+          showSpinner={loading}
         />
       ) : null}
       {step.stepType === StepType.JiraApproval ? (

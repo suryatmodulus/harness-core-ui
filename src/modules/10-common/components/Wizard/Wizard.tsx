@@ -4,10 +4,16 @@ import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikErrors } from 'formik'
+import { parse } from 'yaml'
+import { isEqual } from 'lodash-es'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { useStrings } from 'framework/exports'
 import { useToaster } from '@common/exports'
-// import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { renderTitle, setNewTouchedPanel } from './WizardUtils'
 import css from './Wizard.module.scss'
 
@@ -33,6 +39,18 @@ interface FormikPropsInterface {
   enableReinitialize?: boolean
   onSubmit: (val: any) => void
 }
+
+interface VisualYamlPropsInterface {
+  showVisualYaml: boolean
+  schema?: object
+  invocationMap?: object
+  handleModeSwitch: (mode: SelectedView, yamlHandler?: YamlBuilderHandlerBinding) => void
+  convertFormikValuesToYaml: (formikPropsValues: any) => any
+  onYamlSubmit: (val: any) => void
+  yamlObjectKey?: string
+  loading?: boolean
+  yamlBuilderReadOnlyModeProps: YamlBuilderProps
+}
 interface WizardProps {
   wizardMap: WizardMapInterface
   formikInitialProps: FormikPropsInterface
@@ -46,15 +64,10 @@ interface WizardProps {
   disableSubmit?: boolean
   errorToasterMessage?: string
   rightNav?: JSX.Element
-  leftNav?: JSX.Element
-  showVisualYaml?: boolean
+  leftNav?: ({ selectedView }: { selectedView: SelectedView }) => JSX.Element
+  visualYamlProps?: VisualYamlPropsInterface
   className?: string
 }
-
-// enum SelectedView {
-//   VISUAL = 'VISUAL',
-//   YAML = 'YAML'
-// }
 
 const Wizard: React.FC<WizardProps> = ({
   wizardMap,
@@ -70,7 +83,7 @@ const Wizard: React.FC<WizardProps> = ({
   errorToasterMessage,
   rightNav,
   leftNav,
-  showVisualYaml = false,
+  visualYamlProps = { showVisualYaml: false },
   className = ''
 }) => {
   const { wizardLabel } = wizardMap
@@ -81,11 +94,23 @@ const Wizard: React.FC<WizardProps> = ({
   const [touchedPanels, setTouchedPanels] = React.useState<number[]>([])
   const [validateOnChange, setValidateOnChange] = React.useState<boolean>(formikInitialProps.validateOnChange || false)
   const [selectedTabIndex, setSelectedTabIndex] = React.useState<number>(initialIndex)
+  const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const layoutRef = useRef<HTMLDivElement>(null)
   const lastTab = selectedTabIndex === tabsMap.length - 1
   const { getString } = useStrings()
+  const {
+    showVisualYaml,
+    handleModeSwitch,
+    yamlBuilderReadOnlyModeProps,
+    loading: loadingYamlView,
+    schema,
+    convertFormikValuesToYaml,
+    onYamlSubmit,
+    yamlObjectKey
+  } = visualYamlProps
+  const isYamlView = selectedView === SelectedView.YAML
+  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const elementsRef: { current: RefObject<HTMLSpanElement>[] } = useRef(wizardMap.panels?.map(() => createRef()))
-  // const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
 
   const handleTabChange = (data: string): void => {
     const tabsIndex = tabsMap.findIndex(tab => tab === data)
@@ -102,6 +127,9 @@ const Wizard: React.FC<WizardProps> = ({
   const history = useHistory()
   const { showError } = useToaster()
 
+  const getIsDirtyForm = (parsedYaml: any): boolean =>
+    !isEqual(convertFormikValuesToYaml?.(formikInitialProps?.initialValues), parsedYaml)
+
   useEffect(() => {
     if (errorToasterMessage) {
       showError(errorToasterMessage)
@@ -109,7 +137,7 @@ const Wizard: React.FC<WizardProps> = ({
   }, [showError, errorToasterMessage])
 
   const title = leftNav ? (
-    <div className={css.sideItems}>{leftNav}</div>
+    <div className={css.sideItems}>{leftNav({ selectedView })}</div>
   ) : (
     <Heading
       className={css.sideItems}
@@ -125,7 +153,28 @@ const Wizard: React.FC<WizardProps> = ({
       {leftNav || showVisualYaml || rightNav ? (
         <section className={css.extendedNav}>
           {title}
-          {/* {showVisualYaml ? <VisualYamlToggle /> : null} */}
+          {showVisualYaml ? (
+            <VisualYamlToggle
+              onChange={(mode, callback) => {
+                try {
+                  const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                  parse(latestYaml)
+                  const errorsYaml =
+                    ((yamlHandler?.getYAMLValidationErrorMap() as unknown) as Map<number, string>) ||
+                    /* istanbul ignore next */ ''
+                  if (errorsYaml?.size > 0) {
+                    return
+                  }
+                  handleModeSwitch && handleModeSwitch(mode, yamlHandler)
+                  setSelectedView(mode)
+                  callback(mode)
+                } catch (e) {
+                  showError(getString('invalidYamlText'))
+                  return
+                }
+              }}
+            />
+          ) : null}
           <div className={css.sideItems}>{rightNav ? rightNav : null}</div>
         </section>
       ) : (
@@ -137,47 +186,82 @@ const Wizard: React.FC<WizardProps> = ({
           {wizardLabel}
         </Heading>
       )}
-      <div className={css.headerLine}></div>
+      {!isYamlView && <div className={css.headerLine}></div>}
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
         <Formik {...formikInitialProps} validateOnChange={validateOnChange}>
           {formikProps => (
-            <FormikForm>
+            <FormikForm className={isYamlView ? css.yamlContainer : ''}>
               <NavigationCheck
-                when={formikProps.dirty}
-                shouldBlockNavigation={() => !(formikProps.isSubmitting && formikProps.isValid)}
+                when={true}
+                shouldBlockNavigation={() => {
+                  // isValid check for yaml will happen below
+                  const shouldBlockNav = !(formikProps.isSubmitting && (formikProps.isValid || isYamlView))
+
+                  if (isYamlView && yamlHandler) {
+                    try {
+                      const parsedYaml = parse(yamlHandler.getLatestYaml())
+                      if (!parsedYaml) {
+                        return shouldBlockNav
+                      }
+                      const isDirty = getIsDirtyForm(parsedYaml)
+                      return shouldBlockNav && isDirty
+                    } catch (e) {
+                      return shouldBlockNav
+                    }
+                  } else {
+                    return formikProps.dirty ? shouldBlockNav : false
+                  }
+                }}
                 navigate={newPath => {
                   history.push(newPath)
                 }}
               />
-              <Tabs id="Wizard" onChange={handleTabChange} selectedTabId={selectedTabId}>
-                {wizardMap.panels.map((_panel, panelIndex) => {
-                  const { id, tabTitle, tabTitleComponent, requiredFields = [], checkValidPanel } = _panel
-                  return (
-                    <Tab
-                      key={id}
-                      id={id}
-                      style={{ width: tabWidth ? tabWidth : 'auto' }}
-                      title={renderTitle({
-                        tabTitle,
-                        tabTitleComponent,
-                        requiredFields,
-                        checkValidPanel,
-                        panelIndex,
-                        touchedPanels,
-                        isEdit,
-                        includeTabNumber,
-                        formikValues: formikProps.values,
-                        ref: elementsRef.current[panelIndex]
-                      })}
-                      panel={
-                        children?.[panelIndex] && React.cloneElement(children[panelIndex], { formikProps, isEdit })
-                      }
-                    />
-                  )
-                })}
-              </Tabs>
+              {isYamlView && yamlBuilderReadOnlyModeProps ? (
+                loadingYamlView ? (
+                  <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+                    <PageSpinner />
+                  </div>
+                ) : (
+                  <YAMLBuilder
+                    {...yamlBuilderReadOnlyModeProps}
+                    existingJSON={convertFormikValuesToYaml?.(formikProps.values)}
+                    isReadOnlyMode={false}
+                    showSnippetSection={false}
+                    bind={setYamlHandler}
+                    schema={schema}
+                  />
+                )
+              ) : (
+                <Tabs id="Wizard" onChange={handleTabChange} selectedTabId={selectedTabId}>
+                  {wizardMap.panels.map((_panel, panelIndex) => {
+                    const { id, tabTitle, tabTitleComponent, requiredFields = [], checkValidPanel } = _panel
+                    return (
+                      <Tab
+                        key={id}
+                        id={id}
+                        style={{ width: tabWidth ? tabWidth : 'auto' }}
+                        title={renderTitle({
+                          tabTitle,
+                          tabTitleComponent,
+                          requiredFields,
+                          checkValidPanel,
+                          panelIndex,
+                          touchedPanels,
+                          isEdit,
+                          includeTabNumber,
+                          formikValues: formikProps.values,
+                          ref: elementsRef.current[panelIndex]
+                        })}
+                        panel={
+                          children?.[panelIndex] && React.cloneElement(children[panelIndex], { formikProps, isEdit })
+                        }
+                      />
+                    )
+                  })}
+                </Tabs>
+              )}
               <Layout.Horizontal spacing="medium" className={css.footer}>
-                {selectedTabIndex !== 0 && (
+                {!isYamlView && selectedTabIndex !== 0 && (
                   <Button
                     text={getString('back')}
                     icon="chevron-left"
@@ -191,7 +275,7 @@ const Wizard: React.FC<WizardProps> = ({
                     }}
                   />
                 )}
-                {!lastTab && (
+                {!isYamlView && !lastTab && (
                   <Button
                     text={getString('continue')}
                     intent="primary"
@@ -205,7 +289,7 @@ const Wizard: React.FC<WizardProps> = ({
                     }}
                   />
                 )}
-                {lastTab && (
+                {!isYamlView && lastTab && (
                   <Button
                     text={submitLabel || getString('submit')}
                     intent="primary"
@@ -225,9 +309,47 @@ const Wizard: React.FC<WizardProps> = ({
                     }}
                   />
                 )}
-                <Text className={css.cancel} onClick={onHide}>
-                  {getString('cancel')}
-                </Text>
+                {!isYamlView && (
+                  <Text className={css.cancel} onClick={onHide}>
+                    {getString('cancel')}
+                  </Text>
+                )}
+                {isYamlView && yamlBuilderReadOnlyModeProps && !loadingYamlView && (
+                  <>
+                    <Button
+                      text={submitLabel || getString('submit')}
+                      intent="primary"
+                      rightIcon="chevron-right"
+                      onClick={() => {
+                        const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                        const errorsYaml =
+                          ((yamlHandler?.getYAMLValidationErrorMap() as unknown) as Map<number, string>) ||
+                          /* istanbul ignore next */ ''
+                        if (errorsYaml?.size > 0) {
+                          showError(getString('invalidYamlText'))
+                          return
+                        }
+                        try {
+                          const parsedYaml = parse(latestYaml)
+                          const processedFormik = yamlObjectKey ? parsedYaml?.[yamlObjectKey] : parsedYaml
+                          if (!parsedYaml) {
+                            showError(getString('invalidYamlText'))
+                            return
+                          }
+                          formikProps.setSubmitting(true)
+                          onYamlSubmit?.(processedFormik)
+                        } catch (e) {
+                          showError(getString('invalidYamlText'))
+                          return
+                        }
+                      }}
+                      disabled={disableSubmit}
+                    />
+                    <Text className={css.cancel} onClick={onHide}>
+                      {getString('cancel')}
+                    </Text>
+                  </>
+                )}
               </Layout.Horizontal>
             </FormikForm>
           )}

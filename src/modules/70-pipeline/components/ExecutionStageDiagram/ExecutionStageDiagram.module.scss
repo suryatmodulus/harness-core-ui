@@ -132,3 +132,16 @@
     background-position: bottom right;
   }
 }
+
+.stage-error {
+  vertical-align: -webkit-baseline-middle;
+  color: var(--red-500) !important;
+}
+.errorTooltip {
+  :global {
+    .bp3-popover-content {
+      max-width: 400px;
+      word-break: break-word;
+    }
+  }
+}

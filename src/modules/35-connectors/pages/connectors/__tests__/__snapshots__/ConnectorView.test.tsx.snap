@@ -84,27 +84,27 @@ exports[`Connector Details Page Edit details test 1`] = `
           <span
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Connectivity Status
+            connectivityStatus
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
           >
-            N/A
+            na
           </span>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          Last status check at 
+          lastStatusCheckAt
            
-          N/A
+          na
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
-          Last successful status check at 
+          lastSuccessfulStatusCheckAt
            
-          N/A
+          na
         </p>
         <div
           class="Layout--vertical StyledProps--main"
@@ -116,7 +116,7 @@ exports[`Connector Details Page Edit details test 1`] = `
             <span
               class="bp3-button-text"
             >
-              Test Connection
+              connectors.stepThreeName
             </span>
           </button>
         </div>
@@ -127,12 +127,12 @@ exports[`Connector Details Page Edit details test 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
         >
-          Change History
+          changeHistory
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Last Updated
+          lastUpdated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -142,7 +142,7 @@ exports[`Connector Details Page Edit details test 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Connector Created
+          connectorCreated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
@@ -174,12 +174,12 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           <div
             class="item selected"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item"
           >
-            YAML
+            yaml
           </div>
         </div>
         <button
@@ -209,7 +209,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           <span
             class="bp3-button-text"
           >
-            Edit Details
+            editDetails
           </span>
         </button>
       </div>
@@ -230,7 +230,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Overview
+                overview
               </p>
             </div>
             <div
@@ -239,7 +239,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Credentials
+                credentials
               </p>
             </div>
           </div>
@@ -258,27 +258,27 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           <span
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Connectivity Status
+            connectivityStatus
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
           >
-            N/A
+            na
           </span>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          Last status check at 
+          lastStatusCheckAt
            
-          N/A
+          na
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
-          Last successful status check at 
+          lastSuccessfulStatusCheckAt
            
-          N/A
+          na
         </p>
         <div
           class="Layout--vertical StyledProps--main"
@@ -290,7 +290,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
             <span
               class="bp3-button-text"
             >
-              Test Connection
+              connectors.stepThreeName
             </span>
           </button>
         </div>
@@ -301,12 +301,12 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
         >
-          Change History
+          changeHistory
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Last Updated
+          lastUpdated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -316,7 +316,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Connector Created
+          connectorCreated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
@@ -348,12 +348,12 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           <div
             class="item selected"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item"
           >
-            YAML
+            yaml
           </div>
         </div>
         <button
@@ -383,7 +383,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           <span
             class="bp3-button-text"
           >
-            Edit Details
+            editDetails
           </span>
         </button>
       </div>
@@ -404,7 +404,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Overview
+                overview
               </p>
             </div>
             <div
@@ -413,7 +413,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Credentials
+                credentials
               </p>
             </div>
           </div>
@@ -432,27 +432,27 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           <span
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Connectivity Status
+            connectivityStatus
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
           >
-            N/A
+            na
           </span>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          Last status check at 
+          lastStatusCheckAt
            
-          N/A
+          na
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
-          Last successful status check at 
+          lastSuccessfulStatusCheckAt
            
-          N/A
+          na
         </p>
         <div
           class="Layout--vertical StyledProps--main"
@@ -464,7 +464,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
             <span
               class="bp3-button-text"
             >
-              Test Connection
+              connectors.stepThreeName
             </span>
           </button>
         </div>
@@ -475,12 +475,12 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
         >
-          Change History
+          changeHistory
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Last Updated
+          lastUpdated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -490,7 +490,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Connector Created
+          connectorCreated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
@@ -522,12 +522,12 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           <div
             class="item selected"
           >
-            VISUAL
+            visual
           </div>
           <div
             class="item"
           >
-            YAML
+            yaml
           </div>
         </div>
         <button
@@ -557,7 +557,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           <span
             class="bp3-button-text"
           >
-            Edit Details
+            editDetails
           </span>
         </button>
       </div>
@@ -578,7 +578,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Overview
+                overview
               </p>
             </div>
             <div
@@ -587,7 +587,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
               >
-                Credentials
+                credentials
               </p>
             </div>
           </div>
@@ -606,27 +606,27 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           <span
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
-            Connectivity Status
+            connectivityStatus
           </span>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-medium"
           >
-            N/A
+            na
           </span>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
-          Last status check at 
+          lastStatusCheckAt
            
-          N/A
+          na
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
-          Last successful status check at 
+          lastSuccessfulStatusCheckAt
            
-          N/A
+          na
         </p>
         <div
           class="Layout--vertical StyledProps--main"
@@ -638,7 +638,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
             <span
               class="bp3-button-text"
             >
-              Test Connection
+              connectors.stepThreeName
             </span>
           </button>
         </div>
@@ -649,12 +649,12 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--color StyledProps--color-grey800"
         >
-          Change History
+          changeHistory
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Last Updated
+          lastUpdated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
@@ -664,7 +664,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
         >
-          Connector Created
+          connectorCreated
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"

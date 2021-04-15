@@ -1,56 +1,71 @@
 {
   "status": "SUCCESS",
   "data": {
-    "moduleType": "CD",
-    "gitSyncEntityListDTOList": [
+    "moduleType": "CI",
+    "gitSyncRepoFilesList": [
       {
-        "entityType": "pipelines",
-        "count": 4,
-        "gitSyncEntities": [
+        "gitSyncConfigIdentifier": "6062f6e4ef03c30721080b81",
+        "gitSyncEntityLists": [
           {
-            "entityName": "My prod pipeline",
-            "entityType": "pipelines",
-            "entityIdentifier": "pipelinesIdentifier1",
-            "gitConnectorId": null,
-            "repositoryName": "wings-software/nextgenui",
-            "branch": "Master",
-            "filePath": "rootFolder1/pipelines/pipelinesIdentifier1.yaml",
-            "repoProviderType": "github"
+            "entityType": "Secrets",
+            "count": 2,
+            "gitSyncEntities": [
+              {
+                "entityName": "My-secret",
+                "entityType": "Secrets",
+                "entityIdentifier": "Repo1SecretsFeature",
+                "gitConnectorId": "project.github2",
+                "repositoryName": null,
+                "branch": "feature",
+                "entityGitPath": "/wings/portal/secret.yaml",
+                "repoProviderType": null,
+                "accountId": "kmpySmUISimoRrJL6NL73w"
+              },
+              {
+                "entityName": "My-secret",
+                "entityType": "Secrets",
+                "entityIdentifier": "Repo1SecretsFeature1",
+                "gitConnectorId": "project.github2",
+                "repositoryName": null,
+                "branch": "feature",
+                "entityGitPath": "/wings/portal/secret1.yaml",
+                "repoProviderType": null,
+                "accountId": "kmpySmUISimoRrJL6NL73w"
+              }
+            ]
           },
           {
-            "entityName": "My prod pipeline",
-            "entityType": "pipelines",
-            "entityIdentifier": "pipelineidentifier2",
-            "gitConnectorId": null,
-            "repositoryName": "wings-software/nextgenui",
-            "branch": "Master",
-            "filePath": "rootFolder1/pipelines/pipelineidentifier2.yaml",
-            "repoProviderType": "gitlab"
-          },
-          {
-            "entityName": null,
-            "entityType": "pipelines",
-            "entityIdentifier": "connectoridentifier",
-            "gitConnectorId": null,
-            "repositoryName": "wings-software/nextgenui",
-            "branch": "Master",
-            "filePath": "rootFolder1/pipelines/connectoridentifier.yaml",
-            "repoProviderType": "gitlab"
-          },
-          {
-            "entityName": null,
-            "entityType": "pipelines",
-            "entityIdentifier": "connectoridentifier",
-            "gitConnectorId": null,
-            "repositoryName": "myProdPipeline",
-            "branch": "Master",
-            "filePath": "rootFolder1/pipelines/connectoridentifier.yaml",
-            "repoProviderType": "unknown"
+            "entityType": "Connectors",
+            "count": 3,
+            "gitSyncEntities": [
+              {
+                "entityName": "My-github-connector",
+                "entityType": "Connectors",
+                "entityIdentifier": "Repo1SecretsFeature",
+                "gitConnectorId": "project.Repo1SecretsFeature",
+                "repositoryName": null,
+                "branch": "feature",
+                "entityGitPath": "/wings/portal/my-github-connector.yaml",
+                "repoProviderType": null,
+                "accountId": "kmpySmUISimoRrJL6NL73w"
+              },
+              {
+                "entityName": "My-github-connector-1",
+                "entityType": "Connectors",
+                "entityIdentifier": "Repo1SecretsFeature",
+                "gitConnectorId": "project.github1",
+                "repositoryName": null,
+                "branch": "feature",
+                "entityGitPath": "/wings/portal/my-github-connector-1.yaml",
+                "repoProviderType": null,
+                "accountId": "kmpySmUISimoRrJL6NL73w"
+              }
+            ]
           }
         ]
       }
     ]
   },
   "metaData": null,
-  "correlationId": "372a58dd-d0b4-4948-9264-3fbeb582ded6"
+  "correlationId": "f71187aa-26f7-48e6-8544-5320cdc9d953"
 }

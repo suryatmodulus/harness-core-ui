@@ -4,10 +4,10 @@ import { Icon, Button } from '@wings-software/uicore'
 import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
-import FailureStrategy from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
-
+import produce from 'immer'
 import { useStrings } from 'framework/exports'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
+import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -43,19 +43,21 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       },
       pipelineView
     },
+    isReadonly,
     updatePipeline,
+    updateStage,
     updatePipelineView,
     getStageFromPipeline,
     stepsFactory
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
+  const domain = selectedStage?.stage?.type
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
   const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type)
   let title: React.ReactNode | null = null
-
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
   }
@@ -73,7 +75,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         title = (
           <div className={css.title}>
             <Icon name="failure-strategy" size={40} />
-            {getString('stageName', selectedStage?.stage)} / {getString('failureStrategy.title')}
+            {getString('stageName', selectedStage?.stage)} / {getString('pipeline.failureStrategies.title')}
           </div>
         )
         break
@@ -86,60 +88,110 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         )
         break
       case DrawerTypes.PipelineNotifications:
-        title = getString('notifications')
+        title = getString('notifications.name')
         break
       default:
         title = null
     }
   }
 
-  const onSubmitStep = (item: ExecutionWrapper): void => {
-    const node = data?.stepConfig?.node
-    if (node) {
-      // Add/replace values only if they are presented
-      if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
-      if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
-      if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
-      if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
-      if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
-      if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
-      if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
-        node.spec = {
-          ...(node.spec ? node.spec : {}),
-          delegateSelectors: item.delegateSelectors
+  const updateStepWithinStage = (
+    execution: ExecutionElementConfig,
+    processingNodeIdentifier: string,
+    processedNode: ExecutionWrapper
+  ): void => {
+    // Finds the step in the stage, and updates with the processed node
+    execution.steps?.forEach(stepWithinStage => {
+      if (stepWithinStage.stepGroup) {
+        // If stage has a step group, loop over the step group steps and update the matching identifier with node
+        if (stepWithinStage.stepGroup?.identifier === processingNodeIdentifier) {
+          stepWithinStage.stepGroup = processedNode as any
+        } else {
+          updateStepWithinStage(stepWithinStage.stepGroup, processingNodeIdentifier, processedNode)
+        }
+      } else if (stepWithinStage.parallel) {
+        // If stage has a parallel steps, loop over and update the matching identifier with node
+        stepWithinStage.parallel.forEach((parallelStep: ExecutionWrapper) => {
+          if (parallelStep.step?.identifier === processingNodeIdentifier) {
+            parallelStep.step = processedNode
+          }
+        })
+      } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
+        // Else simply find the matching step ad update the node
+        stepWithinStage.step = processedNode
+      }
+    })
+    if (execution.rollbackSteps) {
+      updateStepWithinStage({ steps: execution.rollbackSteps }, processingNodeIdentifier, processedNode)
+    }
+  }
+
+  const onSubmitStep = async (item: ExecutionWrapper, drawerType: DrawerTypes): Promise<void> => {
+    if (data?.stepConfig?.node) {
+      const processNode = produce<ExecutionWrapper>(data.stepConfig.node, node => {
+        // Add/replace values only if they are presented
+        if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
+        if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
+        if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
+        if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+        if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+        if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
+        if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {
+          node.spec = {
+            ...(node.spec ? node.spec : {}),
+            delegateSelectors: item.delegateSelectors
+          }
+        }
+
+        // Delete values if they were already added and now removed
+        if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
+        if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
+        if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+        if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
+          delete node.failureStrategies
+        if (
+          node.spec?.delegateSelectors &&
+          node.spec.delegateSelectors.length > 0 &&
+          (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
+          item.tab === TabTypes.Advanced
+        ) {
+          delete node.spec.delegateSelectors
+        }
+
+        if (item.spec && item.tab !== TabTypes.Advanced) {
+          node.spec = { ...item.spec }
+        }
+      })
+      if (data?.stepConfig?.node?.identifier) {
+        if (drawerType === DrawerTypes.StepConfig && selectedStage?.stage?.spec?.execution) {
+          const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+          updateStepWithinStage(selectedStage.stage.spec.execution, processingNodeIdentifier, processNode)
+          await updateStage(selectedStage.stage)
+          data?.stepConfig?.onUpdate?.(processNode)
+        } else if (
+          drawerType === DrawerTypes.ProvisionerStepConfig &&
+          selectedStage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
+        ) {
+          const processingNodeIdentifier = data?.stepConfig?.node?.identifier
+          updateStepWithinStage(
+            selectedStage.stage.spec.infrastructure.infrastructureDefinition.provisioner,
+            processingNodeIdentifier,
+            processNode
+          )
+          await updateStage(selectedStage.stage)
+          data?.stepConfig?.onUpdate?.(processNode)
         }
       }
+    }
 
-      // Delete values if they were already added and now removed
-      if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
-      if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
-      if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
-      if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
-        delete node.failureStrategies
-      if (
-        node.spec?.delegateSelectors &&
-        node.spec.delegateSelectors.length > 0 &&
-        (!item.delegateSelectors || item.delegateSelectors?.length === 0) &&
-        item.tab === TabTypes.Advanced
-      ) {
-        delete node.spec.delegateSelectors
-      }
-
-      if (item.spec && item.tab !== TabTypes.Advanced) {
-        node.spec = { ...item.spec }
-      }
-      data?.stepConfig?.onUpdate?.(item)
-      updatePipeline(pipeline)
-
-      // TODO: temporary fix for FF
-      // can be removed once the unified solution across modules is implemented
-      if (stageType === StageTypes.FEATURE) {
-        updatePipelineView({
-          ...pipelineView,
-          isDrawerOpened: false,
-          drawerData: { type: DrawerTypes.StepConfig }
-        })
-      }
+    // TODO: temporary fix for FF
+    // can be removed once the unified solution across modules is implemented
+    if (stageType === StageTypes.FEATURE) {
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: { type: DrawerTypes.StepConfig }
+      })
     }
   }
 
@@ -210,7 +262,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
             values
           ) {
-            onSubmitStep(values)
+            onSubmitStep(values, type)
           } else {
             // please do not remove the await below.
             // This is required for errors to be populated correctly
@@ -257,12 +309,15 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={onSubmitStep}
+          onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
+          domain={domain}
         />
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
@@ -339,8 +394,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
       {type === DrawerTypes.FailureStrategy && selectedStageId ? (
-        <FailureStrategy
+        <FailureStrategyWithRef
           selectedStage={selectedStage}
+          isReadonly={isReadonly}
+          ref={formikRef}
           onUpdate={({ failureStrategies }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
             if (pipelineStage && pipelineStage.stage) {
@@ -353,6 +410,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
       {type === DrawerTypes.SkipCondition && selectedStageId ? (
         <SkipCondition
+          isReadonly={isReadonly}
           selectedStage={selectedStage || {}}
           onUpdate={({ skipCondition }) => {
             const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
@@ -366,11 +424,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           step={data.stepConfig.node}
+          isReadonly={isReadonly}
           ref={formikRef}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
           withoutTabs
+          domain={domain}
         />
       )}
 
@@ -445,11 +506,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepCommands
           step={data.stepConfig.node}
           ref={formikRef}
+          isReadonly={isReadonly}
+          isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={onSubmitStep}
+          onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
+          domain={domain}
         />
       )}
     </Drawer>

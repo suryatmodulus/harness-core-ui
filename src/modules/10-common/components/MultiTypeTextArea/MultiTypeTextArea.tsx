@@ -95,10 +95,11 @@ export interface FormMultiTypeTextAreaProps extends Omit<IFormGroupProps, 'label
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
   multiTypeTextArea?: Omit<MultiTypeTextAreaProps, 'name' | 'onChange'>
   onChange?: MultiTypeTextAreaProps['onChange']
+  isOptional?: boolean
 }
 
 export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props => {
-  const { label, multiTypeTextArea, placeholder, formik, name, onChange, ...restProps } = props
+  const { label, multiTypeTextArea, placeholder, formik, name, onChange, isOptional = false, ...restProps } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -120,8 +121,16 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
     }
   }
 
+  const labelToPass = isOptional ? `${label} (Optional)` : label
   return (
-    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
+    <FormGroup
+      {...rest}
+      labelFor={name}
+      helperText={helperText}
+      intent={intent}
+      disabled={disabled}
+      label={labelToPass}
+    >
       <MultiTypeTextArea
         value={value}
         {...customProps}

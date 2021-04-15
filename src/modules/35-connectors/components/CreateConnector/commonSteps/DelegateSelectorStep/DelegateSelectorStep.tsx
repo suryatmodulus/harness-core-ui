@@ -12,7 +12,8 @@ import {
   Color
 } from '@wings-software/uicore'
 // import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { noop } from 'lodash-es'
+import { useStrings, useAppStore } from 'framework/exports'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { DelegateSelectors } from '@common/components'
 import { useToaster } from '@common/exports'
@@ -21,15 +22,25 @@ import {
   useUpdateConnector,
   ConnectorConfigDTO,
   ConnectorRequestBody,
-  ConnectorInfoDTO
+  ConnectorInfoDTO,
+  ResponseConnectorResponse,
+  Connector
 } from 'services/cd-ng'
 
+import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { Entities } from '@common/interfaces/GitSyncInterface'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm.tsx'
 import css from './DelegateSelectorStep.module.scss'
 
 interface BuildPayloadProps {
   projectIdentifier: string
   orgIdentifier: string
   delegateSelectors: Array<string>
+}
+
+interface ConnectorCreateEditProps {
+  gitData?: SaveToGitFormInterface
+  payload?: Connector
 }
 
 interface DelegateSelectorProps {
@@ -62,49 +73,55 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const { accountId, projectIdentifier, orgIdentifier } = useParams<any>()
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const [loadConnector, setLoadConnector] = useState(false)
+  const { mutate: createConnector, loading: creating } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
   const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
+  let stepDataRef: ConnectorConfigDTO | null = null
+  let connectorPayloadRef: Connector | null = null
 
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await createConnector(data)
-      setLoadConnector(false)
-      props.onConnectorCreated?.(response.data)
-      showSuccess(`Connector '${prevStepData?.name}' created successfully`)
-      if (!delegateSelectors.length && stepData.skipDefaultValidation) {
-        props.hideModal?.()
-      } else {
-        nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
-        props.setIsEditMode?.(true)
-      }
-    } catch (e) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+  const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
+    props.onConnectorCreated?.(response?.data)
+    showSuccess(
+      getString(props.isEditMode ? 'connectors.successfullUpdate' : 'connectors.successfullCreate', {
+        name: prevStepData?.name
+      })
+    )
+
+    if (!delegateSelectors.length && stepDataRef?.skipDefaultValidation) {
+      props.hideModal?.()
+    } else {
+      nextStep?.({ ...prevStepData, ...stepDataRef } as ConnectorConfigDTO)
+      props.setIsEditMode?.(true)
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (gitData: SaveToGitFormInterface): void => {
+      handleCreateOrEdit({ gitData, payload: connectorPayloadRef as Connector })
+    },
+    onClose: noop
+  })
+
+  const handleCreateOrEdit = async (connectorData: ConnectorCreateEditProps): Promise<void> => {
+    const { gitData } = connectorData
+    const payload = connectorData.payload || (connectorPayloadRef as Connector)
+
     try {
       modalErrorHandler?.hide()
-      setLoadConnector(true)
-      const response = await updateConnector(data)
-      setLoadConnector(false)
-      props.onConnectorCreated?.(response.data)
-      showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
-      if (!delegateSelectors.length && stepData.skipDefaultValidation) {
-        props.hideModal?.()
-      } else {
-        nextStep?.({ ...prevStepData, ...stepData } as ConnectorConfigDTO)
-      }
-    } catch (error) {
-      setLoadConnector(false)
-      modalErrorHandler?.showDanger(error.data?.message || error.message)
+      const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
+      const response = props.isEditMode
+        ? await updateConnector(payload, { queryParams: queryParams })
+        : await createConnector(payload, { queryParams: queryParams })
+      afterSuccessHandler(response)
+    } catch (e) {
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
@@ -115,7 +132,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       setDelegateSelectors(delegate)
     }
   }, [])
-
   return (
     <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
@@ -141,16 +157,22 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             projectIdentifier: projectIdentifier,
             orgIdentifier: orgIdentifier
           }
-          const data = buildPayload(connectorData)
 
-          if (props.isEditMode) {
-            customHandleUpdate
-              ? customHandleUpdate(data, { ...prevStepData, ...stepData }, props)
-              : handleUpdate(data, stepData)
+          const data = buildPayload(connectorData)
+          connectorPayloadRef = data
+          stepDataRef = stepData
+          if (isGitSyncEnabled) {
+            openSaveToGitDialog(props.isEditMode, {
+              type: Entities.CONNECTORS
+            })
           } else {
-            customHandleCreate
-              ? customHandleCreate(data, { ...prevStepData, ...stepData }, props)
-              : handleCreate(data, stepData)
+            if (customHandleUpdate || customHandleCreate) {
+              props.isEditMode
+                ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
+                : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
+            } else {
+              handleCreateOrEdit({ payload: data })
+            }
           }
         }}
       >
@@ -185,7 +207,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               text={getString('saveAndContinue')}
               disabled={
                 (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
-                loadConnector
+                creating ||
+                updating
               }
               rightIcon="chevron-right"
             />

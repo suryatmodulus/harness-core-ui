@@ -19,7 +19,7 @@ exports[`Activity List render all activity 1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          TIME
+          TIMELABEL
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -112,7 +112,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -166,7 +166,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -192,7 +192,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -246,7 +246,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -272,7 +272,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -326,7 +326,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -352,7 +352,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -406,7 +406,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -432,7 +432,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -486,7 +486,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -512,7 +512,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -566,7 +566,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -592,7 +592,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -646,7 +646,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -672,7 +672,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -726,7 +726,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -752,7 +752,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -806,7 +806,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -832,7 +832,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -886,7 +886,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -912,7 +912,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -966,7 +966,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -992,7 +992,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1046,7 +1046,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1072,7 +1072,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1126,7 +1126,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1152,7 +1152,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1206,7 +1206,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Failed
+                activityHistory.connectionFailed
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1232,7 +1232,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1286,7 +1286,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1312,7 +1312,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1366,7 +1366,7 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Connection Successful
+                activityHistory.connectionSuccessful
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1392,7 +1392,7 @@ exports[`Activity List render all activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1409,7 +1409,7 @@ exports[`Activity List render all activity 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            Connectivity Check
+            activityHistory.connectivityCheck
           </p>
         </div>
         <div
@@ -1442,12 +1442,12 @@ exports[`Activity List render all activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Heart beat Failure (1)
+                activityHistory.heartbeatFailure (1)
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
               >
-                Connectivity Check Failed
+                activityHistory.connectivityCheckFailed
               </p>
             </div>
           </div>
@@ -1477,7 +1477,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          TIME
+          TIMELABEL
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -1570,7 +1570,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
             >
-              Activity Log
+              activityLog
             </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
@@ -1587,7 +1587,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            Connectivity Check
+            activityHistory.connectivityCheck
           </p>
         </div>
         <div
@@ -1620,12 +1620,12 @@ exports[`Activity List render only connectivity check activity 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-dark600"
               >
-                Heart beat Failure (1)
+                activityHistory.heartbeatFailure (1)
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey450"
               >
-                Connectivity Check Failed
+                activityHistory.connectivityCheckFailed
               </p>
             </div>
           </div>

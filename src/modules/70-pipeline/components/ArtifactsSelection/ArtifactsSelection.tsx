@@ -25,9 +25,9 @@ import DelegateSelectorStep from '@connectors/components/CreateConnector/commonS
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
-import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath'
-import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact'
-import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath'
+import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
+import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
+import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
 import type {
   ArtifactsSelectionProps,
@@ -57,7 +57,8 @@ export default function ArtifactsSelection({
       }
     },
     getStageFromPipeline,
-    updatePipeline
+    updatePipeline,
+    isReadonly
   } = useContext(PipelineContext)
 
   const [isEditMode, setIsEditMode] = React.useState(false)
@@ -314,7 +315,7 @@ export default function ArtifactsSelection({
     if (context === ModalViewFor.PRIMARY) {
       return primaryArtifact
     } else {
-      return sideCarArtifact[sidecarIndex]?.sidecar
+      return sideCarArtifact?.[sidecarIndex]?.sidecar
     }
   }
 
@@ -323,7 +324,7 @@ export default function ArtifactsSelection({
     if (context === ModalViewFor.PRIMARY) {
       spec = primaryArtifact?.spec
     } else {
-      spec = sideCarArtifact[sidecarIndex]?.sidecar.spec
+      spec = sideCarArtifact?.[sidecarIndex]?.sidecar.spec
     }
     if (!spec) {
       return {
@@ -596,6 +597,7 @@ export default function ArtifactsSelection({
       fetchedConnectorResponse={fetchedConnectorResponse}
       accountId={accountId}
       refetchConnectors={refetchConnectorList}
+      isReadonly={isReadonly}
     />
   )
 }

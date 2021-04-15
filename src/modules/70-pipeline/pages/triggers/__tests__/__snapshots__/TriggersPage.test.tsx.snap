@@ -15,7 +15,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
         <span
           class="bp3-button-text"
         >
-          + New Trigger
+          pipeline-triggers.newTrigger
         </span>
       </button>
       <div
@@ -46,7 +46,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
           <input
             class="bp3-input"
             data-name="search"
-            placeholder="Search"
+            placeholder="search"
             type="text"
             value=""
           />
@@ -70,7 +70,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             style="width: 25%;"
             title="Toggle SortBy"
           >
-            TRIGGER
+            PIPELINE-TRIGGERS.TRIGGERLABEL
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -120,7 +120,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              LAST ACTIVATION
+              pipeline-triggers.lastActivationLabel
             </div>
           </div>
           <div
@@ -132,7 +132,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              WEBHOOK
+              EXECUTION.TRIGGERTYPE.WEBHOOK
             </div>
           </div>
           <div
@@ -144,7 +144,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              ENABLE
+              pipeline-triggers.enableLabel
             </div>
           </div>
           <div
@@ -335,12 +335,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  23 Activations in
+                  pipeline-triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last 7 days
+                  pipeline-triggers.activityDays
                 </p>
               </div>
             </div>
@@ -567,12 +567,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  0 Activations in
+                  pipeline-triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last  days
+                  pipeline-triggers.activityDays
                 </p>
               </div>
             </div>
@@ -801,12 +801,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  0 Activations in
+                  pipeline-triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last  days
+                  pipeline-triggers.activityDays
                 </p>
               </div>
             </div>
@@ -1004,12 +1004,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  0 Activations in
+                  pipeline-triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  Last 7 days
+                  pipeline-triggers.activityDays
                 </p>
               </div>
             </div>

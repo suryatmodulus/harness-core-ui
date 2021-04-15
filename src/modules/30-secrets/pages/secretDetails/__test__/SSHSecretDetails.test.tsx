@@ -106,7 +106,7 @@ describe('Secret Details', () => {
         fireEvent.click(edit)
       })
       await act(async () => {
-        await waitFor(() => getByText(document.body, 'SSH Credential'))
+        await waitFor(() => getByText(document.body, 'SSH'))
       })
       let form = findDialogContainer()
       expect(form).toBeTruthy()

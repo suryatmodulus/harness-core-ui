@@ -12,6 +12,9 @@ import Wizard from '../Wizard'
 
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
+  <div>{children}</div>
+))
 
 describe('Wizard tests', () => {
   describe('Renders/snapshots', () => {

@@ -52,8 +52,8 @@ describe('Test ConfigureOptions', () => {
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
-    await waitFor(() => getByTextBody(document.body, 'Not a valid input Expression'))
-    expect(getByTextBody(document.body, 'Not a valid input Expression')).toBeTruthy()
+    await waitFor(() => getByTextBody(document.body, 'configureOptions.notValidExpression'))
+    expect(getByTextBody(document.body, 'configureOptions.notValidExpression')).toBeTruthy()
   })
 
   test('test regex expression', async () => {
@@ -68,7 +68,7 @@ describe('Test ConfigureOptions', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
-    const submitBtn = getByTextBody(dialog, 'Submit')
+    const submitBtn = getByTextBody(dialog, 'submit')
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
     expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, '', true)
@@ -89,7 +89,7 @@ describe('Test ConfigureOptions', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
-    const submitBtn = getByTextBody(dialog, 'Submit')
+    const submitBtn = getByTextBody(dialog, 'submit')
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
     expect(onChange).toBeCalledWith(`${RUNTIME_INPUT_VALUE}.allowedValues(abc,xyz)`, '', true)
@@ -115,7 +115,7 @@ describe('Test ConfigureOptions', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
-    const submitBtn = getByTextBody(dialog, 'Submit')
+    const submitBtn = getByTextBody(dialog, 'submit')
     fireEvent.click(submitBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
     expect(onChange).toBeCalledWith(
@@ -154,7 +154,7 @@ describe('Test ConfigureOptions', () => {
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     onChange.mockReset()
-    const cancelBtn = getByTextBody(dialog, 'Cancel')
+    const cancelBtn = getByTextBody(dialog, 'cancel')
     fireEvent.click(cancelBtn)
     await waitFor(() => expect(onChange).toBeCalledTimes(1))
     expect(onChange).toBeCalled()

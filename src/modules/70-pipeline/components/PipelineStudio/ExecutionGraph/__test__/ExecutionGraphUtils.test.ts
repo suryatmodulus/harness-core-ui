@@ -1,7 +1,6 @@
 import type { DefaultNodeModel } from '@pipeline/components/Diagram'
 import {
   addService,
-  calculateDepthCount,
   DependenciesWrapper,
   getDependenciesState,
   getDependencyFromNode,
@@ -101,57 +100,5 @@ describe('ExecutionGraphUtils', () => {
     addService(data, service)
 
     expect(data.length).toBe(1)
-  })
-
-  test('calculateDepthCount() without stepGroup', () => {
-    const dept = calculateDepthCount({}, new Map())
-    expect(dept).toBe(0.7)
-  })
-
-  test('calculateDepthCount() with collapsed stepGroup', () => {
-    const node = {
-      stepGroup: {
-        identifier: 'collapsed'
-      }
-    }
-    const mapState: StepStateMap = new Map<string, StepState>()
-    mapState.set('collapsed', { isStepGroupCollapsed: true } as StepState)
-
-    const dept = calculateDepthCount(node, mapState)
-    expect(dept).toBe(0.7)
-  })
-
-  test('calculateDepthCount() with expanded stepGroup (one step)', () => {
-    const node = {
-      stepGroup: {
-        identifier: 'expanded',
-        steps: [{ step: {} }]
-      }
-    }
-    const mapState: StepStateMap = new Map<string, StepState>()
-    mapState.set('expanded', { isStepGroupCollapsed: false } as StepState)
-
-    const dept = calculateDepthCount(node, mapState)
-
-    expect(dept).toBe(1)
-  })
-
-  test('calculateDepthCount() with expanded stepGroup (3 step in parallel)', () => {
-    const node = {
-      stepGroup: {
-        identifier: 'expanded',
-        steps: [
-          {
-            parallel: [{ step: {} }, { step: {} }, { step: {} }]
-          }
-        ]
-      }
-    }
-    const mapState: StepStateMap = new Map<string, StepState>()
-    mapState.set('expanded', { isStepGroupCollapsed: false } as StepState)
-
-    const dept = calculateDepthCount(node, mapState)
-
-    expect(dept).toBe(2)
   })
 })

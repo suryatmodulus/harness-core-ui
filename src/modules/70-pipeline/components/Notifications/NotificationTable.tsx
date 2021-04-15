@@ -44,6 +44,7 @@ export interface NotificationTableProps {
   pageIndex: number
   stagesOptions?: MultiSelectOption[]
   getExistingNotificationNames?: (skipIndex?: number) => string[]
+  isReadonly?: boolean
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -81,6 +82,7 @@ const RenderColumnEnabled: Renderer<CellProps<NotificationRulesItem>> = ({ row, 
           Actions.Update
         )
       }}
+      disabled={(column as any).disabled}
     />
   )
 }
@@ -167,8 +169,13 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, col
           }}
         />
         <Menu>
-          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={(column as any).disabled} />
+          <Menu.Item
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+            disabled={(column as any).disabled}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -187,7 +194,8 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
     pageSize,
     pageIndex,
     stagesOptions = [],
-    getExistingNotificationNames = (_skipIndex?: number) => []
+    getExistingNotificationNames = (_skipIndex?: number) => [],
+    isReadonly = false
   } = props
   const { getString } = useStrings()
 
@@ -208,7 +216,8 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         onUpdate: onUpdate,
         width: '15%',
         Cell: RenderColumnEnabled,
-        disableSortBy: true
+        disableSortBy: true,
+        disabled: isReadonly
       },
       {
         Header: getString('pipeline-notifications.nameOftheRule').toUpperCase(),
@@ -242,7 +251,8 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         Cell: RenderColumnMenu,
         onUpdate: onUpdate,
         openNotificationModal: openNotificationModal,
-        disableSortBy: true
+        disableSortBy: true,
+        disabled: isReadonly
       }
     ],
     [onUpdate, openNotificationModal, data]
@@ -256,10 +266,11 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         <Layout.Horizontal flex className={css.headerActions}>
           <Button
             intent="primary"
-            text={getString('notifications')}
+            text={getString('notifications.name')}
             icon="plus"
             id="newNotificationBtn"
             onClick={() => openNotificationModal()}
+            disabled={isReadonly}
           />
 
           <Select

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, findByText, act } from '@testing-library/react'
+import { render, fireEvent, findByText, act, RenderResult, waitFor } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
@@ -49,21 +49,25 @@ describe('<ExecutionActions /> tests', () => {
     ['Suspended'],
     ['Waiting']
   ])('snapshot tests "%s" status', async executionStatus => {
-    const { container } = render(
-      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
-      </TestWrapper>
-    )
+    let result: RenderResult
 
-    expect(container).toMatchSnapshot('container')
+    act(() => {
+      result = render(
+        <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+          <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
+        </TestWrapper>
+      )
+    })
 
-    const btn = container.querySelector('[icon="more"]')?.closest('button')
+    expect(result!.container).toMatchSnapshot('container')
+
+    const btn = result!.container.querySelector('[icon="more"]')?.closest('button')
 
     act(() => {
       fireEvent.click(btn!)
     })
 
-    await findByText(document.body, 'Edit Pipeline')
+    await findByText(document.body, 'editPipeline')
 
     expect(document.body.querySelector('.bp3-menu')).toMatchSnapshot('Menu')
   })
@@ -80,30 +84,33 @@ describe('<ExecutionActions /> tests', () => {
       data: null
     }))
 
-    const { container } = render(
-      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
-      </TestWrapper>
-    )
-
-    const btn = container.querySelector(`[icon="${icon}"]`)?.closest('button')
+    let result: RenderResult
 
     act(() => {
+      result = render(
+        <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+          <ExecutionActions params={pathParams as any} executionStatus={executionStatus} refetch={jest.fn()} />
+        </TestWrapper>
+      )
+    })
+
+    act(() => {
+      const btn = result!.container.querySelector(`[icon="${icon}"]`)?.closest('button')
       fireEvent.click(btn!)
     })
 
-    expect(mutate).toHaveBeenCalledWith(
-      {},
-      {
-        queryParams: {
-          accountIdentifier: pathParams.accountId,
-          orgIdentifier: pathParams.orgIdentifier,
-          projectIdentifier: pathParams.projectIdentifier,
-          interruptType
+    await waitFor(() => {
+      expect(mutate).toHaveBeenCalledWith(
+        {},
+        {
+          queryParams: {
+            accountIdentifier: pathParams.accountId,
+            orgIdentifier: pathParams.orgIdentifier,
+            projectIdentifier: pathParams.projectIdentifier,
+            interruptType
+          }
         }
-      }
-    )
-
-    // await findByText(document.body, 'Edit Pipeline')
+      )
+    })
   })
 })

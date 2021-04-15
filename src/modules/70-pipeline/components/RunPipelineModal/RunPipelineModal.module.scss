@@ -85,3 +85,17 @@
   width: 700px;
   padding: var(--spacing-large);
 }
+
+.runFormExecutionView {
+  .content {
+    min-height: calc(100vh - 220px);
+    overflow: auto;
+    display: block;
+    max-height: calc(100vh - 220px);
+  }
+
+  [class*='OverlaySpinner--overlaySpinner'] {
+    min-height: calc(100% - var(--page-header-height, 64px));
+    overflow: hidden;
+  }
+}

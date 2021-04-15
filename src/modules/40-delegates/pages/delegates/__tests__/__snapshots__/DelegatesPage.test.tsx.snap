@@ -34,7 +34,7 @@ exports[`Delegates Page render data 1`] = `
             role="tab"
             tabindex="0"
           >
-            Delegates
+            delegate.delegates
           </div>
           <div
             aria-controls="bp3-tab-panel_delegateTabs_configurations"
@@ -47,7 +47,7 @@ exports[`Delegates Page render data 1`] = `
             role="tab"
             tabindex="0"
           >
-            Delegate Configurations
+            delegate.delegateConfigurations
           </div>
         </div>
         <div
@@ -89,7 +89,7 @@ exports[`Delegates Page render data 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  New Delegate
+                  delegate.NEW_DELEGATE
                 </span>
               </button>
               <span
@@ -173,7 +173,7 @@ exports[`Delegates Page render data 1`] = `
                     style="width: 30%;"
                     title="Toggle SortBy"
                   >
-                    DELEGATE
+                    DELEGATE.DELEGATENAME
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"
@@ -201,7 +201,7 @@ exports[`Delegates Page render data 1`] = `
                     style="width: 30%;"
                     title="Toggle SortBy"
                   >
-                    TAGS
+                    TAGSLABEL
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"
@@ -229,7 +229,7 @@ exports[`Delegates Page render data 1`] = `
                     style="width: calc(20% - 10px);"
                     title="Toggle SortBy"
                   >
-                    LAST HEARTBEAT
+                    DELEGATE.LASTHEARTBEAT
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"
@@ -257,7 +257,7 @@ exports[`Delegates Page render data 1`] = `
                     style="width: calc(15% - 20px);"
                     title="Toggle SortBy"
                   >
-                    CONNECTIVITY STATUS
+                    CONNECTIVITYSTATUS
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"

@@ -14,6 +14,9 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -38,6 +41,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     fetchPipeline,
     view,
     setView,
+    isReadonly,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -287,7 +291,26 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
             <div>
               <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
               <Text className={css.pipelineName}>{pipeline?.name}</Text>
-              {isYaml ? null : <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />}
+              {isYaml ? null : (
+                <RbacButton
+                  minimal
+                  icon="Edit"
+                  iconProps={{ size: 12 }}
+                  onClick={showModal}
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier,
+                      projectIdentifier
+                    },
+                    resource: {
+                      resourceType: ResourceType.PIPELINE,
+                      resourceIdentifier: pipeline.identifier
+                    },
+                    permission: PermissionIdentifier.EDIT_PIPELINE
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -319,9 +342,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                 onClick={saveAndPublish}
                 className={css.savePublishBtn}
                 icon="send-data"
+                disabled={isReadonly}
               />
               <RunPipelineModal pipelineIdentifier={pipeline?.identifier || /* istanbul ignore next */ ''}>
-                <Button
+                <RbacButton
                   data-testid="card-run-pipeline"
                   intent="primary"
                   icon="run-pipeline"
@@ -329,6 +353,18 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
                   className={css.runPipelineBtn}
                   text={getString('runPipelineText')}
                   tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier,
+                      projectIdentifier
+                    },
+                    resource: {
+                      resourceType: ResourceType.PIPELINE,
+                      resourceIdentifier: pipeline.identifier as string
+                    },
+                    permission: PermissionIdentifier.EXECUTE_PIPELINE
+                  }}
                 />
               </RunPipelineModal>
             </div>

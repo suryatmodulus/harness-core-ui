@@ -15,7 +15,16 @@ import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/Organi
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectsListPage from '../ProjectsPage'
-import { createMockData, OrgMockData, projectMockData, projectPageMock } from './ProjectPageMock'
+import {
+  createMockData,
+  invitesMockData,
+  OrgMockData,
+  projectMockData,
+  projectPageMock,
+  response,
+  roleMockData,
+  userMockData
+} from './ProjectPageMock'
 
 const getProjectList = jest.fn()
 const deleteProject = jest.fn()
@@ -44,10 +53,15 @@ jest.mock('services/cd-ng', () => ({
     getOrg(args)
     return { ...OrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: () => jest.fn(),
-  useGetInvites: () => jest.fn(),
-  useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
+  useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
+  useUpdateInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) }))
+}))
+
+jest.mock('services/rbac', () => ({
+  useGetRoleList: jest.fn().mockImplementation(() => ({ data: roleMockData, loading: false, refetch: jest.fn() }))
 }))
 
 jest.mock('framework/exports', () => ({
@@ -128,10 +142,10 @@ describe('Project Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
+      const invite = getByText(popover as HTMLElement, 'projectContextMenuRenderer.invite')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
+        await waitFor(() => getByText(document.body, 'projectContextMenuRenderer.invite'))
         let form = findDialogContainer()
         expect(form).toBeTruthy()
         fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -146,13 +160,13 @@ describe('Project Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const deleteMenu = getByText(popover as HTMLElement, 'Delete')
+      const deleteMenu = getByText(popover as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'Delete Project'))
+        await waitFor(() => getByText(document.body, 'projectCard.confirmDeleteTitle'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
-        const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+        const deleteBtn = queryByText(form as HTMLElement, 'delete')
         fireEvent.click(deleteBtn!)
         expect(deleteProject).toBeCalled()
       })
@@ -162,8 +176,7 @@ describe('Project Page List', () => {
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
-      const popover = findPopoverContainer()
-      const edit = getByText(popover as HTMLElement, 'Edit')
+      const edit = getByTestId('edit-project')
       await act(async () => {
         fireEvent.click(edit)
         await waitFor(() => getByText(document.body, 'Edit Project'))

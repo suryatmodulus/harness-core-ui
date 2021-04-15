@@ -4,7 +4,7 @@ import { Collapse, IconName } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import type { HarnessApprovalActivity } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 
 import css from '../ApprovalStepDetails.module.scss'
 
@@ -31,7 +31,11 @@ export function HarnessApprover(props: HarnessApproverProps): React.ReactElement
         <div className={css.approverName}>{approvalActivity.user?.name}</div>
         <div className={css.status} data-status={approvalActivity.action}>
           <Icon name={iconMap[approvalActivity.action]} size={12} />
-          <String stringID={`approvalStep.status.${approvalActivity.action}`} />
+          <String
+            stringID={
+              `pipeline.approvalStep.status.${approvalActivity.action}` as StringKeys /* TODO: fix this properly */
+            }
+          />
         </div>
         <div>{approvalActivity.approvedAt ? new Date(approvalActivity.approvedAt).toLocaleString() : '-'}</div>
         <Button

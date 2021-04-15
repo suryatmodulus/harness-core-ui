@@ -21,12 +21,15 @@ import {
   getRunningStep,
   LITE_ENGINE_TASK
 } from '@pipeline/utils/executionUtils'
-import { useQueryParams } from '@common/hooks'
+import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PageError } from '@common/components/Page/PageError'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -63,6 +66,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
   >()
+  const [allNodeMap, setAllNodeMap] = React.useState({})
 
   /* cache token required for retrieving logs */
   const [logsToken, setLogsToken] = React.useState('')
@@ -100,11 +104,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   }, [data?.data?.pipelineExecutionSummary?.layoutNodeMap, data?.data?.pipelineExecutionSummary?.startingNodeId])
 
   // combine steps and dependencies(ci stage)
-  const allNodeMap = React.useMemo(() => {
+  useDeepCompareEffect(() => {
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
     // NOTE: add dependencies from "liteEngineTask" (ci stage)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
-    return nodeMap
+    setAllNodeMap(nodeMap)
+    setAllNodeMap(oldNodeMap => ({ ...oldNodeMap, ...nodeMap }))
   }, [data?.data?.executionGraph?.nodeMap])
 
   // setup polling
@@ -162,6 +167,22 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
   const { pipelineExecutionSummary = {} } = data?.data || {}
 
+  const [canEdit, canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier as string
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
+  )
+
   return (
     <ExecutionContext.Provider
       value={{
@@ -174,7 +195,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         queryParams,
         logsToken,
         setLogsToken,
-        refetch
+        refetch,
+        addNewNodeToMap(id, node) {
+          setAllNodeMap(nodeMap => ({ ...nodeMap, [id]: node }))
+        }
       }}
     >
       {loading && !data ? <PageSpinner /> : null}
@@ -202,7 +226,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                       accountId,
                       module
                     }),
-                    label: pipelineExecutionSummary.name || getString('pipeline')
+                    label: pipelineExecutionSummary.name || getString('common.pipeline')
                   },
                   { url: '#', label: getString('executionText') }
                 ]}
@@ -248,6 +272,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                       executionIdentifier,
                       module
                     }}
+                    canEdit={canEdit}
+                    canExecute={canExecute}
                   />
                 </div>
               </div>

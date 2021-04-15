@@ -16,7 +16,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           href="/account/dummy/admin/resources"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          Resources
+          resources
         </a>
         <span>
           /
@@ -25,7 +25,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           href="/account/dummy/admin/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          Delegates
+          delegate.delegates
         </a>
         <span>
           /
@@ -34,7 +34,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           href="/account/dummy/admin/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
-          Delegates Configurations
+          delegate.delegatesConfigurations
         </a>
         <span>
           /
@@ -79,7 +79,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
       <span
         class="bp3-button-text"
       >
-        Edit
+        edit
       </span>
     </button>
   </div>
@@ -105,7 +105,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
               style="color: rgb(34, 39, 45);"
             >
-              Overview
+              overview
             </p>
             <div
               class="StyledProps--font StyledProps--main entry"
@@ -114,7 +114,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Delegate Configuration Name
+                delegate.CONFIGURATION_NAME
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
@@ -130,7 +130,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Description
+                description
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
@@ -146,7 +146,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Identifier
+                identifier
               </p>
               <p
                 class="StyledProps--font StyledProps--main"
@@ -164,13 +164,13 @@ exports[`Delegates Profile Detail initial render 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
               style="color: rgb(34, 39, 45);"
             >
-              Scope
+              delegate.Scope
             </p>
             <p
               class="StyledProps--font StyledProps--main"
               style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
             >
-              Limit the delegate to perform tasks related to the following environments
+              delegate.ScopeDescription
             </p>
             <div
               class="StyledProps--font StyledProps--main entry"
@@ -179,7 +179,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Environment types
+                delegate.envTypes
               </p>
               <div
                 class="StyledProps--font StyledProps--main"
@@ -193,7 +193,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
-                Environments
+                environments
               </p>
               <div
                 class="StyledProps--font StyledProps--main"
@@ -210,7 +210,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
             style="color: rgb(34, 39, 45);"
           >
-            Initialization Script
+            delegate.Init_Script
           </p>
           <textarea
             class="codeEditor"

@@ -11,6 +11,10 @@
     grid-template-columns: 1fr 128px;
     column-gap: var(--spacing-xsmall);
 
+    .btn {
+      padding: 0 !important;
+    }
+
     &.isApproval {
       grid-template-columns: 1fr 60px 128px;
     }

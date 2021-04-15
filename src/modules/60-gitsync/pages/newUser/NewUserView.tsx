@@ -4,12 +4,19 @@ import { Button, Text, Container, Icon, Color } from '@wings-software/uicore'
 
 import { noop } from 'lodash-es'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
-import { useStrings } from 'framework/exports'
+import { useStrings, useAppStore } from 'framework/exports'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './NewUserView.module.scss'
 
 const NewUserView: React.FC = () => {
+  const { updateAppStore } = useAppStore()
+  const { refreshStore } = useGitSyncStore()
+
   const { openGitSyncModal } = useCreateGitSyncModal({
-    onSuccess: noop,
+    onSuccess: () => {
+      refreshStore()
+      updateAppStore({ isGitSyncEnabled: true })
+    },
     onClose: noop
   })
   const { getString } = useStrings()

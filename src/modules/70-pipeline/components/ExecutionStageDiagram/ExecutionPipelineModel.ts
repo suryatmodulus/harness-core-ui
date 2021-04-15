@@ -78,4 +78,5 @@ export interface ExecutionPipeline<T> {
   items: Array<ExecutionPipelineNode<T>>
   identifier: string
   status?: ExecutionPipelineItemStatus
+  allNodes: string[]
 }

@@ -20,26 +20,26 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       <div
         class="css-12q0bj3"
         style="transform: translate(
-				-710px,
+				0px,
 				0px)
 			scale(
 				1
 			);"
       >
         <div
-          style="left: 1190px; cursor: pointer; top: 10px; pointer-events: none; position: absolute; height: 150px;"
+          style="left: 1190px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 140px;"
         >
           <div
             class="groupLayer"
-            style="width: 480px; height: 150px;"
+            style="width: 480px; height: 140px;"
           />
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: 15px; left: 1200px; width: 480px; align-items: center;"
+          style="top: 13px; left: 1200px; width: 480px; align-items: center;"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
@@ -152,128 +152,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="node css-nlpftr"
-          data-nodeid="barcode"
-          style="top: 50px; left: 1750px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon bp3-icon-barcode StyledProps--main"
-                icon="barcode"
-              >
-                <svg
-                  data-icon="barcode"
-                  height="28"
-                  viewBox="0 0 20 20"
-                  width="28"
-                >
-                  <desc>
-                    barcode
-                  </desc>
-                  <path
-                    d="M6 16.98h2v-14H6v14zm3 0h1v-14H9v14zm-6 0h2v-14H3v14zm-3 0h2v-14H0v14zm16 0h2v-14h-2v14zm-4 0h1v-14h-1v14zm7-14v14h1v-14h-1zm-5 14h1v-14h-1v14z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="barcode"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="barcode"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              barcode
-            </p>
-          </div>
-        </div>
       </div>
       <div
         class="css-12q0bj3"
         style="transform: translate(
-				-710px,
+				0px,
 				0px)
 			scale(
 				1
@@ -355,145 +238,6 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="node css-nlpftr"
-          data-nodeid="qaStage"
-          style="top: 50px; left: 150px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="pipeline-deploy"
-              >
-                <svg
-                  height="28"
-                  viewBox="0 0 24 24"
-                  width="28"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-rule="nonzero"
-                  >
-                    <path
-                      d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
-                    />
-                    <path
-                      d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="qaStage"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="qaStage"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <span
-                class="bp3-icon StyledProps--main secondaryIcon"
-                data-icon="execution-warning"
-                style="top: -7px; right: -7px; animation: fadeIn 1s;"
-              >
-                <svg
-                  height="20"
-                  viewBox="0 0 19 15"
-                  width="20"
-                >
-                  <path
-                    color="#fff"
-                    d="M15.964 15H3.027C.702 15-.737 12.787.392 11.021L6.29 1.339c1.152-1.785 5.261-1.785 6.412 0l5.897 9.682C19.75 12.768 18.288 15 15.964 15z"
-                  />
-                  <path
-                    d="M4.23 13.75h10.408c1.713 0 2.79-1.77 1.941-3.157l-5.22-8.53c-.848-1.417-3.002-1.417-3.85 0l-5.22 8.53c-.832 1.402.229 3.157 1.941 3.157zm5.22-1.894c-.456 0-.832-.354-.832-.785 0-.431.376-.786.832-.786.457 0 .832.354.816.801.016.416-.375.77-.816.77zm-.212-7.083c.392-.093.8.092.963.446.049.123.081.247.081.385-.016.385-.049.785-.081 1.17-.033.601-.082 1.217-.114 1.817-.017.2-.017.37-.017.57a.6.6 0 01-.62.57c-.342 0-.603-.231-.62-.554-.048-.94-.114-1.879-.163-2.818l-.049-.755a.82.82 0 01.62-.831z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              qa stage
-            </p>
           </div>
         </div>
         <div
@@ -580,300 +324,6 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         </div>
         <div
           class="node css-nlpftr"
-          data-nodeid="parallel1"
-          style="top: 50px; left: 430px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="pipeline-deploy"
-              >
-                <svg
-                  height="28"
-                  viewBox="0 0 24 24"
-                  width="28"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-rule="nonzero"
-                  >
-                    <path
-                      d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
-                    />
-                    <path
-                      d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="parallel1"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="parallel1"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <span
-                class="bp3-icon StyledProps--main secondaryIcon"
-                data-icon="execution-input"
-                style="top: -7px; right: -7px; animation: fadeIn 1s;"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 17 17"
-                  width="16"
-                >
-                  <circle
-                    color="var(--white)"
-                    cx="8.5"
-                    cy="8.5"
-                    r="8.5"
-                  />
-                  <circle
-                    cx="8.5"
-                    cy="8.5"
-                    r="7.5"
-                  />
-                  <path
-                    color="var(--white)"
-                    d="M9.694 13.407c-.1.025-.2.047-.3.065a.482.482 0 00.176.948 6 6 0 00.357-.078.482.482 0 10-.233-.935zm3.563-6.457a.48.48 0 00.609.305.482.482 0 00.306-.609 6.012 6.012 0 00-.126-.343.482.482 0 10-.894.358c.038.094.073.191.105.288zm-1.997 5.77a5.1 5.1 0 01-.262.16.482.482 0 10.482.835c.105-.06.21-.125.31-.192a.482.482 0 00-.53-.804zm3.211-4.425a.482.482 0 10-.963.038c.004.101.005.204.003.306a.481.481 0 10.963.021 6.019 6.019 0 00-.003-.365zm-1.293 3.157a.482.482 0 00-.675.096 5.082 5.082 0 01-.191.24.482.482 0 00.734.624 5.83 5.83 0 00.228-.286.482.482 0 00-.096-.674zm.708-1.742a.482.482 0 00-.604.316 5.07 5.07 0 01-.1.29.482.482 0 00.9.343 7.42 7.42 0 00.12-.345.482.482 0 00-.316-.604z"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    color="var(--white)"
-                    d="M7.75 3a.75.75 0 00-.75.75v5.5c0 .088.015.172.043.25a.749.749 0 00.707 1h2.5a.75.75 0 000-1.5H8.5V3.75A.75.75 0 007.75 3z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              Parallel 1
-            </p>
-          </div>
-        </div>
-        <div
-          class="node css-nlpftr"
-          data-nodeid="parallel3"
-          style="top: 158px; left: 430px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="pipeline-deploy"
-              >
-                <svg
-                  height="28"
-                  viewBox="0 0 24 24"
-                  width="28"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-rule="nonzero"
-                  >
-                    <path
-                      d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
-                    />
-                    <path
-                      d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="parallel3"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="parallel3"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <span
-                class="bp3-icon StyledProps--main secondaryIcon StyledProps--color StyledProps--color-green450"
-                data-icon="execution-success"
-                style="top: -7px; right: -7px; animation: fadeIn 1s;"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 17 17"
-                  width="16"
-                >
-                  <circle
-                    color="var(--white)"
-                    cx="8.5"
-                    cy="8.5"
-                    r="8.5"
-                  />
-                  <path
-                    d="M8.5 1C4.365 1 1 4.32 1 8.4s3.365 7.4 7.5 7.4c4.136 0 7.5-3.32 7.5-7.4S12.636 1 8.5 1zm4.157 5.892l-4.79 4.726a.795.795 0 01-.554.227v.32l-.007-.32a.792.792 0 01-.556-.236L4.333 9.137a.766.766 0 01.02-1.093.784.784 0 01.544-.216c.214 0 .414.084.563.236l1.863 1.905L11.55 5.8a.784.784 0 01.554-.226c.209 0 .405.08.553.226a.767.767 0 010 1.093z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              Parallel 2
-            </p>
-          </div>
-        </div>
-        <div
-          class="node css-nlpftr"
           data-nodeid="$node$parallel1$node$-End"
           style="top: 50px; left: 630px;"
         >
@@ -952,126 +402,6 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="node css-nlpftr"
-          data-nodeid="stage2"
-          style="top: 50px; left: 710px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard runningNode"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="pipeline-deploy"
-              >
-                <svg
-                  height="28"
-                  viewBox="0 0 24 24"
-                  width="28"
-                >
-                  <g
-                    fill="currentColor"
-                    fill-rule="nonzero"
-                  >
-                    <path
-                      d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
-                    />
-                    <path
-                      d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
-                    />
-                  </g>
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="stage2"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="stage2"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              stage 2
-            </p>
           </div>
         </div>
         <div
@@ -1156,26 +486,26 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
       <div
         class="css-12q0bj3"
         style="transform: translate(
-				-710px,
+				0px,
 				0px)
 			scale(
 				1
 			);"
       >
         <div
-          style="left: 910px; cursor: pointer; top: -22px; pointer-events: none; position: absolute; height: 270px;"
+          style="left: 910px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 196px;"
         >
           <div
             class="groupLayer"
-            style="width: 1040px; height: 270px;"
+            style="width: 1040px; height: 196px;"
           />
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: -17px; left: 920px; width: 1040px; align-items: center;"
+          style="top: -29px; left: 920px; width: 1040px; align-items: center;"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
             type="button"
           >
             <span
@@ -1288,148 +618,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="node css-nlpftr"
-          data-nodeid="badge"
-          style="top: 50px; left: 1270px;"
-        >
-          <div
-            class="defaultNode"
-          >
-            <div
-              class="defaultCard"
-              draggable="false"
-              style="width: 50px; height: 50px; margin-top: 7px; cursor: pointer; opacity: 1; border-width: 2px; border-style: solid;"
-            >
-              <span
-                class="bp3-icon bp3-icon-badge StyledProps--main"
-                icon="badge"
-              >
-                <svg
-                  data-icon="badge"
-                  height="28"
-                  viewBox="0 0 20 20"
-                  width="28"
-                >
-                  <desc>
-                    badge
-                  </desc>
-                  <path
-                    d="M16.94 5.73c-.19-1.41.62-2.52 1.38-3.59L17.03.65C14.89 1.76 11.88 1.48 10 0 8.12 1.48 5.11 1.76 2.97.65L1.68 2.14c.76 1.07 1.57 2.18 1.38 3.59C2.68 8.59 0 10.94 1.4 14.08c.56 1.43 1.81 2.37 3.4 2.75 1.95.46 4.4.91 5.2 3.17.8-2.26 3.25-2.71 5.2-3.17 1.6-.38 2.84-1.32 3.4-2.75 1.4-3.14-1.28-5.49-1.66-8.35z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="badge"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                style="visibility: visible;"
-              >
-                <div
-                  class="port portOut"
-                >
-                  <div
-                    class="port "
-                    data-name="Out"
-                    data-nodeid="badge"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <span
-                class="bp3-icon StyledProps--main secondaryIcon"
-                data-icon="execution-abort"
-                style="top: -7px; right: -7px; animation: fadeIn 1s;"
-              >
-                <svg
-                  height="16"
-                  viewBox="0 0 12 12"
-                  width="16"
-                >
-                  <rect
-                    height="11"
-                    rx="1.5"
-                    stroke="#fff"
-                    width="11"
-                    x="0.5"
-                    y="0.5"
-                  />
-                </svg>
-              </span>
-            </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-              style="cursor: pointer; line-height: 1.6; --text-line-clamp: 2; width: 125px;"
-            >
-              Badge
-            </p>
-          </div>
-        </div>
       </div>
       <svg
         class="css-12q0bj3"
         style="transform: translate(
-				-710px,
+				0px,
 				0px)
 			scale(
 				1

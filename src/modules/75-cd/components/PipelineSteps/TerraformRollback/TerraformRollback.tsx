@@ -8,7 +8,7 @@ import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
@@ -37,6 +37,7 @@ interface TerraformRollbackProps {
   initialValues: TerraformRollbackData
   onUpdate?: (data: TerraformRollbackData) => void
   stepViewType?: StepViewType
+  isNewStep?: boolean
   inputSetData?: {
     template?: TerraformRollbackData
     path?: string
@@ -65,7 +66,7 @@ function TerraformRollbackWidget(
   props: TerraformRollbackProps,
   formikRef: StepFormikFowardRef<TerraformRollbackData>
 ): React.ReactElement {
-  const { initialValues, onUpdate } = props
+  const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -101,10 +102,7 @@ function TerraformRollbackWidget(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isEmpty(initialValues.identifier)}
-                  />
+                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
 
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -209,7 +207,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
   validateInputSet(
     data: TerraformRollbackData,
     template?: TerraformRollbackData,
-    getString?: (key: string, vars?: Record<string, any>) => string
+    getString?: (key: StringKeys, vars?: Record<string, any>) => string
   ): FormikErrors<TerraformRollbackData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
@@ -235,7 +233,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
     return errors
   }
   renderStep(props: StepProps<TerraformRollbackData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -259,6 +257,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
       <TerraformRollbackWidgetWithRef
         initialValues={initialValues}
         onUpdate={onUpdate}
+        isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
       />

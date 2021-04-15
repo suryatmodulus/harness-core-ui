@@ -19,6 +19,8 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+
 import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -35,12 +37,10 @@ interface HelmWithHttpPropType {
 
 const commandFlagOptionsV2 = [
   { label: 'Fetch', value: 'Fetch' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 const commandFlagOptionsV3 = [
   { label: 'Pull', value: 'Pull' },
-  { label: 'Version ', value: 'Version' },
   { label: 'Template ', value: 'Template' }
 ]
 
@@ -119,16 +119,17 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       <Formik
         initialValues={getInitialValues()}
         validationSchema={Yup.object().shape({
-          chartName: Yup.string().trim().required(getString('manifestType.http.chartNameRequired')),
-          helmVersion: Yup.string().trim().required(getString('manifestType.helmVersionRequired')),
+          chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
+          helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
                 is: val => val?.length,
-                then: Yup.string().required(getString('manifestType.commandFlagRequired'))
+                then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
-          )
+          ),
+          ...IdentifierValidation()
         })}
         onSubmit={formData => {
           submitFormData({
@@ -151,8 +152,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                 <div className={helmcss.halfWidth}>
                   <FormInput.Text
                     name="identifier"
-                    label={getString('manifestType.manifestIdentifier')}
-                    placeholder={getString('manifestType.helmManifestPlaceholder')}
+                    label={getString('pipeline.manifestType.manifestIdentifier')}
+                    placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                   />
                 </div>
                 <div
@@ -164,8 +165,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.MultiTextInput
                     name="chartName"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartName')}
-                    placeholder={getString('manifestType.http.chartNamePlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartName')}
+                    placeholder={getString('pipeline.manifestType.http.chartNamePlaceHolder')}
                   />
                   {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
@@ -192,8 +193,9 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   <FormInput.MultiTextInput
                     name="chartVersion"
                     multiTextInputProps={{ expressions }}
-                    label={getString('manifestType.http.chartVersion')}
-                    placeholder={getString('manifestType.http.chartVersionPlaceHolder')}
+                    label={getString('pipeline.manifestType.http.chartVersion')}
+                    placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional={true}
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

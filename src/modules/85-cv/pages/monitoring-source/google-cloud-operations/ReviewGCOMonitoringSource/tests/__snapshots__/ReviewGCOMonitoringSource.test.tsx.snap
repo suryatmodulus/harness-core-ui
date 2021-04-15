@@ -10,7 +10,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
       level="2"
     >
       <span>
-        3 metric(s) mapped to 2 service(s)
+        cv.monitoringSources.gco.reviewPage.mappedMetrics
       </span>
     </h2>
     <div
@@ -27,7 +27,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 40%;"
           title="Toggle SortBy"
         >
-          Google Cloud Operation metrics
+          cv.monitoringSources.gco.reviewPage.gcoMetrics
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -55,7 +55,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          Harness Service
+          cv.harnessService
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -83,7 +83,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
           style="width: 25%;"
           title="Toggle SortBy"
         >
-          Harness Environment
+          cv.harnessEnvironment
           <span
             class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
             icon="double-caret-vertical"
@@ -268,7 +268,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         <span
           class="bp3-button-text"
         >
-          Submit
+          submit
         </span>
         <span
           class="bp3-icon bp3-icon-chevron-right StyledProps--main"

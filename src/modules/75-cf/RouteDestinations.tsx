@@ -30,7 +30,6 @@ import type {
 import CFHomePage from '@cf/pages/home/CFHomePage'
 import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
 import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
-import CFSegmentDetailsPage from '@cf/pages/segment-details/CFSegmentDetailsPage'
 import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
 import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
@@ -57,6 +56,7 @@ import { TargetsPage } from './pages/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/segments/SegmentsPage'
+import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
 
@@ -147,7 +147,7 @@ export default (
       })}
       exact
     >
-      <CFSegmentDetailsPage />
+      <SegmentDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout

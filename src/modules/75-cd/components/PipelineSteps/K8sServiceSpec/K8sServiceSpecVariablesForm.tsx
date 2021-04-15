@@ -26,6 +26,7 @@ export interface K8sServiceSpecVariablesFormProps {
   onUpdate?(data: ServiceSpec): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: ServiceSpec
+  readonly?: boolean
 }
 
 export interface VariableRowProps {
@@ -35,7 +36,7 @@ export interface VariableRowProps {
 }
 
 export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
-  const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap } = props
+  const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap, readonly } = props
   const { manifests, artifacts, variables } = initialValues
   const { getString } = useStrings()
 
@@ -114,6 +115,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             type={StepType.CustomVariable}
             stepViewType={StepViewType.InputVariable}
             onUpdate={onUpdate}
+            readonly={readonly}
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',
               className: css.customVariables,

@@ -254,7 +254,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             <div
               class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green500 StyledProps--background-green350"
             >
-              Passed
+              passed
             </div>
           </div>
         </div>

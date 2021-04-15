@@ -10,12 +10,12 @@ describe('Skip Conditions Panel tests', () => {
       <TestWrapper>
         <Formik initialValues={{}} onSubmit={() => void 0}>
           {() => {
-            return <SkipConditionsPanel />
+            return <SkipConditionsPanel isReadonly={false} />
           }}
         </Formik>
       </TestWrapper>
     )
 
-    expect(queryByText('If the JEXL condition evaluates to true, skip this step')).toBeTruthy()
+    expect(queryByText('skipConditionLabel')).toBeTruthy()
   })
 })

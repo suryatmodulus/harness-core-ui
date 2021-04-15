@@ -4,17 +4,16 @@ import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { isEmpty } from 'lodash-es'
 import { Spinner } from '@blueprintjs/core'
-import xhr from '@wings-software/xhr-async'
-import qs from 'qs'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { useSaveDSConfig } from 'services/cv'
+import { getAppDynamicsTiersPromise, useSaveDSConfig } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
-import { getConfig } from 'services/config'
+import { useToaster } from '@common/exports'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { ApplicationRecord, InternalState, ValidationStatus } from '../AppDOnboardingUtils'
 
 interface ReviewTiersAndAppsProps {
@@ -42,18 +41,19 @@ async function fetchTiersNumber(
   appName: string,
   connectorIdentifier: string
 ) {
-  const url = `${getConfig('cv/api')}/appdynamics/tiers?${qs.stringify({
-    accountId,
-    projectIdentifier,
-    orgIdentifier,
-    appName,
-    connectorIdentifier,
-    offset: 0,
-    pageSize: 1
-  })}`
-  const { response }: any = await xhr.get(url)
-  if (response?.data) {
-    return response?.data?.totalItems
+  const data = await getAppDynamicsTiersPromise({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      appName,
+      connectorIdentifier,
+      offset: 0,
+      pageSize: 1
+    }
+  })
+  if (data) {
+    return data.data?.totalItems
   }
 }
 
@@ -63,6 +63,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const { mutate: saveDSConfigs, loading } = useSaveDSConfig({})
+  const { showError, clear } = useToaster()
 
   const updateTiersNumber = async (appName: string) => {
     const tiersNumber = await fetchTiersNumber(
@@ -89,13 +90,16 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   useEffect(() => {
     if (stepData.applications) {
       const apps = Object.values(stepData.applications) as ApplicationRecord[]
-      const update = apps.map(app => {
+      const update: TableData[] = []
+
+      apps.map(app => {
         const ret: TableData = {}
         const tiers = Object.values(app?.tiers ?? {})
         ret.name = app.name
         ret.tiers = tiers.length
         ret.totalTiers = app.totalTiers
         ret.environment = app.environment!
+        if (!tiers.length) return
         if (!Number.isInteger(app.totalTiers)) {
           updateTiersNumber(app.name)
         }
@@ -111,7 +115,7 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
         ) {
           ret.validationStatus = ValidationStatus.SUCCESS
         }
-        return ret
+        update.push(ret)
       })
       setTableData(update)
     }
@@ -145,7 +149,13 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
         }))
     }
 
-    await saveDSConfigs(payload, { queryParams: { accountId } })
+    try {
+      await saveDSConfigs(payload, { queryParams: { accountId } })
+    } catch (e) {
+      clear()
+      showError(getErrorMessage(e), 7000)
+      return
+    }
 
     onCompleteStep({ ...stepData, type: 'APP_DYNAMICS', sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE })
 

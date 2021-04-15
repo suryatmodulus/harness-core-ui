@@ -5,14 +5,25 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 
-import { ErrorType, errorTypesOrder } from './StrategySelection/StrategyConfig'
+import { ErrorType, errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
   label: string
   value: ErrorType
+}
+
+const stringsMap: Record<ErrorType, StringKeys> = {
+  [ErrorType.AnyOther]: 'pipeline.failureStrategies.errorTypeLabels.AnyOther',
+  // [ErrorType.Application]: 'pipeline.failureStrategies.errorTypeLabels.Application',
+  [ErrorType.Authentication]: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
+  [ErrorType.Authorization]: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
+  [ErrorType.Connectivity]: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
+  [ErrorType.DelegateProvisioning]: 'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning',
+  [ErrorType.Timeout]: 'pipeline.failureStrategies.errorTypeLabels.Timeout',
+  [ErrorType.Verification]: 'pipeline.failureStrategies.errorTypeLabels.Verification'
 }
 
 const MultiSelect = BPMultiSelect.ofType<Option>()
@@ -22,6 +33,7 @@ const itemRenderer: ItemRenderer<Option> = (item, itemProps) => {
 }
 
 const tagRenderer = (item: Option): string => {
+  /* istanbul ignore next */
   return item?.label
 }
 
@@ -29,6 +41,7 @@ export interface FailureTypeMultiSelectProps {
   label: string
   name: string
   filterTypes?: ErrorType[]
+  minimal?: boolean
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
@@ -36,7 +49,7 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik, filterTypes = [] } = props
+  const { name, label, formik, minimal, filterTypes = [] } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
@@ -45,14 +58,12 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
   const selectedValues = get(formik.values, name) || []
   const selectedValuesSet = new Set<ErrorType>(selectedValues)
   const options: Option[] = (() => {
-    const filterTypesSet = new Set(filterTypes)
+    const filterTypesSet = new Set(filterTypes || /* istanbul ignore next */ [])
 
     selectedValuesSet.forEach(val => filterTypesSet.delete(val))
 
-    return errorTypesOrder
-      .filter(e => !filterTypesSet.has(e))
-      .map(e => ({ value: e, label: getString(`failureStrategies.errorTypeLabels.${e}`) }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const errorTypes = minimal ? errorTypesOrderForCI : errorTypesOrderForCD
+    return errorTypes.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: getString(stringsMap[e]) }))
   })()
 
   function handleItemSelect(item: Option): void {
@@ -85,7 +96,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
   const selectedOptions: Option[] = selectedValues.map((key: ErrorType) => ({
     value: key,
-    label: getString(`failureStrategies.errorTypeLabels.${key}`)
+    label: getString(stringsMap[key])
   }))
 
   function onRemove(value: string): void {
@@ -108,6 +119,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
         tagRenderer={tagRenderer}
         tagInputProps={{ onRemove, tagProps: { className: css.tag }, inputProps: { name } }}
         itemsEqual="value"
+        resetOnSelect
       />
     </FormGroup>
   )

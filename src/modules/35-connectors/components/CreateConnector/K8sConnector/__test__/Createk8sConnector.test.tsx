@@ -39,7 +39,7 @@ jest.mock('services/cd-ng', () => ({
   useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
 }))
 
-const masterUrlComponentText = 'Specify master url and credentials'
+const masterUrlComponentText = 'connectors.k8.delegateOutClusterInfo'
 
 describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
@@ -89,9 +89,12 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: usernamePassword
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: usernamePassword
+      },
+      { queryParams: {} }
+    )
   })
 
   test('should form for edit authtype serviceAccount', async () => {
@@ -118,9 +121,12 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: serviceAccount
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: serviceAccount
+      },
+      { queryParams: {} }
+    )
   })
 
   test('should form for edit authtype OIDC', async () => {
@@ -145,9 +151,12 @@ describe('Create k8 connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: oidcMock
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: oidcMock
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({
@@ -185,8 +194,11 @@ test('should form for edit authtype clientKey', async () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
   })
 
-  expect(updateConnector).toBeCalledWith({
-    connector: clientKeyMock
-  })
+  expect(updateConnector).toBeCalledWith(
+    {
+      connector: clientKeyMock
+    },
+    { queryParams: {} }
+  )
   expect(container).toMatchSnapshot()
 })

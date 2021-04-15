@@ -14,12 +14,13 @@
     "Connectors": ["src/modules/35-connectors/**", "src/modules/10-common/components/YAMLBuilder/**"],
     "Delegates": ["src/modules/40-delegates/**"],
     "GitSync": ["src/modules/60-gitsync/**"],
-    "CI": ["src/modules/80-ci/**"],
+    "CI": ["src/modules/75-ci/**"],
     "CF": ["src/modules/75-cf/**"],
-    "CE": ["src/modules/90-ce/**"],
+    "CE": ["src/modules/75-ce/**"],
     "RBAC": ["src/modules/20-rbac/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
-    "DASHBOARDS": ["src/modules/45-dashboards/**"]
+    "DASHBOARDS": ["src/modules/45-dashboards/**"],
+    "User Profile": ["src/modules/35-user-profile"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }

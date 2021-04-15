@@ -26,7 +26,7 @@ exports[`Create Delegate Wizard render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main detailsSectionRow StyledProps--color StyledProps--color-grey800 StyledProps--font-size-normal StyledProps--font-align-left"
         >
-          Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:
+          delegate.delegates_4_ways_title
         </p>
         <div
           class="grid cardWrapper"
@@ -49,13 +49,13 @@ exports[`Create Delegate Wizard render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                 >
-                  Docker
+                  delegate.cardData.docker.name
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main subTitle"
                   style="color: rgb(107, 109, 133);"
                 >
-                  Runs Harness Delegate as a Docker container on any Linux or Mac.
+                  delegate.cardData.docker.text
                 </p>
               </div>
             </div>
@@ -96,13 +96,13 @@ exports[`Create Delegate Wizard render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                 >
-                  Kubernetes
+                  kubernetesText
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main subTitle"
                   style="color: rgb(107, 109, 133);"
                 >
-                  Runs Harness Delegate as a workload on your Kubernetes Cluster.
+                  delegate.cardData.kubernetes.text
                 </p>
               </div>
             </div>
@@ -125,13 +125,13 @@ exports[`Create Delegate Wizard render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                 >
-                  Amazon ECS
+                  delegate.cardData.amazonECS.name
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main subTitle"
                   style="color: rgb(107, 109, 133);"
                 >
-                  Runs Harness Delegate as an Amazon process.
+                  delegate.cardData.amazonECS.text
                 </p>
               </div>
             </div>
@@ -154,13 +154,13 @@ exports[`Create Delegate Wizard render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardHeader StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                 >
-                  Linux
+                  delegate.cardData.linux.name
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main subTitle"
                   style="color: rgb(107, 109, 133);"
                 >
-                  Runs Harness Delegate as a Linux process.
+                  delegate.cardData.linux.text
                 </p>
               </div>
             </div>
@@ -177,7 +177,7 @@ exports[`Create Delegate Wizard render data 1`] = `
           class="StyledProps--font StyledProps--main prereq StyledProps--color StyledProps--color-black StyledProps--font-weight-bold"
           style="margin-bottom: 18px;"
         >
-          Kubernetes Prerequisites
+          delegate.kubernetes.prerequisites
         </p>
         <div
           class="StyledProps--font StyledProps--main"
@@ -186,7 +186,7 @@ exports[`Create Delegate Wizard render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main preReqContent StyledProps--font-size-normal"
           >
-            You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart
+            delegate.kubernetes.prerequisites_info1
           </p>
           <div
             class="StyledProps--font StyledProps--main"
@@ -194,7 +194,7 @@ exports[`Create Delegate Wizard render data 1`] = `
             <p
               class="StyledProps--font StyledProps--main preReqContent"
             >
-              If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: 
+              delegate.kubernetes.prerequisites_info2
               <a
                 class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue600"
                 href="https://app.harness.io"
@@ -214,7 +214,7 @@ exports[`Create Delegate Wizard render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main preReqContent"
           >
-            Your Kubernetes cluster has unallocated resources required to run the Harness Delegate workload
+            delegate.kubernetes.prerequisites_info3
           </p>
           <div
             class="StyledProps--font StyledProps--main"
@@ -245,7 +245,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     />
                   </svg>
                 </span>
-                Small (runs upto 250 concurrent tasks) - 1GB memory, 0.25 CPU, 1GB disk
+                delegate.kubernetes.prerequisites_worload1
               </span>
             </div>
             <div
@@ -274,7 +274,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     />
                   </svg>
                 </span>
-                Medium (runs upto 1000 concurrent tasks) - 4GB, 1 CPU, 10GB disk
+                delegate.kubernetes.prerequisites_worload2
               </span>
             </div>
             <div
@@ -303,14 +303,14 @@ exports[`Create Delegate Wizard render data 1`] = `
                     />
                   </svg>
                 </span>
-                Large (runs upto 5000 concurrent tasks) - 16GB, 4 CPU, 25GB disk
+                delegate.kubernetes.prerequisites_worload3
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main preReqContent"
           >
-            You will need the following Kubernetes permissions to install the delegate:
+            delegate.kubernetes.permissions_title
           </p>
           <div
             class="StyledProps--font StyledProps--main"
@@ -341,7 +341,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     />
                   </svg>
                 </span>
-                Permission to create namespace (For the Harness Delegate namespace)
+                delegate.kubernetes.permissions_info1
               </p>
             </div>
             <div
@@ -370,7 +370,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                     />
                   </svg>
                 </span>
-                Permission to create statefulsets (For the Harness Delegate Pod to be created)
+                delegate.kubernetes.permissions_info2
               </p>
             </div>
           </div>

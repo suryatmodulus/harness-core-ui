@@ -32,6 +32,7 @@ export default function CVVerificationJobsPage() {
   const { showError, clear } = useToaster()
   const [textFilter, setTextFilter] = useState('')
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
+
   const { data, loading, error, refetch } = useGetVerificationJobs({
     queryParams: {
       accountId,
@@ -286,7 +287,11 @@ function WebHookCell(tableProps: CellProps<VerificationJobDTO> & { onDelete(): v
   return (
     <Container flex>
       <Container className={styles.webhook} onClick={e => e.stopPropagation()}>
-        <CopyText textToCopy={webhookUrl}>{webhookUrl}</CopyText>
+        {tableProps.row.original?.defaultJob ? (
+          getString('cv.admin.verificationJobs.cantBeCopied')
+        ) : (
+          <CopyText textToCopy={webhookUrl}>{webhookUrl}</CopyText>
+        )}
       </Container>
       {!tableProps.row.original?.defaultJob ? (
         <ContextMenuActions

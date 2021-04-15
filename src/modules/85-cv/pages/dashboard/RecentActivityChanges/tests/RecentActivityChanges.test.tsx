@@ -260,7 +260,7 @@ describe('Unit tests for RecentActivityChanges', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(getByText('Setup Continuous Verification')).not.toBeNull()
+    expect(getByText('cv.setup')).not.toBeNull()
   })
 
   test('Ensure that when an error happens, error card is displayed', async () => {

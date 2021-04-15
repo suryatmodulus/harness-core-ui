@@ -95,14 +95,14 @@ export default function DelegateProfileDetails(): JSX.Element {
       const err = (response as any)?.responseMessages?.[0]?.message
       showError(err)
     } else {
-      showSuccess(getString('successfullyUpdatedConfig'))
+      showSuccess(getString('delegate.successfullyUpdatedConfig'))
     }
   }
 
   const onValidate = (profileData: DelegateProfile) => {
     for (const key of Object.keys(profileData)) {
       if (key === 'name' && !profileData['name']) {
-        showError(getString('configNameRequired'))
+        showError(getString('delegate.configNameRequired'))
         return false
       }
     }

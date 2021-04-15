@@ -1,0 +1,17 @@
+.search {
+  :global(.bp3-icon) {
+    color: var(--blue-500);
+  }
+
+  input[type='search'] {
+    border-color: transparent;
+  }
+}
+
+.instancesTable {
+  :global {
+    .bp3-control:not(.bp3-align-right) .bp3-control-indicator {
+      margin-left: 0 !important;
+    }
+  }
+}

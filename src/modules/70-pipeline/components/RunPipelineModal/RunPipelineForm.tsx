@@ -43,6 +43,9 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useAppStore, useStrings } from 'framework/exports'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -285,6 +288,22 @@ function RunPipelineFormBasic({
     )
   }, [])
 
+  const [canEdit] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE]
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier]
+  )
+
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
       valuesPipelineRef.current = valuesPipeline
@@ -361,7 +380,7 @@ function RunPipelineFormBasic({
         padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
         flex={{ distribution: 'space-between' }}
       >
-        <Text font="medium">{getString('pipeline')}</Text>
+        <Text font="medium">{getString('common.pipeline')}</Text>
         {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
           <InputSetSelector
             pipelineIdentifier={pipelineIdentifier}
@@ -527,7 +546,12 @@ function RunPipelineFormBasic({
                             </Layout.Vertical>
                           }
                         >
-                          <Button minimal intent="primary" text={getString('inputSets.saveAsInputSet')} />
+                          <Button
+                            minimal
+                            intent="primary"
+                            text={getString('inputSets.saveAsInputSet')}
+                            disabled={!canEdit}
+                          />
                         </Popover>
                       )}
                       <Button
@@ -552,7 +576,7 @@ function RunPipelineFormBasic({
   )
 
   return executionView ? (
-    child
+    <div className={css.runFormExecutionView}>{child}</div>
   ) : (
     <RunPipelineFormWrapper
       accountId={accountId}

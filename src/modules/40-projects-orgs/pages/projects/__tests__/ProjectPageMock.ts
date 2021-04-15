@@ -1,4 +1,10 @@
-import type { Project, ResponseProjectAggregateDTO } from 'services/cd-ng'
+import type {
+  Project,
+  ResponsePageInvite,
+  ResponsePageUserSearchDTO,
+  ResponseProjectAggregateDTO
+} from 'services/cd-ng'
+import type { ResponsePageRoleResponse } from 'services/rbac'
 
 export const projectPageMock = {
   data: {
@@ -276,4 +282,169 @@ export const responseProjectAggregateDTOWithNoModules: ResponseProjectAggregateD
   },
   metaData: undefined,
   correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
+}
+
+export const response = {
+  status: 'SUCCESS',
+  data: true,
+  metaData: {},
+  correlationId: ''
+}
+
+export const userMockData: ResponsePageUserSearchDTO = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 6,
+    pageItemCount: 6,
+    pageSize: 50,
+    content: [
+      { name: 'example1', email: 'example1@email.com', uuid: '19bYA-ooQZOTZQxf2N-VPA' },
+      { name: 'example2', email: 'example2@email.com', uuid: 'BnTbQTIJS4SkadzYv0BcbA' },
+      { name: 'example3', email: 'example3@email.com', uuid: 'nhLgdGgxS_iqa0KP5edC-w' },
+      { name: 'example4', email: 'example4@email.com', uuid: 'ZqXNvYmURnO46PX7HwgEtQ' },
+      { name: 'example5', email: 'example5@email.com', uuid: '0osgWsTZRsSZ8RWfjLRkEg' },
+      { name: 'example6', email: 'example6@email.com', uuid: 'lv0euRhKRCyiXWzS7pOg6g' }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: undefined,
+  correlationId: '5c453afd-179b-44f6-8fc7-6f30a5698453'
+}
+
+export const invitesMockData: ResponsePageInvite = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 4,
+    pageItemCount: 4,
+    pageSize: 50,
+    content: [
+      {
+        id: '5f773f61cc54a42436326268',
+        name: 'example4',
+        email: 'example4@email.com',
+        roleBindings: [
+          {
+            roleIdentifier: 'role1',
+            roleName: 'role 1',
+            resourceGroupIdentifier: 'rg1',
+            resourceGroupName: 'rg 1',
+            managedRole: true
+          }
+        ],
+        inviteType: 'ADMIN_INITIATED_INVITE',
+        approved: false
+      },
+      {
+        id: '5f773f61cc54a42436326267',
+        name: 'example3',
+        email: 'example3@email.com',
+        roleBindings: [
+          {
+            roleIdentifier: 'role1',
+            roleName: 'role 1',
+            resourceGroupIdentifier: 'rg1',
+            resourceGroupName: 'rg 1',
+            managedRole: true
+          }
+        ],
+        inviteType: 'ADMIN_INITIATED_INVITE',
+        approved: false
+      },
+      {
+        id: '5f773f61cc54a42436326266',
+        name: 'example2',
+        email: 'example2@email.com',
+        roleBindings: [
+          {
+            roleIdentifier: 'role1',
+            roleName: 'role 1',
+            resourceGroupIdentifier: 'rg1',
+            resourceGroupName: 'rg 1',
+            managedRole: true
+          }
+        ],
+        inviteType: 'ADMIN_INITIATED_INVITE',
+        approved: false
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  }
+}
+
+export const roleMockData: ResponsePageRoleResponse = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 3,
+    pageItemCount: 3,
+    pageSize: 50,
+    content: [
+      {
+        role: {
+          identifier: '_project_admin',
+          name: 'Project Admin',
+          permissions: [
+            'core_secret_delete',
+            'core_pipeline_delete',
+            'core_secret_edit',
+            'core_connector_create',
+            'core_project_view',
+            'core_connector_edit',
+            'core_secret_view',
+            'core_pipeline_view',
+            'core_project_edit',
+            'core_connector_view',
+            'core_pipeline_edit',
+            'core_secret_create',
+            'core_pipeline_execute',
+            'core_project_delete',
+            'core_connector_delete'
+          ],
+          allowedScopeLevels: ['project'],
+          description: 'Administrate an existing project.',
+          tags: {}
+        },
+        scope: { accountIdentifier: 'testAcc' },
+        harnessManaged: true,
+        createdAt: 1615180329305,
+        lastModifiedAt: 1616929638331
+      },
+      {
+        role: {
+          identifier: '_project_viewer',
+          name: 'Project Viewer',
+          permissions: ['core_project_view', 'core_secret_view', 'core_pipeline_view', 'core_connector_view'],
+          allowedScopeLevels: ['project'],
+          description: 'View a project',
+          tags: {}
+        },
+        scope: { accountIdentifier: 'testAcc' },
+        harnessManaged: true,
+        createdAt: 1615180329319,
+        lastModifiedAt: 1616929638230
+      },
+      {
+        role: {
+          identifier: '_pipeline_executor',
+          name: 'Pipeline Executor',
+          permissions: ['core_pipeline_execute', 'core_secret_view', 'core_pipeline_view', 'core_connector_view'],
+          allowedScopeLevels: ['project'],
+          description: 'Execute a pipeline',
+          tags: {}
+        },
+        scope: { accountIdentifier: 'testAcc' },
+        harnessManaged: true,
+        createdAt: 1616668636360,
+        lastModifiedAt: 1616929638320
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: undefined,
+  correlationId: 'f78f3b2d-b4f0-483e-a064-2aca8984ec9f'
 }

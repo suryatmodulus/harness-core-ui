@@ -34,7 +34,7 @@ describe('Unit tests for CVAnalysisTabs', () => {
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     expect(container.querySelectorAll(`.${Classes.SKELETON}`).length).toBe(3)
-    getByText('All Monitoring Sources')
+    getByText('all cv.navLinks.adminSideNavLinks.monitoringSources')
     expect(container.querySelector('.metricAnalysisView')).not.toBeNull()
   })
 

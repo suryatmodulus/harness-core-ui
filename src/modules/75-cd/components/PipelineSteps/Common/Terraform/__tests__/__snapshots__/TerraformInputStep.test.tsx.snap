@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test terraform input set should render edit view as new step 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="bp3-form-group"
+              data-id="spec.provisionerIdentifier-0"
+            >
+              <label
+                class="bp3-label"
+                for="spec.provisionerIdentifier"
+              >
+                pipelineSteps.provisionerIdentifier
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.provisionerIdentifier"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="spec.configuration.spec.workspace-1"
+            >
+              <label
+                class="bp3-label"
+                for="spec.configuration.spec.workspace"
+              >
+                pipelineSteps.workspace
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.configuration.spec.workspace"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="spec.configuration.spec.configFiles.store.spec.branch-2"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.configuration.spec.configFiles.store.spec.branch"
+                    placeholder="pipeline.manifestType.branchPlaceholder"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="spec.configuration.spec.configFiles.store.spec.folderPath-3"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.configuration.spec.configFiles.store.spec.folderPath"
+                    placeholder="pipeline.manifestType.pathPlaceholder"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
+              >
+                cf.targets.title
+              </p>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card"
+                style="width: 100%;"
+              >
+                <div
+                  class="group"
+                >
+                  <div
+                    style="flex-grow: 1;"
+                  >
+                    <div
+                      class="TextInput--main"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          class="bp3-input"
+                          data-testid="value-spec.targets-[0]"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    data-testid="remove-spec.targets-[0]"
+                    style="margin-top: 4px;"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="main-trash"
+                    >
+                      <svg
+                        height="20"
+                        viewBox="0 0 11 14"
+                        width="20"
+                      >
+                        <path
+                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  data-testid="add-spec.targets"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    plusAdd
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </form>
+  </div>
+</div>
+`;

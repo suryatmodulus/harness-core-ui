@@ -13,7 +13,7 @@ interface ResourceHandlerTableProps<T extends ResourceHandlerTableData> {
   onSelectChange: (items: string[]) => void
 }
 
-interface ResourceHandlerTableData {
+export interface ResourceHandlerTableData {
   identifier: string
 }
 

@@ -23,10 +23,11 @@ export interface PipelineCardProps {
   stepsFactory: AbstractStepFactory
   metadataMap: PipelineVariablesData['metadataMap']
   updatePipeline(pipeline: NgPipeline): void
+  readonly?: boolean
 }
 
 export default function PipelineCard(props: PipelineCardProps): React.ReactElement {
-  const { pipeline, originalPipeline, metadataMap, stepsFactory, updatePipeline } = props
+  const { pipeline, originalPipeline, metadataMap, stepsFactory, updatePipeline, readonly } = props
   const { getString } = useStrings()
 
   return (
@@ -38,6 +39,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         initialValues={{ variables: (originalPipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
         type={StepType.CustomVariable}
         stepViewType={StepViewType.InputVariable}
+        readonly={readonly}
         onUpdate={({ variables }: CustomVariablesData) => {
           updatePipeline({ ...originalPipeline, variables })
         }}

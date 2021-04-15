@@ -99,12 +99,15 @@ describe('Create Docker Connector  Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    expect(updateConnector).toBeCalledWith({
-      connector: {
-        ...dockerMock,
-        name: updatedName
-      }
-    })
+    expect(updateConnector).toBeCalledWith(
+      {
+        connector: {
+          ...dockerMock,
+          name: updatedName
+        }
+      },
+      { queryParams: {} }
+    )
   })
 
   backButtonTest({

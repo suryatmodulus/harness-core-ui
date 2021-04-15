@@ -95,6 +95,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         splitViewData: { selectedStageId }
       }
     },
+    isReadonly,
     getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
@@ -387,7 +388,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               </Text>
             </div>
             <Select
-              disabled={setupModeType === setupMode.DIFFERENT}
+              disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
               className={css.propagatedropdown}
               items={previousStageList}
               value={selectedPropagatedState}
@@ -396,7 +397,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           </section>
 
           <section className={css.radioColumn}>
-            <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefinition()} />
+            <Radio
+              checked={setupModeType === setupMode.DIFFERENT}
+              disabled={isReadonly}
+              onClick={() => initWithServiceDefinition()}
+            />
             <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
               {' '}
               {getString('serviceDeploymentTypes.deployDifferentLabel')}
@@ -414,7 +419,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         </div>
       )}
       {setupModeType === setupMode.DIFFERENT ? (
-        <div className={css.serviceOverrides}>
+        <div className={cx(css.serviceOverrides, { [css.heightStageOverrides2]: stageIndex > 0 })}>
           <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>
@@ -422,6 +427,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Card className={css.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
+                  readonly={isReadonly}
                   initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
@@ -429,7 +435,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       serviceObj.service = value.service
                       delete serviceObj.serviceRef
                     } else if (value.serviceRef) {
-                      serviceObj.serviceRef = value.serviceRef
+                      const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
+                      serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
                       delete serviceObj.service
                     }
                     debounceUpdatePipeline(pipeline)
@@ -477,6 +484,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}
+                  readonly={isReadonly}
                   initialValues={{ stageIndex, setupModeType }}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
@@ -496,6 +504,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 <Layout.Horizontal>
                   <StepWidget<K8SDirectServiceStep>
                     factory={factory}
+                    readonly={isReadonly}
                     initialValues={{ stageIndex, setupModeType }}
                     type={StepType.K8sServiceSpec}
                     stepViewType={StepViewType.Edit}

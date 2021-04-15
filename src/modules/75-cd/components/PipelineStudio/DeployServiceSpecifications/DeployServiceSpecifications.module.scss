@@ -1,23 +1,26 @@
 .serviceOverrides {
   display: grid !important;
   grid-template-columns: auto 1fr;
-  height: calc(100%);
+  // tabs height 50px + margin-top 20px = 70px
+  height: calc(100% - 70px);
   &.heightStageOverrides {
-    height: calc(100% - 90px);
+    height: calc(100% - 160px);
+  }
+  &.heightStageOverrides2 {
+    height: calc(100% - 125px);
   }
   :global(.bp3-collapse-body > div) {
     background-color: var(--white) !important;
   }
   .navigationButtons {
     padding-left: var(--spacing-huge);
-    margin-bottom: 90px;
+    margin-bottom: 60px;
     &.overrides {
       padding-left: 0;
     }
   }
   .overFlowScroll {
     overflow-y: auto;
-    padding-bottom: var(--spacing-xxlarge);
     &.alignCenter {
       padding-left: var(--spacing-huge);
     }

@@ -28,8 +28,8 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
 
   return (
     <div>
-      {barrier?.barrierData?.data && (
-        <div className={classNames(css.section, css.borderSectionEnd)}>
+      {barrier?.barrierData?.data && data.status === 'Running' && (
+        <div className={classNames(css.section)}>
           <BarrierStageTooltip
             loading={!!barrier.barrierInfoLoading}
             stageName={data.name}
@@ -38,7 +38,7 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
         </div>
       )}
       {whenCondition && (
-        <div className={classNames(css.section, css.sectionGrid, css.borderSectionEnd)}>
+        <div className={classNames(css.section, css.sectionGrid, css.borderSection)}>
           <Icon name="conditional-when" size={24} />
           <div>
             <String stringID="whenCondition" className={css.sectionHeading} />
@@ -49,7 +49,7 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
         </div>
       )}
       {serviceName && (
-        <div className={classNames(css.section, css.sectionGrid)}>
+        <div className={classNames(css.section, css.sectionGrid, css.borderSection)}>
           <div></div>
           <div>
             <String stringID="serviceOrServices" className={css.sectionHeading} />

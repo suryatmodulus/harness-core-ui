@@ -5,7 +5,7 @@ import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings, StringKeys } from 'framework/exports'
 import css from './EntityReference.module.scss'
 
 export interface ScopedObjectDTO {
@@ -130,7 +130,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     fetchData()
   }, [fetchData])
 
-  const onScopeChange = (scope: Scope) => {
+  const onScopeChange = (scope: Scope): void => {
     setSelectedRecord(undefined)
     setSelectedScope(scope)
   }
@@ -175,7 +175,13 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     </Container>
   )
 
-  const renderTab = (show: boolean, id: string, scope: Scope, icon: IconName, title: string) => {
+  const renderTab = (
+    show: boolean,
+    id: string,
+    scope: Scope,
+    icon: IconName,
+    title: StringKeys
+  ): React.ReactElement | null => {
     return show ? (
       <Tab
         id={id}

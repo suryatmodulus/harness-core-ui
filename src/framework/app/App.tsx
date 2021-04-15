@@ -13,10 +13,9 @@ import RouteDestinations from 'modules/RouteDestinations'
 // eslint-disable-next-line aliased-module-imports
 import RouteDestinationsWithoutAuth from 'modules/RouteDestinationsWithoutAuth'
 import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
-import { StringsContext, StringsMap } from 'framework/strings/StringsContext'
+import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 
-import '@common/services'
 import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
@@ -32,7 +31,8 @@ setAutoFreeze(false)
 enableMapSet()
 
 interface AppProps {
-  strings: StringsMap
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  strings: Record<string, any>
 }
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
@@ -70,7 +70,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
         }
       }}
     >
-      <StringsContext.Provider value={props.strings}>
+      <StringsContextProvider initialStrings={props.strings}>
         <AppStoreProvider>
           <AppErrorBoundary>
             <PermissionsProvider>
@@ -78,7 +78,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
             </PermissionsProvider>
           </AppErrorBoundary>
         </AppStoreProvider>
-      </StringsContext.Provider>
+      </StringsContextProvider>
     </RestfulProvider>
   )
 }
@@ -86,11 +86,11 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider base="/">
-      <StringsContext.Provider value={props.strings}>
+      <StringsContextProvider initialStrings={props.strings}>
         <AppErrorBoundary>
           <RouteDestinationsWithoutAuth />
         </AppErrorBoundary>
-      </StringsContext.Provider>
+      </StringsContextProvider>
     </RestfulProvider>
   )
 }

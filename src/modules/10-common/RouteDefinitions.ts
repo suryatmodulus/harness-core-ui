@@ -20,7 +20,8 @@ import type {
   TargetPathProps,
   ModulePathParams,
   RolePathProps,
-  ResourceGroupPathProps
+  ResourceGroupPathProps,
+  UserGroupPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -120,6 +121,23 @@ const routes = {
         return `/admin/organizations/${orgIdentifier}/access-control/user-groups`
       }
       return '/admin/access-control/user-groups'
+    }
+  ),
+  toUserGroupDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      userGroupIdentifier
+    }: Partial<ProjectPathProps & ModulePathParams & UserGroupPathProps>) => {
+      if (module && orgIdentifier && projectIdentifier) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/user-groups/${userGroupIdentifier}`
+      } else if (orgIdentifier && projectIdentifier) {
+        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/user-groups/${userGroupIdentifier}`
+      } else if (orgIdentifier) {
+        return `/admin/organizations/${orgIdentifier}/access-control/user-groups/${userGroupIdentifier}`
+      }
+      return `/admin/access-control/user-groups/${userGroupIdentifier}`
     }
   ),
   toResourceGroups: withAccountId(
@@ -535,7 +553,7 @@ const routes = {
       environmentIdentifier,
       segmentIdentifier
     }: ProjectPathProps & SegmentPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/environments/${environmentIdentifier}/target-segment/${segmentIdentifier}`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/${segmentIdentifier}/environments/${environmentIdentifier}`
   ),
   toCFTargetDetails: withAccountId(
     ({
@@ -631,18 +649,6 @@ const routes = {
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
   ),
-  toCVDataSourcesProductPage: withAccountId(
-    ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/product`
-  ),
-  toCVSplunkInputTypePage: withAccountId(
-    ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/input-type`
-  ),
-  toCVDataSourcesEntityPage: withAccountId(
-    ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/select-list-entities`
-  ),
   toCVActivitySourceSetup: withAccountId(
     ({ activitySource, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activitySource?: string }>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}`
@@ -655,10 +661,6 @@ const routes = {
       activitySourceId
     }: Partial<ProjectPathProps & { activitySource?: string; activitySourceId: string }>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
-  ),
-  toCVMetricPackConfigureThresholdPage: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/metric-pack/config`
   ),
   toCVActivityDashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

@@ -2,8 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import { NavLink as Link, useParams } from 'react-router-dom'
 import type { NavLinkProps } from 'react-router-dom'
-import { Text, Icon, Layout, Color } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { Text, Icon, Layout, Color, Avatar } from '@wings-software/uicore'
+import { String, useAppStore } from 'framework/exports'
 
 import paths from '@common/RouteDefinitions'
 
@@ -18,15 +18,9 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const {
-    CDNG_ENABLED,
-    CVNG_ENABLED,
-    CING_ENABLED,
-    CENG_ENABLED,
-    CFNG_ENABLED,
-    NG_DASHBOARDS,
-    NG_USERPROFILE
-  } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
+
+  const { currentUserInfo: user } = useAppStore()
 
   return (
     <nav className={css.main}>
@@ -116,18 +110,16 @@ export default function L1Nav(): React.ReactElement {
             <Icon name="nav-settings" size={20} />
           </Link>
         </li>
-        {NG_USERPROFILE && (
-          <li className={css.navItem}>
-            <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
-              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
-                <Icon name="main-user" size={20} />
-                <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                  <String stringID="account" />
-                </Text>
-              </Layout.Vertical>
-            </Link>
-          </li>
-        )}
+        <li className={css.navItem}>
+          <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
+            <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
+              <Avatar email={user.email} size="small" hoverCard={false} />
+              <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
+                <String stringID="account" />
+              </Text>
+            </Layout.Vertical>
+          </Link>
+        </li>
       </ul>
     </nav>
   )

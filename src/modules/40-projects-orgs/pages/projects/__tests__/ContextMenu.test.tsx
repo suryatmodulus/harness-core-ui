@@ -47,35 +47,35 @@ describe('Context Menu test', () => {
     expect(container).toMatchSnapshot()
   })
   test('invite collaborators ', async () => {
-    fireEvent.click(getByText('Invite Collaborators'))
+    fireEvent.click(getByText('projectContextMenuRenderer.invite'))
     expect(collaborators).toHaveBeenCalled()
   }),
     test('edit project ', async () => {
-      fireEvent.click(getByText('Edit'))
+      fireEvent.click(getByTestId('edit-project'))
       expect(editProject).toHaveBeenCalled()
     }),
     test('delete ', async () => {
-      fireEvent.click(getByText('Delete'))
+      fireEvent.click(getByText('delete'))
       expect(openDialog).toHaveBeenCalled()
     }),
     test('Go to CV ', async () => {
-      fireEvent.click(getByText('Go to Continuous Verification'))
+      fireEvent.click(getByText('projectContextMenuRenderer.gotoCV'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CD ', async () => {
-      fireEvent.click(getByText('Go to Continuous Delivery'))
+      fireEvent.click(getByText('projectContextMenuRenderer.gotoCD'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CE ', async () => {
-      fireEvent.click(getByText('Go to Continuous Efficiency'))
+      fireEvent.click(getByText('projectContextMenuRenderer.gotoCE'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCECORules(routeParams))).toBeTruthy()
     }),
     test('Go to CI ', async () => {
-      fireEvent.click(getByText('Go to Continuous Integration'))
+      fireEvent.click(getByText('projectContextMenuRenderer.gotoCI'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CF ', async () => {
-      fireEvent.click(getByText('Go to Continuous Features'))
+      fireEvent.click(getByText('projectContextMenuRenderer.gotoCF'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCFFeatureFlags(routeParams))).toBeTruthy()
     })
 })

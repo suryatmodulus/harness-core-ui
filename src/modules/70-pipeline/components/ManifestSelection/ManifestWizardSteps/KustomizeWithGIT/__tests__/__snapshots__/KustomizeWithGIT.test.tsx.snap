@@ -24,7 +24,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -40,7 +40,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -60,7 +60,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +126,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -142,9 +142,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -194,7 +195,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Kustomize Folder Path
+                  pipeline.manifestType.kustomizeFolderPath
                    
                   <span
                     class="bp3-text-muted"
@@ -210,9 +211,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -286,7 +288,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  pluginPath
                    
                   <span
                     class="bp3-text-muted"
@@ -302,9 +304,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -375,17 +378,17 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -432,7 +435,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -442,7 +445,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -495,7 +498,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -511,7 +514,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -531,7 +534,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -597,7 +600,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -613,9 +616,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -665,7 +669,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Kustomize Folder Path
+                  pipeline.manifestType.kustomizeFolderPath
                    
                   <span
                     class="bp3-text-muted"
@@ -681,9 +685,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -757,7 +762,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  pluginPath
                    
                   <span
                     class="bp3-text-muted"
@@ -773,9 +778,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -846,17 +852,17 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -903,7 +909,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -913,7 +919,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -966,7 +972,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
               class="bp3-label"
               for="identifier"
             >
-              Manifest Identifier
+              pipeline.manifestType.manifestIdentifier
                
               <span
                 class="bp3-text-muted"
@@ -982,7 +988,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="Add Manifest Identifier"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -1002,7 +1008,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  Branch/Commit ID
+                  pipeline.manifestType.gitFetchTypeLabel
                    
                   <span
                     class="bp3-text-muted"
@@ -1068,7 +1074,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="branch"
                 >
-                  Branch
+                  pipelineSteps.deploy.inputSet.branch
                    
                   <span
                     class="bp3-text-muted"
@@ -1084,9 +1090,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="branch"
-                        placeholder="Enter branch name here"
+                        placeholder="pipeline.manifestType.branchPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1136,7 +1143,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="folderPath"
                 >
-                  Kustomize Folder Path
+                  pipeline.manifestType.kustomizeFolderPath
                    
                   <span
                     class="bp3-text-muted"
@@ -1152,9 +1159,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1228,7 +1236,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  Path to Kustomize plugin
+                  pluginPath
                    
                   <span
                     class="bp3-text-muted"
@@ -1244,9 +1252,10 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                       class="bp3-input-group MultiTypeInput--input"
                     >
                       <input
+                        autocomplete="off"
                         class="bp3-input"
                         name="pluginPath"
-                        placeholder="Enter file path"
+                        placeholder="pipeline.manifestType.pathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1317,17 +1326,17 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Advanced-panel"
-              id="Advanced-panel"
+              data-testid="advancedTitle-panel"
+              id="advancedTitle-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Advanced-summary"
+                data-testid="advancedTitle-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  Advanced
+                  advancedTitle
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -1374,7 +1383,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             <span
               class="bp3-button-text"
             >
-              Back
+              back
             </span>
           </button>
           <button
@@ -1384,7 +1393,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

@@ -48,5 +48,23 @@ describe('NameIdDescriptionTags  tests', () => {
       expect(result.current.getString('tagsLabel')).not.toBeNull()
       expect(container).toMatchSnapshot()
     })
+
+    test('Should display warning message when length of value for name reaches 63', async () => {
+      const { getByText } = render(
+        <WrapperComponent
+          initialValues={{
+            name: 'name-123 vldjvldkj dlvjdlvkj vljdlkvjd vlmdlfvm vlmdlkvj dlvdkl',
+            identifier: 'name123',
+            description: 'test description',
+            tags: {
+              test123: 'abc'
+            }
+          }}
+        />
+      )
+
+      expect(result.current.getString('name')).not.toBeNull()
+      expect(getByText('Limit of 63 characters is reached for name')).not.toBeNull()
+    })
   })
 })

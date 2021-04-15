@@ -5,7 +5,7 @@ import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@bluepr
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
-import { String } from 'framework/exports'
+import { String, StringKeys } from 'framework/exports'
 import {
   ConnectorResponse,
   useDeleteConnector,
@@ -25,6 +25,9 @@ import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/exports'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -66,7 +69,7 @@ const textRenderer = (value: string): JSX.Element =>
     <></>
   )
 
-const getConnectorDisplaySummaryLabel = (titleStringId: string, Element: JSX.Element): JSX.Element | string => {
+const getConnectorDisplaySummaryLabel = (titleStringId: StringKeys, Element: JSX.Element): JSX.Element | string => {
   return (
     <div className={classNames(css.name, css.flex)}>
       {titleStringId ? (
@@ -144,7 +147,7 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
   }
 }
 
-const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   const tags = data.connector?.tags || {}
   return (
@@ -164,7 +167,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
     </Layout.Horizontal>
   )
 }
-const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
 
   return data.connector ? (
@@ -174,7 +177,7 @@ const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) =>
   ) : null
 }
 
-const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -183,7 +186,7 @@ const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) =
     </Layout.Horizontal>
   )
 }
-const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+export const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -363,6 +366,22 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: data.connector?.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR, PermissionIdentifier.DELETE_CONNECTOR]
+    },
+    []
+  )
+
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('connectors.confirmDelete')} ${data.connector?.name}`,
     titleText: getString('connectors.confirmDeleteTitle'),
@@ -422,8 +441,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
             }}
           />
           <Menu style={{ minWidth: 'unset' }}>
-            <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-            <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+            <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} />
+            <Menu.Item icon="trash" text="Delete" onClick={handleDelete} disabled={!canDelete} />
           </Menu>
         </Popover>
       </Layout.Horizontal>

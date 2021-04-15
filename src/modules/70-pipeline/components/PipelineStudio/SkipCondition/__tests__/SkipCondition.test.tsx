@@ -10,6 +10,7 @@ jest.mock('lodash-es', () => ({
 
 const getProps = (): SkipConditionProps => ({
   onUpdate: jest.fn(),
+  isReadonly: false,
   selectedStage: {
     stage: {
       skipCondition: 'somecondition',

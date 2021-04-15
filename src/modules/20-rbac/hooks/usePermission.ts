@@ -1,4 +1,4 @@
-import { pick } from 'lodash-es'
+import { omit, pick } from 'lodash-es'
 
 import { useDeepCompareEffect } from '@common/hooks'
 import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interfaces/PermissionsContext'
@@ -25,7 +25,7 @@ export interface PermissionsRequest {
   options?: PermissionRequestOptions
 }
 
-export function getDTOFromRequest(permissionRequest: PermissionRequest): PermissionCheck {
+export function getDTOFromRequest(permissionRequest: PermissionRequest): PermissionCheck | undefined {
   const { resource, resourceScope, permission } = permissionRequest
   if (!resource) {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
@@ -82,24 +82,24 @@ export function usePermission(permissionsRequest: PermissionsRequest, deps: Arra
     return () => {
       if (NG_RBAC_ENABLED) {
         // cancel above request when this hook instance is unmounting
-        permissionsRequest.permissions.forEach(permission => {
-          const permissionCheckDto = getDTOFromRequest({
-            permission,
-            ...pick(permissionsRequest, ['resourceScope', 'resource'])
-          } as PermissionRequest)
-          cancelRequest(permissionCheckDto)
+        permissionsRequest.permissions.forEach(permissionIdentifier => {
+          cancelRequest({
+            ...omit(permissionsRequest, 'permissions'),
+            permission: permissionIdentifier
+          } as PermissionCheck)
         })
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [NG_RBAC_ENABLED, options, ...deps])
+  }, deps)
 
   // hook should return boolean for every action requested, in same order
-  return permissionsRequest.permissions.map(permission => {
-    const permissionCheckDto = getDTOFromRequest({
-      permission,
-      ...pick(permissionsRequest, ['resourceScope', 'resource'])
-    } as PermissionRequest)
-    return NG_RBAC_ENABLED ? checkPermission(permissionCheckDto) : true
-  })
+  return permissionsRequest.permissions.map(permission =>
+    NG_RBAC_ENABLED
+      ? checkPermission({
+          ...omit(permissionsRequest, 'permissions'),
+          permission
+        } as PermissionCheck)
+      : true
+  )
 }

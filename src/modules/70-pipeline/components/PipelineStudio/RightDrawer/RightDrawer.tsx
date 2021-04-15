@@ -101,7 +101,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     processedNode: ExecutionWrapper
   ): void => {
     // Finds the step in the stage, and updates with the processed node
-    execution.steps?.forEach(stepWithinStage => {
+    execution?.steps?.forEach(stepWithinStage => {
       if (stepWithinStage.stepGroup) {
         // If stage has a step group, loop over the step group steps and update the matching identifier with node
         if (stepWithinStage.stepGroup?.identifier === processingNodeIdentifier) {
@@ -112,8 +112,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       } else if (stepWithinStage.parallel) {
         // If stage has a parallel steps, loop over and update the matching identifier with node
         stepWithinStage.parallel.forEach((parallelStep: ExecutionWrapper) => {
-          if (parallelStep.step?.identifier === processingNodeIdentifier) {
+          if (parallelStep?.stepGroup?.identifier === processingNodeIdentifier) {
+            parallelStep.stepGroup = processedNode as any
+          } else if (parallelStep.step?.identifier === processingNodeIdentifier) {
             parallelStep.step = processedNode
+          } else {
+            updateStepWithinStage(parallelStep?.stepGroup, processingNodeIdentifier, processedNode)
           }
         })
       } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
@@ -121,7 +125,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         stepWithinStage.step = processedNode
       }
     })
-    if (execution.rollbackSteps) {
+    if (execution?.rollbackSteps) {
       updateStepWithinStage({ steps: execution.rollbackSteps }, processingNodeIdentifier, processedNode)
     }
   }

@@ -20,11 +20,32 @@ const generatePort = (port: DefaultPortModel, props: IconNodeWidgetProps): JSX.E
   return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
 }
 
+const onAddNodeClick = (
+  e: React.MouseEvent<Element, MouseEvent>,
+  node: DefaultNodeModel,
+  setAddClicked: React.Dispatch<React.SetStateAction<boolean>>
+): void => {
+  e.stopPropagation()
+  node.fireEvent(
+    {
+      callback: () => {
+        setAddClicked(false)
+      },
+      target: e.target
+    },
+    Event.AddParallelNode
+  )
+}
+
 const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({}, Event.ClickNode)
 }
 
+const onMouseOverNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseOverNode)
+}
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: IconNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({}, Event.RemoveNode)
@@ -42,6 +63,20 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
   const options = props.node.getOptions()
   const [dropable, setDropable] = React.useState(false)
   const [dragging, setDragging] = React.useState(false)
+  const allowAdd = options.allowAdd ?? false
+
+  const [showAdd, setVisibilityOfAdd] = React.useState(false)
+  const [addClicked, setAddClicked] = React.useState(false)
+  const onMouseOver = (e: MouseEvent): void => {
+    if (!addClicked && allowAdd) {
+      setVisibilityOfAdd(true)
+    }
+    onMouseOverNode(e, props.node)
+  }
+  const onMouseLeave = (e: MouseEvent): void => {
+    setVisibilityOfAdd(false)
+    onMouseLeaveNode(e, props.node)
+  }
   return (
     <div
       className={cx(cssDefault.defaultNode, css.iconNodeContainer)}
@@ -52,10 +87,16 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
       }}
       onDragOver={event => {
         setDropable(true)
-        event.preventDefault()
+        if (allowAdd) {
+          setVisibilityOfAdd(true)
+          event.preventDefault()
+        }
       }}
       onDragLeave={() => {
         setDropable(false)
+        if (allowAdd) {
+          setVisibilityOfAdd(false)
+        }
       }}
       onDrop={event => {
         event.stopPropagation()
@@ -63,10 +104,12 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         const dropData: { id: string; identifier: string } = JSON.parse(
           event.dataTransfer.getData(DiagramDrag.NodeDrag)
         )
+        props.node.setSelected(false)
         props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
       }}
       onMouseEnter={event => onMouseEnterNode((event as any) as MouseEvent, props.node)}
-      onMouseLeave={event => onMouseLeaveNode((event as any) as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeave((event as any) as MouseEvent)}
+      onMouseOver={event => onMouseOver((event as any) as MouseEvent)}
     >
       <div
         className={cx(
@@ -126,6 +169,25 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         >
           {options.name}
         </Text>
+      )}
+      {allowAdd && (
+        <div
+          onClick={e => {
+            setAddClicked(true)
+            setVisibilityOfAdd(true)
+            onAddNodeClick(e, props.node, setAddClicked)
+          }}
+          className={cssDefault.addNode}
+          data-nodeid="add-parallel"
+          style={{
+            width: options.width,
+            height: options.height,
+            opacity: showAdd ? 1 : 0,
+            marginLeft: (126 - (options.width || 64)) / 2
+          }}
+        >
+          <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
+        </div>
       )}
     </div>
   )

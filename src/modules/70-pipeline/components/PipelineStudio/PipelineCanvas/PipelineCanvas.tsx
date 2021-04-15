@@ -55,7 +55,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
     }>
   >()
 
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess, showError, clear } = useToaster()
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
@@ -112,6 +112,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
         fetchPipeline(true, true)
       }
     } else {
+      clear()
       showError(response?.message || getString('errorWhileSaving'))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -195,6 +196,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
         if (!parsedYaml) {
+          clear()
           showError(getString('invalidYamlText'))
           return
         }
@@ -248,6 +250,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
             try {
               const parsedYaml = parse(yamlHandler.getLatestYaml())
               if (!parsedYaml) {
+                clear()
                 showError(getString('invalidYamlText'))
                 return true
               }

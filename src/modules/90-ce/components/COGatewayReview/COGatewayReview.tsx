@@ -282,7 +282,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
               padding={{ bottom: 'medium' }}
               className={cx(css.equalSpacing, css.borderSpacing)}
             >
-              <Text>Allow traffic from all susbdomains</Text>
+              <Text>Allow traffic from all subdomains</Text>
               <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
             </Layout.Horizontal>
             <Layout.Horizontal spacing={'large'} className={css.equalSpacing}>

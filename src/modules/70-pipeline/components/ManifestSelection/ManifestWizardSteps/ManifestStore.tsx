@@ -83,6 +83,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
     }
     return initValues
   }, [selectedManifest])
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
@@ -134,72 +135,74 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
         }}
         enableReinitialize={true}
       >
-        {formik => (
-          <Form>
-            <div className={css.formContainerStepOne}>
-              {selectedManifest !== '' ? (
-                <div className={css.connectorContainer}>
-                  <FormMultiTypeConnectorField
-                    name="connectorRef"
-                    disabled={selectedManifest === ''}
-                    label={
-                      <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
-                        selectedManifest === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[selectedManifest]
-                      } ${getString('connector')}`}</Text>
-                    }
-                    placeholder={getString('selectServer')}
-                    accountIdentifier={accountId}
-                    projectIdentifier={projectIdentifier}
-                    orgIdentifier={orgIdentifier}
-                    width={400}
-                    multiTypeProps={{ expressions }}
-                    isNewConnectorLabelVisible={false}
-                    type={ManifestToConnectorMap[selectedManifest]}
-                    enableConfigureOptions={false}
-                  />
-                  {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
-                    <div className={css.configureOptions}>
-                      <ConfigureOptions
-                        value={(formik.values.connectorRef as unknown) as string}
-                        type={ManifestToConnectorMap[selectedManifest]}
-                        variableName="connectorId"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formik.setFieldValue('connectoreRef', value)
+        {formik => {
+          return (
+            <Form>
+              <div className={css.formContainerStepOne}>
+                {selectedManifest !== '' ? (
+                  <div className={css.connectorContainer}>
+                    <FormMultiTypeConnectorField
+                      name="connectorRef"
+                      disabled={selectedManifest === ''}
+                      label={
+                        <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
+                          selectedManifest === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[selectedManifest]
+                        } ${getString('connector')}`}</Text>
+                      }
+                      placeholder={getString('selectServer')}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      width={400}
+                      multiTypeProps={{ expressions }}
+                      isNewConnectorLabelVisible={false}
+                      type={ManifestToConnectorMap[selectedManifest]}
+                      enableConfigureOptions={false}
+                    />
+                    {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
+                      <div className={css.configureOptions}>
+                        <ConfigureOptions
+                          value={(formik.values.connectorRef as unknown) as string}
+                          type={ManifestToConnectorMap[selectedManifest]}
+                          variableName="connectorId"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => {
+                            formik.setFieldValue('connectoreRef', value)
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <Button
+                        intent="primary"
+                        minimal
+                        text={newConnectorLabel}
+                        className={css.addNewManifest}
+                        icon="plus"
+                        onClick={() => {
+                          handleConnectorViewChange()
+                          nextStep?.({ ...prevStepData, store: selectedManifest })
                         }}
                       />
-                    </div>
-                  ) : (
-                    <Button
-                      intent="primary"
-                      minimal
-                      text={newConnectorLabel}
-                      className={css.addNewManifest}
-                      icon="plus"
-                      onClick={() => {
-                        handleConnectorViewChange()
-                        nextStep?.({ ...prevStepData, store: selectedManifest })
-                      }}
-                    />
-                  )}
-                </div>
-              ) : null}
-            </div>
+                    )}
+                  </div>
+                ) : null}
+              </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('continue')}
-                rightIcon="chevron-right"
-                disabled={!selectedManifest}
-              />
-            </Layout.Horizontal>
-          </Form>
-        )}
+              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+                <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  intent="primary"
+                  type="submit"
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  disabled={!selectedManifest}
+                />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )

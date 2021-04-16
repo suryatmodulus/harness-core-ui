@@ -44,7 +44,6 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
   }, [])
 
   const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -179,7 +178,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.repoName')}
-            name="spec. configuration.spec.configFiles.store.spec.repoName"
+            name="spec.configuration.spec.configFiles.store.spec.repoName"
             placeholder={getString('pipelineSteps.repoName')}
             multiTextInputProps={{ expressions }}
           />

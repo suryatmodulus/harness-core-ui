@@ -81,7 +81,6 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
 
   const getInitialValues = (): HelmWithS3DataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
-
     if (specValues) {
       const values = {
         ...specValues,

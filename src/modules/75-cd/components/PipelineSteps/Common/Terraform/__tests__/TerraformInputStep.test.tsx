@@ -30,7 +30,16 @@ const initialValues = {
               connectorRef: {
                 label: 'test',
                 scope: Scope.ACCOUNT,
-                value: 'test'
+                value: 'test',
+                live: true,
+                connector: {
+                  name: 'test',
+                  identifier: 'test',
+                  type: 'Git',
+                  spec: {
+                    val: 'test'
+                  }
+                }
               }
             }
           }
@@ -60,7 +69,16 @@ const template = {
               connectorRef: {
                 label: 'test',
                 scope: Scope.ACCOUNT,
-                value: 'test'
+                value: 'test',
+                live: true,
+                connector: {
+                  name: 'test',
+                  identifier: 'test',
+                  type: 'Git',
+                  spec: {
+                    val: 'test'
+                  }
+                }
               }
             }
           }

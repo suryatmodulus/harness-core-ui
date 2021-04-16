@@ -1,3 +1,4 @@
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
@@ -9,6 +10,7 @@ import type {
   MultiTypeMapUIType,
   SelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+
 import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 
@@ -66,19 +68,21 @@ export interface BackendConfig {
   }
 }
 export interface VarFileArray {
-  type?: string
-  store?: {
-    spec?: {
-      gitFetchType?: string
-      branch?: string
-      commitId?: string
-      connectorRef?: {
-        label: string
-        scope: Scope
-        value: string
+  varFile: {
+    type?: string
+    store?: {
+      spec?: {
+        gitFetchType?: string
+        branch?: string
+        commitId?: string
+        connectorRef?: {
+          label: string
+          scope: Scope
+          value: string
+        }
+        paths?: PathInterface[]
+        content?: string
       }
-      paths?: PathInterface[]
-      content?: string
     }
   }
 }
@@ -100,8 +104,10 @@ export interface TerraformData extends StepElementConfig {
               folderPath?: string
               connectorRef?: {
                 label: string
-                scope: Scope
                 value: string
+                scope: Scope
+                live: boolean
+                connector: { type: string; spec: { val: string } }
               }
             }
           }
@@ -149,13 +155,37 @@ export const onSubmitTerraformData = (values: TerraformData) => {
         }
       })
     }
+
     return {
       ...values,
       spec: {
         ...values.spec,
-        environmentVariables: envMap,
-        targets: targetMap
-      }
+        configuration: {
+          ...values?.spec?.configuration,
+          spec: {
+            ...values.spec?.configuration.spec,
+            configFiles: {
+              ...values.spec?.configuration?.spec?.configFiles,
+              store: {
+                ...values.spec?.configuration?.spec?.configFiles?.store,
+                type: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.connector?.type,
+                spec: {
+                  ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
+                  connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                    ? getMultiTypeFromValue(
+                        values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.RUNTIME
+                      ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                      : values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value
+                    : ''
+                }
+              }
+            }
+          }
+        }
+      },
+      environmentVariables: envMap,
+      targets: targetMap
     }
   }
 

@@ -68,7 +68,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         chartVersion: initialValues.spec?.chartVersion,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
-          commandType: commandFlag.commandType,
+          commandType: { label: commandFlag.commandType, value: commandFlag.commandType },
           flag: commandFlag.flag
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]

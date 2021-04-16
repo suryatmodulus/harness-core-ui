@@ -96,7 +96,7 @@ describe('helm with http tests', () => {
             },
             helmVersion: 'V2',
             skipResourceVersioning: false,
-            commandFlags: [{ commandType: undefined, flag: 'flag' }]
+            commandFlags: [{ commandType: 'Template', flag: 'flag' }]
           }
         }
       })

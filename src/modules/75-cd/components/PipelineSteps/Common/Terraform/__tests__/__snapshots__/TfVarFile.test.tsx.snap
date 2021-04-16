@@ -53,7 +53,7 @@ exports[`Terraform var file creation testing  form with right payload - for inli
         >
           <label
             class="bp3-label"
-            for="type"
+            for="varFile.type"
           >
             pipelineSteps.storeType
              
@@ -76,7 +76,7 @@ exports[`Terraform var file creation testing  form with right payload - for inli
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="type"
+                    name="varFile.type"
                     placeholder="pipelineSteps.storeType"
                     style="padding-right: 0px;"
                     type="text"
@@ -226,7 +226,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
         >
           <label
             class="bp3-label"
-            for="type"
+            for="varFile.type"
           >
             pipelineSteps.storeType
              
@@ -249,7 +249,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="type"
+                    name="varFile.type"
                     placeholder="pipelineSteps.storeType"
                     style="padding-right: 0px;"
                     type="text"
@@ -371,7 +371,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
               >
                 <button
                   class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
-                  data-testid="cr-field-store.spec.connectorRef"
+                  data-testid="cr-field-varFile.store.spec.connectorRef"
                   style="width: 232px;"
                   type="button"
                 >
@@ -444,7 +444,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
         >
           <label
             class="bp3-label"
-            for="store.spec.gitFetchType"
+            for="varFile.store.spec.gitFetchType"
           >
             pipeline.manifestType.gitFetchTypeLabel
              
@@ -467,7 +467,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="store.spec.gitFetchType"
+                    name="varFile.store.spec.gitFetchType"
                     placeholder="pipeline.manifestType.gitFetchTypeLabel"
                     style="padding-right: 0px;"
                     type="text"
@@ -507,7 +507,7 @@ exports[`Terraform var file creation testing form with right payload - for remot
       >
         <label
           class="bp3-label"
-          for="store.spec.paths"
+          for="varFile.store.spec.paths"
         >
           <div
             class="formLabel"
@@ -638,7 +638,7 @@ exports[`Terraform var file creation testing initial render 1`] = `
         >
           <label
             class="bp3-label"
-            for="type"
+            for="varFile.type"
           >
             pipelineSteps.storeType
              
@@ -661,7 +661,7 @@ exports[`Terraform var file creation testing initial render 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="type"
+                    name="varFile.type"
                     placeholder="pipelineSteps.storeType"
                     style="padding-right: 0px;"
                     type="text"

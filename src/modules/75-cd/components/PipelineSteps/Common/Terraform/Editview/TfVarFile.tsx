@@ -237,13 +237,22 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     intent={'primary'}
                     text={getString('addFile')}
                     onClick={() => {
-                      const tfValues = formik.values
                       if (formik.values.varFile?.type === TerraformStoreTypes.Remote) {
                         const payload = {
-                          ...tfValues,
-                          store: {
-                            type: 'Git',
-                            ...formik.values.varFile?.store
+                          varFile: {
+                            ...formik.values.varFile,
+                            store: {
+                              ...formik.values.varFile.store,
+                              spec: {
+                                ...formik.values.varFile.store?.spec,
+                                connectorRef: formik.values?.varFile?.store?.spec?.connectorRef
+                                  ? getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
+                                    MultiTypeInputType.RUNTIME
+                                    ? formik.values?.varFile?.store?.spec?.connectorRef
+                                    : formik.values?.varFile?.store?.spec?.connectorRef?.value
+                                  : ''
+                              }
+                            }
                           }
                         }
                         props.onSubmit(payload)

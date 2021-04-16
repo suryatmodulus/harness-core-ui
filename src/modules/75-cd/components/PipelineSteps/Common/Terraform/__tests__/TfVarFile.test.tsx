@@ -34,7 +34,7 @@ describe('Terraform var file creation testing', () => {
       {
         container: container,
         type: InputTypes.SELECT,
-        fieldId: 'type',
+        fieldId: 'varFile.type',
         value: 'inline'
       }
     ])
@@ -55,7 +55,7 @@ describe('Terraform var file creation testing', () => {
       {
         container: container,
         type: InputTypes.SELECT,
-        fieldId: 'type',
+        fieldId: 'varFile.type',
         value: 'remote'
       }
     ])

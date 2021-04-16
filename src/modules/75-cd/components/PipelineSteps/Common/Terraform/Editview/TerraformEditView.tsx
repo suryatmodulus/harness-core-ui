@@ -111,7 +111,7 @@ export default function TerraformEditView(
           // if (payload.spec.configuration?.spec?.configFiles?.store?.spec?.connectorRef) {
           //   payload?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef = payload.spec.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value
           // }
-
+          console.log(payload, 'pay')
           onUpdate?.(payload)
         }}
         initialValues={setInitialValues(initialValues)}

@@ -77,8 +77,10 @@ export interface VarFileArray {
         commitId?: string
         connectorRef?: {
           label: string
-          scope: Scope
           value: string
+          scope: Scope
+          live: boolean
+          connector: { type: string; spec: { val: string } }
         }
         paths?: PathInterface[]
         content?: string

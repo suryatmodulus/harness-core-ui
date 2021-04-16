@@ -116,7 +116,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                           />
                         </Text>
                       }
-                      type={'Git'}
+                      type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
                       width={
                         getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
                         MultiTypeInputType.RUNTIME
@@ -243,6 +243,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                             ...formik.values.varFile,
                             store: {
                               ...formik.values.varFile.store,
+                              type: formik.values?.varFile?.store?.spec?.connectorRef?.connector?.type,
                               spec: {
                                 ...formik.values.varFile.store?.spec,
                                 connectorRef: formik.values?.varFile?.store?.spec?.connectorRef

@@ -108,7 +108,6 @@ export default function TerraformEditView(
       <Formik<TerraformData>
         onSubmit={(values: TerraformData) => {
           const payload = onSubmitTerraformData(values) as any
-
           onUpdate?.(payload)
         }}
         initialValues={setInitialValues(initialValues)}

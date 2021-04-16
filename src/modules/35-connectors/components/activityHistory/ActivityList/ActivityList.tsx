@@ -61,7 +61,7 @@ const GetStatusText: React.FC<AllActivity> = (data: AllActivity) => {
     status = getString('activityHistory.updatedSuccessfully')
   }
 
-  return <Text color={Color.DARK_600}>{status}</Text>
+  return <Text color={Color.GREY_900}>{status}</Text>
 }
 
 const RenderColumnTime: Renderer<CellProps<Activity>> = ({ row }) => {
@@ -69,7 +69,7 @@ const RenderColumnTime: Renderer<CellProps<Activity>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Vertical spacing="xsmall">
-      <Text color={Color.DARK_600}>{getString('activityLog')}</Text>
+      <Text color={Color.GREY_900}>{getString('activityLog')}</Text>
       <Text font={{ size: 'small' }} color={Color.GREY_450}>
         {moment(data.activityTime).format('DD MMM YYYY')}
       </Text>

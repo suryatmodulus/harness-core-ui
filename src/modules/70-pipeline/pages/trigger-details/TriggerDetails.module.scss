@@ -1,5 +1,5 @@
 .link {
-  color: var(--blue-500);
+  color: var(--primary-7);
   cursor: pointer;
   &:hover {
     text-decoration: none;
@@ -9,7 +9,7 @@
 .tags {
   padding: var(--spacing-xsmall) var(--spacing-medium);
   background: none;
-  color: var(--blue-500);
+  color: var(--primary-7);
   cursor: pointer;
   border-radius: 8px;
   letter-spacing: 0.5px;

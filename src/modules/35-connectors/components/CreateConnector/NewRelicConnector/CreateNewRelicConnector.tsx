@@ -63,7 +63,7 @@ function AccountIdTooltip(): JSX.Element {
             target="_blank"
             rel="noreferrer"
             href={'https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/account-id/'}
-            style={{ color: 'var(--blue-500)' }}
+            style={{ color: 'var(--primary-7)' }}
           >
             {getString('clickHere')}
           </a>

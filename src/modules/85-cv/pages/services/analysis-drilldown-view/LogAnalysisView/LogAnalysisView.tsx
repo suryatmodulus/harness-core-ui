@@ -60,7 +60,7 @@ function generatePointsForLogFrequency(
       zones: [
         // {
         //   value: data[Math.floor(Math.random() * 14)].x,
-        //   color: 'var(--blue-500)'
+        //   color: 'var(--primary-7)'
         // },
         // {
         //   color: 'var(--red-500)'

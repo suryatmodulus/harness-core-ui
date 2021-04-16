@@ -104,7 +104,7 @@ describe('ActivitiesTimelineView', () => {
     expect(svgPaths.length).toBe(3)
     expect(svgPaths[0]?.getAttribute('stroke')).toEqual('#F45858')
     expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#86DD29')
-    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('var(--blue-500)')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('var(--primary-7)')
   })
 
   test('Ensure correct icons are rendered when two event types stacking is done', async () => {

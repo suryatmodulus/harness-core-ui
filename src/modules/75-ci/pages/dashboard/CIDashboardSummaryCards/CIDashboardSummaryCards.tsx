@@ -22,7 +22,7 @@ export default function CIDashboardSummaryCards() {
         diff={{
           value: 12,
           isIncrease: true,
-          color: 'var(--blue-500)'
+          color: 'var(--primary-7)'
         }}
       />
       <SummaryCard
@@ -36,7 +36,7 @@ export default function CIDashboardSummaryCards() {
         diff={{
           value: 13,
           isIncrease: false,
-          color: 'var(--blue-500)'
+          color: 'var(--primary-7)'
         }}
       />
       <SummaryCard

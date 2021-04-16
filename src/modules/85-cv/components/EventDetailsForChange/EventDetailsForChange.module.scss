@@ -60,7 +60,7 @@
 
         &[data-verification-result='IGNORED'] svg path,
         &[data-verification-result='IN_PROGRESS'] svg path {
-          fill: var(--blue-500) !important;
+          fill: var(--primary-7) !important;
         }
       }
     }

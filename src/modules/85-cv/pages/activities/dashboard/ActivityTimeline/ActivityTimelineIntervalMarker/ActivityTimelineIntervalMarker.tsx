@@ -48,7 +48,7 @@ export default function ActivityTimelineIntervalMarker(props: ActivityTimelineIn
         const { time, top } = markerLocation
         return (
           <Container key={time} className={css.timeMarker} style={{ top }}>
-            <Container width={50} style={{ borderTop: '1px solid var(--blue-500)' }}></Container>
+            <Container width={50} style={{ borderTop: '1px solid var(--primary-7)' }}></Container>
             <Layout.Vertical style={{ flexGrow: 1 }}>
               <Text
                 className={css.timeLabel}

@@ -56,7 +56,7 @@ const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
   return React.useMemo(
     () => (
       <Container className={css.entityTypeContainer}>
-        <Text margin="large" font={{ size: 'medium', weight: 'bold' }} color={Color.DARK_600}>
+        <Text margin="large" font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_900}>
           {getEntityHeaderText(entityList)}
         </Text>
         {selectedEntity ? (

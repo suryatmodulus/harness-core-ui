@@ -14,7 +14,7 @@
       height: 32px !important;
 
       &:focus {
-        border-color: var(--blue-500);
+        border-color: var(--primary-7);
       }
     }
   }
@@ -54,7 +54,7 @@
     padding: 0 !important;
     height: 30px !important;
     min-height: unset !important;
-    color: var(--blue-500) !important;
+    color: var(--primary-7) !important;
     border-radius: 0 2px 2px 0 !important;
   }
 
@@ -80,14 +80,14 @@
     padding: var(--spacing-xsmall) var(--spacing-medium);
 
     & .menuItemLabel {
-      color: var(--blue-500) !important;
+      color: var(--primary-7) !important;
 
       & :global(.bp3-icon) {
         color: currentColor !important;
       }
     }
     &:hover {
-      background-color: var(--blue-500);
+      background-color: var(--primary-7);
       color: var(--white);
 
       & .menuItemLabel {

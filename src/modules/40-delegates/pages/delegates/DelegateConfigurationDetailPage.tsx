@@ -172,8 +172,8 @@ export default function DelegateProfileDetails(): JSX.Element {
                 position: 'absolute',
                 top: '50px',
                 right: '50px',
-                color: 'var(--blue-500)',
-                borderColor: 'var(--blue-500)'
+                color: 'var(--primary-7)',
+                borderColor: 'var(--primary-7)'
               }}
               onClick={() => {
                 toggleEditModeOrSave(formData)

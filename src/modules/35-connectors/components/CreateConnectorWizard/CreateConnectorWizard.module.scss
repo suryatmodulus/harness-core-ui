@@ -103,8 +103,8 @@
     width: 100px;
     border-radius: 6px;
     height: 36px;
-    color: var(--blue-500) !important;
-    border-color: var(--blue-500) !important;
+    color: var(--primary-7) !important;
+    border-color: var(--primary-7) !important;
     > span {
       font-size: 12px;
       letter-spacing: 0.2px;
@@ -136,7 +136,7 @@
         // box-shadow: 0 2px 4px 0 rgba(40,41,61,0.04), 0 8px 16px 0 rgba(96,97,112,0.16);
         // &:hover {
         //   border-radius: 8px;
-        //   background-color: var(--blue-500);
+        //   background-color: var(--primary-7);
         //   color: var(--white);
         //   border: 0px solid var(--grey-200) !important;
         //   box-shadow: 0 2px 8px 0 rgba(40, 41, 61, 0.08), 0 20px 32px 0 rgba(96, 97, 112, 0.24);
@@ -153,7 +153,7 @@
   }
   .selectedCard {
     border-radius: 8px 8px 0 0;
-    background-color: var(--blue-500);
+    background-color: var(--primary-7);
 
     height: 100px;
     color: var(--white);

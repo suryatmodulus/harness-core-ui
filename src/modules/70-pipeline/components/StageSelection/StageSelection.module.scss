@@ -7,7 +7,7 @@
     justify-content: space-between;
 
     & > .icon {
-      color: var(--blue-500) !important;
+      color: var(--primary-7) !important;
     }
   }
 }
@@ -17,14 +17,14 @@
     margin-right: var(--spacing-small) !important;
 
     &[data-icon='pipeline-deploy'] {
-      color: var(--blue-500) !important;
+      color: var(--primary-7) !important;
     }
   }
 }
 
 .menuItem {
   &:global(.bp3-active) {
-    background-color: var(--blue-500) !important;
+    background-color: var(--primary-7) !important;
     color: white !important;
 
     &:hover {

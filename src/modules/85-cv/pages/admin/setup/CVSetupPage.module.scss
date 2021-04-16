@@ -1,5 +1,5 @@
 .number {
-  background-color: var(--blue-500);
+  background-color: var(--primary-7);
   border-radius: 50%;
   color: var(--white);
   width: 20px;
@@ -23,7 +23,7 @@
   border-left-color: var(--grey-250);
 }
 .dashedLineVisited {
-  border-left-color: var(--blue-500);
+  border-left-color: var(--primary-7);
 }
 .progressHeader {
   margin-bottom: var(--spacing-large) !important;
@@ -61,7 +61,7 @@
   height: 80px;
 }
 .cardSelected {
-  border: 2px solid var(--blue-500);
+  border: 2px solid var(--primary-7);
 }
 .monitoringCard {
   margin: 5px;

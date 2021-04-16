@@ -24,7 +24,7 @@
       font-size: var(--font-size-small);
 
       a {
-        color: var(--blue-500);
+        color: var(--primary-7);
       }
 
       a::after {
@@ -104,12 +104,12 @@
       min-width: auto;
       min-height: auto;
       background: var(--blue-200) !important;
-      color: var(--blue-500) !important;
+      color: var(--primary-7) !important;
       border: none;
 
       &:hover {
         border: none;
-        color: var(--blue-500) !important;
+        color: var(--primary-7) !important;
         background: var(--blue-200) !important;
       }
     }

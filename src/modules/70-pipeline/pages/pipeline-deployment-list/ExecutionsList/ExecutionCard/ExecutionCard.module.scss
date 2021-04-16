@@ -131,7 +131,7 @@
   }
 
   & .serviceName {
-    color: var(--blue-500);
+    color: var(--primary-7);
     cursor: pointer;
     white-space: nowrap;
     display: inline-block;
@@ -161,7 +161,7 @@
     &:not(:last-child)::after {
       content: ',';
       margin-right: 4px;
-      color: var(--blue-500);
+      color: var(--primary-7);
     }
   }
 }

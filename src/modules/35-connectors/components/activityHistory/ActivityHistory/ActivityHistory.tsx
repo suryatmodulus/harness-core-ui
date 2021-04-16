@@ -118,7 +118,7 @@ const ActivityHistory: React.FC<ActivityHistoryprops> = props => {
 
   const getDateRangeText = (): JSX.Element => {
     return (
-      <Text color={Color.DARK_600}>{`${moment(dateRange[0]?.valueOf()).format(DATE_FORMAT)}- ${moment(
+      <Text color={Color.GREY_900}>{`${moment(dateRange[0]?.valueOf()).format(DATE_FORMAT)}- ${moment(
         dateRange[1]?.valueOf()
       ).format(DATE_FORMAT)}`}</Text>
     )

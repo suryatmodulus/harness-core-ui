@@ -1038,7 +1038,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 onClick={() => {
                                   addDependency()
                                 }}
-                                style={{ color: 'var(--blue-500)', cursor: 'pointer' }}
+                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
                               >
                                 {'+ add dependency'}
                               </Text>

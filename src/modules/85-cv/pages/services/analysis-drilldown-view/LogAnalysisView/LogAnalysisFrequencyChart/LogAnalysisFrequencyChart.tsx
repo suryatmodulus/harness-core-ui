@@ -55,7 +55,7 @@ function generatePointsForLogChart(
       type: 'column',
       name: getString('cv.nonAnomalous'),
       data: [],
-      color: 'var(--blue-500)'
+      color: 'var(--primary-7)'
     },
     {
       type: 'column',

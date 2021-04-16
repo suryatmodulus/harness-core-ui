@@ -11,7 +11,7 @@
   .triangle {
     width: 0;
     height: 0;
-    border-top: 30px solid var(--blue-500);
+    border-top: 30px solid var(--primary-7);
     border-left: 30px solid transparent;
     float: right;
   }
@@ -23,7 +23,7 @@
   }
 
   .selectedCard {
-    border: 2px solid var(--blue-500);
+    border: 2px solid var(--primary-7);
   }
   .cardIconSelected {
     left: 14px;

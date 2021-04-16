@@ -98,7 +98,7 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
         border={{ bottom: true, color: Color.GREY_300 }}
         flex={{ distribution: 'space-between' }}
       > */}
-      {/* <Text font={{ size: 'medium' }} color={Color.DARK_600}>
+      {/* <Text font={{ size: 'medium' }} color={Color.GREY_900}>
           {i18n.ReferencedBy}
         </Text> */}
 

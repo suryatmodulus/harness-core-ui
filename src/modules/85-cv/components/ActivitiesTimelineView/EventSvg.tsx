@@ -18,15 +18,15 @@ export default function EventSvg({
     strokeWidth: 1.5
   }
   if (selected) {
-    pathProps.fill = 'var(--blue-500)'
-    pathProps.stroke = 'var(--blue-500)'
+    pathProps.fill = 'var(--primary-7)'
+    pathProps.stroke = 'var(--primary-7)'
   } else if (
     verificationResult === 'IN_PROGRESS' ||
     verificationResult === 'NOT_STARTED' ||
     verificationResult === 'IGNORED'
   ) {
     pathProps.fill = '#ffffff'
-    pathProps.stroke = 'var(--blue-500)'
+    pathProps.stroke = 'var(--primary-7)'
   } else if (verificationResult === 'VERIFICATION_PASSED') {
     pathProps.fill = '#ffffff'
     pathProps.stroke = '#86DD29'

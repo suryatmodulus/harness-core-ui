@@ -201,13 +201,12 @@ const ManifestListView = ({
 
   const getLastStepInitialData = (): ManifestConfig => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest', null)
-    console.log(initValues)
     return initValues
   }
 
   const getInitialValues = (): ManifestStepInitData => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest.spec.store.spec', null)
-    console.log(initValues, 'va')
+
     if (initValues) {
       const values = {
         ...initValues,

@@ -78,6 +78,7 @@ export default function WorkflowVariables({
         }
       } else {
         const overrideSets = stageSpec.variableOverrideSets
+        // eslint-disable-next-line @typescript-eslint/ban-types
         overrideSets.map((variableSet: { overrideSet: { identifier: string; variables: object } }) => {
           if (variableSet?.overrideSet?.identifier === identifierName) {
             variableSet.overrideSet.variables = vars

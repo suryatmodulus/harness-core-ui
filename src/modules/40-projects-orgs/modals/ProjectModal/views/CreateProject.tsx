@@ -17,8 +17,8 @@ interface CreateModalData {
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { nextStep, onSuccess, modules } = props
-  const { accountId } = useParams()
-  const { orgId: orgIdentifier } = useQueryParams()
+  const { accountId }: any = useParams()
+  const { orgId: orgIdentifier }: any = useQueryParams()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
     queryParams: {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extra-semi */
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 jest.mock('copy-to-clipboard')

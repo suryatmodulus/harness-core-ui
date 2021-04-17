@@ -9,6 +9,7 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import CFEnvironmentDetailsHeader from './CFEnvironmentDetailsHeader'
 import CFEnvironmentDetailsBody from './CFEnvironmentDetailsBody'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const CFEnvironmentDetails: React.FC<{}> = () => {
   const { projectIdentifier, environmentIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { loading, data, error, refetch } = useSyncedEnvironment({

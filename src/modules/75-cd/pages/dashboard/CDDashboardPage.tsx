@@ -6,7 +6,7 @@ import { Page } from '@common/exports'
 import { useAppStore, useStrings } from 'framework/exports'
 
 export const CDDashboardPage: React.FC = () => {
-  const { projectIdentifier, accountId } = useParams()
+  const { projectIdentifier, accountId }: any = useParams()
   const { selectedProject: project } = useAppStore()
   const history = useHistory()
   const { getString } = useStrings()

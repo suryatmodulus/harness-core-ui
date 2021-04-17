@@ -40,6 +40,7 @@ const DIFF_VIEWER_OPTIONS = {
   codeLens: false,
   readOnly: true,
   renderSideBySide: false,
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
   lineNumbers: 'off' as 'off',
   inDiffEditor: true,
   scrollBeyondLastLine: false,

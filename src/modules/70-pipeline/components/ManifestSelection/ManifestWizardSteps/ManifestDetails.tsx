@@ -177,6 +177,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       }
     }
     if (selectedManifest === ManifestDataType.K8sManifest) {
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;(manifestObj.manifest.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }
     handleSubmit(manifestObj)

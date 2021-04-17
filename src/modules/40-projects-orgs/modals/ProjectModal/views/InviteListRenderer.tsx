@@ -21,7 +21,7 @@ interface InviteListProps {
 const CustomSelect = Select.ofType<SelectOption>()
 const InviteListRenderer: React.FC<InviteListProps> = props => {
   const { user, reload, roles } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const [approved, setApproved] = useState<boolean>(false)
   const { mutate: deleteInvite } = useDeleteInvite({ queryParams: { accountIdentifier: accountId } })

@@ -34,6 +34,7 @@ export interface GCOMonitoringSourceInfo
 // --------------------------------------  DTO's for backend --------------------------------------
 export interface GCODefinition {
   isManualQuery?: boolean
+  // eslint-disable-next-line @typescript-eslint/ban-types
   jsonMetricDefinition: object
   metricName: string
   dashboardName: string

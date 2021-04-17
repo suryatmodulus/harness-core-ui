@@ -182,6 +182,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       />
     )
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: BarrierData, template: BarrierData, getString?: UseStringsReturn['getString']): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any

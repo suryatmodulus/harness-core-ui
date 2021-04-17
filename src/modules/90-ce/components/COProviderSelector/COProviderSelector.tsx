@@ -42,7 +42,7 @@ function getProvider(name: string): Provider {
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { getString } = useStrings()
   return (
     <>

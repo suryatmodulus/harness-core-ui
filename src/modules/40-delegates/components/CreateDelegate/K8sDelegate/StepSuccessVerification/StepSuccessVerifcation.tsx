@@ -17,7 +17,7 @@ interface StepSuccessVerifcationProps {
 const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerifcationProps> = props => {
   const [showProcessing, setShowProcessing] = React.useState(false)
   const { previousStep } = props
-  // const { accountId } = useParams()
+  // const { accountId } : any = useParams()
   const { getString } = useStrings()
 
   // const { data, loading, error, refetch: verifyHeartBeat } = useHeartbeat({

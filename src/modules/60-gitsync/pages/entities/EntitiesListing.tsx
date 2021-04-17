@@ -19,12 +19,14 @@ import css from './GitSyncEntity.module.scss'
 interface EntitiesListingProps {
   selectedProduct: GitSyncProductDTO['moduleType']
   entityType: GitSyncEntityListDTO['entityType']
+  // eslint-disable-next-line @typescript-eslint/ban-types
   backToSummary: Function
 }
 
 interface EntityListViewProps {
   data: PageGitSyncEntityListDTO | undefined
   gotoPage: (pageNumber: number) => void
+  // eslint-disable-next-line @typescript-eslint/ban-types
   refetch: Function
 }
 
@@ -56,7 +58,7 @@ const EntityListView: React.FC<EntityListViewProps> = props => {
 }
 
 const EntitiesListing: React.FC<EntitiesListingProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const [page, setPage] = useState(0)
 
   const { loading: loadingEntityList, data: dataAllEntities, refetch } = useListGitSyncEntitiesByType({

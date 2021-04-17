@@ -4,7 +4,7 @@ import { noop } from 'lodash-es'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
-import { mockSecret } from '@connectors/components/CreateConnector/K8sConnector/__test__/k8Mocks.ts'
+import { mockSecret } from '@connectors/components/CreateConnector/K8sConnector/__test__/k8Mocks'
 
 import Stepk8ClusterDetails from '../Stepk8ClusterDetails'
 

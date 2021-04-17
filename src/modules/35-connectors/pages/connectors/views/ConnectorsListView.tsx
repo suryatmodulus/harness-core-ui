@@ -35,6 +35,7 @@ interface ConnectorListViewProps {
   openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal']
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }
@@ -193,7 +194,7 @@ const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }
 }
 const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const [testing, setTesting] = useState(false)
   const [lastTestedAt, setLastTestedAt] = useState<number>()
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(data.status?.status)
@@ -357,7 +358,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const isHarnessManaged = data.harnessManaged
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { getString } = useStrings()
   const { mutate: deleteConnector } = useDeleteConnector({
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }

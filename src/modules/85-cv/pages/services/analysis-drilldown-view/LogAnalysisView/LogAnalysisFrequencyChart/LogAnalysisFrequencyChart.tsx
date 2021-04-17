@@ -102,7 +102,7 @@ function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, star
 }
 
 export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyChartProps): JSX.Element {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { environmentIdentifier, serviceIdentifier, categoryName, startTime, endTime, className } = props
   const { data, refetch } = useGetTagCount({
     lazy: true
@@ -136,7 +136,7 @@ export function ActivityLogAnalysisFrequencyChart({
   startTime,
   endTime
 }: ActivityLogAnalysisFrequencyChartProps): React.ReactElement {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { data } = useGetTagCountForActivity({
     activityId,
     queryParams: {

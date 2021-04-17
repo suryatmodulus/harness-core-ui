@@ -64,7 +64,7 @@ const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): strin
 }
 
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, secretId }: any = useParams()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()

@@ -69,6 +69,7 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     this.portsIn = []
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   doClone(lookupTable: {}, clone: any): void {
     clone.portsIn = []
     clone.portsOut = []

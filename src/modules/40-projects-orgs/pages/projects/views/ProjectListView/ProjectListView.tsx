@@ -21,6 +21,7 @@ interface ProjectListViewProps {
   gotoPage: (index: number) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   refetchProjects?: () => Promise<void>
   editProject?: (project: Project) => void
@@ -117,7 +118,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
   const data = row.original.projectResponse.project
   const [menuOpen, setMenuOpen] = useState(false)
   const onDeleted = (): void => {
-    ;(column as any).refetchProjects()
+    return (column as any).refetchProjects()
   }
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
 
@@ -156,7 +157,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colum
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const { data, showEditProject, collaborators, gotoPage, reloadPage } = props
   const history = useHistory()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
 
   const columns: CustomColumn<ProjectAggregateDTO>[] = useMemo(

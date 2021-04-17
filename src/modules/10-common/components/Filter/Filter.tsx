@@ -27,6 +27,7 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   onFilterSelect: (identifier: string) => void
   onValidate?: (values: Partial<T>) => FormikErrors<Partial<T>>
   onClear?: () => void
+  // eslint-disable-next-line @typescript-eslint/ban-types
   dataSvcConfig?: Map<CrudOperation, Function>
   ref?: FilterFowardRef<U>
   onSuccessfulCrudOperation?: () => Promise<void>

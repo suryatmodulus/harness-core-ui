@@ -275,6 +275,7 @@ export interface StrategySelectionProps {
 }
 
 export interface ConnectedStrategySelectionProps extends StrategySelectionProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   formik: FormikContext<{}>
 }
 
@@ -308,6 +309,7 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
 export interface StrategyStepsListProps {
   allowedStrategies: Strategy[]
   name: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   formik: FormikContext<{}>
 }
 

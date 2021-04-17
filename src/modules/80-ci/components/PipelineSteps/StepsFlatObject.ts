@@ -6,6 +6,7 @@ const getEntries = function <T>(object: T, prefix = ''): Array<any> {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function flatObject(object: object): object {
   return getEntries(object).reduce((o, k) => ((o[k[0]] = k[1]), o), {})
 }

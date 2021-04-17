@@ -41,7 +41,7 @@ export const EntityListView: React.FC<EntityListViewProps> = props => {
 }
 
 const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const previewListSize = 5
   const [selectedEntity, setSelectedEntity] = useState('')
   const { loading: loadingEntityList, data: dataAllEntities } = useListGitSyncEntitiesByProduct({

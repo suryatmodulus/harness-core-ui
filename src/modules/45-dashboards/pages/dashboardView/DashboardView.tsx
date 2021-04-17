@@ -14,7 +14,7 @@ import css from './DashboardView.module.scss'
 const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
   // const { getString } = useStrings()
-  const { accountId, viewId } = useParams()
+  const { accountId, viewId }: any = useParams()
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
   const history = useHistory()

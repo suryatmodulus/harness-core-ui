@@ -26,7 +26,7 @@ interface RoleModalData {
 
 const RoleForm: React.FC<RoleModalData> = props => {
   const { data: roleData, onSubmit, isEdit } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()

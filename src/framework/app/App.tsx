@@ -95,6 +95,7 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-extra-semi
 ;(async () => {
   const lang: LangLocale = 'en'
 

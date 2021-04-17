@@ -49,6 +49,7 @@ export const InitialValues = {
 export function getValidationSchema(
   getString: UseStringsReturn['getString'],
   productSelectValidationText?: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
 ): object {
   return {
     name: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),

@@ -4,6 +4,7 @@ import { Container } from '@wings-software/uicore'
 import SignupIllustration from './images/SignupIllustration.png'
 import css from './AuthLayout.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const AuthLayout: React.FC<React.PropsWithChildren<{}>> = props => {
   return (
     <div className={css.layout}>

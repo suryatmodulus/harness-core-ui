@@ -38,7 +38,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       overflow: 'hidden'
     }
   })
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
 
   const handleSuccess = (data?: ConnectorInfoDTO): void => {
     props.onSuccess?.(data)

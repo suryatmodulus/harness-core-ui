@@ -141,6 +141,7 @@ export class RunStep extends PipelineStep<RunStepData> {
     return getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: RunStepData, template?: RunStepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

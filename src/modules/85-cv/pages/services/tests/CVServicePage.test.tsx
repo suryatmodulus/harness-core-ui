@@ -17,6 +17,7 @@ jest.mock('../ServiceHeatMap/ServiceHeatMap', () => (props: any) => (
 ))
 
 jest.mock('../analysis-drilldown-view/AnalysisDrillDownView', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('../analysis-drilldown-view/AnalysisDrillDownView') as object),
   AnalysisDrillDownView: function MockDrillDown() {
     return <Container className="timeseriesCharts" />

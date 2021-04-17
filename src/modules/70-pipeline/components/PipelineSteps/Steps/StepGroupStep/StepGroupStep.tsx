@@ -66,6 +66,7 @@ export class StepGroupStep extends PipelineStep<StepGroupElement> {
     )
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(): object {
     return {}
   }

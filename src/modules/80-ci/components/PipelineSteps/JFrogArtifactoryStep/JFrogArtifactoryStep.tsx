@@ -115,6 +115,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     data: JFrogArtifactoryStepData,
     template?: JFrogArtifactoryStepData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

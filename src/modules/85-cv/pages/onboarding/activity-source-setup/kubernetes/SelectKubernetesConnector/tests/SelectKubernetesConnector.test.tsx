@@ -14,6 +14,7 @@ const MockConnectorObj = {
 }
 
 jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as object),
   ConnectorSelection: function MockComponent(props: any) {
     return (

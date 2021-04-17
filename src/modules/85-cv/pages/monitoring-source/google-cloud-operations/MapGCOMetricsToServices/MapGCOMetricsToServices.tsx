@@ -87,6 +87,7 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: string) => string): object {
   const ret: any = {}
   if (!values?.query?.length) {

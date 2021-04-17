@@ -12,10 +12,10 @@ import { DefaultLabelModel } from '../label/DefaultLabelModel'
 import { DiagramType, Event } from '../Constants'
 
 export interface DefaultLinkModelListener extends LinkModelListener {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   colorChanged?(event: BaseEntityEvent<DefaultLinkModel> & { color: null | string }): void
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   widthChanged?(event: BaseEntityEvent<DefaultLinkModel> & { width: 0 | number }): void
 }

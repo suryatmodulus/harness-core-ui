@@ -47,7 +47,7 @@ interface GCPFormInterface {
 }
 const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticationProps> = props => {
   const { prevStepData, nextStep } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
 
   const defaultInitialFormData: GCPFormInterface = {

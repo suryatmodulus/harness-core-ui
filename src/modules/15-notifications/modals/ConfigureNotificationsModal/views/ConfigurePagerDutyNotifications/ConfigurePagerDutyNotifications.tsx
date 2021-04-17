@@ -31,7 +31,7 @@ interface PagerDutyNotificationData {
 }
 
 const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})

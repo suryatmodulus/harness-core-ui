@@ -71,6 +71,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
       color={Color.BLACK}
       lineClamp={1}
       onClick={() => {
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(column as any).openResourceSelector(rowData?.resourceGroup?.identifier)
       }}
     >

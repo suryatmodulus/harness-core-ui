@@ -33,11 +33,15 @@ const TypeCell = withEnvironment(({ environment }) => {
   return <Text>{getString(environment.type === EnvironmentType.PRODUCTION ? 'production' : 'nonProduction')}</Text>
 })
 
-const NameCell = withEnvironment(({ environment }) => {
-  const { getString } = useEnvStrings()
-  const tags = Object.entries(environment.tags ?? {}).reduce((acc: any[], [key, value]: [string, string]) => {
+const processTags = (tags: any) => {
+  return tags.reduce((acc: any[], [key, value]: [string, string]) => {
     return [...acc, { name: key, value: value }]
   }, [])
+}
+
+const NameCell = withEnvironment(({ environment }) => {
+  const { getString } = useEnvStrings()
+  const tags = processTags(Object.entries(environment.tags ?? {}))
   return (
     <Layout.Horizontal
       flex={{ distribution: 'space-between', align: 'center-center' }}
@@ -67,7 +71,7 @@ const NameCell = withEnvironment(({ environment }) => {
             tags.length ? (
               <>
                 <Text>{getString('tagsLabel').toUpperCase()}</Text>
-                {tags.map((elem, i) => (
+                {tags.map((elem: any, i: number) => (
                   <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
                 ))}
               </>
@@ -127,6 +131,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const CFEnvironmentsPage: React.FC<{}> = () => {
   const { getEnvString, getString } = useEnvStrings()
   const { showError, showSuccess } = useToaster()

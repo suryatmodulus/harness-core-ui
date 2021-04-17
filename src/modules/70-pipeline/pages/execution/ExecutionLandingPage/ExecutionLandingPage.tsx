@@ -59,6 +59,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>

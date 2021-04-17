@@ -32,7 +32,7 @@ export function useAppStore(): AppStoreContextProps {
 }
 
 export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     featureFlags: {}
   })

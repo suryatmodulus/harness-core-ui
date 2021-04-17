@@ -188,6 +188,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
     data: K8sCanaryDeleteStepData,
     template: K8sCanaryDeleteStepData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

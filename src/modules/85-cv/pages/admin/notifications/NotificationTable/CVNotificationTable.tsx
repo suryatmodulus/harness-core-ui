@@ -20,6 +20,7 @@ interface CVNotificationTableProps {
   gotoPage: (pageNumber: number) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }
@@ -91,10 +92,10 @@ const RenderColumnMenu: Renderer<CellProps<AlertRuleDTO>> = ({ row, column }) =>
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { openNotificationModal } = useCVNotificationsModal({
     onSuccess: () => {
-      ;(column as any).reload?.()
+      return (column as any).reload?.()
     }
   })
   const { mutate: deleteAlert } = useDeleteAlert({
@@ -144,7 +145,7 @@ const RenderColumnMenu: Renderer<CellProps<AlertRuleDTO>> = ({ row, column }) =>
 const RenderNotificationSwitch: Renderer<CellProps<AlertRuleDTO>> = ({ row }) => {
   const rowData = row.original
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { showSuccess, showError } = useToaster()
   const [enableNotification, setEnableNotification] = useState<boolean>(!!rowData.enabled)
 

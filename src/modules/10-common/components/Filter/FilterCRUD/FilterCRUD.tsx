@@ -36,6 +36,7 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onFilterSelect: (identifier: string) => void
   enableEdit?: boolean
   isRefreshingFilters: boolean
+  // eslint-disable-next-line @typescript-eslint/ban-types
   dataSvcConfig?: Map<CrudOperation, Function>
   ref?: FilterCRUDFowardRef<T>
   onSuccessfulCrudOperation?: () => Promise<void>

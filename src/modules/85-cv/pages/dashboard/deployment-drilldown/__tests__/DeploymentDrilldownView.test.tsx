@@ -44,6 +44,7 @@ const timeseriesMock = {
 }
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useRouteParams: () => ({
     params: mockParams
@@ -51,6 +52,7 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('services/cv', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('services/cv') as object),
   useGetVerificationInstances: jest.fn().mockImplementation(() => verificationInstancesMock),
   useGetDeploymentTimeSeries: jest.fn().mockImplementation(() => timeseriesMock)

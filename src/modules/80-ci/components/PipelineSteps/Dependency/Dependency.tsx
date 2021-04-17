@@ -89,6 +89,7 @@ export class Dependency extends PipelineStep<DependencyData> {
     return getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

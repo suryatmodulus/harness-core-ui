@@ -62,6 +62,7 @@ jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
 }))
 
 jest.mock('../../SelectProduct/SelectProduct', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('../../SelectProduct/SelectProduct') as object),
   SelectProduct: function WrapperComponent() {
     return <Container className="SelectProduct" />

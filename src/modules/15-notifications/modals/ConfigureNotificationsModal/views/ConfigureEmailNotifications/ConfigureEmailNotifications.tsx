@@ -84,7 +84,7 @@ interface EmailNotificationData {
 
 const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = props => {
   const [isOpen, setIsOpen] = useState(false)
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { showSuccess, showError } = useToaster()

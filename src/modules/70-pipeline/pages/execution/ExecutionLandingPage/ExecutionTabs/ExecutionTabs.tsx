@@ -14,6 +14,7 @@ import { String, useStrings } from 'framework/exports'
 
 import css from './ExecutionTabs.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { children } = props
   const { getString } = useStrings()

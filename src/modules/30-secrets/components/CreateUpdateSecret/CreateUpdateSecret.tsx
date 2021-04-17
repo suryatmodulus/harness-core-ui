@@ -56,7 +56,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
   const { onSuccess } = props
   const propsSecret = props.secret
-  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier }: any = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const secretTypeFromProps = props.type

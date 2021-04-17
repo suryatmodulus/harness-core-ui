@@ -7,7 +7,7 @@ import i18n from './CIResourcesPage.i18n'
 import css from './CIResourcesPage.module.scss'
 
 const CIResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId }: any = useParams()
   return (
     <>
       <Page.Header

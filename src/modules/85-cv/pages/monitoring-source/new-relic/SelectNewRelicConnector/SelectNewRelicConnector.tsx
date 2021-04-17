@@ -37,6 +37,7 @@ const SelectMonitoringSourceStepProps: StepLabelProps = {
   totalSteps: 3
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function getValidationSchema(getString: UseStringsReturn['getString']): object {
   return Yup.object({
     monitoringSourceName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.name')),

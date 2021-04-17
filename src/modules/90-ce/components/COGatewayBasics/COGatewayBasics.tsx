@@ -31,7 +31,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     setSelectedConnector(data)
     const updatedGatewayDetails = { ...props.gatewayDetails }
     updatedGatewayDetails.cloudAccount = { id: data.identifier?.toString(), name: data.name }
-    updatedGatewayDetails.metadata.cloud_provider_details = { name: data.name } // eslint-disable-line @typescript-eslint/camelcase
+    updatedGatewayDetails.metadata.cloud_provider_details = { name: data.name }
     props.setGatewayDetails(updatedGatewayDetails)
     props.setCloudAccount(updatedGatewayDetails.cloudAccount.id)
   }

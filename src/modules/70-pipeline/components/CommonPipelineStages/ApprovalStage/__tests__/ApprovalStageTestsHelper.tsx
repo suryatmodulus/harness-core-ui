@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react'
 import type { IconName } from '@blueprintjs/core'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'

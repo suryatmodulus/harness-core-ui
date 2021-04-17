@@ -169,7 +169,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.ts', '.tsx', '.json', '.ttf'],
+    extensions: ['.mjs', '.js', '.ts', '.json', '.ttf', '.tsx'],
     plugins: [new TsconfigPathsPlugin()]
   },
   optimization: {

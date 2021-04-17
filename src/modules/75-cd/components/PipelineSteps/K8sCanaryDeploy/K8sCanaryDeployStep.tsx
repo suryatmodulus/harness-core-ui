@@ -232,6 +232,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     data: K8sCanaryDeployData,
     template: K8sCanaryDeployData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

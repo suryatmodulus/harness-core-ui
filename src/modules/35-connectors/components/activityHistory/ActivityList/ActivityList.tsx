@@ -106,7 +106,7 @@ const RenderColumnStatus: Renderer<CellProps<AllActivity>> = ({ row }) => {
 }
 
 const ActivityList: React.FC<ActivityListProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const columns: Column<Activity>[] = useMemo(
     () => [

@@ -11,6 +11,7 @@ import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './PipelineModalListView.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }

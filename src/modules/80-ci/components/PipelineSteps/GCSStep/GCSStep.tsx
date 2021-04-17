@@ -78,6 +78,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     return getFormValuesInCorrectFormat<GCSStepDataUI, GCSStepData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: GCSStepData, template?: GCSStepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

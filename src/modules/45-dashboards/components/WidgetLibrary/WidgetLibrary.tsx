@@ -11,7 +11,7 @@ const MODULE_TYPES = {
 }
 
 export const WizardLibrary: React.FC<{ onClose: () => void }> = ({ onClose }): JSX.Element => {
-  const { accountId, viewId } = useParams()
+  const { accountId, viewId }: any = useParams()
   const [_library, _setLibrary] = React.useState<{ module: string; title: string; qid: string }[]>([])
   const [library, setLibrary] = React.useState<{ module: string; title: string; qid: string }[]>([])
   const [selectedLook, setSelectedLook] = React.useState('')

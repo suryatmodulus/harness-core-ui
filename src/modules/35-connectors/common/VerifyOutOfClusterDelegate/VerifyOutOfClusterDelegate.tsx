@@ -125,7 +125,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
   const { prevStepData, nextStep, isLastStep = false } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
 
   const [viewDetails, setViewDetails] = useState<boolean>(false)
   const [testConnectionResponse, setTestConnectionResponse] = useState<ResponseConnectorValidationResult>()

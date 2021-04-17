@@ -5,6 +5,7 @@ import { RightDrawer } from '../RightDrawer'
 import { DrawerTypes } from '../../PipelineContext/PipelineActions'
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useStrings: jest.fn().mockReturnValue({
     getString: jest.fn().mockImplementation(val => val)
@@ -18,6 +19,7 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('../../PiplineHooks/useVariablesExpression', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('../../PiplineHooks/useVariablesExpression') as object),
   useVariablesExpression: jest.fn().mockReturnValue({
     expressions: ['']

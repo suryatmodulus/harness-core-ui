@@ -254,7 +254,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                           node: {
                             type: StepsStepType.Dependency,
                             name: name,
-                            identifier: generateRandomString(name)
+                            identifier: generateRandomString('')
                           },
                           stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,

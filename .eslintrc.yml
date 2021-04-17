@@ -44,7 +44,7 @@ rules:
   no-console: 2
   semi: 0
   no-await-in-loop: 2
-  no-shadow: 2
+  #no-shadow: 2
 
   # react hooks
   react-hooks/rules-of-hooks: 2

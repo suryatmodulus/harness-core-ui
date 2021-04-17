@@ -14,7 +14,7 @@ interface CVRendererProps {
 const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
 
   return (
     <Container

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable string-exists-in-yaml */
 import React from 'react'
 import { render } from '@testing-library/react'

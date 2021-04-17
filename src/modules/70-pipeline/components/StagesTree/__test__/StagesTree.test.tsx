@@ -31,6 +31,7 @@ describe('StagesTree bahave properly', () => {
 
     await act(async () => {
       const node = await getByText('label2')
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       fireEvent.click(node?.parentElement!)
     })
 

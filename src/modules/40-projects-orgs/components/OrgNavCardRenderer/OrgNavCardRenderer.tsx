@@ -15,7 +15,7 @@ interface OrgNavCardProps {
 }
 
 const OrgNavCardRenderer: React.FC = () => {
-  const { orgIdentifier, accountId } = useParams()
+  const { orgIdentifier, accountId }: any = useParams()
   const history = useHistory()
   const { getString } = useStrings()
   const { NG_RBAC_ENABLED } = useFeatureFlags()

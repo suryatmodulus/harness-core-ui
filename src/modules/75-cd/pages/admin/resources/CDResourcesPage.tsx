@@ -7,7 +7,7 @@ import { useStrings } from 'framework/exports'
 import css from './CDResourcesPage.module.scss'
 
 const CDResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId }: any = useParams()
   const { getString } = useStrings()
   return (
     <>

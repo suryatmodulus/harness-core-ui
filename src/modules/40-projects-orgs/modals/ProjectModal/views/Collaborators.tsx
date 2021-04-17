@@ -62,7 +62,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { rolesMockData, userMockData, invitesMockData, projectIdentifier, orgIdentifier, showManage = true } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
 
   const [search, setSearch] = useState<string>()

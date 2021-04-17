@@ -81,6 +81,7 @@ export class S3Step extends PipelineStep<S3StepData> {
     return getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: S3StepData, template?: S3StepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

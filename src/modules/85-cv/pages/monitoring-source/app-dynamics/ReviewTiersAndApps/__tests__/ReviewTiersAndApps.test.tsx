@@ -27,6 +27,7 @@ jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
 }))
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useStrings: () => ({
     getString: () => 'xx'
@@ -96,6 +97,7 @@ describe('ReviewTiersAndApps', () => {
   })
 
   test('onNext handles saving correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(useSaveDSConfig as any).mockReturnValue({
       loading: false,
       mutate: mutateCallback

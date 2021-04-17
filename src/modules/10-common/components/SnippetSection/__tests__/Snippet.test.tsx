@@ -20,6 +20,7 @@ describe('Snippet Test', () => {
     )
     expect(getByText(container, 'Sample snippet')).toBeDefined()
     waitFor(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       fireEvent.click(container?.querySelector("[class='copy']")!)
       const popover = findPopoverContainer()
       const fetching = getByText(popover as HTMLElement, 'Fetching')

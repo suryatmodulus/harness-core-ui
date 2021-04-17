@@ -102,7 +102,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
 
 const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, column }) => {
   const data = row.original.secret
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteSecret } = useDeleteSecretV2({

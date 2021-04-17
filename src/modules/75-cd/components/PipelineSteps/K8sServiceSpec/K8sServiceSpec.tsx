@@ -169,6 +169,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: {}[] | {} }>({ sidecars: [], primary: {} })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
   const { data: pipelineResponse } = useGetPipeline({
@@ -872,6 +873,7 @@ export interface K8SDirectServiceStep extends ServiceSpec {
   stageIndex?: number
   setupModeType?: string
   handleTabChange?: (tab: string) => void
+  // eslint-disable-next-line @typescript-eslint/ban-types
   customStepProps?: {}
 }
 
@@ -1055,6 +1057,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     data: K8SDirectServiceStep,
     template?: ServiceSpec,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     const errors: K8SDirectServiceStep = {}
     if (

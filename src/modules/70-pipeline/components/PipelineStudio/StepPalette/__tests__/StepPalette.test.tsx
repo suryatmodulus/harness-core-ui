@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react'
 import type { UseGetReturn } from 'restful-react'
 import { render, fireEvent, waitFor } from '@testing-library/react'

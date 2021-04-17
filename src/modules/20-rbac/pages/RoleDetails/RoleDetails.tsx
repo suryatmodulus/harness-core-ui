@@ -20,13 +20,13 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceTypeGroup } from '@rbac/interfaces/ResourceType'
-import { getPermissionMap } from '@rbac/pages/RoleDetails/utils.tsx'
+import { getPermissionMap } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module }: any = useParams()
   const [resource, setResource] = useState<ResourceType>()
   const [resourceGroupTypeList, setResourceGroupTypeList] = useState<(ResourceType | ResourceTypeGroup)[]>()
   const { getString } = useStrings()

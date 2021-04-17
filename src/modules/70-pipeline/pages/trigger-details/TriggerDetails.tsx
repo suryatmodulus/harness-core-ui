@@ -131,6 +131,7 @@ const GetTriggerRightNav = (): JSX.Element => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function TriggerDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier } = useParams<
     PipelineType<{

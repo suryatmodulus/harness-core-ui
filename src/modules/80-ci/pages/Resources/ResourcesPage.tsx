@@ -7,7 +7,7 @@ import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, accountId, projectIdentifier } = useParams()
+  const { orgIdentifier, accountId, projectIdentifier }: any = useParams()
   return (
     <>
       <Page.Header

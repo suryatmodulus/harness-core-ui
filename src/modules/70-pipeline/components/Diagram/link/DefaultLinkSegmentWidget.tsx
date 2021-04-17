@@ -12,6 +12,7 @@ export interface DefaultLinkSegmentWidgetProps {
   factory: DefaultLinkFactory
   diagramEngine: DiagramEngine
   onSelection: (selected: boolean) => void
+  // eslint-disable-next-line @typescript-eslint/ban-types
   extras: object
 }
 

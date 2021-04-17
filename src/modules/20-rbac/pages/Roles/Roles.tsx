@@ -11,7 +11,7 @@ import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>()

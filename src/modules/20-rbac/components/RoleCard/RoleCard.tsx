@@ -17,7 +17,7 @@ interface RoleCardProps {
 
 const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal }) => {
   const { role, harnessManaged } = data
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()

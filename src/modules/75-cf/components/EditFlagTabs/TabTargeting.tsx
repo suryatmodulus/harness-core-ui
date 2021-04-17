@@ -26,6 +26,7 @@ interface TabTargetingProps {
   isBooleanTypeFlag?: boolean
   projectIdentifier: string
   environmentIdentifier: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   setEditing: Function
 }
 

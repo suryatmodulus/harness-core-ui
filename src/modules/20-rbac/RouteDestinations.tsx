@@ -35,7 +35,7 @@ RbacFactory.registerResourceTypeGroup(ResourceTypeGroup.ADMINSTRATIVE_FUNCTIONS,
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId, orgIdentifier }: any = useParams()
   return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />
 }
 

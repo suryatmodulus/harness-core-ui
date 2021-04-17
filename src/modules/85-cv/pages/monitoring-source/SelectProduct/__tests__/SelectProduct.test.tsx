@@ -10,6 +10,7 @@ import { SelectProduct } from '../SelectProduct'
 const mockHistoryPush = jest.fn()
 
 jest.mock('react-router-dom', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('react-router-dom') as object),
   useHistory: () => ({
     push: mockHistoryPush

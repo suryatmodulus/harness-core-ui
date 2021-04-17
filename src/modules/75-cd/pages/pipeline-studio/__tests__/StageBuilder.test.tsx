@@ -19,7 +19,7 @@ import {
   YamlResponse
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
-import services from '@cd/components/PipelineSteps/DeployServiceStep/__tests__/serviceMock.ts'
+import services from '@cd/components/PipelineSteps/DeployServiceStep/__tests__/serviceMock'
 import environments from '@cd/components/PipelineSteps/DeployEnvStep/__tests__/mock.json'
 // eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineStudio/DeployStage'

@@ -6,7 +6,7 @@ import { VerificationInstancePostDeploymentView } from '../deployment-drilldown/
 import styles from './ActivityChangesDrilldownView.module.scss'
 
 export default function ActivityChangesDrilldownView(): React.ReactElement {
-  const { activityId } = useParams()
+  const { activityId }: any = useParams()
   const [activity, setActivity] = useState<any>()
   return (
     <>

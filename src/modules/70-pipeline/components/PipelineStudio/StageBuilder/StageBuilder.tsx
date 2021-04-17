@@ -115,6 +115,7 @@ export const renderPopover = ({
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const {
     state: {

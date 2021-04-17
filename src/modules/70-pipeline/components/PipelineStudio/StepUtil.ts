@@ -88,6 +88,7 @@ const validateStep = (
         set(errors, `steps[${index}].step`, errorResponse)
       }
     } else if (stepObj.parallel) {
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;((stepObj.parallel as unknown) as StepElement[]).forEach((stepParallel, indexP) => {
         if (stepParallel.step) {
           const originalStep = getStepFromStage(stepParallel.step.identifier || '', originalSteps)

@@ -299,6 +299,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       />
     )
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: K8sApplyData, template: K8sApplyData, getString?: UseStringsReturn['getString']): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any

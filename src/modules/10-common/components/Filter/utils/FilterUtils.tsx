@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { isEmpty, isUndefined, omitBy } from 'lodash-es'
 import React from 'react'
 import type { FilterDTO } from 'services/cd-ng'

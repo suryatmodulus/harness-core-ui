@@ -7,7 +7,7 @@ import { useStrings } from 'framework/exports'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, accountId, projectIdentifier } = useParams()
+  const { orgIdentifier, accountId, projectIdentifier }: any = useParams()
   const { getString } = useStrings()
   return (
     <>

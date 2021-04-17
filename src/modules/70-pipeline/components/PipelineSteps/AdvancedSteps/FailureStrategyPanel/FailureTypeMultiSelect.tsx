@@ -32,6 +32,7 @@ export interface FailureTypeMultiSelectProps {
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   formik: FormikContext<{}>
 }
 

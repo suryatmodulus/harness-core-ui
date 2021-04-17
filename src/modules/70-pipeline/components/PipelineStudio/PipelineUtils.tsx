@@ -33,6 +33,7 @@ const getStageTree = (
   stage: StageElement,
   classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
+  // eslint-disable-next-line @typescript-eslint/ban-types
   { hideNonRuntimeFields = false, template = {} }: { hideNonRuntimeFields?: boolean; template?: {} } = {}
 ): ITreeNode => {
   const stageNode: ITreeNode = {
@@ -196,6 +197,7 @@ export const getPipelineTree = (
   pipeline: NgPipeline,
   classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
+  // eslint-disable-next-line @typescript-eslint/ban-types
   options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: {} }] } } = {}
 ): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [

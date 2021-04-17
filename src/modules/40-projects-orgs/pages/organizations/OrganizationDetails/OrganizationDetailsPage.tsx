@@ -15,7 +15,7 @@ import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
-  const { accountId, orgIdentifier } = useParams()
+  const { accountId, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
   const { data, refetch, loading, error } = useGetOrganizationAggregateDTO({
     identifier: orgIdentifier,

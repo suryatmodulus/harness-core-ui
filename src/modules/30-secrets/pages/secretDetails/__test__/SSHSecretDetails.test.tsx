@@ -110,6 +110,7 @@ describe('Secret Details', () => {
       })
       let form = findDialogContainer()
       expect(form).toBeTruthy()
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
       form = findDialogContainer()
       expect(form).not.toBeTruthy()

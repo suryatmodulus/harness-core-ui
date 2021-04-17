@@ -409,6 +409,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     data: DeployServiceData,
     template: DeployServiceData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     const errors = {} as any
     if (isEmpty(data?.serviceRef) && getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME) {

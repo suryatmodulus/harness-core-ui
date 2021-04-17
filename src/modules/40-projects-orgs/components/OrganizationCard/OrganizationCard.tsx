@@ -25,7 +25,7 @@ interface OrganizationCardProps {
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { data: organizationAggregateDTO, isPreview, onClick, editOrg, reloadOrgs, inviteCollab } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showSuccess, showError } = useToaster()
   const {
     organizationResponse: { organization: data, harnessManaged: isHarnessManaged },

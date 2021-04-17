@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* See https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-table */
 
 import {

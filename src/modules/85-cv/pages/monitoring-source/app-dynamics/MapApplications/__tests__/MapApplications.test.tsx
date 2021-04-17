@@ -13,6 +13,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useStrings: () => ({
     getString: () => 'xx'

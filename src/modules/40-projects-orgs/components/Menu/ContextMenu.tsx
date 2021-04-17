@@ -19,7 +19,7 @@ interface ContextMenuProps {
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const history = useHistory()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 

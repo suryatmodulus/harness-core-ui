@@ -165,6 +165,7 @@ const MockData = [
 ]
 const refetchFunc = jest.fn()
 jest.mock('services/cv', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('services/cv') as object),
   useGetRecentActivityVerificationResults: jest.fn().mockImplementation(({ queryParams }) => {
     const { accountId } = queryParams

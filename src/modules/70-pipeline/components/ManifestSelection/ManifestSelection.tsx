@@ -47,11 +47,13 @@ export default function ManifestSelection({
   let listOfManifests = getManifestList()
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
+      // eslint-disable-next-line @typescript-eslint/ban-types
       .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
         if (overrideSets.overrideSet.identifier === identifierName) {
           return overrideSets.overrideSet.manifests
         }
       })
+      // eslint-disable-next-line @typescript-eslint/ban-types
       .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
   }
 

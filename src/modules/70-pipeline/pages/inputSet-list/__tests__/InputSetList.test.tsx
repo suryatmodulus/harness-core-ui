@@ -208,6 +208,7 @@ describe('Input Set List - Actions tests', () => {
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       // Close
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       fireEvent.click(form?.querySelector('[icon="small-cross"]')!)
       form = findDialogContainer()
       expect(form).not.toBeTruthy()

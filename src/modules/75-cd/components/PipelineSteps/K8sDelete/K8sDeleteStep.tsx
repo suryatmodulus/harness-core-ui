@@ -539,6 +539,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     )
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: K8sDeleteData, template: K8sDeleteData, getString?: UseStringsReturn['getString']): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

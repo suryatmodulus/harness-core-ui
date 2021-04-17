@@ -48,6 +48,7 @@ const getTimelineNodes = (isProvisionerEnabled: boolean) => [
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const [initialValues, setInitialValues] = React.useState<{}>()
   const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)

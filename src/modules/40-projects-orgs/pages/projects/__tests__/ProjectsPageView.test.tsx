@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React from 'react'
 import {
   fireEvent,
@@ -51,6 +52,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useRouteParams: () => ({
     params: {

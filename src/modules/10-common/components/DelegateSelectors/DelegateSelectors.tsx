@@ -30,7 +30,7 @@ interface DelegateSelectorsProps {
 export const DelegateSelectors = (
   props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps>
 ): JSX.Element => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const { showError } = useToaster()
 

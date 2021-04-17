@@ -9,6 +9,7 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from './ResourceGroupList.module.scss'
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type CellPropsResourceGroupColumn<D extends object, V = any> = TableInstance<D> & {
   column: ColumnInstance<D> & {
     reload?: () => Promise<void>

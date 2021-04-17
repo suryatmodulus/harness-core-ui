@@ -18,6 +18,7 @@ interface TableFilterForSetupSourceMapping<T> extends Omit<TableFilterProps, 'on
   totalItemsToRender?: number
   onFilterForMoreThan1000Items?: (filterString: string) => void
 }
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface SetupSourceMappingListProps<T extends object> {
   tableProps: TableProps<T>
   mappingListHeaderProps: SetupSourceCardHeaderProps
@@ -29,6 +30,7 @@ export interface SetupSourceMappingListProps<T extends object> {
 
 const LoadingData = [1, 2, 3, 4, 5, 6].map(() => ({} as any))
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function SetupSourceMappingList<T extends object>(props: SetupSourceMappingListProps<T>): JSX.Element {
   const { tableProps, mappingListHeaderProps, loading, error, noData, tableFilterProps } = props
   const { getString } = useStrings()

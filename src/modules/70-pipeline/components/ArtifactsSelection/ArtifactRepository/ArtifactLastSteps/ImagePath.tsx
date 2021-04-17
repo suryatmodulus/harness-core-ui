@@ -34,7 +34,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   initialValues
 }) => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const [tagList, setTagList] = React.useState([])
   const [lastImagePath, setLastImagePath] = React.useState('')
 

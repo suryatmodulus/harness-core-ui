@@ -9,6 +9,7 @@ export interface UseLogsStreamProps {
     key: string
     accountId: string
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   headers: {}
   unitId: string
   throttleTime?: number

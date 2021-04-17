@@ -53,6 +53,7 @@ describe('Get Started Project test', () => {
       clickSubmit(form as HTMLElement)
     })
     await act(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
     })
     form = findDialogContainer()

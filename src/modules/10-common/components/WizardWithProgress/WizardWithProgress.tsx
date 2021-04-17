@@ -56,6 +56,7 @@ interface StepState<SharedObject> {
   panelActiveId: number
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const WizardWithProgress = <SharedObject extends object>(props: StepWizardProps<SharedObject>) => {
   const {
     className = '',

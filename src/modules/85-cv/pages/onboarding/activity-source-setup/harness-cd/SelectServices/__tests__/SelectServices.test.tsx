@@ -12,6 +12,7 @@ import mockServiceCD from './mockServices-CD1.json'
 import mockServices from './mockServices.json'
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useRouteParams: () => ({
     params: {
@@ -24,6 +25,7 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
   TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />

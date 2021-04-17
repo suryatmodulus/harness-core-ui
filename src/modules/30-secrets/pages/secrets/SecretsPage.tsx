@@ -26,7 +26,7 @@ interface SecretsPageProps {
 }
 
 const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const history = useHistory()
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()

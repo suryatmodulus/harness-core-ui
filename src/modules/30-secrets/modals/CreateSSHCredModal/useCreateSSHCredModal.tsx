@@ -25,13 +25,14 @@ export interface UseCreateSSHCredModalReturn {
   closeCreateSSHCredModal: () => void
 }
 
+// eslint-disable-next-line no-shadow
 export enum Views {
   CREATE,
   EDIT
 }
 
 const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHCredModalReturn => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const [view, setView] = useState(Views.CREATE)
   const [sshData, setSSHData] = useState<SSHCredSharedObj>()
 

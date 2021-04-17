@@ -7,6 +7,7 @@ import * as cvService from 'services/cv'
 import { useStrings } from 'framework/exports'
 import LogAnalysisView from '../LogAnalysisView'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 

@@ -24,6 +24,7 @@ jest.mock('../SelectedActivitySummaryCard/SelectedActivitySummaryCard', () => ({
 }))
 
 jest.mock('../ActivityTrack/ActivityTrack', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ActivityTrack(props: { onActivityClick: (o: object) => void }) {
     return (
       <div className="mockedActivityTrack">

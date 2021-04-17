@@ -13,7 +13,7 @@ import VerificationStatusCard from './VerificationStatusCard'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export default function DeploymentDrilldownView(): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier }: any = useParams()
   const location = useLocation()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(false)

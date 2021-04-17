@@ -14,7 +14,7 @@ import css from './CVNotificationPage.module.scss'
 
 const CVNotificationPage: React.FC = () => {
   const [page, setPage] = useState(0)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
 
   const { data, loading, error, refetch: reloadAlertList } = useRetrieveAlert({

@@ -106,7 +106,7 @@ const ManifestListView = ({
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
 
   const getManifestList = useCallback(() => {
@@ -130,12 +130,14 @@ const ManifestListView = ({
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
+      // eslint-disable-next-line @typescript-eslint/ban-types
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests')) {
       // set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
+      // eslint-disable-next-line @typescript-eslint/ban-types
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
     }
     return !isForOverrideSets
@@ -149,11 +151,13 @@ const ManifestListView = ({
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
+      // eslint-disable-next-line @typescript-eslint/ban-types
       .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
         if (overrideSets?.overrideSet?.identifier === identifierName) {
           return overrideSets.overrideSet.manifests
         }
       })
+      // eslint-disable-next-line @typescript-eslint/ban-types
       .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
   }
 
@@ -223,6 +227,7 @@ const ManifestListView = ({
         listOfManifests.push(manifestObj)
       }
     } else {
+      // eslint-disable-next-line @typescript-eslint/ban-types
       listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
         if (overrideSets.overrideSet.identifier === identifierName) {
           overrideSets.overrideSet.manifests.push(manifestObj)

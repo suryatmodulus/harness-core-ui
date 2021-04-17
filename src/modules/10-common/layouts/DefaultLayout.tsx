@@ -7,6 +7,7 @@ import { useSidebar } from '@common/navigation/SidebarProvider'
 
 import css from './layouts.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function DefaultLayout(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { title, subtitle, icon, navComponent: NavComponent } = useSidebar()
 

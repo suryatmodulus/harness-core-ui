@@ -91,6 +91,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
     data: SaveCacheGCSStepData,
     template?: SaveCacheGCSStepData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

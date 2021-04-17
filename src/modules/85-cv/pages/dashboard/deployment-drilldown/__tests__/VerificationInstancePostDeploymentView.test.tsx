@@ -133,6 +133,7 @@ jest.mock('react-monaco-editor', () => (props: any) => (
 ))
 
 jest.mock('@cv/components/EventDetailsForChange/EventDetailsForChange', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@cv/components/EventDetailsForChange/EventDetailsForChange') as object),
   EventDetailsForChange: function MockEventDetails() {
     return <Container className="eventDetails" />

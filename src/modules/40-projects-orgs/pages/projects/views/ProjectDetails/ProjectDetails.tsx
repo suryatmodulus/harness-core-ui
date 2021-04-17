@@ -21,7 +21,7 @@ import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
 const ProjectDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { updateAppStore } = useAppStore()

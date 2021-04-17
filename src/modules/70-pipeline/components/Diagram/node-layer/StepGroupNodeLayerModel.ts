@@ -53,6 +53,7 @@ export class StepGroupNodeLayerModel<
     }
     model.registerListener({
       entityRemoved: () => {
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(this.getParent() as DiagramModel).removeNode(model)
       }
     })

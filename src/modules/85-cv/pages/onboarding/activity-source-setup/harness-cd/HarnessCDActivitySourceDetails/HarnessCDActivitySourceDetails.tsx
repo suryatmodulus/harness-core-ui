@@ -18,7 +18,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   const { getString } = useStrings()
   const { initialValues } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId, activitySourceId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, activitySourceId }: any = useParams()
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { useMemo } from 'react'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
@@ -13,8 +15,6 @@ const LOCALE = 'en'
  */
 export function formatTime(timestamp: number, timeStyle = 'short'): string {
   return new Intl.DateTimeFormat(LOCALE, {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore: TS built-in type for DateTimeFormat is not correct
     timeStyle
   }).format(new Date(timestamp))
 }
@@ -26,8 +26,6 @@ export function formatTime(timestamp: number, timeStyle = 'short'): string {
  */
 export function formatDate(timestamp: number, dateStyle = 'medium'): string {
   return new Intl.DateTimeFormat(LOCALE, {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore: TS built-in type for DateTimeFormat is not correct
     dateStyle
   }).format(new Date(timestamp))
 }
@@ -48,7 +46,9 @@ export const FeatureFlagActivationStatus = {
 }
 
 export const AuditLogObjectType = {
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
   FeatureActivation: 'FeatureActivation' as 'FeatureActivation',
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
   Segment: 'Segment' as 'Segment'
 }
 

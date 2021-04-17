@@ -30,6 +30,7 @@ const mockConnectorResponse = (project?: string, org?: string) => ({
 })
 
 jest.mock('services/cd-ng', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('services/cd-ng') as object),
   getConnectorListV2Promise: () =>
     Promise.resolve({

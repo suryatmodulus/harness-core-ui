@@ -12,7 +12,7 @@ import getStarted from './images/getStarted.png'
 import css from './GetStartedProject.module.scss'
 
 const GetStartedProject: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   let projectCreated = false
   const history = useHistory()
   const { getString } = useStrings()

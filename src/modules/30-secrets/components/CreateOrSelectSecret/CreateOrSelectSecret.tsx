@@ -27,7 +27,7 @@ export interface CreateOrSelectSecretProps {
 }
 
 const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuccess, secretsListMockData }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>

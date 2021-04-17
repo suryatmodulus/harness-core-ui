@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import type { MultiSelectOption } from '@wings-software/uicore'
 
 import { StringUtils } from '@common/exports'

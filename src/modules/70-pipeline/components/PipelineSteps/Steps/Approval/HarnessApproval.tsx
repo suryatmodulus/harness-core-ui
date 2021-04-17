@@ -49,6 +49,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     data: HarnessApprovalData,
     template: HarnessApprovalData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     const errors = { spec: {} } as any
 

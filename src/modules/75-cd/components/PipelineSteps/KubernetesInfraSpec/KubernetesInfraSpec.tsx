@@ -384,6 +384,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     data: K8SDirectInfrastructure,
     template?: K8SDirectInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     const errors: K8SDirectInfrastructureTemplate = {}
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {

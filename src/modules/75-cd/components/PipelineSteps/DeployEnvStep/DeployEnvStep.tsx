@@ -460,6 +460,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
     }
     return <DeployEnvironmentWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: DeployEnvData, template: DeployEnvData, getString?: UseStringsReturn['getString']): object {
     const errors = {} as any
     if (

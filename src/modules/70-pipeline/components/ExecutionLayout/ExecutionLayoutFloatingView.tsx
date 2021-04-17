@@ -12,6 +12,7 @@ import css from './ExecutionLayout.module.scss'
 /**
  * This component will only be rendered when layout === 'FLOATING'
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function ExecutionLayoutFloatingView(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { layout } = useExecutionLayoutContext()
   const [position, setPosition] = useLocalStorage('execution_layout_float_position', { x: -40, y: -30 })

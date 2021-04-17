@@ -25,6 +25,7 @@ interface OverviewDetails {
   name: string
   identifier: string
   description: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   tags: {}
   billingPermission?: boolean
   eventsPermission?: boolean

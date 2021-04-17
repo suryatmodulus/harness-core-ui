@@ -75,6 +75,7 @@ export default function CVMonitoringSourcesPage() {
         monitoringSourceIdentifier: identifier
       }
     })
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
     const { pageItemCount, pageIndex } = data?.data!
     if (pageIndex! > 0 && pageItemCount === 1) {
       setPage(page - 1)

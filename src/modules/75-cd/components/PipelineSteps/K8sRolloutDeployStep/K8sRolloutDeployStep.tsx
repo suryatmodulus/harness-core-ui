@@ -197,6 +197,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     data: K8RolloutDeployData,
     template: K8RolloutDeployData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

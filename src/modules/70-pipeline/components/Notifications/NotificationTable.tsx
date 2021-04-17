@@ -46,6 +46,7 @@ export interface NotificationTableProps {
   getExistingNotificationNames?: (skipIndex?: number) => string[]
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   onUpdate?: (data: NotificationRulesItem) => void
 }
@@ -74,6 +75,7 @@ const RenderColumnEnabled: Renderer<CellProps<NotificationRulesItem>> = ({ row, 
     <Switch
       checked={data.notificationRules.enabled}
       onChange={e => {
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(column as any).onUpdate?.(
           produce(data, draft => {
             draft.notificationRules.enabled = e.currentTarget.checked

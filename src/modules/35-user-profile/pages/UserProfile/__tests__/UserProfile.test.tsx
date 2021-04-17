@@ -1,6 +1,6 @@
 import React from 'react'
 import { RenderResult, render, fireEvent, waitFor, queryByText, act } from '@testing-library/react'
-import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage.tsx'
+import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { clickSubmit } from '@common/utils/JestFormHelper'

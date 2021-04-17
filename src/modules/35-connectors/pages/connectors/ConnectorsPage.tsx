@@ -182,6 +182,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     refetchConnectorList(defaultQueryParams, appliedFilter?.filterProperties)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       await fetchConnectorsWithFiltersApplied()
     })()
@@ -490,6 +491,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           return errors
         }}
         dataSvcConfig={
+          // eslint-disable-next-line @typescript-eslint/ban-types
           new Map<CrudOperation, Function>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],

@@ -190,6 +190,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
     data: StepElementConfig,
     template: StepElementConfig,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any

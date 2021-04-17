@@ -100,6 +100,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       }
     }
     if (formData?.commandFlags[0].commandType) {
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
         commandType: commandFlag.commandType,
         flag: commandFlag.flag

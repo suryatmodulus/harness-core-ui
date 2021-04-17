@@ -27,7 +27,7 @@ const modalProps: IDialogProps = {
 }
 
 const useCVNotificationsModal = (props: UseCVNotificationsModalProps): UseCVNotificationsModalReturn => {
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier }: any = useParams()
   const [isEdit, setIsEdit] = useState(false)
   const [notification, setNotification] = useState<AlertRuleDTO | void>()
   const handleSuccess = (): void => {

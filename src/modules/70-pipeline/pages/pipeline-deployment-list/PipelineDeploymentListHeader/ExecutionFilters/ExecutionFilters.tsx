@@ -242,6 +242,7 @@ export function ExecutionFilters(): React.ReactElement {
         onClear={reset}
         ref={filterRef}
         dataSvcConfig={
+          // eslint-disable-next-line @typescript-eslint/ban-types
           new Map<CrudOperation, Function>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],

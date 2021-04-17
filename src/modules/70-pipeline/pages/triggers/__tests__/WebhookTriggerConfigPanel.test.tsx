@@ -41,6 +41,7 @@ jest.mock('clipboard-copy', () => jest.fn())
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 

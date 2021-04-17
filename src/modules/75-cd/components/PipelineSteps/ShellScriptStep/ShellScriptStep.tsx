@@ -91,6 +91,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     data: ShellScriptData,
     template: ShellScriptData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     const errors = {} as any
 

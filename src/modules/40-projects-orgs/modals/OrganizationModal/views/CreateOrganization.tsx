@@ -11,7 +11,7 @@ import type { OrgModalData } from './StepAboutOrganization'
 
 const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = props => {
   const { nextStep, onSuccess } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showSuccess } = useToaster()
   const { mutate: createOrganization } = usePostOrganization({
     queryParams: {

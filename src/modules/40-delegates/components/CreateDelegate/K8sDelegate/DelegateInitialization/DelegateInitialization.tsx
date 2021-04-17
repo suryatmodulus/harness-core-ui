@@ -18,7 +18,7 @@ interface DelegateInitProps {
 }
 
 const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const { data: initData, loading: initLoading, refetch: verifyInitialization } = useInitialization({
     queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },

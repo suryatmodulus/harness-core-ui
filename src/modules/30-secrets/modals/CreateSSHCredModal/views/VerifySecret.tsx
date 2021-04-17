@@ -35,7 +35,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
   mockDelegateStatus,
   mockValidateSecret
 }) => {
-  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId: accountIdentifier, projectIdentifier, orgIdentifier }: any = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const {
     data: delegateStatus,

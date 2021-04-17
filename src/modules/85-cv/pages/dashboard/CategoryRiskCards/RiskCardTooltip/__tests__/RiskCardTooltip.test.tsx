@@ -56,6 +56,7 @@ const responseMock = {
 }
 
 jest.mock('services/cv', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('services/cv') as object),
   useGetRiskSummaryPopover: jest.fn().mockReturnValue({ data: null, loading: false, refetch: jest.fn() })
 }))

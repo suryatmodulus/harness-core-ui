@@ -5,6 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import SideNav from '../SideNav'
 
 jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@common/navigation/ProjectSelector/ProjectSelector') as object),
   ProjectSelector: function P(props: any) {
     return (
@@ -21,6 +22,7 @@ jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
 const mockHistoryPush = jest.fn()
 
 jest.mock('react-router-dom', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('react-router-dom') as object),
   useHistory: () => ({
     push: mockHistoryPush

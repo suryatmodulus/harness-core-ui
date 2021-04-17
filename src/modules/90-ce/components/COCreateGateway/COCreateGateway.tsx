@@ -15,7 +15,7 @@ function getString(val: string | undefined): string {
 }
 
 export const CECODashboardPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
   const initialGatewayDetails: GatewayDetails = {

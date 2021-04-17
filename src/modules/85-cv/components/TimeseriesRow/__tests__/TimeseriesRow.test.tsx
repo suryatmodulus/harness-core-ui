@@ -4,6 +4,7 @@ import { render } from '@testing-library/react'
 import TimeseriesRow, { useTimeseriesDetailsModal, extractTimeRange, SeriesConfig } from '../TimeseriesRow'
 
 jest.mock('@wings-software/uicore', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@wings-software/uicore') as object),
   useModalHook: (callback: () => React.ReactNode) => [callback, jest.fn()]
 }))

@@ -9,6 +9,7 @@ export interface UseUpdateQueryParamsReturn<T> {
   replaceQueryParams(values: T, options?: IStringifyOptions, replaceHistory?: boolean): void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function useUpdateQueryParams<T = {}>(): UseUpdateQueryParamsReturn<T> {
   const { pathname } = useLocation()
   const { push, replace } = useHistory()

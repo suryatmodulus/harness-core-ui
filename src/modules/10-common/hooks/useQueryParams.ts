@@ -7,6 +7,7 @@ export interface UseQueryParamsOptions<T> extends IParseOptions {
   processQueryParams?(data: any): T
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function useQueryParams<T = {}>(options?: UseQueryParamsOptions<T>): T {
   const { search } = useLocation()
 

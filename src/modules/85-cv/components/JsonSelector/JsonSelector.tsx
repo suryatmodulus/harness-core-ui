@@ -5,6 +5,7 @@ import isUndefined from 'lodash/isUndefined'
 import css from './JsonSelector.module.scss'
 
 export interface JsonSelectorProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   json: object
   className?: string
   onPathSelect?: (path: string) => void
@@ -12,6 +13,7 @@ export interface JsonSelectorProps {
 
 const MAX_NESTING_LEVEL = 100
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function visit(json: object, rows: Array<any>, path: Array<string> = []) {
   if (path.length === MAX_NESTING_LEVEL) {
     // This is the simple guard since the algorithm currently doesn't check

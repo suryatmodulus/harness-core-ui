@@ -15,7 +15,7 @@ interface ModuleEnableCardProps {
 }
 
 const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module, refetchProject }) => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showSuccess, showError } = useToaster()
 
   const { mutate: updateProject } = usePutProject({

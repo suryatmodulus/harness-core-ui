@@ -67,6 +67,7 @@ export interface ExecutionGraphProps {
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { executionIdentifier } = useParams<ExecutionPathParams>()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
+    // eslint-disable-next-line @typescript-eslint/ban-types
     DynamicPopoverHandlerBinding<{}> | undefined
   >()
   const [stageSetupId, setStageSetupIdId] = React.useState('')

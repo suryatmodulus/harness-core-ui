@@ -83,6 +83,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     return getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: PluginStepData, template?: PluginStepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

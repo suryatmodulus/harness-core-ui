@@ -5,6 +5,7 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import CIDashboardPage from '../CIDashboardPage'
 
 jest.mock('framework/exports', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('framework/exports') as object),
   useRouteParams: () => ({
     params: {

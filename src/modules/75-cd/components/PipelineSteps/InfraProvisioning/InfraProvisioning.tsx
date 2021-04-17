@@ -55,6 +55,7 @@ export class InfraProvisioning extends PipelineStep<any> {
     super()
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(_data: any, _template?: any, _getString?: UseStringsReturn['getString']): object {
     return {}
   }

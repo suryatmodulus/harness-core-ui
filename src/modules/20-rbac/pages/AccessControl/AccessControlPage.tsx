@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import css from './AccessControlPage.module.scss'
 
 const AccessControlPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { getString } = useStrings()
   return (
     <>

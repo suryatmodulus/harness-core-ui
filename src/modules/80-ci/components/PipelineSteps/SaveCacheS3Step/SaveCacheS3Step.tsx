@@ -94,6 +94,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
     data: SaveCacheS3StepData,
     template?: SaveCacheS3StepData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

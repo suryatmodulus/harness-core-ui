@@ -31,14 +31,14 @@ export const MultiTypeRadioGroup: React.FC<MultiTypeRadioGroupProps> = ({
           {...restProps}
           options={options}
           selectedValue={value as string}
-          name={name}
+          // name={name}
           onChange={(event: React.FormEvent<HTMLInputElement>) => {
             onChange?.(event.currentTarget.value, MultiTypeInputValue.STRING)
           }}
         />
       )
     },
-    [value, options, name]
+    [value, options]
   )
   return <ExpressionAndRuntimeType value={value} {...rest} fixedTypeComponent={fixedTypeComponent} />
 }

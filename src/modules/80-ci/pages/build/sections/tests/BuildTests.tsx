@@ -62,6 +62,7 @@ const BuildTests: React.FC = () => {
     loading: reportSummaryLoading,
     refetch: fetchReportSummary
   } = useReportSummary({
+    // eslint-disable-next-line @typescript-eslint/prefer-as-const
     queryParams: { ...queryParams, report: 'junit' as 'junit' },
     lazy: true,
     requestOptions: {

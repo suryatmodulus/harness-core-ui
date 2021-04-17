@@ -10,6 +10,7 @@ import routes from '@common/RouteDefinitions'
 import { getDefaultProps } from './mockConstants'
 import Wizard from '../Wizard'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
 const { result } = renderHook(() => useStrings(), { wrapper })
 

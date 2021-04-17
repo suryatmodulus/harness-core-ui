@@ -183,6 +183,7 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
     data: K8sRollingRollbackData,
     template: K8sRollingRollbackData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

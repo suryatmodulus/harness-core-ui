@@ -70,6 +70,7 @@ const MetricPackResponse = {
 }
 
 jest.mock('lodash-es', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('lodash-es') as object),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()
@@ -79,6 +80,7 @@ jest.mock('lodash-es', () => ({
 }))
 
 jest.mock('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav') as object),
   GCODashboardWidgetMetricNav: function MockMetricNav(props: any) {
     const [openModal, setOpenModal] = useState(false)

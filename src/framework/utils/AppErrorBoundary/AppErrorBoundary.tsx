@@ -7,6 +7,7 @@ interface AppErrorBoundaryState {
   error?: Error
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
   state: AppErrorBoundaryState = { error: undefined }
 

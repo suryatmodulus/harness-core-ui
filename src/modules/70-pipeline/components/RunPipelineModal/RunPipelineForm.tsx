@@ -99,6 +99,7 @@ function RunPipelineFormBasic({
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
   const [lastYaml, setLastYaml] = React.useState({})
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const [formErrors, setFormErrors] = React.useState<{}>({})
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined

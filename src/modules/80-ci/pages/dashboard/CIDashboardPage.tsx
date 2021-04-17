@@ -7,7 +7,7 @@ import { useAppStore } from 'framework/exports'
 import i18n from './CIDashboardPage.i18n'
 
 export const CIDashboardPage: React.FC = () => {
-  const { projectIdentifier, accountId } = useParams()
+  const { projectIdentifier, accountId }: any = useParams()
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const history = useHistory()

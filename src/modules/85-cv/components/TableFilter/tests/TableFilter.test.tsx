@@ -3,6 +3,7 @@ import React from 'react'
 import { TableFilter } from '../TableFilter'
 
 jest.mock('lodash-es', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('lodash-es') as object),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()

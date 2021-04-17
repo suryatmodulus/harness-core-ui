@@ -88,7 +88,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
         sesssionIdentifier: ''
       }
 
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
 
   const { mutate: createKubernetesYaml } = useValidateKubernetesYaml({ queryParams: { accountId } })

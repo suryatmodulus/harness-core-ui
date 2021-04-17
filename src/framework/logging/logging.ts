@@ -6,6 +6,7 @@ declare global {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type LogFunction = (message: string, obj?: object) => void
 
 interface Logger {

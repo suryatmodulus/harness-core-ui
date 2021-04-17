@@ -22,6 +22,7 @@ import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   selectedStage: object
 }
 

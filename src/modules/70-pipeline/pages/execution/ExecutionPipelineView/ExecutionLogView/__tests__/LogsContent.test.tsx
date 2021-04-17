@@ -15,6 +15,7 @@ jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({
 }))
 
 jest.mock('@wings-software/uicore', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@wings-software/uicore') as object),
   MultiLogsViewer: jest.fn()
 }))
@@ -56,6 +57,7 @@ const TEST_PATH = routes.toExecutionPipelineView({
 
 describe('<LogsContent /> tests', () => {
   test('snapshot test', () => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(MultiLogsViewer as jest.Mock).mockImplementation((_props: any) => <div />)
 
     const { container, rerender } = render(
@@ -136,6 +138,7 @@ describe('<LogsContent /> tests', () => {
   })
 
   test('toggleSection, rightElementForSection callback props works properly', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(MultiLogsViewer as jest.Mock).mockImplementation((props: Partial<MultiLogsViewerProps>) => (
       <>
         <div onClick={() => props.toggleSection?.(1)}>toggleSection</div>

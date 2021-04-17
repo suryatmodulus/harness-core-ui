@@ -14,7 +14,9 @@ import { Target, useCreateTarget, useDeleteTarget } from 'services/cf'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T>
+// eslint-disable-next-line @typescript-eslint/ban-types
 const PlaceholderCell: React.FC<{}> = () => <Text></Text>
 const TableCell: React.FC<{ value: any }> = ({ value }) => <Text>{value}</Text>
 

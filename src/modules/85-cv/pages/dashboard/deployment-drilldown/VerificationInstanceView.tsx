@@ -16,6 +16,7 @@ import DeploymentLogsTab from './DeploymentLogsTab'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
+// eslint-disable-next-line no-shadow
 export enum TabIdentifier {
   METRICS_TAB = 'METRICS_TAB',
   LOGS_TAB = 'LOGS_TAB'
@@ -39,7 +40,7 @@ export default function VerificationInstanceView({
   const prevProps = useRef<any>({})
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
 
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showError } = useToaster()
 
   const {

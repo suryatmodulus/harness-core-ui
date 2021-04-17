@@ -64,6 +64,7 @@ function generateSchemaForIdentifier({
       steps.forEach(({ step, parallel }: ExecutionWrapperConfig) => {
         if (parallel) {
           // TODO: Fix typings
+          // eslint-disable-next-line @typescript-eslint/no-extra-semi
           ;(parallel as any).forEach(({ step: parallelStep }: { step: StepElementConfig }) => {
             stepsAndDependencies.push(parallelStep)
           })

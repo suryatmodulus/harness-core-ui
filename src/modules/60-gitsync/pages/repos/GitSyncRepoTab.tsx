@@ -13,7 +13,7 @@ import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
 const GitSyncRepoTab: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
 
   //Note: right now we support git-sync only at project level
   const { data: dataAllGitSync, loading, refetch } = useListGitSync({

@@ -17,7 +17,7 @@ import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
 const OrganizationsPage: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const [searchParam, setSearchParam] = useState<string>()
   const history = useHistory()
   const { getString } = useStrings()

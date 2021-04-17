@@ -132,7 +132,7 @@ const getModuleLinks = (
 
 const PurposeList: React.FC<ProjectModalData> = props => {
   const { data: projectData, onSuccess } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()

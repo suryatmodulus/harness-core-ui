@@ -11,11 +11,13 @@ export const stagesTreeNodeClasses = {
 }
 
 export interface StagesTreeProps extends IProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   contents: ITreeNode<{}>[]
   selectedId: string | undefined
   selectionChange: (selectedId: string, node: ITreeNode) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 function expandToSelected(nodes: ITreeNode<{}>[], id: string) {
   let retExpanded = false
   nodes.forEach(node => {

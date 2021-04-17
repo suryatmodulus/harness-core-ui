@@ -487,6 +487,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
             const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {

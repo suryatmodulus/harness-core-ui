@@ -32,6 +32,7 @@ jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
 ))
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as object),
   setSecretField: async () => ({
     identifier: 'secretIdentifier',

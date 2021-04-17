@@ -13,7 +13,7 @@ interface CERendererProps {
 const CERenderer: React.FC<CERendererProps> = ({ isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
 
   return (
     <Container

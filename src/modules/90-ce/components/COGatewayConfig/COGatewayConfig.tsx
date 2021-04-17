@@ -91,7 +91,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { showError } = useToaster()
   function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (

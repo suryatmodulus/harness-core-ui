@@ -517,6 +517,7 @@ export const addStepOrGroup = (
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps: {} } } = {
   APPROVAL: {
     model: DiamondNodeModel,

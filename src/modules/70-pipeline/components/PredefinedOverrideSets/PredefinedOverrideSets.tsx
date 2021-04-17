@@ -37,6 +37,7 @@ export const PredefinedOverrideSets: React.FC<{ currentStage: StageElementWrappe
   }
 
   const setOverrideSetsValue = (overrideSet: InputSetSelectorProps['value']): void => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     let _stageOverridesValues: {}[] = []
 
     if (!isArray(overrideSet) && overrideSet) {

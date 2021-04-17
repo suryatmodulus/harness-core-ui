@@ -26,6 +26,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
+    // eslint-disable-next-line @typescript-eslint/ban-types
     DynamicPopoverHandlerBinding<{}> | undefined
   >()
 

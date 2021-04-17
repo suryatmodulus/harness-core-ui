@@ -34,6 +34,7 @@ const AddTargetAvatar: React.FC<{ onAdd: () => void }> = ({ onAdd }) => (
   <Avatar name="+" color={Color.BLUE_500} backgroundColor={Color.GREY_200} onClick={onAdd} />
 )
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const InlineBold: React.FC<{}> = ({ children }) => <span style={{ fontWeight: 'bold' }}>{children}</span>
 const safeJoin = (data: any[], separator: string) => data?.join(separator) || `[${data}]`
 interface ClauseProps {

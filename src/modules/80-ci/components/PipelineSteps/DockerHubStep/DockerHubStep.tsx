@@ -126,6 +126,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     data: DockerHubStepData,
     template?: DockerHubStepData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

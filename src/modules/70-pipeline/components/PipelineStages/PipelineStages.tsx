@@ -3,6 +3,7 @@ import { useDeepCompareEffect } from '@common/hooks'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface PipelineStagesProps<T = {}> {
   children: Array<React.ReactElement<PipelineStageProps>>
   minimal?: boolean
@@ -18,6 +19,7 @@ interface PipelineStageMap extends Omit<PipelineStageProps, 'minimal'> {
   index: number
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function PipelineStages<T = {}>({
   children,
   showSelectMenu,

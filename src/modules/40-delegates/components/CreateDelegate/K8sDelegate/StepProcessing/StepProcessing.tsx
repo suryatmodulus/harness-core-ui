@@ -14,7 +14,7 @@ import css from '../CreateK8sDelegate.module.scss'
 let counter = 0
 
 const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const [showSuccess, setShowSuccess] = React.useState(false)
   const [showError, setShowError] = React.useState(false)

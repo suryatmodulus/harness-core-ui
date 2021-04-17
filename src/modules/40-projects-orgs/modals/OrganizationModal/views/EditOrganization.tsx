@@ -19,7 +19,7 @@ interface EditModalData {
 
 const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = props => {
   const { prevStepData, nextStep, onSuccess, identifier, isStep } = props
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showSuccess } = useToaster()
   const [version, setVersion] = useState<string>()
   const orgIdentifier = isStep ? prevStepData?.identifier : identifier

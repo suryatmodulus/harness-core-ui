@@ -97,6 +97,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
     return getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(data, transformValuesFieldsConfig)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   validateInputSet(data: ECRStepData, template?: ECRStepData, getString?: UseStringsReturn['getString']): object {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })

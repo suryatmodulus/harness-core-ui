@@ -45,7 +45,7 @@ export function StrategyIcon({ strategy, onChange, checked }: StrategyIconProps)
       <input
         type="checkbox"
         data-testid={`failure-strategy-${strategy.toLowerCase()}`}
-        name={name}
+        // name={name}
         value={strategy}
         onChange={onChange}
         checked={checked}

@@ -13,7 +13,7 @@ interface GenericErrorPageQueryParams {
 type ErrorProps = GenericErrorPageQueryParams
 
 const Error: React.FC<ErrorProps> = ({ code, message }) => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
 
   switch (code) {

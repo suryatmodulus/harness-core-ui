@@ -49,6 +49,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       if (props.isEditMode) {
         const { accessKey, accessKeyRef, secretKeyRef } = props.connectorInfo?.spec?.authentication?.spec?.spec ?? {}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extra-semi */
 import React from 'react'
 import { render, waitFor, queryByText, act, fireEvent } from '@testing-library/react'
 

@@ -10,7 +10,7 @@ import routes from '@common/RouteDefinitions'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { CDNG_ENABLED } = useFeatureFlags()
   const { getString } = useStrings()
 

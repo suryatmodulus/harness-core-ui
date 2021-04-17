@@ -40,10 +40,13 @@ import styles from './MapApplications.module.scss'
 
 export interface MapApplicationsProps {
   stepData?: { [key: string]: any }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onCompleteStep: (data: object) => void
   onPrevious?: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export async function validateTier(metricPacks: MetricPackArrayRequestBody, queryParams: object) {
   const url = `${getConfig('cv/api')}/appdynamics/metric-data?${qs.stringify(queryParams)}`
   const { response }: any = await xhr.post(url, { data: metricPacks })

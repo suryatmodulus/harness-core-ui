@@ -14,6 +14,7 @@ jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
 ))
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as object),
   setSecretField: async () => ({
     identifier: 'secretIdentifier',
@@ -23,6 +24,7 @@ jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
 }))
 
 jest.mock('services/cd-ng', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('services/cd-ng') as object),
   validateTheIdentifierIsUniquePromise: () =>
     Promise.resolve({

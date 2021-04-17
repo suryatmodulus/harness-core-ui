@@ -31,8 +31,8 @@ const allOrgsSelectOption: SelectOption = {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
-  const { accountId } = useParams()
-  const { orgId } = useQueryParams()
+  const { accountId }: any = useParams()
+  const { orgId }: any = useQueryParams()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)

@@ -22,7 +22,7 @@ interface Categories {
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { getString } = useStrings()
   const [activeCategory, setActiveCategory] = React.useState(0)
-  const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { connectorId, accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { pathname } = useLocation()
   const { loading, data, refetch } = useGetConnector({
     identifier: connectorId as string,

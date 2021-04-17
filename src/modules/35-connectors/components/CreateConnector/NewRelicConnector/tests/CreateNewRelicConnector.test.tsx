@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
-import * as toaster from '@common/components/Toaster/useToaster.tsx'
+import * as toaster from '@common/components/Toaster/useToaster'
 
 import * as cdService from 'services/cd-ng'
 import * as cvService from 'services/cv'
@@ -26,6 +26,7 @@ jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
 ))
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as object),
   setSecretField: async () => ({
     identifier: 'secretIdentifier',

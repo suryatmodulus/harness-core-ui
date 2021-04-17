@@ -12,6 +12,7 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import { getSecretV2Promise } from 'services/cd-ng'
 import css from './TextReference.module.scss'
 
+// eslint-disable-next-line no-shadow
 export enum ValueType {
   TEXT = 'TEXT',
   ENCRYPTED = 'ENCRYPTED'
@@ -39,7 +40,7 @@ const errorCheck = (name: string, formik?: FormikContext<any>) =>
 
 const TextReference: React.FC<FormikTextReference> = props => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { showError } = useToaster()
 
   const { formik, name } = props

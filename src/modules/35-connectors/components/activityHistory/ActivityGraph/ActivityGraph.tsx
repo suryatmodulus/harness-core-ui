@@ -30,7 +30,7 @@ interface ActivityGraphProps {
 }
 
 const ActivityGraph: React.FC<ActivityGraphProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
   const { getString } = useStrings()
   const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
     queryParams: {

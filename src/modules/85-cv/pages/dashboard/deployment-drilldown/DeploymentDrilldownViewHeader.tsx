@@ -15,7 +15,7 @@ export interface DeploymentDrilldownViewHeaderProps {
 }
 
 export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldownViewHeaderProps): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId }: any = useParams()
   return (
     <Container className={styles.header} padding="small">
       <Link

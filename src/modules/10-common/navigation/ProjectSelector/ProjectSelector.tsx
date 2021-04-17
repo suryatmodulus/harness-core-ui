@@ -21,7 +21,7 @@ export interface ProjectSelectorProps {
 const ProjectSelect = Select.ofType<Project>()
 
 export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, moduleFilter }) => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { selectedProject, updateAppStore } = useAppStore()
   const { getString } = useStrings()
   const history = useHistory()

@@ -2,6 +2,7 @@ import React from 'react'
 import { Classes, Menu } from '@blueprintjs/core'
 import { Button, ButtonProps } from '@wings-software/uicore'
 
+// eslint-disable-next-line @typescript-eslint/prefer-as-const
 export const MenuDivider = '-' as '-'
 
 export interface OptionsMenuButtonProps extends ButtonProps {

@@ -5,6 +5,7 @@ export interface FilterInterface {
   name: string
   filterVisibility?: FilterDTO['filterVisibility']
   identifier: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   filterProperties?: object
   orgIdentifier?: string
   projectIdentifier?: string

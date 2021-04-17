@@ -50,7 +50,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
   isEditing,
   accessType
 }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier }: any = useParams()
   const { showError } = useToaster()
   const { getString } = useStrings()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])

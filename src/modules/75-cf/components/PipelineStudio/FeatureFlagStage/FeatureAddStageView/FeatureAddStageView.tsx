@@ -77,6 +77,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
       })
     )
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const handleValidate = (values: Values): {} => {
     const errors: { name?: string } = {}
     if (isDuplicateStageId(values.identifier, pipeline?.stages || [])) {

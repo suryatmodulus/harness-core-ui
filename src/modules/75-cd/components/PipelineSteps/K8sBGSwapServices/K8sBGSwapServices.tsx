@@ -192,6 +192,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
     data: K8sBGSwapServicesData,
     template: K8sBGSwapServicesData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any

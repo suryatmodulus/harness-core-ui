@@ -12,7 +12,7 @@ import PipelineModalListView from '@pipeline/components/PipelineModalListView/Pi
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId, module }: any = useParams()
   const { getString } = useStrings()
 
   const { selectedProject } = useAppStore()

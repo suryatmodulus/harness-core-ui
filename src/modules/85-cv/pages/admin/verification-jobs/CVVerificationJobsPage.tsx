@@ -183,6 +183,7 @@ export default function CVVerificationJobsPage() {
                   <WebHookCell
                     {...props}
                     onDelete={() => onDelete(props.row.original?.identifier)}
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                     onEdit={() => onEdit(props.row.original?.identifier!)}
                   />
                 )

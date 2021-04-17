@@ -775,6 +775,7 @@ const MockData = {
 }
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
   TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />

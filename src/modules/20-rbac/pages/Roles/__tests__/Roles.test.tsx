@@ -67,6 +67,7 @@ describe('Role Details Page', () => {
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       act(() => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         fireEvent.click(form?.querySelector('[icon="cross"]')!)
       })
       form = findDialogContainer()

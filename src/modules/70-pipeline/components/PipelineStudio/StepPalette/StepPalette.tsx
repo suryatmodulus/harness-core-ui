@@ -109,6 +109,7 @@ export interface StepPaletteProps {
   onSelect: (item: FactoryStepData) => void
   onClose: () => void
   stepsFactory: AbstractStepFactory
+  // eslint-disable-next-line @typescript-eslint/ban-types
   selectedStage: object
   stageType: StageTypes
   isProvisioner?: boolean

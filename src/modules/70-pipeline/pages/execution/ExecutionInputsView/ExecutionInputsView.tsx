@@ -35,6 +35,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
   const [inputSetYaml, setInputSetYaml] = React.useState('')
   React.useEffect(() => {
     if (data) {
+      // eslint-disable-next-line @typescript-eslint/no-extra-semi
       ;((data as unknown) as Response).text().then(str => {
         setInputSetYaml(str)
       })

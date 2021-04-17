@@ -18,7 +18,7 @@ interface GitSyncPageProps {
 }
 
 const GitSyncPage: React.FC<GitSyncPageProps> = ({ children, mockIsEnabled }) => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId }: any = useParams()
   const { selectedProject } = useAppStore()
   const { getString } = useStrings()
 

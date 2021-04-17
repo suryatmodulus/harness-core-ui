@@ -54,6 +54,7 @@ function WrapperComponent(): JSX.Element {
 }
 
 jest.mock('@wings-software/uicore', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@wings-software/uicore') as object),
   Utils: {
     randomId: () => '31231'
@@ -89,6 +90,7 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 }))
 
 jest.mock('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack', () => ({
+  // eslint-disable-next-line @typescript-eslint/ban-types
   ...(jest.requireActual('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack') as object),
   SelectMetricPack: function Mock(props: any) {
     useEffect(() => {

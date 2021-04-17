@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'

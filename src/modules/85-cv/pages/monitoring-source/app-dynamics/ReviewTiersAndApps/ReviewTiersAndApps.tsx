@@ -19,6 +19,7 @@ import { ApplicationRecord, InternalState, ValidationStatus } from '../AppDOnboa
 
 interface ReviewTiersAndAppsProps {
   [key: string]: any
+  // eslint-disable-next-line @typescript-eslint/ban-types
   onCompleteStep: (data: object) => void
   onPrevious?: () => void
 }

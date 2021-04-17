@@ -30,6 +30,7 @@ interface InputSetLocal extends InputSetSummaryResponse {
   inputFieldSummary?: string
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   goToInputSetDetail?: (identifier?: string) => void
   cloneInputSet?: (identifier?: string) => void
@@ -127,6 +128,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           if (deleted.status === 'SUCCESS') {
             showSuccess(getString('inputSets.inputSetDeleted', { name: data.name }))
           }
+          // eslint-disable-next-line @typescript-eslint/no-extra-semi
           ;(column as any).refetchInputSet?.()
         } catch (err) {
           /* istanbul ignore next */

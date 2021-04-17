@@ -179,6 +179,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     data: K8sBGDeployData,
     template: K8sBGDeployData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any

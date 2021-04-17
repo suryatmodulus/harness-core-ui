@@ -5,6 +5,7 @@ import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 
 import css from './Table.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export interface TableProps<Data extends object> {
   /**
    * Column Configuration
@@ -22,6 +23,7 @@ export interface TableProps<Data extends object> {
   onRowClick?: (data: Data, index: number) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement => {
   const { columns, data, className, sortable = true, hideHeaders = false, pagination } = props
   const { headerGroups, page, prepareRow } = useTable(

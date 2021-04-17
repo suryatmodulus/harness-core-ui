@@ -11,7 +11,7 @@ interface UseDeleteProjectDialogReturn {
 }
 
 const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDeleteProjectDialogReturn => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: {
       accountIdentifier: accountId,

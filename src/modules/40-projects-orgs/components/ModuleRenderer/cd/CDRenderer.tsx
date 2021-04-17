@@ -13,7 +13,7 @@ interface CDRendererProps {
 const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   return (
     <Container
       border={{ top: true, color: Color.GREY_250 }}

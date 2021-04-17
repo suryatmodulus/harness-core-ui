@@ -46,7 +46,7 @@ interface DashboardInterface {
 
 const FirstStep = (props: any): JSX.Element => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const [errorMessage, setErrorMessage] = React.useState('')
   const history = useHistory()
   const { mutate: createDashboard, loading } = useMutate({
@@ -184,7 +184,7 @@ const FirstStep = (props: any): JSX.Element => {
 
 const HomePage: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const history = useHistory()
   const [_dashboardList, _setDashboardList] = React.useState<DashboardInterface[]>([])
   const [filteredDashboardList, setFilteredList] = React.useState<DashboardInterface[]>([])

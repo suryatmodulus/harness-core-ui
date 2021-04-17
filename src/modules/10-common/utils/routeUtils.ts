@@ -86,6 +86,7 @@ export const modulePathProps: ModulePathParams = {
   module: ':module'
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const pipelineModuleParams: Record<keyof PipelineType<{}>, 'ci' | 'cd' | 'cf' | ':module'> = {
   module: ':module'
 }

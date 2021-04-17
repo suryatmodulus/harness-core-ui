@@ -87,6 +87,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
     apiKeyRef: undefined
   })
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       if (props.isEditMode) {
         setInitialValues({

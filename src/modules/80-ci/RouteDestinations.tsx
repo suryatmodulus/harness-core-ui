@@ -93,7 +93,7 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier }: any = useParams()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
 }

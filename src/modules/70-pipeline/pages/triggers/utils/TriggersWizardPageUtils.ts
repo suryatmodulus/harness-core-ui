@@ -315,6 +315,7 @@ export const getWizardMap = ({
 export const getValidationSchema = (
   triggerType: NGTriggerSource['type'],
   getString: (key: string) => string
+  // eslint-disable-next-line @typescript-eslint/ban-types
 ): ObjectSchema<object | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({

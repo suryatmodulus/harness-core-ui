@@ -19,6 +19,7 @@ declare global {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>

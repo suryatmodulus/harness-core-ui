@@ -14,7 +14,8 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 export const CECOEditGatewayPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier }: any = useParams()
+
   const { data, loading } = useRouteDetails({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line

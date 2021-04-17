@@ -20,7 +20,7 @@ interface EditModalData {
 const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const { prevStepData, nextStep, identifier, orgIdentifier, closeModal, onSuccess, isStep } = props
   const [version, setVersion] = useState<string>()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showSuccess } = useToaster()
   const projectIdentifier = isStep ? prevStepData?.identifier : identifier
   const organizationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier

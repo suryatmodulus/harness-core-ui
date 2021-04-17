@@ -29,7 +29,7 @@ interface SlackNotificationData {
 }
 
 const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = props => {
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting } = useTestNotificationSetting({})

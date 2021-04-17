@@ -149,6 +149,7 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
   }
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       if (loadingConnectorSecrets) {
         if (props.isEditMode) {

@@ -11,6 +11,7 @@ import css from './JsonSelectorFormInput.module.scss'
 interface JsonSelectorFormInputProps {
   name: string
   label: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   json?: object
   disabled?: boolean
   loading?: boolean
@@ -19,6 +20,7 @@ interface JsonSelectorFormInputProps {
 
 function getPlaceholderAndTextColor(
   loading?: boolean,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   json?: object,
   placeholder?: string,
   selectedJsonVal?: string

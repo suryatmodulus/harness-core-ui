@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   max-width: 300px;
 `
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const DiagramSample: React.FC<{}> = () => {
   //1) setup the diagram engine
   const engine = React.useMemo(() => createEngine({}), [])
@@ -57,6 +58,7 @@ export default {
   component: DiagramSample
 } as Meta
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const Basic: Story<{}> = _args => {
   return (
     <TestWrapper>

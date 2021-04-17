@@ -11,7 +11,7 @@ import css from '../CreateK8sDelegate.module.scss'
 
 const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
   const { showError } = useToaster()
   const { mutate: downloadYaml } = useGenerateKubernetesYaml({ queryParams: { accountId, fileFormat: 'text/plain' } })
   const linkRef = React.useRef<HTMLAnchorElement>(null)

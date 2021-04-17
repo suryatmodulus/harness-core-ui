@@ -13,7 +13,7 @@ interface CIRendererProps {
 const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { accountId } = useParams()
+  const { accountId }: any = useParams()
 
   return (
     <Container

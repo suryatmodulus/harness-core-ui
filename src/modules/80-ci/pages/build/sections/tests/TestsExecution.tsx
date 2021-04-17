@@ -51,10 +51,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       projectId: projectIdentifier,
       pipelineId: context?.pipelineExecutionDetail?.pipelineExecutionSummary?.pipelineIdentifier || '',
       buildId: String(context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''),
+      // eslint-disable-next-line @typescript-eslint/prefer-as-const
       report: 'junit' as 'junit',
       pageIndex,
       sort: sortBy,
       pageSize: PAGE_SIZE,
+      // eslint-disable-next-line @typescript-eslint/prefer-as-const
       order: 'DESC' as 'DESC'
     }),
     [

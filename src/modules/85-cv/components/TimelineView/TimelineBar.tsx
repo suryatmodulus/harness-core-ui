@@ -9,6 +9,7 @@ export interface TimelineBarProps {
   startDate: string | number | Date
   endDate: string | number | Date
   className?: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
   style?: object
   columnWidth?: number
 }

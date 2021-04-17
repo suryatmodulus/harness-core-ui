@@ -28,6 +28,7 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
   status?: string
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomColumn<T extends object> = Column<T> & {
   goToPipelineStudio?: (pipelineIdentifier?: string) => void
   goToPipelineDetail?: (pipelineIdentifier?: string) => void
@@ -65,6 +66,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           if (deleted.status === 'SUCCESS') {
             showSuccess(getString('pipeline-list.pipelineDeleted', { name: data.name }))
           }
+          // eslint-disable-next-line @typescript-eslint/no-extra-semi
           ;(column as any).refetchPipeline()
         } catch (err) {
           /* istanbul ignore next */

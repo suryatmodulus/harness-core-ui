@@ -84,8 +84,9 @@ export class CustomVariables extends Step<CustomVariablesData> {
     data: CustomVariablesData,
     template?: CustomVariablesData,
     getString?: UseStringsReturn['getString']
+    // eslint-disable-next-line @typescript-eslint/ban-types
   ): object {
-    const errors: CustomVariablesData = { variables: [] }
+    const errors: any = { variables: [] }
     data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 

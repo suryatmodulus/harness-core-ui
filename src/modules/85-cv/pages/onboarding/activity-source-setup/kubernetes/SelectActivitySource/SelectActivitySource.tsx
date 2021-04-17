@@ -79,7 +79,7 @@ function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectio
 export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Element {
   const { onSubmit, data, isEditMode } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId }: any = useParams()
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}

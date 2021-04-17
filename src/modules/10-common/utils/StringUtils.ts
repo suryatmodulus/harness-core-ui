@@ -86,7 +86,7 @@ export const getHomeLinkByAcctIdAndModuleName = (accountId: Required<string>, mo
       })
   }
 
-  return routes.toProjects({
+  return routes.toPurpose({
     accountId
   })
 }

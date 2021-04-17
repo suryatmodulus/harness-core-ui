@@ -139,11 +139,6 @@ exports[`CITrialHomePage snapshot test should call button event when click 1`] =
             </svg>
           </span>
         </div>
-        <a
-          href="/"
-        >
-          common.changePlan
-        </a>
       </div>
     </div>
   </div>
@@ -159,7 +154,7 @@ exports[`CITrialHomePage snapshot test should call button event when click 2`] =
     <div
       data-testid="location"
     >
-      /account/undefined/ci/home
+      /account/undefined/ci/home?trial=true
     </div>
   </div>
 </div>
@@ -215,11 +210,6 @@ exports[`CITrialHomePage snapshot test should render properly 1`] = `
             </span>
           </button>
         </div>
-        <a
-          href="/"
-        >
-          common.changePlan
-        </a>
       </div>
     </div>
   </div>

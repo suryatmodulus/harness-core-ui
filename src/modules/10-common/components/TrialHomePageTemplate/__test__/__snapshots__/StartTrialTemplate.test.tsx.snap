@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TrialHomePageTemplate snapshot test should render start a trial by default 1`] = `
+exports[`StartTrialTemplate snapshot test should render start a trial by default 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main"
@@ -50,18 +50,13 @@ exports[`TrialHomePageTemplate snapshot test should render start a trial by defa
             </span>
           </button>
         </div>
-        <a
-          href="/"
-        >
-          Change Plan
-        </a>
       </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`TrialHomePageTemplate snapshot test should render trial in progress when click start button 1`] = `
+exports[`StartTrialTemplate snapshot test should render trial in progress when click start button 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main"
@@ -200,18 +195,13 @@ exports[`TrialHomePageTemplate snapshot test should render trial in progress whe
             </svg>
           </span>
         </div>
-        <a
-          href="/"
-        >
-          Change Plan
-        </a>
       </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`TrialHomePageTemplate snapshot test should render trial in progress when click start button 2`] = `
+exports[`StartTrialTemplate snapshot test should render trial in progress when click start button 2`] = `
 <div>
   <div>
     <h1>
@@ -220,7 +210,7 @@ exports[`TrialHomePageTemplate snapshot test should render trial in progress whe
     <div
       data-testid="location"
     >
-      /account/undefined/ci/home
+      /account/undefined/ci/home?trial=true
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-so
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { MutateMethod } from 'restful-react'
 import type { ModuleName } from 'framework/exports'
+import { useToaster } from '@common/components'
 import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
 import { getHomeLinkByAcctIdAndModuleName } from '../../utils/StringUtils'
 
@@ -23,19 +24,16 @@ interface StartTrialProps {
   startBtn: {
     description: string
   }
-  changePlan: {
-    description: string
-    url: string
-  }
   startTrial: MutateMethod<RestResponseModuleLicenseInfo, void, StartTrialRequestBody, void>
   module: ModuleName
 }
 
 const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
-  const { description, learnMore, startBtn, changePlan, startTrial, module } = startTrialProps
+  const { description, learnMore, startBtn, startTrial, module } = startTrialProps
   const [isLoading, setIsLoading] = useState(false)
   const history = useHistory()
   const { accountId } = useParams()
+  const { showError } = useToaster()
   return (
     <Layout.Vertical spacing="small">
       <Text
@@ -64,16 +62,14 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
                 pathname: getHomeLinkByAcctIdAndModuleName(accountId, module),
                 search: '?trial=true'
               })
-            } catch (e) {
-              //TODO: read error msg to display
-            } finally {
+            } catch (error) {
+              showError(error.message)
               setIsLoading(false)
             }
           }}
         />
         {isLoading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} />}
       </Layout.Horizontal>
-      <Link to={changePlan.url}>{changePlan.description}</Link>
     </Layout.Vertical>
   )
 }
@@ -87,11 +83,14 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
   const { accountId } = useParams()
 
   const startTrialRequestBody: StartTrialRequestBody = {
-    accountIdentifier: accountId,
     moduleType: module
   }
 
-  const { mutate: startTrial } = useStartTrial({})
+  const { mutate: startTrial } = useStartTrial({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
 
   return (
     <Container

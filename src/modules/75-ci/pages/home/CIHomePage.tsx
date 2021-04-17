@@ -5,6 +5,7 @@ import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplat
 import { ModuleName, useStrings } from 'framework/exports'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
+import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetModuleLicenseInfo } from 'services/portal'
@@ -19,7 +20,7 @@ const CIHomePage: React.FC = () => {
       moduleType: ModuleName.CI
     }
   }
-  const { data } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
+  const { data, error, refetch } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
@@ -34,7 +35,8 @@ const CIHomePage: React.FC = () => {
           }),
           search: '?modal=trial'
         })
-    }
+    },
+    module: ModuleName.CI
   })
 
   const trialInProgressProps = {
@@ -47,6 +49,10 @@ const CIHomePage: React.FC = () => {
   const { trial } = useQueryParams<{ trial?: boolean }>()
 
   const history = useHistory()
+
+  if (error) {
+    return <Page.Error message={error.message} onClick={() => refetch()} />
+  }
 
   if (data?.status === 'SUCCESS' && !data.data) {
     history.push(

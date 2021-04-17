@@ -60,15 +60,11 @@ const props = {
     startBtn: {
       description: 'Start A Trial',
       onClick: () => true
-    },
-    changePlan: {
-      description: 'Change Plan',
-      url: ''
     }
   },
   module: ModuleName.CI
 }
-describe('TrialHomePageTemplate snapshot test', () => {
+describe('StartTrialTemplate snapshot test', () => {
   test('should render start a trial by default', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>

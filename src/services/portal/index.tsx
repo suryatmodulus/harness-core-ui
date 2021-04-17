@@ -325,8 +325,19 @@ export interface RestResponseUserInfo {
     uuid: string
     name: string
     email: string
+    passwordHash: string
+    accountName: string
+    companyName: string
+    defaultAccountId: string
+    token: string
+    accounts: {
+      identifier: string
+      name: string
+      companyName: string
+    }[]
     admin: boolean
-    accountIds: string[]
+    emailVerified: boolean
+    twoFactorAuthenticationEnabled: boolean
   }
   responseMessages?: ResponseMessage[]
 }
@@ -11051,11 +11062,26 @@ export interface RestResponseModuleLicense {
   status: string
   createdAt: number
   lastModifiedAt: number
-  numberOfCommitters: number
+  numberOfCommitters?: number
 }
 export interface RestResponseModuleLicenseInfo {
   status: string
   data?: RestResponseModuleLicense
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  correlationId?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountLicenseInfo {
+  status: string
+  data: {
+    accountId: string
+    moduleLicenses: {
+      [key: string]: RestResponseModuleLicense
+    }
+  }
   metaData?: {
     [key: string]: { [key: string]: any }
   }
@@ -14343,7 +14369,6 @@ export interface UserInvite {
 }
 
 export interface SignupUser {
-  name: string
   email: string
   module?: ModuleName
   password: string
@@ -18861,22 +18886,29 @@ export const useSignupUser = (props: UseSignupUserProps) =>
   })
 
 export interface ModuleLicenseInfoRequest {
-  accountIdentifier: string
   moduleType: string
+}
+
+export interface AccountIdentifier {
+  accountIdentifier: string
 }
 
 export type StartTrialRequestBody = ModuleLicenseInfoRequest
 
 export type UseStartTrialProps = Omit<
-  UseMutateProps<RestResponseModuleLicenseInfo, unknown, void, StartTrialRequestBody, void>,
+  UseMutateProps<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useStartTrial = (props: UseStartTrialProps) =>
-  useMutate<RestResponseModuleLicenseInfo, unknown, void, StartTrialRequestBody, void>('POST', `/licenses/trial`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>(
+    'POST',
+    `/licenses/trial`,
+    {
+      base: getConfig('ng/api'),
+      ...props
+    }
+  )
 
 export type UseGetModuleLicenseInfoProps = Omit<
   UseGetProps<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>,
@@ -18885,6 +18917,17 @@ export type UseGetModuleLicenseInfoProps = Omit<
 
 export const useGetModuleLicenseInfo = (props: UseGetModuleLicenseInfoProps) =>
   useGet<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>(`/licenses`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export type UseGetAccountLicenseInfoProps = Omit<
+  UseGetProps<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>,
+  'path'
+>
+
+export const useGetAccountLicenseInfo = (props: UseGetAccountLicenseInfoProps) =>
+  useGet<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>(`/licenses/account`, {
     base: getConfig('ng/api'),
     ...props
   })

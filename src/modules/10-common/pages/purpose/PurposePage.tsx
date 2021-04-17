@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Color,
   HarnessIcons,
@@ -12,24 +12,24 @@ import {
   Heading
 } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
-import routes from '@common/RouteDefinitions'
-import type { Project } from 'services/cd-ng'
+import cx from 'classnames'
 import { ModuleName, useStrings, String, StringsMap } from 'framework/exports'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetAccountLicenseInfo } from 'services/portal'
+import { getHomeLinkByAcctIdAndModuleName, getModuleNameByString } from '@common/utils/StringUtils'
+import { Page } from '@common/components'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
   title: string
   icon: IconName
   description: string
-  module: Required<Project>['modules'][number]
+  module: ModuleName
+  startTrial?: boolean
 }
 
 const PurposeList: React.FC = () => {
-  const { accountId } = useParams<AccountPathProps>()
-  const [selected, setSelected] = useState<Required<Project>['modules']>([])
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { accountId } = useParams()
+  const [selected, setSelected] = useState<ModuleName>()
 
   const { getString } = useStrings()
 
@@ -67,37 +67,27 @@ const PurposeList: React.FC = () => {
     module: ModuleName.CF
   }
 
-  const getLink = (module: Required<Project>['modules'][number]): string => {
+  const getModuleProps = (module: ModuleName, startTrial: boolean): PurposeType | undefined => {
     switch (module) {
       case ModuleName.CD:
-        return routes.toCDHome({
-          accountId
-        })
+        return { ...CDNG_OPTIONS, startTrial }
       case ModuleName.CV:
-        return routes.toCVHome({
-          accountId
-        })
-      case ModuleName.CI:
-        return routes.toCIHome({
-          accountId
-        })
+        return { ...CVNG_OPTIONS, startTrial }
       case ModuleName.CE:
-        return routes.toCEHome({
-          accountId
-        })
+        return { ...CENG_OPTIONS, startTrial }
       case ModuleName.CF:
-        return routes.toCFHome({
-          accountId
-        })
-      default:
-        return routes.toProjects({
-          accountId
-        })
+        return { ...CFNG_OPTIONS, startTrial }
+      case ModuleName.CI:
+        return { ...CING_OPTIONS, startTrial }
     }
+    return undefined
   }
 
-  const getModuleLink = (module: Required<Project>['modules'][number]): React.ReactElement => {
-    const moduleName = module.toString().toLowerCase()
+  const getModuleLink = (module: ModuleName | undefined): React.ReactElement => {
+    const moduleName = module?.toString().toLowerCase()
+    if (!moduleName) {
+      return <></>
+    }
     const title = getString(`${moduleName}.continuous` as keyof StringsMap)
     return (
       <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
@@ -106,7 +96,7 @@ const PurposeList: React.FC = () => {
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{title}</Text>
         </Layout.Horizontal>
         <String
-          style={{ lineHeight: 2, fontSize: 10 }}
+          style={{ lineHeight: 2, fontSize: 'small' }}
           stringID={`common.purpose.${moduleName}.description` as keyof StringsMap}
           useRichText={true}
         />
@@ -119,7 +109,7 @@ const PurposeList: React.FC = () => {
             textAlign: 'center',
             color: Color.WHITE
           }}
-          to={getLink(module)}
+          to={getHomeLinkByAcctIdAndModuleName(accountId, module)}
         >
           {getString('continue')}
         </Link>
@@ -127,23 +117,44 @@ const PurposeList: React.FC = () => {
     )
   }
 
+  const { error, data, refetch } = useGetAccountLicenseInfo({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
   const getOptions = (): PurposeType[] => {
     const options: PurposeType[] = []
-    if (CDNG_ENABLED) options.push(CDNG_OPTIONS)
-    if (CVNG_ENABLED) options.push(CVNG_OPTIONS)
-    if (CING_ENABLED) options.push(CING_OPTIONS)
-    if (CENG_ENABLED) options.push(CENG_OPTIONS)
-    if (CFNG_ENABLED) options.push(CFNG_OPTIONS)
+    ;[CDNG_OPTIONS, CING_OPTIONS, CVNG_OPTIONS, CFNG_OPTIONS, CENG_OPTIONS].forEach(option => {
+      let startTrial = true
+      const { module } = option
+      const moduleLicense = data?.data.moduleLicenses[module]
+      if (moduleLicense) {
+        const { licenseType } = moduleLicense
+        startTrial = !licenseType || licenseType === 'TRIAL'
+      }
+      const moduleProps = getModuleProps(module, startTrial)
+      if (moduleProps) {
+        options.push(moduleProps)
+      }
+    })
+
     return options
   }
 
-  return (
+  return error ? (
+    <Page.Error message={error.message} onClick={() => refetch()} />
+  ) : (
     <Layout.Vertical spacing="large">
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width={800}>
           <div style={{ borderRight: 'inset', marginLeft: -15 }}>
             {getOptions().map(option => (
-              <Card key={option.title} className={css.card} onClick={() => setSelected([option.module])}>
+              <Card
+                key={option.title}
+                className={cx(css.card, selected === option.module ? css.selected : '')}
+                onClick={() => setSelected(option.module)}
+              >
                 <Layout.Horizontal spacing="small">
                   <Icon name={option.icon} size={25} />
                   <div>
@@ -156,22 +167,26 @@ const PurposeList: React.FC = () => {
                 <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
                   {option.description}
                 </Text>
-                <Text
-                  width={100}
-                  color={Color.WHITE}
-                  font={{ size: 'xsmall', weight: 'semi-bold' }}
-                  style={{
-                    textAlign: 'center',
-                    borderRadius: 4,
-                    height: 'var(--spacing-large)',
-                    backgroundColor: 'var(--purple-900)',
-                    padding: 'var(--spacing-xsmall)'
-                  }}
-                  icon={selected.includes(option.module) ? ('tick' as IconName) : ('' as IconName)}
-                  iconProps={{ size: 10, padding: 'xsmall', color: Color.WHITE }}
-                >
-                  {getString('common.purpose.startATrial')}
-                </Text>
+
+                {option.startTrial ? (
+                  <Text
+                    width={100}
+                    color={Color.WHITE}
+                    font={{ size: 'xsmall', weight: 'semi-bold' }}
+                    style={{
+                      textAlign: 'center',
+                      borderRadius: 4,
+                      height: 'var(--spacing-large)',
+                      backgroundColor: 'var(--purple-900)',
+                      padding: 'var(--spacing-xsmall)'
+                    }}
+                    icon={selected === option.module ? ('tick' as IconName) : ('' as IconName)}
+                    iconProps={{ size: 10, padding: 'xsmall', color: Color.WHITE }}
+                  >
+                    {getString('common.purpose.startATrial')}
+                  </Text>
+                ) : null}
+
                 <Text font="small" style={{ marginTop: 10 }}>
                   {getString('common.purpose.setup')}
                 </Text>
@@ -180,10 +195,10 @@ const PurposeList: React.FC = () => {
           </div>
         </Container>
         <Container width={500} padding={{ left: 'huge', top: 'medium' }}>
-          {selected.length === 0 ? (
-            <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('common.purpose.selectAModule')}</Text>
+          {selected ? (
+            getModuleLink(getModuleNameByString(selected))
           ) : (
-            selected.map(module => getModuleLink(module))
+            <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('common.purpose.selectAModule')}</Text>
           )}
         </Container>
       </Layout.Horizontal>
@@ -192,7 +207,7 @@ const PurposeList: React.FC = () => {
 }
 
 export const PurposePage: React.FC = () => {
-  const [loading, setLoading] = useState(true)
+  const [loading] = useState(false)
   const { getString } = useStrings()
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
@@ -203,12 +218,6 @@ export const PurposePage: React.FC = () => {
     </OverlaySpinner>
   )
 
-  useEffect(() => {
-    setLoading(true)
-    // TODO: call signup api to get user info
-    setLoading(false)
-  }, [])
-
   return (
     <Container margin={'xxxlarge'} flex={{ alignItems: 'start' }}>
       {loading ? (
@@ -217,7 +226,7 @@ export const PurposePage: React.FC = () => {
         <Layout.Vertical padding={'xxlarge'}>
           <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
           <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
-            {getString('common.purpose.welcome', { userName: 'user name' })}
+            {getString('common.purpose.welcome')}
           </Heading>
           <PurposeList />
         </Layout.Vertical>

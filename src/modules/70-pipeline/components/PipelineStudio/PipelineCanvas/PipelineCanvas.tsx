@@ -193,11 +193,21 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }, [pipeline?.name])
 
   const onCloseCreate = React.useCallback(() => {
-    if (pipeline?.identifier === DefaultNewPipelineId) {
+    if (pipeline?.identifier === DefaultNewPipelineId || getOtherModal) {
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideModal()
-  }, [accountId, hideModal, history, module, orgIdentifier, pipeline?.identifier, projectIdentifier, toPipelineList])
+  }, [
+    accountId,
+    hideModal,
+    history,
+    module,
+    orgIdentifier,
+    pipeline?.identifier,
+    projectIdentifier,
+    toPipelineList,
+    getOtherModal
+  ])
 
   const onSubmit = React.useCallback(
     (data: NgPipeline) => {
@@ -260,7 +270,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }}
     >
       <NavigationCheck
-        when={true}
+        when={getOtherModal ? false : true}
         shouldBlockNavigation={nextLocation => {
           const matchDefault = matchPath(nextLocation.pathname, {
             path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),

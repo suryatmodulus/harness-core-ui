@@ -14,7 +14,6 @@ export interface StringsMap {
   'common.authSettings.authorizationEnabledFor': string
   'common.authSettings.authorizationNotEnabled': string
   'common.authSettings.loginViaSAML': string
-  'common.changePlan': string
   'common.cluster': string
   'common.comments': string
   'common.datePickerShortcuts.Last2Days': string
@@ -6448,10 +6447,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'signUp.form.emailPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'signUp.form.namePlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

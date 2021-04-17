@@ -34,6 +34,7 @@ const routes = {
   toAccountActivityLog: withAccountId(() => '/admin/authentication/activity-log'),
   toLogin: () => '/login',
   toSignup: () => '/signup',
+  toPurpose: withAccountId(() => '/purpose'),
   toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(() => '/admin/resources'),
   //user profile

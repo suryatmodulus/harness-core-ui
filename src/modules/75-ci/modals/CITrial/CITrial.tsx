@@ -21,14 +21,12 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal })
 
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge' }}>
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Icon name="ci-main" size={20} padding={{ right: 'small' }} />
+      <Layout.Horizontal padding={{ top: 'large' }} spacing="small">
+        <Icon name="ci-main" size={20} />
         <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{getString('ci.continuous')}</Text>
-      </Layout.Horizontal>
-      <Layout.Horizontal>
         <Text
           style={{
-            backgroundColor: 'var(--purple-500)',
+            backgroundColor: 'var(--orange-500)',
             color: Color.WHITE,
             textAlign: 'center',
             width: 120,

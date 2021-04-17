@@ -3,6 +3,7 @@ import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
+import type { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { Views } from './Constants'
@@ -16,6 +17,7 @@ export interface UseProjectModalProps {
   onSuccess?: () => void
   onCloseModal?: () => void
   onWizardComplete?: (projectData?: Project) => void
+  module?: ModuleName
 }
 
 export interface UseProjectModalReturn {
@@ -26,7 +28,8 @@ export interface UseProjectModalReturn {
 export const useProjectModal = ({
   onSuccess,
   onCloseModal,
-  onWizardComplete
+  onWizardComplete,
+  module
 }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
@@ -59,6 +62,7 @@ export const useProjectModal = ({
               name={i18n.newProjectWizard.aboutProject.name}
               modules={projectData?.modules}
               onSuccess={onSuccess}
+              module={module}
             />
             <ProjectCollaboratorsStep name={i18n.newProjectWizard.Collaborators.name} />
           </StepWizard>

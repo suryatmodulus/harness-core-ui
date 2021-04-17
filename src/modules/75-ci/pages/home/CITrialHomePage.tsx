@@ -15,11 +15,6 @@ const CITrialHomePage: React.FC = () => {
     },
     startBtn: {
       description: getString('ci.ciTrialHomePage.startTrial.startBtn.description')
-    },
-    changePlan: {
-      description: getString('common.changePlan'),
-      // TODO: need replace change plan url
-      url: ''
     }
   }
 

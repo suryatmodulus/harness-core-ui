@@ -9,5 +9,4 @@ export type { StringsMap, StringKeys } from './strings/StringsContext'
 
 export { loggerFor } from './logging/logging'
 export { ModuleName } from './types/ModuleName'
-export { LicenseType } from './types/LicenseType'
 export { SidebarIdentifier } from './types/SidebarIdentifider'

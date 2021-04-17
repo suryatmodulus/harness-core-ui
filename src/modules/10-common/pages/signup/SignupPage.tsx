@@ -19,6 +19,7 @@ import { useQueryParams } from '@common/hooks'
 import { useSignupUser, SignupUserRequestBody } from 'services/portal'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
 import AppStorage from 'framework/utils/AppStorage'
+import type { RestResponseUserInfo } from 'services/portal'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/exports'
@@ -30,29 +31,12 @@ interface SignupForm {
   password: string
 }
 
-const createAuthToken = (login: string, password: string): string => {
-  const encodedToken = btoa(login + ':' + password)
-  return `Basic ${encodedToken}`
-}
-
-const refreshAppStore = async (email: string, password: string): Promise<void> => {
-  const response = await fetch('/api/users/login', {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      authorization: createAuthToken(email, password)
-    })
-  })
-  if (response.ok) {
-    const json = await response.json()
-    AppStorage.set('token', json.resource.token)
-    AppStorage.set('acctId', json.resource.defaultAccountId)
-    AppStorage.set('uuid', json.resource.uuid)
-    AppStorage.set('lastTokenSetTime', +new Date())
-  }
+const refreshAppStore = async (response: RestResponseUserInfo): Promise<void> => {
+  const { token, defaultAccountId, uuid } = response.resource
+  AppStorage.set('token', token)
+  AppStorage.set('acctId', defaultAccountId)
+  AppStorage.set('uuid', uuid)
+  AppStorage.set('lastTokenSetTime', +new Date())
 }
 
 const SignupPage: React.FC = () => {
@@ -68,10 +52,9 @@ const SignupPage: React.FC = () => {
   const handleSignup = async (data: SignupForm): Promise<void> => {
     setLoading(true)
     const module = getModuleNameByString(moduleType)
-    const { name, email, password } = data
+    const { email, password } = data
 
     const dataToSubmit: SignupUserRequestBody = {
-      name,
       email,
       module,
       password
@@ -79,14 +62,11 @@ const SignupPage: React.FC = () => {
 
     try {
       const userInfoResponse = await getUserInfo(dataToSubmit)
-      // call login api to refresh app store
-      // TODO: this work will get done on backend in near future
-      const accountId = userInfoResponse.resource.accountIds[0]
-      await refreshAppStore(email, password)
+      const accountId = userInfoResponse.resource.defaultAccountId
+      await refreshAppStore(userInfoResponse)
       history.push(getHomeLinkByAcctIdAndModuleName(accountId, module))
     } catch (error) {
       showError(error.message)
-    } finally {
       setLoading(false)
     }
   }
@@ -132,17 +112,11 @@ const SignupPage: React.FC = () => {
             initialValues={{ name: '', email: '', password: '' }}
             onSubmit={handleSubmit}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(),
               email: Yup.string().trim().email().required(),
-              password: Yup.string().trim().min(6).required()
+              password: Yup.string().trim().min(8).required()
             })}
           >
             <FormikForm>
-              <FormInput.Text
-                name="name"
-                label={getString('name')}
-                placeholder={getString('signUp.form.namePlaceholder')}
-              />
               <FormInput.Text
                 name="email"
                 label={getString('signUp.form.emailLabel')}
@@ -158,7 +132,6 @@ const SignupPage: React.FC = () => {
             </FormikForm>
           </Formik>
         </Container>
-
         <AuthFooter page={AuthPage.SignUp} />
       </AuthLayout>
     </>

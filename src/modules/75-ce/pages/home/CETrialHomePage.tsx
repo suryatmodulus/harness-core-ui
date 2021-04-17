@@ -17,11 +17,6 @@ const CETrialHomePage: React.FC = () => {
       description: getString('ce.ceTrialHomePage.startTrial.startBtn.description'),
       // TODO: need call licensing api and return value
       onClick: () => true
-    },
-    changePlan: {
-      description: getString('common.changePlan'),
-      // TODO: need replace change plan url
-      url: ''
     }
   }
 

@@ -26,6 +26,8 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 
 import { useStrings } from 'framework/exports'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType } from '../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
@@ -112,10 +114,22 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-            ? initialValues?.spec?.store.spec.repoName
-            : ''
+        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+        if (connectorScope === Scope.ACCOUNT) {
+          if (
+            initialValues?.spec?.store.spec?.connectorRef ===
+            `account.${prevStepData?.connectorRef?.connector?.identifier}`
+          ) {
+            repoName = initialValues?.spec?.store.spec.repoName
+          } else {
+            repoName = ''
+          }
+        } else {
+          repoName =
+            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+              ? initialValues?.spec?.store.spec.repoName
+              : ''
+        }
       }
       return repoName
     }

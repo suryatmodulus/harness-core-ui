@@ -259,7 +259,7 @@ export default function DeployStageSetupShell(): JSX.Element {
               {getString('infrastructureText')}
             </span>
           }
-          disabled={!isTabNavigationAllowed}
+          disabled={!isTabNavigationAllowed || deploymentType === ''}
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
           data-testid="infrastructure"
         />

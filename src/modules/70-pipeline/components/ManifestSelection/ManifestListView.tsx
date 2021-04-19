@@ -72,7 +72,7 @@ import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWi
 import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGit'
 import css from './ManifestSelection.module.scss'
 
-const allowedManifestTypes: Array<ManifestTypes> = [
+const kubernetesManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.K8sManifest,
   ManifestDataType.Values,
   ManifestDataType.HelmChart,
@@ -80,6 +80,8 @@ const allowedManifestTypes: Array<ManifestTypes> = [
   ManifestDataType.OpenshiftTemplate,
   ManifestDataType.OpenshiftParam
 ]
+
+const helmDeploymentManifestTypes: Array<ManifestTypes> = [ManifestDataType.Values, ManifestDataType.HelmChart]
 const manifestStoreTypes: Array<ManifestStores> = [
   ManifestStoreMap.Git,
   ManifestStoreMap.Github,
@@ -101,10 +103,7 @@ const ManifestListView = ({
   isReadonly
 }: ManifestListViewProps): JSX.Element => {
   const deploymentType = stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type
-
-  if (deploymentType === 'Kubernetes') {
-    allowedManifestTypes.unshift(ManifestDataType.K8sManifest)
-  }
+  const allowedManifestTypes = deploymentType === 'Kubernetes' ? kubernetesManifestTypes : helmDeploymentManifestTypes
 
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
   const [connectorView, setConnectorView] = useState(false)

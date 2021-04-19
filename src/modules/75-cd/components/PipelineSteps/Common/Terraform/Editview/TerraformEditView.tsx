@@ -107,8 +107,9 @@ export default function TerraformEditView(
     <>
       <Formik<TerraformData>
         onSubmit={(values: TerraformData) => {
-          /* istanbul ignore else */
+          /* istanbul ignore next */
           const payload = onSubmitTerraformData(values) as any
+          /* istanbul ignore next */
           onUpdate?.(payload)
         }}
         initialValues={setInitialValues(initialValues)}
@@ -117,6 +118,7 @@ export default function TerraformEditView(
         {(formik: FormikProps<TerraformData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
+
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>

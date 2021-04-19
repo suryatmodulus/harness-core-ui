@@ -169,11 +169,27 @@ describe('Test TerraformDestroy', () => {
                 workspace: 'testworkspace',
                 varFiles: [
                   {
-                    type: 'Inline',
-                    store: {
-                      type: 'Git',
-                      spec: {
-                        content: 'Test Content'
+                    varFile: {
+                      type: 'Inline',
+                      store: {
+                        type: 'Git',
+                        spec: {
+                          content: 'Test Content'
+                        }
+                      }
+                    }
+                  },
+                  {
+                    varFile: {
+                      type: 'Remote',
+                      store: {
+                        type: 'Git',
+                        spec: {
+                          gitFetchType: 'Branch',
+                          branch: 'main',
+                          paths: ['varFiles/may-vars/var1.tfvars', 'varFiles/may-vars/var2.tfvars'],
+                          connectorRef: 'myTfConnector1'
+                        }
                       }
                     }
                   }
@@ -292,7 +308,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -305,7 +336,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -318,7 +364,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -346,8 +407,21 @@ describe('Test TerraformDestroy', () => {
             },
             'step-provisionerIdentifier': {
               yamlProperties: {
-                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.provisionerIdentifier',
-                localName: 'step.terraformDestroy.provisionerIdentifier'
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.spec.provisionerIdentifier',
+                localName: 'step.terraformDestroy.spec.provisionerIdentifier'
+              }
+            },
+            'step-configurationWorkspace': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.workspace',
+                localName: 'step.terraformDestroy.configuration.spec.workspace'
+              }
+            },
+            'step-configBranch': {
+              yamlProperties: {
+                fqn:
+                  'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.configFiles.store.spec.branch',
+                localName: 'step.terraformDestroy.configuration.spec.configFiles.store.spec.branch'
               }
             }
           },
@@ -357,11 +431,26 @@ describe('Test TerraformDestroy', () => {
             identifier: 'Test_A',
             timeout: 'step-timeout',
 
-            delegateSSelectors: ['test-1', 'test-2'],
+            delegateSelectors: ['test-1', 'test-2'],
             spec: {
               provisionerIdentifier: 'step-provisionerIdentifier',
               configuration: {
-                type: 'InheritFromPlan'
+                type: 'Inline',
+                spec: {
+                  workspace: 'step-configurationWorkspace',
+                  configFiles: {
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        gitFetchType: 'Branch',
+                        repoName: 'test',
+                        branch: 'step-configBranch',
+                        folderPath: 'config/my-configs/',
+                        connectorRef: 'myTfConnector'
+                      }
+                    }
+                  }
+                }
               }
             }
           }

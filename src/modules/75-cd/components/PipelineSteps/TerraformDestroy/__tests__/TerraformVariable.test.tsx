@@ -1,10 +1,11 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { TerraformDestroy } from '../TerraformDestroy'
-import { act } from 'react-dom/test-utils'
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

@@ -68,6 +68,7 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
+    /* istanbul ignore next */
     return errors
   }
   renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {

@@ -6,13 +6,14 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 
-import type { TerraformData, VarFileArray } from '../TerraformInterfaces'
+import { TerraformData, TerraformStoreTypes, VarFileArray } from '../TerraformInterfaces'
 import TfVarFile from './TfVarFile'
 import css from './TerraformVarfile.module.scss'
 
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
 }
+
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
   const [showTfModal, setShowTfModal] = React.useState(false)
@@ -54,9 +55,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     className={css.tfContainer}
                     key={varFile?.varFile?.store?.spec?.connectorRef?.value}
                   >
-                    {varFile?.varFile?.type === getString('remote') && remoteRender(varFile)}
-                    {varFile?.varFile?.type === getString('inline') && inlineRender(varFile)}
-
+                    {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
+                    {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
                     <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
                   </Layout.Horizontal>
                 </div>
@@ -80,6 +80,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 onSubmit={(values: any) => {
                   /* istanbul ignore next */
                   push(values)
+                  /* istanbul ignore next */
                   setShowTfModal(false)
                 }}
               />

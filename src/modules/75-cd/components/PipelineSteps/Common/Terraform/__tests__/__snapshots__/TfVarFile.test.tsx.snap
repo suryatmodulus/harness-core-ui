@@ -1214,6 +1214,8 @@ exports[`Terraform var file creation testing form with right payload - for remot
 
 exports[`Terraform var file creation testing form with right payload - for remote store type 3`] = `<div />`;
 
+exports[`Terraform var file creation testing form with right payload - for remote store type with commitid 1`] = `<div />`;
+
 exports[`Terraform var file creation testing initial render 1`] = `
 <div
   class="bp3-dialog dialog bp3-dialog"

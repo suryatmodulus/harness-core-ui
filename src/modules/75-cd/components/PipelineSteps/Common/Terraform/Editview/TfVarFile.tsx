@@ -237,7 +237,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     intent={'primary'}
                     text={getString('addFile')}
                     onClick={() => {
-                      if (formik.values.varFile?.type === TerraformStoreTypes.Remote) {
+                      if (formik.values.varFile?.type?.toLowerCase() === TerraformStoreTypes.Remote.toLowerCase()) {
                         const payload = {
                           varFile: {
                             ...formik.values.varFile,

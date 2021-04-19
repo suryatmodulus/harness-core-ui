@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, getByText as getByTextBody, fireEvent } from '@testing-library/react'
+import { render, waitFor, getByText as getByTextBody, fireEvent, act } from '@testing-library/react'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
@@ -65,9 +65,18 @@ describe('Terraform var file creation testing', () => {
         value: 'pipelineSteps.deploy.inputSet.branch'
       }
     ])
+    await act(async () => {
+      fireEvent.click(dialog.querySelector('[data-testid="add-header"]')!)
+    })
 
+    await act(async () => {
+      const path0 = dialog.querySelector('input[name="varFile.store.spec.paths[0].path"]')
+      fireEvent.change(path0!, { target: { value: 'testInput1' } })
+      expect(dialog).toMatchSnapshot()
+    })
     fireEvent.click(getByTextBody(dialog, 'addFile'))
 
     expect(props.onSubmit).toBeCalled()
+    expect(dialog).toMatchSnapshot()
   })
 })

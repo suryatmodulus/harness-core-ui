@@ -107,6 +107,7 @@ export default function TerraformEditView(
     <>
       <Formik<TerraformData>
         onSubmit={(values: TerraformData) => {
+          /* istanbul ignore else */
           const payload = onSubmitTerraformData(values) as any
           onUpdate?.(payload)
         }}

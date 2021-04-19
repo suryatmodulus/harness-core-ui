@@ -237,7 +237,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
 
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
@@ -251,7 +251,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
@@ -264,7 +264,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, getByText as getByTextBody } from '@testing-library/react'
+import { render, waitFor, getByText as getByTextBody, fireEvent } from '@testing-library/react'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
@@ -57,8 +57,17 @@ describe('Terraform var file creation testing', () => {
         type: InputTypes.SELECT,
         fieldId: 'varFile.type',
         value: 'remote'
+      },
+      {
+        container: container,
+        type: InputTypes.SELECT,
+        fieldId: 'varFile.store.spec.gitFetchType',
+        value: 'pipelineSteps.deploy.inputSet.branch'
       }
     ])
-    expect(dialog).toMatchSnapshot()
+
+    fireEvent.click(getByTextBody(dialog, 'addFile'))
+
+    expect(props.onSubmit).toBeCalled()
   })
 })

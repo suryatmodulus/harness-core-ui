@@ -16,6 +16,7 @@ import {
   startPreflightCheckPromise,
   useGetPreflightCheckResponse
 } from 'services/pipeline-ng'
+import { useToaster } from '@common/exports'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
@@ -455,6 +456,14 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
   const [preFlightCheckId, setPreFlightCheckId] = useState<string | undefined>()
   const [preFlightCheckData, setPreFlightCheckData] = useState<ResponsePreFlightDTO | null>()
 
+  const { showError } = useToaster()
+  const { getString } = useStrings()
+
+  const processResponseError = (error?: { message?: string }) => {
+    showError(error?.message ? error?.message : getString('somethingWentWrong'))
+    onCloseButtonClick()
+  }
+
   // start preflight check
   useEffect(() => {
     if (!preFlightCheckId) {
@@ -466,9 +475,17 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
           pipelineIdentifier
         },
         body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
-      }).then(response => {
-        setPreFlightCheckId(response.data)
       })
+        .then(response => {
+          if (response?.status === 'ERROR' || response?.status === 'FAILURE') {
+            processResponseError(response as any)
+          } else {
+            setPreFlightCheckId(response.data)
+          }
+        })
+        .catch(error => {
+          processResponseError(error)
+        })
     }
   }, [pipeline, preFlightCheckId])
 
@@ -502,7 +519,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         }
       }
     }
-  }, [preFlightCheckId, preFlightCheckData, refetch])
+  }, [preFlightCheckId, preFlightCheckData])
 
   // auto close if check pass successfully
   useEffect(() => {

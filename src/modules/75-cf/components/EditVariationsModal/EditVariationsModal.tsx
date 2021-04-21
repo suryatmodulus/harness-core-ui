@@ -226,7 +226,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                       <Container width={20} />
                       <FormInput.Text
                         name={`variations.${index}.description`}
-                        label={getString('description')}
+                        label={getString('common.description')}
                         style={{ width: 220 }}
                       />
                       <Container width={5} />

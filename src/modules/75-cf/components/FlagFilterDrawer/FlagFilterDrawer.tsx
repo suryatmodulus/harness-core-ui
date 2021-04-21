@@ -126,7 +126,7 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
 
               <FormInput.TagInput
                 name="tags"
-                label={getString('tagsLabel')}
+                label={getString('common.tagsLabel')}
                 items={['placeholder1', 'placeholder2']}
                 labelFor={nameIcon => nameIcon as string}
                 itemFromNewTag={newTag => newTag}

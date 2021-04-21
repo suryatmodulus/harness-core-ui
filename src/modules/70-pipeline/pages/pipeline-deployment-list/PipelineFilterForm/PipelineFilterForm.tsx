@@ -183,8 +183,8 @@ export default function PipelineFilterForm<
         />
         {isPipeSetupType ? (
           <>
-            <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
-            <FormInput.KVTagInput name="pipelineTags" label={getString('tagsLabel')} key="pipelineTags" />
+            <FormInput.Text name={'description'} label={getString('common.description')} key={'description'} />
+            <FormInput.KVTagInput name="pipelineTags" label={getString('common.tagsLabel')} key="pipelineTags" />
           </>
         ) : null}
         {type === 'PipelineExecution' ? (

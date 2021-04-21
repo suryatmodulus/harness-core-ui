@@ -59,7 +59,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
               <Collapse
                 {...collapseProps}
                 onToggleOpen={setDescOpened}
-                heading={getString('description')}
+                heading={getString('common.description')}
                 isOpen={Boolean(props.values.description.length) || descOpened}
               >
                 <FormInput.TextArea name="description" />

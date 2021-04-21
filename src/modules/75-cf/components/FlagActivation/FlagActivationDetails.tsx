@@ -189,11 +189,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
                 <FormInput.Text name="name" label={getString('name')} />
 
-                <FormInput.TextArea name="description" label={getString('description')} />
+                <FormInput.TextArea name="description" label={getString('common.description')} />
 
                 <FormInput.TagInput
                   name="tags"
-                  label={getString('tagsLabel')}
+                  label={getString('common.tagsLabel')}
                   items={[]}
                   labelFor={nameTag => nameTag as string}
                   itemFromNewTag={newTag => newTag}

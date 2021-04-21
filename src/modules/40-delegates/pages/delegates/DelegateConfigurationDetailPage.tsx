@@ -207,11 +207,11 @@ export default function DelegateProfileDetails(): JSX.Element {
 
                   {/* Description */}
                   {!editMode && profile?.description && (
-                    <SectionLabelValuePair label={getString('description')} value={formData.description} />
+                    <SectionLabelValuePair label={getString('common.description')} value={formData.description} />
                   )}
                   {editMode && (
                     <SectionLabelValuePair
-                      label={getString('description')}
+                      label={getString('common.description')}
                       value={
                         <TextInput
                           defaultValue={formData.description}
@@ -238,13 +238,13 @@ export default function DelegateProfileDetails(): JSX.Element {
                   {/* Tags */}
                   {!editMode && profile?.selectors && (
                     <SectionLabelValuePair
-                      label={getString('tagsLabel')}
+                      label={getString('common.tagsLabel')}
                       value={<TagsViewer tags={formData.selectors || []} />}
                     />
                   )}
                   {editMode && (
                     <SectionLabelValuePair
-                      label={getString('tagsLabel')}
+                      label={getString('common.tagsLabel')}
                       value={
                         <SimpleTagInput
                           fill

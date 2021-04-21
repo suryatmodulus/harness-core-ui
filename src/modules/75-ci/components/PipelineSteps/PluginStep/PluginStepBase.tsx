@@ -101,7 +101,7 @@ export const PluginStepBase = (
                 multiTypeTextArea={{ expressions, disabled: readonly }}
                 className={css.removeBpLabelMargin}
                 name="description"
-                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.description')}</Text>}
               />
               <FormMultiTypeConnectorField
                 label={

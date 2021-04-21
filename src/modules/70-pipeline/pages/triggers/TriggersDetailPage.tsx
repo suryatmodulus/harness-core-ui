@@ -222,7 +222,7 @@ export default function TriggersDetailPage(): JSX.Element {
                       {triggerResponse?.data?.name}
                     </Text>
                     <hr />
-                    <Text>{getString('description')}</Text>
+                    <Text>{getString('common.description')}</Text>
                     <Text font={{ weight: 'bold' }} lineClamp={1}>
                       {triggerResponse?.data?.description || '-'}
                     </Text>
@@ -232,7 +232,7 @@ export default function TriggersDetailPage(): JSX.Element {
                       {triggerResponse?.data?.identifier}
                     </Text>
                     <hr />
-                    <Text>{getString('tagsLabel')}</Text>
+                    <Text>{getString('common.tagsLabel')}</Text>
                     {!isEmpty(triggerResponse?.data?.tags) ? (
                       <TagsPopover tags={triggerResponse?.data?.tags as tagsType} />
                     ) : null}

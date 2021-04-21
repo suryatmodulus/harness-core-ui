@@ -5,7 +5,6 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/exports'
 import type { tagsType } from '@common/utils/types'
-import i18n from './AddDescriptionAndTags.i18n'
 import css from './AddDescriptionAndTags.module.scss'
 
 export interface DescriptionAndTagsInputProps<T> {
@@ -64,11 +63,12 @@ interface AddFieldOptionProps {
 
 function FieldLabelWithHideOption(props: FieldLabelWithHideOptionProps): JSX.Element {
   const { onHide, fieldLabel } = props
+  const { getString } = useStrings()
   return (
     <Container className={css.headerRow}>
       <Text inline>{fieldLabel}</Text>
       <Text inline className={css.fieldToggleLabel} onClick={onHide} color={Color.BLUE_500}>
-        {i18n.hideInput}
+        {getString('common.hide')}
       </Text>
     </Container>
   )
@@ -102,6 +102,7 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
   const { formComponent, className, defaultOpenFields = [] } = props
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(defaultOpenFields.includes('description'))
   const [isTagsOpen, setIsTagsOpen] = useState(defaultOpenFields.includes('tags'))
+  const { getString } = useStrings()
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWrapper}>
@@ -109,11 +110,15 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
         {(!isDescriptionOpen || !isTagsOpen) && (
           <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
             <AddFieldOption
-              label={i18n.addDescriptionLabel}
+              label={getString('common.addDescription')}
               onClick={() => setIsDescriptionOpen(true)}
               isOpen={!isDescriptionOpen}
             />
-            <AddFieldOption label={i18n.addTagsLabel} onClick={() => setIsTagsOpen(true)} isOpen={!isTagsOpen} />
+            <AddFieldOption
+              label={getString('common.addTags')}
+              onClick={() => setIsTagsOpen(true)}
+              isOpen={!isTagsOpen}
+            />
           </Layout.Vertical>
         )}
       </Container>
@@ -122,14 +127,19 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
           className={css.expandedDescription}
           name="description"
           label={
-            <FieldLabelWithHideOption onHide={() => setIsDescriptionOpen(false)} fieldLabel={i18n.descriptionLabel} />
+            <FieldLabelWithHideOption
+              onHide={() => setIsDescriptionOpen(false)}
+              fieldLabel={getString('common.description')}
+            />
           }
         />
       )}
       {isTagsOpen && (
         <FormInput.TagInput
           name="tags"
-          label={<FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={i18n.tagsLabel} />}
+          label={
+            <FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={getString('common.tagsLabel')} />
+          }
           labelFor={name => (typeof name === 'string' ? name : '')}
           itemFromNewTag={newTag => newTag}
           items={[]}
@@ -156,6 +166,8 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
     formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0
   )
 
+  const { getString } = useStrings()
+
   React.useEffect(() => {
     setIsDescriptionOpen(formikProps?.values.description && formikProps.values.description.length > 0)
     setIsTagsOpen(formikProps?.values.tags && Object.keys(formikProps.values.tags).length > 0)
@@ -169,11 +181,15 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
         {(!isDescriptionOpen || !isTagsOpen) && (
           <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
             <AddFieldOption
-              label={i18n.addDescriptionLabel}
+              label={getString('common.addDescription')}
               onClick={() => setIsDescriptionOpen(true)}
               isOpen={!isDescriptionOpen}
             />
-            <AddFieldOption label={i18n.addTagsLabel} onClick={() => setIsTagsOpen(true)} isOpen={!isTagsOpen} />
+            <AddFieldOption
+              label={getString('common.addTags')}
+              onClick={() => setIsTagsOpen(true)}
+              isOpen={!isTagsOpen}
+            />
           </Layout.Vertical>
         )}
       </Container>
@@ -189,7 +205,7 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
                   setIsDescriptionOpen(false)
                   formikProps?.setFieldValue('description', '')
                 }}
-                fieldLabel={i18n.descriptionLabel}
+                fieldLabel={getString('common.description')}
               />
             }
           />
@@ -203,7 +219,7 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
                   setIsTagsOpen(false)
                   formikProps?.setFieldValue('tags', {})
                 }}
-                fieldLabel={i18n.tagsLabel}
+                fieldLabel={getString('common.tagsLabel')}
               />
             }
             className="expandedTags"
@@ -219,7 +235,7 @@ export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Eleme
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(
     formikProps?.values.description && formikProps.values.description.length > 0
   )
-
+  const { getString } = useStrings()
   React.useEffect(() => {
     setIsDescriptionOpen(formikProps?.values.description && formikProps.values.description.length > 0)
 
@@ -232,7 +248,7 @@ export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Eleme
         {!isDescriptionOpen && (
           <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
             <AddFieldOption
-              label={i18n.addDescriptionLabel}
+              label={getString('common.addDescription')}
               onClick={() => setIsDescriptionOpen(true)}
               isOpen={!isDescriptionOpen}
             />
@@ -251,7 +267,7 @@ export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Eleme
                   setIsDescriptionOpen(false)
                   formikProps?.setFieldValue('description', '')
                 }}
-                fieldLabel={i18n.descriptionLabel}
+                fieldLabel={getString('common.description')}
               />
             }
           />

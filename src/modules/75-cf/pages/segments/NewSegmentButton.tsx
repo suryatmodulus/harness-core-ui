@@ -96,12 +96,12 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
                     inputLabel={getString('name')}
                   />
                   <div className={css.collapse}>
-                    <Collapse {...collapseProps} heading={getString('description')}>
+                    <Collapse {...collapseProps} heading={getString('common.description')}>
                       <FormInput.TextArea name="description" />
                     </Collapse>
                   </div>
                   <div className={css.collapse}>
-                    <Collapse {...collapseProps} heading={getString('tagsLabel')}>
+                    <Collapse {...collapseProps} heading={getString('common.tagsLabel')}>
                       <FormInput.TagInput
                         name="tags"
                         label=""
@@ -111,7 +111,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
                         tagInputProps={{
                           showClearAllButton: true,
                           allowNewTag: true,
-                          placeholder: getString('tagsLabel')
+                          placeholder: getString('common.tagsLabel')
                         }}
                       />
                     </Collapse>

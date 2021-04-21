@@ -47,7 +47,7 @@ export const RenderDetailsTable: React.FC<RenderDetailsSectionProps> = props => 
       </Text>
 
       {props.data.map((item, index) => {
-        if (item.value && (item.label === getString('tagsLabel') ? Object.keys(item.value).length : true)) {
+        if (item.value && (item.label === getString('common.tagsLabel') ? Object.keys(item.value).length : true)) {
           return (
             <Layout.Vertical
               className={css.detailsSectionRowWrapper}
@@ -56,7 +56,7 @@ export const RenderDetailsTable: React.FC<RenderDetailsSectionProps> = props => 
               key={`${item.value}${index}`}
             >
               <Text font={{ size: 'small' }}>{item.label}</Text>
-              {item.label === getString('tagsLabel') && typeof item.value === 'object' ? (
+              {item.label === getString('common.tagsLabel') && typeof item.value === 'object' ? (
                 renderTags(item.value as tagsType)
               ) : (
                 <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>

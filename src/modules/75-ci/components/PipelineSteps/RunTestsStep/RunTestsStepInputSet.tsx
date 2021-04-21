@@ -32,7 +32,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormInput.TextArea
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
-          label={getString('description')}
+          label={getString('common.description')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

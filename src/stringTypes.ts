@@ -8,6 +8,8 @@ export interface StringsMap {
   'common.PermissibleActions': string
   'common.accViewer': string
   'common.accessKey': string
+  'common.addDescription': string
+  'common.addTags': string
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
@@ -74,6 +76,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
   'common.delegateForTask': string
+  'common.description': string
   'common.disable': string
   'common.duplicateId': string
   'common.durationPrefix': string
@@ -114,6 +117,7 @@ export interface StringsMap {
   'common.git.startPRLabel': string
   'common.git.urlType': string
   'common.git.validation.filePath': string
+  'common.hide': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
@@ -185,6 +189,7 @@ export interface StringsMap {
   'common.secrets': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.tagsLabel': string
   'common.trialInProgress': string
   'common.userGroup': string
   'common.userGroups': string
@@ -2913,10 +2918,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   deploymentsText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  description: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6709,10 +6710,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   tagsInfo: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  tagsLabel: string
   /**
    * @deprecated migrate this string to module level file
    */

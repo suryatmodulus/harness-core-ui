@@ -207,7 +207,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
           tooltip={
             data?.tags?.length ? (
               <>
-                <Text>{getString('tagsLabel').toUpperCase()}</Text>
+                <Text>{getString('common.tagsLabel').toUpperCase()}</Text>
                 {data.tags.map((elem, i) => (
                   <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
                 ))}

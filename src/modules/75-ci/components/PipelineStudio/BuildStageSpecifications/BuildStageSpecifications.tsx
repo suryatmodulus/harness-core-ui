@@ -215,7 +215,11 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                           {getString('removeLabel')}
                         </span>
                       )}
-                      <FormInput.TextArea name={'description'} label={getString('description')} disabled={isReadonly} />
+                      <FormInput.TextArea
+                        name={'description'}
+                        label={getString('common.description')}
+                        disabled={isReadonly}
+                      />
                     </div>
                   )}
 

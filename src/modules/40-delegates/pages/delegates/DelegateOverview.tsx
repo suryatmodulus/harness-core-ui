@@ -57,7 +57,9 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
         }
       />
 
-      {delegate.description && <SectionLabelValuePair label={getString('description')} value={delegate.description} />}
+      {delegate.description && (
+        <SectionLabelValuePair label={getString('common.description')} value={delegate.description} />
+      )}
     </SectionContainer>
   )
 }

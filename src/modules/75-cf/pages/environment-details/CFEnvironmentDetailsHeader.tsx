@@ -67,7 +67,7 @@ const CFEnvironmentDetailsHeader: React.FC<{
           </Layout.Horizontal>
           {Object.keys(environment.tags ?? {}).length > 0 && (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <Text font={{ weight: 'bold', size: 'normal' }}>{getString('tagsLabel')}</Text>
+              <Text font={{ weight: 'bold', size: 'normal' }}>{getString('common.tagsLabel')}</Text>
               <TagsViewer tags={Object.values(environment.tags || [])} />
             </Layout.Horizontal>
           )}

@@ -3,6 +3,8 @@ delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 production: Production
+description: Description
+addDescription: '+ Description'
 addVariable: Add Variable
 editVariable: Edit variable
 editVariableType: Edit variable type
@@ -15,6 +17,9 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+tagsLabel: Tags
+addTags: '+ Tags'
+hide: Hide
 PermissibleActions: Permissible Actions
 My: My
 ID: ID

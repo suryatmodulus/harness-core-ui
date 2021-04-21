@@ -46,8 +46,8 @@ describe('NameIdDescriptionTags  tests', () => {
 
     test('On Edit Render - Name, ID, Description, and Tags', async () => {
       const { container } = render(<WrapperComponent initialValues={onEditInitialValues} />)
-      expect(result.current.getString('description')).not.toBeNull()
-      expect(result.current.getString('tagsLabel')).not.toBeNull()
+      expect(result.current.getString('common.description')).not.toBeNull()
+      expect(result.current.getString('common.tagsLabel')).not.toBeNull()
       expect(container).toMatchSnapshot()
     })
 

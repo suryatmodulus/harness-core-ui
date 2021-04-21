@@ -48,7 +48,9 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
       <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-        {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
+        {isOptional
+          ? getString('optionalField', { name: getString('common.description') })
+          : getString('common.description')}
         {!isDescriptionOpen && (
           <Icon
             className={css.editOpen}
@@ -85,7 +87,9 @@ const Tags = (props: TagsComponentProps): JSX.Element => {
   return (
     <Container>
       <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-        {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
+        {isOptional
+          ? getString('optionalField', { name: getString('common.tagsLabel') })
+          : getString('common.tagsLabel')}
         {!isTagsOpen && (
           <Icon
             className={css.editOpen}
@@ -113,7 +117,7 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
   return (
     <Container>
       <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-        {getString('tagsLabel')}
+        {getString('common.tagsLabel')}
         {!isTagsOpen && (
           <Icon
             className={css.editOpen}

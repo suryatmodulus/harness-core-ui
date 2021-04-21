@@ -67,7 +67,7 @@ const NameCell = withEnvironment(({ environment }) => {
           tooltip={
             tags.length ? (
               <>
-                <Text>{getString('tagsLabel').toUpperCase()}</Text>
+                <Text>{getString('common.tagsLabel').toUpperCase()}</Text>
                 {tags.map((elem, i) => (
                   <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
                 ))}

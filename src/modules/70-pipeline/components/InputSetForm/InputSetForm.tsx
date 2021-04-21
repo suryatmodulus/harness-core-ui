@@ -77,8 +77,8 @@ const collapseProps = {
 
 export const BasicInputSetForm: React.FC<{ isEdit: boolean; values: InputSetDTO }> = ({ isEdit, values }) => {
   const { getString } = useStrings()
-  const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: getString('description') })
-  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
+  const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: getString('common.description') })
+  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('common.tagsLabel') })
   return (
     <div className={css.basicForm}>
       <FormInput.InputWithIdentifier

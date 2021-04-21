@@ -318,7 +318,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             allowCreatingNewItems: false
           }}
         />
-        <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} key="tags" />
+        <FormInput.KVTagInput name="tags" label={getString('common.tagsLabel')} key="tags" />
         <FormInput.MultiSelect
           items={getOptionsForMultiSelect(ConnectorStatCategories.STATUS, metaData || {})}
           name="connectivityStatuses"
@@ -330,7 +330,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         />
         <FormInput.Text name={'connectorNames'} label={getString('connectors.name')} key={'connectorNames'} />
         <FormInput.Text name={'connectorIdentifiers'} label={getString('identifier')} key={'connectorIdentifiers'} />
-        <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
+        <FormInput.Text name={'description'} label={getString('common.description')} key={'description'} />
       </>
     )
   }
@@ -527,9 +527,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const fieldToLabelMapping = new Map<string, string>()
   fieldToLabelMapping.set('connectorNames', getString('connectors.name'))
   fieldToLabelMapping.set('connectorIdentifiers', getString('identifier'))
-  fieldToLabelMapping.set('description', getString('description'))
+  fieldToLabelMapping.set('description', getString('common.description'))
   fieldToLabelMapping.set('types', getString('typeLabel'))
-  fieldToLabelMapping.set('tags', getString('tagsLabel'))
+  fieldToLabelMapping.set('tags', getString('common.tagsLabel'))
   fieldToLabelMapping.set('connectivityStatuses', getString('connectivityStatus'))
 
   const reset = (): void => {

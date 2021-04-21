@@ -40,9 +40,9 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
   const getSecretDetailsRow = (): ActivityDetailsRowInterface[] => {
     return [
       { label: getString('name'), value: secret.name },
-      { label: getString('description'), value: secret.description },
+      { label: getString('common.description'), value: secret.description },
       { label: getString('identifier'), value: secret.identifier },
-      { label: getString('tagsLabel'), value: secret.tags }
+      { label: getString('common.tagsLabel'), value: secret.tags }
     ]
   }
 

@@ -117,7 +117,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
     isOpen: false,
     isRemovable: false,
     className: 'collapse',
-    heading: getString('description')
+    heading: getString('common.description')
   }
 
   return (

@@ -151,7 +151,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 },
                 {
                   accessor: 'tags',
-                  Header: getString('tagsLabel'),
+                  Header: getString('common.tagsLabel'),
                   width: '10%',
                   Cell: TableCell,
                   disableSortBy: true

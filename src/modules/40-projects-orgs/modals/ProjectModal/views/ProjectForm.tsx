@@ -64,9 +64,9 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   } = props
   const { getString } = useStrings()
   const descriptionCollapseProps = Object.assign({}, collapseProps, {
-    heading: getString('description')
+    heading: getString('common.description')
   })
-  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
+  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('common.tagsLabel') })
 
   return (
     <Formik

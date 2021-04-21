@@ -147,7 +147,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
                     <Container className={css.collapse}>
                       <Collapse
                         {...collapseProps}
-                        heading={getString('description')}
+                        heading={getString('common.description')}
                         collapseHeaderClassName={css.collapseHeaderFix}
                       >
                         <FormInput.TextArea name="description" />
@@ -156,7 +156,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
                     <Container className={css.collapse}>
                       <Collapse
                         {...collapseProps}
-                        heading={getString('tagsLabel')}
+                        heading={getString('common.tagsLabel')}
                         collapseHeaderClassName={css.collapseHeaderFix}
                       >
                         <FormInput.TagInput

@@ -99,7 +99,7 @@ export const DependencyBase = (
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
-                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.description')}</Text>}
                 style={{ marginBottom: 'var(--spacing-xsmall)' }}
                 multiTypeTextArea={{
                   disabled: readonly

@@ -52,7 +52,7 @@ export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChec
           tooltip={
             tags.length ? (
               <Layout.Vertical padding="medium" spacing="medium" style={{ maxWidth: 400 }}>
-                <Text>{getString('tagsLabel').toUpperCase()}</Text>
+                <Text>{getString('common.tagsLabel').toUpperCase()}</Text>
                 <TagsViewer tags={tags} />
               </Layout.Vertical>
             ) : undefined

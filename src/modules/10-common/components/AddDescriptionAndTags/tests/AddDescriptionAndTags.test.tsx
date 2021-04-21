@@ -1,16 +1,18 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
+import { StringsContext } from 'framework/strings/StringsContext'
 import { AddDescriptionAndTagsWithIdentifier } from '../AddDescriptionAndTags'
-import i18n from '../AddDescriptionAndTags.i18n'
 
 function WrapperComponent(props: { defaultOpenFields?: string[] }): JSX.Element {
   return (
-    <Formik initialValues={{}} onSubmit={() => undefined}>
-      <FormikForm>
-        <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} {...props} />
-      </FormikForm>
-    </Formik>
+    <StringsContext.Provider value={{ data: {} as any, getString: key => key }}>
+      <Formik initialValues={{}} onSubmit={() => undefined}>
+        <FormikForm>
+          <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} {...props} />
+        </FormikForm>
+      </Formik>
+    </StringsContext.Provider>
   )
 }
 
@@ -22,15 +24,15 @@ describe('Unit tests for AddDescriptionTags Component', () => {
     expect(container.querySelector('[class*="expandedDescription"]')).toBeNull()
     expect(container.querySelector('[class*="expandedTags"]')).toBeNull()
 
-    const descriptionButton = getByText(i18n.addDescriptionLabel)
+    const descriptionButton = getByText('common.addDescription')
     fireEvent.click(descriptionButton)
     await waitFor(() => expect(container.querySelector('[class*="expandedDescription"]')).not.toBeNull())
 
-    const tagsButton = getByText(i18n.addTagsLabel)
+    const tagsButton = getByText('common.addTags')
     fireEvent.click(tagsButton)
     await waitFor(() => expect(container.querySelector('[class*="expandedTags"]')).not.toBeNull())
 
-    const hideButtons = getAllByText(i18n.hideInput)
+    const hideButtons = getAllByText('common.hide')
     expect(hideButtons.length).toBe(2)
 
     fireEvent.click(hideButtons[0])

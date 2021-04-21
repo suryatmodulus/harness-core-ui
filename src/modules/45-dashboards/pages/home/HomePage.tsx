@@ -102,7 +102,7 @@ const FirstStep = (props: any): JSX.Element => {
                 />
                 <FormInput.Text
                   name="description"
-                  label={getString('description')}
+                  label={getString('common.description')}
                   placeholder={getString('dashboards.createModal.descriptionPlaceholder')}
                 />
                 <Layout.Vertical style={{ marginTop: '180px' }}>

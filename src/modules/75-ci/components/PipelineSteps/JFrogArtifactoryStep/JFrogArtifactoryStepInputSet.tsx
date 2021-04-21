@@ -22,7 +22,7 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
         <FormInput.TextArea
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
-          label={getString('description')}
+          label={getString('common.description')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

@@ -174,7 +174,7 @@ export const DelegateListing: React.FC = () => {
       Cell: RenderNameColumn
     },
     {
-      Header: getString('tagsLabel').toUpperCase(),
+      Header: getString('common.tagsLabel').toUpperCase(),
       accessor: (row: DelegateInner) => row.tags,
       id: 'tags',
       width: '30%',

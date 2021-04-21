@@ -177,7 +177,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     isOpen: false,
     isRemovable: false,
     className: 'collapse',
-    heading: getString('description')
+    heading: getString('common.description')
   }
 
   return (

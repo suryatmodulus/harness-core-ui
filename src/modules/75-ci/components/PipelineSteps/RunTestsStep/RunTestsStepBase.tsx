@@ -116,7 +116,7 @@ export const RunTestsStepBase = (
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
-                label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.description')}</Text>}
                 multiTypeTextArea={{ expressions, disabled: readonly }}
               />
               <FormMultiTypeConnectorField

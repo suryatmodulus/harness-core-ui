@@ -344,7 +344,7 @@ const FormContent = ({
 
               <FormMultiTypeTextAreaField
                 name="spec.description"
-                label={getString('description')}
+                label={getString('common.description')}
                 isOptional={true}
                 className={cx(css.descriptionField, css.md)}
                 multiTypeTextArea={{ enableConfigureOptions: false, expressions }}

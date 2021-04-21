@@ -57,8 +57,8 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
       {type === 'SecretFile' ? (
         <FormInput.FileInput name="file" label={getString('secret.labelSecretFile')} multiple />
       ) : null}
-      <FormInput.TextArea name="description" label={getString('description')} />
-      <FormInput.KVTagInput name="tags" label={getString('tagsLabel')} />
+      <FormInput.TextArea name="description" label={getString('common.description')} />
+      <FormInput.KVTagInput name="tags" label={getString('common.tagsLabel')} />
     </>
   )
 }

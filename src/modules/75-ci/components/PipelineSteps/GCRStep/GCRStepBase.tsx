@@ -177,7 +177,7 @@ export const GCRStepBase = (
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('tagsLabel')}
+                      {getString('common.tagsLabel')}
                       <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
                     </Text>
                   )

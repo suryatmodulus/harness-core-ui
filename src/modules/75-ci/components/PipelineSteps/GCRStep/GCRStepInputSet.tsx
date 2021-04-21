@@ -96,7 +96,7 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
           name={`${isEmpty(path) ? '' : `${path}.`}spec.tags`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('tagsLabel')}
+              {getString('common.tagsLabel')}
               <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }

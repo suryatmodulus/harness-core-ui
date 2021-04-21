@@ -220,7 +220,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         Cell: RenderColumnInputSet
       },
       {
-        Header: getString('description').toUpperCase(),
+        Header: getString('common.description').toUpperCase(),
         accessor: 'description',
         width: '20%',
         Cell: RenderColumnDescription,

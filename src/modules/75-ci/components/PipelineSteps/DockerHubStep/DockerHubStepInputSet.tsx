@@ -68,7 +68,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.tags`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('tagsLabel')}
+              {getString('common.tagsLabel')}
               <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }

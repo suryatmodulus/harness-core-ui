@@ -341,7 +341,6 @@ editNotification: Edit Notification
 addNotification: + Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
-description: Description
 optionalField: '{{name}} (optional)'
 recentlyUsed: Recently Used
 applications: Applications
@@ -349,7 +348,6 @@ stageDetails: Stage Details
 stageOverview: Stage Overview
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
-tagsLabel: Tags
 tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image
 whatToDeploy: What would you like to deploy?

@@ -120,7 +120,7 @@ const ProjectDetails: React.FC = () => {
                 restrictLengthTo={6}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>
-                {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
+                {`${getString('common.admin')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
               </Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">

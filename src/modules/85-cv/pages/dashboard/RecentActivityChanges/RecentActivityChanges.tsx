@@ -202,7 +202,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
     } ${getString('cv.activityChanges.minutesRemaining').toLocaleLowerCase()})`
   } else if (status === 'VERIFICATION_FAILED') {
     progressStatus = `${getString('cv.admin.notifications.create.stepThree.verification')} ${getString(
-      'failed'
+      'common.failed'
     ).toLocaleLowerCase()} (${getString('cv.riskScore')}: ${overallRisk})`
   } else if (status === 'VERIFICATION_PASSED') {
     progressStatus = `${getString('cv.admin.notifications.create.stepThree.verification')} ${getString(
@@ -250,7 +250,7 @@ export default function RecentActivityChanges(): JSX.Element {
           iconSize={30}
           message={error.message}
           className={css.noData}
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           onClick={() => refetchActivities()}
         />
       </ul>

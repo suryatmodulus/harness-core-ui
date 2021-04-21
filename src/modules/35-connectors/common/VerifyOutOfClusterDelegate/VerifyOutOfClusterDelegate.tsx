@@ -320,7 +320,7 @@ const VerifyOutOfClusterDelegate: React.FC<
     <Layout.Vertical padding={{ top: 'large', right: 'small', left: 'small', bottom: 'large' }} height={'100%'}>
       <Layout.Vertical>
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
-          {getString('connectors.stepThreeName')}
+          {getString('common.testConnection')}
         </Text>
         {prevStepData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? null : (
           <RenderUrlInfo type={props.type} prevStepData={prevStepData} url={props.url} />

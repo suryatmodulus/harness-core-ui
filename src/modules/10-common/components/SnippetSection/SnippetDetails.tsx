@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Icon } from '@wings-software/uicore'
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
 import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
-import i18n from './SnippetDetails.i18n'
+import { useStrings } from 'framework/exports'
 import Snippet from './Snippet'
 
 import css from './SnippetDetails.module.scss'
@@ -21,6 +21,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
   const { entityType, onSnippetCopy, snippetFetchResponse, selectedIcon } = props
   const [snippets, setSnippets] = useState<YamlSnippetMetaData[]>()
   const [searchedSnippet, setSearchedSnippet] = useState('')
+  const { getString } = useStrings()
 
   useEffect(() => {
     setSearchedSnippet('')
@@ -54,7 +55,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
     <div className={css.main}>
       <div className={css.title}>
         <span style={{ textTransform: 'capitalize' }}>{entityType.replace(/s$/, '')}</span>&nbsp;
-        {i18n.title}
+        {getString('common.snippets')}
       </div>
       <div className={css.searchBar}>
         <span className={css.searchIcon}>

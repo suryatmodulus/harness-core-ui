@@ -273,7 +273,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
           <NoDataCard
             icon="warning-sign"
             message={getString('cv.activitySources.harnessCD.environment.noData')}
-            buttonText={getString('retry')}
+            buttonText={getString('common.retry')}
             onClick={() => refetchEnvironments()}
           />
         </Container>

@@ -300,7 +300,7 @@ export default function TriggersDetailPage(): JSX.Element {
                   iconProps={{ color: Color.RED_500 }}
                   color={Color.RED_500}
                 >
-                  {getString('failed')}
+                  {getString('common.failed')}
                 </Text>
               ) : (
                 triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === true && (

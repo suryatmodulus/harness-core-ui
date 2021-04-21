@@ -181,7 +181,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         Cell: RenderColumnOrganization
       },
       {
-        Header: getString('adminLabel'),
+        Header: getString('common.admin'),
         id: 'admin',
         accessor: row => row.projectResponse.project.color,
         width: '15%',

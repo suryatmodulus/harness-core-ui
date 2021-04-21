@@ -215,7 +215,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
         <NoDataCard
           message={isViewingAnomalousData ? getString('cv.noAnomalies') : getString('cv.noAnalysis')}
           icon="warning-sign"
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           className={css.noDataCard}
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />

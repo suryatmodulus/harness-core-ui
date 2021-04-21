@@ -11,6 +11,11 @@ export interface StringsMap {
   'common.addDescription': string
   'common.addTags': string
   'common.addVariable': string
+  'common.admin': string
+  'common.adminPage.addUser': string
+  'common.adminPage.noData': string
+  'common.adminPage.title': string
+  'common.adminSelector': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
   'common.authSettings.accountOrOAuthLogin': string
@@ -68,6 +73,9 @@ export interface StringsMap {
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
+  'common.connectorStats.connectorCreated': string
+  'common.connectorStats.lastTested': string
+  'common.connectorStats.lastUpdated': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -83,7 +91,9 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.execute': string
+  'common.failed': string
   'common.failureRate': string
+  'common.generalError': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
   'common.git.applicationId': string
@@ -117,10 +127,15 @@ export interface StringsMap {
   'common.git.startPRLabel': string
   'common.git.urlType': string
   'common.git.validation.filePath': string
+  'common.governance': string
+  'common.governancePage.add': string
+  'common.governancePage.noData': string
   'common.hide': string
   'common.input': string
   'common.jexlExpression': string
+  'common.lastConnectionSuccess': string
   'common.letsGetYouStarted': string
+  'common.loadingPleaseWait': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.member': string
@@ -167,6 +182,7 @@ export interface StringsMap {
   'common.repo_provider.customLabel': string
   'common.repo_provider.githubLabel': string
   'common.repo_provider.gitlabLabel': string
+  'common.retry': string
   'common.role': string
   'common.samlProvider.addSAMLProvider': string
   'common.samlProvider.azure': string
@@ -188,8 +204,11 @@ export interface StringsMap {
   'common.secretKey': string
   'common.secrets': string
   'common.selectStrategy': string
+  'common.snippets': string
   'common.specify': string
+  'common.successful': string
   'common.tagsLabel': string
+  'common.testConnection': string
   'common.trialInProgress': string
   'common.userGroup': string
   'common.userGroups': string
@@ -428,7 +447,6 @@ export interface StringsMap {
   'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
   'connectors.stepFourName': string
-  'connectors.stepThreeName': string
   'connectors.successfullCreate': string
   'connectors.successfullUpdate': string
   'connectors.successfullyCreated': string
@@ -1826,10 +1844,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   adminFunctions: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  adminLabel: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3325,10 +3339,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  failed: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   featureFlagsText: string
   /**
    * @deprecated migrate this string to module level file
@@ -3518,10 +3528,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   goToHome: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  governance: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3806,10 +3812,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   lastActivity: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  lastConnectionSuccess: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6034,10 +6036,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   restart: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  retry: string
   /**
    * @deprecated migrate this string to module level file
    */

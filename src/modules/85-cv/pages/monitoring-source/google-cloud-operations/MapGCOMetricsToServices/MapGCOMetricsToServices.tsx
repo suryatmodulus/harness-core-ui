@@ -374,7 +374,7 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
         <NoDataCard
           icon="warning-sign"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')}
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           onClick={() => onRetry()}
         />
       </Container>

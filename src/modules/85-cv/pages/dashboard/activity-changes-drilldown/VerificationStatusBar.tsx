@@ -97,7 +97,7 @@ export function mapStatus(
       return getString('passed').toLocaleLowerCase()
     case 'VERIFICATION_FAILED':
     case 'ERROR':
-      return getString('failed').toLocaleLowerCase()
+      return getString('common.failed').toLocaleLowerCase()
     default:
       return getString('executionStatus.NotStarted').toLocaleLowerCase()
   }

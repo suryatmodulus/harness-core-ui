@@ -51,7 +51,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         hideModal={props.onClose}
       />
       <VerifyOutOfClusterDelegate
-        name={getString('connectors.stepThreeName')}
+        name={getString('common.testConnection')}
         isStep
         isLastStep={true}
         type={Connectors.KUBERNETES_CLUSTER}

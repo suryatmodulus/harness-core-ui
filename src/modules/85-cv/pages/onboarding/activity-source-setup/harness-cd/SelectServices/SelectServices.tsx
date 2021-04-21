@@ -359,7 +359,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
           <NoDataCard
             icon="warning-sign"
             message={getString('cv.activitySources.harnessCD.service.noData')}
-            buttonText={getString('retry')}
+            buttonText={getString('common.retry')}
             onClick={() => refetch()}
           />
         </Container>

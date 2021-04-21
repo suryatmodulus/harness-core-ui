@@ -3,7 +3,7 @@ import { Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Container, Heading, Icon, Text, IconName, Popover } from '@wings-software/uicore'
 import { NavLink } from 'react-router-dom'
-import i18n from './AdminSelector.i18n'
+import { useStrings } from 'framework/exports'
 import css from './AdminSelector.module.scss'
 
 export interface AdminSelectorProps {
@@ -12,6 +12,7 @@ export interface AdminSelectorProps {
 }
 
 export const AdminSelector: React.FC<AdminSelectorProps> = ({ children, path }) => {
+  const { getString } = useStrings()
   return (
     <Popover
       interactionKind={PopoverInteractionKind.CLICK}
@@ -22,11 +23,11 @@ export const AdminSelector: React.FC<AdminSelectorProps> = ({ children, path }) 
       fill={true}
     >
       <NavLink className={css.adminLink} activeClassName={css.active} to={path} onClick={e => e.preventDefault()}>
-        {i18n.admin}
+        {getString('common.admin')}
       </NavLink>
       <Container width={300} padding="medium">
         <Heading level={2} font={{ weight: 'semi-bold' }} padding="small" margin={{ bottom: 'large' }}>
-          {i18n.adminSelector}
+          {getString('common.adminSelector')}
         </Heading>
         <Container className={cx(css.grid, Classes.POPOVER_DISMISS)}>{children}</Container>
       </Container>

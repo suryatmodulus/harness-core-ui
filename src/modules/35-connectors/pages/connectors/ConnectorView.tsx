@@ -323,7 +323,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
         ></Icon>
         <Text inline={true} font={{ size: 'medium' }} color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}>
-          {status === ConnectorStatus.FAILURE ? getString('failed') : getString('success')}
+          {status === ConnectorStatus.FAILURE ? getString('common.failed') : getString('success')}
         </Text>
       </>
     )

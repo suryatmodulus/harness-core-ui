@@ -466,7 +466,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
               <NoDataCard
                 message={getString('cv.monitoringSources.appD.noTiersMsg')}
                 icon="warning-sign"
-                buttonText={getString('retry')}
+                buttonText={getString('common.retry')}
                 onClick={() =>
                   loadTiers({
                     queryParams: {

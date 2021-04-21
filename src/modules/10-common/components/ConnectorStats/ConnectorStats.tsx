@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import { Layout, Text, Color } from '@wings-software/uicore'
 import { StringUtils } from '@common/exports'
 import type { ConnectorConnectivityDetails } from 'services/cd-ng'
-import i18n from './ConnectorStats.i18n'
+import { useStrings } from 'framework/exports'
 import css from './ConnectorStats.module.scss'
 
 interface ConnectorStatsProps {
@@ -25,21 +25,22 @@ const getValue = (value?: number) => {
 
 const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
   const { createdAt, lastUpdated, lastTested, lastConnected, className } = props
+  const { getString } = useStrings()
   const nameValue = [
     {
-      name: i18n.connectorCreated,
+      name: getString('common.connectorStats.connectorCreated'),
       value: getValue(createdAt)
     },
     {
-      name: i18n.lastTested,
+      name: getString('common.connectorStats.lastTested'),
       value: getValue(lastTested)
     },
     {
-      name: i18n.lastUpdated,
+      name: getString('common.connectorStats.lastUpdated'),
       value: getValue(lastUpdated)
     },
     {
-      name: i18n.lastConnectorSuccess,
+      name: getString('common.lastConnectionSuccess'),
       value: getValue(lastConnected)
     }
   ]
@@ -52,7 +53,7 @@ const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
               <Layout.Horizontal key={index} spacing="large" className={css.nameValueItem}>
                 <span className={css.name}>{item.name}</span>
                 <span className={css.value}>{item.value}</span>
-                {item.name === i18n.lastTested && lastTested ? (
+                {item.name === getString('common.connectorStats.lastTested') && lastTested ? (
                   <Text
                     inline
                     icon={props.status === TestStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
@@ -61,7 +62,7 @@ const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
                       color: props.status === TestStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                     }}
                   >
-                    {props.status === TestStatus.SUCCESS ? i18n.success : i18n.failed}
+                    {props.status === TestStatus.SUCCESS ? getString('common.successful') : getString('common.failed')}
                   </Text>
                 ) : null}
               </Layout.Horizontal>

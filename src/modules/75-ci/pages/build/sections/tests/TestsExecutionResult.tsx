@@ -52,7 +52,7 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
               margin={{ right: 'xsmall' }}
               style={{ fontSize: 10 }}
             >
-              {getString('failed')}
+              {getString('common.failed')}
             </Text>
             <Text
               font={{ weight: 'semi-bold' }}

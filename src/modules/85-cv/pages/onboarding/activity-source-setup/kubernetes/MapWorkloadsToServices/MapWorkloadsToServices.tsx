@@ -331,7 +331,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
         <NoDataCard
           message={getString('cv.activitySources.kubernetes.noWorkloads')}
           icon="warning-sign"
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           onClick={() => refetchWorkloads()}
           className={css.noWorkloads}
         />

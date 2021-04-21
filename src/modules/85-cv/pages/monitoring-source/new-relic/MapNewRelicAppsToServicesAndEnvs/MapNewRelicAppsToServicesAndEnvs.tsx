@@ -227,7 +227,7 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
             }}
             noData={{
               onClick: () => refetch(),
-              buttonText: getString('retry'),
+              buttonText: getString('common.retry'),
               message: getString('cv.monitoringSources.appD.noAppsMsg')
             }}
             tableFilterProps={{

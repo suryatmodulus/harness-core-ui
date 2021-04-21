@@ -25,7 +25,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
     <Layout.Vertical>
       <Button
         className={css.testButton}
-        text={getString('connectors.stepThreeName')}
+        text={getString('common.testConnection')}
         onClick={() => {
           openErrorModal(props.connectorIdentifier, props.connectorType, props.url)
         }}

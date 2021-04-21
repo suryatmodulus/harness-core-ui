@@ -42,7 +42,7 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
-        name={getString('connectors.stepThreeName')}
+        name={getString('common.testConnection')}
         isStep={true}
         isLastStep={true}
         type={'Gcr'}

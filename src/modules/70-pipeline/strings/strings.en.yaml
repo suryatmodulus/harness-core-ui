@@ -129,7 +129,7 @@ failureStrategies:
     onTimeoutLabel: Post timeout action
     onRetryFailureLabel: Post retry failure action
   strategiesLabel:
-    Retry: '{{ $.retry }}'
+    Retry: '{{ $.common.retry }}'
     Abort: '{{ $.abort }}'
     Ignore: Ignore Failure
     StageRollback: Rollback Stage

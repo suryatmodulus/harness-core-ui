@@ -16,7 +16,7 @@ export default function VerificationStatusCard({ status }: { status: Verificatio
       backgroundColor = Color.BLUE_350
       break
     case 'VERIFICATION_FAILED':
-      statusMessage = getString('failed')
+      statusMessage = getString('common.failed')
       color = Color.RED_500
       backgroundColor = Color.RED_350
       break

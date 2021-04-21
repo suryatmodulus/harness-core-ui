@@ -56,7 +56,7 @@ export const ValidationCell = ({ tier, onValidateTier, onShowValidationResult }:
             icon="refresh"
             iconProps={{ size: 12 }}
             color={Color.BLUE_500}
-            text={getString('retry')}
+            text={getString('common.retry')}
             onClick={onValidateTier}
           />
         </Layout.Horizontal>

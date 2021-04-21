@@ -91,7 +91,6 @@ selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
 configureHarnessFolder: 'Configure Harness Folder'
 lastTested: Last Tested
 lastUpdated: Last Updated
-lastConnectionSuccess: Last time connection is successful
 lastActivity: Last Activity
 noDetails: No details found
 connecectorHelpHeader: What is a Connector?
@@ -293,7 +292,6 @@ na: N/A
 all: All
 plus: +
 passed: Passed
-failed: Failed
 success: Success
 inProgress: In Progress
 todo: TODO - implement this
@@ -322,7 +320,6 @@ errors: Errors
 loading: Loading...
 confirm: Confirm
 confirmation: Confirmation
-retry: Retry
 search: Search
 deleted: deleted
 showAll: Show All
@@ -513,7 +510,6 @@ filters:
     tagPlaceholder: Enter tag
     selectBuildTypeLabel: Select a build type
 customText: '{{text}}'
-adminLabel: 'Admin'
 collaboratorsLabel: 'Collaborators'
 viewDetails: 'View Details'
 startedAt: 'Started at:'
@@ -634,7 +630,6 @@ SSH: 'SSH'
 SSH_KEY: 'SSH Key'
 version: Version
 goToHome: Go To Home
-governance: 'Governance'
 runPipeline: Run Pipeline
 generalSettings: 'General Settings'
 accessControl: 'Access Control'

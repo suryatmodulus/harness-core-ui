@@ -1,24 +1,25 @@
 import { Button, Container } from '@wings-software/uicore'
 import React from 'react'
 import { Page } from '@common/exports'
-import i18n from './AdminPage.i18n'
+import { useStrings } from 'framework/exports'
 
 const AdminPage: React.FC = () => {
+  const { getString } = useStrings()
   return (
     <>
       <Page.Header
-        title={i18n.title}
+        title={getString('common.adminPage.title')}
         toolbar={
           <Container>
-            <Button text={i18n.addUser} />
+            <Button text={getString('common.adminPage.addUser')} />
           </Container>
         }
       />
       <Page.Body>
         <Page.NoDataCard
           icon="user"
-          message={i18n.noData}
-          buttonText={i18n.addUser}
+          message={getString('common.adminPage.noData')}
+          buttonText={getString('common.adminPage.addUser')}
           onClick={() => {
             alert('TBD')
           }}

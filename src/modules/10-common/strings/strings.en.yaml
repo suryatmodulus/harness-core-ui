@@ -1,4 +1,15 @@
+admin: Admin
+adminSelector: Admin Selector
+adminPage:
+  title: 'Account Settings'
+  addUser: '+ add a user'
+  noData: 'There is nobody except you in this account. Click the button below to invite a user.'
+governance: Governance
+governancePage:
+  add: '+ add a governance'
+  noData: 'There is no governance rules in this account. Click the button below to add one.'
 secrets: Secrets
+snippets: Snippets
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
@@ -9,11 +20,14 @@ addVariable: Add Variable
 editVariable: Edit variable
 editVariableType: Edit variable type
 removeThisVariable: Remove This Variable
+loadingPleaseWait: 'Loading, please wait...'
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 comments: Comments
 approve: Approve
 reject: Reject
+retry: Retry
+generalError: 'We cannot perform your request at the moment. Please try again.'
 disable: Disable
 remove: Remove
 member: Member
@@ -28,6 +42,7 @@ performAction: Perform Action
 jexlExpression: JEXL Expression
 input: Input
 refresh: Refresh
+lastConnectionSuccess: 'Last time connection is successful'
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
@@ -35,6 +50,13 @@ execute: Execute
 namespace: Namespace
 cluster: Cluster
 releaseName: Release name
+failed: 'Failed'
+successful: 'Successful'
+testConnection: 'Test Connection'
+connectorStats:
+  connectorCreated: 'Connector created'
+  lastTested: 'Last tested'
+  lastUpdated: 'Last updated'
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday

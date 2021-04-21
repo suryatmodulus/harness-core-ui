@@ -58,7 +58,7 @@ export function ValidateMappingCell(props: ValidationMappingCellProps): JSX.Elem
             icon="refresh"
             iconProps={{ size: 12 }}
             color={Color.BLUE_500}
-            text={getString('retry')}
+            text={getString('common.retry')}
             onClick={onRetry}
           />
         </Layout.Horizontal>

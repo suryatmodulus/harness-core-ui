@@ -129,7 +129,7 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
     return (
       <NoDataCard
         message={getString('cv.noAnalysis')}
-        buttonText={getString('retry')}
+        buttonText={getString('common.retry')}
         icon="warning-sign"
         onClick={() => refetchLogAnalysis({ queryParams })}
         className={css.noDataCard}

@@ -202,7 +202,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
           <NoDataCard
             icon="warning-sign"
             message={getString('cv.activitySources.harnessCD.application.noData')}
-            buttonText={getString('retry')}
+            buttonText={getString('common.retry')}
             onClick={() => refetch()}
           />
         </Container>

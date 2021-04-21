@@ -8,7 +8,6 @@ specifyArtifactRepoType: 'Specify Artifact {{ $.repositoryType }}'
 specifyArtifactRepo: 'Specify Artifact {{ $.repository }}'
 newArtifactRepository: 'New Artifact Repository Connector'
 selectConnectorLabel: Select Artifact Repository Connector
-stepThreeName: 'Test Connection'
 stepFourName: 'Artifact Location'
 name: Connector Name
 updating: Updating connector

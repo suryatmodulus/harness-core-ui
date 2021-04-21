@@ -180,7 +180,7 @@ export function mapTooltipItemStatus(
     case 'NOT_STARTED':
       return getString('cv.dashboard.notStarted')
     case 'VERIFICATION_FAILED':
-      return getString('failed')
+      return getString('common.failed')
     case 'VERIFICATION_PASSED':
       return getString('passed')
   }

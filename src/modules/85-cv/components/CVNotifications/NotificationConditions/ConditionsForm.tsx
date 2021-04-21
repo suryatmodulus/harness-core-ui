@@ -114,7 +114,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
       value: 'VERIFICATION_PASSED'
     },
     {
-      label: getString('failed'),
+      label: getString('common.failed'),
       value: 'VERIFICATION_FAILED'
     }
   ]

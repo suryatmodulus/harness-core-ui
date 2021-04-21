@@ -393,7 +393,7 @@ const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
   if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
     return (
       <div className={css.footerFailure}>
-        <Button intent="primary" text={getString('retry')} onClick={() => onRetryButtonClick()} />
+        <Button intent="primary" text={getString('common.retry')} onClick={() => onRetryButtonClick()} />
         <Button text={getString('close')} onClick={() => onCloseButtonClick()} />
         <Button
           text={getString('pre-flight-check.continueToRunPipeline')}

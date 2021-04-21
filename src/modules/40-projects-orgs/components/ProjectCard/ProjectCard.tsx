@@ -123,7 +123,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
 
           <Layout.Horizontal padding={{ top: 'medium' }}>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
+              <Text font="small" padding={{ bottom: 'small' }}>{`${getString('common.admin')} ${
                 adminList?.length ? `(${adminList?.length})` : ``
               }`}</Text>
               <AvatarGroup

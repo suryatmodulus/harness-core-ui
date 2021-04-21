@@ -13,7 +13,7 @@ export function aggregateActivityByType(
   const aggregatedEvents = new Map<string, { iconProps: IconProps; totalCount: number }>([
     [getString('inProgress'), { iconProps: { name: 'deployment-inprogress-new', size: 12 }, totalCount: 0 }],
     [getString('passed'), { iconProps: { name: 'deployment-success-new', size: 12 }, totalCount: 0 }],
-    [getString('failed'), { iconProps: { name: 'deployment-failed-new', size: 12 }, totalCount: 0 }]
+    [getString('common.failed'), { iconProps: { name: 'deployment-failed-new', size: 12 }, totalCount: 0 }]
   ])
 
   if (!activities?.length) return aggregatedEvents
@@ -29,7 +29,7 @@ export function aggregateActivityByType(
         break
       case 'ERROR':
       case 'VERIFICATION_FAILED':
-        event = aggregatedEvents.get(getString('failed'))
+        event = aggregatedEvents.get(getString('common.failed'))
         if (event && isNumber(event.totalCount)) event.totalCount++
         break
       case 'VERIFICATION_PASSED':

@@ -63,7 +63,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
         </Text>
         <Layout.Horizontal margin={{ bottom: 'medium' }} spacing="medium">
           <Text inline icon="stop" iconProps={{ size: 16, style: { color: '#DA291D' } }}>
-            {getString('failed')}
+            {getString('common.failed')}
             {` (${failedTests})`}
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, style: { color: '#6BD167' } }}>

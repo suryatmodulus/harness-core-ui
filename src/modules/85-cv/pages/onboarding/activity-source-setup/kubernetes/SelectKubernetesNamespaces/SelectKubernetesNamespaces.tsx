@@ -160,7 +160,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
             <NoDataCard
               icon="warning-sign"
               message={getString('cv.activitySources.kubernetes.namespaceMapping.noNamespaces')}
-              buttonText={getString('retry')}
+              buttonText={getString('common.retry')}
               onClick={() => refetchNamespaces()}
             />
           </Container>

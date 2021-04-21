@@ -104,7 +104,7 @@ export default function ActivitesTimelineViewSection({
         <NoDataCard
           icon="error"
           iconSize={30}
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           message={error.message}
           onClick={() =>
             getActivities({
@@ -130,7 +130,7 @@ export default function ActivitesTimelineViewSection({
         <NoDataCard
           icon="warning-sign"
           iconSize={30}
-          buttonText={getString('retry')}
+          buttonText={getString('common.retry')}
           message={getString('cv.activityTimeline.noChanges')}
           onClick={() =>
             getActivities({

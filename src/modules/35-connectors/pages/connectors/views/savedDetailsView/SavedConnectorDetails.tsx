@@ -523,7 +523,7 @@ export const getActivityDetails = (data: ActivityDetailsData): Array<ActivityDet
       value: getDate(data?.lastTested),
       iconData: {
         icon: 'warning-sign',
-        textId: 'failed',
+        textId: 'common.failed',
         color: Color.RED_500
       }
     })

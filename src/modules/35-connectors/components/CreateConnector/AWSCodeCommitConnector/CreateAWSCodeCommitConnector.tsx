@@ -37,7 +37,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
         setIsEditMode={props.setIsEditMode}
       />
       <VerifyOutOfClusterDelegate
-        name={getString('connectors.stepThreeName')}
+        name={getString('common.testConnection')}
         isStep
         isLastStep
         type={Connectors.AWS_CODECOMMIT}

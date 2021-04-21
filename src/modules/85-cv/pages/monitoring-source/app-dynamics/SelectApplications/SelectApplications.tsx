@@ -210,7 +210,7 @@ export default function SelectApplications({ stepData, onCompleteStep, onPreviou
               message={getString('cv.monitoringSources.appD.noAppsMsg')}
               icon="warning-sign"
               onClick={() => refetch()}
-              buttonText={getString('retry')}
+              buttonText={getString('common.retry')}
             />
           </Container>
         )}

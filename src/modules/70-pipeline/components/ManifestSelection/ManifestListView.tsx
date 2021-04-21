@@ -412,7 +412,7 @@ const ManifestListView = ({
             />
 
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
+              name={getString('common.testConnection')}
               isStep={true}
               isLastStep={false}
               type={ManifestToConnectorMap[manifestStore]}
@@ -448,7 +448,7 @@ const ManifestListView = ({
               connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
+              name={getString('common.testConnection')}
               isStep={true}
               isLastStep={false}
               type={ManifestToConnectorMap[manifestStore]}
@@ -488,7 +488,7 @@ const ManifestListView = ({
               connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
+              name={getString('common.testConnection')}
               isStep={true}
               isLastStep={false}
               type={Connectors.GCP}
@@ -575,7 +575,7 @@ const ManifestListView = ({
               connectorInfo={undefined}
             />
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
+              name={getString('common.testConnection')}
               isStep={true}
               isLastStep={false}
               type={ManifestToConnectorMap[manifestStore]}

@@ -65,7 +65,9 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (prevStepData?.connectorRef) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+      repoName = '<+input>'
+    } else if (prevStepData?.connectorRef) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url
       } else {

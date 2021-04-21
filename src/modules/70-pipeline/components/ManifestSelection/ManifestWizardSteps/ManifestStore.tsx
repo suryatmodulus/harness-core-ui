@@ -183,6 +183,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                         showAdvanced={true}
                         onChange={value => {
                           formik.setFieldValue('connectoreRef', value)
+                          formik.setFieldValue('repoName', value)
                         }}
                       />
                     </div>

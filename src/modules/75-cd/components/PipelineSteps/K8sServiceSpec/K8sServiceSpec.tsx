@@ -885,6 +885,19 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </FormGroup>
                       )}
+
+                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
+                        <FormGroup
+                          labelFor={'repoName'}
+                          label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        >
+                          <FormInput.Text
+                            disabled={readonly}
+                            className={css.inputWidth}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                          />
+                        </FormGroup>
+                      )}
                       {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
                         <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
                           <FormInput.Text

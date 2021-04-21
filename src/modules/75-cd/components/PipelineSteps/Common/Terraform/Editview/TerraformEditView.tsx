@@ -46,7 +46,7 @@ import {
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const setInitialValues = (data: TerraformData): TerraformData => {
-  return data
+  return onSubmitTerraformData(data) as any
 }
 
 export default function TerraformEditView(
@@ -108,9 +108,9 @@ export default function TerraformEditView(
       <Formik<TerraformData>
         onSubmit={(values: TerraformData) => {
           /* istanbul ignore next */
-          const payload = onSubmitTerraformData(values) as any
+          const payload = onSubmitTerraformData(values)
           /* istanbul ignore next */
-          onUpdate?.(payload)
+          onUpdate?.(payload as any)
         }}
         initialValues={setInitialValues(initialValues)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}

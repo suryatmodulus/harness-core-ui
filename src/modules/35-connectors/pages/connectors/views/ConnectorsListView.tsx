@@ -248,10 +248,10 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
         } catch (err) {
           setLastTestedAt(new Date().getTime())
           setStatus('FAILURE')
-          if (err.code === 'ACCESS_DENIED') {
+          if (err?.data?.code === 'ACCESS_DENIED') {
             setErrorMessage({
-              errorSummary: err?.message,
-              errors: err?.responseMessages || []
+              errorSummary: err?.data?.message,
+              errors: err?.data?.responseMessages || []
             })
           } else {
             setErrorMessage(err.message)

@@ -2933,6 +2933,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  enableVerificationOptions: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   enabledLabel: string
   /**
    * @deprecated migrate this string to module level file

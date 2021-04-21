@@ -406,6 +406,7 @@ argsLabel: 'Arguments'
 argsInfo: Overrides the image COMMAND
 dependencyNameLabel: 'Dependency Name'
 cloneCodebaseLabel: 'Clone Codebase'
+enableVerificationOptions: 'Enable verification options'
 allowedValues: 'Allowed values'
 serviceAccount: Service Account
 usernamePassword: 'Username and Password'

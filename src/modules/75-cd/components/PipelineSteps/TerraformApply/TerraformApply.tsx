@@ -15,20 +15,25 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StringKeys } from 'framework/strings'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
-import type { TerraformData, TerraformVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
+import {
+  onSubmitTerraformData,
+  TerraformData,
+  TerraformFormData,
+  TerraformVariableStepProps
+} from '../Common/Terraform/TerraformInterfaces'
 
 import TerraformEditView from '../Common/Terraform/Editview/TerraformEditView'
 
 const TerraformApplyWidgetWithRef = React.forwardRef(TerraformEditView)
 
-export class TerraformApply extends PipelineStep<TerraformData> {
+export class TerraformApply extends PipelineStep<TerraformFormData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformApply
-  protected defaultValues: TerraformData = {
+  protected defaultValues: TerraformFormData = {
     identifier: '',
     timeout: '10m',
     delegateSelectors: [],
@@ -43,10 +48,10 @@ export class TerraformApply extends PipelineStep<TerraformData> {
   protected stepName = 'Terraform Apply'
   /* istanbul ignore else */
   validateInputSet(
-    data: TerraformData,
-    template?: TerraformData,
+    data: TerraformFormData,
+    template?: TerraformFormData,
     getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TerraformData> {
+  ): FormikErrors<TerraformFormData> {
     /* istanbul ignore else */
     const errors = {} as any
     /* istanbul ignore else */
@@ -72,13 +77,21 @@ export class TerraformApply extends PipelineStep<TerraformData> {
     }
     return errors
   }
-  renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {
+
+  private getInitialValues(data: TerraformFormData): TerraformData {
+    return data
+  }
+
+  processFormData(data: TerraformData): TerraformFormData {
+    return onSubmitTerraformData(data)
+  }
+  renderStep(props: StepProps<TerraformFormData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
           initialValues={initialValues}
-          onUpdate={onUpdate}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
@@ -89,14 +102,14 @@ export class TerraformApply extends PipelineStep<TerraformData> {
         <TerraformVariableStep
           {...(customStepProps as TerraformVariableStepProps)}
           initialValues={initialValues}
-          onUpdate={onUpdate}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
         />
       )
     }
     return (
       <TerraformApplyWidgetWithRef
-        initialValues={initialValues}
-        onUpdate={onUpdate}
+        initialValues={this.getInitialValues(initialValues)}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         stepType={StepType.TerraformApply}

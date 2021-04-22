@@ -38,7 +38,6 @@ import TfVarFileList from './TFVarFileList'
 import {
   CommandTypes,
   ConfigurationTypes,
-  onSubmitTerraformData,
   TerraformData,
   TerraformProps,
   TerraformStoreTypes
@@ -46,7 +45,7 @@ import {
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const setInitialValues = (data: TerraformData): TerraformData => {
-  return onSubmitTerraformData(data) as any
+  return data
 }
 
 export default function TerraformEditView(
@@ -106,11 +105,8 @@ export default function TerraformEditView(
   return (
     <>
       <Formik<TerraformData>
-        onSubmit={(values: TerraformData) => {
-          /* istanbul ignore next */
-          const payload = onSubmitTerraformData(values)
-          /* istanbul ignore next */
-          onUpdate?.(payload as any)
+        onSubmit={values => {
+          onUpdate?.(values)
         }}
         initialValues={setInitialValues(initialValues)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}

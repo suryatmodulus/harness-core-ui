@@ -28,6 +28,7 @@ interface FormikSecretInput extends SecretInputProps {
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { getString } = useStrings()
   const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData } = props
+
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
       type,
@@ -64,7 +65,15 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
       <Layout.Vertical>
         {label ? <label className={'bp3-label'}>{label}</label> : null}
         <Container flex={{ alignItems: 'center', justifyContent: 'space-between' }} className={css.container}>
-          <Link to="#" className={css.containerLink} data-testid={name} onClick={openCreateOrSelectSecretModal}>
+          <Link
+            to="#"
+            className={css.containerLink}
+            data-testid={name}
+            onClick={e => {
+              e.preventDefault()
+              openCreateOrSelectSecretModal()
+            }}
+          >
             <Icon size={24} height={12} name={'key-main'} />
             <Text
               color={Color.BLUE_500}

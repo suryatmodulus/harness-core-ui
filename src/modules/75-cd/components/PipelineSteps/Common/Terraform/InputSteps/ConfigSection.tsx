@@ -28,8 +28,8 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
   }>()
 
   const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
-  const connectorRef = getIdentifierFromValue(connectorValue.value || '')
-  const initialScope = getScopeFromValue(connectorValue.value || '')
+  const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
+  const initialScope = getScopeFromValue(connectorValue?.value || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorRef,

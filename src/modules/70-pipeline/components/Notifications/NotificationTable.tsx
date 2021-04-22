@@ -172,7 +172,7 @@ const RenderColumnMenu: Renderer<CellProps<NotificationRulesItem>> = ({ row, col
           <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={(column as any).disabled} />
           <Menu.Item
             icon="trash"
-            text={getString('delete')}
+            text={getString('common.delete')}
             onClick={handleDelete}
             disabled={(column as any).disabled}
           />

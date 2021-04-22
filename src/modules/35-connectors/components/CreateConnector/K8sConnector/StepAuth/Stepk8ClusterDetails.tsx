@@ -101,10 +101,10 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
         <Container width={'42%'}>
           <TextReference
             name="username"
-            label={getString('username')}
+            label={getString('common.username')}
             type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
-          <SecretInput name={'password'} label={getString('password')} />
+          <SecretInput name={'password'} label={getString('common.password')} />
         </Container>
       )
     case AuthTypes.SERVICE_ACCOUNT:
@@ -352,7 +352,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
 
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('authentication')}
+                      {getString('common.authentication')}
                     </Text>
                     <FormInput.Select
                       name="authType"
@@ -383,7 +383,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('common.saveAndContinue')}
                 rightIcon="chevron-right"
                 margin={{ left: 'medium' }}
               />

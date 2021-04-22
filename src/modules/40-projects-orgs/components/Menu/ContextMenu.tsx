@@ -185,7 +185,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
 
       <>
         <Menu.Divider />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canDelete} />
+        <Menu.Item icon="trash" text={getString('common.delete')} onClick={handleDelete} disabled={!canDelete} />
       </>
     </Menu>
   )

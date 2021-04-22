@@ -133,7 +133,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
                     <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
-                    <Button text={getString('cancel')} onClick={props.hideModal} />
+                    <Button text={getString('common.cancel')} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

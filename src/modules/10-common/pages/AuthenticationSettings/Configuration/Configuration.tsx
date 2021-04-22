@@ -43,7 +43,7 @@ const Configuration: React.FC = () => {
         ]}
       />
       <Heading font={{ size: 'medium' }} color={Color.BLACK}>
-        {getString('authentication')}: {getString('configuration')}
+        {getString('common.authentication')}: {getString('common.configuration')}
       </Heading>
     </Layout.Vertical>
   )

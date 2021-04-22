@@ -704,7 +704,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
               {getString('done')}
             </Button>
             <Button minimal onClick={handleClose}>
-              {getString('cancel')}
+              {getString('common.cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempTargets.length} total`}</Text>
@@ -753,7 +753,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
             tooltip={
               <Menu style={{ minWidth: 'unset' }}>
                 <Menu.Item icon="edit" text={getString('edit')} onClick={openEditModal} />
-                <Menu.Item icon="trash" text={getString('delete')} onClick={onDelete} />
+                <Menu.Item icon="trash" text={getString('common.delete')} onClick={onDelete} />
               </Menu>
             }
             tooltipProps={{ isDark: true, interactionKind: 'click' }}

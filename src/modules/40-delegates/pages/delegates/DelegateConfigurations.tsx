@@ -54,8 +54,8 @@ export default function DelegateConfigurations(): JSX.Element {
     const { openDialog } = useConfirmationDialog({
       contentText: `${getString('delegate.deleteDelegateConfigurationQuestion')} ${profile.name}`,
       titleText: getString('delegate.deleteDelegateConfiguration'),
-      confirmButtonText: getString('delete'),
-      cancelButtonText: getString('cancel'),
+      confirmButtonText: getString('common.delete'),
+      cancelButtonText: getString('common.cancel'),
       onCloseDialog: async (isConfirmed: boolean) => {
         if (isConfirmed && profile && profile.uuid) {
           try {
@@ -116,7 +116,7 @@ export default function DelegateConfigurations(): JSX.Element {
                     {!profile.primary && (
                       <Menu.Item
                         icon="cross"
-                        text={getString('delete')}
+                        text={getString('common.delete')}
                         onClick={() => {
                           openDialog()
                         }}

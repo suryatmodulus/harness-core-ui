@@ -394,8 +394,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('connectors.confirmDelete')} ${data.connector?.name}`,
     titleText: getString('connectors.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

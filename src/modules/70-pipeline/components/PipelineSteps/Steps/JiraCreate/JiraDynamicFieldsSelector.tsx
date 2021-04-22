@@ -206,7 +206,7 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                 {getString('add')}
               </Button>
               <Button className={css.secondButton} onClick={props.onCancel}>
-                {getString('cancel')}
+                {getString('common.cancel')}
               </Button>
             </div>
           </div>

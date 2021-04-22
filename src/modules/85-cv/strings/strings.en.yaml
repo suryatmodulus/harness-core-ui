@@ -234,7 +234,7 @@ onboarding:
   selectProductScreen:
     validationText:
       name: Name is required.
-      identifier: Identifier is required
+      identifier: '{{ $.common.validation.identifierIsRequired }}'
       connectorRef: Connector Selection is required.
       validIdRegex: Identifier can only contain alphanumerics, _ and $.
       product: 'Product selection is required.'
@@ -265,7 +265,7 @@ monitoringSources:
     mappedToHarnessService: MAPPED TO HARNESS SERVICE
     mappedToHarnessEnvironment: MAPPED TO HARNESS ENVIRONMENT
     harnessServices: HARNESS SERVICES
-    status: STATUS
+    status: '{{ $.common.STATUS }}'
     validation: VALIDATION
     tiersMappedToServices: tiers mapped to services
     errorsFound: errors found

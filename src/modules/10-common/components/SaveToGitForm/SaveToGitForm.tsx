@@ -219,7 +219,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                 <Button className={css.formButton} type="submit" intent="primary" text={getString('save')} />
                 <Button
                   className={css.formButton}
-                  text={getString('cancel')}
+                  text={getString('common.cancel')}
                   margin={{ left: 'medium' }}
                   onClick={props.onClose}
                 />

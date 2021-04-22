@@ -345,7 +345,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     contentText: getString('yamlBuilder.enableEditContext'),
     titleText: getString('confirm'),
     confirmButtonText: getString('enable'),
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async didConfirm => {
       if (didConfirm) {
         onEnableEditMode?.()

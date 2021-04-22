@@ -83,10 +83,10 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
         <>
           <TextReference
             name="username"
-            label={getString('username')}
+            label={getString('common.username')}
             type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
-          <SecretInput name="password" label={getString('password')} />
+          <SecretInput name="password" label={getString('common.password')} />
         </>
       )
     case GitAuthTypes.USER_TOKEN:
@@ -94,7 +94,7 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
         <>
           <TextReference
             name="username"
-            label={getString('username')}
+            label={getString('common.username')}
             type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
           <SecretInput name="accessToken" label={getString('personalAccessToken')} />
@@ -103,7 +103,7 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
     case GitAuthTypes.KERBEROS:
       return (
         <>
-          <SecretInput name="kerberosKey" type={'SSHKey'} label={getString('kerberos')} />
+          <SecretInput name="kerberosKey" type={'SSHKey'} label={getString('common.kerberos')} />
         </>
       )
     default:
@@ -170,7 +170,7 @@ const StepGitlabAuthentication: React.FC<
     }
     // Disabling temp:
     // {
-    //   label: getString('kerberos'),
+    //   label: getString('common.kerberos'),
     //   value: GitAuthTypes.KERBEROS
     // }
   ]
@@ -258,15 +258,15 @@ const StepGitlabAuthentication: React.FC<
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
                 <Container width={'52%'}>
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                    {getString('authentication')}
+                    {getString('common.authentication')}
                   </Text>
-                  <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                  <SecretInput name="sshKey" type="SSHKey" label={getString('common.sshKey')} />
                 </Container>
               ) : (
                 <Container width={'52%'}>
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('authentication')}
+                      {getString('common.authentication')}
                     </Text>
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>
@@ -290,7 +290,12 @@ const StepGitlabAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gitlabBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('common.saveAndContinue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

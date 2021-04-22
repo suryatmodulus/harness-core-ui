@@ -135,7 +135,6 @@ connection: Connection
 refrencedBy: Referenced by
 activityHistoryLabel: Activity History
 connectionMode: Connection Mode
-credType: Credential Type
 serviceDeploymentTypes:
   kubernetes: '{{$.kubernetesText}}'
   amazonEcs: '{{$.delegate.cardData.amazonECS.name}}'
@@ -301,7 +300,6 @@ add: Add
 overview: Overview
 reinstall: Reinstall
 edit: Edit
-delete: Delete
 archive: Archive
 select: Select
 selectStage: Select a stage
@@ -310,10 +308,7 @@ done: Done
 save: Save
 back: Back
 next: Next
-finish: Finish
-continue: Continue
 addPipeline: + Pipeline
-cancel: Cancel
 close: Close
 duplicate: Duplicate
 errors: Errors
@@ -356,7 +351,6 @@ summary: Summary
 permissions: Permissions
 activityLog: Activity Log
 selectAnExistingConnector: Select an existing Connector
-authentication: Authentication
 preCommandLabel: PreCommand
 preCommandInfo: Commands used for setting up the environment before running the tests
 postCommandLabel: PostCommand
@@ -405,10 +399,8 @@ allowedValues: 'Allowed values'
 serviceAccount: Service Account
 usernamePassword: 'Username and Password'
 usernameToken: 'Username and Token'
-kerberos: 'Kerberos'
 secureToken: 'Secure Token'
 anonymous: 'Anonymous (no credentials required)'
-saveAndContinue: 'Save and Continue'
 errorWhileSaving: 'Error occurred saving'
 codebase: 'Codebase'
 addressErrorFields: 'Please address all error fields before submitting.'
@@ -473,7 +465,6 @@ orgDetails:
   gitSyncDescription: Connect to your Git repository and track your changes
 createSecretYAML:
   create: '{{ $.create }}'
-  newSecret: New Secret
   createSecret: Create Secret from YAML
   secretCreated: Secret created successfully
   invalidSecret: Invalid Secret configuration
@@ -606,8 +597,6 @@ stepConfiguration: Basics
 stepGroupConfiguration: Step Group Configuration
 image: 'Image:'
 createdAt: 'Created at:'
-username: 'Username'
-password: 'Password'
 navigationYamlErrorTitle: Invalid Yaml Detected
 navigationYamlError: You have provided an invalid yaml, navigating away will remove your changes
 navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
@@ -627,7 +616,6 @@ map: 'Map'
 HTTP: 'HTTP'
 HTTPS: 'HTTPS'
 SSH: 'SSH'
-SSH_KEY: 'SSH Key'
 version: Version
 goToHome: Go To Home
 runPipeline: Run Pipeline
@@ -732,8 +720,6 @@ projectCard:
 collaborators:
   roleLabel: 'Role :'
 ssh:
-  sshCredential: 'SSH Credential'
-  createmessageSuccess: 'Execution Credential created successfully'
   editmessageSuccess: 'Execution Credential updated successfully'
 secretManager:
   createmessageSuccess: 'Secrets Manager created successfully'
@@ -761,8 +747,6 @@ secret:
   validationValue: '{{ $.common.validation.valueIsRequired }}'
   validationKms: 'Secret Manager is required'
   validationIdentifier: 'ID is required'
-  labelText: 'Text'
-  labelFile: 'File'
   labelSecretType: 'Secret type'
   noSecretsFound: 'No Secrets Found'
   configureSecret: 'Configure Secret'
@@ -1481,7 +1465,6 @@ activityHistory:
   createdSuccessfully: Created Successfully
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found
-none: 'None'
 configureOptions:
   configureOptions: 'configure options'
   defaultValue: 'Default value'
@@ -1549,7 +1532,6 @@ resourceGroup:
   builtInResourceGroup: 'Built in resource-group'
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
-configuration: Configuration
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'

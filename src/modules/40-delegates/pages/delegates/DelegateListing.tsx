@@ -90,8 +90,8 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, c
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('delegate.questionDeleteDelegate')} ${row.original.delegateName}`,
     titleText: getString('delegate.deleteDelegate'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
@@ -134,7 +134,7 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateInner>>> = ({ row, c
         />
         <Menu style={{ minWidth: 'unset' }}>
           <Menu.Item icon="edit" text={getString('details')} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="trash" text={getString('common.delete')} onClick={handleDelete} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

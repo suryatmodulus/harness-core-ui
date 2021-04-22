@@ -3,10 +3,8 @@ import * as Yup from 'yup'
 import { Button, Container, Formik, FormikForm, FormInput, Text } from '@wings-software/uicore'
 import type { SSHKeyValidationMetadata as ValidationMetadata } from 'services/cd-ng'
 
+import { useStrings } from 'framework/exports'
 import VerifySecret, { Status } from './VerifySecret'
-
-import i18n from '../CreateSSHCredModal.i18n'
-
 interface VerifyConnectionProps {
   identifier: string
   closeModal?: () => void
@@ -14,6 +12,7 @@ interface VerifyConnectionProps {
 
 const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeModal }) => {
   const [validationMetadata, setValidationMetadata] = useState<ValidationMetadata>()
+  const { getString } = useStrings()
   const [finishStatus, setFinishStatus] = useState<Status | undefined>()
 
   return (
@@ -37,12 +36,16 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
           {() => {
             return (
               <FormikForm>
-                <FormInput.Text name="host" label={i18n.labelHostname} disabled={!!validationMetadata} />
-                <Text font={{ size: 'xsmall', weight: 'bold' }}>{i18n.hostnameInfo.toUpperCase()}</Text>
+                <FormInput.Text
+                  name="host"
+                  label={getString('secrets.labelHostname')}
+                  disabled={!!validationMetadata}
+                />
+                <Text font={{ size: 'xsmall', weight: 'bold' }}>{getString('secrets.hostnameInfo').toUpperCase()}</Text>
                 {validationMetadata ? null : (
                   <Button
                     type="submit"
-                    text={i18n.btnVerifyConnection.toUpperCase()}
+                    text={getString('secrets.btnVerifyConnection').toUpperCase()}
                     style={{ fontSize: 'smaller' }}
                     margin={{ top: 'medium' }}
                   />
@@ -63,7 +66,7 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
           />
           {finishStatus ? (
             <Button
-              text={i18n.verifyRetest.toUpperCase()}
+              text={getString('secrets.verifyRetest').toUpperCase()}
               minimal
               intent="primary"
               margin={{ top: 'medium' }}
@@ -75,7 +78,7 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
           <Container margin={{ top: 'large' }}>
             {finishStatus && closeModal ? (
               <Button
-                text={i18n.verifyFinish.toUpperCase()}
+                text={getString('secrets.verifyFinish').toUpperCase()}
                 onClick={() => {
                   closeModal()
                 }}

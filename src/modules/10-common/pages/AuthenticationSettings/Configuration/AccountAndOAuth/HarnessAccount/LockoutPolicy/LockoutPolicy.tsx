@@ -52,7 +52,7 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings }) 
   }
 
   const { openDialog: confirmLockoutSettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     titleText: getString('common.authSettings.disableLockoutPolicy'),
     contentText: getString('common.authSettings.confirmDisableLockoutPolicy'),
     confirmButtonText: getString('confirm'),
@@ -103,7 +103,7 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings }) 
     },
     {
       label: getString('common.authSettings.notifyUsersWHenUserLocked'),
-      value: userLockoutSettings.userGroupsToNotify || getString('none')
+      value: userLockoutSettings.userGroupsToNotify || getString('common.none')
     }
   ]
 

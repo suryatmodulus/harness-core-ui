@@ -21,27 +21,27 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
       <Container width={400} padding={{ top: 'large' }}>
         <Layout.Horizontal flex className={css.authHeaderRow}>
           <Text inline font={{ size: 'medium' }} color={Color.BLACK_100}>
-            {getString('authentication')}
+            {getString('common.authentication')}
           </Text>
           <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
         </Layout.Horizontal>
         {formikProps.values.authType === AuthTypes.USERNAME_PASSWORD ? (
           <>
-            <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
-            <SecretInput name="password" label={getString('password')} />
+            <TextReference name="username" label={getString('common.username')} type={ValueType.TEXT} />
+            <SecretInput name="password" label={getString('common.password')} />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
           <>
-            <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
+            <TextReference name="username" label={getString('common.username')} type={ValueType.TEXT} />
             <SecretInput name="accessToken" label={getString('personalAccessToken')} />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.SSH_KEY ? (
-          <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+          <SecretInput name="sshKey" type="SSHKey" label={getString('common.sshKey')} />
         ) : null}
         {formikProps.values.authType === AuthTypes.KERBEROS ? (
-          <SecretInput name="kerberosKey" type="SSHKey" label={getString('kerberos')} />
+          <SecretInput name="kerberosKey" type="SSHKey" label={getString('common.kerberos')} />
         ) : null}
         {formikProps.values.authType === AuthTypes.AWSCredentials ? (
           <>

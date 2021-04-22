@@ -349,7 +349,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               onClick={() => {
                 props.onClose?.()
               }}
-              text={getString('finish')}
+              text={getString('common.finish')}
             />
           </Layout.Horizontal>
         ) : (
@@ -359,7 +359,7 @@ const VerifyOutOfClusterDelegate: React.FC<
               onClick={() => {
                 nextStep?.({ ...prevStepData })
               }}
-              text={getString('continue')}
+              text={getString('common.continue')}
             />
           </Layout.Horizontal>
         )

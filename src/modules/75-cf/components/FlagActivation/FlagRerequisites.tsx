@@ -252,7 +252,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
                   </FieldArray>
                   <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }} border={{ bottom: true }}>
                     <Button text={getString('save')} intent="primary" margin={{ right: 'small' }} type="submit" />
-                    <Button text={getString('cancel')} onClick={hideModalPrerequisites} />
+                    <Button text={getString('common.cancel')} onClick={hideModalPrerequisites} />
                   </Layout.Horizontal>
                 </Form>
               )}
@@ -309,7 +309,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
                       />
                       <Menu.Item
                         icon="cross"
-                        text={getString('delete')}
+                        text={getString('common.delete')}
                         onClick={handlePrerequisiteInteraction('delete', elem)}
                         disabled={featureFlag.archived}
                       />

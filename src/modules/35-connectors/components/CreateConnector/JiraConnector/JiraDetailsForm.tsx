@@ -103,8 +103,8 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
               <FormInput.MultiTextInput name="jiraUrl" label={getString('UrlLabel')} />
 
-              <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
-              <SecretInput name={'passwordRef'} label={getString('password')} />
+              <TextReference name="username" label={getString('common.username')} type={ValueType.TEXT} />
+              <SecretInput name={'passwordRef'} label={getString('common.password')} />
             </Layout.Vertical>
 
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
@@ -117,7 +117,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('common.saveAndContinue')}
                 rightIcon="chevron-right"
                 disabled={loadConnector}
               />

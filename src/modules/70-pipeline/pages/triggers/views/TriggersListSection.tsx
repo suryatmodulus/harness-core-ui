@@ -70,8 +70,8 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: `${column.getString('pipeline-triggers.confirmDelete')} ${data.name || /* istanbul ignore next */ ''}`,
     titleText: column.getString('pipeline-triggers.triggerLabel'),
-    confirmButtonText: column.getString('delete'),
-    cancelButtonText: column.getString('cancel'),
+    confirmButtonText: column.getString('common.delete'),
+    cancelButtonText: column.getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {
@@ -129,7 +129,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           <Menu.Divider />
           <Menu.Item
             icon="trash"
-            text={column.getString('delete')}
+            text={column.getString('common.delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               confirmDelete()

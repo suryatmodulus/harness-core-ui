@@ -61,7 +61,7 @@ export const ArtifactoryRepoType: React.FC<StepProps<ConnectorConfigDTO> & Artif
         <Button
           intent="primary"
           type="submit"
-          text={getString('continue')}
+          text={getString('common.continue')}
           rightIcon="chevron-right"
           onClick={() => {
             changeArtifactType(selectedArtifactType)

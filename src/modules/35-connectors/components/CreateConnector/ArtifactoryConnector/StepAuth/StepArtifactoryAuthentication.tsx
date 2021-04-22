@@ -131,7 +131,7 @@ const StepArtifactoryAuthentication: React.FC<
 
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('authentication')}
+                  {getString('common.authentication')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} />
               </Container>
@@ -139,10 +139,10 @@ const StepArtifactoryAuthentication: React.FC<
                 <Container className={css.formWrapper}>
                   <TextReference
                     name="username"
-                    label={getString('username')}
+                    label={getString('common.username')}
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
                   />
-                  <SecretInput name={'password'} label={getString('password')} />
+                  <SecretInput name={'password'} label={getString('common.password')} />
                 </Container>
               ) : null}
             </Layout.Vertical>
@@ -153,7 +153,12 @@ const StepArtifactoryAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="artifactoryBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('common.saveAndContinue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

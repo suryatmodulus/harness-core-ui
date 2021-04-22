@@ -32,8 +32,8 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
     titleText: getString('resourceGroup.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
@@ -84,7 +84,7 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
       />
       <Menu style={{ minWidth: 'unset' }}>
         <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+        <Menu.Item icon="trash" text={getString('common.delete')} onClick={handleDelete} />
       </Menu>
     </Popover>
   ) : (

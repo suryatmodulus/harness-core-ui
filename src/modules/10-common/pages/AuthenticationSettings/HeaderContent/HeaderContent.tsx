@@ -13,7 +13,7 @@ const HeaderContent: React.FC = () => {
   return (
     <Layout.Horizontal>
       <NavLink to={routes.toAccountConfiguration({ accountId })} className={css.tags} activeClassName={css.activeTag}>
-        {getString('configuration')}
+        {getString('common.configuration')}
       </NavLink>
       <NavLink to={routes.toAccountActivityLog({ accountId })} className={css.tags} activeClassName={css.activeTag}>
         {getString('activityLog')}

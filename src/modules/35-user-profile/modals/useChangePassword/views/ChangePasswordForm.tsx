@@ -142,7 +142,7 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
               <Button type="submit" intent="primary" margin={{ right: 'xsmall' }}>
                 {getString('userProfile.changePassword')}
               </Button>
-              <Button onClick={hideModal}>{getString('cancel')}</Button>
+              <Button onClick={hideModal}>{getString('common.cancel')}</Button>
             </Layout.Horizontal>
           </FormikForm>
         )}

@@ -73,7 +73,7 @@ const EditUserProfile: React.FC<UserProfileData> = props => {
                 </Container>
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
                   <Button intent="primary" text={getString('save')} type="submit" disabled={loading} />
-                  <Button text={getString('cancel')} onClick={onClose} />
+                  <Button text={getString('common.cancel')} onClick={onClose} />
                 </Layout.Horizontal>
               </Form>
             )

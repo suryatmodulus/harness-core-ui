@@ -123,7 +123,7 @@ const PurposeList: React.FC = () => {
           }}
           to={getLink(module)}
         >
-          {getString('continue')}
+          {getString('common.continue')}
         </Link>
       </Layout.Vertical>
     )

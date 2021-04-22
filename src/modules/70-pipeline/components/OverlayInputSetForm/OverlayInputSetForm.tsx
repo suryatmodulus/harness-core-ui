@@ -467,7 +467,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                       <div className={Classes.DIALOG_FOOTER}>
                         <Button intent="primary" type="submit" text={getString('save')} disabled={isReadOnly} />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={getString('cancel')} />
+                        <Button onClick={closeForm} text={getString('common.cancel')} />
                       </div>
                     </FormikForm>
                   ) : (
@@ -497,7 +497,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           disabled={isReadOnly}
                         />
                         &nbsp; &nbsp;
-                        <Button onClick={closeForm} text={getString('cancel')} />
+                        <Button onClick={closeForm} text={getString('common.cancel')} />
                       </Layout.Horizontal>
                     </div>
                   )}

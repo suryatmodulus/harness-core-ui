@@ -228,7 +228,7 @@ export const SegmentsPage: React.FC = () => {
                     },
                     {
                       icon: 'cross',
-                      text: getString('delete'),
+                      text: getString('common.delete'),
                       onClick: deleteSegmentConfirm
                     }
                   ]}

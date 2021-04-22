@@ -3,7 +3,7 @@ permissionLabels:
   create: '{{ $.create }}'
   view: View
   pipelineExecution: Use in Pipeline Execution
-  delete: '{{ $.delete}}'
+  delete: '{{ $.common.delete}}'
   access: Access
   execute: '{{$.common.execute}}'
   runtimeAccess: 'Runtime Access'

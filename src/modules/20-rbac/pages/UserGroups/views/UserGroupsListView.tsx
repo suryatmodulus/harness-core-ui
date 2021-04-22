@@ -91,8 +91,8 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('rbac.userGroupPage.confirmDelete', { name: data.name }),
     titleText: getString('rbac.userGroupPage.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     intent: Intent.WARNING,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
@@ -140,7 +140,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="trash" text={getString('common.delete')} onClick={handleDelete} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

@@ -53,7 +53,7 @@ export const SelectOrCreatePipelineForm: React.FC<SelectOrCreatePipelineFormProp
           <FormInput.Text name="pipelineRequired" className={css.pipelineRequired} />
         </Layout.Vertical>
         <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
-          <Button intent="primary" text={getString('continue')} type="submit" />
+          <Button intent="primary" text={getString('common.continue')} type="submit" />
           <Button
             text={getString('pipeline.createANewPipeline')}
             style={{

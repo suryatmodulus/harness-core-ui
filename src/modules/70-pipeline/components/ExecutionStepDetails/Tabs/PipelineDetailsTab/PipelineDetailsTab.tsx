@@ -26,7 +26,7 @@ export function PipelineDetailsTab(): React.ReactElement {
         {filteredUpcomingStages.length > 0 ? (
           <span>{filteredUpcomingStages.map(stage => stage.name).join(', ')}</span>
         ) : (
-          <String stringID="none" />
+          <String stringID="common.none" />
         )}
       </div>
       <String tagName="div" className={css.title} stringID="pipeline.execution.stagesExecuted" />
@@ -88,7 +88,7 @@ export function PipelineDetailsTab(): React.ReactElement {
           </div>
         ))
       ) : (
-        <String stringID="none" />
+        <String stringID="common.none" />
       )}
     </div>
   )

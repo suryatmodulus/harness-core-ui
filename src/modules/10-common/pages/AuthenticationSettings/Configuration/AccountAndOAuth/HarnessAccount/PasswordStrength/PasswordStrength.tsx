@@ -51,7 +51,7 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings 
   }
 
   const { openDialog: confirmPasswordStrengthSettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     titleText: getString('common.authSettings.disablePasswordStrength'),
     contentText: getString('common.authSettings.confirmDisablePasswordStrength'),
     confirmButtonText: getString('confirm'),

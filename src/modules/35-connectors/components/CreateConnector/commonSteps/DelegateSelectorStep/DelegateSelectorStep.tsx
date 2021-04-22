@@ -209,7 +209,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             <Button
               type="submit"
               intent={'primary'}
-              text={getString('saveAndContinue')}
+              text={getString('common.saveAndContinue')}
               disabled={
                 (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
                 creating ||

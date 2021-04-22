@@ -90,7 +90,7 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
               label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
             />
             <Container className={css.buttonContainer}>
-              <Button onClick={() => closeModal()}>{getString('cancel')}</Button>
+              <Button onClick={() => closeModal()}>{getString('common.cancel')}</Button>
               <Button type="submit" intent="primary">
                 {getString('submit')}
               </Button>

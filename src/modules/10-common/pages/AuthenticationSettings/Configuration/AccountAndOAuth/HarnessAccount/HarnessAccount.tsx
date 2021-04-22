@@ -87,7 +87,7 @@ const HarnessAccount: React.FC<Props> = ({ authSettings, refetchAuthSettings }) 
   }
 
   const { openDialog: confirmUserPasswordDisable } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     titleText: getString('common.authSettings.disableUserPasswordLogin'),
     contentText: getString('common.authSettings.confirmDisableUserPasswordLogin'),
     confirmButtonText: getString('confirm'),

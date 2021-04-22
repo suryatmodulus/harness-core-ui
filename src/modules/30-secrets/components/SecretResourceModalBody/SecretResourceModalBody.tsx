@@ -24,6 +24,7 @@ const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
 
 const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
+  const { getString } = useStrings()
   return (
     <>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
@@ -32,7 +33,7 @@ const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
         </Text>
       ) : null}
       {/* TODO {Abhinav} display SM name */}
-      <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
+      <Text color={Color.GREY_400}>{getStringForType(getString, data.type)}</Text>
     </>
   )
 }

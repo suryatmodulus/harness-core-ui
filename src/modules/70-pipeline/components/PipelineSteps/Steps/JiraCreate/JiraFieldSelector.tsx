@@ -54,7 +54,7 @@ export const JiraFieldSelector = (props: JiraFieldSelectorProps) => {
           intent="primary"
           onClick={() => props.addSelectedFields(selectedFields)}
         />
-        <Button className={css.secondButton} text={getString('cancel')} onClick={props.onCancel} />
+        <Button className={css.secondButton} text={getString('common.cancel')} onClick={props.onCancel} />
       </div>
     </div>
   )

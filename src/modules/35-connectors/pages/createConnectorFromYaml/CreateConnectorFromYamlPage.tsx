@@ -146,7 +146,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   })
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     contentText: getString('continueWithoutSavingText'),
     titleText: getString('continueWithoutSavingTitle'),
     confirmButtonText: getString('confirm'),
@@ -228,7 +228,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               disabled={!hasConnectorChanged}
             />
             {hasConnectorChanged ? (
-              <Button text={getString('cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
+              <Button text={getString('common.cancel')} margin={{ top: 'xlarge' }} onClick={resetEditor} />
             ) : null}
           </Layout.Horizontal>
         </Container>

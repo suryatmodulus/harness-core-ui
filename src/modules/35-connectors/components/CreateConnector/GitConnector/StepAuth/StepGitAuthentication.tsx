@@ -51,10 +51,10 @@ const RenderGitAuthForm: React.FC<FormikProps<GitFormInterface>> = props => {
     <>
       <TextReference
         name="username"
-        label={getString('username')}
+        label={getString('common.username')}
         type={props.values.username ? props.values.username?.type : ValueType.TEXT}
       />
-      <SecretInput name="password" label={getString('password')} />
+      <SecretInput name="password" label={getString('common.password')} />
     </>
   )
 }
@@ -119,7 +119,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
           <Form>
             <Container className={css.stepFormWrapper} width={'52%'}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                <SecretInput name="sshKey" type="SSHKey" label={getString('common.sshKey')} />
               ) : (
                 <RenderGitAuthForm {...formikProps} />
               )}
@@ -132,7 +132,12 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gitBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('common.saveAndContinue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

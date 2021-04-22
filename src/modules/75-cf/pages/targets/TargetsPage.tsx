@@ -256,7 +256,7 @@ export const TargetsPage: React.FC = () => {
                     },
                     {
                       icon: 'cross',
-                      text: getString('delete'),
+                      text: getString('common.delete'),
                       onClick: deleteTargetConfirm
                     }
                   ]}

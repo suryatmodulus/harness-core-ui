@@ -116,7 +116,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
               <Menu.Item icon="edit" text={getString('edit')} onClick={() => actions.onEdit?.(identifier)} />
-              <Menu.Item icon="cross" text={getString('delete')} onClick={deleteEnvironment} />
+              <Menu.Item icon="cross" text={getString('common.delete')} onClick={deleteEnvironment} />
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}

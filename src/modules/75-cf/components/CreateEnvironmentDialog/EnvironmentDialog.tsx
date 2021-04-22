@@ -209,7 +209,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
                     intent="primary"
                     disabled={loading}
                   />
-                  <Button text={getString('cancel')} onClick={() => formikProps.handleReset()} minimal />
+                  <Button text={getString('common.cancel')} onClick={() => formikProps.handleReset()} minimal />
                   {loading && <Spinner size={16} />}
                 </Container>
               </Container>

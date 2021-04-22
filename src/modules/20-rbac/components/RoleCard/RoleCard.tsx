@@ -31,8 +31,8 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('roleCard.confirmDelete', { name: role.name }),
     titleText: getString('roleCard.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     intent: Intent.WARNING,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
@@ -78,7 +78,12 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
         menuContent={
           <Menu>
             <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={harnessManaged} />
-            <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={harnessManaged} />
+            <Menu.Item
+              icon="trash"
+              text={getString('common.delete')}
+              onClick={handleDelete}
+              disabled={harnessManaged}
+            />
           </Menu>
         }
         menuPopoverProps={{

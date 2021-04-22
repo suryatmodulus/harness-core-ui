@@ -32,8 +32,8 @@ const UsedByCell: React.FC<any> = withSegment(({ segment, actions }: TableData) 
   const { getFlags, onDelete, onEdit } = actions
 
   const { openDialog } = useConfirmationDialog({
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     contentText: getString('cf.segments.delete.message', { segmentName: segment.identifier }),
     titleText: getString('cf.segments.delete.title'),
     onCloseDialog: (isConfirmed: boolean) => isConfirmed && onDelete(segment.identifier)
@@ -54,7 +54,7 @@ const UsedByCell: React.FC<any> = withSegment(({ segment, actions }: TableData) 
           tooltip={
             <Menu style={{ minWidth: 'unset' }}>
               <Menu.Item icon="edit" text={getString('edit')} onClick={() => onEdit(segment.identifier)} />
-              <Menu.Item icon="cross" text={getString('delete')} onClick={openDialog} />
+              <Menu.Item icon="cross" text={getString('common.delete')} onClick={openDialog} />
             </Menu>
           }
           tooltipProps={{ isDark: true, interactionKind: 'click' }}

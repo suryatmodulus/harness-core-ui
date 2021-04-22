@@ -113,7 +113,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
       <FormInput.Text name="basePath" label={getString('connectors.hashiCorpVault.baseSecretPath')} />
       <FormInput.RadioGroup
         name="accessType"
-        label={getString('authentication')}
+        label={getString('common.authentication')}
         radioGroup={{ inline: true }}
         items={accessTypeOptions}
       />

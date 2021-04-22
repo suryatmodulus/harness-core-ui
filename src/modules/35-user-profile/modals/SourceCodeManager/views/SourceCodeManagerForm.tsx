@@ -108,7 +108,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             value: AuthTypes.USERNAME_PASSWORD
           },
           {
-            label: getString('SSH_KEY'),
+            label: getString('common.sshKey'),
             value: AuthTypes.SSH_KEY
           }
         ]
@@ -134,7 +134,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             value: AuthTypes.USERNAME_TOKEN
           },
           {
-            label: getString('kerberos'),
+            label: getString('common.kerberos'),
             value: AuthTypes.KERBEROS
           }
         ]
@@ -156,7 +156,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
             value: AuthTypes.USERNAME_TOKEN
           },
           {
-            label: getString('SSH_KEY'),
+            label: getString('common.sshKey'),
             value: AuthTypes.SSH_KEY
           }
         ]
@@ -338,7 +338,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                 ) : null}
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
                   <Button intent="primary" text={getString('add')} type="submit" />
-                  <Button text={getString('cancel')} onClick={onClose} />
+                  <Button text={getString('common.cancel')} onClick={onClose} />
                 </Layout.Horizontal>
               </Form>
             )

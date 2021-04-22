@@ -216,7 +216,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" />
-                  <Button minimal text={getString('cancel')} onClick={hideEditDetailsModal} />
+                  <Button minimal text={getString('common.cancel')} onClick={hideEditDetailsModal} />
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Form>
@@ -343,7 +343,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             MenuDivider,
             {
               icon: 'trash',
-              text: getString('delete'),
+              text: getString('common.delete'),
               onClick: deleteFlag
             }
           ]}

@@ -190,7 +190,7 @@ featureFlags:
     onlyMe: Only Me
     everyone: '{{ $.filters.visibleToEveryone }}'
     save: '{{ $.save }}'
-    cancel: '{{ $.cancel }}'
+    cancel: '{{ $.common.cancel }}'
   metrics:
     noMetrics: No metrics
     evaluations: '{{ count }} evaluations'

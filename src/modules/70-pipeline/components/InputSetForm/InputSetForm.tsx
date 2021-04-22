@@ -415,7 +415,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             onClick={() => {
                               history.goBack()
                             }}
-                            text={getString('cancel')}
+                            text={getString('common.cancel')}
                           />
                         </Layout.Horizontal>
                       </FormikForm>
@@ -455,7 +455,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         onClick={() => {
                           history.goBack()
                         }}
-                        text={getString('cancel')}
+                        text={getString('common.cancel')}
                       />
                     </Layout.Horizontal>
                   </div>

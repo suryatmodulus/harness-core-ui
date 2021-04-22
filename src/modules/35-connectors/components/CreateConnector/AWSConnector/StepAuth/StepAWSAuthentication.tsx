@@ -121,7 +121,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
               {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
                 <Layout.Vertical width={'56%'}>
                   <Text color={Color.BLACK} padding={{ top: 'small', bottom: 'large' }}>
-                    {getString('authentication')}
+                    {getString('common.authentication')}
                   </Text>
                   <TextReference
                     name="accessKey"
@@ -163,7 +163,12 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="awsBackButton"
               />
-              <Button type="submit" intent={'primary'} text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent={'primary'}
+                text={getString('common.saveAndContinue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

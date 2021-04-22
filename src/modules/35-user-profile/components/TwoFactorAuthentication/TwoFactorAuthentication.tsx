@@ -22,7 +22,7 @@ const TwoFactorAuthentication: React.FC = () => {
     titleText: getString('userProfile.twoFactor.disableTitle'),
     contentText: getString('userProfile.twoFactor.disableText'),
     confirmButtonText: getString('common.disable'),
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

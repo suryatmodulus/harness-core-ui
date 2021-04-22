@@ -57,7 +57,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
             text={`${getString('add')} ${selectedItems.length} ${resourceHandler?.label}`}
             onClick={() => onSuccess(selectedItems)}
           />
-          <Button text={getString('cancel')} onClick={onClose} />
+          <Button text={getString('common.cancel')} onClick={onClose} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </Layout.Vertical>

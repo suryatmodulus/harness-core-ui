@@ -19,7 +19,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import i18n from '../../SecretsPage.i18n'
+import { useStrings } from 'framework/exports'
 import css from './SecretsList.module.scss'
 
 interface SecretsListProps {
@@ -53,6 +53,7 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
 
 const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
   const data = row.original.secret
+  const { getString } = useStrings()
   return (
     <>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
@@ -61,7 +62,7 @@ const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }
         </Text>
       ) : null}
       {/* TODO {Abhinav} display SM name */}
-      <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
+      <Text color={Color.GREY_400}>{getStringForType(getString, data.type)}</Text>
     </>
   )
 }
@@ -79,10 +80,11 @@ const RenderColumnActivity: Renderer<CellProps<SecretResponseWrapper>> = ({ row 
 const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
   const data = row.original.secret
   const { openVerifyModal } = useVerifyModal()
+  const { getString } = useStrings()
   if (data.type === 'SecretText' || data.type === 'SecretFile') {
     return row.original.draft ? (
       <Text icon="warning-sign" intent="warning">
-        {i18n.incompleteSecret}
+        {getString('secrets.incompleteSecret')}
       </Text>
     ) : null
   }
@@ -90,7 +92,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
     return (
       <Button
         font="small"
-        text={i18n.testconnection}
+        text={getString('secrets.testConnection')}
         onClick={e => {
           e.stopPropagation()
           openVerifyModal(data)
@@ -114,6 +116,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
 
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: (column as any).refreshSecrets })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: (column as any).refreshSecrets })
+  const { getString } = useStrings()
 
   const [canUpdate, canDelete] = usePermission(
     {
@@ -132,10 +135,10 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   )
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.btnDelete,
-    cancelButtonText: i18n.btnCancel,
+    contentText: getString('secrets.confirmDelete', { name: data.name || '' }),
+    titleText: getString('secrets.confirmDeleteTitle'),
+    confirmButtonText: getString('secrets.btnDelete'),
+    cancelButtonText: getString('secrets.btnCancel'),
     onCloseDialog: async didConfirm => {
       if (didConfirm && data.identifier) {
         try {
@@ -197,25 +200,26 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
 const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage }) => {
   const history = useHistory()
   const data: SecretResponseWrapper[] = useMemo(() => secrets?.content || [], [secrets?.content])
+  const { getString } = useStrings()
   const { pathname } = useLocation()
   const columns: Column<SecretResponseWrapper>[] = useMemo(
     () => [
       {
-        Header: i18n.table.secret,
+        Header: getString('secrets.table.secret'),
         accessor: row => row.secret.name,
         id: 'name',
         width: '30%',
         Cell: RenderColumnSecret
       },
       {
-        Header: i18n.table.secretManager,
+        Header: getString('secrets.table.secretManager'),
         accessor: row => row.secret.description,
         id: 'details',
         width: '25%',
         Cell: RenderColumnDetails
       },
       {
-        Header: i18n.table.lastActivity,
+        Header: getString('secrets.table.lastActivity'),
         accessor: 'updatedAt',
         id: 'activity',
         width: '20%',

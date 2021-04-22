@@ -103,7 +103,7 @@ const LoginPage: React.FC = () => {
               <FormInput.Text name="email" label={getString('signUp.form.emailLabel')} disabled={isLoading} />
               <FormInput.Text
                 name="password"
-                label={getString('password')}
+                label={getString('common.password')}
                 inputGroup={{ type: 'password' }}
                 disabled={isLoading}
               />

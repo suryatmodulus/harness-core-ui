@@ -382,7 +382,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   }
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     contentText: getString('continueWithoutSavingText'),
     titleText: getString('continueWithoutSavingTitle'),
     confirmButtonText: getString('confirm'),
@@ -486,7 +486,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     disabled={!hasConnectorChanged}
                   />
                   {hasConnectorChanged ? (
-                    <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                    <Button text={getString('common.cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                   ) : null}
                 </Layout.Horizontal>
               </div>

@@ -271,7 +271,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                   <Button
                     type="submit"
                     className={`${css.submitBtn} ${css.footerBtn}`}
-                    text={getString('continue')}
+                    text={getString('common.continue')}
                     intent="primary"
                     rightIcon="chevron-right"
                     // onClick={() => {

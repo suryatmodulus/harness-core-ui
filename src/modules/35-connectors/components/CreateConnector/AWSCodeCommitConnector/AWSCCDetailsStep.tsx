@@ -64,7 +64,7 @@ export default function AWSCCDetailsStep(props: AWSCCDetailsStepProps) {
         </Layout.Vertical>
         <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
           <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-          <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('saveAndContinue')} />
+          <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('common.saveAndContinue')} />
         </Layout.Horizontal>
       </FormikForm>
     </Formik>

@@ -119,7 +119,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
                   <div style={{ paddingTop: 'var(--spacing-xxxlarge)' }}>
                     <Layout.Horizontal spacing="small" style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
                       <Button text={getString('create')} onClick={handleSubmit} intent="primary" />
-                      <Button text={getString('cancel')} onClick={formikProps.handleReset} minimal />
+                      <Button text={getString('common.cancel')} onClick={formikProps.handleReset} minimal />
                     </Layout.Horizontal>
                   </div>
                 </Layout.Vertical>

@@ -190,7 +190,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                 ) : (
                   <Icon name="symbol-circle" className={css.symbol} size={16} />
                 )}
-                <Text className={css.tabTitle}>1. {getString('configuration')}</Text>
+                <Text className={css.tabTitle}>1. {getString('common.configuration')}</Text>
               </Layout.Horizontal>
             }
             panel={

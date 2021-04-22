@@ -119,7 +119,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
             <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
               {getString('credentials')}
             </Text>
-            <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('authentication')}</Text>
+            <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('common.authentication')}</Text>
             <TextReference
               name="accessKey"
               label={getString('connectors.aws.accessKey')}
@@ -133,7 +133,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
               type="submit"
               intent="primary"
               rightIcon="chevron-right"
-              text={getString('saveAndContinue')}
+              text={getString('common.saveAndContinue')}
               disabled={isSaving}
             />
           </Layout.Horizontal>

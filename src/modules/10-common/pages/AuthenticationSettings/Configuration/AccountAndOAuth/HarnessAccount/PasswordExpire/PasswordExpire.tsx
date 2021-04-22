@@ -55,7 +55,7 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings })
   }
 
   const { openDialog: confirmPasswordExpirySettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     titleText: getString('common.authSettings.disablePasswordExpiration'),
     contentText: getString('common.authSettings.confirmDisablePasswordExpiration'),
     confirmButtonText: getString('confirm'),

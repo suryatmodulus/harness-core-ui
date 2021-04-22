@@ -41,7 +41,12 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
               <Container height={400} width={400}>
                 <FormInput.Text name="name" label={getString('notifications.notificationName')} />
               </Container>
-              <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('saveAndContinue')} />
+              <Button
+                type="submit"
+                intent="primary"
+                rightIcon="chevron-right"
+                text={getString('common.saveAndContinue')}
+              />
             </Form>
           )
         }}

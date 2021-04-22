@@ -125,7 +125,7 @@ const SignupPage: React.FC = () => {
               />
               <FormInput.Text
                 name="password"
-                label={getString('password')}
+                label={getString('common.password')}
                 inputGroup={{ type: 'password' }}
                 placeholder={getString('signUp.form.passwordPlaceholder')}
               />

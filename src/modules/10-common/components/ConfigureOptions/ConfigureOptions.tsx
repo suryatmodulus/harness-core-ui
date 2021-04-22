@@ -194,7 +194,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                     name="validation"
                     label={getString('configureOptions.validation')}
                     items={[
-                      { label: getString('none'), value: Validation.None },
+                      { label: getString('common.none'), value: Validation.None },
                       { label: getString('allowedValues'), value: Validation.AllowedValues },
                       { label: getString('configureOptions.regex'), value: Validation.Regex }
                     ]}
@@ -276,7 +276,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
               </div>
               <div className={Classes.DIALOG_FOOTER}>
                 <Button intent="primary" text={<String stringID="submit" />} onClick={submitForm} /> &nbsp; &nbsp;
-                <Button text={<String stringID="cancel" />} onClick={() => closeModal()} />
+                <Button text={<String stringID="common.cancel" />} onClick={() => closeModal()} />
               </div>
             </>
           )}

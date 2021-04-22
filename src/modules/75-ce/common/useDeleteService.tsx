@@ -41,8 +41,8 @@ const useDeleteServiceHook = (props: UseDeleteServiceHookProps): UseDeleteServic
   const { openDialog } = useConfirmationDialog({
     titleText: getString('ce.co.autoStoppingRule.confirm.deleteServiceTitle', { name: serviceData.name }),
     contentText: getString('ce.co.autoStoppingRule.confirm.deleteDialogText'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     intent: Intent.DANGER,
     onCloseDialog: deleteRule
   })

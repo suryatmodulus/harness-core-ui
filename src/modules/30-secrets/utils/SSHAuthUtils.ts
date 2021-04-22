@@ -16,7 +16,6 @@ import {
   getSecretV2Promise
 } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import i18n from './SSHAuthUtils.i18n'
 
 type SSHCredentialType = SSHKeyPathCredentialDTO | SSHKeyReferenceCredentialDTO | SSHPasswordCredentialDTO
 
@@ -79,28 +78,28 @@ export const getReference = (scope?: Scope, identifier?: string): string | undef
   }
 }
 
-export const getStringForType = (type?: SecretDTOV2['type']): string => {
+export const getStringForType = (getString: Function, type?: SecretDTOV2['type']): string => {
   if (!type) return ''
   switch (type) {
     case 'SecretText':
-      return i18n.typeText
+      return getString('secrets.text')
     case 'SecretFile':
-      return i18n.typeFile
+      return getString('secrets.file')
     case 'SSHKey':
-      return i18n.typeSSH
+      return getString('secrets.typeSSH')
     default:
       return ''
   }
 }
 
-export const getStringForCredentialType = (type?: SSHConfigDTO['credentialType']): string => {
+export const getStringForCredentialType = (getString: Function, type?: SSHConfigDTO['credentialType']): string => {
   switch (type) {
     case 'Password':
-      return i18n.optionPassword
+      return getString('secrets.optionPassword')
     case 'KeyPath':
-      return i18n.optionKeypath
+      return getString('secrets.optionKeypath')
     case 'KeyReference':
-      return i18n.optionKey
+      return getString('secrets.optionKey')
     default:
       return ''
   }

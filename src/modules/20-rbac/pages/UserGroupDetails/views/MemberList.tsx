@@ -54,7 +54,7 @@ const RenderColumnMenu: Renderer<CellProps<UserSearchDTO>> = ({ row, column }) =
     contentText: getString('rbac.userGroupPage.userList.deleteConfirmation', { name: data.name }),
     titleText: getString('rbac.userGroupPage.userList.deleteTitle'),
     confirmButtonText: getString('common.remove'),
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async didConfirm => {
       /* istanbul ignore else */ if (didConfirm && data) {
         try {

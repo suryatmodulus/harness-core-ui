@@ -91,7 +91,7 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
               text={isReset ? getString('save') : getString('enable')}
               onClick={() => handleEnableTwoFactorAuth(authSettings)}
             />
-            <Button text={getString('cancel')} onClick={onCancel} />
+            <Button text={getString('common.cancel')} onClick={onCancel} />
           </Layout.Horizontal>
           <Button icon="reset" minimal onClick={() => refetchTwoFactorAuthSettings()} />
         </Layout.Horizontal>

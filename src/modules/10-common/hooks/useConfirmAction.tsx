@@ -18,7 +18,7 @@ export const useConfirmAction = (props: UseConfirmActionDialogProps) => {
     titleText: title || getString('confirmation'),
     contentText: message,
     confirmButtonText: confirmText || getString('confirm'),
-    cancelButtonText: cancelText || getString('cancel'),
+    cancelButtonText: cancelText || getString('common.cancel'),
     buttonIntent: intent || Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {

@@ -54,7 +54,7 @@ const useToggleRuleState = (props: UseToggleAutostoppingRuleProps): UseToggleAut
         : 'ce.co.autoStoppingRule.confirm.disableDialogText'
     ),
     confirmButtonText: getString(serviceData.disabled ? 'enable' : 'ce.co.autoStoppingRule.confirm.disable'),
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     intent: Intent.WARNING,
     onCloseDialog: toggleRule
   })

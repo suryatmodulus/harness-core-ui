@@ -5,9 +5,7 @@ import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationRe
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
-import i18n from '../CreateSSHCredModal.i18n'
-
+import { useStrings } from 'framework/exports'
 interface VerifySecretProps {
   validationMetadata?: SSHKeyValidationMetadata
   identifier: string
@@ -38,6 +36,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
 }) => {
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const { getString } = useStrings()
   const {
     data: delegateStatus,
     loading: loadingDelegateStatus,
@@ -111,7 +110,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
     <>
       <StepsProgress
         current={currentStep}
-        steps={[i18n.verifyStepOne, i18n.verifyStepTwo]}
+        steps={[getString('secrets.verifyStepOne'), getString('secrets.verifyStepTwo')]}
         currentStatus={currentStatus}
         intent={currentIntent}
       />

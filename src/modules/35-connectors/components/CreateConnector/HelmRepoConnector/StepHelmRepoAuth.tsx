@@ -146,7 +146,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
 
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('authentication')}
+                  {getString('common.authentication')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
               </Container>
@@ -154,10 +154,10 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
                 <>
                   <TextReference
                     name="username"
-                    label={getString('username')}
+                    label={getString('common.username')}
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
                   />
-                  <SecretInput name={'password'} label={getString('password')} />
+                  <SecretInput name={'password'} label={getString('common.password')} />
                 </>
               ) : null}
             </Layout.Vertical>
@@ -171,7 +171,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('common.saveAndContinue')}
                 rightIcon="chevron-right"
                 disabled={loadConnector}
               />

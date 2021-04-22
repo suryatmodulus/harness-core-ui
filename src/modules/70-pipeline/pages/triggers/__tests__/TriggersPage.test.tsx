@@ -71,7 +71,7 @@ describe('TriggersPage Triggers tests', () => {
       }
       fireEvent.click(firstActionButton)
 
-      const deleteButton = queryByText(document.body, result.current.getString('delete'))
+      const deleteButton = queryByText(document.body, result.current.getString('common.delete'))
 
       if (!deleteButton) {
         throw Error('No error button')

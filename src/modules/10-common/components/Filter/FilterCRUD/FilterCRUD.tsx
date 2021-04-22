@@ -234,7 +234,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             }}
           />
           &nbsp; &nbsp;
-          <Button text={getString('cancel')} onClick={hideModal} />
+          <Button text={getString('common.cancel')} onClick={hideModal} />
         </div>
       </Dialog>
     )
@@ -277,7 +277,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
           />
           <Menu.Item
             icon="trash"
-            text={getString('delete')}
+            text={getString('common.delete')}
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
               ignoreClickEventDefaultBehaviour(event)
@@ -454,7 +454,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                           type="reset"
                           intent={'primary'}
                           minimal
-                          text={getString('cancel')}
+                          text={getString('common.cancel')}
                           className={css.cancelBtn}
                           onClick={(event: React.MouseEvent<Element, MouseEvent>) => {
                             ignoreClickEventDefaultBehaviour(event)

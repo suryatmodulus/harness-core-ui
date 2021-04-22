@@ -86,7 +86,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               id="stepReviewScriptContinueButton"
               type="submit"
               intent="primary"
-              text={getString('continue')}
+              text={getString('common.continue')}
               rightIcon="chevron-right"
               onClick={() => props.nextStep?.(props?.prevStepData)}
             />

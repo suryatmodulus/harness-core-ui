@@ -538,7 +538,7 @@ function RunPipelineFormBasic({
                                             submitFormIs()
                                           }}
                                         />
-                                        <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
+                                        <Button className={Classes.POPOVER_DISMISS} text={getString('common.cancel')} />
                                       </Layout.Horizontal>
                                     </>
                                   )
@@ -556,7 +556,7 @@ function RunPipelineFormBasic({
                         </Popover>
                       )}
                       <Button
-                        text={getString('cancel')}
+                        text={getString('common.cancel')}
                         onClick={() => {
                           if (onClose) {
                             onClose()

@@ -235,7 +235,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
               {getString('done')}
             </Button>
             <Button minimal onClick={handleCancelIncluded}>
-              {getString('cancel')}
+              {getString('common.cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempIncluded.length} total`}</Text>
@@ -281,7 +281,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
               {getString('done')}
             </Button>
             <Button minimal onClick={handleCancelExcluded}>
-              {getString('cancel')}
+              {getString('common.cancel')}
             </Button>
             <div style={{ marginLeft: 'auto' }}>
               <Text>{`${tempExcluded.length} total`}</Text>

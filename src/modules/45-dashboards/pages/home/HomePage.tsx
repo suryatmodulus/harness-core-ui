@@ -110,7 +110,7 @@ const FirstStep = (props: any): JSX.Element => {
                     type="submit"
                     intent="primary"
                     style={{ width: '150px', marginTop: '148px' }}
-                    text={getString('continue')}
+                    text={getString('common.continue')}
                     disabled={loading}
                     className={css.button}
                   />

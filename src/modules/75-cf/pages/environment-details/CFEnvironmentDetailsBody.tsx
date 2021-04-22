@@ -93,10 +93,10 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
               <Container flex>
                 <span />
                 <Layout.Horizontal spacing="small">
-                  <Button text={getString('cancel')} className="bp3-popover-dismiss" />
+                  <Button text={getString('common.cancel')} className="bp3-popover-dismiss" />
                   <Button
                     intent="danger"
-                    text={getString('delete')}
+                    text={getString('common.delete')}
                     className="bp3-popover-dismiss"
                     onClick={() => onDelete(apiKey.identifier)}
                   />

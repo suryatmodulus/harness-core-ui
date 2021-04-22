@@ -192,8 +192,8 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
           <Layout.Vertical spacing="large" className={css.appDContainer}>
             <Text font="medium">{getString('connectors.splunk.connectorDetailsHeader')}</Text>
             <FormInput.Text label={getString('UrlLabel')} name="url" />
-            <FormInput.Text name="username" label={getString('username')} />
-            <SecretInput name="passwordRef" label={getString('password')} />
+            <FormInput.Text name="username" label={getString('common.username')} />
+            <SecretInput name="passwordRef" label={getString('common.password')} />
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.()} text={getString('back')} />

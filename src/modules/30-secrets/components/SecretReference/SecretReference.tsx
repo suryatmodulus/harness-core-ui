@@ -76,11 +76,11 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
 
   const secretTypeOptions: SelectOption[] = [
     {
-      label: getString('secret.labelText'),
+      label: getString('secrets.text'),
       value: 'SecretText'
     },
     {
-      label: getString('secret.labelFile'),
+      label: getString('secrets.file'),
       value: 'SecretFile'
     }
   ]

@@ -6,6 +6,7 @@ export interface StringsMap {
   'common.ID': string
   'common.My': string
   'common.PermissibleActions': string
+  'common.STATUS': string
   'common.accViewer': string
   'common.accessKey': string
   'common.addDescription': string
@@ -70,12 +71,16 @@ export interface StringsMap {
   'common.authSettings.somethingWentWrong': string
   'common.authSettings.useHarnessUsernameAndPassword': string
   'common.authSettings.usePublicOAuth': string
+  'common.authentication': string
+  'common.cancel': string
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
+  'common.configuration': string
   'common.connectorStats.connectorCreated': string
   'common.connectorStats.lastTested': string
   'common.connectorStats.lastUpdated': string
+  'common.continue': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -84,6 +89,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
   'common.delegateForTask': string
+  'common.delete': string
   'common.description': string
   'common.disable': string
   'common.duplicateId': string
@@ -93,6 +99,7 @@ export interface StringsMap {
   'common.execute': string
   'common.failed': string
   'common.failureRate': string
+  'common.finish': string
   'common.generalError': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
@@ -133,6 +140,7 @@ export interface StringsMap {
   'common.hide': string
   'common.input': string
   'common.jexlExpression': string
+  'common.kerberos': string
   'common.lastConnectionSuccess': string
   'common.letsGetYouStarted': string
   'common.loadingPleaseWait': string
@@ -140,9 +148,12 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.newSecret': string
+  'common.none': string
   'common.options': string
   'common.orgViewer': string
   'common.other': string
+  'common.password': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -201,19 +212,23 @@ export interface StringsMap {
   'common.samlProvider.testingSSO': string
   'common.samlProvider.testingSSODescription': string
   'common.samlProvider.uploadIdentityProvider': string
+  'common.saveAndContinue': string
   'common.secretKey': string
   'common.secrets': string
   'common.selectStrategy': string
   'common.snippets': string
   'common.specify': string
+  'common.sshKey': string
   'common.successful': string
   'common.tagsLabel': string
   'common.testConnection': string
   'common.trialInProgress': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.username': string
   'common.validation.fileIsRequired': string
   'common.validation.groupAttributeIsRequired': string
+  'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -302,6 +317,72 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'secrets.btnCancel': string
+  'secrets.btnContinue': string
+  'secrets.btnCreateSecretFile': string
+  'secrets.btnDelete': string
+  'secrets.btnSave': string
+  'secrets.btnSaving': string
+  'secrets.btnVerifyConnection': string
+  'secrets.confirmDelete': string
+  'secrets.confirmDeleteTitle': string
+  'secrets.file': string
+  'secrets.hostnameInfo': string
+  'secrets.incompleteSecret': string
+  'secrets.labelAuth': string
+  'secrets.labelCredentialType': string
+  'secrets.labelFile': string
+  'secrets.labelHostname': string
+  'secrets.labelKeyFilePath': string
+  'secrets.labelKeyReference': string
+  'secrets.labelKeyTab': string
+  'secrets.labelPassphrase': string
+  'secrets.labelPrincipal': string
+  'secrets.labelRealm': string
+  'secrets.labelSSHPort': string
+  'secrets.labelSavedSecret': string
+  'secrets.labelSelectFile': string
+  'secrets.labelTGT': string
+  'secrets.labelTags': string
+  'secrets.labelType': string
+  'secrets.labelUsername': string
+  'secrets.messageSuccess': string
+  'secrets.newSecret': string
+  'secrets.optionKerbNone': string
+  'secrets.optionKerberos': string
+  'secrets.optionKey': string
+  'secrets.optionKeypath': string
+  'secrets.optionPassword': string
+  'secrets.optionSSHKey': string
+  'secrets.password': string
+  'secrets.sshCredential': string
+  'secrets.stepTitleAuth': string
+  'secrets.stepTitleVerify': string
+  'secrets.table.lastActivity': string
+  'secrets.table.secret': string
+  'secrets.table.secretManager': string
+  'secrets.table.status': string
+  'secrets.testConnection': string
+  'secrets.text': string
+  'secrets.titleAuth': string
+  'secrets.titleCreate': string
+  'secrets.titleDetails': string
+  'secrets.titleSelect': string
+  'secrets.typeSSH': string
+  'secrets.validId': string
+  'secrets.validIdRegex': string
+  'secrets.validName': string
+  'secrets.validateKeypath': string
+  'secrets.validatePort': string
+  'secrets.validatePrincipal': string
+  'secrets.validateRealm': string
+  'secrets.validateSshKey': string
+  'secrets.validateUsername': string
+  'secrets.valueNone': string
+  'secrets.verifyFinish': string
+  'secrets.verifyRetest': string
+  'secrets.verifyStepOne': string
+  'secrets.verifyStepTwo': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -1699,10 +1780,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  SSH_KEY: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   UrlLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -1995,10 +2072,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  authentication: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'authenticationSettings.allowLoginFromTheseDomains': string
   /**
    * @deprecated migrate this string to module level file
@@ -2040,10 +2113,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   canary: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  cancel: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -2187,10 +2256,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  configuration: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   configureHarnessFolder: string
   /**
    * @deprecated migrate this string to module level file
@@ -2303,10 +2368,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  continue: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   continueWithoutSavingText: string
   /**
    * @deprecated migrate this string to module level file
@@ -2347,10 +2408,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'createSecretYAML.newSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'createSecretYAML.secretCreated': string
   /**
    * @deprecated migrate this string to module level file
@@ -2372,10 +2429,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   creationTimestamp: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  credType: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -2884,10 +2937,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   delegateSelection: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  delete: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3475,10 +3524,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  finish: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   flag: string
   /**
    * @deprecated migrate this string to module level file
@@ -3780,10 +3825,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   invalidYamlText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  kerberos: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4091,10 +4132,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  none: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   notificationMethod: string
   /**
    * @deprecated migrate this string to module level file
@@ -4256,10 +4293,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   passed: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  password: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6127,10 +6160,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  saveAndContinue: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   saveAndPublish: string
   /**
    * @deprecated migrate this string to module level file
@@ -6171,10 +6200,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'secret.labelFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'secret.labelSecretFile': string
   /**
    * @deprecated migrate this string to module level file
@@ -6196,10 +6221,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'secret.labelSecretsManager': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelText': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6559,15 +6580,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'ssh.createmessageSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'ssh.editmessageSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'ssh.sshCredential': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6792,10 +6805,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   uppercase: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  username: string
   /**
    * @deprecated migrate this string to module level file
    */

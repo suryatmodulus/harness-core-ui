@@ -230,7 +230,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
               disabled={loading || !!error || !selectedCounter}
               onClick={handleSubmit}
             />
-            <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+            <Button text={cancelButtonTitle || getString('common.cancel')} minimal onClick={hideModal} />
             <FlexExpander />
             {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
             {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}

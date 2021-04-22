@@ -49,7 +49,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
           <>
             <ConfigureEmailNotifications
               withoutHeading={true}
-              submitButtonText={getString('finish')}
+              submitButtonText={getString('common.finish')}
               onSuccess={data => {
                 nextStep?.({
                   ...prevStepData,
@@ -88,7 +88,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
         {method?.value === NotificationType.Slack ? (
           <ConfigureSlackNotifications
             withoutHeading={true}
-            submitButtonText={getString('finish')}
+            submitButtonText={getString('common.finish')}
             onSuccess={data => {
               nextStep?.({
                 ...prevStepData,
@@ -125,7 +125,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
         {method?.value === NotificationType.PagerDuty ? (
           <ConfigurePagerDutyNotifications
             withoutHeading={true}
-            submitButtonText={getString('finish')}
+            submitButtonText={getString('common.finish')}
             onSuccess={data => {
               nextStep?.({
                 ...prevStepData,

@@ -261,7 +261,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                   />
                   <Button
                     className={css.formButton}
-                    text={getString('cancel')}
+                    text={getString('common.cancel')}
                     margin={{ left: 'medium' }}
                     onClick={props.onClose}
                   />

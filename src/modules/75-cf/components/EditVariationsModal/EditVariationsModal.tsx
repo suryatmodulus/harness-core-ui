@@ -325,7 +325,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                     type="submit"
                     disabled={isEqual(initialValues, formikProps.values) || loading}
                   />
-                  <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+                  <Button text={cancelButtonTitle || getString('common.cancel')} minimal onClick={hideModal} />
                   <FlexExpander />
                   {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
                 </Layout.Horizontal>

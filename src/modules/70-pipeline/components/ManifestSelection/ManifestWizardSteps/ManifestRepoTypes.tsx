@@ -63,7 +63,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
         <Button
           intent="primary"
           type="submit"
-          text={getString('continue')}
+          text={getString('common.continue')}
           rightIcon="chevron-right"
           onClick={() => {
             changeManifestType(selectedManifestType)

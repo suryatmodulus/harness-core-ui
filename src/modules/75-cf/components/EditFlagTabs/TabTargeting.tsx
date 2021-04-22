@@ -54,7 +54,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
 
         <Layout.Horizontal>
           <Button intent="primary" text={getString('save')} onClick={() => alert('To be implemented...')} />
-          <Button minimal text={getString('cancel')} onClick={hideTargetModal} />
+          <Button minimal text={getString('common.cancel')} onClick={hideTargetModal} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </Dialog>

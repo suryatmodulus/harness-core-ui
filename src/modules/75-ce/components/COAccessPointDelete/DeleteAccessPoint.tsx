@@ -55,7 +55,7 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
     if (accessPoints.length == 1) {
       str = getString('ce.co.accessPoint.ap')
     }
-    return getString('delete') + ' ' + accessPoints.length + ' ' + str
+    return getString('common.delete') + ' ' + accessPoints.length + ' ' + str
   }
   const DeleteConfirmation = () => (
     <Dialog onClose={hideModal} {...modalPropsLight}>
@@ -83,11 +83,11 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
                 <Button
                   intent="primary"
                   type="submit"
-                  text={getString('delete')}
+                  text={getString('common.delete')}
                   loading={loading}
                   disabled={loading}
                 />
-                <Button text={getString('cancel')} onClick={() => hideModal()} disabled={loading} />
+                <Button text={getString('common.cancel')} onClick={() => hideModal()} disabled={loading} />
               </Layout.Horizontal>
             </Layout.Vertical>
           </FormikForm>
@@ -100,7 +100,7 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
   }
   return (
     <>
-      <Button intent="primary" icon="trash" text={getString('delete')} onClick={() => showModal()} />
+      <Button intent="primary" icon="trash" text={getString('common.delete')} onClick={() => showModal()} />
       {modalState && <DeleteConfirmation />}
     </>
   )

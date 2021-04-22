@@ -148,7 +148,12 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                   )
                 })}
               </Layout.Vertical>
-              <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('saveAndContinue')} />
+              <Button
+                type="submit"
+                intent="primary"
+                rightIcon="chevron-right"
+                text={getString('common.saveAndContinue')}
+              />
             </Form>
           )
         }}

@@ -65,8 +65,8 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
   const { openDialog } = useConfirmationDialog({
     contentText: getString('rbac.usersPage.deleteConfirmation', { name: data?.name }),
     titleText: getString('rbac.usersPage.deleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async didConfirm => {
       if (didConfirm && data) {
         try {
@@ -106,7 +106,7 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="trash" text={getString('common.delete')} onClick={handleDelete} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

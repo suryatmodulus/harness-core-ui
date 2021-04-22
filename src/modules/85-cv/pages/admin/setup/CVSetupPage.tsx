@@ -629,7 +629,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               <Button
                 intent="primary"
                 disabled={activeStep === Step.MONITORING_SOURCE && !hasOnBoardedMonitoringSources}
-                text={step === '3' ? getString('finish') : getString('next')}
+                text={step === '3' ? getString('common.finish') : getString('next')}
                 rightIcon="chevron-right"
                 onClick={() => {
                   if (activeStep === Step.CHANGE_SOURCE) {

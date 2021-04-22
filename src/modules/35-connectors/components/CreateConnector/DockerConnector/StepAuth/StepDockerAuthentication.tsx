@@ -163,7 +163,7 @@ const StepDockerAuthentication: React.FC<
               ></FormInput.RadioGroup>
               <Container className={css.authHeaderRow}>
                 <Text className={css.authTitle} inline>
-                  {getString('authentication')}
+                  {getString('common.authentication')}
                 </Text>
                 <FormInput.Select name="authType" items={authOptions} disabled={false} className={css.authTypeSelect} />
               </Container>
@@ -171,10 +171,10 @@ const StepDockerAuthentication: React.FC<
                 <>
                   <TextReference
                     name="username"
-                    label={getString('username')}
+                    label={getString('common.username')}
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
                   />
-                  <SecretInput name={'password'} label={getString('password')} />
+                  <SecretInput name={'password'} label={getString('common.password')} />
                 </>
               ) : null}
             </Layout.Vertical>
@@ -185,7 +185,12 @@ const StepDockerAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="dockerBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                intent="primary"
+                text={getString('common.saveAndContinue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
           </Form>
         )}

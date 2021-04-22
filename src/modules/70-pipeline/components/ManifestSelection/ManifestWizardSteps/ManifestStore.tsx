@@ -193,7 +193,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
               <Button
                 intent="primary"
                 type="submit"
-                text={getString('continue')}
+                text={getString('common.continue')}
                 rightIcon="chevron-right"
                 disabled={!selectedManifest}
               />

@@ -175,7 +175,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   }, [secretData])
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     contentText: getString('continueWithoutSavingText'),
     titleText: getString('continueWithoutSavingTitle'),
     confirmButtonText: getString('confirm'),
@@ -275,7 +275,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
             )}
             {edit && (
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                <Button text={getString('common.cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
                 <Button intent="primary" text={getString('save')} onClick={handleSaveYaml} margin={{ top: 'large' }} />
               </Layout.Horizontal>
             )}

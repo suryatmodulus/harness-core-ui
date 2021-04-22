@@ -13,6 +13,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
+import type { Schema } from 'yup'
 
 import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, usePutSecret } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
@@ -23,8 +24,6 @@ import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
-
-import i18n from '../CreateSSHCredModal.i18n'
 
 export interface SSHConfigFormData {
   authScheme: SSHAuthDTO['type']
@@ -44,31 +43,32 @@ interface StepAuthenticationProps {
   onSuccess?: () => void
 }
 
-const validationSchema = Yup.object().shape({
-  port: Yup.number().required(i18n.validatePort),
-  userName: Yup.string().when('authScheme', {
-    is: 'SSH',
-    then: Yup.string().trim().required(i18n.validateUsername)
-  }),
-  keyPath: Yup.string().when(['authScheme', 'credentialType', 'tgtGenerationMethod'], {
-    is: (authScheme, credentialType, tgtGenerationMethod) =>
-      (authScheme === 'SSH' && credentialType == 'KeyPath') ||
-      (authScheme === 'Kerberos' && tgtGenerationMethod == 'KeyTabFilePath'),
-    then: Yup.string().trim().required(i18n.validateKeypath)
-  }),
-  key: Yup.object().when(['authScheme', 'credentialType'], {
-    is: (authScheme, credentialType) => authScheme === 'SSH' && credentialType == 'KeyReference',
-    then: Yup.object().required(i18n.validateSshKey)
-  }),
-  principal: Yup.string().when('authScheme', {
-    is: 'Kerberos',
-    then: Yup.string().trim().required(i18n.validatePrincipal)
-  }),
-  realm: Yup.string().when('authScheme', {
-    is: 'Kerberos',
-    then: Yup.string().trim().required(i18n.validateRealm)
+const getValidationSchema: (getString: Function) => Schema<any> = getString =>
+  Yup.object().shape({
+    port: Yup.number().required(getString('secrets.validatePort')),
+    userName: Yup.string().when('authScheme', {
+      is: 'SSH',
+      then: Yup.string().trim().required(getString('secrets.validateUsername'))
+    }),
+    keyPath: Yup.string().when(['authScheme', 'credentialType', 'tgtGenerationMethod'], {
+      is: (authScheme, credentialType, tgtGenerationMethod) =>
+        (authScheme === 'SSH' && credentialType == 'KeyPath') ||
+        (authScheme === 'Kerberos' && tgtGenerationMethod == 'KeyTabFilePath'),
+      then: Yup.string().trim().required(getString('secrets.validateKeypath'))
+    }),
+    key: Yup.object().when(['authScheme', 'credentialType'], {
+      is: (authScheme, credentialType) => authScheme === 'SSH' && credentialType == 'KeyReference',
+      then: Yup.object().required(getString('secrets.validateSshKey'))
+    }),
+    principal: Yup.string().when('authScheme', {
+      is: 'Kerberos',
+      then: Yup.string().trim().required(getString('secrets.validatePrincipal'))
+    }),
+    realm: Yup.string().when('authScheme', {
+      is: 'Kerberos',
+      then: Yup.string().trim().required(getString('secrets.validateRealm'))
+    })
   })
-})
 
 const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticationProps & SSHCredSharedObj> = ({
   prevStepData,
@@ -116,7 +116,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       // finally create the connector
       isEdit ? await editSecret(dataToSubmit) : await createSecret(dataToSubmit)
       setSaving(false)
-      isEdit ? showSuccess(getString('ssh.editmessageSuccess')) : showSuccess(getString('ssh.createmessageSuccess'))
+      isEdit ? showSuccess(getString('ssh.editmessageSuccess')) : showSuccess(getString('secrets.messageSuccess'))
       onSuccess?.()
       nextStep?.({ ...prevStepData, authData: formData, isEdit: true })
     } catch (err) {
@@ -130,14 +130,14 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Container padding="small" width={350} style={{ minHeight: '500px' }}>
         <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
-          {i18n.titleAuth}
+          {getString('secrets.titleAuth')}
         </Text>
         <Formik<SSHConfigFormData>
           onSubmit={formData => {
             modalErrorHandler?.hide()
             handleSubmit(formData)
           }}
-          validationSchema={validationSchema}
+          validationSchema={getValidationSchema(getString)}
           initialValues={{
             authScheme: 'SSH',
             credentialType: 'KeyReference',
@@ -162,7 +162,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                   <Button
                     type="submit"
                     intent="primary"
-                    text={saving ? i18n.btnSaving : i18n.btnSave}
+                    text={saving ? getString('secrets.btnSaving') : getString('secrets.btnSave')}
                     disabled={saving}
                   />
                 </Layout.Horizontal>

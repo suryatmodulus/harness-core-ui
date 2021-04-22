@@ -10,7 +10,7 @@ import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpd
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-import i18n from './CreateOrSelectSecret.i18n'
+import { useStrings } from 'framework/exports'
 import css from './CreateOrSelectSecret.module.scss'
 
 export interface SecretReference {
@@ -29,13 +29,14 @@ export interface CreateOrSelectSecretProps {
 
 const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuccess, secretsListMockData }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>
         {type === 'SecretFile' || type === 'SecretText' ? (
           <Tab
             id={'create'}
-            title={<Text padding={'medium'}>{i18n.titleCreate}</Text>}
+            title={<Text padding={'medium'}>{getString('secrets.titleCreate')}</Text>}
             panel={
               <CreateUpdateSecret
                 type={type}
@@ -51,7 +52,7 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuc
         ) : null}
         <Tab
           id={'reference'}
-          title={<Text padding={'medium'}>{i18n.titleSelect}</Text>}
+          title={<Text padding={'medium'}>{getString('secrets.titleSelect')}</Text>}
           panel={
             <SecretReference
               type={type}

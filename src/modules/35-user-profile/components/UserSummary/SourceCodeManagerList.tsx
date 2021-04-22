@@ -33,8 +33,8 @@ const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, co
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('userProfile.confirmDelete', { name: data.name })}`,
     titleText: getString('userProfile.confirmDeleteTitle'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {

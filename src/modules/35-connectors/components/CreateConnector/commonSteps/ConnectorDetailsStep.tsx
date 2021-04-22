@@ -145,7 +145,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                 </Container>
                 <Layout.Horizontal>
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>
-                    <String stringID="saveAndContinue" />
+                    <String stringID="common.saveAndContinue" />
                   </Button>
                 </Layout.Horizontal>
               </FormikForm>

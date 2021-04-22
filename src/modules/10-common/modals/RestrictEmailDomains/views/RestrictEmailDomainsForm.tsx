@@ -38,7 +38,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ hideModal }) => {
               <Button intent="primary" type="submit" margin={{ right: 'xsmall' }}>
                 {getString('save')}
               </Button>
-              <Button onClick={hideModal}>{getString('cancel')}</Button>
+              <Button onClick={hideModal}>{getString('common.cancel')}</Button>
             </Layout.Horizontal>
           </FormikForm>
         )}

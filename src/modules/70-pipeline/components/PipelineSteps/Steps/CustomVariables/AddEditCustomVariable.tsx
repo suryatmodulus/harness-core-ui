@@ -68,7 +68,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
             </div>
             <div className={Classes.DIALOG_FOOTER}>
               <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
-              <Button text={getString('cancel')} onClick={() => closeModal()} />
+              <Button text={getString('common.cancel')} onClick={() => closeModal()} />
             </div>
           </>
         )}

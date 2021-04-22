@@ -287,7 +287,7 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
           {/* Buttons */}
           <Layout.Horizontal height={34} spacing="small">
             <Button disabled={addDisabled || loading} text={getString('add')} intent="primary" onClick={handleSubmit} />
-            <Button disabled={loading} text={getString('cancel')} minimal onClick={handleCancel} />
+            <Button disabled={loading} text={getString('common.cancel')} minimal onClick={handleCancel} />
             {loading && <Spinner size={16} />}
           </Layout.Horizontal>
         </Layout.Vertical>

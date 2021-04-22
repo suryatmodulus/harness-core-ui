@@ -428,7 +428,7 @@ export const RightBar = (): JSX.Element => {
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>
                   <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
-                  <Button text={getString('cancel')} onClick={closeCodebaseDialog} />
+                  <Button text={getString('common.cancel')} onClick={closeCodebaseDialog} />
                 </div>
               </>
             )}

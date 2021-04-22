@@ -139,7 +139,12 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}
             </Container>
-            <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+            <Button
+              type="submit"
+              intent="primary"
+              text={getString('common.saveAndContinue')}
+              rightIcon="chevron-right"
+            />
           </Form>
         )}
       </Formik>

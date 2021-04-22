@@ -55,7 +55,7 @@ describe('Wizard tests', () => {
           </Wizard>
         </TestWrapper>
       )
-      const continueButton = queryByText(container, result.current.getString('continue'))
+      const continueButton = queryByText(container, result.current.getString('common.continue'))
       if (!continueButton) {
         throw Error('No continue button')
       }
@@ -84,7 +84,7 @@ describe('Wizard tests', () => {
       }
       fireEvent.click(backButton)
       expect(queryByText(container, 'Form 1')).not.toBeNull()
-      expect(queryByText(container, result.current.getString('continue'))).not.toBeNull()
+      expect(queryByText(container, result.current.getString('common.continue'))).not.toBeNull()
       expect(queryByText(container, 'Form 2')).toBeNull()
     })
     test('Footer: back button goes to Panel 1', async () => {
@@ -106,7 +106,7 @@ describe('Wizard tests', () => {
       }
       fireEvent.click(backButton)
       expect(queryByText(container, 'Form 1')).not.toBeNull()
-      expect(queryByText(container, result.current.getString('continue'))).not.toBeNull()
+      expect(queryByText(container, result.current.getString('common.continue'))).not.toBeNull()
       expect(queryByText(container, 'Form 2')).toBeNull()
     })
 

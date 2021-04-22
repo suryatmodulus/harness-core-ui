@@ -194,7 +194,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
                   type="submit"
                   intent="primary"
                   rightIcon="chevron-right"
-                  text={getString('saveAndContinue')}
+                  text={getString('common.saveAndContinue')}
                   disabled={updateLoading || createLoading}
                 />
               </Layout.Horizontal>

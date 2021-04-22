@@ -120,7 +120,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
             <Layout.Horizontal spacing="xxlarge">
               <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
 
-              <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
+              <Button intent="primary" type="submit" text={getString('common.continue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

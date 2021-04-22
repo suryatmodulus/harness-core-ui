@@ -123,7 +123,7 @@ const IndividualTargets: React.FC<IndividualProps> = ({
             tooltip={
               <Menu style={{ minWidth: 'unset' }}>
                 <Menu.Item disabled icon="edit" text={getString('edit')} onClick={handleInteraction('edit')} />
-                <Menu.Item icon="cross" text={getString('delete')} onClick={handleInteraction('delete')} />
+                <Menu.Item icon="cross" text={getString('common.delete')} onClick={handleInteraction('delete')} />
               </Menu>
             }
             tooltipProps={{ isDark: true, interactionKind: 'click' }}

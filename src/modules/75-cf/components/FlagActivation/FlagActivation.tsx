@@ -447,7 +447,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                     />
                     <Button
                       minimal
-                      text={getString('cancel')}
+                      text={getString('common.cancel')}
                       onClick={() => {
                         onCancelEditHandler()
                         formikProps.handleReset()

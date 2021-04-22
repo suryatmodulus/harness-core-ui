@@ -198,7 +198,7 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                     type="submit"
                     disabled={!(selected || samlProvider)}
                   />
-                  <Button text={getString('cancel')} onClick={hideModal} />
+                  <Button text={getString('common.cancel')} onClick={hideModal} />
                 </Layout.Horizontal>
               </FormikForm>
             )}

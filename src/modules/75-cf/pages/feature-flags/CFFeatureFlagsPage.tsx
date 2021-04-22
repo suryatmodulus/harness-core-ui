@@ -125,7 +125,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
                 })
             }}
           />
-          <Button text={getString('cancel')} className={Classes.POPOVER_DISMISS} />
+          <Button text={getString('common.cancel')} className={Classes.POPOVER_DISMISS} />
         </Layout.Horizontal>
         <span />
       </Container>
@@ -301,7 +301,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   const refetch = ((column as unknown) as { refetch: () => void }).refetch
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
-    confirmText: getString('delete'),
+    confirmText: getString('common.delete'),
     message: (
       <Text>
         <span
@@ -349,7 +349,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
           },
           {
             icon: 'trash',
-            text: getString('delete'),
+            text: getString('common.delete'),
             onClick: deleteFlag
           }
         ]}

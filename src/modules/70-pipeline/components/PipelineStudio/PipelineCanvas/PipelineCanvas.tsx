@@ -64,7 +64,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({ toPipelineList, 
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     contentText: getString('pipelines-studio.pipelineUpdatedError'),
     titleText: getString('pipelines-studio.pipelineUpdated'),
     confirmButtonText: getString('update'),

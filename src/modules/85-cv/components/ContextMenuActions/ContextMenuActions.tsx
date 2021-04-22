@@ -17,8 +17,8 @@ export default function ContextMenuActions({ onEdit, onDelete, titleText, conten
   const { openDialog } = useConfirmationDialog({
     titleText,
     contentText,
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: function (shouldDelete: boolean) {
       if (shouldDelete) {
         onDelete?.()
@@ -40,7 +40,7 @@ export default function ContextMenuActions({ onEdit, onDelete, titleText, conten
           {!!onDelete && (
             <MenuItem
               icon="trash"
-              text={<String stringID="delete" />}
+              text={<String stringID="common.delete" />}
               onClick={(e: React.MouseEvent) => {
                 e.stopPropagation()
                 openDialog()

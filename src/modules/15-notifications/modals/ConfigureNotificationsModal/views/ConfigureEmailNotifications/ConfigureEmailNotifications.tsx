@@ -184,7 +184,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                     <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
-                    <Button text={getString('cancel')} onClick={props.hideModal} />
+                    <Button text={getString('common.cancel')} onClick={props.hideModal} />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

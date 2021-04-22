@@ -11,7 +11,7 @@ const UserOverView: React.FC = () => {
         <Tab id="summary" title={<Text color={Color.BLACK}>{getString('summary')}</Text>} panel={<UserSummaryTab />} />
         {/* <Tab
           id="authentication"
-          title={<Text color={Color.BLACK}>{getString('authentication')}</Text>}
+          title={<Text color={Color.BLACK}>{getString('common.authentication')}</Text>}
           panel={<UserAuthenticationTab />}
         />
         <Tab

@@ -245,7 +245,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       }
                     }}
                   />
-                  <Button text={getString('cancel')} onClick={props.onHide} />
+                  <Button text={getString('common.cancel')} onClick={props.onHide} />
                 </Layout.Horizontal>
               </>
             )

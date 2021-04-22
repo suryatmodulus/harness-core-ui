@@ -35,7 +35,7 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation, textPro
   }
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: textProps?.cancelButtonText || getString('cancel'),
+    cancelButtonText: textProps?.cancelButtonText || getString('common.cancel'),
     contentText: textProps?.contentText || getString('navigationCheckText'),
     titleText: textProps?.titleText || getString('navigationCheckTitle'),
     confirmButtonText: textProps?.confirmButtonText || getString('confirm'),

@@ -113,7 +113,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       <PageHeader title={getString('createSecretYAML.createSecret')} />
       <Container padding="xlarge">
         <YAMLBuilder
-          fileName={getString('createSecretYAML.newSecret')}
+          fileName={getString('common.newSecret')}
           entityType={'Secrets'}
           bind={setYamlHandler}
           height="calc(100vh - 200px)"

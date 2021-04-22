@@ -277,7 +277,7 @@ const Wizard: React.FC<WizardProps> = ({
                 )}
                 {!isYamlView && !lastTab && (
                   <Button
-                    text={getString('continue')}
+                    text={getString('common.continue')}
                     intent="primary"
                     rightIcon="chevron-right"
                     onClick={() => {
@@ -311,7 +311,7 @@ const Wizard: React.FC<WizardProps> = ({
                 )}
                 {!isYamlView && (
                   <Text className={css.cancel} onClick={onHide}>
-                    {getString('cancel')}
+                    {getString('common.cancel')}
                   </Text>
                 )}
                 {isYamlView && yamlBuilderReadOnlyModeProps && !loadingYamlView && (
@@ -346,7 +346,7 @@ const Wizard: React.FC<WizardProps> = ({
                       disabled={disableSubmit}
                     />
                     <Text className={css.cancel} onClick={onHide}>
-                      {getString('cancel')}
+                      {getString('common.cancel')}
                     </Text>
                   </>
                 )}

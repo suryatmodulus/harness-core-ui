@@ -219,8 +219,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
   const secretTypeOptions = [
-    { label: getString('secret.labelText'), value: 'SecretText' },
-    { label: getString('secret.labelFile'), value: 'SecretFile' }
+    { label: getString('secrets.text'), value: 'SecretText' },
+    { label: getString('secrets.file'), value: 'SecretFile' }
   ]
 
   const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>()

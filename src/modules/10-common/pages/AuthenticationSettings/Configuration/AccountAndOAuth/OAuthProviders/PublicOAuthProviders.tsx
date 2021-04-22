@@ -41,7 +41,7 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
 
   const { openDialog: confirmOAuthDisable } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('common.cancel'),
     titleText: getString('common.authSettings.disableOAuthLogin'),
     contentText: getString('common.authSettings.confirmDisableOAuthLogin'),
     confirmButtonText: getString('confirm'),

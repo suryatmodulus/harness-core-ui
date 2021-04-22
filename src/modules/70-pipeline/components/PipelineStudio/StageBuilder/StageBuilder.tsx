@@ -149,8 +149,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       id: deleteId
     })} `,
     titleText: getString('deletePipelineStage'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
         const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId), pipeline, stageMap)

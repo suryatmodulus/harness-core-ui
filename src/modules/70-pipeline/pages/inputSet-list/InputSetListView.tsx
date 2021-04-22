@@ -121,8 +121,8 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           ? getString('inputSets.overlayInputSet')
           : getString('inputSets.inputSetLabel')
     }),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('common.delete'),
+    cancelButtonText: getString('common.cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {
@@ -188,7 +188,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           <Menu.Divider />
           <Menu.Item
             icon="trash"
-            text={getString('delete')}
+            text={getString('common.delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               confirmDelete()

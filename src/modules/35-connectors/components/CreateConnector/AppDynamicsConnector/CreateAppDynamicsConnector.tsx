@@ -150,14 +150,14 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
           { name: 'clientSecretRef', label: getString('connectors.appD.clientSecret'), key: 'clientSecretRef' }
         ]
       : [
-          { name: 'username', label: getString('username'), key: 'username' },
-          { name: 'password', label: getString('password'), key: 'password' }
+          { name: 'username', label: getString('common.username'), key: 'username' },
+          { name: 'password', label: getString('common.password'), key: 'password' }
         ]
   return (
     <Container>
       <Container flex style={{ alignItems: 'baseline' }}>
         <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-          {getString('authentication')}
+          {getString('common.authentication')}
         </Text>
         <FormInput.Select
           name="authType"

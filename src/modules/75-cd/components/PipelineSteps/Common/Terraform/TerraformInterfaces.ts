@@ -93,7 +93,7 @@ export interface Connector {
   value: string
   scope: Scope
   live: boolean
-  connector: { type: string; spec: { val: string } }
+  connector: { type: string; spec: { val: string; url: string; connectionType?: string; type?: string } }
 }
 export interface TerraformData extends StepElementConfig {
   delegateSelectors: string[]

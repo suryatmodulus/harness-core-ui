@@ -19,7 +19,6 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { Connector, TerraformData } from '../TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
 interface GitStoreProps {
   formik: FormikProps<TerraformData>
 }
@@ -42,8 +41,8 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
   React.useEffect(() => {
     formik.setFieldValue('spec.configuration.spec.configFiles.store.type', 'Git')
   }, [])
-
   const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
+
   return (
     <>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -174,7 +173,8 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
           />
         )}
       </div>
-      {connectorValue?.scope === 'account' && (
+      {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
+        connectorValue?.connector?.spec?.type === 'Account') && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.repoName')}

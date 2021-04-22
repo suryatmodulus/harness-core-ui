@@ -44,6 +44,8 @@ import {
   TerraformStoreTypes
 } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { useParams } from 'react-router-dom'
 
 const setInitialValues = (data: TerraformData): TerraformData => {
   return data
@@ -103,6 +105,12 @@ export default function TerraformEditView(
     ]
   }
 
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
+
   return (
     <>
       <Formik<TerraformData>
@@ -123,8 +131,39 @@ export default function TerraformEditView(
                   <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />}
+
                 {stepType === StepType.TerraformPlan && (
-                  <BaseForm formik={formik} configurationTypes={configTypes} showCommand={true} />
+                  <>
+                    <BaseForm formik={formik} configurationTypes={configTypes} showCommand={true} />
+                    <FormMultiTypeConnectorField
+                      label={
+                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          {getString('connectors.title.secretManager')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('connectors.title.secretManager')}
+                            iconProps={{ size: 14 }}
+                          />
+                        </Text>
+                      }
+                      category={'SECRET_MANAGER'}
+                      width={
+                        getMultiTypeFromValue(
+                          formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                        ) === MultiTypeInputType.RUNTIME
+                          ? 200
+                          : 260
+                      }
+                      name="spec.configuration.secretManagerId"
+                      placeholder={getString('select')}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      style={{ marginBottom: 10 }}
+                      multiTypeProps={{ expressions }}
+                    />
+                  </>
                 )}
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField

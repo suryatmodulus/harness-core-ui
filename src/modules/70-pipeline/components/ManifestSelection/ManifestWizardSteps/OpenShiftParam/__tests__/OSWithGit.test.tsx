@@ -98,6 +98,40 @@ describe('Open shift params with git tests', () => {
     })
   })
 
+  test('submits with right payload - for nongit types', async () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'test',
+
+        branch: 'master',
+        gitFetchType: 'Branch',
+        paths: ['test'],
+        skipResourceVersioning: false
+      },
+      prevStepData: {
+        connectorRef: 'account.github-1',
+        store: 'Github'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'test' } })
+      fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
+      fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'master' } })
+    })
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    expect(container).toMatchSnapshot()
+  })
+
   test('renders form in edit mode', () => {
     const defaultProps = {
       stepName: 'Manifest details',
@@ -112,6 +146,39 @@ describe('Open shift params with git tests', () => {
               connectorRef: '',
               gitFetchType: 'Branch',
               paths: [],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders form in edit mode - when gitfetchtype is commitid', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              commitId: 'testCommit',
+              connectorRef: '',
+              gitFetchType: 'Commit',
+              paths: ['test', 'test2'],
               repoName: ''
             },
             type: 'Git'
@@ -208,6 +275,41 @@ describe('Open shift params with git tests', () => {
             }
           }
         }
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('when scope is of account', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              branch: 'testBranch',
+              commitId: undefined,
+              connectorRef: 'account.test',
+              gitFetchType: 'Branch',
+              paths: [],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git',
+        connectorRef: 'account.test'
       },
       handleSubmit: jest.fn()
     }

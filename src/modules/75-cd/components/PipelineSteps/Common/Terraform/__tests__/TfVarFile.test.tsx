@@ -41,7 +41,6 @@ describe('Terraform var file creation testing', () => {
     fireEvent.click(getByTextBody(dialog, 'addFile'))
 
     expect(props.onSubmit).toBeCalled()
-
   })
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('form with right payload - for remote store type', async () => {
@@ -80,7 +79,6 @@ describe('Terraform var file creation testing', () => {
 
     expect(props.onSubmit).toBeCalled()
     expect(dialog).toMatchSnapshot()
-
   })
 
   test('removing path successfully', async () => {
@@ -144,7 +142,6 @@ describe('Terraform var file creation testing', () => {
 
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('form with right payload - for remote store type', async () => {
-
     const { container, findByTestId } = render(
       <TestWrapper>
         <TfVarFile {...props} />

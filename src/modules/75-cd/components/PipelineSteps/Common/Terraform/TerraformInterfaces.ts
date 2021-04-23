@@ -305,7 +305,6 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
     ...values,
     spec: {
       provisionerIdentifier: values?.spec?.provisionerIdentifier
-
     }
   }
 }

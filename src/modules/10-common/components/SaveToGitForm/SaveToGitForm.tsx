@@ -14,6 +14,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
+import type { FormikContext } from 'formik'
 import {
   GitSyncConfig,
   GitSyncEntityDTO,
@@ -79,8 +80,12 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     createPr: false
   }
 
-  const handleBranchTypeChange = (isNew: boolean): void => {
-    if (isNewBranch !== isNew) setIsNewBranch(isNew)
+  const handleBranchTypeChange = (isNew: boolean, formik: FormikContext<SaveToGitFormInterface>): void => {
+    if (isNewBranch !== isNew) {
+      setIsNewBranch(isNew)
+      formik.setFieldValue('branch', '')
+      formik.setFieldTouched('branch', false)
+    }
   }
 
   const fetchBranches = (repoId: string): void => {
@@ -191,117 +196,112 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           })}
           onSubmit={formData => {
             props.onSuccess?.({
-              ...pick(formData, [
-                'repoIdentifier',
-                'rootFolder',
-                'filePath',
-                'isNewBranch',
-                'branch',
-                'commitMsg',
-                'createPr'
-              ])
+              ...pick(formData, ['repoIdentifier', 'rootFolder', 'filePath', 'branch', 'commitMsg', 'createPr']),
+              isNewBranch
             })
           }}
         >
-          {({ setFieldValue }) => (
-            <FormikForm>
-              <Container className={css.formBody}>
-                <NameId
-                  identifierProps={{
-                    inputName: 'name',
-                    isIdentifierEditable: false,
-                    inputGroupProps: { disabled: true }
-                  }}
-                />
-                <Layout.Horizontal spacing="medium" className={css.formRow}>
-                  <FormInput.Select
-                    name="repoIdentifier"
-                    label={getString('common.git.selectRepoLabel')}
-                    items={repoSelectOptions}
-                    onChange={(selected: SelectOption) => {
-                      setFieldValue('branch', '')
-                      setFieldValue('rootFolder', '')
-                      fetchBranches(selected.value as string)
-                      const selectedRepo = gitSyncRepos.find(
-                        (repo: GitSyncConfig) => repo.identifier === selected.value
-                      )
-
-                      const defaultRootFolder = selectedRepo?.gitSyncFolderConfigDTOs?.find(
-                        (folder: GitSyncFolderConfigDTO) => !!folder.isDefault
-                      )
-
-                      defaultRootFolder && setFieldValue('rootFolder', defaultRootFolder.rootFolder)
-                      setRootFolderSelectOptions(getRootFolderSelectOptions(selectedRepo?.gitSyncFolderConfigDTOs))
+          {formik => {
+            return (
+              <FormikForm>
+                <Container className={css.formBody}>
+                  <NameId
+                    identifierProps={{
+                      inputName: 'name',
+                      isIdentifierEditable: false,
+                      inputGroupProps: { disabled: true }
                     }}
                   />
-                  <FormInput.Select
-                    name="rootFolder"
-                    label={getString('common.gitSync.rootFolderLabel')}
-                    items={rootFolderSelectOptions}
+                  <Layout.Horizontal spacing="medium" className={css.formRow}>
+                    <FormInput.Select
+                      name="repoIdentifier"
+                      label={getString('common.git.selectRepoLabel')}
+                      items={repoSelectOptions}
+                      onChange={(selected: SelectOption) => {
+                        formik.setFieldValue('branch', '')
+                        formik.setFieldValue('rootFolder', '')
+                        fetchBranches(selected.value as string)
+                        const selectedRepo = gitSyncRepos.find(
+                          (repo: GitSyncConfig) => repo.identifier === selected.value
+                        )
+
+                        const defaultRootFolder = selectedRepo?.gitSyncFolderConfigDTOs?.find(
+                          (folder: GitSyncFolderConfigDTO) => !!folder.isDefault
+                        )
+
+                        defaultRootFolder && formik.setFieldValue('rootFolder', defaultRootFolder.rootFolder)
+                        setRootFolderSelectOptions(getRootFolderSelectOptions(selectedRepo?.gitSyncFolderConfigDTOs))
+                      }}
+                    />
+                    <FormInput.Select
+                      name="rootFolder"
+                      label={getString('common.gitSync.rootFolderLabel')}
+                      items={rootFolderSelectOptions}
+                    />
+                  </Layout.Horizontal>
+
+                  <FormInput.Text name="filePath" label={getString('common.git.filePath')} />
+                  <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
+
+                  <Text
+                    className={css.sectionHeader}
+                    font={{ size: 'medium' }}
+                    color={Color.GREY_600}
+                    padding={{ bottom: 'small' }}
+                    margin={{ top: 'large' }}
+                  >
+                    {getString('common.git.branchSelectHeader')}
+                  </Text>
+                  <Container
+                    className={css.sectionHeader}
+                    padding={{
+                      top: 'small',
+                      bottom: isNewBranch ? 'small' : 'xSmall'
+                    }}
+                  >
+                    <Radio large onClick={() => handleBranchTypeChange(false, formik)} checked={!isNewBranch}>
+                      <Icon name="git-branch-existing"></Icon>
+                      <Text margin={{ left: 'small' }} inline>
+                        {getString('common.git.existingBranchCommitLabel')}
+                      </Text>
+                    </Radio>
+                    <BranchSelect isNewSelected={isNewBranch} isNewContainer={false}></BranchSelect>
+                  </Container>
+
+                  <Container
+                    className={css.sectionHeader}
+                    padding={{
+                      top: 'small',
+                      bottom: isNewBranch ? 'xSmall' : 'small'
+                    }}
+                  >
+                    <Radio
+                      data-test="newBranchRadioBtn"
+                      large
+                      onClick={() => handleBranchTypeChange(true, formik)}
+                      checked={isNewBranch}
+                    >
+                      <Icon name="git-new-branch"></Icon>
+                      <Text inline margin={{ left: 'small' }}>
+                        {getString('common.git.newBranchCommitLabel')}
+                      </Text>
+                    </Radio>
+                    <BranchSelect isNewSelected={isNewBranch} isNewContainer={true}></BranchSelect>
+                  </Container>
+                </Container>
+
+                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                  <Button className={css.formButton} type="submit" intent="primary" text={getString('save')} />
+                  <Button
+                    className={css.formButton}
+                    text={getString('cancel')}
+                    margin={{ left: 'medium' }}
+                    onClick={props.onClose}
                   />
                 </Layout.Horizontal>
-
-                <FormInput.Text name="filePath" label={getString('common.git.filePath')} />
-                <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
-
-                <Text
-                  className={css.sectionHeader}
-                  font={{ size: 'medium' }}
-                  color={Color.GREY_600}
-                  padding={{ bottom: 'small' }}
-                  margin={{ top: 'large' }}
-                >
-                  {getString('common.git.branchSelectHeader')}
-                </Text>
-                <Container
-                  className={css.sectionHeader}
-                  padding={{
-                    top: 'small',
-                    bottom: isNewBranch ? 'small' : 'xSmall'
-                  }}
-                >
-                  <Radio large onClick={() => handleBranchTypeChange(false)} checked={!isNewBranch}>
-                    <Icon name="git-branch-existing"></Icon>
-                    <Text margin={{ left: 'small' }} inline>
-                      {getString('common.git.existingBranchCommitLabel')}
-                    </Text>
-                  </Radio>
-                  <BranchSelect isNewSelected={isNewBranch} isNewContainer={false}></BranchSelect>
-                </Container>
-
-                <Container
-                  className={css.sectionHeader}
-                  padding={{
-                    top: 'small',
-                    bottom: isNewBranch ? 'xSmall' : 'small'
-                  }}
-                >
-                  <Radio
-                    data-test="newBranchRadioBtn"
-                    large
-                    onClick={() => handleBranchTypeChange(true)}
-                    checked={isNewBranch}
-                  >
-                    <Icon name="git-new-branch"></Icon>
-                    <Text inline margin={{ left: 'small' }}>
-                      {getString('common.git.newBranchCommitLabel')}
-                    </Text>
-                  </Radio>
-                  <BranchSelect isNewSelected={isNewBranch} isNewContainer={true}></BranchSelect>
-                </Container>
-              </Container>
-
-              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-                <Button className={css.formButton} type="submit" intent="primary" text={getString('save')} />
-                <Button
-                  className={css.formButton}
-                  text={getString('cancel')}
-                  margin={{ left: 'medium' }}
-                  onClick={props.onClose}
-                />
-              </Layout.Horizontal>
-            </FormikForm>
-          )}
+              </FormikForm>
+            )
+          }}
         </Formik>
       </Container>
     </Container>

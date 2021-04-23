@@ -23,7 +23,7 @@ export interface ExecutionStageDetailsProps {
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail, pipelineStagesMap, loading } = useExecutionContext()
+  const { pipelineExecutionDetail, pipelineStagesMap, loading, allNodeMap } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
   const [resourceUnit, setResourceUnit] = React.useState({ id: null })
@@ -62,7 +62,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     items: processExecutionData(pipelineExecutionDetail?.executionGraph),
     identifier: `${executionIdentifier}-${props.selectedStage}`,
     status: stage?.status as any,
-    allNodes: Object.keys(pipelineExecutionDetail?.executionGraph?.nodeMap || {})
+    allNodes: Object.keys(allNodeMap)
   }
   const fetchData = debounce(refetch, 1000)
   const fetchResourceConstraints = debounce(fetchResourceData, 1000)

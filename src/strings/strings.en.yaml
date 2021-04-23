@@ -647,12 +647,7 @@ generic_errors:
 cdDashboard:
   welcome: Welcome to Continuous Delivery
   description: Deploy your services with blazing fast pipelines.
-  creatPipeline: + Create a pipeline
 hours: hours
-authenticationSettings:
-  allowLoginFromTheseDomains: Allow login from these domains
-  allowUsersWIthEmails: 'Only allow users with the following email domains:'
-  domainNameRequired: At least one domain name is required
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
   fromCommit: 'Specific Commit ID'
@@ -1305,7 +1300,6 @@ pipelineSteps:
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
       buildStageName: Build / Test
-      buildStageDescription: Build your applications with blazing fast pipelines.
 
     stageSpecifications:
       stageNamePlaceholder: 'Enter your stage name'

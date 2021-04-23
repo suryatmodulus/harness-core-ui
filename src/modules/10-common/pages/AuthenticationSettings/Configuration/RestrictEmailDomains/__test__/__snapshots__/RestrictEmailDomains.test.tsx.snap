@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestrictEmailDomains Disable email restrictions 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge StyledProps--border"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card--card card shadow"
+    >
+      <label
+        class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--padding-bottom-medium"
+      >
+        <input
+          checked=""
+          data-testid="toggle-restrict-email-domains"
+          type="checkbox"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-normal"
+        >
+          common.authSettings.allowUsersWIthEmails
+        </span>
+      </label>
+      <div
+        class="bp3-input bp3-tag-input bp3-disabled input"
+      >
+        <div
+          class="bp3-tag-input-values"
+        >
+          <span
+            class="bp3-tag bp3-minimal"
+            data-tag-index="0"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              harness.io
+            </span>
+          </span>
+          <input
+            class="bp3-input-ghost"
+            disabled=""
+            value=""
+          />
+        </div>
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps--main editIcon StyledProps--intent-primary StyledProps--margin-small"
+          data-testid="update-restrict-email-domains"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`RestrictEmailDomains Update email restrictions 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge StyledProps--border"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card--card card shadow"
+    >
+      <label
+        class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--padding-bottom-medium"
+      >
+        <input
+          checked=""
+          data-testid="toggle-restrict-email-domains"
+          type="checkbox"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-normal"
+        >
+          common.authSettings.allowUsersWIthEmails
+        </span>
+      </label>
+      <div
+        class="bp3-input bp3-tag-input bp3-disabled input"
+      >
+        <div
+          class="bp3-tag-input-values"
+        >
+          <span
+            class="bp3-tag bp3-minimal"
+            data-tag-index="0"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              harness.io
+            </span>
+          </span>
+          <input
+            class="bp3-input-ghost"
+            disabled=""
+            value=""
+          />
+        </div>
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps--main editIcon StyledProps--intent-primary StyledProps--margin-small"
+          data-testid="update-restrict-email-domains"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

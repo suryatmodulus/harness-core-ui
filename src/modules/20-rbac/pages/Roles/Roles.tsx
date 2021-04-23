@@ -9,11 +9,13 @@ import { Role, RoleResponse, useGetRoleList } from 'services/rbac'
 import RoleCard from '@rbac/components/RoleCard/RoleCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  useDocumentTitle(getString('roles'))
   const [page, setPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>()
   const { data, loading, error, refetch } = useGetRoleList({

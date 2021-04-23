@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
 import { useParams } from 'react-router-dom'
-import { StepFormikFowardRef, setFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 
@@ -17,19 +17,13 @@ import type { ContinousVerificationData } from '../../types'
 import BaseContinousVerification from './components/BaseContinousVerification'
 import DefineVerificationJob from './components/DefineVerificationJob'
 import ConfigureVerificationJob from './components/ConfigureVerificationJob/ConfigureVerificationJob'
+import type { ContinousVerificationWidgetProps } from './types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 /**
  * Spec
  * https://harness.atlassian.net/wiki/spaces/CDNG/pages/1485670459/Continous+Verification+Step
  */
-
-interface ContinousVerificationWidgetProps {
-  initialValues: ContinousVerificationData
-  isNewStep?: boolean
-  onUpdate?: (data: ContinousVerificationData) => void
-  stepViewType?: StepViewType
-}
 
 export function ContinousVerificationWidget(
   { initialValues, onUpdate, isNewStep }: ContinousVerificationWidgetProps,

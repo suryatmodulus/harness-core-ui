@@ -11,8 +11,11 @@ export interface StringsMap {
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
+  'common.authSettings.WhitelistedDomainsUpdated': string
   'common.authSettings.accountOrOAuthLogin': string
   'common.authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'common.authSettings.allowLoginFromTheseDomains': string
+  'common.authSettings.allowUsersWIthEmails': string
   'common.authSettings.atLeastNChars': string
   'common.authSettings.authorizationEnabledFor': string
   'common.authSettings.authorizationNotEnabled': string
@@ -23,6 +26,7 @@ export interface StringsMap {
   'common.authSettings.confirmDisablePasswordExpiration': string
   'common.authSettings.confirmDisablePasswordStrength': string
   'common.authSettings.confirmDisableUserPasswordLogin': string
+  'common.authSettings.confirmDisableWhitelistedDomains': string
   'common.authSettings.daysBeforePasswordExpires': string
   'common.authSettings.daysBeforeUserNotified': string
   'common.authSettings.deleteSamlProvider': string
@@ -32,6 +36,8 @@ export interface StringsMap {
   'common.authSettings.disablePasswordExpiration': string
   'common.authSettings.disablePasswordStrength': string
   'common.authSettings.disableUserPasswordLogin': string
+  'common.authSettings.disableWhitelistedDomains': string
+  'common.authSettings.domainNameRequired': string
   'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
   'common.authSettings.enableSamlProvider': string
   'common.authSettings.enableSamlProviderDescription': string
@@ -75,9 +81,11 @@ export interface StringsMap {
   'common.authSettings.somethingWentWrong': string
   'common.authSettings.useHarnessUsernameAndPassword': string
   'common.authSettings.usePublicOAuth': string
+  'common.authSettings.whitelistedDomainsDisabled': string
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
+  'common.createPipeline': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -263,10 +271,15 @@ export interface StringsMap {
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.runtimeAccess': string
   'rbac.permissionLabels.view': string
+  'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
+  'rbac.roleAssignment.userPlaceHolder': string
+  'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
+  'rbac.userGroupForm.editSuccess': string
   'rbac.userGroupPage.confirmDelete': string
   'rbac.userGroupPage.confirmDeleteTitle': string
   'rbac.userGroupPage.newUserGroup': string
@@ -335,6 +348,19 @@ export interface StringsMap {
   'connectors.aws.validation.delegateSelector': string
   'connectors.aws.validation.secretKeyRef': string
   'connectors.awsCodeCommit.repoUrl': string
+  'connectors.awsKms.accessKeyLabel': string
+  'connectors.awsKms.arnLabel': string
+  'connectors.awsKms.assumedRoleDuration': string
+  'connectors.awsKms.awsSTS': string
+  'connectors.awsKms.externalId': string
+  'connectors.awsKms.loggedAt': string
+  'connectors.awsKms.roleArnLabel': string
+  'connectors.awsKms.secretKeyLabel': string
+  'connectors.awsKms.validation.durationError': string
+  'connectors.awsKms.validation.durationNumber': string
+  'connectors.awsKms.validation.selectAWSArn': string
+  'connectors.awsKms.validation.selectDelegate': string
+  'connectors.awsKms.validation.selectRegion': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.configureVerificationJob': string
@@ -481,7 +507,9 @@ export interface StringsMap {
   'connectors.title.artifactory': string
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
+  'connectors.title.awsKms': string
   'connectors.title.bitbucketConnector': string
+  'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string
   'connectors.title.gitConnector': string
   'connectors.title.githubConnector': string
@@ -549,14 +577,17 @@ export interface StringsMap {
   'dashboards.homePage.title': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
   'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.executionId': string
   'dashboards.serviceDashboard.frequency': string
   'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.lastDeployment': string
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.months': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
   'dashboards.serviceDashboard.serviceInstances': string
   'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.totalServices': string
   'dashboards.serviceDashboard.week': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
@@ -602,6 +633,7 @@ export interface StringsMap {
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string
   'pipeline.execution.actions.abortPipeline': string
   'pipeline.execution.actions.abortStage': string
@@ -778,6 +810,7 @@ export interface StringsMap {
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
   'cd.folderPath': string
+  'cd.infrastructureKey': string
   'cd.namespaceValidation': string
   'cd.releaseNameValidation': string
   'cd.steps.common.namespacePlaceholder': string
@@ -1271,10 +1304,17 @@ export interface StringsMap {
   'cf.testTheFlag.testFlagTargetHeading': string
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
+  'ci.advancedLabel': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.ciTrialHomePage.trialInProgress.description': string
+  'ci.clipboardCopyFail': string
+  'ci.clipboardCopySuccess': string
+  'ci.commitsOn': string
+  'ci.committed': string
+  'ci.connectors': string
   'ci.continuous': string
+  'ci.createPipeline': string
   'ci.dashboard.activeBuilds': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
@@ -1282,7 +1322,20 @@ export interface StringsMap {
   'ci.dashboard.noFailedBuilds': string
   'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
+  'ci.delegates': string
+  'ci.description': string
+  'ci.executionLabel': string
+  'ci.fileStore': string
+  'ci.infraLabel': string
   'ci.learnMore': string
+  'ci.newConnectorButton': string
+  'ci.newItem': string
+  'ci.next': string
+  'ci.noData': string
+  'ci.previous': string
+  'ci.save': string
+  'ci.secrets': string
+  'ci.templates': string
   'ci.testsReports.className': string
   'ci.testsReports.commitId': string
   'ci.testsReports.consoleOutput': string
@@ -1325,6 +1378,10 @@ export interface StringsMap {
   'ci.testsReports.totalWithColon': string
   'ci.testsReports.updatedTests': string
   'ci.testsReports.willBeDisplayedIfAvailable': string
+  'ci.titleGovernance': string
+  'ci.titleResources': string
+  'ci.titleSettings': string
+  'ci.welcome': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
@@ -2027,18 +2084,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'authenticationSettings.allowLoginFromTheseDomains': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.allowUsersWIthEmails': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.domainNameRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   back: string
   /**
    * @deprecated migrate this string to module level file
@@ -2088,10 +2133,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   categories: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'cdDashboard.creatPipeline': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4824,10 +4865,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.aboutYourStage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.buildStageDescription': string
   /**
    * @deprecated migrate this string to module level file
    */

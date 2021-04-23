@@ -31,3 +31,6 @@ serviceDashboard:
   prod: 'Prod'
   in: 'in {{timeRange}}'
   frequency: 'Frequency'
+  totalServices: 'Total Services: {{total}}'
+  lastDeployment: 'last deployment'
+  executionId: 'Execution Id: {{id}}'

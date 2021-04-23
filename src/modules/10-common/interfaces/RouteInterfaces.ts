@@ -75,7 +75,16 @@ export interface CVDataSourceTypePathProps {
   dataSourceType: string
 }
 
-export type Module = 'ci' | 'cd' | 'cf' | ':module(ci)' | ':module(cd)' | ':module(cf)' | ':module'
+export type Module =
+  | 'ci'
+  | 'cd'
+  | 'cf'
+  | 'cv'
+  | ':module(ci)'
+  | ':module(cd)'
+  | ':module(cf)'
+  | ':module'
+  | ':module(cv)'
 
 export interface ModulePathParams {
   module: Module

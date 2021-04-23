@@ -51,9 +51,10 @@ function TestComponent(
     children?: React.ReactNode
     queryParams?: ExecutionContextParams['queryParams']
     nodesMap?: ExecutionContextParams['allNodeMap']
+    selectedStep?: string
   }
 ): React.ReactElement {
-  const { children, queryParams = {}, nodesMap, ...rest } = props
+  const { children, queryParams = {}, nodesMap, selectedStep = '', ...rest } = props
   const [allNodeMap, setAllNodeMap] = React.useState(nodesMap || executionContext.allNodeMap)
 
   function addNewNodeToMap(uuid: string, node: ExecutionNode): void {
@@ -65,7 +66,9 @@ function TestComponent(
 
   return (
     <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-      <ExecutionContext.Provider value={{ ...executionContext, queryParams, allNodeMap, addNewNodeToMap }}>
+      <ExecutionContext.Provider
+        value={{ ...executionContext, queryParams, allNodeMap, addNewNodeToMap, selectedStepId: selectedStep }}
+      >
         <ExecutionStepDetails {...rest} />
         {props.children}
       </ExecutionContext.Provider>

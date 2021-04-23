@@ -29,6 +29,7 @@ interface UserGroupsListViewProps {
     principalInfo?: UserGroupDTO | UserSearchDTO,
     roleBindings?: RoleBinding[]
   ) => void
+  openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
 }
 
 const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
@@ -40,14 +41,31 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
   )
 }
 
-const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
+const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original
+  const { getString } = useStrings()
   const avatars =
     data.users?.map(user => {
       return { email: user.email, name: user.name }
     }) || []
 
-  return <AvatarGroup avatars={avatars} restrictLengthTo={6} />
+  const handleAddMember = (e: React.MouseEvent<HTMLElement | Element, MouseEvent>): void => {
+    e.stopPropagation()
+    ;(column as any).openUserGroupModal(data.userGroupDTO, true)
+  }
+
+  return avatars.length ? (
+    <AvatarGroup avatars={avatars} restrictLengthTo={6} onAdd={handleAddMember} />
+  ) : (
+    <Layout.Horizontal>
+      <Button
+        text={getString('plusNumber', { number: getString('members') })}
+        minimal
+        onClick={handleAddMember}
+        className={css.roleButton}
+      />
+    </Layout.Horizontal>
+  )
 }
 
 const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
@@ -120,6 +138,12 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
     openDeleteDialog()
   }
 
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    ;(column as any).openUserGroupModal(data)
+  }
+
   return (
     <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
       <Popover
@@ -140,6 +164,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
           }}
         />
         <Menu>
+          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
           <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
         </Menu>
       </Popover>
@@ -148,7 +173,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
 }
 
 const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
-  const { data, gotoPage, reload, openRoleAssignmentModal } = props
+  const { data, gotoPage, reload, openRoleAssignmentModal, openUserGroupModal } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { getString } = useStrings()
   const history = useHistory()
@@ -167,6 +192,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
         id: 'members',
         accessor: row => row.users,
         width: '30%',
+        openUserGroupModal: openUserGroupModal,
         Cell: RenderColumnMembers
       },
       {
@@ -184,10 +210,11 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
         width: '5%',
         Cell: RenderColumnMenu,
         reload: reload,
+        openUserGroupModal: openUserGroupModal,
         disableSortBy: true
       }
     ],
-    [reload]
+    [openRoleAssignmentModal, openUserGroupModal, reload]
   )
   return (
     <Table<UserGroupAggregateDTO>

@@ -6,12 +6,12 @@ import { useStrings } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { getString } = useStrings()
 
@@ -25,13 +25,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={
-                  orgIdentifier && projectIdentifier
-                    ? routes.toProjectResourcesConnectors({ accountId, orgIdentifier, projectIdentifier })
-                    : orgIdentifier
-                    ? routes.toOrgResourcesConnectors({ accountId, orgIdentifier })
-                    : routes.toResourcesConnectors({ accountId })
-                }
+                to={routes.toResourcesConnectors({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('connectorsLabel')}
               </NavLink>
@@ -39,13 +33,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={
-                  orgIdentifier && projectIdentifier
-                    ? routes.toProjectResourcesSecrets({ accountId, orgIdentifier, projectIdentifier })
-                    : orgIdentifier
-                    ? routes.toOrgResourcesSecretsListing({ accountId, orgIdentifier })
-                    : routes.toResourcesSecretsListing({ accountId })
-                }
+                to={routes.toResourcesSecrets({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('common.secrets')}
               </NavLink>
@@ -54,11 +42,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                 <NavLink
                   className={css.tags}
                   activeClassName={css.activeTag}
-                  to={
-                    orgIdentifier
-                      ? routes.toOrgResourcesDelegates({ accountId, orgIdentifier })
-                      : routes.toResourcesDelegates({ accountId })
-                  }
+                  to={routes.toResourcesDelegates({ accountId, orgIdentifier, projectIdentifier, module })}
                 >
                   {getString('delegate.delegates')}
                 </NavLink>

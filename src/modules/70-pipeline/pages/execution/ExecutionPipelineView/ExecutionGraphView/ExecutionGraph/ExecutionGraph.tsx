@@ -5,8 +5,7 @@ import { GraphLayoutNode, useGetBarriersExecutionInfo } from 'services/pipeline-
 import {
   getIconFromStageModule,
   processLayoutNodeMap,
-  ProcessLayoutNodeMapResponse,
-  ExecutionPathParams
+  ProcessLayoutNodeMapResponse
 } from '@pipeline/utils/executionUtils'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -20,6 +19,7 @@ import {
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
+import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import CDInfo from './components/CD/CDInfo'
 import css from './ExecutionGraph.module.scss'
@@ -72,17 +72,16 @@ const processExecutionData = (
 }
 
 export interface ExecutionGraphProps {
-  selectedStage: string
   onSelectedStage(stage: string): void
 }
 
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
-  const { executionIdentifier } = useParams<ExecutionPathParams>()
+  const { executionIdentifier } = useParams<ExecutionPathProps>()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<{}> | undefined
   >()
   const [stageSetupId, setStageSetupIdId] = React.useState('')
-  const { pipelineExecutionDetail } = useExecutionContext()
+  const { pipelineExecutionDetail, selectedStageId } = useExecutionContext()
   const { primaryPaneSize } = useExecutionLayoutContext()
   const nodeData = processLayoutNodeMap(pipelineExecutionDetail?.pipelineExecutionSummary)
   const data: ExecutionPipeline<GraphLayoutNode> = {
@@ -152,7 +151,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
               dynamicPopoverHandler?.hide()
               setStageSetupIdId('')
             }}
-            selectedIdentifier={props.selectedStage}
+            selectedIdentifier={selectedStageId}
             itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
             diagramContainerHeight={primaryPaneSize}
             data={data}

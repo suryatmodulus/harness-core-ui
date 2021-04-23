@@ -30,6 +30,7 @@ const entitySubTypeToTagMap: {
   GcpKms: 'gcpkms',
   Gcp: 'gcp',
   Aws: 'aws',
+  AwsKms: 'awskms',
   Artifactory: 'artifactory',
   Jira: 'jira',
   Nexus: 'nexus',

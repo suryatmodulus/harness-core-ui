@@ -27,7 +27,12 @@ const UserProfilePage: React.FC = () => {
             </Layout.Horizontal>
             <Layout.Vertical spacing="medium">
               <Avatar email={user.email} size="large" hoverCard={false} className={css.avatar} />
-              <Text color={Color.BLACK} font={{ size: 'large', weight: 'semi-bold' }}>
+              <Text
+                color={Color.BLACK}
+                font={{ size: 'large', weight: 'semi-bold' }}
+                lineClamp={1}
+                className={css.overflow}
+              >
                 {user.name}
               </Text>
             </Layout.Vertical>

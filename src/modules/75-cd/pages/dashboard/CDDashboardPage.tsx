@@ -24,7 +24,7 @@ export const CDDashboardPage: React.FC = () => {
           <Icon name="cd-main" size={200} />
           <RbacButton
             width={200}
-            text={getString('cdDashboard.creatPipeline')}
+            text={getString('common.createPipeline')}
             intent="primary"
             onClick={() =>
               history.push(

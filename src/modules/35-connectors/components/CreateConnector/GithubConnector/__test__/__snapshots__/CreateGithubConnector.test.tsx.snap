@@ -4632,7 +4632,8 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                     </div>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main formRow"
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 42.5%;"
                   >
                     <div
                       class="bp3-form-group"

@@ -200,11 +200,13 @@
     display: grid;
     grid-template-columns: 150px 1fr;
 
-    align-items: center;
+    align-items: start;
   }
   .radio-column {
     display: grid;
+    align-items: start;
     grid-template-columns: 30px 1fr;
+    height: 66px;
     label {
       position: relative;
       left: 35px;

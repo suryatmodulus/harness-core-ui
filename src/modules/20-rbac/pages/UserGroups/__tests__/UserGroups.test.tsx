@@ -28,6 +28,12 @@ const createUserGroupMock = (): ResponseBoolean => {
   return mockResponse
 }
 
+const editUserGroup = jest.fn()
+const editUserGroupMock = (): ResponseBoolean => {
+  editUserGroup()
+  return mockResponse
+}
+
 const createRole = jest.fn()
 const createRoleMock = (): ResponseBoolean => {
   createRole()
@@ -54,6 +60,7 @@ jest.mock('services/cd-ng', () => ({
   }),
   useDeleteUserGroup: jest.fn().mockImplementation(() => ({ mutate: deleteUserGroupMock })),
   usePostUserGroup: jest.fn().mockImplementation(() => ({ mutate: createUserGroupMock })),
+  usePutUserGroup: jest.fn().mockImplementation(() => ({ mutate: editUserGroupMock })),
   useGetUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
   })

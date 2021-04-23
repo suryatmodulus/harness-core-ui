@@ -44,6 +44,8 @@ title:
   awsCodeCommit: 'AWS CodeCommit'
   nexus: 'Nexus Repository'
   artifactory: 'Artifactory Repository'
+  awsKms: 'AWS Key Management Service'
+  delegateSelection: 'Delegate Selection'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -230,3 +232,18 @@ createdSuccessfully: 'Connector {{name}} created successfully'
 updatedSuccessfully: 'Connector {{name}} updated successfully'
 splunk:
   connectorDetailsHeader: Splunk Connection Details
+awsKms:
+  accessKeyLabel: 'AWS - Access Key ID*'
+  secretKeyLabel: 'AWS - Secret Access Key*'
+  arnLabel: 'AWS ARN*'
+  roleArnLabel: 'Role ARN*'
+  externalId: 'External ID'
+  assumedRoleDuration: 'Assumed Role Duration (seconds)'
+  loggedAt: 'Logged at'
+  validation:
+    selectDelegate: 'Please select a Delegate'
+    selectRegion: 'Please select a Region'
+    selectAWSArn: 'AWS ARN is required'
+    durationNumber: 'Duration should be more than zero'
+    durationError: 'Valid Duration required'
+  awsSTS: 'Assume Role using STS on delegate'

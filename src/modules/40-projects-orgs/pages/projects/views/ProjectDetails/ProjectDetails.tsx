@@ -62,7 +62,7 @@ const ProjectDetails: React.FC = () => {
     history.push(routes.toProjects({ accountId }))
   }
   const { openDialog } = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
-  useDocumentTitle([getString('projectsText'), projectData?.name || ''])
+  useDocumentTitle(getString('projectsText'))
 
   useEffect(() => {
     updateAppStore({ selectedProject: projectData })

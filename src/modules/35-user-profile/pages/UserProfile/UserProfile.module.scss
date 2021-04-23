@@ -5,7 +5,7 @@
 }
 
 .authentication {
-  border-color: var(--grey-200);
+  border-color: var(--grey-250);
   border-style: solid;
   border-width: 0.5px 0;
 }
@@ -21,4 +21,8 @@
 .button {
   color: var(--blue-500) !important;
   padding: 0 !important;
+}
+
+.overflow {
+  overflow-wrap: anywhere;
 }

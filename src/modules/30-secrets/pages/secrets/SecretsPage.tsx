@@ -32,7 +32,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
   const [openPopOver, setOpenPopOver] = useState<boolean>(false)
-  useDocumentTitle([getString('resources'), getString('common.secrets')])
+  useDocumentTitle(getString('common.secrets'))
 
   const { data: secretsResponse, loading, error, refetch } = useListSecretsV2({
     queryParams: {

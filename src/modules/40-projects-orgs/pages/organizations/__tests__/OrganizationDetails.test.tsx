@@ -71,7 +71,7 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routes.toOrgResources({
+        routes.toResources({
           accountId: 'testAcc',
           orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
         })

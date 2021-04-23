@@ -7,5 +7,6 @@ declare const styles: {
   readonly textCentered: string
   readonly activityStatement: string
   readonly webhookUrl: string
+  readonly disabledOption: string
 }
 export default styles

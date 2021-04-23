@@ -19,6 +19,8 @@
     .failure-message {
       font-size: var(--font-size-small);
       color: var(--red-500);
+      display: grid;
+      grid-template-columns: 20px 1fr;
       span {
         color: var(--red-500);
         padding-right: var(--spacing-xsmall);

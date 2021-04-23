@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
-import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uicore'
+import { Text, Icon, Layout, Button, Card, IconName, Switch } from '@wings-software/uicore'
 import { get, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -13,6 +13,7 @@ import {
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'
@@ -51,6 +52,8 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
+  const [isVerifyEnabled, setIsVerifyEnabled] = useState(false)
+  const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
   const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
     selectedStage,
     'stage.spec.serviceConfig.serviceDefinition.type',
@@ -73,6 +76,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     }
   }, [strategies?.data, serviceDefinitionType])
 
+  // TODO this api will be updated to return a CV step in the yamlSnippet, whenever a query param isVerifyEnabled is true.
   const { data: yamlSnippet, error } = useGetExecutionStrategyYaml({
     queryParams: {
       serviceDefinitionType,
@@ -172,6 +176,15 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
               <section className={css.image}>
                 <img src={imageByType[selectedStrategy]} />
               </section>
+              {CVNG_CDNG_INTEGRATION && (
+                <Switch
+                  label={getString('pipeline.enableVerificationOptions')}
+                  checked={isVerifyEnabled}
+                  onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
+                  defaultChecked={false}
+                  margin={{ bottom: 'small' }}
+                />
+              )}
             </section>
           </section>
         </Layout.Vertical>

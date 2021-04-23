@@ -13,7 +13,9 @@ import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import MemberList from './views/MemberList'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
+import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
@@ -35,12 +37,18 @@ const UserGroupDetails: React.FC = () => {
     onSuccess: refetch
   })
 
+  const { openUserGroupModal } = useUserGroupModal({
+    onSuccess: refetch
+  })
+
   const userGroup = data?.data?.userGroupDTO
   const users = data?.data?.users
   const roleBindings = data?.data?.roleAssignmentsMetadataDTO?.map(item => ({
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
+
+  useDocumentTitle([userGroup?.name || '', getString('common.userGroups')])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
@@ -98,7 +106,7 @@ const UserGroupDetails: React.FC = () => {
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
               {getString('members')}
             </Text>
-            <MemberList users={users} refetch={refetch} userGroupIdentifier={userGroupIdentifier} />
+            <MemberList userGroup={userGroup} users={users} refetch={refetch} openUserGroupModal={openUserGroupModal} />
           </Layout.Vertical>
         </Container>
         <Container width="50%" className={css.detailsContainer}>

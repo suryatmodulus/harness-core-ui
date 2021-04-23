@@ -10,6 +10,9 @@ import { NGTriggerConfig, useGetTriggerDetails, useUpdateTriggerStatus, useGetYa
 import { useStrings } from 'framework/strings'
 import type { tagsType } from '@common/utils/types'
 import { TagsPopover, PageSpinner } from '@common/components'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -73,6 +76,28 @@ export default function TriggersDetailPage(): JSX.Element {
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
+
+  const [isExecutable] = usePermission(
+    {
+      resourceScope: {
+        projectIdentifier: projectIdentifier,
+        orgIdentifier: orgIdentifier,
+        accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EXECUTE_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
+  )
+
+  const isTriggerRbacDisabled = !isExecutable
+
   const history = useHistory()
 
   const goToEditWizard = (): void => {
@@ -159,6 +184,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     <Text>{getString('enabledLabel')}</Text>
                     <Switch
                       label=""
+                      disabled={isTriggerRbacDisabled}
                       checked={triggerResponse?.data?.enabled ?? false}
                       onChange={async () => {
                         const updated = await updateTriggerStatus()
@@ -209,6 +235,7 @@ export default function TriggersDetailPage(): JSX.Element {
                 icon="Edit"
                 onClick={goToEditWizard}
                 minimal
+                disabled={isTriggerRbacDisabled}
                 text={getString('edit')}
               ></Button>
             </Layout.Horizontal>

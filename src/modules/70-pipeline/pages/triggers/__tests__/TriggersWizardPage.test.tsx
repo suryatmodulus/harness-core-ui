@@ -8,6 +8,7 @@ import { InputTypes, fillAtForm } from '@common/utils/JestFormHelper'
 import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as usePermission from '@rbac/hooks/usePermission'
 import {
   GetSourceRepoToEventResponse,
   GetActionsListResponse,
@@ -251,6 +252,7 @@ describe('TriggersWizardPage Triggers tests', () => {
     })
     test('Submit shows all onEdit values were parsed into FormikValues for re-submission', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -308,6 +310,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit values with Enabled False', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -372,6 +375,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit shows toast to fill out actions', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -437,6 +441,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
     test('Submit onEdit does not require push because empty actions response', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -502,6 +507,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       jest
         .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTemplateFromPipeline')

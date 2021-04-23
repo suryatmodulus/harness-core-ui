@@ -10,10 +10,12 @@ import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal
 import UserGroupsListView from '@rbac/pages/UserGroups/views/UserGroupsListView'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const UserGroupsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  useDocumentTitle(getString('common.userGroups'))
   const [page, setPage] = useState(0)
   const [searchTerm, setsearchTerm] = useState<string>()
   const { data, loading, error, refetch } = useGetUserGroupAggregateList({
@@ -84,6 +86,7 @@ const UserGroupsPage: React.FC = () => {
           openRoleAssignmentModal={openRoleAssignmentModal}
           gotoPage={(pageNumber: number) => setPage(pageNumber)}
           reload={refetch}
+          openUserGroupModal={openUserGroupModal}
         />
       </Page.Body>
     </>

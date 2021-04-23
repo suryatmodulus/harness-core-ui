@@ -2,6 +2,7 @@ secrets: Secrets
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
+createPipeline: '+ Create a pipeline'
 production: Production
 addVariable: Add Variable
 editVariable: Edit variable
@@ -228,3 +229,10 @@ authSettings:
   changeLoginToHarnessAccountOrOauthDescription: Some Users may not have set their Harness password. They will need to reset their password using this
   samlTestSuccessful: SAML test successful
   samlTestFailed: SAML test failed. Please check your credentials
+  disableWhitelistedDomains: Disable email restrictions
+  confirmDisableWhitelistedDomains: Are you sure you want to disable email restrictions?
+  WhitelistedDomainsUpdated: Domain restrictions have been updated successfully.
+  whitelistedDomainsDisabled: Domain restrictions have been disabled successfully.
+  allowLoginFromTheseDomains: Allow login from these domains
+  allowUsersWIthEmails: 'Only allow users with the following email domains:'
+  domainNameRequired: At least one domain name is required

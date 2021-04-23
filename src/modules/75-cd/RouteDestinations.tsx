@@ -14,7 +14,6 @@ import {
   executionPathProps,
   inputSetFormPathProps,
   orgPathProps,
-  modulePathProps,
   rolePathProps,
   resourceGroupPathProps
 } from '@common/utils/routeUtils'
@@ -50,9 +49,7 @@ import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
 import CDTemplateLibraryPage from '@cd/pages/admin/template-library/CDTemplateLibraryPage'
 import CDGitSyncPage from '@cd/pages/admin/git-sync/CDGitSyncPage'
 import CDGovernancePage from '@cd/pages/admin/governance/CDGovernancePage'
-import CDAccessControlPage from '@cd/pages/admin/access-control/CDAccessControlPage'
 import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSettingsPage'
-import ResourcesPage from '@cd/pages/Resources/ResourcesPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -80,6 +77,7 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+import ResourcesPage from '@common/pages/resources/ResourcesPage'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
@@ -143,8 +141,8 @@ const RedirectToCDProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toCDResourcesConnectors(params)} />
+  const params = useParams<PipelineType<ProjectPathProps>>()
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
@@ -246,14 +244,14 @@ export default (
     <Route
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDResources({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <RedirectToResourcesHome />
     </Route>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ResourcesPage>
         <ConnectorsPage />
@@ -276,7 +274,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ResourcesPage>
         <SecretsPage module="cd" />
@@ -296,10 +294,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDResourcesSecretDetails({
+      path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...pipelineModuleParams
       })}
     >
       <SecretDetails />
@@ -310,7 +309,7 @@ export default (
         ...accountPathProps,
         ...projectPathProps,
         ...orgPathProps,
-        ...modulePathProps
+        ...pipelineModuleParams
       })}
       exact
     >
@@ -426,13 +425,6 @@ export default (
       path={routes.toCDGovernance({ ...accountPathProps, ...projectPathProps })}
     >
       <CDGovernancePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CDSideNavProps}
-      path={routes.toCDAccessControl({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CDAccessControlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

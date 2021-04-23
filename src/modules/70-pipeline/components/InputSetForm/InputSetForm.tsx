@@ -322,7 +322,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       </div>
     )
   }, [formErrors])
-
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">

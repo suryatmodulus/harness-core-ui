@@ -11,6 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import css from './UserDetails.module.scss'
 
 const UserDetails: React.FC = () => {
@@ -37,6 +38,8 @@ const UserDetails: React.FC = () => {
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
+
+  useDocumentTitle([user?.name || '', getString('users')])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />

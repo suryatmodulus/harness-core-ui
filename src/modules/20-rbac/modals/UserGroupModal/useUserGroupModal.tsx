@@ -3,8 +3,8 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { UserGroupAggregateDTO } from 'services/cd-ng'
-import UserGroupForm from '@rbac/modals/UserGroupModal/views/UserGroupForm.tsx'
+import type { UserGroupDTO } from 'services/cd-ng'
+import UserGroupForm from '@rbac/modals/UserGroupModal/views/UserGroupForm'
 import css from './useUserGroupModal.module.scss'
 
 export interface UseUserGroupModalProps {
@@ -13,12 +13,13 @@ export interface UseUserGroupModalProps {
 }
 
 export interface UseUserGroupModalReturn {
-  openUserGroupModal: (userGroup?: UserGroupAggregateDTO) => void
+  openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
   closeUserGroupModal: () => void
 }
 
 export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUserGroupModalReturn => {
-  const [userGroupData, setUserGroupData] = useState<UserGroupAggregateDTO>()
+  const [userGroupData, setUserGroupData] = useState<UserGroupDTO>()
+  const [isAddMember, setIsAddMember] = useState<boolean>(false)
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -29,8 +30,9 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
         className={cx(css.dialog, Classes.DIALOG)}
       >
         <UserGroupForm
-          data={userGroupData?.userGroupDTO}
-          isEdit={!!userGroupData}
+          data={userGroupData}
+          isEdit={!!userGroupData && !isAddMember}
+          isAddMember={isAddMember}
           onSubmit={() => {
             onSuccess()
             hideModal()
@@ -48,18 +50,19 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
         />
       </Dialog>
     ),
-    [userGroupData]
+    [userGroupData, isAddMember]
   )
   const open = useCallback(
-    (_userGroup?: UserGroupAggregateDTO) => {
+    (_userGroup?: UserGroupDTO, _isAddMember?: boolean) => {
       setUserGroupData(_userGroup)
+      setIsAddMember(_isAddMember || false)
       showModal()
     },
     [showModal]
   )
 
   return {
-    openUserGroupModal: (userGroup?: UserGroupAggregateDTO) => open(userGroup),
+    openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => open(userGroup, _isAddMember),
     closeUserGroupModal: hideModal
   }
 }

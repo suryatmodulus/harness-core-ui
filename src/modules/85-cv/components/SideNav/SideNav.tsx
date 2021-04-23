@@ -79,11 +79,7 @@ export default function CVSideNav(): React.ReactElement {
             <AdminSelectorLink
               label={getString('resources')}
               iconName="main-scope"
-              to={routes.toCVAdminResources({
-                projectIdentifier,
-                orgIdentifier,
-                accountId
-              })}
+              to={routes.toResources({ projectIdentifier, orgIdentifier, accountId, module: 'cv' })}
             />
             <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.activitySources')}

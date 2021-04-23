@@ -20,7 +20,6 @@ import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/Pi
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
-import i18n from './BuildStageSetupShell.i18n'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
 import css from './BuildStageSetupShell.module.scss'
 
@@ -41,7 +40,7 @@ interface StagesFilledStateFlags {
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
 
-  const stageNames: string[] = [getString('overview'), getString('infrastructureText'), getString('executionText')]
+  const stageNames: string[] = [getString('overview'), getString('ci.infraLabel'), getString('ci.executionLabel')]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('overview'))
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
@@ -69,7 +68,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStepId) {
-      setSelectedTabId(getString('executionText'))
+      setSelectedTabId(getString('ci.executionLabel'))
     }
   }, [selectedStepId])
 
@@ -140,20 +139,20 @@ export default function BuildStageSetupShell(): JSX.Element {
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
       <Button
-        text={i18n.previous}
+        text={getString('ci.previous')}
         icon="chevron-left"
         disabled={selectedTabId === getString('overview')}
         onClick={() =>
           setSelectedTabId(
-            selectedTabId === i18n.advancedLabel
-              ? getString('executionText')
-              : selectedTabId === getString('executionText')
-              ? getString('infrastructureText')
+            selectedTabId === getString('ci.advancedLabel')
+              ? getString('ci.executionLabel')
+              : selectedTabId === getString('ci.executionLabel')
+              ? getString('ci.infraLabel')
               : getString('overview')
           )
         }
       />
-      {selectedTabId === i18n.advancedLabel ? (
+      {selectedTabId === getString('ci.advancedLabel') ? (
         <Button
           text="Done"
           intent="primary"
@@ -163,15 +162,15 @@ export default function BuildStageSetupShell(): JSX.Element {
         />
       ) : (
         <Button
-          text={selectedTabId === getString('executionText') ? i18n.save : i18n.next}
+          text={selectedTabId === getString('ci.executionLabel') ? getString('ci.save') : getString('ci.next')}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
-            if (selectedTabId === getString('executionText')) {
+            if (selectedTabId === getString('ci.executionLabel')) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
               setSelectedTabId(
-                selectedTabId === getString('overview') ? getString('infrastructureText') : getString('executionText')
+                selectedTabId === getString('overview') ? getString('ci.infraLabel') : getString('ci.executionLabel')
               )
             }
           }}
@@ -203,11 +202,11 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('infrastructureText')}
+          id={getString('ci.infraLabel')}
           title={
             <span className={css.tab}>
               <Icon name="infrastructure" height={20} size={20} />
-              {getString('infrastructureText')}
+              {getString('ci.infraLabel')}
               {filledUpStages.infra ? null : (
                 <Icon
                   name="warning-sign"
@@ -221,7 +220,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<BuildInfraSpecifications>{navBtns}</BuildInfraSpecifications>}
-          data-testid={getString('infrastructureText')}
+          data-testid={getString('ci.infraLabel')}
         />
         <Icon
           name="chevron-right"
@@ -232,11 +231,11 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('executionText')}
+          id={getString('ci.executionLabel')}
           title={
             <span className={css.tab}>
               <Icon name="execution" height={20} size={20} />
-              {getString('executionText')}
+              {getString('ci.executionLabel')}
               {filledUpStages.execution ? null : (
                 <Icon
                   name="warning-sign"
@@ -340,7 +339,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               selectedStepId={selectedStepId}
             />
           }
-          data-testid={getString('executionText')}
+          data-testid={getString('ci.executionLabel')}
         />
         <Icon
           name="chevron-right"
@@ -351,15 +350,15 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.advancedLabel}
+          id={getString('ci.advancedLabel')}
           title={
             <span className={css.tab}>
               <Icon name="advanced" height={20} size={20} />
-              {i18n.advancedLabel}
+              {getString('ci.advancedLabel')}
             </span>
           }
           panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
-          data-testid={i18n.advancedLabel}
+          data-testid={getString('ci.advancedLabel')}
         />
       </Tabs>
     </section>

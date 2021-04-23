@@ -125,6 +125,43 @@ function ExecutionWrapperInputSetForm(props: {
                   }}
                 />
               ) : null
+            } else if (nodep.stepGroup) {
+              const stepGroup = getStepFromStage(nodep.stepGroup.identifier, allValues)
+              const initialValues = getStepFromStage(nodep.stepGroup?.identifier || '', values)
+              return (
+                <>
+                  <CollapseForm
+                    header={stepGroup?.stepGroup?.name || ''}
+                    headerProps={{ font: { size: 'normal' } }}
+                    headerColor="var(--black)"
+                  >
+                    <ExecutionWrapperInputSetForm
+                      stepsTemplate={nodep.stepGroup.steps}
+                      formik={formik}
+                      readonly={readonly}
+                      path={`${path}[${index}].parallel[${indexp}].stepGroup.steps`}
+                      allValues={stepGroup?.stepGroup?.steps}
+                      values={initialValues?.stepGroup?.steps}
+                    />
+                  </CollapseForm>
+                  {nodep.stepGroup.rollbackSteps && (
+                    <CollapseForm
+                      header={stepGroup?.stepGroup?.name + ' (Rollback)' || ''}
+                      headerProps={{ font: { size: 'normal' } }}
+                      headerColor="var(--black)"
+                    >
+                      <ExecutionWrapperInputSetForm
+                        stepsTemplate={nodep.stepGroup.rollbackSteps}
+                        formik={formik}
+                        readonly={readonly}
+                        path={`${path}[${index}].parallel[${indexp}].stepGroup.rollbackSteps`}
+                        allValues={stepGroup?.stepGroup?.rollbackSteps}
+                        values={initialValues?.stepGroup?.rollbackSteps}
+                      />
+                    </CollapseForm>
+                  )}
+                </>
+              )
             }
           })
         } else if (item.stepGroup) {

@@ -41,9 +41,49 @@ describe('Terraform var file creation testing', () => {
     fireEvent.click(getByTextBody(dialog, 'addFile'))
 
     expect(props.onSubmit).toBeCalled()
+
+  })
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('form with right payload - for remote store type', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <TfVarFile {...props} />
+      </TestWrapper>
+    )
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'pipelineSteps.addTerraformVarFile'))
+
+    fillAtForm([
+      {
+        container: container,
+        type: InputTypes.SELECT,
+        fieldId: 'varFile.type',
+        value: 'remote'
+      },
+      {
+        container: container,
+        type: InputTypes.SELECT,
+        fieldId: 'varFile.store.spec.gitFetchType',
+        value: 'pipelineSteps.deploy.inputSet.branch'
+      }
+    ])
+    await act(async () => {
+      fireEvent.click(dialog.querySelector('[data-testid="add-header"]')!)
+    })
+
+    await act(async () => {
+      const path0 = dialog.querySelector('input[name="varFile.store.spec.paths[0].path"]')
+      fireEvent.change(path0!, { target: { value: 'testInput1' } })
+      expect(dialog).toMatchSnapshot()
+    })
+    fireEvent.click(getByTextBody(dialog, 'addFile'))
+
+    expect(props.onSubmit).toBeCalled()
+    expect(dialog).toMatchSnapshot()
+
   })
 
-  test('form with right payload - for remote store type', async () => {
+  test('removing path successfully', async () => {
     const { container } = render(
       <TestWrapper>
         <TfVarFile {...props} />
@@ -102,7 +142,9 @@ describe('Terraform var file creation testing', () => {
     expect(dialog).toMatchSnapshot()
   })
 
-  test('form with right payload - for remote store type', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('form with right payload - for remote store type', async () => {
+
     const { container, findByTestId } = render(
       <TestWrapper>
         <TfVarFile {...props} />

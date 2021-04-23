@@ -96,14 +96,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_infrastructureText"
+          aria-controls="bp3-tab-panel_stageSetupShell_ci.infraLabel"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="infrastructureText"
-          data-testid="infrastructureText"
-          id="bp3-tab-title_stageSetupShell_infrastructureText"
+          data-tab-id="ci.infraLabel"
+          data-testid="ci.infraLabel"
+          id="bp3-tab-title_stageSetupShell_ci.infraLabel"
           role="tab"
           tabindex="0"
         >
@@ -132,7 +132,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 />
               </svg>
             </span>
-            infrastructureText
+            ci.infraLabel
             <span
               class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange500 StyledProps--margin-left-small"
               icon="warning-sign"
@@ -176,14 +176,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_executionText"
+          aria-controls="bp3-tab-panel_stageSetupShell_ci.executionLabel"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="executionText"
-          data-testid="executionText"
-          id="bp3-tab-title_stageSetupShell_executionText"
+          data-tab-id="ci.executionLabel"
+          data-testid="ci.executionLabel"
+          id="bp3-tab-title_stageSetupShell_ci.executionLabel"
           role="tab"
           tabindex="0"
         >
@@ -213,7 +213,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 />
               </svg>
             </span>
-            executionText
+            ci.executionLabel
             <span
               class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange500 StyledProps--margin-left-small"
               icon="warning-sign"
@@ -257,14 +257,14 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           </svg>
         </span>
         <div
-          aria-controls="bp3-tab-panel_stageSetupShell_Advanced"
+          aria-controls="bp3-tab-panel_stageSetupShell_ci.advancedLabel"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="Advanced"
-          data-testid="Advanced"
-          id="bp3-tab-title_stageSetupShell_Advanced"
+          data-tab-id="ci.advancedLabel"
+          data-testid="ci.advancedLabel"
+          id="bp3-tab-title_stageSetupShell_ci.advancedLabel"
           role="tab"
           tabindex="0"
         >
@@ -290,7 +290,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 />
               </svg>
             </span>
-            Advanced
+            ci.advancedLabel
           </span>
         </div>
       </div>
@@ -747,7 +747,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Previous
+                    ci.previous
                   </span>
                 </button>
                 <button
@@ -757,7 +757,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Next
+                    ci.next
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

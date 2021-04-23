@@ -20,13 +20,12 @@ import { StepDetailTabs } from './StepDetailTabs'
 import css from './ExecutionStepDetails.module.scss'
 
 export interface ExecutionStepDetailsProps {
-  selectedStep: string
   closeDetails(): void
 }
 
 export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): React.ReactElement {
-  const { selectedStep: selectedStepId, closeDetails } = props
-  const { allNodeMap, addNewNodeToMap, queryParams } = useExecutionContext()
+  const { closeDetails } = props
+  const { allNodeMap, addNewNodeToMap, queryParams, selectedStepId } = useExecutionContext()
   const { retryStep } = queryParams
   const { getString } = useStrings()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()

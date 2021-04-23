@@ -30,7 +30,12 @@ userGroupPage:
     deleteFailureMessage: Member '{{name}}' could not be removed
 userGroupForm:
   createSuccess: User Group '{{name}}' created successfully
+  editSuccess: User Group '{{name}}' edited successfully
+  addMemberSuccess: Members added successfully
 roleAssignment:
+  userPlaceHolder: Search for an existing user or add a new email
+  userValidation: User is required
+  assignmentValidation: You are trying to invite a user without any roles. Please click on add to start assigning roles.
   deleteSuccess: Role Assignment deleted successfully
   deleteFailure: This Role Assignment could not be deleted
 usersPage:

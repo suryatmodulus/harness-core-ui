@@ -9,7 +9,7 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
       class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
       level="2"
     >
-      GOVERNANCE
+      ci.titleGovernance
     </h2>
     <div
       class="StyledProps--font StyledProps--main"
@@ -21,7 +21,7 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
         <span
           class="bp3-button-text"
         >
-          + new item
+          ci.newItem
         </span>
       </button>
     </div>
@@ -94,7 +94,7 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
           level="2"
         >
-          No data found. Click the button below to create a new item.
+          ci.noData
         </h2>
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
@@ -103,7 +103,7 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
           <span
             class="bp3-button-text"
           >
-            + new item
+            ci.newItem
           </span>
         </button>
       </div>

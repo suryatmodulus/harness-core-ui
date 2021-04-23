@@ -4,16 +4,17 @@ import type { CellProps, Column, Renderer } from 'react-table'
 import { Layout, Button, Text, Avatar, Popover, Container } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useRemoveMember, UserSearchDTO } from 'services/cd-ng'
+import { useRemoveMember, UserGroupDTO, UserSearchDTO } from 'services/cd-ng'
 import { Table, useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import css from '../UserGroupDetails.module.scss'
 
 interface MemberListProps {
-  userGroupIdentifier: string
+  userGroup: UserGroupDTO
   users?: UserSearchDTO[]
   refetch: () => void
+  openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
 }
 
 const RenderColumnUser: Renderer<CellProps<UserSearchDTO>> = ({ row }) => {
@@ -117,8 +118,9 @@ const RenderColumnMenu: Renderer<CellProps<UserSearchDTO>> = ({ row, column }) =
   )
 }
 
-const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroupIdentifier }) => {
+const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroup, openUserGroupModal }) => {
   const { getString } = useStrings()
+  const { identifier: userGroupIdentifier } = userGroup
 
   const columns: Column<UserSearchDTO>[] = useMemo(
     () => [
@@ -152,14 +154,16 @@ const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroupIdenti
   return (
     <Container className={css.memberList}>
       {users?.length ? <Table<UserSearchDTO> data={users} columns={columns} hideHeaders={true} /> : null}
-      {/* Enable When Ready */}
-      {/* <Layout.Horizontal padding={{ top: 'large' }}>
+      <Layout.Horizontal padding={{ top: 'large' }}>
         <Button
-          text={getString('common.plusNumber', { number: getString('common.member') })}
+          text={getString('common.plusNumber', { number: getString('members') })}
           minimal
           className={css.addButton}
+          onClick={() => {
+            openUserGroupModal(userGroup, true)
+          }}
         />
-      </Layout.Horizontal> */}
+      </Layout.Horizontal>
     </Container>
   )
 }

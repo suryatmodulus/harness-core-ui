@@ -308,7 +308,6 @@ function RunPipelineFormBasic({
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
       valuesPipelineRef.current = valuesPipeline
-
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
         showPreflightCheckModal()

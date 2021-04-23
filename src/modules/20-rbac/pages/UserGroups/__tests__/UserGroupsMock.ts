@@ -4,8 +4,8 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,
-    totalItems: 1,
-    pageItemCount: 1,
+    totalItems: 2,
+    pageItemCount: 2,
     pageSize: 10,
     content: [
       {
@@ -40,6 +40,21 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
             managedRole: false
           }
         ]
+      },
+      {
+        userGroupDTO: {
+          accountIdentifier: 'testAcc',
+          identifier: 'dummyid',
+          name: 'dummy',
+          users: [],
+          notificationConfigs: [],
+          description: '',
+          tags: {},
+          lastModifiedAt: 1617941811398,
+          version: 1
+        },
+        users: [],
+        roleAssignmentsMetadataDTO: []
       }
     ],
     pageIndex: 0,

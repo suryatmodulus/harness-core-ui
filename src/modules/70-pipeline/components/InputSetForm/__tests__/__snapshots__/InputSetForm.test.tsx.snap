@@ -797,7 +797,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             </div>
                                           </div>
                                           <div
-                                            class="bp3-form-group"
+                                            class="bp3-form-group inputWidth"
                                           >
                                             <label
                                               class="bp3-label"
@@ -827,7 +827,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                             </div>
                                           </div>
                                           <div
-                                            class="bp3-form-group"
+                                            class="bp3-form-group inputWidth"
                                           >
                                             <label
                                               class="bp3-label"
@@ -850,6 +850,35 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   class="bp3-input"
                                                   name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                                   placeholder="cd.steps.common.releaseNamePlaceholder"
+                                                  type="text"
+                                                  value=""
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group inputWidth"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
+                                            >
+                                              cd.infrastructureKey
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
                                                   type="text"
                                                   value=""
                                                 />
@@ -2210,7 +2239,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             </div>
                                           </div>
                                           <div
-                                            class="bp3-form-group"
+                                            class="bp3-form-group inputWidth"
                                             data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                           >
                                             <label
@@ -2241,7 +2270,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                             </div>
                                           </div>
                                           <div
-                                            class="bp3-form-group"
+                                            class="bp3-form-group inputWidth"
                                             data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
                                           >
                                             <label
@@ -2267,6 +2296,36 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   placeholder="cd.steps.common.releaseNamePlaceholder"
                                                   type="text"
                                                   value="asd"
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="bp3-form-group inputWidth"
+                                            data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey-5"
+                                          >
+                                            <label
+                                              class="bp3-label"
+                                              for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
+                                            >
+                                              cd.infrastructureKey
+                                               
+                                              <span
+                                                class="bp3-text-muted"
+                                              />
+                                            </label>
+                                            <div
+                                              class="bp3-form-content"
+                                            >
+                                              <div
+                                                class="bp3-input-group"
+                                              >
+                                                <input
+                                                  autocomplete="off"
+                                                  class="bp3-input"
+                                                  name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
+                                                  type="text"
+                                                  value=""
                                                 />
                                               </div>
                                             </div>

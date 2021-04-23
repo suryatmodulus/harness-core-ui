@@ -134,6 +134,7 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           disabled={inputSetData?.readonly}
+          className={css.width50}
         />
       )}
     </>

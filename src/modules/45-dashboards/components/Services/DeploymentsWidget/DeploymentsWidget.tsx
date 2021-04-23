@@ -11,7 +11,7 @@ import { TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import css from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget.module.scss'
 
-interface ChangeValue {
+export interface ChangeValue {
   value: string
   change: number
 }

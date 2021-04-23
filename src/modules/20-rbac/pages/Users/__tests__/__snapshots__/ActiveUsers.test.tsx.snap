@@ -53,10 +53,10 @@ exports[`UsersPage Test Add Roles 1`] = `
                         class="bp3-input"
                         disabled=""
                         name="user"
-                        placeholder="Search..."
+                        placeholder="rbac.roleAssignment.userPlaceHolder"
                         style="padding-right: 0px;"
                         type="text"
-                        value=""
+                        value="abc"
                       />
                       <span
                         class="bp3-input-action"

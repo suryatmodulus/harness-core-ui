@@ -55,7 +55,7 @@ export default function CDSideNav(): React.ReactElement {
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
-            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCDResources(params)} />
+            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toResources({ ...params, module })} />
             <AdminSelectorLink
               label="Access Control"
               iconName="user"

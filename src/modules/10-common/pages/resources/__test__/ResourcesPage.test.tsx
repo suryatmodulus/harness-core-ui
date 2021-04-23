@@ -19,10 +19,7 @@ describe('Resources Page', () => {
 
   test('render org scope', () => {
     const { container } = render(
-      <TestWrapper
-        path={routes.toOrgResources(orgPathProps)}
-        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy' }}
-      >
+      <TestWrapper path={routes.toResources(orgPathProps)} pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy' }}>
         <ResourcesPage>hello</ResourcesPage>
       </TestWrapper>
     )
@@ -33,7 +30,7 @@ describe('Resources Page', () => {
   test('render project scope', () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toProjectResources(projectPathProps)}
+        path={routes.toResources(projectPathProps)}
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
         <ResourcesPage>hello</ResourcesPage>

@@ -24,7 +24,7 @@ const OrganizationDetailsPage: React.FC = () => {
   })
   const organization = data?.data?.organizationResponse.organization
   const { openCollaboratorModal } = useCollaboratorModal()
-  useDocumentTitle([getString('orgsText'), organization?.name || ''])
+  useDocumentTitle([organization?.name || '', getString('orgsText')])
 
   /* istanbul ignore next */ if (loading) return <Page.Spinner />
   /* istanbul ignore next */ if (error)

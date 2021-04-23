@@ -36,12 +36,23 @@ const routes = {
   toLogin: () => '/login',
   toSignup: () => '/signup',
   toSettings: withAccountId(() => '/settings'),
-  toResources: withAccountId(() => '/admin/resources'),
+  toResources: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   //user profile
   toUserProfile: withAccountId(() => '/user/profile'),
   toUserPreferences: withAccountId(() => '/user/preferences'),
   // account resources
-  toResourcesConnectors: withAccountId(() => '/admin/resources/connectors'),
   toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),
   toCreateConnectorFromYamlAtOrgLevel: withAccountId(
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/create-connector-from-yaml`
@@ -53,9 +64,64 @@ const routes = {
   toResourcesConnectorDetails: withAccountId(
     ({ connectorId }: ConnectorPathProps) => `/admin/resources/connectors/${connectorId}`
   ),
-  toResourcesSecretsListing: withAccountId(() => '/admin/resources/secrets'),
-  toResourcesSecretDetails: withAccountId(({ secretId }: SecretsPathProps) => `/admin/resources/secrets/${secretId}`),
-  toResourcesDelegates: withAccountId(() => '/admin/resources/delegates'),
+  toResourcesConnectors: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/connectors`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toResourcesSecrets: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/secrets`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+
+  toResourcesSecretDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      secretId
+    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
+      const path = `resources/secrets/${secretId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toResourcesDelegates: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   toResourcesDelegatesDetails: withAccountId(
     ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}`
   ),
@@ -66,20 +132,9 @@ const routes = {
     ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}/edit`
   ),
   // org resources
-  toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources`),
-  toOrgResourcesConnectors: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/connectors`
-  ),
   toOrgResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, connectorId }: OrgPathProps & ConnectorPathProps) =>
       `/admin/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
-  ),
-  toOrgResourcesSecretsListing: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/secrets`
-  ),
-  toOrgResourcesSecretDetails: withAccountId(
-    ({ orgIdentifier, secretId }: OrgPathProps & SecretsPathProps) =>
-      `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}`
   ),
   toOrgResourcesDelegates: withAccountId(
     ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/delegates`
@@ -277,14 +332,6 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
   ),
 
-  toCDResources: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
-  ),
-  toCDResourcesConnectors: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`
-  ),
   toCDResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, connectorId }: ProjectPathProps & ConnectorPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/${connectorId}`
@@ -292,10 +339,6 @@ const routes = {
   toCDResourcesSecretsListing: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
-  ),
-  toCDResourcesSecretDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, secretId }: ProjectPathProps & SecretsPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
   ),
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -507,25 +550,9 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
   ),
-  toCIAdminResources: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
-  ),
-  toCIAdminResourcesConnectors: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`
-  ),
-  toCIAdminResourcesSecretsListing: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
-  ),
   toCIAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
-  ),
-  toCIAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
   //git-sync at project scope
   toGitSyncAdmin: withAccountId(
@@ -610,25 +637,9 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
   ),
-  toCFAdminResources: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
-  ),
-  toCFAdminResourcesConnectors: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`
-  ),
-  toCFAdminResourcesSecretsListing: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
-  ),
   toCFAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
-  ),
-  toCFAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
   toCFAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -732,10 +743,6 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
   ),
-  toCVAdminResources: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources`
-  ),
   toCVAdminSetupMonitoringSourceEdit: withAccountId(
     ({
       projectIdentifier,
@@ -753,22 +760,9 @@ const routes = {
     ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
   ),
-
-  toCVAdminResourcesConnectors: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors`
-  ),
-  toCVAdminResourcesSecretsListing: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
-  ),
   toCVAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
-  ),
-  toCVAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/:secretId`
   ),
   toCVAdminAccessControl: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -783,29 +777,9 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`
   ),
-  toProjectResources: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources`
-  ),
-  toProjectResourcesConnectors: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors`
-  ),
   toProjectResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors/:connectorId`
-  ),
-  toProjectResourcesSecrets: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets`
-  ),
-  toProjectResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/secrets/:secretId`
-  ),
-  toProjectResourcesDelegates: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegates`
   ),
   toProjectResourcesDelegatesDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier, delegateId }: ProjectPathProps & DelegatePathProps) =>

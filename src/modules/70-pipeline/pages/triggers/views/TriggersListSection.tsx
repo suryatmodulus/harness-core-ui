@@ -6,11 +6,15 @@ import { Button, Color, Layout, Popover, Text, Icon, Switch, Container, SparkCha
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { isUndefined, isEmpty, sum } from 'lodash-es'
+import cx from 'classnames'
 import type { tagsType } from '@common/utils/types'
 import Table from '@common/components/Table/Table'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTriggerStatus } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import { getTriggerIcon, GitSourceProviders } from '../utils/TriggersListUtils'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
@@ -47,6 +51,7 @@ interface RenderColumnMenuColumn {
   orgIdentifier: string
   accountId: string
   pipelineIdentifier: string
+  isTriggerRbacDisabled: boolean
 }
 
 const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
@@ -117,9 +122,14 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         <Menu style={{ minWidth: 'unset' }}>
           <Menu.Item
             icon="edit"
+            className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
+            textClassName={column.isTriggerRbacDisabled ? css.disabledOption : ''}
             text={column.getString('edit')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
+              if (column.isTriggerRbacDisabled) {
+                return
+              }
               if (data?.identifier && data.type) {
                 column.goToEditWizard({ triggerIdentifier: data.identifier, triggerType: data.type })
               }
@@ -129,9 +139,14 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           <Menu.Divider />
           <Menu.Item
             icon="trash"
+            className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
+            textClassName={column.isTriggerRbacDisabled ? css.disabledOption : ''}
             text={column.getString('delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
+              if (column.isTriggerRbacDisabled) {
+                return
+              }
               confirmDelete()
               setMenuOpen(false)
             }}
@@ -240,7 +255,13 @@ const RenderWebhookIcon = ({
   webhookSourceRepo?: string
   webhookSecret?: string
   triggerIdentifier?: string
-  column: { accountId: string; orgIdentifier: string; projectIdentifier: string; getString: (str: string) => string }
+  column: {
+    accountId: string
+    orgIdentifier: string
+    projectIdentifier: string
+    getString: (str: string) => string
+    isTriggerRbacDisabled: boolean
+  }
 }): JSX.Element => {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
   if (!type || type !== TriggerTypes.WEBHOOK) {
@@ -275,10 +296,13 @@ const RenderWebhookIcon = ({
       >
         <Button
           minimal
-          className={css.webhookUrl}
+          className={cx(css.webhookUrl, column.isTriggerRbacDisabled ? css.disabledOption : '')}
           icon="main-link"
           onClick={e => {
             e.stopPropagation()
+            if (column.isTriggerRbacDisabled) {
+              return
+            }
             setOptionsOpen(true)
           }}
         />
@@ -332,6 +356,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     orgIdentifier: string
     projectIdentifier: string
     getString: (str: string) => string
+    isTriggerRbacDisabled: boolean
   }
 }) => {
   const data = row.original
@@ -363,6 +388,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     orgIdentifier: string
     accountId: string
     pipelineIdentifier: string
+    isTriggerRbacDisabled: boolean
   }
 }) => {
   const data = row.original
@@ -382,8 +408,12 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     <div className={css.textCentered} onClick={e => e.stopPropagation()}>
       <Switch
         label=""
+        className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
         checked={data.enabled}
         onChange={async () => {
+          if (column.isTriggerRbacDisabled) {
+            return
+          }
           const updated = await updateTriggerStatus()
 
           if (updated.status === 'SUCCESS') {
@@ -417,6 +447,27 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
     accountId: string
     pipelineIdentifier: string
   }>()
+  const [isExecutable] = usePermission(
+    {
+      resourceScope: {
+        projectIdentifier: projectIdentifier,
+        orgIdentifier: orgIdentifier,
+        accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EXECUTE_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
+  )
+
+  const isTriggerRbacDisabled = !isExecutable
+
   const columns: any = React.useMemo(
     // const columns: CustomColumn<NGTriggerDetailsResponse>[] = React.useMemo( // wait for backend to support condition
     () => [
@@ -460,7 +511,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         orgIdentifier,
         projectIdentifier,
         accountId,
-        getString
+        getString,
+        isTriggerRbacDisabled
       },
       {
         Header: RenderCenteredColumnHeader(getString('pipeline-triggers.enableLabel')),
@@ -475,7 +527,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         showSuccess,
         showError,
         refetchTriggerList,
-        getString
+        getString,
+        isTriggerRbacDisabled
       },
       {
         Header: '',
@@ -491,7 +544,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         orgIdentifier,
         accountId,
         pipelineIdentifier,
-        getString
+        getString,
+        isTriggerRbacDisabled
       }
     ],
     [goToEditWizard, refetchTriggerList, getString]

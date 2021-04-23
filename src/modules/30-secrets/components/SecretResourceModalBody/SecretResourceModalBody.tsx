@@ -7,11 +7,12 @@ import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'
 import { useStrings } from 'framework/strings'
+import css from './SecretResourceModalBody.module.scss'
 
 const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Vertical padding={{ left: 'small' }}>
+    <Layout.Vertical padding={{ left: 'small' }} className={css.secretDetails}>
       <Text color={Color.BLACK} lineClamp={1}>
         {data.name}
       </Text>
@@ -25,15 +26,14 @@ const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
 const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
   return (
-    <>
+    <Layout.Vertical className={css.secretDetails}>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
         <Text color={Color.BLACK} lineClamp={1} width={230}>
           {(data.spec as SecretTextSpecDTO).secretManagerIdentifier}
         </Text>
       ) : null}
-      {/* TODO {Abhinav} display SM name */}
       <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
-    </>
+    </Layout.Vertical>
   )
 }
 
@@ -70,7 +70,7 @@ const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({
             Header: getString('secretType'),
             id: 'name',
             accessor: 'name',
-            width: '25%',
+            width: '40%',
             Cell: RenderColumnSecret,
             disableSortBy: true
           },
@@ -78,7 +78,7 @@ const SecretResourceModalBody: React.FC<RbacResourceModalProps> = ({
             Header: getString('details'),
             accessor: 'description',
             id: 'details',
-            width: '25%',
+            width: '55%',
             Cell: RenderColumnDetails,
             disableSortBy: true
           }

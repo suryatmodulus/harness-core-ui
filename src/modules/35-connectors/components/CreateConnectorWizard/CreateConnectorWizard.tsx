@@ -18,6 +18,7 @@ import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/
 import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnector'
 import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
 import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
+import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import css from './CreateConnectorWizard.module.scss'
 
@@ -98,6 +99,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateArtifactoryConnector {...commonProps} />
     case Connectors.GCP:
       return <CreateGcpConnector {...commonProps} />
+    case Connectors.AWS_KMS:
+      return <CreateAwsKmsConnector {...commonProps} />
 
     default:
       return null

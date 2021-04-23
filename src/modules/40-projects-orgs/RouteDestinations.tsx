@@ -86,7 +86,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
 })
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toProjectResourcesConnectors(params)} />
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -113,13 +113,13 @@ export default (
       <ProjectDetails />
     </RouteWithLayout>
 
-    <Route exact path={routes.toProjectResources({ ...accountPathProps, ...projectPathProps })}>
+    <Route exact path={routes.toResources({ ...accountPathProps, ...projectPathProps })}>
       <RedirectToResourcesHome />
     </Route>
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toProjectResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <ResourcesPage>
@@ -129,7 +129,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toProjectResourcesSecrets({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <ResourcesPage>
@@ -149,7 +149,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toProjectResourcesSecretDetails({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecretDetails({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <ResourcesPage>

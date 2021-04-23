@@ -63,7 +63,10 @@ const Configuration: React.FC = () => {
           <React.Fragment>
             <AccountAndOAuth authSettings={data.resource} refetchAuthSettings={refetchAuthSettings} />
             <SAMLProvider authSettings={data.resource} refetchAuthSettings={refetchAuthSettings} />
-            <RestrictEmailDomains />
+            <RestrictEmailDomains
+              whitelistedDomains={data.resource.whitelistedDomains || []}
+              refetchAuthSettings={refetchAuthSettings}
+            />
           </React.Fragment>
         )}
       </Page.Body>

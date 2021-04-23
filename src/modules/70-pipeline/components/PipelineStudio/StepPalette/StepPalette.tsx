@@ -16,13 +16,11 @@ import {
 } from 'services/pipeline-ng'
 import { useGetProvisionerSteps } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { useLocalStorage } from '@common/hooks/useLocalStorage'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
 import { iconMap, iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
-import buildStageSteps from './mock/buildStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
 import { StageTypes } from '../Stages/StageTypes'
 import css from './StepPalette.module.scss'
@@ -64,8 +62,6 @@ const useGetFeatureSteps = (props: UseGetStepsProps) => {
 
 // TODO: This should be removed once the DTO is available
 const useGetBuildSteps = (props: UseGetStepsProps) => {
-  const [isRunTestsStepEnabled] = useLocalStorage('ENABLE_RUN_TESTS_STEP', false)
-
   return useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
     `/pipelines/configuration/buildsteps`,
     {
@@ -73,9 +69,7 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
       ...props,
       mock: {
         loading: false,
-        data: (isRunTestsStepEnabled
-          ? (buildStageStepsWithRunTestsStep as unknown)
-          : (buildStageSteps as unknown)) as ResponseStepCategory
+        data: (buildStageStepsWithRunTestsStep as unknown) as ResponseStepCategory
       }
     }
   )

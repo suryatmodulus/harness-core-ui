@@ -6,5 +6,6 @@ declare const styles: {
   readonly avatar: string
   readonly overview: string
   readonly button: string
+  readonly overflow: string
 }
 export default styles

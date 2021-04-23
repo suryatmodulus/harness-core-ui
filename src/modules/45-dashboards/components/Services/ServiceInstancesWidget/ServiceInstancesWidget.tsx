@@ -5,7 +5,7 @@ import { SparklineChart, SparklineChartProps } from '@common/components/Sparklin
 import { TrendPopover, TrendPopoverProps } from '@dashboards/components/TrendPopover/TrendPopover'
 import css from './ServiceInstancesWidget.module.scss'
 
-export interface ServicesInstanceWidget {
+export interface ServiceInstanceWidgetProps {
   serviceCount: number
   serviceInstancesCount: number
   trendTitle: string
@@ -15,7 +15,7 @@ export interface ServicesInstanceWidget {
   nonProdCount: number
 }
 
-export const ServiceInstancesWidget: React.FC<ServicesInstanceWidget> = props => {
+export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = props => {
   const {
     serviceCount,
     serviceInstancesCount,

@@ -33,7 +33,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
         <p
           class="StyledProps--font StyledProps--main stackHeaderText StyledProps--font-small"
         >
-          Commits on
+          ci.commitsOn
            
           Jan 8, 2021
         </p>
@@ -75,7 +75,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           >
             userid
              
-            committed
+            ci.committed
              
             1 day ago
           </p>
@@ -151,7 +151,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
           >
             userid
              
-            committed
+            ci.committed
              
             1 day ago
           </p>
@@ -214,7 +214,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
         <p
           class="StyledProps--font StyledProps--main stackHeaderText StyledProps--font-small"
         >
-          Commits on
+          ci.commitsOn
            
           Jan 1, 1970
         </p>
@@ -236,7 +236,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
             class="StyledProps--font StyledProps--main committed StyledProps--font-xsmall StyledProps--margin-right-xlarge"
           >
              
-            committed
+            ci.committed
              
             1 day ago
           </p>

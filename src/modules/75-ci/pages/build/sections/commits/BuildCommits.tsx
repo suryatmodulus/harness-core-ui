@@ -7,7 +7,7 @@ import { useToaster } from '@common/exports'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
 import type { CIBuildCommit } from 'services/ci'
-import i18n from './BuildCommits.i18n'
+import { useStrings } from 'framework/strings'
 import css from './BuildCommits.module.scss'
 
 interface CommitsGroupedByTimestamp {
@@ -31,8 +31,11 @@ const AVATAR_COLORS = [
 const BuildCommits: React.FC = () => {
   const context = useExecutionContext()
   const { showSuccess, showError } = useToaster()
+  const { getString } = useStrings()
   const copy2Clipboard = (text: string): void => {
-    copy(String(text)) ? showSuccess(i18n.clipboardCopySuccess) : showError(i18n.clipboardCopyFail)
+    copy(String(text))
+      ? showSuccess(getString('ci.clipboardCopySuccess'))
+      : showError(getString('ci.clipboardCopyFail'))
   }
   const commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] = []
   const buildCommits = get(
@@ -58,7 +61,7 @@ const BuildCommits: React.FC = () => {
           <div className={css.stackHeader}>
             <Icon className={css.stackHeaderIcon} name="git-commit" size={20} margin={{ right: 'medium' }} />
             <Text className={css.stackHeaderText} font="small">
-              {i18n.commitsOn} {moment(timeStamp).format('MMM D, YYYY')}
+              {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
             </Text>
           </div>
           {commits.map(({ id = '', message = '', timeStamp: commitTimestamp = 0, ownerId, ownerName }, index) => {
@@ -89,7 +92,7 @@ const BuildCommits: React.FC = () => {
                     backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
                   />
                   <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
-                    {ownerId} {i18n.committed} {getTimeAgo(commitTimestamp)}
+                    {ownerId} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
                   </Text>
                   <button className={css.hash} onClick={() => copy2Clipboard(id)}>
                     <Text

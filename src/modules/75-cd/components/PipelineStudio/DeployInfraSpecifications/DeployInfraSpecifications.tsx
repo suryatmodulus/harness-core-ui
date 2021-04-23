@@ -115,7 +115,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     spec['infrastructure'] = {
       environmentRef: '',
       infrastructureDefinition: {},
-      allowSimultaneousDeployments: false
+      allowSimultaneousDeployments: false,
+      infrastructureKey: ''
     }
   }
 
@@ -136,9 +137,10 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       infrastructure.infrastructureDefinition = {
         ...infrastructure.infrastructureDefinition,
         type,
-        spec: omit(extendedSpec, 'allowSimultaneousDeployments')
+        spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
       }
       infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments || false
+      infrastructure.infrastructureKey = extendedSpec.infrastructureKey || ''
       debounceUpdatePipeline(pipeline)
     }
   }
@@ -305,7 +307,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const type = infrastructure?.type || deploymentType
     const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
-
+    const infrastructureKey = get(stageData, 'stage.spec.infrastructure.infrastructureKey', false)
     switch (type) {
       case 'KubernetesDirect': {
         const connectorRef = infrastructure?.spec?.connectorRef
@@ -315,7 +317,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           connectorRef,
           namespace,
           releaseName,
-          allowSimultaneousDeployments
+          allowSimultaneousDeployments,
+          infrastructureKey
         }
       }
       case 'KubernetesGcp': {
@@ -329,7 +332,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           namespace,
           releaseName,
           cluster,
-          allowSimultaneousDeployments
+          allowSimultaneousDeployments,
+          infrastructureKey
         }
       }
       default: {
@@ -355,7 +359,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   connectorRef: value.connectorRef,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
+                  infrastructureKey: value.infrastructureKey
                 },
                 'KubernetesDirect'
               )
@@ -379,7 +384,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   cluster: value.cluster,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
+                  infrastructureKey: value.infrastructureKey
                 },
                 'KubernetesGcp'
               )

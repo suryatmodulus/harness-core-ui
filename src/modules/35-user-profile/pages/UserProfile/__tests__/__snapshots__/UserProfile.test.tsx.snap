@@ -509,7 +509,8 @@ exports[`User Profile Page User Profile 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
+              class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-semi-bold"
+              style="--text-line-clamp: 1;"
             >
               dummyname
             </p>

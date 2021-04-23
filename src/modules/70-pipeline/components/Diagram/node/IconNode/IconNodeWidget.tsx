@@ -115,7 +115,7 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         className={cx(
           cssDefault.defaultCard,
           css.iconNode,
-          { [cssDefault.selected]: props.node.isSelected() },
+          // { [cssDefault.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}
         draggable={options.draggable}

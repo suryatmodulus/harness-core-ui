@@ -32,3 +32,21 @@ export const VerificationSensitivityOptions: SelectOption[] = [
 ]
 
 export const baseLineOptions: SelectOption[] = [{ label: 'Last Successful job run', value: 'LAST' }]
+
+export const cvDefaultValues = {
+  identifier: '',
+  timeout: '2h',
+  spec: {
+    verificationJobRef: '',
+    type: '',
+    spec: {
+      sensitivity: '',
+      duration: '',
+      baseline: '',
+      trafficsplit: '',
+      serviceRef: '',
+      envRef: '',
+      deploymentTag: ''
+    }
+  }
+}

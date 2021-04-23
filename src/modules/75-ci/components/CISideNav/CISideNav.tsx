@@ -56,7 +56,7 @@ export default function CISideNav(): React.ReactElement {
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
 
           <AdminSelector path={routes.toCIAdmin(params)}>
-            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toCIAdminResources(params)} />
+            <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toResources({ ...params, module })} />
             {GIT_SYNC_NG ? (
               <AdminSelectorLink
                 label={getString('gitManagement')}

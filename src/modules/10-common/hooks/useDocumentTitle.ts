@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 type Title = string | string[]
 
@@ -9,11 +10,14 @@ export interface UseDocumentTitleReturn {
 
 export function useDocumentTitle(title: Title): UseDocumentTitleReturn {
   const { getString } = useStrings()
+  const { selectedProject } = useAppStore()
 
-  const getStringFromTitle = (str: Title): string => (Array.isArray(str) ? str.join(' | ') : str)
+  const getStringFromTitle = (str: Title): string => (Array.isArray(str) ? str.filter(s => s).join(' | ') : str)
 
   const updateTitle = (newTitle: Title): void => {
-    document.title = `${getString('harness')} | ${getStringFromTitle(newTitle)}`
+    document.title = [getStringFromTitle(newTitle), selectedProject?.name, getString('harness')]
+      .filter(s => s)
+      .join(' | ')
   }
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export function useDocumentTitle(title: Title): UseDocumentTitleReturn {
       // reset title on unmount
       document.title = getString('harness')
     }
-  }, [title])
+  }, [title, selectedProject])
 
   return {
     updateTitle

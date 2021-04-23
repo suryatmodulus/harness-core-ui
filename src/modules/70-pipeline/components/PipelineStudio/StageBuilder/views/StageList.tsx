@@ -15,6 +15,7 @@ export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, o
   const list: Array<{ name: string; icon: IconName; identifier: string; type: string }> = []
   stages.forEach((node: StageElementWrapper) => {
     const type = stagesMap[node.stage.type]
+
     if (node.stage.identifier === selectedStageId) {
       list.unshift({
         name: node.stage.name,
@@ -45,7 +46,9 @@ export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, o
           }}
         >
           <Icon name={node.icon} />
-          <Text color="white">{node.name}</Text>
+          <Text lineClamp={1} width={200}>
+            {node.name}
+          </Text>
         </Layout.Horizontal>
       ))}
     </>

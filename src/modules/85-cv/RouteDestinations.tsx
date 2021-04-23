@@ -11,7 +11,7 @@ import {
   secretPathProps,
   verificationPathProps
 } from '@common/utils/routeUtils'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import './components/PipelineSteps'
 import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
@@ -29,9 +29,9 @@ import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
-import ResourcesPage from '@cv/pages/Resources/ResourcesPage'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
 import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
 import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
@@ -55,8 +55,8 @@ const RedirectToCVProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toCVAdminResourcesConnectors(params)} />
+  const params = useParams<ProjectPathProps & ModulePathParams>()
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const CVSideNavProps: SidebarContext = {
@@ -64,6 +64,10 @@ const CVSideNavProps: SidebarContext = {
   subtitle: 'CONTINUOUS',
   title: 'Verification',
   icon: 'cv-main'
+}
+
+const cvModuleParams: ModulePathParams = {
+  module: ':module(cv)'
 }
 
 export default (
@@ -209,7 +213,7 @@ export default (
     <Route
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResources({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
       <RedirectToResourcesHome />
     </Route>
@@ -217,7 +221,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
       <ResourcesPage>
         <ConnectorsPage />
@@ -227,7 +231,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
       <ResourcesPage>
         <SecretsPage />
@@ -249,10 +253,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResourcesSecretDetails({
+      path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...cvModuleParams
       })}
     >
       <SecretDetails />

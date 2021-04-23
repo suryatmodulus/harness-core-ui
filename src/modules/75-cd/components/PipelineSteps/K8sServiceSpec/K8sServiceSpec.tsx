@@ -494,7 +494,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
                       <FormInput.Text
                         disabled={readonly}
-                        style={{ width: 400 }}
+                        className={css.width50}
                         name={`${path}.artifacts.primary.spec.imagePath`}
                       />
                     </FormGroup>
@@ -505,7 +505,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
                       <FormInput.Text
                         disabled={readonly}
-                        style={{ width: 400 }}
+                        className={css.width50}
                         name={`${path}.artifacts.primary.spec.registryHostname`}
                       />
                     </FormGroup>
@@ -678,7 +678,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
                           <FormInput.Text
                             disabled={readonly}
-                            style={{ width: 400 }}
+                            className={css.width50}
                             name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                           />
                         </FormGroup>

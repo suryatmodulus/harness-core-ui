@@ -10,8 +10,9 @@ import type { UseStringsReturn } from 'framework/strings'
 import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
 import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
 import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
-import { ContinousVerificationVariableStep } from './components/ContinousVerificationVariableStep'
+import { ContinousVerificationVariableStep } from './components/ContinousVerificationVariableStep/ContinousVerificationVariableStep'
 import { getSpecFormData, getSpecYamlData, validateField, validateTimeout } from './utils'
+import { cvDefaultValues } from './constants'
 
 const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
 
@@ -31,23 +32,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
   > = new Map()
 
-  protected defaultValues: ContinousVerificationData = {
-    identifier: '',
-    timeout: '2h',
-    spec: {
-      verificationJobRef: '',
-      type: '',
-      spec: {
-        sensitivity: '',
-        duration: '',
-        baseline: '',
-        trafficsplit: '',
-        serviceRef: '',
-        envRef: '',
-        deploymentTag: ''
-      }
-    }
-  }
+  protected defaultValues: ContinousVerificationData = cvDefaultValues
 
   renderStep(props: StepProps<ContinousVerificationData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props

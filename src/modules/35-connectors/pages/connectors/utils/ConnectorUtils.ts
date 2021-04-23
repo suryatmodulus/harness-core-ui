@@ -611,6 +611,22 @@ export const setupArtifactoryFormData = async (
   return formData
 }
 
+export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
+  const formData = {
+    accessKey: connectorInfo?.spec?.credential?.spec?.accessKey,
+    secretKey: connectorInfo?.spec?.credential?.spec?.secretKey,
+    awsArn: connectorInfo?.spec?.kmsArn,
+    region: connectorInfo.spec?.region,
+    credType: connectorInfo.spec?.credential?.type,
+    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors,
+    roleArn: connectorInfo.spec?.credential?.spec?.roleArn,
+    externalName: connectorInfo.spec?.credential?.spec?.externalName,
+    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration
+  }
+
+  return formData
+}
+
 export const buildAWSPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -1005,6 +1021,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.Jira:
       return 'service-jira'
+    case Connectors.AWS_KMS:
+      return 'aws-kms'
     default:
       return 'cog'
   }
@@ -1050,6 +1068,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'HTTP Helm Repo'
     case Connectors.AWSSM:
       return 'AWS Secret Manager'
+    case Connectors.AWS_KMS:
+      return 'AWS KMS'
     default:
       return ''
   }

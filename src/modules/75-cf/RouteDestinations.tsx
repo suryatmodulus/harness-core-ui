@@ -17,11 +17,13 @@ import {
   pipelineModuleParams,
   executionPathProps,
   inputSetFormPathProps,
-  triggerPathProps
+  triggerPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type {
   AccountPathProps,
   ExecutionPathProps,
+  ModulePathParams,
   PipelinePathProps,
   PipelineType,
   ProjectPathProps
@@ -79,9 +81,9 @@ const RedirectToCFProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
+  const params = useParams<ProjectPathProps & ModulePathParams>()
 
-  return <Redirect to={routes.toCFAdminResourcesConnectors(params)} />
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
@@ -356,7 +358,7 @@ export default (
     <Route
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResources({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
     >
       <RedirectToResourcesHome />
     </Route>
@@ -376,7 +378,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesSecretDetails({
+      path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps

@@ -12,12 +12,30 @@ export interface ExecutionStatusLabelProps {
   className?: string
 }
 
+const stringsMap: Record<string, string> = {
+  aborted: 'Aborted',
+  running: 'Running',
+  failed: 'Failed',
+  notstarted: 'NotStarted',
+  expired: 'Expired',
+  queued: 'Queued',
+  paused: 'Paused',
+  waiting: 'Waiting',
+  skipped: 'Skipped',
+  success: 'Success',
+  suspended: 'Suspended',
+  pausing: 'Pausing',
+  approvalrejected: 'ApprovalRejected'
+}
+
 export default function ExecutionStatusLabel({
   status,
   className
 }: ExecutionStatusLabelProps): React.ReactElement | null {
   const { getString } = useStrings()
   if (!status) return null
+  const key = stringsMap[status.toLowerCase()]
+  const stringId = `executionStatus.${key}` as StringKeys
 
   return (
     <Text
@@ -25,7 +43,7 @@ export default function ExecutionStatusLabel({
       className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
       font={{ weight: 'bold', size: 'xsmall' }}
     >
-      {getString(`executionStatus.${status}` as StringKeys /* TODO: fix this by using a map */)}
+      {key ? getString(stringId) : status}
     </Text>
   )
 }

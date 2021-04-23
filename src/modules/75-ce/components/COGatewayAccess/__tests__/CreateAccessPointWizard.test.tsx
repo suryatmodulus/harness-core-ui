@@ -93,7 +93,7 @@ describe('Create Access Point Wizard Tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test.skip('fill form and submit without error', async () => {
+  test('fill form and submit without error', async () => {
     const { container, getByTestId } = render(
       <TestWrapper pathParams={params}>
         <CreateAccessPointWizard

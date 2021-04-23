@@ -346,9 +346,7 @@ export const onSubmitTerraformPlanData = (values: TerraformPlanData): TerraformP
             : secretManager.value
           : '',
         configFiles: {
-          ...values.spec?.configuration?.configFiles,
           store: {
-            ...values.spec?.configuration?.configFiles?.store,
             type: connectorValue.connector?.type,
             spec: {
               ...values.spec?.configuration?.configFiles?.store?.spec,

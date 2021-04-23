@@ -8,20 +8,20 @@ import type { StringKeys } from 'framework/strings'
 
 import css from './ExecutionStatusLabel.module.scss'
 
-const stringsMap: Record<ExecutionStatus, StringKeys> = {
-  Aborted: 'pipeline.executionStatus.Aborted',
-  Running: 'pipeline.executionStatus.Running',
-  Failed: 'pipeline.executionStatus.Failed',
-  NotStarted: 'pipeline.executionStatus.NotStarted',
-  Expired: 'pipeline.executionStatus.Expired',
-  Queued: 'pipeline.executionStatus.Queued',
-  Paused: 'pipeline.executionStatus.Paused',
-  Waiting: 'pipeline.executionStatus.Waiting',
-  Skipped: 'pipeline.executionStatus.Skipped',
-  Success: 'pipeline.executionStatus.Success',
-  Suspended: 'pipeline.executionStatus.Suspended',
-  Pausing: 'pipeline.executionStatus.Pausing',
-  ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected'
+const stringsMap: Record<string, StringKeys> = {
+  aborted: 'pipeline.executionStatus.Aborted',
+  running: 'pipeline.executionStatus.Running',
+  failed: 'pipeline.executionStatus.Failed',
+  notstarted: 'pipeline.executionStatus.NotStarted',
+  expired: 'pipeline.executionStatus.Expired',
+  queued: 'pipeline.executionStatus.Queued',
+  paused: 'pipeline.executionStatus.Paused',
+  waiting: 'pipeline.executionStatus.Waiting',
+  skipped: 'pipeline.executionStatus.Skipped',
+  success: 'pipeline.executionStatus.Success',
+  suspended: 'pipeline.executionStatus.Suspended',
+  pausing: 'pipeline.executionStatus.Pausing',
+  approvalrejected: 'pipeline.executionStatus.ApprovalRejected'
 }
 
 export interface ExecutionStatusLabelProps {
@@ -36,13 +36,15 @@ export default function ExecutionStatusLabel({
   const { getString } = useStrings()
   if (!status) return null
 
+  const stringId = stringsMap[status.toLowerCase()]
+
   return (
     <Text
       inline
       className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
       font={{ weight: 'bold', size: 'xsmall' }}
     >
-      {getString(stringsMap[status])}
+      {(stringId && getString(stringId)) || stringId}
     </Text>
   )
 }

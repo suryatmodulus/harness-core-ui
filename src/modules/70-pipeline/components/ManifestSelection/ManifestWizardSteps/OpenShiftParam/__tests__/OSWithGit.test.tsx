@@ -1,5 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, wait, queryByAttribute } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+
 import { TestWrapper } from '@common/utils/testUtils'
 import OpenShiftParamWithGit from '../OSWithGit'
 
@@ -32,6 +34,34 @@ describe('Open shift params with git tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('when branch is runtime input', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'test',
+
+        branch: RUNTIME_INPUT_VALUE,
+
+        gitFetchType: 'Branch',
+        paths: ['test'],
+        skipResourceVersioning: false,
+        repoName: 'repo-test'
+      },
+      prevStepData: {
+        connectorRef: 'connectorRef',
+        store: 'Git'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
   test('submits with right payload', async () => {
     const { container } = render(
       <TestWrapper>
@@ -90,6 +120,94 @@ describe('Open shift params with git tests', () => {
       },
       prevStepData: {
         store: 'Git'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('runtime value for connector should make runtime for repo too', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              branch: 'testBranch',
+              commitId: undefined,
+              connectorRef: '',
+              gitFetchType: 'Branch',
+              paths: [],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git',
+        connectorRef: '<+input>'
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('when connectionType is of repo', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              branch: 'testBranch',
+              commitId: undefined,
+              connectorRef: {
+                label: 'test',
+                value: 'test',
+                scope: 'Account',
+                connector: {
+                  spec: {
+                    connectionType: 'Repo'
+                  }
+                }
+              },
+              gitFetchType: 'Branch',
+              paths: [],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: 'Account',
+          connector: {
+            spec: {
+              connectionType: 'Repo'
+            }
+          }
+        }
       },
       handleSubmit: jest.fn()
     }

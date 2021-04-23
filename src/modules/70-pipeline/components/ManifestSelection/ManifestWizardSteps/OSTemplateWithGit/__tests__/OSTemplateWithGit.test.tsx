@@ -64,6 +64,31 @@ describe('Open shift template with git tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('runtime value for connector should make runtime for repo too', () => {
+    const initialValues = {
+      identifier: 'test',
+      commitId: 'test-commit',
+      gitFetchType: 'Commit',
+      paths: ['test'],
+      skipResourceVersioning: false
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: '<+input>'
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
   test('submits with right payload', async () => {
     const initialValues = {
       identifier: '',

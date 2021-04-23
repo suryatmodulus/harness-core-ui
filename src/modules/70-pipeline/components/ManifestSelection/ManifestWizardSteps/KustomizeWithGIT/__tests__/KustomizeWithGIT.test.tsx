@@ -49,6 +49,34 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('runtime value for connector should make runtime for repo too', () => {
+    const initialValues = {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      folderPath: '',
+      skipResourceVersioning: false,
+      repoName: '',
+      pluginPath: ''
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: '<+input>'
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders while adding step first time`, () => {
     const initialValues = {
       identifier: 'id2',

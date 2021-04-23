@@ -32,6 +32,28 @@ export interface TerraformProps {
   stepType?: string
 }
 
+export interface TerraformPlanProps {
+  initialValues: TerraformPlanData
+  onUpdate?: (data: TerraformPlanData) => void
+  stepViewType?: StepViewType
+  configTypes?: SelectOption[]
+  isNewStep?: boolean
+  inputSetData?: {
+    template?: TerraformPlanData
+    path?: string
+  }
+  readonly?: boolean
+  stepType?: string
+}
+export interface TerraformPlanVariableStepProps {
+  initialValues: TerraformPlanData
+  originalData: TerraformPlanData
+  stageIdentifier: string
+  onUpdate?(data: TerraformPlanData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: TerraformPlanData
+}
+
 export interface TerraformVariableStepProps {
   initialValues: TerraformData
   originalData: TerraformData
@@ -124,6 +146,62 @@ export interface TerraformData extends StepElementConfig {
   }
 }
 
+export interface TerraformPlanData extends StepElementConfig {
+  delegateSelectors: string[]
+  spec?: {
+    provisionerIdentifier?: string
+    configuration?: {
+      command?: string
+      secretManagerId?: string | Connector
+      workspace?: string
+      configFiles?: {
+        store?: {
+          type?: string
+          spec?: {
+            gitFetchType?: string
+            branch?: string
+            commitId?: string
+            folderPath?: string
+            connectorRef?: string | Connector
+          }
+        }
+      }
+      varFiles?: VarFileArray[]
+    }
+    backendConfig?: BackendConfig
+    targets?: MultiTypeListType
+    environmentVariables?: MultiTypeMapType
+  }
+}
+
+export interface TerraformPlanFormData extends StepElementConfig {
+  delegateSelectors: string[]
+  spec?: {
+    provisionerIdentifier?: string
+    configuration?: {
+      command?: string
+      secretManagerId?: string
+      workspace?: string
+      configFiles?: {
+        store?: {
+          type?: string
+          spec?: {
+            gitFetchType?: string
+            branch?: string
+            commitId?: string
+            folderPath?: string
+            connectorRef?: string
+          }
+        }
+      }
+      varFiles?: VarFileArray[]
+    }
+    backendConfig?: BackendConfig
+    targets?: MultiTypeListType
+    environmentVariables?: MultiTypeMapType
+  }
+}
+
 export interface TerraformFormData extends StepElementConfig {
   delegateSelectors: string[]
   spec?: {
@@ -197,7 +275,7 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
         configuration: {
           ...values?.spec?.configuration,
           spec: {
-            ...values.spec?.configuration.spec,
+            ...values.spec?.configuration?.spec,
             configFiles: {
               ...values.spec?.configuration?.spec?.configFiles,
               store: {
@@ -227,6 +305,65 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
     ...values,
     spec: {
       provisionerIdentifier: values?.spec?.provisionerIdentifier
+    }
+  }
+}
+
+export const onSubmitTerraformPlanData = (values: TerraformPlanData): TerraformPlanFormData => {
+  const envVars = values.spec?.environmentVariables as MultiTypeMapUIType
+  const envMap: MapType = {}
+  if (Array.isArray(envVars)) {
+    envVars.forEach(mapValue => {
+      if (mapValue.key) {
+        envMap[mapValue.key] = mapValue.value
+      }
+    })
+  }
+
+  const targets = values?.spec?.targets as MultiTypeListUIType
+  const targetMap: ListType = []
+  if (Array.isArray(targets)) {
+    targets.forEach(target => {
+      if (target.value) {
+        targetMap.push(target.value)
+      }
+    })
+  }
+
+  const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
+  const secretManager = values?.spec?.configuration?.secretManagerId as any
+
+  return {
+    ...values,
+    spec: {
+      ...values.spec,
+
+      configuration: {
+        ...values?.spec?.configuration,
+        secretManagerId: values?.spec?.configuration?.secretManagerId
+          ? getMultiTypeFromValue(values?.spec?.configuration?.secretManagerId) === MultiTypeInputType.RUNTIME
+            ? values?.spec?.configuration?.secretManagerId
+            : secretManager.value
+          : '',
+        configFiles: {
+          ...values.spec?.configuration?.configFiles,
+          store: {
+            ...values.spec?.configuration?.configFiles?.store,
+            type: connectorValue.connector?.type,
+            spec: {
+              ...values.spec?.configuration?.configFiles?.store?.spec,
+              connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+                ? getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+                  MultiTypeInputType.RUNTIME
+                  ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+                  : connectorValue.value
+                : ''
+            }
+          }
+        }
+      },
+      environmentVariables: envMap,
+      targets: targetMap
     }
   }
 }

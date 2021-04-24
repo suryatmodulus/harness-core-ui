@@ -63,7 +63,7 @@ export function ManualInterventionTab(props: ManualInterventionTabProps): React.
         return (
           <div key={i} className={css.actionRow}>
             {layer.map((strategy, j) => (
-              <StrategyIcon key={j} strategy={strategy} onChange={handleChange} />
+              <StrategyIcon key={j} strategy={strategy} name={strategy} onChange={handleChange} />
             ))}
           </div>
         )

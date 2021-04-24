@@ -22,7 +22,7 @@ const UsersPage: React.FC = () => {
   useDocumentTitle(getString('users'))
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [searchParam, setSearchParam] = useState<string>()
-  const { view } = useQueryParams()
+  const { view } = useQueryParams<{ view: string }>()
   const [reload, setReload] = useState<boolean>()
   const history = useHistory()
 

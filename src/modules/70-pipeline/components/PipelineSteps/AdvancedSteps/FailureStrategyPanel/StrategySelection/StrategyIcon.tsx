@@ -24,6 +24,7 @@ export interface StrategyIconProps {
   onChange?(e: React.ChangeEvent<HTMLInputElement>): void
   checked?: boolean
   disabled?: boolean
+  name: string
 }
 
 const stringsMap: Record<Strategy, StringKeys> = {
@@ -36,7 +37,7 @@ const stringsMap: Record<Strategy, StringKeys> = {
   [Strategy.ManualIntervention]: 'pipeline.failureStrategies.strategiesLabel.ManualIntervention'
 }
 
-export function StrategyIcon({ strategy, onChange, checked, disabled }: StrategyIconProps): React.ReactElement {
+export function StrategyIcon({ strategy, onChange, checked, disabled, name }: StrategyIconProps): React.ReactElement {
   return (
     <label className={cx(css.strategyIcon, { [css.disabled]: disabled })}>
       <div className={css.icon}>

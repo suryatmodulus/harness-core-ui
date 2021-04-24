@@ -25,6 +25,7 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Connectors } from '@connectors/constants'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import css from './GitSyncRepoTab.module.scss'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 enum RepoState {
   VIEW = 'VIEW',
@@ -150,7 +151,7 @@ const GitSyncRepoTab: React.FC = () => {
   }
 
   const RenderColumnRootFolder: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
-    const { accountId } = useParams()
+    const { accountId } = useParams<AccountPathProps>()
     const { showSuccess, showError } = useToaster()
     const [repoState, setRepoState] = React.useState<RepoState>(RepoState.VIEW)
     const [repoData, setRepoData] = React.useState<GitSyncConfig>(row.original)

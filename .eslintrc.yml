@@ -48,7 +48,7 @@ rules:
   no-console: 2
   semi: 0
   no-await-in-loop: 2
-  no-shadow: 2
+  no-shadow: 0
 
   # react hooks
   react-hooks/rules-of-hooks: 2
@@ -70,6 +70,7 @@ rules:
       ignoreRestSiblings: true
       argsIgnorePattern: ^_
   '@typescript-eslint/member-delimiter-style': 0
+  '@typescript-eslint/no-shadow': 2
 
   #import
   import/order:

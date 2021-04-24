@@ -31,7 +31,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
-  const { orgId } = useQueryParams()
+  const { orgId } = useQueryParams<{ orgId: string }>()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)

@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
@@ -71,8 +72,8 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     data: ContinousVerificationData,
     template: ContinousVerificationData,
     getString: UseStringsReturn['getString']
-  ): object {
-    const errors = { spec: {} } as any
+  ): FormikErrors<ContinousVerificationData> {
+    const errors: FormikErrors<ContinousVerificationData> = { spec: {} }
     const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = template?.spec?.spec as spec
 
     validateField(sensitivity as string, 'sensitivity', data, errors, getString)

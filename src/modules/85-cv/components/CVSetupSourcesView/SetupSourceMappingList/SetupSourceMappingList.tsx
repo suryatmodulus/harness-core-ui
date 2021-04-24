@@ -18,7 +18,7 @@ interface TableFilterForSetupSourceMapping<T> extends Omit<TableFilterProps, 'on
   totalItemsToRender?: number
   onFilterForMoreThan1000Items?: (filterString: string) => void
 }
-export interface SetupSourceMappingListProps<T extends object> {
+export interface SetupSourceMappingListProps<T extends Record<string, unknown>> {
   tableProps: TableProps<T>
   mappingListHeaderProps: SetupSourceCardHeaderProps
   loading?: boolean
@@ -29,7 +29,9 @@ export interface SetupSourceMappingListProps<T extends object> {
 
 const LoadingData = [1, 2, 3, 4, 5, 6].map(() => ({} as any))
 
-export function SetupSourceMappingList<T extends object>(props: SetupSourceMappingListProps<T>): JSX.Element {
+export function SetupSourceMappingList<T extends Record<string, unknown>>(
+  props: SetupSourceMappingListProps<T>
+): JSX.Element {
   const { tableProps, mappingListHeaderProps, loading, error, noData, tableFilterProps } = props
   const { getString } = useStrings()
   const [filterString, setFilterString] = useState<string | undefined>()

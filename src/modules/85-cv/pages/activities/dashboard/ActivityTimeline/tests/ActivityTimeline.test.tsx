@@ -24,7 +24,7 @@ jest.mock('../SelectedActivitySummaryCard/SelectedActivitySummaryCard', () => ({
 }))
 
 jest.mock('../ActivityTrack/ActivityTrack', () => ({
-  ActivityTrack(props: { onActivityClick: (o: object) => void }) {
+  ActivityTrack(props: { onActivityClick: (o: any) => void }) {
     return (
       <div className="mockedActivityTrack">
         <p>Mocked Activity Track</p>

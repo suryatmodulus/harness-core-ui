@@ -5,14 +5,14 @@ import isUndefined from 'lodash/isUndefined'
 import css from './JsonSelector.module.scss'
 
 export interface JsonSelectorProps {
-  json: object
+  json: Record<string, any>
   className?: string
   onPathSelect?: (path: string) => void
 }
 
 const MAX_NESTING_LEVEL = 100
 
-function visit(json: object, rows: Array<any>, path: Array<string> = []) {
+function visit(json: Record<string, any>, rows: Array<any>, path: Array<string> = []) {
   if (path.length === MAX_NESTING_LEVEL) {
     // This is the simple guard since the algorithm currently doesn't check
     // for backward references - it expects "config" json.

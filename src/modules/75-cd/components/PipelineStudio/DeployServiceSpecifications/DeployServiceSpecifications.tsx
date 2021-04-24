@@ -220,11 +220,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
     if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition', {})
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition', {})
       debounceUpdatePipeline(pipeline)
     }
     let hasStageOfSameType = false
@@ -299,7 +299,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }, [stage?.stage?.spec])
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      set(stage as {}, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+      set(stage as any, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
 
       setSelectedPropagatedState({
         label: `Stage [${item.value as string}] - Service`,

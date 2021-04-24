@@ -75,8 +75,8 @@ export default function CVMonitoringSourcesPage() {
         monitoringSourceIdentifier: identifier
       }
     })
-    const { pageItemCount, pageIndex } = data?.data!
-    if (pageIndex! > 0 && pageItemCount === 1) {
+    const { pageItemCount, pageIndex = 0 } = data?.data || {}
+    if (pageIndex > 0 && pageItemCount === 1) {
       setPage(page - 1)
     } else {
       refetch()

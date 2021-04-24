@@ -11,7 +11,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { FormikProps, yupToFormErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -293,7 +293,11 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   protected stepIcon: IconName = 'swap-vertical'
   protected isHarnessSpecific = true
   /* istanbul ignore next */
-  validateInputSet(data: K8sScaleData, template: K8sScaleData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: K8sScaleData,
+    template: K8sScaleData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<K8sScaleData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

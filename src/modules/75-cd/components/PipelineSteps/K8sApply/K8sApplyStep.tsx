@@ -9,7 +9,7 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
+import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
 import type {} from 'formik'
@@ -327,7 +327,11 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       />
     )
   }
-  validateInputSet(data: K8sApplyData, template: K8sApplyData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: K8sApplyData,
+    template: K8sApplyData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<K8sApplyData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

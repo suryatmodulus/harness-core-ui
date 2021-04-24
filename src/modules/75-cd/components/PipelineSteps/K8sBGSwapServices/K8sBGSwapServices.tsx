@@ -2,7 +2,7 @@ import React from 'react'
 import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { FormikProps, yupToFormErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
 
@@ -207,7 +207,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
     data: K8sBGSwapServicesData,
     template: K8sBGSwapServicesData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8sBGSwapServicesData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

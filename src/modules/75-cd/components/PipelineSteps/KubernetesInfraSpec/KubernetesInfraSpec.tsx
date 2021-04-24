@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -437,7 +438,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     data: K8SDirectInfrastructure,
     template?: K8SDirectInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8SDirectInfrastructure> {
     const errors: K8SDirectInfrastructureTemplate = {}
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
       errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })

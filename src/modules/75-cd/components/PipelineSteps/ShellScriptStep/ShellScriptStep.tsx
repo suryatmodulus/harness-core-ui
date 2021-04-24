@@ -2,7 +2,7 @@ import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty, set, get } from 'lodash-es'
 import * as Yup from 'yup'
-import { yupToFormErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
@@ -103,8 +103,8 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     data: ShellScriptData,
     template: ShellScriptData,
     getString?: UseStringsReturn['getString']
-  ): object {
-    const errors = {} as any
+  ): FormikErrors<ShellScriptData> {
+    const errors: FormikErrors<ShellScriptData> = {}
 
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({

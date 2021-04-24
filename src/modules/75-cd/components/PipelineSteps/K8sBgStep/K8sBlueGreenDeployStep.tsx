@@ -2,7 +2,7 @@ import React from 'react'
 import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { FormikProps, yupToFormErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -198,7 +198,7 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     data: K8sBGDeployData,
     template: K8sBGDeployData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8sBGDeployData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

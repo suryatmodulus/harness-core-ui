@@ -11,7 +11,7 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
+import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import type { IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -466,7 +466,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     data: K8sDeleteFormData,
     template: K8sDeleteFormData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8sDeleteFormData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

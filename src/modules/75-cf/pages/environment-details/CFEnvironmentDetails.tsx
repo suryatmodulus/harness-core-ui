@@ -11,7 +11,7 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import CFEnvironmentDetailsHeader from './CFEnvironmentDetailsHeader'
 import CFEnvironmentDetailsBody from './CFEnvironmentDetailsBody'
 
-const CFEnvironmentDetails: React.FC<void> = () => {
+const CFEnvironmentDetails: React.FC<unknown> = () => {
   const { getString } = useStrings()
   const { projectIdentifier, environmentIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { loading, data, error, refetch } = useSyncedEnvironment({

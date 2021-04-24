@@ -25,7 +25,7 @@ import styles from './SelectApplications.module.scss'
 
 interface SelectApplicationsProps {
   stepData?: { [key: string]: any }
-  onCompleteStep: (data: object) => void
+  onCompleteStep: (data: Record<string, any>) => void
   onPrevious?: () => void
 }
 

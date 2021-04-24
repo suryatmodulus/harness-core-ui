@@ -88,7 +88,7 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
-function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): object {
+function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): Record<string, any> {
   const ret: any = {}
   if (!values?.query?.length) {
     ret.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')

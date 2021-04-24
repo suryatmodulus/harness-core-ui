@@ -38,7 +38,7 @@ import styles from './MapApplications.module.scss'
 
 export interface MapApplicationsProps {
   stepData?: { [key: string]: any }
-  onCompleteStep: (data: object) => void
+  onCompleteStep: (data: Record<string, any>) => void
   onPrevious?: () => void
 }
 

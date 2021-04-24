@@ -34,7 +34,7 @@ export interface GCOMonitoringSourceInfo
 // --------------------------------------  DTO's for backend --------------------------------------
 export interface GCODefinition {
   isManualQuery?: boolean
-  jsonMetricDefinition: object
+  jsonMetricDefinition: Record<string, any>
   metricName: string
   dashboardName: string
   dashboardPath: string

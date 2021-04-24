@@ -50,7 +50,7 @@ export const InitialValues = {
 export function getValidationSchema(
   getString: UseStringsReturn['getString'],
   productSelectValidationText?: string
-): object {
+): Record<string, any> {
   return {
     name: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
     identifier: Yup.string().when('name', {

@@ -70,7 +70,7 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     this.portsIn = []
   }
 
-  doClone(lookupTable: {}, clone: any): void {
+  doClone(lookupTable: any, clone: any): void {
     clone.portsIn = []
     clone.portsOut = []
     super.doClone(lookupTable, clone)

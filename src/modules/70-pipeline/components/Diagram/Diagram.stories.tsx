@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   max-width: 1000px;
 `
 
-const DiagramSample: React.FC<{}> = () => {
+const DiagramSample: React.FC<any> = () => {
   //1) setup the diagram engine
   const engine = React.useMemo(() => createEngine({}), [])
 
@@ -144,7 +144,7 @@ export default {
   component: DiagramSample
 } as Meta
 
-export const Basic: Story<{}> = _args => {
+export const Basic: Story<any> = _args => {
   return (
     <TestWrapper>
       <DiagramDemo />

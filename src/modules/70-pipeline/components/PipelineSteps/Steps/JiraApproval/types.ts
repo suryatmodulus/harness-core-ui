@@ -92,8 +92,8 @@ export interface ConditionsInterface extends ApprovalRejectionCriteriaProps {
 
 export interface JiraFormContentInterface {
   formik: FormikProps<JiraApprovalData>
-  refetchProjects: (props: UseGetJiraProjectsProps) => {}
-  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => {}
+  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, never>
+  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, never>
   fetchingProjects: boolean
   fetchingProjectMetadata: boolean
   projectsResponse: ResponseListJiraProjectBasicNG | null

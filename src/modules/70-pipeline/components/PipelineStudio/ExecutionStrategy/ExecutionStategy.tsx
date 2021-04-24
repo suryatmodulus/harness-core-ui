@@ -23,7 +23,7 @@ import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
-  selectedStage: object
+  selectedStage: Record<string, any>
 }
 
 const iconMap: { [key: string]: IconName } = {

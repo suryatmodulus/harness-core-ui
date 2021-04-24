@@ -47,7 +47,7 @@ export interface FailureTypeMultiSelectProps {
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
-  formik: FormikContext<{}>
+  formik: FormikContext<any>
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {

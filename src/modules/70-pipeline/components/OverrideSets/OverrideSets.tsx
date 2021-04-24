@@ -92,7 +92,7 @@ export default function OverrideSets({
         }
       }
       artifactOverrideSets.push(artifactOverrideSetsStruct)
-      setData(stage as {}, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
+      setData(stage as any, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
     }
     if (selectedTab === OverrideSetsType.Manifests) {
       const manifestOverrideSets = get(stage, serviceDefPath + '.manifestOverrideSets', [])
@@ -103,7 +103,7 @@ export default function OverrideSets({
         }
       }
       manifestOverrideSets.push(manifestOverrideSetStruct)
-      setData(stage as {}, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
+      setData(stage as any, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
     }
     if (selectedTab === variableTab) {
       const variableOverrideSets = get(stage, serviceDefPath + '.variableOverrideSets', [])
@@ -114,7 +114,7 @@ export default function OverrideSets({
         }
       }
       variableOverrideSets.push(variableOverrideSetsStruct)
-      setData(stage as {}, serviceDefPath + '.variableOverrideSets', variableOverrideSets)
+      setData(stage as any, serviceDefPath + '.variableOverrideSets', variableOverrideSets)
     }
     updatePipeline(pipeline)
   }

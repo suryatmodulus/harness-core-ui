@@ -141,13 +141,13 @@ const ManifestListView = ({
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests')) {
       // set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
     }
     return !isForOverrideSets
       ? !isForPredefinedSets
@@ -166,12 +166,12 @@ const ManifestListView = ({
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
-      .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+      .map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
         if (overrideSets?.overrideSet?.identifier === identifierName) {
           return overrideSets.overrideSet.manifests
         }
       })
-      .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
+      .filter((x: { overrideSet: { identifier: string; manifests: [any] } }) => x !== undefined)[0]
   }
 
   const removeManifestConfig = (index: number): void => {
@@ -246,7 +246,7 @@ const ManifestListView = ({
         listOfManifests.push(manifestObj)
       }
     } else {
-      listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+      listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
         if (overrideSets.overrideSet.identifier === identifierName) {
           overrideSets.overrideSet.manifests.push(manifestObj)
         }

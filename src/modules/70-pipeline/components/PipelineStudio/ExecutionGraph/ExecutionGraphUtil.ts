@@ -542,7 +542,7 @@ export const addStepOrGroup = (
   }
 }
 
-export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps: {} } } = {
+export const StepToNodeModelDataMap: { [key: string]: { model: any; defaultProps: Record<string, any> } } = {
   APPROVAL: {
     model: DiamondNodeModel,
     defaultProps: {

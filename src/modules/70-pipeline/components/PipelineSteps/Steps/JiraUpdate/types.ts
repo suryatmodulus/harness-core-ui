@@ -40,8 +40,8 @@ export interface JiraUpdateStepModeProps {
 
 export interface JiraUpdateFormContentInterface {
   formik: FormikProps<JiraUpdateData>
-  refetchProjects: (props: UseGetJiraProjectsProps) => {}
-  refetchStatuses: (props: UseGetJiraStatusesProps) => {}
+  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, never>
+  refetchStatuses: (props: UseGetJiraStatusesProps) => Record<string, never>
   fetchingProjects: boolean
   fetchingStatuses: boolean
   projectsResponse: ResponseListJiraProjectBasicNG | null
@@ -59,7 +59,7 @@ export interface JiraUpdateDeploymentModeProps {
 }
 
 export interface JiraUpdateDeploymentModeFormContentInterface extends JiraUpdateDeploymentModeProps {
-  refetchStatuses: (props: UseGetJiraStatusesProps) => {}
+  refetchStatuses: (props: UseGetJiraStatusesProps) => Record<string, never>
   fetchingStatuses: boolean
   statusResponse: ResponseListJiraStatusNG | null
   statusFetchError?: GetDataError<Failure | Error> | null

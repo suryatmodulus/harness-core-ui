@@ -42,28 +42,28 @@ class StepFactory extends AbstractStepFactory {
   protected stepIcon: IconName = 'cross'
 }
 
-class StepOne extends Step<object> {
+class StepOne extends Step<Record<string, any>> {
   protected type = StepType.HarnessApproval
   protected stepName = 'stepOne'
   protected stepIcon: IconName = 'cross'
-  validateInputSet(): object {
+  validateInputSet(): Record<string, any> {
     return {}
   }
   protected defaultValues = { a: 'a' }
-  renderStep(props: StepProps<object>): JSX.Element {
+  renderStep(props: StepProps<Record<string, any>>): JSX.Element {
     return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }
 
-class StepTwo extends Step<object> {
+class StepTwo extends Step<Record<string, any>> {
   protected type = StepType.CustomVariable
   protected stepName = 'stepTwo'
   protected stepIcon: IconName = 'cross'
-  validateInputSet(): object {
+  validateInputSet(): Record<string, any> {
     return {}
   }
   protected defaultValues = { a: 'a' }
-  renderStep(props: StepProps<object>): JSX.Element {
+  renderStep(props: StepProps<Record<string, any>>): JSX.Element {
     return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }

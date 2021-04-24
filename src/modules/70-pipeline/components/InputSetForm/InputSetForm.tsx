@@ -162,7 +162,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const [formErrors, setFormErrors] = React.useState<{}>({})
+  const [formErrors, setFormErrors] = React.useState<Record<string, any>>({})
   const { showSuccess, showError } = useToaster()
 
   const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({

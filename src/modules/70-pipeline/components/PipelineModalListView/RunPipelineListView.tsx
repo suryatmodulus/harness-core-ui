@@ -14,7 +14,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './PipelineModalListView.module.scss'
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   reload?: () => Promise<void>
 }
 

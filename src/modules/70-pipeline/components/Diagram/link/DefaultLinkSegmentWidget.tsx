@@ -12,7 +12,7 @@ export interface DefaultLinkSegmentWidgetProps {
   factory: DefaultLinkFactory
   diagramEngine: DiagramEngine
   onSelection: (selected: boolean) => void
-  extras: object
+  extras: Record<string, any>
 }
 
 export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {

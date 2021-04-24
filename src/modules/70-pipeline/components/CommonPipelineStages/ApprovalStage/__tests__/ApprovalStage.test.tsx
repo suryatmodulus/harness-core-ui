@@ -18,7 +18,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('lodash-es', () => ({
-  ...(jest.requireActual('lodash-es') as any),
+  ...(jest.requireActual('lodash-es') as Record<string, any>),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()
     return fn

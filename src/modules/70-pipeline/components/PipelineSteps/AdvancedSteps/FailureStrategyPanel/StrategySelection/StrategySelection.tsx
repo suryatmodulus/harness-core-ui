@@ -337,7 +337,7 @@ export interface StrategySelectionProps {
 }
 
 export interface ConnectedStrategySelectionProps extends StrategySelectionProps {
-  formik: FormikContext<{}>
+  formik: FormikContext<Record<string, never>>
 }
 
 export function StrategySelection(props: ConnectedStrategySelectionProps): React.ReactElement {
@@ -371,7 +371,7 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
 export interface StrategyStepsListProps {
   allowedStrategies: Strategy[]
   name: string
-  formik: FormikContext<{}>
+  formik: FormikContext<Record<string, never>>
   disabled?: boolean
 }
 

@@ -9,7 +9,7 @@ export interface UseLogsStreamProps {
     key: string
     accountId: string
   }
-  headers: {}
+  headers: Record<string, any>
   unitId: string
   throttleTime?: number
 }

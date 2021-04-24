@@ -131,7 +131,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
-const CFEnvironmentsPage: React.FC<{}> = () => {
+const CFEnvironmentsPage: React.FC<void> = () => {
   const { getString } = useEnvStrings()
   const { showError, showSuccess } = useToaster()
   const history = useHistory()

@@ -25,7 +25,7 @@ interface OverviewDetails {
   name: string
   identifier: string
   description: string
-  tags: {}
+  tags: Record<string, any>
   billingPermission?: boolean
   eventsPermission?: boolean
   optimizationPermission?: boolean

@@ -16,6 +16,7 @@ import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import type { FormikErrors } from 'formik'
 import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -131,7 +132,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       })
     )
 
-  const handleValidate = (values: Values): {} => {
+  const handleValidate = (values: Values): FormikErrors<Values> => {
     const errors: { name?: string } = {}
     if (isDuplicateStageId(values.identifier, pipeline?.stages || [])) {
       errors.name = getString('validation.identifierDuplicate')

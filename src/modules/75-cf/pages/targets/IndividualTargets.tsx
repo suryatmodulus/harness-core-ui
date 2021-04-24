@@ -15,8 +15,8 @@ import { Target, useCreateTarget, useDeleteTarget } from 'services/cf'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 import css from './CFTargetsPage.module.scss'
 
-type CustomColumn<T extends object> = Column<T>
-const PlaceholderCell: React.FC<{}> = () => <Text></Text>
+type CustomColumn<T extends Record<string, any>> = Column<T>
+const PlaceholderCell: React.FC<void> = () => <Text></Text>
 const TableCell: React.FC<{ value: any }> = ({ value }) => <Text>{value}</Text>
 
 type RowActions = { [P in 'onEdit' | 'onDelete']: (id: string) => void }

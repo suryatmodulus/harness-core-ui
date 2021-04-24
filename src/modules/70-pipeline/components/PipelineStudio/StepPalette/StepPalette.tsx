@@ -102,7 +102,7 @@ export interface StepPaletteProps {
   onSelect: (item: FactoryStepData) => void
   onClose: () => void
   stepsFactory: AbstractStepFactory
-  selectedStage: object
+  selectedStage: Record<string, any>
   stageType: StageTypes
   isProvisioner?: boolean
 }

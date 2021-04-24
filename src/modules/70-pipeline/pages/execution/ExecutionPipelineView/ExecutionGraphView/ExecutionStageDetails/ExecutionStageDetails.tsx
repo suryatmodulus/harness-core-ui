@@ -35,7 +35,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
   const [resourceUnit, setResourceUnit] = React.useState({ id: null })
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
-    DynamicPopoverHandlerBinding<{}> | undefined
+    DynamicPopoverHandlerBinding<Record<string, any>> | undefined
   >()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({

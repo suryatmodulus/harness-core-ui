@@ -37,7 +37,7 @@ export const PredefinedOverrideSets: React.FC<{ currentStage: StageElementWrappe
   }
 
   const setOverrideSetsValue = (overrideSet: InputSetSelectorProps['value']): void => {
-    let _stageOverridesValues: {}[] = []
+    let _stageOverridesValues: any[] = []
 
     if (!isArray(overrideSet) && overrideSet) {
       _stageOverridesValues = [overrideSet.value]

@@ -11,12 +11,12 @@ export const stagesTreeNodeClasses = {
 }
 
 export interface StagesTreeProps extends IProps {
-  contents: ITreeNode<{}>[]
+  contents: ITreeNode<Record<string, any>>[]
   selectedId: string | undefined
   selectionChange: (selectedId: string, node: ITreeNode) => void
 }
 
-function expandToSelected(nodes: ITreeNode<{}>[], id: string) {
+function expandToSelected(nodes: ITreeNode<Record<string, any>>[], id: string) {
   let retExpanded = false
   nodes.forEach(node => {
     node.isSelected = node.id === id

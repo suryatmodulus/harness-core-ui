@@ -37,7 +37,7 @@ const getStageTree = (
   {
     hideNonRuntimeFields = false,
     template = {}
-  }: { hideNonRuntimeFields?: boolean; template?: Record<string, never> } = {}
+  }: { hideNonRuntimeFields?: boolean; template?: Record<string, any> } = {}
 ): ITreeNode => {
   const stageNode: ITreeNode = {
     id: `Stage.${stage.identifier}`,
@@ -200,7 +200,7 @@ export const getPipelineTree = (
   pipeline: NgPipeline,
   classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
-  options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: Record<string, never> }] } } = {}
+  options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: Record<string, any> }] } } = {}
 ): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
     {

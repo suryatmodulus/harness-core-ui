@@ -81,7 +81,7 @@ export default function WorkflowVariables({
         }
       } else {
         const overrideSets = stageSpec.variableOverrideSets
-        overrideSets.map((variableSet: { overrideSet: { identifier: string; variables: object } }) => {
+        overrideSets.map((variableSet: { overrideSet: { identifier: string; variables: Record<string, any> } }) => {
           if (variableSet?.overrideSet?.identifier === identifierName) {
             variableSet.overrideSet.variables = vars
           }

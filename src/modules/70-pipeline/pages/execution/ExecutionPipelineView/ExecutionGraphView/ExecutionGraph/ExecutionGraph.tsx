@@ -78,7 +78,7 @@ export interface ExecutionGraphProps {
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { executionIdentifier } = useParams<ExecutionPathProps>()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
-    DynamicPopoverHandlerBinding<{}> | undefined
+    DynamicPopoverHandlerBinding<Record<string, any>> | undefined
   >()
   const [stageSetupId, setStageSetupIdId] = React.useState('')
   const { pipelineExecutionDetail, selectedStageId } = useExecutionContext()

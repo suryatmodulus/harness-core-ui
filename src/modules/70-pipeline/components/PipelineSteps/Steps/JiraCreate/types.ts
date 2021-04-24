@@ -49,8 +49,8 @@ export interface JiraCreateStepModeProps {
 
 export interface JiraCreateFormContentInterface {
   formik: FormikProps<JiraCreateData>
-  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, never>
-  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, never>
+  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, any>
+  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, any>
   fetchingProjects: boolean
   fetchingProjectMetadata: boolean
   projectsResponse: ResponseListJiraProjectBasicNG | null
@@ -84,7 +84,7 @@ export interface JiraDynamicFieldsSelectorInterface {
 }
 
 export interface JiraDynamicFieldsSelectorContentInterface extends JiraDynamicFieldsSelectorInterface {
-  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, never>
+  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, any>
   fetchingProjectMetadata: boolean
   projectMetaResponse: ResponseJiraIssueCreateMetadataNG | null
   projectMetadataFetchError?: GetDataError<Failure | Error> | null
@@ -98,8 +98,8 @@ export interface JiraCreateDeploymentModeProps {
 }
 
 export interface JiraCreateDeploymentModeFormContentInterface extends JiraCreateDeploymentModeProps {
-  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, never>
-  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, never>
+  refetchProjects: (props: UseGetJiraProjectsProps) => Record<string, any>
+  refetchProjectMetadata: (props: UseGetJiraIssueCreateMetadataProps) => Record<string, any>
   fetchingProjects: boolean
   fetchingProjectMetadata: boolean
   projectsResponse: ResponseListJiraProjectBasicNG | null

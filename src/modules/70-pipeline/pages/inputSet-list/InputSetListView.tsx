@@ -31,7 +31,7 @@ interface InputSetLocal extends InputSetSummaryResponse {
   inputFieldSummary?: string
 }
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   goToInputSetDetail?: (identifier?: string) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void

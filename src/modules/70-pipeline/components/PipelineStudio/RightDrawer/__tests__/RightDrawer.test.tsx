@@ -7,7 +7,7 @@ import { PipelineContext } from '../../PipelineContext/PipelineContext'
 import { getDummyPipelineContextValue } from './RightDrawerTestHelper'
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as any),
   useStrings: jest.fn().mockReturnValue({
     getString: jest.fn().mockImplementation(val => val)
   }),
@@ -20,7 +20,7 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('../../PiplineHooks/useVariablesExpression', () => ({
-  ...(jest.requireActual('../../PiplineHooks/useVariablesExpression') as object),
+  ...(jest.requireActual('../../PiplineHooks/useVariablesExpression') as any),
   useVariablesExpression: jest.fn().mockReturnValue({
     expressions: ['']
   })

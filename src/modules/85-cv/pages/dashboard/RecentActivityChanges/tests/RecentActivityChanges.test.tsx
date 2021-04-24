@@ -163,7 +163,7 @@ const MockData = [
 ]
 const refetchFunc = jest.fn()
 jest.mock('services/cv', () => ({
-  ...(jest.requireActual('services/cv') as object),
+  ...(jest.requireActual('services/cv') as any),
   useGetRecentActivityVerificationResults: jest.fn().mockImplementation(({ queryParams }) => {
     const { accountId } = queryParams
     if (accountId === 'loading') {

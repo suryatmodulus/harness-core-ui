@@ -133,7 +133,7 @@ jest.mock('react-monaco-editor', () => (props: any) => (
 ))
 
 jest.mock('@cv/components/EventDetailsForChange/EventDetailsForChange', () => ({
-  ...(jest.requireActual('@cv/components/EventDetailsForChange/EventDetailsForChange') as object),
+  ...(jest.requireActual('@cv/components/EventDetailsForChange/EventDetailsForChange') as any),
   EventDetailsForChange: function MockEventDetails() {
     return <Container className="eventDetails" />
   }

@@ -16,7 +16,6 @@ import type {
   MultiTypeSelectOption,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type { SaveCacheGCSStepData } from '@ci/components/PipelineSteps/SaveCacheGCSStep/SaveCacheGCSStep'
 import { SaveCacheS3StepBaseWithRef } from './SaveCacheS3StepBase'
 import { SaveCacheS3StepInputSet } from './SaveCacheS3StepInputSet'
 import { SaveCacheS3StepVariables, SaveCacheS3StepVariablesProps } from './SaveCacheS3StepVariables'
@@ -96,7 +95,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
     data: SaveCacheS3StepData,
     template?: SaveCacheS3StepData,
     getString?: UseStringsReturn['getString']
-  ): FormikErrors<SaveCacheGCSStepData> {
+  ): FormikErrors<SaveCacheS3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

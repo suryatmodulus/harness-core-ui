@@ -14,7 +14,7 @@ const MockConnectorObj = {
 }
 
 jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector', () => ({
-  ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as object),
+  ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as any),
   ConnectorSelection: function MockComponent(props: any) {
     return (
       <Container className="mockInput">

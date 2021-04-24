@@ -70,7 +70,7 @@ const MetricPackResponse = {
 }
 
 jest.mock('lodash-es', () => ({
-  ...(jest.requireActual('lodash-es') as object),
+  ...(jest.requireActual('lodash-es') as any),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()
     return fn
@@ -79,7 +79,7 @@ jest.mock('lodash-es', () => ({
 }))
 
 jest.mock('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav', () => ({
-  ...(jest.requireActual('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav') as object),
+  ...(jest.requireActual('../GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav') as any),
   GCODashboardWidgetMetricNav: function MockMetricNav(props: any) {
     const [openModal, setOpenModal] = useState(false)
     return (

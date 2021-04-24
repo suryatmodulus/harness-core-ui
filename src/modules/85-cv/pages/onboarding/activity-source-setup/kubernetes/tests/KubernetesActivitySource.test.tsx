@@ -16,19 +16,19 @@ jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
 }))
 
 jest.mock('../SelectActivitySource/SelectActivitySource', () => ({
-  ...(jest.requireActual('../SelectActivitySource/SelectActivitySource') as object),
+  ...(jest.requireActual('../SelectActivitySource/SelectActivitySource') as any),
   SelectActivitySource: function MockSelectActivitySource(props: any) {
     return <Container className="SelectActivitySource" onClick={() => props.onSubmit()} />
   }
 }))
 jest.mock('../SelectKubernetesConnector/SelectKubernetesConnector', () => ({
-  ...(jest.requireActual('../SelectKubernetesConnector/SelectKubernetesConnector') as object),
+  ...(jest.requireActual('../SelectKubernetesConnector/SelectKubernetesConnector') as any),
   SelectKubernetesConnector: function MockSelectKubernetesConnector(props: any) {
     return <Container className="SelectKubernetesConnector" onClick={() => props.onSubmit()}></Container>
   }
 }))
 jest.mock('../SelectKubernetesNamespaces/SelectKubernetesNamespaces', () => ({
-  ...(jest.requireActual('../SelectKubernetesNamespaces/SelectKubernetesNamespaces') as object),
+  ...(jest.requireActual('../SelectKubernetesNamespaces/SelectKubernetesNamespaces') as any),
   SelectKubernetesNamespaces: function MockSelectKubernetesNamespaces(props: any) {
     return (
       <Container className="SelectKubernetesNamespaces" onClick={() => props.onSubmit()}>
@@ -39,7 +39,7 @@ jest.mock('../SelectKubernetesNamespaces/SelectKubernetesNamespaces', () => ({
 }))
 
 jest.mock('../MapWorkloadsToServices/MapWorkloadsToServices', () => ({
-  ...(jest.requireActual('../MapWorkloadsToServices/MapWorkloadsToServices') as object),
+  ...(jest.requireActual('../MapWorkloadsToServices/MapWorkloadsToServices') as any),
   MapWorkloadsToServices: function MapWorkloadsToServices(props: any) {
     return (
       <Container className="MapWorkloadsToServices" onClick={() => props.onSubmit()}>
@@ -50,7 +50,7 @@ jest.mock('../MapWorkloadsToServices/MapWorkloadsToServices', () => ({
 }))
 
 jest.mock('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource', () => ({
-  ...(jest.requireActual('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource') as object),
+  ...(jest.requireActual('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource') as any),
   ReviewKubernetesActivitySource: function ReviewKubernetesActivitySource(props: any) {
     return (
       <Container className="ReviewKubernetesActivitySource" onClick={() => props.onSubmit()}>

@@ -5,7 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import SideNav from '../SideNav'
 
 jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
-  ...(jest.requireActual('@common/navigation/ProjectSelector/ProjectSelector') as object),
+  ...(jest.requireActual('@common/navigation/ProjectSelector/ProjectSelector') as any),
   ProjectSelector: function P(props: any) {
     return (
       <Container>

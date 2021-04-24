@@ -18,7 +18,7 @@ const testWrapperProps: TestWrapperProps = {
 }
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as any),
   TableFilter: function MockTableColumnWithFilter(props: any) {
     return <Container className="filter" onClick={() => props.onFilter('solo-dolo')} />
   }

@@ -10,7 +10,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('lodash-es', () => ({
-  ...(jest.requireActual('lodash-es') as object),
+  ...(jest.requireActual('lodash-es') as any),
   debounce: jest.fn(fn => {
     fn.flush = jest.fn()
     return fn

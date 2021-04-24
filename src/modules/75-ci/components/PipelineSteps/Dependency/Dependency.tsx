@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -89,7 +90,11 @@ export class Dependency extends PipelineStep<DependencyData> {
     return getFormValuesInCorrectFormat<T, DependencyData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: DependencyData,
+    template?: DependencyData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<DependencyData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, {
         getString,

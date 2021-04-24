@@ -62,7 +62,7 @@ jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
 }))
 
 jest.mock('../../SelectProduct/SelectProduct', () => ({
-  ...(jest.requireActual('../../SelectProduct/SelectProduct') as object),
+  ...(jest.requireActual('../../SelectProduct/SelectProduct') as any),
   SelectProduct: function WrapperComponent() {
     return <Container className="SelectProduct" />
   }

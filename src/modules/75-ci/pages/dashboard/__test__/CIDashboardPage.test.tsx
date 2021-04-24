@@ -7,7 +7,7 @@ import { projectPathProps, accountPathProps, pipelineModuleParams } from '@commo
 import CIDashboardPage from '../CIDashboardPage'
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as any),
   useRouteParams: () => ({
     params: {
       projectIdentifier: 'test'

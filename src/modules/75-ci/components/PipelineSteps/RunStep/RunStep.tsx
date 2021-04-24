@@ -2,6 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -138,11 +139,15 @@ export class RunStep extends PipelineStep<RunStepData> {
     return []
   }
 
-  processFormData<RunStepDataUI>(data: RunStepDataUI): RunStepData {
-    return getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): RunStepData {
+    return getFormValuesInCorrectFormat<T, RunStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: RunStepData, template?: RunStepData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: RunStepData,
+    template?: RunStepData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<RunStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

@@ -85,8 +85,8 @@ export class Dependency extends PipelineStep<DependencyData> {
     }
   }
 
-  processFormData<DependencyDataUI>(data: DependencyDataUI): DependencyData {
-    return getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): DependencyData {
+    return getFormValuesInCorrectFormat<T, DependencyData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {

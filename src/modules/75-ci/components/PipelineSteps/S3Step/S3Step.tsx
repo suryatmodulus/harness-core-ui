@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -77,11 +78,15 @@ export class S3Step extends PipelineStep<S3StepData> {
     }
   }
 
-  processFormData<S3StepDataUI>(data: S3StepDataUI): S3StepData {
-    return getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): S3StepData {
+    return getFormValuesInCorrectFormat<T, S3StepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: S3StepData, template?: S3StepData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: S3StepData,
+    template?: S3StepData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<S3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

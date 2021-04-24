@@ -1,7 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import get from 'lodash-es/get'
+import { get } from 'lodash-es'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -108,18 +109,15 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     return []
   }
 
-  processFormData<RestoreCacheGCSStepDataUI>(data: RestoreCacheGCSStepDataUI): RestoreCacheGCSStepData {
-    return getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
-      data,
-      transformValuesFieldsConfig
-    )
+  processFormData<T>(data: T): RestoreCacheGCSStepData {
+    return getFormValuesInCorrectFormat<T, RestoreCacheGCSStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: RestoreCacheGCSStepData,
     template?: RestoreCacheGCSStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<RestoreCacheGCSStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

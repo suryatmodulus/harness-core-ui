@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -93,11 +94,15 @@ export class ECRStep extends PipelineStep<ECRStepData> {
     }
   }
 
-  processFormData<ECRStepDataUI>(data: ECRStepDataUI): ECRStepData {
-    return getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): ECRStepData {
+    return getFormValuesInCorrectFormat<T, ECRStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: ECRStepData, template?: ECRStepData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: ECRStepData,
+    template?: ECRStepData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<ECRStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

@@ -2,6 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -112,18 +113,15 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     return []
   }
 
-  processFormData<RestoreCacheS3StepDataUI>(data: RestoreCacheS3StepDataUI): RestoreCacheS3StepData {
-    return getFormValuesInCorrectFormat<RestoreCacheS3StepDataUI, RestoreCacheS3StepData>(
-      data,
-      transformValuesFieldsConfig
-    )
+  processFormData<T>(data: T): RestoreCacheS3StepData {
+    return getFormValuesInCorrectFormat<T, RestoreCacheS3StepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: RestoreCacheS3StepData,
     template?: RestoreCacheS3StepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<RestoreCacheS3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }

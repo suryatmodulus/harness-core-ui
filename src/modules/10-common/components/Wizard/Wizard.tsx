@@ -42,8 +42,8 @@ interface FormikPropsInterface {
 
 interface VisualYamlPropsInterface {
   showVisualYaml: boolean
-  schema?: object
-  invocationMap?: object
+  schema?: Record<string, any>
+  invocationMap?: unknown
   handleModeSwitch: (mode: SelectedView, yamlHandler?: YamlBuilderHandlerBinding) => void
   convertFormikValuesToYaml: (formikPropsValues: any) => any
   onYamlSubmit: (val: any) => void

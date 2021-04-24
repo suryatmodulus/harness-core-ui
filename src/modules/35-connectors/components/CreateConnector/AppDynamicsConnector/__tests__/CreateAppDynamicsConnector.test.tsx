@@ -32,7 +32,7 @@ jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
 ))
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
-  ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as object),
+  ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as Record<string, any>),
   setSecretField: async () => ({
     identifier: 'secretIdentifier',
     name: 'secretName',

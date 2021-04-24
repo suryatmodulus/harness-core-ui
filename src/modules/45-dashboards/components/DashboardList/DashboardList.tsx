@@ -7,7 +7,7 @@ import type { TableProps } from '@common/components/Table/Table'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import css from '@dashboards/components/DashboardList/DashboardList.module.scss'
 
-export interface DashboardListProps<T extends {}> {
+export interface DashboardListProps<T extends Record<string, any>> {
   HeaderCustomPrimary?: () => React.ReactElement
   HeaderCustomSecondary?: () => React.ReactElement
   columns: TableProps<T>['columns']
@@ -16,7 +16,7 @@ export interface DashboardListProps<T extends {}> {
   totalPages?: number
 }
 
-const HeaderFilterComponent: React.FC<{}> = () => {
+const HeaderFilterComponent: React.FC<Record<string, any>> = () => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal margin={{ left: 'small' }}>
@@ -39,7 +39,7 @@ const HeaderFilterComponent: React.FC<{}> = () => {
   )
 }
 
-export const DashboardList = <T extends {}>(props: DashboardListProps<T>): React.ReactElement => {
+export const DashboardList = <T extends Record<string, any>>(props: DashboardListProps<T>): React.ReactElement => {
   const {
     HeaderCustomPrimary = () => <></>,
     HeaderCustomSecondary = HeaderFilterComponent,

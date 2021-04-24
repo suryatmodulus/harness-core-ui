@@ -14,7 +14,7 @@ jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
 ))
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
-  ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as object),
+  ...(jest.requireActual('@connectors/pages/connectors/utils/ConnectorUtils') as Record<string, any>),
   setSecretField: async () => ({
     identifier: 'secretIdentifier',
     name: 'secretName',
@@ -23,7 +23,7 @@ jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
 }))
 
 jest.mock('services/cd-ng', () => ({
-  ...(jest.requireActual('services/cd-ng') as object),
+  ...(jest.requireActual('services/cd-ng') as Record<string, any>),
   validateTheIdentifierIsUniquePromise: () =>
     Promise.resolve({
       status: 'SUCCESS',

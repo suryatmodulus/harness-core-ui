@@ -9,7 +9,7 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import css from './ResourceGroupList.module.scss'
-export type CellPropsResourceGroupColumn<D extends object, V = any> = TableInstance<D> & {
+export type CellPropsResourceGroupColumn<D extends Record<string, any>, V = any> = TableInstance<D> & {
   column: ColumnInstance<D> & {
     reload?: () => Promise<void>
     openResourceGroupModal?: (resourceGroup: ResourceGroupDTO) => void

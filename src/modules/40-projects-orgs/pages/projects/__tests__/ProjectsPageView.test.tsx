@@ -65,7 +65,7 @@ jest.mock('services/rbac', () => ({
 }))
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as Record<string, any>),
   useRouteParams: () => ({
     params: {
       accountId: 'testAcc'

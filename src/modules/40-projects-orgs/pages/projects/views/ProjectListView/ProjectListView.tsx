@@ -23,7 +23,7 @@ interface ProjectListViewProps {
   gotoPage: (index: number) => void
 }
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   refetchProjects?: () => Promise<void>
   editProject?: (project: Project) => void
   collaborators?: (project: Project) => void

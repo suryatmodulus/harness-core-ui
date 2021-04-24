@@ -44,7 +44,7 @@ const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
     projectIdentifier: string
   }>()
   const { data, loading } = useLogsOfService({
-    org_id: orgIdentifier, // eslint-disable-line @typescript-eslint/camelcase
+    org_id: orgIdentifier,
     projectID: projectIdentifier,
     serviceID: props.service?.id as number
   })

@@ -206,7 +206,6 @@ describe('<ExecutionStepDetails /> tests', () => {
           queryParams={{ retryStep: 'retryId_1' }}
           nodesMap={{
             ...executionContext.allNodeMap,
-            // eslint-disable-next-line @typescript-eslint/camelcase
             retryId_1: {
               uuid: 'retryId_1',
               name: 'Already_Present_Data'

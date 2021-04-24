@@ -42,7 +42,7 @@ const DIFF_VIEWER_OPTIONS = {
   codeLens: false,
   readOnly: true,
   renderSideBySide: false,
-  lineNumbers: 'off' as 'off',
+  lineNumbers: 'off' as const,
   inDiffEditor: true,
   scrollBeyondLastLine: false,
   smartSelect: false

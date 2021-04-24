@@ -26,9 +26,9 @@ export default function ExecutionMetadata(): React.ReactElement {
   const { pipelineExecutionSummary } = pipelineExecutionDetail || {}
 
   const { services, environments } = React.useMemo(() => {
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const services: ServiceExecutionSummary[] = []
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const environments: string[] = []
 
     pipelineStagesMap.forEach(stage => {

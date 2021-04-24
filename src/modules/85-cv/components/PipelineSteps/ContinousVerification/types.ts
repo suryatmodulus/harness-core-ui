@@ -9,7 +9,6 @@ export interface ContinousVerificationVariableStepProps {
   originalData: ContinousVerificationData
 }
 
-// eslint-disable-next-line @typescript-eslint/class-name-casing
 export interface spec {
   sensitivity?: SelectOption | string
   duration?: SelectOption | string

@@ -108,7 +108,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
   const { getString } = useStrings()
 
   const accessTypeOptions = React.useMemo(() => {
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const options: IOptionProps[] = [
       {
         label: getString('pipelineSteps.releaseNameLabel'),

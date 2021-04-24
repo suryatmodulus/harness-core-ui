@@ -188,7 +188,7 @@ export function ExecutionFilters(): React.ReactElement {
     refetchFilters()
   }
 
-  // eslint-disable-next-line no-shadow
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   async function handleDelete(identifier: string): Promise<void> {
     setLoading(true)
     const deleteHandler = filterRef.current?.deleteFilterHandler

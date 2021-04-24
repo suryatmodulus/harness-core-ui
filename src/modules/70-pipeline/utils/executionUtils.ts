@@ -540,8 +540,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
         if (nodeData.stepType && (TopLevelNodes.indexOf(nodeData.stepType as NodeType) > -1 || isRollback)) {
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
+            const liteTaskEngineId = nodeAdjacencyListMap?.[nodeId]?.children?.[0] || ''
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
             items.push({

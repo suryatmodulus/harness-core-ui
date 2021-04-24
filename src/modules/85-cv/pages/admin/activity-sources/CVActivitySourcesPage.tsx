@@ -114,6 +114,8 @@ function LastUpdatedOnWithMenu(tableProps: CellProps<TableData> & { cvngCdngIntF
   const onDelete = () => {
     mutate(tableProps.row.original?.identifier)
       .then(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         tableProps.onDelete()
       })
       .catch(error => {

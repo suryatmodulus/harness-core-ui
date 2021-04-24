@@ -4,3 +4,4 @@ jest.config.js
 scripts/
 node_modules
 dist
+*.js

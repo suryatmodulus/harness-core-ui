@@ -389,7 +389,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         onClear={reset}
         ref={filterRef}
         dataSvcConfig={
-          new Map<CrudOperation, Function>([
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],
             ['DELETE', deleteFilter]

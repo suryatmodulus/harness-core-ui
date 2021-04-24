@@ -36,7 +36,7 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onFilterSelect: (identifier: string) => void
   enableEdit?: boolean
   isRefreshingFilters: boolean
-  dataSvcConfig?: Map<CrudOperation, Function>
+  dataSvcConfig?: Map<CrudOperation, (...rest: any[]) => Promise<any>>
   ref?: FilterCRUDFowardRef<T>
   onSuccessfulCrudOperation?: () => Promise<void>
 }

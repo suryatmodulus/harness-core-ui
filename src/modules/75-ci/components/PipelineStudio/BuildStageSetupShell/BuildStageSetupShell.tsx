@@ -255,7 +255,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               isReadonly={isReadonly}
               hasDependencies={true}
               stepsFactory={stepsFactory}
-              stage={selectedStage!}
+              stage={selectedStage || {}}
               originalStage={originalStage}
               ref={executionRef}
               updateStage={() => {

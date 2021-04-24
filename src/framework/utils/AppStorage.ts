@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 // ignoring ts and eslint issues because this is a legacy file

@@ -5,7 +5,7 @@ export interface FilterInterface {
   name: string
   filterVisibility?: FilterDTO['filterVisibility']
   identifier: string
-  filterProperties?: object
+  filterProperties?: any
   orgIdentifier?: string
   projectIdentifier?: string
 }

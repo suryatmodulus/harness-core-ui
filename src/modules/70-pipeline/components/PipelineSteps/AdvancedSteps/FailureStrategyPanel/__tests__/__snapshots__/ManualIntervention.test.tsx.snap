@@ -195,7 +195,7 @@ exports[`Failure Strategy: ManualIntervention strategy works with simple fallbac
           <input
             checked=""
             data-testid="failure-strategy-manualintervention"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="ManualIntervention"
           />
@@ -317,7 +317,7 @@ exports[`Failure Strategy: ManualIntervention strategy works with simple fallbac
                 <input
                   checked=""
                   data-testid="failure-strategy-abort"
-                  name=""
+                  name="failureStrategies[0].onFailure.action.spec.onTimeout.action.type"
                   type="checkbox"
                   value="Abort"
                 />

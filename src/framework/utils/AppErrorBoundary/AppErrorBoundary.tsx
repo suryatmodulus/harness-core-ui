@@ -7,7 +7,7 @@ interface AppErrorBoundaryState {
   error?: Error
 }
 
-class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
+class AppErrorBoundary extends React.Component<unknown, AppErrorBoundaryState> {
   state: AppErrorBoundaryState = { error: undefined }
 
   componentDidCatch(error: Error): boolean {

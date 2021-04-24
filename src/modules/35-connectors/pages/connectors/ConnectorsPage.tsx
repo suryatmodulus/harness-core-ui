@@ -493,7 +493,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           return errors
         }}
         dataSvcConfig={
-          new Map<CrudOperation, Function>([
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],
             ['DELETE', deleteFilter]

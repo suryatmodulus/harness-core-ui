@@ -27,7 +27,7 @@ export interface FilterProps<T, U> extends Partial<Omit<FormikProps<T>, 'onSubmi
   onFilterSelect: (identifier: string) => void
   onValidate?: (values: Partial<T>) => FormikErrors<Partial<T>>
   onClear?: () => void
-  dataSvcConfig?: Map<CrudOperation, Function>
+  dataSvcConfig?: Map<CrudOperation, (...rest: any[]) => Promise<any>>
   ref?: FilterFowardRef<U>
   onSuccessfulCrudOperation?: () => Promise<void>
   validationSchema?: Yup.ObjectSchema

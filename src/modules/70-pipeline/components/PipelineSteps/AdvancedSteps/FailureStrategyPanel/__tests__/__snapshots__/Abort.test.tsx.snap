@@ -195,7 +195,7 @@ exports[`Failure Strategy: Abort selection works 1`] = `
           <input
             checked=""
             data-testid="failure-strategy-abort"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="Abort"
           />

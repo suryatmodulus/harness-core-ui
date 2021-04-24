@@ -36,9 +36,12 @@ const TypeCell = withEnvironment(({ environment }) => {
 
 const NameCell = withEnvironment(({ environment }) => {
   const { getString } = useEnvStrings()
-  const tags = Object.entries(environment.tags ?? {}).reduce((acc: any[], [key, value]: [string, string]) => {
-    return [...acc, { name: key, value: value }]
-  }, [])
+  const tags = Object.entries(environment.tags ?? {}).reduce(
+    (acc: Array<{ name: string; value: string }>, [key, value]: [string, string]) => {
+      return [...acc, { name: key, value: value }]
+    },
+    [] as Array<{ name: string; value: string }>
+  )
   return (
     <Layout.Horizontal
       flex={{ distribution: 'space-between', align: 'center-center' }}

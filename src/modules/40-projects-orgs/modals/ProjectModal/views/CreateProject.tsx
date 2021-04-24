@@ -34,7 +34,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     }
   })
 
-  let defaultOrg
+  let defaultOrg = ''
   const organizations: SelectOption[] =
     orgData?.data?.content?.map(org => {
       if (org.harnessManaged) defaultOrg = org.organization.identifier

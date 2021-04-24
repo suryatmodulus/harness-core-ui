@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-type LogFunction = (message: string, obj?: object) => void
+type LogFunction = (message: string, obj?: Record<string, unknown>) => void
 
 interface Logger {
   error: LogFunction
@@ -21,7 +21,7 @@ const INFO = 'INFO'
 const DEBUG = 'DEBUG'
 
 function log(type: string, module: ModuleName, subModule?: string) {
-  return function (message: string, obj = {}) {
+  return function (message: string, obj: Record<string, unknown> = {}) {
     // Message format: `ModuleName/SubModuleName: Actual Message`, obj
     // This format will make it easier to query logs against a module
     const _message = `${module}${subModule ? `/${subModule}` : ''}: ${message}`

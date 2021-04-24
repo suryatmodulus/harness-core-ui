@@ -176,7 +176,7 @@ const getGitAuthSpec = (formData: FormData) => {
 }
 
 export const buildGithubPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,
@@ -220,7 +220,7 @@ export const buildGithubPayload = (formData: FormData) => {
 }
 
 export const buildGitlabPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,
@@ -264,7 +264,7 @@ export const buildGitlabPayload = (formData: FormData) => {
 }
 
 export const buildBitbucketPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,

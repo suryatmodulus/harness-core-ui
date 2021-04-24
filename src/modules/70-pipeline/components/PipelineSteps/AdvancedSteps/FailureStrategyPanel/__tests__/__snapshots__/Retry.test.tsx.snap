@@ -195,7 +195,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
           <input
             checked=""
             data-testid="failure-strategy-retry"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="Retry"
           />
@@ -455,7 +455,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                 <input
                   checked=""
                   data-testid="failure-strategy-abort"
-                  name=""
+                  name="failureStrategies[0].onFailure.action.spec.onRetryFailure.action.type"
                   type="checkbox"
                   value="Abort"
                 />

@@ -104,6 +104,7 @@ overrides:
     rules:
       '@typescript-eslint/no-magic-numbers': 0
       '@typescript-eslint/no-non-null-assertion': 0
+      '@typescript-eslint/no-non-null-asserted-optional-chain': 0
       '@typescript-eslint/no-explicit-any': 0
       no-await-in-loop: 0
       jest/consistent-test-it:

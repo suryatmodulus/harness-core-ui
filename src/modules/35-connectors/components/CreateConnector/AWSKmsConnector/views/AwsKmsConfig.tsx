@@ -22,9 +22,10 @@ import { useStrings } from 'framework/strings'
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { AwsKmsConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { DelegateSelectors } from '@common/components'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
 import type { CreateAwsKmsConnectorProps, StepSecretManagerProps } from '../CreateAwsKmsConnector'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsConnectorProps> = ({
   prevStepData,

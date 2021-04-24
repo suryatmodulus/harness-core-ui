@@ -2,7 +2,7 @@ import React from 'react'
 import { Classes, Menu } from '@blueprintjs/core'
 import { Button, ButtonProps } from '@wings-software/uicore'
 
-export const MenuDivider = '-' as '-'
+export const MenuDivider = '-' as const
 
 export interface OptionsMenuButtonProps extends ButtonProps {
   items: Array<React.ComponentProps<typeof Menu.Item> | '-'>

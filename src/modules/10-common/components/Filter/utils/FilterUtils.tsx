@@ -4,7 +4,7 @@ import type { FilterDTO } from 'services/cd-ng'
 
 import css from './FilterUtils.module.scss'
 
-type supportedTypes = string | number | boolean | object
+type supportedTypes = string | number | boolean | Record<string, any>
 
 const tagSeparator = ':'
 
@@ -40,7 +40,7 @@ export const getFilterSummary = (
 ): JSX.Element => {
   return (
     <ol className={css.noStyleUl}>
-      {Object.entries(fields as object).map(([key, value]) => {
+      {Object.entries(fields as Record<string, any>).map(([key, value]) => {
         if (fieldToLabelMapping.has(key)) {
           return (
             <li key={key} className={css.summaryItem}>

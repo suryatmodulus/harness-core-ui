@@ -46,7 +46,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         </span>
         <input
           data-testid="failure-strategy-retry"
-          name=""
+          name="Retry"
           type="checkbox"
           value="Retry"
         />
@@ -84,7 +84,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         </span>
         <input
           data-testid="failure-strategy-ignore"
-          name=""
+          name="Ignore"
           type="checkbox"
           value="Ignore"
         />
@@ -122,7 +122,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         </span>
         <input
           data-testid="failure-strategy-markassuccess"
-          name=""
+          name="MarkAsSuccess"
           type="checkbox"
           value="MarkAsSuccess"
         />
@@ -160,7 +160,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
         </span>
         <input
           data-testid="failure-strategy-abort"
-          name=""
+          name="Abort"
           type="checkbox"
           value="Abort"
         />

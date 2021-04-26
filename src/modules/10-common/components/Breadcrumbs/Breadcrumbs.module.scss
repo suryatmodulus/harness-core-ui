@@ -6,6 +6,8 @@
   .breadcrumb {
     color: var(--primary-7);
     text-decoration: none;
+    font-size: var(--font-size-small);
+
     &:hover {
       text-decoration: none;
       color: var(--primary-7);

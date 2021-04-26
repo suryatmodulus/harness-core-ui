@@ -3,7 +3,6 @@
 declare const styles: {
   readonly container: string
   readonly canvasContainer: string
-  readonly pipelineStudioTitle: string
   readonly canvasWrapper: string
   readonly canvas: string
   readonly renderPopover: string

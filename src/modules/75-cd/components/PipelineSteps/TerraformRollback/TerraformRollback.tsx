@@ -203,7 +203,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
       delegateSelectors: []
     }
   }
-  protected stepIcon: IconName = 'terraform-apply'
+  protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
   validateInputSet(
     data: TerraformRollbackData,

@@ -5,7 +5,6 @@ import type { FormikProps } from 'formik'
 import cx from 'classnames'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { VerificationJobDTO } from 'services/cv'
 import {
   VerificationSensitivity,
   Duration,
@@ -23,11 +22,12 @@ import {
   JobTypes
 } from '@cv/components/PipelineSteps/ContinousVerification/constants'
 import { getFieldDataFromForm, isFieldDisabled } from './utils'
+import type { VerificationJob } from '../../types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigureVerificationJob(props: {
   formik: FormikProps<ContinousVerificationData>
-  jobContents: VerificationJobDTO[] | undefined
+  jobContents: VerificationJob[] | undefined
 }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
@@ -40,7 +40,7 @@ export default function ConfigureVerificationJob(props: {
   const selectedJobValue =
     (formValues?.spec?.verificationJobRef as SelectOption)?.value || formValues?.spec?.verificationJobRef
   const selectedJob = selectedJobValue
-    ? jobContents?.find((el: VerificationJobDTO) => el.identifier === selectedJobValue)
+    ? jobContents?.find((el: VerificationJob) => el.identifier === selectedJobValue)
     : null
   const specInfo = formValues?.spec?.spec
 

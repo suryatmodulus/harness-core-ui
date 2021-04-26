@@ -300,6 +300,8 @@ export interface ResponseMessage {
     | 'EXCEPTION_HANDLER_NOT_FOUND'
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'DATA'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -367,6 +369,7 @@ export interface DeploymentResultSummary {
 
 export interface DeploymentVerificationJobInstanceSummary {
   progressPercentage?: number
+  remainingTimeMs?: number
   startTime?: number
   durationMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
@@ -508,6 +511,7 @@ export interface RestResponseListActivityDashboardDTO {
 
 export interface ActivityStatusDTO {
   durationMs?: number
+  remainingTimeMs?: number
   progressPercentage?: number
   activityId?: string
   status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
@@ -535,6 +539,18 @@ export interface RestResponseCD10RegisterActivityDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ActivitySourceDTO {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
+  editable?: boolean
+}
+
 export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: { [key: string]: any }
@@ -542,9 +558,9 @@ export interface Response {
   correlationId?: string
 }
 
-export interface ResponseString {
+export interface ResponseActivitySourceDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: string
+  data?: ActivitySourceDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -801,6 +817,8 @@ export interface Failure {
     | 'EXCEPTION_HANDLER_NOT_FOUND'
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'DATA'
   message?: string
   correlationId?: string
   errors?: ValidationError[]
@@ -1063,22 +1081,19 @@ export interface Error {
     | 'EXCEPTION_HANDLER_NOT_FOUND'
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'DATA'
   message?: string
   correlationId?: string
   detailedMessage?: string
   responseMessages?: ResponseMessage[]
 }
 
-export interface ActivitySourceDTO {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  identifier: string
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  editable?: boolean
-  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
+export interface ResponseString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface Page {
@@ -1111,13 +1126,6 @@ export interface ResponsePageActivitySourceDTO {
 export interface ResponseBoolean {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: boolean
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponseActivitySourceDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ActivitySourceDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1187,8 +1195,8 @@ export interface KubernetesActivitySourceDTO {
   projectIdentifier?: string
   connectorIdentifier: string
   activitySourceConfigs: KubernetesActivitySourceConfig[]
-  editable?: boolean
   type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
+  editable?: boolean
 }
 
 export interface RestResponseKubernetesActivitySourceDTO {
@@ -1442,18 +1450,6 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
-export interface RestResponseVoid {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Void
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Void {
-  [key: string]: any
-}
-
 export interface AnalysisResult {
   label?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
@@ -1470,6 +1466,18 @@ export interface LogAnalysisDTO {
   analysisMinute?: number
   logClusters?: LogAnalysisCluster[]
   logAnalysisResults?: AnalysisResult[]
+}
+
+export interface RestResponseVoid {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Void
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Void {
+  [key: string]: any
 }
 
 export interface MetricSum {
@@ -1967,13 +1975,6 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
-}
-
 export interface DataCollectionInfo {
   dataCollectionDsl?: string
   collectHostData?: boolean
@@ -1989,6 +1990,14 @@ export interface DataCollectionTaskDTO {
   endTime?: number
 }
 
+export interface RestResponseListDataCollectionTaskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DataCollectionTaskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseOptionalDataCollectionTaskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1997,12 +2006,11 @@ export interface RestResponseOptionalDataCollectionTaskDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListDataCollectionTaskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DataCollectionTaskDTO[]
-  responseMessages?: ResponseMessage[]
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
 }
 
 export interface HostRecordDTO {
@@ -2021,14 +2029,6 @@ export interface LogRecordDTO {
   log?: string
 }
 
-export interface RestResponseListTimeSeriesThreshold {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesThreshold[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface TimeSeriesThreshold {
   uuid?: string
   createdAt?: number
@@ -2043,14 +2043,6 @@ export interface TimeSeriesThreshold {
   metricGroupName?: string
   action: 'IGNORE' | 'FAIL'
   criteria: TimeSeriesThresholdCriteria
-}
-
-export interface RestResponseListMetricPackDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MetricPackDTO[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface MetricDefinition {
@@ -2073,6 +2065,22 @@ export interface MetricPack {
   identifier?: string
   category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinition[]
+}
+
+export interface RestResponseListMetricPackDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MetricPackDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeSeriesThreshold {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesThreshold[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface ResponseListString {
@@ -2131,12 +2139,15 @@ export interface RestResponseOnboardingResponseDTO {
 }
 
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
-  username: string
+  username?: string
   accountname: string
   controllerUrl: string
   accountId: string
   delegateSelectors?: string[]
-  passwordRef: string
+  passwordRef?: string
+  clientSecretRef?: string
+  clientId?: string
+  authType?: 'UsernamePassword' | 'ApiClientToken'
 }
 
 export interface ArtifactoryAuthCredentials {
@@ -2354,8 +2365,8 @@ export interface DataCollectionRequest {
     | 'APPDYNAMICS_GET_METRIC_DATA'
     | 'NEWRELIC_APPS_REQUEST'
     | 'NEWRELIC_VALIDATION_REQUEST'
-  dsl?: string
   baseUrl?: string
+  dsl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -2649,6 +2660,7 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
   newRelicAccountId: string
   url: string
   apiKeyRef: string
+  delegateSelectors?: string[]
 }
 
 export interface NexusAuthCredentials {
@@ -3042,6 +3054,23 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
+export interface LogAnalysisClusterChartDTO {
+  label?: number
+  text?: string
+  hostName?: string
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  x?: number
+  y?: number
+}
+
+export interface RestResponseListLogAnalysisClusterChartDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisClusterChartDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LogAnalysisClusterDTO {
   message?: string
   label?: number
@@ -3068,23 +3097,6 @@ export interface RestResponsePageLogAnalysisClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageLogAnalysisClusterDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LogAnalysisClusterChartDTO {
-  label?: number
-  text?: string
-  hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  x?: number
-  y?: number
-}
-
-export interface RestResponseListLogAnalysisClusterChartDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisClusterChartDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3158,12 +3170,8 @@ export interface VerificationJobDTO {
   monitoringSources?: string[]
   verificationJobUrl?: string
   duration?: string
-  defaultJob?: boolean
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-  sensitivity?: string
-  baselineVerificationJobInstanceId?: string
-  trafficSplitPercentage?: string
-  [x: string]: any
+  defaultJob?: boolean
 }
 
 export interface PageVerificationJobDTO {

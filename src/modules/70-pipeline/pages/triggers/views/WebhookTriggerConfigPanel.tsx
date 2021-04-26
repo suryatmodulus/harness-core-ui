@@ -150,6 +150,11 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
               }
             }}
           />
+          <FormInput.CheckBox
+            name="autoAbortOngoingPipelineExecution"
+            label="Auto Abort Ongoing Pipeline Execution"
+            className={css.checkboxAlignment}
+          />
           {sourceRepo !== GitSourceProviders.CUSTOM.value ? (
             <>
               {sourceRepo && <ConnectorSection formikProps={formikProps} />}
@@ -180,6 +185,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                   })
                 }}
               />
+
               {event && event !== eventTypes.PUSH && actionsOptions.length !== 0 && (
                 <div className={css.actionsContainer}>
                   <div>
@@ -205,7 +211,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                     key={Date.now()}
                     label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
                     defaultChecked={Array.isArray(actions) && actions.length === 0}
-                    className={css.anyAction}
+                    className={css.checkboxAlignment}
                     onClick={(e: React.FormEvent<HTMLInputElement>) => {
                       formikProps.setFieldTouched('actions', true)
                       if (e.currentTarget?.checked) {

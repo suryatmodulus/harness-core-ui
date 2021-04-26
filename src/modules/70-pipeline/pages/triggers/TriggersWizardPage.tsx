@@ -302,7 +302,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       headerConditions = [],
       payloadConditions = [],
       jexlCondition,
-      secureToken
+      secureToken,
+      autoAbortOngoingPipelineExecution
     } = val
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
@@ -366,6 +367,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         spec: {
           type: formikValueSourceRepo,
           spec: {
+            autoAbortOngoingPipelineExecution,
             gitRepoSpec: { identifier: connectorRef?.value, repoName },
             event,
             actions: actionsValues
@@ -413,7 +415,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           source: {
             spec: {
-              spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken, jexlCondition },
+              spec: {
+                actions,
+                event,
+                gitRepoSpec,
+                autoAbortOngoingPipelineExecution,
+                payloadConditions,
+                headerConditions,
+                authToken,
+                jexlCondition
+              },
               type: sourceRepo
             }
           },
@@ -453,6 +464,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         sourceRepo,
         triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
         event,
+        autoAbortOngoingPipelineExecution,
         targetIdentifier,
         secureToken: authToken?.spec?.value,
         actions: actions?.map((action: string) => ({ label: action, value: action })),

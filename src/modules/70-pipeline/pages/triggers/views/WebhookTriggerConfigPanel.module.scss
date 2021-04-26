@@ -27,7 +27,7 @@
     margin-bottom: var(--spacing-medium);
   }
 
-  .anyAction {
+  .checkboxAlignment {
     margin: var(--spacing-xxlarge) !important;
   }
 
@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: space-between;
     > div {
-      .anyAction {
+      .checkboxAlignment {
         padding-left: var(--spacing-medium);
         position: relative;
         top: 10px;

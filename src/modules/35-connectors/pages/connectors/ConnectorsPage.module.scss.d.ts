@@ -3,6 +3,7 @@
 declare const styles: {
   readonly listWrapper: string
   readonly header: string
+  readonly gitFilter: string
   readonly listBody: string
   readonly listPage: string
   readonly view: string

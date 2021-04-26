@@ -59,6 +59,9 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -72,6 +75,7 @@ import {
   validateForm
 } from './utils/RequestUtils'
 import css from './ConnectorsPage.module.scss'
+import GitFilters from '@common/components/GitFilters/GitFilters'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
@@ -82,6 +86,7 @@ interface ConnectorsListProps {
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, statisticsMockData, filtersMockData }) => {
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -576,6 +581,16 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             data-test="createViaYamlButton"
           />
         </Container>
+        {isGitSyncEnabled && (
+          <GitSyncStoreProvider>
+            <GitFilters
+              onChange={value => {
+                console.log(value)
+              }}
+              className={css.gitFilter}
+            ></GitFilters>
+          </GitSyncStoreProvider>
+        )}
 
         <Layout.Horizontal margin={{ left: 'small' }}>
           <div className={css.expandSearch}>

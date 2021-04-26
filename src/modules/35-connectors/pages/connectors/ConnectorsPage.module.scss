@@ -10,6 +10,10 @@
   border-bottom: 1px solid var(--grey-300);
   background: var(--white) !important;
 }
+
+.gitFilter {
+  height: 32px;
+}
 .listBody {
   background-color: var(--grey-100) !important;
   min-height: calc(100vh - 136px);

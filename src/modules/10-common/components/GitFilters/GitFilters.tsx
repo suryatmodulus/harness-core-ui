@@ -34,7 +34,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
-  const [page] = React.useState<number>(1)
+  const [page] = React.useState<number>(0)
 
   const defaultRepoSelect: SelectOption = {
     label: 'All Repositories',
@@ -47,8 +47,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   }
 
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([defaultRepoSelect])
-  const [selectedGitRepo, setSelectedGitRepo] = useState<string>('')
-  const [selectedGitBranch, setSelectedGitBranch] = useState<string>('')
+  const [selectedGitRepo, setSelectedGitRepo] = useState<string>(defaultValue.repo || '')
+  const [selectedGitBranch, setSelectedGitBranch] = useState<string>(defaultValue.branch || '')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([defaultBranchSelect])
 
   const fetchBranches = (repoId: string): void => {
@@ -64,16 +64,18 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
       }
     }).then(response => {
       setLoadingBranchList(false)
-      const branches = [defaultBranchSelect]
+
       if (response.data?.content?.length) {
-        response.data.content.map((branch: GitBranchDTO) => {
-          branches.push({
-            label: `${branch.branchName || ''}  - ${branch.branchSyncStatus || ''}`,
-            value: branch.branchName || ''
+        setBranchSelectOptions(
+          response.data.content.map((branch: GitBranchDTO) => {
+            return {
+              label: `${branch.branchName || ''}  - ${branch.branchSyncStatus || ''}`,
+              value: branch.branchName || ''
+            }
           })
-        })
+        )
+        setSelectedGitBranch(response.data.content[0].branchName || '')
       }
-      setBranchSelectOptions(branches)
     })
   }
 
@@ -93,6 +95,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
       setRepoSelectOptions([defaultRepoSelect].concat(reposAvailable))
       if (selectedGitRepo) {
         fetchBranches(selectedGitRepo)
+      } else {
+        setSelectedGitBranch(defaultValue.branch || '')
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +108,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   // }, [gitSyncRepos, projectIdentifier, selectedGitRepo])
 
   return (
-    <Formik<GitFilterForm> initialValues={defaultValue} onSubmit={noop}>
+    <Formik<GitFilterForm> initialValues={{ repo: selectedGitRepo, branch: selectedGitBranch }} onSubmit={noop}>
       <FormikForm initialValues={defaultValue} onSubmit={noop} className={props.className}>
         <Layout.Horizontal spacing="small" margin={{ right: 'small' }}>
           <Icon padding={{ top: 'xsmall' }} name="repository"></Icon>

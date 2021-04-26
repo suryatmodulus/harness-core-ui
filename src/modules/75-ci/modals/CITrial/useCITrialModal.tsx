@@ -3,6 +3,8 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { NgPipeline } from 'services/cd-ng'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { TrialActions } from '@common/constants/TrackingConstants'
 
 import CITrial from './CITrial'
 import css from './useCITrialModal.module.scss'
@@ -27,14 +29,34 @@ export interface UseCITrialModalReturn {
 }
 
 const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (
-  <Dialog isOpen={true} onClose={onClose} className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}>
-    <CITrial isSelect={isSelect} onSubmit={onSubmit} closeModal={onClose} />
+  <Dialog
+    isOpen={true}
+    onClose={() => {
+      SegmentTracker.track(TrialActions.TrialModalPipelineSetupCancel, { module: 'ci' })
+      onClose()
+    }}
+    className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}
+  >
+    <CITrial
+      isSelect={isSelect}
+      onSubmit={(values: NgPipeline) => {
+        SegmentTracker.track(TrialActions.TrialModalPipelineSetupSubmit, { module: 'ci' })
+        onSubmit(values)
+      }}
+      closeModal={() => {
+        SegmentTracker.track(TrialActions.TrialModalPipelineSetupCancel, { module: 'ci' })
+        onClose()
+      }}
+    />
     <Button
       aria-label="close modal"
       minimal
       icon="cross"
       iconProps={{ size: 18 }}
-      onClick={onClose}
+      onClick={() => {
+        SegmentTracker.track(TrialActions.TrialModalPipelineSetupCancel, { module: 'ci' })
+        onClose()
+      }}
       className={css.crossIcon}
     />
   </Dialog>

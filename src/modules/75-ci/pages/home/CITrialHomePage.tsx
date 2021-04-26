@@ -1,10 +1,14 @@
 import React from 'react'
 import { useStrings } from 'framework/strings'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { PageNames } from '@ci/constants/TrackingConstants'
 import bgImageURL from './images/homeIllustration.svg'
 
 const CITrialHomePage: React.FC = () => {
   const { getString } = useStrings()
+
+  SegmentTracker.page(PageNames.CIStartTrial)
 
   const startTrialProps = {
     description: getString('ci.ciTrialHomePage.startTrial.description'),

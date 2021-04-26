@@ -6,6 +6,8 @@ import { String, useStrings } from 'framework/strings'
 import { useGetAccountLicenseInfo } from 'services/portal'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/components'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { PageNames, PurposeActions } from '@common/constants/TrackingConstants'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import css from './PurposePage.module.scss'
@@ -103,6 +105,9 @@ const PurposeList: React.FC = () => {
             color: Color.WHITE
           }}
           to={routes.toModuleHome({ accountId, module })}
+          onClick={() => {
+            SegmentTracker.track(PurposeActions.ModuleContinue, { module: module })
+          }}
         >
           {getString('continue')}
         </Link>
@@ -207,6 +212,8 @@ export const PurposePage: React.FC = () => {
   const { getString } = useStrings()
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
+
+  SegmentTracker.page(PageNames.Signup)
 
   return (
     <Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}>

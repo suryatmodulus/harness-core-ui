@@ -20,6 +20,8 @@ import { useSignupUser, SignupUserRequestBody } from 'services/portal'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
 import AppStorage from 'framework/utils/AppStorage'
 import type { RestResponseUserInfo } from 'services/portal'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { PageNames, SignupActions } from '@common/constants/TrackingConstants'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/strings'
@@ -30,11 +32,12 @@ interface SignupForm {
   password: string
 }
 
-const setToken = async (response: RestResponseUserInfo): Promise<void> => {
+const setAppStorage = async (response: RestResponseUserInfo, email: string): Promise<void> => {
   const { token, defaultAccountId, uuid } = response.resource
   AppStorage.set('token', token)
   AppStorage.set('acctId', defaultAccountId)
   AppStorage.set('uuid', uuid)
+  AppStorage.set('email', email)
   AppStorage.set('lastTokenSetTime', +new Date())
 }
 
@@ -47,6 +50,8 @@ const SignupPage: React.FC = () => {
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
 
+  SegmentTracker.page(PageNames.Signup)
+
   const handleSignup = async (data: SignupForm): Promise<void> => {
     const { email, password } = data
 
@@ -55,10 +60,12 @@ const SignupPage: React.FC = () => {
       password
     }
 
+    SegmentTracker.track(SignupActions.SignupClick, { module: module })
+
     try {
       const userInfoResponse = await getUserInfo(dataToSubmit)
       const accountId = userInfoResponse.resource.defaultAccountId
-      await setToken(userInfoResponse)
+      await setAppStorage(userInfoResponse, email)
       if (module) {
         history.push(routes.toModuleTrialHome({ module, accountId }))
       } else {
@@ -123,6 +130,9 @@ const SignupPage: React.FC = () => {
                 name="email"
                 label={getString('signUp.form.emailLabel')}
                 placeholder={getString('signUp.form.emailPlaceholder')}
+                onChange={event => {
+                  SegmentTracker.track(SignupActions.EmailInput, { email: event.target.value })
+                }}
               />
               <FormInput.Text
                 name="password"

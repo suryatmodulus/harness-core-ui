@@ -4,6 +4,8 @@ import { Icon, Text, Container } from '@wings-software/uicore'
 import { OAuthProviderType, OAuthProviders, URLS } from '@common/constants/OAuthProviders'
 
 import { useStrings } from 'framework/strings'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { SignupActions } from '@common/constants/TrackingConstants'
 import css from './AuthFooter.module.scss'
 
 export enum AuthPage {
@@ -33,7 +35,16 @@ const AuthFooter: React.FC<AuthFooterProps> = ({ page }) => {
             const link = `${URLS.OAUTH}api/users/${url}`
 
             return (
-              <a className={css.iconContainer} key={type} href={link} rel="noreferrer" target="_blank">
+              <a
+                className={css.iconContainer}
+                key={type}
+                href={link}
+                rel="noreferrer"
+                target="_blank"
+                onClick={() => {
+                  SegmentTracker.track(SignupActions.OauthSignup, { type: type })
+                }}
+              >
                 <Icon name={iconName} size={24} />
               </a>
             )

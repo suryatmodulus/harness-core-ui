@@ -40,3 +40,5 @@ declare interface Window {
 declare const monaco: any
 
 declare module 'event-source-polyfill'
+
+declare const analytics: any

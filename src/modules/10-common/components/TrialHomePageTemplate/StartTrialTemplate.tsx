@@ -6,6 +6,8 @@ import { useToaster } from '@common/components'
 import { Page } from '@common/exports'
 import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 
 interface StartTrialTemplateProps {
@@ -59,6 +61,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
           text={startBtn.description}
           onClick={async () => {
             setIsLoading(true)
+            SegmentTracker.track(TrialActions.StartTrial, { module: module })
             try {
               await startTrial()
               history.push({

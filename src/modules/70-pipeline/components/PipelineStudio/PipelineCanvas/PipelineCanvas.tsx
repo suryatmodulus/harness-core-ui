@@ -17,6 +17,8 @@ import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipel
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import SegmentTracker from '@common/utils/SegmentTracker'
+import { PageNames } from '@common/constants/TrackingConstants'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -148,6 +150,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const [showModal, hideModal] = useModalHook(() => {
     if (getOtherModal) {
+      SegmentTracker.page(PageNames.TrialSetupPipelineModal, { module: module })
       pipeline.identifier = ''
       updatePipeline(pipeline)
       return getOtherModal(onSubmit, onCloseCreate)

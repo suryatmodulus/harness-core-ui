@@ -4362,6 +4362,11 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
+"@wings-software/telemetry@^1.0.36":
+  version "1.0.36"
+  resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
+  integrity sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA==
+
 "@wings-software/uicore@0.1.139":
   version "0.1.139"
   resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.139/4475a9b2015f2fee044dc9099596851811ed29083fc94ecee6a66f06ccf689c9#852cd565fa43065bad4a8faaeb7a9cce11c3358d"

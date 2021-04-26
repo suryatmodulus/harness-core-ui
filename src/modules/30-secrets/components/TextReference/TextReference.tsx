@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { get, isPlainObject } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { FormInput, Layout, Container } from '@wings-software/uicore'
-import { FormikContext, connect } from 'formik'
+import { FormikContextType, connect } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
@@ -30,10 +30,10 @@ interface TextReferenceProps {
 }
 
 interface FormikTextReference extends TextReferenceProps {
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
 }
 
-const errorCheck = (name: string, formik?: FormikContext<any>) =>
+const errorCheck = (name: string, formik?: FormikContextType<any>) =>
   (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
   get(formik?.errors, name) &&
   !isPlainObject(get(formik?.errors, name))

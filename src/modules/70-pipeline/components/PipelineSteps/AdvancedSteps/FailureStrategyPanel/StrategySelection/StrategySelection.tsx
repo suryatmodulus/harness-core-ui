@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormGroup, Intent } from '@blueprintjs/core'
-import { connect, FormikContext, FieldArray } from 'formik'
+import { connect, FormikContextType, FieldArray } from 'formik'
 import { get, difference } from 'lodash-es'
 import { MultiTextInput, Button, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
@@ -21,7 +21,7 @@ import css from './StrategySelection.module.scss'
 
 export interface BaseStepProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
   name: string
   specPath: string
   parentStrategy?: Strategy
@@ -337,7 +337,7 @@ export interface StrategySelectionProps {
 }
 
 export interface ConnectedStrategySelectionProps extends StrategySelectionProps {
-  formik: FormikContext<Record<string, never>>
+  formik: FormikContextType<Record<string, never>>
 }
 
 export function StrategySelection(props: ConnectedStrategySelectionProps): React.ReactElement {
@@ -371,7 +371,7 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
 export interface StrategyStepsListProps {
   allowedStrategies: Strategy[]
   name: string
-  formik: FormikContext<Record<string, never>>
+  formik: FormikContextType<Record<string, never>>
   disabled?: boolean
 }
 

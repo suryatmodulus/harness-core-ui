@@ -1,14 +1,14 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { Card, FormInput, Color, Text } from '@wings-software/uicore'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import { useStrings } from 'framework/strings'
 import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 
 export interface CICodebaseInputSetFormProps {
   path: string
   readonly?: boolean
-  formik?: FormikContext<any>
+  formik?: FormikContextType<any>
 }
 
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {

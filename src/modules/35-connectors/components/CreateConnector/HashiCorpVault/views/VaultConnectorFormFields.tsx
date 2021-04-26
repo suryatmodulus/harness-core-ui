@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FormInput, Layout, Button, SelectOption } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import type { FormikContext } from 'formik'
+import type { FormikContextType } from 'formik'
 import {
   VaultAppRoleCredentialDTO,
   VaultAuthTokenCredentialDTO,
@@ -39,7 +39,7 @@ const engineTypeOptions: IOptionProps[] = [
 ]
 
 interface VaultConnectorFormFieldsProps {
-  formik: FormikContext<VaultConfigFormData>
+  formik: FormikContextType<VaultConfigFormData>
   isEditing?: boolean
   identifier: string
   accessType?: VaultConnectorDTO['accessType']

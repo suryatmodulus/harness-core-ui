@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
-import type { FormikActions } from 'formik'
+import type { FormikHelpers as FormikActions } from 'formik'
 import { get, isEqual } from 'lodash-es'
 import {
   Layout,

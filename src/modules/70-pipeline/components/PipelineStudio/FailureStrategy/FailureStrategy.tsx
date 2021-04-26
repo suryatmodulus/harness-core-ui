@@ -20,7 +20,7 @@ import type { StepCommandsRef } from '../StepCommands/StepCommands'
 export interface FailureStrategyProps {
   selectedStage?: StageElementWrapperConfig
   isReadonly: boolean
-  onUpdate(data: { failureStrategies: FailureStrategyConfig[] }): void
+  onUpdate(data: { failureStrategies?: FailureStrategyConfig[] }): void
 }
 
 export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRef): React.ReactElement {
@@ -45,6 +45,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
       if (formikRef.current) {
         return formikRef.current.submitForm()
       }
+      return Promise.resolve()
     },
     getErrors() {
       if (formikRef.current) {
@@ -77,7 +78,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
           }
         ]
   return (
-    <Formik
+    <Formik<{ failureStrategies?: FailureStrategyConfig[] }>
       initialValues={{
         failureStrategies: selectedStage?.stage?.failureStrategies || fallbackValues
       }}

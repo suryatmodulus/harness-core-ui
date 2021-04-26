@@ -1,7 +1,7 @@
 import React from 'react'
 import type { MonacoEditorProps } from 'react-monaco-editor'
 import { Dialog, Classes } from '@blueprintjs/core'
-import { FormikProps, connect } from 'formik'
+import { FormikContextType, connect } from 'formik'
 import { get } from 'lodash-es'
 import { Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -22,7 +22,7 @@ export interface ShellScriptMonacoProps {
 }
 
 export interface ConnectedShellScriptMonacoProps extends ShellScriptMonacoProps {
-  formik: FormikProps<unknown>
+  formik: FormikContextType<unknown>
 }
 
 export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React.ReactElement {
@@ -79,4 +79,4 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
   )
 }
 
-export const ShellScriptMonacoField = connect<ShellScriptMonacoProps>(ShellScriptMonaco)
+export const ShellScriptMonacoField = connect<ShellScriptMonacoProps, unknown>(ShellScriptMonaco)

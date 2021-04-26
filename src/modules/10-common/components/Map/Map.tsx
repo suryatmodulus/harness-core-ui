@@ -2,7 +2,7 @@ import React from 'react'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import cx from 'classnames'
 import { Text, Card, Button, TextInput, Intent } from '@wings-software/uicore'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import { get, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import css from './Map.module.scss'
@@ -13,7 +13,7 @@ export type MapUIType = { id: string; key: string; value: string }[]
 export interface MapProps {
   name: string
   label?: string | React.ReactElement
-  formik?: FormikContext<any>
+  formik?: FormikContextType<any>
   disabled?: boolean
   style?: React.CSSProperties
   keyLabel?: string

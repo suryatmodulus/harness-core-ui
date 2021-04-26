@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import { Layout, Icon, Button, Container, Text, Color } from '@wings-software/uicore'
 
 import { get, isPlainObject, pick } from 'lodash-es'
@@ -23,7 +23,7 @@ interface SecretInputProps {
 }
 
 interface FormikSecretInput extends SecretInputProps {
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
 }
 
 const SecretInput: React.FC<FormikSecretInput> = props => {

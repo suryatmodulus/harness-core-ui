@@ -12,7 +12,7 @@ interface TestProps {
 
 const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
   <TestWrapper>
-    <Formik initialValues={initialValues} onSubmit={() => null}>
+    <Formik initialValues={initialValues} onSubmit={() => void 0}>
       <Form>
         <MultiTypeMap
           name="test"

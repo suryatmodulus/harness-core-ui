@@ -1,1 +1,1 @@
-export type tagsType = { [key: string]: string }
+export type tagsType = Record<string, any>

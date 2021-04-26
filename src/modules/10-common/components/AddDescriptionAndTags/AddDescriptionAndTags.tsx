@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Color, Container, FormInput, Layout, TagInputProps, Text } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import cx from 'classnames'
-import type { FormikProps } from 'formik'
+import type { FormikContextType as FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { tagsType } from '@common/utils/types'
 import i18n from './AddDescriptionAndTags.i18n'
@@ -22,9 +22,9 @@ export interface FormikForAddDescriptionandKVTags {
   tags?: tagsType
 }
 
-export interface DescriptionAndKVTagsInputProps {
+export interface DescriptionAndKVTagsInputProps<T extends FormikForAddDescriptionandKVTags> {
   formComponent: JSX.Element
-  formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+  formikProps?: FormikProps<T>
   className?: string
 }
 
@@ -40,10 +40,10 @@ export interface AddDescription {
   formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
 }
 
-export interface AddDescriptionAndKVTagsWithIdentifier {
+export interface AddDescriptionAndKVTagsWithIdentifier<T extends FormikForAddDescriptionandKVTags> {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
   className?: string
-  formikProps?: FormikProps<FormikForAddDescriptionandKVTags>
+  formikProps?: FormikProps<T>
 }
 
 interface FieldLabelWithHideOptionProps {
@@ -147,7 +147,9 @@ export function AddDescriptionAndTags<T>(props: DescriptionAndTagsInputProps<T>)
   )
 }
 
-export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): JSX.Element {
+export function AddDescriptionAndKVTags<T extends FormikForAddDescriptionandKVTags>(
+  props: DescriptionAndKVTagsInputProps<T>
+): JSX.Element {
   const { formComponent, className, formikProps } = props
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(
     formikProps?.values.description && formikProps.values.description.length > 0
@@ -214,7 +216,9 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
   )
 }
 
-export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Element {
+export function AddDescription<T extends FormikForAddDescriptionandKVTags>(
+  props: DescriptionAndKVTagsInputProps<T>
+): JSX.Element {
   const { formComponent, className, formikProps } = props
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(
     formikProps?.values.description && formikProps.values.description.length > 0
@@ -271,7 +275,9 @@ export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTags
   )
 }
 
-export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndKVTagsWithIdentifier): JSX.Element {
+export function AddDescriptionAndKVTagsWithIdentifier<T extends FormikForAddDescriptionandKVTags>(
+  props: AddDescriptionAndKVTagsWithIdentifier<T>
+): JSX.Element {
   const { identifierProps, ...additionalProps } = props
   return (
     <AddDescriptionAndKVTags

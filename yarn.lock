@@ -4376,10 +4376,11 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA==
 
-"@wings-software/uicore@0.1.151":
-  version "0.1.151"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.151/c93fc11a8195e7458ee48ed0a2f954e17fe4372b80764ded3a27846a65458e75#c5733cd4f06d725b53e91f45d291e6af4069564e"
-  integrity sha512-er2O8BF6yGKg+gB0YB5W66nq12J/on+ENVkI+vKFZoD0082Xr+n+GKrCkYMUAA7SHaU8WYXc+yZu8rIAyIFujA==
+
+"@wings-software/uicore@0.1.143-beta":
+  version "0.1.143-beta"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.143-beta/706af049bc0e3665a90d03ac8785c3c77e256385f7cc386ba18c2326e497d075#465c9135c56f1f51885ecc17a0d3b0295b7e3b01"
+  integrity sha512-ev/yu+Yx8z2uRaYV/U+hgjSNybHns9t9Ad8EzlqQGMRAKoAiyDJfrLXy3ZHU68aFW830VXK4jqSsTjPGyTJW8Q==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -6302,7 +6303,7 @@ create-error-class@^3.0.0:
   dependencies:
     capture-stack-trace "^1.0.0"
 
-create-react-context@0.3.0, create-react-context@^0.2.2, create-react-context@^0.3.0:
+create-react-context@0.3.0, create-react-context@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/create-react-context/-/create-react-context-0.3.0.tgz#546dede9dc422def0d3fc2fe03afe0bc0f4f7d8c"
   integrity "sha1-VG3t6dxCLe8NP8L+A6/gvA9PfYw= sha512-dNldIoSuNSvlTJ7slIKC/ZFGKexBMBrrcc+TTe1NdmROnaASuLPvqpwj9v4XS4uXZ8+YPu0sNmShX2rXI5LNsw=="
@@ -8153,20 +8154,18 @@ format@^0.2.0:
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"
   integrity "sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs= sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww=="
 
-formik@1.5.8:
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/formik/-/formik-1.5.8.tgz#eee8cd345effe46839bc748c7f920486f12f14b0"
-  integrity "sha1-7ujNNF7/5Gg5vHSMf5IEhvEvFLA= sha512-fNvPe+ddbh+7xiByT25vuso2p2hseG/Yvuj211fV1DbCjljUEG9OpgRpcb7g7O3kxHX/q31cbZDzMxJXPWSNwA=="
+formik@2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.6.tgz#378a4bafe4b95caf6acf6db01f81f3fe5147559d"
+  integrity sha512-Kxk2zQRafy56zhLmrzcbryUpMBvT0tal5IvcifK5+4YNGelKsnrODFJ0sZQRMQboblWNym4lAW3bt+tf2vApSA==
   dependencies:
-    create-react-context "^0.2.2"
     deepmerge "^2.1.1"
     hoist-non-react-statics "^3.3.0"
     lodash "^4.17.14"
     lodash-es "^4.17.14"
-    prop-types "^15.6.1"
     react-fast-compare "^2.0.1"
     tiny-warning "^1.0.2"
-    tslib "^1.9.3"
+    tslib "^1.10.0"
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -15712,7 +15711,7 @@ tslib@^1.10.0, tslib@^1.8.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity "sha1-6xXRKIJ/vuKEFUnhcfRe0zisfjU= sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA=="
 
-tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.9.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity "sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM= sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q=="

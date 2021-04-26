@@ -32,7 +32,7 @@ export const Basic: Story<BasicArgs> = args => {
               <Card>
                 <H3>Failure Strategies</H3>
                 <FailureStrategyPanel
-                  formikProps={formik}
+                  formikProps={formik as any}
                   mode={args.mode}
                   domain={args.domain || 'Deployment'}
                   isReadonly={false}

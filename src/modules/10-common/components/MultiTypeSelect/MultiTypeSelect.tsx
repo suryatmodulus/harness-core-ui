@@ -1,6 +1,6 @@
 import React from 'react'
 import type { IFormGroupProps } from '@blueprintjs/core'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import {
   FormInput,
   getMultiTypeFromValue,
@@ -28,7 +28,7 @@ interface MultiTypeSelectConfigureOptionsProps
 export interface MultiTypeSelectProps {
   name: string
   label: string | React.ReactElement
-  formik?: FormikContext<any>
+  formik?: FormikContextType<any>
   multiTypeInputProps: Omit<FormMultiTypeInputProps, 'name' | 'label'>
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeSelectConfigureOptionsProps

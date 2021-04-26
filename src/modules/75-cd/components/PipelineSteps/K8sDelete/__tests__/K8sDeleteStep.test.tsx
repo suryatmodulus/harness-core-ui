@@ -119,7 +119,9 @@ describe('Test K8sDeleteStep', () => {
         ref={ref}
       />
     )
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(onUpdate).toHaveBeenCalledWith({
       identifier: 'Test_A',
       name: 'Test A',

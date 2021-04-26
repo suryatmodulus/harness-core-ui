@@ -116,7 +116,9 @@ describe('Save Cache GCS Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
       expect(onUpdate).toHaveBeenCalledWith(runtimeValues)
     })
 
@@ -135,7 +137,9 @@ describe('Save Cache GCS Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
       expect(onUpdate).toHaveBeenCalledWith(fixedValues)
     })
   })

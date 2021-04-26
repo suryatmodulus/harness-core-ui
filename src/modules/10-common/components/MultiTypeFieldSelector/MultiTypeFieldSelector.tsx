@@ -11,7 +11,7 @@ import {
 } from '@wings-software/uicore'
 import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
-import { FormikContext, connect } from 'formik'
+import { FormikContextType, connect } from 'formik'
 import { get } from 'lodash-es'
 
 import { String } from 'framework/strings'
@@ -32,7 +32,7 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
 }
 
 export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
 }
 
 export interface TypeSelectorProps {

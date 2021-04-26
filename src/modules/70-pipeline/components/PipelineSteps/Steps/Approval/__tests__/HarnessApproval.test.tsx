@@ -99,7 +99,9 @@ describe('Harness Approval tests', () => {
     )
 
     // Submit with empty form
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(getByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -113,11 +115,15 @@ describe('Harness Approval tests', () => {
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
     fireEvent.click(getByText('pipeline.approvalStep.approvers'))
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
   })
 
@@ -158,7 +164,9 @@ describe('Harness Approval tests', () => {
     expect(queryByDisplayValue('somekey')).toBeTruthy()
     expect(queryByDisplayValue('somevalue')).toBeTruthy()
 
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'hhaass',
       timeout: '10m',

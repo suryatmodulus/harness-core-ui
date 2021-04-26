@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uicore'
-import type { FormikContext } from 'formik'
+import type { FormikContextType } from 'formik'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
 import { useStrings } from 'framework/strings'
@@ -12,7 +12,7 @@ interface VaultFormFieldsProps {
 }
 
 interface FormikContextProps<T> {
-  formik?: FormikContext<T>
+  formik?: FormikContextType<T>
 }
 
 const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> = ({

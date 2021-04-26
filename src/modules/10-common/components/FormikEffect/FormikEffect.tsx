@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import type { FormikContext } from 'formik'
+import type { FormikContextType } from 'formik'
 
 //
 // Global onChange utility for Formik
@@ -29,14 +29,14 @@ export interface FormikEffectOnChangeParams {
   nextValues: Record<string, any>
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
 }
 
 export interface FormikEffectProps {
   onChange: ({ prevValues: prevValue, nextValues: nextValue, formik }: FormikEffectOnChangeParams) => void
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik: FormikContext<any>
+  formik: FormikContextType<any>
 }
 
 export const FormikEffect: React.FC<FormikEffectProps> = ({ onChange, formik }) => {

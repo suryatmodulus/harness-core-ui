@@ -25,16 +25,18 @@ import css from './FailureStrategyPanel.module.scss'
  * https://harness.atlassian.net/wiki/spaces/CDNG/pages/1046806671/NG+Failure+Strategies+Backend
  */
 
-export interface FailureStrategyPanelProps {
+export interface FailureStrategyPanelProps<T extends FailureStrategyConfig> {
   formikProps: FormikProps<{
-    failureStrategies?: FailureStrategyConfig[]
+    failureStrategies?: T[]
   }>
   mode: Modes
   isReadonly: boolean
   domain?: Domain
 }
 
-export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
+export default function FailureStrategyPanel<T extends FailureStrategyConfig>(
+  props: FailureStrategyPanelProps<T>
+): React.ReactElement {
   const {
     formikProps: { values: formValues, submitForm, errors },
     mode,

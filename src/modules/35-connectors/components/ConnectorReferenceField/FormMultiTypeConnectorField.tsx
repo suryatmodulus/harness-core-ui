@@ -5,7 +5,7 @@ import {
   MultiTypeInputValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -38,7 +38,7 @@ export interface MultiTypeConnectorFieldConfigureOptionsProps
 }
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']
-  formik?: FormikContext<any>
+  formik?: FormikContextType<any>
   multiTypeProps?: Omit<MultiTypeReferenceInputProps<ConnectorReferenceDTO>, 'name' | 'referenceSelectProps'>
   isNewConnectorLabelVisible?: boolean
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps

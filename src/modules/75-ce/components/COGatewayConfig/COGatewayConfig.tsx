@@ -23,7 +23,7 @@ import {
 
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import type { FormikContext } from 'formik'
+import type { FormikContextType } from 'formik'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/exports'
@@ -562,7 +562,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     setServiceDependencies(deps)
   }
 
-  const handleAsgInstancesChange = (formik: FormikContext<any>, val: string, instanceType: 'OD' | 'SPOT') => {
+  const handleAsgInstancesChange = (formik: FormikContextType<any>, val: string, instanceType: 'OD' | 'SPOT') => {
     switch (instanceType) {
       case 'OD':
         if (Utils.isNumber(val)) {

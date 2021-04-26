@@ -9,8 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetResourceGroupList } from 'services/platform'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useToaster } from '@common/components'
-import type { Assignment, RoleOption, UserRoleAssignmentValues } from './UserRoleAssigment'
-import type { UserGroupRoleAssignmentValues } from './UserGroupRoleAssignment'
+import type { Assignment, RoleOption } from './UserRoleAssigment'
 import css from './RoleAssignmentForm.module.scss'
 
 export enum InviteType {
@@ -18,12 +17,15 @@ export enum InviteType {
   USER_INITIATED = 'USER_INITIATED_INVITE'
 }
 
-interface RoleAssignmentFormProps {
+interface RoleAssignmentFormProps<T extends { assignments: Assignment[] }> {
   noRoleAssignmentsText: string
-  formik: FormikProps<UserRoleAssignmentValues | UserGroupRoleAssignmentValues>
+  formik: FormikProps<T>
 }
 
-const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText, formik }) => {
+function RoleAssignmentForm<T extends { assignments: Assignment[] }>({
+  noRoleAssignmentsText,
+  formik
+}: RoleAssignmentFormProps<T>): React.ReactElement {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()

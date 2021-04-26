@@ -17,13 +17,13 @@ import type {
 } from './NameIdDescriptionTagsConstants'
 import css from './NameIdDescriptionTags.module.scss'
 
-export interface NameIdDescriptionTagsProps {
+export interface NameIdDescriptionTagsProps<T extends FormikForNameIdDescriptionTags> {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
   descriptionProps?: DescriptionProps
   tagsProps?: Partial<ITagInputProps> & {
     isOption?: boolean
   }
-  formikProps: FormikProps<FormikForNameIdDescriptionTags>
+  formikProps: FormikProps<T>
   className?: string
 }
 
@@ -146,7 +146,9 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
   )
 }
 
-export function NameIdDescriptionTags(props: NameIdDescriptionTagsProps): JSX.Element {
+export function NameIdDescriptionTags<T extends FormikForNameIdDescriptionTags>(
+  props: NameIdDescriptionTagsProps<T>
+): JSX.Element {
   const { className, identifierProps, descriptionProps, tagsProps, formikProps } = props
   return (
     <Container className={cx(css.main, className)}>

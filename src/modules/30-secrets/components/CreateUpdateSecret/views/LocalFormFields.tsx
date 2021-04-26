@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uicore'
-import type { FormikContext } from 'formik'
+import type { FormikContextType } from 'formik'
 import { useStrings } from 'framework/strings'
 
 import type { SecretDTOV2 } from 'services/cd-ng'
@@ -11,7 +11,7 @@ interface LocalFormFieldsProps {
 }
 
 interface FormikContextProps<T> {
-  formik?: FormikContext<T>
+  formik?: FormikContextType<T>
 }
 
 const LocalFormFields: React.FC<LocalFormFieldsProps & FormikContextProps<any>> = ({ editing, type }) => {

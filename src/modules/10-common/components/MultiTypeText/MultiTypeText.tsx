@@ -1,6 +1,6 @@
 import React from 'react'
 import type { IFormGroupProps } from '@blueprintjs/core'
-import { connect, FormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, MultiTextInputProps } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
@@ -24,7 +24,7 @@ interface MultiTypeTextConfigureOptionsProps
 export interface MultiTypeTextProps {
   name: string
   label: string | React.ReactElement
-  formik?: FormikContext<any>
+  formik?: FormikContextType<any>
   multiTextInputProps?: Omit<MultiTextTypeInputProps, 'name' | 'label'>
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeTextConfigureOptionsProps

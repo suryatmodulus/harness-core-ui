@@ -104,7 +104,9 @@ describe('Jira Update tests', () => {
     )
 
     // Submit with empty form
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy()
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -116,11 +118,15 @@ describe('Jira Update tests', () => {
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy())
   })
 
@@ -204,7 +210,9 @@ describe('Jira Update tests', () => {
     expect(queryByDisplayValue('issueKey1')).toBeTruthy()
     expect(queryByDisplayValue('issueKey1Value')).toBeTruthy()
     expect(queryAllByPlaceholderText('f1').length).toBe(1)
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
 
     expect(props.onUpdate).toBeCalledWith({
       identifier: 'jira_update_step',

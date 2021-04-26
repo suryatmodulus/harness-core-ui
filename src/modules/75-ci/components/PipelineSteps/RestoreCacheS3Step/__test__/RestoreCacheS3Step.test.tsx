@@ -120,7 +120,9 @@ describe('Restore Cache S3 Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
       expect(onUpdate).toHaveBeenCalledWith(runtimeValues)
     })
 
@@ -139,7 +141,9 @@ describe('Restore Cache S3 Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
       expect(onUpdate).toHaveBeenCalledWith(fixedValues)
     })
   })

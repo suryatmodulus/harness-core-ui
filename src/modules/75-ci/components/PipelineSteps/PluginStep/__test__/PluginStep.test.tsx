@@ -95,7 +95,9 @@ describe('Plugin Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })
 
@@ -138,7 +140,9 @@ describe('Plugin Step', () => {
 
       expect(container).toMatchSnapshot()
 
-      await act(() => ref.current?.submitForm())
+      await act(() => {
+        ref.current?.submitForm()
+      })
 
       expect(onUpdate).toHaveBeenCalledWith(initialValues)
     })

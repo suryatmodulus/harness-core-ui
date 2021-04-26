@@ -219,7 +219,9 @@ describe('Test TerraformPlan', () => {
         }}
       />
     )
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
     expect(onUpdate).toHaveBeenCalled()
     expect(container).toMatchSnapshot()
   })

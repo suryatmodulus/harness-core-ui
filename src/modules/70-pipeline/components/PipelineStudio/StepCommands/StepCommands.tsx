@@ -93,6 +93,8 @@ export function StepCommands(props: StepCommandsProps, ref: StepCommandsRef): Re
       if (activeTab === StepCommandTabs.Advanced && advancedConfRef.current) {
         return advancedConfRef.current.submitForm()
       }
+
+      return Promise.resolve()
     },
     getErrors() {
       return activeTab === StepCommandTabs.StepConfiguration && stepRef.current

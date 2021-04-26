@@ -40,7 +40,9 @@ describe('<AdvancedSteps /> tests', () => {
       </TestWrapper>
     )
 
-    await act(() => ref.current?.submitForm())
+    await act(() => {
+      ref.current?.submitForm()
+    })
 
     expect(onSubmit).toHaveBeenCalledWith({
       delegateSelectors: [],

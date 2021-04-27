@@ -58,7 +58,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        connector
+        connectors.title.awsKms
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -389,7 +389,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        connector
+        connectors.title.awsKms
       </span>
       <div
         class="StepWizard--navStep StepWizard--activeStep"
@@ -722,7 +722,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
       <span
         class="StepWizard--title StepWizard--header"
       >
-        connector
+        connectors.title.awsKms
       </span>
       <div
         class="StepWizard--navStep StepWizard--completedStep"
@@ -1037,6 +1037,27 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="default-5"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
+                    >
+                      <input
+                        name="default"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      connectors.hashiCorpVault.defaultVault
+                    </label>
                   </div>
                 </div>
               </div>

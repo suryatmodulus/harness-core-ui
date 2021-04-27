@@ -73,6 +73,7 @@ export interface DockerHubStepProps {
   template?: DockerHubStepData
   path?: string
   readonly?: boolean
+  isNewStep?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: DockerHubStepData) => void
 }
@@ -137,7 +138,16 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -166,6 +176,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         ref={formikRef}
+        isNewStep={isNewStep}
         readonly={readonly}
       />
     )

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { Project, useGetProject, useGetUserInfo, UserInfo, isGitSyncEnabledPromise } from 'services/cd-ng'
+import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabledPromise } from 'services/cd-ng'
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -60,7 +60,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     lazy: true
   })
 
-  const { data: userInfo, loading: userInfoLoading } = useGetUserInfo({})
+  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
   React.useEffect(() => {
     setState(prevState => ({

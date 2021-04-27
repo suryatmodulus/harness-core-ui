@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Layout, Color, Card, Button, Avatar } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { useGetUserAggregated } from 'services/cd-ng'
+import { useGetAggregatedUser } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -20,7 +20,7 @@ const UserDetails: React.FC = () => {
     PipelineType<ProjectPathProps & { userIdentifier: string }>
   >()
 
-  const { data, loading, error, refetch } = useGetUserAggregated({
+  const { data, loading, error, refetch } = useGetAggregatedUser({
     userId: userIdentifier,
     queryParams: {
       accountIdentifier: accountId,

@@ -16,9 +16,7 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
           users: ['admin', 'testing1', 'testing2', 'testing3'],
           notificationConfigs: [],
           description: '',
-          tags: {},
-          lastModifiedAt: 1617941811398,
-          version: 1
+          tags: {}
         },
         users: [
           { name: 'Admin', email: 'admin@harness.io', uuid: 'admin' },
@@ -39,7 +37,8 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
             resourceGroupName: 'All Resources',
             managedRole: false
           }
-        ]
+        ],
+        lastModifiedAt: 1617941811398
       },
       {
         userGroupDTO: {
@@ -49,9 +48,7 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
           users: [],
           notificationConfigs: [],
           description: '',
-          tags: {},
-          lastModifiedAt: 1617941811398,
-          version: 1
+          tags: {}
         },
         users: [],
         roleAssignmentsMetadataDTO: []

@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -32,7 +31,7 @@ import type { DockerHubStepProps, DockerHubStepData, DockerHubStepDataUI } from 
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DockerHubStepBase = (
-  { initialValues, onUpdate, readonly }: DockerHubStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: DockerHubStepProps,
   formikRef: StepFormikFowardRef<DockerHubStepData>
 ): JSX.Element => {
   const {
@@ -93,7 +92,7 @@ export const DockerHubStepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

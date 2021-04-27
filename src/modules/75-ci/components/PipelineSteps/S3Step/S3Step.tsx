@@ -51,6 +51,7 @@ export interface S3StepProps {
   initialValues: S3StepData
   template?: S3StepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: S3StepData) => void
@@ -95,7 +96,16 @@ export class S3Step extends PipelineStep<S3StepData> {
   }
 
   renderStep(props: StepProps<S3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -124,6 +134,7 @@ export class S3Step extends PipelineStep<S3StepData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

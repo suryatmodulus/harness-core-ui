@@ -39,7 +39,7 @@ const disableAuthMock = (): ResponseBoolean => {
 }
 
 jest.mock('services/cd-ng', () => ({
-  useGetUserInfo: jest.fn().mockImplementation(() => {
+  useGetCurrentUserInfo: jest.fn().mockImplementation(() => {
     return { data: userMockData, refetch: jest.fn() }
   }),
   useSaveSourceCodeManagers: jest.fn().mockImplementation(() => {

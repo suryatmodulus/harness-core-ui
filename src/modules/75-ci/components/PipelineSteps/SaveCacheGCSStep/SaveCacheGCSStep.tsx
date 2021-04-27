@@ -57,6 +57,7 @@ export interface SaveCacheGCSStepProps {
   initialValues: SaveCacheGCSStepData
   template?: SaveCacheGCSStepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: SaveCacheGCSStepData) => void
@@ -101,7 +102,16 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
   }
 
   renderStep(props: StepProps<SaveCacheGCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -129,6 +139,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        isNewStep={isNewStep}
         readonly={readonly}
         ref={formikRef}
       />

@@ -83,6 +83,7 @@ export interface RunStepProps {
   path?: string
   readonly?: boolean
   stepViewType?: StepViewType
+  isNewStep?: boolean
   onUpdate?: (data: RunStepData) => void
 }
 
@@ -156,7 +157,16 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      readonly,
+      isNewStep
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -185,6 +195,7 @@ export class RunStep extends PipelineStep<RunStepData> {
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

@@ -10,9 +10,7 @@ export const userGroupInfo = {
       users: ['lv0euRhKRCyiXWzS7pOg6g', 'ZqXNvYmURnO46PX7HwgEtQ'],
       notificationConfigs: [],
       description: '',
-      tags: {},
-      lastModifiedAt: 1618931089212,
-      version: 5
+      tags: {}
     },
     users: [
       { name: 'Admin', email: 'admin@harness.io', uuid: 'lv0euRhKRCyiXWzS7pOg6g' },
@@ -27,7 +25,8 @@ export const userGroupInfo = {
         resourceGroupName: 'All Resources',
         managedRole: true
       }
-    ]
+    ],
+    lastModifiedAt: 1618931089212
   },
   metaData: '',
   correlationId: ''

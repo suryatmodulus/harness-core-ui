@@ -52,7 +52,7 @@ jest.mock('services/platform', () => ({
 jest.mock('services/cd-ng', () => ({
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: deletePendingUserMock })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
-  useGetUsers: jest.fn().mockImplementation(() => {
+  useGetCurrentGenUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
   })
 }))

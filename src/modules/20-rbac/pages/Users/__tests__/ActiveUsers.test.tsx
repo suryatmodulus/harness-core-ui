@@ -50,9 +50,9 @@ jest.mock('@common/hooks/useMutateAsGet', () => ({
 }))
 
 jest.mock('services/cd-ng', () => ({
-  useDeleteActiveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
+  useRemoveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
-  useGetUsers: jest.fn().mockImplementation(() => {
+  useGetCurrentGenUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
   })
 }))

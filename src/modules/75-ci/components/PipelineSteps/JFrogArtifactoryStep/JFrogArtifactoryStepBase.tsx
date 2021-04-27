@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -35,7 +34,7 @@ import type {
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepBase = (
-  { initialValues, onUpdate, readonly }: JFrogArtifactoryStepProps,
+  { initialValues, onUpdate, isNewStep, readonly }: JFrogArtifactoryStepProps,
   formikRef: StepFormikFowardRef<JFrogArtifactoryStepData>
 ): JSX.Element => {
   const {
@@ -96,7 +95,7 @@ export const JFrogArtifactoryStepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

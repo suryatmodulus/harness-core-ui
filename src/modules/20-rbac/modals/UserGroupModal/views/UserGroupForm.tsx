@@ -20,7 +20,7 @@ import { Menu } from '@blueprintjs/core'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { UserGroupDTO, usePostUserGroup, useGetUsers, usePutUserGroup } from 'services/cd-ng'
+import { UserGroupDTO, usePostUserGroup, useGetCurrentGenUsers, usePutUserGroup } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
@@ -58,7 +58,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     }
   })
 
-  const { data: userList } = useGetUsers({
+  const { data: userList } = useGetCurrentGenUsers({
     queryParams: {
       accountIdentifier: accountId,
       searchString: search

@@ -61,6 +61,7 @@ export interface SaveCacheS3StepProps {
   template?: SaveCacheS3StepData
   path?: string
   readonly?: boolean
+  isNewStep?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: SaveCacheS3StepData) => void
 }
@@ -104,7 +105,16 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
   }
 
   renderStep(props: StepProps<SaveCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -133,6 +143,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

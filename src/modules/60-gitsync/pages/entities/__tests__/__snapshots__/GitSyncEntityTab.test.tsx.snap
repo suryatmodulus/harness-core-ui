@@ -591,7 +591,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
                     class="StyledProps--font StyledProps--main entityTypeContainer"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--margin-large StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-dark600"
+                      class="StyledProps--font StyledProps--main StyledProps--margin-large StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                     >
                       SECRETS ( 2 )
                     </p>
@@ -833,7 +833,7 @@ exports[`Git Sync - entity tab rendering landing view 2`] = `
                     class="StyledProps--font StyledProps--main entityTypeContainer"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--margin-large StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-dark600"
+                      class="StyledProps--font StyledProps--main StyledProps--margin-large StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey900"
                     >
                       CONNECTORS ( 3 )
                     </p>

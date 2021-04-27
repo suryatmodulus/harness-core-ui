@@ -1,9 +1,20 @@
 .canvas-buttons {
   position: absolute;
   right: var(--spacing-large);
-  bottom: var(--spacing-large);
+  top: var(--spacing-large);
+
   :global(.bp3-button) {
     padding: var(--spacing-medium) !important;
+    border: 1px solid var(--pipeline-grey-border) !important;
+    color: var(--grey-350) !important;
+    font-size: var(--font-size-xsmall) !important;
+    background-color: var(--grey-50);
+    &:hover {
+      box-shadow: none !important;
+      color: var(--primary-4) !important;
+      background-color: var(--primary-1) !important;
+      border: 1px solid var(--primary-3) !important;
+    }
   }
 
   .vertical-buttons {
@@ -19,6 +30,7 @@
       }
       & > span:last-child button {
         border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
         border-bottom-right-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
       }

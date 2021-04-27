@@ -111,8 +111,6 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           orgIdentifier,
           projectIdentifier,
           ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
           type: 'AwsKms',
           spec: {
             credential: cred,

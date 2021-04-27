@@ -30,8 +30,6 @@ const entitySubTypeToTagMap: {
   GcpKms: 'gcpkms',
   Gcp: 'gcp',
   Aws: 'aws',
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
   AwsKms: 'awskms',
   Artifactory: 'artifactory',
   Jira: 'jira',

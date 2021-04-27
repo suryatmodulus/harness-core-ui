@@ -13,6 +13,7 @@ export type NewRelicServiceEnvMapping = {
   environment: SelectOption
   applicationId: number
   applicationName: string
+  guid?: string
 }
 export interface NewRelicSetupSource extends DSConfig {
   mappedServicesAndEnvs: Map<number, NewRelicServiceEnvMapping> // applicationId is the key

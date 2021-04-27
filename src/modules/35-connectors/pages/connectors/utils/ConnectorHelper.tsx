@@ -151,6 +151,8 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.GCP:
     case 'Gcr':
       return 'service-gcp'
+    case Connectors.AWS_KMS:
+      return 'aws-kms'
     default:
       return 'placeholder'
   }

@@ -3,6 +3,7 @@ import { fireEvent, render } from '@testing-library/react'
 jest.mock('copy-to-clipboard')
 import c2cMock from 'copy-to-clipboard'
 import * as toaster from '@common/components/Toaster/useToaster'
+import { StringsContext } from 'framework/strings'
 import BuildCommits from '../BuildCommits'
 import BuildMock from './mock/build.json'
 
@@ -21,7 +22,11 @@ jest.mock('@pipeline/pages/execution/ExecutionContext/ExecutionContext', () => (
 
 describe('BuildCommits snapshot test', () => {
   test('should render properly', async () => {
-    const { container } = render(<BuildCommits />)
+    const { container } = render(
+      <StringsContext.Provider value={{ data: {} as any, getString: (key: string) => key as string }}>
+        <BuildCommits />
+      </StringsContext.Provider>
+    )
     expect(container).toMatchSnapshot()
   })
 })
@@ -42,16 +47,20 @@ describe('BuildCommits interaction test', () => {
         } as any)
     )
 
-    render(<BuildCommits />)
+    render(
+      <StringsContext.Provider value={{ data: {} as any, getString: (key: string) => key as string }}>
+        <BuildCommits />
+      </StringsContext.Provider>
+    )
 
     const btn1 = document.querySelectorAll('button.hash')[0]
     fireEvent.click(btn1)
 
-    expect(showSuccess).toBeCalledWith('Successfully copied to clipboard')
+    expect(showSuccess).toBeCalledWith('ci.clipboardCopySuccess')
 
     const btn3 = document.querySelectorAll('button.hash')[2]
     fireEvent.click(btn3)
 
-    expect(showError).toBeCalledWith('Copy to clipboard has failed')
+    expect(showError).toBeCalledWith('ci.clipboardCopyFail')
   })
 })

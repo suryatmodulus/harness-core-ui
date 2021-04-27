@@ -8,6 +8,7 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
@@ -29,6 +30,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
       })
     )
   }
+  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -40,7 +42,8 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
           getString,
           selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
           selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1,
-          true
+          true,
+          isApprovalStageEnabled
         )
       }
       stepsFactory={factory}

@@ -70,7 +70,7 @@ export default function ArtifactsSelection({
 
   const getPrimaryArtifactByIdentifier = (): void => {
     return artifacts
-      .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: object } } }) => {
+      .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: Record<string, any> } } }) => {
         if (artifact?.overrideSet?.identifier === identifierName) {
           return artifact.overrideSet.artifacts['primary']
         }
@@ -82,7 +82,10 @@ export default function ArtifactsSelection({
     return artifacts
       .map(
         (artifact: {
-          overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
+          overrideSet: {
+            identifier: string
+            artifacts: { sidecars: [{ sidecar: Record<string, any> }]; primary: Record<string, any> }
+          }
         }) => {
           if (artifact?.overrideSet?.identifier === identifierName) {
             if (!artifact?.overrideSet?.artifacts?.['sidecars']) {
@@ -170,7 +173,7 @@ export default function ArtifactsSelection({
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts.sidecars', [])
     }
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
     } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
   }, [stage])
 
@@ -264,7 +267,9 @@ export default function ArtifactsSelection({
       } else {
         if (isForOverrideSets) {
           artifacts.map(
-            (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
+            (artifact: {
+              overrideSet: { identifier: string; artifacts: { primary: Record<string, any>; sidecars?: [] } }
+            }) => {
               if (artifact?.overrideSet?.identifier === identifierName) {
                 artifact.overrideSet.artifacts = {
                   ...artifact.overrideSet.artifacts,
@@ -274,14 +279,17 @@ export default function ArtifactsSelection({
             }
           )
         } else {
-          set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', { ...artifactObj })
+          set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', { ...artifactObj })
         }
       }
     } else {
       if (isForOverrideSets) {
         artifacts.map(
           (artifact: {
-            overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
+            overrideSet: {
+              identifier: string
+              artifacts: { sidecars: [{ sidecar: Record<string, any> }]; primary: Record<string, any> }
+            }
           }) => {
             if (artifact?.overrideSet?.identifier === identifierName) {
               if (artifact.overrideSet.artifacts['sidecars']) {
@@ -370,7 +378,9 @@ export default function ArtifactsSelection({
   const removePrimary = (): void => {
     if (isForOverrideSets) {
       artifacts.map(
-        (artifact: { overrideSet: { identifier: string; artifacts: { primary: object | null; sidecars: [] } } }) => {
+        (artifact: {
+          overrideSet: { identifier: string; artifacts: { primary: Record<string, any> | null; sidecars: [] } }
+        }) => {
           if (artifact?.overrideSet?.identifier === identifierName) {
             artifact.overrideSet.artifacts['primary'] = null
           }

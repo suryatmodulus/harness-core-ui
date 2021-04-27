@@ -40,7 +40,7 @@ const SelectMonitoringSourceStepProps: StepLabelProps = {
   totalSteps: 3
 }
 
-function getValidationSchema(getString: UseStringsReturn['getString']): object {
+function getValidationSchema(getString: UseStringsReturn['getString']): Record<string, any> {
   return Yup.object({
     monitoringSourceName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
     identifier: Yup.string().when('name', {

@@ -2,7 +2,7 @@ import React from 'react'
 import { isEmpty, debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { ExecutionNode, useGetBarrierInfo, useGetResourceConstraintsExecutionInfo } from 'services/pipeline-ng'
-import { ExecutionPathParams, getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
+import { getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
@@ -12,23 +12,30 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHelpers'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
+import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints'
 import css from './ExecutionStageDetails.module.scss'
+
 export interface ExecutionStageDetailsProps {
   onStepSelect(step?: string): void
   onStageSelect(step: string): void
-  selectedStep: string
-  selectedStage: string
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail, pipelineStagesMap, loading } = useExecutionContext()
+  const {
+    pipelineExecutionDetail,
+    pipelineStagesMap,
+    loading,
+    selectedStageId,
+    selectedStepId,
+    allNodeMap
+  } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
   const [resourceUnit, setResourceUnit] = React.useState({ id: null })
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
-    DynamicPopoverHandlerBinding<{}> | undefined
+    DynamicPopoverHandlerBinding<unknown> | undefined
   >()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
@@ -38,8 +45,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     disabled: item[1].status === 'NotStarted'
   }))
 
-  const { executionIdentifier, accountId } = useParams<ExecutionPathParams>()
-  const stage = pipelineStagesMap.get(props.selectedStage)
+  const { executionIdentifier, accountId } = useParams<ExecutionPathProps>()
+  const stage = pipelineStagesMap.get(selectedStageId)
   const { data: barrierInfo, loading: barrierInfoLoading, refetch } = useGetBarrierInfo({
     queryParams: {
       barrierSetupId: barrierSetupId || '',
@@ -60,9 +67,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   })
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.executionGraph),
-    identifier: `${executionIdentifier}-${props.selectedStage}`,
+    identifier: `${executionIdentifier}-${selectedStageId}`,
     status: stage?.status as any,
-    allNodes: Object.keys(pipelineExecutionDetail?.executionGraph?.nodeMap || {})
+    allNodes: Object.keys(allNodeMap)
   }
   const fetchData = debounce(refetch, 1000)
   const fetchResourceConstraints = debounce(fetchResourceData, 1000)
@@ -75,10 +82,12 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
       fetchResourceConstraints()
     }
   }, [barrierSetupId, resourceUnit, fetchResourceConstraints, fetchData])
+
   // open details view when a step is selected
   React.useEffect(() => {
-    setStepDetailsVisibility(!!props.selectedStep)
-  }, [props.selectedStep, setStepDetailsVisibility])
+    setStepDetailsVisibility(!!selectedStepId)
+  }, [selectedStepId, setStepDetailsVisibility])
+
   const onMouseEnter = (event: any): void => {
     const currentStage = event.stage
     const isFinished = currentStage?.data?.endTs
@@ -133,9 +142,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   }
   return (
     <div className={css.main}>
-      {!isEmpty(props.selectedStage) && data.items?.length > 0 && (
+      {!isEmpty(selectedStageId) && data.items?.length > 0 && (
         <ExecutionStageDiagram
-          selectedIdentifier={props.selectedStep}
+          selectedIdentifier={selectedStageId}
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
           showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}

@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MarkdownViewer MarkdownViewer should be rendered properly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            # Install
+      </span>
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+    >
+      <pre>
+            go get github.com/wings-software/ff-client-sdk-go
+      </pre>
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-duplicate StyledProps--main"
+          icon="duplicate"
+        >
+          <svg
+            data-icon="duplicate"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
+          >
+            <desc>
+              duplicate
+            </desc>
+            <path
+              d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            # Usage
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            First we need to import lib with harness alias \`import harness "github.com/wings-software/ff-client-sdk-go/pkg/api"\`
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            Next we create client instance for interaction with api \`client := harness.NewClient({{ apiKey }})\`
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            Target definition can be user, device, app etc.
+      </span>
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main CodeBlock--codeBlock StyledProps--padding-xsmall StyledProps--background-grey100 StyledProps--margin-none StyledProps--flex"
+    >
+      <pre>
+            target := dto.NewTargetBuilder("key").
+    Firstname("John").
+    Lastname("doe").
+    Email("johndoe@acme.com").
+    Country("USA").
+    Custom("height", 160).
+    Build()
+      </pre>
+      <button
+        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-duplicate StyledProps--main"
+          icon="duplicate"
+        >
+          <svg
+            data-icon="duplicate"
+            height="12"
+            viewBox="0 0 16 16"
+            width="12"
+          >
+            <desc>
+              duplicate
+            </desc>
+            <path
+              d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+      style="color: rgb(51, 51, 51); line-height: 18px;"
+    >
+      <span>
+            Evaluating Feature Flag \`showFeature, err := client.BoolVariation(featureFlagKey, target, false)\`
+      </span>
+    </p>
+  </div>
+</div>
+`;

@@ -33,7 +33,7 @@ export default function ProjectsSideNav(): React.ReactElement {
         }}
       />
       <SidebarLink label={getString('overview')} to={routes.toProjectDetails(params)} />
-      <SidebarLink label={getString('resources')} to={routes.toProjectResources(params)} />
+      <SidebarLink label={getString('resources')} to={routes.toResources(params)} />
       <SidebarLink label={getString('accessControl')} to={routes.toAccessControl(params)} />
     </Layout.Vertical>
   )

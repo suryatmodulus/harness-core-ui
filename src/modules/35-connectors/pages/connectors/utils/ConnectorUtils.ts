@@ -176,7 +176,7 @@ const getGitAuthSpec = (formData: FormData) => {
 }
 
 export const buildGithubPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,
@@ -220,7 +220,7 @@ export const buildGithubPayload = (formData: FormData) => {
 }
 
 export const buildGitlabPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,
@@ -264,7 +264,7 @@ export const buildGitlabPayload = (formData: FormData) => {
 }
 
 export const buildBitbucketPayload = (formData: FormData) => {
-  const savedData = {
+  const savedData: any = {
     name: formData.name,
     description: formData?.description,
     projectIdentifier: formData?.projectIdentifier,
@@ -606,6 +606,22 @@ export const setupArtifactoryFormData = async (
       connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
         ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
         : undefined
+  }
+
+  return formData
+}
+
+export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
+  const formData = {
+    accessKey: connectorInfo?.spec?.credential?.spec?.accessKey,
+    secretKey: connectorInfo?.spec?.credential?.spec?.secretKey,
+    awsArn: connectorInfo?.spec?.kmsArn,
+    region: connectorInfo.spec?.region,
+    credType: connectorInfo.spec?.credential?.type,
+    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors,
+    roleArn: connectorInfo.spec?.credential?.spec?.roleArn,
+    externalName: connectorInfo.spec?.credential?.spec?.externalName,
+    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration
   }
 
   return formData
@@ -1005,6 +1021,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.Jira:
       return 'service-jira'
+    case Connectors.AWS_KMS:
+      return 'aws-kms'
     default:
       return 'cog'
   }
@@ -1050,6 +1068,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'HTTP Helm Repo'
     case Connectors.AWSSM:
       return 'AWS Secret Manager'
+    case Connectors.AWS_KMS:
+      return 'AWS KMS'
     default:
       return ''
   }

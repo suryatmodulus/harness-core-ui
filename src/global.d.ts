@@ -37,4 +37,6 @@ declare interface Window {
   apiUrl: string
 }
 
+declare const monaco: any
+
 declare module 'event-source-polyfill'

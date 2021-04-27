@@ -21,8 +21,7 @@ jest.mock('services/pipeline-ng', () => ({
 
 describe('CITrial Modal', () => {
   const props = {
-    handleCreateSubmit: jest.fn(),
-    handleSelectSubmit: jest.fn(),
+    onSubmit: jest.fn(),
     isSelect: false
   }
   describe('Rendering', () => {

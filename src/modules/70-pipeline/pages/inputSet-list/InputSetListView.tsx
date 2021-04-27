@@ -31,7 +31,7 @@ interface InputSetLocal extends InputSetSummaryResponse {
   inputFieldSummary?: string
 }
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   goToInputSetDetail?: (identifier?: string) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
@@ -49,7 +49,7 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         name={getIconByType(data.inputSetType)}
         color={data.inputSetType === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
         size={30}
-      ></Icon>
+      />
       <div>
         <Layout.Horizontal spacing="small" data-testid={data.identifier}>
           <Text color={Color.BLACK}>{data.name}</Text>

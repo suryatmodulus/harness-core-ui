@@ -18,7 +18,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 jest.mock('lodash-es', () => ({
-  ...(jest.requireActual('lodash-es') as object),
+  ...(jest.requireActual('lodash-es') as Record<string, any>),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()
     return fn
@@ -52,7 +52,7 @@ describe('Approval Stage minimal view', () => {
       <TestWrapper>
         <ApprovalStage
           minimal={true}
-          stageProps={props.stageProps}
+          stageProps={props.stageProps as any}
           name={''}
           type={''}
           icon={'nav-harness'}
@@ -110,7 +110,7 @@ describe('Jira Approval Stage minimal view', () => {
       <TestWrapper>
         <ApprovalStage
           minimal={true}
-          stageProps={props.stageProps}
+          stageProps={props.stageProps as any}
           name={''}
           type={''}
           icon={'service-jira'}

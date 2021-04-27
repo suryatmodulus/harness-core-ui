@@ -3,7 +3,7 @@ import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType,
 import cx from 'classnames'
 import * as Yup from 'yup'
 
-import { FormikProps, yupToFormErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
@@ -214,7 +214,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     data: K8RolloutDeployData,
     template: K8RolloutDeployData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8RolloutDeployData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

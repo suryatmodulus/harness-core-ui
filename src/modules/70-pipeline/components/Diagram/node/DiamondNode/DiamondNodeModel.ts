@@ -14,6 +14,7 @@ export class DiamondNodeModel extends DefaultNodeModel {
       name: 'Approve',
       icon: 'add',
       secondaryIcon: null,
+      allowDropOnNode: false,
       ...options
     })
   }

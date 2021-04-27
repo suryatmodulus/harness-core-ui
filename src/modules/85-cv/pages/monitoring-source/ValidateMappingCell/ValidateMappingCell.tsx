@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Layout, Color, Button } from '@wings-software/uicore'
+import { Container, Text, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { AppdynamicsValidationResponse } from 'services/cv'
 import css from './ValidateMappingCell.module.scss'
@@ -17,7 +17,15 @@ export function ValidateMappingCell(props: ValidationMappingCellProps): JSX.Elem
 
   if (apiError) {
     return (
-      <Text intent="danger" lineClamp={1} tooltipProps={{ className: css.popoverClass }}>
+      <Text
+        icon="refresh"
+        iconProps={{ size: 8 }}
+        intent="danger"
+        lineClamp={1}
+        tooltipProps={{ className: css.popoverClass }}
+        onClick={onRetry}
+        className={css.errorWithRefresh}
+      >
         {apiError}
       </Text>
     )
@@ -50,18 +58,17 @@ export function ValidateMappingCell(props: ValidationMappingCellProps): JSX.Elem
       )
     case 'FAILED':
       return (
-        <Layout.Horizontal spacing="small">
-          <Text icon="warning-sign" intent="danger" iconProps={{ size: 16, color: Color.RED_500 }}>
-            {getString('cv.monitoringSources.appD.validationsFailed')}
-          </Text>
-          <Button
-            icon="refresh"
-            iconProps={{ size: 12 }}
-            color={Color.BLUE_500}
-            text={getString('retry')}
-            onClick={onRetry}
-          />
-        </Layout.Horizontal>
+        <Text
+          icon="refresh"
+          iconProps={{ size: 8 }}
+          intent="danger"
+          lineClamp={1}
+          tooltipProps={{ className: css.popoverClass }}
+          onClick={onRetry}
+          className={css.errorWithRefresh}
+        >
+          {getString('cv.monitoringSources.appD.validationsFailed')}
+        </Text>
       )
     default:
       return <Container />

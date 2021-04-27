@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -30,7 +29,7 @@ import type { GCSStepData, GCSStepDataUI, GCSStepProps } from './GCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCSStepBase = (
-  { initialValues, onUpdate, readonly }: GCSStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: GCSStepProps,
   formikRef: StepFormikFowardRef<GCSStepData>
 ): JSX.Element => {
   const {
@@ -91,7 +90,7 @@ export const GCSStepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

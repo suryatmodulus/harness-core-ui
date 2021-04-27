@@ -112,7 +112,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     accountIdentifier: accountId
   }
   const history = useHistory()
-  useDocumentTitle([getString('resources'), getString('connectorsLabel')])
+  useDocumentTitle(getString('connectorsLabel'))
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
@@ -213,7 +213,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
     originalData.map(value => {
-      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault']) : null
+      value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms']) : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {
@@ -498,7 +498,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           return errors
         }}
         dataSvcConfig={
-          new Map<CrudOperation, Function>([
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],
             ['DELETE', deleteFilter]

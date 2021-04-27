@@ -97,7 +97,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
     return errors
   }
 
-  processFormData(values: JiraCreateData) {
+  processFormData(values: JiraCreateData): JiraCreateData {
     return processFormData(values)
   }
 
@@ -118,7 +118,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
-          originalData={initialValues}
+          originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
         />
       )

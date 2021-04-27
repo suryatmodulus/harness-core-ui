@@ -13,11 +13,11 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { debounce, isNumber } from 'lodash-es'
-import MonacoEditor from 'react-monaco-editor'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Drawer, IOptionProps } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
+import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import {
   ServiceSelectOrCreate,
   generateOptions as generateServiceOptions
@@ -88,7 +88,7 @@ const DrawerOptions = {
   enforceFocus: true
 }
 
-function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): object {
+function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): Record<string, any> {
   const ret: any = {}
   if (!values?.query?.length) {
     ret.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')

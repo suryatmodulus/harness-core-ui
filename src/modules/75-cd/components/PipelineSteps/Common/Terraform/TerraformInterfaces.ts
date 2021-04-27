@@ -1,3 +1,4 @@
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
@@ -9,6 +10,7 @@ import type {
   MultiTypeMapUIType,
   SelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+
 import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 
@@ -66,21 +68,32 @@ export interface BackendConfig {
   }
 }
 export interface VarFileArray {
-  type?: string
-  store?: {
-    spec?: {
-      gitFetchType?: string
-      branch?: string
-      commitId?: string
-      connectorRef?: {
-        label: string
-        scope: Scope
-        value: string
+  varFile: {
+    type?: string
+    store?: {
+      spec?: {
+        gitFetchType?: string
+        branch?: string
+        commitId?: string
+        connectorRef?: {
+          label: string
+          value: string
+          scope: Scope
+          live: boolean
+          connector: { type: string; spec: { val: string } }
+        }
+        paths?: PathInterface[]
+        content?: string
       }
-      paths?: PathInterface[]
-      content?: string
     }
   }
+}
+export interface Connector {
+  label: string
+  value: string
+  scope: Scope
+  live: boolean
+  connector: { type: string; spec: { val: string; url: string; connectionType?: string; type?: string } }
 }
 export interface TerraformData extends StepElementConfig {
   delegateSelectors: string[]
@@ -98,11 +111,36 @@ export interface TerraformData extends StepElementConfig {
               branch?: string
               commitId?: string
               folderPath?: string
-              connectorRef?: {
-                label: string
-                scope: Scope
-                value: string
-              }
+              connectorRef?: string | Connector
+            }
+          }
+        }
+        varFiles?: VarFileArray[]
+      }
+    }
+    backendConfig?: BackendConfig
+    targets?: MultiTypeListType
+    environmentVariables?: MultiTypeMapType
+  }
+}
+
+export interface TerraformFormData extends StepElementConfig {
+  delegateSelectors: string[]
+  spec?: {
+    provisionerIdentifier?: string
+    configuration?: {
+      type?: string
+      spec?: {
+        workspace?: string
+        configFiles?: {
+          store?: {
+            type?: string
+            spec?: {
+              gitFetchType?: string
+              branch?: string
+              commitId?: string
+              folderPath?: string
+              connectorRef?: string
             }
           }
         }
@@ -128,7 +166,7 @@ export interface TfVar {
   paths?: string[]
 }
 
-export const onSubmitTerraformData = (values: TerraformData) => {
+export const onSubmitTerraformData = (values: TerraformData): TerraformFormData => {
   if (values?.spec?.configuration?.type === 'Inline') {
     const envVars = values.spec?.environmentVariables as MultiTypeMapUIType
     const envMap: MapType = {}
@@ -149,10 +187,36 @@ export const onSubmitTerraformData = (values: TerraformData) => {
         }
       })
     }
+
+    const connectorValue = values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as any
+
     return {
       ...values,
       spec: {
         ...values.spec,
+        configuration: {
+          ...values?.spec?.configuration,
+          spec: {
+            ...values.spec?.configuration.spec,
+            configFiles: {
+              ...values.spec?.configuration?.spec?.configFiles,
+              store: {
+                ...values.spec?.configuration?.spec?.configFiles?.store,
+                type: connectorValue.connector?.type,
+                spec: {
+                  ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
+                  connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                    ? getMultiTypeFromValue(
+                        values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.RUNTIME
+                      ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+                      : connectorValue.value
+                    : ''
+                }
+              }
+            }
+          }
+        },
         environmentVariables: envMap,
         targets: targetMap
       }
@@ -162,7 +226,7 @@ export const onSubmitTerraformData = (values: TerraformData) => {
   return {
     ...values,
     spec: {
-      ...values.spec
+      provisionerIdentifier: values?.spec?.provisionerIdentifier
     }
   }
 }

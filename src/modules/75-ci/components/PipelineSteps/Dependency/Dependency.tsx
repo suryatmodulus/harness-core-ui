@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -61,6 +62,7 @@ export interface DependencyProps {
   template?: DependencyData
   path?: string
   readonly?: boolean
+  isNewStep?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: DependencyData) => void
 }
@@ -85,11 +87,15 @@ export class Dependency extends PipelineStep<DependencyData> {
     }
   }
 
-  processFormData<DependencyDataUI>(data: DependencyDataUI): DependencyData {
-    return getFormValuesInCorrectFormat<DependencyDataUI, DependencyData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): DependencyData {
+    return getFormValuesInCorrectFormat<T, DependencyData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: DependencyData, template?: DependencyData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: DependencyData,
+    template?: DependencyData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<DependencyData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, {
         getString,
@@ -101,7 +107,16 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   renderStep(props: StepProps<DependencyData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -130,6 +145,7 @@ export class Dependency extends PipelineStep<DependencyData> {
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

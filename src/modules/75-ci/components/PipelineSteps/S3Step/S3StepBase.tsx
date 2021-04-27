@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -30,7 +29,7 @@ import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const S3StepBase = (
-  { initialValues, onUpdate, readonly }: S3StepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: S3StepProps,
   formikRef: StepFormikFowardRef<S3StepData>
 ): JSX.Element => {
   const {
@@ -91,7 +90,7 @@ export const S3StepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

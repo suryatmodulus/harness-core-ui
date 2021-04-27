@@ -12,6 +12,7 @@ import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/Ac
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
+import { PurposePage } from './pages/purpose/PurposePage'
 
 const RedirectToProjects = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
@@ -74,6 +75,9 @@ export default (
     </RouteWithLayout>
     <Route path={routes.toGenericError({ ...accountPathProps })}>
       <GenericErrorPage />
+    </Route>
+    <Route path={routes.toPurpose({ ...accountPathProps })} exact>
+      <PurposePage />
     </Route>
   </>
 )

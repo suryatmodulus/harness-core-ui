@@ -233,6 +233,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             closeInstancesModal()
           }}
           style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-instance-modal'}
         />
       </Dialog>
     )
@@ -276,6 +277,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             closeAsgModal()
           }}
           style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-asg-modal'}
         />
       </Dialog>
     )
@@ -934,7 +936,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           <COGatewayConfigStep
             count={4}
             title={getString('ce.co.autoStoppingRule.configuration.step4.title')}
-            subTitle={getString('ce.co.autoStoppingRule.configuration.step4.subTitle')}
             totalStepsCount={4}
             id={CONFIG_STEP_IDS[3]}
           >

@@ -11,7 +11,7 @@ import mockEnv from './mockEnv-CD1.json'
 import mockEnvironments from './mockEnvironments.json'
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as any),
   useRouteParams: () => ({
     params: {
       accountId: 'testAcc'
@@ -23,7 +23,7 @@ jest.mock('framework/exports', () => ({
 }))
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as any),
   TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />
   }

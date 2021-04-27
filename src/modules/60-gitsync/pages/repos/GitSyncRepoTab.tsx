@@ -24,6 +24,7 @@ import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Connectors } from '@connectors/constants'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -35,7 +36,7 @@ enum RepoState {
 interface RightMenuProps {
   repo: GitSyncConfig
   selectedFolderIndex: number
-  handleRepoUpdate: (updatedFolders: GitSyncFolderConfigDTO[]) => {}
+  handleRepoUpdate: (updatedFolders: GitSyncFolderConfigDTO[]) => unknown
 }
 
 const RightMenu: React.FC<RightMenuProps> = props => {
@@ -150,7 +151,7 @@ const GitSyncRepoTab: React.FC = () => {
   }
 
   const RenderColumnRootFolder: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
-    const { accountId } = useParams()
+    const { accountId } = useParams<AccountPathProps>()
     const { showSuccess, showError } = useToaster()
     const [repoState, setRepoState] = React.useState<RepoState>(RepoState.VIEW)
     const [repoData, setRepoData] = React.useState<GitSyncConfig>(row.original)

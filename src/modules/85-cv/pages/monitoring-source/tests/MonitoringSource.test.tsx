@@ -11,13 +11,13 @@ import MonitoringSource from '../MonitoringSource'
 
 jest.mock('../app-dynamics/AppDMonitoringSource', () => () => <Container className="appdynamics" />)
 jest.mock('../google-cloud-operations/GoogleCloudOperationsMonitoringSource', () => ({
-  ...(jest.requireActual('../google-cloud-operations/GoogleCloudOperationsMonitoringSource') as object),
+  ...(jest.requireActual('../google-cloud-operations/GoogleCloudOperationsMonitoringSource') as any),
   GoogleCloudOperationsMonitoringSource: function MockGOC({ dsConfig }: { dsConfig: any }) {
     return <Container className="gco">{dsConfig ? <Container className="hasData" /> : null}</Container>
   }
 }))
 jest.mock('../new-relic/NewRelicMonitoringSource', () => ({
-  ...(jest.requireActual('../new-relic/NewRelicMonitoringSource') as object),
+  ...(jest.requireActual('../new-relic/NewRelicMonitoringSource') as any),
   NewRelicMonitoringSource: function MockNewRelic() {
     return <Container className="newrelic" />
   }

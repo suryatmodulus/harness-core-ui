@@ -23,7 +23,7 @@ jest.mock('services/cd-ng', () => ({
     return { ...projectPageMock, refetch: jest.fn(), error: null }
   }),
   useDeleteProject: jest.fn().mockImplementation(() => ({ mutate: deleteProjectMock })),
-  useGetUsers: () => jest.fn(),
+  useGetCurrentGenUsers: () => jest.fn(),
   useGetInvites: () => jest.fn(),
   useSendInvite: () => jest.fn(),
   useGetRoles: () => jest.fn()

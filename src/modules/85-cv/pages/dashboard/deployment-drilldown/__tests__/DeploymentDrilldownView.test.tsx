@@ -44,14 +44,14 @@ const timeseriesMock = {
 }
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as any),
   useRouteParams: () => ({
     params: mockParams
   })
 }))
 
 jest.mock('services/cv', () => ({
-  ...(jest.requireActual('services/cv') as object),
+  ...(jest.requireActual('services/cv') as any),
   useGetVerificationInstances: jest.fn().mockImplementation(() => verificationInstancesMock),
   useGetDeploymentTimeSeries: jest.fn().mockImplementation(() => timeseriesMock)
 }))

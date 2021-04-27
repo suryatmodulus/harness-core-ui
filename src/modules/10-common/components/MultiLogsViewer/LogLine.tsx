@@ -9,7 +9,6 @@ import './ansi-colors.scss'
 import type { LineData } from './types'
 import css from './MultiLogsViewer.module.scss'
 
-// eslint-disable-next-line @typescript-eslint/camelcase
 export const memoizedAnsiToJson = memoize((str: string) => ansiToJson(str, { use_classes: true }))
 
 export function highlightedTextToReactNode(text: string): React.ReactElement {

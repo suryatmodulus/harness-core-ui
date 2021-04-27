@@ -320,7 +320,7 @@ export const getWizardMap = ({
 export const getValidationSchema = (
   triggerType: NGTriggerSource['type'],
   getString: (key: StringKeys) => string
-): ObjectSchema<object | undefined> => {
+): ObjectSchema<Record<string, any> | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({
       name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),

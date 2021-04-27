@@ -17,7 +17,7 @@ export const MIN_PANEL_SIZE = 200
 
 export default function ExecutionGraphView(): React.ReactElement {
   const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
-  const { allNodeMap, pipelineStagesMap, selectedStageId, selectedStepId, queryParams } = useExecutionContext()
+  const { allNodeMap, pipelineStagesMap, selectedStageId, queryParams } = useExecutionContext()
 
   function handleStepSelection(step?: string): void {
     if (!step) {
@@ -64,14 +64,9 @@ export default function ExecutionGraphView(): React.ReactElement {
 
   return (
     <ExecutionLayout className={css.main}>
-      <ExecutionGraph onSelectedStage={handleStageSelection} selectedStage={selectedStageId} />
-      <ExecutionStageDetails
-        onStepSelect={handleStepSelection}
-        onStageSelect={handleStageSelection}
-        selectedStage={selectedStageId}
-        selectedStep={selectedStepId}
-      />
-      <ExecutionStepDetails selectedStep={selectedStepId} closeDetails={() => handleStepSelection()} />
+      <ExecutionGraph onSelectedStage={handleStageSelection} />
+      <ExecutionStageDetails onStepSelect={handleStepSelection} onStageSelect={handleStageSelection} />
+      <ExecutionStepDetails closeDetails={() => handleStepSelection()} />
     </ExecutionLayout>
   )
 }

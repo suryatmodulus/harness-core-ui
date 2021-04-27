@@ -3,7 +3,7 @@ import { render, waitFor, queryByText, fireEvent, queryAllByText } from '@testin
 import { renderHook } from '@testing-library/react-hooks'
 import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
-
+import * as usePermission from '@rbac/hooks/usePermission'
 import routes from '@common/RouteDefinitions'
 import { pipelinePathProps } from '@common/utils/routeUtils'
 import { GetTriggerResponse } from './webhookMockResponses'
@@ -62,6 +62,7 @@ describe('TriggersPage Triggers tests', () => {
   describe('Interactivity', () => {
     test('Delete a trigger', async () => {
       const { container } = render(<WrapperComponent />)
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       await waitFor(() =>
         expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
@@ -89,6 +90,8 @@ describe('TriggersPage Triggers tests', () => {
     })
 
     test('Edit a trigger redirects to Trigger Wizard', async () => {
+      jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
+
       const { container, getByTestId } = render(<WrapperComponent />)
       await waitFor(() =>
         expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()

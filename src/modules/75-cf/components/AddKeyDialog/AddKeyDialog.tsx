@@ -9,7 +9,8 @@ import {
   CardSelect,
   Container,
   Label,
-  Text
+  Text,
+  ButtonProps
 } from '@wings-software/uicore'
 import { ApiKey, useAddAPIKey } from 'services/cf/index'
 import { useEnvStrings } from '@cf/hooks/environment'
@@ -23,6 +24,8 @@ interface Props {
   primary?: boolean
   environment: EnvironmentResponseDTO
   onCreate: (newKey: ApiKey, hideModal: () => void) => void
+  buttonProps?: ButtonProps
+  keyType?: EnvironmentSDKKeyType
 }
 
 interface KeyValues {
@@ -30,7 +33,7 @@ interface KeyValues {
   type: EnvironmentSDKKeyType
 }
 
-const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreate }) => {
+const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreate, buttonProps, keyType }) => {
   const { showError } = useToaster()
   const { getString, getEnvString } = useEnvStrings()
   const { mutate: createKey, loading } = useAddAPIKey({
@@ -51,7 +54,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
       text: getEnvString('apiKeys.serverType'),
       value: EnvironmentSDKKeyType.SERVER
     }
-  ]
+  ].filter(type => !keyType || keyType === type.value)
 
   const initialValues: KeyValues = {
     name: '',
@@ -133,7 +136,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
         </Formik>
       </Dialog>
     )
-  }, [loading])
+  }, [loading, keyType])
 
   return (
     <Button
@@ -142,6 +145,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
       text={getString('cf.environments.apiKeys.addKey')}
       minimal={!primary}
       intent="primary"
+      {...buttonProps}
     />
   )
 }

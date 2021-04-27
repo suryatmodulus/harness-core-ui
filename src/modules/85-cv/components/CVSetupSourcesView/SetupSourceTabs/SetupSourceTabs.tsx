@@ -184,7 +184,7 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
     clearStroreList: [CVObjectStoreNames.ONBOARDING_SOURCES]
   })
 
-  async function onSwitchTab<T>(updatedData: T, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
+  async function onSwitchTab<U>(updatedData: U, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
     if (!dbInstance) return
 
     if (newTabIndex > tabsInfo.length - 1) {

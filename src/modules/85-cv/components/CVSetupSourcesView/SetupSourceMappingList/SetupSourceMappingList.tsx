@@ -11,14 +11,14 @@ import { SetupSourceCardHeaderProps, SetupSourceEmptyCardHeader } from '../Setup
 import { StepLabel } from '../StepLabel/StepLabel'
 import css from './SetupSourceMappingList.module.scss'
 
-const FILTER_THRESHOLD = 1000
+const FILTER_THRESHOLD = 100
 
 interface TableFilterForSetupSourceMapping<T> extends Omit<TableFilterProps, 'onFilter' | 'className'> {
   isItemInFilter: (filterString: string, rowObject: T) => boolean
   totalItemsToRender?: number
-  onFilterForMoreThan1000Items?: (filterString: string) => void
+  onFilterForMoreThan100Items?: (filterString: string) => void
 }
-export interface SetupSourceMappingListProps<T extends object> {
+export interface SetupSourceMappingListProps<T extends Record<string, unknown>> {
   tableProps: TableProps<T>
   mappingListHeaderProps: SetupSourceCardHeaderProps
   loading?: boolean
@@ -29,16 +29,18 @@ export interface SetupSourceMappingListProps<T extends object> {
 
 const LoadingData = [1, 2, 3, 4, 5, 6].map(() => ({} as any))
 
-export function SetupSourceMappingList<T extends object>(props: SetupSourceMappingListProps<T>): JSX.Element {
+export function SetupSourceMappingList<T extends Record<string, unknown>>(
+  props: SetupSourceMappingListProps<T>
+): JSX.Element {
   const { tableProps, mappingListHeaderProps, loading, error, noData, tableFilterProps } = props
   const { getString } = useStrings()
   const [filterString, setFilterString] = useState<string | undefined>()
-  const [isMoreThanFilterThreshold, setIsMoreThanFilterThreshold] = useState(tableProps.data.length > FILTER_THRESHOLD)
+  const [isMoreThanFilterThreshold, setIsMoreThanFilterThreshold] = useState(tableProps.data.length >= FILTER_THRESHOLD)
   const filteredData = useMemo(() => {
     let resultData = tableProps.data
     if (filterString !== undefined && filterString !== null) {
-      if (isMoreThanFilterThreshold && tableFilterProps.onFilterForMoreThan1000Items) {
-        tableFilterProps.onFilterForMoreThan1000Items(filterString)
+      if ((isMoreThanFilterThreshold || !tableProps.data?.length) && tableFilterProps.onFilterForMoreThan100Items) {
+        tableFilterProps.onFilterForMoreThan100Items(filterString)
       } else {
         resultData = tableProps.data.filter(data => tableFilterProps.isItemInFilter(filterString, data))
       }

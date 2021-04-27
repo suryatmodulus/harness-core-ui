@@ -16,15 +16,15 @@ class StepFactory extends AbstractStepFactory {
   protected stepIcon: IconName = 'cross'
 }
 
-class StepOne extends Step<object> {
+class StepOne extends Step<any> {
   protected type = StepType.KubernetesDirect
   protected stepName = 'stepOne'
   protected stepIcon: IconName = 'cross'
-  validateInputSet(): object {
+  validateInputSet(): any {
     return {}
   }
   protected defaultValues = { a: 'a' }
-  renderStep(props: StepProps<object>): JSX.Element {
+  renderStep(props: StepProps<any>): JSX.Element {
     return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }

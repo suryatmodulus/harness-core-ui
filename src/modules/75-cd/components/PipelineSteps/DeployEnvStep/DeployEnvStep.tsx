@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { Classes, Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import {
   PipelineInfrastructure,
   useGetEnvironmentListForProject,
@@ -477,8 +478,12 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
       />
     )
   }
-  validateInputSet(data: DeployEnvData, template: DeployEnvData, getString?: UseStringsReturn['getString']): object {
-    const errors = {} as any
+  validateInputSet(
+    data: DeployEnvData,
+    template: DeployEnvData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<DeployEnvData> {
+    const errors: FormikErrors<DeployEnvData> = {}
     if (
       isEmpty(data?.environmentRef) &&
       getMultiTypeFromValue(template?.environmentRef) === MultiTypeInputType.RUNTIME

@@ -318,6 +318,8 @@ export interface AccessPoint {
 
 export interface CreateAccessPointResponse {
   response?: AccessPoint
+  errors?: string[]
+  metadata?: { [key: string]: any }
 }
 
 export interface ListAccessPointResponse {

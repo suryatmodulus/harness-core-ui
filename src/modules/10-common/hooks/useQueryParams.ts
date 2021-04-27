@@ -7,7 +7,7 @@ export interface UseQueryParamsOptions<T> extends IParseOptions {
   processQueryParams?(data: any): T
 }
 
-export function useQueryParams<T = {}>(options?: UseQueryParamsOptions<T>): T {
+export function useQueryParams<T = unknown>(options?: UseQueryParamsOptions<T>): T {
   const { search } = useLocation()
 
   const queryParams = React.useMemo(() => {

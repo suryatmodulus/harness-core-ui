@@ -11,7 +11,7 @@ import css from './JsonSelectorFormInput.module.scss'
 interface JsonSelectorFormInputProps {
   name: string
   label: string
-  json?: object
+  json?: Record<string, any>
   disabled?: boolean
   loading?: boolean
   placeholder?: string
@@ -19,7 +19,7 @@ interface JsonSelectorFormInputProps {
 
 function getPlaceholderAndTextColor(
   loading?: boolean,
-  json?: object,
+  json?: Record<string, any>,
   placeholder?: string,
   selectedJsonVal?: string
 ): { value?: string; valueColor: Color } {

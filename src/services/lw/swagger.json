@@ -2798,6 +2798,15 @@
         "response": {
           "type": "object",
           "$ref": "#/definitions/AccessPoint"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metadata": {
+          "type": "object"
         }
       }
     },

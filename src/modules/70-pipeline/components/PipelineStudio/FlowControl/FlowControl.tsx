@@ -89,6 +89,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
       updateBarriers(newBarriers)
     }
   }, [data?.data])
+
   const debouncedUpdatePipeline = React.useCallback(debounce(updatePipeline, 300), [updatePipeline])
   const addBarrier = (push: (data: Barrier) => void): void => {
     const newBarrier: Barrier = {
@@ -113,10 +114,11 @@ export const FlowControl: React.FC = (): JSX.Element => {
       }
     })
     updateBarriers(updatedBarriers)
+    const validBarriers = getValidBarriers(updatedBarriers)
     debouncedUpdatePipeline({
       ...pipeline,
       flowControl: {
-        barriers: updatedBarriers.map(barrier => ({
+        barriers: validBarriers.map(barrier => ({
           name: barrier.name,
           identifier: barrier.identifier
         }))

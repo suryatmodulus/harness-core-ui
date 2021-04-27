@@ -336,7 +336,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
                                   >
                                     <div
-                                      class="bp3-form-group"
+                                      class="bp3-form-group inputWidth"
                                     >
                                       <label
                                         class="bp3-label"
@@ -366,7 +366,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                       </div>
                                     </div>
                                     <div
-                                      class="bp3-form-group"
+                                      class="bp3-form-group inputWidth"
                                     >
                                       <label
                                         class="bp3-label"
@@ -391,6 +391,35 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                             placeholder="cd.steps.common.releaseNamePlaceholder"
                                             type="text"
                                             value="<+input>"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="bp3-form-group inputWidth"
+                                    >
+                                      <label
+                                        class="bp3-label"
+                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
+                                      >
+                                        cd.infrastructureKey
+                                         
+                                        <span
+                                          class="bp3-text-muted"
+                                        />
+                                      </label>
+                                      <div
+                                        class="bp3-form-content"
+                                      >
+                                        <div
+                                          class="bp3-input-group"
+                                        >
+                                          <input
+                                            autocomplete="off"
+                                            class="bp3-input"
+                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
+                                            type="text"
+                                            value=""
                                           />
                                         </div>
                                       </div>

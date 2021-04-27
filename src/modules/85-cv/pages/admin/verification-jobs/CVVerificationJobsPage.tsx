@@ -184,7 +184,7 @@ export default function CVVerificationJobsPage() {
                   <WebHookCell
                     {...props}
                     onDelete={() => onDelete(props.row.original?.identifier)}
-                    onEdit={() => onEdit(props.row.original?.identifier!)}
+                    onEdit={() => onEdit(props.row.original?.identifier || '')}
                   />
                 )
               }

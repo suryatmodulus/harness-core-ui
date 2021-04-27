@@ -32,7 +32,7 @@ const OrgNavCardRenderer: React.FC = () => {
         icon: 'resources-icon',
         title: getString('resources'),
         description: getString('orgDetails.resourcesDescription'),
-        route: routes.toOrgResources({ orgIdentifier, accountId })
+        route: routes.toResources({ orgIdentifier, accountId })
       },
       {
         icon: 'resources-icon',

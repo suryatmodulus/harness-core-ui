@@ -107,7 +107,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
-          originalData={initialValues}
+          originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
         />
       )

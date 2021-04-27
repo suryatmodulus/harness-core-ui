@@ -22,13 +22,13 @@ interface EntitiesListingProps {
   entityType: ListGitSyncEntitiesByTypePathParams['entityType']
   gitSyncConfigId: GitSyncConfig['identifier']
   branch: GitSyncConfig['branch']
-  backToSummary: Function
+  backToSummary: () => void
 }
 
 interface EntityListViewProps {
   data: PageGitSyncEntityListDTO | undefined
   gotoPage: (pageNumber: number) => void
-  refetch: Function
+  refetch: () => void
 }
 
 const EntityListView: React.FC<EntityListViewProps> = props => {

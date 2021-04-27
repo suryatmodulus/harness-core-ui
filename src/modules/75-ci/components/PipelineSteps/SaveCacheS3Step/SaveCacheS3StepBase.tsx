@@ -9,7 +9,6 @@ import {
   FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -33,7 +32,7 @@ import type { SaveCacheS3StepProps, SaveCacheS3StepData, SaveCacheS3StepDataUI }
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const SaveCacheS3StepBase = (
-  { initialValues, onUpdate, readonly }: SaveCacheS3StepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: SaveCacheS3StepProps,
   formikRef: StepFormikFowardRef<SaveCacheS3StepData>
 ): JSX.Element => {
   const {
@@ -92,7 +91,7 @@ export const SaveCacheS3StepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

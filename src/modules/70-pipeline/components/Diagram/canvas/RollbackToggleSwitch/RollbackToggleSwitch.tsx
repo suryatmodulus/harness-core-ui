@@ -39,8 +39,6 @@ export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
       <span className={css.btnRollback}>
         <ButtonGroup>
           <Button
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            //@ts-ignore
             icon="execution"
             active={active === StepsType.Normal}
             tooltip={large ? undefined : getString('executionText')}
@@ -53,8 +51,6 @@ export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
             }}
           />
           <Button
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-            //@ts-ignore
             icon="rollback-execution"
             active={active === StepsType.Rollback}
             tooltip={large ? undefined : getString('rollbackLabel')}

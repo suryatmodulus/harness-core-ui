@@ -113,7 +113,7 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
             <FormInput.Text name="installationId" label={getString('common.git.installationId')} />
             <FormInput.Text name="applicationId" label={getString('common.git.applicationId')} />
           </Container>
-          <Container className={css.formRow}>
+          <Container width={'42.5%'}>
             <SecretInput name="privateKey" label={getString('common.git.privateKey')} />
           </Container>
         </Container>

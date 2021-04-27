@@ -118,7 +118,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
-          originalData={initialValues}
+          originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
         />
       )

@@ -5,8 +5,8 @@ import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   UserAggregate,
-  useDeleteActiveUser,
-  useGetActiveUsersAggregated,
+  useRemoveUser,
+  useGetAggregatedUsers,
   UserGroupDTO,
   UserSearchDTO,
   RoleBinding
@@ -77,7 +77,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-  const { mutate: deleteUser } = useDeleteActiveUser({
+  const { mutate: deleteUser } = useRemoveUser({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -142,7 +142,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
 
-  const { data, loading, error, refetch } = useMutateAsGet(useGetActiveUsersAggregated, {
+  const { data, loading, error, refetch } = useMutateAsGet(useGetAggregatedUsers, {
     body: {},
     queryParams: {
       accountIdentifier: accountId,

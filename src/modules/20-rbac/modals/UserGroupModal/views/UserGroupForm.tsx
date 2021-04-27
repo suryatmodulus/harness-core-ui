@@ -20,18 +20,23 @@ import { Menu } from '@blueprintjs/core'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { UserGroupDTO, usePostUserGroup, useGetUsers } from 'services/cd-ng'
+import { UserGroupDTO, usePostUserGroup, useGetCurrentGenUsers, usePutUserGroup } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
-interface RoleModalData {
+interface UserGroupModalData {
   data?: UserGroupDTO
   isEdit?: boolean
+  isAddMember?: boolean
   onSubmit?: () => void
 }
 
-const UserGroupForm: React.FC<RoleModalData> = props => {
-  const { data: userGroupData, onSubmit, isEdit } = props
+interface UserGroupFormDTO extends UserGroupDTO {
+  userList?: MultiSelectOption[]
+}
+
+const UserGroupForm: React.FC<UserGroupModalData> = props => {
+  const { data: userGroupData, onSubmit, isEdit, isAddMember } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -45,7 +50,15 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
     }
   })
 
-  const { data: userList } = useGetUsers({
+  const { mutate: editUserGroup, loading: updating } = usePutUserGroup({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
+  const { data: userList } = useGetCurrentGenUsers({
     queryParams: {
       accountIdentifier: accountId,
       searchString: search
@@ -60,13 +73,35 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
       }
     }) || []
 
-  const handleSubmit = async (values: any): Promise<void> => {
+  const handleEdit = async (values: UserGroupFormDTO): Promise<void> => {
+    const userDetails = values.userList?.map((user: MultiSelectOption) => user.value as string)
+    delete values.userList
+    const dataToSubmit: UserGroupDTO = values
+    if (userDetails) dataToSubmit['users']?.push(...userDetails)
+    try {
+      const edited = await editUserGroup(dataToSubmit)
+      /* istanbul ignore else */ if (edited) {
+        showSuccess(
+          isEdit
+            ? getString('rbac.userGroupForm.editSuccess', { name: edited.data?.name })
+            : getString('rbac.userGroupForm.addMemberSuccess')
+        )
+
+        onSubmit?.()
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
+    }
+  }
+
+  const handleCreate = async (values: UserGroupFormDTO): Promise<void> => {
     const dataToSubmit: UserGroupDTO = pick(values, ['name', 'identifier', 'description', 'tags'])
-    dataToSubmit['users'] = values.userList?.map((user: MultiSelectOption) => user.value)
+    dataToSubmit['users'] = values.userList?.map((user: MultiSelectOption) => user.value as string)
     try {
       const created = await createUserGroup(dataToSubmit)
       /* istanbul ignore else */ if (created) {
-        showSuccess(getString('rbac.userGroupForm.createSuccess'))
+        showSuccess(getString('rbac.userGroupForm.createSuccess', { name: created.data?.name }))
         onSubmit?.()
       }
     } catch (e) {
@@ -80,7 +115,7 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
         <Text color={Color.BLACK} font="medium">
           {getString('rbac.userGroupPage.newUserGroup')}
         </Text>
-        <Formik
+        <Formik<UserGroupFormDTO>
           initialValues={{
             identifier: '',
             name: '',
@@ -96,7 +131,8 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
             })
           })}
           onSubmit={values => {
-            handleSubmit(values)
+            if (isEdit || isAddMember) handleEdit(values)
+            else handleCreate(values)
           }}
         >
           {formikProps => {
@@ -104,45 +140,49 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
               <Form>
                 <Container className={css.form}>
                   <ModalErrorHandler bind={setModalErrorHandler} />
-                  <NameIdDescriptionTags
-                    formikProps={formikProps}
-                    identifierProps={{ isIdentifierEditable: !isEdit }}
-                  />
-                  <FormInput.MultiSelect
-                    name="userList"
-                    label={getString('rbac.addUser')}
-                    items={users}
-                    multiSelectProps={{
-                      allowCreatingNewItems: false,
-                      onQueryChange: (query: string) => {
-                        setSearch(query)
-                      },
-                      // eslint-disable-next-line react/display-name
-                      tagRenderer: item => (
-                        <Layout.Horizontal key={item.label.toString()} spacing="small">
-                          <Avatar name={item.label} size="xsmall" hoverCard={false} />
-                          <Text>{item.label}</Text>
-                        </Layout.Horizontal>
-                      ),
-                      // eslint-disable-next-line react/display-name
-                      itemRender: (item, { handleClick }) => (
-                        <div key={item.label.toString()}>
-                          <Menu.Item
-                            text={
-                              <Layout.Horizontal spacing="small">
-                                <Avatar name={item.label} size="small" hoverCard={false} />
-                                <Text>{item.label}</Text>
-                              </Layout.Horizontal>
-                            }
-                            onClick={handleClick}
-                          />
-                        </div>
-                      )
-                    }}
-                  />
+                  {isAddMember ? null : (
+                    <NameIdDescriptionTags
+                      formikProps={formikProps}
+                      identifierProps={{ isIdentifierEditable: !isEdit }}
+                    />
+                  )}
+                  {isEdit ? null : (
+                    <FormInput.MultiSelect
+                      name="userList"
+                      label={getString('rbac.addUser')}
+                      items={users}
+                      multiSelectProps={{
+                        allowCreatingNewItems: false,
+                        onQueryChange: (query: string) => {
+                          setSearch(query)
+                        },
+                        // eslint-disable-next-line react/display-name
+                        tagRenderer: item => (
+                          <Layout.Horizontal key={item.label.toString()} spacing="small">
+                            <Avatar name={item.label} size="xsmall" hoverCard={false} />
+                            <Text>{item.label}</Text>
+                          </Layout.Horizontal>
+                        ),
+                        // eslint-disable-next-line react/display-name
+                        itemRender: (item, { handleClick }) => (
+                          <div key={item.label.toString()}>
+                            <Menu.Item
+                              text={
+                                <Layout.Horizontal spacing="small">
+                                  <Avatar name={item.label} size="small" hoverCard={false} />
+                                  <Text>{item.label}</Text>
+                                </Layout.Horizontal>
+                              }
+                              onClick={handleClick}
+                            />
+                          </div>
+                        )
+                      }}
+                    />
+                  )}
                 </Container>
                 <Layout.Horizontal>
-                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />
+                  <Button intent="primary" text={getString('save')} type="submit" disabled={saving || updating} />
                 </Layout.Horizontal>
               </Form>
             )

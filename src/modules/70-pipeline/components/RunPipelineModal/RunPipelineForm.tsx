@@ -103,7 +103,7 @@ function RunPipelineFormBasic({
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
   const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
   const [lastYaml, setLastYaml] = React.useState({})
-  const [formErrors, setFormErrors] = React.useState<{}>({})
+  const [formErrors, setFormErrors] = React.useState<FormikErrors<InputSetDTO>>({})
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
@@ -308,7 +308,6 @@ function RunPipelineFormBasic({
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
       valuesPipelineRef.current = valuesPipeline
-
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
         showPreflightCheckModal()

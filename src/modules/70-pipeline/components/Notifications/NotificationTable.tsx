@@ -47,7 +47,7 @@ export interface NotificationTableProps {
   isReadonly?: boolean
 }
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   onUpdate?: (data: NotificationRulesItem) => void
 }
 

@@ -27,7 +27,7 @@ interface TabTargetingProps {
   isBooleanTypeFlag?: boolean
   projectIdentifier: string
   environmentIdentifier: string
-  setEditing: Function
+  setEditing: (flag: boolean) => void
 }
 
 const TabTargeting: React.FC<TabTargetingProps> = props => {

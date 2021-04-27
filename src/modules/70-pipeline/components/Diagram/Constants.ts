@@ -45,5 +45,7 @@ export const PortName: { [key: string]: string } = {
 }
 
 export const DiagramDrag: { [key: string]: string } = {
-  NodeDrag: 'diagram-node-drag'
+  NodeDrag: 'diagram-node-drag',
+  AllowDropOnLink: 'allow-drop-on-link',
+  AllowDropOnNode: 'allow-drop-on-node'
 }

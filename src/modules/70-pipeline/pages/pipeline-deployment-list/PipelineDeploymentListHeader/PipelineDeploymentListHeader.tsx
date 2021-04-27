@@ -50,7 +50,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
     }
   }
 
-  // eslint-disable-next-line no-shadow
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   function handlePipelineChange(pipelineIdentifier?: string): void {
     if (pipelineIdentifier) {
       updateQueryParams({ pipelineIdentifier })

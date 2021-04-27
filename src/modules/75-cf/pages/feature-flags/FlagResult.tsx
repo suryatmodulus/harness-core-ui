@@ -7,7 +7,7 @@ import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { formatNumber } from '@cf/utils/CFUtils'
-import css from './CFFeatureFlagsPage.module.scss'
+import css from './FeatureFlagsPage.module.scss'
 
 export interface FlagResultProps extends ContainerProps {
   feature: Feature

@@ -232,7 +232,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
               <input
                 checked=""
                 data-testid="failure-strategy-ignore"
-                name=""
+                name="failureStrategies[0].onFailure.action.type"
                 type="checkbox"
                 value="Ignore"
               />
@@ -380,7 +380,7 @@ exports[`<Failure Strategy/> tests renders ok with no data 1`] = `
               <input
                 checked=""
                 data-testid="failure-strategy-stagerollback"
-                name=""
+                name="failureStrategies[0].onFailure.action.type"
                 type="checkbox"
                 value="StageRollback"
               />

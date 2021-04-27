@@ -31,6 +31,8 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   tertiaryIconStyle?: React.CSSProperties
   iconSize?: number
   selected?: boolean
+  allowDropOnLink?: boolean
+  allowDropOnNode?: boolean
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
@@ -64,13 +66,15 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       showPorts: true,
       width: 64,
       height: 64,
+      allowDropOnLink: true,
+      allowDropOnNode: true,
       ...options
     })
     this.portsOut = []
     this.portsIn = []
   }
 
-  doClone(lookupTable: {}, clone: any): void {
+  doClone(lookupTable: any, clone: any): void {
     clone.portsIn = []
     clone.portsOut = []
     super.doClone(lookupTable, clone)

@@ -188,7 +188,7 @@ export function ExecutionFilters(): React.ReactElement {
     refetchFilters()
   }
 
-  // eslint-disable-next-line no-shadow
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   async function handleDelete(identifier: string): Promise<void> {
     setLoading(true)
     const deleteHandler = filterRef.current?.deleteFilterHandler
@@ -267,7 +267,7 @@ export function ExecutionFilters(): React.ReactElement {
         onClear={reset}
         ref={filterRef}
         dataSvcConfig={
-          new Map<CrudOperation, Function>([
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],
             ['DELETE', deleteFilter]

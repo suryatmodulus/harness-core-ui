@@ -20,7 +20,6 @@ export const CECOEditGatewayPage: React.FC = () => {
     ProjectPathProps & { gatewayIdentifier: string }
   >()
 
-  /* eslint-disable @typescript-eslint/camelcase */
   const { data, loading } = useRouteDetails({
     org_id: orgIdentifier,
     project_id: projectIdentifier,
@@ -32,7 +31,7 @@ export const CECOEditGatewayPage: React.FC = () => {
     service_id: (gatewayIdentifier as unknown) as number,
     debounce: 300
   })
-  /* eslint-enable @typescript-eslint/camelcase */
+
   const [gatewayDetails, setGatewayDetails] = useState<GatewayDetails>()
   useEffect(() => {
     if (loading || resourcesLoading) return

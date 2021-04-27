@@ -40,6 +40,8 @@ const MappingApplicationsStep: StepLabelProps = {
   totalSteps: 2
 }
 
+const TOTAL_ITEMS_TO_RENDER = 30
+
 type TableData = {
   environment?: SelectOption
   service?: SelectOption
@@ -102,7 +104,7 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
       filter: applicationFilter,
       connectorIdentifier: sourceData.connectorRef?.value,
       offset: 0,
-      pageSize: 1000
+      pageSize: 100
     }
   })
 
@@ -132,79 +134,82 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
     setTableData(applicationData)
   }, [data])
 
+  const validateMapping = (mapping: NewRelicServiceEnvMapping): void => {
+    const { applicationName, applicationId, guid } = mapping
+
+    setMetricValidationResult(oldMetricValidation => {
+      oldMetricValidation.set(applicationId, {
+        result: { overallStatus: 'LOADING' as MetricPackValidationResponse['overallStatus'] }
+      })
+      return new Map(oldMetricValidation)
+    })
+    getNewRelicMetricDataPromise({
+      queryParams: {
+        projectIdentifier,
+        orgIdentifier,
+        accountId,
+        appName: applicationName,
+        appId: applicationId.toString(),
+        requestGuid: guid as string,
+        connectorIdentifier: sourceData.connectorRef?.value || ''
+      },
+      body: selectedMetricPacks
+    })
+      .then(response => {
+        setMetricValidationResult(oldMetricValidation => {
+          if (response?.data) {
+            oldMetricValidation.set(applicationId, { result: response.data })
+            return new Map(oldMetricValidation)
+          } else if (response.status === 'ERROR') {
+            oldMetricValidation.set(applicationId, {
+              errorMsg: getErrorMessage({ data: response })
+            })
+            return new Map(oldMetricValidation)
+          }
+          return oldMetricValidation
+        })
+      })
+      .catch(e => {
+        setMetricValidationResult(oldMetricValidation => {
+          oldMetricValidation.set(applicationId, { errorMsg: getErrorMessage(e) })
+          return new Map(oldMetricValidation)
+        })
+      })
+  }
+
   const updateSelectedApps = (
     applicationId: number,
     applicationName: string,
     service?: SelectOption,
     environment?: SelectOption
   ): void => {
+    const guid = Utils.randomId()
     setSelectedApps(oldApps => {
       const exisitingApp = oldApps.get(applicationId)
-      if (service && environment) {
-        oldApps.set(applicationId, { applicationId, service, environment, applicationName: applicationName })
-      } else if (exisitingApp && (!service || !environment)) {
+      if (exisitingApp && (!service || !environment)) {
         oldApps.delete(applicationId)
       }
 
+      oldApps.set(applicationId, {
+        applicationId,
+        service: service as SelectOption,
+        environment: environment as SelectOption,
+        applicationName: applicationName,
+        guid: service && environment ? guid : undefined
+      })
       return new Map(oldApps)
     })
-  }
-
-  const updateTableData = (index: number, environment?: SelectOption, service?: SelectOption): void => {
-    const guid = Utils.randomId()
-    setTableData(oldTableData => {
-      oldTableData[index].service = service
-      oldTableData[index].environment = environment
-      if (environment && service) {
-        oldTableData[index].validationResult = 'LOADING'
-        oldTableData[index].guid = guid
-      }
-      return [...oldTableData]
-    })
-
-    if (environment && service) {
-      metricValidationResult.delete(tableData[index].applicationId)
-      setMetricValidationResult(new Map(metricValidationResult))
-      getNewRelicMetricDataPromise({
-        queryParams: {
-          projectIdentifier,
-          orgIdentifier,
-          accountId,
-          appName: tableData[index].applicationName,
-          appId: tableData[index].applicationId.toString(),
-          requestGuid: guid,
-          connectorIdentifier: sourceData.connectorRef?.value || ''
-        },
-        body: selectedMetricPacks
-      })
-        .then(response => {
-          if (response?.data) {
-            tableData[index].validationResult = response.data.overallStatus
-            metricValidationResult.set(tableData[index].applicationId, { result: response.data })
-            setTableData([...tableData])
-            setMetricValidationResult(new Map(metricValidationResult))
-          } else if (response.status === 'ERROR') {
-            tableData[index].validationResult = undefined
-            metricValidationResult.set(tableData[index].applicationId, {
-              errorMsg: getErrorMessage({ data: response })
-            })
-            setTableData([...tableData])
-            setMetricValidationResult(new Map(metricValidationResult))
-          }
-        })
-        .catch(e => {
-          tableData[index].validationResult = undefined
-          metricValidationResult.set(tableData[index].applicationId, { errorMsg: getErrorMessage(e) })
-          setTableData([...tableData])
-          setMetricValidationResult(new Map(metricValidationResult))
-        })
+    if (service && environment) {
+      validateMapping({ applicationId, applicationName, service, environment, guid })
     }
   }
 
   const selectedApplicationNames = useMemo(() => {
     const appNames = []
     for (const selectedApp of selectedApps) {
-      appNames.push(selectedApp[1].applicationName)
+      if (selectedApp?.[1]?.service && selectedApp[1].environment) {
+        appNames.push(selectedApp[1].applicationName)
+      }
     }
     return appNames
   }, [selectedApps])
@@ -235,9 +240,9 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
               isItemInFilter: (filterString: string, rowObject: TableData) => {
                 return rowObject.applicationName.toLocaleLowerCase().includes(filterString.toLocaleLowerCase())
               },
-              totalItemsToRender: 30,
+              totalItemsToRender: TOTAL_ITEMS_TO_RENDER,
               appliedFilter: applicationFilter,
-              onFilterForMoreThan1000Items: (filterString: string) => setApplicationFilter(filterString)
+              onFilterForMoreThan100Items: (filterString: string) => setApplicationFilter(filterString)
             }}
             mappingListHeaderProps={{
               mainHeading: getString('cv.monitoringSources.newRelic.mapNewRelicAppsToServicesAndEnvs'),
@@ -266,13 +271,14 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
                   width: '30%',
                   disableSortBy: true,
                   Cell: function Environment(cellProps: CellProps<TableData>) {
-                    const { environment, applicationId, service, applicationName } = cellProps.row.original || {}
+                    const { applicationId, applicationName } = cellProps.row.original || {}
+                    const { service, environment } = selectedApps?.get(applicationId) || {}
                     return (
                       <HarnessEnvironment
                         className={css.dropDown}
                         item={environment}
+                        key={applicationId}
                         onSelect={env => {
-                          updateTableData(cellProps.row.index, env, service)
                           updateSelectedApps(applicationId, applicationName, service, env)
                         }}
                         options={environmentOptions}
@@ -280,7 +286,6 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
                           if (newOption?.identifier && newOption.name) {
                             const newEnvOption = { label: newOption.name, value: newOption.identifier }
                             setEnvironmentOptions([newEnvOption, ...environmentOptions])
-                            updateTableData(cellProps.row.index, newEnvOption, service)
                             updateSelectedApps(applicationId, applicationName, service, newEnvOption)
                           }
                         }}
@@ -294,22 +299,21 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
                   width: '30%',
                   disableSortBy: true,
                   Cell: function Service(cellProps: CellProps<TableData>) {
-                    const { service: rowService, applicationId, environment, applicationName } =
-                      cellProps.row.original || {}
+                    const { applicationId, applicationName } = cellProps.row.original || {}
+                    const { service, environment } = selectedApps?.get(applicationId) || {}
                     return (
                       <HarnessService
                         className={css.dropDown}
-                        item={rowService}
-                        onSelect={(service: SelectOption) => {
-                          updateTableData(cellProps.row.index, environment, service)
-                          updateSelectedApps(applicationId, applicationName, service, environment)
+                        item={service}
+                        key={applicationId}
+                        onSelect={(selectedService: SelectOption) => {
+                          updateSelectedApps(applicationId, applicationName, selectedService, environment)
                         }}
                         options={serviceOptions}
                         onNewCreated={newOption => {
                           if (newOption?.identifier && newOption.name) {
                             const newServiceOption = { label: newOption.name, value: newOption.identifier }
                             setServiceOptions([newServiceOption, ...serviceOptions])
-                            updateTableData(cellProps.row.index, environment, newServiceOption)
                             updateSelectedApps(applicationId, applicationName, newServiceOption, environment)
                           }
                         }}
@@ -323,11 +327,17 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
                   width: '20%',
                   disableSortBy: true,
                   Cell: function ValCell(cellProps: CellProps<TableData>) {
-                    const { applicationId, validationResult, guid } = cellProps.row.original || {}
+                    const { applicationId } = cellProps.row.original || {}
+                    const { errorMsg, result } = metricValidationResult.get(applicationId) || {}
+                    const { guid } = selectedApps.get(applicationId) || {}
                     return (
                       <ValidateMappingCell
-                        validationStatus={validationResult}
-                        apiError={metricValidationResult.get(applicationId)?.errorMsg}
+                        validationStatus={result?.overallStatus}
+                        apiError={errorMsg}
+                        onRetry={() => {
+                          const mapping = selectedApps.get(applicationId)
+                          if (mapping) validateMapping(mapping)
+                        }}
                         onCellClick={() => setOpenMetricsGUID({ guid: guid as string, applicationId })}
                       />
                     )
@@ -363,7 +373,14 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
             })
             openDialog()
           } else {
-            onNext({ ...sourceData, mappedServicesAndEnvs: selectedApps, selectedMetricPacks })
+            const filteredApps = new Map(selectedApps)
+            for (const app of filteredApps) {
+              const [appId, mapping] = app || []
+              if (!mapping?.environment || !mapping?.service) {
+                filteredApps.delete(appId)
+              }
+            }
+            onNext({ ...sourceData, mappedServicesAndEnvs: filteredApps, selectedMetricPacks })
           }
         },
         onPrevious: () => onPrevious({ ...sourceData, mappedServicesAndEnvs: selectedApps, selectedMetricPacks })

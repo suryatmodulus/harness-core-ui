@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Color,
@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
-import { UserSearchDTO, useGetUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
+import { UserSearchDTO, useGetCurrentGenUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
@@ -65,9 +65,14 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
     }
   })
 
-  const { data: userList } = useGetUsers({
-    queryParams: { accountIdentifier: accountId }
+  const { data: userList, refetch: refetchUsers } = useGetCurrentGenUsers({
+    queryParams: { accountIdentifier: accountId },
+    lazy: true
   })
+
+  useEffect(() => {
+    if (isInvite) refetchUsers()
+  }, [isInvite])
 
   const users: SelectOption[] =
     userList?.data?.content?.map(response => {
@@ -114,29 +119,33 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   }
 
   const handleInvitation = async (values: UserRoleAssignmentValues): Promise<void> => {
-    const dataToSubmit: CreateInvite = {
-      users: [values.user],
-      roleBindings: values.assignments.map(value => {
-        return {
-          resourceGroupIdentifier: value.resourceGroup.value.toString(),
-          roleIdentifier: value.role.value.toString(),
-          roleName: value.role.label,
-          resourceGroupName: value.resourceGroup.label,
-          managedRole: value.role.managed
-        }
-      }),
-      inviteType: InviteType.ADMIN_INITIATED
-    }
+    if (values.assignments.length) {
+      const dataToSubmit: CreateInvite = {
+        users: [values.user],
+        roleBindings: values.assignments.map(value => {
+          return {
+            resourceGroupIdentifier: value.resourceGroup.value.toString(),
+            roleIdentifier: value.role.value.toString(),
+            roleName: value.role.label,
+            resourceGroupName: value.resourceGroup.label,
+            managedRole: value.role.managed
+          }
+        }),
+        inviteType: InviteType.ADMIN_INITIATED
+      }
 
-    try {
-      const response = await sendInvitation(dataToSubmit)
-      if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
-        showSuccess(getString('rbac.usersPage.invitationSuccess'))
-        onSubmit?.()
-      } else modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
-    } catch (e) {
-      /* istanbul ignore next */
-      modalErrorHandler?.showDanger(e.data.message)
+      try {
+        const response = await sendInvitation(dataToSubmit)
+        if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
+          showSuccess(getString('rbac.usersPage.invitationSuccess'))
+          onSubmit?.()
+        } else modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
+      } catch (e) {
+        /* istanbul ignore next */
+        modalErrorHandler?.showDanger(e.data.message)
+      }
+    } else {
+      modalErrorHandler?.showDanger(getString('rbac.roleAssignment.assignmentValidation'))
     }
   }
 
@@ -152,6 +161,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             assignments: assignments
           }}
           validationSchema={Yup.object().shape({
+            user: Yup.string().required(getString('rbac.roleAssignment.userValidation')),
             assignments: Yup.array().of(
               Yup.object().shape({
                 role: Yup.object().nullable().required(),
@@ -169,8 +179,18 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                 <ModalErrorHandler bind={setModalErrorHandler} />
                 <FormInput.Select
                   name="user"
+                  placeholder={getString('rbac.roleAssignment.userPlaceHolder')}
                   label={getString('rbac.usersPage.forUser')}
-                  items={users}
+                  items={
+                    user
+                      ? [
+                          {
+                            label: user.name,
+                            value: user.email
+                          }
+                        ]
+                      : users
+                  }
                   selectProps={{ allowCreatingNewItems: true }}
                   disabled={!isInvite}
                 />

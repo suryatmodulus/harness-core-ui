@@ -1,4 +1,4 @@
-import { pick } from 'lodash-es'
+import { identity, pick, pickBy } from 'lodash-es'
 
 import { useDeepCompareEffect } from '@common/hooks'
 import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interfaces/PermissionsContext'
@@ -55,7 +55,8 @@ export function getDTOFromRequest(permissionRequest: PermissionRequest): Permiss
     }
   }
   return {
-    resourceScope,
+    // pickBy(obj, identity) removes keys with undefined values
+    resourceScope: pickBy(permissionRequest.resourceScope, identity),
     ...resource,
     permission
   }

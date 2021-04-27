@@ -775,7 +775,7 @@ const MockData = {
 }
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
-  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as object),
+  ...(jest.requireActual('@cv/components/TableFilter/TableFilter') as any),
   TableFilter: function MockComponent(props: any) {
     return <Container className="filterComponent" onClick={() => props.onFilter('mockFilter')} />
   }

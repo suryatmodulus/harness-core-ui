@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -56,6 +57,7 @@ export interface SaveCacheGCSStepProps {
   initialValues: SaveCacheGCSStepData
   template?: SaveCacheGCSStepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: SaveCacheGCSStepData) => void
@@ -83,15 +85,15 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
     }
   }
 
-  processFormData<SaveCacheGCSStepDataUI>(data: SaveCacheGCSStepDataUI): SaveCacheGCSStepData {
-    return getFormValuesInCorrectFormat<SaveCacheGCSStepDataUI, SaveCacheGCSStepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): SaveCacheGCSStepData {
+    return getFormValuesInCorrectFormat<T, SaveCacheGCSStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: SaveCacheGCSStepData,
     template?: SaveCacheGCSStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<SaveCacheGCSStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -100,7 +102,16 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
   }
 
   renderStep(props: StepProps<SaveCacheGCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -128,6 +139,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        isNewStep={isNewStep}
         readonly={readonly}
         ref={formikRef}
       />

@@ -1,4 +1,5 @@
-import type { Intent } from '@wings-software/uicore'
+import type { Intent, SelectOption } from '@wings-software/uicore'
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 
 export interface KubFormData {
   name?: string
@@ -32,4 +33,20 @@ export interface StepDetails {
   step: number
   intent: Intent
   status: string
+}
+export enum CredTypeValues {
+  ManualConfig = 'ManualConfig',
+  AssumeIAMRole = 'AssumeIAMRole',
+  AssuemRoleSTS = 'AssumeSTSRole'
+}
+export interface AwsKmsConfigFormData {
+  accessKey?: string
+  secretKey?: SecretReference
+  awsArn?: SecretReference
+  region?: string | SelectOption
+  credType?: string | SelectOption
+  delegate?: string[]
+  roleArn?: string
+  externalName?: string
+  assumeStsRoleDuration?: string
 }

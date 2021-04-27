@@ -4,6 +4,7 @@ import { Layout, Card, Icon, Text, SelectOption, IconName, Radio, Select, Checkb
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import { debounce, get, set } from 'lodash-es'
+import { FormGroup, Intent } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
@@ -219,11 +220,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       debounceUpdatePipeline(pipeline)
     }
     if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
-      set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition', {})
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition', {})
       debounceUpdatePipeline(pipeline)
     }
     let hasStageOfSameType = false
@@ -296,10 +297,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setSetupMode(setupMode.DIFFERENT)
     }
   }, [stage?.stage?.spec])
-
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      set(stage as {}, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+      set(stage as any, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
 
       setSelectedPropagatedState({
         label: `Stage [${item.value as string}] - Service`,
@@ -314,7 +314,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       updatePipeline(pipeline)
     }
   }
-  const initWithServiceDefinition = () => {
+  const initWithServiceDefinition = (): void => {
     setDefaultServiceSchema().then(() => {
       setSelectedPropagatedState({ label: '', value: '' })
       setSetupMode(setupMode.DIFFERENT)
@@ -335,13 +335,22 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 {getString('pipelineSteps.deploy.serviceSpecifications.propagate')}
               </Text>
             </div>
-            <Select
-              disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
-              className={css.propagatedropdown}
-              items={previousStageList}
-              value={selectedPropagatedState}
-              onChange={(item: SelectOption) => selectPropagatedStep(item)}
-            />
+            <FormGroup
+              intent={
+                setupModeType === setupMode.PROPAGATE && !selectedPropagatedState?.value ? Intent.DANGER : Intent.NONE
+              }
+              helperText={
+                setupModeType === setupMode.PROPAGATE && !selectedPropagatedState?.value ? 'Stage is required' : ''
+              }
+            >
+              <Select
+                disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
+                className={css.propagatedropdown}
+                items={previousStageList}
+                value={selectedPropagatedState}
+                onChange={(item: SelectOption) => selectPropagatedStep(item)}
+              />
+            </FormGroup>
           </section>
 
           <section className={css.radioColumn}>

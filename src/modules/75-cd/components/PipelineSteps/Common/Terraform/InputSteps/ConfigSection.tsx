@@ -16,7 +16,7 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { TerraformProps } from '../TerraformInterfaces'
+import type { Connector, TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -27,12 +27,9 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     accountId: string
   }>()
 
-  const connectorRef = getIdentifierFromValue(
-    initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value || ''
-  )
-  const initialScope = getScopeFromValue(
-    initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value || ''
-  )
+  const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
+  const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
+  const initialScope = getScopeFromValue(connectorValue?.value || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorRef,
@@ -50,8 +47,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value) !==
-        MultiTypeInputType.RUNTIME
+      getMultiTypeFromValue(connectorValue.value) !== MultiTypeInputType.RUNTIME
     ) {
       refetch()
     }
@@ -62,8 +58,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     connector?.data?.connector &&
     getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
       MultiTypeInputType.RUNTIME &&
-    getMultiTypeFromValue(initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef?.value) ===
-      MultiTypeInputType.FIXED
+    getMultiTypeFromValue(connectorValue.value) === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
     connectorSelected = {

@@ -30,7 +30,7 @@ import {
 
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
-import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm.tsx'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import css from './DelegateSelectorStep.module.scss'
 
 interface BuildPayloadProps {

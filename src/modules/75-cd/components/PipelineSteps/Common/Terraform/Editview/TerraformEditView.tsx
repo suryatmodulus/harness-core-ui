@@ -38,7 +38,6 @@ import TfVarFileList from './TFVarFileList'
 import {
   CommandTypes,
   ConfigurationTypes,
-  onSubmitTerraformData,
   TerraformData,
   TerraformProps,
   TerraformStoreTypes
@@ -106,9 +105,8 @@ export default function TerraformEditView(
   return (
     <>
       <Formik<TerraformData>
-        onSubmit={(values: TerraformData) => {
-          const payload = onSubmitTerraformData(values)
-          onUpdate?.(payload)
+        onSubmit={values => {
+          onUpdate?.(values)
         }}
         initialValues={setInitialValues(initialValues)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}
@@ -116,6 +114,7 @@ export default function TerraformEditView(
         {(formik: FormikProps<TerraformData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
+
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>

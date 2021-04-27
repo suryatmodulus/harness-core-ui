@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -105,7 +106,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
             namespace: value.namespace,
             releaseName: value.releaseName,
             connectorRef: undefined,
-            allowSimultaneousDeployments: value.allowSimultaneousDeployments
+            allowSimultaneousDeployments: value.allowSimultaneousDeployments,
+            infrastructureKey: value.infrastructureKey
           }
           if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || value.connectorRef
@@ -201,6 +203,34 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 )}
               </Layout.Horizontal>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <FormInput.MultiTextInput
+                  name="infrastructureKey"
+                  className={css.inputWidth}
+                  label={getString('cd.infrastructureKey')}
+                  disabled={readonly}
+                  multiTextInputProps={{
+                    expressions,
+                    textProps: { disabled: readonly },
+                    defaultValue:
+                      '<+EnvironmentRef>_<+infrastructure.connectorRef>_<+infra.namespace>_<service.serviceId>'
+                  }}
+                />
+                {getMultiTypeFromValue(formik.values.infrastructureKey) === MultiTypeInputType.RUNTIME && !readonly && (
+                  <ConfigureOptions
+                    value={formik.values.infrastructureKey as string}
+                    type="String"
+                    variableName="infrastructureKey"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      formik.setFieldValue('infrastructureKey', value)
+                    }}
+                  />
+                )}
+              </Layout.Horizontal>
+
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.CheckBox
                   className={css.simultaneousDeployment}
                   name={'allowSimultaneousDeployments'}
@@ -294,6 +324,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           name={`${path}.namespace`}
           label={getString('common.namespace')}
           disabled={readonly}
+          className={css.inputWidth}
           placeholder={getString('cd.steps.common.namespacePlaceholder')}
         />
       )}
@@ -302,7 +333,16 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           name={`${path}.releaseName`}
           label={getString('common.releaseName')}
           disabled={readonly}
+          className={css.inputWidth}
           placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
+        />
+      )}
+      {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Text
+          name={`${path}.infrastructureKey`}
+          label={getString('cd.infrastructureKey')}
+          disabled={readonly}
+          className={css.inputWidth}
         />
       )}
     </Layout.Vertical>
@@ -398,7 +438,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     data: K8SDirectInfrastructure,
     template?: K8SDirectInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8SDirectInfrastructure> {
     const errors: K8SDirectInfrastructureTemplate = {}
     if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
       errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })

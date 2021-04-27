@@ -19,10 +19,10 @@ import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<ResponseJsonNode> }> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { getString } = useStrings()
   useDocumentTitle(getString('createSecretYAML.createSecret'))
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
@@ -47,16 +47,15 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       try {
         await createSecret(yamlData as any)
         showSuccess(getString('createSecretYAML.secretCreated'))
-        // TODO: we don't know how to handle project scope redirect yet
-        if (orgIdentifier && !projectIdentifier) {
-          // org scope secret
-          history.push(
-            routes.toOrgResourcesSecretDetails({ secretId: jsonData['identifier'], accountId, orgIdentifier })
-          )
-        } else if (!orgIdentifier && !projectIdentifier) {
-          // account scope secret
-          history.push(routes.toResourcesSecretDetails({ secretId: jsonData['identifier'], accountId }))
-        }
+        history.push(
+          routes.toResourcesSecretDetails({
+            secretId: jsonData['identifier'],
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            module
+          })
+        )
       } catch (err) {
         showError(err.data?.message || err.message)
       }

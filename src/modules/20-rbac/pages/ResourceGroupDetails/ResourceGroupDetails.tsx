@@ -22,6 +22,7 @@ import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -133,24 +134,38 @@ const ResourceGroupDetails: React.FC = () => {
     }
   }
 
-  const onDragCategory = (types: ResourceType[]): void => {
+  const onResourceCategorySelect = (types: ResourceType[], isAdd: boolean): void => {
     setIsUpdated(true)
-    setSelectedResourceMap(
-      produce(selectedResourcesMap, draft => {
-        types.map(resourceType => {
-          draft.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+    if (isAdd)
+      setSelectedResourceMap(
+        produce(selectedResourcesMap, draft => {
+          types.map(resourceType => {
+            draft.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+          })
         })
-      })
-    )
-  }
-
-  if (errorInGettingResourceGroup) {
-    return <Page.Error message={errorInGettingResourceGroup?.message} />
+      )
+    else
+      setSelectedResourceMap(
+        produce(selectedResourcesMap, draft => {
+          types.map(resourceType => {
+            draft.delete(resourceType)
+          })
+        })
+      )
   }
 
   const resourceGroup = resourceGroupDetails?.data?.resourceGroup
   const isHarnessManaged = resourceGroupDetails?.data?.harnessManaged
 
+  useDocumentTitle([resourceGroup?.name || '', getString('resourceGroups')])
+
+  if (loading) return <Page.Spinner />
+  if (errorInGettingResourceGroup)
+    return (
+      <Page.Error
+        message={(errorInGettingResourceGroup.data as Error)?.message || errorInGettingResourceGroup.message}
+      />
+    )
   if (!resourceGroup)
     return <Page.NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroupFound')} />
 
@@ -233,6 +248,7 @@ const ResourceGroupDetails: React.FC = () => {
             <ResourceTypeList
               resourceCategoryMap={resourceCategoryMap}
               onResourceSelectionChange={onResourceSelectionChange}
+              onResourceCategorySelect={onResourceCategorySelect}
               preSelectedResourceList={Array.from(selectedResourcesMap.keys())}
               disableAddingResources={isHarnessManaged}
             />
@@ -245,7 +261,7 @@ const ResourceGroupDetails: React.FC = () => {
                 | ResourceCategory
               const types = resourceCategoryMap?.get(resourceCategory)
               if (types) {
-                onDragCategory(types)
+                onResourceCategorySelect(types, true)
               } else onResourceSelectionChange(resourceCategory as ResourceType, true)
 
               event.preventDefault()
@@ -275,7 +291,7 @@ const ResourceGroupDetails: React.FC = () => {
                   message={getString('resourceGroup.dragAndDropData')}
                   icon="drag-handle-horizontal"
                   iconSize={100}
-                ></Page.NoDataCard>
+                />
               )}
               {Array.from(selectedResourcesMap.keys()).length !== 0 &&
                 Array.from(selectedResourcesMap.keys()).map(resourceType => {

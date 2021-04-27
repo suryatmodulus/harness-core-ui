@@ -3,7 +3,7 @@ import React from 'react'
 import { TableFilter } from '../TableFilter'
 
 jest.mock('lodash-es', () => ({
-  ...(jest.requireActual('lodash-es') as object),
+  ...(jest.requireActual('lodash-es') as any),
   debounce: jest.fn(fn => {
     fn.cancel = jest.fn()
     return fn

@@ -10,7 +10,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
   <div>{children}</div>
 ))
 
-describe('Test K8sBlueGreenDeployStep', () => {
+describe('Test K8sDeleteStep', () => {
   beforeEach(() => {
     factory.registerStep(new K8sDeleteStep())
   })
@@ -55,7 +55,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
           timeout: '12m',
           spec: {
             deleteResources: {
-              type: 'ReleaseName',
+              type: 'pipelineSteps.releaseNameValue',
 
               spec: {
                 deleteNamespace: true
@@ -127,7 +127,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
       type: 'K8sDelete',
       spec: {
         deleteResources: {
-          type: 'pipelineSteps.releaseNameValue',
+          type: 'ReleaseName',
           spec: {
             deleteNamespace: false
           }

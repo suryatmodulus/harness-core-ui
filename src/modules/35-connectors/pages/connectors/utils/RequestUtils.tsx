@@ -71,15 +71,15 @@ export const createRequestBodyPayload = ({
   }
 }
 
-type supportedTypes = string | number | boolean | object
+type supportedTypes = string | number | boolean | unknown
 
 const tagSeparator = ' : '
 
-export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | object): string => {
+export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | unknown): string => {
   if (Array.isArray(data)) {
     return data.join(', ')
   } else if (typeof data === 'object') {
-    return Object.entries(data as object)
+    return Object.entries(data as Record<string, any>)
       .map(([key, value]) => {
         return key.toString().concat(value ? tagSeparator.concat(value.toString()) : '')
       })

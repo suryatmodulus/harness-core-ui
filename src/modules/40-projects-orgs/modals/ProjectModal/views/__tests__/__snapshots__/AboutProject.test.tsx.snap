@@ -363,7 +363,7 @@ exports[`About Project test create project  1`] = `
           >
             <div
               class="bp3-card bp3-elevation-0 Card--card projectCard"
-              data-testid="project-card-undefined"
+              data-testid="project-card-"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
@@ -1081,7 +1081,7 @@ exports[`About Project test create project  2`] = `
           >
             <div
               class="bp3-card bp3-elevation-0 Card--card projectCard"
-              data-testid="project-card-dummy_nameundefined"
+              data-testid="project-card-dummy_name"
             >
               <div
                 class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"

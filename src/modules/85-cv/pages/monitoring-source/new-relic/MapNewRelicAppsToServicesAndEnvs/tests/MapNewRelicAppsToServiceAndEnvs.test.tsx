@@ -54,7 +54,7 @@ function WrapperComponent(): JSX.Element {
 }
 
 jest.mock('@wings-software/uicore', () => ({
-  ...(jest.requireActual('@wings-software/uicore') as object),
+  ...(jest.requireActual('@wings-software/uicore') as any),
   Utils: {
     randomId: () => '31231'
   }
@@ -89,7 +89,7 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 }))
 
 jest.mock('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack', () => ({
-  ...(jest.requireActual('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack') as object),
+  ...(jest.requireActual('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack') as any),
   SelectMetricPack: function Mock(props: any) {
     useEffect(() => {
       props.onSelectMetricPack([

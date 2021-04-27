@@ -7,24 +7,24 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import i18n from './CIDashboardPage.i18n'
+import { useStrings } from 'framework/strings'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const history = useHistory()
-
+  const { getString } = useStrings()
   return (
     <Page.Body>
       <Container width={600} style={{ margin: '0 auto', paddingTop: 200 }}>
         <Layout.Vertical spacing="large" flex>
-          <Heading>{i18n.welcome}</Heading>
-          <Text>{i18n.description}</Text>
+          <Heading>{getString('ci.welcome')}</Heading>
+          <Text>{getString('ci.description')}</Text>
           <Icon padding={'xxxlarge'} name="ci-main" size={100} />
           <RbacButton
             width={200}
-            text={i18n.creatPipeline}
+            text={getString('ci.createPipeline')}
             intent="primary"
             onClick={() =>
               history.push(

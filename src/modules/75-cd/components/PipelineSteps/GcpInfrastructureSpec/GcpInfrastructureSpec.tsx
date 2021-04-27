@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get, memoize } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -656,7 +657,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
     data: K8sGcpInfrastructure,
     template?: K8sGcpInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<K8sGcpInfrastructure> {
     const errors: K8sGcpInfrastructureTemplate = {}
     if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
       errors.cluster = getString?.('fieldRequired', { field: getString('common.cluster') })

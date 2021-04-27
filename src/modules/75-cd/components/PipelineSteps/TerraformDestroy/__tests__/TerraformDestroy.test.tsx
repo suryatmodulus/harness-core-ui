@@ -152,44 +152,6 @@ describe('Test TerraformDestroy', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('with inline var file and expand the varfiles sections', () => {
-    const { container, getByText } = render(
-      <TestStepWidget
-        initialValues={{
-          type: 'TerraformDestroy',
-          name: 'Test A',
-          identifier: 'Test_A',
-          timeout: '10m',
-          delegateSelectors: ['test-1', 'test-2'],
-          spec: {
-            provisionerIdentifier: 'test',
-            configuration: {
-              type: 'Inline',
-              spec: {
-                workspace: 'testworkspace',
-                varFiles: [
-                  {
-                    type: 'Inline',
-                    store: {
-                      type: 'Git',
-                      spec: {
-                        content: 'Test Content'
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }}
-        type={StepType.TerraformDestroy}
-        stepViewType={StepViewType.Edit}
-      />
-    )
-    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
-    expect(container).toMatchSnapshot()
-  })
-
   test('add new terraform var file', () => {
     const { container, getByText } = render(
       <TestStepWidget
@@ -237,7 +199,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
 
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
@@ -251,7 +213,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
@@ -264,7 +226,7 @@ describe('Test TerraformDestroy', () => {
           type: 'TerraformDestroy',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
@@ -292,7 +254,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -305,7 +282,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -318,7 +310,22 @@ describe('Test TerraformDestroy', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              type: 'InheritFromPlan'
+              type: 'Inline',
+              spec: {
+                workspace: 'testworkspace',
+                configFiles: {
+                  store: {
+                    type: 'Git',
+                    spec: {
+                      gitFetchType: 'Branch',
+                      repoName: 'test',
+                      branch: 'main',
+                      folderPath: 'config/my-configs/',
+                      connectorRef: 'myTfConnector'
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -346,8 +353,21 @@ describe('Test TerraformDestroy', () => {
             },
             'step-provisionerIdentifier': {
               yamlProperties: {
-                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.provisionerIdentifier',
-                localName: 'step.terraformDestroy.provisionerIdentifier'
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.spec.provisionerIdentifier',
+                localName: 'step.terraformDestroy.spec.provisionerIdentifier'
+              }
+            },
+            'step-configurationWorkspace': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.workspace',
+                localName: 'step.terraformDestroy.configuration.spec.workspace'
+              }
+            },
+            'step-configBranch': {
+              yamlProperties: {
+                fqn:
+                  'pipeline.stages.qaStage.execution.steps.terraformDestroy.configuration.spec.configFiles.store.spec.branch',
+                localName: 'step.terraformDestroy.configuration.spec.configFiles.store.spec.branch'
               }
             }
           },
@@ -357,11 +377,26 @@ describe('Test TerraformDestroy', () => {
             identifier: 'Test_A',
             timeout: 'step-timeout',
 
-            delegateSSelectors: ['test-1', 'test-2'],
+            delegateSelectors: ['test-1', 'test-2'],
             spec: {
               provisionerIdentifier: 'step-provisionerIdentifier',
               configuration: {
-                type: 'InheritFromPlan'
+                type: 'Inline',
+                spec: {
+                  workspace: 'step-configurationWorkspace',
+                  configFiles: {
+                    store: {
+                      type: 'Git',
+                      spec: {
+                        gitFetchType: 'Branch',
+                        repoName: 'test',
+                        branch: 'step-configBranch',
+                        folderPath: 'config/my-configs/',
+                        connectorRef: 'myTfConnector'
+                      }
+                    }
+                  }
+                }
               }
             }
           }

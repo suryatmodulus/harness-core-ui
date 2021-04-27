@@ -15,7 +15,7 @@ jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({
 }))
 
 jest.mock('@wings-software/uicore', () => ({
-  ...(jest.requireActual('@wings-software/uicore') as object),
+  ...(jest.requireActual('@wings-software/uicore') as any),
   MultiLogsViewer: jest.fn()
 }))
 

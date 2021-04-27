@@ -2,6 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -72,6 +73,7 @@ export interface DockerHubStepProps {
   template?: DockerHubStepData
   path?: string
   readonly?: boolean
+  isNewStep?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: DockerHubStepData) => void
 }
@@ -119,15 +121,15 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     return []
   }
 
-  processFormData<DockerHubStepDataUI>(data: DockerHubStepDataUI): DockerHubStepData {
-    return getFormValuesInCorrectFormat<DockerHubStepDataUI, DockerHubStepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): DockerHubStepData {
+    return getFormValuesInCorrectFormat<T, DockerHubStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: DockerHubStepData,
     template?: DockerHubStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<DockerHubStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -136,7 +138,16 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
   }
 
   renderStep(props: StepProps<DockerHubStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -165,6 +176,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         ref={formikRef}
+        isNewStep={isNewStep}
         readonly={readonly}
       />
     )

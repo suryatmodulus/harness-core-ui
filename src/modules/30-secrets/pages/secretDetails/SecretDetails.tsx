@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import cx from 'classnames'
 import { omit, without } from 'lodash-es'
@@ -29,12 +29,13 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -44,12 +45,6 @@ enum Mode {
   VISUAL,
   YAML
 }
-
-interface OptionalIdentifiers {
-  orgIdentifier?: string
-  accountId: string
-}
-
 interface SecretDetailsProps {
   mockSecretDetails?: UseGetMockData<ResponseSecretResponseWrapper>
   mockKey?: ResponseSecretResponseWrapper
@@ -57,18 +52,10 @@ interface SecretDetailsProps {
   mockPassphrase?: ResponseSecretResponseWrapper
 }
 
-const getConnectorsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routes.toOrgResourcesConnectors({ orgIdentifier, accountId })
-  return routes.toResourcesConnectors({ accountId })
-}
-
-const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routes.toOrgResourcesSecretsListing({ orgIdentifier, accountId })
-  return routes.toResourcesSecretsListing({ accountId })
-}
-
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams<ProjectPathProps & SecretsPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module, secretId } = useParams<
+    ProjectPathProps & SecretsPathProps & ModulePathParams
+  >()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [edit, setEdit] = useState<boolean>()
@@ -125,7 +112,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
-  useDocumentTitle([getString('resources'), getString('common.secrets'), secretData?.secret.name || ''])
+  useDocumentTitle([secretData?.secret.name || '', getString('common.secrets')])
 
   useEffect(() => {
     setSecretData(data?.data)
@@ -205,12 +192,24 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       <PageHeader
         title={
           <Layout.Vertical>
-            <div>
-              <Link to={getConnectorsUrl({ orgIdentifier, accountId })}>{i18n.linkResources}</Link> /{' '}
-              <Link to={getSecretsUrl({ orgIdentifier, accountId })}>{i18n.linkSecrets}</Link>
-            </div>
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toResourcesConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+                  label: getString('resources')
+                },
+                {
+                  url: routes.toResourcesSecrets({ accountId, orgIdentifier, projectIdentifier, module }),
+                  label: getString('common.secrets')
+                },
+                {
+                  url: '#',
+                  label: data?.data?.secret.name || getString('secretDetails')
+                }
+              ]}
+            />
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
-              {data?.data?.secret.name || 'Secret Details'}
+              {data?.data?.secret.name || getString('secretDetails')}
             </Text>
           </Layout.Vertical>
         }

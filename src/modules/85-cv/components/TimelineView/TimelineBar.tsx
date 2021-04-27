@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useEffect, useRef, useMemo, CSSProperties } from 'react'
 import { extendMoment, DateRange } from 'moment-range'
 import classnames from 'classnames'
 import styles from './TimelineView.module.scss'
@@ -9,7 +9,7 @@ export interface TimelineBarProps {
   startDate: string | number | Date
   endDate: string | number | Date
   className?: string
-  style?: object
+  style?: CSSProperties
   columnWidth?: number
 }
 

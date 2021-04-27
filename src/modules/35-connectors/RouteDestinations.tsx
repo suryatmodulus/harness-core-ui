@@ -20,7 +20,7 @@ import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
 
-  return <Redirect to={routes.toOrgResourcesConnectors(params)} />
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const AccountSettingsSideNavProps: SidebarContext = {
@@ -46,14 +46,14 @@ RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
 
 export default (
   <>
-    <Route exact path={routes.toOrgResources({ ...accountPathProps, ...orgPathProps })}>
+    <Route exact path={routes.toResources({ ...accountPathProps, ...orgPathProps })}>
       <RedirectToOrgResourcesHome />
     </Route>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourcesConnectors({ ...accountPathProps }),
-        routes.toOrgResourcesConnectors({ ...accountPathProps, ...orgPathProps })
+        routes.toResourcesConnectors({ ...accountPathProps, ...orgPathProps })
       ]}
       exact
     >

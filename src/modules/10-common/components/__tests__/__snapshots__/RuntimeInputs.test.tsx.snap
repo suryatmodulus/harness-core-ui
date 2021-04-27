@@ -89,7 +89,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-control bp3-radio"
                 >
                   <input
-                    name=""
+                    name="radioValue"
                     type="radio"
                     value="option1"
                   />
@@ -103,7 +103,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                 >
                   <input
                     checked=""
-                    name=""
+                    name="radioValue"
                     type="radio"
                     value="option2"
                   />
@@ -508,7 +508,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-control bp3-radio"
                 >
                   <input
-                    name=""
+                    name="radioValue"
                     type="radio"
                     value="option1"
                   />
@@ -521,7 +521,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-control bp3-radio"
                 >
                   <input
-                    name=""
+                    name="radioValue"
                     type="radio"
                     value="option2"
                   />

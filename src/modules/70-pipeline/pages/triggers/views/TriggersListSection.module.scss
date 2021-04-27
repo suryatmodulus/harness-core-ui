@@ -30,3 +30,16 @@
 button.webhookUrl span svg path {
   fill: var(--blue-500) !important;
 }
+
+.disabledOption {
+  cursor: not-allowed;
+  color: rgba(167, 182, 194, 0.6) !important;
+  svg {
+    cursor: not-allowed;
+    color: rgba(167, 182, 194, 0.6) !important;
+  }
+  // enabled icon
+  [class*='bp3-control-indicator'] {
+    cursor: not-allowed;
+  }
+}

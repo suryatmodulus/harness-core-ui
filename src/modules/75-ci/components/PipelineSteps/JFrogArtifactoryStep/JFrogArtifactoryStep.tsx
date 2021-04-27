@@ -2,6 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -57,6 +58,7 @@ export interface JFrogArtifactoryStepProps {
   initialValues: JFrogArtifactoryStepData
   template?: JFrogArtifactoryStepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: JFrogArtifactoryStepData) => void
@@ -105,18 +107,15 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     return []
   }
 
-  processFormData<JFrogArtifactoryStepDataUI>(data: JFrogArtifactoryStepDataUI): JFrogArtifactoryStepData {
-    return getFormValuesInCorrectFormat<JFrogArtifactoryStepDataUI, JFrogArtifactoryStepData>(
-      data,
-      transformValuesFieldsConfig
-    )
+  processFormData<T>(data: T): JFrogArtifactoryStepData {
+    return getFormValuesInCorrectFormat<T, JFrogArtifactoryStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: JFrogArtifactoryStepData,
     template?: JFrogArtifactoryStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<JFrogArtifactoryStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -125,7 +124,16 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -154,6 +162,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

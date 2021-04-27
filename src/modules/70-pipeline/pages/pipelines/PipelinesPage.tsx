@@ -252,7 +252,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   /* #region Filter interaction callback handlers */
   const handleSaveOrUpdate = async (
     isUpdate: boolean,
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     data: FilterDataInterface<PipelineFormType, FilterInterface>
   ): Promise<void> => {
     setIsRefreshingFilters(true)
@@ -339,7 +339,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     const { branch, tag, ciExecutionInfoDTO, repoNames } = ci || {}
     const { deploymentTypes, environmentNames, infrastructureTypes, serviceNames } = cd || {}
     const { sourceBranch, targetBranch } = ciExecutionInfoDTO?.pullRequest || {}
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const buildType = getBuildType(moduleProperties || {})
 
     return isFetchingFilters && isFetchingMetaData ? (
@@ -389,7 +389,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         onClear={reset}
         ref={filterRef}
         dataSvcConfig={
-          new Map<CrudOperation, Function>([
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
             ['ADD', createFilter],
             ['UPDATE', updateFilter],
             ['DELETE', deleteFilter]

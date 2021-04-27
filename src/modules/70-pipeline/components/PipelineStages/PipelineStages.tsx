@@ -3,7 +3,7 @@ import { useDeepCompareEffect } from '@common/hooks'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
-export interface PipelineStagesProps<T = {}> {
+export interface PipelineStagesProps<T = Record<string, unknown>> {
   children: Array<React.ReactElement<PipelineStageProps> | null>
   minimal?: boolean
   stageType?: string
@@ -18,7 +18,7 @@ interface PipelineStageMap extends Omit<PipelineStageProps, 'minimal'> {
   index: number
 }
 
-export function PipelineStages<T = {}>({
+export function PipelineStages<T = Record<string, unknown>>({
   children,
   showSelectMenu,
   isParallel = false,
@@ -84,7 +84,14 @@ export function PipelineStages<T = {}>({
         />
       )}
       {!showSelectMenu && selected && stage && (
-        <>{React.cloneElement(stage, { ...selected, key: selected.type, minimal, stageProps })}</>
+        <>
+          {React.cloneElement(stage, {
+            ...selected,
+            key: selected.type,
+            minimal,
+            stageProps: stageProps as Record<string, unknown>
+          })}
+        </>
       )}
       {!showMenu && showSelectMenu && type && stage && (
         <>

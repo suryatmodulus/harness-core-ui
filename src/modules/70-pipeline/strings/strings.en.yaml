@@ -1,5 +1,6 @@
 enterDescription: Enter Description
 verificationResult: Verification Result
+enableVerificationOptions: Enable verification options
 clickHere: Click here
 approvalStep:
   message: 'Approval Message'
@@ -227,3 +228,5 @@ executionStatus:
   NotStarted: NOT STARTED
   ApprovalRejected: REJECTED
   Unknown: UNKNOWN
+logs:
+  fetchError: Could not fetch logs. Please try again later.

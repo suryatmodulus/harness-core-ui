@@ -1,0 +1,152 @@
+{
+  "user": {
+    "data": {
+      "metaData": {},
+      "resource": {
+        "uuid": "zLvGucTaTb6bD9bNgrZ6yg",
+        "email": "abhinav.rastogi@harness.io",
+        "name": "abhinav.rastogi@harness.io",
+        "token": null,
+        "firstLogin": false,
+        "lastLogin": 1619179782230,
+        "emailVerified": false,
+        "twoFactorAuthenticationEnabled": false,
+        "twoFactorAuthenticationMechanism": "TOTP",
+        "twoFactorJwtToken": null,
+        "oauthProvider": null,
+        "defaultAccountId": "zEaak-FLS425IEO7OLzMUg",
+        "accounts": [
+          {
+            "uuid": "zEaak-FLS425IEO7OLzMUg",
+            "accountName": "Harness.io",
+            "companyName": "Harness.io",
+            "clusterName": "cluster1",
+            "localEncryptionEnabled": false,
+            "twoFactorAdminEnforced": false,
+            "forImport": false,
+            "cloudCostEnabled": false,
+            "salesContacts": null,
+            "licenseInfo": {
+              "accountType": "PAID",
+              "accountStatus": "ACTIVE",
+              "expireAfterDays": 0,
+              "expiryTime": 1645142399000,
+              "licenseUnits": 1000
+            },
+            "ceLicenseInfo": { "licenseType": "FULL_TRIAL", "expiryTime": 1601510399000 },
+            "licenseId": null,
+            "techStacks": [{ "category": "Deployment Platforms", "technology": "None" }],
+            "subdomainUrl": null,
+            "defaultExperience": "NG",
+            "status": "ACTIVE",
+            "loginAllowed": true
+          },
+          {
+            "uuid": "XICOBc_qRa2PJmVaWOx-cQ",
+            "accountName": "AutomationOne",
+            "companyName": "Automation One",
+            "clusterName": "cluster1",
+            "localEncryptionEnabled": false,
+            "twoFactorAdminEnforced": false,
+            "forImport": false,
+            "cloudCostEnabled": false,
+            "salesContacts": null,
+            "licenseInfo": {
+              "accountType": "PAID",
+              "accountStatus": "ACTIVE",
+              "expireAfterDays": 0,
+              "expiryTime": 1871596799000,
+              "licenseUnits": 1000
+            },
+            "ceLicenseInfo": null,
+            "licenseId": null,
+            "techStacks": [{ "category": "NONE", "technology": "NONE" }],
+            "subdomainUrl": null,
+            "defaultExperience": null,
+            "status": "ACTIVE",
+            "loginAllowed": true
+          },
+          {
+            "uuid": "px7xd_BFRCi-pfWPYXVjvw",
+            "accountName": "harness-dev",
+            "companyName": "harness-dev",
+            "clusterName": "cluster1",
+            "localEncryptionEnabled": false,
+            "twoFactorAdminEnforced": false,
+            "forImport": false,
+            "cloudCostEnabled": true,
+            "salesContacts": null,
+            "licenseInfo": {
+              "accountType": "PAID",
+              "accountStatus": "EXPIRED",
+              "expireAfterDays": 0,
+              "expiryTime": 1614211199000,
+              "licenseUnits": 500
+            },
+            "ceLicenseInfo": { "licenseType": "LIMITED_TRIAL", "expiryTime": 1620259199999 },
+            "licenseId": null,
+            "techStacks": null,
+            "subdomainUrl": null,
+            "defaultExperience": null,
+            "status": "EXPIRED",
+            "loginAllowed": true
+          },
+          {
+            "uuid": "nqqlJ_62S0q7wFnYSmwNpQ",
+            "accountName": "abc1",
+            "companyName": "abc1",
+            "clusterName": "cluster1",
+            "localEncryptionEnabled": false,
+            "twoFactorAdminEnforced": false,
+            "forImport": false,
+            "cloudCostEnabled": false,
+            "salesContacts": null,
+            "licenseInfo": {
+              "accountType": "PAID",
+              "accountStatus": "ACTIVE",
+              "expireAfterDays": 0,
+              "expiryTime": 1642463999000,
+              "licenseUnits": 12
+            },
+            "ceLicenseInfo": null,
+            "licenseId": null,
+            "techStacks": null,
+            "subdomainUrl": null,
+            "defaultExperience": null,
+            "status": "ACTIVE",
+            "loginAllowed": true
+          },
+          {
+            "uuid": "3P9jX4EfQ3moXBbQfORaLw",
+            "accountName": "raj-ng-defaul-experience-1",
+            "companyName": "raj-ng-defaul-experience-1",
+            "clusterName": "cluster1",
+            "localEncryptionEnabled": false,
+            "twoFactorAdminEnforced": false,
+            "forImport": false,
+            "cloudCostEnabled": false,
+            "salesContacts": null,
+            "licenseInfo": {
+              "accountType": "PAID",
+              "accountStatus": "ACTIVE",
+              "expireAfterDays": 0,
+              "expiryTime": 1670284799000,
+              "licenseUnits": 100
+            },
+            "ceLicenseInfo": null,
+            "licenseId": null,
+            "techStacks": null,
+            "subdomainUrl": null,
+            "defaultExperience": "NG",
+            "status": "ACTIVE",
+            "loginAllowed": true
+          }
+        ],
+        "supportAccounts": [],
+        "imported": false
+      },
+      "responseMessages": []
+    },
+    "loading": false
+  }
+}

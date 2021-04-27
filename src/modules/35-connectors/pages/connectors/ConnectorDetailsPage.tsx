@@ -38,8 +38,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     mock: props.mockData
   })
   const connectorName = data?.data?.connector?.name
-  const titleStrings = [getString('resources'), getString('connectorsLabel'), ...(connectorName ? [connectorName] : [])]
-  useDocumentTitle(titleStrings)
+  useDocumentTitle([connectorName || '', getString('connectorsLabel')])
 
   const categories: Categories = {
     connection: getString('connection'),

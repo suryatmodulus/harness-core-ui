@@ -387,117 +387,121 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               class="defaultNode"
             >
               <div
-                class="defaultCard diamond"
-                style="width: 64px; height: 64px;"
+                draggable="false"
               >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="check"
-                >
-                  <svg
-                    height="28"
-                    width="28"
-                  >
-                    <defs>
-                      <filter
-                        id="check_svg__a"
-                      >
-                        <fecolormatrix
-                          in="SourceGraphic"
-                          values="0 0 0 0 0.533084 0 0 0 0 0.648409 0 0 0 0 0.550083 0 0 0 1.000000 0"
-                        />
-                      </filter>
-                    </defs>
-                    <g
-                      fill="none"
-                      fill-rule="evenodd"
-                    >
-                      <circle
-                        cx="10"
-                        cy="10"
-                        r="9.5"
-                        stroke="#B7BFC5"
-                      />
-                      <g
-                        filter="url(#check_svg__a)"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        transform="translate(5 5)"
-                      >
-                        <path
-                          d="M.833 5.523l3.241 2.19 5.093-6.046"
-                          stroke="#999"
-                          stroke-width="1.6"
-                        />
-                      </g>
-                    </g>
-                  </svg>
-                </span>
                 <div
-                  class="port portIn diamondPortIn"
-                >
-                  <div
-                    class="port "
-                    data-name="In"
-                    data-nodeid="approval"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-circle StyledProps--main"
-                        icon="circle"
-                      >
-                        <svg
-                          data-icon="circle"
-                          height="8"
-                          viewBox="0 0 16 16"
-                          width="8"
-                        >
-                          <desc>
-                            circle
-                          </desc>
-                          <path
-                            d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-                <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main closeNode diamondClose"
-                  type="button"
+                  class="defaultCard diamond"
+                  style="width: 64px; height: 64px; opacity: 1;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-cross StyledProps--main"
-                    icon="cross"
+                    class="bp3-icon StyledProps--main"
+                    data-icon="check"
                   >
                     <svg
-                      data-icon="cross"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
+                      height="28"
+                      width="28"
                     >
-                      <desc>
-                        cross
-                      </desc>
-                      <path
-                        d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                      <defs>
+                        <filter
+                          id="check_svg__a"
+                        >
+                          <fecolormatrix
+                            in="SourceGraphic"
+                            values="0 0 0 0 0.533084 0 0 0 0 0.648409 0 0 0 0 0.550083 0 0 0 1.000000 0"
+                          />
+                        </filter>
+                      </defs>
+                      <g
+                        fill="none"
                         fill-rule="evenodd"
-                      />
+                      >
+                        <circle
+                          cx="10"
+                          cy="10"
+                          r="9.5"
+                          stroke="#B7BFC5"
+                        />
+                        <g
+                          filter="url(#check_svg__a)"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          transform="translate(5 5)"
+                        >
+                          <path
+                            d="M.833 5.523l3.241 2.19 5.093-6.046"
+                            stroke="#999"
+                            stroke-width="1.6"
+                          />
+                        </g>
+                      </g>
                     </svg>
                   </span>
-                </button>
+                  <div
+                    class="port portIn diamondPortIn"
+                  >
+                    <div
+                      class="port "
+                      data-name="In"
+                      data-nodeid="approval"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-circle StyledProps--main"
+                          icon="circle"
+                        >
+                          <svg
+                            data-icon="circle"
+                            height="8"
+                            viewBox="0 0 16 16"
+                            width="8"
+                          >
+                            <desc>
+                              circle
+                            </desc>
+                            <path
+                              d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main closeNode diamondClose"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-cross StyledProps--main"
+                      icon="cross"
+                    >
+                      <svg
+                        data-icon="cross"
+                        height="10"
+                        viewBox="0 0 16 16"
+                        width="10"
+                      >
+                        <desc>
+                          cross
+                        </desc>
+                        <path
+                          d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-small"
+                  style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
+                >
+                  Jira Approval
+                </p>
               </div>
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-small"
-                style="cursor: pointer; --text-line-clamp: 2; width: 125px;"
-              >
-                Jira Approval
-              </p>
             </div>
           </div>
           <div

@@ -1,0 +1,1038 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnboardingDetailPage CreateAFlagView 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-xxlarge"
+      level="2"
+      style="font-weight: 600; font-size: 20px; line-height: 28px; color: rgb(34, 34, 42);"
+    >
+      cf.onboarding.letsStart
+    </h2>
+    <div
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      style="width: 400px;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+      >
+        cf.onboarding.inputLabel
+      </p>
+      <div
+        class="TextInput--main"
+      >
+        <div
+          class="bp3-input-group bp3-disabled"
+        >
+          <input
+            class="bp3-input"
+            disabled=""
+            type="text"
+            value="test-flag"
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--margin-top-xxlarge"
+      style="display: flex; align-items: center;"
+    >
+      <span>
+        cf.onboarding.successLabel
+      </span>
+      <span
+        class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green500"
+        icon="tick"
+      >
+        <svg
+          data-icon="tick"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <desc>
+            tick
+          </desc>
+          <path
+            d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage OnboardingDetailPage empty state should be rendered properly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container StyledProps--background-white"
+    style="height: 100%;"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--padding-large"
+      style="background: rgb(248, 251, 254); border: 1px solid #e7e7e7; height: 40px;"
+    >
+      <a
+        href="/account/dummy/cf/orgs/dummy/projects/dummy/onboarding"
+      >
+        cf.shared.getStarted
+      </a>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        /
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        cf.shared.quickGuide
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        /
+      </p>
+      <span
+        style="flex-grow: 1;"
+      />
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main"
+      style="height: calc(100% - 102px);"
+    >
+      <div
+        class="bp3-tabs Tabs--main Tabs--horizontal"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_created-a-flag"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="created-a-flag"
+            id="bp3-tab-title_cf-onboarding_created-a-flag"
+            role="tab"
+            tabindex="0"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.createAFlag
+            </p>
+          </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_set-up-your-app"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="set-up-your-app"
+            id="bp3-tab-title_cf-onboarding_set-up-your-app"
+            role="tab"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.setUpApp
+            </p>
+          </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_test-your-flag"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="test-your-flag"
+            id="bp3-tab-title_cf-onboarding_test-your-flag"
+            role="tab"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.testYourFlag
+            </p>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_cf-onboarding_created-a-flag"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_cf-onboarding_created-a-flag"
+          role="tabpanel"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-xxlarge"
+              level="2"
+              style="font-weight: 600; font-size: 20px; line-height: 28px; color: rgb(34, 34, 42);"
+            >
+              cf.onboarding.letsStart
+            </h2>
+            <div
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+              style="width: 400px;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              >
+                cf.onboarding.inputLabel
+              </p>
+              <div
+                class="TextInput--main"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    class="bp3-input"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 270px; bottom: 0px; right: 0px; height: 60px;"
+    >
+      <button
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+          icon="chevron-left"
+        >
+          <svg
+            data-icon="chevron-left"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-left
+            </desc>
+            <path
+              d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          previous
+        </span>
+      </button>
+      <button
+        class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        disabled=""
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          next
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <span
+        style="flex-grow: 1;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="height: 100%;"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+      style="overflow: auto; width: calc(100% - 400px); height: calc(100vh - 140px);"
+    >
+      <span
+        class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--padding-right-small"
+        style="background: rgb(243, 243, 250); border-radius: 4px;"
+      >
+        <span>
+          cf.onboarding.successLabel
+        </span>
+      </span>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-bottom-xlarge"
+        level="2"
+        style="font-weight: 600; font-size: 20px; line-height: 28px; color: rgb(34, 34, 42);"
+      >
+        cf.onboarding.setupLabel
+      </h2>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="font-weight: 600; font-size: 16px; color: rgb(34, 34, 42);"
+          >
+            cf.onboarding.selectLanguage
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-large"
+            style="background: rgb(250, 251, 252);"
+          >
+            <ul
+              class="list"
+            >
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="NodeJS"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    NodeJS
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button selected"
+                  >
+                    <img
+                      alt="Java"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    Java
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="Golang"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    Golang
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt=".NET"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    .NET
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="JavaScript"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    JavaScript
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="Android"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    Android
+                  </span>
+                </div>
+              </li>
+              <li
+                class="item"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                >
+                  <button
+                    class="button"
+                  >
+                    <img
+                      alt="iOS"
+                      height="35"
+                      src="test-file-stub"
+                      width="35"
+                    />
+                  </button>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline"
+                    style="font-weight: 500; color: rgb(85, 87, 112); font-size: 12px; text-align: center;"
+                  >
+                    iOS
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-large"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="font-weight: 600; font-size: 16px; color: rgb(34, 34, 42);"
+          >
+            cf.onboarding.selectEnvironment
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-large"
+            style="background: rgb(250, 251, 252);"
+          >
+            <div />
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-large"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="font-weight: 600; font-size: 16px; color: rgb(34, 34, 42);"
+          >
+            cf.onboarding.setUpYourCode
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-large"
+            style="padding-top: 0px;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"
+                style="color: rgb(51, 51, 51); line-height: 18px;"
+              >
+                <span>
+                  cf.onboarding.readme.java
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
+      style="box-shadow: -8px 0 10px -5px rgb(96 97 112 / 16%); position: fixed; top: 80px; right: 0px; bottom: 60px; z-index: 0; width: 400px;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="font-weight: 500; color: rgb(34, 34, 42);"
+        >
+          cf.onboarding.help.heading1
+        </h2>
+        <img
+          height="101"
+          src="test-file-stub"
+          style="align-self: center;"
+          width="248"
+        />
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="line-height: 20px; color: rgb(107, 109, 133);"
+        >
+          cf.onboarding.help.text1
+        </p>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="font-weight: 500; color: rgb(34, 34, 42);"
+        >
+          cf.onboarding.help.heading2
+        </h2>
+        <img
+          height="134"
+          src="test-file-stub"
+          style="align-self: center;"
+          width="180"
+        />
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="line-height: 20px; color: rgb(107, 109, 133);"
+        >
+          cf.onboarding.help.text2
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <a
+            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+            href="https://docs.harness.io"
+            rel="noreferrer noopener"
+            role="button"
+            tabindex="0"
+            target="_blank"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cf.onboarding.help.getStarted
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage Should be able to create a flag 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container StyledProps--background-white"
+    style="height: 100%;"
+  >
+    <div
+      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--padding-large"
+      style="background: rgb(248, 251, 254); border: 1px solid #e7e7e7; height: 40px;"
+    >
+      <a
+        href="/account/dummy/cf/orgs/dummy/projects/dummy/onboarding"
+      >
+        cf.shared.getStarted
+      </a>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        /
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        cf.shared.quickGuide
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        /
+      </p>
+      <span
+        style="flex-grow: 1;"
+      />
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main"
+      style="height: calc(100% - 102px);"
+    >
+      <div
+        class="bp3-tabs Tabs--main Tabs--horizontal"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_created-a-flag"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="created-a-flag"
+            id="bp3-tab-title_cf-onboarding_created-a-flag"
+            role="tab"
+            tabindex="0"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.createAFlag
+            </p>
+          </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_set-up-your-app"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="set-up-your-app"
+            id="bp3-tab-title_cf-onboarding_set-up-your-app"
+            role="tab"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.setUpApp
+            </p>
+          </div>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+            icon="chevron-right"
+            style="align-self: center; height: 20px;"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <div
+            aria-controls="bp3-tab-panel_cf-onboarding_test-your-flag"
+            aria-disabled="false"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="test-your-flag"
+            id="bp3-tab-title_cf-onboarding_test-your-flag"
+            role="tab"
+            tabindex="0"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cf.onboarding.testYourFlag
+            </p>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_cf-onboarding_created-a-flag"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_cf-onboarding_created-a-flag"
+          role="tabpanel"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-xxlarge"
+              level="2"
+              style="font-weight: 600; font-size: 20px; line-height: 28px; color: rgb(34, 34, 42);"
+            >
+              cf.onboarding.letsStart
+            </h2>
+            <div
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+              style="width: 400px;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+              >
+                cf.onboarding.inputLabel
+              </p>
+              <div
+                class="TextInput--main"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    class="bp3-input"
+                    type="text"
+                    value="test-boolean-flag"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 270px; bottom: 0px; right: 0px; height: 60px;"
+    >
+      <button
+        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+          icon="chevron-left"
+        >
+          <svg
+            data-icon="chevron-left"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-left
+            </desc>
+            <path
+              d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          previous
+        </span>
+      </button>
+      <button
+        class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        disabled=""
+        tabindex="-1"
+        type="button"
+      >
+        <div
+          class="bp3-spinner bp3-button-spinner"
+        >
+          <div
+            class="bp3-spinner-animation"
+          >
+            <svg
+              height="20"
+              stroke-width="16.00"
+              viewBox="-3.00 -3.00 106.00 106.00"
+              width="20"
+            >
+              <path
+                class="bp3-spinner-track"
+                d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+              />
+              <path
+                class="bp3-spinner-head"
+                d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                pathLength="280"
+                stroke-dasharray="280 280"
+                stroke-dashoffset="210"
+              />
+            </svg>
+          </div>
+        </div>
+        <span
+          class="bp3-button-text"
+        >
+          next
+        </span>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+          icon="chevron-right"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <span
+        style="flex-grow: 1;"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OnboardingDetailPage TestYourFlagViewView 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="height: 100%;"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+      style="overflow: auto; width: calc(100% - 400px); height: calc(100vh - 140px);"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-medium"
+        level="2"
+        style="font-weight: 600; font-size: 20px; line-height: 28px; color: rgb(34, 34, 42);"
+      >
+        cf.onboarding.listenToEvent
+      </h2>
+      <p
+        class="StyledProps--font StyledProps--main"
+        style="color: rgb(34, 34, 42);"
+      >
+        cf.onboarding.toggleLabel
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--margin-top-xlarge StyledProps--background-white"
+        style="border-radius: 8px; border: 1px solid #d9dae6; width: 510px; height: 150px;"
+      />
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-xxlarge"
+      style="box-shadow: -8px 0 10px -5px rgb(96 97 112 / 16%); position: fixed; top: 80px; right: 0px; bottom: 60px; z-index: 0; width: 400px;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+          level="2"
+          style="font-weight: 500; color: rgb(34, 34, 42);"
+        >
+          cf.onboarding.help.test.heading
+        </h2>
+        <img
+          height="163"
+          src="test-file-stub"
+          style="align-self: center;"
+          width="192"
+        />
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="line-height: 20px; color: rgb(107, 109, 133);"
+          >
+            cf.onboarding.help.test.text1
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-medium"
+            style="line-height: 20px; color: rgb(107, 109, 133);"
+          >
+            cf.onboarding.help.test.text2
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-medium"
+          >
+            <a
+              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+              href="https://docs.harness.io"
+              rel="noreferrer noopener"
+              role="button"
+              tabindex="0"
+              target="_blank"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                cf.onboarding.help.test.readmore
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

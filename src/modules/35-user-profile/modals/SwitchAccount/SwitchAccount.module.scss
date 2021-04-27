@@ -1,0 +1,13 @@
+.modal {
+  width: 750px;
+  min-height: 200px;
+
+  .container {
+    max-height: 500px;
+    overflow: scroll;
+  }
+
+  .alignCenter {
+    align-items: center;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -63,6 +64,7 @@ export interface RestoreCacheS3StepProps {
   initialValues: RestoreCacheS3StepData
   template?: RestoreCacheS3StepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: RestoreCacheS3StepData) => void
@@ -112,18 +114,15 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     return []
   }
 
-  processFormData<RestoreCacheS3StepDataUI>(data: RestoreCacheS3StepDataUI): RestoreCacheS3StepData {
-    return getFormValuesInCorrectFormat<RestoreCacheS3StepDataUI, RestoreCacheS3StepData>(
-      data,
-      transformValuesFieldsConfig
-    )
+  processFormData<T>(data: T): RestoreCacheS3StepData {
+    return getFormValuesInCorrectFormat<T, RestoreCacheS3StepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: RestoreCacheS3StepData,
     template?: RestoreCacheS3StepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<RestoreCacheS3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -132,7 +131,16 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
   }
 
   renderStep(props: StepProps<RestoreCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -161,6 +169,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

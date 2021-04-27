@@ -31,7 +31,7 @@ export const MultiTypeRadioGroup: React.FC<MultiTypeRadioGroupProps> = ({
           {...restProps}
           options={options}
           selectedValue={value as string}
-          name={name}
+          name={rest.name}
           onChange={(event: React.FormEvent<HTMLInputElement>) => {
             onChange?.(event.currentTarget.value, MultiTypeInputValue.STRING)
           }}

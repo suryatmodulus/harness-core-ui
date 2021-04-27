@@ -51,10 +51,16 @@ export enum NodeType {
   ROLLBACK_OPTIONAL_CHILD_CHAIN = 'ROLLBACK_OPTIONAL_CHILD_CHAIN',
   FORK = 'NG_FORK',
   INFRASTRUCTURE_SECTION = 'INFRASTRUCTURE_SECTION',
-  DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP'
+  DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP',
+  APPROVAL_STAGE = 'APPROVAL_STAGE'
 }
 
-export const NonSelectableNodes: NodeType[] = [NodeType.NG_SECTION, NodeType.FORK, NodeType.DEPLOYMENT_STAGE_STEP]
+export const NonSelectableNodes: NodeType[] = [
+  NodeType.NG_SECTION,
+  NodeType.FORK,
+  NodeType.DEPLOYMENT_STAGE_STEP,
+  NodeType.APPROVAL_STAGE
+]
 export const TopLevelNodes: NodeType[] = [
   NodeType.NG_SECTION,
   NodeType.ROLLBACK_OPTIONAL_CHILD_CHAIN,
@@ -69,7 +75,8 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   STEP_GROUP: 'step-group',
   INFRASTRUCTURE: 'search-infra-prov',
   NG_FORK: 'fork',
-  DEPLOYMENT_STAGE_STEP: 'circle'
+  DEPLOYMENT_STAGE_STEP: 'circle',
+  APPROVAL_STAGE: 'pipeline-approval'
 }
 
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
@@ -281,10 +288,11 @@ export function getActiveStep(graph: ExecutionGraph, nodeId?: string): string | 
   }
 
   if (
+    !NonSelectableNodes.includes(node.stepType as NodeType) &&
+    currentNodeId !== rootNodeId &&
     (isExecutionRunning(node.status) ||
       isExecutionWaiting(node.status) ||
-      isExecutionCompletedWithBadState(node.status)) &&
-    !NonSelectableNodes.includes(node.stepType as NodeType)
+      isExecutionCompletedWithBadState(node.status))
   ) {
     return currentNodeId
   }
@@ -532,8 +540,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
         if (nodeData.stepType && (TopLevelNodes.indexOf(nodeData.stepType as NodeType) > -1 || isRollback)) {
           // NOTE: exception if we have only lite task engine in Execution group
           if (hasOnlyLiteEngineTask(nodeAdjacencyListMap[nodeId].children, graph)) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const liteTaskEngineId = nodeAdjacencyListMap[nodeId]?.children?.[0]!
+            const liteTaskEngineId = nodeAdjacencyListMap?.[nodeId]?.children?.[0] || ''
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
             items.push({

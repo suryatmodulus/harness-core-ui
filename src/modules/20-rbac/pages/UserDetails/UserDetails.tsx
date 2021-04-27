@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Layout, Color, Card, Button, Avatar } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { useGetUserAggregated } from 'services/cd-ng'
+import { useGetAggregatedUser } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -11,6 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import css from './UserDetails.module.scss'
 
 const UserDetails: React.FC = () => {
@@ -19,7 +20,7 @@ const UserDetails: React.FC = () => {
     PipelineType<ProjectPathProps & { userIdentifier: string }>
   >()
 
-  const { data, loading, error, refetch } = useGetUserAggregated({
+  const { data, loading, error, refetch } = useGetAggregatedUser({
     userId: userIdentifier,
     queryParams: {
       accountIdentifier: accountId,
@@ -37,6 +38,8 @@ const UserDetails: React.FC = () => {
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
+
+  useDocumentTitle([user?.name || '', getString('users')])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />

@@ -56,7 +56,7 @@ interface StepState<SharedObject> {
   panelActiveId: number
 }
 
-export const WizardWithProgress = <SharedObject extends object>(props: StepWizardProps<SharedObject>) => {
+export const WizardWithProgress = <SharedObject extends unknown>(props: StepWizardProps<SharedObject>) => {
   const {
     className = '',
     isNavMode = true,

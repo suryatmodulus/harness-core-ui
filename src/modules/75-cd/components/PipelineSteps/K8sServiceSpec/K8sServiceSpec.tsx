@@ -24,6 +24,7 @@ import { useParams } from 'react-router-dom'
 import { FormGroup, Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import { useGetPipeline } from 'services/pipeline-ng'
 import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
@@ -182,7 +183,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
-  const [tagListMap, setTagListMap] = React.useState<{ [key: string]: {}[] | {} }>({ sidecars: [], primary: {} })
+  const [tagListMap, setTagListMap] = React.useState<{ [key: string]: Record<string, any>[] | Record<string, any> }>({
+    sidecars: [],
+    primary: {}
+  })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
   const { data: pipelineResponse } = useGetPipeline({
     pipelineIdentifier,
@@ -494,7 +498,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
                       <FormInput.Text
                         disabled={readonly}
-                        style={{ width: 400 }}
+                        className={css.width50}
                         name={`${path}.artifacts.primary.spec.imagePath`}
                       />
                     </FormGroup>
@@ -505,7 +509,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
                       <FormInput.Text
                         disabled={readonly}
-                        style={{ width: 400 }}
+                        className={css.width50}
                         name={`${path}.artifacts.primary.spec.registryHostname`}
                       />
                     </FormGroup>
@@ -678,7 +682,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
                           <FormInput.Text
                             disabled={readonly}
-                            style={{ width: 400 }}
+                            className={css.width50}
                             name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                           />
                         </FormGroup>
@@ -935,7 +939,7 @@ export interface K8SDirectServiceStep extends ServiceSpec {
   stageIndex?: number
   setupModeType?: string
   handleTabChange?: (tab: string) => void
-  customStepProps?: {}
+  customStepProps?: Record<string, any>
 }
 
 const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$/
@@ -1118,8 +1122,8 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     data: K8SDirectServiceStep,
     template?: ServiceSpec,
     getString?: UseStringsReturn['getString']
-  ): object {
-    const errors: K8SDirectServiceStep = {}
+  ): FormikErrors<K8SDirectServiceStep> {
+    const errors: FormikErrors<K8SDirectServiceStep> = {}
     if (
       isEmpty(data?.artifacts?.primary?.spec?.connectorRef) &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.connectorRef) === MultiTypeInputType.RUNTIME

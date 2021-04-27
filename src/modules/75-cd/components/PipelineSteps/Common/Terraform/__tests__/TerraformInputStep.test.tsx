@@ -6,7 +6,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
-import { Scope } from '@common/interfaces/SecretsInterface'
 import TerraformInputStep from '../TerraformInputStep'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
@@ -27,11 +26,7 @@ const initialValues = {
               gitFetchType: 'Branch',
               branch: 'test',
               folderPath: 'folder',
-              connectorRef: {
-                label: 'test',
-                scope: Scope.ACCOUNT,
-                value: 'test'
-              }
+              connectorRef: 'test'
             }
           }
         }
@@ -57,11 +52,7 @@ const template = {
               gitFetchType: RUNTIME_INPUT_VALUE,
               branch: RUNTIME_INPUT_VALUE,
               folderPath: RUNTIME_INPUT_VALUE,
-              connectorRef: {
-                label: 'test',
-                scope: Scope.ACCOUNT,
-                value: 'test'
-              }
+              connectorRef: 'test'
             }
           }
         }

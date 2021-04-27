@@ -195,7 +195,7 @@ exports[`Failure Strategy: StepGroupRollback selection works 1`] = `
           <input
             checked=""
             data-testid="failure-strategy-stepgrouprollback"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="StepGroupRollback"
           />

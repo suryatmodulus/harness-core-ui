@@ -10,29 +10,29 @@ class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
 }
 
-class StepOne extends Step<object> {
+class StepOne extends Step<Record<string, any>> {
   protected type = 'step-one' as StepType
   protected stepName = 'stepOne'
   protected stepIcon: IconName = 'cross'
-  validateInputSet(): object {
+  validateInputSet(): Record<string, any> {
     return {}
   }
   protected defaultValues = { a: 'a' }
-  renderStep(props: StepProps<object>): JSX.Element {
+  renderStep(props: StepProps<Record<string, any>>): JSX.Element {
     return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }
 
-class StepTwo extends Step<object> {
+class StepTwo extends Step<Record<string, any>> {
   protected type = 'step-two' as StepType
   protected stepName = 'stepTwo'
   protected stepIcon: IconName = 'cross'
-  validateInputSet(): object {
+  validateInputSet(): Record<string, any> {
     return {}
   }
 
   protected defaultValues = { b: 'b' }
-  renderStep(props: StepProps<object>): JSX.Element {
+  renderStep(props: StepProps<Record<string, any>>): JSX.Element {
     return <div onClick={() => props.onUpdate?.(props.initialValues)}>{JSON.stringify(props.initialValues)}</div>
   }
 }

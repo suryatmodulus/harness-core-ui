@@ -16,7 +16,9 @@ jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetCurrentGenUsers: jest
+    .fn()
+    .mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
@@ -71,7 +73,7 @@ describe('Organization Details', () => {
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routes.toOrgResources({
+        routes.toResources({
           accountId: 'testAcc',
           orgIdentifier: getOrgMockData.data.data.organizationResponse.organization.identifier
         })

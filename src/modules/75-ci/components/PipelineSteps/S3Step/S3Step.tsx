@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -50,6 +51,7 @@ export interface S3StepProps {
   initialValues: S3StepData
   template?: S3StepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: S3StepData) => void
@@ -77,11 +79,15 @@ export class S3Step extends PipelineStep<S3StepData> {
     }
   }
 
-  processFormData<S3StepDataUI>(data: S3StepDataUI): S3StepData {
-    return getFormValuesInCorrectFormat<S3StepDataUI, S3StepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): S3StepData {
+    return getFormValuesInCorrectFormat<T, S3StepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(data: S3StepData, template?: S3StepData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: S3StepData,
+    template?: S3StepData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<S3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -90,7 +96,16 @@ export class S3Step extends PipelineStep<S3StepData> {
   }
 
   renderStep(props: StepProps<S3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -119,6 +134,7 @@ export class S3Step extends PipelineStep<S3StepData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

@@ -17,21 +17,24 @@ import {
   pipelineModuleParams,
   executionPathProps,
   inputSetFormPathProps,
-  triggerPathProps
+  triggerPathProps,
+  modulePathProps
 } from '@common/utils/routeUtils'
 import type {
   AccountPathProps,
   ExecutionPathProps,
+  ModulePathParams,
   PipelinePathProps,
   PipelineType,
   ProjectPathProps
 } from '@common/interfaces/RouteInterfaces'
+import { MinimalLayout } from '@common/layouts'
 
 import CFHomePage from '@cf/pages/home/CFHomePage'
-import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
-import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
-import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
-import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
+import FeatureFlagsPage from '@cf/pages/feature-flags/FeatureFlagsPage'
+import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsDetailPage'
+import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
+import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
@@ -58,8 +61,11 @@ import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
+import { OnboardingPage } from './pages/onboarding/OnboardingPage'
+import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
+import CFTrialHomePage from './pages/home/CFTrialHomePage'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -79,9 +85,9 @@ const RedirectToCFProject = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
+  const params = useParams<ProjectPathProps & ModulePathParams>()
 
-  return <Redirect to={routes.toCFAdminResourcesConnectors(params)} />
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
@@ -113,6 +119,14 @@ export default (
       <RedirectToCFProject />
     </Route>
 
+    <RouteWithLayout
+      layout={MinimalLayout}
+      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cf' })}
+      exact
+    >
+      <CFTrialHomePage />
+    </RouteWithLayout>
+
     <RouteWithLayout sidebarProps={CFSideNavProps} path={routes.toCFHome({ ...accountPathProps })} exact>
       <CFHomePage />
     </RouteWithLayout>
@@ -122,7 +136,7 @@ export default (
       path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFFeatureFlagsPage />
+      <FeatureFlagsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -135,7 +149,7 @@ export default (
       })}
       exact
     >
-      <CFFeatureFlagsDetailPage />
+      <FeatureFlagsDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -185,7 +199,7 @@ export default (
       path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFEnvironmentsPage />
+      <EnvironmentsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -193,7 +207,23 @@ export default (
       path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
       exact
     >
-      <CFEnvironmentDetails />
+      <EnvironmentDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFOnboarding({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+      exact
+    >
+      <OnboardingPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFOnboardingDetail({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+      exact
+    >
+      <OnboardingDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -356,7 +386,7 @@ export default (
     <Route
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResources({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...modulePathProps })}
     >
       <RedirectToResourcesHome />
     </Route>
@@ -376,7 +406,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesSecretDetails({
+      path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps

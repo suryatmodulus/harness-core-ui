@@ -1,0 +1,16 @@
+.tickerContainerStyles {
+  width: fit-content;
+}
+
+.serviceInstancesCount {
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.lastDeployments {
+  align-items: flex-start;
+  .statusText {
+    padding: 2px 4px !important;
+    border-radius: 6px;
+  }
+}

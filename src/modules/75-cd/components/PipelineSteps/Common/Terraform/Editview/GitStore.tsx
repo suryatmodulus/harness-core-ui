@@ -16,10 +16,9 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import type { TerraformData } from '../TerraformInterfaces'
+import type { Connector, TerraformData } from '../TerraformInterfaces'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
 interface GitStoreProps {
   formik: FormikProps<TerraformData>
 }
@@ -42,8 +41,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
   React.useEffect(() => {
     formik.setFieldValue('spec.configuration.spec.configFiles.store.type', 'Git')
   }, [])
-
-  const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
+  const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
 
   return (
     <>
@@ -175,11 +173,12 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
           />
         )}
       </div>
-      {connectorValue?.scope === 'account' && (
+      {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
+        connectorValue?.connector?.spec?.type === 'Account') && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.repoName')}
-            name="spec. configuration.spec.configFiles.store.spec.repoName"
+            name="spec.configuration.spec.configFiles.store.spec.repoName"
             placeholder={getString('pipelineSteps.repoName')}
             multiTextInputProps={{ expressions }}
           />

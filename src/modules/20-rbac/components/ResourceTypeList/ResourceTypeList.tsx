@@ -8,11 +8,18 @@ import css from './ResourceTypeList.module.scss'
 interface ResourceTypeListProps {
   resourceCategoryMap?: Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
   onResourceSelectionChange: (resource: ResourceType, isAdd: boolean) => void
+  onResourceCategorySelect: (types: ResourceType[], isAdd: boolean) => void
   preSelectedResourceList: ResourceType[]
   disableAddingResources?: boolean
 }
 const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
-  const { resourceCategoryMap, onResourceSelectionChange, preSelectedResourceList, disableAddingResources } = props
+  const {
+    resourceCategoryMap,
+    onResourceSelectionChange,
+    onResourceCategorySelect,
+    preSelectedResourceList,
+    disableAddingResources
+  } = props
 
   const getChecked = (resourceCategory: ResourceType | ResourceCategory, resourceTypes?: ResourceType[]): boolean => {
     if (resourceTypes) {
@@ -49,11 +56,8 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                         key={resourceCategory}
                         disabled={disableAddingResources}
                         onChange={e => {
-                          if (resourceTypes) {
-                            resourceTypes.map(resource => {
-                              onResourceSelectionChange(resource as ResourceType, e.currentTarget.checked)
-                            })
-                          } else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
+                          if (resourceTypes) onResourceCategorySelect(resourceTypes, e.currentTarget.checked)
+                          else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
                         }}
                         value={resourceCategory}
                         checked={getChecked(resourceCategory, resourceTypes)}

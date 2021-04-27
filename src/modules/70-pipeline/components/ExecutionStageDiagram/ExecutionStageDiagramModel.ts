@@ -176,7 +176,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       return { startX, startY, prevNodes: [nodeRender] }
     } else if (node.parallel && prevNodes) {
       const { parallel } = node
-      /* istanbul ignore else */ if (parallel.length > 1) {
+      /* istanbul ignore else */ if (parallel.length > 0) {
         let newX = startX
         let newY = startY
         /* istanbul ignore else */ if (!isEmpty(prevNodes)) {

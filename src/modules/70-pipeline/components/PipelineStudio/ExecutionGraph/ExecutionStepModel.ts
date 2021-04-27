@@ -34,7 +34,7 @@ export interface GridStyleInterface {
   gapY?: number
 }
 
-const SPACE_AFTER_GROUP = 0.2
+const SPACE_AFTER_GROUP = 0.3
 const GROUP_HEADER_DEPTH = 0.3
 
 const LINE_SEGMENT_LENGTH = 50

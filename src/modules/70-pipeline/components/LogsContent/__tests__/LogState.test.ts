@@ -1,6 +1,7 @@
 import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/MultiLogsViewer'
 
-import { reducer, ActionType, State, Action } from '../LogsState'
+import { ActionType, State, Action } from '../LogsState/types'
+import { reducer } from '../LogsState'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
 

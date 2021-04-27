@@ -6,10 +6,10 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
     class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge"
   >
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+        class="bp3-icon StyledProps--main"
         data-icon="ci-main"
       >
         <svg
@@ -50,10 +50,6 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
       >
         ci.continuous
       </p>
-    </div>
-    <div
-      class="Layout--horizontal StyledProps--main"
-    >
       <p
         class="StyledProps--font StyledProps--main"
         style="color: white; text-align: center; width: 120px; border-radius: 3px; margin-left: 30px; margin-top: 6px; display: inline-block;"
@@ -327,10 +323,10 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
     class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge"
   >
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+        class="bp3-icon StyledProps--main"
         data-icon="ci-main"
       >
         <svg
@@ -371,10 +367,6 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
       >
         ci.continuous
       </p>
-    </div>
-    <div
-      class="Layout--horizontal StyledProps--main"
-    >
       <p
         class="StyledProps--font StyledProps--main"
         style="color: white; text-align: center; width: 120px; border-radius: 3px; margin-left: 30px; margin-top: 6px; display: inline-block;"

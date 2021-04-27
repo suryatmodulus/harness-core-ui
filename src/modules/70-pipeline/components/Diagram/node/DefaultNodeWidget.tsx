@@ -126,23 +126,29 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         props.node.setSelected(true)
       }}
       onDragOver={event => {
-        if (allowAdd) {
-          setVisibilityOfAdd(true)
-          event.preventDefault()
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          if (allowAdd) {
+            setVisibilityOfAdd(true)
+            event.preventDefault()
+          }
         }
       }}
-      onDragLeave={() => {
-        if (allowAdd) {
-          setVisibilityOfAdd(false)
+      onDragLeave={event => {
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          if (allowAdd) {
+            setVisibilityOfAdd(false)
+          }
         }
       }}
       onDrop={event => {
         event.stopPropagation()
-        const dropData: { id: string; identifier: string } = JSON.parse(
-          event.dataTransfer.getData(DiagramDrag.NodeDrag)
-        )
-        props.node.setSelected(false)
-        props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          const dropData: { id: string; identifier: string } = JSON.parse(
+            event.dataTransfer.getData(DiagramDrag.NodeDrag)
+          )
+          props.node.setSelected(false)
+          props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
+        }
       }}
     >
       <div
@@ -169,6 +175,11 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         onDragStart={event => {
           setDragging(true)
           event.dataTransfer.setData(DiagramDrag.NodeDrag, JSON.stringify(props.node.serialize()))
+          // NOTE: onDragOver we cannot access dataTransfer data
+          // in order to detect if we can drop, we are setting and using "keys" and then
+          // checking in onDragOver if this type (AllowDropOnLink/AllowDropOnNode) exist we allow drop
+          if (options.allowDropOnLink) event.dataTransfer.setData(DiagramDrag.AllowDropOnLink, '1')
+          if (options.allowDropOnNode) event.dataTransfer.setData(DiagramDrag.AllowDropOnNode, '1')
           event.dataTransfer.dropEffect = 'move'
         }}
         onDragEnd={event => {

@@ -18,7 +18,7 @@ import { ApplicationRecord, InternalState, ValidationStatus } from '../AppDOnboa
 
 interface ReviewTiersAndAppsProps {
   [key: string]: any
-  onCompleteStep: (data: object) => void
+  onCompleteStep: (data: Record<string, any>) => void
   onPrevious?: () => void
 }
 

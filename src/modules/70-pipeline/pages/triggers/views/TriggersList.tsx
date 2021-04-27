@@ -8,6 +8,9 @@ import { useGetTriggerListForTarget } from 'services/pipeline-ng'
 import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
@@ -43,6 +46,25 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   })
   const triggerList = triggerListResponse?.data?.content || undefined
   const history = useHistory()
+
+  const [isEditable] = usePermission(
+    {
+      resourceScope: {
+        projectIdentifier: projectIdentifier,
+        orgIdentifier: orgIdentifier,
+        accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EDIT_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
+  )
 
   const goToEditWizard = ({ triggerIdentifier, triggerType }: GoToEditWizardInterface): void => {
     history.push(
@@ -94,7 +116,14 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   return (
     <>
       <Page.Header
-        title={<Button text={getString('pipeline-triggers.newTrigger')} intent="primary" onClick={openDrawer}></Button>}
+        title={
+          <Button
+            disabled={!isEditable}
+            text={getString('pipeline-triggers.newTrigger')}
+            intent="primary"
+            onClick={openDrawer}
+          ></Button>
+        }
         toolbar={
           <TextInput
             leftIcon="search"
@@ -119,7 +148,8 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
                 icon: 'yaml-builder-trigger',
                 message: getString('pipeline-triggers.aboutTriggers'),
                 buttonText: getString('pipeline-triggers.addNewTrigger'),
-                onClick: openDrawer
+                onClick: openDrawer,
+                buttonDisabled: !isEditable
               }
             : {
                 when: () => Array.isArray(triggerList) && triggerList.length === 0,

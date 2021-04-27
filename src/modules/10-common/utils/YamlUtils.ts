@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import * as yamlLanguageService from '@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService'
 import { isEmpty } from 'lodash-es'
@@ -13,11 +14,11 @@ const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
  * @param delimiter delimiter to be used in node path(s) from parent
  * @returns exactly matching json path in the tree
  */
-const findLeafToParentPath = (jsonObj: object, leafNode: string, delimiter = '.'): string | undefined => {
+const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, delimiter = '.'): string | undefined => {
   // to remove all leading non-characters
   const leaf = leafNode.replace(/^[^a-zA-Z]+/, '')
   const matchingPath: string[] = []
-  function findPath(currJSONObj: object, currentDepth: number, previous?: string) {
+  function findPath(currJSONObj: Record<string, any>, currentDepth: number, previous?: string): void {
     Object.keys(currJSONObj).forEach((key: string) => {
       const value = currJSONObj[key]
       const type = Object.prototype.toString.call(value)
@@ -57,13 +58,13 @@ const validateYAML = (yaml: string): Promise<Diagnostic[]> => {
 /**
  * @description Validate yaml semantically (adherence to a schema)
  *
- * @param {yaml} yaml to validate
+ * @param {yaml} yamlString to validate
  * @param {schema} schema to validate yaml against
  * @returns Promise of list of semantic errors, if any
  *
  */
 
-const validateYAMLWithSchema = (yamlString: string, schema: object): Promise<Diagnostic[]> => {
+const validateYAMLWithSchema = (yamlString: string, schema: Record<string, any>): Promise<Diagnostic[]> => {
   if (!yamlString) {
     return Promise.reject('Invalid or empty yaml.')
   }
@@ -89,7 +90,10 @@ const getPartialYAML = (tokens: string[], endingIndex: number): string => {
  * @param schema schema against which json is to be validated
  * @returns Map of json path to list of errors at that path
  */
-const validateJSONWithSchema = (jsonObj: object, schema: object): Promise<Map<string, string[]>> => {
+const validateJSONWithSchema = (
+  jsonObj: Record<string, any>,
+  schema: Record<string, any>
+): Promise<Map<string, string[]>> => {
   if (isEmpty(jsonObj)) {
     return Promise.reject('Invalid or empty yaml.')
   }
@@ -134,13 +138,13 @@ const validateJSONWithSchema = (jsonObj: object, schema: object): Promise<Map<st
   return Promise.resolve(errorMap)
 }
 
-const setUpLanguageService = (schema: object) => {
+const setUpLanguageService = (schema: Record<string, any>) => {
   const languageService = yamlLanguageService.getLanguageService()
   languageService?.configure(schema)
   return languageService
 }
 
-const getSchemaWithLanguageSettings = (schema: object): object => {
+const getSchemaWithLanguageSettings = (schema: Record<string, any>): Record<string, any> => {
   return {
     validate: true,
     enableSchemaRequest: true,

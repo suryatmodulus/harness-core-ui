@@ -22,5 +22,7 @@ declare const styles: {
   readonly accordionSummary: string
   readonly manifestVariablesTable: string
   readonly skipVersioning: string
+  readonly width50: string
+  readonly width25: string
 }
 export default styles

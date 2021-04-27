@@ -10,7 +10,6 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { isEmpty } from 'lodash-es'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -32,7 +31,7 @@ import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './Plugin
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
-  { initialValues, onUpdate, readonly }: PluginStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: PluginStepProps,
   formikRef: StepFormikFowardRef<PluginStepData>
 ): JSX.Element => {
   const {
@@ -93,7 +92,7 @@ export const PluginStepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

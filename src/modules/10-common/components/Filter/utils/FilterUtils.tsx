@@ -4,7 +4,7 @@ import type { FilterDTO } from 'services/cd-ng'
 
 import css from './FilterUtils.module.scss'
 
-type supportedTypes = string | number | boolean | object
+type supportedTypes = string | number | boolean | Record<string, any>
 
 const tagSeparator = ':'
 
@@ -13,7 +13,7 @@ interface NGTag {
   value: string
 }
 
-export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | object): string => {
+export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | Record<string, any>): string => {
   if (Array.isArray(data)) {
     return data?.map(item => renderItemByType(item)).join(', ')
   } else if (typeof data === 'object') {
@@ -21,7 +21,7 @@ export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | 
       const { key, value } = data as NGTag
       return key.toString().concat(value ? tagSeparator.concat(value.toString()) : '')
     }
-    return Object.entries(data as object)
+    return Object.entries(data)
       .map(([key, value]) => {
         return key.toString().concat(value ? tagSeparator.concat(value.toString()) : '')
       })
@@ -34,10 +34,13 @@ export const renderItemByType = (data: supportedTypes | Array<supportedTypes> | 
   return typeof data === 'string' ? data : ''
 }
 
-export const getFilterSummary = (fieldToLabelMapping: Map<string, string>, fields: object): JSX.Element => {
+export const getFilterSummary = (
+  fieldToLabelMapping: Map<string, string>,
+  fields: Record<string, any>
+): JSX.Element => {
   return (
     <ol className={css.noStyleUl}>
-      {Object.entries(fields as object).map(([key, value]) => {
+      {Object.entries(fields as Record<string, any>).map(([key, value]) => {
         if (fieldToLabelMapping.has(key)) {
           return (
             <li key={key} className={css.summaryItem}>

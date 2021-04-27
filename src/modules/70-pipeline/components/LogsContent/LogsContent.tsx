@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import { ExpandingSearchInput, Icon } from '@wings-software/uicore'
 import { useGetToken, logBlobPromise } from 'services/logs'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import SessionToken from 'framework/utils/SessionToken'
@@ -17,9 +17,11 @@ import { getStageType } from '@pipeline/utils/executionUtils'
 import { PQueue } from '@common/utils/PQueue'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
+import { useToaster } from '@common/components'
 
 import { useLogsStream } from './useLogsStream'
-import { reducer, ActionType, State, Action } from './LogsState'
+import { reducer } from './LogsState'
+import { ActionType, State, Action } from './LogsState/types'
 import css from './LogsContent.module.scss'
 
 const logsCache = new Map()
@@ -177,6 +179,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   } = useExecutionContext()
   const { data: tokenData } = useGetToken({ queryParams: { accountID: accountId }, lazy: !!logsToken })
   const { log: streamData, startStream, closeStream, unitId: streamKey } = useLogsStream()
+  const { showError } = useToaster()
+  const { getString } = useStrings()
 
   // need to save token in a ref due to scoping issues
   const logsTokenRef = React.useRef('')
@@ -195,24 +199,35 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       }
 
       dispatch({ type: ActionType.FetchingSectionData, payload: id })
-      const data = ((await logBlobPromise(
-        {
-          queryParams: {
-            accountID: accountId,
-            'X-Harness-Token': '',
-            key
-          },
-          requestOptions: {
-            headers: {
-              'X-Harness-Token': logsTokenRef.current
-            }
-          }
-        },
-        signal
-      )) as unknown) as string
 
-      logsCache.set(key, data)
-      dispatch({ type: ActionType.UpdateSectionData, payload: { id, data } })
+      try {
+        const data = (await logBlobPromise(
+          {
+            queryParams: {
+              accountID: accountId,
+              'X-Harness-Token': '',
+              key
+            },
+            requestOptions: {
+              headers: {
+                'X-Harness-Token': logsTokenRef.current
+              }
+            }
+          },
+          signal
+        )) as unknown
+
+        if (typeof data === 'string') {
+          logsCache.set(key, data)
+          dispatch({ type: ActionType.UpdateSectionData, payload: { id, data } })
+        } else {
+          dispatch({ type: ActionType.ResetSection, payload: id })
+          showError(getString('pipeline.logs.fetchError'))
+        }
+      } catch (e) {
+        dispatch({ type: ActionType.ResetSection, payload: id })
+        showError(getString('pipeline.logs.fetchError'))
+      }
     })
   }
 

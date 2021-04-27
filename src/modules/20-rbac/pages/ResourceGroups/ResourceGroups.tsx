@@ -8,10 +8,12 @@ import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResour
 import { useGetResourceGroupList } from 'services/platform'
 import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 const ResourceGroups: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  useDocumentTitle(getString('resourceGroups'))
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const defaultQueryParams = {

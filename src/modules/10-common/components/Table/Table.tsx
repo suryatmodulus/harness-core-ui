@@ -5,7 +5,7 @@ import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 
 import css from './Table.module.scss'
 
-export interface TableProps<Data extends object> {
+export interface TableProps<Data extends Record<string, any>> {
   /**
    * Column Configuration
    */
@@ -22,7 +22,7 @@ export interface TableProps<Data extends object> {
   onRowClick?: (data: Data, index: number) => void
 }
 
-const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement => {
+const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
   const { columns, data, className, sortable = true, hideHeaders = false, pagination } = props
   const { headerGroups, page, prepareRow } = useTable(
     {

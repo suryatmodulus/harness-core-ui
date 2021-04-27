@@ -10,7 +10,6 @@ import {
   ExpressionInput
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -40,7 +39,7 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Run
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunTestsStepBase = (
-  { initialValues, onUpdate, readonly }: RunTestsStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly }: RunTestsStepProps,
   formikRef: StepFormikFowardRef<RunTestsStepData>
 ): JSX.Element => {
   const {
@@ -109,7 +108,7 @@ export const RunTestsStepBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

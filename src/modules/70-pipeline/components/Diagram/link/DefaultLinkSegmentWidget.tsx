@@ -12,7 +12,7 @@ export interface DefaultLinkSegmentWidgetProps {
   factory: DefaultLinkFactory
   diagramEngine: DiagramEngine
   onSelection: (selected: boolean) => void
-  extras: object
+  extras: Record<string, any>
 }
 
 export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {
@@ -84,22 +84,28 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     fill: 'none',
     onContextMenu,
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => {
-      if (allowAdd) {
-        onSelection(true)
-        event.preventDefault()
+      if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnLink) !== -1) {
+        if (allowAdd) {
+          onSelection(true)
+          event.preventDefault()
+        }
       }
     },
-    onDragLeave: () => {
-      if (allowAdd) {
-        onSelection(false)
+    onDragLeave: (event: React.DragEvent<HTMLDivElement>) => {
+      if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnLink) !== -1) {
+        if (allowAdd) {
+          onSelection(false)
+        }
       }
     },
     onDrop: (event: React.DragEvent<HTMLDivElement>) => {
-      if (allowAdd) {
-        const dropData: { id: string; identifier: string } = JSON.parse(
-          event.dataTransfer.getData(DiagramDrag.NodeDrag)
-        )
-        link.fireEvent({ node: dropData }, Event.DropLinkEvent)
+      if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnLink) !== -1) {
+        if (allowAdd) {
+          const dropData: { id: string; identifier: string } = JSON.parse(
+            event.dataTransfer.getData(DiagramDrag.NodeDrag)
+          )
+          link.fireEvent({ node: dropData }, Event.DropLinkEvent)
+        }
       }
     }
   })

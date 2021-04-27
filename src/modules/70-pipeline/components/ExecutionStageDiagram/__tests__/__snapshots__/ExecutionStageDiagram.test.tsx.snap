@@ -27,11 +27,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
 			);"
       >
         <div
-          style="left: 1190px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 140px;"
+          style="left: 1190px; cursor: pointer; top: 8px; pointer-events: none; position: absolute; height: 160px;"
         >
           <div
             class="groupLayer"
-            style="width: 480px; height: 140px;"
+            style="width: 480px; height: 160px;"
           />
         </div>
         <div
@@ -493,11 +493,11 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
 			);"
       >
         <div
-          style="left: 910px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 196px;"
+          style="left: 910px; cursor: pointer; top: -34px; pointer-events: none; position: absolute; height: 216px;"
         >
           <div
             class="groupLayer"
-            style="width: 1040px; height: 196px;"
+            style="width: 1040px; height: 216px;"
           />
         </div>
         <div

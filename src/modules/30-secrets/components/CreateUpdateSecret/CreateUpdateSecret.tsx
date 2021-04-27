@@ -53,6 +53,7 @@ interface CreateUpdateSecretProps {
   onSuccess?: (data: SecretFormData) => void
 }
 
+const LocalFormFieldsSMList = ['Local', 'GcpKms', 'AwsKms']
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
   const { onSuccess } = props
@@ -328,7 +329,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 inputGroupProps={{ disabled: loadingSecret }}
               />
               {!typeOfSelectedSecretManager ? <Text>{getString('secret.messageSelectSM')}</Text> : null}
-              {typeOfSelectedSecretManager === 'Local' || typeOfSelectedSecretManager === 'GcpKms' ? (
+              {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
               {typeOfSelectedSecretManager === 'Vault' ? (

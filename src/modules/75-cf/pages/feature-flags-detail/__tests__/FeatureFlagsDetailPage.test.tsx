@@ -1,0 +1,241 @@
+import React from 'react'
+import { getAllByText, getByText, render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
+import mockImport from 'framework/utils/mockImport'
+import FeatureFlagsDetailPage from '../FeatureFlagsDetailPage'
+import mockEnvironments from '../../environments/__tests__/mockEnvironments'
+import mockFeatureFlag from './mockFeatureFlag'
+
+describe('FeatureFlagsDetailPage', () => {
+  test('FeatureFlagsDetailPage should render loading correctly', async () => {
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: undefined,
+        loading: true,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: undefined,
+        loading: true,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(container.querySelector('[data-icon="steps-spinner"]')).toBeDefined()
+    expect(getAllByText(container, 'common.loading')).toBeDefined()
+  })
+
+  test('FeatureFlagsDetailPage should render error correctly 1', async () => {
+    const error = { message: 'SOME ERROR OCCURS' }
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: undefined,
+        loading: undefined,
+        error,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: mockFeatureFlag,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(getAllByText(container, error.message)).toBeDefined()
+  })
+
+  test('FeatureFlagsDetailPage should render error correctly 2', async () => {
+    const error = { message: 'SOME ERROR OCCURS' }
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: mockEnvironments.data.content,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: undefined,
+        loading: undefined,
+        error,
+        refetch: jest.fn()
+      })
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(getAllByText(container, error.message)).toBeDefined()
+  })
+
+  test('FeatureFlagsDetailPage should render no environment correctly', async () => {
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: [],
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: mockFeatureFlag,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(getAllByText(container, 'cf.noEnvironment.title')).toBeDefined()
+    expect(getAllByText(container, 'cf.noEnvironment.message')).toBeDefined()
+    expect(getAllByText(container, 'cf.environments.create.title')).toBeDefined()
+  })
+
+  test('FeatureFlagsDetailPage should render data correctly', async () => {
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: mockEnvironments.data.content,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: mockFeatureFlag,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('@cf/components/FlagActivation/FlagActivation', {
+      // FlagActivation is exported as `default`
+      default: function FlagActivation() {
+        return <div>FlagActivation</div>
+      }
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(getAllByText(container, 'FlagActivation')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('FeatureFlagsDetailPage should render no environment', async () => {
+    mockImport('services/cd-ng', {
+      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
+    })
+
+    mockImport('@cf/hooks/environment', {
+      useEnvironments: () => ({
+        data: [],
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('services/cf', {
+      useGetFeatureFlag: () => ({
+        data: mockFeatureFlag,
+        loading: undefined,
+        error: undefined,
+        refetch: jest.fn()
+      })
+    })
+
+    mockImport('@cf/components/FlagActivation/FlagActivation', {
+      // FlagActivation is exported as `default`
+      default: function FlagActivation() {
+        return <div>FlagActivation</div>
+      }
+    })
+
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+      >
+        <FeatureFlagsDetailPage />
+      </TestWrapper>
+    )
+
+    expect(getByText(container, 'cf.noEnvironment.title')).toBeDefined()
+    expect(getByText(container, 'cf.noEnvironment.message')).toBeDefined()
+    expect(getByText(container, 'cf.environments.create.title')).toBeDefined()
+  })
+})

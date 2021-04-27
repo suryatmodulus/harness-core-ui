@@ -1,7 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import get from 'lodash-es/get'
+import { get } from 'lodash-es'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -61,6 +62,7 @@ export interface RestoreCacheGCSStepProps {
   template?: RestoreCacheGCSStepData
   path?: string
   readonly?: boolean
+  isNewStep?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: RestoreCacheGCSStepData) => void
 }
@@ -108,18 +110,15 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     return []
   }
 
-  processFormData<RestoreCacheGCSStepDataUI>(data: RestoreCacheGCSStepDataUI): RestoreCacheGCSStepData {
-    return getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
-      data,
-      transformValuesFieldsConfig
-    )
+  processFormData<T>(data: T): RestoreCacheGCSStepData {
+    return getFormValuesInCorrectFormat<T, RestoreCacheGCSStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: RestoreCacheGCSStepData,
     template?: RestoreCacheGCSStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<RestoreCacheGCSStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -128,7 +127,16 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
   }
 
   renderStep(props: StepProps<RestoreCacheGCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -157,6 +165,7 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

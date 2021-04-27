@@ -22,7 +22,14 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useGetUsers, useGetInvites, CreateInvite, useSendInvite, Organization } from 'services/cd-ng'
+import {
+  Project,
+  useGetCurrentGenUsers,
+  useGetInvites,
+  CreateInvite,
+  useSendInvite,
+  Organization
+} from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useStrings } from 'framework/strings'
 import { regexEmail } from '@common/utils/StringUtils'
@@ -58,7 +65,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const initialValues: CollaboratorsData = { collaborators: [] }
-  const { data: userData } = useGetUsers({
+  const { data: userData } = useGetCurrentGenUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
     debounce: 300
   })

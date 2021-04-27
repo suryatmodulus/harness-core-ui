@@ -312,6 +312,20 @@ exports[`UserGroupDetails Test render data 1`] = `
               </div>
             </div>
           </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.plusNumber
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     return errors
   }
 
-  processFormData(values: HarnessApprovalData) {
+  processFormData(values: HarnessApprovalData): HarnessApprovalData {
     return processFormData(values)
   }
 
@@ -139,7 +139,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       return (
         <VariablesListTable
           data={flatObject(customStepPropsTyped.variablesData)}
-          originalData={initialValues}
+          originalData={initialValues as Record<string, any>}
           metadataMap={customStepPropsTyped.metadataMap}
         />
       )

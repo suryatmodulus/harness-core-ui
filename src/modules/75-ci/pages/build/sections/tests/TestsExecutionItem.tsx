@@ -47,8 +47,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     projectId: projectIdentifier,
     buildId: buildIdentifier,
     pipelineId: pipelineIdentifier,
-    report: 'junit' as 'junit',
-    suite_name: executionSummary.name, // eslint-disable-line @typescript-eslint/camelcase
+    report: 'junit' as const,
+    suite_name: executionSummary.name,
     status,
     sort: 'status',
     order: 'ASC',

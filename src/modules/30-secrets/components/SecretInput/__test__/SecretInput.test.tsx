@@ -69,6 +69,7 @@ describe('SecretInput', () => {
     })
 
     const modal = findDialogContainer()
+
     const secret = await findByText(modal!, 'a1')
 
     expect(modal).toMatchSnapshot()

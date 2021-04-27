@@ -1,12 +1,20 @@
 mysourceCodeManagers: My Source Code Managers
 basicInformation: Basic Information
 changePassword: Change Password
+switchAccount: Switch Account
+setAsDefault: Set as Default
+headerAccountName: '{{ $.common.accountName }}'
+headerCompanyName: Company Name
+headerAccountEdition: AccountEdition
+headerDefaultAccount: Default Account
 passwordReqs: 'Password must meet the requirements.'
 passwordMatch: 'Passwords must match.'
 currentPassword: 'Current Password'
 requiredField: 'is a required field.'
 newPassword: 'New Password'
 confirmPassword: 'Confirm Password'
+changeDefaultAccountTitle: 'Change Default Account'
+changeDefaultAccountMessage: Are you sure you want to set your default account to '{{ name }}'?
 twofactorAuth: Two-Factor Authentication
 qrCode: QR Code
 myProjects: My Projects

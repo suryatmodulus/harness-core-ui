@@ -41,7 +41,13 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={disabled} strategy={Strategy.ManualIntervention} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={disabled}
+        strategy={Strategy.ManualIntervention}
+        checked
+        name={name}
+        onChange={handleChange}
+      />
       <FormMultiTypeDurationField
         name={`${specPath}.timeout`}
         label="Timeout"
@@ -92,7 +98,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
    */
   return (
     <div className={cx(css.step, css.retryStep)}>
-      <StrategyIcon disabled={disabled} strategy={Strategy.Retry} checked onChange={handleChange} />
+      <StrategyIcon disabled={disabled} strategy={Strategy.Retry} checked name={name} onChange={handleChange} />
       <FormGroup
         label={getString('pipeline.failureStrategies.fieldLabels.retryCountLabel')}
         labelFor={retryCountFieldName}
@@ -209,7 +215,13 @@ export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={props.disabled} strategy={Strategy.StageRollback} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={props.disabled}
+        strategy={Strategy.StageRollback}
+        name={props.name}
+        checked
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -222,7 +234,13 @@ export function RollbackStepGroupStep(props: BaseStepProps): React.ReactElement 
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={props.disabled} strategy={Strategy.StepGroupRollback} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={props.disabled}
+        strategy={Strategy.StepGroupRollback}
+        name={props.name}
+        checked
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -234,7 +252,13 @@ export function IgnoreFailureStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={props.disabled} strategy={Strategy.Ignore} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={props.disabled}
+        strategy={Strategy.Ignore}
+        checked
+        name={props.name}
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -247,7 +271,13 @@ export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={props.disabled} strategy={Strategy.MarkAsSuccess} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={props.disabled}
+        strategy={Strategy.MarkAsSuccess}
+        name={props.name}
+        checked
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -260,7 +290,13 @@ export function AbortStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon disabled={props.disabled} strategy={Strategy.Abort} checked onChange={handleChange} />
+      <StrategyIcon
+        disabled={props.disabled}
+        strategy={Strategy.Abort}
+        name={props.name}
+        checked
+        onChange={handleChange}
+      />
     </div>
   )
 }
@@ -301,7 +337,7 @@ export interface StrategySelectionProps {
 }
 
 export interface ConnectedStrategySelectionProps extends StrategySelectionProps {
-  formik: FormikContext<{}>
+  formik: FormikContext<Record<string, never>>
 }
 
 export function StrategySelection(props: ConnectedStrategySelectionProps): React.ReactElement {
@@ -335,7 +371,7 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
 export interface StrategyStepsListProps {
   allowedStrategies: Strategy[]
   name: string
-  formik: FormikContext<{}>
+  formik: FormikContext<Record<string, never>>
   disabled?: boolean
 }
 
@@ -352,7 +388,7 @@ export function StrategyStepsList(props: StrategyStepsListProps): React.ReactEle
       {allowedStrategies.map(strategy => {
         return (
           <li key={strategy}>
-            <StrategyIcon strategy={strategy} onChange={handleChange} disabled={disabled} />
+            <StrategyIcon strategy={strategy} onChange={handleChange} name={strategy} disabled={disabled} />
           </li>
         )
       })}

@@ -9,7 +9,7 @@ export interface UseUpdateQueryParamsReturn<T> {
   replaceQueryParams(values: T, options?: IStringifyOptions, replaceHistory?: boolean): void
 }
 
-export function useUpdateQueryParams<T = {}>(): UseUpdateQueryParamsReturn<T> {
+export function useUpdateQueryParams<T = Record<string, string>>(): UseUpdateQueryParamsReturn<T> {
   const { pathname } = useLocation()
   const { push, replace } = useHistory()
   const queryParams = useQueryParams<T>()

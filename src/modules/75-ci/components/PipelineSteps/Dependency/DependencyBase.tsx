@@ -8,7 +8,6 @@ import {
   MultiTypeInputType,
   FormikForm
 } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -31,7 +30,7 @@ import type { DependencyProps, DependencyData, DependencyDataUI } from './Depend
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DependencyBase = (
-  { initialValues, onUpdate, readonly }: DependencyProps,
+  { initialValues, onUpdate, isNewStep, readonly }: DependencyProps,
   formikRef: StepFormikFowardRef<DependencyData>
 ): JSX.Element => {
   const {
@@ -92,7 +91,7 @@ export const DependencyBase = (
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                isIdentifierEditable={isEmpty(initialValues.identifier)}
+                isIdentifierEditable={isNewStep}
                 inputLabel={getString('dependencyNameLabel')}
                 inputGroupProps={{ disabled: readonly }}
               />

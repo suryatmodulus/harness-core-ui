@@ -9,7 +9,7 @@ import { toVariableStr } from '@common/utils/StringUtils'
 
 import css from './VariablesListTable.module.scss'
 
-export interface VariableListTableProps<T = Record<string, unknown>> {
+export interface VariableListTableProps<T = Record<string, any>> {
   data: T
   originalData: T
   metadataMap: Record<string, VariableResponseMapValue>

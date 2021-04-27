@@ -15,7 +15,7 @@ import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import type { Target } from 'services/cf'
 import uploadImageUrl from './upload.svg'
-import css from './CFTargetsPage.module.scss'
+import css from './TargetsPage.module.scss'
 
 export type TargetData = Pick<Target, 'name' | 'identifier'>
 

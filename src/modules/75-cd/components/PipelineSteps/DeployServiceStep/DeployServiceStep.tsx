@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 import {
   ServiceConfig,
   useGetServiceListForProject,
@@ -36,6 +37,7 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { NameIdDescriptionTags } from '@common/components'
 import css from './DeployServiceStep.module.scss'
+
 const logger = loggerFor(ModuleName.CD)
 export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
   serviceRef?: string
@@ -422,7 +424,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     data: DeployServiceData,
     template: DeployServiceData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<DeployServiceData> {
     const errors = {} as any
     if (isEmpty(data?.serviceRef) && getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME) {
       errors.serviceRef = getString?.('pipelineSteps.serviceTab.serviceIsRequired')

@@ -53,7 +53,9 @@ jest.mock('services/cd-ng', () => ({
     getOrg(args)
     return { ...OrgMockData, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetUsers: jest.fn().mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
+  useGetCurrentGenUsers: jest
+    .fn()
+    .mockImplementation(() => ({ data: userMockData, loading: false, refetch: jest.fn() })),
   useGetInvites: jest.fn().mockImplementation(() => ({ data: invitesMockData, loading: false, refetch: jest.fn() })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
   useDeleteInvite: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(response) })),
@@ -65,7 +67,7 @@ jest.mock('services/rbac', () => ({
 }))
 
 jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
+  ...(jest.requireActual('framework/exports') as Record<string, any>),
   useRouteParams: () => ({
     params: {
       accountId: 'testAcc'

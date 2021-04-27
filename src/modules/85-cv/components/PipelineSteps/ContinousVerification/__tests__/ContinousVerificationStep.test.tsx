@@ -69,7 +69,33 @@ describe('Test ContinousVerificationStep Step', () => {
           duration: '15min',
           baseline: 'Last successful job run',
           trafficsplit: '5%',
-          service: 'docerservice',
+          service: 'dockerservice',
+          env: 'preprod',
+          deploymentTag: '1.2'
+        }
+      }
+    }
+    const { container } = render(
+      <TestStepWidget initialValues={initialValues} type={StepType.Verify} stepViewType={StepViewType.Edit} />
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render editView when current step is being edited and runtime inputs are passed', () => {
+    const initialValues = {
+      type: 'ContinousVerification',
+      identifier: 'ContinousVerification',
+      name: 'CV',
+      spec: {
+        verificationJobRef: 'Blue Green Job',
+        type: 'BLUE_GREEN',
+        spec: {
+          sensitivity: '<+input>',
+          duration: '<+input>',
+          baseline: '<+input>',
+          trafficsplit: '<+input>',
+          service: 'dockerservice',
           env: 'preprod',
           deploymentTag: '1.2'
         }

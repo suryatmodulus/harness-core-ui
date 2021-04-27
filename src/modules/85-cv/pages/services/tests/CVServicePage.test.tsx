@@ -17,7 +17,7 @@ jest.mock('../ServiceHeatMap/ServiceHeatMap', () => (props: any) => (
 ))
 
 jest.mock('../analysis-drilldown-view/AnalysisDrillDownView', () => ({
-  ...(jest.requireActual('../analysis-drilldown-view/AnalysisDrillDownView') as object),
+  ...(jest.requireActual('../analysis-drilldown-view/AnalysisDrillDownView') as any),
   AnalysisDrillDownView: function MockDrillDown() {
     return <Container className="timeseriesCharts" />
   }

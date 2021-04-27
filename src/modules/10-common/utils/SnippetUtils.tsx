@@ -30,6 +30,7 @@ const entitySubTypeToTagMap: {
   GcpKms: 'gcpkms',
   Gcp: 'gcp',
   Aws: 'aws',
+  AwsKms: 'awskms',
   Artifactory: 'artifactory',
   Jira: 'jira',
   Nexus: 'nexus',
@@ -41,7 +42,8 @@ const entitySubTypeToTagMap: {
   CEK8sCluster: 'cek8s',
   Codecommit: 'codecommit',
   HttpHelmRepo: 'httphelmrepo',
-  NewRelic: 'newrelic'
+  NewRelic: 'newrelic',
+  GcpCloudCost: 'gcpcloudcost'
 }
 
 export const getSnippetTags = (

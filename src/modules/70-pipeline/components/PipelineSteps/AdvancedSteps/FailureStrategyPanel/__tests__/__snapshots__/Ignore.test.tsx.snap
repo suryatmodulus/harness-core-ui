@@ -195,7 +195,7 @@ exports[`Failure Strategy: Ignore selection works 1`] = `
           <input
             checked=""
             data-testid="failure-strategy-ignore"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="Ignore"
           />

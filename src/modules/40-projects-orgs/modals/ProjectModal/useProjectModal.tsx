@@ -3,6 +3,7 @@ import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
+import type { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { Views } from './Constants'
@@ -13,8 +14,10 @@ import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
-  onSuccess: () => void
+  onSuccess?: () => void
   onCloseModal?: () => void
+  onWizardComplete?: (projectData?: Project) => void
+  module?: ModuleName
 }
 
 export interface UseProjectModalReturn {
@@ -22,7 +25,12 @@ export interface UseProjectModalReturn {
   closeProjectModal: () => void
 }
 
-export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProps): UseProjectModalReturn => {
+export const useProjectModal = ({
+  onSuccess,
+  onCloseModal,
+  onWizardComplete,
+  module
+}: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
 
@@ -31,7 +39,8 @@ export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProp
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     }
-    onSuccess()
+    onSuccess?.()
+    onWizardComplete?.(wizardData)
   }
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -53,6 +62,7 @@ export const useProjectModal = ({ onSuccess, onCloseModal }: UseProjectModalProp
               name={i18n.newProjectWizard.aboutProject.name}
               modules={projectData?.modules}
               onSuccess={onSuccess}
+              module={module}
             />
             <ProjectCollaboratorsStep name={i18n.newProjectWizard.Collaborators.name} />
           </StepWizard>

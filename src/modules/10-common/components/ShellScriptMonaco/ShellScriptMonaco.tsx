@@ -1,12 +1,11 @@
 import React from 'react'
-import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
+import type { MonacoEditorProps } from 'react-monaco-editor'
 import { Dialog, Classes } from '@blueprintjs/core'
 import { FormikProps, connect } from 'formik'
 import { get } from 'lodash-es'
 import { Button } from '@wings-software/uicore'
-
 import { useStrings } from 'framework/strings'
-
+import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import css from './ShellScriptMonaco.module.scss'
 
 export type ScriptType = 'Bash' | 'PowerShell'

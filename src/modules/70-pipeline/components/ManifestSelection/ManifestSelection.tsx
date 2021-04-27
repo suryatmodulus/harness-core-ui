@@ -46,12 +46,12 @@ export default function ManifestSelection({
   let listOfManifests = getManifestList()
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
-      .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+      .map((overrideSets: { overrideSet: { identifier: string; manifests: [Record<string, any>] } }) => {
         if (overrideSets.overrideSet.identifier === identifierName) {
           return overrideSets.overrideSet.manifests
         }
       })
-      .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
+      .filter((x: { overrideSet: { identifier: string; manifests: [Record<string, any>] } }) => x !== undefined)[0]
   }
 
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()

@@ -11,7 +11,7 @@ import {
   MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { FieldArray, FormikProps, yupToFormErrors } from 'formik'
+import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import type { IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -40,10 +40,16 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './K8sDelete.module.scss'
 
+const DeleteSpecConstant = {
+  ResourceName: 'ResourceName',
+  ReleaseName: 'ReleaseName',
+  ManifestPath: 'ManifestPath'
+}
+
 interface K8sDeleteFormSpec {
-  resourceNames?: string[]
+  resourceNames?: string[] | K8sDeleteConfigHeader[]
   deleteNamespace?: boolean
-  manifestPaths?: string[]
+  manifestPaths?: string[] | K8sDeleteConfigHeader[]
   skipDryRun?: boolean
 }
 interface K8sDeleteSpec {
@@ -79,14 +85,14 @@ export interface K8sDeleteFormData extends StepElementConfig {
 export interface K8sDeleteVariableStepProps {
   initialValues: K8sDeleteData
   stageIdentifier: string
-  onUpdate?: (data: K8sDeleteFormData) => void
+  onUpdate?: (data: K8sDeleteData) => void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8sDeleteData
 }
 
 interface K8sDeleteProps {
-  initialValues: K8sDeleteFormData
-  onUpdate?: (data: K8sDeleteFormData) => void
+  initialValues: K8sDeleteData
+  onUpdate?: (data: K8sDeleteData) => void
   isDisabled?: boolean
   stepViewType?: StepViewType
   isNewStep?: boolean
@@ -97,15 +103,12 @@ interface K8sDeleteProps {
   readonly?: boolean
 }
 
-function K8sDeleteDeployWidget(
-  props: K8sDeleteProps,
-  formikRef: StepFormikFowardRef<K8sDeleteData>
-): React.ReactElement {
+function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowardRef): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, isDisabled } = props
   const { getString } = useStrings()
 
   const accessTypeOptions = React.useMemo(() => {
-    // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const options: IOptionProps[] = [
       {
         label: getString('pipelineSteps.releaseNameLabel'),
@@ -169,118 +172,13 @@ function K8sDeleteDeployWidget(
 
   const { expressions } = useVariablesExpression()
 
-  const setInitialValues = (): K8sDeleteData => {
-    const iValues = initialValues
-
-    if (iValues.spec?.deleteResources?.spec?.resourceNames) {
-      return {
-        ...iValues,
-        spec: {
-          deleteResources: {
-            type: getString('pipelineSteps.resourceNameValue'),
-            spec: {
-              resourceNames: (iValues.spec?.deleteResources?.spec?.resourceNames || []).map(str => ({
-                value: str,
-                id: uuid()
-              }))
-            }
-          }
-        }
-      }
-    } else if (iValues.spec?.deleteResources?.spec?.manifestPaths) {
-      return {
-        ...iValues,
-        spec: {
-          deleteResources: {
-            type: getString('pipelineSteps.manifestPathValue'),
-            spec: {
-              manifestPaths: (iValues.spec?.deleteResources?.spec?.manifestPaths || []).map(str => ({
-                value: str,
-                id: uuid()
-              }))
-            }
-          }
-        }
-      }
-    }
-    return {
-      ...iValues,
-      spec: {
-        deleteResources: {
-          type: getString('pipelineSteps.releaseNameValue'),
-          spec: {
-            deleteNamespace: iValues.spec?.deleteResources?.spec?.deleteNamespace || false
-          }
-        }
-      }
-    }
-  }
-
   return (
     <>
       <Formik<K8sDeleteData>
         onSubmit={values => {
-          /* istanbul ignore next */
-
-          const data = values
-          let objData: K8sDeleteFormData = {
-            spec: {
-              deleteResources: {
-                type: '',
-                spec: {}
-              }
-            }
-          }
-          /* making sure to remove other entities */
-          if (data.spec?.deleteResources?.type === getString('pipelineSteps.resourceNameValue')) {
-            /* istanbul ignore next */
-            delete data.spec?.deleteResources?.spec?.deleteNamespace
-            delete data.spec?.deleteResources?.spec?.manifestPaths
-            objData = {
-              ...values,
-              spec: {
-                deleteResources: {
-                  type: getString('pipelineSteps.resourceNameValue'),
-                  spec: {
-                    resourceNames: (data.spec?.deleteResources?.spec?.resourceNames || []).map(item => item.value)
-                  }
-                }
-              }
-            }
-          } else if (data.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue')) {
-            /* istanbul ignore next */
-            delete data.spec?.deleteResources?.spec?.resourceNames
-            delete data.spec?.deleteResources?.spec?.manifestPaths
-            objData = {
-              ...values,
-              spec: {
-                deleteResources: {
-                  type: getString('pipelineSteps.releaseNameValue'),
-                  spec: {
-                    deleteNamespace: data.spec?.deleteResources?.spec?.deleteNamespace as boolean
-                  }
-                }
-              }
-            }
-          } else if (data.spec?.deleteResources?.type === getString('pipelineSteps.manifestPathValue')) {
-            /* istanbul ignore next */
-            delete data.spec?.deleteResources?.spec?.resourceNames
-            delete data.spec?.deleteResources?.spec?.deleteNamespace
-            objData = {
-              ...values,
-              spec: {
-                deleteResources: {
-                  type: getString('pipelineSteps.manifestPathValue'),
-                  spec: {
-                    manifestPaths: (data.spec?.deleteResources?.spec?.manifestPaths || []).map(item => item.value)
-                  }
-                }
-              }
-            }
-          }
-          onUpdate?.(objData)
+          onUpdate?.(values)
         }}
-        initialValues={setInitialValues()}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
 
@@ -461,7 +359,7 @@ function K8sDeleteDeployWidget(
                 </div>
               </Layout.Vertical>
 
-              {formikProps?.values?.spec?.deleteResources?.type === getString('pipelineSteps.releaseNameValue') &&
+              {formikProps?.values?.spec?.deleteResources?.type === DeleteSpecConstant.ReleaseName &&
                 formikProps?.values?.spec?.deleteResources?.spec?.deleteNamespace && (
                   <Container
                     id="warning-deletenamespace"
@@ -509,7 +407,7 @@ const K8sDeleteVariableStep: React.FC<K8sDeleteVariableStepProps> = ({ variables
 
 const K8sDeleteDeployWidgetWithRef = React.forwardRef(K8sDeleteDeployWidget)
 
-export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
+export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   constructor() {
     super()
     this._hasStepVariables = true
@@ -553,18 +451,22 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
 
     return (
       <K8sDeleteDeployWidgetWithRef
-        initialValues={initialValues}
+        initialValues={this.getInitialValues(initialValues)}
         stepViewType={stepViewType}
         isNewStep={isNewStep}
         readonly={!!inputSetData?.readonly}
         ref={formikRef}
         isDisabled={readonly}
-        onUpdate={onUpdate}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
       />
     )
   }
 
-  validateInputSet(data: K8sDeleteData, template: K8sDeleteData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: K8sDeleteFormData,
+    template: K8sDeleteFormData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<K8sDeleteFormData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
@@ -585,13 +487,109 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteData> {
     }
     return errors
   }
+  //TODO : to remove any
+  private getInitialValues(initialValues: any): K8sDeleteData {
+    if (initialValues.spec?.deleteResources?.type === DeleteSpecConstant.ResourceName) {
+      return {
+        ...initialValues,
+        spec: {
+          deleteResources: {
+            type: DeleteSpecConstant.ResourceName,
+            spec: {
+              resourceNames: (initialValues.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => ({
+                value: item,
+                id: uuid()
+              }))
+            }
+          }
+        }
+      }
+    } else if (initialValues.spec?.deleteResources?.type === DeleteSpecConstant.ManifestPath) {
+      return {
+        ...initialValues,
+        spec: {
+          deleteResources: {
+            type: DeleteSpecConstant.ManifestPath,
+            spec: {
+              manifestPaths: (initialValues.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => ({
+                value: item,
+                id: uuid()
+              }))
+            }
+          }
+        }
+      }
+    } else {
+      return {
+        ...initialValues,
+        spec: {
+          deleteResources: {
+            type: DeleteSpecConstant.ReleaseName,
+            spec: {
+              deleteNamespace: initialValues.spec?.deleteResources?.spec?.deleteNamespace || false
+            }
+          }
+        }
+      }
+    }
+  }
+  // TODO: remove any
+  processFormData(data: any): K8sDeleteFormData {
+    /* making sure to remove other entities */
+    if (data.spec?.deleteResources?.type === DeleteSpecConstant.ResourceName) {
+      /* istanbul ignore next */
+      delete data.spec?.deleteResources?.spec?.deleteNamespace
+      delete data.spec?.deleteResources?.spec?.manifestPaths
+      return {
+        ...data,
+        spec: {
+          deleteResources: {
+            type: DeleteSpecConstant.ResourceName,
+            spec: {
+              resourceNames: (data.spec?.deleteResources?.spec?.resourceNames || []).map((item: any) => item.value)
+            }
+          }
+        }
+      }
+    } else if (data.spec?.deleteResources?.type === DeleteSpecConstant.ManifestPath) {
+      /* istanbul ignore next */
+      delete data.spec?.deleteResources?.spec?.deleteNamespace
+      delete data.spec?.deleteResources?.spec?.resourceNames
+      return {
+        ...data,
+        spec: {
+          deleteResources: {
+            type: DeleteSpecConstant.ManifestPath,
+            spec: {
+              manifestPaths: (data.spec?.deleteResources?.spec?.manifestPaths || []).map((item: any) => item.value)
+            }
+          }
+        }
+      }
+    }
+
+    /* istanbul ignore next */
+    delete data.spec?.deleteResources?.spec?.resourceNames
+    delete data.spec?.deleteResources?.spec?.manifestPaths
+    return {
+      ...data,
+      spec: {
+        deleteResources: {
+          type: DeleteSpecConstant.ReleaseName,
+          spec: {
+            deleteNamespace: data.spec?.deleteResources?.spec?.deleteNamespace as boolean
+          }
+        }
+      }
+    }
+  }
 
   protected type = StepType.K8sDelete
   protected stepName = 'K8s Delete'
   protected stepIcon: IconName = 'delete'
   protected isHarnessSpecific = true
 
-  protected defaultValues: K8sDeleteData = {
+  protected defaultValues: K8sDeleteFormData = {
     identifier: '',
     timeout: '10m',
     spec: {

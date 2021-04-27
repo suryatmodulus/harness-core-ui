@@ -162,7 +162,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const [formErrors, setFormErrors] = React.useState<{}>({})
+  const [formErrors, setFormErrors] = React.useState<Record<string, any>>({})
   const { showSuccess, showError } = useToaster()
 
   const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({
@@ -322,7 +322,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       </div>
     )
   }, [formErrors])
-
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
@@ -436,7 +435,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           invocationMap={factory.getInvocationMap()}
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"
-                          width="calc(100vw - 300px)"
+                          width="calc(100vw - 350px)"
                           showSnippetSection={false}
                         />
                       )}

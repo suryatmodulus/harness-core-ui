@@ -15,6 +15,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
+import type { FormikErrors } from 'formik'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
@@ -87,7 +88,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
       })
     )
 
-  const handleValidate = (values: Values): {} => {
+  const handleValidate = (values: Values): FormikErrors<Values> => {
     const errors: { name?: string } = {}
     if (isDuplicateStageId(values.identifier, pipeline?.stages || [])) {
       errors.name = getString('validation.identifierDuplicate')

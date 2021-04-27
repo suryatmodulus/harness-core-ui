@@ -195,7 +195,7 @@ exports[`Failure Strategy: StageRollBack selection works 1`] = `
           <input
             checked=""
             data-testid="failure-strategy-stagerollback"
-            name=""
+            name="failureStrategies[0].onFailure.action.type"
             type="checkbox"
             value="StageRollback"
           />

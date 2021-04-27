@@ -14,7 +14,7 @@ const LOCALE = 'en'
  */
 export function formatTime(timestamp: number, timeStyle = 'short'): string {
   return new Intl.DateTimeFormat(LOCALE, {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: TS built-in type for DateTimeFormat is not correct
     timeStyle
   }).format(new Date(timestamp))
@@ -27,7 +27,7 @@ export function formatTime(timestamp: number, timeStyle = 'short'): string {
  */
 export function formatDate(timestamp: number, dateStyle = 'medium'): string {
   return new Intl.DateTimeFormat(LOCALE, {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: TS built-in type for DateTimeFormat is not correct
     dateStyle
   }).format(new Date(timestamp))
@@ -55,8 +55,8 @@ export const FeatureFlagActivationStatus = {
 }
 
 export const AuditLogObjectType = {
-  FeatureActivation: 'FeatureActivation' as 'FeatureActivation',
-  Segment: 'Segment' as 'Segment'
+  FeatureActivation: 'FeatureActivation' as const,
+  Segment: 'Segment' as const
 }
 
 export const AuditLogAction = {
@@ -70,7 +70,7 @@ export const isFeatureFlagOn = (featureFlag: Feature) => {
 }
 
 export const featureFlagHasCustomRules = (featureFlag: Feature) => {
-  return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
+  return !!(featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length)
 }
 
 enum FeatureFlagBucketBy {
@@ -145,11 +145,7 @@ export enum SortOrder {
 }
 
 export enum SegmentsSortByField {
-  NAME = 'name',
-  IDENTIFIER = 'identifier',
-  ARCHIVED = 'archived',
-  KIND = 'kind',
-  MODIFIED_AT = 'modifiedAt'
+  NAME = 'name'
 }
 
 export enum FlagsSortByField {

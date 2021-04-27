@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
 import {
   Layout,
@@ -135,8 +136,17 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
         props.accessPoint.id = result.response.id
         setAccessPointID(result.response.id)
       }
+      if (!_isEmpty(result.errors)) {
+        showError(result.errors?.join('\n'))
+        setaccessPointStatusInProgress(false)
+      }
+      if (!_isEmpty(result.metadata)) {
+        showError(result.metadata?.error)
+        setaccessPointStatusInProgress(false)
+      }
     } catch (e) {
-      showError(e.data?.errors?.join('\n') || e.data?.message || e.message)
+      showError(e.data?.errors?.join('\n') || e.data?.metadata?.error || e.data?.message || e.message)
+      setaccessPointStatusInProgress(false)
     }
   }
   return (
@@ -220,6 +230,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
                 text={getString('ce.co.accessPoint.create')}
                 onClick={formik.submitForm}
                 disabled={accessPointStatusInProgress}
+                data-testid={'albFormSubmitBtn'}
               ></Button>
               {accessPointStatusInProgress ? (
                 <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} />

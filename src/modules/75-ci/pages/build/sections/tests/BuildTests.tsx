@@ -62,7 +62,7 @@ const BuildTests: React.FC = () => {
     loading: reportSummaryLoading,
     refetch: fetchReportSummary
   } = useReportSummary({
-    queryParams: { ...queryParams, report: 'junit' as 'junit' },
+    queryParams: { ...queryParams, report: 'junit' as const },
     lazy: true,
     requestOptions: {
       headers: {

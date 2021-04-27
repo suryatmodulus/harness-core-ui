@@ -134,6 +134,7 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
           label={getString('pipelineSteps.timeoutLabel')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           disabled={inputSetData?.readonly}
+          className={css.width50}
         />
       )}
     </>
@@ -182,7 +183,11 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       />
     )
   }
-  validateInputSet(data: BarrierData, template: BarrierData, getString?: UseStringsReturn['getString']): object {
+  validateInputSet(
+    data: BarrierData,
+    template: BarrierData,
+    getString?: UseStringsReturn['getString']
+  ): Record<string, any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (isEmpty(data?.timeout) && getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

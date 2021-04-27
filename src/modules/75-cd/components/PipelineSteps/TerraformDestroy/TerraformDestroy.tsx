@@ -45,16 +45,18 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
     template?: TerraformData,
     getString?: (key: StringKeys, vars?: Record<string, any>) => string
   ): FormikErrors<TerraformData> {
+    /* istanbul ignore next */
     const errors = {} as any
+    /* istanbul ignore next */
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
-
+      /* istanbul ignore next */
       try {
         timeout.validateSync(data)
       } catch (e) {
-        /* istanbul ignore else */
+        /* istanbul ignore next */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
@@ -62,10 +64,11 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
         }
       }
     }
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
+    /* istanbul ignore next */
     return errors
   }
   renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {

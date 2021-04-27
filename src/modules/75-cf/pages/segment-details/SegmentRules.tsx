@@ -26,13 +26,15 @@ import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
 import { Clause, Segment, Target, useGetAllTargets, usePatchSegment } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import patch, { getDiff } from '../../utils/instructions'
-import css from './CFSegmentDetailsPage.module.scss'
+import css from './SegmentDetailsPage.module.scss'
 
 const AddTargetAvatar: React.FC<{ onAdd: () => void }> = ({ onAdd }) => (
   <Avatar name="+" color={Color.BLUE_500} backgroundColor={Color.GREY_200} onClick={onAdd} />
 )
 
-const InlineBold: React.FC<{}> = ({ children }) => <span style={{ fontWeight: 'bold' }}>{children}</span>
+const InlineBold: React.FC<{ children: string | string[] }> = ({ children }) => (
+  <span style={{ fontWeight: 'bold' }}>{children}</span>
+)
 const safeJoin = (data: any[], separator: string) => data?.join(separator) || `[${data}]`
 interface ClauseProps {
   clause: Clause

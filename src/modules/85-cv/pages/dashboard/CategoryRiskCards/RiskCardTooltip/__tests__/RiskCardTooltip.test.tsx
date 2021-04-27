@@ -56,7 +56,7 @@ const responseMock = {
 }
 
 jest.mock('services/cv', () => ({
-  ...(jest.requireActual('services/cv') as object),
+  ...(jest.requireActual('services/cv') as any),
   useGetRiskSummaryPopover: jest.fn().mockReturnValue({ data: null, loading: false, refetch: jest.fn() })
 }))
 

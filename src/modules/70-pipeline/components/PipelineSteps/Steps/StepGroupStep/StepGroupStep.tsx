@@ -64,7 +64,7 @@ export class StepGroupStep extends PipelineStep<StepGroupElement> {
     )
   }
 
-  validateInputSet(): object {
+  validateInputSet(): Record<string, any> {
     return {}
   }
   protected type = StepType.StepGroup

@@ -81,6 +81,17 @@ export interface Variation {
   description?: string
 }
 
+export interface Results {
+  variationIdentifier: string
+  variationName: string
+  count: number
+}
+
+export interface FeatureStatus {
+  status: 'active' | 'inactive' | 'never-requested'
+  lastAccess: number
+}
+
 export interface TargetMap {
   identifier?: string
   name: string
@@ -137,15 +148,8 @@ export interface Feature {
   defaultOnVariation: string
   defaultOffVariation: string
   permanent: boolean
-  results?: {
-    variationIdentifier?: string
-    variationName?: string
-    count?: number
-  }[]
-  status?: {
-    status?: 'active' | 'inactive' | 'never-requested'
-    lastAccess?: string
-  }
+  results?: Results[]
+  status?: FeatureStatus
   envProperties?: {
     environment: string
     variationMap?: VariationMap[]
@@ -181,6 +185,17 @@ export interface PatchOperation {
    */
   executionTime?: number
   instructions: PatchInstruction
+}
+
+export interface FeatureEvaluation {
+  date?: number
+  variationIdentifier?: string
+  variationName?: string
+  count?: number
+}
+
+export interface FeatureEvaluations {
+  evaluations?: FeatureEvaluation[]
 }
 
 export interface Target {
@@ -246,6 +261,15 @@ export interface SegmentFlag {
   name: string
   description?: string
   variation: string
+}
+
+export interface FlagBasicInfo {
+  identifier: string
+  name: string
+}
+
+export type FlagBasicInfos = Pagination & {
+  featureFlags?: FlagBasicInfo[]
 }
 
 export interface AuditTrail {
@@ -452,6 +476,11 @@ export type FeatureResponseResponse = Feature
 /**
  * OK
  */
+export type FeatureEvaluationsResponseResponse = FeatureEvaluations
+
+/**
+ * OK
+ */
 export type TargetsResponseResponse = Targets
 
 /**
@@ -472,12 +501,22 @@ export type SegmentsResponseResponse = Segments
 /**
  * OK
  */
+export type TargetAttributesResponse = string[]
+
+/**
+ * OK
+ */
 export type SegmentResponseResponse = Segment
 
 /**
  * OK
  */
 export type SegmentFlagsResponseResponse = SegmentFlag[]
+
+/**
+ * OK
+ */
+export type AvailableFlagResponseResponse = FlagBasicInfos
 
 /**
  * OK
@@ -2049,7 +2088,7 @@ export interface PatchFeatureQueryParams {
   /**
    * Environment
    */
-  environment: string
+  environment?: string
 }
 
 export interface PatchFeaturePathParams {
@@ -2211,6 +2250,97 @@ export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
     string,
     void
   >('DELETE', `/admin/features`, { base: getConfig('cf'), ...props })
+
+export interface GetFeatureEvaluationsQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment?: string
+  /**
+   * Start Time
+   */
+  startTime?: number
+  /**
+   * End Time
+   */
+  endTime?: number
+}
+
+export interface GetFeatureEvaluationsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetFeatureEvaluationsProps = Omit<
+  GetProps<
+    FeatureEvaluationsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureEvaluationsQueryParams,
+    GetFeatureEvaluationsPathParams
+  >,
+  'path'
+> &
+  GetFeatureEvaluationsPathParams
+
+/**
+ * Retrieve all feature evaluations.
+ *
+ * Used to retrieve metrics on how often a feature has been evaluated
+ */
+export const GetFeatureEvaluations = ({ identifier, ...props }: GetFeatureEvaluationsProps) => (
+  <Get<
+    FeatureEvaluationsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureEvaluationsQueryParams,
+    GetFeatureEvaluationsPathParams
+  >
+    path="/admin/features/${identifier}/evaluations"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureEvaluationsProps = Omit<
+  UseGetProps<
+    FeatureEvaluationsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureEvaluationsQueryParams,
+    GetFeatureEvaluationsPathParams
+  >,
+  'path'
+> &
+  GetFeatureEvaluationsPathParams
+
+/**
+ * Retrieve all feature evaluations.
+ *
+ * Used to retrieve metrics on how often a feature has been evaluated
+ */
+export const useGetFeatureEvaluations = ({ identifier, ...props }: UseGetFeatureEvaluationsProps) =>
+  useGet<
+    FeatureEvaluationsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureEvaluationsQueryParams,
+    GetFeatureEvaluationsPathParams
+  >((paramsInPath: GetFeatureEvaluationsPathParams) => `/admin/features/${paramsInPath.identifier}/evaluations`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
 
 export interface CreateTargetQueryParams {
   /**
@@ -2958,6 +3088,26 @@ export interface GetTargetAvailableSegmentsQueryParams {
    * Environment
    */
   environment: string
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  /**
+   * SortByField
+   */
+  sortByField?: 'name'
+  /**
+   * Name of the segment
+   */
+  segmentName?: string
 }
 
 export interface GetTargetAvailableSegmentsPathParams {
@@ -3027,6 +3177,76 @@ export const useGetTargetAvailableSegments = ({ identifier, ...props }: UseGetTa
       `/admin/targets/${paramsInPath.identifier}/available_segments`,
     { base: getConfig('cf'), pathParams: { identifier }, ...props }
   )
+
+export interface GetAllTargetAttributesQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type GetAllTargetAttributesProps = Omit<
+  GetProps<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve all target attributes for the environment
+ *
+ * Used to retrieve all attribute key names for all targets within the specified environment
+ */
+export const GetAllTargetAttributes = (props: GetAllTargetAttributesProps) => (
+  <Get<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >
+    path="/admin/targets/attributes"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAllTargetAttributesProps = Omit<
+  UseGetProps<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve all target attributes for the environment
+ *
+ * Used to retrieve all attribute key names for all targets within the specified environment
+ */
+export const useGetAllTargetAttributes = (props: UseGetAllTargetAttributesProps) =>
+  useGet<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >(`/admin/targets/attributes`, { base: getConfig('cf'), ...props })
 
 export interface CreateSegmentQueryParams {
   /**
@@ -3549,6 +3769,113 @@ export const useGetSegmentFlags = ({ identifier, ...props }: UseGetSegmentFlagsP
     pathParams: { identifier },
     ...props
   })
+
+export interface GetAvailableFlagsForSegmentQueryParams {
+  /**
+   * Account
+   */
+  account: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  /**
+   * SortByField
+   */
+  sortByField?: 'name'
+  /**
+   * Identifier of the feature flag
+   */
+  flagNameIdentifier?: string
+}
+
+export interface GetAvailableFlagsForSegmentPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetAvailableFlagsForSegmentProps = Omit<
+  GetProps<
+    AvailableFlagResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAvailableFlagsForSegmentQueryParams,
+    GetAvailableFlagsForSegmentPathParams
+  >,
+  'path'
+> &
+  GetAvailableFlagsForSegmentPathParams
+
+/**
+ * Retrieve the available flags that the segment can be added to
+ *
+ * This returns the flags that the segment can be added to. This list will exclude any flags that the |
+ *   segment currently belongs to.
+ *
+ */
+export const GetAvailableFlagsForSegment = ({ identifier, ...props }: GetAvailableFlagsForSegmentProps) => (
+  <Get<
+    AvailableFlagResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAvailableFlagsForSegmentQueryParams,
+    GetAvailableFlagsForSegmentPathParams
+  >
+    path="/admin/segments/${identifier}/available_flags"
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAvailableFlagsForSegmentProps = Omit<
+  UseGetProps<
+    AvailableFlagResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAvailableFlagsForSegmentQueryParams,
+    GetAvailableFlagsForSegmentPathParams
+  >,
+  'path'
+> &
+  GetAvailableFlagsForSegmentPathParams
+
+/**
+ * Retrieve the available flags that the segment can be added to
+ *
+ * This returns the flags that the segment can be added to. This list will exclude any flags that the |
+ *   segment currently belongs to.
+ *
+ */
+export const useGetAvailableFlagsForSegment = ({ identifier, ...props }: UseGetAvailableFlagsForSegmentProps) =>
+  useGet<
+    AvailableFlagResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAvailableFlagsForSegmentQueryParams,
+    GetAvailableFlagsForSegmentPathParams
+  >(
+    (paramsInPath: GetAvailableFlagsForSegmentPathParams) =>
+      `/admin/segments/${paramsInPath.identifier}/available_flags`,
+    { base: getConfig('cf'), pathParams: { identifier }, ...props }
+  )
 
 export interface GetAuditByParamsQueryParams {
   /**

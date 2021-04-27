@@ -15,12 +15,12 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main"
         >
-          Welcome to Continuous Integration
+          ci.welcome
         </h1>
         <p
           class="StyledProps--font StyledProps--main"
         >
-          Build your applications with blazing fast pipelines.
+          ci.description
         </p>
         <span
           class="bp3-icon StyledProps--main StyledProps--padding-xxxlarge"
@@ -66,7 +66,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <span
             class="bp3-button-text"
           >
-            + Create a pipeline
+            ci.createPipeline
           </span>
         </button>
       </div>

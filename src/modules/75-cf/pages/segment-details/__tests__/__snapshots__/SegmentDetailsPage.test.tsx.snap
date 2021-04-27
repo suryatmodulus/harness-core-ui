@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentDetailsPage SegmentDetailsPage should render data correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge"
+    style="background: rgba(219, 241, 255, 0.46); position: relative; height: 120px;"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <a
+          href="/account/dummy/cf/orgs/dummy/projects/dummy/segments"
+          style="color: rgb(0, 146, 228); font-size: 12px;"
+        >
+          cf.shared.segments
+        </a>
+        <span>
+          /
+        </span>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        style="margin-left: -5px;"
+      >
+        <div
+          class="StyledProps--font StyledProps--main"
+          style="border-radius: 50%; overflow: hidden;"
+        >
+          <div
+            class="avatar Avatar--Avatar Avatar--contentStyle"
+            style="cursor: default;"
+          >
+            <span
+              class="bp3-popover-wrapper Avatar--avatarPopOver"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <div
+                  class="Avatar--AvatarInner"
+                  style="border-radius: 100%; line-height: 42px; width: 48px; height: 48px; font-size: 18px;"
+                  tabindex="0"
+                >
+                  S
+                </div>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="font-size: 20px;"
+          >
+            segment1
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
+          >
+            cf.targetDetail.createdOnDate
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main"
+      style="position: absolute; top: 15px; right: 25px;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Options"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 4 16"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+      style="position: absolute; top: 76px; right: 30px;"
+    >
+      <span>
+        cf.targetDetail.environmentLine
+      </span>
+    </p>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="height: calc(100% - 120px); overflow: auto; background: rgba(228, 235, 244, 0.2);"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+      style="flex-grow: 1; height: 100%;"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="height: 100%;"
+      >
+        <div
+          class="StyledProps--font StyledProps--main"
+          style="background: rgb(248, 250, 251); overflow: auto; min-width: 480px; width: 480px; height: 100%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--padding-right-small"
+            style="align-items: baseline; width: 100%; height: 55px;"
+          >
+            <h3
+              class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--padding-xxlarge"
+              level="3"
+              style="font-size: 14px; color: rgb(34, 39, 45); font-weight: 600; padding-bottom: 0px;"
+            >
+              cf.segments.usingSegment
+            </h3>
+            <span
+              style="flex-grow: 1;"
+            />
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                cf.segmentDetail.addToFlag
+              </span>
+            </button>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="overflow: auto; width: 100%; height: calc(100% - 55px);"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-medium StyledProps--margin-top-xxlarge"
+              style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16); border-radius: 8px;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-xsmall StyledProps--color StyledProps--color-grey400"
+                style="text-align: center;"
+              >
+                cf.segmentDetail.noFlagsUseThisSegment
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main"
+          style="overflow: auto; background: rgb(252, 253, 253); width: 100%; height: 100%;"
+        >
+          <div
+            class="StyledProps--font StyledProps--main tabContainer"
+          >
+            <div
+              class="bp3-tabs Tabs--main Tabs--horizontal"
+            >
+              <div
+                class="bp3-tab-list"
+                role="tablist"
+              >
+                <div
+                  class="bp3-tab-indicator-wrapper"
+                  style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                >
+                  <div
+                    class="bp3-tab-indicator"
+                  />
+                </div>
+                <div
+                  aria-controls="bp3-tab-panel_targetSettings_attributes"
+                  aria-disabled="false"
+                  aria-expanded="true"
+                  aria-selected="true"
+                  class="bp3-tab"
+                  data-tab-id="attributes"
+                  id="bp3-tab-title_targetSettings_attributes"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main tabTitle"
+                  >
+                    cf.shared.rules
+                  </p>
+                </div>
+                <div
+                  aria-controls="bp3-tab-panel_targetSettings_segments"
+                  aria-disabled="false"
+                  aria-expanded="false"
+                  aria-selected="false"
+                  class="bp3-tab"
+                  data-tab-id="segments"
+                  id="bp3-tab-title_targetSettings_segments"
+                  role="tab"
+                  tabindex="0"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main tabTitle"
+                  >
+                    activityLog
+                  </p>
+                </div>
+              </div>
+              <div
+                aria-hidden="false"
+                aria-labelledby="bp3-tab-title_targetSettings_attributes"
+                class="bp3-tab-panel"
+                id="bp3-tab-panel_targetSettings_attributes"
+                role="tabpanel"
+              >
+                <div
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-large"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main"
+                    style="align-items: center; justify-content: flex-end;"
+                  >
+                    <button
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--padding-right-xsmall"
+                        icon="edit"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="bp3-button-text"
+                      >
+                        Edit Rules
+                      </span>
+                    </button>
+                  </div>
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card"
+                    style="width: 100%;"
+                  >
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+                      >
+                        Individual Targets
+                      </p>
+                      <div
+                        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+                        style="display: flex; align-items: center; justify-content: flex-start;"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          Include the following:
+                        </p>
+                         
+                      </div>
+                      <div
+                        class="bp3-divider"
+                      />
+                      <div
+                        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+                        style="display: flex; align-items: center; justify-content: flex-start;"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          Exclude the following:
+                        </p>
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

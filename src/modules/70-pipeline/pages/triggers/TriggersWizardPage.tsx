@@ -20,6 +20,9 @@ import {
   useGetSchemaYaml
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -668,6 +671,27 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   }
 
+  const [isExecutable] = usePermission(
+    {
+      resourceScope: {
+        projectIdentifier: projectIdentifier,
+        orgIdentifier: orgIdentifier,
+        accountIdentifier: accountId
+      },
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
+      permissions: [PermissionIdentifier.EXECUTE_PIPELINE],
+      options: {
+        skipCache: true
+      }
+    },
+    [projectIdentifier, orgIdentifier, accountId, pipelineIdentifier]
+  )
+
+  const isTriggerRbacDisabled = !isExecutable
+
   const wizardMap = initialValues.triggerType
     ? getWizardMap({ triggerType: initialValues.triggerType, getString, triggerName: initialValues?.name })
     : undefined
@@ -683,6 +707,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           <Text>{getString('enabledLabel')}</Text>
           <Switch
             label=""
+            disabled={isTriggerRbacDisabled}
             data-name="enabled-switch"
             key={Date.now()}
             checked={enabledStatus}
@@ -720,7 +745,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         submitLabel={
           isEdit ? getString('pipeline-triggers.updateTrigger') : getString('pipeline-triggers.createTrigger')
         }
-        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
+        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
         isEdit={isEdit}
         errorToasterMessage={errorToasterMessage}
         visualYamlProps={{

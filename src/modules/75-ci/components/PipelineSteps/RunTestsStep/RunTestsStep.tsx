@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -81,6 +82,7 @@ export interface RunTestsStepProps {
   initialValues: RunTestsStepData
   template?: RunTestsStepData
   path?: string
+  isNewStep?: boolean
   readonly?: boolean
   stepViewType?: StepViewType
   onUpdate?: (data: RunTestsStepData) => void
@@ -111,15 +113,15 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
     }
   }
 
-  processFormData<RunTestsStepDataUI>(data: RunTestsStepDataUI): RunTestsStepData {
-    return getFormValuesInCorrectFormat<RunTestsStepDataUI, RunTestsStepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): RunTestsStepData {
+    return getFormValuesInCorrectFormat<T, RunTestsStepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: RunTestsStepData,
     template?: RunTestsStepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<RunTestsStepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
@@ -128,7 +130,16 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
   }
 
   renderStep(props: StepProps<RunTestsStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -157,6 +168,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
         stepViewType={stepViewType}
         onUpdate={onUpdate}
         readonly={readonly}
+        isNewStep={isNewStep}
         ref={formikRef}
       />
     )

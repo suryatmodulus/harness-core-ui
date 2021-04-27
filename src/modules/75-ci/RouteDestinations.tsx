@@ -10,7 +10,6 @@ import {
   inputSetFormPathProps,
   triggerPathProps,
   executionPathProps,
-  modulePathProps,
   orgPathProps,
   rolePathProps,
   resourceGroupPathProps
@@ -25,20 +24,19 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
-import CIHomePage from '@ci/pages/home/CIHomePage'
-import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
-import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
+import { MinimalLayout } from '@common/layouts'
+
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import CISideNav from '@ci/components/CISideNav/CISideNav'
+
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
-import ResourcesPage from '@ci/pages/Resources/ResourcesPage'
 import CIPipelineDeploymentList from '@ci/pages/pipeline-deployment-list/CIPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
@@ -51,8 +49,7 @@ import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineVi
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
-import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
-import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
+
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import { String } from 'framework/strings'
 
@@ -75,6 +72,14 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+import ResourcesPage from '@common/pages/resources/ResourcesPage'
+import CIHomePage from './pages/home/CIHomePage'
+import CIDashboardPage from './pages/dashboard/CIDashboardPage'
+import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
+import CISideNav from './components/CISideNav/CISideNav'
+import BuildTests from './pages/build/sections/tests/BuildTests'
+import BuildCommits from './pages/build/sections/commits/BuildCommits'
+import CITrialHomePage from './pages/home/CITrialHomePage'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
@@ -143,8 +148,8 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toCIAdminResourcesConnectors(params)} />
+  const params = useParams<ProjectPathProps & ModulePathParams>()
+  return <Redirect to={routes.toResourcesConnectors(params)} />
 }
 
 const RedirectToPipelineDetailHome = (): React.ReactElement => {
@@ -180,6 +185,14 @@ export default (
     <Route path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCIProject />
     </Route>
+
+    <RouteWithLayout
+      layout={MinimalLayout}
+      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ci' })}
+      exact
+    >
+      <CITrialHomePage />
+    </RouteWithLayout>
 
     <RouteWithLayout sidebarProps={CISideNavProps} path={[routes.toCIHome({ ...accountPathProps })]} exact>
       <CIHomePage />
@@ -227,14 +240,14 @@ export default (
     <Route
       sidebarProps={CISideNavProps}
       exact
-      path={routes.toCIAdminResources({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResources({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <RedirectToResourcesHome />
     </Route>
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toCIAdminResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ResourcesPage>
         <ConnectorsPage />
@@ -269,7 +282,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toCIAdminResourcesSecretsListing({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <ResourcesPage>
         <SecretsPage module="ci" />
@@ -281,7 +294,7 @@ export default (
         ...accountPathProps,
         ...projectPathProps,
         ...orgPathProps,
-        ...modulePathProps
+        ...pipelineModuleParams
       })}
       exact
     >
@@ -301,10 +314,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toCIAdminResourcesSecretDetails({
+      path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...pipelineModuleParams
       })}
     >
       <SecretDetails />

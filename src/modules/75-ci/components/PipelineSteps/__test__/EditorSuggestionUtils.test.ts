@@ -30,7 +30,7 @@ const mockConnectorResponse = (project?: string, org?: string) => ({
 })
 
 jest.mock('services/cd-ng', () => ({
-  ...(jest.requireActual('services/cd-ng') as object),
+  ...(jest.requireActual('services/cd-ng') as any),
   getConnectorListV2Promise: () =>
     Promise.resolve({
       data: {

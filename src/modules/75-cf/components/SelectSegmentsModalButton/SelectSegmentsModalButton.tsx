@@ -59,7 +59,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
         org: orgIdentifier,
         project: projectIdentifier,
         environment: environmentIdentifier,
-        name: queryString,
+        segmentName: queryString,
         sortOrder,
         sortByField,
         pageNumber,

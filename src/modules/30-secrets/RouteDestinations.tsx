@@ -41,10 +41,7 @@ export default (
   <>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
-      path={[
-        routes.toResourcesSecretsListing({ ...accountPathProps }),
-        routes.toOrgResourcesSecretsListing({ ...accountPathProps, ...orgPathProps })
-      ]}
+      path={[routes.toResourcesSecrets({ ...accountPathProps }), routes.toResourcesSecrets({ ...orgPathProps })]}
       exact
     >
       <ResourcesPage>
@@ -55,7 +52,7 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourcesSecretDetails({ ...accountPathProps, ...secretPathProps }),
-        routes.toOrgResourcesSecretDetails({
+        routes.toResourcesSecretDetails({
           ...accountPathProps,
           ...orgPathProps,
           ...secretPathProps

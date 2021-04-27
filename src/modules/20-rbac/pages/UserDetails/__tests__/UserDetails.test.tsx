@@ -7,7 +7,7 @@ import UserDetails from '../UserDetails'
 import { userInfo } from './mock'
 
 jest.mock('services/cd-ng', () => ({
-  useGetUserAggregated: jest.fn().mockImplementation(() => {
+  useGetAggregatedUser: jest.fn().mockImplementation(() => {
     return { data: userInfo, refetch: jest.fn(), error: null, loading: false }
   })
 }))

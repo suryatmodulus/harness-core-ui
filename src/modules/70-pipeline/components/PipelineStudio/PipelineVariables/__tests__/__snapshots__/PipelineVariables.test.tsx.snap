@@ -115,7 +115,7 @@ exports[`<PipelineVariables /> tests renders loader 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
       >
-        Loading, please wait...
+        common.loading
       </p>
     </div>
   </div>

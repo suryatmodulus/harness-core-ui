@@ -77,6 +77,7 @@
     background-color: var(--white);
     border-radius: 100px;
     cursor: pointer;
+    overflow: hidden;
 
     .label {
       margin-right: var(--spacing-large);

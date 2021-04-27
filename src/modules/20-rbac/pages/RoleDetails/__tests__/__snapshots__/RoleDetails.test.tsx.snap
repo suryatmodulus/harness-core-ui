@@ -243,7 +243,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-large"
+        class="StyledProps--font StyledProps--main permissionListContainer StyledProps--padding-large"
       >
         <div
           class="Layout--vertical StyledProps--main"
@@ -327,11 +327,12 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       class="permissionList"
                     >
                       <label
-                        class="bp3-control bp3-checkbox checkbox"
+                        class="bp3-control bp3-checkbox bp3-disabled checkbox"
                       >
                         <input
                           checked=""
                           data-testid="checkBox-ORGANIZATION-view"
+                          disabled=""
                           type="checkbox"
                         />
                         <span
@@ -664,7 +665,7 @@ exports[`Role Details Page render data 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-large"
+        class="StyledProps--font StyledProps--main permissionListContainer StyledProps--padding-large"
       >
         <div
           class="Layout--vertical StyledProps--main"
@@ -748,10 +749,11 @@ exports[`Role Details Page render data 1`] = `
                       class="permissionList"
                     >
                       <label
-                        class="bp3-control bp3-checkbox checkbox"
+                        class="bp3-control bp3-checkbox bp3-disabled checkbox"
                       >
                         <input
                           data-testid="checkBox-ORGANIZATION-view"
+                          disabled=""
                           type="checkbox"
                         />
                         <span

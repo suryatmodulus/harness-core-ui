@@ -647,6 +647,25 @@ exports[`UsersPage Test render data 1`] = `
                       style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
                       tabindex="0"
                     >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
                       T
                     </div>
                   </span>
@@ -786,6 +805,109 @@ exports[`UsersPage Test render data 1`] = `
         </div>
       </div>
       <div
+        class="row card clickable"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              dummy
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 30%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main roleButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                plusNumber
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 35%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main roleButton"
+              data-testid="addRole-dummyid"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.plusNumber
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 5%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  data-testid="menu-dummyid"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
         class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
         <span
@@ -793,11 +915,11 @@ exports[`UsersPage Test render data 1`] = `
         >
           Showing 
           <strong>
-            1
+            2
           </strong>
            of 
           <strong>
-            1
+            2
           </strong>
         </span>
       </div>

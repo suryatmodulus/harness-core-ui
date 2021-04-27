@@ -7,12 +7,9 @@ signUp:
     primary: 'Sign up for an account'
     secondary: 'and get ship done'
   form:
-    namePlaceholder: 'John Smith'
     emailLabel: '{{ $.email }}'
     emailPlaceholder: 'email@work.com'
-    companyLabel: 'Company'
-    companyPlaceholder: 'Your Company'
-    passwordPlaceholder: 6+ characters
+    passwordPlaceholder: 8+ characters
   oAuth:
     signup: 'or sign up with'
     signin: 'or login with'
@@ -647,12 +644,7 @@ generic_errors:
 cdDashboard:
   welcome: Welcome to Continuous Delivery
   description: Deploy your services with blazing fast pipelines.
-  creatPipeline: + Create a pipeline
 hours: hours
-authenticationSettings:
-  allowLoginFromTheseDomains: Allow login from these domains
-  allowUsersWIthEmails: 'Only allow users with the following email domains:'
-  domainNameRequired: At least one domain name is required
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
   fromCommit: 'Specific Commit ID'
@@ -1305,7 +1297,6 @@ pipelineSteps:
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
       buildStageName: Build / Test
-      buildStageDescription: Build your applications with blazing fast pipelines.
 
     stageSpecifications:
       stageNamePlaceholder: 'Enter your stage name'

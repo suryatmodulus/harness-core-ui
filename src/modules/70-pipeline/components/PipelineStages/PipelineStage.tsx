@@ -2,7 +2,7 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
-export interface PipelineStageProps<T = {}> {
+export interface PipelineStageProps<T = Record<string, unknown>> {
   name: string
   type: string
   icon: IconName
@@ -17,4 +17,4 @@ export interface PipelineStageProps<T = {}> {
   minimal?: boolean
 }
 
-export abstract class PipelineStage<T = {}> extends React.Component<PipelineStageProps<T>> {}
+export abstract class PipelineStage<T = Record<string, unknown>> extends React.Component<PipelineStageProps<T>> {}

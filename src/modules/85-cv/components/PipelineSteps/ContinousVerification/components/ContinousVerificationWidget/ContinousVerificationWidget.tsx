@@ -5,18 +5,19 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
 import { useParams } from 'react-router-dom'
-import { StepFormikFowardRef, setFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 
-import { useCDNGVerificationJobs, VerificationJobDTO } from 'services/cv'
+import { useCDNGVerificationJobs } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ContinousVerificationData } from '../../types'
 import BaseContinousVerification from './components/BaseContinousVerification'
 import DefineVerificationJob from './components/DefineVerificationJob'
 import ConfigureVerificationJob from './components/ConfigureVerificationJob/ConfigureVerificationJob'
+import type { ContinousVerificationWidgetProps, VerificationJob } from './types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 /**
@@ -24,18 +25,11 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
  * https://harness.atlassian.net/wiki/spaces/CDNG/pages/1485670459/Continous+Verification+Step
  */
 
-interface ContinousVerificationWidgetProps {
-  initialValues: ContinousVerificationData
-  isNewStep?: boolean
-  onUpdate?: (data: ContinousVerificationData) => void
-  stepViewType?: StepViewType
-}
-
 export function ContinousVerificationWidget(
   { initialValues, onUpdate, isNewStep }: ContinousVerificationWidgetProps,
   formikRef: StepFormikFowardRef
 ): JSX.Element {
-  const [jobContents, setJobContents] = useState<VerificationJobDTO[]>([])
+  const [jobContents, setJobContents] = useState<VerificationJob[]>([])
   const values = { ...initialValues, spec: { ...initialValues.spec } }
   const { getString } = useStrings()
   const defaultCVSchema = Yup.object().shape({
@@ -75,7 +69,7 @@ export function ContinousVerificationWidget(
     },
     debounce: 400
   })
-  const content: VerificationJobDTO[] | undefined = data?.data
+  const content: VerificationJob[] | undefined = data?.data
 
   useEffect(() => {
     if (content && !loading && !error) {

@@ -1,7 +1,7 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type { VerificationJobDTO } from 'services/cv'
 import type { spec } from '@cv/components/PipelineSteps/ContinousVerification/types'
+import type { VerificationJob } from '../../types'
 /**
  *  gets particular field data from selected job
  * @param selectedJobField
@@ -12,7 +12,7 @@ import type { spec } from '@cv/components/PipelineSteps/ContinousVerification/ty
 export function getFieldDataFromSelectedJob(
   selectedJobField: string,
   options: SelectOption[],
-  selectedJob: VerificationJobDTO
+  selectedJob: VerificationJob
 ): SelectOption | string | undefined {
   let field: SelectOption | string | undefined
   if (selectedJob) {
@@ -38,7 +38,7 @@ export function getFieldDataFromForm(
   selectedJobField: string,
   options: SelectOption[],
   specInfo: spec | undefined,
-  selectedJob: VerificationJobDTO
+  selectedJob: VerificationJob
 ): SelectOption | string | undefined {
   let completeFieldData: SelectOption | string | undefined
   if (specInfo) {

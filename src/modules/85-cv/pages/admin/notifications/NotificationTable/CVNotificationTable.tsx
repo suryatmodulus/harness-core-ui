@@ -21,7 +21,7 @@ interface CVNotificationTableProps {
   gotoPage: (pageNumber: number) => void
 }
 
-type CustomColumn<T extends object> = Column<T> & {
+type CustomColumn<T extends Record<string, any>> = Column<T> & {
   reload?: () => Promise<void>
 }
 

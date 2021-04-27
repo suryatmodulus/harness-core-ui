@@ -1,0 +1,26 @@
+.list {
+  padding: 0 !important;
+  margin-bottom: 0;
+
+  .item {
+    list-style: none;
+    display: inline-block;
+    margin-right: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+
+    .button {
+      border: none;
+      cursor: pointer;
+      background: var(--white);
+      box-shadow: 0px 0px 5px rgb(40 41 61 / 3%), 0px 0.5px 10px rgb(205 206 207 / 18%);
+      border-radius: 8px;
+      padding: var(--spacing-large);
+      border: 2px solid transparent;
+
+      &:hover,
+      &.selected {
+        border-color: #0278d5;
+      }
+    }
+  }
+}

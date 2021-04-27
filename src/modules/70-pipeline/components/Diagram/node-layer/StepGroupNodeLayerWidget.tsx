@@ -102,7 +102,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   const headerDepth = options.headerDepth || 0
   const width = config.maxX - config.minX
 
-  const height = childrenDistance * depth
+  const height = childrenDistance * depth + 20
   return (
     <>
       <div

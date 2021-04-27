@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateTargetSegmentModal CreateTargetSegmentModal should render initial state correctly 1`] = `
+<div
+  class="bp3-portal"
+>
+  <div
+    class="bp3-overlay bp3-overlay-open bp3-overlay-scroll-container"
+  >
+    <div
+      class="bp3-overlay-backdrop bp3-overlay-appear bp3-overlay-appear-active"
+      tabindex="0"
+    />
+    <div
+      class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+      tabindex="0"
+    >
+      <div
+        class="bp3-dialog"
+      >
+        <div
+          class="bp3-dialog-header"
+        >
+          <h4
+            class="bp3-heading"
+          >
+            cf.segments.modalTitle
+          </h4>
+          <button
+            aria-label="Close"
+            class="bp3-button bp3-minimal bp3-dialog-close-button"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-small-cross"
+              icon="small-cross"
+            >
+              <svg
+                data-icon="small-cross"
+                height="20"
+                viewBox="0 0 20 20"
+                width="20"
+              >
+                <desc>
+                  small-cross
+                </desc>
+                <path
+                  d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+              style="width: 65%;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              >
+                <div
+                  class="InputWithIdentifier--txtNameContainer"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          />
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-edit StyledProps--main"
+                      icon="edit"
+                      style="vertical-align: middle;"
+                    >
+                      <svg
+                        data-icon="edit"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          edit
+                        </desc>
+                        <path
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      name
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapse"
+                >
+                  <div
+                    class="Collapse--main"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                          icon="plus"
+                        >
+                          <svg
+                            data-icon="plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              plus
+                            </desc>
+                            <path
+                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        Description
+                         
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey300"
+                        >
+                          (optional)
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      />
+                    </div>
+                    <div
+                      class="Collapse--collapse"
+                    >
+                      <div
+                        class="bp3-collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapse"
+                >
+                  <div
+                    class="Collapse--main"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main CollapseHeader--main Collapse--header"
+                    >
+                      <div
+                        class="StyledProps--font StyledProps--main CollapseHeader--leftSection"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--color StyledProps--color-grey400"
+                          icon="plus"
+                        >
+                          <svg
+                            data-icon="plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              plus
+                            </desc>
+                            <path
+                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        Tags
+                         
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey300"
+                        >
+                          (optional)
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      />
+                    </div>
+                    <div
+                      class="Collapse--collapse"
+                    >
+                      <div
+                        class="bp3-collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    style="justify-content: flex-start; align-items: center;"
+                  >
+                    <button
+                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        Create
+                      </span>
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        Cancel
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+              style="width: 35%;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                style="align-items: center; justify-content: flex-start; height: 100%;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  cf.segments.displayIcon
+                </p>
+                <div
+                  class="Avatar--Avatar Avatar--contentStyle"
+                >
+                  <span
+                    class="bp3-popover-wrapper Avatar--avatarPopOver"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="Avatar--AvatarInner"
+                        style="border-radius: 100%; line-height: 66px; width: 72px; height: 72px; font-size: 28px;"
+                        tabindex="0"
+                      >
+                        S
+                      </div>
+                    </span>
+                  </span>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  cf.segments.uploadImage
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

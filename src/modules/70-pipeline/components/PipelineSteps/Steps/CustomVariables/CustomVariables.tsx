@@ -3,6 +3,7 @@ import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-soft
 import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
+import type { FormikErrors } from 'formik'
 
 import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -86,8 +87,8 @@ export class CustomVariables extends Step<CustomVariablesData> {
     data: CustomVariablesData,
     template?: CustomVariablesData,
     getString?: UseStringsReturn['getString']
-  ): object {
-    const errors: CustomVariablesData = { variables: [] }
+  ): FormikErrors<CustomVariablesData> {
+    const errors: FormikErrors<CustomVariablesData> = { variables: [] }
     data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 
@@ -99,7 +100,8 @@ export class CustomVariables extends Step<CustomVariablesData> {
         set(errors, `variables[${index}].value`, getString?.('fieldRequired', { field: 'Value' }))
       }
     })
-    if (!errors.variables.length) {
+
+    if (!errors?.variables?.length) {
       delete errors.variables
     }
     return errors

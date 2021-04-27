@@ -1,9 +1,9 @@
-continuousIntegration: 'Continuous Delivery'
 allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
 infrastructureKey: 'Infrastructure Key'
+continuous: Continuous Delivery
+learnMore: Learn more about Continuous Delivery
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
-  learnMore: Learn more about Continuous Delivery
   createProject: '{{$.projectsOrgs.createProject}}'
   orSelectExisting: '{{$.orSelectExisting}}'
 steps:
@@ -17,3 +17,8 @@ steps:
 folderPath: Folder Path
 namespaceValidation: Namespace must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
 releaseNameValidation: Releasename must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')
+cdTrialHomePage:
+  startTrial:
+    description: Take your software build processes to the next level using our Harness Continuous Delivery.
+    startBtn:
+      description: Start 14 day CD Enterprise trial

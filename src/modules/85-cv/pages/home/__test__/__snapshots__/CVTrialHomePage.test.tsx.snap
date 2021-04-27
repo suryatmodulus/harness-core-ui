@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVTrialHomePage snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: auto; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        style="align-items: center;"
+      >
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
+          style="font-size: 30px;"
+        >
+          cv.continuous
+        </h1>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
+          style="width: 500px; line-height: 2;"
+        >
+          cv.cvTrialHomePage.startTrial.description
+        </p>
+        <a
+          href="/"
+        >
+          cv.learnMore
+        </a>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          style="align-items: center;"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            style="width: 300px; height: 45px;"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cv.cvTrialHomePage.startTrial.startBtn.description
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

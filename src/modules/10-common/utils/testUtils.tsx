@@ -1,5 +1,6 @@
 import React from 'react'
 import { UseGetProps, UseGetReturn, RestfulProvider } from 'restful-react'
+import { queryByAttribute } from '@testing-library/react'
 import { compile } from 'path-to-regexp'
 import { createMemoryHistory } from 'history'
 import { Router, Route, Switch, useLocation, useHistory } from 'react-router-dom'
@@ -130,3 +131,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     </StringsContext.Provider>
   )
 }
+
+export const queryByNameAttribute = (name: string, container: HTMLElement): HTMLElement | null =>
+  queryByAttribute('name', container, name)

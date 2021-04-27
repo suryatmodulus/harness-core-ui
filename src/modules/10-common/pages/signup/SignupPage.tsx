@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import {
   Button,
@@ -14,47 +14,60 @@ import {
   Text
 } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
-import { URLS } from '@common/constants/OAuthProviders'
 import { useToaster } from '@common/components'
-import { UserInviteRequestBody, useTrialSignup } from 'services/portal'
+import { useQueryParams } from '@common/hooks'
+import { useSignupUser, SignupUserRequestBody } from 'services/portal'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
+import AppStorage from 'framework/utils/AppStorage'
+import type { RestResponseUserInfo } from 'services/portal'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
 import { useStrings } from 'framework/strings'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 
 interface SignupForm {
-  name: string
   email: string
-  company: string
   password: string
+}
+
+const setToken = async (response: RestResponseUserInfo): Promise<void> => {
+  const { token, defaultAccountId, uuid } = response.resource
+  AppStorage.set('token', token)
+  AppStorage.set('acctId', defaultAccountId)
+  AppStorage.set('uuid', uuid)
+  AppStorage.set('lastTokenSetTime', +new Date())
 }
 
 const SignupPage: React.FC = () => {
   const { showError } = useToaster()
   const { getString } = useStrings()
-  const { mutate: createTrialAccount, loading: loadingTrialSignup } = useTrialSignup({})
+  const { module } = useQueryParams<{ module?: Module }>()
+  const { mutate: getUserInfo, loading } = useSignupUser({})
+  const history = useHistory()
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
 
   const handleSignup = async (data: SignupForm): Promise<void> => {
-    const { name, email, company: companyName, password } = data
+    const { email, password } = data
 
-    const dataToSubmit: UserInviteRequestBody = {
-      uuid: '',
-      appId: '',
-      lastUpdatedAt: 0,
-      name,
+    const dataToSubmit: SignupUserRequestBody = {
       email,
-      companyName,
-      password: password.split('')
+      password
     }
 
     try {
-      await createTrialAccount(dataToSubmit)
-
-      // Redirect to free-trial page
-      // This will be updated in the future
-      window.location.href = URLS.FREE_TRIAL
+      const userInfoResponse = await getUserInfo(dataToSubmit)
+      const accountId = userInfoResponse.resource.defaultAccountId
+      await setToken(userInfoResponse)
+      if (module) {
+        history.push(routes.toModuleTrialHome({ module, accountId }))
+      } else {
+        history.push(
+          routes.toPurpose({
+            accountId
+          })
+        )
+      }
     } catch (error) {
       showError(error.message)
     }
@@ -98,30 +111,18 @@ const SignupPage: React.FC = () => {
 
         <Container margin={{ top: 'xxxlarge' }}>
           <Formik
-            initialValues={{ name: '', email: '', company: '', password: '' }}
+            initialValues={{ name: '', email: '', password: '' }}
             onSubmit={handleSubmit}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(),
-              email: Yup.string().trim().email().required(),
-              company: Yup.string().trim().required(),
-              password: Yup.string().trim().min(6).required()
+              email: Yup.string().email().required(),
+              password: Yup.string().min(8).required()
             })}
           >
             <FormikForm>
               <FormInput.Text
-                name="name"
-                label={getString('name')}
-                placeholder={getString('signUp.form.namePlaceholder')}
-              />
-              <FormInput.Text
                 name="email"
                 label={getString('signUp.form.emailLabel')}
                 placeholder={getString('signUp.form.emailPlaceholder')}
-              />
-              <FormInput.Text
-                name="company"
-                label={getString('signUp.form.companyLabel')}
-                placeholder={getString('signUp.form.companyPlaceholder')}
               />
               <FormInput.Text
                 name="password"
@@ -129,11 +130,10 @@ const SignupPage: React.FC = () => {
                 inputGroup={{ type: 'password' }}
                 placeholder={getString('signUp.form.passwordPlaceholder')}
               />
-              {loadingTrialSignup ? spinner : submitButton}
+              {loading ? spinner : submitButton}
             </FormikForm>
           </Formik>
         </Container>
-
         <AuthFooter page={AuthPage.SignUp} />
       </AuthLayout>
     </>

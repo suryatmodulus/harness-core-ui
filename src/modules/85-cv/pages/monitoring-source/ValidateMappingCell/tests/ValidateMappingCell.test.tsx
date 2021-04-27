@@ -22,12 +22,7 @@ describe('Tests for Validate Mapping cell', () => {
     )
     await waitFor(() => expect(getByText('cv.monitoringSources.appD.validationsFailed')).not.toBeNull())
     expect(container).toMatchSnapshot()
-    const retry = container.querySelector('button')
-    if (!retry) {
-      throw Error('button was not rendered')
-    }
-
-    fireEvent.click(retry)
+    fireEvent.click(getByText('cv.monitoringSources.appD.validationsFailed'))
     await waitFor(() => expect(retryFn).toHaveBeenCalled())
   })
   test('Ensure that when success is passed check is displayed', async () => {
@@ -62,11 +57,18 @@ describe('Tests for Validate Mapping cell', () => {
     await waitFor(() => expect(onClickFn).toHaveBeenCalled())
     expect(container).toMatchSnapshot()
   })
+
   test('Ensure that when api error is passed api error is displayed', async () => {
-    const { container, getByText } = render(<ValidateMappingCell apiError="mockError" onCellClick={jest.fn()} />)
+    const onRetryMock = jest.fn()
+    const { container, getByText } = render(
+      <ValidateMappingCell apiError="mockError" onCellClick={jest.fn()} onRetry={onRetryMock} />
+    )
     await waitFor(() => expect(getByText('mockError')).not.toBeNull())
+    fireEvent.click(getByText('mockError'))
+    await waitFor(() => expect(onRetryMock).toHaveBeenCalledTimes(1))
     expect(container).toMatchSnapshot()
   })
+
   test('Ensure that when no status is passed nothing is displayed', async () => {
     const { container } = render(<ValidateMappingCell validationStatus="NO_STATUS" onCellClick={jest.fn()} />)
     expect(container).toMatchSnapshot()

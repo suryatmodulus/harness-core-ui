@@ -9,15 +9,17 @@ import { usePostProject } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useQueryParams } from '@common/hooks'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModuleName } from 'framework/types/ModuleName'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
   modules?: Project['modules']
   onSuccess?: () => void
+  module?: ModuleName
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
-  const { nextStep, onSuccess, modules } = props
+  const { nextStep, onSuccess, modules, module } = props
   const { accountId } = useParams<AccountPathProps>()
   const { orgId: orgIdentifier } = useQueryParams<{ orgId: string }>()
   const { showSuccess } = useToaster()
@@ -54,6 +56,9 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       'tags'
     ])
     ;(dataToSubmit as Project)['modules'] = values.modules || []
+    if (module) {
+      dataToSubmit.modules?.push(module as any)
+    }
     try {
       await createProject(
         { project: dataToSubmit },

@@ -80,6 +80,10 @@ describe('Unit tests for CVAnalysisTabs', () => {
           {
             dataSourceType: 'STACKDRIVER',
             verificationType: 'LOG'
+          },
+          {
+            dataSourceType: 'NEW_RELIC',
+            verificationType: 'TIME_SERIES'
           }
         ]
       }
@@ -123,6 +127,12 @@ describe('Unit tests for CVAnalysisTabs', () => {
     const appdynamics = getByText('AppDynamics')
     fireEvent.click(appdynamics)
     await waitFor(() => expect(appdynamics.getAttribute('aria-expanded')).toEqual('true'))
+    expect(container.querySelector('.metricAnalysisView')).not.toBeNull()
+
+    // click on new relic
+    const newrelic = getByText('New Relic')
+    fireEvent.click(newrelic)
+    await waitFor(() => expect(newrelic.getAttribute('aria-expanded')).toEqual('true'))
     expect(container.querySelector('.metricAnalysisView')).not.toBeNull()
   })
 })

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrialInProgressTemplate snapshot test should render trial in progress 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: auto; background-position-y: center; height: calc(100% - 160px);"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        style="align-items: center;"
+      >
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
+          style="font-size: 30px;"
+        >
+          Continuous Integration
+        </h1>
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="color: white; text-align: center; width: 120px; height: 18px; border-radius: 3px; display: inline-block;"
+        >
+          common.trialInProgress
+        </p>
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
+          style="width: 500px; line-height: 2;"
+        >
+          trial in progress description
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <button
+            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            style="width: 200px; height: 45px;"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Create a project
+            </span>
+          </button>
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="font-size: 16px; color: rgb(79, 81, 98); padding: 12px;"
+          >
+            orSelectExisting
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

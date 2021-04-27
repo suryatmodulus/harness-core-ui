@@ -6,6 +6,7 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { MinimalLayout } from '@common/layouts'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -17,6 +18,7 @@ import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPa
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
 import CECOAccessPointsPage from './pages/co-access-points/CECOAccessPointsPage'
 import Budgets from './pages/budgets/Budgets'
+import CETrialHomePage from './pages/home/CETrialHomePage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -51,6 +53,13 @@ export default (
     </Route>
     <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
       <CEHomePage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      layout={MinimalLayout}
+      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
+      exact
+    >
+      <CETrialHomePage />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CESideNavProps}

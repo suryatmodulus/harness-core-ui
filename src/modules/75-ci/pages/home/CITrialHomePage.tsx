@@ -1,24 +1,10 @@
 import React from 'react'
-import { TrialHomePageTemplate } from '@common/components/TrialHomePageTemplate/TrialHomePageTemplate'
 import { useStrings } from 'framework/strings'
-import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
+import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
 import bgImageURL from './images/homeIllustration.svg'
 
 const CITrialHomePage: React.FC = () => {
   const { getString } = useStrings()
-  const projectCreateSuccessHandler = (): void => {
-    // TODO: need add event handler
-  }
-  const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler
-  })
-  const trialInProgressProps = {
-    description: getString('ci.ciTrialHomePage.trialInProgress.description'),
-    startBtn: {
-      description: getString('createProject'),
-      onClick: openProjectModal
-    }
-  }
 
   const startTrialProps = {
     description: getString('ci.ciTrialHomePage.startTrial.description'),
@@ -28,23 +14,16 @@ const CITrialHomePage: React.FC = () => {
       url: ''
     },
     startBtn: {
-      description: getString('ci.ciTrialHomePage.startTrial.startBtn.description'),
-      // TODO: need call licensing api and return value
-      onClick: () => true
-    },
-    changePlan: {
-      description: getString('common.changePlan'),
-      // TODO: need replace change plan url
-      url: ''
+      description: getString('ci.ciTrialHomePage.startTrial.startBtn.description')
     }
   }
 
   return (
-    <TrialHomePageTemplate
+    <StartTrialTemplate
       title={getString('ci.continuous')}
       bgImageUrl={bgImageURL}
-      trialInProgressProps={trialInProgressProps}
       startTrialProps={startTrialProps}
+      module="ci"
     />
   )
 }

@@ -78,6 +78,7 @@ import PipelineResourceModal from '@pipeline/components/RbacResourceModals/Pipel
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
+import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
@@ -180,6 +181,14 @@ export default (
 
     <RouteWithLayout sidebarProps={CDSideNavProps} path={routes.toCDHome({ ...accountPathProps })} exact>
       <CDHomePage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      layout={MinimalLayout}
+      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}
+      exact
+    >
+      <CDTrialHomePage />
     </RouteWithLayout>
 
     <RouteWithLayout

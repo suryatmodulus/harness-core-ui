@@ -59,7 +59,7 @@ userGroup: User Group
 userGroups: User Groups
 failureRate: Failure Rate
 purpose:
-  welcome: 'Welcome {{userName}}, Let’s get you started!'
+  welcome: 'Welcome, let’s get you started!'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
@@ -91,7 +91,7 @@ purpose:
     subtitle: Decouple release from deployment and rollout features safely and quickly.
     description: CF description placeholder
 trialInProgress: Trial in-progress
-changePlan: Change Plan
+trialInProgressDescription: Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
 letsGetYouStarted: Let’s get you started
 accessKey: Access Key
 secretKey: Secret Key

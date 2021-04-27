@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Signup Page The signup page renders 1`] = `
+exports[`Signup Page The signup page renders  1`] = `
 <div>
   <div
     class="layout"
@@ -81,38 +81,7 @@ exports[`Signup Page The signup page renders 1`] = `
                 <div>
                   <div
                     class="bp3-form-group"
-                    data-id="name-0"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="name"
-                    >
-                      name
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="name"
-                          placeholder="signUp.form.namePlaceholder"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="email-1"
+                    data-id="email-0"
                   >
                     <label
                       class="bp3-label"
@@ -143,38 +112,7 @@ exports[`Signup Page The signup page renders 1`] = `
                   </div>
                   <div
                     class="bp3-form-group"
-                    data-id="company-2"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="company"
-                    >
-                      signUp.form.companyLabel
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="company"
-                          placeholder="signUp.form.companyPlaceholder"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="password-3"
+                    data-id="password-1"
                   >
                     <label
                       class="bp3-label"
@@ -199,6 +137,388 @@ exports[`Signup Page The signup page renders 1`] = `
                           placeholder="signUp.form.passwordPlaceholder"
                           type="password"
                           value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    style="width: 100%;"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      signUp.signUp
+                    </span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <h2
+            class="lineMessage"
+          >
+            <span
+              class="message"
+            >
+              signUp.oAuth.signup
+            </span>
+          </h2>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-large"
+          >
+            <div
+              class="oAuthIcons"
+            >
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=github"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="github"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                  >
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=bitbucket"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="bitbucket-blue"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    width="24"
+                  >
+                    <path
+                      d="M.78 0a.764.764 0 00-.77.89L3.27 20.7c.08.5.52.87 1.02.87h15.66c.38 0 .71-.27.77-.65L23.99.9a.768.768 0 00-.64-.88c-.05-.01-.09-.01-.13-.01zm13.74 14.32h-5L8.17 7.25h7.56z"
+                      fill="#0357d1"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=gitlab"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-gotlab"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 14 13"
+                    width="24"
+                  >
+                    <path
+                      d="M7 12.9L9.6 5H4.4z"
+                      fill="#e24329"
+                    />
+                    <path
+                      d="M7 12.9L4.4 5H.8z"
+                      fill="#fc6d26"
+                    />
+                    <path
+                      d="M.8 5L0 7.4c0 .2 0 .5.2.6L7 12.9z"
+                      fill="#fca326"
+                    />
+                    <path
+                      d="M.8 5h3.6L2.9.2c-.1-.2-.5-.2-.5 0z"
+                      fill="#e24329"
+                    />
+                    <path
+                      d="M7 12.9L9.6 5h3.6z"
+                      fill="#fc6d26"
+                    />
+                    <path
+                      d="M13.2 5l.8 2.4c0 .2 0 .5-.2.6L7 12.9z"
+                      fill="#fca326"
+                    />
+                    <path
+                      d="M13.2 5H9.6L11.2.2c.1-.2.4-.2.5 0z"
+                      fill="#e24329"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=linkedin"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="linkedin"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    width="24"
+                  >
+                    <path
+                      d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43c-1.14 0-2.06-.93-2.06-2.07S4.2 3.3 5.34 3.3s2.06.92 2.06 2.06c0 1.15-.92 2.07-2.06 2.07zm1.78 13.02H3.56V9h3.56zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.23 0z"
+                      fill="#0072b1"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=google"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="google"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    width="24"
+                  >
+                    <path
+                      d="M24 12.524c0-.832-.067-1.669-.211-2.488H12.242v4.715h6.612a5.666 5.666 0 01-2.447 3.72v3.058h3.945C22.669 19.397 24 16.25 24 12.524z"
+                      fill="#4285f4"
+                    />
+                    <path
+                      d="M12.242 24.484c3.301 0 6.086-1.084 8.114-2.955l-3.944-3.059c-1.098.747-2.515 1.17-4.166 1.17-3.193 0-5.901-2.155-6.873-5.052h-4.07v3.154a12.243 12.243 0 0010.939 6.742z"
+                      fill="#34a853"
+                    />
+                    <path
+                      d="M5.369 14.588a7.333 7.333 0 010-4.687V6.748H1.302a12.252 12.252 0 000 10.994z"
+                      fill="#fbbc04"
+                    />
+                    <path
+                      d="M12.242 4.845a6.652 6.652 0 014.696 1.836l3.495-3.495A11.766 11.766 0 0012.242 0a12.24 12.24 0 00-10.94 6.747L5.37 9.901C6.336 7 9.049 4.845 12.242 4.845z"
+                      fill="#ea4335"
+                    />
+                  </svg>
+                </span>
+              </a>
+              <a
+                class="iconContainer"
+                href="https://app.harness.io/gateway/api/users/oauth2Redirect?provider=azure"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="service-azure"
+                >
+                  <svg
+                    height="24"
+                    viewBox="0 0 14 12"
+                    width="24"
+                  >
+                    <g
+                      fill="#2075b7"
+                    >
+                      <path
+                        d="M14 11.3H3.5c2.1-.4 4.2-.7 6.3-1.1 0-.1 0-.1-.1-.1-1.1-1.4-2.2-2.7-3.2-3.9-.1-.1-.1-.2 0-.2.4-1.1.8-2.1 1.1-3.2.2-.5.4-1 .5-1.5 0 0 0-.1.1-.1C10.1 4.6 12 7.9 14 11.3zM7.7.5c-.2.4-.4.7-.5 1.1-1 2.1-1.9 4.1-2.9 6.2-.3.7-.7 1.4-1 2.2 0 .1-.1.1-.2.1H.2c-.2 0-.2 0-.1-.1 1.1-2 2.3-3.9 3.4-5.9 0-.1.1-.2.2-.3C5 2.8 6.3 1.7 7.6.6c0 0 0-.1.1-.1z"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </a>
+            </div>
+            <div
+              class="disclaimer"
+            >
+              signUp.disclaimer.initial
+              <a
+                class="externalLink"
+                href="https://harness.io/privacy/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                signUp.disclaimer.privacyPolicy
+              </a>
+              signUp.disclaimer.middle
+              <a
+                class="externalLink"
+                href="https://harness.io/subscriptionterms/"
+                rel="noreferrer"
+                target="_blank"
+              >
+                signUp.disclaimer.terms
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="imageColumn"
+    >
+      <img
+        alt=""
+        aria-hidden="true"
+        class="image"
+        src="test-file-stub"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Signup Page handleSubmit should show error when api fails 1`] = `
+<div>
+  <div
+    class="layout"
+  >
+    <div
+      class="cardColumn"
+    >
+      <div
+        class="card"
+      >
+        <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center StyledProps--margin-bottom-xxxlarge"
+          >
+            <svg
+              height="25"
+              viewBox="0 0 141 30"
+            >
+              <path
+                d="M28.4 9.8l-7.5-7.5c-.1-.1-1.3-1.3-3.1-1.9-2.6-.9-5.1-.2-7.2 1.9L3 9.8c-.1.1-1.3 1.3-1.9 3.1C.2 15.5.9 18 3 20.1l7.5 7.5c.1.1 1.3 1.3 3.1 1.9.7.2 1.5.4 2.2.4 1.8 0 3.5-.8 5-2.2l7.5-7.5c.1-.1 1.3-1.3 1.9-3.1.9-2.6.2-5.2-1.8-7.3M16.3 4.5c.8.3 1.5.8 1.5.9L20 7.6l-4.3 4.3-4.3-4.3 2.2-2.2c.6-.6 1.4-1.3 2.7-.9M5.2 14.4c.3-.8.8-1.5.9-1.5l2.2-2.2 4.3 4.3-4.3 4.3L6 17.1c-.6-.6-1.2-1.5-.8-2.7m9.9 11.1c-.8-.3-1.5-.8-1.5-.9l-2.2-2.2 4.3-4.3 4.3 4.3-2.2 2.2c-.6.6-1.5 1.2-2.7.9m11.1-9.9c-.3.8-.8 1.5-.9 1.5l-2.2 2.2-4.4-4.3 4.3-4.3 2.2 2.2c.7.6 1.3 1.4 1 2.7"
+                fill="#00ade4"
+              />
+              <path
+                d="M44.6 25.6h3.9V14.8c0-3.3-2-5.8-5.5-5.8-1.7 0-3.5.7-4.4 2.1v-8h-3.9v22.4h3.9V17c0-2 1-4.5 3.3-4.5 2.1 0 2.7 1.2 2.7 3zm15.7-6.4c0 2.4-1.7 3.7-4.1 3.7-1.2 0-2.3-.8-2.3-2 0-1.3 1.1-2 2.3-2.1l4.1-.3zm3.2 6.6c.9 0 1.3-.2 1.9-.4v-2.8s-.2.1-.5.1c-.6 0-.9-.3-.9-1v-6c0-1.1-.1-2.2-.5-3.2-.9-2.4-3.3-3.3-6-3.3-3.6 0-6.4 1.6-6.7 5.2h3.7c.1-1.5 1.1-2.3 2.9-2.3 2.2 0 2.7 1 2.7 2.5v1l-4.7.3c-3.1.2-5.4 2-5.4 5 0 2.6 2 5 5.8 5 2.3 0 4.1-1.1 4.9-2.4.2 1.3 1.2 2.3 2.8 2.3M75.6 13h.6V9.4h-.5c-1.9 0-3.8.8-4.5 2.6l-.3-2.4h-3.3v16h3.9v-8.1c0-2.6 1.4-4.5 4.1-4.5m12.2 12.6h3.9V14.9c0-3.3-2-5.7-5.4-5.7-1.9 0-3.8.8-4.7 2.5l-.3-2.1H78v16h3.9v-6.5c0-1.4 0-3 .5-4.3.5-1.2 1.4-2 2.8-2 2 0 2.7 1.1 2.7 3zm16.5-9.6h-6.9c0-1 .3-1.8.8-2.5.6-.7 1.5-1.2 2.7-1.2 1.1 0 1.9.4 2.4.9.6.6 1 1.6 1 2.8m3.9 1.7c.1-2-.2-3.8-1.4-5.6-1.3-2-3.5-3-5.9-3-2.2 0-3.9.8-5.1 2-1.5 1.6-2.3 3.9-2.3 6.4 0 2.6.9 4.9 2.5 6.4 1.3 1.2 2.9 2 5.1 2 2 0 4-.6 5.4-2.3.6-.7 1.3-2 1.4-3h-3.7c-.2.6-.4 1-.8 1.4-.6.6-1.2.8-2.3.8-1 0-1.8-.5-2.4-1-.8-.7-1.2-1.9-1.2-3.1h10.7c-.1-.3 0-1 0-1m5.1-3.7c0-.8.6-1.4 1.2-1.7.6-.2 1.1-.2 1.7-.2.8 0 1.6.3 2.1.7.4.4.6.9.6 1.5h3.7c0-1.2-.6-2.4-1.4-3.3-1.2-1.3-3.1-1.9-5-1.9-2 0-3.7.6-4.9 1.6-1 .8-1.6 2-1.6 3.6 0 2 1.5 3.8 3.7 4.3 1.4.3 3 .4 4.4.6 1 .2 1.6.8 1.6 1.7 0 1.8-2 2-3.3 2-1.1 0-1.8-.2-2.4-.7-.4-.3-.7-.9-.8-1.5h-3.6c.1 1.3.8 2.5 1.7 3.3 1.3 1.3 3.1 1.9 5.2 1.9 2.2 0 4.2-.6 5.5-1.9.8-.8 1.4-2 1.4-3.5 0-2.5-1.8-4.1-4.4-4.5-1.6-.2-2-.3-3.4-.5-1 0-2-.3-2-1.5m20.5.3h3.7c0-1.2-.6-2.4-1.4-3.3-1.2-1.3-3.1-1.9-5-1.9-2 0-3.7.6-4.9 1.6-1 .8-1.6 2-1.6 3.6 0 2 1.5 3.8 3.7 4.3 1.4.3 3 .4 4.4.6 1 .2 1.6.8 1.6 1.7 0 1.8-2 2-3.3 2-1.1 0-1.8-.2-2.4-.7-.4-.3-.7-.9-.8-1.5h-3.6c.1 1.3.8 2.5 1.7 3.3 1.3 1.3 3.1 1.9 5.2 1.9 2.2 0 4.2-.6 5.5-1.9.8-.8 1.4-2 1.4-3.5 0-2.5-1.8-4.1-4.4-4.5-1.6-.2-2-.3-3.4-.5-.9-.1-1.9-.5-1.9-1.6 0-.8.6-1.4 1.2-1.7.6-.2 1.1-.2 1.7-.2.8 0 1.6.3 2.1.7.2.5.5 1 .5 1.6"
+                fill="#060000"
+              />
+            </svg>
+            <a
+              href="/login"
+            >
+              <span
+                class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--margin-right-xsmall"
+                icon="arrow-left"
+              >
+                <svg
+                  data-icon="arrow-left"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    arrow-left
+                  </desc>
+                  <path
+                    d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500 StyledProps--inline StyledProps--font-size-medium"
+              >
+                signUp.signIn
+              </span>
+            </a>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          >
+            signUp.message.primary
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--margin-top-xsmall"
+          >
+            signUp.message.secondary
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--margin-top-xxxlarge"
+          >
+            <div
+              class="OverlaySpinner--overlaySpinner"
+            >
+              <form
+                class="FormikForm--main"
+              >
+                <div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="email-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="email"
+                    >
+                      signUp.form.emailLabel
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="email"
+                          placeholder="signUp.form.emailPlaceholder"
+                          type="text"
+                          value="random@hotmail.com"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="password-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="password"
+                    >
+                      password
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="password"
+                          placeholder="signUp.form.passwordPlaceholder"
+                          type="password"
+                          value="12345678"
                         />
                       </div>
                     </div>

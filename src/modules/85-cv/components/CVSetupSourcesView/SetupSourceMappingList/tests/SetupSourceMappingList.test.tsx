@@ -1,7 +1,8 @@
+import React from 'react'
 import { Classes } from '@blueprintjs/core'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
-import React from 'react'
+import { TestWrapper } from '@common/utils/testUtils'
 import { SetupSourceMappingList } from '../SetupSourceMappingList'
 
 jest.mock('@cv/components/TableFilter/TableFilter', () => ({
@@ -158,12 +159,52 @@ describe('Unit tests for SetupSourceMappingList', () => {
     expect(getByText('_app10')).not.toBeNull()
   })
 
-  test('Ensure that when there are a 1000 or more items api filter is called', async () => {
+  test('Ensure that api is called for filtering when there is no data', async () => {
+    const mockFn = jest.fn()
+    const { container } = render(
+      <TestWrapper>
+        <SetupSourceMappingList<{ c: string; s: string; t: string; y: string }>
+          tableProps={{
+            data: [],
+            columns: [
+              { Header: 'asdad', accessor: 'c' },
+              { accessor: 's', Header: 'asdsdfad' },
+              { accessor: 't', Header: 'sdklfjksl' },
+              { accessor: 'y', Header: 'sdlkfjsdlfj' }
+            ]
+          }}
+          mappingListHeaderProps={{
+            mainHeading: 'main',
+            subHeading: 'sub'
+          }}
+          tableFilterProps={{
+            isItemInFilter: (_, item) => {
+              return item.c.startsWith('_')
+            },
+            totalItemsToRender: 10,
+            onFilterForMoreThan100Items: mockFn
+          }}
+          loading={false}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelectorAll(`.filter`)).not.toBeNull())
+    const searchField = container.querySelector('.filter')
+    if (!searchField) {
+      throw Error('Search field was not rendered.')
+    }
+
+    fireEvent.click(searchField)
+    await waitFor(() => expect(mockFn).toHaveBeenCalled())
+  })
+
+  test('Ensure that when there are a 100 or more items api filter is called', async () => {
     const mockFn = jest.fn()
     const { container } = render(
       <SetupSourceMappingList<{ c: string; s: string; t: string; y: string }>
         tableProps={{
-          data: Array(1000)
+          data: Array(100)
             .fill({})
             .map((_, index) => ({
               c: index.toString(),
@@ -187,7 +228,7 @@ describe('Unit tests for SetupSourceMappingList', () => {
             return item.c.startsWith('_')
           },
           totalItemsToRender: 10,
-          onFilterForMoreThan1000Items: mockFn
+          onFilterForMoreThan100Items: mockFn
         }}
         loading={false}
       />

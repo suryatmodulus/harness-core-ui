@@ -24,12 +24,11 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
-import CIHomePage from '@ci/pages/home/CIHomePage'
-import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
-import CIPipelineStudio from '@ci/pages/pipeline-studio/CIPipelineStudio'
+import { MinimalLayout } from '@common/layouts'
+
 import PipelinesPage from '@pipeline/pages/pipelines/PipelinesPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import CISideNav from '@ci/components/CISideNav/CISideNav'
+
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
@@ -37,6 +36,7 @@ import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import CIPipelineDeploymentList from '@ci/pages/pipeline-deployment-list/CIPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
@@ -49,8 +49,7 @@ import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineVi
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
-import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
-import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
+
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import { String } from 'framework/strings'
 
@@ -74,6 +73,13 @@ import PipelineResourceModal from '@pipeline/components/RbacResourceModals/Pipel
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
+import CIHomePage from './pages/home/CIHomePage'
+import CIDashboardPage from './pages/dashboard/CIDashboardPage'
+import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
+import CISideNav from './components/CISideNav/CISideNav'
+import BuildTests from './pages/build/sections/tests/BuildTests'
+import BuildCommits from './pages/build/sections/commits/BuildCommits'
+import CITrialHomePage from './pages/home/CITrialHomePage'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
@@ -179,6 +185,14 @@ export default (
     <Route path={routes.toCIProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCIProject />
     </Route>
+
+    <RouteWithLayout
+      layout={MinimalLayout}
+      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ci' })}
+      exact
+    >
+      <CITrialHomePage />
+    </RouteWithLayout>
 
     <RouteWithLayout sidebarProps={CISideNavProps} path={[routes.toCIHome({ ...accountPathProps })]} exact>
       <CIHomePage />

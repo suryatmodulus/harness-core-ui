@@ -48,7 +48,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -369,7 +369,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -690,7 +690,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -1016,7 +1016,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -1342,7 +1342,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -1663,7 +1663,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div
@@ -2012,7 +2012,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
         class="StyledProps--font StyledProps--main"
         style="color: black; font-size: medium;"
       >
-        cd.continuousIntegration
+        cd.continuous
       </p>
     </div>
     <div

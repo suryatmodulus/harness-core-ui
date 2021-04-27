@@ -87,7 +87,6 @@ metricVerificationModal:
   modalTitle: Metric Pack Connection Test
 dashboard:
   subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
-  learnMore: Learn more about Continuous Verification
   createProject: '{{$.ci.dashboard.createProject}}'
   notStarted: Not started
 hostNamePlaceholder: '${host}'
@@ -443,3 +442,9 @@ verificationJobs:
     preDepText: Create a new pre-deployment test verification job
     prodDepText: Create a new production deployment verification job
     postDepText: Create a new post-deployment test verification job
+learnMore: Learn more about Continuous Verification
+cvTrialHomePage:
+  startTrial:
+    description: Take your software build processes to the next level using our Harness Continuous Verification.
+    startBtn:
+      description: Start 14 day CV Enterprise trial

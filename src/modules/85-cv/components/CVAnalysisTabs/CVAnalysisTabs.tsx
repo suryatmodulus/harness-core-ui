@@ -37,6 +37,8 @@ function dataSourceTypeToLabel(monitoringSourceType: MonitoringSourceTypes): str
       return 'Splunk'
     case 'STACKDRIVER':
       return 'Google Cloud Operations'
+    case 'NEW_RELIC':
+      return 'New Relic'
     default:
       return ''
   }
@@ -120,7 +122,6 @@ export function CVAnalysisTabs(props: CVAnalysisTabsProps): JSX.Element {
   useEffect(() => {
     setAnalysisTypes(transformDataSourceTypes(data))
   }, [data])
-
   return (
     <Container className={cx(css.main, className)}>
       <Tabs

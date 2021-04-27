@@ -7,6 +7,12 @@
   }
 }
 
+.errorWithRefresh > span {
+  position: relative;
+  bottom: 3px;
+  cursor: pointer;
+}
+
 .clickableText {
   &:hover {
     cursor: pointer;

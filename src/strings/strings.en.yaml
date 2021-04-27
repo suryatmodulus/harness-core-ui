@@ -7,12 +7,9 @@ signUp:
     primary: 'Sign up for an account'
     secondary: 'and get ship done'
   form:
-    namePlaceholder: 'John Smith'
     emailLabel: '{{ $.email }}'
     emailPlaceholder: 'email@work.com'
-    companyLabel: 'Company'
-    companyPlaceholder: 'Your Company'
-    passwordPlaceholder: 6+ characters
+    passwordPlaceholder: 8+ characters
   oAuth:
     signup: 'or sign up with'
     signin: 'or login with'

@@ -144,7 +144,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     <div className={css.main}>
       {!isEmpty(selectedStageId) && data.items?.length > 0 && (
         <ExecutionStageDiagram
-          selectedIdentifier={selectedStageId}
+          selectedIdentifier={selectedStepId}
           itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
           data={data}
           showEndNode={!(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))}

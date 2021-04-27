@@ -208,6 +208,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
     originalData.map(value => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       value.category == 'SECRET_MANAGER' ? (value.connectors = ['Vault', 'AwsKms']) : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []

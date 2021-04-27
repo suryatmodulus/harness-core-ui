@@ -59,6 +59,8 @@ export const Connectors: ConnectorType = {
   HttpHelmRepo: 'HttpHelmRepo',
   Jira: 'Jira',
   NEW_RELIC: 'NewRelic',
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   AWS_KMS: 'AwsKms'
 }
 

@@ -72,7 +72,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         projectIdentifier,
         yamlGitConfigIdentifier: repoId,
         page,
-        size: 10
+        size: 100
       }
     }).then(response => {
       setLoadingBranchList(false)

@@ -303,7 +303,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       payloadConditions = [],
       jexlCondition,
       secureToken,
-      autoAbortOngoingPipelineExecution
+      autoAbortPreviousExecutions
     } = val
 
     if (formikValueSourceRepo !== GitSourceProviders.CUSTOM.value) {
@@ -355,23 +355,23 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       enabled: enabledStatus,
       description,
       tags,
-      target: {
-        targetIdentifier: targetIdentifier || pipelineIdentifier,
-        type: 'Pipeline',
-        spec: {
-          runtimeInputYaml: stringifyPipelineRuntimeInput
-        }
-      },
       source: {
         type: (formikValueTriggerType as unknown) as NGTriggerSource['type'],
         spec: {
           type: formikValueSourceRepo,
           spec: {
-            autoAbortOngoingPipelineExecution,
+            autoAbortPreviousExecutions,
             gitRepoSpec: { identifier: connectorRef?.value, repoName },
             event,
             actions: actionsValues
           }
+        }
+      },
+      target: {
+        targetIdentifier: targetIdentifier || pipelineIdentifier,
+        type: 'Pipeline',
+        spec: {
+          runtimeInputYaml: stringifyPipelineRuntimeInput
         }
       }
     }
@@ -419,7 +419,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
                 actions,
                 event,
                 gitRepoSpec,
-                autoAbortOngoingPipelineExecution,
+                autoAbortPreviousExecutions,
                 payloadConditions,
                 headerConditions,
                 authToken,
@@ -464,7 +464,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         sourceRepo,
         triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSource['type'],
         event,
-        autoAbortOngoingPipelineExecution,
+        autoAbortPreviousExecutions,
         targetIdentifier,
         secureToken: authToken?.spec?.value,
         actions: actions?.map((action: string) => ({ label: action, value: action })),

@@ -151,8 +151,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             }}
           />
           <FormInput.CheckBox
-            name="autoAbortOngoingPipelineExecution"
-            label="Auto Abort Ongoing Pipeline Execution"
+            name="autoAbortPreviousExecutions"
+            label="Auto-abort Previous Execution"
             className={css.checkboxAlignment}
           />
           {sourceRepo !== GitSourceProviders.CUSTOM.value ? (

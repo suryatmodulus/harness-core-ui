@@ -53,7 +53,7 @@ export interface FlatOnEditValuesInterface {
   }
   repoName?: string
   repoUrl?: string
-  autoAbortOngoingPipelineExecution?: boolean
+  autoAbortPreviousExecutions?: boolean
   event?: string
   actions?: string[]
   anyAction?: boolean // required for onEdit to show checked
@@ -87,7 +87,7 @@ export interface FlatValidWebhookFormikValuesInterface {
   triggerType: NGTriggerSource['type']
   repoName?: string
   connectorRef?: { connector: { spec: { type: string } }; value: string } // get from dto interface when available
-  autoAbortOngoingPipelineExecution: boolean
+  autoAbortPreviousExecutions: boolean
   event?: string
   actions?: string[]
   secureToken?: string

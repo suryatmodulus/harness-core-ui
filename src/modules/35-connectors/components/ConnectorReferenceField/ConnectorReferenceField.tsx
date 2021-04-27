@@ -225,7 +225,7 @@ export function getReferenceFieldProps({
       return (
         <>
           <div className={css.item}>
-            <Layout.Horizontal spacing="small">
+            <Layout.Horizontal spacing="small" margin={{ right: 'medium' }}>
               <Icon name={getIconByType(item.record.type)} size={30}></Icon>
               <div>
                 <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
@@ -244,7 +244,7 @@ export function getReferenceFieldProps({
                   openConnectorModal(true, item.record?.type || type, item.record)
                 }}
                 style={{
-                  color: 'var(--blue-450)'
+                  color: 'var(--primary-4)'
                 }}
               />
               <Icon

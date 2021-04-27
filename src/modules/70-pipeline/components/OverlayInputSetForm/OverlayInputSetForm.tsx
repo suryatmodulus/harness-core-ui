@@ -404,7 +404,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
 
                         <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} spacing="small">
                           <Text font={{ size: 'medium' }}>{getString('inputSets.selectInputSets')}</Text>
-                          <Text icon="info-sign" iconProps={{ color: Color.BLUE_450, size: 23, padding: 'small' }}>
+                          <Text icon="info-sign" iconProps={{ color: Color.PRIMARY_7, size: 23, padding: 'small' }}>
                             {getString('inputSets.selectInputSetsHelp')}
                           </Text>
                           <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'large' }}>

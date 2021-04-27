@@ -50,7 +50,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
           }
           className={helmcss.tooltip}
         >
-          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+          <Icon name="info-sign" color={Color.PRIMARY_7} size={16} />
         </Tooltip>
       </Layout.Horizontal>
 

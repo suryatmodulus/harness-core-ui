@@ -417,7 +417,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           }
                           className={css.tooltip}
                         >
-                          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                          <Icon name="info-sign" color={Color.PRIMARY_7} size={16} />
                         </Tooltip>
                       </Layout.Horizontal>
                     }

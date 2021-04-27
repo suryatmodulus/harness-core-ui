@@ -41,6 +41,9 @@
     position: relative;
     top: 20px;
     padding-right: 0 !important;
+    width: 100%;
+    box-shadow: none !important;
+    justify-content: flex-start;
   }
 }
 .saveBtn {

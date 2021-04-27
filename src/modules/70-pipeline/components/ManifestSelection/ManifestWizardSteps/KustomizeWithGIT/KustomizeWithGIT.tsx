@@ -315,7 +315,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     }
                     className={helmcss.tooltip}
                   >
-                    <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                    <Icon name="info-sign" color={Color.PRIMARY_7} size={16} />
                   </Tooltip>
                 </div>
 
@@ -352,7 +352,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     }
                     className={helmcss.tooltip}
                   >
-                    <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                    <Icon name="info-sign" color={Color.PRIMARY_7} size={16} />
                   </Tooltip>
                 </div>
               </Layout.Horizontal>
@@ -387,7 +387,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                         }
                         className={helmcss.skipversionTooltip}
                       >
-                        <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                        <Icon name="info-sign" color={Color.PRIMARY_7} size={16} />
                       </Tooltip>
                     </Layout.Horizontal>
                   }

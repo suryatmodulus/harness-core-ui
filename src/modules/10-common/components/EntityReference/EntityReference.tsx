@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text, Tabs, Tab, Icon, IconName } from '@wings-software/uicore'
+import { Container, TextInput, Button, Layout, Text, Tabs, Tab, Icon, IconName, Color } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
@@ -150,7 +150,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
 
   const renderedList = loading ? (
     <Container flex={{ align: 'center-center' }} padding="small">
-      <Icon name="spinner" size={24} color="blue500" />
+      <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
     </Container>
   ) : error ? (
     <Container>

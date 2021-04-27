@@ -39,12 +39,12 @@
       display: flex;
       align-items: center;
       &:hover {
-        background-color: var(--blue-200);
+        background-color: var(--primary-1);
       }
     }
     .selectedItem {
-      border: 1px solid var(--grey-250);
-      background-color: var(--blue-300) !important;
+      border: 1px solid var(--grey-200);
+      background-color: var(--primary-2) !important;
     }
   }
   .searchBox {

@@ -587,7 +587,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               onChange={value => {
                 console.log(value)
               }}
-              className={css.gitFilter}
+              className={'gitFilter'}
             ></GitFilters>
           </GitSyncStoreProvider>
         )}

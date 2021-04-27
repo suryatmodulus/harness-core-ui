@@ -1,0 +1,27 @@
+:global {
+  .bp3-menu-item.bp3-intent-primary.bp3-active,
+  .bp3-menu-item:hover {
+    background-color: var(--blue-300);
+    color: var(--white);
+  }
+
+  .spaceBetween {
+    justify-content: space-between;
+  }
+}
+
+.gitFilterContainer {
+  width: 500px;
+  .repoSelectDefault {
+    margin-right: var(--spacing-medium);
+  }
+}
+
+.btnConatiner {
+  text-align: right;
+  margin-top: var(--spacing-small);
+}
+
+.syncModal {
+  text-align: center;
+}

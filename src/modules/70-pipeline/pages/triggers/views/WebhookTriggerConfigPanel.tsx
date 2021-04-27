@@ -44,7 +44,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
   const { getString } = useStrings()
   const loading = loadingGetSourceRepoToEvent
   const { showSuccess, showError } = useToaster()
-
+  const eventLabel = (event && eventOptions.find(e => e.value === event)?.label) || ''
   useEffect(() => {
     if (sourceRepo && ResponseSourceRepoToEvent?.data?.[sourceRepo]) {
       const eventsList = ResponseSourceRepoToEvent.data[sourceRepo]
@@ -150,11 +150,6 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
               }
             }}
           />
-          <FormInput.CheckBox
-            name="autoAbortPreviousExecutions"
-            label="Auto-abort Previous Execution"
-            className={css.checkboxAlignment}
-          />
           {sourceRepo !== GitSourceProviders.CUSTOM.value ? (
             <>
               {sourceRepo && <ConnectorSection formikProps={formikProps} />}
@@ -186,42 +181,64 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 }}
               />
 
-              {event && event !== eventTypes.PUSH && actionsOptions.length !== 0 && (
-                <div className={css.actionsContainer}>
-                  <div>
-                    <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-                      {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
-                    </Text>
-                    <FormInput.MultiSelect
-                      name="actions"
-                      items={actionsOptions}
-                      // yaml design: empty array means selecting all
-                      disabled={Array.isArray(actions) && isEmpty(actions)}
-                      onChange={e => {
-                        if (!e || (Array.isArray(e) && isEmpty(e))) {
-                          formikProps.setFieldValue('actions', undefined)
-                        } else {
-                          formikProps.setFieldValue('actions', e)
-                        }
-                      }}
-                    />
-                  </div>
-                  <FormInput.CheckBox
-                    name="anyAction"
-                    key={Date.now()}
-                    label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
-                    defaultChecked={Array.isArray(actions) && actions.length === 0}
-                    className={css.checkboxAlignment}
-                    onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                      formikProps.setFieldTouched('actions', true)
-                      if (e.currentTarget?.checked) {
-                        formikProps.setFieldValue('actions', [])
-                      } else {
-                        formikProps.setFieldValue('actions', undefined)
-                      }
-                    }}
-                  />
-                </div>
+              {event && (
+                <>
+                  {event !== eventTypes.PUSH && actionsOptions.length !== 0 && (
+                    <div className={css.actionsContainer}>
+                      <div>
+                        <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+                          {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
+                        </Text>
+                        <FormInput.MultiSelect
+                          name="actions"
+                          items={actionsOptions}
+                          // yaml design: empty array means selecting all
+                          disabled={Array.isArray(actions) && isEmpty(actions)}
+                          onChange={e => {
+                            if (!e || (Array.isArray(e) && isEmpty(e))) {
+                              formikProps.setFieldValue('actions', undefined)
+                            } else {
+                              formikProps.setFieldValue('actions', e)
+                            }
+                          }}
+                        />
+                      </div>
+                      <FormInput.CheckBox
+                        name="anyAction"
+                        key={Date.now()}
+                        label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
+                        defaultChecked={Array.isArray(actions) && actions.length === 0}
+                        className={css.checkboxAlignment}
+                        onClick={(e: React.FormEvent<HTMLInputElement>) => {
+                          formikProps.setFieldTouched('actions', true)
+                          if (e.currentTarget?.checked) {
+                            formikProps.setFieldValue('actions', [])
+                          } else {
+                            formikProps.setFieldValue('actions', undefined)
+                          }
+                        }}
+                      />
+                    </div>
+                  )}
+                  {(event === eventTypes.PUSH || event === eventTypes.PULL_REQUEST) && (
+                    <>
+                      <FormInput.CheckBox
+                        name="autoAbortPreviousExecutions"
+                        label="Auto-abort Previous Execution"
+                        className={css.checkboxAlignment}
+                      />
+                      <Text
+                        data-name=""
+                        style={{ marginBottom: 'var(--spacing-medium)', position: 'relative', top: '-10px' }}
+                        color={Color.GREY_400}
+                      >
+                        {`If enabled, Harness will abort previous active executions of ${
+                          eventLabel + (event === eventTypes.PUSH ? 'e' : '')
+                        }s if a new execution for the same ${eventLabel} is triggered by this trigger`}
+                      </Text>
+                    </>
+                  )}
+                </>
               )}
             </>
           ) : enableSecureToken ? (

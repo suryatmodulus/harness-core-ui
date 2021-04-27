@@ -480,7 +480,8 @@ export const getValidationSchema = (
 export const eventTypes = {
   PUSH: 'Push',
   BRANCH: 'Branch',
-  TAG: 'Tag'
+  TAG: 'Tag',
+  PULL_REQUEST: 'Pull Request'
 }
 
 export const scheduledTypes = {

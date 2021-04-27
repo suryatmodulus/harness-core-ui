@@ -17,6 +17,8 @@ import { Menu, Dialog } from '@blueprintjs/core'
 import { getListOfBranchesWithStatusPromise, GitBranchDTO, GitSyncConfig, syncGitBranchPromise } from 'services/cd-ng'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './GitFilters.module.scss'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { debounce } from 'lodash-es'
 
 interface GitFilterForm {
   repo: string
@@ -43,7 +45,7 @@ interface BranchSelectOption extends SelectOption {
 const GitFilters: React.FC<GitFiltersProps> = props => {
   const { defaultValue = { repo: '', branch: '' } } = props
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
   const [page] = React.useState<number>(0)
 
@@ -62,9 +64,11 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const [selectedGitBranch, setSelectedGitBranch] = useState<string>(defaultValue.branch || '')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<BranchSelectOption[]>([defaultBranchSelect])
   const [unSyncedSelectedBranch, setUnSyncedSelectedBranch] = React.useState<BranchSelectOption | null>(null)
+  const [searchTerm, setSearchTerm] = React.useState<string>('')
 
   const fetchBranches = (repoId: string): void => {
     setLoadingBranchList(true)
+
     getListOfBranchesWithStatusPromise({
       queryParams: {
         accountIdentifier: accountId,
@@ -72,7 +76,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         projectIdentifier,
         yamlGitConfigIdentifier: repoId,
         page,
-        size: 100
+        size: 10,
+        searchTerm
       }
     }).then(response => {
       setLoadingBranchList(false)
@@ -127,7 +132,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
       setSelectedGitBranch(defaultValue.branch || '')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGitRepo])
+  }, [selectedGitRepo, searchTerm])
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -195,7 +200,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
   const getSyncIcon = (syncStatus: GitBranchDTO['branchSyncStatus']) => {
     switch (syncStatus) {
-      case 'SYNCED':
+      case 'UNSYNCED':
         return (
           <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -215,7 +220,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
           </svg>
         )
 
-      case 'UNSYNCED':
+      case 'SYNCED':
         return (
           <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

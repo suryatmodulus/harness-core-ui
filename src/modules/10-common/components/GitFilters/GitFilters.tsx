@@ -11,10 +11,10 @@ import {
   Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-//import { useStrings } from 'framework/strings'
 
 import cx from 'classnames'
 import { Menu, Dialog } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
 import { GitBranchDTO, GitSyncConfig, syncGitBranchPromise, useGetListOfBranchesWithStatus } from 'services/cd-ng'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -37,20 +37,27 @@ interface BranchSelectOption extends SelectOption {
   branchSyncStatus?: GitBranchDTO['branchSyncStatus']
 }
 
+const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
+  SYNCED: 'SYNCED',
+  SYNCING: 'SYNCING',
+  UNSYNCED: 'UNSYNCED'
+}
+
 const GitFilters: React.FC<GitFiltersProps> = props => {
   const { defaultValue = { repo: '', branch: '' } } = props
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page] = React.useState<number>(0)
 
   const defaultRepoSelect: SelectOption = {
-    label: 'All Repositories',
+    label: getString('common.gitSync.allRepositories'),
     value: ''
   }
 
   const defaultBranchSelect: BranchSelectOption = {
-    label: 'Default Branches',
+    label: getString('common.gitSync.defaultBranches'),
     value: ''
   }
 
@@ -117,7 +124,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         branch: unSyncedSelectedBranch?.value as string
       },
       body: undefined
-    }).then(() => showSuccess(`Sync started for branch ${unSyncedSelectedBranch?.value as string}`))
+    }).then(() => showSuccess(getString('common.gitSync.syncStartSuccess', { branch: unSyncedSelectedBranch?.value })))
     setUnSyncedSelectedBranch(null)
   }
 
@@ -142,8 +149,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         onClose={() => {
           hideModal()
           setUnSyncedSelectedBranch(null)
-          response?.data?.defaultBranch?.branchSyncStatus === 'SYNCED'
-            ? setSelectedGitBranch(response.data.defaultBranch.branchName || '')
+          response?.data?.defaultBranch?.branchSyncStatus === branchSyncStatus.SYNCED
+            ? setSelectedGitBranch(response?.data?.defaultBranch?.branchName || '')
             : setSelectedGitRepo('')
         }}
       >
@@ -151,22 +158,20 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
           <Container padding="xlarge">
             <Layout.Horizontal className={'spaceBetween'}>
               <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_800}>
-                {'Sync the branch'}
+                {getString('common.gitSync.unSynced.header')}
               </Text>
               <Icon size={24} name="refresh"></Icon>
             </Layout.Horizontal>
-            <Text margin={{ top: 'medium' }}>{`Branch '${
-              unSyncedSelectedBranch.value as string
-            }' is currently not Synced.`}</Text>
-            <Text margin={{ bottom: 'medium', top: 'small' }}>
-              {'Explaination text - What is syncing and why the branch needs to be sync.Do you want to Sync?'}
+            <Text margin={{ top: 'medium' }}>
+              {getString('common.gitSync.unSynced.message1', { branch: unSyncedSelectedBranch?.value })}
             </Text>
+            <Text margin={{ bottom: 'medium', top: 'small' }}>{getString('common.gitSync.unSynced.message2')}</Text>
             <div className={css.btnConatiner}>
               <Button minimal margin={{ right: 'small' }} onClick={() => setUnSyncedSelectedBranch(null)}>
-                Cancel
+                {getString('cancel')}
               </Button>
               <Button intent="primary" onClick={() => startBranchSync()}>
-                Sync
+                {getString('common.gitSync.sync')}
               </Button>
             </div>
           </Container>
@@ -174,15 +179,11 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
           <Container padding="large" className={css.syncModal}>
             <Icon size={24} margin="large" name="spinner"></Icon>
             <Text color={Color.GREY_800} font={{ weight: 'bold', size: 'medium' }} margin={{ bottom: 'small' }}>
-              {'Sync in progress'}
+              {getString('common.gitSync.syncing.header')}
             </Text>
-            <Text>
-              {
-                'Sync in happening in the background, you can check on the status in the branch dropdown. This may take a few minutes to complete.'
-              }
-            </Text>
+            <Text>{getString('common.gitSync.syncing.message')}</Text>
             <Button margin={{ top: 'medium' }} intent="primary" onClick={() => setUnSyncedSelectedBranch(null)}>
-              OK
+              {getString('common.ok')}
             </Button>
           </Container>
         )}
@@ -193,13 +194,13 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
   const getSyncIcon = (syncStatus: GitBranchDTO['branchSyncStatus']): JSX.Element | void => {
     switch (syncStatus) {
-      case 'SYNCED':
+      case branchSyncStatus.SYNCED:
         return <Icon size={20} name="synced"></Icon>
 
-      case 'SYNCING':
+      case branchSyncStatus.SYNCING:
         return <Icon className={'rotate'} name="syncing"></Icon>
 
-      case 'UNSYNCED':
+      case branchSyncStatus.UNSYNCED:
         return <Icon name="not-synced"></Icon>
     }
   }
@@ -226,6 +227,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         className={css.repoSelectDefault}
         value={repoSelectOptions.find(repoOption => repoOption.value === selectedGitRepo)}
         disabled={loadingRepos}
+        data-id="gitRepoSelect"
         items={repoSelectOptions}
         onChange={(selected: SelectOption) => {
           setSelectedGitRepo(selected.value as string)
@@ -247,7 +249,6 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             <Menu.Item
               key={item.value as string}
               active={item.value === selectedGitBranch}
-              // disabled={item.branchSyncStatus !== 'SYNCED'}
               onClick={() => handleBranchClick(item)}
               text={
                 <Layout.Horizontal className={'spaceBetween'}>

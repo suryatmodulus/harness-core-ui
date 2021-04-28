@@ -148,8 +148,17 @@ export interface StringsMap {
   'common.git.startPRLabel': string
   'common.git.urlType': string
   'common.git.validation.filePath': string
+  'common.gitSync.allRepositories': string
+  'common.gitSync.defaultBranches': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
+  'common.gitSync.sync': string
+  'common.gitSync.syncStartSuccess': string
+  'common.gitSync.syncing.header': string
+  'common.gitSync.syncing.message': string
+  'common.gitSync.unSynced.header': string
+  'common.gitSync.unSynced.message1': string
+  'common.gitSync.unSynced.message2': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
@@ -160,6 +169,7 @@ export interface StringsMap {
   'common.member': string
   'common.namespace': string
   'common.note': string
+  'common.ok': string
   'common.options': string
   'common.orgViewer': string
   'common.other': string

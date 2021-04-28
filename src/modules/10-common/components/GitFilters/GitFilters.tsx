@@ -26,7 +26,7 @@ interface GitFilterForm {
   branch: GitBranchDTO['branchName']
 }
 
-interface GitFiltersProps {
+export interface GitFiltersProps {
   defaultValue?: GitFilterForm
   onChange: (value: GitFilterForm) => void
   className?: string

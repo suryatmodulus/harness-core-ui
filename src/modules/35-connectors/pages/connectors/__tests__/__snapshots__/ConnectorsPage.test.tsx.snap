@@ -9,7 +9,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--flex"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
@@ -232,7 +232,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--flex"
     >
       <div
-        class="StyledProps--font StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
           class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"

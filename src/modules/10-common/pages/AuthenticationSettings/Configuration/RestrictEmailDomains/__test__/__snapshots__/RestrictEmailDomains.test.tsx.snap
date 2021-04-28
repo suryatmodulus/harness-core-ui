@@ -3,10 +3,10 @@
 exports[`RestrictEmailDomains Disable email restrictions 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge StyledProps--border"
+    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card card shadow"
+      class="bp3-card bp3-elevation-0 Card--card card"
     >
       <label
         class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--padding-bottom-medium"
@@ -76,10 +76,10 @@ exports[`RestrictEmailDomains Disable email restrictions 1`] = `
 exports[`RestrictEmailDomains Update email restrictions 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge StyledProps--border"
+    class="StyledProps--font StyledProps--main StyledProps--margin-xlarge"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card card shadow"
+      class="bp3-card bp3-elevation-0 Card--card card"
     >
       <label
         class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--padding-bottom-medium"

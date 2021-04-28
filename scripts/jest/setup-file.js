@@ -37,3 +37,11 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn()
   }))
 })
+
+jest.mock('framework/utils/Telemetry', () => {
+  return {
+    track: jest.fn(),
+    page: jest.fn(),
+    identify: jest.fn()
+  }
+})

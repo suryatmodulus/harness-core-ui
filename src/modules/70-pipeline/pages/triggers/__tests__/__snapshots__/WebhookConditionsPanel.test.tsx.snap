@@ -21,7 +21,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               style="display: inline-block;"
             >
-              pipeline-triggers.conditionsPanel.titleOptional
+              titleOptional
             </p>
           </h2>
           <p
@@ -138,7 +138,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               style="display: inline-block;"
             >
-              pipeline-triggers.conditionsPanel.titleOptional
+              titleOptional
             </p>
           </h2>
           <p

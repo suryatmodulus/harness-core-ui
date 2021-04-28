@@ -434,12 +434,7 @@ exports[`<ExecutionsList /> test snapshot testing 1`] = `
                     />
                   </svg>
                 </span>
-                <time
-                  datetime="2021-01-13T08:53:13.932Z"
-                  title="2021-01-13 08:53"
-                >
-                  3 months ago
-                </time>
+                MOCK_TIME_AGO
               </span>
             </div>
           </div>

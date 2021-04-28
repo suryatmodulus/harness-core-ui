@@ -70,6 +70,7 @@
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.36",
     "@wings-software/uicore": "0.1.141",
+    "@wings-software/telemetry": "^1.0.36",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",

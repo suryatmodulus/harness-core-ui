@@ -37,6 +37,9 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
+import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
+import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
@@ -310,7 +313,35 @@ export default (
         ...pipelineModuleParams
       })}
     >
-      <SecretDetails />
+      <RedirectToSecretDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toResourcesSecretDetailsOverview({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <SecretDetailsHomePage>
+        <SecretDetails />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toResourcesSecretDetailsReferences({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <SecretDetailsHomePage>
+        <SecretReferences />
+      </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

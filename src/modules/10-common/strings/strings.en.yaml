@@ -161,15 +161,16 @@ samlProvider:
   addSAMLProvider: Add SAML Provider
   editSAMLProvider: Edit SAML Provider
   selectSAMLProvider: Select a SAML Provider
-  enterSAMLEndPoint: Enter this SAML Endpoint URL as your Harness Azure application's ACS URL.
-  uploadIdentityProvider: Upload the Identity Provider metadata XML downloaded from your Okta app
+  enterSAMLEndPoint: Enter this SAML Endpoint URL as your Harness {{ selectSAMLProvider }} application's ACS URL.
+  uploadIdentityProvider: Upload the Identity Provider metadata XML downloaded from your {{ selectSAMLProvider }} app
+  identityProvider: Identity Provider metadata XML downloaded from your {{ selectSAMLProvider }} app
   chooseFile: Choose a file...
   enableAuthorization: Enable Authorization
   groupAttributeName: Group Attribute Name
   friendlyReminder: Friendly Reminder
   friendlyReminderDescription: Email addresses are how Harness identifies Users. Always ensure that the email addresses of your registered Harness Users match the SAML provider users you want to authenticate and authorize.
   enablingAuthorization: Enabling Authorization
-  enablingAuthorizationDescription: To set up SAML authorization in Harness, you link a Harness User Group to a user group in Okta. When a user from Okta logs into Harness, they are automatically added to the linked Harness User Group, and inherit all the RBAC settings for that User Group.
+  enablingAuthorizationDescription: To set up SAML authorization in Harness, you link a Harness User Group to a user group in {{ selectSAMLProvider }}. When a user from {{ selectSAMLProvider }} logs into Harness, they are automatically added to the linked Harness User Group, and inherit all the RBAC settings for that User Group.
   testingSSO: Testing SSO
   testingSSODescription: A new browser tab will prompt you to log into your SAML provider when you test. Ensure that you have at least two corresponding user accounts when setting up and testing SAML SSO in Harness. This allows you to set up the account with a Harness Administrator account and test it with a Harness user account.
   azure: Azure
@@ -178,7 +179,7 @@ samlProvider:
   samlProviderAddedSuccessfully: SAML provider added successfully
   samlProviderUpdatedSuccessfully: SAML provider updated successfully
 authSettings:
-  authorizationEnabledFor: 'Authorization enabled for:'
+  authorizationEnabledFor: 'Authorization enabled for: '
   authorizationNotEnabled: Authorization not enabled
   plusSAMLProvider: + SAML Provider
   loginViaSAML: Login via SAML
@@ -214,21 +215,24 @@ authSettings:
   oauthSettingsHaveBeenUpdated: OAuth settings have been updated
   disableOAuthLogin: Disable login via public OAuth providers
   confirmDisableOAuthLogin: Are you sure you want to disable login via public OAuth providers?
-  enableAtLeastOneSSoBeforeDisablingUserPasswordLogin: You must enable at least one SSO provider before you can disable login via Harness username/password.
+  enableAtLeastOneSsoBeforeDisablingUserPasswordLogin: You must enable at least one SSO provider before you can disable login via Harness username/password.
   loginSettingsHaveBeenUpdated: Login settings have been updated
   disableUserPasswordLogin: Disable login via Harness username/password
   confirmDisableUserPasswordLogin: Are you sure you want to disable login via Harness username/password?
   disablePasswordStrength: Disable password strength
   confirmDisablePasswordStrength: Are you sure you want to disable password strength policy?
   passwordStrengthEnabled: Password strength policy has been enabled successfully
+  passwordStrengthUpdated: Password strength policy has been updated successfully
   passwordStrengthDisabled: Password strength policy has been disabled successfully
   disablePasswordExpiration: Disable password expiration
   confirmDisablePasswordExpiration: Are you sure you want to disable password expiration policy?
   passwordExpirationEnabled: Password expiration policy has been enabled successfully
+  passwordExpirationUpdated: Password expiration policy has been updated successfully
   passwordExpirationDisabled: Password expiration policy has been disabled successfully
   disableLockoutPolicy: Disable lockout policy
   confirmDisableLockoutPolicy: Are you sure you want to disable lockout policy?
   lockoutPolicyEnabled: Lockout policy has been enabled successfully
+  lockoutPolicyUpdated: Lockout policy has been updated successfully
   lockoutPolicyDisabled: Lockout policy has been disabled successfully
   SAMLProvider: SAML Provider
   somethingWentWrong: Something went wrong, please try again.
@@ -236,11 +240,12 @@ authSettings:
   selectVersion: Select version
   selectBranch: Select branch
   deleteSamlProvider: Delete SAML provider
-  deleteSamlProviderDescription: 'Do you want to delete the SAML Provider: {{ displayName }}?'
+  deleteSamlProviderDescription: 'Do you want to delete the SAML Provider:'
   samlProviderDeleted: SAML provider has been deleted successfully
   enableSamlProvider: Enable SAML Provider
   enableSamlProviderDescription: Before you change the SSO provider to SAML, please use the Test button to ensure your settings are correct.
   samlLoginEnabled: SAML login enabled successfully
+  enableHarnessAccountOrOauthLogin: Enable Harness account or Oauth login
   changeLoginToHarnessAccountOrOauth: Do you want to change Login via SAML Provider to Harness Account or Public OAuth Providers?
   accountOrOAuthLoginEnabledSuccessfully: '{{ $.common.authSettings.accountOrOAuthLogin }} enabled successfully'
   changeLoginToHarnessAccountOrOauthDescription: Some Users may not have set their Harness password. They will need to reset their password using this

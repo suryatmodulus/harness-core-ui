@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HarnessAccount Disable login vai Username-Password 1`] = `
+exports[`HarnessAccount Disable login via Username-Password 1`] = `
 <div>
   <div
     class="Collapse--main collapseClassName"

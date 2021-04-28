@@ -3,8 +3,8 @@ import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import type { LoginSettings } from 'services/cd-ng'
-import LockoutPolicyForm from '@common/modals/LockoutPolicy/views/LockoutPolicyForm'
-import css from '@common/modals/LockoutPolicy/useLockoutPolicy.module.scss'
+import LockoutPolicyForm from './views/LockoutPolicyForm'
+import css from './useLockoutPolicy.module.scss'
 
 interface Props {
   onSuccess: () => void

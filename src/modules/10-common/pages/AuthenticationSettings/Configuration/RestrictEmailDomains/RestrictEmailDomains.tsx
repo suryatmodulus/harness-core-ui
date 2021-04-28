@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Container, Card, Switch, Text, Color, Icon } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
@@ -9,8 +8,7 @@ import { useToaster } from '@common/components'
 import { useUpdateWhitelistedDomains } from 'services/cd-ng'
 import { useRestrictEmailDomains } from '@common/modals/RestrictEmailDomains/useRestrictEmailDomains'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
-import configCss from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
-import css from '@common/pages/AuthenticationSettings/Configuration/RestrictEmailDomains/RestrictEmailDomains.module.scss'
+import css from './RestrictEmailDomains.module.scss'
 
 interface Props {
   whitelistedDomains: string[]
@@ -19,11 +17,11 @@ interface Props {
 
 const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuthSettings }) => {
   const { getString } = useStrings()
-  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
-  const currentState = !!whitelistedDomains.length
+  const { accountId } = useParams<AccountPathProps>()
+  const emailRestrictionsEnabled = !!whitelistedDomains.length
 
-  const { mutate: updateWhitelistedDomains } = useUpdateWhitelistedDomains({
+  const { mutate: updateWhitelistedDomains, loading: updatingWhitelistedDomains } = useUpdateWhitelistedDomains({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -53,7 +51,7 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
     contentText: getString('common.authSettings.confirmDisableWhitelistedDomains'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
-    onCloseDialog: async isConfirmed => {
+    onCloseDialog: isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         disableWhitelistedDomains()
       }
@@ -63,16 +61,16 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
   const onChangeWhitelistedDomains = (e: React.FormEvent<HTMLInputElement>): void => {
     const enable = e.currentTarget.checked
 
-    if (currentState && !enable) {
+    if (emailRestrictionsEnabled && !enable) {
       confirmWhitelistedDomainsDisable()
-    } else if (!currentState && enable) {
+    } else if (!emailRestrictionsEnabled && enable) {
       openRestrictEmailDomainsModal()
     }
   }
 
   return (
-    <Container margin="xlarge" border={{ radius: 4 }}>
-      <Card className={cx(css.card, configCss.shadow)}>
+    <Container margin="xlarge">
+      <Card className={css.card}>
         <Switch
           labelElement={
             <Text inline color={Color.BLACK} font={{ weight: 'bold', size: 'normal' }}>
@@ -80,26 +78,29 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
             </Text>
           }
           padding={{ bottom: 'medium' }}
-          checked={currentState}
+          checked={emailRestrictionsEnabled}
           onChange={onChangeWhitelistedDomains}
+          disabled={updatingWhitelistedDomains}
           data-testid="toggle-restrict-email-domains"
         />
-        <TagInput
-          disabled
-          values={whitelistedDomains}
-          rightElement={
-            <Icon
-              name="edit"
-              intent="primary"
-              margin="small"
-              className={css.editIcon}
-              onClick={openRestrictEmailDomainsModal}
-              data-testid="update-restrict-email-domains"
-            />
-          }
-          className={css.input}
-          tagProps={{ minimal: true }}
-        />
+        {emailRestrictionsEnabled && (
+          <TagInput
+            disabled
+            values={whitelistedDomains}
+            rightElement={
+              <Icon
+                name="edit"
+                intent="primary"
+                margin="small"
+                className={css.editIcon}
+                onClick={openRestrictEmailDomainsModal}
+                data-testid="update-restrict-email-domains"
+              />
+            }
+            className={css.input}
+            tagProps={{ minimal: true }}
+          />
+        )}
       </Card>
     </Container>
   )

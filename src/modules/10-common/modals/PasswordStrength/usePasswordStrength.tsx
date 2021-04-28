@@ -3,8 +3,8 @@ import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import type { LoginSettings } from 'services/cd-ng'
-import PasswordStrengthForm from '@common/modals/PasswordStrength/views/PasswordStrengthForm'
-import css from '@common/modals/PasswordStrength/usePasswordStrength.module.scss'
+import PasswordStrengthForm from './views/PasswordStrengthForm'
+import css from './usePasswordStrength.module.scss'
 
 interface Props {
   onSuccess: () => void

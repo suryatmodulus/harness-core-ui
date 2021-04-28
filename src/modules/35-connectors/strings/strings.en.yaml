@@ -214,6 +214,13 @@ cdng:
   noJobsConfigured: No verification jobs are configured.
   selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
   error: Something went wrong , please try again by clicking on CV step again
+  validations:
+    deploymentTagRequired: Deployment Tag is required
+    jobNameRequired: Job name is required
+    durationRequired: Duration is required
+    sensitivityRequired: Sensitivity is required
+    baselineRequired: Baseline is required
+    trafficsplitRequired: Traffic Split is required
   verificationSensitivityLabel:
     high: High
     medium: Medium

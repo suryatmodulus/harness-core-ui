@@ -43,7 +43,8 @@ export interface StringsMap {
   'common.authSettings.disableWhitelistedDomains': string
   'common.authSettings.doYouWantToEnforceTwoFAForAllMembers': string
   'common.authSettings.domainNameRequired': string
-  'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enableHarnessAccountOrOauthLogin': string
   'common.authSettings.enableSamlProvider': string
   'common.authSettings.enableSamlProviderDescription': string
   'common.authSettings.enforceLockoutPolicy': string
@@ -63,6 +64,7 @@ export interface StringsMap {
   'common.authSettings.lockoutPolicy': string
   'common.authSettings.lockoutPolicyDisabled': string
   'common.authSettings.lockoutPolicyEnabled': string
+  'common.authSettings.lockoutPolicyUpdated': string
   'common.authSettings.loginSettingsHaveBeenUpdated': string
   'common.authSettings.loginViaSAML': string
   'common.authSettings.minLength': string
@@ -73,10 +75,12 @@ export interface StringsMap {
   'common.authSettings.passwordExpiration': string
   'common.authSettings.passwordExpirationDisabled': string
   'common.authSettings.passwordExpirationEnabled': string
+  'common.authSettings.passwordExpirationUpdated': string
   'common.authSettings.passwordMustFulfillReq': string
   'common.authSettings.passwordStrength': string
   'common.authSettings.passwordStrengthDisabled': string
   'common.authSettings.passwordStrengthEnabled': string
+  'common.authSettings.passwordStrengthUpdated': string
   'common.authSettings.periodicallyExpirePassword': string
   'common.authSettings.periodicallyExpirePasswordNote': string
   'common.authSettings.plusSAMLProvider': string
@@ -224,6 +228,7 @@ export interface StringsMap {
   'common.samlProvider.friendlyReminder': string
   'common.samlProvider.friendlyReminderDescription': string
   'common.samlProvider.groupAttributeName': string
+  'common.samlProvider.identityProvider': string
   'common.samlProvider.okta': string
   'common.samlProvider.oneLogin': string
   'common.samlProvider.samlProviderAddedSuccessfully': string
@@ -340,6 +345,8 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'secrets.noRefData': string
+  'secrets.references': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -409,6 +416,12 @@ export interface StringsMap {
   'connectors.cdng.noJobsConfigured': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
+  'connectors.cdng.validations.baselineRequired': string
+  'connectors.cdng.validations.deploymentTagRequired': string
+  'connectors.cdng.validations.durationRequired': string
+  'connectors.cdng.validations.jobNameRequired': string
+  'connectors.cdng.validations.sensitivityRequired': string
+  'connectors.cdng.validations.trafficsplitRequired': string
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
@@ -2045,6 +2058,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   adminLabel: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  adminResources: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4520,10 +4537,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipeline-triggers.conditionsPanel.titleOptional': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipeline-triggers.confirmDelete': string
   /**
    * @deprecated migrate this string to module level file
@@ -6388,6 +6401,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'secret.updateSuccess': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'secret.validationIdentifier': string
   /**
    * @deprecated migrate this string to module level file
@@ -6868,6 +6885,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  tested: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   tests: string
   /**
    * @deprecated migrate this string to module level file
@@ -6885,6 +6906,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   timeMinutes: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  titleOptional: string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -25,6 +25,7 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import type { FormikContext } from 'formik'
 import { RadioGroup, Radio } from '@blueprintjs/core'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/exports'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
@@ -109,6 +110,7 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
@@ -834,6 +836,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                     props.gatewayDetails.fullfilment = (item as CardData).value
                     props.setGatewayDetails(props.gatewayDetails)
                     setFullfilment((item as CardData).value)
+                    trackEvent('SelectedInstanceType', { value: item?.value || '' })
                   }}
                   renderItem={(item, _) => (
                     <Layout.Vertical spacing="large">

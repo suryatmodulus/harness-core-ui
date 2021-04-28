@@ -2,6 +2,8 @@ import React from 'react'
 import { render, fireEvent, findByText, act, getByText, waitFor } from '@testing-library/react'
 
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
+import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import SecretDetails from '../SecretDetails'
 
 import mockData from './secretDetailsMocks.json'
@@ -45,8 +47,11 @@ jest.mock('services/cd-ng', () => ({
 describe('Secret Details', () => {
   test('Text Secret', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretDetails mockSecretDetails={mockData.text as any} />
+      <TestWrapper
+        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
+      >
+        <SecretDetails secretData={mockData.text.data as any} refetch={jest.fn()} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -62,36 +67,32 @@ describe('Secret Details', () => {
   test('File Secret', () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/org/:orgIdentifier/resources/secrets"
-        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy' }}
+        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
-        <SecretDetails mockSecretDetails={mockData.file as any} />
+        <SecretDetails secretData={mockData.file.data as any} refetch={jest.fn()} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
   test('SSH Secret with Key', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretDetails
-          mockSecretDetails={mockData.sshKey as any}
-          mockPassword={mockData.text.data as any}
-          mockPassphrase={mockData.text.data as any}
-          mockKey={mockData.file.data as any}
-        />
+      <TestWrapper
+        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
+      >
+        <SecretDetails secretData={mockData.sshKey.data as any} refetch={jest.fn()} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
   })
   test('SSH Secret with Key YAML', async () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretDetails
-          mockSecretDetails={mockData.sshKey as any}
-          mockPassword={mockData.text.data as any}
-          mockPassphrase={mockData.text.data as any}
-          mockKey={mockData.file.data as any}
-        />
+      <TestWrapper
+        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
+      >
+        <SecretDetails secretData={mockData.sshKey.data as any} refetch={jest.fn()} />
       </TestWrapper>
     )
     await act(async () => {

@@ -4,7 +4,7 @@ import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import css from '@common/pages/AuthenticationSettings/HeaderContent/HeaderContent.module.scss'
+import css from './HeaderContent.module.scss'
 
 const HeaderContent: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()

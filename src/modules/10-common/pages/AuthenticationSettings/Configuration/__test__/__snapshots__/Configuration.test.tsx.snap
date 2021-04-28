@@ -14,7 +14,7 @@ exports[`Configuration Configuration page 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/testAcc/admin/authentication/configuration"
+            href="/account/testAcc/admin"
           >
             settingsLabel
           </a>

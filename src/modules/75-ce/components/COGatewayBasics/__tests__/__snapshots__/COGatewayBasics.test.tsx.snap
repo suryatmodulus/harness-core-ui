@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test GatewayBasic renders without crashing 1`] = `
+<div>
+  <div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+        >
+          ce.co.gatewayBasics.connect Azure ce.co.gatewayBasics.account
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+            data-testid="cr-field-cloudAccount"
+            style="width: 400px;"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              <span
+                class="placeholder"
+              >
+                ce.co.gatewayBasics.select
+              </span>
+            </span>
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <span
+      style="font-size: 13px; color: rgb(2, 120, 213); line-height: 20px; cursor: pointer;"
+    >
+      + ce.co.gatewayBasics.new Azure ce.co.gatewayBasics.account
+    </span>
+  </div>
+</div>
+`;

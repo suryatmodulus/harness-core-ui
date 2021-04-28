@@ -5,7 +5,7 @@ import { Layout, Icon, Text, Color, Container, Switch, Collapse } from '@wings-s
 import { useLockoutPolicyModal } from '@common/modals/LockoutPolicy/useLockoutPolicy'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/components'
-import type { LoginSettings, UserLockoutPolicy } from 'services/cd-ng'
+import type { LoginSettings } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -28,6 +28,7 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings }) 
   }
 
   const { openLockoutPolicyModal } = useLockoutPolicyModal({ onSuccess, loginSettings })
+
   const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
@@ -35,33 +36,29 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings }) 
     }
   })
 
-  const submitLockoutSettings = async (userLockoutPolicy: UserLockoutPolicy): Promise<void> => {
-    try {
-      const response = await updateLoginSettings({
-        ...loginSettings,
-        userLockoutPolicy
-      })
-
-      /* istanbul ignore else */ if (response) {
-        refetchAuthSettings()
-        showSuccess(getString('common.authSettings.lockoutPolicyDisabled'), 5000)
-      }
-    } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
-    }
-  }
-
   const { openDialog: confirmLockoutSettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
     titleText: getString('common.authSettings.disableLockoutPolicy'),
     contentText: getString('common.authSettings.confirmDisableLockoutPolicy'),
     confirmButtonText: getString('confirm'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
-        submitLockoutSettings({
-          ...userLockoutSettings,
-          enableLockoutPolicy: false
-        })
+        try {
+          const response = await updateLoginSettings({
+            ...loginSettings,
+            userLockoutPolicy: {
+              ...userLockoutSettings,
+              enableLockoutPolicy: false
+            }
+          })
+
+          /* istanbul ignore else */ if (response) {
+            refetchAuthSettings()
+            showSuccess(getString('common.authSettings.lockoutPolicyDisabled'), 5000)
+          }
+        } catch (e) {
+          /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+        }
       }
     }
   })

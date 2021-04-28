@@ -35,13 +35,29 @@ export function ContinousVerificationWidget(
   const defaultCVSchema = Yup.object().shape({
     name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
     spec: Yup.object().shape({
-      verificationJobRef: Yup.mixed().test('jobName', 'Job Name is required', value => value !== ''),
+      verificationJobRef: Yup.string().required(getString('connectors.cdng.validations.jobNameRequired')),
       spec: Yup.object().shape({
-        duration: Yup.mixed().test('duration', 'Duration is required', value => value !== ''),
-        sensitivity: Yup.mixed().test('sensitivity', 'Sensitivity is required', value => value !== ''),
-        baseline: Yup.mixed().test('baseline', 'Baseline is required', value => value !== ''),
-        trafficsplit: Yup.mixed().test('trafficsplit', 'Trafficsplit is required', value => value !== ''),
-        deploymentTag: Yup.mixed().test('deploymentTag', 'DeploymentTag is required', value => value !== '')
+        duration: Yup.mixed().test(
+          'duration',
+          getString('connectors.cdng.validations.durationRequired'),
+          value => value !== ''
+        ),
+        sensitivity: Yup.mixed().test(
+          'sensitivity',
+          getString('connectors.cdng.validations.sensitivityRequired'),
+          value => value !== ''
+        ),
+        baseline: Yup.mixed().test(
+          'baseline',
+          getString('connectors.cdng.validations.baselineRequired'),
+          value => value !== ''
+        ),
+        trafficsplit: Yup.mixed().test(
+          'trafficsplit',
+          getString('connectors.cdng.validations.baselineRequired'),
+          value => value !== ''
+        ),
+        deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))
       })
     }),
     ...IdentifierValidation()

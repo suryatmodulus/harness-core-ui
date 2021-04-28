@@ -2,8 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
-import RestrictEmailDomainsForm from '@common/modals/RestrictEmailDomains/views/RestrictEmailDomainsForm'
-import css from '@common/modals/RestrictEmailDomains/useRestrictEmailDomains.module.scss'
+import RestrictEmailDomainsForm from './views/RestrictEmailDomainsForm'
+import css from './useRestrictEmailDomains.module.scss'
 
 interface Props {
   onSuccess: () => void
@@ -34,7 +34,7 @@ export const useRestrictEmailDomains = ({ onSuccess, whitelistedDomains }: Props
   )
 
   return {
-    openRestrictEmailDomainsModal: () => showModal(),
+    openRestrictEmailDomainsModal: showModal,
     closeRestrictEmailDomainsModal: hideModal
   }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountAndOAuth Login vai AccountAndOAuth 1`] = `
+exports[`AccountAndOAuth Login via AccountAndOAuth 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main StyledProps--margin-xlarge StyledProps--background-white"

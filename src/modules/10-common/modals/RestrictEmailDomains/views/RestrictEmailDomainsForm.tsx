@@ -33,7 +33,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
   const { accountId } = useParams<AccountPathProps>()
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
 
-  const { mutate: updateWhitelistedDomains } = useUpdateWhitelistedDomains({
+  const { mutate: updateWhitelistedDomains, loading: updatingWhitelistedDomains } = useUpdateWhitelistedDomains({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -76,7 +76,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
           <FormikForm>
             <FormInput.MultiInput name="domains" />
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button intent="primary" type="submit" margin={{ right: 'xsmall' }}>
+              <Button intent="primary" type="submit" margin={{ right: 'xsmall' }} loading={updatingWhitelistedDomains}>
                 {getString('save')}
               </Button>
               <Button onClick={onCancel}>{getString('cancel')}</Button>

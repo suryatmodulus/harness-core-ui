@@ -41,10 +41,10 @@ describe('AccountAndOAuth', () => {
     container = renderObj.container
   })
 
-  test('Login vai AccountAndOAuth', () => {
+  test('Login via AccountAndOAuth', () => {
     expect(container).toMatchSnapshot()
   }),
-    test('Enable Login vai account or oauth providers', async () => {
+    test('Enable Login via account or oauth providers', async () => {
       const radioButton = queryByText(container, 'common.authSettings.accountOrOAuthLogin')
       expect(radioButton).toBeTruthy()
       act(() => {

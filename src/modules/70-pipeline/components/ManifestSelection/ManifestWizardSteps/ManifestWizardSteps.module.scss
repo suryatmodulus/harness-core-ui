@@ -44,7 +44,7 @@
   }
 }
 .saveBtn {
-  position: absolute;
+  position: relative;
   bottom: 0;
 }
 .drag {
@@ -118,7 +118,7 @@
 }
 
 .advancedStepOpen {
-  min-height: 200px;
+  min-height: 100px;
 }
 
 .checkbox {

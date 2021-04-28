@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
 import { compile } from 'path-to-regexp'
 
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
@@ -15,8 +16,13 @@ export default function CESideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const history = useHistory()
-  const { updateAppStore } = useAppStore()
+  const { currentUserInfo, updateAppStore } = useAppStore()
   const { getString } = useStrings()
+  const { identifyUser } = useTelemetry()
+  useEffect(() => {
+    identifyUser(currentUserInfo.email)
+  }, [])
+  useTelemetry({ pageName: 'CloudCostPage' })
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector

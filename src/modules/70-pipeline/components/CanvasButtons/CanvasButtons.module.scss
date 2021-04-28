@@ -1,7 +1,7 @@
 .canvas-buttons {
   position: absolute;
   right: var(--spacing-large);
-  top: var(--spacing-large);
+  bottom: var(--spacing-xlarge);
 
   :global(.bp3-button) {
     padding: var(--spacing-medium) !important;

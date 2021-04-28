@@ -27,6 +27,10 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
+    name: 'spec.privileged',
+    type: TransformValuesTypes.Boolean
+  },
+  {
     name: 'spec.reportPaths',
     type: TransformValuesTypes.ReportPaths
   },
@@ -87,6 +91,11 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.Text,
     label: 'commandLabel',
     isRequired: true
+  },
+  {
+    name: 'spec.privileged',
+    label: 'ci.privileged',
+    type: ValidationFieldTypes.Boolean
   },
   {
     name: 'spec.reportPaths',

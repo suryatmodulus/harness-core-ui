@@ -23,6 +23,10 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
+    name: 'spec.privileged',
+    type: TransformValuesTypes.Boolean
+  },
+  {
     name: 'spec.settings',
     type: TransformValuesTypes.Map
   },
@@ -69,6 +73,11 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.Text,
     label: 'imageLabel',
     isRequired: true
+  },
+  {
+    name: 'spec.privileged',
+    type: ValidationFieldTypes.Boolean,
+    label: 'ci.privileged'
   },
   {
     name: 'spec.settings',

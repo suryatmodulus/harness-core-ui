@@ -58,3 +58,9 @@ usersPage:
   deleteSuccessMessage: User '{{name}}' deleted successfully
   noDataDescription: There are no users in this scope. Click on the button below to start adding them.
   noUsersFound: No Users found
+userDetails:
+  userGroup:
+    deleteTitle: Remove from User Group
+    deleteSuccessMessage: User is removed from the User Group '{{name}}'
+    confirmDeleteText: Are you sure you want to remove this user from the User Group '{{name}}'
+    addToGroup: + Add to Group

@@ -1,12 +1,12 @@
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import type { ConditionalExecutionStepOrSetGroupConfig, ExecutionWrapper } from 'services/cd-ng'
 import type { Domain } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 export enum AdvancedPanels {
   PreRequisites = 'preRequisites',
-  SkipCondition = 'skipCondition',
   FailureStrategy = 'failureStrategy',
-  DelegateSelectors = 'delegateSelectors'
+  DelegateSelectors = 'delegateSelectors',
+  ConditionalExecution = 'conditionalExecution'
 }
 export interface StepCommandsProps {
   step: ExecutionWrapper
@@ -32,4 +32,5 @@ export interface Values {
   shouldKeepOpen?: boolean
   failureStrategies?: any[]
   delegateSelectors?: string[]
+  when?: ConditionalExecutionStepOrSetGroupConfig
 }

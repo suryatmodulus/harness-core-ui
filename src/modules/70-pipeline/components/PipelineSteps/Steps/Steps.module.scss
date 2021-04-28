@@ -119,3 +119,13 @@
 .topSpacingLarge {
   margin-top: var(--spacing-large);
 }
+
+.checkboxField {
+  :global {
+    label.bp3-control {
+      padding-top: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

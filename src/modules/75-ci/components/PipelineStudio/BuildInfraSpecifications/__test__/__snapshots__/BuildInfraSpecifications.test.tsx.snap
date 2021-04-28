@@ -201,6 +201,94 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     </div>
                   </div>
                 </div>
+                <div
+                  class="group withoutSpacing"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="annotations-2"
+                    style="flex-grow: 1; margin-bottom: 0px;"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="annotations"
+                    >
+                      <div
+                        class="formLabel"
+                      >
+                        ci.annotations
+                      </div>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card"
+                        style="width: 100%;"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          data-testid="add-annotations"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            plusAdd
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="group withoutSpacing"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="labels-3"
+                    style="flex-grow: 1; margin-bottom: 0px;"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="labels"
+                    >
+                      <div
+                        class="formLabel"
+                      >
+                        ci.labels
+                      </div>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card"
+                        style="width: 100%;"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          data-testid="add-labels"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            plusAdd
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </form>
@@ -411,6 +499,94 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                             </span>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="group withoutSpacing"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="annotations-2"
+                    style="flex-grow: 1; margin-bottom: 0px;"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="annotations"
+                    >
+                      <div
+                        class="formLabel"
+                      >
+                        ci.annotations
+                      </div>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card"
+                        style="width: 100%;"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          data-testid="add-annotations"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            plusAdd
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="group withoutSpacing"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="labels-3"
+                    style="flex-grow: 1; margin-bottom: 0px;"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="labels"
+                    >
+                      <div
+                        class="formLabel"
+                      >
+                        ci.labels
+                      </div>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card"
+                        style="width: 100%;"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          data-testid="add-labels"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            plusAdd
+                          </span>
+                        </button>
                       </div>
                     </div>
                   </div>

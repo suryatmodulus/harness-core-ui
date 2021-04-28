@@ -56,3 +56,20 @@ export const mockResponse: ResponseBoolean = {
   metaData: {},
   correlationId: ''
 }
+
+export const userGroupInfo = {
+  status: 'SUCCESS',
+  data: [
+    {
+      accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+      identifier: 'test',
+      name: 'testGroup',
+      users: ['u1'],
+      notificationConfigs: [],
+      description: '',
+      tags: {}
+    }
+  ],
+  metaData: '',
+  correlationId: ''
+}

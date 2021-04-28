@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import * as yup from 'yup'
+import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import {
   Layout,
   Formik,
@@ -13,6 +14,7 @@ import {
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
+import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor } from 'framework/logging/logging'
@@ -35,9 +37,36 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
+import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
+
+const getInitialMapValues: (value: MultiTypeMapType) => MultiTypeMapUIType = value => {
+  const map =
+    typeof value === 'string'
+      ? value
+      : Object.keys(value || {}).map(key => ({
+          id: uuid('', nameSpace()),
+          key: key,
+          value: value[key]
+        }))
+
+  return map
+}
+
+const getMapValues: (value: MultiTypeMapUIType) => MultiTypeMapType = value => {
+  const map: MapType = {}
+  if (Array.isArray(value)) {
+    value.forEach(mapValue => {
+      if (mapValue.key) {
+        map[mapValue.key] = mapValue.value
+      }
+    })
+  }
+
+  return typeof value === 'string' ? value : map
+}
 
 const validationSchema = yup.object().shape({
   connectorRef: yup.mixed().required(),
@@ -48,6 +77,8 @@ interface Values {
   connectorRef?: ConnectorReferenceFieldProps['selected'] | string
   namespace?: string
   useFromStage?: string
+  annotations?: MultiTypeMapUIType
+  labels?: MultiTypeMapUIType
 }
 
 enum Modes {
@@ -114,7 +145,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     debounce: 300
   })
 
-  const getInitialValues = (): Values => {
+  const getInitialValues = useMemo((): Values => {
     if (stage?.stage?.spec?.infrastructure) {
       if (stage?.stage?.spec?.infrastructure?.useFromStage) {
         return {
@@ -130,21 +161,27 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             live: connector?.data?.status?.status === 'SUCCESS',
             connector: connector?.data?.connector
           },
-          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace
+          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
+          labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
       } else {
         return {
           connectorRef: '',
-          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace
+          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
+          labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
       }
     } else {
       return {
         connectorRef: '',
-        namespace: ''
+        namespace: '',
+        annotations: '',
+        labels: ''
       }
     }
-  }
+  }, [connector, stage])
 
   React.useEffect(() => {
     if (!isEmpty(stage?.stage?.spec?.infrastructure?.spec?.connectorRef)) {
@@ -163,8 +200,20 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           type: 'KubernetesDirect',
           spec: {
             connectorRef: values.connectorRef.value,
-            namespace: values.namespace
+            namespace: values.namespace,
+            annotations: getMapValues(values.annotations),
+            labels: getMapValues(values.labels)
           }
+        }
+        if (
+          !values.annotations ||
+          !values.annotations.length ||
+          (values.annotations.length === 1 && !values.annotations[0].key)
+        ) {
+          delete stage.stage.spec.infrastructure.spec.annotations
+        }
+        if (!values.labels || !values.labels.length || (values.labels.length === 1 && !values.labels[0].key)) {
+          delete stage.stage.spec.infrastructure.spec.labels
         }
       }
 
@@ -177,7 +226,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           enableReinitialize
-          initialValues={getInitialValues()}
+          initialValues={getInitialValues}
           validationSchema={validationSchema}
           validate={handleValidate}
           onSubmit={values => logger.info(JSON.stringify(values))}
@@ -219,9 +268,57 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             <Text font="small" margin={{ bottom: 'xsmall' }}>
                               {getString('pipelineSteps.build.infraSpecifications.namespace')}
                             </Text>
-                            <Text font="normal" color="black">
+                            <Text font="normal" color="black" margin={{ bottom: 'medium' }}>
                               {propagatedStage?.stage?.spec?.infrastructure?.spec?.namespace}
                             </Text>
+                          </>
+                        )}
+                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.annotations && (
+                          <>
+                            <Text font="small" margin={{ bottom: 'xsmall' }}>
+                              {getString('ci.annotations')}
+                            </Text>
+                            {typeof propagatedStage?.stage?.spec?.infrastructure?.spec?.annotations === 'string' ? (
+                              <Text font="normal" color="black">
+                                {propagatedStage.stage.spec.infrastructure.spec.annotations}
+                              </Text>
+                            ) : (
+                              <ul className={css.plainList}>
+                                {Object.entries(propagatedStage.stage.spec.infrastructure.spec.annotations).map(
+                                  (entry, idx) => (
+                                    <li key={idx}>
+                                      <Text font="normal" color="black">
+                                        {entry[0]}:{entry[1]}
+                                      </Text>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            )}
+                          </>
+                        )}
+                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.labels && (
+                          <>
+                            <Text font="small" margin={{ bottom: 'xsmall' }}>
+                              {getString('ci.labels')}
+                            </Text>
+                            {typeof propagatedStage?.stage?.spec?.infrastructure?.spec?.labels === 'string' ? (
+                              <Text font="normal" color="black">
+                                {propagatedStage.stage.spec.infrastructure.spec.labels}
+                              </Text>
+                            ) : (
+                              <ul className={css.plainList}>
+                                {Object.entries(propagatedStage.stage.spec.infrastructure.spec.labels).map(
+                                  (entry, idx) => (
+                                    <li key={idx}>
+                                      <Text font="normal" color="black">
+                                        {entry[0]}:{entry[1]}
+                                      </Text>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            )}
                           </>
                         )}
                       </div>
@@ -237,7 +334,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               type: 'KubernetesDirect',
                               spec: {
                                 connectorRef: '',
-                                namespace: ''
+                                namespace: '',
+                                annotations: {},
+                                labels: {}
                               }
                             }
 
@@ -297,6 +396,36 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             />
                           )}
                         </div>
+                        <MultiTypeMap
+                          style={{ marginTop: 'var(--spacing-medium)' }}
+                          name="annotations"
+                          valueMultiTextInputProps={{ expressions }}
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              <Text font="small" margin={{ bottom: 'xsmall' }}>
+                                {getString('ci.annotations')}
+                              </Text>
+                            ),
+                            disableTypeSelection: true
+                          }}
+                          disabled={isReadonly}
+                          enableConfigureOptions={false}
+                        />
+                        <MultiTypeMap
+                          style={{ marginTop: 'var(--spacing-medium)' }}
+                          name="labels"
+                          valueMultiTextInputProps={{ expressions }}
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              <Text font="small" margin={{ bottom: 'xsmall' }}>
+                                {getString('ci.labels')}
+                              </Text>
+                            ),
+                            disableTypeSelection: true
+                          }}
+                          enableConfigureOptions={false}
+                          disabled={isReadonly}
+                        />
                       </div>
                     </Layout.Horizontal>
                   </Card>
@@ -349,6 +478,26 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         />
                       )}
                     </div>
+                    <MultiTypeMap
+                      style={{ marginTop: 'var(--spacing-medium)' }}
+                      name="annotations"
+                      valueMultiTextInputProps={{ expressions }}
+                      multiTypeFieldSelectorProps={{
+                        label: getString('ci.annotations'),
+                        disableTypeSelection: true
+                      }}
+                      disabled={isReadonly}
+                    />
+                    <MultiTypeMap
+                      style={{ marginTop: 'var(--spacing-medium)' }}
+                      name="labels"
+                      valueMultiTextInputProps={{ expressions }}
+                      multiTypeFieldSelectorProps={{
+                        label: getString('ci.labels'),
+                        disableTypeSelection: true
+                      }}
+                      disabled={isReadonly}
+                    />
                   </Card>
                 )}
               </FormikForm>

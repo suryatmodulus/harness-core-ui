@@ -27,11 +27,13 @@ export interface GCRStepSpec {
   projectID: string
   imageName: string
   tags: MultiTypeListType
+  optimize: boolean
   dockerfile?: string
   context?: string
   labels?: MultiTypeMapType
   buildArgs?: MultiTypeMapType
   target?: string
+  remoteCacheImage?: string
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
@@ -90,6 +92,8 @@ export class GCRStep extends PipelineStep<GCRStepData> {
       connectorRef: '',
       host: '',
       projectID: '',
+      optimize: true,
+      remoteCacheImage: '',
       imageName: '',
       tags: []
     }

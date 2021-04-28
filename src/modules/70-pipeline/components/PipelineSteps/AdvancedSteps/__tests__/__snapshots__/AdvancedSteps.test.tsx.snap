@@ -16,16 +16,16 @@ exports[`<AdvancedSteps /> tests snapshot test 1`] = `
             <div
               class="Accordion--panel"
               data-open="true"
-              data-testid="skipCondition-panel"
+              data-testid="conditionalExecution-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="skipCondition-summary"
+                data-testid="conditionalExecution-summary"
               >
                 <div
                   class="Accordion--label"
                 >
-                  skipConditionsTitle
+                  pipeline.conditionalExecution.title
                 </div>
                 <div
                   class="Accordion--chevron"
@@ -42,62 +42,134 @@ exports[`<AdvancedSteps /> tests snapshot test 1`] = `
                 >
                   <div
                     class="Accordion--details"
-                    data-testid="skipCondition-details"
+                    data-testid="conditionalExecution-details"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
-                    >
-                      <span>
-                        skipConditionLabel
-                      </span>
-                    </p>
                     <div
-                      class="bp3-form-group"
-                      data-id="skipCondition-0"
+                      class="OverlaySpinner--overlaySpinner"
                     >
-                      
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                        style="font-size: 12px;"
+                      >
+                        pipeline.conditionalExecution.subTitle
+                         
+                        <a
+                          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+                          href="https://ngdocs.harness.io/"
+                          rel="noreferrer noopener"
+                          role="button"
+                          style="font-size: 12px;"
+                          tabindex="0"
+                          target="_blank"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            pipeline.createPipeline.learnMore
+                          </span>
+                        </a>
+                      </p>
                       <div
-                        class="bp3-form-content"
+                        class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--padding-bottom-small StyledProps--padding-top-medium StyledProps--margin-top-medium"
+                      >
+                        <div>
+                          <label
+                            class="bp3-control bp3-radio blackText active"
+                          >
+                            <input
+                              checked=""
+                              name="Blueprint3.RadioGroup-0"
+                              type="radio"
+                              value="Success"
+                            />
+                            <span
+                              class="bp3-control-indicator"
+                            />
+                            pipeline.conditionalExecution.statusOption.success
+                          </label>
+                          <label
+                            class="bp3-control bp3-radio blackText"
+                          >
+                            <input
+                              name="Blueprint3.RadioGroup-0"
+                              type="radio"
+                              value="All"
+                            />
+                            <span
+                              class="bp3-control-indicator"
+                            />
+                            pipeline.conditionalExecution.statusOption.all
+                          </label>
+                          <label
+                            class="bp3-control bp3-radio blackText"
+                          >
+                            <input
+                              name="Blueprint3.RadioGroup-0"
+                              type="radio"
+                              value="Failure"
+                            />
+                            <span
+                              class="bp3-control-indicator"
+                            />
+                            pipeline.conditionalExecution.statusOption.failure
+                          </label>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-xxlarge StyledProps--padding-right-medium"
                       >
                         <div
-                          class="bp3-popover-wrapper"
+                          class="bp3-form-group"
+                          data-id="enableJEXL-0"
                         >
                           <div
-                            class="bp3-popover-target"
+                            class="bp3-form-content"
                           >
-                            <div
-                              class="bp3-input-group"
+                            <label
+                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
                             >
                               <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="skipCondition"
-                                type="text"
-                                value=""
+                                name="enableJEXL"
+                                type="checkbox"
                               />
+                              <span
+                                class="bp3-control-indicator"
+                              />
+                               pipeline.conditionalExecution.condition
+                            </label>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-form-group expressionInput"
+                          data-id="condition-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group bp3-disabled"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    disabled=""
+                                    name="condition"
+                                    type="text"
+                                    value=""
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-small"
-                      style="white-space: break-spaces;"
-                    >
-                      <span>
-                        skipConditionHelpText
-                      </span>
-                      <br />
-                      <a
-                        href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        <span>
-                          learnMore
-                        </span>
-                      </a>
-                    </p>
                   </div>
                 </div>
               </div>

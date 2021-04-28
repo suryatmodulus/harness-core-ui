@@ -211,6 +211,18 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             </Link>
           </div>
         )}
+        {options.conditionalExecutionEnabled && (
+          <div className={css.сonditional}>
+            <Text
+              tooltip={getString('pipeline.conditionalExecution.title')}
+              tooltipProps={{
+                isDark: true
+              }}
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Text>
+          </div>
+        )}
         <Text
           icon={options.inComplete ? 'warning-sign' : undefined}
           iconProps={{ color: Color.ORANGE_500 }}

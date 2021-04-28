@@ -58,6 +58,9 @@ export class StageBuilderModel extends DiagramModel {
             draggable: !isReadonly,
             height: 57,
             skipCondition: node.stage.skipCondition,
+            conditionalExecutionEnabled: node.stage.when
+              ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
+              : false,
             iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
             icon: type.icon
           })
@@ -71,10 +74,14 @@ export class StageBuilderModel extends DiagramModel {
             draggable: !isReadonly,
             canDelete: selectedStageId === node.stage.identifier || isReadonly ? false : true,
             skipCondition: node.stage.skipCondition,
+            conditionalExecutionEnabled: node.stage.when
+              ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
+              : false,
             allowAdd: allowAdd === true && !isReadonly,
             height: 50,
             iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
-            icon: type.icon
+            icon: type.icon,
+            ...(node.stage.when && {})
           })
 
       this.addNode(nodeRender)

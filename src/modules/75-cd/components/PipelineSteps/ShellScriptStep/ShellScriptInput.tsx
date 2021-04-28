@@ -59,7 +59,8 @@ export default function ShellScriptInput(props: {
                     name={`spec.environmentVariables[${i}].value`}
                     expressions={expressions}
                     textProps={{
-                      type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text'
+                      type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text',
+                      name: `spec.environmentVariables[${i}].value`
                     }}
                     allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                     value={formValues.spec.environmentVariables?.[i].value as string}

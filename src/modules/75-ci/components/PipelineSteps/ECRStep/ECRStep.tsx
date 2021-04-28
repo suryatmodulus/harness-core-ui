@@ -27,11 +27,13 @@ export interface ECRStepSpec {
   account: string
   imageName: string
   tags: MultiTypeListType
+  optimize: boolean
   dockerfile?: string
   context?: string
   labels?: MultiTypeMapType
   buildArgs?: MultiTypeMapType
   target?: string
+  remoteCacheImage?: string
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
@@ -91,6 +93,8 @@ export class ECRStep extends PipelineStep<ECRStepData> {
       region: '',
       account: '',
       imageName: '',
+      optimize: true,
+      remoteCacheImage: '',
       tags: []
     }
   }

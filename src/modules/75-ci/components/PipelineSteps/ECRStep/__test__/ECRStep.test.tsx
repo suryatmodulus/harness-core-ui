@@ -75,7 +75,9 @@ describe('ECR Step', () => {
           context: RUNTIME_INPUT_VALUE,
           labels: RUNTIME_INPUT_VALUE,
           buildArgs: RUNTIME_INPUT_VALUE,
+          optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
+          remoteCacheImage: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -126,7 +128,9 @@ describe('ECR Step', () => {
             buildArg2: 'value2',
             buildArg3: 'value3'
           },
+          optimize: true,
           target: 'Target',
+          remoteCacheImage: 'myImage-cache',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
           resources: {
@@ -179,7 +183,9 @@ describe('ECR Step', () => {
           context: RUNTIME_INPUT_VALUE,
           labels: RUNTIME_INPUT_VALUE,
           buildArgs: RUNTIME_INPUT_VALUE,
+          optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
+          remoteCacheImage: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -206,7 +212,9 @@ describe('ECR Step', () => {
           context: RUNTIME_INPUT_VALUE,
           labels: RUNTIME_INPUT_VALUE,
           buildArgs: RUNTIME_INPUT_VALUE,
+          optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
+          remoteCacheImage: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -263,7 +271,9 @@ describe('ECR Step', () => {
             buildArg2: 'value2',
             buildArg3: 'value3'
           },
+          optimize: true,
           target: 'Target',
+          remoteCacheImage: 'myImage-cache',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
           resources: {
@@ -319,7 +329,9 @@ describe('ECR Step', () => {
                 buildArg2: 'value2',
                 buildArg3: 'value3'
               },
+              optimize: true,
               target: 'Target',
+              remoteCacheImage: 'myImage-cache',
               // TODO: Right now we do not support Image Pull Policy but will do in the future
               // pull: 'always',
               resources: {
@@ -399,10 +411,22 @@ describe('ECR Step', () => {
                   localName: 'step.ecr.spec.buildArgs'
                 }
               },
+              'step-optimize': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.optimize',
+                  localName: 'step.ecr.spec.optimize'
+                }
+              },
               'step-target': {
                 yamlProperties: {
                   fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.target',
                   localName: 'step.ecr.spec.target'
+                }
+              },
+              'step-remoteCacheImage': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.ecr.spec.remoteCacheImage',
+                  localName: 'step.ecr.spec.remoteCacheImage'
                 }
               },
               // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -440,7 +464,9 @@ describe('ECR Step', () => {
                 context: 'step-context',
                 labels: 'step-labels',
                 buildArgs: 'step-buildArgs',
+                optimize: 'step-optimize',
                 target: 'step-target',
+                remoteCacheImage: 'step-remoteCacheImage',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',
                 resources: {

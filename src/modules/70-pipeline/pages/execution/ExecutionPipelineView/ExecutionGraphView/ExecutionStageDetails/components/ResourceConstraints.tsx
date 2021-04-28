@@ -1,12 +1,12 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
-import { Text } from '@wings-software/uicore'
-import { String, useStrings } from 'framework/strings'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import type { ResourceConstraintExecutionInfo } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import css from './components.module.scss'
+
 export interface ResourceConstraintTooltipProps {
   loading: boolean
   data?: {
@@ -14,6 +14,7 @@ export interface ResourceConstraintTooltipProps {
     executionId: string
   }
 }
+
 const getnoOfExecutionsBeforePipeline = (
   executionList: ResourceConstraintExecutionInfo[] = [],
   executionId?: string
@@ -35,50 +36,50 @@ export default function ResourceConstraintTooltip(props: ResourceConstraintToolt
     props.data?.executionId
   )
   return props.loading ? (
-    <div className={css.spinner}>
-      <Spinner size={40} />
-    </div>
+    <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={'medium'}>
+      <Spinner size={24} />
+    </Container>
   ) : (
-    <div className={css.resourceConstraints}>
+    <Container padding={'medium'} border={{ top: true, width: 1, color: Color.GREY_200 }}>
       {props?.data?.executionList?.length && (
-        <div className={css.infoArea}>
-          <div className={css.infoText}>
-            <String
-              stringID={'pipeline.resourceConstraints.infoText'}
-              vars={{
-                executioncount: noOfExecutionsBeforePipeline
-              }}
-            />
-          </div>
-          <div className={css.pipelineList}>
-            {props?.data?.executionList?.map((pipeline: ResourceConstraintExecutionInfo) => (
-              <div className={css.pipelineListItem} key={pipeline.pipelineIdentifier}>
-                <Link
-                  to={routes.toExecutionPipelineView({
-                    pipelineIdentifier: pipeline.pipelineIdentifier || '',
-                    projectIdentifier,
-                    orgIdentifier,
-                    module,
-                    accountId,
-                    executionIdentifier: pipeline?.planExecutionId || ''
-                  })}
-                >
-                  <Text className={css.pipelineId} title={pipeline.pipelineIdentifier} width={200} lineClamp={1}>
+        <Layout.Vertical spacing={'medium'}>
+          <Text>
+            {getString('pipeline.resourceConstraints.infoText', { executioncount: noOfExecutionsBeforePipeline })}
+          </Text>
+          {props?.data?.executionList?.map((pipeline: ResourceConstraintExecutionInfo) => (
+            <Container key={pipeline.pipelineIdentifier}>
+              <Link
+                to={routes.toExecutionPipelineView({
+                  pipelineIdentifier: pipeline.pipelineIdentifier || '',
+                  projectIdentifier,
+                  orgIdentifier,
+                  module,
+                  accountId,
+                  executionIdentifier: pipeline?.planExecutionId || ''
+                })}
+              >
+                <Layout.Horizontal>
+                  <Text
+                    title={pipeline.pipelineIdentifier}
+                    width={200}
+                    lineClamp={1}
+                    inline={true}
+                    color={Color.BLUE_500}
+                  >
                     {pipeline.pipelineIdentifier}
                   </Text>
-
-                  <Text className={css.executionStatus}>
+                  <Text inline={true} color={Color.BLUE_500}>
                     {pipeline.planExecutionId === props.data?.executionId &&
                       pipeline.state !== 'ACTIVE' &&
                       getString('pipeline.resourceConstraints.yourPipeline')}
                     {pipeline.state === 'ACTIVE' && getString('pipeline.resourceConstraints.currentlyExecuting')}
                   </Text>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
+                </Layout.Horizontal>
+              </Link>
+            </Container>
+          ))}
+        </Layout.Vertical>
       )}
-    </div>
+    </Container>
   )
 }

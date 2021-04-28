@@ -45,7 +45,7 @@ describe('<AdvancedSteps /> tests', () => {
     expect(onSubmit).toHaveBeenCalledWith({
       delegateSelectors: [],
       failureStrategies: undefined,
-      skipCondition: '',
+      when: undefined,
       tab: 'ADVANCED'
     })
   })

@@ -186,6 +186,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
         if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
         if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+        if (item.when && item.tab === TabTypes.Advanced) node.when = item.when
         if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
         if (item.failureStrategies && item.tab === TabTypes.Advanced) node.failureStrategies = item.failureStrategies
         if (item.delegateSelectors && item.delegateSelectors.length > 0 && item.tab === TabTypes.Advanced) {

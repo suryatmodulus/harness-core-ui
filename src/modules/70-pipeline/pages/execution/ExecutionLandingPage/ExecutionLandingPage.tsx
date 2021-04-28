@@ -258,7 +258,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                   {pipelineExecutionSummary.startTs && (
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
                       <Text>
-                        <String stringID="startTime" />
+                        <String stringID="pipeline.startTime" />
                       </Text>
                       <Text font={{ weight: 'semi-bold' }}>{formatDatetoLocale(pipelineExecutionSummary.startTs)}</Text>
                     </Layout.Horizontal>

@@ -4,6 +4,11 @@ import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
 import { ExecutionStatusEnum, ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import {
+  PipelineOrStageStatus,
+  statusToStatusMapping
+} from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
+import type { NodeRunInfo } from 'services/pipeline-ng'
 import type { ExecutionPipeline, ExecutionPipelineItem, ExecutionPipelineNode } from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
@@ -386,4 +391,12 @@ export const getTertiaryIconProps = <T>(stage: ExecutionPipelineItem<T>): { tert
     tertiaryIconProps.tertiaryIcon = 'barrier-open-with-links'
   }
   return tertiaryIconProps
+}
+
+export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean => {
+  if (!when) return false
+  const conditionArr = when.whenCondition!.split(' && ')
+  const status = statusToStatusMapping[conditionArr.shift()!.replace(/[^a-zA-Z]/g, '')]
+  const condition = conditionArr.join(' && ')
+  return !(status === PipelineOrStageStatus.SUCCESS && !condition?.trim())
 }

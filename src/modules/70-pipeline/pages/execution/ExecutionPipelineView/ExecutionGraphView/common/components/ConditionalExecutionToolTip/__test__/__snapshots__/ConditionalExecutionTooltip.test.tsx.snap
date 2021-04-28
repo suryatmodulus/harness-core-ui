@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConditionalExecution matches snapshot when no data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-color-grey200 StyledProps--padding-right-xlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-small"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+      style="width: 32px;"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
+        data-icon="conditional-execution"
+      >
+        <svg
+          height="20"
+          viewBox="0 0 25 20"
+          width="20"
+        >
+          <path
+            d="M23.814 6.239c-.373-.197-.853-.098-1.067.295l-1.226 1.819c-1.28-3.638-5.012-6.145-9.224-6.145-4.32 0-8.105 2.655-9.331 6.39-.107.394.106.787.533.935.426.098.853-.099 1.013-.492 1.013-3.146 4.159-5.358 7.785-5.358 3.519 0 6.611 2.064 7.678 5.063l-2.026-1.081c-.374-.197-.854-.099-1.067.245a.685.685 0 00.267.984l3.679 1.966c.107.05.267.098.426.098.054 0 .16 0 .214-.049a.843.843 0 00.48-.344l2.132-3.392c.214-.295.107-.737-.266-.934z"
+            fill="currentColor"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M7.5 12.5V20H0v-7.5h7.5zm-1.25 1.25h-5v5h5v-5zm10.001-1.25V20h-7.5v-7.5h7.5zm-1.25 1.25h-5v5h5v-5zM25 12.5V20h-7.5v-7.5H25zm-1.25 1.25h-5v5h5v-5z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+          <path
+            d="M3.751 15.001h-1.25v1.25h1.25v-1.25z"
+            fill="currentColor"
+          />
+          <path
+            d="M5 16.249H3.748v1.25h1.25v-1.25z"
+            fill="currentColor"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M20.002 15.001h1.25v1.25h-1.25v-1.25z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+          <path
+            d="M22.502 16.249h-1.25v1.25h1.25v-1.25z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </div>
+    <div
+      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      data-testid="hovercard-service"
+      style="flex: 1;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+        style="font-size: 12px;"
+      >
+        pipeline.conditionalExecution.toolTip.stageTitle
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-grey900"
+        style="font-size: 10px;"
+      >
+        pipeline.conditionalExecution.statusOption.success
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall StyledProps--background-grey100 StyledProps--border"
+          style="font-size: 10px;"
+        >
+          pipeline.and
+        </span>
+        pipeline.conditionalExecution.belowExpression
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--background-grey100 StyledProps--color StyledProps--color-grey900 StyledProps--border StyledProps--border-color-grey200"
+        style="font-size: 12px;"
+      >
+        some JEXL condition
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500"
+        style="font-size: 10px;"
+      >
+        pipeline.conditionalExecution.toolTip.conditionTitle
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
+        style="font-size: 10px;"
+      >
+        true
+      </p>
+    </div>
+  </div>
+</div>
+`;

@@ -34579,7 +34579,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     style="width: 100px;"
                     title="Toggle SortBy"
                   >
-                    CI.TESTSREPORTS.DURATION
+                    PIPELINE.DURATION
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"
@@ -73606,7 +73606,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     style="width: 100px;"
                     title="Toggle SortBy"
                   >
-                    CI.TESTSREPORTS.DURATION
+                    PIPELINE.DURATION
                     <span
                       class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                       icon="double-caret-vertical"

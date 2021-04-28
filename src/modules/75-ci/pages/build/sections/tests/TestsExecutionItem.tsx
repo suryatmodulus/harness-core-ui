@@ -144,7 +144,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         disableSortBy: (data?.content?.length || 0) === 1
       },
       {
-        Header: getString('ci.testsReports.duration').toUpperCase(),
+        Header: getString('pipeline.duration').toUpperCase(),
         accessor: 'duration_ms',
         width: '100px',
         Cell: renderColumn('duration_ms'),

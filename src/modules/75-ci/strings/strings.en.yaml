@@ -39,7 +39,6 @@ testsReports:
   stackTrace: Stack Trace
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
-  duration: Duration
   totalTests: Total Tests
   testCaseName: TEST CASE NAME
   className: CLASS NAME
@@ -80,3 +79,15 @@ noData: 'No data found. Click the button below to create a new item.'
 welcome: 'Welcome to Continuous Integration'
 description: 'Build your applications with blazing fast pipelines.'
 createPipeline: '{{ $.common.createPipeline }}'
+privileged: Privileged
+privilegedInfo: Enable privilege mode
+annotations: Annotations
+labels: '{{ $.pipelineSteps.labelsLabel }}'
+optimize: Optimize
+optimizeInfo: Enables redo snapshot mode
+remoteCacheImage:
+  label: Remote Cache Image
+  placeholder: myImageName-cache
+  ecrInfo: The remote cache repository needs to be created in the same account and region as the build image. The repository must already exist for caching to work
+  gcrInfo: The remote cache repository needs to be created in the same host and project as the build image. The repository will be automatically created if it doesn’t exist.
+  dockerInfo: The remote cache repository needs to be created in the same account and organization as the build image. The repository must already exist for caching to work

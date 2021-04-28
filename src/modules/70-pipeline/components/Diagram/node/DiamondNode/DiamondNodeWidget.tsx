@@ -4,6 +4,7 @@ import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { DefaultPortLabel } from '@pipeline/components/Diagram/port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '@pipeline/components/Diagram/port/DefaultPortModel'
+import { useStrings } from 'framework/strings'
 import type { DiamondNodeModel } from './DiamondNodeModel'
 import { DiagramDrag, Event } from '../../Constants'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
@@ -47,6 +48,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
   const [dragging, setDragging] = React.useState(false)
+  const { getString } = useStrings()
   return (
     <div
       className={cssDefault.defaultNode}
@@ -108,6 +110,18 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             <div className={css.сonditional}>
               <Text
                 tooltip={`Skip condition:\n${options.skipCondition}`}
+                tooltipProps={{
+                  isDark: true
+                }}
+              >
+                <Icon size={26} name={'conditional-skip-new'} color="white" />
+              </Text>
+            </div>
+          )}
+          {options.conditionalExecutionEnabled && (
+            <div className={css.сonditional}>
+              <Text
+                tooltip={getString('pipeline.conditionalExecution.title')}
                 tooltipProps={{
                   isDark: true
                 }}

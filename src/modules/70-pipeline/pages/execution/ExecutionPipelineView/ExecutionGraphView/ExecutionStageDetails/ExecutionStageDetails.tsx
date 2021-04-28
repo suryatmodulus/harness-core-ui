@@ -1,7 +1,12 @@
 import React from 'react'
 import { isEmpty, debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { ExecutionNode, useGetBarrierInfo, useGetResourceConstraintsExecutionInfo } from 'services/pipeline-ng'
+import {
+  ExecutionNode,
+  NodeRunInfo,
+  useGetBarrierInfo,
+  useGetResourceConstraintsExecutionInfo
+} from 'services/pipeline-ng'
 import { getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
@@ -13,12 +18,15 @@ import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHel
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
+import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints'
+import ConditionalExecutionTooltip from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
   onStepSelect(step?: string): void
+
   onStageSelect(step: string): void
 }
 
@@ -116,7 +124,10 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const renderPopover = ({
     data: stepInfo
   }: {
-    data: { data: { stepType: string; startTs: number; status: string; stepParameters: { identifier: string } } }
+    data: {
+      data: { stepType: string; startTs: number; status: string; stepParameters: { identifier: string } }
+      when: NodeRunInfo
+    }
   }): JSX.Element => {
     return (
       <HoverCard
@@ -126,6 +137,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         }}
         data={stepInfo}
       >
+        {stepInfo?.when && <ConditionalExecutionTooltip data={stepInfo.when} mode={Modes.STEP} />}
         {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
             loading={barrierInfoLoading}
@@ -136,7 +148,11 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         {stepInfo?.data?.stepType === StepType.ResourceConstraint && stepInfo?.data?.status === 'Waiting' && (
           <ResourceConstraintTooltip
             loading={resourceConstraintsLoading}
-            data={{ executionList: resourceConstraintsData?.data, ...stepInfo, executionId: executionIdentifier }}
+            data={{
+              executionList: resourceConstraintsData?.data,
+              ...stepInfo,
+              executionId: executionIdentifier
+            }}
           />
         )}
       </HoverCard>

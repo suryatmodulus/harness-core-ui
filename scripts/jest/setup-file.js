@@ -1,3 +1,9 @@
+import { setAutoFreeze, enableMapSet } from 'immer'
+
+// set up Immer
+setAutoFreeze(false)
+enableMapSet()
+
 process.env.TZ = 'UTC'
 
 document.createRange = () => ({

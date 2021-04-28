@@ -15,6 +15,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
@@ -189,6 +190,18 @@ export const GCRStepBase = (
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <FormMultiTypeCheckboxField
+                name="spec.optimize"
+                className={css.checkboxField}
+                label={getString('ci.optimize')}
+                multiTypeTextbox={{
+                  children: (
+                    <Button icon="question" minimal tooltip={getString('ci.optimizeInfo')} iconProps={{ size: 14 }} />
+                  ),
+                  expressions
+                }}
+                disabled={readonly}
+              />
               <MultiTypeTextField
                 name="spec.dockerfile"
                 label={
@@ -278,6 +291,25 @@ export const GCRStepBase = (
                 multiTextInputProps={{
                   multiTextInputProps: { expressions },
                   disabled: readonly
+                }}
+              />
+              <MultiTypeTextField
+                name="spec.remoteCacheImage"
+                label={
+                  <Text margin={{ top: 'small' }}>
+                    {getString('ci.remoteCacheImage.label')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('ci.remoteCacheImage.gcrInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions },
+                  disabled: readonly,
+                  placeholder: getString('ci.remoteCacheImage.placeholder')
                 }}
               />
               <StepCommonFields disabled={readonly} />

@@ -216,6 +216,9 @@ export class ExecutionStepModel extends DiagramModel {
               draggable: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
+              conditionalExecutionEnabled: node.step.when
+                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+                : false,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               selected: this.selectedNodeId === node.step.identifier
             })
@@ -228,6 +231,9 @@ export class ExecutionStepModel extends DiagramModel {
               canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
+              conditionalExecutionEnabled: node.step.when
+                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+                : false,
               draggable: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               iconSize: 70,
@@ -243,6 +249,9 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier),
               skipCondition: node.step.skipCondition,
+              conditionalExecutionEnabled: node.step.when
+                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+                : false,
               draggable: !isReadonly,
               canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
@@ -369,6 +378,9 @@ export class ExecutionStepModel extends DiagramModel {
           draggable: !isReadonly,
           canDelete: !isReadonly,
           skipCondition: node.stepGroup.skipCondition,
+          conditionalExecutionEnabled: node.stepGroup.when
+            ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
+            : false,
           allowAdd: allowAdd === true && !isReadonly,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
         })
@@ -392,6 +404,9 @@ export class ExecutionStepModel extends DiagramModel {
           childrenDistance: this.gapY,
           label: node.stepGroup.name,
           skipCondition: node.stepGroup.skipCondition,
+          conditionalExecutionEnabled: node.stepGroup.when
+            ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
+            : false,
           inComplete: isCustomGeneratedString(node.stepGroup.identifier),
           depth: depthY,
           headerDepth: GROUP_HEADER_DEPTH,

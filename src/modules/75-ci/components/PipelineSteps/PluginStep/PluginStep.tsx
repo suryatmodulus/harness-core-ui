@@ -22,6 +22,7 @@ import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from '.
 export interface PluginStepSpec {
   connectorRef: string
   image: string
+  privileged: boolean
   settings?: MultiTypeMapType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
@@ -77,7 +78,8 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     type: StepType.Plugin as string,
     spec: {
       connectorRef: '',
-      image: ''
+      image: '',
+      privileged: false
     }
   }
 

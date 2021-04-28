@@ -22,6 +22,7 @@ import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/She
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 
@@ -187,9 +188,21 @@ export const RunStepBase = (
               </div>
             </div>
             <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'large' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <FormMultiTypeCheckboxField
+                name="spec.privileged"
+                className={css.checkboxField}
+                label={getString('ci.privileged')}
+                multiTypeTextbox={{
+                  children: (
+                    <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
+                  ),
+                  expressions
+                }}
+                disabled={readonly}
+              />
               <MultiTypeList
                 name="spec.reportPaths"
                 placeholder={getString('pipelineSteps.reportPathsPlaceholder')}

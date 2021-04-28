@@ -16,12 +16,12 @@ import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/Abstract
 import type { ExecutionWrapper } from 'services/cd-ng'
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 
-import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
 import { Modes } from './common'
 import { StepType } from '../PipelineStepInterface'
 import { cvDefaultFailureStrategies } from './constants'
+import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -35,9 +35,9 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
       failureStrategies = cloneDeep(cvDefaultFailureStrategies)
     }
     return {
-      skipCondition: step.skipCondition,
       failureStrategies,
-      delegateSelectors: step.spec?.delegateSelectors || []
+      delegateSelectors: step.spec?.delegateSelectors || [],
+      when: step.when
     }
   }
 
@@ -69,12 +69,18 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
         return (
           <FormikForm className={css.form}>
             <div>
-              <Accordion activeId={AdvancedPanels.SkipCondition}>
-                {hiddenPanels.indexOf(AdvancedPanels.SkipCondition) === -1 && (
+              <Accordion activeId={AdvancedPanels.ConditionalExecution}>
+                {hiddenPanels.indexOf(AdvancedPanels.ConditionalExecution) === -1 && (
                   <Accordion.Panel
-                    id={AdvancedPanels.SkipCondition}
-                    summary={getString('skipConditionsTitle')}
-                    details={<SkipConditionsPanel isReadonly={isReadonly} />}
+                    id={AdvancedPanels.ConditionalExecution}
+                    summary={getString('pipeline.conditionalExecution.title')}
+                    details={
+                      <ConditionalExecutionPanel
+                        formikProps={formikProps}
+                        mode={isStepGroup ? Modes.STEP_GROUP : Modes.STEP}
+                        isReadonly={isReadonly}
+                      />
+                    }
                   />
                 )}
                 {hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1 && (

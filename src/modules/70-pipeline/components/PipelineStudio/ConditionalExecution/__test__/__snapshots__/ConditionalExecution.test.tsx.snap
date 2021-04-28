@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConditionalExecution matches snapshot when no data 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-left-medium StyledProps--padding-right-huge"
+      style="width: 846px;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+        style="font-size: 12px;"
+      >
+        pipeline.conditionalExecution.subTitle
+         
+        <a
+          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer noopener"
+          role="button"
+          style="font-size: 12px;"
+          tabindex="0"
+          target="_blank"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            pipeline.createPipeline.learnMore
+          </span>
+        </a>
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+          style="width: 48%;"
+        >
+          <div>
+            <label
+              class="bp3-control bp3-radio blackText active"
+            >
+              <input
+                checked=""
+                name="Blueprint3.RadioGroup-0"
+                type="radio"
+                value="Success"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.success
+            </label>
+            <br />
+            <label
+              class="bp3-control bp3-radio blackText"
+            >
+              <input
+                name="Blueprint3.RadioGroup-0"
+                type="radio"
+                value="All"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.all
+            </label>
+            <br />
+            <label
+              class="bp3-control bp3-radio blackText"
+            >
+              <input
+                name="Blueprint3.RadioGroup-0"
+                type="radio"
+                value="Failure"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.failure
+            </label>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-huge"
+          style="width: 52%;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
+              >
+                <input
+                  name="enableJEXL"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                 pipeline.conditionalExecution.condition
+              </label>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group expressionInput"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group bp3-disabled"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      disabled=""
+                      name="condition"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConditionalExecution matches snapshot with data 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-left-medium StyledProps--padding-right-huge"
+      style="width: 846px;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+        style="font-size: 12px;"
+      >
+        pipeline.conditionalExecution.subTitle
+         
+        <a
+          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer noopener"
+          role="button"
+          style="font-size: 12px;"
+          tabindex="0"
+          target="_blank"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            pipeline.createPipeline.learnMore
+          </span>
+        </a>
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+          style="width: 48%;"
+        >
+          <div>
+            <label
+              class="bp3-control bp3-radio blackText active"
+            >
+              <input
+                checked=""
+                name="Blueprint3.RadioGroup-1"
+                type="radio"
+                value="Success"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.success
+            </label>
+            <br />
+            <label
+              class="bp3-control bp3-radio blackText"
+            >
+              <input
+                name="Blueprint3.RadioGroup-1"
+                type="radio"
+                value="All"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.all
+            </label>
+            <br />
+            <label
+              class="bp3-control bp3-radio blackText"
+            >
+              <input
+                name="Blueprint3.RadioGroup-1"
+                type="radio"
+                value="Failure"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipeline.conditionalExecution.statusOption.failure
+            </label>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-huge"
+          style="width: 52%;"
+        >
+          <div
+            class="bp3-form-group"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold StyledProps--inline"
+              >
+                <input
+                  checked=""
+                  name="enableJEXL"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                 pipeline.conditionalExecution.condition
+              </label>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group expressionInput"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="condition"
+                      type="text"
+                      value="some condition"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

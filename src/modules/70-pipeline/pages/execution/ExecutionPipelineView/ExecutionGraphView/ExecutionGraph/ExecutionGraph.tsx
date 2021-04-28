@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, debounce, get } from 'lodash-es'
-import { GraphLayoutNode, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
+import { GraphLayoutNode, NodeRunInfo, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
 import {
   getIconFromStageModule,
   processLayoutNodeMap,
@@ -20,6 +20,8 @@ import {
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
+import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
+import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import CDInfo from './components/CD/CDInfo'
 import css from './ExecutionGraph.module.scss'
@@ -44,6 +46,7 @@ const processExecutionData = (
                 ? ExecutionPipelineNodeType.DIAMOND
                 : ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
+            when: node?.nodeRunInfo,
             data: node
           }
         })
@@ -63,6 +66,7 @@ const processExecutionData = (
               ? ExecutionPipelineNodeType.DIAMOND
               : ExecutionPipelineNodeType.NORMAL,
           skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,
+          when: stage?.nodeRunInfo,
           data: stage
         }
       })
@@ -130,10 +134,12 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
       name: string
       status: ExecutionStatus
       data: { failureInfo?: { message: string } }
+      when: NodeRunInfo
     }
   }): JSX.Element => {
     return (
       <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
+        {popoverData?.when && <ConditionalExecutionTooltip data={popoverData?.when} mode={Modes.STAGE} />}
         {get(popoverData, 'data.module', '') === 'cd' && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />
         )}

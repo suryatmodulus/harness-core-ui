@@ -11,6 +11,7 @@ import {
   GroupState,
   getIconStyleBasedOnStatus,
   getTertiaryIconProps,
+  getConditionalExecutionFlag,
   calculateGroupHeaderDepth,
   calculateDepth,
   containGroup
@@ -99,7 +100,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         ),
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
-        skipCondition: stage?.skipCondition
+        skipCondition: stage?.skipCondition,
+        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!)
       }
 
       if (!nodeRender) {
@@ -309,6 +311,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           containerCss: node.group.containerCss,
           textCss: node.group.textCss,
           skipCondition: node.group.skipCondition,
+          conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
           showRollback: false
         })
 
@@ -388,6 +391,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             icon: node.group.icon,
             secondaryIcon: 'plus',
             skipCondition: node.group.skipCondition,
+            conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
             customNodeStyle: node.group.cssProps
           })
         this.addNode(nodeRender)

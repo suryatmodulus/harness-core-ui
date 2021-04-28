@@ -434,6 +434,7 @@ const processNodeData = (
           status: nodeData.status as ExecutionStatus,
           isOpen: true,
           skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
+          when: nodeData.nodeRunInfo,
           ...getIconDataBasedOnType(nodeData),
           items: processNodeData(
             nodeAdjacencyListMap?.[item].children || /* istanbul ignore next */ [],
@@ -453,6 +454,7 @@ const processNodeData = (
             ...getIconDataBasedOnType(nodeData),
             identifier: item,
             skipCondition: nodeData?.skipInfo?.evaluatedCondition ? nodeData?.skipInfo.skipCondition : undefined,
+            when: nodeData?.nodeRunInfo,
             status: nodeData?.status as ExecutionStatus,
             type: getExecutionPipelineNodeType(nodeData?.stepType),
             data: nodeData
@@ -484,6 +486,7 @@ const processNodeData = (
               ...(isRollbackNext ? RollbackContainerCss : {})
             },
             skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
+            when: nodeDataNext.nodeRunInfo,
             status: nodeDataNext.status as ExecutionStatus,
             isOpen: true,
             ...getIconDataBasedOnType(nodeDataNext),
@@ -502,6 +505,7 @@ const processNodeData = (
             ...getIconDataBasedOnType(nodeDataNext),
             identifier: id,
             skipCondition: nodeDataNext?.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
+            when: nodeDataNext?.nodeRunInfo,
             status: nodeDataNext?.status as ExecutionStatus,
             type: getExecutionPipelineNodeType(nodeDataNext?.stepType),
             data: nodeDataNext
@@ -551,6 +555,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 identifier: nodeId,
                 data: nodeData,
                 skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
+                when: nodeData.nodeRunInfo,
                 containerCss: {
                   ...(RollbackIdentifier === nodeData.identifier || isRollback ? RollbackContainerCss : {})
                 },
@@ -580,6 +585,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
               skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
+              when: nodeData.nodeRunInfo,
               ...getIconDataBasedOnType(nodeData),
               showInLabel: nodeData.stepType === NodeType.SERVICE || nodeData.stepType === NodeType.INFRASTRUCTURE,
               identifier: nodeId,

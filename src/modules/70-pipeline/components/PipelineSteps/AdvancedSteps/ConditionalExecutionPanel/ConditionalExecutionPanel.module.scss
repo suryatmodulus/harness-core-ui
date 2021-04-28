@@ -1,0 +1,13 @@
+.expressionInput {
+  width: 100%;
+  margin-bottom: var(--spacing-xsmall);
+  margin-top: var(--spacing-medium);
+}
+
+.blackText {
+  color: var(--black);
+  &.active {
+    color: var(--grey-900);
+    font-weight: bold;
+  }
+}

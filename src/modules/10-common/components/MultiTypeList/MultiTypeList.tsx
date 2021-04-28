@@ -61,7 +61,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
         defaultValueToReset={[{ id: uuid('', nameSpace()), value: '' }]}
         style={{ flexGrow: 1, marginBottom: 0 }}
         {...multiTypeFieldSelectorProps}
-        disableTypeSelection={disabled}
+        disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
       >
         <FieldArray
           name={name}

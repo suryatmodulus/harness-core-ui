@@ -1,8 +1,12 @@
 import React from 'react'
-import { Icon, timeToDisplayText, Text } from '@wings-software/uicore'
+import { Icon, timeToDisplayText, Text, Color, Layout, Container } from '@wings-software/uicore'
+import moment from 'moment'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { StringUtils } from '@common/exports'
+import { useStrings } from 'framework/strings'
 import css from './HoverCard.module.scss'
+
 export interface HoverCardProps {
   data?: any
   barrier?: {
@@ -14,38 +18,62 @@ export interface HoverCardProps {
 
 export default function HoverCard(props: HoverCardProps): React.ReactElement {
   const { data } = props
+  const { getString } = useStrings()
+  const startTime = moment(data?.data?.startTs).format(StringUtils.DEFAULT_DATE_FORMAT)
   let delta = data?.data?.startTs ? Math.abs(data?.data?.startTs - (data?.data?.endTs || Date.now())) : 0
+
   delta = Math.round(delta / 1000) * 1000
   const timeText = timeToDisplayText(delta)
   return (
-    <div className={css.hovercard}>
-      <div className={css.header}>
-        <div className={css.title}>
-          <div>{data.name}</div>
-          {data.status === ExecutionStatusEnum.Failed && (
-            <div className={css.failureMessage}>
-              <Icon name="warning-sign" className={css.warningIcon} />
-              <Text
-                title={data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
-                width={150}
-                lineClamp={2}
-              >
-                {data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
-              </Text>
-            </div>
-          )}
-        </div>
-        <div className={css.status}>
-          <ExecutionStatusLabel status={data?.status} className={css.statusLabel} />
+    <Container className={css.hovercard}>
+      <Layout.Horizontal padding="medium">
+        <Layout.Vertical style={{ flex: 1 }} flex={{ alignItems: 'flex-start' }} margin={{ right: 'medium' }}>
+          <Text style={{ fontSize: '14px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+            {data.name}
+          </Text>
           {data.status !== ExecutionStatusEnum.Skipped && (
-            <div className={css.timeElapsed}>
-              <Icon name="time" size={14} />
-              <div className={css.time}>{timeText}</div>
-            </div>
+            <Layout.Horizontal spacing={'xsmall'}>
+              {!!startTime && (
+                <Container margin={{ right: 'small' }}>
+                  <Text inline={true} font={{ size: 'small' }} color={Color.GREY_500}>
+                    {getString('pipeline.startTime')}:{' '}
+                  </Text>
+                  <Text inline={true} font={{ size: 'small' }} color={Color.BLACK}>
+                    {startTime}
+                  </Text>
+                </Container>
+              )}
+              {!!timeText && (
+                <Container>
+                  <Text inline={true} font={{ size: 'small' }} color={Color.GREY_500}>
+                    {getString('pipeline.duration')}:{' '}
+                  </Text>
+                  <Text inline={true} font={{ size: 'small' }} color={Color.BLACK}>
+                    {timeText}
+                  </Text>
+                </Container>
+              )}
+            </Layout.Horizontal>
           )}
-        </div>
-      </div>
+        </Layout.Vertical>
+        <ExecutionStatusLabel status={data?.status} className={css.statusLabel} />
+      </Layout.Horizontal>
+      {data.status === ExecutionStatusEnum.Failed && (
+        <Layout.Horizontal
+          background={Color.RED_300}
+          padding={{ right: 'medium', top: 'small', bottom: 'small', left: 'small' }}
+        >
+          <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
+            <Icon name="warning-sign" color={Color.RED_500} size={16} />
+          </Container>
+          <Layout.Vertical spacing={'xsmall'} style={{ flex: 1 }}>
+            <Text style={{ fontSize: '12px' }} color={Color.RED_500}>
+              {data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
+            </Text>
+          </Layout.Vertical>
+        </Layout.Horizontal>
+      )}
       {props?.children}
-    </div>
+    </Container>
   )
 }

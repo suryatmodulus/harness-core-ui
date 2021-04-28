@@ -2,7 +2,7 @@
   font-size: var(--font-size-small);
   margin: var(--spacing-xlarge);
   padding: var(--spacing-xsmall);
-  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  box-shadow: 0 0 1px rgba(40, 41, 61, 0.04), 0 2px 4px rgba(96, 97, 112, 0.16);
 
   .io-row {
     display: grid;
@@ -11,7 +11,7 @@
     column-gap: var(--spacing-xsmall);
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--grey-250);
+      border-bottom: 1px solid var(--grey-200);
     }
 
     &.header {
@@ -25,7 +25,7 @@
       padding: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xxlarge);
 
       &:hover {
-        background-color: var(--blue-200);
+        background-color: var(--primary-1);
       }
     }
 
@@ -42,7 +42,7 @@
     padding: 0 var(--spacing-xsmall);
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--grey-250);
+      border-bottom: 1px solid var(--grey-200);
     }
 
     .panelTitle {
@@ -60,7 +60,7 @@
     }
 
     & + & {
-      border-top: 1px solid var(--grey-250);
+      border-top: 1px solid var(--grey-300);
       margin-top: var(--spacing-xsmall);
     }
   }

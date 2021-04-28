@@ -100,7 +100,7 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         break
       case ExecutionStatusEnum.Running:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
-        style.backgroundColor = isSelected ? 'var(--blue-600)' : 'var(--white)'
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
         break
       case ExecutionStatusEnum.Paused:
         style.borderColor = 'var(--execution-pipeline-color-orange)'

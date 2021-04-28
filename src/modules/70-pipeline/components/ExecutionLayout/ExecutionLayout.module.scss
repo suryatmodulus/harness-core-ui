@@ -34,7 +34,7 @@
       margin-bottom: calc(-1 * var(--spacing-small));
 
       .pane11 {
-        border-bottom: 4px solid var(--blue-350);
+        border-bottom: 4px solid var(--primary-3);
       }
     }
   }
@@ -54,11 +54,11 @@
     }
 
     & :global(.Pane.horizontal) .pane22 {
-      border-top: 1px solid var(--blue-350);
+      border-top: 1px solid var(--primary-3);
     }
 
     & :global(.Pane.vertical) .pane22 {
-      border-left: 1px solid var(--blue-350);
+      border-left: 1px solid var(--primary-3);
     }
   }
 }
@@ -73,7 +73,7 @@
     align-items: center;
     padding: var(--spacing-none) var(--spacing-small) var(--spacing-none) var(--spacing-large);
     background: var(--white);
-    box-shadow: 0px 2px 6px var(--grey-400) !important;
+    box-shadow: 0 2px 6px var(--grey-400) !important;
     height: var(--spacing-xxlarge);
     border-radius: calc(var(--spacing-xxlarge) / 2) !important;
     user-select: none;
@@ -96,11 +96,11 @@
       visibility: hidden;
 
       & + :global(.bp3-icon) {
-        color: var(--grey-400);
+        color: var(--grey-300);
 
         & rect {
           stroke: currentColor;
-          fill: var(--grey-200);
+          fill: var(--grey-100);
         }
 
         & path {
@@ -109,10 +109,10 @@
       }
 
       &:checked + :global(.bp3-icon) {
-        color: var(--blue-600);
+        color: var(--primary-6);
 
         & rect {
-          fill: var(--blue-200);
+          fill: var(--primary-1);
         }
       }
     }

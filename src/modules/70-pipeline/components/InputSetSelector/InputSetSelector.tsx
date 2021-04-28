@@ -343,7 +343,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             flex={{ align: 'center-center' }}
             padding="small"
           >
-            <Icon name="info-sign" color={Color.BLUE_600}></Icon>
+            <Icon name="info-sign" color={Color.PRIMARY_4}></Icon>
             <Text font={{ size: 'small' }}>{getString('inputSets.helpTextForMultiSelect')}</Text>
           </Layout.Horizontal>
         )}

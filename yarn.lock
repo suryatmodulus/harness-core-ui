@@ -4362,10 +4362,10 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/uicore@0.1.139-alpha.9":
-  version "0.1.139-alpha.9"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.139-alpha.9/93e4b8fc056ee93824bfe2449d14f41bfaee21e4fce0167159f9c10ff7c4aaac#c9a590556aeb2ee75ff4edafa584b537cd83992a"
-  integrity sha512-A5gtwuxTNyTaL3QN0vSxnTgxTMSpeMCs3HpHYPKdIHjlm/z97u9z1rCEScIJqUa7md981vDhBR7AF04Hbaw6OQ==
+"@wings-software/uicore@0.1.139-alpha.11":
+  version "0.1.139-alpha.11"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.139-alpha.11/dec1c65bd1b40b927f9fb387260c97f4839eeced01fd83ab163a3b0b78d1ba8d#6a3d190bf34e8638a9cebe286dab7ee14ff91bf9"
+  integrity sha512-mWLV6B5u70Dsdpfb5J5pvPrrbxJFozSyTIlPXBI9C6min/Mtsq7Ao+8xxuID8Nde2CyPH0c2m0ujw/69y0ksrA==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"

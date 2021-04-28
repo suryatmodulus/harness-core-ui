@@ -256,7 +256,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -349,7 +349,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -730,7 +730,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -823,7 +823,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -1204,7 +1204,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -1297,7 +1297,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >

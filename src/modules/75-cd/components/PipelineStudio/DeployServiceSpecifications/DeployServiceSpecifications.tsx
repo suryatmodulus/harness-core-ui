@@ -440,8 +440,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stepViewType={StepViewType.Edit}
                 />
               </Layout.Horizontal>
+              <div className={css.navigationButtons}>{props.children}</div>
             </div>
-            <div className={css.navigationButtons}>{props.children}</div>
           </div>
         </div>
       ) : (

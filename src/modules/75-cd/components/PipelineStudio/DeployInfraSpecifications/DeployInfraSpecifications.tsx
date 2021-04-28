@@ -476,7 +476,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             <Layout.Horizontal>{getClusterConfigurationStep(selectedDeploymentType)}</Layout.Horizontal>
           </Card>
         ) : null}
-
         <div className={css.navigationButtons}> {props.children}</div>
       </div>
     </div>

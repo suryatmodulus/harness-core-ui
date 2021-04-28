@@ -40,8 +40,6 @@ declare const styles: {
   readonly contentSection: string
   readonly tabSubHeading: string
   readonly sectionCard: string
-  readonly shadow: string
-  readonly notwide: string
   readonly nopadleft: string
   readonly helpDrawer: string
   readonly accordionTitle: string

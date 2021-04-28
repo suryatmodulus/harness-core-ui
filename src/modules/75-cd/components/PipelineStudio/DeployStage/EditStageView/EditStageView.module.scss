@@ -31,9 +31,8 @@
 }
 
 .stage-create {
-  max-width: 1000px;
-  padding: var(--spacing-xlarge);
-  background-color: var(--white);
+  max-width: 1024px;
+  background-color: var(--form-bg);
 }
 
 .btn-setup {
@@ -245,34 +244,28 @@
   height: calc(100% - 70px);
 }
 .content-section {
+  background-color: var(--form-bg);
   padding: 48px;
   height: 100%;
   overflow-y: scroll;
 }
 .tabHeading {
   font-size: var(--font-size-medium);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .section-card {
   width: 1024px;
   margin-bottom: 20px;
-  &.shadow {
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-  }
-  &.notwide {
-    width: auto;
-  }
-  background-color: #fafbfc;
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  background-color: var(--white);
 }
 .nopadleft {
   padding-left: 0 !important;

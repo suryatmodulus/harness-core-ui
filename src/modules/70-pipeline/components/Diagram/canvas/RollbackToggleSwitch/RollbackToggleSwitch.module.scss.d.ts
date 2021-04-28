@@ -7,5 +7,6 @@ declare const styles: {
   readonly btnRollback: string
   readonly btn: string
   readonly btnSmall: string
+  readonly buttonGroup: string
 }
 export default styles

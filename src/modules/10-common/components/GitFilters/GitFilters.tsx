@@ -64,7 +64,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const [searchTerm, setSearchTerm] = React.useState<string>('')
 
   const { data: response, loading, refetch: getListOfBranchesWithStatus } = useGetListOfBranchesWithStatus({
-    lazy: true
+    lazy: true,
+    debounce: 500
   })
 
   useEffect(() => {
@@ -95,8 +96,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
           page,
           size: 10,
           searchTerm
-        },
-        debounce: 500
+        }
       })
     } else {
       setSelectedGitBranch('')

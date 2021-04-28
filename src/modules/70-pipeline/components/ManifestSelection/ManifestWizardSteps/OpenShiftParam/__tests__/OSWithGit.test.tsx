@@ -3,6 +3,8 @@ import { render, fireEvent, act, wait, queryByAttribute } from '@testing-library
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
+
+import { Scope } from '@common/interfaces/SecretsInterface'
 import OpenShiftParamWithGit from '../OSWithGit'
 
 const props = {
@@ -309,7 +311,55 @@ describe('Open shift params with git tests', () => {
       },
       prevStepData: {
         store: 'Git',
-        connectorRef: 'account.test'
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      },
+      handleSubmit: jest.fn()
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftParamWithGit {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should  commit id is present', () => {
+    const defaultProps = {
+      stepName: 'Manifest details',
+      expressions: [],
+      initialValues: {
+        identifier: 'testidentifier',
+        spec: {
+          store: {
+            spec: {
+              commitId: 'test-commit',
+              connectorRef: 'account.test',
+              gitFetchType: 'Commit',
+              paths: ['test-path1', 'test-path2'],
+              repoName: ''
+            },
+            type: 'Git'
+          }
+        }
+      },
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
       },
       handleSubmit: jest.fn()
     }

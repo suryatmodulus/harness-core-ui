@@ -2,6 +2,7 @@ import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import KustomizeWithGIT from '../KustomizeWithGIT'
+import { Scope } from '@common/interfaces/SecretsInterface'
 
 const props = {
   stepName: 'Manifest details',
@@ -115,6 +116,98 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('when connectiontype is of repo', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            commitId: 'test-commit',
+            connectorRef: {
+              label: 'test',
+              value: 'test',
+              scope: 'Account',
+              connector: {
+                spec: {
+                  connectionType: 'Repo'
+                }
+              }
+            },
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          }
+        }
+      }
+    }
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: 'Account',
+          connector: {
+            spec: {
+              connectionType: 'Repo'
+            }
+          }
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...defaultProps} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`should renderCommit id`, () => {
+    const initialValues = {
+      identifier: 'id12',
+
+      spec: {
+        store: {
+          spec: {
+            commitId: 'awsd123sd',
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...defaultProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   test('submits with the right payload when gitfetchtype is branch', async () => {
     const initialValues = {
       identifier: '',
@@ -161,5 +254,137 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
         }
       })
     })
+  })
+
+  test('when scope is of account', () => {
+    const initialValues = {
+      identifier: 'id12',
+
+      spec: {
+        store: {
+          spec: {
+            commitId: 'awsd123sd',
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            connectorRef: 'account.test',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...defaultProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test.skip('submits with the right payload when gitfetchtype is commit', async () => {
+    const initialValues = {
+      identifier: '',
+      commitId: undefined,
+      gitFetchType: '',
+      folderPath: '',
+      skipResourceVersioning: true,
+      repoName: '',
+      pluginPath: ''
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...props} />
+      </TestWrapper>
+    )
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
+      fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Commit' } })
+      fireEvent.change(queryByNameAttribute('commitId')!, { target: { value: 'test-commit' } })
+      fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('pluginPath')!, { target: { value: 'plugin-path' } })
+    })
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await waitFor(() => {
+      expect(props.handleSubmit).toHaveBeenCalledWith({
+        manifest: {
+          identifier: 'testidentifier',
+          spec: {
+            store: {
+              spec: {
+                commitId: 'test-commit',
+                connectorRef: '',
+                gitFetchType: 'Commit',
+                folderPath: 'test-path',
+                repoName: ''
+              },
+              type: undefined
+            },
+            pluginPath: 'plugin-path',
+            skipResourceVersioning: false
+          }
+        }
+      })
+    })
+  })
+
+  test(`should renderCommit id`, () => {
+    const initialValues = {
+      identifier: 'id12',
+
+      spec: {
+        store: {
+          spec: {
+            commitId: 'awsd123sd',
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...defaultProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 })

@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+
+import { Scope } from '@common/interfaces/SecretsInterface'
 import OpenShiftTemplateWithGit from '../OSTemplateWithGit'
 
 const props = {
@@ -134,5 +136,172 @@ describe('Open shift template with git tests', () => {
         }
       })
     })
+  })
+
+  test('when scope is of account', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            branch: 'testBranch',
+            commitId: undefined,
+            connectorRef: 'account.test',
+            gitFetchType: 'Branch',
+            paths: [],
+            repoName: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render commit id ', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            commitId: 'test-commit',
+            connectorRef: 'account.test',
+            gitFetchType: 'Commit',
+            paths: [],
+            repoName: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('runtime value for connector should make runtime for repo too', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            commitId: 'test-commit',
+            connectorRef: 'account.test',
+            gitFetchType: 'Commit',
+            paths: ['test-path-1'],
+            repoName: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: '<+input>'
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('when connectiontype is of repo', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            commitId: 'test-commit',
+            connectorRef: {
+              label: 'test',
+              value: 'test',
+              scope: 'Account',
+              connector: {
+                spec: {
+                  connectionType: 'Repo'
+                }
+              }
+            },
+            gitFetchType: 'Commit',
+            paths: ['test-path-1'],
+            repoName: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: 'Account',
+          connector: {
+            spec: {
+              connectionType: 'Repo'
+            }
+          }
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
   })
 })

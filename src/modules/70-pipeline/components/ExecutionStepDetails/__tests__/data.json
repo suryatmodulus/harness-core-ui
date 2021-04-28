@@ -7,7 +7,7 @@
     },
     "approvalStepWaiting": {
       "stepType": "HarnessApproval",
-      "status": "Waiting"
+      "status": "ApprovalWaiting"
     },
     "approvalStepComplete": {
       "stepType": "JiraApproval",

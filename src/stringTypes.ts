@@ -22,12 +22,14 @@ export interface StringsMap {
   'common.authSettings.authorizationNotEnabled': string
   'common.authSettings.changeLoginToHarnessAccountOrOauth': string
   'common.authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'common.authSettings.clearSelection': string
   'common.authSettings.confirmDisableLockoutPolicy': string
   'common.authSettings.confirmDisableOAuthLogin': string
   'common.authSettings.confirmDisablePasswordExpiration': string
   'common.authSettings.confirmDisablePasswordStrength': string
   'common.authSettings.confirmDisableUserPasswordLogin': string
   'common.authSettings.confirmDisableWhitelistedDomains': string
+  'common.authSettings.confirmText': string
   'common.authSettings.daysBeforePasswordExpires': string
   'common.authSettings.daysBeforeUserNotified': string
   'common.authSettings.deleteSamlProvider': string
@@ -36,8 +38,10 @@ export interface StringsMap {
   'common.authSettings.disableOAuthLogin': string
   'common.authSettings.disablePasswordExpiration': string
   'common.authSettings.disablePasswordStrength': string
+  'common.authSettings.disableTwoFAEnforcement': string
   'common.authSettings.disableUserPasswordLogin': string
   'common.authSettings.disableWhitelistedDomains': string
+  'common.authSettings.doYouWantToEnforceTwoFAForAllMembers': string
   'common.authSettings.domainNameRequired': string
   'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
   'common.authSettings.enableSamlProvider': string
@@ -45,13 +49,16 @@ export interface StringsMap {
   'common.authSettings.enforceLockoutPolicy': string
   'common.authSettings.enforcePasswordStrength': string
   'common.authSettings.enforceTwoFA': string
+  'common.authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
   'common.authSettings.failedLoginsBeforeLocked': string
   'common.authSettings.failedLoginsBeforeLockedAccount': string
+  'common.authSettings.goToSettings': string
   'common.authSettings.haveOneDigit': string
   'common.authSettings.haveOneLowercase': string
   'common.authSettings.haveOneSpecialChar': string
   'common.authSettings.haveOneUppercase': string
   'common.authSettings.keepAtLeastOneProviderEnabled': string
+  'common.authSettings.latest': string
   'common.authSettings.lockoutDuration': string
   'common.authSettings.lockoutPolicy': string
   'common.authSettings.lockoutPolicyDisabled': string
@@ -59,6 +66,7 @@ export interface StringsMap {
   'common.authSettings.loginSettingsHaveBeenUpdated': string
   'common.authSettings.loginViaSAML': string
   'common.authSettings.minLength': string
+  'common.authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'common.authSettings.notifyUsersWHenUserLocked': string
   'common.authSettings.notifyUsersWhenTheyLocked': string
   'common.authSettings.oauthSettingsHaveBeenUpdated': string
@@ -78,11 +86,17 @@ export interface StringsMap {
   'common.authSettings.samlProviderDeleted': string
   'common.authSettings.samlTestFailed': string
   'common.authSettings.samlTestSuccessful': string
+  'common.authSettings.selectBranch': string
   'common.authSettings.selectUserGroup': string
+  'common.authSettings.selectVersion': string
   'common.authSettings.somethingWentWrong': string
+  'common.authSettings.sureToDisableTwoFAEnforcement': string
+  'common.authSettings.twoFAEnforcementDisabled': string
+  'common.authSettings.twoFAEnforcementEnabled': string
   'common.authSettings.useHarnessUsernameAndPassword': string
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
+  'common.authSettings.yourAccountWillBeLockedOut': string
   'common.cluster': string
   'common.comments': string
   'common.createPipeline': string
@@ -279,6 +293,10 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.userGroup.addToGroup': string
+  'rbac.userDetails.userGroup.confirmDeleteText': string
+  'rbac.userDetails.userGroup.deleteSuccessMessage': string
+  'rbac.userDetails.userGroup.deleteTitle': string
   'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupForm.editSuccess': string
@@ -608,6 +626,7 @@ export interface StringsMap {
   'gitsync.label': string
   'gitsync.markAsDefault': string
   'gitsync.moveFolder': string
+  'gitsync.newLines': string
   'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
@@ -615,6 +634,9 @@ export interface StringsMap {
   'gitsync.seeLess': string
   'gitsync.seeMore': string
   'gitsync.successfullCreate': string
+  'gitsync.totalLines': string
+  'gitsync.unsavedChanges': string
+  'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
   'pipeline.approvalStep.approvers': string
@@ -638,11 +660,22 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.clickHere': string
+  'pipeline.conditionalExecution.belowExpression': string
+  'pipeline.conditionalExecution.condition': string
+  'pipeline.conditionalExecution.statusOption.all': string
+  'pipeline.conditionalExecution.statusOption.failure': string
+  'pipeline.conditionalExecution.statusOption.success': string
+  'pipeline.conditionalExecution.subTitle': string
+  'pipeline.conditionalExecution.title': string
+  'pipeline.conditionalExecution.toolTip.conditionTitle': string
+  'pipeline.conditionalExecution.toolTip.stageTitle': string
+  'pipeline.conditionalExecution.toolTip.stepTitle': string
   'pipeline.createANewPipeline': string
   'pipeline.createPipeline.learnMore': string
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string
   'pipeline.execution.actions.abortPipeline': string
@@ -812,6 +845,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.startTime': string
   'pipeline.targets.title': string
   'pipeline.verificationResult': string
   'cd.allowSimultaneousDeployments': string
@@ -1366,6 +1400,7 @@ export interface StringsMap {
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
   'ci.advancedLabel': string
+  'ci.annotations': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string
@@ -1387,12 +1422,22 @@ export interface StringsMap {
   'ci.executionLabel': string
   'ci.fileStore': string
   'ci.infraLabel': string
+  'ci.labels': string
   'ci.learnMore': string
   'ci.newConnectorButton': string
   'ci.newItem': string
   'ci.next': string
   'ci.noData': string
+  'ci.optimize': string
+  'ci.optimizeInfo': string
   'ci.previous': string
+  'ci.privileged': string
+  'ci.privilegedInfo': string
+  'ci.remoteCacheImage.dockerInfo': string
+  'ci.remoteCacheImage.ecrInfo': string
+  'ci.remoteCacheImage.gcrInfo': string
+  'ci.remoteCacheImage.label': string
+  'ci.remoteCacheImage.placeholder': string
   'ci.save': string
   'ci.secrets': string
   'ci.templates': string
@@ -1402,7 +1447,6 @@ export interface StringsMap {
   'ci.testsReports.correlatedWithCodeChanges': string
   'ci.testsReports.coverage': string
   'ci.testsReports.coverageInfo': string
-  'ci.testsReports.duration': string
   'ci.testsReports.executionOverview': string
   'ci.testsReports.failedTests': string
   'ci.testsReports.failedWithColon': string
@@ -6671,10 +6715,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   start: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  startTime: string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -434,7 +434,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-label"
                   for="authScheme"
                 >
-                  What would you like to configure?
+                  Select an Auth Scheme
                    
                   <span
                     class="bp3-text-muted"

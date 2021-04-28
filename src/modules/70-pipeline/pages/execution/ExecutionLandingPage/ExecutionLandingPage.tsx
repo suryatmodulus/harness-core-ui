@@ -30,7 +30,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import ExecutionContext from '../ExecutionContext/ExecutionContext'
+import ExecutionContext, { GraphCanvasState } from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
@@ -79,6 +79,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const [selectedStageId, setSelectedStageId] = React.useState('')
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
+
+  const [stepsGraphCanvasState, setStepsGraphCanvasState] = React.useState<GraphCanvasState>({
+    offsetX: 5,
+    offsetY: 0,
+    zoom: 100
+  })
 
   const { data, refetch, loading, error } = useGetExecutionDetail({
     planExecutionId: executionIdentifier,
@@ -196,6 +202,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
         logsToken,
         setLogsToken,
         refetch,
+        stepsGraphCanvasState,
+        setStepsGraphCanvasState,
         addNewNodeToMap(id, node) {
           setAllNodeMap(nodeMap => ({ ...nodeMap, [id]: node }))
         }
@@ -250,7 +258,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                   {pipelineExecutionSummary.startTs && (
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
                       <Text>
-                        <String stringID="startTime" />
+                        <String stringID="pipeline.startTime" />
                       </Text>
                       <Text font={{ weight: 'semi-bold' }}>{formatDatetoLocale(pipelineExecutionSummary.startTs)}</Text>
                     </Layout.Horizontal>

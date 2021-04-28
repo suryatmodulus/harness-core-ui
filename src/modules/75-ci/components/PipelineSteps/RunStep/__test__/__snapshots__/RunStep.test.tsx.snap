@@ -559,16 +559,97 @@ exports[`Run Step Edit View edit mode works 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
           >
             pipelineSteps.optionalConfiguration
           </p>
+          <div
+            class="bp3-form-group checkboxField"
+            data-id="spec.privileged-5"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              >
+                <label
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
+                >
+                  <input
+                    name="spec.privileged"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ci.privileged
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="question"
+                        >
+                          <svg
+                            height="14"
+                            viewBox="0 0 14 14"
+                            width="14"
+                          >
+                            <path
+                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                              fill="#9AA5B5"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </label>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
           <div
             class="group withoutSpacing"
           >
             <div
               class="bp3-form-group"
-              data-id="spec.reportPaths[0].value-5"
+              data-id="spec.reportPaths[0].value-6"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -668,7 +749,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[0].value-6"
+                      data-id="spec.reportPaths[0].value-7"
                       style="flex-grow: 1;"
                     >
                       
@@ -747,7 +828,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[1].value-7"
+                      data-id="spec.reportPaths[1].value-8"
                       style="flex-grow: 1;"
                     >
                       
@@ -826,7 +907,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[2].value-8"
+                      data-id="spec.reportPaths[2].value-9"
                       style="flex-grow: 1;"
                     >
                       
@@ -905,7 +986,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[3].value-9"
+                      data-id="spec.reportPaths[3].value-10"
                       style="flex-grow: 1;"
                     >
                       
@@ -984,7 +1065,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[4].value-10"
+                      data-id="spec.reportPaths[4].value-11"
                       style="flex-grow: 1;"
                     >
                       
@@ -1078,7 +1159,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.envVariables[0].key-11"
+              data-id="spec.envVariables[0].key-12"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -1186,7 +1267,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        data-id="spec.envVariables[0].key-12"
+                        data-id="spec.envVariables[0].key-13"
                         style="margin: 0px;"
                       >
                         <div
@@ -1219,7 +1300,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="spec.envVariables[0].value-13"
+                          data-id="spec.envVariables[0].value-14"
                           style="flex-grow: 1;"
                         >
                           
@@ -1302,7 +1383,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
-                        data-id="spec.envVariables[1].key-14"
+                        data-id="spec.envVariables[1].key-15"
                         style="margin: 0px;"
                       >
                         <div
@@ -1330,7 +1411,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="spec.envVariables[1].value-15"
+                          data-id="spec.envVariables[1].value-16"
                           style="flex-grow: 1;"
                         >
                           
@@ -1413,7 +1494,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                     >
                       <div
                         class="bp3-form-group"
-                        data-id="spec.envVariables[2].key-16"
+                        data-id="spec.envVariables[2].key-17"
                         style="margin: 0px;"
                       >
                         <div
@@ -1441,7 +1522,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="spec.envVariables[2].value-17"
+                          data-id="spec.envVariables[2].value-18"
                           style="flex-grow: 1;"
                         >
                           
@@ -1536,7 +1617,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.outputVariables[0].value-18"
+              data-id="spec.outputVariables[0].value-19"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -1636,7 +1717,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.outputVariables[0].value-19"
+                      data-id="spec.outputVariables[0].value-20"
                       style="flex-grow: 1;"
                     >
                       
@@ -1714,7 +1795,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.outputVariables[1].value-20"
+                      data-id="spec.outputVariables[1].value-21"
                       style="flex-grow: 1;"
                     >
                       
@@ -1792,7 +1873,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.outputVariables[2].value-21"
+                      data-id="spec.outputVariables[2].value-22"
                       style="flex-grow: 1;"
                     >
                       
@@ -1870,7 +1951,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.outputVariables[3].value-22"
+                      data-id="spec.outputVariables[3].value-23"
                       style="flex-grow: 1;"
                     >
                       
@@ -2008,7 +2089,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitMemory-23"
+                  data-id="spec.limitMemory-24"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -2075,7 +2156,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitCPU-24"
+                  data-id="spec.limitCPU-25"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -2132,7 +2213,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           </div>
           <div
             class="bp3-form-group removeBpLabelMargin"
-            data-id="timeout-25"
+            data-id="timeout-26"
             style="margin-bottom: 0px;"
           >
             <label
@@ -2815,16 +2896,82 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
           >
             pipelineSteps.optionalConfiguration
           </p>
+          <div
+            class="bp3-form-group checkboxField"
+            data-id="spec.privileged-5"
+          >
+            <label
+              class="bp3-label"
+              for="spec.privileged"
+            >
+              ci.privileged
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
+              >
+                <div
+                  class="TextInput--main MultiTypeInput--input"
+                >
+                  <div
+                    class="bp3-input-group bp3-disabled"
+                  >
+                    <input
+                      class="bp3-input"
+                      disabled=""
+                      name="spec.privileged"
+                      placeholder="<+input>"
+                      type="text"
+                      value="<+input>"
+                    />
+                  </div>
+                </div>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="runtime-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 10 7.97"
+                          width="12"
+                        >
+                          <path
+                            d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
+                            fill="current-color"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
           <div
             class="group withoutSpacing"
           >
             <div
               class="bp3-form-group formGroup"
-              data-id="spec.reportPaths-5"
+              data-id="spec.reportPaths-6"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -2953,7 +3100,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           >
             <div
               class="bp3-form-group formGroup"
-              data-id="spec.envVariables-6"
+              data-id="spec.envVariables-7"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -3082,7 +3229,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           >
             <div
               class="bp3-form-group formGroup"
-              data-id="spec.outputVariables-7"
+              data-id="spec.outputVariables-8"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -3256,7 +3403,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitMemory-8"
+                  data-id="spec.limitMemory-9"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -3352,7 +3499,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitCPU-9"
+                  data-id="spec.limitCPU-10"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -3438,7 +3585,7 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
           </div>
           <div
             class="bp3-form-group removeBpLabelMargin"
-            data-id="timeout-10"
+            data-id="timeout-11"
             style="margin-bottom: 0px;"
           >
             <label
@@ -4127,16 +4274,98 @@ exports[`Run Step Edit View should render properly 1`] = `
           class="fieldsSection"
         >
           <p
-            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-small"
+            class="StyledProps--font StyledProps--main optionalConfiguration StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
           >
             pipelineSteps.optionalConfiguration
           </p>
+          <div
+            class="bp3-form-group checkboxField"
+            data-id="spec.privileged-5"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              >
+                <label
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
+                >
+                  <input
+                    checked=""
+                    name="spec.privileged"
+                    type="checkbox"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ci.privileged
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="question"
+                        >
+                          <svg
+                            height="14"
+                            viewBox="0 0 14 14"
+                            width="14"
+                          >
+                            <path
+                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                              fill="#9AA5B5"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </label>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
           <div
             class="group withoutSpacing"
           >
             <div
               class="bp3-form-group"
-              data-id="spec.reportPaths[0].value-5"
+              data-id="spec.reportPaths[0].value-6"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -4236,7 +4465,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.reportPaths[0].value-6"
+                      data-id="spec.reportPaths[0].value-7"
                       style="flex-grow: 1;"
                     >
                       
@@ -4330,7 +4559,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.envVariables[0].key-7"
+              data-id="spec.envVariables[0].key-8"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -4438,7 +4667,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        data-id="spec.envVariables[0].key-8"
+                        data-id="spec.envVariables[0].key-9"
                         style="margin: 0px;"
                       >
                         <div
@@ -4471,7 +4700,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="spec.envVariables[0].value-9"
+                          data-id="spec.envVariables[0].value-10"
                           style="flex-grow: 1;"
                         >
                           
@@ -4566,7 +4795,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.outputVariables[0].value-10"
+              data-id="spec.outputVariables[0].value-11"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -4666,7 +4895,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="spec.outputVariables[0].value-11"
+                      data-id="spec.outputVariables[0].value-12"
                       style="flex-grow: 1;"
                     >
                       
@@ -4804,7 +5033,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitMemory-12"
+                  data-id="spec.limitMemory-13"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -4871,7 +5100,7 @@ exports[`Run Step Edit View should render properly 1`] = `
               >
                 <div
                   class="bp3-form-group"
-                  data-id="spec.limitCPU-13"
+                  data-id="spec.limitCPU-14"
                   style="margin-bottom: 0px; flex-grow: 1;"
                 >
                   
@@ -4928,7 +5157,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           </div>
           <div
             class="bp3-form-group removeBpLabelMargin"
-            data-id="timeout-14"
+            data-id="timeout-15"
             style="margin-bottom: 0px;"
           >
             <label
@@ -5383,6 +5612,27 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.privileged-4"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+            >
+              <input
+                name="spec.privileged"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              ci.privileged
+            </label>
+          </div>
+        </div>
         <div>
           <p
             class="StyledProps--font StyledProps--main"
@@ -5746,7 +5996,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.resources.limits.memory-4"
+            data-id="spec.resources.limits.memory-5"
             style="flex-grow: 1; flex-basis: 50%;"
           >
             <label
@@ -5783,7 +6033,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
           </div>
           <div
             class="bp3-form-group"
-            data-id="spec.resources.limits.cpu-5"
+            data-id="spec.resources.limits.cpu-6"
             style="flex-grow: 1; flex-basis: 50%;"
           >
             <label
@@ -5821,7 +6071,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group removeBpLabelMargin"
-          data-id="timeout-6"
+          data-id="timeout-7"
         >
           <label
             class="bp3-label"
@@ -6225,6 +6475,53 @@ exports[`Run Step InputVariable View should render properly 1`] = `
       style="--text-line-clamp: 1;"
     >
       command
+    </p>
+    <div
+      class="main"
+    >
+      <div
+        class="text"
+      >
+        step.run.spec.privileged
+      </div>
+      <div
+        class="bp3-popover-wrapper btnWrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <button
+            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="copy-alt"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 8 9"
+                width="16"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main"
+      style="--text-line-clamp: 1;"
+    >
+      false
     </p>
     <div
       class="main"

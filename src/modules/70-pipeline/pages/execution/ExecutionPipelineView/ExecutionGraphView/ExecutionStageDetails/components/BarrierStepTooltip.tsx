@@ -1,9 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 import { Spinner } from '@blueprintjs/core'
-import { Icon } from '@wings-software/uicore'
-import { String } from 'framework/strings'
-import css from './components.module.scss'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+
 export interface BarrierStepTooltipProps {
   loading: boolean
   data?: any
@@ -11,6 +11,7 @@ export interface BarrierStepTooltipProps {
 }
 
 export default function BarrierStepTooltip(props: BarrierStepTooltipProps): React.ReactElement {
+  const { getString } = useStrings()
   const startTs = props?.startTs ? props?.startTs : 0
   let timeDiff = startTs + props.data?.timeoutIn - Date.now()
   timeDiff = timeDiff > 0 ? timeDiff : 0
@@ -20,32 +21,41 @@ export default function BarrierStepTooltip(props: BarrierStepTooltipProps): Reac
   const altUnit = 'min'
   const altDuration = moment.duration(props.data?.timeoutIn, 'milliseconds').get('minutes')
   return props.loading ? (
-    <div className={css.spinner}>
-      <Spinner size={40} />
-    </div>
+    <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={'medium'}>
+      <Spinner size={24} />
+    </Container>
   ) : (
-    <div className={css.barrierInfo}>
-      <div className={css.timeoutIcon}>
-        <Icon name="timeout" />
-      </div>
-      <div className={css.barrierDetails}>
-        <div>{props.data?.name}</div>
-        <div>
-          <String stringID="pipeline.barriers.tooltips.barrierWaiting" />
+    <Layout.Horizontal
+      border={{ top: true, width: 1, color: Color.GREY_200 }}
+      padding={{ right: 'medium', top: 'small', bottom: 'small', left: 'small' }}
+    >
+      <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
+        <Icon name="timeout" size={20} />
+      </Container>
+      <Layout.Vertical spacing={'xsmall'} margin={{ right: 'medium' }} style={{ flex: 1 }}>
+        <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+          {props.data?.name}
+        </Text>
+        <Text style={{ fontSize: '12px' }} color={Color.GREY_900} data-testid="hovercard-service">
+          {getString('pipeline.barriers.tooltips.barrierWaiting')}
           {props.data?.stepParameters?.identifier}
-        </div>
-      </div>
-      <div className={css.barrierDetails}>
-        <div className={css.timeoutContainer}>
-          <div className={css.timeout}>
-            <div>{props?.startTs ? timeoutData.value : altDuration}</div>
-            <div className={css.subheading}>{props?.startTs ? timeoutData.unit : altUnit}</div>
-          </div>
-        </div>
-        <div>
-          <String stringID="pipeline.barriers.tooltips.timeout" />
-        </div>
-      </div>
-    </div>
+        </Text>
+      </Layout.Vertical>
+      <Container>
+        <Layout.Vertical
+          background={Color.YELLOW_500}
+          border={{ radius: 4 }}
+          flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+          padding={'xsmall'}
+        >
+          <Text style={{ fontSize: '10px' }} font={{ weight: 'bold' }} color={Color.GREY_800}>
+            {props?.startTs ? timeoutData.value : altDuration}
+          </Text>
+          <Text font={{ size: 'xsmall' }} color={Color.GREY_600}>
+            {props?.startTs ? timeoutData.unit : altUnit}
+          </Text>
+        </Layout.Vertical>
+      </Container>
+    </Layout.Horizontal>
   )
 }

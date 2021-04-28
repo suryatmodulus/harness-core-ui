@@ -49,4 +49,5 @@ export interface AwsKmsConfigFormData {
   roleArn?: string
   externalName?: string
   assumeStsRoleDuration?: string
+  default: boolean
 }

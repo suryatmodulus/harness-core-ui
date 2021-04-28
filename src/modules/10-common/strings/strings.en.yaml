@@ -220,6 +220,9 @@ authSettings:
   lockoutPolicyDisabled: Lockout policy has been disabled successfully
   SAMLProvider: SAML Provider
   somethingWentWrong: Something went wrong, please try again.
+  latest: Latest
+  selectVersion: Select version
+  selectBranch: Select branch
   deleteSamlProvider: Delete SAML provider
   deleteSamlProviderDescription: 'Do you want to delete the SAML Provider: {{ displayName }}?'
   samlProviderDeleted: SAML provider has been deleted successfully
@@ -238,3 +241,14 @@ authSettings:
   allowLoginFromTheseDomains: Allow login from these domains
   allowUsersWIthEmails: 'Only allow users with the following email domains:'
   domainNameRequired: At least one domain name is required
+  clearSelection: Clear Selection
+  confirmText: Are you sure?
+  yourAccountWillBeLockedOut: Your account will be locked out. Please set up Two Factor Authentication for yourself.
+  goToSettings: Go to settings
+  doYouWantToEnforceTwoFAForAllMembers: 'Do you want to enforce Two Factor Authentication for all members? The following changes will take effect:'
+  newMembersWillNeedToSetUpTwoFADuringSignup: New members will need to set up Two Factor Authentication during signup.
+  existingMembersWillReceiveAnEmailWithQRCode: Existing members who do not have Two Factor Authentication enabled will receive an email with a QR code, and instructions on how to set up Two Factor Authentication.
+  twoFAEnforcementEnabled: Two Factor Authentication enforcement has been enabled successfully
+  disableTwoFAEnforcement: Disable Two Factor Authentication enforcement
+  sureToDisableTwoFAEnforcement: Are you sure you want to disable Two Factor Authentication enforcement?
+  twoFAEnforcementDisabled: Two Factor Authentication enforcement has been disabled successfully

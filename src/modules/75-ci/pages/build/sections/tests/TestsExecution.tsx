@@ -80,7 +80,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
     () => [
       { label: getString('common.failureRate'), value: SortByKey.FAILURE_RATE },
       { label: getString('ci.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
-      { label: getString('ci.testsReports.duration'), value: SortByKey.DURATION_MS },
+      { label: getString('pipeline.duration'), value: SortByKey.DURATION_MS },
       { label: getString('ci.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
     ],
     [getString]

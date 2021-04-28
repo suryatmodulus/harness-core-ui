@@ -86,6 +86,13 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           />
         </FormGroup>
       )}
+      {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
+          label={getString('ci.privileged')}
+          disabled={readonly}
+        />
+      )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
         <List
           name={`${isEmpty(path) ? '' : `${path}.`}spec.reports.spec.paths`}

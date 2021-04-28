@@ -1,10 +1,9 @@
 import React from 'react'
-import classNames from 'classnames'
 import moment from 'moment'
-import { Icon, Text } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { Spinner } from '@blueprintjs/core'
-import { String } from 'framework/strings'
-import css from '../components.module.scss'
+import { useStrings } from 'framework/strings'
+
 export interface BarrierStageTooltipProps {
   loading: boolean
   data?: any
@@ -12,12 +11,13 @@ export interface BarrierStageTooltipProps {
 }
 
 export default function BarrierStageTooltip(props: BarrierStageTooltipProps): React.ReactElement {
+  const { getString } = useStrings()
   return props.loading ? (
-    <div className={css.spinner}>
-      <Spinner size={40} />
-    </div>
+    <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={'medium'}>
+      <Spinner size={24} />
+    </Container>
   ) : (
-    <div className={css.barrierList}>
+    <Container>
       {props?.data.map((barrier: any) => {
         let timeDiff = barrier?.startedAt + barrier?.timeoutIn - Date.now()
         timeDiff = timeDiff > 0 ? timeDiff : 0
@@ -28,31 +28,42 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
         const altDuration = moment.duration(barrier?.timeoutIn, 'milliseconds').get('minutes')
 
         return (
-          <div className={css.barrierRow} key={barrier.identifier}>
-            <div>
-              <Icon name="barrier-open-with-links" size={30} />
-            </div>
-            <div>
-              <div className={css.row}>
-                <div>{barrier.name}</div>
-                <div className={classNames(css.subheading, css.barrierData)}>
-                  <String stringID="pipeline.barriers.tooltips.barrierWaiting" />
-                  <Text width={50} inline>
-                    {barrier.identifier}
-                  </Text>{' '}
-                  | <String stringID="pipeline.execution.stageTitlePrefix" /> {props?.stageName}
-                </div>
-              </div>
-            </div>
-            <div className={css.timeout}>
-              <div className={classNames(css.timeoutRow, css.row)}>
-                <div>{barrier?.startedAt > 0 ? timeoutData.value : altDuration}</div>
-                <div className={css.subheading}>{barrier?.startedAt > 0 ? timeoutData.unit : altUnit}</div>
-              </div>
-            </div>
-          </div>
+          <Layout.Horizontal
+            key={barrier.identifier}
+            border={{ top: true, width: 1, color: Color.GREY_200 }}
+            padding={{ right: 'medium', top: 'small', bottom: 'small', left: 'small' }}
+          >
+            <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
+              <Icon name="barrier-open-with-links" size={20} />
+            </Container>
+            <Layout.Vertical spacing={'xsmall'} margin={{ right: 'medium' }} style={{ flex: 1 }}>
+              <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                {barrier.name}
+              </Text>
+              <Text style={{ fontSize: '12px' }} color={Color.GREY_900} data-testid="hovercard-service">
+                {getString('pipeline.barriers.tooltips.barrierWaiting')}
+                {barrier.identifier} | {getString('pipeline.execution.stageTitlePrefix')}
+                {props?.stageName}
+              </Text>
+            </Layout.Vertical>
+            <Container>
+              <Layout.Vertical
+                background={Color.YELLOW_500}
+                border={{ radius: 4 }}
+                flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                padding={'xsmall'}
+              >
+                <Text style={{ fontSize: '10px' }} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                  {barrier?.startedAt > 0 ? timeoutData.value : altDuration}
+                </Text>
+                <Text font={{ size: 'xsmall' }} color={Color.GREY_600}>
+                  {barrier?.startedAt > 0 ? timeoutData.unit : altUnit}
+                </Text>
+              </Layout.Vertical>
+            </Container>
+          </Layout.Horizontal>
         )
       })}
-    </div>
+    </Container>
   )
 }

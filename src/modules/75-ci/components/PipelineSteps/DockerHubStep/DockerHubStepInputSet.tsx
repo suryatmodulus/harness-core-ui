@@ -150,6 +150,13 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
+      {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
+        <FormInput.CheckBox
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
+          label={getString('ci.optimize')}
+          disabled={readonly}
+        />
+      )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
         <FormInput.Text
           className={css.removeBpLabelMargin}
@@ -161,6 +168,25 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
                 icon="question"
                 minimal
                 tooltip={getString('pipelineSteps.targetInfo')}
+                iconProps={{ size: 14 }}
+              />
+            </Text>
+          }
+          disabled={readonly}
+          style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.remoteCacheImage) === MultiTypeInputType.RUNTIME && (
+        <FormInput.Text
+          className={css.removeBpLabelMargin}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheImage`}
+          label={
+            <Text style={{ display: 'flex', alignItems: 'center' }}>
+              {getString('ci.remoteCacheImage.label')}
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('ci.remoteCacheImage.ecrInfo')}
                 iconProps={{ size: 14 }}
               />
             </Text>

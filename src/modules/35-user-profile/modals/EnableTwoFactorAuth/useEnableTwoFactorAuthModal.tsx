@@ -15,23 +15,9 @@ export const useEnableTwoFactorAuthModal = (): UseEnableTwoFactorAuthModalReturn
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        isOpen={true}
-        onClose={() => {
-          hideModal()
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      >
+      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <EnableTwoFactorAuthView onEnable={hideModal} onCancel={hideModal} isReset={isReset} />
-        <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            hideModal()
-          }}
-          className={css.crossIcon}
-        />
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
     [isReset]

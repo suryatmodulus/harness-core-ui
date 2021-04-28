@@ -15,6 +15,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   containerCss?: React.CSSProperties
   textCss?: React.CSSProperties
   skipCondition?: string
+  conditionalExecutionEnabled?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 

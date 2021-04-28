@@ -8,7 +8,7 @@ export default {
   optionKerbPass: 'Password',
   optionKerbNone: 'None (TGT not required)',
 
-  labelType: 'What would you like to configure?',
+  labelType: 'Select an Auth Scheme',
   labelAuth: 'Authentication',
   labelUsername: 'Username',
   labelCredentialType: 'Credential Type',

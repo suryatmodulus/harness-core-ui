@@ -60,7 +60,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
         defaultValueToReset={[{ id: uuid('', nameSpace()), key: '', value: '' }]}
         style={{ flexGrow: 1, marginBottom: 0 }}
         {...multiTypeFieldSelectorProps}
-        disableTypeSelection={disabled}
+        disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
       >
         <FieldArray
           name={name}

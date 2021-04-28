@@ -3,6 +3,7 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
 import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
@@ -62,6 +63,7 @@ const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
 }
 
 export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
+  const { getString } = useStrings()
   const options = props.node.getOptions()
   const nodeRef = React.useRef<HTMLDivElement>(null)
   const allowAdd = options.allowAdd ?? false
@@ -228,6 +230,18 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             </Text>
           </div>
         )}
+        {options.conditionalExecutionEnabled && (
+          <div className={css.сonditional}>
+            <Text
+              tooltip={getString('pipeline.conditionalExecution.title')}
+              tooltipProps={{
+                isDark: true
+              }}
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Text>
+          </div>
+        )}
 
         {options.canDelete && (
           <Button
@@ -261,7 +275,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           style={{
             width: options.width,
             height: options.height,
-            opacity: showAdd ? 1 : 0,
+            display: showAdd ? 'flex' : 'none',
             marginLeft: (126 - (options.width || 64)) / 2
           }}
         >

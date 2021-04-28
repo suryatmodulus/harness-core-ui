@@ -662,6 +662,7 @@ exports[`HarnessAccount Disable login vai Username-Password 1`] = `
                 class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-normal StyledProps--color StyledProps--color-grey800"
               >
                 <input
+                  data-testid="twoFA-toggle"
                   type="checkbox"
                 />
                 <span

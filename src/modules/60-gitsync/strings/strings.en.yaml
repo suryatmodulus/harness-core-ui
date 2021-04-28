@@ -11,3 +11,6 @@ repositoryPath: Repository Path
 entitiesByRepositories: 'Entities By repositories'
 seeMore: 'See more'
 seeLess: 'See less'
+totalLines: 'Total lines'
+newLines: 'New lines'
+unsavedChanges: You may have unsaved changes

@@ -1,0 +1,21 @@
+.versionSelect {
+  min-width: 100px;
+  max-width: 230px;
+  display: flex;
+  justify-content: space-between;
+  :global {
+    .bp3-menu {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.clear {
+  display: flex;
+  align-items: center;
+}
+
+.disable {
+  cursor: not-allowed;
+}

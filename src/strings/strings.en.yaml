@@ -228,7 +228,6 @@ submit: Submit
 previous: Previous
 dateLabel: Date
 timeLabel: Time
-startTime: Start time
 services: Services
 token: Token
 artifacts: Artifacts

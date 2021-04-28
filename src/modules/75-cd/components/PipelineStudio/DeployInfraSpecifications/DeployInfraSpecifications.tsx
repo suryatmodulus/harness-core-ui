@@ -248,7 +248,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   }, [provisionerEnabled])
 
   const cleanUpEmptyProvisioner = () => {
-    const provisioner = stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+    const provisioner = stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
     let isChanged = false
 
     if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {

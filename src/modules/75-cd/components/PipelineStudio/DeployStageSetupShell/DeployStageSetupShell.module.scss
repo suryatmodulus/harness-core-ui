@@ -108,6 +108,10 @@
     & > span svg path[fill='#fff'] {
       fill: #fff !important;
     }
+
+    & .active {
+      color: var(--blue-450);
+    }
   }
 
   .footer {
@@ -115,16 +119,27 @@
     width: 100% !important;
     background-color: var(--white) !important;
   }
+
+  .whenCondition {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 52px !important;
+  }
 }
 .stageDropDownTab {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-left: var(--spacing-medium);
+
   .stageDropDown {
     text-align: left;
     display: block !important;
     width: 100%;
     padding: var(--spacing-xsmall) 0 0 var(--spacing-small);
+
     button.bp3-button {
       border: none !important;
     }

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import type { NodeRunInfo } from 'services/pipeline-ng'
 
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
 export enum ExecutionPipelineNodeType {
@@ -24,6 +25,7 @@ export interface ExecutionPipelineItem<T> {
   status: ExecutionStatus
   icon: IconName
   skipCondition?: string
+  when?: NodeRunInfo
   barrierFound?: boolean
   /**
    * @default false
@@ -42,6 +44,7 @@ export interface ExecutionPipelineGroupInfo<T> {
   cssProps?: CSSProperties
   icon: IconName
   skipCondition?: string
+  when?: NodeRunInfo
   containerCss?: CSSProperties
   textCss?: CSSProperties
   verticalStepGroup?: boolean

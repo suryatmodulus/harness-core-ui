@@ -69,6 +69,7 @@ describe('Plugin Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           settings: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
@@ -107,6 +108,7 @@ describe('Plugin Step', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           settings: {
             key1: 'value1',
             key2: 'value2',
@@ -160,6 +162,7 @@ describe('Plugin Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           settings: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
@@ -181,6 +184,7 @@ describe('Plugin Step', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           settings: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
@@ -224,6 +228,7 @@ describe('Plugin Step', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           settings: {
             key1: 'value1',
             key2: 'value2',
@@ -270,6 +275,7 @@ describe('Plugin Step', () => {
             spec: {
               connectorRef: 'account.connectorRef',
               image: 'image',
+              privileged: false,
               settings: {
                 key1: 'value1',
                 key2: 'value2',
@@ -353,6 +359,7 @@ describe('Plugin Step', () => {
               spec: {
                 connectorRef: 'step-connectorRef',
                 image: 'step-image',
+                privileged: false,
                 settings: 'step-settings',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',

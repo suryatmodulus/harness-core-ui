@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { noop } from 'lodash-es'
-import { Color, Layout, Card, Switch, Collapse } from '@wings-software/uicore'
+import { Color, Layout, Switch, Collapse } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
@@ -10,8 +9,8 @@ import type { AuthenticationSettingsResponse, UsernamePasswordSettings } from 's
 import PasswordStrength from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordStrength/PasswordStrength'
 import PasswordExpire from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordExpire/PasswordExpire'
 import LockoutPolicy from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/LockoutPolicy/LockoutPolicy'
+import TwoFactorAuthentication from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/TwoFactorAuthentication/TwoFactorAuthentication'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
-import css from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
@@ -29,8 +28,6 @@ interface DetailsProps {
 }
 
 const Details: React.FC<DetailsProps> = ({ authSettings, refetchAuthSettings }) => {
-  const { getString } = useStrings()
-
   const userPasswordSettings = authSettings.ngAuthSettings?.find(
     ({ settingsType }) => settingsType === AuthenticationMechanisms.USER_PASSWORD
   ) as UsernamePasswordSettings
@@ -42,15 +39,7 @@ const Details: React.FC<DetailsProps> = ({ authSettings, refetchAuthSettings }) 
       <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
       <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
       <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
-      <Card className={css.twoFactorAuthentication}>
-        <Switch
-          label={getString('common.authSettings.enforceTwoFA')}
-          checked={authSettings.twoFactorEnabled}
-          font={{ weight: 'semi-bold', size: 'normal' }}
-          color={Color.GREY_800}
-          onChange={noop}
-        />
-      </Card>
+      <TwoFactorAuthentication twoFactorEnabled={!!authSettings.twoFactorEnabled} onSuccess={refetchAuthSettings} />
     </Layout.Vertical>
   )
 }

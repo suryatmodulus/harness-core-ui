@@ -13,6 +13,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   usePutLoginSettings: jest.fn().mockImplementation(() => {
     return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useSetTwoFactorAuthAtAccountLevel: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
   })
 }))
 

@@ -19,8 +19,10 @@ const stringsMap: Record<ExecutionStatus, StringKeys> = {
   Skipped: 'pipeline.executionStatus.Skipped',
   Success: 'pipeline.executionStatus.Success',
   Suspended: 'pipeline.executionStatus.Suspended',
-  Pausing: 'pipeline.executionStatus.Pausing'
-  // ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected'
+  Pausing: 'pipeline.executionStatus.Pausing',
+  ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected',
+  InterventionWaiting: 'pipeline.executionStatus.Waiting',
+  ApprovalWaiting: 'pipeline.executionStatus.Waiting'
 }
 
 export interface ExecutionStatusLabelProps {

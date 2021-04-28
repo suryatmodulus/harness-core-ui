@@ -3,7 +3,12 @@ import { Tabs } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import { isExecutionWaiting, isExecutionSuccess, isExecutionFailed } from '@pipeline/utils/statusHelpers'
+import {
+  isExecutionSuccess,
+  isExecutionWaitingForApproval,
+  isExecutionWaitingForIntervention,
+  isExecutionCompletedWithBadState
+} from '@pipeline/utils/statusHelpers'
 import { isApprovalStep } from '@pipeline/utils/stepUtils'
 
 import { ApprovalTab } from './Tabs/ApprovalTab/ApprovalTab'
@@ -32,15 +37,16 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)
   const manuallySelected = React.useRef(false)
+  const isWaitingOnApproval = isExecutionWaitingForApproval(step.status)
   const isApproval = isApprovalStep(step.stepType)
-  const isWaiting = isExecutionWaiting(step.status)
   const shouldShowApproval =
-    isApproval && (isWaiting || isExecutionSuccess(step.status) || isExecutionFailed(step.status))
-  const isManaulInterruption = isWaiting && !isApproval
+    isApproval &&
+    (isWaitingOnApproval || isExecutionSuccess(step.status) || isExecutionCompletedWithBadState(step.status))
+  const isManualInterruption = isExecutionWaitingForIntervention(step.status)
 
   React.useEffect(() => {
     if (!manuallySelected.current) {
-      if (isManaulInterruption) {
+      if (isManualInterruption) {
         setActiveTab(StepDetailTab.MANUAL_INTERVENTION)
       } else if (isApproval && shouldShowApproval) {
         setActiveTab(StepDetailTab.APPROVAL)
@@ -48,7 +54,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
         setActiveTab(StepDetailTab.STEP_DETAILS)
       }
     }
-  }, [step, isManaulInterruption, shouldShowApproval, isApproval])
+  }, [step, isManualInterruption, shouldShowApproval, isApproval])
 
   return (
     <Tabs
@@ -97,7 +103,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
         title={getString('outputLabel')}
         panel={<ExecutionStepInputOutputTab baseFqn={step.baseFqn} mode="output" data={step.outcomes || []} />}
       />
-      {isManaulInterruption ? (
+      {isManualInterruption ? (
         <Tabs.Tab
           id={StepDetailTab.MANUAL_INTERVENTION}
           title={getString('pipeline.failureStrategies.strategiesLabel.ManualIntervention')}

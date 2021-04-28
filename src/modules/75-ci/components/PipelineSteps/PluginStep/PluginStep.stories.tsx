@@ -58,6 +58,7 @@ PluginStep.args = {
     spec: {
       connectorRef: 'account.connectorRef',
       image: 'image',
+      privileged: false,
       settings: {
         key1: 'value1',
         key2: 'value2',
@@ -88,6 +89,7 @@ PluginStep.args = {
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
+      privileged: RUNTIME_INPUT_VALUE,
       settings: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
@@ -108,6 +110,7 @@ PluginStep.args = {
     spec: {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
+      privileged: RUNTIME_INPUT_VALUE,
       settings: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
@@ -188,6 +191,7 @@ PluginStep.args = {
         connectorRef: 'step-connectorRef',
         image: 'step-image',
         settings: 'step-settings',
+        privileged: false,
         // TODO: Right now we do not support Image Pull Policy but will do in the future
         // pull: 'step-pull',
         resources: {

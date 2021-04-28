@@ -76,11 +76,11 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
     }
   }, [strategies?.data, serviceDefinitionType])
 
-  // TODO this api will be updated to return a CV step in the yamlSnippet, whenever a query param isVerifyEnabled is true.
   const { data: yamlSnippet, error } = useGetExecutionStrategyYaml({
     queryParams: {
       serviceDefinitionType,
-      strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling'
+      strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling',
+      ...(isVerifyEnabled && { includeVerify: true })
     }
   })
 

@@ -59,6 +59,7 @@ RunStep.args = {
       connectorRef: 'account.connectorRef',
       image: 'image',
       command: 'command',
+      privileged: false,
       reports: {
         type: 'JUnit',
         spec: {
@@ -97,6 +98,7 @@ RunStep.args = {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
       command: RUNTIME_INPUT_VALUE,
+      privileged: RUNTIME_INPUT_VALUE,
       reports: {
         spec: {
           paths: RUNTIME_INPUT_VALUE
@@ -124,6 +126,7 @@ RunStep.args = {
       connectorRef: RUNTIME_INPUT_VALUE,
       image: RUNTIME_INPUT_VALUE,
       command: RUNTIME_INPUT_VALUE,
+      privileged: RUNTIME_INPUT_VALUE,
       reports: {
         spec: {
           paths: RUNTIME_INPUT_VALUE
@@ -180,6 +183,12 @@ RunStep.args = {
           localName: 'step.run.spec.command'
         }
       },
+      'step-privileged': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.privileged',
+          localName: 'step.run.spec.privileged'
+        }
+      },
       'step-reportPaths': {
         yamlProperties: {
           fqn: 'pipeline.stages.qaStage.execution.steps.run.spec.reports.spec.paths',
@@ -228,6 +237,7 @@ RunStep.args = {
         connectorRef: 'step-connectorRef',
         image: 'step-image',
         command: 'step-command',
+        privileged: 'step-privileged',
         reports: {
           spec: {
             paths: 'step-reportPaths'

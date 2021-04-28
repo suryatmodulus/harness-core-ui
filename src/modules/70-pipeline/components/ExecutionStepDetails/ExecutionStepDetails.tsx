@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom'
 
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
-import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
-import { isApprovalStep, isHarnessApproval } from '@pipeline/utils/stepUtils'
+import { isExecutionWaitingForApproval } from '@pipeline/utils/statusHelpers'
+import { isHarnessApproval } from '@pipeline/utils/stepUtils'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
@@ -46,13 +46,13 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   })
   const originalStep = allNodeMap?.[selectedStepId] || /* istanbul ignore next */ {}
   const selectedStep = (retryStep ? allNodeMap[retryStep] : originalStep) || /* istanbul ignore next */ {}
-  const isApproval = isApprovalStep(selectedStep.stepType)
-  const isWaiting = isExecutionWaiting(selectedStep.status)
+  const isWaitingOnApproval = isExecutionWaitingForApproval(selectedStep.status)
+  const isHarnessApprovalStep = isHarnessApproval(selectedStep.stepType)
   const interruptHistories = reverse([...(originalStep.interruptHistories || [])])
 
   function handleRefresh(): void {
     /* istanbul ignore else */
-    if (isApproval && isWaiting) {
+    if (isHarnessApprovalStep && isWaitingOnApproval) {
       window.dispatchEvent(new CustomEvent(REFRESH_APPROVAL))
     }
   }
@@ -74,12 +74,12 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
 
   return (
     <div className={css.main}>
-      <div className={cx(css.header, { [css.isApproval]: isHarnessApproval(selectedStep.stepType) && isWaiting })}>
+      <div className={cx(css.header, { [css.isApproval]: isHarnessApprovalStep && isWaitingOnApproval })}>
         <div className={css.title}>
           {getString('pipeline.execution.stepTitlePrefix')}
           {selectedStep.name}
         </div>
-        {isHarnessApproval(selectedStep.stepType) && isWaiting ? (
+        {isHarnessApprovalStep && isWaitingOnApproval ? (
           <Button minimal small intent="primary" onClick={handleRefresh}>
             {getString('common.refresh')}
           </Button>

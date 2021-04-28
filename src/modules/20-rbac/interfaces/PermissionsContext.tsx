@@ -114,6 +114,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
     } catch (err) {
       // clear pending requests even if api fails
       pendingRequests = []
+      if (process.env.NODE_ENV === 'test') throw err
     }
   }
 

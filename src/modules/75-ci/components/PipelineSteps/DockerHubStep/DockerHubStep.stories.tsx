@@ -70,7 +70,9 @@ DockerHubStep.args = {
         buildArg2: 'value2',
         buildArg3: 'value3'
       },
+      optimize: true,
       target: 'Target',
+      remoteCacheImage: 'remote cache image',
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: 'always',
       resources: {
@@ -100,7 +102,9 @@ DockerHubStep.args = {
       context: RUNTIME_INPUT_VALUE,
       labels: RUNTIME_INPUT_VALUE,
       buildArgs: RUNTIME_INPUT_VALUE,
+      optimize: RUNTIME_INPUT_VALUE,
       target: RUNTIME_INPUT_VALUE,
+      remoteCacheImage: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
       resources: {
@@ -124,7 +128,9 @@ DockerHubStep.args = {
       context: RUNTIME_INPUT_VALUE,
       labels: RUNTIME_INPUT_VALUE,
       buildArgs: RUNTIME_INPUT_VALUE,
+      optimize: RUNTIME_INPUT_VALUE,
       target: RUNTIME_INPUT_VALUE,
+      remoteCacheImage: RUNTIME_INPUT_VALUE,
       // TODO: Right now we do not support Image Pull Policy but will do in the future
       // pull: RUNTIME_INPUT_VALUE,
       resources: {
@@ -192,10 +198,22 @@ DockerHubStep.args = {
           localName: 'step.dockerHub.spec.buildArgs'
         }
       },
+      'step-optimize': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.optimize',
+          localName: 'step.dockerHub.spec.optimize'
+        }
+      },
       'step-target': {
         yamlProperties: {
           fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.target',
           localName: 'step.dockerHub.spec.target'
+        }
+      },
+      'step-remoteCacheImage': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.remoteCacheImage',
+          localName: 'step.dockerHub.spec.remoteCacheImage'
         }
       },
       // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -231,7 +249,9 @@ DockerHubStep.args = {
         context: 'step-context',
         labels: 'step-labels',
         buildArgs: 'step-buildArgs',
+        optimize: 'step-optimize',
         target: 'step-target',
+        remoteCacheImage: 'step-remoteCacheImage',
         // TODO: Right now we do not support Image Pull Policy but will do in the future
         // pull: 'step-pull',
         resources: {

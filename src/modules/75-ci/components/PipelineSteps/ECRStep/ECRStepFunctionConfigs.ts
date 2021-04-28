@@ -47,7 +47,15 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Map
   },
   {
+    name: 'spec.optimize',
+    type: TransformValuesTypes.Boolean
+  },
+  {
     name: 'spec.target',
+    type: TransformValuesTypes.Text
+  },
+  {
+    name: 'spec.remoteCacheImage',
     type: TransformValuesTypes.Text
   },
   // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -120,6 +128,14 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.Map
   },
   {
+    name: 'spec.optimize',
+    type: ValidationFieldTypes.Boolean
+  },
+  {
+    name: 'spec.remoteCacheImage',
+    type: ValidationFieldTypes.Text
+  },
+  {
     name: 'spec.limitMemory',
     type: ValidationFieldTypes.LimitMemory
   },
@@ -170,6 +186,14 @@ export const inputSetViewValidateFieldsConfig = [
   {
     name: 'spec.buildArgs',
     type: ValidationFieldTypes.Map
+  },
+  {
+    name: 'spec.optimize',
+    type: ValidationFieldTypes.Boolean
+  },
+  {
+    name: 'spec.remoteCacheImage',
+    type: ValidationFieldTypes.Text
   },
   {
     name: 'spec.resources.limits.memory',

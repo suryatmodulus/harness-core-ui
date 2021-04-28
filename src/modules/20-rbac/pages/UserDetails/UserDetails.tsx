@@ -9,15 +9,16 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
-import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import UserGroupTable from './views/UserGroupTable'
 import css from './UserDetails.module.scss'
 
 const UserDetails: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module, userIdentifier } = useParams<
-    PipelineType<ProjectPathProps & { userIdentifier: string }>
+    PipelineType<ProjectPathProps & UserPathProps>
   >()
 
   const { data, loading, error, refetch } = useGetAggregatedUser({
@@ -81,6 +82,7 @@ const UserDetails: React.FC = () => {
       />
       <Page.Body className={css.body}>
         <Layout.Vertical width="100%" padding="large">
+          <UserGroupTable />
           <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
               {getString('rbac.roleBinding')}

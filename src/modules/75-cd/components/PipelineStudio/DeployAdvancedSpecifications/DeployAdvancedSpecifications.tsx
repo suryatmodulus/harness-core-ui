@@ -1,10 +1,10 @@
-import { Card, Layout } from '@wings-software/uicore'
 import React from 'react'
+import { Card, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
-import SkipCondition from '@pipeline/components/PipelineStudio/SkipCondition/SkipCondition'
+import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
 import css from './DeployAdvancedSpecifications.module.scss'
 
@@ -31,26 +31,28 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
   return (
     <div className={cx(css.stageSection, css.editStageGrid)}>
       <div className={css.contentSection} ref={scrollRef}>
-        <div className={css.tabHeading}>{getString('skipConditionsTitle')}</div>
-        <Card className={css.sectionCard} id="skipCondition">
-          <Layout.Horizontal>
-            <div className={css.stageSection}>
-              <div className={cx(css.stageCreate, css.stageDetails)}>
-                <SkipCondition
-                  isReadonly={isReadonly}
-                  selectedStage={stage || {}}
-                  onUpdate={({ skipCondition }) => {
-                    const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
-                    if (pipelineStage && pipelineStage.stage) {
-                      pipelineStage.stage.skipCondition = skipCondition?.trim()
-                      updatePipeline(pipeline)
-                    }
-                  }}
-                />
+        <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
+        {!!stage && (
+          <Card className={css.sectionCard} id="conditionalExecution">
+            <Layout.Horizontal>
+              <div className={css.stageSection}>
+                <div className={cx(css.stageCreate, css.stageDetails)}>
+                  <ConditionalExecution
+                    isReadonly={isReadonly}
+                    selectedStage={stage}
+                    onUpdate={when => {
+                      const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
+                      if (pipelineStage && pipelineStage.stage) {
+                        pipelineStage.stage.when = when
+                        updatePipeline(pipeline)
+                      }
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          </Layout.Horizontal>
-        </Card>
+            </Layout.Horizontal>
+          </Card>
+        )}
         <div className={css.tabHeading}>Failure Strategy</div>
         <Card className={css.sectionCard} id="failureStrategy">
           <Layout.Horizontal>

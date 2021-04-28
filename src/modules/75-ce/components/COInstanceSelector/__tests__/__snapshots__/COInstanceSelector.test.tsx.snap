@@ -1,0 +1,679 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Instance Selector Modal search and select instances successfully 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="padding-bottom: 20px; border-bottom: 1px solid #CDD3DD;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large"
+        >
+          Select Instances
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
+      >
+        <button
+          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          disabled=""
+          style="background-color: inherit;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Add selected 
+          </span>
+        </button>
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
+            value="instance"
+          />
+          <span
+            class="ExpandingSearchInput--btnWrapper  "
+          >
+            <button
+              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-small-cross StyledProps--main"
+                icon="small-cross"
+              >
+                <svg
+                  data-icon="small-cross"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    small-cross
+                  </desc>
+                  <path
+                    d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="table instancesTable"
+        >
+          <div
+            class="header"
+            role="row"
+          >
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 5%;"
+            >
+              
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 20%;"
+            >
+              ce.co.instanceSelector.name
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              ce.co.instanceSelector.ipAddress
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              regionLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              typeLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              tagsLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              ce.co.instanceSelector.launchTime
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              status
+            </div>
+          </div>
+          <div
+            class="row card"
+            role="row"
+          >
+            <div
+              class="cell"
+              role="cell"
+              style="width: 5%;"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 20%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                instance
+                 
+                i-008
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                us-west-1
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                running
+              </p>
+            </div>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+          >
+            <span
+              class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+            >
+              Showing 
+              <strong>
+                1
+              </strong>
+               of 
+              <strong>
+                1
+              </strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Instance Selector Modal search and select instances successfully 2`] = `
+<input
+  type="checkbox"
+/>
+`;
+
+exports[`Instance Selector Modal should show data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="padding-bottom: 20px; border-bottom: 1px solid #CDD3DD;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large"
+        >
+          Select Instances
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
+      >
+        <button
+          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          disabled=""
+          style="background-color: inherit;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Add selected 
+          </span>
+        </button>
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="table instancesTable"
+        >
+          <div
+            class="header"
+            role="row"
+          >
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 5%;"
+            >
+              
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 20%;"
+            >
+              ce.co.instanceSelector.name
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              ce.co.instanceSelector.ipAddress
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              regionLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              typeLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              tagsLabel
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              ce.co.instanceSelector.launchTime
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              status
+            </div>
+          </div>
+          <div
+            class="row card"
+            role="row"
+          >
+            <div
+              class="cell"
+              role="cell"
+              style="width: 5%;"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 20%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                instance
+                 
+                i-008
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                us-west-1
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 15%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 3;"
+              >
+                running
+              </p>
+            </div>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+          >
+            <span
+              class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+            >
+              Showing 
+              <strong>
+                1
+              </strong>
+               of 
+              <strong>
+                1
+              </strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Instance Selector Modal should show loader while loading data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+        style="padding-bottom: 20px; border-bottom: 1px solid #CDD3DD;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-large"
+        >
+          Select Instances
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
+      >
+        <button
+          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          disabled=""
+          style="background-color: inherit;"
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Add selected 
+          </span>
+        </button>
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
+            data-icon="spinner"
+          >
+            <svg
+              fill="none"
+              height="24"
+              viewBox="0 0 36 36"
+              width="24"
+            >
+              <path
+                d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+                stroke="currentColor"
+                stroke-dasharray="75,100"
+                stroke-linecap="round"
+                stroke-width="2.8"
+                style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -101,13 +101,14 @@
       left: 276px;
     }
   }
-  .squareCardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 64px;
-    margin-right: var(--spacing-small);
-  }
+}
+
+.squareCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  margin-right: var(--spacing-small);
 }
 
 .variablesGrid {

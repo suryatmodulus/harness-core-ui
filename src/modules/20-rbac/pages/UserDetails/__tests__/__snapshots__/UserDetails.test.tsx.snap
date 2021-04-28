@@ -111,6 +111,74 @@ exports[`UserDetails Test render data 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-large"
       style="width: 100%;"
     >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+      >
+        common.userGroups
+      </p>
+      <div
+        class="table"
+      >
+        <div
+          class="row card"
+          role="row"
+        >
+          <div
+            class="cell"
+            role="cell"
+            style="width: 95%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main name"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                testGroup
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 5%;"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  data-testid="menu-UserGroup-testGroup"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-large"
       >

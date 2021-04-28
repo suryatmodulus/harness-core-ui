@@ -63,7 +63,8 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     delegate: undefined,
     roleArn: undefined,
     externalName: undefined,
-    assumeStsRoleDuration: undefined
+    assumeStsRoleDuration: undefined,
+    default: false
   }
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
   const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && isEditMode)
@@ -116,7 +117,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
             credential: cred,
             kmsArn: formData?.awsArn,
             region: formData?.region as SelectOption,
-            default: false
+            default: formData.default
           }
         }
       }
@@ -214,8 +215,8 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
 
                 {(formik.values?.credType === credTypeOptions[1].value ||
                   formik.values?.credType === credTypeOptions[2].value) && (
-                  <Layout.Vertical spacing="xsmall">
-                    <Text lineClamp={1}>{getString('delegate.DelegateSelector')}</Text>
+                  <Layout.Vertical spacing="xsmall" margin={{ bottom: 'small' }}>
+                    <Text lineClamp={1}>{`${getString('delegate.DelegateSelector')}*`}</Text>
                     <DelegateSelectors
                       fill
                       allowNewTag={false}
@@ -228,6 +229,11 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
                     <Text intent="danger">{formik.errors.delegate}</Text>
                   </Layout.Vertical>
                 )}
+                <FormInput.CheckBox
+                  name="default"
+                  label={getString('connectors.hashiCorpVault.defaultVault')}
+                  padding={{ left: 'xxlarge' }}
+                />
               </Container>
               <Layout.Horizontal spacing="medium">
                 <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />

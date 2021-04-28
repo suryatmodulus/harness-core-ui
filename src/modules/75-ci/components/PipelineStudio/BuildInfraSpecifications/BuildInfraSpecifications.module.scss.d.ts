@@ -15,6 +15,7 @@ declare const styles: {
   readonly card: string
   readonly cardTitle: string
   readonly active: string
+  readonly plainList: string
   readonly navigationButtons: string
 }
 export default styles

@@ -19,7 +19,8 @@ export enum Types {
   OutputVariables,
   LimitMemory,
   LimitCPU,
-  Timeout
+  Timeout,
+  Boolean
 }
 
 interface Field {
@@ -255,6 +256,12 @@ function generateSchemaForLimitCPU({ getString }: GenerateSchemaDependencies): L
   )
 }
 
+function generateSchemaForBoolean(): Lazy {
+  return yup.lazy(value =>
+    getMultiTypeFromValue(value as boolean) === MultiTypeInputType.FIXED ? yup.bool() : yup.string()
+  )
+}
+
 export function generateSchemaFields(
   fields: Field[],
   { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies
@@ -296,6 +303,14 @@ export function generateSchemaFields(
       validationRule = getDurationValidationSchema()
     }
 
+    if (type === Types.Boolean) {
+      validationRule = generateSchemaForBoolean()
+    }
+
+    if (type === Types.Text) {
+      validationRule = yup.string()
+    }
+
     if ((type === Types.Identifier || type === Types.Name || type === Types.Text) && isRequired && label) {
       if (validationRule) {
         validationRule = (validationRule as any).required(
@@ -304,6 +319,14 @@ export function generateSchemaFields(
       } else {
         validationRule = yup.string().required(getString('fieldRequired', { field: getString(label as StringKeys) }))
       }
+    }
+
+    if (type === Types.Boolean && isRequired && label) {
+      validationRule = (validationRule as any).required(
+        getString('fieldRequired', {
+          field: getString(label as StringKeys)
+        })
+      )
     }
 
     return {

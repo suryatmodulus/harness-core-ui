@@ -1,25 +1,38 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Text, Layout, Container, Avatar, Color, Button } from '@wings-software/uicore'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useGetAuthenticationSettings } from 'services/cd-ng'
 import { Page } from '@common/components'
 import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentication/TwoFactorAuthentication'
 import useSwitchAccountModal from '@user-profile/modals/SwitchAccount/useSwitchAccountModal'
-
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
   const { openPasswordModal } = useChangePassword()
   const { openSwitchAccountModal } = useSwitchAccountModal({})
   const { openUserProfile } = useUserProfile({})
   const { currentUserInfo: user } = useAppStore()
 
+  const {
+    data: loginSettings,
+    loading: fetchingAuthSettings,
+    error: errorWhileFetchingAuthSettings
+  } = useGetAuthenticationSettings({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
   return (
-    <Page.Body filled>
+    <Page.Body filled loading={fetchingAuthSettings} error={errorWhileFetchingAuthSettings?.message}>
       <Layout.Horizontal height="inherit">
         <Container width="30%" className={css.details}>
           <Layout.Vertical>
@@ -59,7 +72,9 @@ const UserProfilePage: React.FC = () => {
               </Text>
             </Layout.Vertical>
             <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
-              <TwoFactorAuthentication />
+              <TwoFactorAuthentication
+                isTwoFactorAuthEnabledForCurrentAccount={!!loginSettings?.resource?.twoFactorEnabled}
+              />
             </Layout.Horizontal>
           </Layout.Vertical>
         </Container>

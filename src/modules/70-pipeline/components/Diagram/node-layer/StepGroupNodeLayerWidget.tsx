@@ -168,7 +168,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
               top: config.minY + height - 20,
               width: nodeWidth,
               height: nodeHeight,
-              visibility: showAdd ? 'visible' : 'hidden'
+              display: showAdd ? 'flex' : 'none'
             }}
           >
             <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
@@ -209,6 +209,18 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             >
               <Icon size={26} name={'conditional-skip-new'} color="white" />
             </Link>
+          </div>
+        )}
+        {options.conditionalExecutionEnabled && (
+          <div className={css.сonditional}>
+            <Text
+              tooltip={getString('pipeline.conditionalExecution.title')}
+              tooltipProps={{
+                isDark: true
+              }}
+            >
+              <Icon size={26} name={'conditional-skip-new'} color="white" />
+            </Text>
           </div>
         )}
         <Text

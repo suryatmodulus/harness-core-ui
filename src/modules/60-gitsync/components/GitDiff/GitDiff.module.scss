@@ -1,0 +1,22 @@
+.header {
+  height: fit-content;
+  border: 1px solid var(--grey-250);
+  width: calc(100% - var(--spacing-xxlarge)) !important;
+}
+
+.panel {
+  align-items: center;
+  padding: var(--spacing-small) var(--spacing-xlarge) !important;
+}
+
+.panel:first-of-type {
+  border-right: 1px solid var(--grey-250);
+}
+
+.footer {
+  border-top: 1px solid var(--grey-250);
+  height: var(--spacing-huge);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

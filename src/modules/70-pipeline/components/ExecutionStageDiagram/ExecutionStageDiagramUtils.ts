@@ -4,6 +4,11 @@ import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
 import { ExecutionStatusEnum, ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import {
+  PipelineOrStageStatus,
+  statusToStatusMapping
+} from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
+import type { NodeRunInfo } from 'services/pipeline-ng'
 import type { ExecutionPipeline, ExecutionPipelineItem, ExecutionPipelineNode } from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
@@ -101,6 +106,8 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.borderColor = 'var(--execution-pipeline-color-orange)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
         break
+      case ExecutionStatusEnum.InterventionWaiting:
+      case ExecutionStatusEnum.ApprovalWaiting:
       case ExecutionStatusEnum.Waiting:
         style.backgroundColor = isSelected
           ? 'var(--execution-pipeline-color-blue)'
@@ -114,6 +121,7 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
         break
+      case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
         style.borderColor = 'var(--execution-pipeline-color-dark-red)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--white)'
@@ -296,6 +304,7 @@ export const moveStageToFocus = (
     const offsetY = engine.getModel().getOffsetY()
     let newOffsetX = engine.getModel().getOffsetX()
     let newOffsetY = engine.getModel().getOffsetY()
+    const newZoom = resetZoom ? 100 : engine.getModel().getZoomLevel()
 
     const node = (engine.getModel() as Diagram.DiagramModel).getNodeFromId(identifier)
 
@@ -313,9 +322,18 @@ export const moveStageToFocus = (
       newOffsetY = (rect.height - s(node.height)) * 0.7 - s(node.getPosition().y)
     }
 
-    engine.getModel().setOffset(newOffsetX, newOffsetY)
-    engine.getModel().setZoomLevel(resetZoom ? 100 : zoom)
-    engine.repaintCanvas()
+    let shouldRepaint = false
+    if (newOffsetX !== offsetX || newOffsetY !== offsetY) {
+      engine.getModel().setOffset(newOffsetX, newOffsetY)
+      shouldRepaint = true
+    }
+    if (newZoom !== zoom) {
+      engine.getModel().setZoomLevel(resetZoom ? 100 : zoom)
+      shouldRepaint = true
+    }
+    if (shouldRepaint) {
+      engine.repaintCanvas()
+    }
   }
 }
 
@@ -356,10 +374,12 @@ export const focusRunningNode = <T>(engine: DiagramEngine, data: ExecutionPipeli
       const nodeWidth = node.width
       /* istanbul ignore else */ if (rect.width < nodePosition.x + nodeWidth + 40) {
         const newOffsetX = (rect.width - node.width) * 0.8 - nodePosition.x
-        const offsetY = engine.getModel().getOffsetY()
-        engine.getModel().setOffset(newOffsetX, offsetY)
-        engine.getModel().setZoomLevel(100)
-        engine.repaintCanvas()
+        if (newOffsetX !== engine.getModel().getOffsetX()) {
+          const offsetY = engine.getModel().getOffsetY()
+          engine.getModel().setOffset(newOffsetX, offsetY)
+          //engine.getModel().setZoomLevel(100)
+          engine.repaintCanvas()
+        }
       }
     }
   }
@@ -371,4 +391,12 @@ export const getTertiaryIconProps = <T>(stage: ExecutionPipelineItem<T>): { tert
     tertiaryIconProps.tertiaryIcon = 'barrier-open-with-links'
   }
   return tertiaryIconProps
+}
+
+export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean => {
+  if (!when) return false
+  const conditionArr = when.whenCondition!.split(' && ')
+  const status = statusToStatusMapping[conditionArr.shift()!.replace(/[^a-zA-Z]/g, '')]
+  const condition = conditionArr.join(' && ')
+  return !(status === PipelineOrStageStatus.SUCCESS && !condition?.trim())
 }

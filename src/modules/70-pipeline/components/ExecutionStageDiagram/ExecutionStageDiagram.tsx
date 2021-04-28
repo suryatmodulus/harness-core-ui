@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
-import { noop, find } from 'lodash-es'
+import { noop, find, isNil, debounce } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Icon } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { Tooltip } from '@blueprintjs/core'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { GraphCanvasState, useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -82,6 +82,8 @@ export interface ExecutionStageDiagramProps<T> {
   stageSelectionOptions?: StageOptions[]
   onChangeStageSelection?: (value: StageOptions) => void
   canvasBtnsClass?: string
+  graphCanvasState?: GraphCanvasState
+  setGraphCanvasState?: (state: GraphCanvasState) => void
 }
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
@@ -104,8 +106,16 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     stageSelectionOptions,
     onChangeStageSelection,
     isWhiteBackground = false,
-    canvasBtnsClass = ''
+    canvasBtnsClass = '',
+    graphCanvasState,
+    setGraphCanvasState
   } = props
+
+  const debounceSetGraphCanvasState = React.useRef(
+    debounce((values: any) => {
+      return setGraphCanvasState?.(values)
+    }, 250)
+  ).current
 
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
@@ -140,6 +150,43 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
   model.setDefaultNodeStyle(nodeStyle)
   model.setGridStyle(gridStyle)
+
+  // Graph position and zoom set (set values from context)
+  React.useEffect(() => {
+    const { offsetX, offsetY, zoom } = graphCanvasState || {}
+    if (!isNil(offsetX) && offsetX !== model.getOffsetX() && !isNil(offsetY) && offsetY !== model.getOffsetY()) {
+      model.setOffset(offsetX, offsetY)
+    }
+    if (!isNil(zoom) && zoom !== model.getZoomLevel()) {
+      model.setZoomLevel(zoom)
+    }
+  }, [graphCanvasState, model])
+
+  // Graph position and zoom change - event handling (update context value)
+  React.useEffect(() => {
+    const offsetUpdateHandler = function (event: any) {
+      if (graphCanvasState) {
+        graphCanvasState.offsetX = event.offsetX
+        graphCanvasState.offsetY = event.offsetY
+        debounceSetGraphCanvasState({
+          ...graphCanvasState
+        })
+      }
+    }
+    const zoomUpdateHandler = function (event: any) {
+      if (graphCanvasState) {
+        graphCanvasState.zoom = event.zoom
+        debounceSetGraphCanvasState({ ...graphCanvasState })
+      }
+    }
+    const listenerHandle = model.registerListener({
+      [Diagram.Event.OffsetUpdated]: offsetUpdateHandler,
+      [Diagram.Event.ZoomUpdated]: zoomUpdateHandler
+    })
+    return () => {
+      model.deregisterListener(listenerHandle)
+    }
+  }, [model])
 
   const nodeListeners: NodeModelListener = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -176,8 +223,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   }, [data.identifier])
 
   React.useEffect(() => {
-    moveStageToFocus(engine, selectedIdentifier, true, true), [selectedIdentifier]
-  })
+    moveStageToFocus(engine, selectedIdentifier, true, true)
+  }, [selectedIdentifier])
 
   React.useEffect(() => {
     model.clearAllNodesAndLinks()

@@ -68,6 +68,11 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
     props.onInstancesAddSuccess?.()
   }
 
+  const handleSearch = (text: string) => {
+    pageIndex !== 0 && setPageIndex(0)
+    props.search(text)
+  }
+
   return (
     <Container>
       <Layout.Vertical spacing="large">
@@ -92,7 +97,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
           >
             {`Add selected ${selectedInstances.length ? '(' + selectedInstances.length + ')' : ''}`}
           </Button>
-          <ExpandingSearchInput className={css.search} onChange={(text: string) => props.search(text)} />
+          <ExpandingSearchInput className={css.search} onChange={handleSearch} />
         </Layout.Horizontal>
         <Container>
           {props.loading && (

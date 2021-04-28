@@ -5,5 +5,6 @@ declare const styles: {
   readonly body: string
   readonly card: string
   readonly addButton: string
+  readonly name: string
 }
 export default styles

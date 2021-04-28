@@ -13,6 +13,8 @@ const props = {
   }
 }
 
+jest.mock('react-timeago', () => () => 'react-timeago-mocked-component')
+
 jest.mock('@common/hooks', () => ({
   useMutateAsGet: jest.fn().mockImplementation(() => ({ data: connectorsData, loading: false }))
 }))

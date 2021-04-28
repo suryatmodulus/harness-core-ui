@@ -27,9 +27,12 @@ import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
 const ResourceGroupDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } = useParams<
-    ResourceGroupDetailsPathProps
-  >()
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    resourceGroupIdentifier
+  } = useParams<ResourceGroupDetailsPathProps>()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [isUpdated, setIsUpdated] = useState<boolean>(false)

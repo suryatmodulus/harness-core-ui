@@ -163,9 +163,13 @@ export function highlightSearchText(
 export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage } = props
   const requestQueue = React.useRef(new PQueue())
-  const { accountId, pipelineIdentifier, projectIdentifier, executionIdentifier, orgIdentifier } = useParams<
-    ExecutionPathProps
-  >()
+  const {
+    accountId,
+    pipelineIdentifier,
+    projectIdentifier,
+    executionIdentifier,
+    orgIdentifier
+  } = useParams<ExecutionPathProps>()
   const [state, dispatch] = React.useReducer<LogsReducer>(reducer, { units: [], dataMap: {}, selectedStep: '' })
   const {
     pipelineStagesMap,

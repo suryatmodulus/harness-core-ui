@@ -494,9 +494,11 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
   const [editing, setEditing] = useState(false)
   const [errors, setErrors] = useState<RuleErrors>({})
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const { environmentIdentifier: environment, projectIdentifier: project, segmentIdentifier: identifier } = useParams<
-    any
-  >()
+  const {
+    environmentIdentifier: environment,
+    projectIdentifier: project,
+    segmentIdentifier: identifier
+  } = useParams<any>()
 
   const { data: rawTargets, loading: loadingTargets } = useGetAllTargets({
     queryParams: {

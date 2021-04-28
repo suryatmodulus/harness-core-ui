@@ -202,7 +202,8 @@
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
     "worker-loader": "^3.0.8",
-    "yaml-loader": "^0.6.0"
+    "yaml-loader": "^0.6.0",
+    "yarn-deduplicate": "^3.1.0"
   },
   "resolutions": {
     "@types/react": "16.9.34",

@@ -79,9 +79,11 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
           ) {
             repoName = initialValues?.spec?.store.spec.repoName
           } else {
+            /* istanbul ignore next */
             repoName = ''
           }
         } else {
+          /* istanbul ignore next */
           repoName =
             prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
               ? initialValues?.spec?.store.spec.repoName
@@ -90,7 +92,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
       }
       return repoName
     }
-
+    /* istanbul ignore next */
     if (prevStepData?.identifier) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.url
@@ -184,36 +186,24 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
           })
         }}
       >
-        {(formik: { setFieldValue: (a: string, b: string) => void; values: OpenShiftTemplateGITDataType }) => (
-          <Form>
-            <div className={templateCss.templateForm}>
-              <FormInput.Text
-                name="identifier"
-                label={getString('pipeline.manifestType.manifestIdentifier')}
-                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
-                className={templateCss.halfWidth}
-              />
-              {connectionType === GitRepoName.Repo && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                    isOptional={true}
-                    style={{ width: '370px' }}
-                  />
-                </div>
-              )}
-
-              {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div className={templateCss.repoNameSection}>
-                  <div className={templateCss.repoName}>
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{ expressions }}
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: OpenShiftTemplateGITDataType }) => {
+          return (
+            <Form>
+              <div className={templateCss.templateForm}>
+                <FormInput.Text
+                  name="identifier"
+                  label={getString('pipeline.manifestType.manifestIdentifier')}
+                  placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
+                  className={templateCss.halfWidth}
+                />
+                {connectionType === GitRepoName.Repo && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.Text
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
+                      disabled
                       name="repoName"
                       isOptional={true}
+                      style={{ width: '370px' }}
                     />
                     {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
@@ -227,158 +217,160 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                       />
                     )}
                   </div>
-                  {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
+                )}
+
+                {!!(connectionType === GitRepoName.Account && accountUrl) && (
+                  <div className={templateCss.halfWidth}>
+                    <div>
+                      <FormInput.Text
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        name="repoName"
+                        isOptional={true}
+                        className={templateCss.repoName}
+                      />
+                    </div>
                     <div
-                      className={cx(templateCss.repoNameUrl, templateCss.halfWidth)}
+                      style={{ marginBottom: 'var(--spacing-medium)' }}
                     >{`${accountUrl}/${formik.values?.repoName}`}</div>
-                  )}
-                </div>
-              )}
-              <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
-                <div className={templateCss.halfWidth}>
-                  <FormInput.Select
-                    name="gitFetchType"
-                    label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                    items={gitFetchTypes}
-                  />
-                </div>
-
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-                  <div
-                    className={cx(templateCss.halfWidth, {
-                      [templateCss.runtimeInput]:
-                        getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
-                    })}
-                  >
-                    <FormInput.MultiTextInput
-                      label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                      multiTextInputProps={{ expressions }}
-                      name="branch"
-                    />
-                    {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.branch as string}
-                        type="String"
-                        variableName="branch"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('branch', value)}
-                      />
-                    )}
                   </div>
                 )}
-
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                  <div
-                    className={cx(templateCss.halfWidth, {
-                      [templateCss.runtimeInput]:
-                        getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME
-                    })}
-                  >
-                    <FormInput.MultiTextInput
-                      label={getString('pipeline.manifestType.commitId')}
-                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                      multiTextInputProps={{ expressions }}
-                      name="commitId"
+                <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
+                  <div className={templateCss.halfWidth}>
+                    <FormInput.Select
+                      name="gitFetchType"
+                      label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                      items={gitFetchTypes}
                     />
-                    {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
-                        value={formik.values?.commitId as string}
-                        type="String"
-                        variableName="commitId"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('commitId', value)}
-                      />
-                    )}
                   </div>
-                )}
-              </Layout.Horizontal>
 
-              <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
-                <div
-                  className={cx(templateCss.halfWidth, {
-                    [templateCss.runtimeInput]:
-                      getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME
-                  })}
-                >
-                  <FormInput.MultiTextInput
-                    label={getString('pipeline.manifestType.osTemplatePath')}
-                    placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
-                    name="path"
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.path as string}
-                      type="String"
-                      variableName="path"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('path', value)}
-                    />
-                  )}
-                </div>
-              </Layout.Horizontal>
-              <Accordion
-                activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
-                className={cx(templateCss.advancedStepOpen)}
-              >
-                <Accordion.Panel
-                  id={getString('advancedTitle')}
-                  addDomId={true}
-                  summary={getString('advancedTitle')}
-                  details={
-                    <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
-                      <FormMultiTypeCheckboxField
-                        name="skipResourceVersioning"
-                        label={getString('skipResourceVersion')}
-                        multiTypeTextbox={{ expressions }}
-                        className={cx(templateCss.checkbox, templateCss.halfWidth)}
+                  {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                    <div
+                      className={cx(templateCss.halfWidth, {
+                        [templateCss.runtimeInput]:
+                          getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
+                      })}
+                    >
+                      <FormInput.MultiTextInput
+                        label={getString('pipelineSteps.deploy.inputSet.branch')}
+                        placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+                        multiTextInputProps={{ expressions }}
+                        name="branch"
                       />
-                      {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
+                      {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
-                          value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.branch as string}
                           type="String"
-                          variableName="skipResourceVersioning"
+                          variableName="branch"
                           showRequiredField={false}
                           showDefaultField={false}
                           showAdvanced={true}
-                          onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                          style={{ alignSelf: 'center' }}
-                          className={css.addmarginTop}
+                          onChange={value => formik.setFieldValue('branch', value)}
                         />
                       )}
-                      <Tooltip
-                        position="bottom"
-                        content={
-                          <div className={helmcss.tooltipContent}>
-                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                          </div>
-                        }
-                        className={helmcss.skipversionTooltip}
-                      >
-                        <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                      </Tooltip>
-                    </Layout.Horizontal>
-                  }
-                />
-              </Accordion>
-            </div>
+                    </div>
+                  )}
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
-            </Layout.Horizontal>
-          </Form>
-        )}
+                  {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                    <div
+                      className={cx(templateCss.halfWidth, {
+                        [templateCss.runtimeInput]:
+                          getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME
+                      })}
+                    >
+                      <FormInput.MultiTextInput
+                        label={getString('pipeline.manifestType.commitId')}
+                        placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+                        multiTextInputProps={{ expressions }}
+                        name="commitId"
+                      />
+                      {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.commitId as string}
+                          type="String"
+                          variableName="commitId"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('commitId', value)}
+                        />
+                      )}
+                    </div>
+                  )}
+                </Layout.Horizontal>
+
+                <Layout.Horizontal flex spacing="huge" margin={{ bottom: 'small' }}>
+                  <div
+                    className={cx(templateCss.halfWidth, {
+                      [templateCss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
+                    <FormInput.MultiTextInput
+                      label={getString('pipeline.manifestType.osTemplatePath')}
+                      placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                      name="path"
+                      multiTextInputProps={{ expressions }}
+                    />
+                    {getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.path as string}
+                        type="String"
+                        variableName="path"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('path', value)}
+                      />
+                    )}
+                  </div>
+                </Layout.Horizontal>
+                <Accordion
+                  activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                  className={cx(templateCss.advancedStepOpen)}
+                >
+                  <Accordion.Panel
+                    id={getString('advancedTitle')}
+                    addDomId={true}
+                    summary={getString('advancedTitle')}
+                    details={
+                      <Layout.Horizontal
+                        width={'90%'}
+                        height={120}
+                        flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                      >
+                        <FormMultiTypeCheckboxField
+                          name="skipResourceVersioning"
+                          label={getString('skipResourceVersion')}
+                          multiTypeTextbox={{ expressions }}
+                          className={cx(templateCss.checkbox, templateCss.halfWidth)}
+                        />
+                        <Tooltip
+                          position="bottom"
+                          content={
+                            <div className={helmcss.tooltipContent}>
+                              {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
+                            </div>
+                          }
+                          className={helmcss.skipversionTooltip}
+                        >
+                          <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                        </Tooltip>
+                      </Layout.Horizontal>
+                    }
+                  />
+                </Accordion>
+              </div>
+
+              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+                <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+                <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )

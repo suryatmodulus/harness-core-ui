@@ -78,6 +78,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
           ) {
             repoName = initialValues?.spec?.store.spec.repoName
           } else {
+            /* istanbul ignore next */
             repoName = ''
           }
         } else {
@@ -89,7 +90,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       }
       return repoName
     }
-
+    /* istanbul ignore next */
     if (prevStepData?.identifier) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.url

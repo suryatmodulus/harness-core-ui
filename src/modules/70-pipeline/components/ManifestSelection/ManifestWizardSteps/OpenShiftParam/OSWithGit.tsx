@@ -75,9 +75,11 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
           ) {
             repoName = initialValues?.spec?.store.spec.repoName
           } else {
+            /* istanbul ignore next */
             repoName = ''
           }
         } else {
+          /* istanbul ignore next */
           repoName =
             prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
               ? initialValues?.spec?.store.spec.repoName
@@ -86,7 +88,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
       }
       return repoName
     }
-
+    /* istanbul ignore next */
     if (prevStepData?.identifier) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.url
@@ -161,6 +163,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
       handleSubmit(manifestObj)
     }
   }
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
       <Text font="large" color={Color.GREY_800}>

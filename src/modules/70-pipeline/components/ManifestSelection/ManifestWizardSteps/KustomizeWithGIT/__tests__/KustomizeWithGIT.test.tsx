@@ -1,8 +1,9 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import KustomizeWithGIT from '../KustomizeWithGIT'
+
 import { Scope } from '@common/interfaces/SecretsInterface'
+import KustomizeWithGIT from '../KustomizeWithGIT'
 
 const props = {
   stepName: 'Manifest details',
@@ -299,15 +300,24 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test.skip('submits with the right payload when gitfetchtype is commit', async () => {
+  test('submits with the right payload when gitfetchtype is commit', async () => {
     const initialValues = {
-      identifier: '',
-      commitId: undefined,
-      gitFetchType: '',
-      folderPath: '',
-      skipResourceVersioning: true,
-      repoName: '',
-      pluginPath: ''
+      identifier: 'testidentifier',
+
+      spec: {
+        store: {
+          spec: {
+            commitId: 'awsd123sd',
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            connectorRef: 'account.test',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          },
+          type: 'Git'
+        }
+      }
     }
 
     const { container } = render(
@@ -319,10 +329,12 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Commit' } })
+
       fireEvent.change(queryByNameAttribute('commitId')!, { target: { value: 'test-commit' } })
       fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-path' } })
       fireEvent.change(queryByNameAttribute('pluginPath')!, { target: { value: 'plugin-path' } })
     })
+
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
@@ -340,7 +352,7 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
               type: undefined
             },
             pluginPath: 'plugin-path',
-            skipResourceVersioning: false
+            skipResourceVersioning: undefined
           }
         }
       })

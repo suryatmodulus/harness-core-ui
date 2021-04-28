@@ -189,7 +189,8 @@ describe('Open shift template with git tests', () => {
             commitId: 'test-commit',
             connectorRef: 'account.test',
             gitFetchType: 'Commit',
-            paths: [],
+            path: 'test-path',
+            paths: ['tst-path'],
             repoName: ''
           },
           type: 'Git'

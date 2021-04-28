@@ -2072,7 +2072,7 @@ exports[`Open shift template with git tests should render commit id  1`] = `
                         name="path"
                         placeholder="pipeline.manifestType.osTemplatePathPlaceHolder"
                         type="text"
-                        value=""
+                        value="tst-path"
                       />
                     </div>
                     <span

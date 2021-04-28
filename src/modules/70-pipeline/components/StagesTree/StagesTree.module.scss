@@ -1,5 +1,5 @@
 .container {
-  --tree-selected-color: #effbff;
+  --tree-selected-color: --primary-1;
 
   .stages-tree-bullet-empty > :global(div > .bp3-tree-node-label) {
     text-indent: 20px;

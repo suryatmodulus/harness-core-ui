@@ -1,11 +1,13 @@
 .right-bar {
-  background-color: var(--grey-100);
+  background-color: var(--grey-50);
   border-left: 1px solid var(--grey-300);
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: column;
+  flex: 0 0 auto;
   justify-content: center;
   z-index: 2;
+  width: 64px;
+  box-shadow: -2px 0 2px 0 rgb(0 0 0 / 10%);
   .icon-button {
     padding: 0px !important;
     position: relative !important;
@@ -15,6 +17,10 @@
     height: 60px !important;
     flex-direction: column;
     row-gap: var(--spacing-small);
+    margin-bottom: 32px !important;
+    box-shadow: none !important;
+    text-align: center !important;
+    max-height: none !important;
 
     &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;
@@ -27,29 +33,62 @@
     }
 
     &.notificationsIcon {
-      --right-bar-icon: #0bc8d6;
+      --right-bar-icon: var(--teal-500);
+
+      span {
+        line-height: 12px !important;
+        color: var(--grey-500) !important;
+        &:hover {
+          color: var(--teal-500) !important;
+        }
+      }
 
       &.selected {
-        --right-bar-bg: #0bc8d6;
+        --right-bar-bg: var(--teal-500);
         --right-bar-icon: var(--white);
+        span {
+          color: var(--white) !important;
+        }
       }
     }
 
     &.flowControlIcon {
-      --right-bar-icon: var(--yellow-color-1);
+      --right-bar-icon: var(--yellow-900);
+
+      span {
+        line-height: 12px !important;
+        color: var(--grey-500) !important;
+        &:hover {
+          color: var(--yellow-900) !important;
+        }
+      }
 
       &.selected {
-        --right-bar-bg: var(--yellow-color-1);
+        --right-bar-bg: var(--yellow-900);
         --right-bar-icon: var(--white);
+        span {
+          color: var(--white) !important;
+        }
       }
     }
 
     &.variablesIcon {
-      --right-bar-icon: #9d7cff;
+      --right-bar-icon: var(--purple-400);
+
+      span {
+        line-height: 12px !important;
+        color: var(--grey-500) !important;
+        &:hover {
+          color: var(--purple-400) !important;
+        }
+      }
 
       &.selected {
-        --right-bar-bg: #9d7cff;
+        --right-bar-bg: var(--purple-400);
         --right-bar-icon: var(--white);
+        span {
+          color: var(--white) !important;
+        }
       }
     }
   }

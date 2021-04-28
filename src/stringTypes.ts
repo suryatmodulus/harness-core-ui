@@ -256,6 +256,7 @@ export interface StringsMap {
   'notifications.nameOftheRule': string
   'notifications.notificationMethod': string
   'notifications.notificationName': string
+  'notifications.notificationRules': string
   'notifications.pagerDutyTestSuccess': string
   'notifications.pagerDutykey': string
   'notifications.pagerDutyuserGroups': string

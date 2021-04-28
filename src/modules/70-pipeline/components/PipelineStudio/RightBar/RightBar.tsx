@@ -295,7 +295,7 @@ export const RightBar = (): JSX.Element => {
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="yaml-builder-notifications"
         iconProps={{ size: 20 }}
-        text={getString('notifications.name')}
+        text={getString('notifications.notificationRules')}
       />
       {isFlowControlEnabled && (
         <Button

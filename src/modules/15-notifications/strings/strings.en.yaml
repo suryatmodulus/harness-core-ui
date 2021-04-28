@@ -35,3 +35,4 @@ pagerDutykey: PagerDuty Key (Optional)
 pagerDutyuserGroups: Notify these user groups
 pagerDutyTestSuccess: Pager Duty test is successfully executed
 userGroupsPlaceholder: Type and press enter to add user group
+notificationRules: Notification Rules

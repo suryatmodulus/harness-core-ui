@@ -57,12 +57,12 @@ export const useNotificationModal = ({
       >
         <StepWizard<NotificationRules>
           onCompleteWizard={wizardCompleteHandler}
-          icon="notifications"
+          icon="new-notification"
           iconProps={{ color: 'white', size: 50 }}
           title={isNil(index) ? getString('newNotification') : getString('editNotification')}
         >
           <Overview
-            name={getString('notifications.nameOftheRule')}
+            name={getString('overview')}
             data={notificationRules}
             existingNotificationNames={getExistingNotificationNames?.(index)}
           />

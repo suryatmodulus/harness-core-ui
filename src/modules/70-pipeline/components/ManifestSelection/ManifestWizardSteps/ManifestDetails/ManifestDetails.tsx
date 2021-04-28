@@ -51,37 +51,38 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   previousStep
 }) => {
   const { getString } = useStrings()
-
+  /* istanbul ignore next */
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
     event.currentTarget.classList.add(css.dragging)
   }, [])
-
+  /* istanbul ignore next */
   const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragging)
   }, [])
-
+  /* istanbul ignore next */
   const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragOver)
   }, [])
-
+  /* istanbul ignore next */
   const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     /* istanbul ignore else */
     if (event.preventDefault) {
       event.preventDefault()
     }
+    /* istanbul ignore next */
     event.currentTarget.classList.add(css.dragOver)
     event.dataTransfer.dropEffect = 'move'
   }, [])
 
   const onDrop = React.useCallback(
     (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
-      /* istanbul ignore else */
+      /* istanbul ignore next */
       if (event.preventDefault) {
         event.preventDefault()
       }
       const data = event.dataTransfer.getData('data')
-      /* istanbul ignore else */
+      /* istanbul ignore next */
       if (data) {
         const index = parseInt(data, 10)
         arrayHelpers.swap(index, droppedIndex)
@@ -124,6 +125,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           ) {
             repoName = initialValues?.spec?.store.spec.repoName
           } else {
+            /* istanbul ignore next */
             repoName = ''
           }
         } else {
@@ -135,6 +137,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       }
       return repoName
     }
+    /* istanbul ignore next */
     if (prevStepData?.identifier) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.url
@@ -191,6 +194,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       }
     }
     if (manifestObj?.manifest?.spec?.store) {
+      console.log('in here')
       if (formData?.gitFetchType === 'Branch') {
         manifestObj.manifest.spec.store.spec.branch = formData?.branch
       } else if (formData?.gitFetchType === 'Commit') {

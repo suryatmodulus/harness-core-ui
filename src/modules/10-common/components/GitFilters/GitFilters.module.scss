@@ -15,12 +15,6 @@
   .repoSelectDefault {
     margin-right: var(--spacing-medium);
   }
-  :global {
-    .rotate svg {
-      transform: rotate(7200deg);
-      transition: 60s;
-    }
-  }
 }
 
 .btnConatiner {

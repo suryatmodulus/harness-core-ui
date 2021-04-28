@@ -12,11 +12,13 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 //import { useStrings } from 'framework/strings'
+
 import cx from 'classnames'
 import { Menu, Dialog } from '@blueprintjs/core'
 import { GitBranchDTO, GitSyncConfig, syncGitBranchPromise, useGetListOfBranchesWithStatus } from 'services/cd-ng'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useToaster } from '@common/exports'
 import css from './GitFilters.module.scss'
 
 interface GitFilterForm {
@@ -35,13 +37,9 @@ interface BranchSelectOption extends SelectOption {
   branchSyncStatus?: GitBranchDTO['branchSyncStatus']
 }
 
-// interface BranchSelectOption {
-//   label: string // todo: add support for| JSX.Element in select
-//   value: string
-// }
-
 const GitFilters: React.FC<GitFiltersProps> = props => {
   const { defaultValue = { repo: '', branch: '' } } = props
+  const { showSuccess } = useToaster()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page] = React.useState<number>(0)
@@ -70,6 +68,9 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
   useEffect(() => {
     if (!loading && response?.data?.branches?.content?.length) {
+      const defaultBranch = response?.data?.defaultBranch?.branchName as string
+      props.onChange({ repo: selectedGitRepo, branch: defaultBranch })
+      setSelectedGitBranch(defaultBranch)
       setBranchSelectOptions(
         response.data.branches.content.map((branch: GitBranchDTO) => {
           return {
@@ -79,26 +80,28 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
           }
         })
       )
-      setSelectedGitBranch(response?.data?.defaultBranch?.branchName || '')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading])
 
   useEffect(() => {
-    if (selectedGitRepo && !unSyncedSelectedBranch) {
-      getListOfBranchesWithStatus({
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
-          yamlGitConfigIdentifier: selectedGitRepo,
-          page,
-          size: 10,
-          searchTerm
-        }
-      })
+    if (selectedGitRepo) {
+      if (!unSyncedSelectedBranch) {
+        getListOfBranchesWithStatus({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            yamlGitConfigIdentifier: selectedGitRepo,
+            page,
+            size: 10,
+            searchTerm
+          }
+        })
+      }
     } else {
+      setBranchSelectOptions([defaultBranchSelect])
       setSelectedGitBranch('')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +117,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         branch: unSyncedSelectedBranch?.value as string
       },
       body: undefined
-    })
+    }).then(() => showSuccess(`Sync started for branch ${unSyncedSelectedBranch?.value as string}`))
     setUnSyncedSelectedBranch(null)
   }
 
@@ -139,6 +142,9 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         onClose={() => {
           hideModal()
           setUnSyncedSelectedBranch(null)
+          response?.data?.defaultBranch?.branchSyncStatus === 'SYNCED'
+            ? setSelectedGitBranch(response.data.defaultBranch.branchName || '')
+            : setSelectedGitRepo('')
         }}
       >
         {unSyncedSelectedBranch?.branchSyncStatus === 'UNSYNCED' ? (
@@ -180,17 +186,6 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             </Button>
           </Container>
         )}
-
-        {/* <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            setUnSyncedSelectedBranch(null)
-            hideModal()
-          }}
-          // className={css.crossIcon}
-        /> */}
       </Dialog>
     ),
     [unSyncedSelectedBranch]
@@ -212,6 +207,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const handleBranchClick = (branch: BranchSelectOption): void => {
     if (branch.branchSyncStatus === 'SYNCED') {
       setSelectedGitBranch(branch.value as string)
+      props.onChange({ repo: selectedGitRepo, branch: selectedGitBranch })
     } else {
       setUnSyncedSelectedBranch(branch)
       showModal()
@@ -233,6 +229,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         items={repoSelectOptions}
         onChange={(selected: SelectOption) => {
           setSelectedGitRepo(selected.value as string)
+          !selected.value && props.onChange({ repo: '', branch: '' })
         }}
       ></Select>
 
@@ -241,7 +238,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         name={'branch'}
         value={branchSelectOptions.find(branchOption => branchOption.value === selectedGitBranch)}
         items={branchSelectOptions}
-        disabled={!(selectedGitRepo && !loading)}
+        disabled={!selectedGitBranch}
         data-id="gitBranchSelect"
         className={cx(props.branchSelectClassName)}
         onQueryChange={(query: string) => setSearchTerm(query)}

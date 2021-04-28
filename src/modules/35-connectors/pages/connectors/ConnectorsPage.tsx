@@ -6,8 +6,7 @@ import {
   FormInput,
   MultiSelectOption,
   OverlaySpinner,
-  ExpandingSearchInput,
-  Container
+  ExpandingSearchInput
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { debounce, pick } from 'lodash-es'
@@ -60,8 +59,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import GitFilters from '@common/components/GitFilters/GitFilters'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -75,7 +74,6 @@ import {
   validateForm
 } from './utils/RequestUtils'
 import css from './ConnectorsPage.module.scss'
-import GitFilters from '@common/components/GitFilters/GitFilters'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
@@ -103,7 +101,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
-  const defaultQueryParams = {
+  const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: page,
     pageSize: 10,
     projectIdentifier,
@@ -548,7 +546,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   return (
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal flex className={css.header}>
-        <Container>
+        <Layout.Horizontal spacing="small">
           <RbacButton
             intent="primary"
             text={getString('newConnector')}
@@ -580,17 +578,21 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             id="newYamlConnectorBtn"
             data-test="createViaYamlButton"
           />
-        </Container>
-        {isGitSyncEnabled && (
-          <GitSyncStoreProvider>
-            <GitFilters
-              onChange={value => {
-                console.log(value)
-              }}
-              className={'gitFilter'}
-            ></GitFilters>
-          </GitSyncStoreProvider>
-        )}
+          {isGitSyncEnabled && (
+            <GitSyncStoreProvider>
+              <GitFilters
+                onChange={filter => {
+                  refetchConnectorList(
+                    filter.repo && filter.branch
+                      ? { ...defaultQueryParams, repoIdentifier: filter.repo, branch: filter.branch }
+                      : defaultQueryParams
+                  )
+                }}
+                className={css.gitFilter}
+              ></GitFilters>
+            </GitSyncStoreProvider>
+          )}
+        </Layout.Horizontal>
 
         <Layout.Horizontal margin={{ left: 'small' }}>
           <div className={css.expandSearch}>

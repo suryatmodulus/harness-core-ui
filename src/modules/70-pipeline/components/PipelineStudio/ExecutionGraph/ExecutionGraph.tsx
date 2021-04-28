@@ -623,7 +623,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             active: state.isRollback ? StepsType.Rollback : StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} tooltipPosition={canvasButtonsTooltipPosition} layout={canvasButtonsLayout} />
+        <CanvasButtons
+          engine={engine}
+          tooltipPosition={canvasButtonsTooltipPosition}
+          layout={canvasButtonsLayout}
+          className={css.canvasButtons}
+        />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}

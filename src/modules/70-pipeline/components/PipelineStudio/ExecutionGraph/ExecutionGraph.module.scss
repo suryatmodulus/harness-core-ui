@@ -46,3 +46,8 @@ $dot-space: 10px;
   height: 40px;
   padding: var(--spacing-small) !important;
 }
+
+.canvas-buttons {
+  top: initial !important;
+  bottom: var(--spacing-large) !important;
+}

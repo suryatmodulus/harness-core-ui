@@ -37,7 +37,7 @@ export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
         </Text>
       )}
       <span className={css.btnRollback}>
-        <ButtonGroup>
+        <ButtonGroup className={css.buttonGroup}>
           <Button
             icon="execution"
             active={active === StepsType.Normal}

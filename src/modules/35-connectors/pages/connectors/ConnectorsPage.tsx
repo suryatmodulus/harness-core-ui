@@ -60,7 +60,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitFilters from '@common/components/GitFilters/GitFilters'
+import GitFilters, { GitFiltersProps } from '@common/components/GitFilters/GitFilters'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import {
@@ -101,6 +101,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
+  const [gitFilter, setGitFilter] = useState<GitFiltersProps['defaultValue']>({ repo: '', branch: '' })
   const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: page,
     pageSize: 10,
@@ -185,13 +186,18 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   )
 
   const fetchConnectorsWithFiltersApplied = (): Promise<void> =>
-    refetchConnectorList(defaultQueryParams, appliedFilter?.filterProperties)
+    refetchConnectorList(
+      gitFilter?.repo && gitFilter.branch
+        ? { ...defaultQueryParams, repoIdentifier: gitFilter.repo, branch: gitFilter.branch }
+        : defaultQueryParams,
+      appliedFilter?.filterProperties
+    )
 
   useEffect(() => {
     ;(async () => {
       await fetchConnectorsWithFiltersApplied()
     })()
-  }, [page, projectIdentifier, orgIdentifier])
+  }, [page, projectIdentifier, orgIdentifier, gitFilter])
 
   const handleConnectorSearch = (query: string) => {
     refetchConnectorList(Object.assign(defaultQueryParams, { searchTerm: query }, appliedFilter?.filterProperties))
@@ -582,14 +588,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             <GitSyncStoreProvider>
               <GitFilters
                 onChange={filter => {
-                  refetchConnectorList(
-                    filter.repo && filter.branch
-                      ? { ...defaultQueryParams, repoIdentifier: filter.repo, branch: filter.branch }
-                      : defaultQueryParams
-                  )
+                  setGitFilter(filter)
+                  setPage(0)
                 }}
                 className={css.gitFilter}
-              ></GitFilters>
+              />
             </GitSyncStoreProvider>
           )}
         </Layout.Horizontal>

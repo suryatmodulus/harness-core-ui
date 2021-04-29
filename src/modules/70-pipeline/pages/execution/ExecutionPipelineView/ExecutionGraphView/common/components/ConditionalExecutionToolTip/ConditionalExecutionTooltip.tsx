@@ -91,7 +91,7 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
             padding={'small'}
             background={Color.GREY_100}
             color={Color.GREY_900}
-            style={{ fontSize: '12px' }}
+            style={{ fontSize: '12px', wordBreak: 'break-word' }}
             border={{ width: 0.5, color: Color.GREY_200, radius: 4 }}
           >
             {condition}

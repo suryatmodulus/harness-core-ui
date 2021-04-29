@@ -17,7 +17,7 @@ describe('Terraform Variable view ', () => {
           name: 'Test A',
           identifier: 'Test_A',
           timeout: '10m',
-          delegateSelectors: ['test-1', 'test-2'],
+          // delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
@@ -30,7 +30,7 @@ describe('Terraform Variable view ', () => {
           name: 'Test A',
           identifier: 'Test_A',
           timeout: '10m',
-          delegateSelectors: ['test-1', 'test-2'],
+          // delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
@@ -75,7 +75,6 @@ describe('Terraform Variable view ', () => {
             identifier: 'Test_A',
             timeout: 'step-timeout',
 
-            delegateSelectors: ['test-1', 'test-2'],
             spec: {
               provisionerIdentifier: 'step-provisionerIdentifier',
               configuration: {

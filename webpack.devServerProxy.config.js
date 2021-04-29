@@ -44,5 +44,8 @@ module.exports = {
   },
   '/dashboard': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
+  },
+  '/ccm/api': {
+    target: targetLocalHost ? 'http://localhost:5000' : baseUrl
   }
 }

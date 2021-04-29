@@ -111,16 +111,14 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           )}
         </section>
       )}
-      {sourceRepo === GitSourceProviders.CUSTOM.value && (
-        <AddConditionsSection
-          title={getString('pipeline-triggers.conditionsPanel.headerConditions')}
-          key="headerConditions"
-          fieldId="headerConditions"
-          formikValues={formikValues}
-          setFieldValue={setFieldValue}
-          errors={errors}
-        />
-      )}
+      <AddConditionsSection
+        title={getString('pipeline-triggers.conditionsPanel.headerConditions')}
+        key="headerConditions"
+        fieldId="headerConditions"
+        formikValues={formikValues}
+        setFieldValue={setFieldValue}
+        errors={errors}
+      />
       <AddConditionsSection
         title={getString('pipeline-triggers.conditionsPanel.payloadConditions')}
         key="payloadConditions"

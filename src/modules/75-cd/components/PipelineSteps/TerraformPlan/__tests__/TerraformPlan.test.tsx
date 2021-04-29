@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -91,7 +91,18 @@ describe('Test TerraformPlan', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              spec: {
+                targets: RUNTIME_INPUT_VALUE,
+                environmentVariables: RUNTIME_INPUT_VALUE,
+                configFiles: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -99,12 +110,23 @@ describe('Test TerraformPlan', () => {
           type: 'TerraformPlan',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              spec: {
+                targets: RUNTIME_INPUT_VALUE,
+                environmentVariables: RUNTIME_INPUT_VALUE,
+                configFiles: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -117,7 +139,18 @@ describe('Test TerraformPlan', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              spec: {
+                targets: RUNTIME_INPUT_VALUE,
+                environmentVariables: RUNTIME_INPUT_VALUE,
+                configFiles: {
+                  store: {
+                    spec: {
+                      connectorRef: RUNTIME_INPUT_VALUE
+                    }
+                  }
+                }
+              }
             }
           }
         }}
@@ -140,7 +173,31 @@ describe('Test TerraformPlan', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    connectorRef: 'test'
+                  }
+                }
+              },
+              backendConfig: {
+                spec: {
+                  content: 'test-content'
+                }
+              },
+              targets: ['test-1'],
+              environmentVariables: [{ key: 'test', value: 'abc' }],
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    spec: {
+                      content: 'test'
+                    }
+                  }
+                }
+              ]
             }
           }
         }}
@@ -152,8 +209,33 @@ describe('Test TerraformPlan', () => {
           delegateSelectors: ['test-1', 'test-2'],
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
+            backendConfig: {
+              spec: {
+                content: 'test-content'
+              }
+            },
+
+            targets: ['test-1'],
+            environmentVariables: [{ key: 'test', value: 'abc' }],
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    connectorRef: 'test'
+                  }
+                }
+              },
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    spec: {
+                      content: 'test'
+                    }
+                  }
+                }
+              ]
             }
           }
         }}
@@ -166,7 +248,32 @@ describe('Test TerraformPlan', () => {
           spec: {
             provisionerIdentifier: RUNTIME_INPUT_VALUE,
             configuration: {
-              command: 'Apply'
+              command: 'Apply',
+              backendConfig: {
+                spec: {
+                  content: 'test-content'
+                }
+              },
+
+              targets: ['test-1'],
+              environmentVariables: [{ key: 'test', value: 'abc' }],
+              configFiles: {
+                store: {
+                  spec: {
+                    connectorRef: 'test'
+                  }
+                }
+              },
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    spec: {
+                      content: 'test'
+                    }
+                  }
+                }
+              ]
             }
           }
         }}
@@ -209,12 +316,401 @@ describe('Test TerraformPlan', () => {
             spec: {
               provisionerIdentifier: 'step-provisionerIdentifier',
               configuration: {
-                command: 'Apply'
+                command: 'Apply',
+                configFiles: {
+                  store: {
+                    spec: {
+                      connectorRef: 'test'
+                    }
+                  }
+                },
+
+                targets: ['test-1'],
+                environmentVariables: [{ key: 'test', value: 'abc' }],
+                varFiles: [
+                  {
+                    varFile: {
+                      type: 'Inline',
+                      spec: {
+                        content: 'test'
+                      }
+                    }
+                  }
+                ]
               }
             }
           }
         }}
         type={StepType.TerraformPlan}
+        stepViewType={StepViewType.InputVariable}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders more than one var file', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    content: 'test'
+                  }
+                },
+                {
+                  varFile: {
+                    type: 'Remote',
+                    connectorRef: 'test',
+                    branch: 'testBranch',
+                    gitFetchType: 'Branch'
+                  }
+                }
+              ]
+            }
+          }
+        }}
+        type={StepType.TerraformPlan}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('click on add tf var file -should open the dialog', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    content: 'test'
+                  }
+                },
+                {
+                  varFile: {
+                    type: 'Remote',
+                    connectorRef: 'test',
+                    branch: 'testBranch',
+                    gitFetchType: 'Branch'
+                  }
+                }
+              ]
+            }
+          }
+        }}
+        type={StepType.TerraformPlan}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render input set view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: RUNTIME_INPUT_VALUE,
+          spec: {
+            provisionerIdentifier: RUNTIME_INPUT_VALUE,
+            configuration: {
+              command: 'Apply',
+              workspace: RUNTIME_INPUT_VALUE,
+              configFiles: {
+                store: {
+                  spec: {
+                    branch: RUNTIME_INPUT_VALUE,
+                    folderPath: RUNTIME_INPUT_VALUE,
+                    connectorRef: {
+                      label: 'test',
+                      Scope: 'Account',
+                      value: 'test',
+                      connector: {
+                        type: 'GIT',
+                        spec: {
+                          val: 'test'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            targets: RUNTIME_INPUT_VALUE,
+            environmentVariables: RUNTIME_INPUT_VALUE
+          }
+        }}
+        template={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: RUNTIME_INPUT_VALUE,
+            configuration: {
+              workspace: RUNTIME_INPUT_VALUE,
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    branch: RUNTIME_INPUT_VALUE,
+                    folderPath: RUNTIME_INPUT_VALUE,
+                    connectorRef: RUNTIME_INPUT_VALUE
+                  }
+                }
+              }
+            },
+            targets: RUNTIME_INPUT_VALUE,
+            environmentVariables: RUNTIME_INPUT_VALUE
+          }
+        }}
+        allValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: RUNTIME_INPUT_VALUE,
+            configuration: {
+              command: 'Apply',
+              workspace: RUNTIME_INPUT_VALUE,
+              configFiles: {
+                store: {
+                  spec: {
+                    branch: RUNTIME_INPUT_VALUE,
+                    folderPath: RUNTIME_INPUT_VALUE,
+                    connectorRef: RUNTIME_INPUT_VALUE
+                  }
+                }
+              }
+            },
+            targets: RUNTIME_INPUT_VALUE,
+            environmentVariables: RUNTIME_INPUT_VALUE
+          }
+        }}
+        type={StepType.TerraformPlan}
+        stepViewType={StepViewType.InputSet}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render variable view', () => {
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    gitFetchType: 'Branch',
+                    branch: 'test-branch',
+                    connectorRef: 'test'
+                  }
+                }
+              },
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    content: 'test'
+                  }
+                },
+                {
+                  varFile: {
+                    type: 'Remote',
+                    connectorRef: 'test',
+                    branch: 'testBranch',
+                    gitFetchType: 'Branch'
+                  }
+                }
+              ]
+            }
+          }
+        }}
+        template={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    gitFetchType: 'Branch',
+                    branch: 'test-branch',
+                    connectorRef: 'test'
+                  }
+                }
+              },
+
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    content: 'test'
+                  }
+                },
+                {
+                  varFile: {
+                    type: 'Remote',
+                    connectorRef: 'test',
+                    branch: 'testBranch',
+                    gitFetchType: 'Branch'
+                  }
+                }
+              ]
+            }
+          }
+        }}
+        allValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              configFiles: {
+                store: {
+                  spec: {
+                    gitFetchType: 'Branch',
+                    branch: 'test-branch',
+                    connectorRef: 'test'
+                  }
+                }
+              },
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    content: 'test'
+                  }
+                },
+                {
+                  varFile: {
+                    type: 'Remote',
+                    connectorRef: 'test',
+                    branch: 'testBranch',
+                    gitFetchType: 'Branch'
+                  }
+                }
+              ]
+            }
+          }
+        }}
+        customStepProps={{
+          stageIdentifier: 'qaStage',
+          metadataMap: {
+            'step-name': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.name',
+                localName: 'step.terraformDestroy.name'
+              }
+            },
+
+            'step-timeout': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.timeout',
+                localName: 'step.terraformDestroy.timeout'
+              }
+            },
+            'step-delegateSelectors': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.delegateSelectors',
+                localName: 'step.terraformDestroy.delegateSelectors'
+              }
+            },
+            'step-provisionerIdentifier': {
+              yamlProperties: {
+                fqn: 'pipeline.stages.qaStage.execution.steps.terraformDestroy.provisionerIdentifier',
+                localName: 'step.terraformDestroy.provisionerIdentifier'
+              }
+            }
+          },
+          variablesData: {
+            type: 'TerraformDestroy',
+            name: 'step-name',
+            identifier: 'Test_A',
+            timeout: 'step-timeout',
+
+            spec: {
+              provisionerIdentifier: 'test',
+              configuration: {
+                command: 'Apply',
+                configFiles: {
+                  store: {
+                    spec: {
+                      gitFetchType: 'Branch',
+                      branch: 'test-branch',
+                      connectorRef: 'test'
+                    }
+                  }
+                },
+                varFiles: [
+                  {
+                    varFile: {
+                      type: 'Inline',
+                      content: 'test'
+                    }
+                  },
+                  {
+                    varFile: {
+                      type: 'Remote',
+                      connectorRef: 'test',
+                      branch: 'testBranch',
+                      gitFetchType: 'Branch'
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformApply}
         stepViewType={StepViewType.InputVariable}
       />
     )

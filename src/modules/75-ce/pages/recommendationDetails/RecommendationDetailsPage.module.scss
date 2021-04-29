@@ -1,0 +1,19 @@
+.detailsContainer {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+}
+
+.breadCrumb {
+  background: var(--blue-100);
+  border: 1px solid var(--grey-200);
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.savingsContainer {
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.pageBody {
+  position: relative;
+}

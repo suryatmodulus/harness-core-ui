@@ -75,7 +75,7 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
       </p>
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--background-grey100 StyledProps--color StyledProps--color-grey900 StyledProps--border StyledProps--border-color-grey200"
-        style="font-size: 12px;"
+        style="font-size: 12px; word-break: break-word;"
       >
         some JEXL condition
       </div>

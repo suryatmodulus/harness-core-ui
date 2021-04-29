@@ -1,6 +1,7 @@
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
-import type { ConditionalExecutionStepOrSetGroupConfig, ExecutionWrapper } from 'services/cd-ng'
+import type { ExecutionWrapper } from 'services/cd-ng'
 import type { Domain } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import type { ConditionalExecutionStepOrSetGroupConfig } from '@pipeline/utils/types'
 
 export enum AdvancedPanels {
   PreRequisites = 'preRequisites',

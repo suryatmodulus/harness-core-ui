@@ -2,6 +2,7 @@ import cx from 'classnames'
 import React, { useState } from 'react'
 import { Container } from '@wings-software/uicore'
 import type { Feature } from 'services/cf'
+import { SEVEN_DAYS_IN_MILLIS } from '@cf/utils/CFUtils'
 import { AuditLogsToolbar } from './AuditLogsToolbar'
 import { AuditLogsList } from './AuditLogsList'
 
@@ -10,8 +11,6 @@ export interface AuditLogsProps {
   objectType: 'FeatureActivation' | 'Segment'
   className?: string
 }
-
-const SEVEN_DAYS_IN_MILLIS = 7 * 24 * 60 * 60 * 1000
 
 export const AuditLogs: React.FC<AuditLogsProps> = ({ className, flagData, objectType }) => {
   const now = Date.now()

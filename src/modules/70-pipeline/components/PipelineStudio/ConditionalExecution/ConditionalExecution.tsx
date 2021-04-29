@@ -2,11 +2,12 @@ import React from 'react'
 import { Color, Container, Formik, Layout } from '@wings-software/uicore'
 import { debounce, noop } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { ConditionalExecutionStageConfig, StageElementWrapper } from 'services/cd-ng'
+import type { StageElementWrapper } from 'services/cd-ng'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import ConditionalExecutionHeader from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionHeader'
 import ConditionalExecutionStatus from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionStatus'
 import ConditionalExecutionCondition from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionCondition'
+import type { ConditionalExecutionStageConfig } from '@pipeline/utils/types'
 import {
   ConditionalExecutionOption,
   PipelineOrStageStatus

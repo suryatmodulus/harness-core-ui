@@ -369,6 +369,26 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
             </div>
           </section>
           <section
+            data-name="headerConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            >
+              pipeline-triggers.conditionsPanel.headerConditions
+            </h2>
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              plusAdd
+            </p>
+          </section>
+          <section
             data-name="payloadConditions"
           >
             <h2

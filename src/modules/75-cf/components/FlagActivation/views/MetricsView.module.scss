@@ -1,0 +1,38 @@
+.content {
+  :global(.bp3-tab-list) {
+    // border-bottom: none !important;
+    padding-left: 0 !important;
+
+    // Due to https://harness.slack.com/archives/C020F6NS1S5/p1619463274000100
+    // Hide tabs now
+    display: none;
+  }
+
+  :global {
+    .bp3-tab-panel {
+      margin-top: 0 !important;
+    }
+  }
+}
+
+.contentBody {
+  height: calc(100vh - 202px); // TODO: 250px when tabs are shown
+  overflow: auto;
+  padding: var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-xlarge) 0 !important;
+}
+
+.dataTable {
+  width: 100%;
+
+  thead {
+    background: #f8f9fa !important;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #eff2f4 !important;
+  }
+
+  tbody tr:first-of-type td {
+    padding-top: var(--spacing-large);
+  }
+}

@@ -51,6 +51,28 @@ export interface TerraformPlanProps {
   stepType?: string
 }
 
+export interface VarFileArray {
+  varFile: {
+    type?: string
+    store?: {
+      spec?: {
+        gitFetchType?: string
+        branch?: string
+        commitId?: string
+        connectorRef?: {
+          label: string
+          value: string
+          scope: Scope
+          live: boolean
+          connector: { type: string; spec: { val: string } }
+        }
+        paths?: PathInterface[]
+        content?: string
+      }
+    }
+  }
+}
+
 export interface TerraformPlanVariableStepProps {
   initialValues: TFPlanFormData
   originalData: TFPlanFormData
@@ -95,27 +117,7 @@ export interface BackendConfig {
     content?: string
   }
 }
-export interface VarFileArray {
-  varFile: {
-    type?: string
-    store?: {
-      spec?: {
-        gitFetchType?: string
-        branch?: string
-        commitId?: string
-        connectorRef?: {
-          label: string
-          value: string
-          scope: Scope
-          live: boolean
-          connector: { type: string; spec: { val: string } }
-        }
-        paths?: PathInterface[]
-        content?: string
-      }
-    }
-  }
-}
+
 export interface Connector {
   label: string
   value: string
@@ -143,6 +145,8 @@ export interface TerraformPlanData extends StepElementConfig {
     } & TFDataSpec
   }
 }
+
+export interface TerraformRollbackData extends StepElementConfig {}
 
 export interface TFDataSpec {
   workspace?: string

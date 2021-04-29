@@ -20,7 +20,7 @@
                 "cause": "No value provided for runtime input"
               }
             ],
-            "resolution": "Resolution"
+            "resolution": []
           },
           "success": false,
           "fqn": "pipeline.stages.s2.execution.steps.step2.url",
@@ -38,14 +38,16 @@
     "connectorWrapperResponse": {
       "checkResponses": [
         {
-          "connectorIdentifier": "Connector1",
+          "connectorIdentifier": "account.testconttlshanf",
           "fqn": "pipeline.stages.s1.infrastructure.connectorRef",
           "stageName": "Stage 1",
           "stepName": "Step 1",
+          "stageIdentifier": "Stage1",
+          "stepIdentifier": "Step1",
           "status": "SUCCESS"
         },
         {
-          "connectorIdentifier": "Connector2",
+          "connectorIdentifier": "org.orgConnectorId",
           "errorInfo": {
             "summary": "Summary",
             "description": "Description",
@@ -54,15 +56,17 @@
                 "cause": "Connector not reachable"
               }
             ],
-            "resolution": "Resolution"
+            "resolution": []
           },
           "fqn": "pipeline.stages.s2.infrastructure.connectorRef",
           "stageName": "Stage 1",
           "stepName": "Step 1",
+          "stageIdentifier": "Stage1",
+          "stepIdentifier": "Step1",
           "status": "FAILURE"
         },
         {
-          "connectorIdentifier": "Connector3",
+          "connectorIdentifier": "projectConnectorId",
           "errorInfo": {
             "summary": "Summary",
             "description": "Description",
@@ -79,6 +83,8 @@
           "fqn": "pipeline.stages.s3.infrastructure.connectorRef",
           "stageName": "Stage 1",
           "stepName": "Step 1",
+          "stageIdentifier": "Stage1",
+          "stepIdentifier": "Step1",
           "status": "FAILURE"
         },
         {

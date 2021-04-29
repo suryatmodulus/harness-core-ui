@@ -39,9 +39,9 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
   }>()
 
   React.useEffect(() => {
-    formik.setFieldValue('spec.configuration.spec.configFiles.store.type', 'Git')
+    formik.setFieldValue('configuration.spec.configFiles.store.type', 'Git')
   }, [])
-  const connectorValue = formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
+  const connectorValue = formik.values.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
 
   return (
     <>
@@ -55,7 +55,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
           <ConfigureOptions
             value={formik.values?.spec?.configuration?.spec?.workspace as string}
             type="String"
-            variableName="spec.configuration.spec.workspace"
+            variableName="configuration.spec.workspace"
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
@@ -116,7 +116,7 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
               style={{ alignSelf: 'center' }}
               value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch as string}
               type="String"
-              variableName="spec.configuration.spec.configFiles.store.spec.branch"
+              variableName="configuration.spec.configFiles.store.spec.branch"
               showRequiredField={false}
               showDefaultField={false}
               showAdvanced={true}
@@ -163,12 +163,12 @@ export default function GitStore(props: GitStoreProps): React.ReactElement {
             style={{ alignSelf: 'center' }}
             value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath as string}
             type="String"
-            variableName="formik.values?.spec?.configuration?.spec?.store.spec?.folderPath"
+            variableName="formik.values.spec?.configuration?.spec?.store.spec?.folderPath"
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
             onChange={value =>
-              formik.setFieldValue('formik.values?.spec?.configuration?.spec?.store.spec?.folderPath', value)
+              formik.setFieldValue('formik.values.spec?.configuration?.spec?.store.spec?.folderPath', value)
             }
           />
         )}

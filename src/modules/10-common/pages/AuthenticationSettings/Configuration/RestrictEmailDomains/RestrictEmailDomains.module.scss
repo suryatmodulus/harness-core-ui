@@ -1,10 +1,13 @@
 .card {
   width: 100%;
-  padding: var(--spacing-xxlarge);
+  box-shadow: var(--card-box-shadow);
+  padding: var(--spacing-xlarge) var(--spacing-large) var(--spacing-xsmall);
 }
 
 .input {
-  margin: var(--spacing-none) var(--spacing-xxlarge);
+  margin: var(--spacing-none) var(--spacing-xxlarge) var(--spacing-large);
+  background-color: white !important ;
+  border: 1px solid var(--grey-300);
 }
 
 .editIcon {

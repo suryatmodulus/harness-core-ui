@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Tabs, Tab, Button, Container, Icon, Text } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/exports'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
 import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
@@ -27,6 +28,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const [saveInProgress, setSaveInProgress] = useState<boolean>(false)
   const [activeConfigStep, setActiveConfigStep] = useState<{ count?: number; tabId?: string } | null>(null)
   const tabs = ['configuration', 'setupAccess', 'review']
+  const { trackEvent } = useTelemetry()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -251,7 +253,13 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           intent="primary"
           text={getNextButtonText()}
           icon="chevron-right"
-          onClick={() => nextTab()}
+          onClick={() => {
+            if (selectedTabId == tabs[0]) trackEvent('VisitedSetupAccessPage', {})
+            if (selectedTabId == tabs[1])
+              trackEvent('CompletedSetupAccess', props.gatewayDetails.metadata.access_details || {})
+            if (selectedTabId == tabs[2]) trackEvent('AutoStoppingRuleCompleted', {})
+            nextTab()
+          }}
           disabled={
             (selectedTabId == tabs[0] && !validConfig) ||
             (selectedTabId == tabs[1] && !validAccessSetup) ||

@@ -72,7 +72,7 @@
 .content-section {
   padding: 48px;
   height: 100%;
-  overflow-y: scroll;
+  background: var(--grey-50);
 }
 
 .stage-create {
@@ -87,23 +87,21 @@
 }
 .tabHeading {
   font-size: var(--font-size-medium);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .sectionCard {
   width: 1024px;
   margin-bottom: 20px;
-  // box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-  background-color: #fafbfc;
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  background-color: var(--grey-50);
 }
 .create-stage-grid {
   display: grid;

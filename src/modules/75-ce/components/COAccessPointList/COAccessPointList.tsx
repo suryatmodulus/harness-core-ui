@@ -282,7 +282,7 @@ const COAccessPointList: React.FC = () => {
                 </Layout.Horizontal>
               </Layout.Horizontal>
             </>
-            {allAccessPoints.length > 0 && (
+            {allAccessPoints?.length > 0 && (
               <Page.Body className={css.pageContainer}>
                 <Table<AccessPoint>
                   data={allAccessPoints || []}

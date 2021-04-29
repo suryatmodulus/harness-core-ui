@@ -353,7 +353,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 </Text>
               </Container>
 
-              <Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} />
+              <Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} withoutBoxShadow />
             </Layout.Horizontal>
 
             <section

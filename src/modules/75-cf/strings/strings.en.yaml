@@ -52,7 +52,7 @@ creationModal:
     nameRequired: Flag name is required
     idRequired: Flag identifier is required
     ffNamePlaceholder: Enter Feature Flag name...
-    ffRegex: Identifier can only contain alphanumerics, _ and $
+    ffRegex: '{{$.common.validation.formatMustBeAlphanumeric}}'
     tagsOptional: Tags (optional)
     tagsPlaceholder: Add Tags
     permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
@@ -194,9 +194,14 @@ featureFlags:
     save: '{{ $.save }}'
     cancel: '{{ $.cancel }}'
   metrics:
+    title: 'Metrics '
     noMetrics: No metrics
     evaluations: '{{ count }} evaluations'
     evaluationStatistics: Evaluation Statistic
+    flagEvaluations: Flag Evaluations ({{ count }})
+    targetServed: Target Served  ({{ count }})
+    noData: No metrics found in this time range.
+    totalEvaluations: Total Evaluations
 featureFlagDetail:
   variationCount: '{{ count }} variations'
 targets:

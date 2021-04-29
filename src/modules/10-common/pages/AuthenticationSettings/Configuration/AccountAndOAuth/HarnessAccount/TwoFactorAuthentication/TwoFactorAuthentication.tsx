@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Card, Switch, Color, Text, List, ListItem } from '@wings-software/uicore'
+import { Card, Switch, Color, Text } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -68,11 +68,11 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess 
     titleText: getString('common.authSettings.enforceTwoFA'),
     contentText: (
       <React.Fragment>
-        <Text color={Color.GREY_800}>{getString('common.authSettings.doYouWantToEnforceTwoFAForAllMembers')}</Text>
-        <List ordered>
-          <ListItem>{getString('common.authSettings.newMembersWillNeedToSetUpTwoFADuringSignup')}</ListItem>
-          <ListItem>{getString('common.authSettings.existingMembersWillReceiveAnEmailWithQRCode')}</ListItem>
-        </List>
+        <Text color={Color.BLACK}>{getString('common.authSettings.doYouWantToEnforceTwoFAForAllMembers')}</Text>
+        <ol type="1" className={css.listItem}>
+          <li>{getString('common.authSettings.newMembersWillNeedToSetUpTwoFADuringSignup')}</li>
+          <li>{getString('common.authSettings.existingMembersWillReceiveAnEmailWithQRCode')}</li>
+        </ol>
       </React.Fragment>
     ),
     confirmButtonText: getString('confirm'),

@@ -336,8 +336,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       }}
       usePortal={true}
       autoFocus={true}
-      canEscapeKeyClose={type === DrawerTypes.ExecutionStrategy ? false : true}
-      canOutsideClickClose={type === DrawerTypes.ExecutionStrategy ? false : true}
+      canEscapeKeyClose={type !== DrawerTypes.ExecutionStrategy}
+      canOutsideClickClose={type !== DrawerTypes.ExecutionStrategy}
       enforceFocus={true}
       hasBackdrop={true}
       size={DrawerSizes[type]}
@@ -359,6 +359,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           minimal
           className={css.almostFullScreenCloseBtn}
           icon="cross"
+          withoutBoxShadow
           onClick={() => {
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
             setSelectedStepId(undefined)

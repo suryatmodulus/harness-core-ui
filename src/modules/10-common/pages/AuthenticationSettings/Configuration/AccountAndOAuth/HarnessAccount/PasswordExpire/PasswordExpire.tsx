@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Layout, Icon, Text, Color, Container, Switch, Collapse } from '@wings-software/uicore'
-import type { LoginSettings, PasswordExpirationPolicy } from 'services/cd-ng'
+import type { LoginSettings } from 'services/cd-ng'
 import { usePasswordExpirationModal } from '@common/modals/PasswordExpiration/usePasswordExpiration'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { usePutLoginSettings } from 'services/cd-ng'
@@ -31,6 +31,7 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings })
     onSuccess,
     loginSettings
   })
+
   const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
@@ -38,33 +39,29 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings })
     }
   })
 
-  const submitPasswordExpirySettings = async (passwordExpirationPolicy: PasswordExpirationPolicy): Promise<void> => {
-    try {
-      const response = await updateLoginSettings({
-        ...loginSettings,
-        passwordExpirationPolicy
-      })
-
-      /* istanbul ignore else */ if (response) {
-        refetchAuthSettings()
-        showSuccess(getString('common.authSettings.passwordExpirationDisabled'), 5000)
-      }
-    } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
-    }
-  }
-
   const { openDialog: confirmPasswordExpirySettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
     titleText: getString('common.authSettings.disablePasswordExpiration'),
     contentText: getString('common.authSettings.confirmDisablePasswordExpiration'),
     confirmButtonText: getString('confirm'),
-    onCloseDialog: isConfirmed => {
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
-        submitPasswordExpirySettings({
-          ...passwordExpirationSettings,
-          enabled: false
-        })
+        try {
+          const response = await updateLoginSettings({
+            ...loginSettings,
+            passwordExpirationPolicy: {
+              ...passwordExpirationSettings,
+              enabled: false
+            }
+          })
+
+          /* istanbul ignore else */ if (response) {
+            refetchAuthSettings()
+            showSuccess(getString('common.authSettings.passwordExpirationDisabled'), 5000)
+          }
+        } catch (e) {
+          /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+        }
       }
     }
   })

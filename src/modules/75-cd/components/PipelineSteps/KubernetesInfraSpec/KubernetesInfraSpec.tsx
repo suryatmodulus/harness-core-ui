@@ -96,6 +96,22 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
+
+  const validationSchema = Yup.object().shape({
+    namespace: Yup.string().test('namespace', getString('cd.namespaceValidation'), function (value) {
+      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+        return true
+      }
+      return namespaceRegex.test(value)
+    }),
+    releaseName: Yup.string().test('releaseName', getString('cd.releaseNameValidation'), function (value) {
+      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+        return true
+      }
+      return releaseNameRegex.test(value)
+    })
+  })
+
   return (
     <Layout.Vertical spacing="medium">
       <Formik
@@ -114,10 +130,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
           }
           delayedOnUpdate(data)
         }}
-        validationSchema={Yup.object().shape({
-          namespace: Yup.string().matches(namespaceRegex, getString('cd.namespaceValidation')),
-          releaseName: Yup.string().matches(releaseNameRegex, getString('cd.releaseNameValidation'))
-        })}
+        validationSchema={validationSchema}
         onSubmit={noop}
       >
         {formik => {

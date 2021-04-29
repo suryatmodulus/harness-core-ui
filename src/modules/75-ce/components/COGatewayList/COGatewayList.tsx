@@ -37,6 +37,7 @@ import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -174,6 +175,7 @@ const AnimatedGraphicContainer: React.FC<AnimatedGraphicContainerProps> = props 
 const COGatewayList: React.FC = () => {
   const { getString } = useStrings()
   const history = useHistory()
+  const { trackEvent } = useTelemetry()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -505,7 +507,7 @@ const COGatewayList: React.FC = () => {
               intent="primary"
               text={getString('ce.co.newAutoStoppingRule')}
               icon="plus"
-              onClick={() =>
+              onClick={() => {
                 history.push(
                   routes.toCECOCreateGateway({
                     orgIdentifier: orgIdentifier as string,
@@ -513,7 +515,8 @@ const COGatewayList: React.FC = () => {
                     accountId
                   })
                 )
-              }
+                trackEvent('StartedMakingAutoStoppingRule', {})
+              }}
             />
           </Layout.Vertical>
         </>
@@ -555,7 +558,7 @@ const COGatewayList: React.FC = () => {
                       intent="primary"
                       text={getString('ce.co.newAutoStoppingRule')}
                       icon="plus"
-                      onClick={() =>
+                      onClick={() => {
                         history.push(
                           routes.toCECOCreateGateway({
                             orgIdentifier: orgIdentifier as string,
@@ -563,7 +566,8 @@ const COGatewayList: React.FC = () => {
                             accountId
                           })
                         )
-                      }
+                        trackEvent('StartedMakingAutoStoppingRule', {})
+                      }}
                     />
                   </Layout.Horizontal>
                   <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>

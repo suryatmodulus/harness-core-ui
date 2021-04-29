@@ -1,7 +1,7 @@
 .typeSelectorWrapper {
   margin-top: 0 !important;
-  background-color: var(--grey-250);
-  border: 1px solid var(--grey-250);
+  background-color: var(--form-field-border);
+  border: 1px solid var(--form-field-border);
   border-radius: 4px;
 }
 
@@ -48,7 +48,7 @@
       }
 
       &.expression {
-        color: var(--yellow-500) !important;
+        color: var(--orange-500) !important;
       }
     }
 

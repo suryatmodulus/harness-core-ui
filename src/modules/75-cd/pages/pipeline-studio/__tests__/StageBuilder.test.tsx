@@ -107,7 +107,8 @@ describe('Stage Builder Test', () => {
     getByTextContainer = getByText
   })
 
-  test('should test stage builder and perform new stage addition', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should test stage builder and perform new stage addition', async () => {
     // Click Create New Stage
     const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
     fireEvent.click(createNewBtn as HTMLElement)
@@ -224,7 +225,8 @@ describe('Stage Builder Test', () => {
     // fireEvent.click(selectStrategy)
   }, 20000)
 
-  test('should not allow duplicate / empty stage name', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should not allow duplicate / empty stage name', async () => {
     // Click Create New Stage
     const createNewBtn = stageBuilder.querySelector('.defaultCard.createNew')
     fireEvent.click(createNewBtn as HTMLElement)

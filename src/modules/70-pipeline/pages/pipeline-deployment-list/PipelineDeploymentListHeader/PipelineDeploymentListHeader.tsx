@@ -1,7 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, ButtonGroup } from '@wings-software/uicore'
-import cx from 'classnames'
 
 import { String } from 'framework/strings'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -66,13 +65,21 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
         <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline} disabled={props.disableRun || false}>
           <String className={css.runText} stringID="runPipelineText" />
         </Button>
-        <div className={cx(css.filterGroup, css.btnGroup)}>
+        <div className={css.filterGroup}>
           <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
-          <ButtonGroup>
-            <Button intent={!queryParams.myDeployments ? 'primary' : 'none'} onClick={handleAllDeployments}>
+          <ButtonGroup className={css.btnGroup}>
+            <Button
+              intent={!queryParams.myDeployments ? 'primary' : 'none'}
+              onClick={handleAllDeployments}
+              withoutBoxShadow
+            >
               <String stringID="all" />
             </Button>
-            <Button intent={queryParams.myDeployments ? 'primary' : 'none'} onClick={handleMyDeployments}>
+            <Button
+              intent={queryParams.myDeployments ? 'primary' : 'none'}
+              onClick={handleMyDeployments}
+              withoutBoxShadow
+            >
               <String stringID="common.My" />
             </Button>
           </ButtonGroup>

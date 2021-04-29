@@ -5,6 +5,8 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ResponseSecretValidationResultDTO } from 'services/cd-ng'
+import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import SecretDetails from '../SecretDetails'
 
 import mockData from './secretDetailsMocks.json'
@@ -61,13 +63,11 @@ describe('Secret Details', () => {
   let getAllByText: RenderResult['getAllByText']
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretDetails
-          mockSecretDetails={mockData.sshKey as any}
-          mockPassword={mockData.text.data as any}
-          mockPassphrase={mockData.text.data as any}
-          mockKey={mockData.file.data as any}
-        />
+      <TestWrapper
+        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
+      >
+        <SecretDetails secretData={mockData.sshKey.data as any} />
       </TestWrapper>
     )
     container = renderObj.container

@@ -1,0 +1,98 @@
+.mainContainer {
+  .diffContainer {
+    margin-top: 20px;
+    height: 150px;
+
+    .diffHeader {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+      font-size: 12px;
+      padding-top: var(--spacing-xsmall);
+      letter-spacing: 0;
+      line-height: 16px;
+      color: var(--grey-800);
+      border-right: 1px solid var(--grey-200);
+      border-left: 1px solid var(--grey-200);
+
+      .heading {
+        border-bottom: 1px solid var(--grey-200);
+        padding: 0 0 5px 0;
+      }
+    }
+
+    .diff {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .timeframeContainer {
+    margin-top: 80px !important;
+  }
+
+  .histogramContainer {
+    margin-top: var(--spacing-large) !important;
+  }
+
+  .sliderContainer {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+
+    .limitHandle {
+      background-color: var(--green-600);
+    }
+
+    .requestHandle {
+      background-color: var(--blue-500);
+    }
+
+    :global {
+      .bp3-slider > .bp3-slider-handle:nth-child(3) {
+        background: var(--blue-500) !important;
+      }
+
+      .bp3-slider > .bp3-slider-handle:nth-child(4) {
+        background: var(--green-500) !important;
+      }
+
+      .bp3-slider-progress.bp3-intent-primary {
+        background-color: var(--blue-500) !important;
+      }
+
+      .bp3-slider-progress.bp3-intent-success {
+        background-color: var(--green-500) !important;
+      }
+
+      .request-slider {
+        background-color: var(--blue-500);
+      }
+    }
+  }
+
+  .xaxislabels {
+    margin-bottom: var(--spacing-medium) !important;
+  }
+
+  .recommendationTypeContainer {
+    display: flex;
+    justify-content: center;
+
+    .recommendations {
+      background-color: var(--grey-200) !important;
+      border-radius: 8px;
+
+      .selectedTab {
+        background-color: #0a3364;
+        border-radius: 8px;
+        color: var(--grey-100) !important;
+      }
+    }
+  }
+
+  .recommendationTypeText {
+    padding: var(--spacing-xsmall) var(--spacing-large) !important;
+    cursor: pointer !important;
+  }
+}

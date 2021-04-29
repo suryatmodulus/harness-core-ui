@@ -3,8 +3,8 @@ import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import type { LoginSettings } from 'services/cd-ng'
-import PasswordExpirationForm from '@common/modals/PasswordExpiration/views/PasswordExpirationForm'
-import css from '@common/modals/PasswordExpiration/usePasswordExpiration.module.scss'
+import PasswordExpirationForm from './views/PasswordExpirationForm'
+import css from './usePasswordExpiration.module.scss'
 
 interface Props {
   onSuccess: () => void

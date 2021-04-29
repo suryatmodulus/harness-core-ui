@@ -35,22 +35,16 @@ import GitStore from './GitStore'
 import BaseForm from './BaseForm'
 
 import TfVarFileList from './TFVarFileList'
-import {
-  CommandTypes,
-  ConfigurationTypes,
-  TerraformData,
-  TerraformProps,
-  TerraformStoreTypes
-} from '../TerraformInterfaces'
+import { ConfigurationTypes, TFFormData, TerraformProps, TerraformStoreTypes } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-const setInitialValues = (data: TerraformData): TerraformData => {
+const setInitialValues = (data: TFFormData): TFFormData => {
   return data
 }
 
 export default function TerraformEditView(
   props: TerraformProps,
-  formikRef: StepFormikFowardRef<TerraformData>
+  formikRef: StepFormikFowardRef<TFFormData>
 ): React.ReactElement {
   const { stepType, isNewStep = true } = props
   const { initialValues, onUpdate } = props
@@ -95,23 +89,18 @@ export default function TerraformEditView(
       { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
       { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
     ]
-  } else if (stepType === StepType.TerraformPlan) {
-    configTypes = [
-      { label: getString('filters.apply'), value: CommandTypes.Apply },
-      { label: getString('pipelineSteps.destroy'), value: CommandTypes.Destroy }
-    ]
   }
 
   return (
     <>
-      <Formik<TerraformData>
+      <Formik<TFFormData>
         onSubmit={values => {
-          onUpdate?.(values)
+          onUpdate?.(values as any)
         }}
-        initialValues={setInitialValues(initialValues)}
+        initialValues={setInitialValues(initialValues as any)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}
       >
-        {(formik: FormikProps<TerraformData>) => {
+        {(formik: FormikProps<TFFormData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
 
@@ -122,9 +111,7 @@ export default function TerraformEditView(
                   <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
                 {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />}
-                {stepType === StepType.TerraformPlan && (
-                  <BaseForm formik={formik} configurationTypes={configTypes} showCommand={true} />
-                )}
+
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField
                     name="timeout"
@@ -146,8 +133,7 @@ export default function TerraformEditView(
                   )}
                 </div>
 
-                {(formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline ||
-                  stepType === StepType.TerraformPlan) && (
+                {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                   <Accordion activeId="step-1" className={stepCss.accordion}>
                     <Accordion.Panel
                       id="step-1"
@@ -167,11 +153,17 @@ export default function TerraformEditView(
                       details={
                         <>
                           <FormInput.TextArea
-                            name="spec.backendConfig.spec.content"
+                            name="spec.configuration.spec.backendConfig.spec.content"
                             label={getString('pipelineSteps.backendConfig')}
                             onChange={ev => {
-                              formik.setFieldValue('spec.backendConfig.type', TerraformStoreTypes.Inline)
-                              formik.setFieldValue('spec.backendConfig.spec.content', ev.target.value)
+                              formik.setFieldValue(
+                                'spec.configuration.spec.backendConfig.type',
+                                TerraformStoreTypes.Inline
+                              )
+                              formik.setFieldValue(
+                                'spec.configuration.spec.backendConfig.spec.content',
+                                ev.target.value
+                              )
                             }}
                           />
                         </>
@@ -182,7 +174,7 @@ export default function TerraformEditView(
                       summary={getString('pipeline.targets.title')}
                       details={
                         <MultiTypeList
-                          name="spec.targets"
+                          name="spec.configuration.spec.targets"
                           multiTypeFieldSelectorProps={{
                             label: (
                               <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -199,7 +191,7 @@ export default function TerraformEditView(
                       summary={getString('environmentVariables')}
                       details={
                         <MultiTypeMap
-                          name="spec.environmentVariables"
+                          name="spec.configuration.spec.environmentVariables"
                           multiTypeFieldSelectorProps={{
                             label: (
                               <Text style={{ display: 'flex', alignItems: 'center' }}>

@@ -12,6 +12,8 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly shadow: string
+  readonly notwide: string
   readonly nopadleft: string
   readonly propagatedropdown: string
   readonly name: string

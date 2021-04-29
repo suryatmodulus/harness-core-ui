@@ -60,6 +60,8 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
     { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
     { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
   ]
+
+  // formik?.values?.spec?.configuration?.spec?.varFiles?
   return (
     <Dialog
       isOpen={true}

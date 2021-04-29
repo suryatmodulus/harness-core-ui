@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Layout, Icon, Text, Switch, Collapse, Color } from '@wings-software/uicore'
-import type { LoginSettings, PasswordStrengthPolicy } from 'services/cd-ng'
+import type { LoginSettings } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePasswordStrengthModal } from '@common/modals/PasswordStrength/usePasswordStrength'
@@ -26,7 +26,9 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings 
   const onSuccess = (): void => {
     refetchAuthSettings()
   }
+
   const { openPasswordStrengthModal } = usePasswordStrengthModal({ onSuccess, loginSettings })
+
   const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
@@ -34,33 +36,29 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings 
     }
   })
 
-  const submitPasswordStrengthSettings = async (passwordStrengthPolicy: PasswordStrengthPolicy): Promise<void> => {
-    try {
-      const response = await updateLoginSettings({
-        ...loginSettings,
-        passwordStrengthPolicy
-      })
-
-      /* istanbul ignore else */ if (response) {
-        refetchAuthSettings()
-        showSuccess(getString('common.authSettings.passwordStrengthDisabled'), 5000)
-      }
-    } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
-    }
-  }
-
   const { openDialog: confirmPasswordStrengthSettings } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
     titleText: getString('common.authSettings.disablePasswordStrength'),
     contentText: getString('common.authSettings.confirmDisablePasswordStrength'),
     confirmButtonText: getString('confirm'),
-    onCloseDialog: isConfirmed => {
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
-        submitPasswordStrengthSettings({
-          ...passwordStrengthSettings,
-          enabled: false
-        })
+        try {
+          const response = await updateLoginSettings({
+            ...loginSettings,
+            passwordStrengthPolicy: {
+              ...passwordStrengthSettings,
+              enabled: false
+            }
+          })
+
+          /* istanbul ignore else */ if (response) {
+            refetchAuthSettings()
+            showSuccess(getString('common.authSettings.passwordStrengthDisabled'), 5000)
+          }
+        } catch (e) {
+          /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+        }
       }
     }
   })

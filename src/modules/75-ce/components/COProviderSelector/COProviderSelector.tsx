@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { CardSelect, Layout, CardBody, Button, Heading, Container, Text } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
@@ -45,6 +46,10 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
+  useEffect(() => {
+    if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
+  }, [selectedCard])
   return (
     <>
       <Breadcrumbs
@@ -106,7 +111,10 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
           intent="primary"
           text="Next"
           icon="chevron-right"
-          onClick={props.nextTab}
+          onClick={() => {
+            trackEvent('VisitedConfigPage', {})
+            props.nextTab()
+          }}
           disabled={!(selectedCard && cloudAccountID)}
         />
       </Container>

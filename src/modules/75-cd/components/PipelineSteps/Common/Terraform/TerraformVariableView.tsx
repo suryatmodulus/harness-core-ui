@@ -25,26 +25,26 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
             <ConfigVariables {...props} />
             <Text>{getString('pipelineSteps.backendConfig')}</Text>
             <VariablesListTable
-              data={variablesData.spec?.backendConfig?.spec}
-              originalData={initialValues.spec?.backendConfig?.spec}
+              data={variablesData.spec?.configuration?.spec?.backendConfig}
+              originalData={initialValues.spec?.configuration?.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
             />
             <Text>{getString('pipeline.targets.title')}</Text>
             <VariablesListTable
-              data={variablesData.spec?.targets}
-              originalData={initialValues.spec?.targets}
+              data={variablesData.spec?.configuration?.spec?.targets}
+              originalData={initialValues.spec?.configuration?.spec?.targets}
               metadataMap={metadataMap}
             />
             <Text>{getString('environmentVariables')}</Text>
 
             <VariablesListTable
-              data={variablesData.spec?.environmentVariables}
-              originalData={initialValues.spec?.environmentVariables}
+              data={variablesData.spec?.configuration?.spec?.environmentVariables}
+              originalData={initialValues.spec?.configuration?.spec?.environmentVariables}
               metadataMap={metadataMap}
             />
           </>
         ))}
-      {initialValues?.spec?.configuration?.type === TerraformStoreTypes.Remote && (
+      {initialValues?.spec?.configuration?.type !== TerraformStoreTypes.Inline && (
         <>
           <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
 

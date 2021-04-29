@@ -57,7 +57,7 @@
 .inputsetGrid {
   display: grid;
   grid-template-columns: 300px 1fr;
-  background: #fafbfc;
+  background: var(--grey-50);
   width: 100%;
   .treeSidebar {
     border-right: solid 1px #ccc;

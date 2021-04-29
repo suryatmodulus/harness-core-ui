@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { CellProps } from 'react-table'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Text, Color, Container, ExpandingSearchInput, Layout, Checkbox, Button, Icon } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import css from './COInstanceSelector.module.scss'
 
@@ -37,6 +38,7 @@ const TOTAL_ITEMS_PER_PAGE = 8
 
 const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.selectedInstances || [])
+  const { trackEvent } = useTelemetry()
   const [pageIndex, setPageIndex] = useState<number>(0)
   const instances: InstanceDetails[] = props.instances
   const { getString } = useStrings()
@@ -73,6 +75,9 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
     props.search(text)
   }
 
+  useEffect(() => {
+    trackEvent('SelectedInstances', {})
+  }, [])
   return (
     <Container>
       <Layout.Vertical spacing="large">

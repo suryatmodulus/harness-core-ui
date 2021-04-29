@@ -14,11 +14,11 @@ import {
 } from '@wings-software/uicore'
 import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { validateTheIdentifierIsUniquePromise, Failure } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { permission as PermissionType } from '../constants'
 import { CO_PERMISSION, CE_PERMISSION, COCE_PERMISSION } from '../constants'
-import i18n from '../AWSCOConnector.i18n'
 import css from './Steps.module.scss'
 
 interface OverviewDetails {
@@ -44,6 +44,7 @@ interface OverviewStepProps extends StepProps<ConnectorInfoDTO> {
 
 const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> = props => {
   const { nextStep, permission } = props
+  const { getString } = useStrings()
   const cePermission = permission === CE_PERMISSION || permission === COCE_PERMISSION
   const coPermission = permission === CO_PERMISSION || permission === COCE_PERMISSION
   // const [billing, setBilling] = useState(cePermission)
@@ -106,7 +107,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
   return (
     <Layout.Vertical data-id={'todo'} spacing="xlarge" className={css.containerLayout}>
       <Heading level={2} font={{ weight: 'bold' }}>
-        {i18n.overview.title}
+        {getString('ce.connector.AWS.overview.title')}
       </Heading>
       <Formik<OverviewForm>
         initialValues={{
@@ -122,13 +123,13 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
           handleSubmit(values)
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.overview.validation.name),
+          name: Yup.string().trim().required(getString('ce.connector.AWS.overview.validation.name')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
               .trim()
-              .required(i18n.overview.validation.identifier.required)
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.overview.validation.identifier.format)
+              .required(getString('ce.connector.AWS.overview.validation.identifier.required'))
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('ce.connector.AWS.overview.validation.identifier.format'))
               .notOneOf(StringUtils.illegalIdentifiers)
           })
         })}
@@ -140,13 +141,13 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
               <Container padding={{ top: 'large', bottom: 'large' }} className={css.fullHeight}>
                 <AddDescriptionAndKVTagsWithIdentifier
                   formikProps={formikProps}
-                  identifierProps={{ inputName: 'name', inputLabel: i18n.overview.label }}
+                  identifierProps={{ inputName: 'name', inputLabel: getString('ce.connector.AWS.overview.label') }}
                 />
               </Container>
               <Button
                 intent="primary"
                 type="submit"
-                text={i18n.overview.submitText}
+                text={getString('ce.connector.AWS.overview.submitText')}
                 rightIcon="chevron-right"
                 loading={loading}
                 disabled={loading}

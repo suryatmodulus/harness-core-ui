@@ -17,4 +17,5 @@ USER 101
 EXPOSE 8080
 
 CMD sed -i "s|<\!-- apiurl -->|<script>window.apiUrl = '$API_URL'</script>|" index.html && \
+sed -i "s|<\!-- segmentToken -->|<script>window.segmentToken = '$SEGMENT_TOKEN'</script>|" index.html && \
     nginx -c /etc/nginx/nginx.conf -g 'daemon off;'

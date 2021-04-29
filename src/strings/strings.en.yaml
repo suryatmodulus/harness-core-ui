@@ -164,6 +164,7 @@ change: Change
 events: Events
 details: Details
 test: Test
+tested: Tested
 enable: Enable
 runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
 packagesLabel: Packages
@@ -587,13 +588,11 @@ skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stag
 skipResourceVersion: 'Skip Resource Versioning'
 skipConditionHelpText: |
   In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous steps.
-
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
 skipConditionText: |
   In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous stages.
-
   Examples:
   <+steps.step1.output.result> == “success”
   <+environment.name> != “QA”
@@ -764,6 +763,7 @@ secret:
   labelSecretType: 'Secret type'
   noSecretsFound: 'No Secrets Found'
   configureSecret: 'Configure Secret'
+  updateSuccess: 'Secret updated successfully'
 instanceFieldOptions:
   percentage: 'percentage'
   instances: 'instances'
@@ -953,7 +953,7 @@ pre-flight-check:
   skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
   verifyingPipelineInputs: Verifying pipeline inputs
   verifyingConnectors: Verifying connectors
-
+titleOptional: '(OPTIONAL)'
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
   addNewTrigger: Add New Trigger
@@ -1023,7 +1023,6 @@ pipeline-triggers:
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
   conditionsPanel:
-    titleOptional: '(OPTIONAL)'
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
     branchConditions: 'Branch Conditions'
     sourceBranch: 'Source Branch'
@@ -1191,13 +1190,9 @@ pipelineSteps:
   pullLabel: 'Image Pull Policy'
   pullInfo: |
     Determine the pull policy of the Docker image:
-
     The default behavior is downloading an image if it doesn’t exist in the local cache, unless the “latest” tag is used either explicitly or implicitly.
-
     “If not exists” - only pull the image if not found in the local cache.
-
     “always” - always pull the newest version of the image.
-
     “never” - always use image from local cache, if available.
   pullIfNotExistsLabel: 'If not exists'
   pullNeverLabel: 'Never'
@@ -1210,9 +1205,7 @@ pipelineSteps:
   setContainerResources: 'Set container Resources'
   setContainerResourcesTooltip: |
     Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.
-
     Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: G, M. You can also use the power-of-two equivalents: Gi, Mi.
-
     Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
   limitMemoryLabel: 'Limit Memory'
   limitMemoryPlaceholder: '128Mi'
@@ -1237,7 +1230,6 @@ pipelineSteps:
   deleteNamespaceWarning: 'Warning: Ensure that you are not deleting a namespace that is used by other deployments'
   timeoutInfo: |
     You can use:
-
     w for weeks
     d for days
     h for hours
@@ -1538,4 +1530,5 @@ characters: 'characters'
 uppercase: 'uppercase'
 lowercase: 'lowercase'
 specialChar: 'special character'
+adminResources: 'Admin:Resources'
 personalAccessToken: 'Personal Access Token'

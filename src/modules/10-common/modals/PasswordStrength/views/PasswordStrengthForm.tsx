@@ -41,7 +41,7 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
   const passwordStrengthSettings = loginSettings.passwordStrengthPolicy
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
 
-  const { mutate } = usePutLoginSettings({
+  const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
       accountIdentifier: accountId
@@ -59,12 +59,17 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
     }
 
     try {
-      const response = await mutate({
+      const response = await updateLoginSettings({
         ...loginSettings,
         passwordStrengthPolicy
       })
       /* istanbul ignore else */ if (response) {
-        showSuccess(getString('common.authSettings.passwordStrengthEnabled'), 5000)
+        showSuccess(
+          getString(
+            editing ? 'common.authSettings.passwordStrengthUpdated' : 'common.authSettings.passwordStrengthEnabled'
+          ),
+          5000
+        )
         onSubmit?.()
       }
     } catch (e) {
@@ -130,7 +135,7 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
               />
             </Layout.Vertical>
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }}>
+              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }} loading={updatingLoginSettings}>
                 {getString('save')}
               </Button>
               <Button onClick={onCancel}>{getString('cancel')}</Button>

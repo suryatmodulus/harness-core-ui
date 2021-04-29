@@ -1,0 +1,29 @@
+query FetchRecommendation($id: String!) {
+  recommendationDetails(id: $id, resourceType: WORKLOAD) {
+    ... on WorkloadRecommendationDTO {
+      items {
+        containerName
+        cpuHistogram {
+          bucketWeights
+          firstBucketSize
+          growthRatio
+          maxBucket
+          minBucket
+          numBuckets
+          precomputed
+          totalWeight
+        }
+        memoryHistogram {
+          bucketWeights
+          firstBucketSize
+          growthRatio
+          maxBucket
+          minBucket
+          numBuckets
+          precomputed
+          totalWeight
+        }
+      }
+    }
+  }
+}

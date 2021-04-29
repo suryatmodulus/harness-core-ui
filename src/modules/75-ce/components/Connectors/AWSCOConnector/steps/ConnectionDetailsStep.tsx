@@ -18,9 +18,9 @@ import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import { useCreateConnector } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useGetCloudFormationTemplate } from 'services/lw'
+import { useStrings } from 'framework/strings'
 import { OPTIMIZATION_FEATURE, CROSS_ACCOUNT_ACCESS, FEATURES_ENABLED } from '../constants'
 import type { feature } from '../constants'
-import i18n from '../AWSCOConnector.i18n'
 import css from './Steps.module.scss'
 
 interface AWSCODetails {
@@ -34,6 +34,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
+  const { getString } = useStrings()
   const { prevStepData, nextStep } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const connectorInfo = prevStepData as ConnectorInfoDTO
@@ -103,8 +104,10 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
     <Formik
       initialValues={{ roleARN: connectorInfo.spec.roleARN, externalID: connectorInfo.spec.externalID }}
       validationSchema={Yup.object().shape({
-        roleARN: Yup.string().trim().required(i18n.crossAccountRole.validation.arnRequired),
-        externalID: Yup.string().trim().required(i18n.crossAccountRole.validation.extIDRequired)
+        roleARN: Yup.string().trim().required(getString('ce.connector.AWS.crossAccountRole.validation.arnRequired')),
+        externalID: Yup.string()
+          .trim()
+          .required(getString('ce.connector.AWS.crossAccountRole.validation.extIDRequired'))
       })}
       onSubmit={formData => {
         saveAndContinue(formData)
@@ -115,13 +118,13 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
           <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Vertical spacing="large" className={css.containerLayout}>
             <Heading level={2} style={{ fontSize: '18px', color: 'grey800' }}>
-              {i18n.crossAccountRole.title}
+              {getString('ce.connector.AWS.crossAccountRole.title')}
             </Heading>
             <Container padding={{ top: 'large', bottom: 'large' }}>
-              <Text font={{ weight: 'bold' }}>{i18n.crossAccountRole.text}</Text>
+              <Text font={{ weight: 'bold' }}>{getString('ce.connector.AWS.crossAccountRole.text')}</Text>
               <Container background={'blue300'} padding={'large'} margin={{ top: 'medium' }}>
                 <Text font="normal" style={{ lineHeight: '25px' }}>
-                  {i18n.crossAccountRole.requirementExplanation}
+                  {getString('ce.connector.AWS.crossAccountRole.requirementExplanation')}
                 </Text>
               </Container>
             </Container>
@@ -129,7 +132,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
               <Container>
                 <Button color="blue700" intent="primary" minimal onClick={() => setShowRoleView(true)}>
                   <Text font={{ weight: 'bold' }} color="blue700">
-                    {i18n.crossAccountRole.instructionLabel}
+                    {getString('ce.connector.AWS.crossAccountRole.instructionLabel')}
                   </Text>
                 </Button>
               </Container>
@@ -138,18 +141,18 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
               <Layout.Vertical spacing="large">
                 <FormInput.Text
                   name="externalID"
-                  label={i18n.crossAccountRole.externalID}
+                  label={getString('ce.connector.AWS.crossAccountRole.externalID')}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setExternalID(e.target.value)
                   }}
                   disabled={!externalIDEnabled}
                 />
-                <FormInput.Text name="roleARN" label={i18n.crossAccountRole.arn} />
+                <FormInput.Text name="roleARN" label={getString('ce.connector.AWS.crossAccountRole.arn')} />
                 <div>
                   <Button
                     intent="primary"
                     minimal
-                    text={i18n.crossAccountRole.templateLaunchText}
+                    text={getString('ce.connector.AWS.crossAccountRole.templateLaunchText')}
                     onClick={createTemplate}
                     disabled={!externalIDEnabled}
                   />
@@ -157,7 +160,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                 <div>
                   <Button
                     intent="primary"
-                    text={i18n.overview.submitText}
+                    text={getString('ce.connector.AWS.overview.submitText')}
                     rightIcon="chevron-right"
                     disabled={saving}
                     loading={saving}

@@ -19,6 +19,8 @@ jest.mock('services/pipeline-ng', () => ({
   useHandleStageInterrupt: jest.fn(() => ({}))
 }))
 
+jest.mock('react-timeago', () => () => 'MOCK_TIME_AGO')
+
 describe('<ExecutionsList /> test', () => {
   test('snapshot testing', () => {
     const { container } = render(

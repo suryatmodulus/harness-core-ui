@@ -30,7 +30,7 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings })
 
   const submitUserPasswordUpdate = async (
     authenticationMechanism: keyof typeof AuthenticationMechanisms,
-    message?: string
+    message: string
   ): Promise<void> => {
     try {
       const response = await updateAuthMechanism(undefined, {
@@ -50,9 +50,12 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings })
   }
 
   const { openDialog: enableAccountAndOauthLogin } = useConfirmationDialog({
-    titleText: getString('common.authSettings.changeLoginToHarnessAccountOrOauth'),
+    titleText: getString('common.authSettings.enableHarnessAccountOrOauthLogin'),
     contentText: (
-      <div>
+      <React.Fragment>
+        <Text color={Color.BLACK} padding={{ bottom: 'xlarge' }}>
+          {getString('common.authSettings.changeLoginToHarnessAccountOrOauth')}
+        </Text>
         <Text inline color={Color.BLACK} font={{ weight: 'semi-bold', size: 'normal' }}>
           {getString('common.note')}
         </Text>
@@ -61,7 +64,7 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings })
         </Text>
         {/*TODO: forgot-password link will be replaced with constant once it's available in RouteDefinitions */}
         {/* <Link to="/forgot-password">{getString('common.link')}</Link>. */}
-      </div>
+      </React.Fragment>
     ),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
@@ -104,7 +107,7 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings })
             updatingAuthMechanism={updatingAuthMechanism}
           />
           <PublicOAuthProviders authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} />
-          <div />
+          <Container height={10} />
         </Layout.Vertical>
       </Collapse>
     </Container>

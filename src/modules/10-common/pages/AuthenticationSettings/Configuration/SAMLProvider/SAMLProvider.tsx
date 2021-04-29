@@ -12,7 +12,7 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { AuthenticationMechanisms } from '@common/constants/Utils'
 import { useSAMLProviderModal } from '@common/modals/SAMLProvider/useSAMLProvider'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
-import css from '@common/pages/AuthenticationSettings/Configuration/SAMLProvider/SAMLProvider.module.scss'
+import css from './SAMLProvider.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
@@ -23,6 +23,7 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
+  const [testSucceeded, setTestSucceeded] = React.useState(false)
   const samlEnabled = authSettings.authenticationMechanism === AuthenticationMechanisms.SAML
   const samlSettings = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.SAML
@@ -34,47 +35,39 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
 
   const { openSAMlProvider } = useSAMLProviderModal({ onSuccess })
 
-  const { data: samlLoginTestData, error, refetch: getSamlLoginTestData } = useGetSamlLoginTest({
-    queryParams: {
-      accountId: accountId
-    },
-    lazy: true
-  })
+  const { data: samlLoginTestData, error: samlLoginTestDataError, refetch: getSamlLoginTestData } = useGetSamlLoginTest(
+    {
+      queryParams: {
+        accountId: accountId
+      },
+      lazy: true
+    }
+  )
 
-  const { mutate: deleteSamlSettings } = useDeleteSamlMetaData({
+  const { mutate: deleteSamlSettings, loading: deletingSamlSettings } = useDeleteSamlMetaData({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
-  const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
-
-  const submitAuthMechanismUpdate = async (
-    authenticationMechanism: keyof typeof AuthenticationMechanisms,
-    message?: string
-  ): Promise<void> => {
-    try {
-      const response = await updateAuthMechanism(undefined, {
-        queryParams: {
-          accountIdentifier: accountId,
-          authenticationMechanism: authenticationMechanism
-        }
-      })
-
-      /* istanbul ignore else */ if (response) {
-        refetchAuthSettings()
-        showSuccess(message, 5000)
-      }
-    } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+  const { mutate: updateAuthMechanismToSaml, loading: updatingAuthMechanismToSaml } = useUpdateAuthMechanism({
+    queryParams: {
+      accountIdentifier: accountId,
+      authenticationMechanism: AuthenticationMechanisms.SAML
     }
-  }
+  })
 
   const { openDialog: confirmSamlSettingsDelete } = useConfirmationDialog({
     titleText: getString('common.authSettings.deleteSamlProvider'),
-    contentText: getString('common.authSettings.deleteSamlProviderDescription', {
-      displayName: samlSettings?.displayName
-    }),
+    contentText: (
+      <React.Fragment>
+        <span>{getString('common.authSettings.deleteSamlProviderDescription')} </span>
+        <Text inline font={{ weight: 'bold' }} color={Color.GREY_800}>
+          {samlSettings?.displayName}
+        </Text>
+        ?
+      </React.Fragment>
+    ),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async isConfirmed => {
@@ -100,8 +93,10 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
         const samlTestResponse = localStorage.getItem('samlTestResponse')
         /* istanbul ignore else */ if (samlTestResponse === 'true' || samlTestResponse === 'false') {
           if (samlTestResponse === 'true') {
+            setTestSucceeded(true)
             showSuccess(getString('common.authSettings.samlTestSuccessful'), 5000)
           } else {
+            setTestSucceeded(false)
             showError(getString('common.authSettings.samlTestFailed'), 5000)
           }
           childWindow?.close()
@@ -110,28 +105,47 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
       })
       childWindow?.focus()
     } else {
-      showError(error?.message, 5000)
+      /* istanbul ignore next */ showError(samlLoginTestDataError?.message, 5000)
     }
   }
 
   React.useEffect(() => {
-    /* istanbul ignore else */ if (samlLoginTestData) {
+    /* istanbul ignore else */ if (samlLoginTestData || samlLoginTestDataError) {
       testSamlProvider()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [samlLoginTestData])
+  }, [samlLoginTestData, samlLoginTestDataError])
 
   const { openDialog: enableSamlProvide } = useConfirmationDialog({
     titleText: getString('common.authSettings.enableSamlProvider'),
     contentText: getString('common.authSettings.enableSamlProviderDescription'),
     confirmButtonText: getString('confirm'),
-    customButtons: [
-      <Button intent="primary" text={getString('test')} onClick={() => getSamlLoginTestData()} key="test" />
-    ],
+    customButtons: (
+      <Container flex width="100%">
+        <Button
+          className={css.leftMarginAuto}
+          intent="primary"
+          text={getString(testSucceeded ? 'tested' : 'test')}
+          onClick={() => {
+            if (testSucceeded) setTestSucceeded(false)
+            getSamlLoginTestData()
+          }}
+        />
+      </Container>
+    ),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        submitAuthMechanismUpdate(AuthenticationMechanisms.SAML, getString('common.authSettings.samlLoginEnabled'))
+        try {
+          const response = await updateAuthMechanismToSaml(undefined)
+
+          /* istanbul ignore else */ if (response) {
+            refetchAuthSettings()
+            showSuccess(getString('common.authSettings.samlLoginEnabled'), 5000)
+          }
+        } catch (e) {
+          /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+        }
       }
     }
   })
@@ -153,50 +167,60 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
                 color={Color.GREY_900}
                 label={getString('common.authSettings.loginViaSAML')}
                 onChange={enableSamlProvide}
-                disabled={updatingAuthMechanism}
+                disabled={updatingAuthMechanismToSaml}
               />
             </Container>
           }
         >
-          {samlSettings && (
-            <Container padding={{ bottom: 'large' }}>
-              <Card className={cx(css.card, cssConfiguration.shadow)}>
-                <Container margin={{ left: 'xlarge' }}>
-                  <Radio font={{ weight: 'bold', size: 'normal' }} checked={samlEnabled} readOnly />
-                </Container>
-                <Text color={Color.GREY_800} font={{ weight: 'bold' }} width="20%">
-                  {samlSettings.displayName}
-                </Text>
-                <Text color={Color.GREY_800} width="80%">
-                  {samlSettings.authorizationEnabled ? (
-                    <span>
-                      {getString('common.authSettings.authorizationEnabledFor')}{' '}
-                      <Text font={{ weight: 'semi-bold' }} color={Color.GREY_800} inline>
-                        {samlSettings.groupMembershipAttr}
-                      </Text>
-                    </span>
-                  ) : (
-                    getString('common.authSettings.authorizationNotEnabled')
-                  )}
-                </Text>
-                <Button minimal intent="primary" className={css.testButton} onClick={() => getSamlLoginTestData()}>
-                  {getString('test')}
-                </Button>
-                <Popover
-                  interactionKind="click"
-                  position="left-top"
-                  content={
-                    <Menu>
-                      <MenuItem text={getString('edit')} onClick={() => openSAMlProvider(samlSettings)} />
-                      <MenuItem text={getString('delete')} onClick={confirmSamlSettingsDelete} />
-                    </Menu>
-                  }
-                >
-                  <Button minimal icon="Options" data-testid="provider-button" />
-                </Popover>
-              </Card>
-            </Container>
-          )}
+          <Container padding={{ bottom: 'large' }}>
+            <Card className={css.card}>
+              <Container margin={{ left: 'xlarge' }}>
+                <Radio font={{ weight: 'bold', size: 'normal' }} checked={samlEnabled} readOnly />
+              </Container>
+              <Text color={Color.GREY_800} font={{ weight: 'bold' }} width="30%">
+                {samlSettings.displayName}
+              </Text>
+              <Text color={Color.GREY_800} width="70%">
+                {samlSettings.authorizationEnabled ? (
+                  <span>
+                    {getString('common.authSettings.authorizationEnabledFor')}
+                    <Text font={{ weight: 'semi-bold' }} color={Color.GREY_800} inline>
+                      {samlSettings.groupMembershipAttr}
+                    </Text>
+                  </span>
+                ) : (
+                  getString('common.authSettings.authorizationNotEnabled')
+                )}
+              </Text>
+              <Button
+                minimal
+                intent="primary"
+                className={css.testButton}
+                onClick={() => {
+                  if (testSucceeded) setTestSucceeded(false)
+                  getSamlLoginTestData()
+                }}
+              >
+                {getString(testSucceeded ? 'tested' : 'test')}
+              </Button>
+              <Popover
+                interactionKind="click"
+                position="left-top"
+                content={
+                  <Menu>
+                    <MenuItem text={getString('edit')} onClick={() => openSAMlProvider(samlSettings)} />
+                    <MenuItem
+                      text={getString('delete')}
+                      disabled={deletingSamlSettings}
+                      onClick={confirmSamlSettingsDelete}
+                    />
+                  </Menu>
+                }
+              >
+                <Button minimal icon="Options" data-testid="provider-button" />
+              </Popover>
+            </Card>
+          </Container>
         </Collapse>
       ) : (
         <Card className={css.cardWithRadioBtn}>

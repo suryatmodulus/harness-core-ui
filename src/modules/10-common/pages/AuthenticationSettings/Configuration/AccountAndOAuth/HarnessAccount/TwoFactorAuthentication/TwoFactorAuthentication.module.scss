@@ -3,3 +3,9 @@
   box-shadow: var(--card-box-shadow);
   margin-bottom: var(--spacing-large);
 }
+
+.listItem {
+  & > li {
+    font-size: small;
+  }
+}

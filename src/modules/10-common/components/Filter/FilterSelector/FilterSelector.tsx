@@ -30,8 +30,10 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
         icon="ng-filter"
         onClick={onFilterBtnClick}
         className={css.ngFilter}
-        width="32px"
-        height="32px"
+        intent="primary"
+        minimal
+        iconProps={{ size: 22 }}
+        withoutBoxShadow
       />
     ),
     [onFilterBtnClick]

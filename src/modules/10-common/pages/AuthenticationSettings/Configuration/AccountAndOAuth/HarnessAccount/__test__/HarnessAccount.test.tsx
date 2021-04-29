@@ -36,7 +36,7 @@ const disabledOauthLogin = {
 }
 
 describe('HarnessAccount', () => {
-  test('Disable login vai Username-Password', async () => {
+  test('Disable login via Username-Password', async () => {
     const { getByTestId, container } = render(
       <TestWrapper
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
@@ -69,7 +69,7 @@ describe('HarnessAccount', () => {
 
     expect(submitUserPasswordUpdate).toBeCalled()
   }),
-    test('Enable login vai Username-Password', () => {
+    test('Enable login via Username-Password', () => {
       const { getByTestId } = render(
         <TestWrapper
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
@@ -91,7 +91,7 @@ describe('HarnessAccount', () => {
 
       expect(submitUserPasswordUpdate).toBeCalled()
     }),
-    test('Enable at least one SSO before disabling login vai Username-Password', () => {
+    test('Enable at least one SSO before disabling login via Username-Password', () => {
       const { getByTestId } = render(
         <TestWrapper
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
@@ -112,7 +112,7 @@ describe('HarnessAccount', () => {
       })
 
       expect(
-        queryByText(document.body, 'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin')
+        queryByText(document.body, 'common.authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin')
       ).toBeTruthy()
     })
 })

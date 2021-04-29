@@ -325,6 +325,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <RbacButton
                   minimal
                   icon="Edit"
+                  withoutBoxShadow
                   iconProps={{ size: 12 }}
                   onClick={showModal}
                   permission={{

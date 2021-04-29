@@ -39,6 +39,7 @@ import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
 import patch, { ClauseData, getDiff } from '../../utils/instructions'
+import { MetricsView } from './views/MetricsView'
 import css from './FlagActivation.module.scss'
 
 interface FlagActivationProps {
@@ -418,6 +419,12 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                           />
                         }
                       />
+                      <Tab
+                        id={FFDetailPageTab.METRICS}
+                        title={<Text className={css.tabTitle}>{getString('cf.featureFlags.metrics.title')}</Text>}
+                        panel={<MetricsView flagData={flagData} />}
+                      />
+
                       <Tab
                         id={FFDetailPageTab.ACTIVITY}
                         title={<Text className={css.tabTitle}>{getString('cf.featureFlags.activity')}</Text>}

@@ -3,15 +3,20 @@ import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type {
   ListType,
-  MapType,
   MultiTypeListType,
-  MultiTypeListUIType,
   MultiTypeMapType,
-  MultiTypeMapUIType,
   SelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 
-import type { StepElementConfig } from 'services/cd-ng'
+import type {
+  NGVariable,
+  StepElementConfig,
+  TerraformApplyStepInfo,
+  TerraformBackendConfig,
+  TerraformDestroyStepInfo,
+  TerraformPlanStepInfo,
+  TerraformVarFileWrapper
+} from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 
 export const TerraformStoreTypes = {
@@ -30,6 +35,29 @@ export interface TerraformProps {
   }
   readonly?: boolean
   stepType?: string
+}
+
+export interface TerraformPlanProps {
+  initialValues: TFPlanFormData
+  onUpdate?: (data: TFPlanFormData) => void
+  stepViewType?: StepViewType
+  configTypes?: SelectOption[]
+  isNewStep?: boolean
+  inputSetData?: {
+    template?: TFPlanFormData
+    path?: string
+  }
+  readonly?: boolean
+  stepType?: string
+}
+
+export interface TerraformPlanVariableStepProps {
+  initialValues: TFPlanFormData
+  originalData: TFPlanFormData
+  stageIdentifier: string
+  onUpdate?(data: TFPlanFormData): void
+  metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
+  variablesData: TFPlanFormData
 }
 
 export interface TerraformVariableStepProps {
@@ -96,32 +124,57 @@ export interface Connector {
   connector: { type: string; spec: { val: string; url: string; connectionType?: string; type?: string } }
 }
 export interface TerraformData extends StepElementConfig {
-  delegateSelectors: string[]
   spec?: {
     provisionerIdentifier?: string
     configuration?: {
+      type?: 'Inline' | 'InheritFromPlan' | 'InheritFromApply'
+
+      spec?: TFDataSpec
+    }
+  }
+}
+
+export interface TerraformPlanData extends StepElementConfig {
+  spec?: {
+    provisionerIdentifier?: string
+    configuration?: {
+      command?: 'Apply' | 'Destroy'
+      secretManagerRef?: string
+    } & TFDataSpec
+  }
+}
+
+export interface TFDataSpec {
+  workspace?: string
+  backendConfig?: TerraformBackendConfig
+  targets?: any
+
+  environmentVariables?: any
+  configFiles?: {
+    store?: {
       type?: string
       spec?: {
-        workspace?: string
-        configFiles?: {
-          store?: {
-            type?: string
-            spec?: {
-              gitFetchType?: string
-              branch?: string
-              commitId?: string
-              folderPath?: string
-              connectorRef?: string | Connector
-            }
-          }
-        }
-        varFiles?: VarFileArray[]
+        gitFetchType?: string
+        branch?: string
+        commitId?: string
+        folderPath?: string
+        connectorRef?: string | Connector
       }
     }
-    backendConfig?: BackendConfig
-    targets?: MultiTypeListType
-    environmentVariables?: MultiTypeMapType
   }
+  varFiles?: TerraformVarFileWrapper[]
+}
+
+export interface TFFormData extends StepElementConfig {
+  spec?: TerraformApplyStepInfo
+}
+
+export interface TFDestroyData extends StepElementConfig {
+  spec?: TerraformDestroyStepInfo
+}
+
+export interface TFPlanFormData extends StepElementConfig {
+  spec?: TerraformPlanStepInfo
 }
 
 export interface TerraformFormData extends StepElementConfig {
@@ -145,11 +198,11 @@ export interface TerraformFormData extends StepElementConfig {
           }
         }
         varFiles?: VarFileArray[]
+        backendConfig?: BackendConfig
+        targets?: MultiTypeListType
+        environmentVariables?: MultiTypeMapType
       }
     }
-    backendConfig?: BackendConfig
-    targets?: MultiTypeListType
-    environmentVariables?: MultiTypeMapType
   }
 }
 
@@ -166,19 +219,17 @@ export interface TfVar {
   paths?: string[]
 }
 
-export const onSubmitTerraformData = (values: TerraformData): TerraformFormData => {
+export const onSubmitTerraformData = (values: any): TFFormData => {
   if (values?.spec?.configuration?.type === 'Inline') {
-    const envVars = values.spec?.environmentVariables as MultiTypeMapUIType
-    const envMap: MapType = {}
+    const envVars = values.spec?.configuration?.spec?.environmentVariables
+    const envMap: NGVariable[] = []
     if (Array.isArray(envVars)) {
       envVars.forEach(mapValue => {
-        if (mapValue.key) {
-          envMap[mapValue.key] = mapValue.value
-        }
+        envMap.push({ name: mapValue.key, description: mapValue.value })
       })
     }
 
-    const targets = values?.spec?.targets as MultiTypeListUIType
+    const targets = values?.spec?.configuration?.spec?.targets as MultiTypeInputType
     const targetMap: ListType = []
     if (Array.isArray(targets)) {
       targets.forEach(target => {
@@ -194,10 +245,14 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
       ...values,
       spec: {
         ...values.spec,
+        provisionerIdentifier: values.spec?.provisionerIdentifier,
         configuration: {
-          ...values?.spec?.configuration,
+          type: values?.spec?.configuration?.type,
           spec: {
             ...values.spec?.configuration.spec,
+            environmentVariables: envMap,
+            targets: targetMap,
+
             configFiles: {
               ...values.spec?.configuration?.spec?.configFiles,
               store: {
@@ -216,9 +271,7 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
               }
             }
           }
-        },
-        environmentVariables: envMap,
-        targets: targetMap
+        }
       }
     }
   }
@@ -226,7 +279,69 @@ export const onSubmitTerraformData = (values: TerraformData): TerraformFormData 
   return {
     ...values,
     spec: {
-      provisionerIdentifier: values?.spec?.provisionerIdentifier
+      provisionerIdentifier: values?.spec?.provisionerIdentifier,
+      configuration: {
+        type: values?.spec?.configuration?.type
+      }
+    }
+  }
+}
+
+export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
+  const envVars = values.spec?.configuration?.environmentVariables
+  const envMap: NGVariable[] = []
+  if (Array.isArray(envVars)) {
+    envVars.forEach(mapValue => {
+      envMap.push({ name: mapValue.key, description: mapValue.value })
+    })
+  }
+
+  const targets = values?.spec?.configuration?.targets as MultiTypeInputType
+  const targetMap: ListType = []
+  if (Array.isArray(targets)) {
+    targets.forEach(target => {
+      if (target.value) {
+        targetMap.push(target.value)
+      }
+    })
+  }
+
+  const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
+  const secretManager = values?.spec?.configuration?.secretManagerRef as any
+
+  return {
+    ...values,
+    spec: {
+      ...values.spec,
+
+      configuration: {
+        ...values?.spec?.configuration,
+        command: values?.spec?.configuration?.command,
+
+        environmentVariables: envMap,
+        targets: targetMap,
+        secretManagerRef: values?.spec?.configuration?.secretManagerRef
+          ? getMultiTypeFromValue(values?.spec?.configuration?.secretManagerRef) === MultiTypeInputType.RUNTIME
+            ? values?.spec?.configuration?.secretManagerRef
+            : secretManager.value
+          : '',
+        configFiles: {
+          ...values.spec?.configuration?.configFiles,
+          store: {
+            ...values.spec?.configuration?.configFiles?.store,
+            type: connectorValue.connector?.type,
+            spec: {
+              ...values.spec?.configuration?.configFiles?.store?.spec,
+              connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+                ? getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+                  MultiTypeInputType.RUNTIME
+                  ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
+                  : connectorValue.value
+                : ''
+            }
+          }
+        }
+      }
     }
   }
 }

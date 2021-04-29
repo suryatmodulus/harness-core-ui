@@ -43,7 +43,8 @@ export interface StringsMap {
   'common.authSettings.disableWhitelistedDomains': string
   'common.authSettings.doYouWantToEnforceTwoFAForAllMembers': string
   'common.authSettings.domainNameRequired': string
-  'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enableHarnessAccountOrOauthLogin': string
   'common.authSettings.enableSamlProvider': string
   'common.authSettings.enableSamlProviderDescription': string
   'common.authSettings.enforceLockoutPolicy': string
@@ -63,6 +64,7 @@ export interface StringsMap {
   'common.authSettings.lockoutPolicy': string
   'common.authSettings.lockoutPolicyDisabled': string
   'common.authSettings.lockoutPolicyEnabled': string
+  'common.authSettings.lockoutPolicyUpdated': string
   'common.authSettings.loginSettingsHaveBeenUpdated': string
   'common.authSettings.loginViaSAML': string
   'common.authSettings.minLength': string
@@ -73,10 +75,12 @@ export interface StringsMap {
   'common.authSettings.passwordExpiration': string
   'common.authSettings.passwordExpirationDisabled': string
   'common.authSettings.passwordExpirationEnabled': string
+  'common.authSettings.passwordExpirationUpdated': string
   'common.authSettings.passwordMustFulfillReq': string
   'common.authSettings.passwordStrength': string
   'common.authSettings.passwordStrengthDisabled': string
   'common.authSettings.passwordStrengthEnabled': string
+  'common.authSettings.passwordStrengthUpdated': string
   'common.authSettings.periodicallyExpirePassword': string
   'common.authSettings.periodicallyExpirePasswordNote': string
   'common.authSettings.plusSAMLProvider': string
@@ -214,6 +218,7 @@ export interface StringsMap {
   'common.samlProvider.friendlyReminder': string
   'common.samlProvider.friendlyReminderDescription': string
   'common.samlProvider.groupAttributeName': string
+  'common.samlProvider.identityProvider': string
   'common.samlProvider.okta': string
   'common.samlProvider.oneLogin': string
   'common.samlProvider.samlProviderAddedSuccessfully': string
@@ -231,7 +236,9 @@ export interface StringsMap {
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.fileIsRequired': string
+  'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
+  'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -331,6 +338,8 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'secrets.noRefData': string
+  'secrets.references': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -400,6 +409,12 @@ export interface StringsMap {
   'connectors.cdng.noJobsConfigured': string
   'connectors.cdng.selectTheJobNameFirst': string
   'connectors.cdng.trafficsplit': string
+  'connectors.cdng.validations.baselineRequired': string
+  'connectors.cdng.validations.deploymentTagRequired': string
+  'connectors.cdng.validations.durationRequired': string
+  'connectors.cdng.validations.jobNameRequired': string
+  'connectors.cdng.validations.sensitivityRequired': string
+  'connectors.cdng.validations.trafficsplitRequired': string
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
@@ -1021,9 +1036,82 @@ export interface StringsMap {
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
   'ce.co.sshSetup': string
+  'ce.connector.AWS.cost': string
+  'ce.connector.AWS.crossAccountRole.arn': string
+  'ce.connector.AWS.crossAccountRole.externalID': string
+  'ce.connector.AWS.crossAccountRole.instructionLabel': string
+  'ce.connector.AWS.crossAccountRole.requirementExplanation': string
+  'ce.connector.AWS.crossAccountRole.submitText': string
+  'ce.connector.AWS.crossAccountRole.templateLaunchText': string
+  'ce.connector.AWS.crossAccountRole.text': string
+  'ce.connector.AWS.crossAccountRole.title': string
+  'ce.connector.AWS.crossAccountRole.validation.arnRequired': string
+  'ce.connector.AWS.crossAccountRole.validation.extIDRequired': string
+  'ce.connector.AWS.event.description': string
+  'ce.connector.AWS.event.title': string
+  'ce.connector.AWS.optimization.description': string
+  'ce.connector.AWS.optimization.title': string
+  'ce.connector.AWS.overview.featureSelection': string
+  'ce.connector.AWS.overview.label': string
+  'ce.connector.AWS.overview.permission.billing.description': string
+  'ce.connector.AWS.overview.permission.billing.label': string
+  'ce.connector.AWS.overview.permission.events.description': string
+  'ce.connector.AWS.overview.permission.events.label': string
+  'ce.connector.AWS.overview.permission.optimization.description': string
+  'ce.connector.AWS.overview.permission.optimization.label': string
+  'ce.connector.AWS.overview.placeholder': string
+  'ce.connector.AWS.overview.reqirementLabel': string
+  'ce.connector.AWS.overview.submitText': string
+  'ce.connector.AWS.overview.title': string
+  'ce.connector.AWS.overview.validation.identifier.format': string
+  'ce.connector.AWS.overview.validation.identifier.required': string
+  'ce.connector.AWS.overview.validation.name': string
+  'ce.connector.AWS.testConnection.auth.valid': string
+  'ce.connector.AWS.testConnection.cancel': string
+  'ce.connector.AWS.testConnection.crossARN.valid': string
+  'ce.connector.AWS.testConnection.cur.valid': string
+  'ce.connector.AWS.testConnection.finish': string
+  'ce.connector.AWS.testConnection.title': string
+  'ce.connector.AWS.title': string
+  'ce.connector.AWS.visibility.description': string
+  'ce.connector.AWS.visibility.title': string
   'ce.continuous': string
+  'ce.dashboardPage.description': string
+  'ce.dashboardPage.welcome': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.recommendation.detailsPage.costOptimized': string
+  'ce.recommendation.detailsPage.costOptimizedDetails': string
+  'ce.recommendation.detailsPage.currentResources': string
+  'ce.recommendation.detailsPage.customDetails': string
+  'ce.recommendation.detailsPage.howItWorks': string
+  'ce.recommendation.detailsPage.idleCost': string
+  'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
+  'ce.recommendation.detailsPage.performanceOptimized': string
+  'ce.recommendation.detailsPage.performanceOptimizedDetails': string
+  'ce.recommendation.detailsPage.recommendationComputation': string
+  'ce.recommendation.detailsPage.recommendedResources': string
+  'ce.recommendation.detailsPage.resizeText': string
+  'ce.recommendation.detailsPage.resourceChanges': string
+  'ce.recommendation.detailsPage.timeChangeText': string
+  'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.listPage.forecatedCostSubText': string
+  'ce.recommendation.listPage.listTableHeaders.details': string
+  'ce.recommendation.listPage.listTableHeaders.monthlyCost': string
+  'ce.recommendation.listPage.listTableHeaders.monthlySavings': string
+  'ce.recommendation.listPage.listTableHeaders.recommendationType': string
+  'ce.recommendation.listPage.listTableHeaders.resourceName': string
+  'ce.recommendation.listPage.listTableHeaders.resourceType': string
+  'ce.recommendation.listPage.monthlyForcastedCostText': string
+  'ce.recommendation.listPage.monthlySavingsText': string
+  'ce.recommendation.listPage.recommendationDetails.resize': string
+  'ce.recommendation.listPage.recommendationTypes.resizing': string
+  'ce.recommendation.listPage.recommnedationBreakdown': string
+  'ce.recommendation.recommendationChart.cpuPlaceholder': string
+  'ce.recommendation.recommendationChart.memoryLabel': string
+  'ce.recommendation.recommendationChart.memoryLabelRegular': string
+  'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
+  'ce.recommendation.recommendationChart.noOfSamples': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string
@@ -1198,7 +1286,12 @@ export interface StringsMap {
   'cf.featureFlags.makeSure': string
   'cf.featureFlags.metrics.evaluationStatistics': string
   'cf.featureFlags.metrics.evaluations': string
+  'cf.featureFlags.metrics.flagEvaluations': string
+  'cf.featureFlags.metrics.noData': string
   'cf.featureFlags.metrics.noMetrics': string
+  'cf.featureFlags.metrics.targetServed': string
+  'cf.featureFlags.metrics.title': string
+  'cf.featureFlags.metrics.totalEvaluations': string
   'cf.featureFlags.modifiedDate': string
   'cf.featureFlags.multi': string
   'cf.featureFlags.multiBtnText': string
@@ -2036,6 +2129,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   adminLabel: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  adminResources: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4511,10 +4608,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipeline-triggers.conditionsPanel.titleOptional': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipeline-triggers.confirmDelete': string
   /**
    * @deprecated migrate this string to module level file
@@ -6379,6 +6472,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'secret.updateSuccess': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'secret.validationIdentifier': string
   /**
    * @deprecated migrate this string to module level file
@@ -6859,6 +6956,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  tested: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   tests: string
   /**
    * @deprecated migrate this string to module level file
@@ -6876,6 +6977,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   timeMinutes: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  titleOptional: string
   /**
    * @deprecated migrate this string to module level file
    */

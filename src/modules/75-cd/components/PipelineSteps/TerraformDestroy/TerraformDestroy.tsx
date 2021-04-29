@@ -14,37 +14,33 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StringKeys } from 'framework/strings'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
-import type { TerraformData, TerraformVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
+import type { TerraformVariableStepProps, TFDestroyData } from '../Common/Terraform/TerraformInterfaces'
 
 import TerraformEditView from '../Common/Terraform/Editview/TerraformEditView'
 
 const TerraformDestroyWidgetWithRef = React.forwardRef(TerraformEditView)
 
-export class TerraformDestroy extends PipelineStep<TerraformData> {
+export class TerraformDestroy extends PipelineStep<TFDestroyData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformDestroy
-  protected defaultValues: TerraformData = {
+  protected defaultValues: TFDestroyData = {
     identifier: '',
     timeout: '10m',
-    delegateSelectors: [],
     spec: {
-      provisionerIdentifier: '',
-      configuration: {
-        type: ''
-      }
+      provisionerIdentifier: ''
     }
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Destroy'
   validateInputSet(
-    data: TerraformData,
-    template?: TerraformData,
+    data: TFDestroyData,
+    template?: TFDestroyData,
     getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TerraformData> {
+  ): FormikErrors<TFDestroyData> {
     /* istanbul ignore next */
     const errors = {} as any
     /* istanbul ignore next */
@@ -71,7 +67,7 @@ export class TerraformDestroy extends PipelineStep<TerraformData> {
     /* istanbul ignore next */
     return errors
   }
-  renderStep(props: StepProps<TerraformData, unknown>): JSX.Element {
+  renderStep(props: StepProps<TFDestroyData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {

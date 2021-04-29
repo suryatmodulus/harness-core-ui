@@ -55,7 +55,7 @@ function TypeSelector(props: TypeSelectorProps): React.ReactElement {
       targetClassName={css.typeSelector}
       popoverClassName={css.popover}
     >
-      <Button minimal className={css.btn}>
+      <Button minimal className={css.btn} withoutBoxShadow>
         <Icon
           className={cx(css.icon, (css as any)[type.toLowerCase()])}
           size={TypeIconSize[type]}

@@ -10,7 +10,7 @@ export interface UseConfirmationDialogProps {
   buttonIntent?: ButtonProps['intent']
   confirmButtonText?: string
   onCloseDialog?: (isConfirmed: boolean) => void
-  customButtons?: React.ReactNode[]
+  customButtons?: React.ReactNode
 }
 
 export interface UseConfirmationDialogReturn {
@@ -64,8 +64,8 @@ export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseCon
                 <Button intent={buttonIntent} text={confirmButtonText} onClick={() => onClose(true)} />
               </>
             )}
-            {customButtons}
             <Button text={cancelButtonText} onClick={() => onClose(false)} />
+            {customButtons}
           </Layout.Horizontal>
         </div>
       </Dialog>

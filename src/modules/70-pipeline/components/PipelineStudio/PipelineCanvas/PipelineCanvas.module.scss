@@ -80,15 +80,15 @@
       border-radius: 10px;
       margin: 2px;
       cursor: pointer;
-      border: solid 1px var(--blue-900);
-      color: var(--blue-900);
+      border: solid 1px var(--primary-9);
+      color: var(--primary-9);
       background: #fff;
       width: 55px;
     }
 
     .selected {
       font-weight: bold;
-      background-color: var(--blue-900);
+      background-color: var(--primary-9);
       color: var(--white);
       cursor: default;
     }
@@ -136,6 +136,7 @@
   .pipelineName {
     display: inline-flex;
     font-size: var(--font-size-medium) !important;
+    color: var(--grey-900) !important;
   }
   .pipelineIcon {
     vertical-align: middle;

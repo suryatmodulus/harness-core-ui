@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Collapse, Text, Container, Card, Color, Switch } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
@@ -11,7 +10,8 @@ import { useUpdateOauthProviders, useUpdateAuthMechanism, useRemoveOauthMechanis
 import { AuthenticationMechanisms } from '@common/constants/Utils'
 import { OAuthProviders, Providers } from '@common/constants/OAuthProviders'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
-import css from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/OAuthProviders/PublicOAuthProviders.module.scss'
+import css from './PublicOAuthProviders.module.scss'
+
 interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
@@ -21,28 +21,35 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showError, showSuccess, showWarning } = useToaster()
+
   const oauthSettings: OAuthSettings | undefined = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.OAUTH
   )
-  const oauthEnabled = !!oauthSettings
+
+  const oauthEnabled =
+    !!oauthSettings &&
+    (authSettings.authenticationMechanism === AuthenticationMechanisms.USER_PASSWORD ||
+      authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH)
 
   const { mutate: updateOAuthProviders, loading: updatingOauthProviders } = useUpdateOauthProviders({
     queryParams: {
       accountIdentifier: accountId
     }
   })
+
   const { mutate: deleteOAuthProviders, loading: deletingOauthProviders } = useRemoveOauthMechanism({
     queryParams: {
       accountIdentifier: accountId
     }
   })
+
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
 
   const { openDialog: confirmOAuthDisable } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
     titleText: getString('common.authSettings.disableOAuthLogin'),
     contentText: getString('common.authSettings.confirmDisableOAuthLogin'),
     confirmButtonText: getString('confirm'),
+    cancelButtonText: getString('cancel'),
     onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {
@@ -143,7 +150,7 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
     <Collapse
       isOpen={oauthEnabled}
       collapseHeaderClassName={cssConfiguration.collapseHeaderClassName}
-      collapseClassName={cx(cssConfiguration.collapseClassName)}
+      collapseClassName={cssConfiguration.collapseClassName}
       collapsedIcon="main-chevron-down"
       expandedIcon="main-chevron-up"
       heading={
@@ -158,7 +165,7 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
         />
       }
     >
-      {oauthEnabled && (
+      {oauthSettings && (
         <Container className={css.container} margin={{ bottom: 'large' }}>
           {OAuthProviders.sort((a, b) => a.name.localeCompare(b.name)).map(provider => {
             return (

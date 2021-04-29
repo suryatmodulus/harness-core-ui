@@ -33,7 +33,7 @@ const Configuration: React.FC = () => {
       <Breadcrumbs
         links={[
           {
-            url: routes.toAccountConfiguration(params),
+            url: routes.toAdmin(params),
             label: getString('settingsLabel')
           },
           {

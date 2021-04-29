@@ -90,11 +90,6 @@ describe('SAML Provider', () => {
 
     setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'displayName', value: 'Display name' })
 
-    const authorizationEnabledCheckbox = queryByText(form!, 'common.samlProvider.enableAuthorization')
-    act(() => {
-      fireEvent.click(authorizationEnabledCheckbox!)
-    })
-
     setFieldValue({ container: form!, type: InputTypes.TEXTFIELD, fieldId: 'groupMembershipAttr', value: 'MyGroup' })
 
     const addButton = queryByText(form!, 'add')

@@ -35,7 +35,7 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
   const userLockoutSettings = loginSettings.userLockoutPolicy
 
-  const { mutate } = usePutLoginSettings({
+  const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
       accountIdentifier: accountId
@@ -49,13 +49,16 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
     }
 
     try {
-      const response = await mutate({
+      const response = await updateLoginSettings({
         ...loginSettings,
         userLockoutPolicy
       })
 
       /* istanbul ignore else */ if (response) {
-        showSuccess(getString('common.authSettings.lockoutPolicyEnabled'), 5000)
+        showSuccess(
+          getString(editing ? 'common.authSettings.lockoutPolicyUpdated' : 'common.authSettings.lockoutPolicyEnabled'),
+          5000
+        )
         onSubmit?.()
       }
     } catch (e) {
@@ -127,7 +130,7 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
               inputProps={{ placeholder: getString('common.authSettings.selectUserGroup') }}
             />
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }}>
+              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }} loading={updatingLoginSettings}>
                 {getString('save')}
               </Button>
               <Button onClick={onCancel}>{getString('cancel')}</Button>

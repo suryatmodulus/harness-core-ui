@@ -50,18 +50,21 @@ interface SAMLProviderType {
   type: Providers
   name: keyof StringsMap
   icon: IconName
+  color?: Color
 }
 
 const SAMLProviderTypes: SAMLProviderType[] = [
   {
     type: Providers.AZURE,
     name: 'common.samlProvider.azure',
-    icon: 'service-azure'
+    icon: 'service-azure',
+    color: Color.BLUE_700
   },
   {
     type: Providers.OKTA,
     name: 'common.samlProvider.okta',
-    icon: 'ring'
+    icon: 'ring',
+    color: Color.BLUE_700
   },
   {
     type: Providers.ONE_LOGIN,
@@ -80,14 +83,22 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
+  const samlEndpoint = `https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`
+  const selectedSAMLProvider = getString(
+    selected
+      ? selected?.type === Providers.OTHER
+        ? 'common.authSettings.SAMLProvider'
+        : selected.name
+      : 'common.authSettings.SAMLProvider'
+  )
 
-  const { mutate: uploadSamlSettings, loading: updatingSamlSettings } = useUploadSamlMetaData({
+  const { mutate: uploadSamlSettings, loading: uploadingSamlSettings } = useUploadSamlMetaData({
     queryParams: {
       accountId
     }
   })
 
-  const { mutate: updateSamlSettings } = useUpdateSamlMetaData({
+  const { mutate: updateSamlSettings, loading: updatingSamlSettings } = useUpdateSamlMetaData({
     queryParams: {
       accountId
     }
@@ -144,11 +155,11 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
           : getString('common.samlProvider.addSAMLProvider')}
       </Heading>
       <Layout.Horizontal>
-        <Layout.Vertical width={520} padding={{ right: 'xxxlarge' }}>
+        <Layout.Vertical width={580} padding={{ right: 'xxxlarge' }}>
           <Formik
             initialValues={{
               displayName: samlProvider?.displayName || /* istanbul ignore next */ '',
-              authorizationEnabled: !!samlProvider?.authorizationEnabled,
+              authorizationEnabled: samlProvider ? !!samlProvider?.authorizationEnabled : true,
               groupMembershipAttr: samlProvider?.groupMembershipAttr || /* istanbul ignore next */ ''
             }}
             validationSchema={yup.object().shape({
@@ -165,27 +176,28 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
           >
             {({ values, setFieldValue }) => (
               <FormikForm>
-                <Container width={474}>
+                <Container width={474} margin={{ bottom: 'xxxlarge' }}>
                   <FormInput.Text name="displayName" label={getString('name')} />
                 </Container>
                 {!samlProvider && (
                   <React.Fragment>
-                    <Text>{getString('common.samlProvider.selectSAMLProvider')}</Text>
-                    <Layout.Horizontal spacing="medium" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Text margin={{ bottom: 'medium' }}>{getString('common.samlProvider.selectSAMLProvider')}</Text>
+                    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                       <CardSelect
                         data={selected ? [selected] : SAMLProviderTypes}
-                        cornerSelected={true}
-                        className={css.cardRow}
+                        cornerSelected
                         cardClassName={css.card}
                         renderItem={item => (
-                          <CardBody.Icon icon={item.icon} iconSize={25}>
+                          <CardBody.Icon icon={item.icon} iconSize={25} iconProps={{ color: item.color }}>
                             <Text
                               font={{
                                 size: 'small',
-                                align: 'center'
+                                align: 'center',
+                                weight: 'semi-bold'
                               }}
                               flex={{ justifyContent: 'center' }}
                               color={Color.GREY_900}
+                              className={css.text}
                             >
                               {getString(item.name)}
                             </Text>
@@ -210,12 +222,14 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                 )}
                 {(selected || samlProvider) && (
                   <React.Fragment>
-                    <Text color={Color.GREY_700} margin={{ top: 'xxxlarge', bottom: 'small' }}>
-                      {getString('common.samlProvider.enterSAMLEndPoint')}
+                    <Text color={Color.GREY_500} margin={{ top: 'huge', bottom: 'xsmall' }}>
+                      {getString('common.samlProvider.enterSAMLEndPoint', {
+                        selectedSAMLProvider
+                      })}
                     </Text>
                     <InputGroup
                       name="endPoint"
-                      value={`https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`}
+                      value={samlEndpoint}
                       rightElement={
                         <Button
                           icon="duplicate"
@@ -223,7 +237,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                           minimal
                           className={css.copyToClipboardButton}
                           onClick={() => {
-                            copy(`https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`)
+                            copy(samlEndpoint)
                               ? showSuccess(getString('clipboardCopySuccess'))
                               : showError(getString('clipboardCopyFail'))
                           }}
@@ -231,8 +245,16 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                       }
                       disabled
                     />
-                    <Text color={Color.GREY_700} margin={{ bottom: 'medium' }} padding={{ top: 'xxxlarge' }}>
-                      {getString('common.samlProvider.uploadIdentityProvider')}
+                    <Text color={Color.GREY_500} margin={{ bottom: 'xsmall' }} padding={{ top: 'huge' }}>
+                      {getString(
+                        samlProvider
+                          ? 'common.samlProvider.identityProvider'
+                          : 'common.samlProvider.uploadIdentityProvider',
+                        {
+                          selectedSAMLProvider
+                        }
+                      )}
+                      {samlProvider && ` ${getString('titleOptional')}`}
                     </Text>
                     <Container margin={{ bottom: 'xxxlarge' }}>
                       <FormInput.FileInput
@@ -269,7 +291,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                     intent="primary"
                     text={getString(samlProvider ? 'save' : 'add')}
                     type="submit"
-                    disabled={updatingSamlSettings}
+                    loading={uploadingSamlSettings || updatingSamlSettings}
                   />
                   <Button text={getString('cancel')} onClick={onCancel} />
                 </Layout.Horizontal>
@@ -278,29 +300,41 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
           </Formik>
         </Layout.Vertical>
         <Layout.Vertical
-          width={310}
+          width={290}
           padding={{ left: 'xxxlarge' }}
           margin={{ bottom: 'large' }}
           border={{ left: true }}
         >
-          <Heading level={3} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+          <Heading level={3} color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
             {getString('common.samlProvider.friendlyReminder')}
           </Heading>
-          <Text color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
+          <Text color={Color.GREY_800} font={{ size: 'small' }} margin={{ bottom: 'xxlarge' }} className={css.notes}>
             {getString('common.samlProvider.friendlyReminderDescription')}
           </Text>
           {(selected || samlProvider) && (
             <React.Fragment>
-              <Heading level={3} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+              <Heading level={3} color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                 {getString('common.samlProvider.enablingAuthorization')}
               </Heading>
-              <Text color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
-                {getString('common.samlProvider.enablingAuthorizationDescription')}
+              <Text
+                color={Color.GREY_800}
+                font={{ size: 'small' }}
+                margin={{ bottom: 'xxlarge' }}
+                className={css.notes}
+              >
+                {getString('common.samlProvider.enablingAuthorizationDescription', {
+                  selectedSAMLProvider
+                })}
               </Text>
-              <Heading level={3} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+              <Heading level={3} color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                 {getString('common.samlProvider.testingSSO')}
               </Heading>
-              <Text color={Color.GREY_800} margin={{ bottom: 'xxlarge' }}>
+              <Text
+                color={Color.GREY_800}
+                font={{ size: 'small' }}
+                margin={{ bottom: 'xxlarge' }}
+                className={css.notes}
+              >
                 {getString('common.samlProvider.testingSSODescription')}
               </Text>
             </React.Fragment>

@@ -835,11 +835,62 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
+  toCERecommendations: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations`
+  ),
+  toCERecommendationDetails: withAccountId(
+    ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+  ),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
   toCustomDasboardHome: withAccountId(() => '/dashboards/home'),
-  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)
+  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`),
+
+  /****************** Secret Usage************************************************************************************/
+  toModuleAdminResourcesSecretDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier, secretId, module }: ProjectPathProps & SecretsPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
+  ),
+
+  toResourcesSecretDetailsOverview: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      secretId
+    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
+      const path = `resources/secrets/${secretId}/overview`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toResourcesSecretDetailsReferences: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      secretId
+    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
+      const path = `resources/secrets/${secretId}/references`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  )
 }
 
 export default routes

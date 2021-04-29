@@ -35,7 +35,8 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
       )}
       <ConfigInputs {...props} />
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.targets as string) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.targets as string) ===
+        MultiTypeInputType.RUNTIME && (
         <List
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}
           label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
@@ -43,7 +44,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.environmentVariables as string) ===
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.environmentVariables as string) ===
         MultiTypeInputType.RUNTIME && (
         <Map
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.environmentVariables`}

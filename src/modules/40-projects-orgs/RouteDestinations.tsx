@@ -10,6 +10,7 @@ import {
   resourceGroupPathProps,
   rolePathProps,
   userGroupPathProps,
+  secretPathProps,
   userPathProps
 } from '@common/utils/routeUtils'
 import { MinimalLayout } from '@common/layouts'
@@ -32,6 +33,9 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
+import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
+import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -149,14 +153,29 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesSecretDetails({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toResourcesSecretDetails({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
       exact
     >
-      <ResourcesPage>
-        <SecretDetails />
-      </ResourcesPage>
+      <RedirectToSecretDetailHome />
     </RouteWithLayout>
-
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
+      exact
+    >
+      <SecretDetailsHomePage>
+        <SecretDetails />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
+      exact
+    >
+      <SecretDetailsHomePage>
+        <SecretReferences />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSettingsSideNavProps}
       path={routes.toOrganizations({ ...accountPathProps })}

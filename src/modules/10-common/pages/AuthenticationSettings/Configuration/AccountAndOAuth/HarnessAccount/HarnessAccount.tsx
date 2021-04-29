@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import { Color, Layout, Switch, Collapse } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/strings'
@@ -17,31 +16,9 @@ interface Props {
   refetchAuthSettings: () => void
   submitUserPasswordUpdate: (
     authenticationMechanism: keyof typeof AuthenticationMechanisms,
-    message?: string
+    message: string
   ) => Promise<void>
   updatingAuthMechanism: boolean
-}
-
-interface DetailsProps {
-  authSettings: AuthenticationSettingsResponse
-  refetchAuthSettings: () => void
-}
-
-const Details: React.FC<DetailsProps> = ({ authSettings, refetchAuthSettings }) => {
-  const userPasswordSettings = authSettings.ngAuthSettings?.find(
-    ({ settingsType }) => settingsType === AuthenticationMechanisms.USER_PASSWORD
-  ) as UsernamePasswordSettings
-
-  const loginSettings = userPasswordSettings.loginSettings
-
-  return (
-    <Layout.Vertical spacing="medium">
-      <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
-      <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
-      <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
-      <TwoFactorAuthentication twoFactorEnabled={!!authSettings.twoFactorEnabled} onSuccess={refetchAuthSettings} />
-    </Layout.Vertical>
-  )
 }
 
 const HarnessAccount: React.FC<Props> = ({
@@ -52,18 +29,26 @@ const HarnessAccount: React.FC<Props> = ({
 }) => {
   const { getString } = useStrings()
   const { showWarning } = useToaster()
+
   const userPasswordAuthMechanismEnabled =
     authSettings.authenticationMechanism === AuthenticationMechanisms.USER_PASSWORD
+
   const oauthEnabled = !!authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.OAUTH
   )
 
+  const userPasswordSettings = authSettings.ngAuthSettings?.find(
+    ({ settingsType }) => settingsType === AuthenticationMechanisms.USER_PASSWORD
+  ) as UsernamePasswordSettings | undefined
+
+  const loginSettings = userPasswordSettings?.loginSettings
+
   const { openDialog: confirmUserPasswordDisable } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
     titleText: getString('common.authSettings.disableUserPasswordLogin'),
     contentText: getString('common.authSettings.confirmDisableUserPasswordLogin'),
     confirmButtonText: getString('confirm'),
-    onCloseDialog: async isConfirmed => {
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         submitUserPasswordUpdate(
           AuthenticationMechanisms.OAUTH,
@@ -75,7 +60,7 @@ const HarnessAccount: React.FC<Props> = ({
 
   const toggleUsernamePassword = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
     if (userPasswordAuthMechanismEnabled && !oauthEnabled) {
-      showWarning(getString('common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin'))
+      showWarning(getString('common.authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin'))
       return
     }
 
@@ -95,7 +80,7 @@ const HarnessAccount: React.FC<Props> = ({
   return (
     <Collapse
       isOpen={userPasswordAuthMechanismEnabled}
-      collapseHeaderClassName={cx(cssConfiguration.collapseHeaderClassName)}
+      collapseHeaderClassName={cssConfiguration.collapseHeaderClassName}
       collapseClassName={cssConfiguration.collapseClassName}
       collapsedIcon="main-chevron-down"
       expandedIcon="main-chevron-up"
@@ -111,8 +96,13 @@ const HarnessAccount: React.FC<Props> = ({
         />
       }
     >
-      {userPasswordAuthMechanismEnabled && (
-        <Details authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} />
+      {loginSettings && (
+        <Layout.Vertical spacing="medium">
+          <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
+          <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
+          <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
+          <TwoFactorAuthentication twoFactorEnabled={!!authSettings.twoFactorEnabled} onSuccess={refetchAuthSettings} />
+        </Layout.Vertical>
       )}
     </Collapse>
   )

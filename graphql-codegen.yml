@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'src/services/ce/schema.json'
+schema: 'src/services/ce/schema.graphql'
 documents: 'src/queries/ce/**/*.gql'
 generates:
   src/services/ce/services.ts:

@@ -2,12 +2,12 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
+import { useStrings } from 'framework/strings'
 import OverviewStep from './steps/OverviewStep'
 import type { permission } from './constants'
 import { CO_PERMISSION } from './constants'
 import ConnectionDetailsStep from './steps/ConnectionDetailsStep'
 import TestConnectionStep from './steps/TestConnectionStep'
-import i18n from './AWSCOConnector.i18n'
 import css from './AWSCOConnector.module.scss'
 
 interface ConnectorConfig {
@@ -24,16 +24,25 @@ interface COAWSConnectorProps extends ConnectorConfig {
 
 const AWSCOConnector: React.FC<COAWSConnectorProps> = props => {
   const { onSuccess } = props
+  const { getString } = useStrings()
   return (
     <section className={css.wrapper}>
-      <StepWizard<ConnectorInfoDTO> icon="service-aws" iconProps={{ size: 37 }} title={i18n.title}>
+      <StepWizard<ConnectorInfoDTO>
+        icon="service-aws"
+        iconProps={{ size: 37 }}
+        title={getString('ce.connector.AWS.title')}
+      >
         <OverviewStep
-          name={i18n.overview.title}
+          name={getString('ce.connector.AWS.overview.title')}
           type={Connectors.AWS_CO}
           permission={CO_PERMISSION} // TODO : ACCEPT permission from parent
         />
-        <ConnectionDetailsStep name={i18n.crossAccountRole.title} />
-        <TestConnectionStep name={i18n.testConnection.title} onSuccess={onSuccess} onFailure={onSuccess} />
+        <ConnectionDetailsStep name={getString('ce.connector.AWS.crossAccountRole.title')} />
+        <TestConnectionStep
+          name={getString('ce.connector.AWS.testConnection.title')}
+          onSuccess={onSuccess}
+          onFailure={onSuccess}
+        />
       </StepWizard>
     </section>
   )

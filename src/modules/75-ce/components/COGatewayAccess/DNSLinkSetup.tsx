@@ -19,6 +19,7 @@ import { useParams } from 'react-router-dom'
 import { AccessPoint, TargetGroupMinimal, useAllHostedZones, useListAccessPoints } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
@@ -44,6 +45,7 @@ interface DNSLinkSetupProps {
 
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { showWarning } = useToaster()
+  const { trackEvent } = useTelemetry()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -229,6 +231,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               </Layout.Horizontal>
               <Layout.Horizontal>
                 <Radio
+                  name="notUsingCustomDomain"
                   value="no"
                   onChange={e => {
                     formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
@@ -258,6 +261,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               </Layout.Horizontal>
               <Layout.Horizontal style={{ width: '100%' }}>
                 <Radio
+                  name="usingCustomDomain"
                   value="yes"
                   onChange={e => {
                     formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
@@ -308,10 +312,18 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       updatedGatewayDetails.hostName = generateHostName(e.label as string)
                       props.setGatewayDetails(updatedGatewayDetails)
                       setGeneratedHostName(updatedGatewayDetails.hostName)
+                      trackEvent('SelectingAccessPoint', {})
                     }}
                     disabled={accessPointsLoading}
                   />
-                  <Button minimal onClick={openModal} style={{ justifyContent: 'flex-start' }}>
+                  <Button
+                    minimal
+                    onClick={() => {
+                      trackEvent('MadeNewAccessPoint', {})
+                      openModal()
+                    }}
+                    style={{ justifyContent: 'flex-start' }}
+                  >
                     <Text color={Color.BLUE_500}>+ Create a New Access point</Text>
                   </Button>
                 </Layout.Vertical>

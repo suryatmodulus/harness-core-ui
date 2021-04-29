@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
-import i18n from '../AWSCOConnector.i18n'
+import { useStrings } from 'framework/strings'
 import css from './Steps.module.scss'
 
 export enum Status {
@@ -36,6 +36,7 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.ERROR)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
   const connectorDetails = prevStepData as ConnectorInfoDTO
+  const { getString } = useStrings()
 
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
@@ -55,7 +56,7 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
 
   const verifyOptimizationPermissions = async (): Promise<void> => {
     const newSteps = [...steps]
-    newSteps.push(i18n.testConnection.crossARN.valid)
+    newSteps.push(getString('ce.connector.AWS.testConnection.crossARN.valid'))
     setSteps(newSteps)
 
     try {
@@ -85,17 +86,22 @@ const TestConnectionStep: React.FC<StepProps<ConnectorConfigDTO> & TestConnectio
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Container padding="medium">
         <Heading level={2} font={{ weight: 'bold' }}>
-          {i18n.testConnection.title}
+          {getString('ce.connector.AWS.testConnection.title')}
         </Heading>
       </Container>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
       {currentIntent == Intent.SUCCESS && currentStatus === Status.DONE && (
-        <Button intent="primary" text={i18n.testConnection.finish} onClick={handleSuccess} className={css.nextButton} />
+        <Button
+          intent="primary"
+          text={getString('ce.connector.AWS.testConnection.finish')}
+          onClick={handleSuccess}
+          className={css.nextButton}
+        />
       )}
       {currentStatus === Status.ERROR && (
         <Button
           intent="primary"
-          text={i18n.crossAccountRole.submitText}
+          text={getString('ce.connector.AWS.crossAccountRole.submitText')}
           onClick={() => onFailure()}
           className={css.nextButton}
         />

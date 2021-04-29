@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -24,6 +25,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     // }
   })
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const [selectedConnector, setSelectedConnector] = useState<ConnectorInfoDTO | null>(null)
 
@@ -34,6 +36,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     updatedGatewayDetails.metadata.cloud_provider_details = { name: data.name }
     props.setGatewayDetails(updatedGatewayDetails)
     props.setCloudAccount(updatedGatewayDetails.cloudAccount.id)
+    trackEvent('SelectingExistingConnector', {})
   }
 
   return (
@@ -54,7 +57,10 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
         />
       </Layout.Vertical>
       <span
-        onClick={() => openConnectorModal(false, 'CEAws')}
+        onClick={() => {
+          openConnectorModal(false, 'CEAws')
+          trackEvent('MadeNewConnector', {})
+        }}
         style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
       >
         {[

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -47,6 +47,95 @@ describe('Test TerraformApply', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('rendering more than one varfile', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                varFiles: [
+                  {
+                    varFile: {
+                      type: 'Inline',
+                      spec: {
+                        content: 'test'
+                      }
+                    }
+                  },
+                  {
+                    varFile: {
+                      type: 'Remote',
+                      store: {
+                        spec: {
+                          connectorRef: 'test',
+                          branch: 'test-brancg',
+                          folderPath: 'testfolder'
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformApply}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    expect(container).toMatchSnapshot()
+
+    fireEvent.click(getByText('pipelineSteps.terraformVarFiles'))
+    const trashIcon = container.querySelector('[data-testid="remove-tfvar-file-0"]')
+    fireEvent.click(trashIcon!)
+    expect(container).toMatchSnapshot()
+  })
+
+  test('expand backend Spec config', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                backendConfig: {
+                  type: 'Inline',
+                  spec: {
+                    content: 'test'
+                  }
+                }
+              }
+            },
+            targets: ['test1', 'test2'],
+            environmentVariables: [
+              {
+                key: 'test',
+                value: 'abc'
+              }
+            ]
+          }
+        }}
+        type={StepType.TerraformApply}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('pipelineSteps.backendConfig'))
     expect(container).toMatchSnapshot()
   })
 

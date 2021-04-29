@@ -35,6 +35,7 @@ declare module '*.gql' {
 
 declare interface Window {
   apiUrl: string
+  segmentToken: string
 }
 
 declare const monaco: any

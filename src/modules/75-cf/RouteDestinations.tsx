@@ -40,6 +40,9 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
+import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
+import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
@@ -409,10 +412,39 @@ export default (
       path={routes.toResourcesSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...secretPathProps
+        ...secretPathProps,
+        ...modulePathProps
       })}
     >
-      <SecretDetails />
+      <RedirectToSecretDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toResourcesSecretDetailsOverview({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretDetailsHomePage>
+        <SecretDetails />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CFSideNavProps}
+      path={routes.toResourcesSecretDetailsReferences({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...secretPathProps,
+        ...modulePathProps
+      })}
+    >
+      <SecretDetailsHomePage>
+        <SecretReferences />
+      </SecretDetailsHomePage>
     </RouteWithLayout>
   </>
 )

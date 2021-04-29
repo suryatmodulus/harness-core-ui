@@ -1,6 +1,7 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { v4 as uuid } from 'uuid'
 
 import { isEmpty } from 'lodash-es'
 import { yupToFormErrors, FormikErrors } from 'formik'
@@ -18,43 +19,39 @@ import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView
 import {
   onSubmitTerraformData,
   TerraformData,
-  TerraformFormData,
-  TerraformVariableStepProps
+  TerraformVariableStepProps,
+  TFFormData
 } from '../Common/Terraform/TerraformInterfaces'
 
 import TerraformEditView from '../Common/Terraform/Editview/TerraformEditView'
 
 const TerraformApplyWidgetWithRef = React.forwardRef(TerraformEditView)
 
-export class TerraformApply extends PipelineStep<TerraformFormData> {
+export class TerraformApply extends PipelineStep<TFFormData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformApply
-  protected defaultValues: TerraformFormData = {
+  protected defaultValues: TFFormData = {
     identifier: '',
     timeout: '10m',
-    delegateSelectors: [],
     spec: {
-      provisionerIdentifier: '',
-      configuration: {
-        type: ''
-      }
+      provisionerIdentifier: ''
     }
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
-  /* istanbul ignore else */
+  /* istanbul ignore next */
   validateInputSet(
-    data: TerraformFormData,
-    template?: TerraformFormData,
+    data: TFFormData,
+    template?: TFFormData,
     getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TerraformFormData> {
-    /* istanbul ignore else */
+  ): FormikErrors<TFFormData> {
+    /* istanbul ignore next */
     const errors = {} as any
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
@@ -63,7 +60,7 @@ export class TerraformApply extends PipelineStep<TerraformFormData> {
       try {
         timeout.validateSync(data)
       } catch (e) {
-        /* istanbul ignore else */
+        /* istanbul ignore next */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
@@ -71,22 +68,48 @@ export class TerraformApply extends PipelineStep<TerraformFormData> {
         }
       }
     }
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
+    /* istanbul ignore next */
     return errors
   }
 
-  private getInitialValues(data: TerraformFormData): TerraformData {
-    return data
+  private getInitialValues(data: TFFormData): TerraformData {
+    const formData = {
+      ...data,
+      spec: {
+        ...data.spec,
+        configuration: {
+          ...data.spec?.configuration,
+          spec: {
+            ...data.spec?.configuration?.spec,
+            targets: Array.isArray(data.spec?.configuration?.spec?.targets)
+              ? data.spec?.configuration?.spec?.targets.map(target => ({
+                  value: target,
+                  id: uuid()
+                }))
+              : [{ value: '', id: uuid() }],
+            environmentVariables: Array.isArray(data.spec?.configuration?.spec?.environmentVariables)
+              ? data.spec?.configuration?.spec?.environmentVariables.map(variable => ({
+                  key: variable.name,
+                  value: variable.description,
+                  id: uuid()
+                }))
+              : [{ key: '', value: '', id: uuid() }]
+          }
+        }
+      }
+    }
+    return formData
   }
-
-  processFormData(data: TerraformData): TerraformFormData {
+  /* istanbul ignore next */
+  processFormData(data: any): TFFormData {
     return onSubmitTerraformData(data)
   }
-  renderStep(props: StepProps<TerraformFormData, unknown>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+  renderStep(props: StepProps<TFFormData, unknown>): JSX.Element {
+    const { initialValues, onUpdate, stepViewType, formikRef, inputSetData, customStepProps, isNewStep } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep

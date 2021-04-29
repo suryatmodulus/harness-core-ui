@@ -6,6 +6,7 @@ import { useStrings } from 'framework/strings'
 import type { Feature, Variation } from 'services/cf'
 
 const LOCALE = 'en'
+export const SEVEN_DAYS_IN_MILLIS = 7 * 24 * 60 * 60 * 1000
 
 /**
  * Format a timestamp to short format time (i.e: 7:41 AM)
@@ -35,6 +36,7 @@ export function formatDate(timestamp: number, dateStyle = 'medium'): string {
 
 export enum FFDetailPageTab {
   TARGETING = 'targeting',
+  METRICS = 'metrics',
   ACTIVITY = 'activity'
 }
 
@@ -171,7 +173,11 @@ function round(n: number, precision: number): number {
   return Math.round(n * prec) / prec
 }
 
-export function formatNumber(n: number): string {
+export function formatNumber(n: number, useIntl?: boolean): string {
+  if (useIntl) {
+    return new Intl.NumberFormat().format(n)
+  }
+
   let base = Math.floor(Math.log(Math.abs(n)) / Math.log(1000))
   const suffix = ABBREV[Math.min(2, base - 1)]
   base = ABBREV.indexOf(suffix) + 1

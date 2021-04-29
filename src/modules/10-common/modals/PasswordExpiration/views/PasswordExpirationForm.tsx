@@ -37,7 +37,7 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
   const passwordExpirationSettings = loginSettings.passwordExpirationPolicy
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
 
-  const { mutate } = usePutLoginSettings({
+  const { mutate: updateLoginSettings, loading: updatingLoginSettings } = usePutLoginSettings({
     loginSettingsId: loginSettings.uuid,
     queryParams: {
       accountIdentifier: accountId
@@ -52,12 +52,16 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
     }
 
     try {
-      const response = await mutate({
+      const response = await updateLoginSettings({
         ...loginSettings,
         passwordExpirationPolicy
       })
       /* istanbul ignore else */ if (response) {
-        showSuccess(getString('common.authSettings.passwordExpirationEnabled'))
+        showSuccess(
+          getString(
+            editing ? 'common.authSettings.passwordExpirationUpdated' : 'common.authSettings.passwordExpirationEnabled'
+          )
+        )
         onSubmit?.()
       }
     } catch (e) {
@@ -113,7 +117,7 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
               />
             </Layout.Vertical>
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }}>
+              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }} loading={updatingLoginSettings}>
                 {getString('save')}
               </Button>
               <Button onClick={onCancel}>{getString('cancel')}</Button>

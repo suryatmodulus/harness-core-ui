@@ -12,11 +12,11 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 const initialValues = {
-  delegateSelectors: [],
+  timeout: '10m',
   spec: {
     provisionerIdentifier: 'test',
     configuration: {
-      type: 'Inherit from plan',
+      type: 'Inline',
       spec: {
         workspace: 'test',
         configFiles: {
@@ -32,17 +32,17 @@ const initialValues = {
         }
       }
     },
-    timeout: '10m',
+
     targets: ['target-1', 'target-2']
   }
 }
 
-const template = {
-  delegateSelectors: [],
+const template: any = {
+  timeout: RUNTIME_INPUT_VALUE,
   spec: {
     provisionerIdentifier: RUNTIME_INPUT_VALUE,
     configuration: {
-      type: 'Inherit from plan',
+      type: 'Inline',
       spec: {
         workspace: RUNTIME_INPUT_VALUE,
         configFiles: {
@@ -58,7 +58,7 @@ const template = {
         }
       }
     },
-    timeout: RUNTIME_INPUT_VALUE,
+
     targets: RUNTIME_INPUT_VALUE
   }
 }
@@ -70,7 +70,7 @@ describe('Test terraform input set', () => {
         <Formik initialValues={{}} onSubmit={() => undefined}>
           <FormikForm>
             <TerraformInputStep
-              initialValues={initialValues}
+              initialValues={initialValues as any}
               stepType={StepType.TerraformDestroy}
               stepViewType={StepViewType.InputSet}
               inputSetData={{

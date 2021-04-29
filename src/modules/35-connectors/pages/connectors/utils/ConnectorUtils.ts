@@ -9,7 +9,8 @@ import {
   AwsCredential,
   ErrorDetail,
   Connector,
-  AppDynamicsConnectorDTO
+  AppDynamicsConnectorDTO,
+  AwsKmsConnectorDTO
 } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -621,7 +622,8 @@ export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Prom
     delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors,
     roleArn: connectorInfo.spec?.credential?.spec?.roleArn,
     externalName: connectorInfo.spec?.credential?.spec?.externalName,
-    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration
+    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration,
+    default: (connectorInfo.spec as AwsKmsConnectorDTO)?.default
   }
 
   return formData

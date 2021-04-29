@@ -78,12 +78,14 @@ const renderPopover = ({
           icon="Edit"
           text={labels.addStep}
           onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
+          withoutBoxShadow
         />
         <Button
           minimal
           icon="step-group"
           text={labels.addStepGroup}
           onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
+          withoutBoxShadow
         />
       </Layout.Vertical>
     </>

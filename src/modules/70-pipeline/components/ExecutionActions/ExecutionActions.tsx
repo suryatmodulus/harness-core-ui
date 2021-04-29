@@ -19,7 +19,8 @@ const commonButtonProps: ButtonProps = {
   small: true,
   tooltipProps: {
     isDark: true
-  }
+  },
+  withoutBoxShadow: true
 }
 
 export interface ExecutionActionsProps {

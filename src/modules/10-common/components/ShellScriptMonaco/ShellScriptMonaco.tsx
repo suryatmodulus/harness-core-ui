@@ -53,7 +53,8 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
             minimap: {
               enabled: false
             },
-            readOnly: disabled
+            readOnly: disabled,
+            scrollBeyondLastLine: false
           } as MonacoEditorProps['options']
         }
         onChange={txt => formik.setFieldValue(name, txt)}

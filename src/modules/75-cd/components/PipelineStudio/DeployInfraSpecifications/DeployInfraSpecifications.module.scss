@@ -165,7 +165,7 @@
   &.notwide {
     width: auto;
   }
-  background-color: #fafbfc;
+  background-color: var(--grey-50);
   box-shadow: none;
   -webkit-box-shadow: none;
 }

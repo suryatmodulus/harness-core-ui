@@ -10,7 +10,6 @@
     height: calc(100% - 125px);
   }
   .navigationButtons {
-    background-color: var(--form-bg);
     padding-left: var(--spacing-huge);
     margin-bottom: 60px;
     &.overrides {
@@ -18,14 +17,12 @@
     }
   }
   .overFlowScroll {
-    background-color: var(--form-bg);
     &.alignCenter {
       padding-left: var(--spacing-huge);
     }
   }
   .content-section {
     padding: 48px;
-    background-color: var(--form-bg);
   }
   .tabHeading {
     font-size: var(--font-size-medium);
@@ -42,10 +39,15 @@
   .section-card {
     width: 1024px;
     margin-bottom: 20px;
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-    // background-color: #fafbfc;
-    // box-shadow: none;
-    // -webkit-box-shadow: none;
+    &.shadow {
+      box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+    }
+    &.notwide {
+      width: auto;
+    }
+    background-color: var(--grey-50);
+    box-shadow: none;
+    -webkit-box-shadow: none;
   }
   .nopadleft {
     padding-left: 0 !important;

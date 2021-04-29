@@ -16,6 +16,8 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly shadow: string
+  readonly notwide: string
   readonly accordionTitle: string
   readonly cardSection: string
   readonly serviceDefinition: string

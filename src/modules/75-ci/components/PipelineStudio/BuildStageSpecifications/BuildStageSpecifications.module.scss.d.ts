@@ -6,7 +6,6 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
-  readonly shadow: string
   readonly section: string
   readonly noPadTop: string
   readonly specTabs: string

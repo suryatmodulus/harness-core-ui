@@ -8,7 +8,7 @@
 .content-section {
   padding: 48px;
   height: 100%;
-  background-color: var(--grey-50);
+  background-color: var(--white);
 }
 
 .tabHeading {
@@ -28,6 +28,8 @@
   width: 1024px;
   margin-bottom: 20px;
   background-color: var(--grey-50);
+  box-shadow: none;
+  -webkit-box-shadow: none;
   &:not(:last-child) {
     :global(.bp3-collapse-body > div) {
       background-color: var(--white) !important;
@@ -278,6 +280,7 @@
 
 .navigationButtons {
   margin-bottom: 40px;
+  background-color: var(--white);
 }
 .accordionTitle {
   background-color: transparent;

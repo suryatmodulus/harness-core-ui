@@ -399,4 +399,47 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: 'id12',
+
+      spec: {
+        store: {
+          spec: {
+            commitId: 'awsd123sd',
+            gitFetchType: 'Commit',
+            folderPath: './temp',
+            skipResourceVersioning: true,
+            repoName: 'someurl/repoName',
+            pluginPath: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      }
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <KustomizeWithGIT initialValues={initialValues} {...defaultProps} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
 })

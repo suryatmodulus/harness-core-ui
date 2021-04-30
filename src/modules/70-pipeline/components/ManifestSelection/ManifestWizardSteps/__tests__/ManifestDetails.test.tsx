@@ -1,10 +1,11 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, wait } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { TestWrapper } from '@common/utils/testUtils'
 
-import ManifestDetails from '../ManifestDetails'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import ManifestDetails from '../ManifestDetails'
+
 const props = {
   stepName: 'Manifest details',
   expressions: [],
@@ -298,7 +299,7 @@ describe('Manifest Details tests', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('when selected manifest is of type K8sManifest', () => {
+  test('when selected manifest is of type K8sManifest', async () => {
     const defaultProps = {
       ...props,
       prevStepData: {
@@ -322,7 +323,63 @@ describe('Manifest Details tests', () => {
         <ManifestDetails {...defaultProps} />
       </TestWrapper>
     )
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    await act(async () => {
+      fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
+      fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
+      fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
+      fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
+    })
+    expect(container).toMatchSnapshot()
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+    await wait(() => {
+      expect(props.handleSubmit).toHaveBeenCalledWith({
+        manifest: {
+          identifier: 'testidentifier',
+          spec: {
+            store: {
+              spec: {
+                branch: 'testBranch',
+                commitId: undefined,
+                connectorRef: '',
+                gitFetchType: 'Branch',
+                paths: ['test-path'],
+                repoName: ''
+              },
+              type: undefined
+            }
+          }
+        }
+      })
+    })
+  })
 
+  test('expand advanced section - when type is k8smanifest', () => {
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: Scope.ACCOUNT,
+          connector: {
+            identifier: 'test'
+          }
+        }
+      },
+      initialValues,
+      selectedManifest: 'K8sManifest',
+      handleSubmit: jest.fn()
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <ManifestDetails {...defaultProps} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
     expect(container).toMatchSnapshot()
   })
 })

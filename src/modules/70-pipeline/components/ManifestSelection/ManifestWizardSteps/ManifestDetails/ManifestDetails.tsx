@@ -81,12 +81,14 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       if (event.preventDefault) {
         event.preventDefault()
       }
+      /* istanbul ignore next */
       const data = event.dataTransfer.getData('data')
       /* istanbul ignore next */
       if (data) {
         const index = parseInt(data, 10)
         arrayHelpers.swap(index, droppedIndex)
       }
+      /* istanbul ignore next */
       event.currentTarget.classList.remove(css.dragOver)
     },
     []
@@ -194,14 +196,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       }
     }
     if (manifestObj?.manifest?.spec?.store) {
-      console.log('in here')
       if (formData?.gitFetchType === 'Branch') {
         manifestObj.manifest.spec.store.spec.branch = formData?.branch
       } else if (formData?.gitFetchType === 'Commit') {
         manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
       }
     }
-
     if (selectedManifest === ManifestDataType.K8sManifest) {
       ;(manifestObj.manifest?.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
     }

@@ -305,4 +305,55 @@ describe('Open shift template with git tests', () => {
 
     expect(container).toMatchSnapshot()
   })
+
+  test('expand the advanced section', () => {
+    const initialValues = {
+      identifier: 'testidentifier',
+      spec: {
+        store: {
+          spec: {
+            commitId: 'test-commit',
+            connectorRef: {
+              label: 'test',
+              value: 'test',
+              scope: 'Account',
+              connector: {
+                spec: {
+                  connectionType: 'Repo'
+                }
+              }
+            },
+            gitFetchType: 'Commit',
+            paths: ['test-path-1'],
+            repoName: ''
+          },
+          type: 'Git'
+        }
+      }
+    }
+    const defaultProps = {
+      ...props,
+      prevStepData: {
+        store: 'Git',
+        connectorRef: {
+          label: 'test',
+          value: 'test',
+          scope: 'Account',
+          connector: {
+            spec: {
+              connectionType: 'Repo'
+            }
+          }
+        }
+      }
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...defaultProps} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
 })

@@ -75,7 +75,7 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
 
     if (units.length === 0 && logKeys.length > 0) {
       hasNoUnits = true
-      units = logKeys.map((_: unknown, i: number) => `Section ${i + 1}`)
+      units = logKeys.map((_: unknown, i: number) => `Logs ${i + 1}`)
     }
 
     if (Array.isArray(node.unitProgresses)) {
@@ -137,17 +137,15 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
       }
     } else {
       // open the running section
-      const runningUnit = findLast([...progressMap.keys()], unit => isExecutionRunning(dataMap[unit]?.unitStatus))
+      const runningUnit = findLast(units, unit => isExecutionRunning(dataMap[unit]?.unitStatus))
       key = runningUnit || null
     }
 
-    // if we are openening a section the set it to loading
+    // if we are opening a section the set it to loading
     if (key && dataMap[key].status !== 'QUEUED') {
       set(dataMap[key], 'status', 'LOADING')
     }
 
     return { units, dataMap, selectedStep }
   }
-
-  return state
 }

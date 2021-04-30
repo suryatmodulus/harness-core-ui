@@ -28,13 +28,13 @@ exports[`FailedBuildCard matches snapshot 1`] = `
       class="StyledProps--font StyledProps--main titleAndMessage"
     >
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+        class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
         style="--text-line-clamp: 1;"
       >
         Test-Pipeline1
       </p>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
         style="--text-line-clamp: 1;"
       >
         Fix image secrets in OSS version, a long msg
@@ -53,9 +53,9 @@ exports[`FailedBuildCard matches snapshot 1`] = `
         >
           <svg
             data-icon="time"
-            height="14"
+            height="10"
             viewBox="0 0 16 16"
-            width="14"
+            width="10"
           >
             <desc>
               time
@@ -66,7 +66,7 @@ exports[`FailedBuildCard matches snapshot 1`] = `
             />
           </svg>
         </span>
-        32m
+        5m
       </div>
       <div
         class="StyledProps--font StyledProps--main"
@@ -80,9 +80,9 @@ exports[`FailedBuildCard matches snapshot 1`] = `
           >
             <svg
               data-icon="git-branch"
-              height="14"
+              height="10"
               viewBox="0 0 16 16"
-              width="14"
+              width="10"
             >
               <desc>
                 git-branch
@@ -106,9 +106,9 @@ exports[`FailedBuildCard matches snapshot 1`] = `
           >
             <svg
               data-icon="git-commit"
-              height="14"
+              height="10"
               viewBox="0 0 16 16"
-              width="14"
+              width="10"
             >
               <desc>
                 git-commit
@@ -160,13 +160,13 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
       class="StyledProps--font StyledProps--main titleAndMessage"
     >
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+        class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
         style="--text-line-clamp: 1;"
       >
         Test-Pipeline1
       </p>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
         style="--text-line-clamp: 1;"
       >
         Fix image secrets in OSS version, a long msg
@@ -185,9 +185,9 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
         >
           <svg
             data-icon="time"
-            height="14"
+            height="10"
             viewBox="0 0 16 16"
-            width="14"
+            width="10"
           >
             <desc>
               time
@@ -198,7 +198,7 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
             />
           </svg>
         </span>
-        32m
+        5m
       </div>
       <div
         class="StyledProps--font StyledProps--main"
@@ -212,9 +212,9 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
           >
             <svg
               data-icon="git-branch"
-              height="14"
+              height="10"
               viewBox="0 0 16 16"
-              width="14"
+              width="10"
             >
               <desc>
                 git-branch
@@ -238,9 +238,9 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
           >
             <svg
               data-icon="git-commit"
-              height="14"
+              height="10"
               viewBox="0 0 16 16"
-              width="14"
+              width="10"
             >
               <desc>
                 git-commit
@@ -252,7 +252,7 @@ exports[`FailedBuildCard matches snapshot when commitId is long 1`] = `
             </svg>
           </span>
           <a>
-            123sdf2
+            3123123
           </a>
         </div>
       </div>

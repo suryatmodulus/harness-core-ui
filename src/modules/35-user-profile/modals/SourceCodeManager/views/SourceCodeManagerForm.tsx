@@ -136,6 +136,10 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
           {
             label: getString('kerberos'),
             value: AuthTypes.KERBEROS
+          },
+          {
+            label: getString('SSH_KEY'),
+            value: AuthTypes.SSH_KEY
           }
         ]
       case SourceCodeTypes.AWS_CODE_COMMIT:
@@ -299,7 +303,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                       cornerSelected={true}
                       className={css.cardRow}
                       cardClassName={css.card}
-                      renderItem={(item, selectedItem) => (
+                      renderItem={item => (
                         <CardBody.Icon icon={item.icon} iconSize={25}>
                           <Text
                             font={{
@@ -307,7 +311,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                               align: 'center'
                             }}
                             flex={{ justifyContent: 'center' }}
-                            color={selectedItem ? Color.GREY_900 : Color.GREY_350}
+                            color={Color.BLACK}
                           >
                             {item.text}
                           </Text>

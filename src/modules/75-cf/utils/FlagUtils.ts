@@ -1,4 +1,4 @@
-import { Feature, usePatchFeature } from 'services/cf'
+import { Feature, PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
 
 export interface FlagPatchParams {
   accountIdentifier: string
@@ -59,10 +59,11 @@ const makePatchHook = (patchKind: string) => ({
     identifier: '',
     queryParams: {
       account: accountIdentifier,
+      accountIdentifier,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environmentIdentifier
-    }
+    } as PatchFeatureQueryParams
   })
 
   return (featureFlag: Feature, variation: any, targetIdentifiers: string[]) => {

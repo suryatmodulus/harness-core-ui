@@ -151,7 +151,7 @@ export default function CVMonitoringSourcesPage() {
                 Cell: TypeTableCell
               },
               {
-                Header: getString('numberOfServices'),
+                Header: getString('services'),
                 accessor: 'numberOfServices',
                 width: '20%'
               },

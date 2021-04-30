@@ -45,6 +45,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const queryParams = useMemo(
     () => ({
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier as string,
       environment: environmentIdentifier,

@@ -137,7 +137,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
             title="Toggle SortBy"
           >
-            numberOfServices
+            services
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"
@@ -165,7 +165,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
             style="width: 16.5%;"
             title="Toggle SortBy"
           >
-            cv.admin.activitySources.tableColumnNames.environments
+            environments
             <span
               class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
               icon="double-caret-vertical"

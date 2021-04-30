@@ -1,7 +1,7 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { spec } from '@cv/components/PipelineSteps/ContinousVerification/types'
-import type { VerificationJob } from '../../types'
+import type { VerificationJob } from '@cv/components/PipelineSteps/ContinousVerification/components/ContinousVerificationWidget/types'
 /**
  *  gets particular field data from selected job
  * @param selectedJobField

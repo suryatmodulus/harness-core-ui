@@ -40,6 +40,7 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
   const queryParams = useMemo(
     () => ({
       account,
+      accountIdentifier: account,
       org,
       project,
       startTime: startDate.getTime(),
@@ -114,7 +115,6 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
 
     const variationSeriesItem = {
       name: variation.name,
-      type: 'areaspline',
       color: CFVariationColors[index % CFVariationColors.length],
       data: seriesData,
       tooltips

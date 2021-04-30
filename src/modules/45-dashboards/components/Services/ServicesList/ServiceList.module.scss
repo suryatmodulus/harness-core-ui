@@ -2,15 +2,18 @@
   width: fit-content;
 }
 
-.serviceInstancesCount {
-  justify-content: center;
-  align-items: flex-end;
-}
-
 .lastDeployments {
   align-items: flex-start;
   .statusText {
     padding: 2px 4px !important;
     border-radius: 6px;
   }
+}
+
+.pieChartLabelContainerStyles {
+  padding-right: var(--spacing-small) !important;
+}
+
+.pieChartLabelStyles {
+  font-size: var(--font-size-xsmall) !important;
 }

@@ -145,6 +145,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
   const queryParams = useMemo(() => {
     return {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier as string,
       environment: environmentIdentifier,

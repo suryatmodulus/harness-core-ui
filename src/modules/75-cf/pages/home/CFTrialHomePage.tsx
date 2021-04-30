@@ -10,13 +10,10 @@ const CFTrialHomePage: React.FC = () => {
     description: getString('cf.cfTrialHomePage.startTrial.description'),
     learnMore: {
       description: getString('cf.learnMore'),
-      // TODO: need replace learn more url
-      url: ''
+      url: 'https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features'
     },
     startBtn: {
-      description: getString('cf.cfTrialHomePage.startTrial.startBtn.description'),
-      // TODO: need call licensing api and return value
-      onClick: () => true
+      description: getString('cf.cfTrialHomePage.startTrial.startBtn.description')
     }
   }
 

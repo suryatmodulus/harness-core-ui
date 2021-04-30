@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { get } from 'lodash-es'
 import { useToaster } from '@common/exports'
-import { useCreateTarget } from 'services/cf'
+import { CreateTargetQueryParams, useCreateTarget } from 'services/cf'
 import CreateTargetModal, { TargetData } from './CreateTargetModal'
 
 export interface NewTargetsProps {
@@ -27,7 +27,7 @@ export const NewTargets: React.FC<NewTargetsProps> = ({
   const { showError, clear } = useToaster()
   const [loadingBulk, setLoadingBulk] = useState<boolean>(false)
   const { mutate: createTarget, loading: loadingCreateTarget } = useCreateTarget({
-    queryParams: { account: accountId, org: orgIdentifier }
+    queryParams: { account: accountId, accountIdentifier: accountId, org: orgIdentifier } as CreateTargetQueryParams
   })
 
   const bulkTargetCreation = (ts: TargetData[]): Promise<SettledTarget[]> => {

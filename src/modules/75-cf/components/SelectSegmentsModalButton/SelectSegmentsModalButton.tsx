@@ -56,6 +56,7 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
     const queryParams = useMemo(
       () => ({
         account: accountId,
+        accountIdentifier: accountId,
         org: orgIdentifier,
         project: projectIdentifier,
         environment: environmentIdentifier,

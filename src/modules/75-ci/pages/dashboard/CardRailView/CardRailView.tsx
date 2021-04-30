@@ -1,19 +1,22 @@
-import React from 'react'
-import { Container, Link, Icon, Text, IconName } from '@wings-software/uicore'
+import React, { useRef, useEffect, useState } from 'react'
+import { Container, Link, Text } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import EmptyRepositories from './EmptyRepositories.svg'
 import EmptyFailedBuilds from './EmptyFailedBuilds.svg'
 import EmptyActiveBuilds from './EmptyActiveBuilds.svg'
+import RepoIconUrl from './RepoIcon.svg'
+import FailedBuildIconUrl from './FailedBuildIcon.svg'
+import ActiveBuildIconUrl from './ActiveBuildIcon.svg'
 import styles from './CardRailView.module.scss'
 
 export interface CardRailViewProps {
   contentType: 'REPOSITORY' | 'FAILED_BUILD' | 'ACTIVE_BUILD'
   titleSideContent?: React.ReactNode
-  isLoading: boolean
+  isLoading?: boolean
   onShowAll?(): void
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export default function CardRailView({
@@ -24,7 +27,8 @@ export default function CardRailView({
   children
 }: CardRailViewProps) {
   const { getString } = useStrings()
-
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [scrollbarVisible, setScrollbarVisible] = useState(false)
   const titles = {
     REPOSITORY: getString('repositories'),
     FAILED_BUILD: getString('ci.dashboard.failedBuilds'),
@@ -32,9 +36,9 @@ export default function CardRailView({
   }
 
   const icons = {
-    REPOSITORY: 'database',
-    FAILED_BUILD: 'delete',
-    ACTIVE_BUILD: 'warning-sign'
+    REPOSITORY: RepoIconUrl,
+    FAILED_BUILD: FailedBuildIconUrl,
+    ACTIVE_BUILD: ActiveBuildIconUrl
   }
 
   const emptyIcons = {
@@ -49,18 +53,35 @@ export default function CardRailView({
     ACTIVE_BUILD: getString('ci.dashboard.noActiveBuilds')
   }
 
+  const onResize = () => {
+    if (contentRef.current) {
+      const visible = contentRef.current.scrollHeight > contentRef.current.offsetHeight
+      if (scrollbarVisible !== visible) {
+        setScrollbarVisible(visible)
+      }
+    }
+  }
+
+  useEffect(() => {
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  })
+
   const isEmpty = !isLoading && React.Children.count(children) === 0
 
   return (
     <Container className={styles.main}>
       <Container className={styles.header}>
-        <Icon width={14} name={icons[contentType] as IconName} />
-        <Text className={styles.title} font={{ size: 'medium' }}>
-          {titles[contentType]}
-        </Text>
+        <img src={icons[contentType]} />
+        <Text className={styles.title}>{titles[contentType]}</Text>
         {titleSideContent}
       </Container>
-      <Container className={classnames(styles.content, { [styles.contentEmpty]: isEmpty })}>
+      <Container
+        ref={contentRef}
+        padding={scrollbarVisible ? { right: 'xsmall' } : undefined}
+        className={classnames(styles.content, { [styles.contentEmpty]: isEmpty })}
+      >
         {isEmpty && (
           <Container className={styles.emptyView}>
             <Container className={styles.emptyViewItem} />

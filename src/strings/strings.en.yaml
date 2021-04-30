@@ -218,7 +218,6 @@ tbd: TBD
 color: Color
 applyChanges: Apply Changes
 createViaYaml: Create via YAML Builder
-numberOfServices: 'Number of Services'
 saveAndPublish: Save and Publish
 unsavedChanges: Unsaved changes
 status: Status

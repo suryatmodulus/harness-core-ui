@@ -17,8 +17,8 @@ describe('FailedBuildCard', () => {
         username="John Doe"
         branchName="Master"
         commitId="123sdf2"
-        durationMin={32}
-        timestamp={1616003810297}
+        startTime={1616003810297}
+        endTime={1616003810297 + 5 * 60000}
       />
     )
     expect(container).toMatchSnapshot()
@@ -32,8 +32,8 @@ describe('FailedBuildCard', () => {
         username="John Doe"
         branchName="Master"
         commitId="123sdf2123123123123"
-        durationMin={32}
-        timestamp={1616003810297}
+        startTime={1616003810297}
+        endTime={1616003810297 + 5 * 60000}
       />
     )
     expect(container).toMatchSnapshot()

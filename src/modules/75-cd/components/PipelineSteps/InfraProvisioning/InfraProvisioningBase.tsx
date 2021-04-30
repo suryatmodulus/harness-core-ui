@@ -110,11 +110,7 @@ export const InfraProvisioningBase = (
                                   onUpdate: executionRef.current?.stepGroupUpdated,
                                   isRollback: event.isRollback,
                                   isParallelNodeClicked: event.isParallel,
-                                  hiddenAdvancedPanels: [
-                                    AdvancedPanels.FailureStrategy,
-                                    AdvancedPanels.PreRequisites,
-                                    AdvancedPanels.DelegateSelectors
-                                  ]
+                                  hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
                                 }
                               }
                             }

@@ -8,6 +8,8 @@ import type { ChangeValue } from '@dashboards/components/Services/DeploymentsWid
 import { useStrings } from 'framework/strings'
 import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
+import { PieChart, PieChartProps } from '@dashboards/components/PieChart/PieChart'
+import { numberFormatter } from '@dashboards/components/Services/common'
 import css from '@dashboards/components/Services/ServicesList/ServiceList.module.scss'
 
 export enum DeploymentStatus {
@@ -96,8 +98,32 @@ const getRenderTickerCard: (
 const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   const { serviceInstances } = row.original
   const { getString } = useStrings()
+  const pieChartProps: PieChartProps = {
+    items: [
+      {
+        label: getString('dashboards.serviceDashboard.nonProd'),
+        value: serviceInstances.nonProdCount,
+        formattedValue: numberFormatter(serviceInstances.nonProdCount),
+        color: 'var(--blue-450)'
+      },
+      {
+        label: getString('dashboards.serviceDashboard.prod'),
+        value: serviceInstances.prodCount,
+        formattedValue: numberFormatter(serviceInstances.prodCount),
+        color: 'var(--blue-500)'
+      }
+    ],
+    size: 24,
+    labelContainerStyles: css.pieChartLabelContainerStyles,
+    labelStyles: css.pieChartLabelStyles,
+    options: {
+      tooltip: {
+        enabled: false
+      }
+    }
+  }
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal flex={{ align: 'center-center' }}>
       <Text
         color={Color.BLACK}
         font={{ weight: 'semi-bold', size: 'medium' }}
@@ -107,14 +133,7 @@ const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) =
       >
         {serviceInstances.count}
       </Text>
-      <Layout.Vertical className={css.serviceInstancesCount}>
-        <Text font={{ size: 'xsmall' }} margin={{ bottom: 'xsmall' }}>{`${getString(
-          'dashboards.serviceDashboard.nonProd'
-        )}(${serviceInstances.nonProdCount})`}</Text>
-        <Text font={{ size: 'xsmall' }}>{`${getString('dashboards.serviceDashboard.prod')}(${
-          serviceInstances.prodCount
-        })`}</Text>
-      </Layout.Vertical>
+      <PieChart {...pieChartProps} />
     </Layout.Horizontal>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { useModalHook, Layout, ExpandingSearchInput, Text, Color } from '@wings-software/uicore'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 
 import type { RestResponseUser } from 'services/portal'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -20,6 +20,7 @@ interface SwitchAccountModalProps {
 const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
   const { mock } = props
   const [searchString, setSearchString] = useState<string>('')
+  const { getString } = useStrings()
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -30,7 +31,11 @@ const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
             <Text color={Color.BLACK} font={{ size: 'medium' }}>
               <String stringID="userProfile.switchAccount" />
             </Text>
-            <ExpandingSearchInput onChange={str => setSearchString(str.trim())} />
+            <ExpandingSearchInput
+              placeholder={getString('userProfile.switchAccountSearch')}
+              defaultValue={searchString}
+              onChange={str => setSearchString(str.trim())}
+            />
           </Layout.Horizontal>
         }
         onClose={hideModal}
@@ -43,7 +48,10 @@ const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
   )
 
   return {
-    openSwitchAccountModal: () => showModal(),
+    openSwitchAccountModal: () => {
+      setSearchString('')
+      showModal()
+    },
     closeSwitchAccountModal: hideModal
   }
 }

@@ -5,7 +5,7 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, userGroupPathProps } from '@common/utils/routeUtils'
 import type { ResponseBoolean } from 'services/cd-ng'
 import UserGroupDetails from '../UserGroupDetails'
-import { mockResponse, userGroupInfo } from './mock'
+import { mockResponse, userGroupInfo, userInfo } from './mock'
 
 const deleteMember = jest.fn()
 const deleteMemberMock = (): ResponseBoolean => {
@@ -19,6 +19,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useRemoveMember: jest.fn().mockImplementation(() => {
     return { mutate: deleteMemberMock }
+  }),
+  useGetUsersInUserGroup: jest.fn().mockImplementation(() => {
+    return { data: userInfo, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 
@@ -46,7 +49,7 @@ describe('UserGroupDetails Test', () => {
   }),
     test('Delete Member', async () => {
       deleteMember.mockReset()
-      const menu = container.querySelector(`[data-testid="menu-${userGroupInfo.data?.users?.[0].uuid}"]`)
+      const menu = container.querySelector(`[data-testid="menu-${userInfo.data?.content?.[0].uuid}"]`)
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'common.remove')

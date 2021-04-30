@@ -6,7 +6,7 @@ import { clone, merge } from 'lodash-es'
 
 const chartDefaultOptions: Highcharts.Options = {
   chart: {
-    type: 'areaspline'
+    type: 'column'
   },
   legend: {
     layout: 'vertical',
@@ -55,12 +55,11 @@ const chartDefaultOptions: Highcharts.Options = {
     enabled: false
   },
   plotOptions: {
-    series: {
-      pointPlacement: 'on'
-    },
-    areaspline: {
-      fillOpacity: 0.8,
-      lineColor: 'transparent'
+    column: {
+      stacking: 'normal',
+      dataLabels: {
+        enabled: true
+      }
     }
   }
 }

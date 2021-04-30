@@ -28,7 +28,8 @@ import {
   Serve,
   VariationMap,
   WeightedVariation,
-  TargetMap
+  TargetMap,
+  PatchFeatureQueryParams
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
@@ -83,8 +84,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       project: project as string,
       environment: environment?.value as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as PatchFeatureQueryParams
   })
 
   const onCancelEditHandler = (): void => {

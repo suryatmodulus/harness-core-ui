@@ -3,9 +3,10 @@ basicInformation: Basic Information
 changePassword: Change Password
 switchAccount: Switch Account
 setAsDefault: Set as Default
+switchAccountSearch: Search by Account Name
 headerAccountName: '{{ $.common.accountName }}'
 headerCompanyName: Company Name
-headerAccountEdition: AccountEdition
+headerAccountEdition: Account Edition
 headerDefaultAccount: Default Account
 passwordReqs: 'Password must meet the requirements.'
 passwordMatch: 'Passwords must match.'

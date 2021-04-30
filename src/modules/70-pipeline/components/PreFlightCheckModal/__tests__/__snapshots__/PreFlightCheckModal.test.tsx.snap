@@ -247,11 +247,16 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Connector1
+                    </p>
                   </a>
                 </span>
               </span>
@@ -302,11 +307,16 @@ exports[`PreflightCheck click on section title open correct section 2`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Connector1
+                    </p>
                   </a>
                 </span>
               </span>
@@ -462,7 +472,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
             <p
               class="StyledProps--font StyledProps--main connectorName"
             >
-              Connector1
+              account.testconttlshanf
             </p>
             <span
               class="connectorId"
@@ -476,11 +486,16 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/admin/resources/connectors/testconttlshanf"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      account.testconttlshanf
+                    </p>
                   </a>
                 </span>
               </span>
@@ -517,11 +532,11 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Connector2-panel"
+              data-testid="org.orgConnectorId-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Connector2-summary"
+                data-testid="org.orgConnectorId-summary"
               >
                 <div
                   class=""
@@ -532,7 +547,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main connectorName"
                     >
-                      Connector2
+                      org.orgConnectorId
                     </p>
                     <span
                       class="connectorId"
@@ -546,11 +561,16 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                         >
                           <a
                             class=""
-                            href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                            href="/account/accId/admin/organizations/orgId/resources/connectors/orgConnectorId"
                             tabindex="0"
                             target="_blank"
                           >
-                            Connector2
+                            <p
+                              class="StyledProps--font Text--lineclamp StyledProps--main"
+                              style="--text-line-clamp: 1;"
+                            >
+                              org.orgConnectorId
+                            </p>
                           </a>
                         </span>
                       </span>
@@ -603,11 +623,11 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
             <div
               class="Accordion--panel"
               data-open="false"
-              data-testid="Connector3-panel"
+              data-testid="projectConnectorId-panel"
             >
               <div
                 class="Accordion--summary"
-                data-testid="Connector3-summary"
+                data-testid="projectConnectorId-summary"
               >
                 <div
                   class=""
@@ -618,7 +638,7 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main connectorName"
                     >
-                      Connector3
+                      projectConnectorId
                     </p>
                     <span
                       class="connectorId"
@@ -632,11 +652,16 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                         >
                           <a
                             class=""
-                            href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                            href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                             tabindex="0"
                             target="_blank"
                           >
-                            Connector3
+                            <p
+                              class="StyledProps--font Text--lineclamp StyledProps--main"
+                              style="--text-line-clamp: 1;"
+                            >
+                              projectConnectorId
+                            </p>
                           </a>
                         </span>
                       </span>
@@ -703,11 +728,16 @@ exports[`PreflightCheck renders property when has failed checks 1`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Connector1
+                    </p>
                   </a>
                 </span>
               </span>
@@ -882,11 +912,16 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Connector1
+                    </p>
                   </a>
                 </span>
               </span>
@@ -937,11 +972,16 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
                 >
                   <a
                     class=""
-                    href="/account/accId/ci/orgs/orgId/projects/projId/pipelines/pipId/pipeline-studio/?stage=undefined&step=undefined"
+                    href="/account/accId/ci/orgs/orgId/projects/projId/admin/resources/connectors/:connectorId"
                     tabindex="0"
                     target="_blank"
                   >
-                    Connector1
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Connector1
+                    </p>
                   </a>
                 </span>
               </span>

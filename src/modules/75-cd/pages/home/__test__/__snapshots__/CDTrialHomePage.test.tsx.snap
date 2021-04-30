@@ -30,7 +30,9 @@ exports[`CDTrialHomePage snapshot test should render properly 1`] = `
           cd.cdTrialHomePage.startTrial.description
         </p>
         <a
-          href="/"
+          href=""
+          rel="noreferrer"
+          target="_blank"
         >
           cd.learnMore
         </a>

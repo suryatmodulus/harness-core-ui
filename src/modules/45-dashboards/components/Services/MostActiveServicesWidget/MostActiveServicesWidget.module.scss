@@ -1,8 +1,8 @@
 .card {
   width: 260px;
-  height: 280px;
-  margin-right: var(--spacing-xlarge);
-  padding: var(--spacing-small) var(--spacing-large);
+  padding: 0px;
+  border: 0px;
+  box-shadow: none;
   .environmentType {
     padding: 0px var(--spacing-xsmall) !important;
     cursor: pointer;

@@ -8,8 +8,8 @@ interface COGatewayLogsProps {
 }
 
 const logColorMap = {
-  errored: '\u001b[30m',
-  active: '\u001b[32m'
+  errored: '\u001b[31m', // red
+  active: '\u001b[32m' // green
 }
 
 function getLogs(logs: ServiceLog[] | undefined): string {

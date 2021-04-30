@@ -12,7 +12,7 @@ import {
   Text,
   ButtonProps
 } from '@wings-software/uicore'
-import { ApiKey, useAddAPIKey } from 'services/cf/index'
+import { AddAPIKeyQueryParams, ApiKey, useAddAPIKey } from 'services/cf/index'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { useToaster } from '@common/exports'
 import { EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
@@ -39,10 +39,11 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
   const { mutate: createKey, loading } = useAddAPIKey({
     queryParams: {
       account: environment.accountId as string,
+      accountIdentifier: environment.accountId as string,
       environment: environment.identifier as string,
       org: environment.orgIdentifier as string,
       project: environment.projectIdentifier as string
-    }
+    } as AddAPIKeyQueryParams
   })
 
   const keyTypes = [

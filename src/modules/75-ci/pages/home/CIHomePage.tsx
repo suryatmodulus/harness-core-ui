@@ -6,7 +6,8 @@ import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplat
 import { ModuleName } from 'framework/types/ModuleName'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
-import { Page } from '@common/exports'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetModuleLicenseInfo } from 'services/portal'
@@ -54,11 +55,11 @@ const CIHomePage: React.FC = () => {
   const history = useHistory()
 
   if (loading) {
-    return <Page.Spinner />
+    return <PageSpinner />
   }
 
   if (error) {
-    return <Page.Error message={error.message} onClick={() => refetch()} />
+    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
   if (data?.status === 'SUCCESS' && !data.data) {
@@ -88,6 +89,7 @@ const CIHomePage: React.FC = () => {
       bgImageUrl={bgImageURL}
       subTitle={getString('ci.dashboard.subHeading')}
       documentText={getString('ci.learnMore')}
+      documentURL="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
     />
   )
 }

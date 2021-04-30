@@ -15,7 +15,10 @@ addRole: Add Role
 addUser: Add User
 pendingUsers: Pending Users
 userGroupPage:
-  newUserGroup: New {{ $.common.userGroups}}
+  newUserGroup: New {{ $.common.userGroup}}
+  editUserGroup: Edit {{ $.common.userGroup}}
+  addMembers: Add Members
+  addUsers: Add Users
   noRoleAssignmentsText: There are no roles assigned to this User Group, Click on Add to start assigning roles
   search: Search User Groups by name or email
   confirmDelete: Are you sure you want to delete the User Group '{{name}}'
@@ -59,6 +62,7 @@ usersPage:
   noDataDescription: There are no users in this scope. Click on the button below to start adding them.
   noUsersFound: No Users found
 userDetails:
+  noMembersMessage: There are no members added to this User Group
   userGroup:
     deleteTitle: Remove from User Group
     deleteSuccessMessage: User is removed from the User Group '{{name}}'

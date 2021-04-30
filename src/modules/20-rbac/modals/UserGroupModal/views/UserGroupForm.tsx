@@ -65,6 +65,12 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     }
   })
 
+  const getTitle = (): string => {
+    if (isEdit) return getString('rbac.userGroupPage.editUserGroup')
+    if (isAddMember) return getString('rbac.userGroupPage.addMembers')
+    return getString('rbac.userGroupPage.newUserGroup')
+  }
+
   const users: MultiSelectOption[] =
     userList?.data?.content?.map(value => {
       return {
@@ -113,7 +119,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
         <Text color={Color.BLACK} font="medium">
-          {getString('rbac.userGroupPage.newUserGroup')}
+          {getTitle()}
         </Text>
         <Formik<UserGroupFormDTO>
           initialValues={{
@@ -149,7 +155,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
                   {isEdit ? null : (
                     <FormInput.MultiSelect
                       name="userList"
-                      label={getString('rbac.addUser')}
+                      label={getString('rbac.userGroupPage.addUsers')}
                       items={users}
                       multiSelectProps={{
                         allowCreatingNewItems: false,

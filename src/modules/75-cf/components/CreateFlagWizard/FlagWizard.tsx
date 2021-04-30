@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
+import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
 import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -34,7 +34,11 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
-    queryParams: { account: accountId, org: orgIdentifier }
+    queryParams: {
+      account: accountId,
+      accountIdentifier: accountId,
+      org: orgIdentifier
+    } as CreateFeatureFlagQueryParams
   })
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()

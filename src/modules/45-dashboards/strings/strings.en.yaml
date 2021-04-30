@@ -21,7 +21,7 @@ createModal:
   submitFail: 'Dashboard creation failed, Please try again.'
 serviceDashboard:
   activeServiceInstancesLabel: 'Active Service Instances'
-  servicesInLast: 'Services in Last {{period}}'
+  servicesInLast: 'Services in {{period}}'
   day: 'Last 1 day'
   week: 'Last 1 week'
   month: 'Last 1 month'

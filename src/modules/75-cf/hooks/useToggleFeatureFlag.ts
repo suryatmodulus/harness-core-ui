@@ -1,5 +1,5 @@
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
-import { PatchOperation, usePatchFeature } from 'services/cf'
+import { PatchFeatureQueryParams, PatchOperation, usePatchFeature } from 'services/cf'
 
 export interface UseToggleFeatureFlagProps {
   accountIdentifier: string
@@ -36,8 +36,9 @@ export const useToggleFeatureFlag = ({
       project: projectIdentifier,
       environment: environmentIdentifier,
       account: accountIdentifier,
+      accountIdentifier,
       org: orgIdentifier
-    }
+    } as PatchFeatureQueryParams
   })
 
   return {

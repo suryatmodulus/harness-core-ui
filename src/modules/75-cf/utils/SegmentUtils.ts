@@ -1,4 +1,4 @@
-import { usePatchSegment } from 'services/cf'
+import { PatchSegmentQueryParams, usePatchSegment } from 'services/cf'
 
 export interface TargetSegmentParams {
   accountIdentifier: string
@@ -28,10 +28,11 @@ const makeTargetsToSegmentHook = (patchKind: string) => ({
     identifier: '',
     queryParams: {
       account: accountIdentifier,
+      accountIdentifier,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environmentIdentifier
-    }
+    } as PatchSegmentQueryParams
   })
 
   return (segmentIdentifier: string, targetIdentifiers: string[]) => {

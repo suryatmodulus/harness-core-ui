@@ -11,6 +11,7 @@ import { useStrings } from 'framework/strings'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
 import { NewRelicMonitoringSource } from './new-relic/NewRelicMonitoringSource'
 import { GoogleCloudOperationsMonitoringSource } from './google-cloud-operations/GoogleCloudOperationsMonitoringSource'
+import { PrometheusMonitoringSource } from './prometheus/PrometheusMonitoringSource'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
 import css from './MonitoringSource.module.scss'
 
@@ -22,6 +23,8 @@ const getContentByType = (type: string, dsConfig?: DSConfig | null): JSX.Element
       return <GoogleCloudOperationsMonitoringSource dsConfig={dsConfig} />
     case MonitoringSourceSetupRoutePaths.NEW_RELIC:
       return <NewRelicMonitoringSource dsConfig={dsConfig} />
+    case MonitoringSourceSetupRoutePaths.PROMETHEUS:
+      return <PrometheusMonitoringSource dsConfig={dsConfig} />
     default:
       return <></>
   }

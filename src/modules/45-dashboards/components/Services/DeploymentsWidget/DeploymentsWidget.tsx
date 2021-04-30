@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Card, Color, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
@@ -9,6 +9,7 @@ import {
 } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import { TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
+import { DeploymentsTimeRangeContext } from '@dashboards/components/Services/common'
 import css from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget.module.scss'
 
 export interface ChangeValue {
@@ -27,7 +28,7 @@ export interface DeploymentWidgetProps {
 export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { getString } = useStrings()
   const { deployments, failureRate, frequency, data, dateLabels } = props
-  const [timeRange, setTimeRange] = useState<TIME_RANGE_ENUMS>(TIME_RANGE_ENUMS.SIX_MONTHS)
+  const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
   const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
   const getTickerTextComponent = useMemo(
     () => (value: number) => (

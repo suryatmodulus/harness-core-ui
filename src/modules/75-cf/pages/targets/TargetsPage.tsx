@@ -25,7 +25,6 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { OptionsMenuButton } from '@common/components'
 import { EnvironmentSelect } from '@cf/components/EnvironmentSelect/EnvironmentSelect'
-import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
 import { Segment, Target, useDeleteTarget, useGetAllTargets } from 'services/cf'
 import {
   makeStackedCircleShortName,
@@ -44,15 +43,16 @@ export const TargetsPage: React.FC = () => {
     refetch: refetchEnvs
   } = useEnvironments({
     projectIdentifier,
-    accountIdentifier: accountId,
+    accountId,
     orgIdentifier
-  } as GetEnvironmentListForProjectQueryParams)
+  })
   const { getString } = useStrings()
   const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: (environment?.value || '') as string,
@@ -117,6 +117,7 @@ export const TargetsPage: React.FC = () => {
   const deleteTargetParams = useMemo(
     () => ({
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environment?.value

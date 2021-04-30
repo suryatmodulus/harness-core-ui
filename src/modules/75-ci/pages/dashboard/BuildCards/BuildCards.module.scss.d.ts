@@ -20,6 +20,9 @@ declare const styles: {
   readonly statHeader: string
   readonly statContent: string
   readonly statWrap: string
+  readonly rateDiffValue: string
+  readonly chartWrapper: string
   readonly cardFooter: string
+  readonly avatarWrapper: string
 }
 export default styles

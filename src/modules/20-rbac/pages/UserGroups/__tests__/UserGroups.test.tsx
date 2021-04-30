@@ -147,8 +147,7 @@ describe('UsersPage Test', () => {
 
       expect(form).toMatchSnapshot()
     }),
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Click row', async () => {
+    test('Click row', async () => {
       const row = getByText(container, userGroupsAggregate.data?.content?.[0].userGroupDTO.name!)
       fireEvent.click(row!)
       await waitFor(() => getByTestId('location'))

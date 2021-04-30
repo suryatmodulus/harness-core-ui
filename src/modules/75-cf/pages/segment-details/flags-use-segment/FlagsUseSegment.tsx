@@ -25,6 +25,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
   >()
   const queryParams = {
     account: accountId,
+    accountIdentifier: accountId,
     org: orgIdentifier,
     project: projectIdentifier,
     environment: environmentIdentifier

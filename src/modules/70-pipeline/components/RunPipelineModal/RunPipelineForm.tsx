@@ -47,6 +47,7 @@ import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTr
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -469,7 +470,7 @@ function RunPipelineFormBasic({
                 <Layout.Horizontal className={css.footer} padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }}>
                   <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
                     <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                      <Button
+                      <RbacButton
                         intent="primary"
                         type="submit"
                         icon="run-pipeline"
@@ -477,6 +478,18 @@ function RunPipelineFormBasic({
                         onClick={event => {
                           event.stopPropagation()
                           submitForm()
+                        }}
+                        permission={{
+                          resourceScope: {
+                            accountIdentifier: accountId,
+                            orgIdentifier: orgIdentifier,
+                            projectIdentifier: projectIdentifier
+                          },
+                          resource: {
+                            resourceIdentifier: pipeline?.identifier as string,
+                            resourceType: ResourceType.PIPELINE
+                          },
+                          permission: PermissionIdentifier.EXECUTE_PIPELINE
                         }}
                       />
                       <Checkbox

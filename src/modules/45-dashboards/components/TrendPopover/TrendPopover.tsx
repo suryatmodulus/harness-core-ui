@@ -1,55 +1,52 @@
 import React from 'react'
-import { useState, useMemo } from 'react'
-import type { SeriesColumnOptions } from 'highcharts'
-import cx from 'classnames'
+import { useMemo } from 'react'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
-import { Button, Layout, Popover } from '@wings-software/uicore'
+import { Button, Color, Layout, Popover, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { StackedColumnChart } from '@common/components/StackedColumnChart/StackedColumnChart'
-import {
-  TIME_RANGE_ENUMS,
-  TimeRangeSelector,
-  useTimeRangeOptions
-} from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
-import css from './TrendPopover.module.scss'
+import { TIME_RANGE_ENUMS, useTimeRangeOptions } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
+import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
+import { numberFormatter } from '@dashboards/components/Services/common'
+import css from '@dashboards/components/TrendPopover/TrendPopover.module.scss'
 
 export interface TrendPopoverProps {
-  data: Omit<SeriesColumnOptions, 'type'>[]
-}
-
-const getData = (data: TrendPopoverProps['data'], mode: TIME_RANGE_ENUMS): TrendPopoverProps['data'] => {
-  // Todo - Jasmeet - update logic to parse data depending on mode
-  if (mode === TIME_RANGE_ENUMS.SIX_MONTHS) {
-    /* handle logic */
-  }
-  return data
+  data: SparklineChartProps['data']
 }
 
 const Trend: React.FC<TrendPopoverProps> = props => {
-  const { data: propData } = props
-  const [mode, setMode] = useState<TIME_RANGE_ENUMS>(TIME_RANGE_ENUMS.SIX_MONTHS)
+  const { data } = props
   const { getString } = useStrings()
   const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
-  const title = useMemo(
-    () => getString('dashboards.serviceDashboard.servicesInLast', { period: TIME_RANGE_OPTIONS[mode] }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [mode]
-  )
-  const data = useMemo(() => getData(propData, mode), [propData, mode])
+  const title = getString('dashboards.serviceDashboard.servicesInLast', {
+    period: TIME_RANGE_OPTIONS[TIME_RANGE_ENUMS.SIX_MONTHS]
+  })
   return (
-    <Layout.Vertical padding="medium" className={css.trend}>
-      <Layout.Horizontal className={css.header}>
-        <div className={css.headerTitle}>{title}</div>
-        <div className={css.timeRangeSelectorContainer}>
-          <TimeRangeSelector mode={mode} setMode={setMode} />
-        </div>
+    <Layout.Vertical padding={{ left: 'medium', right: 'medium', top: 'xsmall', bottom: 0 }} width={676} height={200}>
+      <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }} margin={{ bottom: 'xsmall' }}>
+        <Text color={Color.GREY_600} font={{ weight: 'semi-bold' }}>
+          {title}
+        </Text>
+        <Button minimal icon="cross" iconProps={{ size: 16 }} className={Classes.POPOVER_DISMISS} />
       </Layout.Horizontal>
-      <StackedColumnChart data={data} options={{ chart: { height: 160 } }} />
-      <Button
-        minimal
-        icon="cross"
-        iconProps={{ size: 16 }}
-        className={cx(css.trendPopoverCrossIcon, Classes.POPOVER_DISMISS)}
+      <SparklineChart
+        data={data}
+        options={{
+          chart: { width: 646, height: 155 },
+          plotOptions: {
+            series: {
+              marker: {
+                enabled: true
+              },
+              dataLabels: {
+                enabled: true,
+                color: 'var(--grey-600)',
+                formatter: function () {
+                  return numberFormatter(this.y ? this.y : 0)
+                }
+              }
+            }
+          }
+        }}
+        sparklineChartContainerStyles={css.sparklineChartContainerStyles}
       />
     </Layout.Vertical>
   )

@@ -3,8 +3,7 @@ import { Layout, Container, SelectOption } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { useGetFeatureFlag } from 'services/cf'
+import { GetFeatureFlagQueryParams, useGetFeatureFlag } from 'services/cf'
 import { useEnvironments } from '@cf/hooks/environment'
 import { PageError } from '@common/components/Page/PageError'
 import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/utils/CFUtils'
@@ -31,9 +30,9 @@ const FeatureFlagsDetailPage: React.FC = () => {
   const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { data: environments, error: errorEnvs, loading: envsLoading, refetch: refetchEnvironments } = useEnvironments({
     projectIdentifier,
-    accountIdentifier: accountId,
+    accountId,
     orgIdentifier
-  } as GetEnvironmentListForProjectQueryParams)
+  })
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
 
   useDocumentTitle(getString('featureFlagsText'))
@@ -54,8 +53,9 @@ const FeatureFlagsDetailPage: React.FC = () => {
       project: projectIdentifier as string,
       environment: environmentIdentifier === 'undefined' ? '' : environmentIdentifier,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as GetFeatureFlagQueryParams
   })
 
   const onEnvChange = (item: SelectOption): void => {

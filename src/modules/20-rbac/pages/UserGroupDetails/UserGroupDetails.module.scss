@@ -27,6 +27,7 @@
 
 .memberList {
   overflow: scroll;
+  padding-top: var(--spacing-medium) !important;
 }
 
 .addButton {

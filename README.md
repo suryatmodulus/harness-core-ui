@@ -2,6 +2,13 @@
 
 Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
 
+## Important Links
+
+- [Workflow for creating docker image from any branch](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/NG_Docker_Image/executions)
+- [PR check workflows](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/Ui_Ng_PR_Check/executions)
+- [Release Build Workflows](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/build_release_branch/executions)
+- [New Release Workflow](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/create_new_release/executions)
+
 ## Documentation
 
 [Documentation](./docs/README.md)
@@ -121,6 +128,6 @@ $ yarn test
 3. Commit your changes on your branch
 4. Bump up the patch version in `package.json` (eg. 0.53.0 -> 0.53.1)
 5. Raise PR with these changes
-6. When this PR gets merged, this [Jenkins job](https://jenkinsk8s.harness.io/view/UI-release/job/ng-ui-build-release/) will create a new build for you automatically
+6. When this PR gets merged, this [Workflow](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/build_release_branch/executions) will create a new build for you automatically
 7. Please inform Ops/QE team to deploy your new build, especially in QA, UAT or prod environment.
 8. Make sure to raise a PR with the same changes (minus the version bump) for `master` branch too. Otherwise your changes will get overriden with next deployment.

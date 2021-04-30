@@ -31,9 +31,10 @@ describe('CIHomePage', () => {
   test('should return error page if call fails', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
-        data: null,
         error: {
-          message: 'call failed'
+          data: {
+            message: 'call failed'
+          }
         },
         refetch: jest.fn()
       }

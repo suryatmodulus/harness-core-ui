@@ -16,6 +16,7 @@ import css from './SecretInput.module.scss'
 interface SecretInputProps {
   name: string
   label?: string
+  placeholder?: string
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
@@ -27,7 +28,7 @@ interface FormikSecretInput extends SecretInputProps {
 
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { getString } = useStrings()
-  const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData } = props
+  const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData, placeholder } = props
 
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
@@ -57,6 +58,10 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
       get(formik?.errors, name) &&
       !isPlainObject(get(formik?.errors, name))) as boolean
 
+  const getPlaceHolder = (): string => {
+    return placeholder || getString(type === 'SSHKey' ? 'secrets.selectSecret' : 'createOrSelectSecret')
+  }
+
   return (
     <FormGroup
       helperText={errorCheck() ? get(formik?.errors, name) : null}
@@ -81,7 +86,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
               padding="small"
               className={css.containerLinkText}
             >
-              <div>{formik.values[name] ? getString('secret.configureSecret') : getString('createOrSelectSecret')}</div>
+              <div>{formik.values[name] ? getString('secret.configureSecret') : getPlaceHolder()}</div>
               {formik.values[name] ? <div>{`<${formik.values[name]['name']}>`}</div> : null}
             </Text>
           </Link>

@@ -241,7 +241,7 @@ exports[`ServicesList render 1`] = `
           style="width: 15%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main"
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall StyledProps--padding-left-medium StyledProps--padding-top-medium StyledProps--padding-right-medium StyledProps--padding-bottom-medium StyledProps--background-grey100"
@@ -249,18 +249,24 @@ exports[`ServicesList render 1`] = `
               13
             </p>
             <div
-              class="Layout--vertical StyledProps--main serviceInstancesCount"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+              style="height: 100%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--margin-bottom-xsmall"
+              <div
+                class="Layout--vertical StyledProps--main pieChartLabelContainerStyles StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
+                style="height: 100%;"
               >
-                dashboards.serviceDashboard.nonProd(1)
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
-              >
-                dashboards.serviceDashboard.prod(12)
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                >
+                  dashboards.serviceDashboard.nonProd (1)
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                >
+                  dashboards.serviceDashboard.prod (12)
+                </p>
+              </div>
             </div>
           </div>
         </div>

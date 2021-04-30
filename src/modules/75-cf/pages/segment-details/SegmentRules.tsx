@@ -23,7 +23,15 @@ import { Dialog, Divider, Spinner } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
-import { Clause, Segment, Target, useGetAllTargets, usePatchSegment } from 'services/cf'
+import {
+  Clause,
+  GetAllTargetsQueryParams,
+  PatchSegmentQueryParams,
+  Segment,
+  Target,
+  useGetAllTargets,
+  usePatchSegment
+} from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './SegmentDetailsPage.module.scss'
@@ -503,8 +511,9 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
       environment,
       project,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as GetAllTargetsQueryParams
   })
 
   const { mutate: sendPatch, loading: loadingPatch } = usePatchSegment({
@@ -513,8 +522,9 @@ export const SegmentRules: React.FC<{ segment: Segment; onUpdate: () => void }> 
       environment,
       project,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as PatchSegmentQueryParams
   })
 
   const targets = rawTargets?.targets?.map(t => t.identifier || '') || []

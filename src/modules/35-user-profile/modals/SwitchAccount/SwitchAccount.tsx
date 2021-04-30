@@ -96,13 +96,15 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
 
   useEffect(() => {
     setUser(data?.resource)
-  }, [data?.resource])
+  }, [data])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const accounts = useMemo(
     () =>
-      user?.accounts?.filter(account => account.accountName.toLowerCase().includes(searchString.toLowerCase())) || [],
-    [user?.accounts, searchString]
+      user?.accounts
+        ?.concat(user.supportAccounts || [])
+        ?.filter(account => account.accountName.toLowerCase().includes(searchString.toLowerCase())) || [],
+    [user, searchString]
   )
 
   const columns: Column<Account>[] = useMemo(
@@ -125,14 +127,14 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
         Header: getString('userProfile.headerAccountEdition'),
         accessor: row => row.licenseInfo?.accountType,
         id: 'accountType',
-        width: '15%',
+        width: '20%',
         Cell: RenderColumnAccountEdition
       },
       {
         Header: getString('userProfile.headerDefaultAccount'),
         accessor: row => row.defaults,
         id: 'defaultAccount',
-        width: '25%',
+        width: '20%',
         Cell: RenderColumnDefaultAccount
       }
     ],

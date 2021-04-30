@@ -6,11 +6,11 @@ import styles from './BuildCards.module.scss'
 export interface FailedBuildCardProps {
   title: string
   message: string
-  username: string
-  branchName: string
-  commitId: string
-  durationMin: number
-  timestamp: number
+  username?: string
+  branchName?: string
+  commitId?: string
+  startTime: number
+  endTime: number
 }
 
 export default function FailedBuildCard({
@@ -19,35 +19,39 @@ export default function FailedBuildCard({
   username,
   branchName,
   commitId,
-  durationMin,
-  timestamp
+  startTime,
+  endTime
 }: FailedBuildCardProps) {
   return (
     <Container className={styles.failedBuildCard}>
-      <Avatar name={username} />
+      {username && <Avatar name={username} />}
       <Container className={styles.titleAndMessage}>
-        <Text className={styles.title} font={{ weight: 'bold' }} color={Color.BLACK} lineClamp={1}>
+        <Text className={styles.title} margin={{ bottom: 'xsmall' }} color={Color.BLACK} lineClamp={1}>
           {title}
         </Text>
-        <Text font={{ size: 'small' }} color={Color.BLACK} lineClamp={1}>
+        <Text style={{ fontSize: 'var(--ci-font-size-small)' }} color={Color.BLACK} lineClamp={1}>
           {message}
         </Text>
       </Container>
       <Container>
         <Container className={styles.times} margin={{ bottom: 'medium' }}>
-          {moment(timestamp).fromNow()}
-          <Icon size={14} name="time" className={styles.timeIcon} />
-          {`${durationMin}m`}
+          {moment(startTime).fromNow()}
+          <Icon size={10} name="time" className={styles.timeIcon} />
+          {formatDuration(startTime, endTime)}
         </Container>
         <Container>
-          <div className={styles.linkWrap}>
-            <Icon size={14} name="git-branch" />
-            <a>{branchName}</a>
-          </div>
-          <div className={styles.linkWrap}>
-            <Icon size={14} name="git-commit" />
-            <a>{shortenCommitId(commitId)}</a>
-          </div>
+          {branchName && (
+            <div className={styles.linkWrap}>
+              <Icon size={10} name="git-branch" />
+              <a>{branchName}</a>
+            </div>
+          )}
+          {commitId && (
+            <div className={styles.linkWrap}>
+              <Icon size={10} name="git-commit" />
+              <a>{shortenCommitId(commitId)}</a>
+            </div>
+          )}
         </Container>
       </Container>
       <div className={styles.leftBorder} />
@@ -55,6 +59,11 @@ export default function FailedBuildCard({
   )
 }
 
-function shortenCommitId(commitId: string) {
-  return commitId?.length && commitId.length > 7 ? commitId.slice(0, 7) : commitId
+export function formatDuration(startTime: number, endTime: number) {
+  const diffMins = moment(endTime).diff(startTime, 'minutes')
+  return diffMins <= 180 ? `${diffMins}m` : `${moment(endTime).diff(startTime, 'hours')}h`
+}
+
+export function shortenCommitId(commitId: string) {
+  return commitId?.length && commitId.length > 7 ? commitId.slice(commitId.length - 7) : commitId
 }

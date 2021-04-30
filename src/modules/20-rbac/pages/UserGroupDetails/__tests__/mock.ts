@@ -1,4 +1,4 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ResponseBoolean, ResponsePageUserInfo } from 'services/cd-ng'
 
 export const userGroupInfo = {
   status: 'SUCCESS',
@@ -35,6 +35,36 @@ export const userGroupInfo = {
 export const mockResponse: ResponseBoolean = {
   status: 'SUCCESS',
   data: true,
+  metaData: {},
+  correlationId: ''
+}
+
+export const userInfo: ResponsePageUserInfo = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 2,
+    pageItemCount: 2,
+    pageSize: 10,
+    content: [
+      {
+        uuid: 'rbac2',
+        name: 'rbac1',
+        email: 'rbac1@harness.io',
+        admin: false,
+        twoFactorAuthenticationEnabled: false
+      },
+      {
+        uuid: 'rbac2',
+        name: 'rbac2',
+        email: 'rbac2@harness.io',
+        admin: false,
+        twoFactorAuthenticationEnabled: false
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
   metaData: {},
   correlationId: ''
 }

@@ -66,58 +66,27 @@ exports[`ServiceInstancesWidget render 1`] = `
           </p>
         </div>
         <div
-          class="StyledProps--font StyledProps--main WeightedStack--main"
+          class="StyledProps--font StyledProps--main"
+          style="height: 46px;"
         >
-          <div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            style="height: 100%;"
+          >
             <div
-              class="WeightedStack--stack WeightedStack--stackRow"
+              class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
+              style="height: 100%;"
             >
               <p
-                class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
-                style="width: 100px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
               >
-                dashboards.serviceDashboard.nonProd
-                 (
-                120
-                )
+                dashboards.serviceDashboard.nonProd (120)
               </p>
-              <div
-                class="progress-bar"
-              >
-                <div
-                  class="progress-track"
-                >
-                  <div
-                    class="progress-fill"
-                    style="width: 100%;"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="WeightedStack--stack WeightedStack--stackRow"
-            >
               <p
-                class="StyledProps--font StyledProps--main WeightedStack--stackLabelCommon WeightedStack--stackLabel"
-                style="width: 100px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
               >
-                dashboards.serviceDashboard.prod
-                 (
-                20
-                )
+                dashboards.serviceDashboard.prod (20)
               </p>
-              <div
-                class="progress-bar"
-              >
-                <div
-                  class="progress-track"
-                >
-                  <div
-                    class="progress-fill"
-                    style="width: 16.666666666666664%;"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>

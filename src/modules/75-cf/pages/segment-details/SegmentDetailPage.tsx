@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useDeleteSegment, useGetSegment } from 'services/cf'
+import { DeleteSegmentQueryParams, GetSegmentQueryParams, useDeleteSegment, useGetSegment } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -34,10 +34,11 @@ export const SegmentDetailPage: React.FC = () => {
     identifier: segmentIdentifier,
     queryParams: {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environmentIdentifier
-    }
+    } as GetSegmentQueryParams
   })
   const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
     accountId,
@@ -62,8 +63,9 @@ export const SegmentDetailPage: React.FC = () => {
       project: projectIdentifier,
       environment: segment?.environment as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as DeleteSegmentQueryParams
   })
   const deleteSegmentConfirm = useConfirmAction({
     title: getString('cf.segments.delete.title'),

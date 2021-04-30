@@ -10,6 +10,8 @@ import routes from '@common/RouteDefinitions'
 
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { encodeURIWithReservedChars } from './utils'
 import css from './StepDetails.module.scss'
 
 export interface StepDetailsProps {
@@ -83,25 +85,28 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
           </tr>
         ) : null}
         {/* TODO - this will be moved to step level once the support is added in pipeline factory */}
-        {step.stepType === StepType.Verify && deploymentTag && serviceIdentifier && (
-          <tr>
-            <th>{getString('pipeline.verificationResult')}</th>
-            <td>
-              <Link
-                to={routes.toCVDeploymentPage({
-                  accountId,
-                  projectIdentifier,
-                  orgIdentifier,
-                  deploymentTag,
-                  serviceIdentifier
-                })}
-                target="_blank"
-              >
-                {getString('pipeline.clickHere')}
-              </Link>
-            </td>
-          </tr>
-        )}
+        {step.stepType === StepType.Verify &&
+          deploymentTag &&
+          serviceIdentifier &&
+          step?.status !== ExecutionStatusEnum.Queued && (
+            <tr>
+              <th>{getString('pipeline.verificationResult')}</th>
+              <td>
+                <Link
+                  to={routes.toCVDeploymentPage({
+                    accountId,
+                    projectIdentifier,
+                    orgIdentifier,
+                    deploymentTag: encodeURIWithReservedChars(deploymentTag),
+                    serviceIdentifier
+                  })}
+                  target="_blank"
+                >
+                  {getString('pipeline.clickHere')}
+                </Link>
+              </td>
+            </tr>
+          )}
       </tbody>
     </table>
   )

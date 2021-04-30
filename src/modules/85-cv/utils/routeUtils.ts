@@ -7,7 +7,8 @@ export const ActivitySourceSetupRoutePaths = {
 export const MonitoringSourceSetupRoutePaths = {
   APP_DYNAMICS: 'app-dynamics',
   GOOGLE_CLOUD_OPERATIONS: 'google-cloud-operations',
-  NEW_RELIC: 'new-relic'
+  NEW_RELIC: 'new-relic',
+  PROMETHEUS: 'prometheus'
 }
 
 export const getRoutePathByType = (type: DSConfig['type'] | ActivitySourceDTO['type']) => {

@@ -43,7 +43,8 @@ const entitySubTypeToTagMap: {
   Codecommit: 'codecommit',
   HttpHelmRepo: 'httphelmrepo',
   NewRelic: 'newrelic',
-  GcpCloudCost: 'gcpcloudcost'
+  GcpCloudCost: 'gcpcloudcost',
+  Prometheus: 'prometheus'
 }
 
 export const getSnippetTags = (

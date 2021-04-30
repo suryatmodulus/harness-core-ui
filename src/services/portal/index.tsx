@@ -11053,6 +11053,9 @@ export interface RestResponseModuleLicense {
   createdAt: number
   lastModifiedAt: number
   numberOfCommitters?: number
+  numberOfClientMAUs?: number
+  numberOfUsers?: number
+  updateChannels?: string[]
 }
 export interface RestResponseModuleLicenseInfo {
   status: string
@@ -18917,12 +18920,12 @@ export interface AccountIdentifier {
 export type StartTrialRequestBody = ModuleLicenseInfoRequest
 
 export type UseStartTrialProps = Omit<
-  UseMutateProps<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>,
+  UseMutateProps<RestResponseModuleLicenseInfo, Error, AccountIdentifier, StartTrialRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useStartTrial = (props: UseStartTrialProps) =>
-  useMutate<RestResponseModuleLicenseInfo, unknown, AccountIdentifier, StartTrialRequestBody, void>(
+  useMutate<RestResponseModuleLicenseInfo, Error, AccountIdentifier, StartTrialRequestBody, void>(
     'POST',
     `/licenses/trial`,
     {
@@ -18932,23 +18935,23 @@ export const useStartTrial = (props: UseStartTrialProps) =>
   )
 
 export type UseGetModuleLicenseInfoProps = Omit<
-  UseGetProps<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>,
+  UseGetProps<RestResponseModuleLicenseInfo, Error, ModuleLicenseInfoRequest, void>,
   'path'
 >
 
 export const useGetModuleLicenseInfo = (props: UseGetModuleLicenseInfoProps) =>
-  useGet<RestResponseModuleLicenseInfo, unknown, ModuleLicenseInfoRequest, void>(`/licenses`, {
+  useGet<RestResponseModuleLicenseInfo, Error, ModuleLicenseInfoRequest, void>(`/licenses`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export type UseGetAccountLicenseInfoProps = Omit<
-  UseGetProps<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>,
+  UseGetProps<RestResponseAccountLicenseInfo, Error, AccountIdentifier, void>,
   'path'
 >
 
 export const useGetAccountLicenseInfo = (props: UseGetAccountLicenseInfoProps) =>
-  useGet<RestResponseAccountLicenseInfo, unknown, AccountIdentifier, void>(`/licenses/account`, {
+  useGet<RestResponseAccountLicenseInfo, Error, AccountIdentifier, void>(`/licenses/account`, {
     base: getConfig('ng/api'),
     ...props
   })

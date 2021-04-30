@@ -121,7 +121,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                         </svg>
                       </span>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-grey900"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-black"
                       >
                         common.repo_provider.bitbucketLabel
                       </p>

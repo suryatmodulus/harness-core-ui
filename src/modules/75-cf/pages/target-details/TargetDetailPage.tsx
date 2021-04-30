@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useDeleteTarget, useGetTarget } from 'services/cf'
+import { DeleteTargetQueryParams, GetTargetQueryParams, useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
@@ -34,10 +34,11 @@ export const TargetDetailPage: React.FC = () => {
     identifier: targetIdentifier,
     queryParams: {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environmentIdentifier
-    }
+    } as GetTargetQueryParams
   })
   const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
     accountId,
@@ -62,8 +63,9 @@ export const TargetDetailPage: React.FC = () => {
       project: projectIdentifier,
       environment: target?.environment as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as DeleteTargetQueryParams
   })
   const deleteTargetConfirm = useConfirmAction({
     title: getString('cf.targets.deleteTarget'),

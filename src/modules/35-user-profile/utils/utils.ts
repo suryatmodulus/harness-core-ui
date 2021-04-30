@@ -79,7 +79,7 @@ export const getAuthentication = (values: SCMData): SourceCodeManagerAuthenticat
       }
     case AuthTypes.KERBEROS:
       return {
-        type: ConnectionType.SSH,
+        type: ConnectionType.HTTP,
         spec: {
           type: AuthTypes.KERBEROS,
           spec: {

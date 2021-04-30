@@ -240,27 +240,39 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                     text={getString('addFile')}
                     onClick={() => {
                       if (formik.values.varFile?.type?.toLowerCase() === TerraformStoreTypes.Remote.toLowerCase()) {
+                        const formObject = formik.values
+
+                        delete formObject.varFile.store?.spec?.content
+
                         const payload = {
                           varFile: {
-                            ...formik.values.varFile,
+                            type: formObject.varFile.type,
                             store: {
-                              ...formik.values.varFile.store,
-                              type: formik.values?.varFile?.store?.spec?.connectorRef?.connector?.type,
+                              ...formObject.varFile.store,
+                              type: formObject?.varFile?.store?.spec?.connectorRef?.connector?.type,
                               spec: {
-                                ...formik.values.varFile.store?.spec,
-                                connectorRef: formik.values?.varFile?.store?.spec?.connectorRef
-                                  ? getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
+                                ...formObject.varFile.store?.spec,
+                                connectorRef: formObject?.varFile?.store?.spec?.connectorRef
+                                  ? getMultiTypeFromValue(formObject?.varFile?.store?.spec?.connectorRef) ===
                                     MultiTypeInputType.RUNTIME
-                                    ? formik.values?.varFile?.store?.spec?.connectorRef
-                                    : formik.values?.varFile?.store?.spec?.connectorRef?.value
+                                    ? formObject?.varFile?.store?.spec?.connectorRef
+                                    : formObject?.varFile?.store?.spec?.connectorRef?.value
                                   : ''
                               }
                             }
                           }
                         }
+                        if (formObject.varFile.store?.spec?.paths?.length) {
+                          payload.varFile.store.spec['paths'] = formObject.varFile.store?.spec?.paths?.map(
+                            (item: PathInterface) => item.path
+                          ) as any
+                        }
                         props.onSubmit(payload)
                       } else {
-                        props.onSubmit(formik.values)
+                        const formObject = formik.values
+                        delete formObject.varFile?.store
+
+                        props.onSubmit(formObject)
                       }
                     }}
                   />

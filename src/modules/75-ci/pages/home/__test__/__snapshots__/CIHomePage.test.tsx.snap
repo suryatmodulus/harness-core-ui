@@ -85,7 +85,7 @@ exports[`CIHomePage should render HomePageTemplate when return success with data
       </p>
       <a
         class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
-        href="https://ngdocs.harness.io/"
+        href="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
         rel="noreferrer noopener"
         role="button"
         style="align-self: flex-start; color: rgb(0, 146, 228); font-size: 14px;"

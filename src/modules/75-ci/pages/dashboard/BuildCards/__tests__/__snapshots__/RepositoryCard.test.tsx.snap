@@ -12,7 +12,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
         class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1;"
         >
           Pipeline 1
@@ -45,14 +45,14 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
               %
             </p>
             <span
-              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
               icon="caret-down"
             >
               <svg
                 data-icon="caret-down"
-                height="16"
+                height="14"
                 viewBox="0 0 16 16"
-                width="16"
+                width="14"
               >
                 <desc>
                   caret-down
@@ -64,7 +64,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
               </svg>
             </span>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-red500"
+              class="StyledProps--font StyledProps--main rateDiffValue"
             >
               5
               %
@@ -73,8 +73,8 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
-        style="width: 140px; height: 40px;"
+        class="StyledProps--font StyledProps--main chartWrapper StyledProps--margin-top-small StyledProps--margin-left-huge"
+        style="height: 40px;"
       >
         <div />
       </div>
@@ -83,30 +83,34 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
       class="StyledProps--font StyledProps--main cardFooter"
     >
       <div
-        class="Avatar--Avatar Avatar--contentStyle"
+        class="StyledProps--font StyledProps--main avatarWrapper"
       >
-        <span
-          class="bp3-popover-wrapper Avatar--avatarPopOver"
+        <div
+          class="Avatar--Avatar Avatar--contentStyle"
         >
           <span
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper Avatar--avatarPopOver"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-              tabindex="0"
+            <span
+              class="bp3-popover-target"
             >
-              JD
-            </div>
+              <div
+                class="Avatar--AvatarInner"
+                style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                tabindex="0"
+              >
+                JD
+              </div>
+            </span>
           </span>
-        </span>
+        </div>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+          style="--text-line-clamp: 2;"
+        >
+          This is message
+        </p>
       </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black StyledProps--margin-left-small StyledProps--margin-right-small"
-        style="--text-line-clamp: 2;"
-      >
-        This is message
-      </p>
       <div
         class="StyledProps--font StyledProps--main times"
       >
@@ -117,9 +121,9 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
         >
           <svg
             data-icon="time"
-            height="14"
+            height="10"
             viewBox="0 0 16 16"
-            width="14"
+            width="10"
           >
             <desc>
               time
@@ -152,7 +156,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
         class="StyledProps--font StyledProps--main"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+          class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
           style="--text-line-clamp: 1;"
         >
           Pipeline 1
@@ -185,14 +189,14 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
               %
             </p>
             <span
-              class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--color StyledProps--color-green500"
+              class="bp3-icon bp3-icon-caret-up StyledProps--main"
               icon="caret-up"
             >
               <svg
                 data-icon="caret-up"
-                height="16"
+                height="14"
                 viewBox="0 0 16 16"
-                width="16"
+                width="14"
               >
                 <desc>
                   caret-up
@@ -204,7 +208,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
               </svg>
             </span>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-green500"
+              class="StyledProps--font StyledProps--main rateDiffValue"
             >
               10
               %
@@ -213,8 +217,8 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
-        style="width: 140px; height: 40px;"
+        class="StyledProps--font StyledProps--main chartWrapper StyledProps--margin-top-small StyledProps--margin-left-huge"
+        style="height: 40px;"
       >
         <div />
       </div>
@@ -223,30 +227,34 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
       class="StyledProps--font StyledProps--main cardFooter"
     >
       <div
-        class="Avatar--Avatar Avatar--contentStyle"
+        class="StyledProps--font StyledProps--main avatarWrapper"
       >
-        <span
-          class="bp3-popover-wrapper Avatar--avatarPopOver"
+        <div
+          class="Avatar--Avatar Avatar--contentStyle"
         >
           <span
-            class="bp3-popover-target"
+            class="bp3-popover-wrapper Avatar--avatarPopOver"
           >
-            <div
-              class="Avatar--AvatarInner"
-              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-              tabindex="0"
+            <span
+              class="bp3-popover-target"
             >
-              JD
-            </div>
+              <div
+                class="Avatar--AvatarInner"
+                style="border-radius: 100%; line-height: 18px; width: 24px; height: 24px; font-size: 10px;"
+                tabindex="0"
+              >
+                JD
+              </div>
+            </span>
           </span>
-        </span>
+        </div>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+          style="--text-line-clamp: 2;"
+        >
+          This is message
+        </p>
       </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black StyledProps--margin-left-small StyledProps--margin-right-small"
-        style="--text-line-clamp: 2;"
-      >
-        This is message
-      </p>
       <div
         class="StyledProps--font StyledProps--main times"
       >
@@ -257,9 +265,9 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
         >
           <svg
             data-icon="time"
-            height="14"
+            height="10"
             viewBox="0 0 16 16"
-            width="14"
+            width="10"
           >
             <desc>
               time

@@ -161,7 +161,6 @@ admin:
     dialogDeleteContent: 'Are you sure you want to delete Change Source: '
     dialogDeleteTitle: 'Delete Change Source'
     tableColumnNames:
-      environments: 'Number of Environments'
       createdOn: 'Created on'
       lastUpdatedOn: 'Last Updated on'
   monitoringSources:
@@ -249,6 +248,7 @@ monitoringSources:
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
   appDName: AppDynamics
   newRelicName: New Relic
+  prometheusName: Prometheus
   appD:
     envDescription: An Environment is the representation of your production or non-production infrastructure.
     appDApplications: APPDYNAMICS APPLICATIONS

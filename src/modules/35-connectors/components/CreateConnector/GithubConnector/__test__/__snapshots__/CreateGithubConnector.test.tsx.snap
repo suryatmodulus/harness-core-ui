@@ -1761,7 +1761,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                createOrSelectSecret
+                                secrets.selectSecret
                               </div>
                             </p>
                           </a>

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import { Button, Color, Container, FlexExpander, Icon, Intent, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
-import { ApiKey, FeatureFlagRequestRequestBody, useCreateFeatureFlag } from 'services/cf'
+import { ApiKey, CreateFeatureFlagQueryParams, FeatureFlagRequestRequestBody, useCreateFeatureFlag } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
@@ -46,7 +46,11 @@ export const OnboardingDetailPage: React.FC = () => {
   const [flagCreated, setFlagCreated] = useState(false)
   const history = useHistory()
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
-    queryParams: { account: accountId, org: orgIdentifier }
+    queryParams: {
+      account: accountId,
+      accountIdentifier: accountId,
+      org: orgIdentifier
+    } as CreateFeatureFlagQueryParams
   })
 
   const switchTab = (tabId: string): void => setSelectedTabId(tabId)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, Accordion, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Formik, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -14,11 +14,8 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import { useCDNGVerificationJobs } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ContinousVerificationData } from '../../types'
-import BaseContinousVerification from './components/BaseContinousVerification'
-import DefineVerificationJob from './components/DefineVerificationJob'
-import ConfigureVerificationJob from './components/ConfigureVerificationJob/ConfigureVerificationJob'
 import type { ContinousVerificationWidgetProps, VerificationJob } from './types'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import { ContinousVerificationWidgetPanels } from './components/ContinousVerificationWidgetPanels/ContinousVerificationWidgetPanels'
 
 /**
  * Spec
@@ -104,25 +101,13 @@ export function ContinousVerificationWidget(
       {(formik: FormikProps<ContinousVerificationData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <Accordion activeId="step-1" className={stepCss.accordion}>
-            <Accordion.Panel
-              id="step-1"
-              summary={getString('basic')}
-              details={<BaseContinousVerification formik={formik} isNewStep={isNewStep} />}
-            />
-            <Accordion.Panel
-              id="step-2"
-              summary={getString('connectors.cdng.defineVerificationJob')}
-              details={
-                <DefineVerificationJob formik={formik} jobContents={jobContents} loading={loading} error={error} />
-              }
-            />
-            <Accordion.Panel
-              id="step-3"
-              summary={getString('connectors.cdng.configureVerificationJob')}
-              details={<ConfigureVerificationJob formik={formik} jobContents={jobContents} />}
-            />
-          </Accordion>
+          <ContinousVerificationWidgetPanels
+            formik={formik}
+            isNewStep={isNewStep}
+            jobContents={jobContents}
+            loading={loading}
+            error={error}
+          />
         )
       }}
     </Formik>

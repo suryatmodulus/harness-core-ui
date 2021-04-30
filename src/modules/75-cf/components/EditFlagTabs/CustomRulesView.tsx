@@ -37,7 +37,8 @@ import {
   useGetAllTargets,
   Target,
   ServingRule,
-  TargetMap
+  TargetMap,
+  GetAllTargetsQueryParams
   // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
@@ -633,8 +634,9 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
       environment,
       project,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as GetAllTargetsQueryParams
   })
 
   // TODO:

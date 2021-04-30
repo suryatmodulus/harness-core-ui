@@ -73,8 +73,8 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     template: ContinousVerificationData,
     getString: UseStringsReturn['getString']
   ): FormikErrors<ContinousVerificationData> {
-    const errors: FormikErrors<ContinousVerificationData> = { spec: {} }
-    const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = template?.spec?.spec as spec
+    const errors: FormikErrors<ContinousVerificationData> = {}
+    const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
 
     validateField(sensitivity as string, 'sensitivity', data, errors, getString)
     validateField(duration as string, 'duration', data, errors, getString)

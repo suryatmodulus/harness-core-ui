@@ -115,7 +115,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {
-          const deleted = await deleteUserGroup(data.identifier || '', {
+          const deleted = await deleteUserGroup(data.identifier, {
             headers: { 'content-type': 'application/json' }
           })
           /* istanbul ignore else */ if (deleted) {

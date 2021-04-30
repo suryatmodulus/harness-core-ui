@@ -7,8 +7,8 @@ import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { ContinousVerificationData } from '../../../types'
 
+import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function BaseContinousVerification(props: {

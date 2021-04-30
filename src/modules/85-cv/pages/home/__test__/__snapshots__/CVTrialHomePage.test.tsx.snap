@@ -30,7 +30,9 @@ exports[`CVTrialHomePage snapshot test should render properly 1`] = `
           cv.cvTrialHomePage.startTrial.description
         </p>
         <a
-          href="/"
+          href=""
+          rel="noreferrer"
+          target="_blank"
         >
           cv.learnMore
         </a>

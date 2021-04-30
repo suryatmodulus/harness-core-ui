@@ -30,7 +30,9 @@ exports[`CETrialHomePage snapshot test should render properly 1`] = `
           ce.ceTrialHomePage.startTrial.description
         </p>
         <a
-          href="/"
+          href=""
+          rel="noreferrer"
+          target="_blank"
         >
           ce.learnMore
         </a>

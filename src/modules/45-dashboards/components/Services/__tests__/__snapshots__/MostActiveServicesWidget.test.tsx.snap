@@ -12,65 +12,23 @@ exports[`MostActiveServicesWidget render 1`] = `
         class="Layout--vertical StyledProps--main StyledProps--margin-bottom-xxlarge"
       >
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between"
+          class="Layout--horizontal StyledProps--main"
         >
-          <div
-            class="Layout--horizontal StyledProps--main"
+          <p
+            class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--intent-primary"
           >
-            <p
-              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--intent-primary"
-            >
-              all
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-            >
-              dashboards.serviceDashboard.prod
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-            >
-              dashboards.serviceDashboard.nonProd
-            </p>
-          </div>
-          <span
-            class="bp3-popover-wrapper timeRangeSelector"
+            all
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main timeRangeButton StyledProps--font-size-xsmall"
-                style="height: 20px;"
-                type="button"
-              >
-                <span
-                  class="bp3-button-text"
-                >
-                  dashboards.serviceDashboard.months
-                </span>
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                  icon="caret-down"
-                >
-                  <svg
-                    data-icon="caret-down"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+            dashboards.serviceDashboard.prod
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main environmentType StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+          >
+            dashboards.serviceDashboard.nonProd
+          </p>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"

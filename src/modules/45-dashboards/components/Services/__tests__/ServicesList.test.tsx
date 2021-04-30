@@ -4,6 +4,8 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { ServicesList } from '@dashboards/components/Services/ServicesList/ServicesList'
 import { ServiceListMock } from '@dashboards/mock'
 
+jest.mock('highcharts-react-official', () => () => <></>)
+
 describe('ServicesList', () => {
   test('render', () => {
     const { container } = render(

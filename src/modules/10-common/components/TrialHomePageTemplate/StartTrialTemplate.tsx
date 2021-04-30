@@ -1,6 +1,6 @@
 import React from 'react'
 import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-software/uicore'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
 import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
@@ -47,7 +47,9 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
       >
         {description}
       </Text>
-      <Link to={learnMore.url}>{learnMore.description}</Link>
+      <a href={learnMore.url} rel="noreferrer" target="_blank">
+        {learnMore.description}
+      </a>
       <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
         <Button
           style={{
@@ -64,7 +66,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
                 search: '?trial=true'
               })
             } catch (error) {
-              showError(error.message)
+              showError(error.data?.message)
             }
           }}
         />

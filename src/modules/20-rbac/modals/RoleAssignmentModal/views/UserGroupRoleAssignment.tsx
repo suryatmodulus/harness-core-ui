@@ -64,7 +64,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
       return {
         resourceGroupIdentifier: value.resourceGroup.value.toString(),
         roleIdentifier: value.role.value.toString(),
-        principal: { identifier: userGroup.identifier || '', type: 'USER_GROUP' }
+        principal: { identifier: userGroup.identifier, type: 'USER_GROUP' }
       }
     })
 

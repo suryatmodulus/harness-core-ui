@@ -43,7 +43,6 @@ const UserGroupDetails: React.FC = () => {
 
   const userGroupAggregateResponse: UserGroupAggregateDTO | undefined = data?.data
   const userGroup = userGroupAggregateResponse?.userGroupDTO
-  const users = userGroupAggregateResponse?.users
   const roleBindings = userGroupAggregateResponse?.roleAssignmentsMetadataDTO?.map(item => ({
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
@@ -73,7 +72,7 @@ const UserGroupDetails: React.FC = () => {
                 },
                 {
                   url: '#',
-                  label: userGroup.name || ''
+                  label: userGroup.name
                 }
               ]}
             />
@@ -102,13 +101,21 @@ const UserGroupDetails: React.FC = () => {
         }
       />
       <Page.Body className={css.body}>
-        <Container width="50%" className={css.membersContainer}>
-          <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>
+        <Container width="50%" padding={{ bottom: 'large' }} className={css.membersContainer}>
+          <Layout.Horizontal flex>
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
               {getString('members')}
             </Text>
-            <MemberList userGroup={userGroup} users={users} refetch={refetch} openUserGroupModal={openUserGroupModal} />
-          </Layout.Vertical>
+            <Button
+              text={getString('common.plusNumber', { number: getString('members') })}
+              minimal
+              className={css.addButton}
+              onClick={() => {
+                openUserGroupModal(userGroup, true)
+              }}
+            />
+          </Layout.Horizontal>
+          <MemberList />
         </Container>
         <Container width="50%" className={css.detailsContainer}>
           <Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}>

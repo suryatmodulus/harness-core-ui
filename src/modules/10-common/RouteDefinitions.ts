@@ -330,6 +330,10 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/`
   ),
+  toProjectAdminResourcesConnectorDetails: withAccountId(
+    ({ projectIdentifier, orgIdentifier, module }: ProjectPathProps & ConnectorPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
+  ),
   toCDAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`

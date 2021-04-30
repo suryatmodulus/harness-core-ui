@@ -46,7 +46,7 @@ exports[`Switch Account render 1`] = `
           <input
             class="bp3-input "
             dir="auto"
-            placeholder="Search"
+            placeholder="userProfile.switchAccountSearch"
             type="search"
             value=""
           />
@@ -109,7 +109,7 @@ exports[`Switch Account render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           userProfile.headerAccountEdition
         </div>
@@ -117,7 +117,7 @@ exports[`Switch Account render 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           userProfile.headerDefaultAccount
         </div>
@@ -152,7 +152,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -163,7 +163,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -202,7 +202,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -213,7 +213,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <button
             class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -258,7 +258,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -269,7 +269,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <button
             class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -314,7 +314,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -325,7 +325,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <button
             class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main"
@@ -370,7 +370,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 20%;"
         >
           <p
             class="StyledProps--font StyledProps--main"
@@ -381,7 +381,7 @@ exports[`Switch Account render 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 20%;"
         >
           <button
             class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main"

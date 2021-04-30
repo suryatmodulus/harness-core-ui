@@ -3,21 +3,15 @@ import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Layout, Button, Text, Avatar, Popover, Container } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useRemoveMember, UserGroupDTO, UserSearchDTO } from 'services/cd-ng'
+import type { ProjectPathProps, UserGroupPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetUsersInUserGroup, useRemoveMember, UserInfo } from 'services/cd-ng'
 import { Table, useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import css from '../UserGroupDetails.module.scss'
 
-interface MemberListProps {
-  userGroup: UserGroupDTO
-  users?: UserSearchDTO[]
-  refetch: () => void
-  openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
-}
-
-const RenderColumnUser: Renderer<CellProps<UserSearchDTO>> = ({ row }) => {
+const RenderColumnUser: Renderer<CellProps<UserInfo>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -27,20 +21,20 @@ const RenderColumnUser: Renderer<CellProps<UserSearchDTO>> = ({ row }) => {
   )
 }
 
-const RenderColumnEmail: Renderer<CellProps<UserSearchDTO>> = ({ row }) => {
+const RenderColumnEmail: Renderer<CellProps<UserInfo>> = ({ row }) => {
   const data = row.original
 
   return <Text>{data.email}</Text>
 }
 
-const RenderColumnMenu: Renderer<CellProps<UserSearchDTO>> = ({ row, column }) => {
+const RenderColumnMenu: Renderer<CellProps<UserInfo>> = ({ row, column }) => {
   const data = row.original
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
   const { mutate: deleteUser } = useRemoveMember({
-    identifier: data.uuid,
+    identifier: data.uuid || '',
     pathParams: {
       identifier: (column as any).userGroupIdentifier
     },
@@ -59,7 +53,7 @@ const RenderColumnMenu: Renderer<CellProps<UserSearchDTO>> = ({ row, column }) =
     onCloseDialog: async didConfirm => {
       /* istanbul ignore else */ if (didConfirm && data) {
         try {
-          const deleted = await deleteUser(data.uuid, {
+          const deleted = await deleteUser(data.uuid || '', {
             headers: { 'content-type': 'application/json' }
           })
           /* istanbul ignore else */ if (deleted) {
@@ -118,11 +112,27 @@ const RenderColumnMenu: Renderer<CellProps<UserSearchDTO>> = ({ row, column }) =
   )
 }
 
-const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroup, openUserGroupModal }) => {
+const MemberList: React.FC = () => {
   const { getString } = useStrings()
-  const { identifier: userGroupIdentifier } = userGroup
+  const [page, setPage] = useState<number>(0)
+  const { accountId, orgIdentifier, projectIdentifier, userGroupIdentifier } = useParams<
+    ProjectPathProps & UserGroupPathProps
+  >()
 
-  const columns: Column<UserSearchDTO>[] = useMemo(
+  const { data, refetch } = useGetUsersInUserGroup({
+    identifier: userGroupIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pageIndex: page,
+      pageSize: 10
+    }
+  })
+
+  const users = useMemo(() => data?.data?.content, [data?.data])
+
+  const columns: Column<UserInfo>[] = useMemo(
     () => [
       {
         Header: getString('users'),
@@ -151,21 +161,24 @@ const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroup, open
     ],
     [refetch]
   )
-  return (
-    <Container className={css.memberList}>
-      {users?.length ? <Table<UserSearchDTO> data={users} columns={columns} hideHeaders={true} /> : null}
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Button
-          text={getString('common.plusNumber', { number: getString('members') })}
-          minimal
-          className={css.addButton}
-          onClick={() => {
-            openUserGroupModal(userGroup, true)
+  if (users?.length)
+    return (
+      <Container className={css.memberList}>
+        <Table<UserInfo>
+          data={users}
+          columns={columns}
+          hideHeaders={true}
+          pagination={{
+            itemCount: data?.data?.totalItems || 0,
+            pageSize: data?.data?.pageSize || 10,
+            pageCount: data?.data?.totalPages || 0,
+            pageIndex: data?.data?.pageIndex || 0,
+            gotoPage: (pageNumber: number) => setPage(pageNumber)
           }}
         />
-      </Layout.Horizontal>
-    </Container>
-  )
+      </Container>
+    )
+  return <NoDataCard icon="nav-project" message={getString('rbac.userDetails.noMembersMessage')} />
 }
 
 export default MemberList

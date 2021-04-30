@@ -13,6 +13,11 @@ dashboard:
   noRepositories: No Repositories found
   noFailedBuilds: No Failed Builds found
   noActiveBuilds: No Active Builds found
+  buildExecutions: Build Executions
+  buildHealth: Build health
+  totalBuilds: Total Builds
+  testCycleTimeSaved: Test Cycle Time Saved
+  successfulBuilds: Successful Builds
 testsReports:
   executionOverview: Test Execution Overview
   numberOfSelectedTests: '# of Selected Tests'

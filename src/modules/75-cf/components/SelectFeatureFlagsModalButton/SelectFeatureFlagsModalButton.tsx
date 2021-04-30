@@ -63,6 +63,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const queryParams = useMemo(
       () => ({
         account: accountId,
+        accountIdentifier: accountId,
         org: orgIdentifier,
         project: projectIdentifier,
         environment: environmentIdentifier,

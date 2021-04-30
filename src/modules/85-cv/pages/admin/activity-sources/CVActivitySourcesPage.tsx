@@ -8,7 +8,7 @@ import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -20,8 +20,8 @@ import ContextMenuActions from '../../../components/ContextMenuActions/ContextMe
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
-  numberOfEnvironments?: number
-  numberOfServices?: number
+  numberOfEnvironments?: number | string
+  numberOfServices?: number | string
   name: string
   type: ActivitySourceDTO['type']
   createdOn?: string
@@ -43,12 +43,16 @@ function typeToPathParam(type: ActivitySourceDTO['type']): string {
   }
 }
 
-function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
+function generateTableData(
+  getString: UseStringsReturn['getString'],
+  activitySources?: ActivitySourceDTO[]
+): TableData[] {
   if (!activitySources?.length) {
     return []
   }
 
   const tableData: TableData[] = []
+
   for (const activitySource of activitySources) {
     if (!activitySource?.name || !activitySource?.identifier) continue
     const environments = new Set<string>()
@@ -67,8 +71,8 @@ function generateTableData(activitySources?: ActivitySourceDTO[]): TableData[] {
     }
 
     tableData.push({
-      numberOfEnvironments: environments.size,
-      numberOfServices: services.size,
+      numberOfEnvironments: activitySource.type === 'CDNG' ? getString('all') : environments.size,
+      numberOfServices: activitySource.type === 'CDNG' ? getString('all') : services.size,
       name: activitySource.name,
       identifier: activitySource.identifier || '',
       type: activitySource.type,
@@ -199,7 +203,7 @@ export default function CVActivitySourcesPage(): JSX.Element {
   })
 
   const { content: activitySources, pageIndex = -1, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.data || {}
-  const tableData = generateTableData(activitySources)
+  const tableData = generateTableData(getString, activitySources)
   return (
     <>
       <Page.Header
@@ -297,13 +301,13 @@ export default function CVActivitySourcesPage(): JSX.Element {
               },
               {
                 accessor: 'numberOfServices',
-                Header: getString('numberOfServices'),
+                Header: getString('services'),
                 width: '16.5%',
                 Cell: TableCell
               },
               {
                 accessor: 'numberOfEnvironments',
-                Header: getString('cv.admin.activitySources.tableColumnNames.environments'),
+                Header: getString('environments'),
                 width: '16.5%',
                 Cell: TableCell
               },

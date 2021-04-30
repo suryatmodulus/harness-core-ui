@@ -1,0 +1,31 @@
+.page {
+  flex-direction: column;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-gap: var(--spacing-xxlarge);
+
+  .executionsWrapper {
+    grid-column: 2/4;
+  }
+}
+
+.rangeSelector {
+  width: 150px !important;
+  :global {
+    .bp3-input {
+      border: none !important;
+      border-top: 2px solid transparent !important;
+      background: transparent;
+      text-align: right;
+      font-size: var(--ci-font-size-small) !important;
+    }
+    .bp3-menu {
+      min-width: 100px;
+      width: 150px;
+      font-size: var(--ci-font-size-small) !important;
+    }
+  }
+}

@@ -3,72 +3,847 @@
 exports[`CIDashboardPage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
       class="StyledProps--font StyledProps--main"
-      style="margin: 0px auto; padding-top: 200px; width: 600px;"
     >
       <div
-        class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+        class="breadcrumbs"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-        >
-          ci.welcome
-        </h1>
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          ci.description
-        </p>
-        <span
-          class="bp3-icon StyledProps--main StyledProps--padding-xxxlarge"
-          data-icon="ci-main"
-        >
-          <svg
-            fill="none"
-            height="100"
-            viewBox="0 0 20 20"
-            width="100"
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/undefined/ci/orgs/undefined/projects/undefined/dashboard"
           >
-            <path
-              clip-rule="evenodd"
-              d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
-              fill="url(#ci-main_svg__paint0_linear)"
-              fill-rule="evenodd"
-            />
-            <defs>
-              <lineargradient
-                gradientUnits="userSpaceOnUse"
-                id="ci-main_svg__paint0_linear"
-                x1="-6.46"
-                x2="6.46"
-                y1="6.46"
-                y2="26.46"
+            test
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            overview
+          </span>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-top-xsmall"
+      >
+        overview
+      </p>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    <div
+      class="StyledProps--font StyledProps--main page StyledProps--padding-large"
+    >
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main titleAndFilter"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            ci.dashboard.buildHealth
+          </p>
+          <div
+            class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group"
               >
-                <stop
-                  stop-color="#73DFE7"
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="Search..."
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Last 30 days"
                 />
-                <stop
-                  offset="1"
-                  stop-color="#0095F7"
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                    icon="caret-down"
+                  >
+                    <svg
+                      data-icon="caret-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        caret-down
+                      </desc>
+                      <path
+                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main summaryCards"
+        >
+          <div
+            class="StyledProps--font StyledProps--main card"
+          >
+            <div
+              class="StyledProps--font StyledProps--main cardHeader"
+            >
+              ci.dashboard.totalBuilds
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main cardContent"
+            >
+              <div
+                class="StyledProps--font StyledProps--main contentMain"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main contentMainText"
+                >
+                  7
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main subContent"
+                >
+                  <div />
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main diffContent"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  -22.22%
+                </p>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="fat-arrow-up"
+                  style="transform: rotate(180deg);"
+                >
+                  <svg
+                    fill="none"
+                    height="18"
+                    viewBox="0 0 16 18"
+                    width="18"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M8.311 1.168a.5.5 0 00-.747 0L1.129 8.412a.5.5 0 00.374.832h2.435a.5.5 0 01.5.5v6.25a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-6.25a.5.5 0 01.5-.5h2.434a.5.5 0 00.374-.832L8.31 1.168l.374-.332-.374.332zM6.816.504a1.5 1.5 0 012.243 0l6.434 7.244c.86.968.173 2.496-1.121 2.496h-1.934v5.75a1.5 1.5 0 01-1.5 1.5h-6a1.5 1.5 0 01-1.5-1.5v-5.75H1.503c-1.294 0-1.98-1.528-1.122-2.496L6.816.504z"
+                      fill="#3E7BFA"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main card variantIncrease"
+          >
+            <div
+              class="StyledProps--font StyledProps--main cardHeader"
+            >
+              ci.dashboard.successfulBuilds
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main cardContent"
+            >
+              <div
+                class="StyledProps--font StyledProps--main contentMain"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main contentMainText"
+                >
+                  3
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main subContent"
                 />
-              </lineargradient>
-            </defs>
-          </svg>
-        </span>
-        <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-          style="width: 200px;"
-          type="button"
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main diffContent"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  10%
+                </p>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="fat-arrow-up"
+                >
+                  <svg
+                    fill="none"
+                    height="18"
+                    viewBox="0 0 16 18"
+                    width="18"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M8.311 1.168a.5.5 0 00-.747 0L1.129 8.412a.5.5 0 00.374.832h2.435a.5.5 0 01.5.5v6.25a.5.5 0 00.5.5h6a.5.5 0 00.5-.5v-6.25a.5.5 0 01.5-.5h2.434a.5.5 0 00.374-.832L8.31 1.168l.374-.332-.374.332zM6.816.504a1.5 1.5 0 012.243 0l6.434 7.244c.86.968.173 2.496-1.121 2.496h-1.934v5.75a1.5 1.5 0 01-1.5 1.5h-6a1.5 1.5 0 01-1.5-1.5v-5.75H1.503c-1.294 0-1.98-1.528-1.122-2.496L6.816.504z"
+                      fill="#3E7BFA"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main card"
+          >
+            <div
+              class="StyledProps--font StyledProps--main cardHeader"
+            >
+              ci.dashboard.failedBuilds
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main cardContent"
+            >
+              <div
+                class="StyledProps--font StyledProps--main contentMain"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main contentMainText"
+                >
+                  2
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main subContent"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main diffContent"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  0%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main executionsWrapper"
+      >
+        <div
+          class="StyledProps--font StyledProps--main main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main titleAndFilter"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
+              >
+                ci.dashboard.buildExecutions
+              </p>
+            </div>
+            <div
+              class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    placeholder="Search..."
+                    style="padding-right: 0px;"
+                    type="text"
+                    value="Last 30 days"
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main chartWrapper"
+          >
+            <div />
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main header"
+        >
+          <img
+            src="test-file-stub"
+          />
+          <p
+            class="StyledProps--font StyledProps--main title"
+          >
+            repositories
+          </p>
+          <div
+            class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="Search..."
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="Last 30 days"
+                />
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                    icon="caret-down"
+                  >
+                    <svg
+                      data-icon="caret-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        caret-down
+                      </desc>
+                      <path
+                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main repositoryCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main mainContent"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  springboot
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main cardStats"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main statHeader StyledProps--font-size-small"
+                  >
+                    builds
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main statHeader StyledProps--font-size-small"
+                  >
+                    success rate
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main statContent"
+                  >
+                    7
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main statWrap"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main statContent"
+                    >
+                      0
+                      %
+                    </p>
+                    <span
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                      icon="caret-down"
+                    >
+                      <svg
+                        data-icon="caret-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          caret-down
+                        </desc>
+                        <path
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main rateDiffValue"
+                    >
+                      100
+                      %
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main chartWrapper StyledProps--margin-top-small StyledProps--margin-left-huge"
+                style="height: 40px;"
+              >
+                <div />
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main cardFooter"
+            >
+              <div
+                class="StyledProps--font StyledProps--main avatarWrapper"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 2;"
+                >
+                  Update test.txt
+                </p>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main times"
+              >
+                8 days ago
+              </div>
+            </div>
+            <div
+              class="leftBorder"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main header"
+        >
+          <img
+            src="test-file-stub"
+          />
+          <p
+            class="StyledProps--font StyledProps--main title"
+          >
+            ci.dashboard.failedBuilds
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            Top 
+            2
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main failedBuildCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main titleAndMessage"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Go Demo2
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Update test.txt
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main times StyledProps--margin-bottom-medium"
+              >
+                4 months ago
+                <span
+                  class="bp3-icon bp3-icon-time StyledProps--main timeIcon"
+                  icon="time"
+                >
+                  <svg
+                    data-icon="time"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <desc>
+                      time
+                    </desc>
+                    <path
+                      d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-6.41V4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .28.11.53.29.71l2 2a1.003 1.003 0 001.42-1.42L9 7.59z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                24h
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="linkWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-git-branch StyledProps--main"
+                    icon="git-branch"
+                  >
+                    <svg
+                      data-icon="git-branch"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        git-branch
+                      </desc>
+                      <path
+                        d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <a>
+                    main
+                  </a>
+                </div>
+                <div
+                  class="linkWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-git-commit StyledProps--main"
+                    icon="git-commit"
+                  >
+                    <svg
+                      data-icon="git-commit"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        git-commit
+                      </desc>
+                      <path
+                        d="M15 7h-3.14c-.45-1.72-2-3-3.86-3S4.59 5.28 4.14 7H1c-.55 0-1 .45-1 1s.45 1 1 1h3.14c.45 1.72 2 3 3.86 3s3.41-1.28 3.86-3H15c.55 0 1-.45 1-1s-.45-1-1-1zm-7 3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <a>
+                    73f0ae3
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="leftBorder"
+            />
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main failedBuildCard"
+          >
+            <div
+              class="StyledProps--font StyledProps--main titleAndMessage"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Go Demo2
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Update test.txt
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main times StyledProps--margin-bottom-medium"
+              >
+                6 months ago
+                <span
+                  class="bp3-icon bp3-icon-time StyledProps--main timeIcon"
+                  icon="time"
+                >
+                  <svg
+                    data-icon="time"
+                    height="10"
+                    viewBox="0 0 16 16"
+                    width="10"
+                  >
+                    <desc>
+                      time
+                    </desc>
+                    <path
+                      d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-6.41V4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .28.11.53.29.71l2 2a1.003 1.003 0 001.42-1.42L9 7.59z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                24h
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="linkWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-git-branch StyledProps--main"
+                    icon="git-branch"
+                  >
+                    <svg
+                      data-icon="git-branch"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        git-branch
+                      </desc>
+                      <path
+                        d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <a>
+                    main
+                  </a>
+                </div>
+                <div
+                  class="linkWrap"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-git-commit StyledProps--main"
+                    icon="git-commit"
+                  >
+                    <svg
+                      data-icon="git-commit"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        git-commit
+                      </desc>
+                      <path
+                        d="M15 7h-3.14c-.45-1.72-2-3-3.86-3S4.59 5.28 4.14 7H1c-.55 0-1 .45-1 1s.45 1 1 1h3.14c.45 1.72 2 3 3.86 3s3.41-1.28 3.86-3H15c.55 0 1-.45 1-1s-.45-1-1-1zm-7 3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <a>
+                    73f0ae3
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div
+              class="leftBorder"
+            />
+          </div>
+        </div>
+        <a
+          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main showMoreLink"
+          href="javascript:void()"
+          role="button"
+          tabindex="0"
         >
           <span
             class="bp3-button-text"
           >
-            ci.createPipeline
+            seeAll
           </span>
-        </button>
+        </a>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main header"
+        >
+          <img
+            src="test-file-stub"
+          />
+          <p
+            class="StyledProps--font StyledProps--main title"
+          >
+            ci.dashboard.activeBuilds
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+          >
+            Top 
+            1
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main content"
+        >
+          <div
+            class="StyledProps--font StyledProps--main activeBuildCard"
+          >
+            <span
+              class="bp3-icon StyledProps--main buildIcon"
+              data-icon="ci-active-build"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 24 20"
+                width="16"
+              >
+                <path
+                  d="M18.931 0l-5.068 2.926v2.057l-1.778-1.026-5.067 2.926v2.156l-1.95-1.126L0 10.84v5.852l5.068 2.926 5.068-2.926v-2.156l1.95 1.126 5.068-2.927V10.68l1.777 1.026L24 8.78V2.926L18.931 0zm3.75 3.18l-3.749 2.165-3.75-2.165 3.75-2.165 3.75 2.165zm-8.818 2.818v2.277l-1.777 1.026-3.75-2.164 3.75-2.165 1.777 1.026zm2.412 3.158l-1.09-.63 1.09-.628v1.258zm-1.533-1.388V6.506l1.093.63-1.093.632zm-7.724 2.286v2.079l-1.95 1.125-3.75-2.165 3.75-2.165 1.95 1.126zm2.24 2.96l-1.004-.58 1.003-.58v1.16zm-1.361-1.389v-1.064l.921.532-.921.532zm-7.018.23l3.75 2.165v4.329l-3.75-2.165v-4.33zm8.378 4.329l-3.75 2.165v-4.33l1.868-1.078 1.882 1.087v2.156zm-1.36-6.637v-1.65l3.75 2.165v4.33l-1.51-.872v-2.68l-2.24-1.293zm8.378 2.68l-3.75 2.165v-4.33l1.781-1.028 1.969 1.137v2.056zm-1.533-6.736V3.94l3.75 2.165v4.33l-1.338-.773v-2.78L14.742 5.49zm4.629 4.945v-4.33l3.75-2.165v4.33l-3.75 2.165z"
+                  fill="#6B6D85"
+                />
+              </svg>
+            </span>
+            <div
+              class="StyledProps--font StyledProps--main titleAndMessage"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Go Demo2
+              </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Update test.txt
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main"
+            >
+              <div
+                class="statusLabel runningLabel"
+              >
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="spinner"
+                >
+                  <svg
+                    fill="none"
+                    height="10"
+                    viewBox="0 0 36 36"
+                    width="10"
+                  >
+                    <path
+                      d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+                      stroke="currentColor"
+                      stroke-dasharray="75,100"
+                      stroke-linecap="round"
+                      stroke-width="2.8"
+                      style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+                    />
+                  </svg>
+                </span>
+                RUNNING
+              </div>
+            </div>
+          </div>
+        </div>
+        <a
+          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main showMoreLink"
+          href="javascript:void()"
+          role="button"
+          tabindex="0"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            seeAll
+          </span>
+        </a>
       </div>
     </div>
   </div>

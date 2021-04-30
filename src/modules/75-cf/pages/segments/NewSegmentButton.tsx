@@ -3,7 +3,7 @@ import { Button, Container, Layout, useModalHook, FormInput, Formik, Collapse, I
 import * as yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { useCreateSegment, Tag } from 'services/cf'
+import { useCreateSegment, Tag, CreateSegmentQueryParams } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import css from './NewSegmentButton.module.scss'
@@ -41,7 +41,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
   const { showError, clear } = useToaster()
 
   const { mutate: createSegment } = useCreateSegment({
-    queryParams: { account: accountId, org: orgIdentifier }
+    queryParams: { account: accountId, accountIdentifier: accountId, org: orgIdentifier } as CreateSegmentQueryParams
   })
 
   const handleCreateSegment = (values: SegmentFormData): void => {

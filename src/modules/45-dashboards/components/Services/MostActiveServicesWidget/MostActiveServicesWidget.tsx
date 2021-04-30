@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import cx from 'classnames'
 import { Card, Color, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker } from '@common/components/Ticker/Ticker'
-import { TIME_RANGE_ENUMS, TimeRangeSelector } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
-import css from './MostActiveServicesWidget.module.scss'
+import { DeploymentsTimeRangeContext } from '@dashboards/components/Services/common'
+import type { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
+import css from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget.module.scss'
+
 interface MostActiveServicesWidgetData {
   label: string
   value: number
@@ -49,10 +51,9 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> =
     updateData
   } = props
   const [selectedEnvironmentType, setSelectedEnvironmentType] = useState(environmentTypes[0])
-  const [timeRange, setTimeRange] = useState<TIME_RANGE_ENUMS>(TIME_RANGE_ENUMS.SIX_MONTHS)
   const [selectedType, setSelectedType] = useState(types[0])
   const [data, setData] = useState(initialData)
-
+  const { timeRange } = useContext(DeploymentsTimeRangeContext)
   useEffect(() => {
     if (updateData) {
       const updatedData = updateData?.({ environmentType: selectedEnvironmentType, timeRange, type: selectedType })
@@ -124,10 +125,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidgetProps> =
     <Card className={css.card}>
       <Layout.Vertical>
         <Layout.Vertical margin={{ bottom: 'xxlarge' }}>
-          <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-            {EnvironmnentTypeComponent}
-            <TimeRangeSelector mode={timeRange} setMode={setTimeRange} />
-          </Layout.Horizontal>
+          {EnvironmnentTypeComponent}
           {title && (
             <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
               {title}

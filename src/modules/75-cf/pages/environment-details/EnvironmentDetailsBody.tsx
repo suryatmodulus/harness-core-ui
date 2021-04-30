@@ -123,6 +123,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
     project: environment.projectIdentifier as string,
     environment: environment.identifier as string,
     account: environment.accountId as string,
+    accountIdentifier: environment.accountId as string,
     org: environment.orgIdentifier as string
   }
 

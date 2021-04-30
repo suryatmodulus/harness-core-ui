@@ -310,6 +310,7 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.noMembersMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
   'rbac.userDetails.userGroup.deleteSuccessMessage': string
@@ -317,8 +318,11 @@ export interface StringsMap {
   'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupForm.editSuccess': string
+  'rbac.userGroupPage.addMembers': string
+  'rbac.userGroupPage.addUsers': string
   'rbac.userGroupPage.confirmDelete': string
   'rbac.userGroupPage.confirmDeleteTitle': string
+  'rbac.userGroupPage.editUserGroup': string
   'rbac.userGroupPage.newUserGroup': string
   'rbac.userGroupPage.noDataText': string
   'rbac.userGroupPage.noRoleAssignmentsText': string
@@ -349,6 +353,7 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'secrets.noRefData': string
   'secrets.references': string
+  'secrets.selectSecret': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -605,6 +610,7 @@ export interface StringsMap {
   'userProfile.selectSCM': string
   'userProfile.setAsDefault': string
   'userProfile.switchAccount': string
+  'userProfile.switchAccountSearch': string
   'userProfile.twoFactor.description': string
   'userProfile.twoFactor.disableSuccess': string
   'userProfile.twoFactor.disableText': string
@@ -1514,12 +1520,17 @@ export interface StringsMap {
   'ci.continuous': string
   'ci.createPipeline': string
   'ci.dashboard.activeBuilds': string
+  'ci.dashboard.buildExecutions': string
+  'ci.dashboard.buildHealth': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
   'ci.dashboard.noActiveBuilds': string
   'ci.dashboard.noFailedBuilds': string
   'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
+  'ci.dashboard.successfulBuilds': string
+  'ci.dashboard.testCycleTimeSaved': string
+  'ci.dashboard.totalBuilds': string
   'ci.delegates': string
   'ci.description': string
   'ci.executionLabel': string
@@ -1666,7 +1677,6 @@ export interface StringsMap {
   'cv.admin.activitySources.noDataMessage': string
   'cv.admin.activitySources.searchBoxPlaceholder': string
   'cv.admin.activitySources.tableColumnNames.createdOn': string
-  'cv.admin.activitySources.tableColumnNames.environments': string
   'cv.admin.activitySources.tableColumnNames.lastUpdatedOn': string
   'cv.admin.mapsTo': string
   'cv.admin.monitoringSources.applicationsImported': string
@@ -1849,6 +1859,7 @@ export interface StringsMap {
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
+  'cv.monitoringSources.prometheusName': string
   'cv.monitoringSources.reviewPageSubHeading': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
@@ -4334,10 +4345,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   number: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  numberOfServices: string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -30,7 +30,9 @@ exports[`CFTrialHomePage snapshot test should render properly 1`] = `
           cf.cfTrialHomePage.startTrial.description
         </p>
         <a
-          href="/"
+          href="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
+          rel="noreferrer"
+          target="_blank"
         >
           cf.learnMore
         </a>

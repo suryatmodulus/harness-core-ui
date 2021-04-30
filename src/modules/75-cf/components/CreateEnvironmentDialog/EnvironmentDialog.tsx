@@ -16,7 +16,11 @@ import {
   ButtonProps
 } from '@wings-software/uicore'
 import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
-import { EnvironmentRequestRequestBody, useCreateEnvironment as useCreateEnvironmentCF } from 'services/cf'
+import {
+  CreateEnvironmentQueryParams,
+  EnvironmentRequestRequestBody,
+  useCreateEnvironment as useCreateEnvironmentCF
+} from 'services/cf'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { getErrorMessage } from '@cf/utils/CFUtils'
@@ -58,8 +62,9 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
   const { mutate: createEnvCF } = useCreateEnvironmentCF({
     queryParams: {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as CreateEnvironmentQueryParams
   })
 
   const envTypes = [

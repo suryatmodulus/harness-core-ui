@@ -22,7 +22,14 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { MenuDivider, OptionsMenuButton } from '@common/components'
-import { Feature, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'
+import {
+  DeleteFeatureFlagQueryParams,
+  Feature,
+  PatchFeatureQueryParams,
+  useDeleteFeatureFlag,
+  usePatchFeature,
+  Variation
+} from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { useConfirmAction } from '@common/hooks'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
@@ -121,8 +128,9 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       project: featureFlag.project as string,
       environment: featureFlag.envProperties?.environment as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as PatchFeatureQueryParams
   })
   const history = useHistory()
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
@@ -229,17 +237,19 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     queryParams: {
       project: projectIdentifier as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as DeleteFeatureFlagQueryParams
   })
   const { mutate: archiveFeatureFlag } = usePatchFeature({
     identifier: featureFlag.identifier,
     queryParams: {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: featureFlag.envProperties?.environment as string
-    }
+    } as PatchFeatureQueryParams
   })
   const archiveFlag = useConfirmAction({
     title: getString('cf.featureFlags.archiveFlag'),

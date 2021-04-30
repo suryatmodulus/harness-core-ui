@@ -10,8 +10,7 @@ const CITrialHomePage: React.FC = () => {
     description: getString('ci.ciTrialHomePage.startTrial.description'),
     learnMore: {
       description: getString('ci.learnMore'),
-      // TODO: need replace learn more url
-      url: ''
+      url: 'https://ngdocs.harness.io/category/zgffarnh1m-ci-category'
     },
     startBtn: {
       description: getString('ci.ciTrialHomePage.startTrial.startBtn.description')

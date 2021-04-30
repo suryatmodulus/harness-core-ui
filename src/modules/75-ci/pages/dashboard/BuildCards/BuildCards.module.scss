@@ -1,54 +1,67 @@
 @mixin card-mixin($radius) {
   position: relative;
-  border: 1px solid var(--grey-200);
-  box-shadow: 1px 1px 1px 0px var(--grey-300);
+  border: 0.1px solid #00000033;
+  box-shadow: 0px 0.5px 2px 0px #60617029;
   border-radius: $radius;
-  max-width: 500px;
-  padding: var(--spacing-small) !important;
+  background-color: white !important;
   .titleAndMessage {
     flex: 1;
     margin: 0 var(--spacing-small) !important;
     .title {
-      padding-top: 8px;
-      padding-bottom: 4px;
+      font-size: var(--font-size-normal) !important;
     }
+  }
+  .title {
+    padding-top: 8px;
+    padding-bottom: 4px;
+    font-weight: 500 !important;
+    font-size: var(--ci-font-size-normal) !important;
   }
 }
 
-@mixin border-mixin($radius, $color) {
+@mixin border-mixin($radius, $width, $color) {
   .leftBorder {
     background-color: $color;
     position: absolute;
-    left: -1px;
-    top: -1px;
-    bottom: -1px;
-    width: $radius;
+    left: 0px;
+    top: -0.3px;
+    bottom: -0.3px;
+    width: $width;
     border-top-left-radius: $radius;
     border-bottom-left-radius: $radius;
   }
 }
 
 .failedBuildCard {
-  @include card-mixin(6px);
-  @include border-mixin(6px, var(--red-400));
+  @include card-mixin(4px);
+  @include border-mixin(6px, 4px, var(--ci-color-red-400));
+  padding: var(--spacing-small) !important;
   display: flex;
   align-items: center;
+  height: 64px;
   .linkWrap {
-    display: inline-block;
-    background-color: var(--blue-200);
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--ci-color-gray-100);
     padding: 2px 5px;
     border-radius: 4px;
     margin-left: var(--spacing-xsmall);
+    svg {
+      margin-right: 3px;
+    }
     a {
-      color: var(--blue-600);
+      color: var(--ci-color-blue-500);
+      font-size: var(--ci-font-size-small);
     }
   }
 }
 
 .activeBuildCard {
-  @include card-mixin(6px);
+  @include card-mixin(4px);
+  padding: var(--spacing-small) !important;
   display: flex;
   align-items: center;
+  height: 64px;
   .buildIcon {
     margin: 0 var(--spacing-small);
     svg {
@@ -57,38 +70,37 @@
     }
   }
   .statusLabel {
-    border: 1px solid;
-    padding: 2px 5px;
+    border: 0.5px solid;
+    padding: var(--spacing-xsmall);
     font-size: var(--font-size-small);
-    font-weight: bold;
+    font-weight: 500;
+    font-size: var(--ci-font-size-small);
     border-radius: 4px;
     display: flex;
     align-items: center;
-    margin-bottom: var(--spacing-medium);
+    margin: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-medium) var(--spacing-xsmall);
+    img,
+    svg {
+      margin-right: var(--spacing-xsmall);
+    }
     .statusLabelIcon {
       margin-right: 5px;
     }
     &.pendingApprovalLabel {
-      color: var(--orange-500);
-      border-color: var(--orange-500);
-      .statusLabelIcon {
-        color: var(--orange-500);
-      }
-      background-color: #fff5ed;
+      color: var(--ci-color-orange-500);
+      border-color: var(--ci-color-orange-500);
+      background-color: var(--ci-color-orange-400);
     }
     &.runningLabel {
-      color: var(--blue-500);
-      border-color: var(--blue-500);
-      .statusLabelIcon {
-        color: var(--blue-500);
-      }
-      background-color: var(--blue-200);
+      color: var(--ci-color-blue-400);
+      border-color: var(--ci-color-blue-200);
+      background-color: var(--ci-color-blue-100);
     }
   }
 }
 
 .times {
-  font-size: var(--font-size-small) !important;
+  font-size: var(--ci-font-size-xsmall) !important;
   white-space: nowrap !important;
   display: flex;
   align-items: center;
@@ -100,23 +112,25 @@
 }
 
 .repositoryCard {
-  @include card-mixin(6px);
-  @include border-mixin(6px, var(--green-400));
+  @include card-mixin(4px);
+  @include border-mixin(6px, 4px, var(--ci-color-green-400));
+  padding: var(--spacing-medium) var(--spacing-large) var(--spacing-small) !important;
   .mainContent {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--grey-200);
-    margin: 0 var(--spacing-xsmall) var(--spacing-small) !important;
+    margin-bottom: var(--spacing-small) !important;
     padding-bottom: var(--spacing-small) !important;
     .cardStats {
       display: grid;
       grid-template-columns: auto auto;
-      grid-column-gap: var(--spacing-small);
+      grid-column-gap: var(--spacing-large);
       grid-row-gap: var(--spacing-xsmall);
       margin-top: var(--spacing-small) !important;
       .statHeader {
         text-transform: uppercase;
         color: var(--grey-400);
+        font-size: var(--ci-font-size-small) !important;
       }
       .statContent {
         font-size: 25px;
@@ -130,11 +144,31 @@
           margin-bottom: -2px;
           margin-left: var(--spacing-xsmall);
         }
+        .rateDiffValue {
+          font-size: var(--ci-font-size-small) !important;
+        }
       }
+    }
+    .chartWrapper {
+      flex: 1;
+      min-width: 0;
+      max-width: 150px;
     }
   }
   .cardFooter {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    p {
+      font-size: var(--ci-font-size-small) !important;
+      line-height: 1.2 !important;
+    }
+    .avatarWrapper {
+      display: flex;
+      align-items: center;
+      > div {
+        margin-left: 0px;
+      }
+    }
   }
 }

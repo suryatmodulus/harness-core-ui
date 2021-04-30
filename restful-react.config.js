@@ -74,7 +74,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
-      base: `{getConfig("")}`
+      base: `{getConfig("ci")}`
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ci')")
   },

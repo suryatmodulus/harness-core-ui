@@ -80,6 +80,13 @@ const MonitoringSources = [
     routeName: MonitoringSourceSetupRoutePaths.NEW_RELIC,
     routeUrl: routes.toCVAdminSetupMonitoringSource
   }
+  // {
+  //   type: 'Prometheus',
+  //   icon: 'service-prometheus',
+  //   label: 'Prometheus',
+  //   routeName: MonitoringSourceSetupRoutePaths.PROMETHEUS,
+  //   routeUrl: routes.toCVAdminSetupMonitoringSource
+  // }
 ]
 interface CVSetupPageProps {
   setupStatusMockData?: UseGetMockData<RestResponseCVSetupStatus>

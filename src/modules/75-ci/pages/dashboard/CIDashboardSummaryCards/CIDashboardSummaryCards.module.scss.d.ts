@@ -1,6 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly titleAndFilter: string
   readonly summaryCards: string
   readonly card: string
   readonly cardHeader: string
@@ -9,5 +10,7 @@ declare const styles: {
   readonly contentMainText: string
   readonly subContent: string
   readonly diffContent: string
+  readonly variantIncrease: string
+  readonly variantDecrease: string
 }
 export default styles

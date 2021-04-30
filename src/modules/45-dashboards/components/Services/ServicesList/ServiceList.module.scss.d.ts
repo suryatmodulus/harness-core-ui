@@ -2,8 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly tickerContainerStyles: string
-  readonly serviceInstancesCount: string
   readonly lastDeployments: string
   readonly statusText: string
+  readonly pieChartLabelContainerStyles: string
+  readonly pieChartLabelStyles: string
 }
 export default styles

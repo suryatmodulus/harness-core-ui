@@ -1,42 +1,36 @@
 import React, { useMemo } from 'react'
-import { Card, Color, Layout, Text, WeightedStack, LabelPosition } from '@wings-software/uicore'
+import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
-import { TrendPopover, TrendPopoverProps } from '@dashboards/components/TrendPopover/TrendPopover'
-import css from './ServiceInstancesWidget.module.scss'
-
+import { TrendPopover } from '@dashboards/components/TrendPopover/TrendPopover'
+import { PieChart } from '@dashboards/components/PieChart/PieChart'
+import { numberFormatter } from '@dashboards/components/Services/common'
+import css from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget.module.scss'
 export interface ServiceInstanceWidgetProps {
   serviceCount: number
   serviceInstancesCount: number
   trendTitle: string
   trendData: SparklineChartProps['data']
-  trendPopoverData: TrendPopoverProps['data']
   prodCount: number
   nonProdCount: number
 }
 
 export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = props => {
-  const {
-    serviceCount,
-    serviceInstancesCount,
-    trendTitle,
-    trendData,
-    trendPopoverData,
-    prodCount,
-    nonProdCount
-  } = props
+  const { serviceCount, serviceInstancesCount, trendTitle, trendData, prodCount, nonProdCount } = props
   const { getString } = useStrings()
-  const weightedStackData = useMemo(
+  const pieChartData = useMemo(
     () => [
       {
         label: getString('dashboards.serviceDashboard.nonProd'),
         value: nonProdCount,
-        color: Color.BLUE_450
+        formattedValue: numberFormatter(nonProdCount),
+        color: 'var(--blue-450)'
       },
       {
         label: getString('dashboards.serviceDashboard.prod'),
         value: prodCount,
-        color: Color.BLUE_500
+        formattedValue: numberFormatter(prodCount),
+        color: 'var(--blue-500)'
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +48,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
               <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text}>
                 {serviceCount}
               </Text>
-              <TrendPopover data={trendPopoverData}>
+              <TrendPopover data={trendData}>
                 <SparklineChart title={trendTitle} data={trendData} options={{ chart: { width: 80, height: 50 } }} />
               </TrendPopover>
             </Layout.Horizontal>
@@ -69,7 +63,9 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
               {serviceInstancesCount}
             </Text>
           </Layout.Vertical>
-          <WeightedStack data={weightedStackData} labelPosition={LabelPosition.LEFT} labelWidth="100px" />
+          <Container height={46}>
+            <PieChart size={46} items={pieChartData}></PieChart>
+          </Container>
         </Layout.Vertical>
       </Layout.Vertical>
     </Card>

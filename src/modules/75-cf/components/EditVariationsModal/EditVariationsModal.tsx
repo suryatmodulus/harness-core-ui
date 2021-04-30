@@ -21,7 +21,7 @@ import { getErrorMessage, useFeatureFlagTypeToStringMapping, useValidateVariatio
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
-import { Feature, usePatchFeature, Variation } from 'services/cf'
+import { Feature, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
 import patch from '../../utils/instructions'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 
@@ -70,8 +70,9 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
         project: feature.project as string,
         environment: feature.envProperties?.environment as string,
         account: accountId,
+        accountIdentifier: accountId,
         org: orgIdentifier
-      }
+      } as PatchFeatureQueryParams
     })
     const onFormikEffect: FormikEffectProps['onChange'] = ({ prevValues, nextValues }) => {
       const { variations } = nextValues

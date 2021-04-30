@@ -1,23 +1,42 @@
 .main {
   min-width: 200px;
-  max-width: 500px;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   .header {
+    min-height: 32px;
     display: flex;
     align-items: center;
-    margin-bottom: var(--spacing-large) !important;
+    margin-bottom: var(--spacing-xsmall) !important;
     .title {
       margin-left: var(--spacing-small);
+      font-size: var(--ci-font-size-normal) !important;
+      font-weight: 500 !important;
       flex: 1;
     }
   }
   .content {
     flex: 1;
-    overflow: auto;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #c4c4c4;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--grey-350);
+    }
+
     &.contentEmpty {
-      border: 1px solid var(--grey-200);
+      border: 2px solid var(--grey-200);
       border-radius: 5px;
       padding: var(--spacing-xlarge) var(--spacing-large) !important;
     }
@@ -26,7 +45,7 @@
     }
     .emptyView {
       .emptyViewItem {
-        background-color: var(--grey-100);
+        background-color: var(--grey-200);
         height: 50px;
         margin-bottom: var(--spacing-small);
       }
@@ -43,5 +62,7 @@
   }
   .showMoreLink {
     align-self: end;
+    margin-top: 2px !important;
+    color: var(--ci-color-blue-500) !important;
   }
 }

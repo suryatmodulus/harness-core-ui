@@ -16,6 +16,8 @@ import {
   startPreflightCheckPromise,
   useGetPreflightCheckResponse
 } from 'services/pipeline-ng'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { useToaster } from '@common/exports'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -169,6 +171,42 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
     return <Text intent="danger">{getString('pre-flight-check.couldNotVerifyConnectors')}</Text>
   }
 
+  function getConnectorUrl(connectorRef: string) {
+    const scope = getScopeFromValue(connectorRef)
+    const connectorId = getIdentifierFromValue(connectorRef)
+    switch (scope) {
+      case Scope.ACCOUNT: {
+        return routes.toResourcesConnectorDetails({ connectorId, accountId })
+      }
+      case Scope.ORG: {
+        return routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId })
+      }
+      case Scope.PROJECT: {
+        return routes.toProjectAdminResourcesConnectorDetails({
+          projectIdentifier,
+          orgIdentifier,
+          connectorId,
+          accountId,
+          module
+        })
+      }
+    }
+  }
+
+  const getStageLink = (stageIdentifier: string): string => {
+    return `${routes.toPipelineStudio({
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      module
+    })}?stageId=${stageIdentifier}`
+  }
+
+  const getStepLink = (stageIdentifier: string, stepIdentifier: string): string => {
+    return `${getStageLink(stageIdentifier)}&stepId=${stepIdentifier}`
+  }
+
   const getDetails = (row: ConnectorCheckResponse) => (
     <Layout.Horizontal spacing="large" key={row.fqn}>
       <Text className={css.connectorName}>{row.connectorIdentifier}</Text>
@@ -181,28 +219,28 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
           portalClassName={css.locationPopover}
           modifiers={{ preventOverflow: { enabled: false } }}
         >
-          <Link
-            target={'_blank'}
-            to={`${routes.toPipelineStudio({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier,
-              module
-            })}?stage=${(row as any).stageIdentifier}&step=${(row as any).stepIdentifier}`}
-          >
-            {row.connectorIdentifier}
-          </Link>
+          {row.connectorIdentifier ? (
+            <Link target={'_blank'} to={getConnectorUrl(row.connectorIdentifier)}>
+              <Text lineClamp={1}>{row.connectorIdentifier}</Text>
+            </Link>
+          ) : null}
+
           <Container className={css.locationPopoverContent}>
             <Text className={css.row}>{getString('pre-flight-check.connectorLocationInPipeline')}</Text>
-            {row.stageName && (
+            {!!row.stageIdentifier && (
               <Text className={css.row}>
-                <strong>{getString('pre-flight-check.stageColon')}</strong> {row.stageName}
+                <strong>{getString('pre-flight-check.stageColon')}</strong>{' '}
+                <Link target="_blank" to={getStageLink(row.stageIdentifier)}>
+                  {row.stageName}
+                </Link>
               </Text>
             )}
-            {row.stepName && (
+            {!!row.stageIdentifier && !!row.stepIdentifier && (
               <Text className={css.row}>
-                <strong>{getString('pre-flight-check.stepColon')}</strong> {row.stepName}
+                <strong>{getString('pre-flight-check.stepColon')}</strong>{' '}
+                <Link target="_blank" to={getStepLink(row.stageIdentifier, row.stepIdentifier)}>
+                  {row.stepName}
+                </Link>
               </Text>
             )}
           </Container>

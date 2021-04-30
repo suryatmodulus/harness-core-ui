@@ -60,7 +60,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const { mutate: sendInvitation, loading: sending } = useSendInvite({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier || '',
+      orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
     }
   })

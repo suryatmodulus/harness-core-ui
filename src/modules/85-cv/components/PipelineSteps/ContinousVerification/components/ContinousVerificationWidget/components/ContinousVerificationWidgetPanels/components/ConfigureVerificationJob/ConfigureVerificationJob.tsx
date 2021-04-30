@@ -21,8 +21,9 @@ import {
   IdentifierTypes,
   JobTypes
 } from '@cv/components/PipelineSteps/ContinousVerification/constants'
+import type { VerificationJob } from '@cv/components/PipelineSteps/ContinousVerification/components/ContinousVerificationWidget/types'
 import { getFieldDataFromForm, isFieldDisabled } from './utils'
-import type { VerificationJob } from '../../types'
+import { defaultDeploymentTag } from './constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigureVerificationJob(props: {
@@ -141,6 +142,7 @@ export default function ConfigureVerificationJob(props: {
         selectedJob
       )
       const baseline = getFieldDataFromForm('baselineVerificationJobInstanceId', baseLineOptions, specInfo, selectedJob)
+      const deploymentTag = formValues?.spec?.spec?.deploymentTag || defaultDeploymentTag
       const serviceRef =
         selectedJob.serviceIdentifier === RUNTIME_INPUT_VALUE
           ? IdentifierTypes.serviceIdentifier
@@ -157,7 +159,8 @@ export default function ConfigureVerificationJob(props: {
           trafficsplit,
           baseline,
           serviceRef,
-          envRef
+          envRef,
+          deploymentTag
         }
       }
       setFieldValue('spec', { ...formValues.spec, ...updatedSpecs })

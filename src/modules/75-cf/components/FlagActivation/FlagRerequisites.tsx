@@ -18,7 +18,14 @@ import { Menu, Dialog } from '@blueprintjs/core'
 import type { IconName } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { Feature, Prerequisite, useGetAllFeatures, usePatchFeature, Variation } from 'services/cf'
+import {
+  Feature,
+  PatchFeatureQueryParams,
+  Prerequisite,
+  useGetAllFeatures,
+  usePatchFeature,
+  Variation
+} from 'services/cf'
 import patch from '../../utils/instructions'
 import css from './FlagActivationDetails.module.scss'
 
@@ -51,6 +58,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
       environment: environmentIdentifier !== 'undefined' ? environmentIdentifier : '',
       project: projectIdentifier as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       name: searchTerm
     }),
@@ -70,8 +78,9 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
       project: featureFlag.project as string,
       environment: featureFlag.envProperties?.environment as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as PatchFeatureQueryParams
   })
   const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
     if (action === 'delete') {

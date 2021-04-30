@@ -24,8 +24,14 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
 import Table from '@common/components/Table/Table'
-import type { GetEnvironmentListForProjectQueryParams } from 'services/cd-ng'
-import { useGetAllFeatures, Feature, useDeleteFeatureFlag, Features, FeatureState } from 'services/cf'
+import {
+  useGetAllFeatures,
+  Feature,
+  useDeleteFeatureFlag,
+  Features,
+  FeatureState,
+  DeleteFeatureFlagQueryParams
+} from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { OptionsMenuButton } from '@common/components'
 import { useToggleFeatureFlag } from '@cf/hooks/useToggleFeatureFlag'
@@ -295,8 +301,9 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
     queryParams: {
       project: projectIdentifier as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier
-    }
+    } as DeleteFeatureFlagQueryParams
   })
   const refetch = ((column as unknown) as { refetch: () => void }).refetch
   const deleteFlag = useConfirmAction({
@@ -369,16 +376,17 @@ const FeatureFlagsPage: React.FC = () => {
   const history = useHistory()
 
   const { data: environments, loading: envsLoading, error: envsError, refetch: refetchEnvironments } = useEnvironments({
-    accountIdentifier: accountId,
+    accountId,
     orgIdentifier,
     projectIdentifier
-  } as GetEnvironmentListForProjectQueryParams)
+  })
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(() => {
     return {
       project: projectIdentifier as string,
       environment: environment?.value as string,
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber

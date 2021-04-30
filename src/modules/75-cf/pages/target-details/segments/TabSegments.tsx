@@ -8,7 +8,7 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
 import { useAddTargetsToExcludeList, useAddTargetsToIncludeList } from '@cf/utils/SegmentUtils'
-import { Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
+import { GetTargetSegmentsQueryParams, Segment, Target, TargetDetailSegment, useGetTargetSegments } from 'services/cf'
 import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
 import { IncludeSegmentRow } from './IncludeSegmentRow'
 import { ExcludeSegmentRow } from './ExcludeSegmentRow'
@@ -23,10 +23,11 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
     identifier: targetIdentifier,
     queryParams: {
       account: accountId,
+      accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
       environment: environmentIdentifier
-    }
+    } as GetTargetSegmentsQueryParams
   })
   const _useAddTargetsToIncludeList = useAddTargetsToIncludeList(patchParams)
   const _useAddTargetsToExcludeList = useAddTargetsToExcludeList(patchParams)

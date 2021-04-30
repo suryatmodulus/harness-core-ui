@@ -5,7 +5,8 @@ import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { useGetAccountLicenseInfo } from 'services/portal'
 import routes from '@common/RouteDefinitions'
-import { Page } from '@common/components'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import css from './PurposePage.module.scss'
@@ -133,12 +134,14 @@ const PurposeList: React.FC = () => {
   }
 
   if (loading) {
-    return <Page.Spinner />
+    return <PageSpinner />
   }
 
-  return error ? (
-    <Page.Error message={error.message} onClick={() => refetch()} />
-  ) : (
+  if (error) {
+    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  }
+
+  return (
     <Layout.Vertical spacing="large">
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width={800}>

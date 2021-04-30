@@ -1,16 +1,18 @@
 import React from 'react'
-import { render, waitFor, act, fireEvent, queryByAttribute } from '@testing-library/react'
+import { render, waitFor, act, fireEvent, queryByAttribute, findAllByText, findByText } from '@testing-library/react'
 import { noop } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import GitSyncRepoForm from '../GitSyncRepoForm'
 import { gitHubMock } from './mockData'
 
 const createGitSynRepo = jest.fn()
-const getGitConnector = jest.fn(() => Promise.resolve(gitHubMock))
+const getGitConnector = jest.fn(() => Promise.resolve({}))
 
 jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
-  useGetConnector: jest.fn().mockImplementation(() => ({ data: gitHubMock, refetch: getGitConnector }))
+  useGetConnector: jest.fn().mockImplementation(() => ({ data: gitHubMock, refetch: getGitConnector })),
+  getConnectorListPromise: jest.fn().mockImplementation(() => Promise.resolve(gitHubMock)),
+  getListOfBranchesByConnectorPromise: jest.fn().mockResolvedValue({ data: ['master', 'devBranch'] })
 }))
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
@@ -82,7 +84,7 @@ describe('Git Sync - repo tab', () => {
   })
 
   test('Filling gitSync repo form', async () => {
-    const { container, getByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper
         path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
         pathParams={pathParams}
@@ -108,12 +110,66 @@ describe('Git Sync - repo tab', () => {
 
     await act(async () => {
       const connectorSelectorDialog = document.getElementsByClassName('bp3-dialog')[0]
+      const githubConnector = await findAllByText(connectorSelectorDialog as HTMLElement, 'ValidGithubRepo')
       expect(connectorSelectorDialog).toMatchSnapshot('connectorSelectorDialog')
-      // const githubConnector = await findAllByText(connectorSelectorDialog as HTMLElement, 'ValidGithubRepo')
-      // expect(githubConnector).toBeTruthy()
-      // fireEvent.click(githubConnector?.[0])
+      expect(githubConnector).toBeTruthy()
+      fireEvent.click(githubConnector?.[0])
+      const applySelected = getByText('entityReference.apply')
+      await act(async () => {
+        fireEvent.click(applySelected)
+      })
+    })
+
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeDefined()
+
+    await act(async () => {
+      fireEvent.change(nameInput!, { target: { value: 'repoName' } })
+    })
+
+    const rootfolderInput = queryByAttribute('name', container, 'rootfolder')
+    expect(rootfolderInput).toBeDefined()
+
+    await act(async () => {
+      fireEvent.change(rootfolderInput!, { target: { value: 'src/.harness/' } })
+    })
+
+    const icons = container.querySelectorAll('[icon="caret-down"]')
+    const branchInputIcon = icons[icons.length - 1]
+    expect(branchInputIcon).toBeDefined()
+
+    act(() => {
+      fireEvent.click(branchInputIcon!)
+    })
+
+    await waitFor(() => expect(queryByText('devBranch')).toBeTruthy())
+
+    act(() => {
+      fireEvent.click(getByText('devBranch'))
     })
 
     expect(container).toMatchSnapshot('gitSync repo form')
+
+    const submitBtn = await findByText(container, 'save')
+    fireEvent.click(submitBtn)
+    await waitFor(() => {
+      expect(createGitSynRepo).toBeCalledTimes(1)
+      expect(createGitSynRepo).toHaveBeenCalledWith({
+        branch: 'devBranch',
+        gitConnectorRef: 'ValidGithubRepo',
+        gitConnectorType: 'Github',
+        gitSyncFolderConfigDTOs: [
+          {
+            isDefault: true,
+            rootFolder: 'src/.harness/'
+          }
+        ],
+        identifier: 'repoName',
+        name: 'repoName',
+        orgIdentifier: 'default',
+        projectIdentifier: 'dummyProject',
+        repo: 'https://github.com/wings-software/sunnykesh-gitSync'
+      })
+    })
   })
 })

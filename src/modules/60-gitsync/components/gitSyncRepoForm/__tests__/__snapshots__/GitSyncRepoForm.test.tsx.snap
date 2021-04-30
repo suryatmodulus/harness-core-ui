@@ -230,28 +230,210 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
             role="tabpanel"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-small"
+              class="referenceList"
             >
-              <span
-                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-blue500"
-                data-icon="spinner"
+              <div
+                class="listItem listItem"
               >
-                <svg
-                  fill="none"
-                  height="24"
-                  viewBox="0 0 36 36"
-                  width="24"
+                <div
+                  class="item"
                 >
-                  <path
-                    d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
-                    stroke="currentColor"
-                    stroke-dasharray="75,100"
-                    stroke-linecap="round"
-                    stroke-width="2.8"
-                    style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
-                  />
-                </svg>
-              </span>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="github"
+                    >
+                      <svg
+                        height="30"
+                        viewBox="0 0 24 24"
+                        width="30"
+                      >
+                        <path
+                          d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                        />
+                      </svg>
+                    </span>
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+                      >
+                        ValidGitAccount
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                      >
+                        ValidGitRepo
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main editBtn"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
+                        icon="edit"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-red500"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="6"
+                        viewBox="0 0 16 16"
+                        width="6"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <span
+                  class="bp3-icon StyledProps--main iconCheck"
+                  data-icon="pipeline-approval"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 19 17"
+                    width="16"
+                  >
+                    <path
+                      d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div
+                class="listItem listItem"
+              >
+                <div
+                  class="item"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="github"
+                    >
+                      <svg
+                        height="30"
+                        viewBox="0 0 24 24"
+                        width="30"
+                      >
+                        <path
+                          d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                        />
+                      </svg>
+                    </span>
+                    <div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+                      >
+                        ValidGithubRepo
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
+                      >
+                        ValidGithubRepo
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main editBtn"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main"
+                        icon="edit"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-green500"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="6"
+                        viewBox="0 0 16 16"
+                        width="6"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <span
+                  class="bp3-icon StyledProps--main iconCheck"
+                  data-icon="pipeline-approval"
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 19 17"
+                    width="16"
+                  >
+                    <path
+                      d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -429,13 +611,15 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           class="bp3-popover-target"
                         >
                           <div
-                            class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                            class="bp3-editable-text InputWithIdentifier--idValue"
                             tabindex="0"
                           >
                             <span
                               class="bp3-editable-text-content"
                               style="height: 1px; line-height: 1px; min-width: 0;"
-                            />
+                            >
+                              repoName
+                            </span>
                           </div>
                         </span>
                       </span>
@@ -485,7 +669,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                             class="bp3-input"
                             name="name"
                             type="text"
-                            value=""
+                            value="repoName"
                           />
                         </div>
                       </div>
@@ -517,11 +701,61 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       <span
                         class="bp3-button-text"
                       >
-                        <span
-                          class="placeholder"
+                        <div
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                         >
-                          select
-                        </span>
+                          <span
+                            class="bp3-popover-wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main label"
+                                tabindex="0"
+                              >
+                                ValidGithubRepo
+                              </p>
+                            </span>
+                          </span>
+                          <div
+                            class="rightStatus"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-full-circle StyledProps--main status greenStatus"
+                              data-testid="crf-status"
+                              icon="full-circle"
+                            >
+                              <svg
+                                data-icon="full-circle"
+                                height="6"
+                                viewBox="0 0 16 16"
+                                width="6"
+                              >
+                                <desc>
+                                  full-circle
+                                </desc>
+                                <path
+                                  d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="Tag--main"
+                            >
+                              <span
+                                class="bp3-tag bp3-minimal tag"
+                              >
+                                <span
+                                  class="bp3-text-overflow-ellipsis bp3-fill"
+                                >
+                                  project
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
                       </span>
                       <span
                         class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -549,7 +783,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                   class="Layout--horizontal StyledProps--main"
                 >
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-disabled"
                     data-id="repo-2"
                   >
                     <label
@@ -566,14 +800,15 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-disabled"
                       >
                         <input
                           autocomplete="off"
                           class="bp3-input"
+                          disabled=""
                           name="repo"
                           type="text"
-                          value=""
+                          value="https://github.com/wings-software/sunnykesh-gitSync"
                         />
                       </div>
                     </div>
@@ -604,13 +839,13 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                         class="bp3-input"
                         name="rootfolder"
                         type="text"
-                        value=""
+                        value="src/.harness/"
                       />
                     </div>
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group bp3-intent-danger"
                   data-id="branch-4"
                 >
                   <label
@@ -633,7 +868,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                         class="bp3-popover-target"
                       >
                         <div
-                          class="bp3-input-group"
+                          class="bp3-input-group bp3-intent-danger"
                         >
                           <input
                             autocomplete="off"
@@ -642,7 +877,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value=""
+                            value="devBranch"
                           />
                           <span
                             class="bp3-input-action"
@@ -669,6 +904,45 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           </span>
                         </div>
                       </div>
+                      <div
+                        class="bp3-overlay bp3-overlay-inline"
+                      >
+                        <div
+                          class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+                        >
+                          <div
+                            class="bp3-popover bp3-minimal bp3-select-popover"
+                            style="transform-origin: center top;"
+                          >
+                            <div
+                              class="bp3-popover-content"
+                            >
+                              <div>
+                                <ul
+                                  class="bp3-menu"
+                                >
+                                  <li
+                                    class="Select--menuItem"
+                                  >
+                                    master
+                                  </li>
+                                  <li
+                                    class="Select--menuItem Select--active"
+                                  >
+                                    devBranch
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bp3-form-helper-text"
+                    >
+                      validation.branchName
                     </div>
                   </div>
                 </div>

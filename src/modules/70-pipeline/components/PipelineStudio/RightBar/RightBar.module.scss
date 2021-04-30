@@ -14,7 +14,7 @@
     border: 0 !important;
     border-radius: 0 !important;
     background-color: transparent !important;
-    height: 60px !important;
+    height: 70px !important;
     flex-direction: column;
     row-gap: var(--spacing-small);
     margin-bottom: 32px !important;
@@ -25,6 +25,11 @@
     &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;
       color: var(--right-bar-icon, var(--white)) !important;
+    }
+
+    &:global(.bp3-button > .bp3-button-text) {
+      width: 50px !important;
+      font-size: 9px !important;
     }
 
     &.selected {

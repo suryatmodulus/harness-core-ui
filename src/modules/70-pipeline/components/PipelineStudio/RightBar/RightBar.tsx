@@ -293,9 +293,10 @@ export const RightBar = (): JSX.Element => {
           })
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
-        icon="yaml-builder-notifications"
-        iconProps={{ size: 20 }}
+        icon="right-bar-notification"
+        iconProps={{ size: 28 }}
         text={getString('notifications.notificationRules')}
+        withoutCurrentColor={true}
       />
       {isFlowControlEnabled && (
         <Button

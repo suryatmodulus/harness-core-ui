@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Git filter test for repo and branch selecion rendering deafult filter 1`] = `
+exports[`Git filter test for repo and branch selecion rendering default filter 1`] = `
 <div>
   <div
     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main gitFilterContainer StyledProps--margin-right-small"

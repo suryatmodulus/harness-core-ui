@@ -115,11 +115,11 @@ gitSync:
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:
     header: Sync in progress
-    message: Sync in happening in the background, you can check on the status in the branch dropdown. This may take a few minutes to complete.
+    message: Sync is happening in the background, you can check on the status in the branch dropdown. This may take a few minutes to complete.
   unSynced:
     header: Sync the branch
     message1: 'Branch {{branch}} is currently not Synced.'
-    message2: 'Explaination text - What is syncing and why the branch needs to be sync.Do you want to Sync?'
+    message2: 'Explanation text - What is syncing and why the branch needs to be sync. Do you want to Sync?'
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'

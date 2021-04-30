@@ -31,7 +31,7 @@ describe('Git filter test for repo and branch selecion', () => {
     fetchBranches.mockReset()
   })
 
-  test('rendering deafult filter', async () => {
+  test('rendering default filter', async () => {
     const { container } = setup()
     await waitFor(() => {
       const repoName = queryByNameAttribute('repo', container) as HTMLInputElement

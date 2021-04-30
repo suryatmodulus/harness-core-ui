@@ -75,7 +75,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
   useEffect(() => {
     if (!loading && response?.data?.branches?.content?.length) {
-      const defaultBranch = response?.data?.defaultBranch?.branchName as string
+      const defaultBranch = response.data.defaultBranch?.branchName as string
       props.onChange({ repo: selectedGitRepo, branch: defaultBranch })
       setSelectedGitBranch(defaultBranch)
       setBranchSelectOptions(
@@ -154,13 +154,13 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             : setSelectedGitRepo('')
         }}
       >
-        {unSyncedSelectedBranch?.branchSyncStatus === 'UNSYNCED' ? (
+        {unSyncedSelectedBranch?.branchSyncStatus === branchSyncStatus.UNSYNCED ? (
           <Container padding="xlarge">
-            <Layout.Horizontal className={'spaceBetween'}>
+            <Layout.Horizontal flex={{ distribution: 'space-between' }}>
               <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_800}>
                 {getString('common.gitSync.unSynced.header')}
               </Text>
-              <Icon size={24} name="refresh"></Icon>
+              <Icon size={24} name="refresh" />
             </Layout.Horizontal>
             <Text margin={{ top: 'medium' }}>
               {getString('common.gitSync.unSynced.message1', { branch: unSyncedSelectedBranch?.value })}
@@ -195,18 +195,18 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const getSyncIcon = (syncStatus: GitBranchDTO['branchSyncStatus']): JSX.Element | void => {
     switch (syncStatus) {
       case branchSyncStatus.SYNCED:
-        return <Icon size={20} name="synced"></Icon>
+        return <Icon size={20} name="synced" />
 
       case branchSyncStatus.SYNCING:
-        return <Icon className={'rotate'} name="syncing"></Icon>
+        return <Icon className={'rotate'} name="syncing" />
 
       case branchSyncStatus.UNSYNCED:
-        return <Icon name="not-synced"></Icon>
+        return <Icon name="not-synced" />
     }
   }
 
   const handleBranchClick = (branch: BranchSelectOption): void => {
-    if (branch.branchSyncStatus === 'SYNCED') {
+    if (branch.branchSyncStatus === branchSyncStatus.SYNCED) {
       setSelectedGitBranch(branch.value as string)
       props.onChange({ repo: selectedGitRepo, branch: selectedGitBranch })
     } else {
@@ -251,7 +251,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
               active={item.value === selectedGitBranch}
               onClick={() => handleBranchClick(item)}
               text={
-                <Layout.Horizontal className={'spaceBetween'}>
+                <Layout.Horizontal flex={{ distribution: 'space-between' }}>
                   <span>{item.label}</span>
                   {item.branchSyncStatus && getSyncIcon(item.branchSyncStatus)}
                 </Layout.Horizontal>

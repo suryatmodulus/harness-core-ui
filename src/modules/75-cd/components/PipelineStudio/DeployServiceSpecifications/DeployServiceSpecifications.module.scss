@@ -193,21 +193,22 @@
 .stageSelection {
   display: grid;
   grid-template-columns: 450px 1fr;
-  padding: 0 var(--spacing-xxlarge) var(--spacing-large) var(--spacing-xxlarge);
+  margin-top: 20px;
+  padding: 0 var(--spacing-xxlarge) 0 var(--spacing-xxlarge);
   padding-top: 0;
   column-gap: var(--spacing-huge);
   align-items: center;
   .stage-selection-grid {
     display: grid;
     grid-template-columns: 150px 1fr;
-
     align-items: start;
+    height: 42px;
   }
   .radio-column {
     display: grid;
     align-items: start;
     grid-template-columns: 30px 1fr;
-    height: 66px;
+    height: 42px;
     label {
       position: relative;
       left: 35px;

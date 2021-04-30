@@ -589,6 +589,9 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
 
   const selectedStage = getStageFromPipeline(selectedStageId || '')
   const openSplitView = isSplitViewOpen && !!selectedStage?.stage
+  const resizerStyle = !!navigator.userAgent.match(/firefox/i)
+    ? { display: 'flow-root list-item' }
+    : { display: 'inline-table' }
 
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
@@ -600,7 +603,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           maxSize={MaximumSplitPaneSize}
           style={{ overflow: 'scroll' }}
           pane2Style={{ overflow: 'initial', zIndex: 2 }}
-          resizerStyle={{ display: 'inline-table' }}
+          resizerStyle={resizerStyle}
           onChange={handleStageResize}
           allowResize={openSplitView}
         >

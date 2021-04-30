@@ -98,7 +98,7 @@ const UserDetails: React.FC = () => {
                 data-testid={'addRole-UserGroup'}
                 text={getString('common.plusNumber', { number: getString('common.role') })}
                 minimal
-                className={css.addButton}
+                intent="primary"
                 onClick={event => {
                   event.stopPropagation()
                   openRoleAssignmentModal(PrincipalType.USER, user, data?.data?.roleBindings)

@@ -102,7 +102,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           {harnessManagedOrg || isPreview ? null : (
             <Container
               padding="xsmall"
-              margin={{ top: 'xsmall' }}
+              margin={{ top: 'small' }}
               border={{ color: Color.GREY_200 }}
               flex={{ inline: true }}
             >

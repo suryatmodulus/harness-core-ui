@@ -158,7 +158,7 @@ const MemberList: React.FC<MemberListProps> = ({ users, refetch, userGroup, open
         <Button
           text={getString('common.plusNumber', { number: getString('members') })}
           minimal
-          className={css.addButton}
+          intent="primary"
           onClick={() => {
             openUserGroupModal(userGroup, true)
           }}

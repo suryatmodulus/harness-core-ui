@@ -57,8 +57,9 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
       <Button
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
-        data-testid={`addRole-${row.original.user.uuid}`}
+        intent="primary"
         className={css.roleButton}
+        data-testid={`addRole-${row.original.user.uuid}`}
         onClick={handleAddRole}
       />
     </Layout.Horizontal>
@@ -122,6 +123,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
         <Button
           minimal
           icon="Options"
+          withoutBoxShadow
           data-testid={`menu-${data.uuid}`}
           onClick={e => {
             e.stopPropagation()

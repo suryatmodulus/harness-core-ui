@@ -139,7 +139,7 @@ const UserGroupTable: React.FC = () => {
       ) : null}
       {/* ENABLE WHEN READY */}
       {/* <Layout.Horizontal>
-        <Button minimal text={getString('rbac.userDetails.userGroup.addToGroup')} className={css.addButton} />
+        <Button minimal text={getString('rbac.userDetails.userGroup.addToGroup')} intent="primary" />
       </Layout.Horizontal> */}
     </>
   )

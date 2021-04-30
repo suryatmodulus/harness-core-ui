@@ -16,6 +16,7 @@ declare const styles: {
   readonly invites: string
   readonly collaboratorForm: string
   readonly pendingList: string
+  readonly roleButton: string
   readonly colorBar: string
   readonly pending: string
   readonly request: string

@@ -7,6 +7,5 @@ declare const styles: {
   readonly membersContainer: string
   readonly detailsContainer: string
   readonly memberList: string
-  readonly addButton: string
 }
 export default styles

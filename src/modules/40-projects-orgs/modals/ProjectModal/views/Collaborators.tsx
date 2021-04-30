@@ -210,7 +210,11 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                 <Layout.Horizontal width="50%">
                   <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
                 </Layout.Horizontal>
-                <Layout.Horizontal width="50%" spacing="xsmall" flex={{ align: 'center-center' }} className={css.toEnd}>
+                <Layout.Horizontal
+                  width="50%"
+                  spacing="xsmall"
+                  flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                >
                   <Text>{getString('collaborators.roleLabel')}</Text>
                   <CustomSelect
                     items={roles}
@@ -228,7 +232,15 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     }}
                     popoverProps={{ minimal: true, popoverClassName: css.customselect }}
                   >
-                    <Button inline minimal rightIcon="chevron-down" text={role.label} className={css.toEnd} />
+                    <Button
+                      inline
+                      minimal
+                      intent="primary"
+                      rightIcon="chevron-down"
+                      className={cx(css.toEnd, css.roleButton)}
+                    >
+                      <Text lineClamp={1}>{role.label}</Text>
+                    </Button>
                   </CustomSelect>
                 </Layout.Horizontal>
               </Layout.Horizontal>
@@ -296,7 +308,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
             {showManage ? (
               <Layout.Horizontal>
-                <Button inline minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
+                <Button minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
                   {projectIdentifier
                     ? i18n.newProjectWizard.Collaborators.manage
                     : i18n.newProjectWizard.Collaborators.manageOrg}

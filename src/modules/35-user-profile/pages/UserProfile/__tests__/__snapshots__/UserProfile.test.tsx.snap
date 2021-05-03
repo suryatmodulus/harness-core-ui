@@ -738,6 +738,27 @@ exports[`User Profile Page User Profile 1`] = `
                   </div>
                 </div>
                 <div
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-huge"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey900"
+                    >
+                      userProfile.myGroups
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500 StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-left-small StyledProps--padding-right-small StyledProps--background-blue200 StyledProps--border"
+                    />
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                  >
+                    rbac.userGroupPage.noUserGroups
+                  </p>
+                </div>
+                <div
                   class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                 >
                   <p

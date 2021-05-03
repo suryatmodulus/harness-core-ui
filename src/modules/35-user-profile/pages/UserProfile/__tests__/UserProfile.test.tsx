@@ -83,6 +83,16 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetUserProjectInfo: jest.fn().mockImplementation(() => {
     return { data: mockMyProfiles }
+  }),
+  useGetBatchUserGroupList: jest.fn().mockImplementation(() => {
+    return { data: mockResponse, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: mockResponse, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 

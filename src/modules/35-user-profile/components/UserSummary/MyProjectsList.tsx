@@ -19,7 +19,7 @@ const MyProjectsList: React.FC = () => {
   })
 
   return (
-    <Layout.Vertical spacing="large" margin={{ bottom: 'medium' }}>
+    <Layout.Vertical spacing="large" margin={{ bottom: 'huge' }}>
       <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }} spacing="medium">
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_900}>
           {getString('userProfile.myProjects')}
@@ -53,7 +53,7 @@ const MyProjectsList: React.FC = () => {
                     width={100}
                     lineClamp={3}
                     color={Color.GREY_800}
-                    font={{ size: 'small', align: 'center', weight: 'semi-bold' }}
+                    font={{ align: 'center', weight: 'semi-bold' }}
                   >
                     {project.name}
                   </Text>

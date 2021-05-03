@@ -10,3 +10,18 @@
     border-radius: 5px;
   }
 }
+
+.myGroupsCardContainer {
+  display: grid;
+  grid-gap: var(--spacing-medium);
+  grid-template-columns: repeat(2, 1fr);
+
+  .card {
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: var(--card-box-shadow);
+    border-radius: 5px;
+    padding: var(--spacing-medium);
+  }
+}

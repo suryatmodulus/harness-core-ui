@@ -12,7 +12,7 @@
       "src/modules/35-connectors/components/CreateConnector/SplunkConnector/**"
     ],
     "Connectors": ["src/modules/35-connectors/**", "src/modules/10-common/components/YAMLBuilder/**"],
-    "Delegates": ["src/modules/35-delegates/**"],
+    "Delegates": ["src/modules/30-delegates/**"],
     "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/75-ci/**"],
     "CF": ["src/modules/75-cf/**"],

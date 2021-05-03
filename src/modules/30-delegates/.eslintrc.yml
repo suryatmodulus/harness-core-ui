@@ -3,6 +3,7 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/30-secrets/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
         - modules/40-projects-orgs/*
@@ -14,6 +15,7 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@secrets/*'
         - '@connectors/*'
         - '@user-profile/*'
         - '@projects-orgs/*'

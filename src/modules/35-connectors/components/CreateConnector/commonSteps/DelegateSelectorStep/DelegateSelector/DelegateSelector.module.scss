@@ -1,0 +1,29 @@
+.formInput {
+  width: 280px !important;
+  margin: 0 var(--spacing-small);
+}
+
+.radio {
+  color: var(--grey-700);
+  font-size: var(--font-size-normal);
+  white-space: pre;
+}
+
+:global(.bp3-control) {
+  margin-bottom: 0;
+}
+
+.installDelegateButton {
+  color: var(--blue-600) !important;
+}
+
+.table {
+  background: var(--white);
+  overflow: auto;
+  height: 100%;
+  div[role='row'] {
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 1px solid var(--grey-200);
+  }
+}

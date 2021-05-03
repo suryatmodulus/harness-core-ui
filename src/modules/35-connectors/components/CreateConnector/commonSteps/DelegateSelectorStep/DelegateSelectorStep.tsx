@@ -16,7 +16,7 @@ import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { DelegateSelectors, PageSpinner } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -34,7 +34,7 @@ import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialo
 import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import css from './DelegateSelectorStep.module.scss'
+import { DelegateSelector } from './DelegateSelector/DelegateSelector'
 
 interface BuildPayloadProps {
   projectIdentifier: string
@@ -232,20 +232,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         >
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-            <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formData}>
-              <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
-              <DelegateSelectors
-                className={css.formInput}
-                fill
-                allowNewTag={false}
-                placeholder={getString('delegate.DelegateselectionPlaceholder')}
-                selectedItems={delegateSelectors}
-                onChange={data => {
-                  setDelegateSelectors(data as Array<string>)
-                }}
-              ></DelegateSelectors>
-            </Layout.Vertical>
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+            <DelegateSelector delegateSelectors={delegateSelectors} setDelegateSelectors={setDelegateSelectors} />
+            <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
               <Button
                 text={getString('back')}
                 icon="chevron-left"

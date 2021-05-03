@@ -471,6 +471,12 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.delegate.configure': string
+  'connectors.delegate.delegateSelectorAny': string
+  'connectors.delegate.delegateSelectorSelective': string
+  'connectors.delegate.hearbeat': string
+  'connectors.delegate.matchingDelegates': string
+  'connectors.delegate.testDelegateConnectivity': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string

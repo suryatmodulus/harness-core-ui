@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useParams, useLocation } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, FlexExpander } from '@wings-software/uicore'
 import { Page } from '@common/exports'
+import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { useGetDelegateFromId, useGetDelegateConfigFromId } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
@@ -9,7 +10,6 @@ import { SectionContainer } from '@delegates/components/SectionContainer/Section
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { DelegateOverview } from './DelegateOverview'
 import { DelegateAdvanced } from './DelegateAdvanced'
-import { delegateTypeToIcon } from './utils/DelegateHelper'
 import css from './DelegateDetails.module.scss'
 
 export default function DelegateDetails(): JSX.Element {

@@ -260,3 +260,10 @@ awsKms:
     externalIdRegexError: 'External ID can have upper and lower case alphanumeric characters with no spaces. You can also include underscores or any of the following characters: =,.@:/-'
     externalIdLengthError: 'External ID must have between 2 and 1224 characters'
   awsSTS: 'Assume Role using STS on delegate'
+delegate:
+  configure: Configure what delegates are allowed to connect to this connector
+  delegateSelectorAny: Connect via any available delegate
+  delegateSelectorSelective: Connect only via delegates which has all of the following tags
+  hearbeat: heartbeat
+  testDelegateConnectivity: Test Delegate Connectivity
+  matchingDelegates: matching delegates

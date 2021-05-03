@@ -22,7 +22,7 @@ import Table from '@common/components/Table/Table'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { DelegateStatus } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { delegateTypeToIcon } from './utils/DelegateHelper'
+import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 
 import css from './DelegatesPage.module.scss'
 

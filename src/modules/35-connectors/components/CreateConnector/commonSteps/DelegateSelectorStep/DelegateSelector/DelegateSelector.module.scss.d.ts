@@ -1,8 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly formData: string
   readonly formInput: string
-  readonly spinner: string
+  readonly radio: string
+  readonly installDelegateButton: string
+  readonly table: string
 }
 export default styles

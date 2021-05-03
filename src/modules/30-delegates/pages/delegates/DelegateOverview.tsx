@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Text, FlexExpander } from '@wings-software/uicore'
+import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import type { Delegate, DelegateProfile } from 'services/portal'
 import { useStrings } from 'framework/strings'
 import {
@@ -7,7 +8,6 @@ import {
   SectionContainerTitle,
   SectionLabelValuePair
 } from '@delegates/components/SectionContainer/SectionContainer'
-import { delegateTypeToIcon } from './utils/DelegateHelper'
 
 interface DelegateOverviewProps {
   delegate: Delegate

@@ -5,16 +5,12 @@
 
 .radio {
   color: var(--grey-700);
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-small);
   white-space: pre;
 }
 
 :global(.bp3-control) {
   margin-bottom: 0;
-}
-
-.installDelegateButton {
-  color: var(--blue-600) !important;
 }
 
 .table {

@@ -155,7 +155,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         </Text>
         <Button
           icon="plus"
-          className={css.installDelegateButton}
+          withoutBoxShadow
           font={{ weight: 'semi-bold' }}
           iconProps={{ margin: { right: 'xsmall' } }}
           onClick={noop}

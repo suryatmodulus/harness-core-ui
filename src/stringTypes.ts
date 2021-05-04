@@ -1433,6 +1433,7 @@ export interface StringsMap {
   'cd.setUpProvisionerBtnText': string
   'cd.steps.common.clusterDetails': string
   'cd.steps.common.infrastructureKeyPlaceholder': string
+  'cd.stepName': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string

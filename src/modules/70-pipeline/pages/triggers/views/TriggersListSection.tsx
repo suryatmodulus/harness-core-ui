@@ -248,12 +248,14 @@ const RenderWebhookIcon = ({
   type,
   webhookSourceRepo,
   webhookSecret,
+  webhookUrl,
   triggerIdentifier,
   column
 }: {
   type?: string
   webhookSourceRepo?: string
   webhookSecret?: string
+  webhookUrl?: string
   triggerIdentifier?: string
   column: {
     accountId: string
@@ -264,15 +266,9 @@ const RenderWebhookIcon = ({
   }
 }): JSX.Element => {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
-  if (!type || type !== TriggerTypes.WEBHOOK) {
+  if (!type || type !== TriggerTypes.WEBHOOK || !webhookUrl) {
     return <Text color={Color.GREY_400}>N/A</Text>
   }
-  const pathnameWithoutNg = window.location.pathname?.replace('/ng/', '')
-  const webhookUrl =
-    window.location.origin +
-    `${pathnameWithoutNg !== '/' ? pathnameWithoutNg : ''}/pipeline/api/webhook/trigger?accountIdentifier=${
-      column.accountId
-    }&orgIdentifier=${column.orgIdentifier}&projectIdentifier=${column.projectIdentifier}`
 
   if (webhookSourceRepo === GitSourceProviders.CUSTOM.value) {
     const curlCommand = `curl -X POST 
@@ -366,6 +362,7 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
       {RenderWebhookIcon({
         type: data?.type,
         webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo,
+        webhookUrl: data?.webhookUrl,
         webhookSecret: data?.webhookDetails?.webhookSecret,
         triggerIdentifier: data?.identifier,
         column

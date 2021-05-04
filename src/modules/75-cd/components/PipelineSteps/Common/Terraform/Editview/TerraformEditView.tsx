@@ -32,11 +32,12 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import GitStore from './GitStore'
-import BaseForm from './BaseForm'
+// import BaseForm from './BaseForm'
 
 import TfVarFileList from './TFVarFileList'
 import { ConfigurationTypes, TFFormData, TerraformProps, TerraformStoreTypes } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import css from './TerraformVarfile.module.scss'
 
 const setInitialValues = (data: TFFormData): TFFormData => {
   return data
@@ -81,15 +82,15 @@ export default function TerraformEditView(
     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
 
-  let configTypes: SelectOption[] = configurationTypes
+  // let configTypes: SelectOption[] = configurationTypes
 
-  if (stepType === StepType.TerraformDestroy) {
-    configTypes = [
-      { label: getString('inline'), value: ConfigurationTypes.Inline },
-      { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
-      { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
-    ]
-  }
+  // if (stepType === StepType.TerraformDestroy) {
+  //   configTypes = [
+  //     { label: getString('inline'), value: ConfigurationTypes.Inline },
+  //     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
+  //     { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
+  //   ]
+  // }
 
   return (
     <>
@@ -108,9 +109,11 @@ export default function TerraformEditView(
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('cd.stepName')}
+                    isIdentifierEditable={isNewStep}
+                  />
                 </div>
-                {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />}
 
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField
@@ -132,6 +135,38 @@ export default function TerraformEditView(
                     />
                   )}
                 </div>
+
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.Select
+                    items={configurationTypes}
+                    name="spec.configuration.type"
+                    label={getString('pipelineSteps.configurationType')}
+                    placeholder={getString('pipelineSteps.configurationType')}
+                  />
+                </div>
+                <div className={cx(css.fieldBorder, css.addMarginBottom)} />
+                {/* {stepType !== StepType.TerraformPlan && <BaseForm formik={formik} configurationTypes={configTypes} />} */}
+
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.MultiTextInput
+                    name="spec.provisionerIdentifier"
+                    label={getString('pipelineSteps.provisionerIdentifier')}
+                  />
+                  {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.spec?.provisionerIdentifier as string}
+                      type="String"
+                      variableName="spec.provisionerIdentifier"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('spec.provisionerIdentifier', value)
+                      }}
+                    />
+                  )}
+                </div>
+                <div className={cx(css.fieldBorder, css.addMarginBottom)} />
 
                 {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                   <Accordion activeId="step-1" className={stepCss.accordion}>

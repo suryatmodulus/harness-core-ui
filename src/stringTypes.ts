@@ -1070,6 +1070,7 @@ export interface StringsMap {
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.stepName': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string

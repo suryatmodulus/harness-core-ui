@@ -10,6 +10,7 @@ import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import pointerImage from './pointer.svg'
 import css from './ProjectSelector.module.scss'
@@ -27,7 +28,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   const { getString } = useStrings()
   const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { data } = useGetProjectList({
+  const { data, loading } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
       moduleType: moduleFilter,
@@ -54,7 +55,13 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
     }
   }, [moduleFilter])
 
-  return (
+  if (loading) {
+    return <PageSpinner />
+  }
+
+  return projects?.length === 0 ? (
+    <></>
+  ) : (
     <>
       <div className={css.projectSelector}>
         <Button

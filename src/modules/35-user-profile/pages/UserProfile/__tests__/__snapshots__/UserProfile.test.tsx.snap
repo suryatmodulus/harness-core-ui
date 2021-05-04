@@ -656,7 +656,7 @@ exports[`User Profile Page User Profile 1`] = `
                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
               >
                 <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-medium"
+                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-huge"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"

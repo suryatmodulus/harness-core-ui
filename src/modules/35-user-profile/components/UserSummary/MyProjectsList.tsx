@@ -53,7 +53,7 @@ const MyProjectsList: React.FC = () => {
                     width={100}
                     lineClamp={3}
                     color={Color.GREY_800}
-                    font={{ align: 'center', weight: 'semi-bold' }}
+                    font={{ size: 'small', align: 'center', weight: 'semi-bold' }}
                   >
                     {project.name}
                   </Text>

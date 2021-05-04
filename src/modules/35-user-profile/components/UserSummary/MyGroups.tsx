@@ -55,7 +55,7 @@ const MyGroups: React.FC = () => {
                 <Text
                   icon="search-user-groups"
                   iconProps={{ size: 35, padding: { right: 'medium' } }}
-                  font={{ weight: 'semi-bold' }}
+                  font={{ size: 'small', weight: 'semi-bold' }}
                   color={Color.GREY_800}
                 >
                   {userGroup.name}

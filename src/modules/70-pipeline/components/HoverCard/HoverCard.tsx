@@ -67,7 +67,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
             <Icon name="warning-sign" color={Color.RED_500} size={16} />
           </Container>
           <Layout.Vertical spacing={'xsmall'} style={{ flex: 1 }}>
-            <Text style={{ fontSize: '12px' }} color={Color.RED_500}>
+            <Text style={{ fontSize: '12px', wordBreak: 'break-word' }} lineClamp={4} color={Color.RED_500}>
               {data?.data?.failureInfo?.message || data?.data?.failureInfo?.errorMessage}
             </Text>
           </Layout.Vertical>

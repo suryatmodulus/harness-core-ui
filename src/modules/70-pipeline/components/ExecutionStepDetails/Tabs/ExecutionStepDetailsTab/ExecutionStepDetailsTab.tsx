@@ -12,6 +12,7 @@ import { isExecutionSkipped, isExecutionCompletedWithBadState } from '@pipeline/
 import { StepDetails } from '../Common/StepDetails/StepDetails'
 
 import css from './ExecutionStepDetailsTab.module.scss'
+import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 
 export interface ExecutionStepDetailsTabProps {
   step: ExecutionNode
@@ -39,7 +40,9 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
 
   return (
     <div className={css.detailsTab}>
-      {errorMessage ? (
+      {step.failureInfo?.responseMessages?.length ? (
+        <ErrorHandler responseMessages={step.failureInfo?.responseMessages} />
+      ) : errorMessage ? (
         <div className={cx(css.errorMsg, { [css.error]: isFailed, [css.warn]: isSkipped })}>
           <String className={css.title} stringID="errorSummaryText" tagName="div" />
           <p>{errorMessage}</p>

@@ -8,11 +8,10 @@ import routes from '@common/RouteDefinitions'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 import { isExecutionSkipped, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-
+import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 import { StepDetails } from '../Common/StepDetails/StepDetails'
 
 import css from './ExecutionStepDetailsTab.module.scss'
-import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 
 export interface ExecutionStepDetailsTabProps {
   step: ExecutionNode

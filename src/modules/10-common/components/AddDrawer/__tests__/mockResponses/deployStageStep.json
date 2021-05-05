@@ -64,7 +64,7 @@
             "name": "Scripted",
             "stepsData": [
               { "type": "ShellScript", "name": "Shell Script" },
-              { "type": "Http", "name": "Http" }
+              { "type": "Http", "name": "HTTP" }
             ],
             "stepCategories": []
           },

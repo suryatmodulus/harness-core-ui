@@ -557,7 +557,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                             checked=""
                             name="connectionType"
                             type="radio"
-                            value="Http"
+                            value="HTTP"
                           />
                           <span
                             class="bp3-control-indicator"

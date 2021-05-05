@@ -607,7 +607,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                             checked=""
                             name="connectionType"
                             type="radio"
-                            value="Http"
+                            value="HTTP"
                           />
                           <span
                             class="bp3-control-indicator"
@@ -620,7 +620,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           <input
                             name="connectionType"
                             type="radio"
-                            value="Ssh"
+                            value="SSH"
                           />
                           <span
                             class="bp3-control-indicator"
@@ -1500,7 +1500,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                             checked=""
                             name="connectionType"
                             type="radio"
-                            value="Http"
+                            value="HTTP"
                           />
                           <span
                             class="bp3-control-indicator"
@@ -1513,7 +1513,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           <input
                             name="connectionType"
                             type="radio"
-                            value="Ssh"
+                            value="SSH"
                           />
                           <span
                             class="bp3-control-indicator"

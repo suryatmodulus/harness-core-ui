@@ -593,7 +593,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                             checked=""
                             name="connectionType"
                             type="radio"
-                            value="Http"
+                            value="HTTP"
                           />
                           <span
                             class="bp3-control-indicator"

@@ -252,12 +252,12 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   factory={factory}
                   initialValues={
                     isPropagating
-                      ? deploymentStageInputSet?.serviceConfig.stageOverrides
+                      ? deploymentStageInputSet?.serviceConfig?.stageOverrides
                       : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
                   }
                   template={
                     isPropagating
-                      ? deploymentStageTemplate?.serviceConfig.stageOverrides
+                      ? deploymentStageTemplate?.serviceConfig?.stageOverrides
                       : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
                   }
                   type={StepType.K8sServiceSpec}

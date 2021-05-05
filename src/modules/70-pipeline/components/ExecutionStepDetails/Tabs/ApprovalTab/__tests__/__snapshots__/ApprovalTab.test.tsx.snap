@@ -92,7 +92,7 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
               <div
                 class="time"
               >
-                a month ago
+                2 months ago
               </div>
             </div>
             <button
@@ -179,7 +179,7 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
               <div
                 class="time"
               >
-                a month ago
+                2 months ago
               </div>
             </div>
             <button

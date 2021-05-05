@@ -89,19 +89,6 @@ const formatData = (data: K8sApplyFormData): K8sApplyData => {
     }
   }
 }
-const setInitialValues = (data: K8sApplyData): K8sApplyFormData => {
-  return {
-    ...data,
-    spec: {
-      skipDryRun: data?.spec?.skipDryRun,
-      skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
-      filePaths: (data?.spec?.filePaths || [])?.map((item: string) => ({
-        value: item,
-        id: uuid()
-      }))
-    }
-  }
-}
 
 function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardRef<K8sApplyData>): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true, isDisabled } = props
@@ -112,16 +99,23 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
   return (
     <>
       <Formik<K8sApplyFormData>
+        enableReinitialize={true}
         onSubmit={(values: K8sApplyFormData) => {
-          const payload = formatData(values)
-          onUpdate?.(payload)
+          onUpdate?.(values)
         }}
-        initialValues={setInitialValues(initialValues)}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
+          spec: Yup.object().shape({
+            filePaths: Yup.array(
+              Yup.object().shape({
+                value: Yup.string().required(getString('pipelineSteps.pathCannotBeEmpty'))
+              })
+            ).required(getString('pipelineSteps.filePathRequired'))
+          }),
           ...IdentifierValidation()
         })}
       >
@@ -157,7 +151,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                             >
                               <FormInput.MultiTextInput
                                 label=""
-                                placeholder={'Enter overrides file path'}
+                                placeholder={'Enter file path'}
                                 name={`spec.filePaths[${index}].value`}
                                 multiTextInputProps={{
                                   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
@@ -168,14 +162,12 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                                 style={{ width: '430px' }}
                               />
 
-                              {values?.spec?.filePaths && values?.spec?.filePaths?.length > 1 && (
-                                <Button
-                                  minimal
-                                  icon="minus"
-                                  onClick={() => arrayHelpers.remove(index)}
-                                  disabled={isDisabled}
-                                />
-                              )}
+                              <Button
+                                minimal
+                                icon="minus"
+                                onClick={() => arrayHelpers.remove(index)}
+                                disabled={isDisabled}
+                              />
                             </Layout.Horizontal>
                           ))}
                           <span>
@@ -317,8 +309,8 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
     }
     return (
       <K8sApplyDeployWidgetWithRef
-        initialValues={initialValues}
-        onUpdate={onUpdate}
+        initialValues={this.getInitialValues(initialValues)}
+        onUpdate={data => onUpdate?.(this.processFormData(data))}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         readonly={!!inputSetData?.readonly}
@@ -355,6 +347,30 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       delete errors.spec
     }
     return errors
+  }
+
+  private getInitialValues(initialValues: any): K8sApplyFormData {
+    return {
+      ...initialValues,
+      spec: {
+        ...initialValues.spec,
+        filePaths: (initialValues?.spec?.filePaths || [])?.map((item: string) => ({
+          value: item,
+          id: uuid()
+        }))
+      }
+    }
+  }
+
+  processFormData(data: any): K8sApplyData {
+    return {
+      ...data,
+      spec: {
+        skipDryRun: data?.spec?.skipDryRun,
+        skipSteadyStateCheck: data?.spec?.skipSteadyStateCheck,
+        filePaths: (data?.spec?.filePaths || [])?.map((item: FilePathConfig) => item.value)
+      }
+    }
   }
 
   protected type = StepType.K8sApply

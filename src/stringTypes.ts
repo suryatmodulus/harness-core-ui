@@ -5109,6 +5109,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'pipelineSteps.filePathRequired': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'pipelineSteps.gcpConnectorInfo': string
   /**
    * @deprecated migrate this string to module level file
@@ -5266,6 +5270,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.outputVariablesLabel': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'pipelineSteps.pathCannotBeEmpty': string
   /**
    * @deprecated migrate this string to module level file
    */

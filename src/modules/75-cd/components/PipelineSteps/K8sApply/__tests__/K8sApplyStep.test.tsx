@@ -1,7 +1,7 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { K8sApplyStep } from '../K8sApplyStep'
@@ -179,5 +179,42 @@ describe('Test K8sApplyStep', () => {
       />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('submitting the form with right payload', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const onUpdate = jest.fn()
+    render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sApply',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            skipDryRun: false,
+            skipSteadyStateCheck: false,
+            filePaths: ['test-1', 'test-2']
+          }
+        }}
+        type={StepType.K8sApply}
+        ref={ref}
+        onUpdate={onUpdate}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    await act(() => ref.current?.submitForm())
+    expect(onUpdate).toHaveBeenCalledWith({
+      identifier: 'Test_A',
+      name: 'Test A',
+      spec: {
+        filePaths: ['test-1', 'test-2'],
+        skipDryRun: false,
+        skipSteadyStateCheck: false
+      },
+      timeout: '10m',
+      type: 'K8sApply'
+    })
   })
 })

@@ -1220,7 +1220,6 @@ validation:
   nameRequired: Name is a required field
   connectorName: Connector name is a required field
   stepNameRequired: Step Name is a required field
-
   identifierRequired: Identifier is a required field
   identifierDuplicate: Stage with same identifier already exists
   connectorRefRequired: Container Registry is a required field

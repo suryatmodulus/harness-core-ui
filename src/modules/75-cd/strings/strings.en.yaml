@@ -25,3 +25,6 @@ cdTrialHomePage:
 
 chooseProvisionerText: What type of provisioner do you want to use?
 setUpProvisionerBtnText: Set Up Provisioner
+
+filePathRequired: Atleast one file path is required
+pathCannotBeEmpty: File Path cannot be empty

@@ -1011,10 +1011,12 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.filePathRequired': string
   'cd.folderPath': string
   'cd.infrastructureKey': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.setUpProvisionerBtnText': string
   'cd.steps.common.namespacePlaceholder': string
@@ -5109,10 +5111,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.filePathRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.gcpConnectorInfo': string
   /**
    * @deprecated migrate this string to module level file
@@ -5270,10 +5268,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.outputVariablesLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.pathCannotBeEmpty': string
   /**
    * @deprecated migrate this string to module level file
    */

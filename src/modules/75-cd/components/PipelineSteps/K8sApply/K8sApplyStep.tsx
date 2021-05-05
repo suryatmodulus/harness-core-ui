@@ -112,9 +112,9 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           spec: Yup.object().shape({
             filePaths: Yup.array(
               Yup.object().shape({
-                value: Yup.string().required(getString('pipelineSteps.pathCannotBeEmpty'))
+                value: Yup.string().required(getString('cd.pathCannotBeEmpty'))
               })
-            ).required(getString('pipelineSteps.filePathRequired'))
+            ).required(getString('cd.filePathRequired'))
           }),
           ...IdentifierValidation()
         })}

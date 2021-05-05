@@ -1141,8 +1141,6 @@ pipelineSteps:
   skipSteadyStateCheck: Skip Steady State Check
   workload: 'Workload'
   stepNameRequired: 'Step Name is required'
-  filePathRequired: Atleast one file path is required
-  pathCannotBeEmpty: File Path cannot be empty
   provisionerIdentifierRequired: 'Provisioner Identifier is required.'
   lessThanZero: 'Instance cannot be less than zero.'
   morethanHundred: 'Instance cannot be more than 100.'

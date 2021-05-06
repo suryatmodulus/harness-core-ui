@@ -50,3 +50,16 @@
 .addMarginTop {
   margin-top: var(--spacing-small);
 }
+
+.configField {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputField {
+  width: 80%;
+}
+
+.configBtn {
+  margin-top: var(--spacing-large) !important;
+}

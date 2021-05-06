@@ -60,3 +60,16 @@
   height: 0px;
   border: 1px solid #d9dae6;
 }
+
+.configField {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputField {
+  width: 80%;
+}
+
+.configBtn {
+  margin-top: 20px !important;
+}

@@ -443,7 +443,6 @@ mapApplicationsToEnvs: Map Applications to Harness Environments
 lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
-delegateSelection: Delegation Selection
 editCredentials: Edit Credentials
 createProject: '+ Create Project'
 pickProject: Pick a project and drill down to see your information.
@@ -807,7 +806,7 @@ delegate:
   NEW_DELEGATE: 'New Delegate'
   DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
-  DelegateselectionLabel: 'Delegate selection'
+  DelegateselectionLabel: 'Setup Delegates'
   DelegateselectionConnectorText: 'Limit usage of this connector to the delegates which have the following tags'
   DelegateselectionPlaceholder: 'Select or create the delegate selectors'
   DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression, it does not include'

@@ -11,6 +11,7 @@ import {
   DelegateSelectorTableProps
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export enum DelegateOptions {
   DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
@@ -93,6 +94,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { accountId, module } = useParams<Record<string, string>>()
   const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
   const { data, loading, error, refetch } = useGetDelegatesStatusV2({ queryParams })
+  const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { openDelegateModal } = useCreateDelegateModal({
     onClose: refetch
   })
@@ -115,7 +117,11 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
 
   useEffect(() => {
     const totalChecked = formattedData.filter(item => item.checked).length
-    if (!formattedData.length || (mode === DelegateOptions.DelegateOptionsSelective && !totalChecked)) {
+    const isSaveButtonDisabled = mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0
+    if (
+      !isSaveButtonDisabled &&
+      (!formattedData.length || (mode === DelegateOptions.DelegateOptionsSelective && !totalChecked))
+    ) {
       setDelegatesFound(false)
     } else {
       setDelegatesFound(true)
@@ -191,15 +197,19 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
-        <Button
-          icon="plus"
-          withoutBoxShadow
-          font={{ weight: 'semi-bold' }}
-          iconProps={{ margin: { right: 'xsmall' } }}
-          onClick={() => openDelegateModal()}
-        >
-          {getString('connectors.testConnectionStep.installNewDelegate')}
-        </Button>
+        {CDNG_ENABLED && NG_SHOW_DELEGATE ? (
+          <Button
+            icon="plus"
+            withoutBoxShadow
+            font={{ weight: 'semi-bold' }}
+            iconProps={{ margin: { right: 'xsmall' } }}
+            onClick={() => openDelegateModal()}
+          >
+            {getString('connectors.testConnectionStep.installNewDelegate')}
+          </Button>
+        ) : (
+          <></>
+        )}
       </Layout.Horizontal>
       <DelegateSelectorTable {...delegateSelectorTableProps} />
     </Layout.Vertical>

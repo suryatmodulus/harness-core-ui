@@ -10,5 +10,8 @@ declare const styles: {
   readonly addMarginTop: string
   readonly addMarginBottom: string
   readonly fieldBorder: string
+  readonly configField: string
+  readonly inputField: string
+  readonly configBtn: string
 }
 export default styles

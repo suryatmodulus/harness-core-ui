@@ -8,5 +8,8 @@ declare const styles: {
   readonly pathRow: string
   readonly label: string
   readonly addMarginTop: string
+  readonly configField: string
+  readonly inputField: string
+  readonly configBtn: string
 }
 export default styles

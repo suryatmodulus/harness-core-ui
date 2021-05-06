@@ -31,8 +31,9 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import GitStore from './GitStore'
+// import GitStore from './GitStore'
 // import BaseForm from './BaseForm'
+import useConfigDialog from './useConfigDialog'
 
 import TfVarFileList from './TFVarFileList'
 import { ConfigurationTypes, TFFormData, TerraformProps, TerraformStoreTypes } from '../TerraformInterfaces'
@@ -91,6 +92,8 @@ export default function TerraformEditView(
   //     { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
   //   ]
   // }
+
+  const { showModal } = useConfigDialog()
 
   return (
     <>
@@ -167,13 +170,21 @@ export default function TerraformEditView(
                   )}
                 </div>
                 <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-
+                <div className={css.configField}>
+                  <FormInput.Text
+                    name=""
+                    label={getString('pipelineSteps.configFiles')}
+                    placeholder={getString('cd.configFilePlaceHolder')}
+                    className={css.inputField}
+                  />
+                  <Button intent="primary" text="Edit" className={css.configBtn} onClick={showModal} />
+                </div>
                 {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                   <Accordion activeId="step-1" className={stepCss.accordion}>
                     <Accordion.Panel
                       id="step-1"
                       summary={getString('pipelineSteps.configFiles')}
-                      details={<GitStore formik={formik} />}
+                      details={<div>test</div>}
                     />
 
                     <Accordion.Panel

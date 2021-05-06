@@ -310,6 +310,7 @@ export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTri
             lastExecutionSuccessful: true
           },
           enabled: true,
+          webhookUrl: 'http://localhost:12001/api/webhook/trigger?accountIdentifier=accountIdentifier',
           tags: {
             tag1: '',
             tag2: 'val2'
@@ -322,6 +323,7 @@ export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTri
           identifier: 'trigger2',
           type: 'Webhook',
           enabled: false,
+          webhookUrl: 'http://localhost:12001/api/webhook/trigger?accountIdentifier=accountIdentifier',
           yaml:
             'trigger:\n  name: trigger-2\n  identifier: trigger2\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline: {}\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        repoUrl: "12"\n        event: Pull Request\n        actions:\n          - closed\n          - edited\n          - labeled\n        payloadConditions:\n          - key: sourceBranch\n            operator: regex\n            value: abc\n          - key: targetBranch\n            operator: contains\n            value: abc\n'
         },
@@ -333,6 +335,7 @@ export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTri
             webhookSecret: 'token',
             webhookSourceRepo: 'CUSTOM'
           },
+          webhookUrl: 'http://localhost:12001/api/webhook/trigger?accountIdentifier=accountIdentifier',
           tags: {},
           executions: [0, 0, 0, 0, 0, 0, 0],
           yaml: '',

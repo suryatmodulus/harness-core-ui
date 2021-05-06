@@ -183,16 +183,25 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   }
 
   useEffect(() => {
-    const delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
+    let delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
+    if (prevStepData?.delegateSelectors) {
+      delegate = prevStepData.delegateSelectors
+    }
     if (props.isEditMode) {
       setInitialValues({ delegateSelectors: delegate })
       setDelegateSelectors(delegate)
     }
   }, [])
+
+  const isSaveButtonDisabled =
+    (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
+    (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
+    creating ||
+    updating
   return (
     <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('delegateSelection')}
+        {getString('delegate.DelegateselectionLabel')}
       </Text>
       {updating ? (
         <PageSpinner

@@ -3378,10 +3378,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  delegateSelection: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   delete: string
   /**
    * @deprecated migrate this string to module level file

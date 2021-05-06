@@ -1,6 +1,13 @@
+.saveAndContinue {
+  white-space: nowrap !important;
+}
+
 .formInput {
   width: 280px !important;
   margin: 0 var(--spacing-small);
+  :global(.bp3-tag-input) {
+    height: auto !important;
+  }
 }
 
 .radio {
@@ -17,6 +24,11 @@
   background: var(--white);
   overflow: auto;
   height: 100%;
+  & > div:first-child {
+    display: flex;
+    height: 60px;
+    align-items: center;
+  }
   div[role='row'] {
     box-shadow: none;
     border-radius: 0px;

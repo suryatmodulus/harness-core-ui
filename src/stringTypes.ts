@@ -463,6 +463,7 @@ export interface StringsMap {
   'connectors.delegate.matchesSelectors': string
   'connectors.delegate.matchingDelegates': string
   'connectors.delegate.noDelegates': string
+  'connectors.delegate.noMatchingDelegate': string
   'connectors.delegate.testDelegateConnectivity': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string

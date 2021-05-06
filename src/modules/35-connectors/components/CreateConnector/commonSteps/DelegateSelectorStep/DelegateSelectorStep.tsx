@@ -34,7 +34,8 @@ import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialo
 import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { DelegateSelector } from './DelegateSelector/DelegateSelector'
+import { DelegateOptions, DelegateSelector } from './DelegateSelector/DelegateSelector'
+import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
   projectIdentifier: string
@@ -73,6 +74,19 @@ const defaultInitialFormData: InitialFormData = {
   delegateSelectors: []
 }
 
+const NoMatchingDelegateWarning: React.FC = () => {
+  const { getString } = useStrings()
+  return (
+    <Text
+      icon="warning-sign"
+      iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
+      font={{ size: 'small', weight: 'semi-bold' }}
+    >
+      {getString('connectors.delegate.noMatchingDelegate')}
+    </Text>
+  )
+}
+
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
   const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
@@ -93,6 +107,12 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   })
   const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
+  const [mode, setMode] = useState<DelegateOptions>(
+    DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType
+      ? DelegateOptions.DelegateOptionsSelective
+      : DelegateOptions.DelegateOptionsAny
+  )
+  const [delegatesFound, setDelegatesFound] = useState<boolean>(true)
   let stepDataRef: ConnectorConfigDTO | null = null
   const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
   //TODO @vardan api to fetch this flag is currently WIP, will replace later with api response
@@ -232,7 +252,14 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         >
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-            <DelegateSelector delegateSelectors={delegateSelectors} setDelegateSelectors={setDelegateSelectors} />
+            <DelegateSelector
+              mode={mode}
+              setMode={setMode}
+              delegateSelectors={delegateSelectors}
+              setDelegateSelectors={setDelegateSelectors}
+              setDelegatesFound={setDelegatesFound}
+              delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
+            />
             <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
               <Button
                 text={getString('back')}
@@ -244,6 +271,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 type="submit"
                 intent={'primary'}
                 text={getString('saveAndContinue')}
+                className={css.saveAndContinue}
                 disabled={
                   (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType &&
                     delegateSelectors.length === 0) ||
@@ -252,6 +280,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 }
                 rightIcon="chevron-right"
               />
+              {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
             </Layout.Horizontal>
           </Form>
         </Formik>

@@ -12,9 +12,16 @@ import {
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
+export enum DelegateOptions {
+  DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
+  DelegateOptionsSelective = 'DelegateOptions.DelegateOptionsSelective'
+}
 export interface DelegateSelectorProps {
+  mode: DelegateOptions
+  setMode: (mode: DelegateOptions) => void
   delegateSelectors: Array<string>
   setDelegateSelectors: (delegateSelectors: Array<string>) => void
+  setDelegatesFound: (delegatesFound: boolean) => void
   delegateSelectorMandatory: boolean
 }
 
@@ -23,11 +30,6 @@ export interface DelegateInnerCustom extends DelegateInner {
 }
 
 const NullRenderer = () => <></>
-
-enum DelegateOptions {
-  DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
-  DelegateOptionsSelective = 'DelegateOptions.DelegateOptionsSelective'
-}
 
 interface CustomRadioGroupProps {
   items: (IOptionProps & { checked: boolean; CustomComponent?: React.ReactElement })[]
@@ -78,11 +80,15 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
 }
 
 export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
-  const { delegateSelectors = [], setDelegateSelectors, delegateSelectorMandatory = false } = props
+  const {
+    mode,
+    setMode,
+    delegateSelectors = [],
+    setDelegateSelectors,
+    setDelegatesFound,
+    delegateSelectorMandatory = false
+  } = props
   const [formattedData, setFormattedData] = useState<DelegateInnerCustom[]>([])
-  const [mode, setMode] = useState<DelegateOptions>(
-    delegateSelectorMandatory ? DelegateOptions.DelegateOptionsSelective : DelegateOptions.DelegateOptionsAny
-  )
   const { getString } = useStrings()
   const { accountId, module } = useParams<Record<string, string>>()
   const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
@@ -90,6 +96,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { openDelegateModal } = useCreateDelegateModal({
     onClose: refetch
   })
+
   useEffect(() => {
     const parsedData = (data?.resource?.delegates || []).map(delegate => ({
       ...delegate,
@@ -105,6 +112,15 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         : DelegateOptions.DelegateOptionsAny
     setMode(updatedMode)
   }, [delegateSelectors, data])
+
+  useEffect(() => {
+    const totalChecked = formattedData.filter(item => item.checked).length
+    if (!formattedData.length || (mode === DelegateOptions.DelegateOptionsSelective && !totalChecked)) {
+      setDelegatesFound(false)
+    } else {
+      setDelegatesFound(true)
+    }
+  }, [mode, formattedData])
 
   const DelegateSelectorCountComponent = useMemo(() => {
     const count = formattedData.filter(item => item.checked).length

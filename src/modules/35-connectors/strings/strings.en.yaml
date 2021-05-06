@@ -269,3 +269,4 @@ delegate:
   testDelegateConnectivity: Test Delegate Connectivity
   matchingDelegates: matching delegates
   noDelegates: You have no delegates
+  noMatchingDelegate: No eligible delegates found. Install a new delegate or continue to save.

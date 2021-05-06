@@ -265,5 +265,7 @@ delegate:
   delegateSelectorAny: Connect via any available delegate
   delegateSelectorSelective: Connect only via delegates which has all of the following tags
   hearbeat: heartbeat
+  matchesSelectors: Matches Selectors
   testDelegateConnectivity: Test Delegate Connectivity
   matchingDelegates: matching delegates
+  noDelegates: You have no delegates

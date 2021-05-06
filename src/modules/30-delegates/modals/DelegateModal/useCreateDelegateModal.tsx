@@ -5,7 +5,6 @@ import { CreateDelegateWizard } from '@delegates/components/CreateDelegateWizard
 import css from './useCreateDelegateModal.module.scss'
 
 export interface UseCreateDelegateModalProps {
-  onSuccess?: () => void
   onClose?: () => void
 }
 
@@ -14,7 +13,9 @@ export interface UseCreateDelegateModalReturn {
   closeDelegateModal: () => void
 }
 
-const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
+const useCreateDelegateModal = (
+  useCreateDelegateModalProps?: UseCreateDelegateModalProps
+): UseCreateDelegateModalReturn => {
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
@@ -28,15 +29,18 @@ const useCreateDelegateModal = (): UseCreateDelegateModalReturn => {
     }
   })
 
-  const [showModal, hideModal] = useModalHook(
-    () => (
-      <Dialog {...modalProps} onClose={() => hideModal()}>
-        <CreateDelegateWizard onClose={() => hideModal()} />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+  const [showModal, hideModal] = useModalHook(() => {
+    const onClose: () => void = () => {
+      useCreateDelegateModalProps?.onClose?.()
+      hideModal()
+    }
+    return (
+      <Dialog {...modalProps} onClose={onClose}>
+        <CreateDelegateWizard onClose={onClose} />
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />
       </Dialog>
-    ),
-    []
-  )
+    )
+  }, [])
   return {
     openDelegateModal: (_modalProps?: IDialogProps | undefined) => {
       setModalProps(_modalProps || modalProps)

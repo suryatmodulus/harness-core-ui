@@ -3,6 +3,7 @@ import type { CellProps, Renderer } from 'react-table'
 import type { GetDataError } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import DelegateEmptyState from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/icons/DelegateEmptyState.svg'
 import Table from '@common/components/Table/Table'
 import type { TableProps } from '@common/components/Table/Table'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
@@ -14,11 +15,12 @@ import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
-interface DelegateSelectorTableProps {
+export interface DelegateSelectorTableProps {
   data: DelegateInnerCustom[]
   loading: boolean
   error: GetDataError<unknown> | null
   refetch: () => Promise<void>
+  showMatchesSelectorColumn?: boolean
 }
 
 const RenderDelegateIcon: Renderer<CellProps<DelegateInnerCustom>> = ({ row }) => {
@@ -63,48 +65,61 @@ const RenderTags: Renderer<CellProps<DelegateInnerCustom>> = ({ row }) => {
 }
 
 export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props => {
-  const { data, error, loading, refetch } = props
+  const { data, error, loading, refetch, showMatchesSelectorColumn = true } = props
   const { getString } = useStrings()
   const columns: TableProps<DelegateInner>['columns'] = useMemo(
-    () => [
-      {
-        Header: '',
-        id: 'delegateIcon',
-        width: '5%',
-        Cell: RenderDelegateIcon
-      },
-      {
-        Header: getString('delegate.DelegateName').toLocaleUpperCase(),
-        accessor: (row: DelegateInner) => row.delegateName || row.hostName,
-        id: 'name',
-        width: '40%',
-        Cell: RenderDelegateName
-      },
-      {
-        Header: getString('connectors.delegate.hearbeat').toLocaleUpperCase(),
-        accessor: (row: DelegateInner) => row.status,
-        id: 'connectivity',
-        width: '25%',
-        Cell: RenderHeartbeat
-      },
-      {
-        Header: getString('tagsLabel').toLocaleUpperCase(),
-        id: 'tags',
-        width: '30%',
-        Cell: RenderTags
+    () => {
+      const cols = [
+        {
+          Header: getString('delegate.DelegateName').toLocaleUpperCase(),
+          accessor: (row: DelegateInner) => row.delegateName || row.hostName,
+          id: 'name',
+          width: '35%',
+          Cell: RenderDelegateName
+        },
+        {
+          Header: getString('connectors.delegate.hearbeat').toLocaleUpperCase(),
+          accessor: (row: DelegateInner) => row.status,
+          id: 'connectivity',
+          width: '20%',
+          Cell: RenderHeartbeat
+        },
+        {
+          Header: getString('tagsLabel').toLocaleUpperCase(),
+          id: 'tags',
+          width: '35%',
+          Cell: RenderTags
+        }
+      ]
+      if (showMatchesSelectorColumn) {
+        cols.push({
+          Header: getString('connectors.delegate.matchesSelectors').toLocaleUpperCase(),
+          id: 'delegateIcon',
+          width: '10%',
+          Cell: RenderDelegateIcon
+        })
       }
-    ],
+      return cols
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    [data, showMatchesSelectorColumn]
   )
-  const getContent = () => {
+  const getContent = (): React.ReactElement => {
     if (loading) {
       return <ContainerSpinner />
     }
-    if (data) {
+    if (data && data.length) {
       return <Table columns={columns} data={data} className={css.table} />
     }
-    return <PageError message={error?.message} onClick={() => refetch()} />
+    if (error) {
+      return <PageError message={error?.message} onClick={() => refetch()} />
+    }
+    return (
+      <Layout.Vertical height="100%" flex={{ align: 'center-center' }}>
+        <img width="100%" height="100%" src={DelegateEmptyState} style={{ alignSelf: 'center' }} />
+        <Text>{getString('connectors.delegate.noDelegates')}</Text>
+      </Layout.Vertical>
+    )
   }
   return (
     <Container padding={{ left: 'small', right: 'small', top: 'small' }} background={Color.WHITE} height={265}>

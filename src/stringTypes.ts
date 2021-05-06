@@ -460,7 +460,9 @@ export interface StringsMap {
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
   'connectors.delegate.hearbeat': string
+  'connectors.delegate.matchesSelectors': string
   'connectors.delegate.matchingDelegates': string
+  'connectors.delegate.noDelegates': string
   'connectors.delegate.testDelegateConnectivity': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string

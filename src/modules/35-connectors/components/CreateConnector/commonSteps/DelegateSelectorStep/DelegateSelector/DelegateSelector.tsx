@@ -1,17 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { noop } from 'lodash-es'
 import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors } from '@common/components'
+import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import { DelegateInner, GetDelegatesStatusV2QueryParams, useGetDelegatesStatusV2 } from 'services/portal'
-import { DelegateSelectorTable } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
+import {
+  DelegateSelectorTable,
+  DelegateSelectorTableProps
+} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 export interface DelegateSelectorProps {
   delegateSelectors: Array<string>
   setDelegateSelectors: (delegateSelectors: Array<string>) => void
+  delegateSelectorMandatory: boolean
 }
 
 export interface DelegateInnerCustom extends DelegateInner {
@@ -62,6 +66,7 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
               color={Color.GREY_800}
               className={css.radio}
               checked={item.checked}
+              disabled={item.disabled}
               onClick={() => onClick(item.value as DelegateOptions)}
             />
             {CustomComponent}
@@ -73,13 +78,18 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
 }
 
 export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
-  const { delegateSelectors = [], setDelegateSelectors } = props
+  const { delegateSelectors = [], setDelegateSelectors, delegateSelectorMandatory = false } = props
   const [formattedData, setFormattedData] = useState<DelegateInnerCustom[]>([])
-  const [mode, setMode] = useState<DelegateOptions>(DelegateOptions.DelegateOptionsAny)
+  const [mode, setMode] = useState<DelegateOptions>(
+    delegateSelectorMandatory ? DelegateOptions.DelegateOptionsSelective : DelegateOptions.DelegateOptionsAny
+  )
   const { getString } = useStrings()
   const { accountId, module } = useParams<Record<string, string>>()
   const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
   const { data, loading, error, refetch } = useGetDelegatesStatusV2({ queryParams })
+  const { openDelegateModal } = useCreateDelegateModal({
+    onClose: refetch
+  })
   useEffect(() => {
     const parsedData = (data?.resource?.delegates || []).map(delegate => ({
       ...delegate,
@@ -89,7 +99,11 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
       ])
     }))
     setFormattedData(parsedData)
-    setMode(delegateSelectors.length ? DelegateOptions.DelegateOptionsSelective : DelegateOptions.DelegateOptionsAny)
+    const updatedMode =
+      delegateSelectors.length || delegateSelectorMandatory
+        ? DelegateOptions.DelegateOptionsSelective
+        : DelegateOptions.DelegateOptionsAny
+    setMode(updatedMode)
   }, [delegateSelectors, data])
 
   const DelegateSelectorCountComponent = useMemo(() => {
@@ -132,7 +146,8 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
       {
         label: getString('connectors.delegate.delegateSelectorAny'),
         value: DelegateOptions.DelegateOptionsAny,
-        checked: mode === DelegateOptions.DelegateOptionsAny
+        checked: mode === DelegateOptions.DelegateOptionsAny,
+        disabled: delegateSelectorMandatory
       },
       {
         label: getString('connectors.delegate.delegateSelectorSelective'),
@@ -143,6 +158,13 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     ],
     [mode, formattedData]
   )
+  const delegateSelectorTableProps: DelegateSelectorTableProps = {
+    data: formattedData,
+    loading,
+    error,
+    refetch,
+    showMatchesSelectorColumn: mode === DelegateOptions.DelegateOptionsSelective
+  }
   return (
     <Layout.Vertical>
       <Text color={Color.GREY_800} margin={{ top: 'xlarge', bottom: 'medium' }}>
@@ -158,12 +180,12 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
           withoutBoxShadow
           font={{ weight: 'semi-bold' }}
           iconProps={{ margin: { right: 'xsmall' } }}
-          onClick={noop}
+          onClick={() => openDelegateModal()}
         >
           {getString('connectors.testConnectionStep.installNewDelegate')}
         </Button>
       </Layout.Horizontal>
-      <DelegateSelectorTable data={formattedData} loading={loading} error={error} refetch={refetch} />
+      <DelegateSelectorTable {...delegateSelectorTableProps} />
     </Layout.Vertical>
   )
 }

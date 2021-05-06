@@ -9,6 +9,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import { Page } from '@common/components'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
@@ -142,10 +143,10 @@ const PurposeList: React.FC = () => {
   }
 
   return (
-    <Layout.Vertical spacing="large">
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="50%">
-          <div style={{ borderRight: 'inset', marginLeft: -15 }}>
+    <Page.Body>
+      <Layout.Horizontal margin={{ top: 'large', left: 'xxxlarge', right: 'xxxlarge' }}>
+        <Container width="50%" padding={{ left: 'xxlarge', right: 'huge' }}>
+          <div style={{ borderRight: 'inset' }}>
             {getOptions().map(option => (
               <Card
                 key={option.title}
@@ -174,7 +175,7 @@ const PurposeList: React.FC = () => {
                       textAlign: 'center',
                       borderRadius: 4,
                       height: 'var(--spacing-large)',
-                      backgroundColor: 'var(--purple-900)',
+                      backgroundColor: 'var(--purple-500)',
                       padding: 'var(--spacing-xsmall)'
                     }}
                     icon={selected === option.module ? ('tick' as IconName) : ('' as IconName)}
@@ -191,7 +192,7 @@ const PurposeList: React.FC = () => {
             ))}
           </div>
         </Container>
-        <Container width={500} padding={{ left: 'huge', top: 'medium' }}>
+        <Container width="40%" margin={{ left: 'huge', top: 'medium' }}>
           {selected ? (
             getModuleLink(selected)
           ) : (
@@ -199,7 +200,7 @@ const PurposeList: React.FC = () => {
           )}
         </Container>
       </Layout.Horizontal>
-    </Layout.Vertical>
+    </Page.Body>
   )
 }
 
@@ -209,14 +210,16 @@ export const PurposePage: React.FC = () => {
   const HarnessLogo = HarnessIcons['harness-logo-black']
 
   return (
-    <Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}>
-      <Layout.Vertical padding={'xxlarge'}>
-        <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
-        <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
-          {getString('common.purpose.welcome')}
-        </Heading>
-        <PurposeList />
-      </Layout.Vertical>
-    </Container>
+    <>
+      <Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}>
+        <Layout.Vertical padding={'xxlarge'}>
+          <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
+          <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
+            {getString('common.purpose.welcome')}
+          </Heading>
+        </Layout.Vertical>
+      </Container>
+      <PurposeList />
+    </>
   )
 }

@@ -117,6 +117,14 @@ export interface VarFileArray {
     }
   }
 }
+
+export interface ConfigFileData {
+  spec?: {
+    configuration?: {
+      spec?: TerraformApplyStepInfo
+    }
+  }
+}
 export interface Connector {
   label: string
   value: string

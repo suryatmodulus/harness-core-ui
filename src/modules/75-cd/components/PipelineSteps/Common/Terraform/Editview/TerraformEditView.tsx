@@ -83,17 +83,10 @@ export default function TerraformEditView(
     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
 
-  // let configTypes: SelectOption[] = configurationTypes
-
-  // if (stepType === StepType.TerraformDestroy) {
-  //   configTypes = [
-  //     { label: getString('inline'), value: ConfigurationTypes.Inline },
-  //     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
-  //     { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
-  //   ]
-  // }
-
-  const { showModal } = useConfigDialog()
+  const { showModal } = useConfigDialog({
+    onSubmit: () => props.onUpdate,
+    onClose: () => props.onUpdate
+  })
 
   return (
     <>
@@ -177,7 +170,15 @@ export default function TerraformEditView(
                     placeholder={getString('cd.configFilePlaceHolder')}
                     className={css.inputField}
                   />
-                  <Button intent="primary" text="Edit" className={css.configBtn} onClick={showModal} />
+                  <Button
+                    intent="primary"
+                    text="Edit"
+                    className={css.configBtn}
+                    onClick={showModal}
+                    onSubmit={() => {
+                      // console.log(data)
+                    }}
+                  />
                 </div>
                 {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                   <Accordion activeId="step-1" className={stepCss.accordion}>

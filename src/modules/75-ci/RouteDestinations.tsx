@@ -22,7 +22,7 @@ import type {
   ProjectPathProps,
   ModulePathParams
 } from '@common/interfaces/RouteInterfaces'
-
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
 import { MinimalLayout } from '@common/layouts'
 
@@ -150,6 +150,20 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
   return <Redirect to={routes.toExecutionPipelineView(params)} />
 }
 
+const CIDashboardPageOrRedirect = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { selectedProject } = useAppStore()
+  const { CI_OVERVIEW_PAGE } = useFeatureFlags()
+
+  if (CI_OVERVIEW_PAGE) {
+    return <CIDashboardPage />
+  } else if (selectedProject?.modules?.includes(ModuleName.CI)) {
+    return <Redirect to={routes.toDeployments({ ...params, module: 'ci' })} />
+  } else {
+    return <Redirect to={routes.toCIHome(params)} />
+  }
+}
+
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & ModulePathParams>()
   return <Redirect to={routes.toResourcesConnectors(params)} />
@@ -206,7 +220,7 @@ export default (
       path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CIDashboardPage />
+      <CIDashboardPageOrRedirect />
     </RouteWithLayout>
     {/* <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
         <CIBuildList />

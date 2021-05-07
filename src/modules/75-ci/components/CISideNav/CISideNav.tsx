@@ -22,7 +22,7 @@ export default function CISideNav(): React.ReactElement {
   const module = 'ci'
   const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
-  const { GIT_SYNC_NG } = useFeatureFlags()
+  const { GIT_SYNC_NG, CI_OVERVIEW_PAGE } = useFeatureFlags()
   const { trial } = useQueryParams<{ trial?: boolean }>()
   return (
     <Layout.Vertical spacing="small">
@@ -67,7 +67,7 @@ export default function CISideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink label="Overview" to={routes.toCIProjectOverview(params)} />
+          {CI_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCIProjectOverview(params)} />}
           <SidebarLink label="Builds" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
 

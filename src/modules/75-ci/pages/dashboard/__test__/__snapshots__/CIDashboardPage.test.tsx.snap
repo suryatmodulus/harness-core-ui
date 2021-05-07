@@ -479,7 +479,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               <div
                 class="StyledProps--font StyledProps--main times"
               >
-                13 days ago
+                16 days ago
               </div>
             </div>
             <div

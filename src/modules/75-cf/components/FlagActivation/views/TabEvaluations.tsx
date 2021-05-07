@@ -25,6 +25,15 @@ export interface TabEvaluationsProps {
   endDate: Date
 }
 
+interface CustomSeries {
+  type?: string
+  keys?: string[]
+  isEvent?: boolean
+  name?: string | undefined
+  color?: string
+  data: number[] | number[][]
+}
+
 // Remove year in chart for only current year dates
 const _formatDateWithoutYear = (date: number): string => {
   const currentYear = new Date(date).getFullYear()
@@ -36,17 +45,20 @@ const _formatDateWithoutYear = (date: number): string => {
 
 export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startDate, endDate }) => {
   const { getString } = useStrings()
-  const { accountId: account, orgIdentifier: org, projectIdentifier: project } = useParams<Record<string, string>>()
+  const { accountId: account, orgIdentifier: org, projectIdentifier: project, environmentIdentifier } = useParams<
+    Record<string, string>
+  >()
   const queryParams = useMemo(
     () => ({
       account,
       accountIdentifier: account,
       org,
       project,
+      environment: environmentIdentifier,
       startTime: startDate.getTime(),
       endTime: endDate.getTime()
     }),
-    [startDate, endDate, account, org, project]
+    [startDate, endDate, account, org, project, environmentIdentifier]
   )
   const { data, loading, error, refetch } = useGetFeatureEvaluations({
     identifier: flagData.identifier,
@@ -85,7 +97,7 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
   )
 
   // series is used to render y-axis + tooltip
-  const series = flagData.variations.map((variation, index) => {
+  const series: CustomSeries[] = flagData.variations.map((variation, index) => {
     const seriesData = categories.map(
       dayFromRanges =>
         metricsGroupedByDay?.find(
@@ -93,34 +105,20 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
         )?.count || 0
     )
 
-    // Tooltip with combination with audit logs are not implemented
-    // @see https://harness.atlassian.net/browse/FFM-802
-    const tooltips = categories.reduce((_tooltip, dayFromRanges) => {
-      _tooltip[dayFromRanges] = `
-        <p>${dayFromRanges}</p>
-        <h3>
-          ${getString('cf.featureFlags.metrics.flagEvaluations', { count: 100 })}
-        </h3>
-        <table className=${cx(Classes.HTML_TABLE, css.dataTable)}>
-        <tbody>
-          <tr>
-            <td>True</td>
-            <td>${formatNumber(1000 || 0, true)} evaluations</td>
-          </tr>
-        </tbody>
-      </table>
-      `
-      return _tooltip
-    }, {} as Record<string, string>)
-
     const variationSeriesItem = {
       name: variation.name,
       color: CFVariationColors[index % CFVariationColors.length],
-      data: seriesData,
-      tooltips
+      data: seriesData
     }
 
     return variationSeriesItem
+  })
+
+  series.push({
+    type: 'scatter',
+    keys: ['y'],
+    data: [[0], [0], [], [0], [], [0], [0], [0]],
+    isEvent: true
   })
 
   return (

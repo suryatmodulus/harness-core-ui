@@ -267,12 +267,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 intent={'primary'}
                 text={getString('saveAndContinue')}
                 className={css.saveAndContinue}
-                disabled={
-                  (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType &&
-                    delegateSelectors.length === 0) ||
-                  creating ||
-                  updating
-                }
+                disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"
               />
               {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}

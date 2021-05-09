@@ -4,6 +4,7 @@ import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors } from '@common/components'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import { DelegateInner, GetDelegatesStatusV2QueryParams, useGetDelegatesStatusV2 } from 'services/portal'
 import {
@@ -11,7 +12,6 @@ import {
   DelegateSelectorTableProps
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export enum DelegateOptions {
   DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
@@ -134,7 +134,11 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     if (!total) {
       return <></>
     }
-    return <Text>{`${count}/${total} ${getString('connectors.delegate.matchingDelegates')}`}</Text>
+    return (
+      <Text data-name="delegateMatchingText">{`${count}/${total} ${getString(
+        'connectors.delegate.matchingDelegates'
+      )}`}</Text>
+    )
   }, [formattedData])
 
   const DelegateSelectorsCustomComponent = useMemo(
@@ -204,6 +208,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
             font={{ weight: 'semi-bold' }}
             iconProps={{ margin: { right: 'xsmall' } }}
             onClick={() => openDelegateModal()}
+            data-name="installNewDelegateButton"
           >
             {getString('connectors.testConnectionStep.installNewDelegate')}
           </Button>

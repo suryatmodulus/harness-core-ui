@@ -106,23 +106,28 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
   )
   const getContent = (): React.ReactElement => {
     if (loading) {
-      return <ContainerSpinner />
+      return <ContainerSpinner data-name="delegateTableLoadingState" />
     }
     if (data && data.length) {
       return <Table columns={columns} data={data} className={css.table} />
     }
     if (error) {
-      return <PageError message={error?.message} onClick={() => refetch()} />
+      return <PageError message={error?.message} onClick={() => refetch()} data-name="delegateTableErrorState" />
     }
     return (
-      <Layout.Vertical height="100%" flex={{ align: 'center-center' }}>
+      <Layout.Vertical height="100%" flex={{ align: 'center-center' }} data-name="delegateTableEmptyState">
         <img width="100%" height="100%" src={DelegateEmptyState} style={{ alignSelf: 'center' }} />
         <Text>{getString('connectors.delegate.noDelegates')}</Text>
       </Layout.Vertical>
     )
   }
   return (
-    <Container padding={{ left: 'small', right: 'small', top: 'small' }} background={Color.WHITE} height={265}>
+    <Container
+      padding={{ left: 'small', right: 'small', top: 'small' }}
+      background={Color.WHITE}
+      height={265}
+      data-name="delegateContentContainer"
+    >
       {getContent()}
     </Container>
   )

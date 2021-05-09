@@ -33,7 +33,10 @@ import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialo
 import { useGitDiffDialog } from '@common/modals/GitDiff/useGitDiffDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { DelegateOptions, DelegateSelector } from './DelegateSelector/DelegateSelector'
+import {
+  DelegateOptions,
+  DelegateSelector
+} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
@@ -80,6 +83,7 @@ const NoMatchingDelegateWarning: React.FC = () => {
       icon="warning-sign"
       iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
       font={{ size: 'small', weight: 'semi-bold' }}
+      data-name="delegateNoMatchWarning"
     >
       {getString('connectors.delegate.noMatchingDelegate')}
     </Text>
@@ -269,6 +273,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 className={css.saveAndContinue}
                 disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"
+                data-name="delegateSaveAndContinue"
               />
               {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
             </Layout.Horizontal>

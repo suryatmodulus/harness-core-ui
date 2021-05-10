@@ -1,4 +1,5 @@
 import { setAutoFreeze, enableMapSet } from 'immer'
+import { noop } from 'lodash-es'
 
 // set up Immer
 setAutoFreeze(false)
@@ -47,3 +48,7 @@ jest.mock('framework/utils/Telemetry', () => {
 })
 
 jest.mock('react-timeago', () => () => 'dummy date')
+
+jest.mock('@delegates/modals/DelegateModal/useCreateDelegateModal', () => () => ({
+  openDelegateModal: noop
+}))

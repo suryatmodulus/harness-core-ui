@@ -113,12 +113,14 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         ? DelegateOptions.DelegateOptionsSelective
         : DelegateOptions.DelegateOptionsAny
     setMode(updatedMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delegateSelectors, data])
 
   useEffect(() => {
     const totalChecked = formattedData.filter(item => item.checked).length
     const isSaveButtonDisabled = mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0
     if (
+      !loading &&
       !isSaveButtonDisabled &&
       (!formattedData.length || (mode === DelegateOptions.DelegateOptionsSelective && !totalChecked))
     ) {
@@ -126,6 +128,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     } else {
       setDelegatesFound(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, formattedData])
 
   const DelegateSelectorCountComponent = useMemo(() => {
@@ -139,6 +142,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         'connectors.delegate.matchingDelegates'
       )}`}</Text>
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formattedData])
 
   const DelegateSelectorsCustomComponent = useMemo(
@@ -155,6 +159,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         }}
       ></DelegateSelectors>
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [delegateSelectors]
   )
 
@@ -165,6 +170,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         {DelegateSelectorCountComponent}
       </>
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formattedData])
 
   const options: CustomRadioGroupProps['items'] = useMemo(
@@ -182,6 +188,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         CustomComponent
       }
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mode, formattedData]
   )
   const delegateSelectorTableProps: DelegateSelectorTableProps = {

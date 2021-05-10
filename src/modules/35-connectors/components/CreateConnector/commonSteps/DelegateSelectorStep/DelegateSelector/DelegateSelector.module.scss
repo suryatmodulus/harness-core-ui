@@ -24,11 +24,6 @@
   background: var(--white);
   overflow: auto;
   height: 100%;
-  & > div:first-child {
-    display: flex;
-    height: 60px;
-    align-items: center;
-  }
   div[role='row'] {
     box-shadow: none;
     border-radius: 0px;

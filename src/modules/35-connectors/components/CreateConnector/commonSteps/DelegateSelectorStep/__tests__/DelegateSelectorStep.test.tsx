@@ -12,8 +12,6 @@ import {
   mockedDelegates
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/__tests__/DelegateSelector.mock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <></>)
-
 jest.spyOn(portalServices, 'useGetDelegateSelectors').mockImplementation(
   () =>
     ({

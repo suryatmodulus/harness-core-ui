@@ -4,11 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import DelegatesListing from '../DelegateListing'
 import Delegatesmock from './Delegatesmock.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div>yamlDiv</div>
-  return ComponentToMock
-})
-
 jest.mock('services/portal', () => ({
   useGetDelegatesStatusV2: () => ({
     data: Delegatesmock,

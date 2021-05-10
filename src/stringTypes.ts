@@ -1033,6 +1033,7 @@ export interface StringsMap {
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
+  'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string

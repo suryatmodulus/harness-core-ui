@@ -1078,6 +1078,7 @@ export interface StringsMap {
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
   'cd.configFilePlaceHolder': string
+  'cd.configIdentifer': string
   'cd.continuous': string
   'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string

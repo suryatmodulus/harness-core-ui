@@ -19,7 +19,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
       >
         <div>
           <div
-            class="Layout--vertical StyledProps--main"
+            class="Layout--vertical StyledProps--main delegateSelectorContainer"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-top-xlarge StyledProps--margin-bottom-medium"

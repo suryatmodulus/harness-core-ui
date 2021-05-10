@@ -17,23 +17,40 @@ export const connectorInfo = {
   spec: {
     credential: { crossAccountAccess: null, type: 'InheritFromDelegate', spec: null },
     delegateSelectors: ['primary']
-  }
-}
-
-export const prevStepData = {
-  name: 'safdsafasfasfasdf',
-  identifier: 'safdsafasfasfasdf',
-  description: '',
-  orgIdentifier: undefined,
-  projectIdentifier: undefined,
-  tags: {},
-  type: 'Aws',
-  spec: {
-    credential: { crossAccountAccess: null, type: 'InheritFromDelegate', spec: null },
-    delegateSelectors: ['primary']
   },
   delegateType: 'InheritFromDelegate',
   crossAccountAccess: false
+}
+
+export const connectorInfoCredentials = {
+  name: 'sdfgdfsgsdfg',
+  identifier: 'sdfgdfsgsdfg',
+  description: '',
+  orgIdentifier: 'default',
+  projectIdentifier: 'newProject',
+  tags: {},
+  type: 'Aws' as ConnectorInfoDTO['type'],
+  spec: {
+    credential: {
+      crossAccountAccess: null,
+      type: 'ManualConfig',
+      spec: { accessKey: 'sdfgsfdg', accessKeyRef: null, secretKeyRef: 'HARNESS_IMAGE_PASSWORD' }
+    },
+    delegateSelectors: ['delegate-selector-sample']
+  },
+  delegateType: 'ManualConfig',
+  accessKey: { value: 'sdfgsfdg', type: 'TEXT' },
+  secretKeyRef: {
+    identifier: 'HARNESS_IMAGE_PASSWORD',
+    name: 'HARNESS_IMAGE_PASSWORD',
+    referenceString: 'HARNESS_IMAGE_PASSWORD',
+    accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+    projectIdentifier: 'newProject',
+    orgIdentifier: 'default'
+  },
+  crossAccountAccess: false,
+  accessKeyfieldType: 'TEXT',
+  accessKeytextField: 'sdfgsfdg'
 }
 
 export const mockedDelegates = {

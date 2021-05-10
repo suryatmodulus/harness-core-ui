@@ -220,17 +220,21 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           //   })
           // })}
           onSubmit={stepData => {
+            const updatedStepData = {
+              ...stepData,
+              delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
+            }
+
             const connectorData: BuildPayloadProps = {
               ...prevStepData,
-              ...stepData,
-              delegateSelectors,
+              ...updatedStepData,
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
             }
 
             const data = buildPayload(connectorData)
             setConnectorPayloadRef(data)
-            stepDataRef = stepData
+            stepDataRef = updatedStepData
             if (isGitSyncEnabled) {
               openSaveToGitDialog(props.isEditMode, {
                 type: Entities.CONNECTORS,
@@ -241,8 +245,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             } else {
               if (customHandleUpdate || customHandleCreate) {
                 props.isEditMode
-                  ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
-                  : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
               } else {
                 handleCreateOrEdit({ payload: data })
               }

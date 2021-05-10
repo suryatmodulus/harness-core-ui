@@ -199,7 +199,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     showMatchesSelectorColumn: mode === DelegateOptions.DelegateOptionsSelective
   }
   return (
-    <Layout.Vertical>
+    <Layout.Vertical className={css.delegateSelectorContainer}>
       <Text color={Color.GREY_800} margin={{ top: 'xlarge', bottom: 'medium' }}>
         {getString('connectors.delegate.configure')}
       </Text>

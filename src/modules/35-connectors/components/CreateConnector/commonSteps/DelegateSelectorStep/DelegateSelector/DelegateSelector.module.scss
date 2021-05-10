@@ -1,32 +1,34 @@
-.saveAndContinue {
-  white-space: nowrap !important;
-}
-
-.formInput {
-  width: 280px !important;
-  margin: 0 var(--spacing-small);
-  :global(.bp3-tag-input) {
-    height: auto !important;
+.delegateSelectorContainer {
+  .saveAndContinue {
+    white-space: nowrap !important;
   }
-}
 
-.radio {
-  color: var(--grey-700);
-  font-size: var(--font-size-small);
-  white-space: pre;
-}
+  .formInput {
+    width: 280px !important;
+    margin: 0 var(--spacing-small);
+    :global(.bp3-tag-input) {
+      height: auto !important;
+    }
+  }
 
-:global(.bp3-control) {
-  margin-bottom: 0;
-}
+  .radio {
+    color: var(--grey-700);
+    font-size: var(--font-size-small);
+    white-space: pre;
+  }
 
-.table {
-  background: var(--white);
-  overflow: auto;
-  height: 100%;
-  div[role='row'] {
-    box-shadow: none;
-    border-radius: 0px;
-    border-bottom: 1px solid var(--grey-200);
+  :global(.bp3-control) {
+    margin-bottom: 0;
+  }
+
+  .table {
+    background: var(--white);
+    overflow: auto;
+    height: 100%;
+    div[role='row'] {
+      box-shadow: none;
+      border-radius: 0px;
+      border-bottom: 1px solid var(--grey-200);
+    }
   }
 }

@@ -8,7 +8,7 @@ import DelegateSelectorStep from '@connectors/components/CreateConnector/commonS
 import {
   defaultProps,
   connectorInfo,
-  prevStepData,
+  connectorInfoCredentials,
   mockedDelegates
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/__tests__/DelegateSelector.mock'
 
@@ -130,7 +130,7 @@ describe('DelegateSelectorStep', () => {
       <TestWrapper>
         <DelegateSelectorStep
           {...defaultProps}
-          prevStepData={prevStepData}
+          prevStepData={connectorInfo}
           connectorInfo={connectorInfo}
           buildPayload={jest.fn()}
         />
@@ -156,7 +156,7 @@ describe('DelegateSelectorStep', () => {
         <DelegateSelectorStep
           {...defaultProps}
           connectorInfo={connectorInfo}
-          prevStepData={prevStepData}
+          prevStepData={connectorInfo}
           buildPayload={jest.fn()}
         />
       </TestWrapper>
@@ -169,6 +169,25 @@ describe('DelegateSelectorStep', () => {
       '2/2 connectors.delegate.matchingDelegates'
     )
     expect(container.querySelector('[data-name="delegateNoMatchWarning"]')).toBeFalsy()
+    expect(rows[0]?.childElementCount).toBe(4)
+  })
+
+  test('should not show matches column if choose any delegate option is selected', async () => {
+    jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+      () =>
+        ({
+          loading: false,
+          error: undefined,
+          data: mockedDelegates
+        } as any)
+    )
+    const { container } = render(
+      <TestWrapper>
+        <DelegateSelectorStep {...defaultProps} buildPayload={jest.fn()} />
+      </TestWrapper>
+    )
+    const headerRow = container.querySelector('[data-name="delegateContentContainer"] div[role="row"]')
+    expect(headerRow?.childElementCount).toBe(3)
   })
 
   test('should show checked for only one row', async () => {
@@ -183,7 +202,7 @@ describe('DelegateSelectorStep', () => {
               delegateSelectors: ['delegate-sample-name-1']
             }
           }}
-          prevStepData={prevStepData}
+          prevStepData={connectorInfo}
           buildPayload={jest.fn()}
         />
       </TestWrapper>
@@ -223,7 +242,7 @@ describe('DelegateSelectorStep', () => {
               delegateSelectors: ['delegate-sample-name-3']
             }
           }}
-          prevStepData={prevStepData}
+          prevStepData={connectorInfo}
           buildPayload={jest.fn()}
         />
       </TestWrapper>
@@ -235,5 +254,49 @@ describe('DelegateSelectorStep', () => {
       '0/2 connectors.delegate.matchingDelegates'
     )
     expect(container.querySelector('[data-name="delegateNoMatchWarning"]')).toBeTruthy()
+  })
+
+  test('should call buildPayload with correct data', async () => {
+    const buildPayload = jest.fn()
+    const { container } = render(
+      <TestWrapper>
+        <DelegateSelectorStep
+          {...defaultProps}
+          connectorInfo={connectorInfoCredentials}
+          prevStepData={connectorInfoCredentials}
+          buildPayload={buildPayload}
+        />
+      </TestWrapper>
+    )
+    expect(buildPayload).not.toBeCalled()
+    await act(async () => {
+      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+    })
+    expect(buildPayload).toBeCalledWith({
+      ...connectorInfoCredentials,
+      delegateSelectors: connectorInfoCredentials.spec.delegateSelectors
+    })
+  })
+
+  test('should call buildPayload with no selectors if create via any delegate option is chosen', async () => {
+    const buildPayload = jest.fn()
+    const { container } = render(
+      <TestWrapper>
+        <DelegateSelectorStep
+          {...defaultProps}
+          connectorInfo={connectorInfoCredentials}
+          prevStepData={connectorInfoCredentials}
+          buildPayload={buildPayload}
+        />
+      </TestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click(container.querySelector('input[value="DelegateOptions.DelegateOptionsAny"]')!)
+    })
+    expect(buildPayload).not.toBeCalled()
+    await act(async () => {
+      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+    })
+    expect(buildPayload).toBeCalledWith({ ...connectorInfoCredentials, delegateSelectors: [] })
   })
 })

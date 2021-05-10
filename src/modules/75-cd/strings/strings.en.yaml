@@ -35,3 +35,5 @@ configFilePlaceHolder: 'Specify Config File'
 
 optionalConfig: Optional Configuration
 configIdentifer: Configuration Identifier
+addInline: Add Inline
+addRemote: Add Remote

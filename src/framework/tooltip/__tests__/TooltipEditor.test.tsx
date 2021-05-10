@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { NGTooltipEditorPortal } from '../TooltipEditor'
 
 const getDefaultProps = (showTooltipEditor: boolean) => ({
@@ -19,13 +19,13 @@ describe('Tooltip editor tests', () => {
     document.body.removeChild(rootParent)
   })
 
-  test('if it renders in portal', () => {
+  test('if it renders in portal', async () => {
     const props = getDefaultProps(true)
     const { queryByText, unmount } = render(<NGTooltipEditorPortal {...props} />)
     expect(queryByText('No toolip IDs found in the present context.')).toBeTruthy()
 
     unmount()
-    expect(removeChildSpy).toBeCalled()
+    await waitFor(() => expect(removeChildSpy).toHaveBeenCalled())
   })
 
   test('if it renders null if flag is toggled', () => {

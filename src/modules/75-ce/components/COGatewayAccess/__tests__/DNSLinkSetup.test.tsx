@@ -121,12 +121,15 @@ describe('Use DNS for Setup', () => {
 
     const notUsingCustomDomain = container.querySelector('input[name="notUsingCustomDomain"]') as HTMLInputElement
     expect(notUsingCustomDomain).toBeDefined()
-    const accessPointDropDown = container.querySelector('input[name="accessPoint') as HTMLInputElement
+    const accessPointDropDown = container.querySelector('input[name="accessPoint"]') as HTMLInputElement
     const generatedHostName = await findByText(container, 'ce.co.dnsSetup.autoURL')
     expect(generatedHostName).toBeDefined()
     expect(accessPointDropDown).toBeDefined()
+    const accessPointCaret = container
+      .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(accessPointDropDown)
+      fireEvent.click(accessPointCaret!)
     })
     const apToSelect = await findByText(container, 'mock.com')
     expect(apToSelect).toBeDefined()
@@ -165,8 +168,11 @@ describe('Use DNS for Setup', () => {
 
     const route53Account = container.querySelector('input[name="route53Account"]') as HTMLInputElement
     expect(route53Account).toBeDefined()
+    const route53Caret = container
+      .querySelector(`input[name="route53Account"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(route53Account)
+      fireEvent.click(route53Caret!)
     })
     const route53ToSelect = await findByText(container, 'route53mock.com')
     act(() => {

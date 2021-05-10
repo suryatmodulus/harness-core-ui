@@ -56,6 +56,7 @@ rules:
 
   # react
   react/prop-types: 0
+  react/display-name: 1
 
   #typescript
   '@typescript-eslint/no-use-before-define': 0

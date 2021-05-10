@@ -267,8 +267,11 @@ describe('Test ContinousVerificationStep Step', () => {
 
     //clicking on the select jobs dropdown and selecting the job of type HEALTH
     const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(defineVJDropdown)
+      fireEvent.click(selectCaret!)
     })
     const jobToSelect = await findByText(container, 'Health Job')
     act(() => {
@@ -321,8 +324,11 @@ describe('Test ContinousVerificationStep Step', () => {
 
     //clicking on the select jobs dropdown and selecting the job of type TEST
     const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(defineVJDropdown)
+      fireEvent.click(selectCaret!)
     })
     const jobToSelect = await findByText(container, 'Test type Job with run time service param')
     act(() => {
@@ -383,8 +389,11 @@ describe('Test ContinousVerificationStep Step', () => {
 
     //clicking on the select jobs dropdown and selecting the job of type BLUE GREEN
     const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(defineVJDropdown)
+      fireEvent.click(selectCaret!)
     })
     const jobToSelect = await findByText(container, 'Blue Green')
     act(() => {
@@ -445,8 +454,11 @@ describe('Test ContinousVerificationStep Step', () => {
 
     //clicking on the select jobs dropdown and selecting the job of type CANARY
     const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="spec.verificationJobRef"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
     await waitFor(() => {
-      fireEvent.focus(defineVJDropdown)
+      fireEvent.click(selectCaret!)
     })
     const jobToSelect = await findByText(container, 'Canary')
     act(() => {

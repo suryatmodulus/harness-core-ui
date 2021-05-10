@@ -213,6 +213,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   intent={'primary'}
                   onClick={() => {
                     const data = formik.values
+                    console.log(data, 'data')
                     props.onSubmit(data)
                   }}
                 />

@@ -15,7 +15,8 @@ const useConfigDialog = (props: ConfigDialogProps) => {
   const modalProps = {
     isOpen: true,
     canEscapeKeyClose: true,
-    canOutsideClickClose: true
+    canOutsideClickClose: true,
+    style: { width: 1000 }
   }
   const { getString } = useStrings()
 
@@ -32,7 +33,12 @@ const useConfigDialog = (props: ConfigDialogProps) => {
         title={getString('pipelineSteps.configFiles')}
         isCloseButtonShown
       >
-        <ConfigForm onSubmit={data => onSubmit(data)} onHide={hideModal} />
+        <ConfigForm
+          onSubmit={data => {
+            onSubmit(data)
+          }}
+          onHide={hideModal}
+        />
       </Dialog>
     ),
     []

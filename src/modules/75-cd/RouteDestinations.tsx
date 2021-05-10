@@ -63,11 +63,6 @@ import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYa
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
 
-import RbacFactory from '@rbac/factories/RbacFactory'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { String } from 'framework/strings'
-
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -77,50 +72,9 @@ import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
-import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
-import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
-import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
-
-RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
-  icon: 'pipeline-deployment',
-  label: 'Pipeline',
-  permissionLabels: {
-    [PermissionIdentifier.VIEW_PIPELINE]: <String stringID="rbac.permissionLabels.view" />,
-    [PermissionIdentifier.EDIT_PIPELINE]: <String stringID="rbac.permissionLabels.createEdit" />,
-    [PermissionIdentifier.DELETE_PIPELINE]: <String stringID="rbac.permissionLabels.delete" />,
-    [PermissionIdentifier.EXECUTE_PIPELINE]: <String stringID="rbac.permissionLabels.execute" />
-  },
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <PipelineResourceModal {...props} />
-})
-
-RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
-  icon: 'service-deployment',
-  label: 'Service',
-  permissionLabels: {
-    [PermissionIdentifier.VIEW_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
-    [PermissionIdentifier.EDIT_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
-    [PermissionIdentifier.DELETE_SERVICE]: <String stringID="rbac.permissionLabels.delete" />,
-    [PermissionIdentifier.RUNTIMEACCESS_SERVICE]: <String stringID="rbac.permissionLabels.access" />
-  },
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <ServiceResourceModal {...props} />
-})
-
-RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
-  icon: 'environment',
-  label: 'Environmentnpx ',
-  permissionLabels: {
-    [PermissionIdentifier.VIEW_ENVIRONMENT]: <String stringID="rbac.permissionLabels.view" />,
-    [PermissionIdentifier.EDIT_ENVIRONMENT]: <String stringID="rbac.permissionLabels.createEdit" />,
-    [PermissionIdentifier.DELETE_ENVIRONMENT]: <String stringID="rbac.permissionLabels.delete" />,
-    [PermissionIdentifier.RUNTIMEACCESS_ENVIRONMENT]: <String stringID="rbac.permissionLabels.access" />
-  },
-  // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <EnvironmentResourceModal {...props} />
-})
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()

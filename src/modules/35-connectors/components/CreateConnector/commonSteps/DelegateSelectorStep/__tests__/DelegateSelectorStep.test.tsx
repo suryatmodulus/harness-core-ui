@@ -17,7 +17,7 @@ jest.spyOn(portalServices, 'useGetDelegateSelectors').mockImplementation(
     ({
       loading: false,
       mutate: () => ({
-        data: { metaData: {}, resource: ['jasmeet-saini-mbp', 'primary'], responseMessages: [] }
+        data: { metaData: {}, resource: ['delegate-selector-sample', 'primary'], responseMessages: [] }
       })
     } as any)
 )

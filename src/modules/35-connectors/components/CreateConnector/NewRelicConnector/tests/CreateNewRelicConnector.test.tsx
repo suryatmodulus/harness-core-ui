@@ -19,6 +19,8 @@ const mockIdentifierValidate: cdService.ResponseBoolean = {
   correlationId: ''
 }
 
+jest.spyOn(portalService, 'useGetDelegatesStatusV2').mockImplementation(() => ({ mutate: jest.fn() } as any))
+
 jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
   <Container className="secret-mock">
     <FormInput.Text name="apiKeyRef" />
@@ -164,7 +166,6 @@ describe('Create newrelic connector Wizard', () => {
       fieldId: 'apiKeyRef',
       value: 'dsf-auto'
     })
-
     jest
       .spyOn(portalService, 'useGetDelegateSelectors')
       .mockReturnValue({ data: [] } as UseGetReturn<any, any, any, any>)

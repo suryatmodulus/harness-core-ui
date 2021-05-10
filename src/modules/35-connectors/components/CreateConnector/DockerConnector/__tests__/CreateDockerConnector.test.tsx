@@ -11,7 +11,8 @@ const createConnector = jest.fn()
 const updateConnector = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
-  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),

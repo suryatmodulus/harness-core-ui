@@ -726,6 +726,7 @@ export interface StringsMap {
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string

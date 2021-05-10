@@ -36,3 +36,4 @@ pathCannotBeEmpty: File Path cannot be empty
 configFilePlaceHolder: 'Specify Config File'
 
 optionalConfig: Optional Configuration
+configIdentifer: Configuration Identifier

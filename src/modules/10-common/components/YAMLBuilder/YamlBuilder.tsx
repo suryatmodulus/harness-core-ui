@@ -10,7 +10,7 @@ import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
-import { debounce, isEmpty, truncate } from 'lodash-es'
+import { debounce, isEmpty, truncate, throttle } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
@@ -225,6 +225,13 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     onChange?.(!(updatedYaml === ''))
   }, 500)
 
+  const showNoPermissionError = useCallback(
+    throttle(() => {
+      showError(getString('noPermission'), 5000)
+    }, 5000),
+    []
+  )
+
   const verifyYAML = (updatedYaml: string): void => {
     if (schema) {
       if (updatedYaml) {
@@ -360,7 +367,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     if (props.isReadOnlyMode && isEditModeSupported) {
       openDialog()
     } else if (props.isReadOnlyMode && !isEditModeSupported) {
-      showError(getString('noPermission'))
+      showNoPermissionError()
     }
     try {
       const { shiftKey, code, ctrlKey, metaKey } = event

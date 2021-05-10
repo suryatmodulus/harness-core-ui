@@ -166,7 +166,7 @@ exports[`Switch Account render 1`] = `
           style="width: 20%;"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
           >
             Default
           </p>

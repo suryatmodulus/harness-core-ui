@@ -83,7 +83,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
 
     // default account should not be actionable
     return account.uuid === user?.defaultAccountId ? (
-      <Text>Default</Text>
+      <Text flex={{ align: 'center-center' }}>Default</Text>
     ) : (
       <Button
         small

@@ -83,16 +83,25 @@ export default function TerraformEditView(
     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
 
-  const { showModal } = useConfigDialog({
-    onSubmit: () => props.onUpdate,
-    onClose: () => props.onUpdate
+  const [configData, setConfigData] = React.useState({})
+
+  const { showModal, hideModal } = useConfigDialog({
+    onSubmit: (data: any) => {
+      setConfigData(data)
+      hideModal()
+    },
+    onClose: () => hideModal()
   })
 
   return (
     <>
       <Formik<TFFormData>
         onSubmit={values => {
-          onUpdate?.(values as any)
+          const payload = {
+            ...values,
+            ...configData
+          }
+          onUpdate?.(payload as any)
         }}
         initialValues={setInitialValues(initialValues as any)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}
@@ -163,99 +172,71 @@ export default function TerraformEditView(
                   )}
                 </div>
                 <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                <div className={css.configField}>
-                  <FormInput.Text
-                    name=""
-                    label={getString('pipelineSteps.configFiles')}
-                    placeholder={getString('cd.configFilePlaceHolder')}
-                    className={css.inputField}
-                  />
-                  <Button
-                    intent="primary"
-                    text="Edit"
-                    className={css.configBtn}
-                    onClick={showModal}
-                    onSubmit={() => {
-                      // console.log(data)
-                    }}
-                  />
-                </div>
                 {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
-                  <Accordion activeId="step-1" className={stepCss.accordion}>
-                    <Accordion.Panel
-                      id="step-1"
-                      summary={getString('pipelineSteps.configFiles')}
-                      details={<div>test</div>}
-                    />
+                  <>
+                    <div className={css.configField}>
+                      <FormInput.Text
+                        name=""
+                        label={getString('pipelineSteps.configFiles')}
+                        placeholder={getString('cd.configFilePlaceHolder')}
+                        className={css.inputField}
+                      />
+                      <Button intent="primary" text="Edit" className={css.configBtn} onClick={showModal} />
+                    </div>
 
-                    <Accordion.Panel
-                      id="step-2"
-                      summary={getString('pipelineSteps.terraformVarFiles')}
-                      details={<TfVarFileList formik={formik} />}
-                    />
-
-                    <Accordion.Panel
-                      id="step-3"
-                      summary={getString('pipelineSteps.backendConfig')}
-                      details={
-                        <>
-                          <FormInput.TextArea
-                            name="spec.configuration.spec.backendConfig.spec.content"
-                            label={getString('pipelineSteps.backendConfig')}
-                            onChange={ev => {
-                              formik.setFieldValue(
-                                'spec.configuration.spec.backendConfig.type',
-                                TerraformStoreTypes.Inline
-                              )
-                              formik.setFieldValue(
-                                'spec.configuration.spec.backendConfig.spec.content',
-                                ev.target.value
-                              )
-                            }}
-                          />
-                        </>
-                      }
-                    />
-                    <Accordion.Panel
-                      id="step-4"
-                      summary={getString('pipeline.targets.title')}
-                      details={
-                        <MultiTypeList
-                          name="spec.configuration.spec.targets"
-                          multiTypeFieldSelectorProps={{
-                            label: (
-                              <Text style={{ display: 'flex', alignItems: 'center' }}>
-                                {getString('pipeline.targets.title')}
-                              </Text>
-                            )
-                          }}
-                          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-                        />
-                      }
-                    />
-                    <Accordion.Panel
-                      id="step-5"
-                      summary={getString('environmentVariables')}
-                      details={
-                        <MultiTypeMap
-                          name="spec.configuration.spec.environmentVariables"
-                          multiTypeFieldSelectorProps={{
-                            label: (
-                              <Text style={{ display: 'flex', alignItems: 'center' }}>
-                                {getString('environmentVariables')}
-                                <Button
-                                  icon="question"
-                                  minimal
-                                  tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                  iconProps={{ size: 14 }}
-                                />
-                              </Text>
-                            )
-                          }}
-                        />
-                      }
-                    />
-                  </Accordion>
+                    <Accordion activeId="step-1" className={stepCss.accordion}>
+                      <Accordion.Panel
+                        id="step-1"
+                        summary={getString('cd.optionalConfig')}
+                        details={<TfVarFileList formik={formik} />}
+                      />
+                    </Accordion>
+                    <div className={cx(css.fieldBorder, css.addMarginBottom)} />
+                    <div className={cx(stepCss.formGroup, stepCss.md)}>
+                      <FormInput.TextArea
+                        name="spec.configuration.spec.backendConfig.spec.content"
+                        label={getString('pipelineSteps.backendConfig')}
+                        onChange={ev => {
+                          formik.setFieldValue('spec.configuration.spec.backendConfig.type', TerraformStoreTypes.Inline)
+                          formik.setFieldValue('spec.configuration.spec.backendConfig.spec.content', ev.target.value)
+                        }}
+                        isOptional={true}
+                      />
+                    </div>
+                    <div className={cx(css.fieldBorder, css.addMarginBottom)} />
+                    <div className={stepCss.formGroup}>
+                      <MultiTypeList
+                        name="spec.configuration.spec.targets"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                              {getString('pipeline.targets.title')}
+                            </Text>
+                          )
+                        }}
+                        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+                      />
+                    </div>
+                    <div className={cx(css.fieldBorder, css.addMarginBottom)} />
+                    <div className={stepCss.formGroup}>
+                      <MultiTypeMap
+                        name="spec.configuration.spec.environmentVariables"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                              {getString('environmentVariables')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('dependencyEnvironmentVariablesInfo')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
+                          )
+                        }}
+                      />
+                    </div>
+                  </>
                 )}
               </Layout.Vertical>
             </>

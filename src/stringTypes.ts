@@ -1240,6 +1240,7 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string

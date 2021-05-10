@@ -348,7 +348,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
   }, [])
 
   return (
-    <Container width={250} className={cx(css.main, className)}>
+    <Container width={300} className={cx(css.main, className)}>
       {loading && showSpinnerOnLoad && <PageSpinner />}
       <Link withoutHref onClick={() => setIsModalOpen(true)} className={css.inputQueryLink}>
         {getString('cv.monitoringSources.gco.addManualInputQuery')}

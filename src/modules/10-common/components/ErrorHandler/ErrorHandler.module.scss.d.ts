@@ -3,5 +3,6 @@
 declare const styles: {
   readonly container: string
   readonly errorListTextContainer: string
+  readonly errorMessage: string
 }
 export default styles

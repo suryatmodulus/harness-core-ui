@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import cx from 'classnames'
 import { Color, Layout, Text, Icon, IconName } from '@wings-software/uicore'
 import type { ResponseMessage } from 'services/cd-ng'
@@ -38,14 +38,33 @@ const extractInfo = (
   }
 }
 
+const format = (message?: string): string | null => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g
+  return message
+    ? message.replace(urlRegex, function (url) {
+        return `<a href=${url} target="_blank" rel="noopener noreferrer">${url}</a>`
+      })
+    : null
+}
+
 const ErrorList: React.FC<{
   items: ResponseMessage[]
   header: string
   icon: IconName
 }> = props => {
+  useEffect(() => {
+    props.items.forEach((item, index) => {
+      const elem = document.getElementById(`message${index}`)
+      if (elem) {
+        elem.innerHTML = format(item.message) ?? ''
+      }
+    })
+  }, [props.items])
+
   if (!props.items.length) {
     return null
   }
+
   return (
     <Layout.Horizontal margin={{ bottom: 'xlarge' }}>
       <Icon name={props.icon} margin={{ right: 'small' }} />
@@ -53,10 +72,8 @@ const ErrorList: React.FC<{
         <Text font={{ weight: 'semi-bold' }} color={Color.BLACK} margin={{ bottom: 'xsmall' }}>
           {props.header}
         </Text>
-        {props.items.map((item, index) => (
-          <Text key={index} color={Color.BLACK} margin={{ bottom: 'xsmall' }}>
-            {item.message}
-          </Text>
+        {props.items.map((_unused, index) => (
+          <div key={index} className={css.errorMessage} id={`message${index}`} />
         ))}
       </Layout.Vertical>
     </Layout.Horizontal>

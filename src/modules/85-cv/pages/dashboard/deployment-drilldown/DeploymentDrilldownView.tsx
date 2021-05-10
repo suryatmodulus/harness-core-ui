@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Text } from '@wings-software/uicore'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
 import VerificationInstanceView, { TabIdentifier } from './VerificationInstanceView'
@@ -25,6 +26,7 @@ export default function DeploymentDrilldownView(): JSX.Element {
     DeploymentVerificationJobInstanceSummary | undefined
   >()
   const [instancePhase, setInstancePhase] = useState<InstancePhase>()
+  const history = useHistory()
 
   const {
     data: activityVerifications,
@@ -76,7 +78,17 @@ export default function DeploymentDrilldownView(): JSX.Element {
 
   useEffect(() => {
     if (activityVerificationsError) {
-      showError(activityVerificationsError.message)
+      const { status, message } = activityVerificationsError
+      showError(message)
+      if (status === 500) {
+        history.push(
+          routes.toCVProjectOverview({
+            orgIdentifier,
+            projectIdentifier,
+            accountId
+          })
+        )
+      }
     }
   }, [activityVerificationsError])
 

@@ -297,6 +297,11 @@ export interface AccessPointMeta {
     others?: string
   }
   albArn?: string
+  resource_group?: string
+  fe_ip_id?: string
+  subnet_id?: string
+  size?: string
+  app_gateway_id?: string
 }
 
 export interface AccessPoint {
@@ -331,8 +336,18 @@ export interface Region {
   name?: string
 }
 
+export interface ResourceGroup {
+  id?: string
+  name?: string
+  type?: string
+}
+
 export interface AllRegionsResponse {
   response?: Region[]
+}
+
+export interface AllResourceGroupsResponse {
+  response?: ResourceGroup[]
 }
 
 export interface Vpc {
@@ -350,6 +365,13 @@ export interface Subnet {
   name?: string
 }
 
+export interface PublicIp {
+  version?: string
+  id?: string
+  name?: string
+  address?: string
+}
+
 export interface ExecutionRule {
   id?: string
   name?: string
@@ -362,6 +384,10 @@ export interface Certificate {
 
 export interface AllSubnetsResponse {
   response?: Subnet[]
+}
+
+export interface AllPublicIpsResponse {
+  response?: PublicIp[]
 }
 
 export interface AllSecurityGroupsResponse {
@@ -434,9 +460,14 @@ export interface ALBAccessPointCore {
   vpc?: string
 }
 
+export interface AzureAccessPointCore {
+  name?: string
+  id?: string
+}
+
 export interface AccessPointCore {
   type?: string
-  details?: ALBAccessPointCore
+  details?: ALBAccessPointCore | AzureAccessPointCore
 }
 
 export interface AccessPointCoresResponse {
@@ -452,6 +483,12 @@ export interface ASGResourceFilterBody {
 
 export interface AllASGResponse {
   response?: ASGMinimal[]
+}
+
+export interface AppIdResponse {
+  response?: {
+    app_id?: string
+  }
 }
 
 export interface ASGMinimal {
@@ -1245,9 +1282,57 @@ export const useAllRegions = ({ org_id, project_id, account_id, ...props }: UseA
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
+export interface AllResourceGroupsQueryParams {
+  cloud_account_id: string
+}
+
+export interface AllResourceGroupsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AllResourceGroupsProps = Omit<
+  GetProps<AllResourceGroupsResponse, void, AllResourceGroupsQueryParams, AllResourceGroupsPathParams>,
+  'path'
+> &
+  AllResourceGroupsPathParams
+
+/**
+ * Lists all resource groups for a cloud account
+ *
+ * Returns all resource groups for a cloud account
+ */
+export const AllResourceGroups = ({ org_id, project_id, account_id, ...props }: AllResourceGroupsProps) => (
+  <Get<AllResourceGroupsResponse, void, AllResourceGroupsQueryParams, AllResourceGroupsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/resource_groups"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllResourceGroupsProps = Omit<
+  UseGetProps<AllResourceGroupsResponse, void, AllResourceGroupsQueryParams, AllResourceGroupsPathParams>,
+  'path'
+> &
+  AllResourceGroupsPathParams
+
+/**
+ * Lists all resource groups for a cloud account
+ *
+ * Returns all resource groups for a cloud account
+ */
+export const useAllResourceGroups = ({ org_id, project_id, account_id, ...props }: UseAllResourceGroupsProps) =>
+  useGet<AllResourceGroupsResponse, void, AllResourceGroupsQueryParams, AllResourceGroupsPathParams>(
+    (paramsInPath: AllResourceGroupsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/resource_groups`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
 export interface AllVPCsQueryParams {
   cloud_account_id: string
   region: string
+  resource_group_name?: string
 }
 
 export interface AllVPCsPathParams {
@@ -1291,6 +1376,7 @@ export interface AllSubnetsQueryParams {
   cloud_account_id: string
   region: string
   vpc: string
+  resource_group_name?: string
 }
 
 export interface AllSubnetsPathParams {
@@ -1333,6 +1419,56 @@ export const useAllSubnets = ({ org_id, project_id, account_id, ...props }: UseA
   useGet<AllSubnetsResponse, void, AllSubnetsQueryParams, AllSubnetsPathParams>(
     (paramsInPath: AllSubnetsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/subnets`,
+    { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
+  )
+
+export interface AllPublicIpsQueryParams {
+  cloud_account_id: string
+  region: string
+  vpc: string
+  resource_group_name: string
+}
+
+export interface AllPublicIpsPathParams {
+  org_id: string
+  project_id: string
+  account_id: string
+}
+
+export type AllPublicIpsProps = Omit<
+  GetProps<AllPublicIpsResponse, void, AllPublicIpsQueryParams, AllPublicIpsPathParams>,
+  'path'
+> &
+  AllPublicIpsPathParams
+
+/**
+ * Lists all public IPs for a cloud account
+ *
+ * Returns all public IPs for a cloud account
+ */
+export const AllPublicIps = ({ org_id, project_id, account_id, ...props }: AllPublicIpsProps) => (
+  <Get<AllPublicIpsResponse, void, AllPublicIpsQueryParams, AllPublicIpsPathParams>
+    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/public_ips"
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseAllPublicIpsProps = Omit<
+  UseGetProps<AllPublicIpsResponse, void, AllPublicIpsQueryParams, AllPublicIpsPathParams>,
+  'path'
+> &
+  AllPublicIpsPathParams
+
+/**
+ * Lists all public IPs for a cloud account
+ *
+ * Returns all public IPs for a cloud account
+ */
+export const useAllPublicIps = ({ org_id, project_id, account_id, ...props }: UseAllPublicIpsProps) =>
+  useGet<AllPublicIpsResponse, void, AllPublicIpsQueryParams, AllPublicIpsPathParams>(
+    (paramsInPath: AllPublicIpsPathParams) =>
+      `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/public_ips`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
@@ -1608,6 +1744,7 @@ export const useAllExecutionRoles = ({ org_id, project_id, account_id, ...props 
 export interface AllCertificatesQueryParams {
   cloud_account_id: string
   region: string
+  resource_group_name?: string
 }
 
 export interface AllCertificatesPathParams {
@@ -2249,6 +2386,7 @@ export const useGetServiceDiagnostics = ({
 export interface AccessPointResourcesQueryParams {
   cloud_account_id: string
   region: string
+  resource_group_name?: string
 }
 
 export interface AccessPointResourcesPathParams {
@@ -2342,3 +2480,24 @@ export const useGetAllASGs = ({ org_id, project_id, account_id, ...props }: UseG
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/scaling_groups`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
+
+export type GetAppIdProps = Omit<GetProps<AppIdResponse, void, void, void>, 'path'>
+
+/**
+ * Get Azure application ID
+ *
+ * Get Azure application ID
+ */
+export const GetAppId = (props: GetAppIdProps) => (
+  <Get<AppIdResponse, void, void, void> path="/app_id" base={getConfig('lw/api')} {...props} />
+)
+
+export type UseGetAppIdProps = Omit<UseGetProps<AppIdResponse, void, void, void>, 'path'>
+
+/**
+ * Get Azure application ID
+ *
+ * Get Azure application ID
+ */
+export const useGetAppId = (props: UseGetAppIdProps) =>
+  useGet<AppIdResponse, void, void, void>(`/app_id`, { base: getConfig('lw/api'), ...props })

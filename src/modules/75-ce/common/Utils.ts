@@ -1,3 +1,4 @@
+import type { Provider } from '@ce/components/COCreateGateway/models'
 import type { PortConfig } from 'services/lw'
 
 export class Utils {
@@ -21,6 +22,10 @@ export class Utils {
   static isNumber(val: any): boolean {
     return !isNaN(val)
   }
+
+  static isProviderAws = (provider: Provider): boolean => provider.value === 'aws'
+
+  static isProviderAzure = (provider: Provider): boolean => provider.value === 'azure'
 
   static randomString(): string {
     return Math.random().toString(36).substring(2, 8) + Math.random().toString(36).substring(2, 8)

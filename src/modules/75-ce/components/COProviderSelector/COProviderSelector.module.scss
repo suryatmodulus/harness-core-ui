@@ -31,9 +31,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: var(--spacing-xxxlarge);
+  grid-column-gap: 50px;
   grid-row-gap: 0px;
-  margin-left: var(--spacing-medium) !important;
+  margin-left: var(--spacing-large) !important;
 }
 .breadCrumb {
   background: var(--blue-100);

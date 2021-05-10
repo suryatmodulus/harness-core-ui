@@ -1,0 +1,18 @@
+.mainContainer {
+  min-height: 400px;
+
+  .providerCardsContainer {
+    padding: var(--spacing-large) 0;
+
+    :global {
+      .bp3-card {
+        width: 100px;
+        margin-right: var(--spacing-large) !important;
+      }
+    }
+  }
+}
+
+.continueCta {
+  width: 120px;
+}

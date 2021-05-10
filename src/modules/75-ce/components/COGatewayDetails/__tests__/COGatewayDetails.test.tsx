@@ -50,9 +50,9 @@ const initialGatewayDetails = {
     alwaysUsePrivateIP: false
   },
   provider: {
-    name: 'Azure',
-    value: 'azure',
-    icon: 'service-azure'
+    name: 'AWS',
+    value: 'aws',
+    icon: 'service-aws'
   },
   selectedInstances: [
     {

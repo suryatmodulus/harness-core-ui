@@ -178,7 +178,7 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.co.accessPoint.ap
+        ce.co.accessPoint.loadbalancer
       </p>
     </a>
   </div>
@@ -281,7 +281,7 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.co.accessPoint.ap
+        ce.co.accessPoint.loadbalancer
       </p>
     </a>
   </div>

@@ -1,0 +1,52 @@
+.azureConnector {
+  :global {
+    span[data-icon='service-azure'] {
+      svg > g {
+        fill: white;
+      }
+    }
+  }
+
+  .stepContainer {
+    height: 100%;
+    position: relative;
+    :global {
+      .OverlaySpinner--overlaySpinner {
+        height: 100%;
+      }
+    }
+  }
+
+  .header {
+    color: #22222a !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    margin-bottom: var(--spacing-xxxlarge) !important;
+  }
+
+  .subHeader {
+    padding: var(--spacing-xxxlarge);
+  }
+
+  .dataFields {
+    width: 50%;
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  .submitBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 150px;
+  }
+
+  .commandsContainer {
+    background: #effbff;
+    padding: var(--spacing-large);
+    margin: var(--spacing-large) auto;
+    width: 90%;
+    pre {
+      white-space: pre-wrap;
+    }
+  }
+}

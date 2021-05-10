@@ -1031,6 +1031,7 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
     case Connectors.DOCKER:
       return 'service-dockerhub'
     case Connectors.AWS:
+    case Connectors.CEAWS:
       return 'service-aws'
     case Connectors.AWS_CODECOMMIT:
       return 'service-aws-code-deploy'
@@ -1044,6 +1045,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-jira'
     case Connectors.AWS_KMS:
       return 'aws-kms'
+    case Connectors.CE_AZURE:
+      return 'service-azure'
     default:
       return 'cog'
   }
@@ -1159,7 +1162,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.github')
     case Connectors.GIT:
       return getString('connectors.testConnectionStep.validationText.git')
-
+    case Connectors.CE_AZURE:
+      return getString('connectors.testConnectionStep.validationText.azure')
     default:
       return ''
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Icon, Layout, Table, Select, SelectOption, TextInput } from '@wings-software/uicore'
+import { Icon, Layout, Table, Select, SelectOption, TextInput, Text, Color } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import type { Service, ServiceDep } from 'services/lw'
 import css from './COGatewayConfig.module.scss'
@@ -12,6 +12,7 @@ interface CORuleDendencySelectorProps {
 
 const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
   const [serviceList, setServiceList] = useState<SelectOption[]>([])
+  const [error, setError] = useState<{ indices: number[]; val: string }>()
 
   useEffect(() => {
     if (!props.allServices) {
@@ -30,7 +31,27 @@ const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
           }) || []
     setServiceList(services)
   }, [props.allServices])
+
+  const removeError = (index: number) => {
+    if (error?.indices.includes(index)) {
+      if (error.indices.length === 1) setError(undefined)
+      else
+        setError(prevData => ({
+          indices: prevData?.indices.filter(_i => _i !== index) as number[],
+          val: prevData?.val as string
+        }))
+    }
+  }
+
   function updateDependency(index: number, column: string, value: number) {
+    if (isNaN(value)) {
+      setError(prevData => ({
+        indices: [...new Set([...(prevData?.indices || []), index])],
+        val: 'Input value is not valid'
+      }))
+    } else {
+      removeError(index)
+    }
     const depsConfig = [...props.deps]
     switch (column) {
       case 'dep_id': {
@@ -45,6 +66,7 @@ const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
     props.setDeps(depsConfig)
   }
   function deleteDependency(index: number) {
+    removeError(index)
     const depConfig = [...props.deps]
     depConfig.splice(index, 1)
     props.setDeps(depConfig)
@@ -66,14 +88,17 @@ const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
   }
   function TableCell(tableProps: CellProps<ServiceDep>): JSX.Element {
     return (
-      <TextInput
-        defaultValue={tableProps.value}
-        style={{ border: 'none' }}
-        onBlur={e => {
-          const value = (e.currentTarget as HTMLInputElement).value
-          updateDependency(tableProps.row.index, tableProps.column.id, +value)
-        }}
-      />
+      <>
+        <TextInput
+          defaultValue={tableProps.value}
+          style={{ border: 'none' }}
+          onBlur={e => {
+            const value = (e.currentTarget as HTMLInputElement).value
+            updateDependency(tableProps.row.index, tableProps.column.id, +value)
+          }}
+        />
+        {error?.val && error.indices.includes(tableProps.row.index) && <Text color={Color.RED_500}>{error.val}</Text>}
+      </>
     )
   }
   function DeleteCell(tableProps: CellProps<ServiceDep>): JSX.Element {

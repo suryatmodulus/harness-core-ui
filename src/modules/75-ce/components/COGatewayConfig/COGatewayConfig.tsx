@@ -18,7 +18,8 @@ import {
   Switch,
   Icon,
   Card,
-  useModalHook
+  useModalHook,
+  IconName
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -65,18 +66,21 @@ interface CardData {
   text: string
   value: string
   icon: string
+  providers?: string[]
 }
 
 const instanceTypeCardData: CardData[] = [
   {
     text: 'Spot',
     value: 'spot',
-    icon: spotIcon
+    icon: spotIcon,
+    providers: ['aws']
   },
   {
-    text: 'On-demand',
+    text: 'On demand',
     value: 'ondemand',
-    icon: odIcon
+    icon: odIcon,
+    providers: ['aws', 'azure']
   }
 ]
 const portProtocolMap: { [key: number]: string } = {
@@ -90,8 +94,8 @@ enum RESOURCES {
 }
 
 const managedResources = [
-  { label: 'Instances', value: RESOURCES.INSTANCES },
-  { label: 'Auto-scaling groups', value: RESOURCES.ASG }
+  { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
+  { label: 'Auto-scaling groups', value: RESOURCES.ASG, providers: ['aws'] }
 ]
 
 const modalProps: IDialogProps = {
@@ -111,6 +115,8 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
+  const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
@@ -360,7 +366,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               tags: '',
               launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
               status: item.status ? item.status : '',
-              vpc: item.metadata ? item.metadata['VpcID'] : ''
+              vpc: item.metadata ? item.metadata['VpcID'] : '',
+              ...(isAzureProvider && { metadata: { resourceGroup: item.metadata?.resourceGroup } })
             }
           })
         setAllInstances(instances)
@@ -439,7 +446,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       routingRecords.length > 0 &&
       gatewayName != '' &&
       idleTime >= 5 &&
-      (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true)
+      (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
+      (!_isEmpty(serviceDependencies)
+        ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
+        : true)
     )
   }
 
@@ -486,7 +496,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       if (routingRecords.length) {
         return
       }
-      fetchInstanceSecurityGroups()
+      isAwsProvider && fetchInstanceSecurityGroups()
     }
   }, [selectedInstances])
 
@@ -497,7 +507,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   useEffect(() => {
     if (!props.gatewayDetails.provider) return
     refreshInstances()
-    fetchAndSetAsgItems()
+    isAwsProvider && fetchAndSetAsgItems()
   }, [props.gatewayDetails.provider])
   useEffect(() => {
     if (isValid()) {
@@ -505,7 +515,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     } else {
       props.setValidity(false)
     }
-  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment, selectedAsg])
+  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment, selectedAsg, serviceDependencies])
   function handleSearch(text: string): void {
     if (!text) {
       setFilteredInstances(allInstances)
@@ -624,9 +634,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           >
             <Layout.Horizontal>
               <Card interactive={false} className={css.displayCard}>
-                <Icon name="service-aws" size={30} />
+                <Icon name={props.gatewayDetails.provider.icon as IconName} size={30} />
                 <Text style={{ marginTop: '5px' }} font="medium">
-                  AWS
+                  {props.gatewayDetails.provider.name}
                 </Text>
               </Card>
               {/* <Layout.Vertical style={{}}> */}
@@ -709,9 +719,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                 }}
                 className={css.radioGroup}
               >
-                {managedResources.map(resourceItem => {
-                  return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
-                })}
+                {managedResources
+                  .filter(resource => resource.providers.includes(props.gatewayDetails.provider.value))
+                  .map(resourceItem => {
+                    return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
+                  })}
               </RadioGroup>
               {!_isEmpty(selectedResource) && (
                 <Layout.Vertical style={{ marginBottom: 20 }}>
@@ -829,7 +841,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             {!selectedAsg && (
               <Layout.Vertical>
                 <CardSelect
-                  data={instanceTypeCardData}
+                  data={instanceTypeCardData.filter(_instanceType =>
+                    _instanceType.providers?.includes(props.gatewayDetails.provider.value)
+                  )}
                   className={css.instanceTypeViewGrid}
                   onChange={item => {
                     setSelectedInstanceType(item)
@@ -847,12 +861,15 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   cornerSelected={true}
                 ></CardSelect>
                 <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
-                  <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                    Spot
-                  </Text>
-                  <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                    On demand
-                  </Text>
+                  {instanceTypeCardData
+                    .filter(_instanceType => _instanceType.providers?.includes(props.gatewayDetails.provider.value))
+                    .map(_item => {
+                      return (
+                        <Text font={{ align: 'center' }} style={{ fontSize: 12 }} key={_item.text}>
+                          {_item.text}
+                        </Text>
+                      )
+                    })}
                 </Layout.Horizontal>
               </Layout.Vertical>
             )}

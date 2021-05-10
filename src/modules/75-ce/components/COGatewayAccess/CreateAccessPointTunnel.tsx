@@ -23,7 +23,8 @@ import {
   useAllRegions,
   useAllSecurityGroups,
   useAllVPCs,
-  useAccessPointResources
+  useAccessPointResources,
+  ALBAccessPointCore
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -182,10 +183,10 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   useEffect(() => {
     if (apCoresResponse?.response?.length) {
       const apCores: SelectOption[] = apCoresResponse?.response
-        .filter(core => !selectedVpc || core.details?.vpc === selectedVpc)
+        .filter(core => !selectedVpc || (core.details as ALBAccessPointCore)?.vpc === selectedVpc)
         .map(core => ({
           label: core.details?.name as string,
-          value: core.details?.albARN as string
+          value: (core.details as ALBAccessPointCore)?.albARN as string
         }))
       setApCoreOptions(apCores)
     }
@@ -210,9 +211,13 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
 
   const onApCoreChange = (val: string) => {
     if (!val) return
-    const core = apCoresResponse?.response?.find(c => c.details?.albARN === val)
+    const core = apCoresResponse?.response?.find(c => (c.details as ALBAccessPointCore)?.albARN === val)
     if (!core) return
-    setAccessPointMeta(core.details?.vpc as string, core.details?.security_groups || [], core.details?.albARN as string)
+    setAccessPointMeta(
+      (core.details as ALBAccessPointCore)?.vpc as string,
+      (core.details as ALBAccessPointCore)?.security_groups || [],
+      (core.details as ALBAccessPointCore)?.albARN as string
+    )
   }
 
   return (

@@ -13,7 +13,9 @@ exports[`helm with http tests expand advanced section 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -918,7 +920,9 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -1510,7 +1514,9 @@ exports[`helm with http tests renders without crashing 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >

@@ -6,6 +6,7 @@ exports[`Text Reference render create mode 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -111,6 +112,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -216,6 +218,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

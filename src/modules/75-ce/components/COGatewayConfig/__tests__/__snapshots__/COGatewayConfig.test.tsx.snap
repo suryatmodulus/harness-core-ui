@@ -184,6 +184,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                 class="OverlaySpinner--overlaySpinner"
               >
                 <form
+                  action="#"
                   class="FormikForm--main step1Form"
                 >
                   <div>
@@ -656,6 +657,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                 class="OverlaySpinner--overlaySpinner"
               >
                 <form
+                  action="#"
                   class="FormikForm--main step1Form"
                 >
                   <div>
@@ -2005,6 +2007,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                 class="OverlaySpinner--overlaySpinner"
               >
                 <form
+                  action="#"
                   class="FormikForm--main step1Form"
                 >
                   <div>
@@ -2346,6 +2349,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                   class="OverlaySpinner--overlaySpinner"
                 >
                   <form
+                    action="#"
                     class="FormikForm--main"
                   >
                     <div>
@@ -3077,6 +3081,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                 class="OverlaySpinner--overlaySpinner"
               >
                 <form
+                  action="#"
                   class="FormikForm--main step1Form"
                 >
                   <div>
@@ -3418,6 +3423,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                   class="OverlaySpinner--overlaySpinner"
                 >
                   <form
+                    action="#"
                     class="FormikForm--main"
                   >
                     <div>

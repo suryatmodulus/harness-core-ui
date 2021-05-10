@@ -85,6 +85,7 @@ exports[`CITrial Modal Rendering should render CITrial with Create Pipeline Form
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -402,6 +403,7 @@ exports[`CITrial Modal Rendering should render CITrial with Select Pipeline Form
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

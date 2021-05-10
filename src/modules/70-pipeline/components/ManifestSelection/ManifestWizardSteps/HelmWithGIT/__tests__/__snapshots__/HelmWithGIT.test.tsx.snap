@@ -13,7 +13,9 @@ exports[`helm with GIT tests expand advanced section 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -733,7 +735,9 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -1152,7 +1156,9 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -1571,7 +1577,9 @@ exports[`helm with GIT tests renders without crashing 1`] = `
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >

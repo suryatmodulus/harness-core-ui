@@ -14,6 +14,7 @@ exports[`ConfigureNotifications Email 1`] = `
         notifications.titleEmail
       </h1>
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -180,6 +181,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
         notifications.infoPagerDuty
       </p>
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -355,6 +357,7 @@ exports[`ConfigureNotifications Slack 1`] = `
         notifications.infoSlack
       </p>
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

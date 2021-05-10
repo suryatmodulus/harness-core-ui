@@ -132,6 +132,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -487,6 +488,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -853,6 +855,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -1330,6 +1333,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -1696,6 +1700,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -2001,6 +2006,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -2344,6 +2350,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -2859,6 +2866,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -3539,6 +3547,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -4219,6 +4228,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

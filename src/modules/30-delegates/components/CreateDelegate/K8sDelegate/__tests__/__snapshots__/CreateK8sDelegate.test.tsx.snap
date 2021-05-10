@@ -92,6 +92,7 @@ exports[`Create K8s Delegate render data 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>

@@ -6,10 +6,12 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
         <form
+          action="#"
           class="FormikForm--main"
         >
           <div>

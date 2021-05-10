@@ -48,6 +48,7 @@ exports[`Login Page The login page renders 1`] = `
               class="OverlaySpinner--overlaySpinner"
             >
               <form
+                action="#"
                 class="FormikForm--main"
               >
                 <div>

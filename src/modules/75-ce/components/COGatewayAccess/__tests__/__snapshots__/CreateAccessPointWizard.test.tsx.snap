@@ -1223,6 +1223,7 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -1594,6 +1595,7 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

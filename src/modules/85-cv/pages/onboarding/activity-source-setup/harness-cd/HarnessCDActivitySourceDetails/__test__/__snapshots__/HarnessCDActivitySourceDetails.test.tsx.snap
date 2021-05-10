@@ -10,6 +10,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

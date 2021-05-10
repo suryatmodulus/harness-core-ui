@@ -19,6 +19,7 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
         class="OverlaySpinner--overlaySpinner"
       >
         <form
+          action="#"
           class="FormikForm--main"
         >
           <div>

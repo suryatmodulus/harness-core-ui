@@ -15,6 +15,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -429,6 +430,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -858,6 +860,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -1287,6 +1290,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -1733,6 +1737,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -2087,6 +2092,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -2346,6 +2352,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

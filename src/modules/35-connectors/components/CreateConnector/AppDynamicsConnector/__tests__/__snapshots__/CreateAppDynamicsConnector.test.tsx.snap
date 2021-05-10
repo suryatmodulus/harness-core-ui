@@ -94,6 +94,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -392,6 +393,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
     >
        
       <form
+        action="#"
         class="FormikForm--main connectionForm"
       >
         <div>
@@ -714,6 +716,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
     >
        
       <form
+        action="#"
         class="FormikForm--main connectionForm"
       >
         <div>

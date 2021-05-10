@@ -89,6 +89,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -410,6 +411,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -731,6 +733,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -1057,6 +1060,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -1383,6 +1387,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -1704,6 +1709,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -2053,6 +2059,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

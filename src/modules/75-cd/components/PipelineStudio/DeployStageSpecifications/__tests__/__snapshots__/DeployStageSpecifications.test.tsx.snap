@@ -21,6 +21,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

@@ -17,6 +17,7 @@ exports[`Connector details step Test for  create  connector step one required fe
         class="OverlaySpinner--overlaySpinner"
       >
         <form
+          action="#"
           class="FormikForm--main"
         >
           <div>
@@ -237,6 +238,7 @@ exports[`Connector details step Test for going to next step 1`] = `
         class="OverlaySpinner--overlaySpinner"
       >
         <form
+          action="#"
           class="FormikForm--main"
         >
           <div>
@@ -300,7 +302,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     </span>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="name-0"
                   >
                     <label
@@ -317,7 +319,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -326,6 +328,11 @@ exports[`Connector details step Test for going to next step 1`] = `
                           type="text"
                           value="dummy name"
                         />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        validation.connectorName
                       </div>
                     </div>
                   </div>

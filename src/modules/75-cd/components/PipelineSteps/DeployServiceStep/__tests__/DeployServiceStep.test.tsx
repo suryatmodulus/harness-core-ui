@@ -183,7 +183,7 @@ describe('Test DeployService Step', () => {
     fireEvent.click(getByText(document.body, 'Other Service'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: other_service
+      "serviceRef: selected_service
       "
     `)
   })
@@ -249,9 +249,6 @@ describe('Test DeployService Step', () => {
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
-    expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: selected_service
-      "
-    `)
+    expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`undefined`)
   })
 })

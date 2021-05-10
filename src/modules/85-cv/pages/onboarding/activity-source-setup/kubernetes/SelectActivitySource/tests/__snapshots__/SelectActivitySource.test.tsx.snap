@@ -6,6 +6,7 @@ exports[`Unit tests for SelectActivitySource Ensure required fields are validate
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

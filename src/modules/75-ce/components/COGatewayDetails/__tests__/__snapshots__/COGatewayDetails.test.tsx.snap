@@ -371,6 +371,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                         class="OverlaySpinner--overlaySpinner"
                       >
                         <form
+                          action="#"
                           class="FormikForm--main step1Form"
                         >
                           <div>

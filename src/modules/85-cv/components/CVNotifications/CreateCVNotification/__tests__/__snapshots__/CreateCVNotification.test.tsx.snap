@@ -80,6 +80,7 @@ exports[`Create CV Notification Rule should render 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -331,6 +332,7 @@ exports[`Create CV Notification Rule should render 2`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>

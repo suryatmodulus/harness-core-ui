@@ -137,6 +137,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -620,6 +621,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -959,6 +961,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

@@ -6,6 +6,7 @@ exports[`Test Step 2 render after button is clicked 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main fullHeight"
     >
       <div>
@@ -174,6 +175,7 @@ exports[`Test Step 2 renders without crashing 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main fullHeight"
     >
       <div>

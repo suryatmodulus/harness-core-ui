@@ -778,6 +778,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                   class="OverlaySpinner--overlaySpinner"
                 >
                   <form
+                    action="#"
                     class="FormikForm--main"
                   >
                     <div>

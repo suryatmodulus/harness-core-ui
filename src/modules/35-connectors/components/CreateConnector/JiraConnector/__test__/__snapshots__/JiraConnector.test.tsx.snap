@@ -158,6 +158,7 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -534,6 +535,7 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

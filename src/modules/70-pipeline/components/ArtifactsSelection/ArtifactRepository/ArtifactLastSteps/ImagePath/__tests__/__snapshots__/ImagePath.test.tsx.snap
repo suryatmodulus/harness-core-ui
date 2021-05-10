@@ -14,7 +14,9 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="connectorForm"
         >
@@ -280,7 +282,9 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="connectorForm"
         >
@@ -546,7 +550,9 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="connectorForm"
         >

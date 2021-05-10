@@ -6,6 +6,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Hourly select
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -766,6 +767,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Minutes selec
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -1205,6 +1207,7 @@ exports[`SchedulePanel Triggers tests Renders/snapshots Initial Render - Schedul
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

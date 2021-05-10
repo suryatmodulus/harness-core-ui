@@ -76,6 +76,7 @@ exports[`Signup Page The signup page renders  1`] = `
               class="OverlaySpinner--overlaySpinner"
             >
               <form
+                action="#"
                 class="FormikForm--main"
               >
                 <div>
@@ -458,6 +459,7 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
               class="OverlaySpinner--overlaySpinner"
             >
               <form
+                action="#"
                 class="FormikForm--main"
               >
                 <div>
@@ -493,7 +495,7 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group bp3-intent-danger"
                     data-id="password-1"
                   >
                     <label
@@ -510,7 +512,7 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -520,6 +522,11 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                           type="password"
                           value="12345678"
                         />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        password is a required field
                       </div>
                     </div>
                   </div>

@@ -6,6 +6,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

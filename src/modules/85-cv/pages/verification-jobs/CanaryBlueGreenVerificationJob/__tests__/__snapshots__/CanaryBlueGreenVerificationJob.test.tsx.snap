@@ -10,6 +10,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>
@@ -757,6 +758,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

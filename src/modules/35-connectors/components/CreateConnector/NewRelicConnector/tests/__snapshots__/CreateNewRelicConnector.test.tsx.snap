@@ -94,6 +94,7 @@ exports[`Create newrelic connector Wizard should render form 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main"
             >
               <div>
@@ -430,6 +431,7 @@ exports[`Create newrelic connector Wizard should render form 2`] = `
           connectors.newRelic.subTitle
         </p>
         <form
+          action="#"
           class="FormikForm--main form"
         >
           <div>
@@ -756,6 +758,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
           connectors.newRelic.subTitle
         </p>
         <form
+          action="#"
           class="FormikForm--main form"
         >
           <div>

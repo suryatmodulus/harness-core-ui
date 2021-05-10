@@ -21,6 +21,7 @@ exports[`ConditionForm render ConditionForm  1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

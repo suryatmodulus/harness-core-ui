@@ -72,6 +72,7 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main form"
             >
               <div>
@@ -352,6 +353,7 @@ exports[`<StepCommands /> tests renders ok 1`] = `
             class="OverlaySpinner--overlaySpinner"
           >
             <form
+              action="#"
               class="FormikForm--main form"
             >
               <div>

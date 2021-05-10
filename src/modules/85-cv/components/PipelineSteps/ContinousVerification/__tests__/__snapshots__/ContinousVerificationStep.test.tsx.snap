@@ -6,6 +6,7 @@ exports[`Test ContinousVerificationStep Step renders empty inputSetView 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div />
@@ -38,6 +39,7 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

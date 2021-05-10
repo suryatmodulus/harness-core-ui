@@ -6,6 +6,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -123,6 +124,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

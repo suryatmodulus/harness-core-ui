@@ -13,7 +13,9 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -578,7 +580,9 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -1052,7 +1056,9 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >
@@ -1526,7 +1532,9 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
     <div
       class="OverlaySpinner--overlaySpinner"
     >
-      <form>
+      <form
+        action="#"
+      >
         <div
           class="helmGitForm"
         >

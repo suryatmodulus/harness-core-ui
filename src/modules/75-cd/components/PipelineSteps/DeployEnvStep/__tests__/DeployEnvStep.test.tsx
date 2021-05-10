@@ -142,7 +142,7 @@ describe('Test DeployEnvironment Step', () => {
     fireEvent.click(getByText(document.body, 'Other Env'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: other_env
+      "environmentRef: selected_env
       "
     `)
   })
@@ -210,9 +210,6 @@ describe('Test DeployEnvironment Step', () => {
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
-    expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: selected_env
-      "
-    `)
+    expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`undefined`)
   })
 })

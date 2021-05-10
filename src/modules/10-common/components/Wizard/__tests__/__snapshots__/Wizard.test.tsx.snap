@@ -25,6 +25,7 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -259,6 +260,7 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
           class="OverlaySpinner--overlaySpinner"
         >
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

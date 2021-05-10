@@ -21,6 +21,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
             pipelineSteps.build.infraSpecifications.whereToRun
           </div>
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>
@@ -323,6 +324,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
             pipelineSteps.build.infraSpecifications.whereToRun
           </div>
           <form
+            action="#"
             class="FormikForm--main"
           >
             <div>

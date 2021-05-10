@@ -6,6 +6,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -1775,6 +1776,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -3544,6 +3546,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -5313,6 +5316,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -6392,6 +6396,7 @@ exports[`Dependency Edit view should render properly 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>
@@ -7623,6 +7628,7 @@ exports[`Dependency InputSet View should not render any fields 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
     >
       <div />
@@ -7655,6 +7661,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
     >
       <div>
@@ -8348,6 +8355,7 @@ exports[`Dependency InputSet View should render properly 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
     >
       <div />

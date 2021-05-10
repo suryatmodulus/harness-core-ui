@@ -2576,6 +2576,7 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <form
+      action="#"
       class="FormikForm--main"
     >
       <div>

@@ -10,6 +10,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
       class="OverlaySpinner--overlaySpinner"
     >
       <form
+        action="#"
         class="FormikForm--main"
       >
         <div>

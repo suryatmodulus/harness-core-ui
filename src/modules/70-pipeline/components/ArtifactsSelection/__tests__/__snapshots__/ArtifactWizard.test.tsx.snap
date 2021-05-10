@@ -435,7 +435,9 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
         <div
           class="OverlaySpinner--overlaySpinner"
         >
-          <form>
+          <form
+            action="#"
+          >
             <div
               class="connectorForm"
             >

@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { Layout, Text, Button, Icon } from '@wings-software/uicore'
+import { Layout, Text, Button, Icon, FormInput, Formik } from '@wings-software/uicore'
 
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { InlineTerraformVarFileSpec, RemoteTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
 import { TerraformData, TerraformStoreTypes } from '../TerraformInterfaces'
-import TfVarFile from './TfVarFile'
 import css from './TerraformVarfile.module.scss'
+import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog } from '@blueprintjs/core'
 
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
@@ -61,28 +61,71 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 </div>
               )
             })}
-            <Button
-              icon="plus"
-              minimal
-              intent="primary"
-              data-testid="add-tfvar-file"
-              onClick={() => setShowTfModal(true)}
+            <Popover
+              interactionKind={PopoverInteractionKind.CLICK}
+              boundary="viewport"
+              popoverClassName={Classes.DARK}
+              content={
+                <Menu className={css.tfMenu}>
+                  <MenuItem
+                    text={<Text intent="primary">{getString('cd.addInline')} </Text>}
+                    icon={<Icon name="Inline" />}
+                    onClick={() => setShowTfModal(true)}
+                  />
+
+                  <MenuItem
+                    text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
+                    icon={<Icon name="remote" />}
+                  />
+                </Menu>
+              }
             >
-              {getString('pipelineSteps.addTerraformVarFile')}
-            </Button>
+              <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file">
+                {getString('pipelineSteps.addTerraformVarFile')}
+              </Button>
+            </Popover>
             {showTfModal && (
-              <TfVarFile
-                onHide={() => {
-                  /* istanbul ignore next */
-                  setShowTfModal(false)
-                }}
-                onSubmit={(values: any) => {
-                  /* istanbul ignore next */
-                  push(values)
-                  /* istanbul ignore next */
-                  setShowTfModal(false)
-                }}
-              />
+              <Dialog isOpen={true} title="Add Inline Terraform Var File" isCloseButtonShown>
+                <Layout.Vertical padding="medium">
+                  <Formik
+                    initialValues={{ varFile: { type: TerraformStoreTypes.Inline, content: '' } }}
+                    onSubmit={(values: any) => {
+                      push(values)
+                    }}
+                  >
+                    {formik => {
+                      return (
+                        <>
+                          <FormInput.TextArea name="varFile.content" label={getString('pipelineSteps.content')} />
+                          <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
+                            <Button
+                              type={'submit'}
+                              intent={'primary'}
+                              text={getString('submit')}
+                              onClick={() => {
+                                push(formik.values)
+                                setShowTfModal(false)
+                              }}
+                            />
+                          </Layout.Horizontal>
+                        </>
+                      )
+                    }}
+                  </Formik>
+                </Layout.Vertical>
+              </Dialog>
+              // <TfVarFile
+              //   onHide={() => {
+              //     /* istanbul ignore next */
+              //     setShowTfModal(false)
+              //   }}
+              //   onSubmit={(values: any) => {
+              //     /* istanbul ignore next */
+              //     push(values)
+              //     /* istanbul ignore next */
+              //     setShowTfModal(false)
+              //   }}
+              // />
             )}
           </div>
         )

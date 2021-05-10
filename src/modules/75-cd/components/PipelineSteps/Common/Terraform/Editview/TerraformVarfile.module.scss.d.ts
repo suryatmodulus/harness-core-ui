@@ -13,5 +13,6 @@ declare const styles: {
   readonly configField: string
   readonly inputField: string
   readonly configBtn: string
+  readonly tfMenu: string
 }
 export default styles

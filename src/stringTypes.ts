@@ -1412,6 +1412,8 @@ export interface StringsMap {
   'pipeline.triggers.validation.triggerName': string
   'pipeline.uniqueIdentifier': string
   'pipeline.verificationResult': string
+  'cd.addInline': string
+  'cd.addRemote': string
   'cd.allowSimultaneousDeployments': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string

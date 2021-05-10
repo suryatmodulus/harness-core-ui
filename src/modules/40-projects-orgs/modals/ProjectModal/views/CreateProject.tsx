@@ -10,6 +10,8 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { useQueryParams } from '@common/hooks'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModuleName } from 'framework/types/ModuleName'
+import { PageSpinner } from '@common/components'
+import { useStrings } from 'framework/strings'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -21,6 +23,7 @@ interface CreateModalData {
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { nextStep, onSuccess, modules, module } = props
   const { accountId } = useParams<AccountPathProps>()
+  const { getString } = useStrings()
   const { orgId: orgIdentifier } = useQueryParams<{ orgId: string }>()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
@@ -78,17 +81,20 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     }
   }
   return (
-    <ProjectForm
-      disableSelect={false}
-      enableEdit={true}
-      disableSubmit={saving}
-      initialOrgIdentifier={orgIdentifier || defaultOrg}
-      initialModules={modules}
-      organizationItems={organizations}
-      title={i18n.newProjectWizard.aboutProject.name}
-      setModalErrorHandler={setModalErrorHandler}
-      onComplete={onComplete}
-    />
+    <>
+      <ProjectForm
+        disableSelect={false}
+        enableEdit={true}
+        disableSubmit={saving}
+        initialOrgIdentifier={orgIdentifier || defaultOrg}
+        initialModules={modules}
+        organizationItems={organizations}
+        title={i18n.newProjectWizard.aboutProject.name}
+        setModalErrorHandler={setModalErrorHandler}
+        onComplete={onComplete}
+      />
+      {saving ? <PageSpinner message={getString('projectsOrgs.createProjectLoader')} /> : null}
+    </>
   )
 }
 

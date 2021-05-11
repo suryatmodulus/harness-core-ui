@@ -14,6 +14,8 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 
 import type { FormikProps } from 'formik'
+
+import { Classes, Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
@@ -33,10 +35,11 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 // import GitStore from './GitStore'
 // import BaseForm from './BaseForm'
-import useConfigDialog from './useConfigDialog'
+// import useConfigDialog from './useConfigDialog'
 
 import TfVarFileList from './TFVarFileList'
 import { ConfigurationTypes, TFFormData, TerraformProps, TerraformStoreTypes } from '../TerraformInterfaces'
+import ConfigForm from './ConfigForm'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
 
@@ -83,23 +86,30 @@ export default function TerraformEditView(
     { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
   ]
 
-  const [configData, setConfigData] = React.useState({})
+  // const [configData, setConfigData] = React.useState({})
 
-  const { showModal, hideModal } = useConfigDialog({
-    onSubmit: (data: any) => {
-      setConfigData(data)
-      hideModal()
-    },
-    onClose: () => hideModal()
-  })
+  const [showModal, setShowModal] = React.useState(false)
 
+  // const { showModal, hideModal } = useConfigDialog({
+  //   onSubmit: (data: any) => {
+  //     setConfigData(data)
+  //     hideModal()
+  //   },
+  //   onClose: () => hideModal()
+  // })
+
+  const modalProps = {
+    isOpen: true,
+    canEscapeKeyClose: true,
+    canOutsideClickClose: true,
+    style: { width: 1000 }
+  }
   return (
     <>
       <Formik<TFFormData>
         onSubmit={values => {
           const payload = {
-            ...values,
-            ...configData
+            ...values
           }
           onUpdate?.(payload as any)
         }}
@@ -200,12 +210,22 @@ export default function TerraformEditView(
                   <>
                     <div className={css.configField}>
                       <FormInput.Text
-                        name=""
+                        name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
                         label={getString('pipelineSteps.configFiles')}
                         placeholder={getString('cd.configFilePlaceHolder')}
                         className={css.inputField}
+                        disabled={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType}
                       />
-                      <Button intent="primary" text="Edit" className={css.configBtn} onClick={showModal} />
+
+                      {/* {configData?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType && (
+                        <Text>Config File</Text>
+                      )} */}
+                      <Button
+                        intent="primary"
+                        text="Edit"
+                        className={css.configBtn}
+                        onClick={() => setShowModal(true)}
+                      />
                     </div>
 
                     <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -260,6 +280,39 @@ export default function TerraformEditView(
                         }}
                       />
                     </div>
+                    {showModal && (
+                      <Dialog
+                        onClose={() => setShowModal(false)}
+                        className={cx(Classes.DIALOG)}
+                        {...modalProps}
+                        title={getString('pipelineSteps.configFiles')}
+                        isCloseButtonShown
+                      >
+                        <ConfigForm
+                          onClick={data => {
+                            const valObj = {
+                              ...formik.values,
+                              spec: {
+                                ...formik.values?.spec,
+                                configuration: {
+                                  ...formik.values?.spec?.configuration,
+                                  spec: {
+                                    ...formik.values?.spec?.configuration?.spec,
+                                    configFiles: data.spec?.configuration?.spec?.configFiles
+                                  }
+                                }
+                              }
+                            }
+
+                            formik.setValues(valObj)
+
+                            setShowModal(false)
+                          }}
+                          data={formik.values}
+                          onHide={() => setShowModal(false)}
+                        />
+                      </Dialog>
+                    )}
                   </>
                 )}
               </Layout.Vertical>

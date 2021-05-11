@@ -426,6 +426,7 @@ verificationJobs:
     dataSource: Please select a Monitoring Source
     baseline: Please select a baseline
     changeSource: Please select a Change Source
+    sensitivity: Please select a sensitivity
   details:
     name: Name of your job
     tabName: Select Verification Job Type

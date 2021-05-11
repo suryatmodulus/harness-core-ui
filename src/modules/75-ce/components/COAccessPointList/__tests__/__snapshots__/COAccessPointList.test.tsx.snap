@@ -13,7 +13,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
         <span
           class="lastBreadcrumb"
         >
-          Access points
+          ce.co.accessPoint.loadbalancers
         </span>
       </div>
     </div>
@@ -24,7 +24,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
         level="2"
       >
-        Access Point Manager
+        ce.co.accessPoint.landingPageTitle
       </h2>
     </div>
     <div

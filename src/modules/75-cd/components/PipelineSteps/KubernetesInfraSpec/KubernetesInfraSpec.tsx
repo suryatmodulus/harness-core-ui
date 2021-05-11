@@ -140,6 +140,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                 <FormMultiTypeConnectorField
                   name="connectorRef"
                   label={getString('connector')}
+                  tooltipProps={{
+                    dataTooltipId: 'k8InfraConnector'
+                  }}
                   placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
                   disabled={readonly}
                   accountIdentifier={accountId}
@@ -172,6 +175,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.MultiTextInput
                   name="namespace"
+                  tooltipProps={{
+                    dataTooltipId: 'k8InfraNamespace'
+                  }}
                   className={css.inputWidth}
                   disabled={readonly}
                   label={getString('common.namespace')}
@@ -195,6 +201,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.MultiTextInput
                   name="releaseName"
+                  tooltipProps={{
+                    dataTooltipId: 'k8InfraReleaseName'
+                  }}
                   className={css.inputWidth}
                   label={getString('common.releaseName')}
                   disabled={readonly}
@@ -218,6 +227,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.MultiTextInput
                   name="infrastructureKey"
+                  tooltipProps={{
+                    dataTooltipId: 'k8InfraKey'
+                  }}
                   className={css.inputWidth}
                   label={getString('cd.infrastructureKey')}
                   disabled={readonly}
@@ -248,6 +260,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.simultaneousDeployment}
                   name={'allowSimultaneousDeployments'}
                   label={getString('cd.allowSimultaneousDeployments')}
+                  tooltipProps={{
+                    dataTooltipId: 'k8InfraAllowSimultaneousDeployments'
+                  }}
                   disabled={readonly}
                 />
               </Layout.Horizontal>

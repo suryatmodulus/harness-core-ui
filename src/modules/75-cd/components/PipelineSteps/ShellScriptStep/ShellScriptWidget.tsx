@@ -44,7 +44,7 @@ export function ShellScriptWidget(
       shell: Yup.string().trim().required(getString('validation.scriptTypeRequired')),
       source: Yup.object().shape({
         spec: Yup.object().shape({
-          script: Yup.string().trim().required(getString('validation.scriptTypeRequired'))
+          script: Yup.string().trim().required(getString('cd.scriptRequired'))
         })
       })
     }),

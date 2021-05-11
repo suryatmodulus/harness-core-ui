@@ -1,5 +1,16 @@
 import React from 'react'
-import { Layout, Card, Icon, Text, SelectOption, IconName, Radio, Select, Checkbox } from '@wings-software/uicore'
+import {
+  Layout,
+  Card,
+  Icon,
+  Text,
+  SelectOption,
+  IconName,
+  Radio,
+  Select,
+  Checkbox,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -405,7 +416,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               </div>
 
               <Card className={css.sectionCard} id="deploymentType">
-                <div className={css.tabSubHeading}>Deployment Type</div>
+                <div
+                  className={cx(css.tabSubHeading, 'ng-tooltip-native')}
+                  data-tooltip-id="stageOverviewDeploymentType"
+                >
+                  Deployment Type
+                  <HarnessDocTooltip tooltipId="stageOverviewDeploymentType" useStandAlone={true} />
+                </div>
                 <Layout.Horizontal>
                   {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
                     <div key={type.name} className={css.squareCardContainer}>

@@ -20,15 +20,15 @@ interface COProviderSelectorProps {
 }
 
 const data: Provider[] = [
-  // {
-  //   name: 'Azure',
-  //   value: 'azure',
-  //   icon: 'service-azure'
-  // },
   {
     name: 'AWS',
     value: 'aws',
     icon: 'service-aws'
+  },
+  {
+    name: 'Azure',
+    value: 'azure',
+    icon: 'service-azure'
   }
   // {
   //   name: 'Digital Ocean',
@@ -95,6 +95,9 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
             <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
               <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
                 AWS
+              </Text>
+              <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
+                Azure
               </Text>
             </Layout.Horizontal>
           </Layout.Vertical>

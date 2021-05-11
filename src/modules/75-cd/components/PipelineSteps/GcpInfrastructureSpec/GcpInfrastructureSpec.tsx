@@ -198,6 +198,9 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
                   disabled={readonly}
                   accountIdentifier={accountId}
+                  tooltipProps={{
+                    dataTooltipId: 'gcpInfraConnector'
+                  }}
                   multiTypeProps={{ expressions }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
@@ -250,6 +253,9 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
               <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTypeInput
                   name="cluster"
+                  tooltipProps={{
+                    dataTooltipId: 'gcpInfraCluster'
+                  }}
                   className={css.inputWidth}
                   selectItems={clusterOptions}
                   disabled={loadingClusterNames || readonly}
@@ -287,6 +293,9 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
               <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTextInput
                   name="namespace"
+                  tooltipProps={{
+                    dataTooltipId: 'gcpInfraNamespace'
+                  }}
                   className={css.inputWidth}
                   label={getString('common.namespace')}
                   placeholder={getString('cd.steps.common.namespacePlaceholder')}
@@ -310,6 +319,9 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
               <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTextInput
                   name="releaseName"
+                  tooltipProps={{
+                    dataTooltipId: 'gcpInfraReleasename'
+                  }}
                   className={css.inputWidth}
                   label={getString('common.releaseName')}
                   placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
@@ -333,6 +345,9 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.CheckBox
                   className={css.simultaneousDeployment}
+                  tooltipProps={{
+                    dataTooltipId: 'gcpInfraAllowSimultaneousDeployments'
+                  }}
                   name={'allowSimultaneousDeployments'}
                   label={getString('cd.allowSimultaneousDeployments')}
                   disabled={readonly}

@@ -24,6 +24,11 @@ body,
   z-index: 200;
 }
 
+.ng-tooltip-native {
+  display: flex;
+  align-items: center;
+}
+
 body {
   --font-family: 'Inter', sans-serif;
   --font-family-mono: Monaco, 'Ubuntu Mono', 'Courier New', monospace;

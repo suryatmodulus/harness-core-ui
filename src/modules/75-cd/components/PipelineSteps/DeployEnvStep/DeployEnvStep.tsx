@@ -60,7 +60,10 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   onCreateOrUpdate
 }): JSX.Element => {
   const { getString } = useStrings()
-
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
   const typeList: { text: string; value: EnvironmentYaml['type'] }[] = [
     {
       text: getString('production'),
@@ -88,11 +91,24 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
         })}
       >
         {formikProps => (
-          <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
+          <Layout.Vertical
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                formikProps.handleSubmit()
+              }
+            }}
+            spacing="medium"
+            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+          >
             <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),
+                inputGroupProps: {
+                  inputGroup: {
+                    inputRef: ref => (inputRef.current = ref)
+                  }
+                },
                 isIdentifierEditable: !isEdit
               }}
             />
@@ -292,6 +308,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
                 label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                 name="environmentRef"
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
@@ -392,6 +409,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
         <FormInput.Select
           label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+          tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
           items={environments}

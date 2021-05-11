@@ -43,7 +43,6 @@ exports[`ConditionalExecution matches snapshot with failure 1`] = `
             >
               pipeline.duration
               :
-               
             </span>
             <span
               class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-size-small StyledProps--color StyledProps--color-black"

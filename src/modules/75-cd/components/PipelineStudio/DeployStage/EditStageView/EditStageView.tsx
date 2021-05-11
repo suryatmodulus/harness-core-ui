@@ -10,7 +10,8 @@ import {
   CardSelectType,
   CardSelect,
   Layout,
-  Accordion
+  Accordion,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -167,8 +168,13 @@ export const EditStageView: React.FC<EditStageView> = ({
                   )}
 
                   <Card className={cx(css.sectionCard)}>
-                    <div className={css.tabSubHeading} id="whatToDeploy">
+                    <div
+                      className={cx(css.tabSubHeading, 'ng-tooltip-native')}
+                      id="whatToDeploy"
+                      data-tooltip-id="whatToDeploy"
+                    >
                       {getString('whatToDeploy')}
+                      <HarnessDocTooltip tooltipId="whatToDeploy" useStandAlone={true} />
                     </div>
                     <CardSelect
                       type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
@@ -232,7 +238,10 @@ export const EditStageView: React.FC<EditStageView> = ({
             summary={'Advanced'}
             details={
               <Card className={css.sectionCard} id="variables">
-                <div className={css.tabSubHeading}>Stage Variables</div>
+                <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="overviewStageVariables">
+                  Stage Variables
+                  <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />
+                </div>
                 <Layout.Horizontal>
                   <div className={css.stageSection}>
                     <div className={cx(css.stageDetails)}>

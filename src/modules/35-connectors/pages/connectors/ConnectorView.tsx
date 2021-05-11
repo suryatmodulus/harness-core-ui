@@ -35,7 +35,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { ConnectorStatus } from '@connectors/constants'
+import { Connectors, ConnectorStatus } from '@connectors/constants'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -91,7 +91,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
   const { getString } = useStrings()
-  const isHarnessManaged = props.response?.harnessManaged
+  // TODO: remove the connector condition after migrating CEAWS connector to 35-connectors module
+  const isHarnessManaged = props.response?.harnessManaged || props.response.connector?.type === Connectors.CEAWS
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
 
   const [canEditConnector] = usePermission(

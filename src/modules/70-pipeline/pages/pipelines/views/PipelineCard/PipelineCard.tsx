@@ -16,6 +16,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getIconsForPipeline, getStatusColor } from '../../PipelineListUtils'
 import css from '../../PipelinesPage.module.scss'
 
@@ -163,7 +164,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       accountId: string
     }>
   >()
-
+  const { isGitSyncEnabled } = useAppStore()
   const history = useHistory()
   const goToExecutionPipelineView = (executionId: string | undefined): void => {
     if (executionId) {
@@ -262,6 +263,39 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           </Text>
         </Layout.Horizontal>
       ) : null}
+
+      {isGitSyncEnabled && !!pipeline.gitDetails && (
+        <Layout.Horizontal
+          style={{ alignItems: 'center', justifyContent: 'space-between' }}
+          border={{ top: true, color: Color.GREY_300 }}
+          padding={{ top: 'medium', bottom: 'medium' }}
+        >
+          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+            <Icon name="service-gotlab" size={16} />
+            <Text
+              style={{ maxWidth: '70px' }}
+              font={{ size: 'small' }}
+              color={Color.GREY_900}
+              title={pipeline.gitDetails.repoIdentifier}
+              lineClamp={1}
+            >
+              {pipeline.gitDetails.repoIdentifier}
+            </Text>
+          </Layout.Horizontal>
+          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+            <Icon name="git-new-branch" size={14} />
+            <Text
+              style={{ wordWrap: 'break-word', maxWidth: '70px' }}
+              font={{ size: 'small' }}
+              color={Color.GREY_900}
+              title={pipeline.gitDetails.branch}
+              lineClamp={1}
+            >
+              {pipeline.gitDetails.branch}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      )}
 
       <Container
         padding={{ right: 'large', top: 'medium', bottom: 'small' }}

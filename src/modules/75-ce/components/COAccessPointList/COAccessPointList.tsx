@@ -7,11 +7,12 @@ import {
   Container,
   Button,
   ExpandingSearchInput,
-  useModalHook,
+  // useModalHook,
   Icon
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
+import type { IconName } from '@blueprintjs/icons'
+// import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
 import { Page } from '@common/components/Page/Page'
@@ -20,21 +21,12 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
-import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
+// import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
+// import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
+import useCreateAccessPointDialog from './COCreateAccessPointDialog'
 import css from './COAcessPointList.module.scss'
-const modalPropsLight: IDialogProps = {
-  isOpen: true,
-  style: {
-    width: 1175,
-    minHeight: 640,
-    borderLeft: 0,
-    paddingBottom: 0,
-    position: 'relative',
-    overflow: 'hidden'
-  }
-}
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
@@ -58,7 +50,7 @@ function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   )
 }
 
-const COAccessPointList: React.FC = () => {
+const COLoadBalancerList: React.FC = () => {
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -71,27 +63,16 @@ const COAccessPointList: React.FC = () => {
     const newAccessPoints = [...allAccessPoints, newAccessPoint]
     setAllAccessPoints(newAccessPoints)
   }
-  const [createAccessPointModal, hidecreateAccessPointModal] = useModalHook(
-    () => (
-      <Dialog onClose={hidecreateAccessPointModal} {...modalPropsLight}>
-        <CreateAccessPointWizard
-          accessPoint={{
-            account_id: accountId, // eslint-disable-line
-            project_id: projectIdentifier, // eslint-disable-line
-            org_id: orgIdentifier, // eslint-disable-line
-            metadata: {
-              security_groups: [] // eslint-disable-line
-            },
-            type: 'aws'
-          }}
-          closeModal={hidecreateAccessPointModal}
-          setAccessPoint={setAccessPoint}
-          refreshAccessPoints={() => undefined}
-        />
-      </Dialog>
-    ),
-    [allAccessPoints]
-  )
+
+  const { openCreateAccessPointModal } = useCreateAccessPointDialog({
+    onAccessPointSave: savedLb => {
+      // if (isCreateMode) {
+      //   setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
+      // }
+      setAccessPoint(savedLb)
+    }
+  })
+
   const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
     return (
@@ -244,14 +225,14 @@ const COAccessPointList: React.FC = () => {
         links={[
           {
             url: routes.toCECOAccessPoints({ orgIdentifier, projectIdentifier, accountId }),
-            label: 'Access points'
+            label: getString('ce.co.accessPoint.loadbalancers')
           }
         ]}
       />
       <>
         {!loading ? (
           <>
-            <Page.Header title="Access Point Manager" className={css.header} />
+            <Page.Header title={getString('ce.co.accessPoint.landingPageTitle')} className={css.header} />
             <>
               <Layout.Horizontal padding="large">
                 <Layout.Horizontal width="55%" spacing="medium">
@@ -259,7 +240,7 @@ const COAccessPointList: React.FC = () => {
                     intent="primary"
                     text={getString('ce.co.accessPoint.new')}
                     icon="plus"
-                    onClick={() => createAccessPointModal()}
+                    onClick={() => openCreateAccessPointModal()}
                   />
                   <DeleteAccessPoint
                     accessPoints={selectedAccessPoints}
@@ -362,4 +343,4 @@ const COAccessPointList: React.FC = () => {
   )
 }
 
-export default COAccessPointList
+export default COLoadBalancerList

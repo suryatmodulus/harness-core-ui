@@ -3,7 +3,9 @@ import {
   ExpressionAndRuntimeTypeProps,
   getMultiTypeFromValue,
   MultiTypeInputValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -44,6 +46,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
   enableConfigureOptions?: boolean
   style?: React.CSSProperties
+  tooltipProps?: DataTooltipInterface
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
@@ -251,7 +254,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
 
   return (
     <div style={style}>
-      {label}
+      <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {component}

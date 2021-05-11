@@ -42,11 +42,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
           </span>
         </div>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+      <div
+        class="Text--withDocsTooltip"
+        data-tooltip-id="pipelinesPageHeading"
       >
-        pipelines
-      </p>
+        <p
+          class="StyledProps--font StyledProps--main ng-tooltip-native StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+        >
+          pipelines
+        </p>
+      </div>
     </div>
   </div>
   <div
@@ -1533,11 +1538,16 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </span>
         </div>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+      <div
+        class="Text--withDocsTooltip"
+        data-tooltip-id="pipelinesPageHeading"
       >
-        pipelines
-      </p>
+        <p
+          class="StyledProps--font StyledProps--main ng-tooltip-native StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
+        >
+          pipelines
+        </p>
+      </div>
     </div>
   </div>
   <div

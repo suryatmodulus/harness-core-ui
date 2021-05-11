@@ -15,7 +15,8 @@ import {
   NestedAccordionPanel,
   SelectOption,
   Accordion,
-  Card
+  Card,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 
 import { parse } from 'yaml'
@@ -130,8 +131,9 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         className={css.sectionCard}
         id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
       >
-        <div className={css.tabSubHeading}>
+        <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeManifests">
           {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+          <HarnessDocTooltip tooltipId="deploymentTypeManifests" useStandAlone={true} />
         </div>
         <Layout.Horizontal>
           <ManifestSelection isPropagating={isPropagating} />
@@ -141,8 +143,9 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         className={css.sectionCard}
         id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
       >
-        <div className={css.tabSubHeading}>
+        <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeArtifacts">
           {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+          <HarnessDocTooltip tooltipId="deploymentTypeArtifacts" useStandAlone={true} />
         </div>
         <Layout.Horizontal>
           <ArtifactsSelection isPropagating={isPropagating} />

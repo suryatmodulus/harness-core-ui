@@ -56,6 +56,10 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   onCreateOrUpdate
 }): JSX.Element => {
   const { getString } = useStrings()
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
   return (
     <Layout.Vertical>
       <Formik<ServiceYaml>
@@ -71,11 +75,24 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
         })}
       >
         {formikProps => (
-          <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
+          <Layout.Vertical
+            spacing="medium"
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                formikProps.handleSubmit()
+              }
+            }}
+            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+          >
             <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),
+                inputGroupProps: {
+                  inputGroup: {
+                    inputRef: ref => (inputRef.current = ref)
+                  }
+                },
                 isIdentifierEditable: !isEdit
               }}
             />
@@ -238,6 +255,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
+                tooltipProps={{ dataTooltipId: 'specifyYourService' }}
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
                 disabled={readonly}
@@ -333,6 +351,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
         <FormInput.Select
+          tooltipProps={{ dataTooltipId: 'specifyYourService' }}
           label={getString('pipelineSteps.serviceTab.specifyYourService')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
           placeholder={getString('pipelineSteps.serviceTab.selectService')}

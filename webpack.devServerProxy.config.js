@@ -1,4 +1,4 @@
-const baseUrl = 'https://qb.harness.io/gateway'
+const baseUrl = 'https://qa.harness.io/gateway'
 const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
 
 module.exports = {

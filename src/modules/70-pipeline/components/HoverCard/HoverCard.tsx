@@ -19,7 +19,6 @@ export interface HoverCardProps {
 export default function HoverCard(props: HoverCardProps): React.ReactElement {
   const { data } = props
   const { getString } = useStrings()
-  const startTime = moment(data?.data?.startTs).format(StringUtils.DEFAULT_DATE_FORMAT)
   let delta = data?.data?.startTs ? Math.abs(data?.data?.startTs - (data?.data?.endTs || Date.now())) : 0
 
   delta = Math.round(delta / 1000) * 1000
@@ -33,20 +32,20 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
           </Text>
           {data.status !== ExecutionStatusEnum.Skipped && (
             <Layout.Horizontal spacing={'xsmall'}>
-              {!!startTime && (
+              {!!data?.data?.startTs && (
                 <Container margin={{ right: 'small' }}>
                   <Text inline={true} font={{ size: 'small' }} color={Color.GREY_500}>
                     {getString('pipeline.startTime')}:{' '}
                   </Text>
                   <Text inline={true} font={{ size: 'small' }} color={Color.BLACK}>
-                    {startTime}
+                    {moment(data.data.startTs).format(StringUtils.DEFAULT_DATE_FORMAT)}
                   </Text>
                 </Container>
               )}
               {!!timeText && (
                 <Container>
                   <Text inline={true} font={{ size: 'small' }} color={Color.GREY_500}>
-                    {getString('pipeline.duration')}:{' '}
+                    {getString('pipeline.duration')}:
                   </Text>
                   <Text inline={true} font={{ size: 'small' }} color={Color.BLACK}>
                     {timeText}

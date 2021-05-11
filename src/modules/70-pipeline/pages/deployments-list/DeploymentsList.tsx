@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uicore'
+import { HarnessDocTooltip, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
@@ -28,6 +28,8 @@ export default function DeploymentsList(): React.ReactElement {
     ),
     [projectIdentifier, orgIdentifier, accountId]
   )
+
+  const textIdentifier = module === 'ci' ? 'buildsText' : 'deploymentsText'
   return (
     <div className={css.main}>
       <div className={css.header}>
@@ -43,7 +45,10 @@ export default function DeploymentsList(): React.ReactElement {
             }
           ]}
         />
-        <h2>{getString(module === 'ci' ? 'buildsText' : 'deploymentsText')}</h2>
+        <div className="ng-tooltip-native">
+          <h2 data-tooltip-id={textIdentifier}>{getString(textIdentifier)}</h2>
+          <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
+        </div>
       </div>
       <div className={css.content}>
         <PipelineDeploymentList onRunPipeline={openModal} />

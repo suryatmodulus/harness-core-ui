@@ -109,6 +109,8 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.GCR.fullName'
     case Connectors.AWS_KMS:
       return 'connectors.title.awsKms'
+    case Connectors.CE_AZURE:
+      return 'connectors.title.ceAzureConnector'
     default:
       return 'connector'
   }
@@ -159,6 +161,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-gcp'
     case Connectors.AWS_KMS:
       return 'aws-kms'
+    case Connectors.CE_AZURE:
+      return 'service-azure'
     default:
       return 'placeholder'
   }

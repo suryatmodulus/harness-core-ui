@@ -103,9 +103,13 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     key = runningUnit || null
   }
 
-  // if we are opening a section the set it to loading
-  if (key && dataMap[key].status !== 'QUEUED') {
-    set(dataMap[key], 'status', 'LOADING')
+  if (key) {
+    // if we are opening a section the set it to loading
+    if (dataMap[key].status !== 'QUEUED' && !dataMap[key].data) {
+      set(dataMap[key], 'status', 'LOADING')
+    }
+
+    set(dataMap[key], 'isOpen', true)
   }
 
   return { units, dataMap, selectedStep }

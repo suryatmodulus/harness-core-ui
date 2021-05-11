@@ -48,6 +48,7 @@ title:
   artifactory: 'Artifactory Repository'
   awsKms: 'AWS Key Management Service'
   delegateSelection: 'Delegate Selection'
+  ceAzureConnector: 'Azure Connector'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -97,6 +98,7 @@ testConnectionStep:
     gitlab: Validating the GitLab authentication and permissions
     github: Validating the GitHub authentication and permissions
     git: Validating the Git authentication and permissions
+    azure: Validating the azure authentication and permission
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:

@@ -40,9 +40,9 @@ describe('COProviderSelector', () => {
         alwaysUsePrivateIP: true
       },
       provider: {
-        name: 'string',
-        icon: 'string',
-        value: 'string'
+        name: 'AWS',
+        icon: 'service-aws',
+        value: 'aws'
       },
       selectedInstances: [],
       accessPointID: 'string',

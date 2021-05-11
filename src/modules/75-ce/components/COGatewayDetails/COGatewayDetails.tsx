@@ -67,7 +67,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
       const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
       if (hasInstances) {
-        setInstancesFilterTags()
+        await setInstancesFilterTags()
         routing.instance = {
           filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
         }

@@ -744,6 +744,58 @@
         }
       }
     },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/resource_groups": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["resourceGroups"],
+        "summary": "Lists all resource groups for a cloud account",
+        "description": "Returns all resource groups for a cloud account",
+        "operationId": "AllResourceGroups",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllResourceGroupsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
     "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/virtual_networks": {
       "parameters": [
         {
@@ -774,6 +826,12 @@
           "name": "region",
           "in": "query",
           "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": false,
           "type": "string"
         },
         {
@@ -841,6 +899,12 @@
           "type": "string"
         },
         {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
           "name": "Token",
           "in": "header",
           "required": true,
@@ -858,6 +922,76 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/AllSubnetsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/public_ips": {
+      "parameters": [
+        {
+          "name": "org_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "vpc",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "Token",
+          "in": "header",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["publicIps"],
+        "summary": "Lists all public IPs for a cloud account",
+        "description": "Returns all public IPs for a cloud account",
+        "operationId": "AllPublicIps",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllPublicIpsResponse"
             }
           },
           "400": {
@@ -1202,6 +1336,12 @@
           "name": "account_id",
           "in": "path",
           "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": false,
           "type": "string"
         },
         {
@@ -1865,6 +2005,12 @@
           "type": "string"
         },
         {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
           "name": "Token",
           "in": "header",
           "required": true,
@@ -1942,6 +2088,26 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/AllASGResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/app_id": {
+      "get": {
+        "tags": ["appId"],
+        "summary": "Get Azure application ID",
+        "description": "Get Azure application ID",
+        "operationId": "GetAppId",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AppIdResponse"
             }
           },
           "400": {
@@ -2742,6 +2908,21 @@
         },
         "albArn": {
           "type": "string"
+        },
+        "resource_group": {
+          "type": "string"
+        },
+        "fe_ip_id": {
+          "type": "string"
+        },
+        "subnet_id": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "app_gateway_id": {
+          "type": "string"
         }
       }
     },
@@ -2839,12 +3020,39 @@
         }
       }
     },
+    "ResourceGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "type": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
     "AllRegionsResponse": {
       "properties": {
         "response": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Region"
+          }
+        }
+      }
+    },
+    "AllResourceGroupsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceGroup"
           }
         }
       }
@@ -2889,6 +3097,27 @@
         }
       }
     },
+    "PublicIp": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "required": true
+        },
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "address": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
     "ExecutionRule": {
       "type": "object",
       "properties": {
@@ -2921,6 +3150,16 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Subnet"
+          }
+        }
+      }
+    },
+    "AllPublicIpsResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PublicIp"
           }
         }
       }
@@ -3134,6 +3373,16 @@
         }
       }
     },
+    "AzureAccessPointCore": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "AccessPointCore": {
       "properties": {
         "type": {
@@ -3141,7 +3390,14 @@
         },
         "details": {
           "type": "object",
-          "$ref": "#/definitions/ALBAccessPointCore"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ALBAccessPointCore"
+            },
+            {
+              "$ref": "#/definitions/AzureAccessPointCore"
+            }
+          ]
         }
       }
     },
@@ -3170,6 +3426,16 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ASGMinimal"
+          }
+        }
+      }
+    },
+    "AppIdResponse": {
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "app_id": { "type": "string" }
           }
         }
       }

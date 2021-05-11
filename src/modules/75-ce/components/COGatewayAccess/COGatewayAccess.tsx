@@ -135,9 +135,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             </Heading>
             <Icon name="info"></Icon>
           </Layout.Horizontal>
-          <Layout.Horizontal spacing="xxxlarge" style={{ paddingLeft: 'var(--spacing-large)' }}>
+          <Layout.Horizontal spacing="xxxlarge">
             <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
               <Checkbox
+                id="DNSLink"
                 label="DNS Link"
                 onChange={val => {
                   accessDetails.dnsLink.selected = val.currentTarget.checked

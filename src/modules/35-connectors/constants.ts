@@ -62,7 +62,8 @@ export const Connectors: ConnectorType = {
   Jira: 'Jira',
   NEW_RELIC: 'NewRelic',
   AWS_KMS: 'AwsKms',
-  PROMETHEUS: 'Prometheus'
+  PROMETHEUS: 'Prometheus',
+  CE_AZURE: 'CEAzure'
 }
 
 export const ConnectorInfoText = {

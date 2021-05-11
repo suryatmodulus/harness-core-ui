@@ -49,7 +49,11 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <DialogWithExtension modalProps={modalProps} renderExtension={<AWSConnectorExtension />}>
+      <DialogWithExtension
+        modalProps={modalProps}
+        renderExtension={<AWSConnectorExtension />}
+        dialogStyles={{ height: 740 }}
+      >
         <CreateConnectorWizard
           accountId={accountId}
           orgIdentifier={orgIdentifier}

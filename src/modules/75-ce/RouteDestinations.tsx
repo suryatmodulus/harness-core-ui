@@ -16,7 +16,7 @@ import CEDashboardPage from './pages/dashboard/CEDashboardPage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
 import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPage'
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
-import CECOAccessPointsPage from './pages/co-access-points/CECOAccessPointsPage'
+import CECOLoadBalancersPage from './pages/co-access-points/CECOAccessPointsPage'
 import Budgets from './pages/budgets/Budgets'
 import CETrialHomePage from './pages/home/CETrialHomePage'
 
@@ -108,7 +108,7 @@ export default (
       path={routes.toCECOAccessPoints({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CECOAccessPointsPage />
+      <CECOLoadBalancersPage />
     </RouteWithLayout>
 
     <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEBudgets({ ...accountPathProps })} exact>

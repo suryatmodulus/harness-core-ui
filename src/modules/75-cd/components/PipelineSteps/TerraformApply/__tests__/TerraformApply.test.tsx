@@ -228,7 +228,7 @@ describe('Test TerraformApply', () => {
         stepViewType={StepViewType.Edit}
       />
     )
-    fireEvent.click(getByText('advancedTitle'))
+    fireEvent.click(getByText('pipelineSteps.backendConfig'))
     expect(container).toMatchSnapshot()
   })
 

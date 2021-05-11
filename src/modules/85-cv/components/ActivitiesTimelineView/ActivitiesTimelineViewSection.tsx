@@ -144,7 +144,7 @@ export default function ActivitesTimelineViewSection({
               }
             })
           }
-          className={css.errorAndNoData}
+          containerClassName={css.activityTimelineNoData}
         />
       </Container>
     )

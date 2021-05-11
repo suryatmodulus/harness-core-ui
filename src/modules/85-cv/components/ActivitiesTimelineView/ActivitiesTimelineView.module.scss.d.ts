@@ -16,5 +16,6 @@ declare const styles: {
   readonly headerSecondaryMsg: string
   readonly verticalLine: string
   readonly errorAndNoData: string
+  readonly activityTimelineNoData: string
 }
 export default styles

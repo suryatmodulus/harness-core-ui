@@ -1,5 +1,6 @@
 import React from 'react'
 import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
+import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import css from './NoDataCard.module.scss'
 export interface NoDataCardProps {
@@ -13,11 +14,13 @@ export interface NoDataCardProps {
   button?: React.ReactElement
   onClick?: ButtonProps['onClick']
   className?: string
+  containerClassName?: string
   buttonDisabled?: boolean
 }
 
 export const NoDataCard: React.FC<NoDataCardProps> = props => {
   const { getString } = useStrings()
+
   // there are icons to which color prop shouldn't be passed to
   // as it brokes complex svg gradients and a
   // simple ternary condition doesn't work
@@ -31,7 +34,7 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
   }
   const buttonDisabled = typeof props.buttonDisabled !== undefined && props.buttonDisabled
   return (
-    <Container className={css.noDataCard} flex={{ align: 'center-center' }}>
+    <Container className={classNames(css.noDataCard, props.containerClassName)} flex={{ align: 'center-center' }}>
       <Layout.Vertical
         spacing="medium"
         width={props?.width || 470}

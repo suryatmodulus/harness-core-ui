@@ -234,8 +234,18 @@ const _fetchPipeline = async (
       dispatch(
         PipelineContextActions.success({
           error: '',
-          pipeline: data?.pipeline || { ...DefaultPipeline },
-          originalPipeline: cloneDeep(data?.pipeline) || cloneDeep(DefaultPipeline),
+          pipeline: data?.pipeline || {
+            ...DefaultPipeline,
+            projectIdentifier: queryParams.projectIdentifier,
+            orgIdentifier: queryParams.orgIdentifier
+          },
+          originalPipeline:
+            cloneDeep(data?.pipeline) ||
+            cloneDeep({
+              ...DefaultPipeline,
+              projectIdentifier: queryParams.projectIdentifier,
+              orgIdentifier: queryParams.orgIdentifier
+            }),
           isUpdated: true,
           isBEPipelineUpdated: false
         })

@@ -56,6 +56,10 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   onCreateOrUpdate
 }): JSX.Element => {
   const { getString } = useStrings()
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
   return (
     <Layout.Vertical>
       <Formik<ServiceYaml>
@@ -71,11 +75,24 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
         })}
       >
         {formikProps => (
-          <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
+          <Layout.Vertical
+            spacing="medium"
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                formikProps.handleSubmit()
+              }
+            }}
+            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+          >
             <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),
+                inputGroupProps: {
+                  inputGroup: {
+                    inputRef: ref => (inputRef.current = ref)
+                  }
+                },
                 isIdentifierEditable: !isEdit
               }}
             />

@@ -60,7 +60,10 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   onCreateOrUpdate
 }): JSX.Element => {
   const { getString } = useStrings()
-
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  React.useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
   const typeList: { text: string; value: EnvironmentYaml['type'] }[] = [
     {
       text: getString('production'),
@@ -88,11 +91,24 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
         })}
       >
         {formikProps => (
-          <Layout.Vertical spacing="medium" padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
+          <Layout.Vertical
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                formikProps.handleSubmit()
+              }
+            }}
+            spacing="medium"
+            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+          >
             <NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
                 inputLabel: getString('name'),
+                inputGroupProps: {
+                  inputGroup: {
+                    inputRef: ref => (inputRef.current = ref)
+                  }
+                },
                 isIdentifierEditable: !isEdit
               }}
             />

@@ -224,7 +224,10 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     onChange={(value, scope) => {
                       setFieldValue('gitConnector', {
                         label: value.name || '',
-                        value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
+                        value:
+                          scope === Scope.ORG || scope === Scope.ACCOUNT
+                            ? `${scope}.${value?.identifier}`
+                            : value?.identifier,
                         scope: scope,
                         live: value?.status?.status === 'SUCCESS',
                         connector: value

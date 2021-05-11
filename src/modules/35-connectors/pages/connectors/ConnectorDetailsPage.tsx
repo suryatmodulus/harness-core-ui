@@ -88,6 +88,27 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Horizontal>
     )
   }
+
+  const RenderGitDetails: React.FC = () => {
+    if (data?.data?.gitDetails?.objectId) {
+      return (
+        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
+          <Layout.Horizontal spacing="small">
+            <Icon name="repository" margin={{ left: 'large' }}></Icon>
+            <Text>{`${data?.data?.gitDetails?.rootFolder}${data?.data?.gitDetails?.filePath}`}</Text>
+          </Layout.Horizontal>
+
+          <Layout.Horizontal spacing="small">
+            <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
+            <Text>{data?.data?.gitDetails?.branch}</Text>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      )
+    } else {
+      return <></>
+    }
+  }
+
   const renderTitle: React.FC = () => {
     return (
       <Layout.Vertical padding={{ left: 'xsmall' }}>
@@ -102,7 +123,10 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
             <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
               {connectorName}
             </Text>
-            <Text color={Color.GREY_400}>{data?.data?.connector?.identifier}</Text>
+            <Layout.Horizontal spacing="small">
+              <Text color={Color.GREY_400}>{data?.data?.connector?.identifier}</Text>
+              <RenderGitDetails />
+            </Layout.Horizontal>
           </Container>
         </Layout.Horizontal>
       </Layout.Vertical>

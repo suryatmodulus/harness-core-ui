@@ -58,11 +58,15 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           >
             Sample
           </p>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            Sample
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            >
+              Sample
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -498,11 +502,15 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           >
             Sample
           </p>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            Sample
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            >
+              Sample
+            </p>
+          </div>
         </div>
       </div>
     </div>

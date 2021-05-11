@@ -11,7 +11,7 @@ import {
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import type { StringsMap } from 'stringTypes'
 import type { ConditionalExecutionNodeRunInfo } from '@pipeline/utils/types'
-import type { ExpressionBlock } from 'services/cd-ng'
+import type { ExpressionBlock } from 'services/pipeline-ng'
 
 export interface ConditionalExecutionToolTipProps {
   mode: Modes

@@ -191,6 +191,7 @@ export interface StringsMap {
   'common.plusNumber': string
   'common.production': string
   'common.projectViewer': string
+  'common.provisioner': string
   'common.purpose.cd.delivery': string
   'common.purpose.cd.description': string
   'common.purpose.cd.subtitle': string

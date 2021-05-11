@@ -131,9 +131,9 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
 
-  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
+  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
 
 const CISideNavProps: SidebarContext = {
@@ -228,14 +228,14 @@ export default (
     <Route
       sidebarProps={CISideNavProps}
       exact
-      path={routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGitSyncAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
     >
       <RedirectToGitSyncHome />
     </Route>
     <RouteWithLayout
       exact
       sidebarProps={CISideNavProps}
-      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
     >
       <GitSyncPage>
         <GitSyncRepoTab />
@@ -243,7 +243,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CISideNavProps}
-      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
       exact
     >
       <GitSyncPage>

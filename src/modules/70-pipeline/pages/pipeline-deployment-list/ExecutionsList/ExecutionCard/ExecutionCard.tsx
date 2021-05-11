@@ -16,6 +16,7 @@ import { TagsPopover } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import ServicesDeployed from './ExecutionDetails/ServicesDeployed'
 import BuildInfo from './ExecutionDetails/BuildInfo/BuildInfo'
@@ -67,10 +68,19 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
     },
     [orgIdentifier, projectIdentifier, accountId, pipelineExecution.pipelineIdentifier]
   )
+  const disabled = isExecutionNotStarted(pipelineExecution.status)
+
+  function handleClick(e: React.SyntheticEvent): void {
+    if (disabled) {
+      e.preventDefault()
+    }
+  }
+
   return (
-    <Card elevation={0} className={css.card} interactive>
+    <Card elevation={0} className={css.card} interactive={!disabled}>
       <Link
         className={css.cardLink}
+        onClick={handleClick}
         to={routes.toExecutionPipelineView({
           orgIdentifier,
           pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',

@@ -7,6 +7,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
 
@@ -15,7 +16,7 @@ interface GitSyncPageProps {
 }
 
 export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
 
@@ -52,7 +53,7 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId })}
+                to={routes.toGitSyncReposAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
               >
                 <Icon margin={{ right: 'small' }} name="repository" />
                 {getString('repositories')}
@@ -61,7 +62,7 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId })}
+                to={routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })}
               >
                 <Icon margin={{ right: 'small' }} name="entity" />
                 {getString('entities')}

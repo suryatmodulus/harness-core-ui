@@ -162,15 +162,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     return editorRef.current?.editor?.getModel()?.getAlternativeVersionId()
   }
 
-  const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
-
   const verifyIncomingJSON = (jsonObj?: Record<string, any>): void => {
     try {
-      const jsonObjWithoutNulls = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/:\s*null/g, ':""')) as Record<
-        string,
-        any
-      >
-      const sanitizedJSONObj = sanitize(jsonObjWithoutNulls, yamlSanityConfig)
+      const sanitizedJSONObj = jsonObj ? sanitize(jsonObj, yamlSanityConfig) : null
       if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
         const yamlEqOfJSON = stringify(sanitizedJSONObj)
         const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')

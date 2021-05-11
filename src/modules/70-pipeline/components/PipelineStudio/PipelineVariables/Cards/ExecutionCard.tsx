@@ -3,7 +3,6 @@ import produce from 'immer'
 import { set } from 'lodash-es'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/strings'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
 import type { PipelineVariablesData } from '../types'
@@ -33,6 +32,8 @@ export interface StepGroupRenderData {
 }
 
 export interface ExecutionCardProps {
+  id: string
+  title: string
   execution: ExecutionElementConfig
   originalExecution: ExecutionElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
@@ -158,14 +159,12 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
 }
 
 export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElement {
-  const { getString } = useStrings()
-
   return (
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Execution`}
-      summary={getString('executionText')}
+      id={props.id}
+      summary={props.title}
       panelClassName={css.panel}
       details={<ExecutionCard {...props} />}
     />

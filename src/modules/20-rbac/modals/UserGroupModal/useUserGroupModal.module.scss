@@ -14,3 +14,9 @@
 .form {
   min-height: 350px;
 }
+
+.input {
+  :global(.bp3-input) {
+    height: auto !important;
+  }
+}

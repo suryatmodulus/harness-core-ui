@@ -11,6 +11,7 @@ removeThisVariable: Remove This Variable
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
+provisioner: Provisioner
 comments: Comments
 approve: Approve
 reject: Reject

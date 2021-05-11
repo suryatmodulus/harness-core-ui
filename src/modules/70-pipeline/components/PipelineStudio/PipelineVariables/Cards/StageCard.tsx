@@ -120,10 +120,19 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                           }) as StageElementConfig
                         )
                       }}
+                      onUpdateInfrastructureProvisioner={provisioner => {
+                        updateStage(
+                          produce(originalStage, draft => {
+                            set(draft, 'spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
+                          }) as StageElementConfig
+                        )
+                      }}
                     />
                   ) : /* istanbul ignore next */ null}
                   {stageSpec.execution && originalSpec.execution ? (
                     <ExecutionCardPanel
+                      id={`Stage.${originalStage.identifier}.Execution`}
+                      title={getString('executionText')}
                       execution={stageSpec.execution}
                       originalExecution={originalSpec.execution}
                       metadataMap={metadataMap}

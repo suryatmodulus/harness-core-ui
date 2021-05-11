@@ -255,11 +255,6 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}
                   permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
                     resource: {
                       resourceType: ResourceType.USER
                     },

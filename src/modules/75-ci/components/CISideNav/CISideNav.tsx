@@ -77,7 +77,7 @@ export default function CISideNav(): React.ReactElement {
               <AdminSelectorLink
                 label={getString('gitManagement')}
                 iconName="git-repo"
-                to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier })}
+                to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
               />
             ) : null}
             <AdminSelectorLink

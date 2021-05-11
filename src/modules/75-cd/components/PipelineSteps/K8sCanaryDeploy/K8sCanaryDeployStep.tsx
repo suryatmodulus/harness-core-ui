@@ -29,7 +29,9 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sCanaryDeployData extends StepElementConfig {
-  spec: K8sRollingStepInfo
+  spec: Omit<K8sRollingStepInfo, 'skipDryRun'> & {
+    skipDryRun?: boolean
+  }
   identifier: string
 }
 

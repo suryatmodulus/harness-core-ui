@@ -108,6 +108,9 @@
 
 .input {
   width: 450px !important ;
+  :global(.bp3-input) {
+    height: auto !important;
+  }
 }
 
 .url {

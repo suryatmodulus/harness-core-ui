@@ -1,4 +1,5 @@
-import type { StringNGVariable, NumberNGVariable, SecretNGVariable, NodeRunInfo, ExpressionBlock } from 'services/cd-ng'
+import type { StringNGVariable, NumberNGVariable, SecretNGVariable } from 'services/cd-ng'
+import type { NodeRunInfo, ExpressionBlock } from 'services/pipeline-ng'
 
 export type AllNGVariables = StringNGVariable | NumberNGVariable | SecretNGVariable
 

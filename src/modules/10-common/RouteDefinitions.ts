@@ -474,10 +474,6 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/template-library`
   ),
-  toCDGitSync: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync`
-  ),
   toCDGovernance: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
@@ -562,16 +558,43 @@ const routes = {
   ),
   //git-sync at project scope
   toGitSyncAdmin: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync`
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `git-sync`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toGitSyncReposAdmin: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync/repos`
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `git-sync/repos`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toGitSyncEntitiesAdmin: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/git-sync/entities`
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `git-sync/entities`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   /********************************************************************************************************************/
   toCF: (params: Partial<ProjectPathProps>) =>

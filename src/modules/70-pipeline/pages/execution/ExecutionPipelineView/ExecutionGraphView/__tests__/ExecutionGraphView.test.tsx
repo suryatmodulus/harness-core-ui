@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
-import type { ExecutionNode } from 'services/cd-ng'
+import type { ExecutionNode } from 'services/pipeline-ng'
 
 import type { ExecutionPipelineNode } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { ExecutionStageDiagramProps } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'

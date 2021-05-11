@@ -51,11 +51,6 @@ const UsersPage: React.FC = () => {
               icon="plus"
               onClick={() => openRoleAssignmentModal()}
               permission={{
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                },
                 resource: {
                   resourceType: ResourceType.USER
                 },

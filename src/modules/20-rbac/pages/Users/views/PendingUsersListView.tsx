@@ -14,6 +14,7 @@ import { useMutateAsGet } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './UserListView.module.scss'
 
 interface PendingUserListViewProps {
@@ -83,7 +84,7 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
   const { mutate: deleteUser } = useDeleteInvite({})
 
   const { openDialog } = useConfirmationDialog({
-    contentText: getString('rbac.usersPage.deleteConfirmation', { name: data?.name }),
+    contentText: getString('rbac.usersPage.deleteConfirmation', { name: data?.name || data?.email }),
     titleText: getString('rbac.usersPage.deleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -126,7 +127,18 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <RbacMenuItem
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+            permission={{
+              resource: {
+                resourceType: ResourceType.USER,
+                resourceIdentifier: data.id
+              },
+              permission: PermissionIdentifier.INVITE_USER
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -205,6 +217,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
     ],
     [openRoleAssignmentModal, refetch]
   )
+
   return (
     <Page.Body
       loading={loading}
@@ -223,11 +236,6 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}
                   permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
                     resource: {
                       resourceType: ResourceType.USER
                     },

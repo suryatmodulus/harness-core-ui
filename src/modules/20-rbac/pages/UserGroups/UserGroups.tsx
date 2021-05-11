@@ -66,7 +66,7 @@ const UserGroupsPage: React.FC = () => {
       />
       <Page.Body
         loading={loading}
-        error={error?.message}
+        error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
         noData={
           !searchTerm

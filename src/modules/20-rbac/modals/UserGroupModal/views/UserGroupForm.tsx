@@ -161,6 +161,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
                       name="userList"
                       label={getString('rbac.userGroupPage.addUsers')}
                       items={users}
+                      className={css.input}
                       multiSelectProps={{
                         allowCreatingNewItems: false,
                         onQueryChange: (query: string) => {

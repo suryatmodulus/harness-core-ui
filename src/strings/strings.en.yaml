@@ -601,7 +601,7 @@ scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
 basic: Basic
-stepConfiguration: Basics
+stepConfiguration: Step Parameters
 stepGroupConfiguration: Step Group Configuration
 image: 'Image:'
 createdAt: 'Created at:'

@@ -15,56 +15,28 @@
 
   .step-tabs {
     height: 100%;
-    padding: 0 var(--spacing-large);
 
     :global(.bp3-tabs) {
       height: 100%;
     }
 
-    :global(.bp3-tab-list) {
-      border-bottom: none;
-      padding: var(--spacing-medium) 0;
-      display: flex;
-      align-items: center;
-      column-gap: var(--spacing-small);
-      background-color: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 1;
+    :global(.bp3-tab-indicator-wrapper) {
+      height: 22px !important;
     }
 
     :global(.bp3-tab) {
-      display: flex;
-      align-items: center;
-      margin: 0 !important;
-      padding: 0;
-      height: 20px;
-      font-size: var(--font-size-small);
-      border-radius: 10px;
-      padding: 0 10px;
-      border: 1px solid var(--grey-300);
-
-      &:hover {
-        color: inherit;
-      }
-
-      &[aria-selected='true'] {
-        background-color: #0a3364 !important;
-        color: var(--white);
-        border-color: #0a3364 !important;
-      }
+      margin-bottom: var(--spacing-xsmall);
     }
 
-    :global(.bp3-tab-indicator-wrapper) {
-      display: none;
+    :global(.bp3-tab-list) {
+      padding: 0 var(--spacing-large);
+      border-bottom: 1px solid var(--grey-300);
     }
-
     :global(.bp3-tab-panel) {
+      padding: var(--spacing-large);
       margin-top: 0;
-
-      & > :global(.OverlaySpinner--overlaySpinner) {
-        position: static !important;
-      }
+      background-color: var(--form-bg);
+      height: calc(100% - 60px);
     }
   }
 }

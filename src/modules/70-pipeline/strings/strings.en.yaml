@@ -1,6 +1,9 @@
 enterDescription: Enter Description
 verificationResult: Verification Result
+discard: Discard
 enableVerificationOptions: Enable verification options
+closeStepConfig: Step Config
+stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 barrierStep:
   barrierReference: Barrier Reference

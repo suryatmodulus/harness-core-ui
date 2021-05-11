@@ -1,15 +1,16 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { Icon, Button } from '@wings-software/uicore'
-import { isNil, isEmpty, get, set } from 'lodash-es'
+import { Button, Icon, Text, Color } from '@wings-software/uicore'
+import { get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
+import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
+import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
@@ -31,6 +32,35 @@ export const AlmostFullScreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineNotifications,
   DrawerTypes.FlowControl
 ]
+
+export const ConfigureStepScreenDrawers: DrawerTypes[] = [
+  DrawerTypes.StepConfig,
+  DrawerTypes.ConfigureService,
+  DrawerTypes.ProvisionerStepConfig
+]
+const checkDuplicateStep = (
+  formikRef: React.MutableRefObject<StepFormikRef<unknown> | null>,
+  data: DrawerData['data'],
+  getString: UseStringsReturn['getString']
+): boolean => {
+  const values = formikRef.current?.getValues()
+  if (values && data?.stepConfig?.stepsMap && formikRef.current?.setFieldError) {
+    const stepsMap = data.stepConfig.stepsMap
+    let duplicate = false
+    stepsMap.forEach((_step, key) => {
+      if (key === values.identifier && values.identifier !== data?.stepConfig?.node?.identifier) {
+        duplicate = true
+      }
+    })
+    if (duplicate) {
+      setTimeout(() => {
+        formikRef.current?.setFieldError('identifier', getString('pipelineSteps.duplicateStep'))
+      }, 300)
+      return true
+    }
+  }
+  return false
+}
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -57,17 +87,54 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
-  const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type)
+  const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type) || ConfigureStepScreenDrawers.includes(type)
   let title: React.ReactNode | null = null
   if (data?.stepConfig?.isStepGroup) {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
   }
 
+  const applyChanges = async () => {
+    if (checkDuplicateStep(formikRef, data, getString)) {
+      return
+    }
+    await formikRef?.current?.submitForm()
+    if (!isEmpty(formikRef.current?.getErrors())) {
+      return
+    } else {
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: false,
+        drawerData: {
+          type: DrawerTypes.AddStep
+        }
+      })
+      setSelectedStepId(undefined)
+    }
+  }
+  const discardChanges = () => {
+    updatePipelineView({
+      ...pipelineView,
+      isDrawerOpened: false,
+      drawerData: {
+        type: DrawerTypes.AddStep
+      }
+    })
+    setSelectedStepId(undefined)
+  }
+
   if (stepData) {
     title = (
-      <div className={css.title}>
-        <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
-        {stepData?.name}
+      <div className={css.stepConfig}>
+        <div className={css.title}>
+          <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
+          <Text lineClamp={1} color={Color.BLACK}>
+            {stepData?.name}
+          </Text>
+        </div>
+        <div>
+          <Button minimal className={css.applyChanges} text={getString('applyChanges')} onClick={applyChanges} />
+          <Button minimal className={css.discard} text={getString('pipeline.discard')} onClick={discardChanges} />
+        </div>
       </div>
     )
   } else {
@@ -288,50 +355,29 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       })
     }
   }
+  const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('pipeline.stepConfigHasChanges'),
+    titleText: stepData?.name || getString('pipeline.closeStepConfig'),
+    confirmButtonText: getString('applyChanges'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        applyChanges()
+      }
+    }
+  })
 
   return (
     <Drawer
       onClose={async e => {
         e?.persist()
-        const values = formikRef.current?.getValues()
-        if (values && data?.stepConfig?.stepsMap && formikRef.current?.setFieldError) {
-          const stepsMap = data.stepConfig.stepsMap
-          let duplicate = false
-          stepsMap.forEach((_step, key) => {
-            if (key === values.identifier && values.identifier !== data?.stepConfig?.node?.identifier) {
-              duplicate = true
-            }
-          })
-          if (duplicate) {
-            setTimeout(() => {
-              formikRef.current?.setFieldError('identifier', getString('pipelineSteps.duplicateStep'))
-            }, 300)
-            return
-          }
+        if (checkDuplicateStep(formikRef, data, getString)) {
+          return
         }
-
-        if (formikRef.current) {
-          if (
-            // this will not check for form validation when cross icon is clicked to close the modal
-            e?.type === 'click' &&
-            (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
-            values
-          ) {
-            if (type === DrawerTypes.ConfigureService) {
-              onServiceDependencySubmit(values)
-            }
-            onSubmitStep(values, type)
-          } else {
-            // please do not remove the await below.
-            // This is required for errors to be populated correctly
-            await formikRef.current.submitForm()
-
-            if (!isEmpty(formikRef.current.getErrors())) {
-              return
-            }
-          }
+        if (formikRef.current?.isDirty()) {
+          openConfirmBEUpdateError()
+          return
         }
-
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
         setSelectedStepId(undefined)
       }}
@@ -346,7 +392,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       position={Position.RIGHT}
       title={title}
       data-type={type}
-      className={cx(css.main, { [css.almostFullScreen]: isAlmostFullscreen })}
+      className={cx(
+        css.main,
+        { [css.almostFullScreen]: isAlmostFullscreen },
+        { [css.fullScreen]: ConfigureStepScreenDrawers.includes(type) }
+      )}
       {...restDrawerProps}
       // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
       isCloseButtonShown={title ? !isAlmostFullscreen : undefined}

@@ -12,6 +12,22 @@ $top-offset: 110px;
     box-shadow: none;
     border-bottom: 1px solid var(--grey-300);
   }
+  .step-config {
+    display: flex;
+    justify-content: space-between;
+
+    .apply-changes,
+    .discard {
+      font-size: var(--font-size-xsmall) !important;
+      height: 23px !important;
+      padding: var(--spacing-2) var(--spacing-3) !important;
+      min-height: 23px !important;
+      margin-left: var(--spacing-3);
+    }
+    .apply-changes {
+      border: 1px solid var(--primary-6) !important;
+    }
+  }
 
   .title {
     display: flex;
@@ -29,6 +45,11 @@ $top-offset: 110px;
   &.almostFullScreen {
     top: $top-offset;
     right: $right-bar-width;
+
+    &.fullScreen {
+      top: 0;
+      right: 0;
+    }
     overflow: initial;
     box-shadow: none;
 

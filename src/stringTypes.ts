@@ -2126,6 +2126,7 @@ export interface StringsMap {
   'cv.verificationJobs.validation.dataSource': string
   'cv.verificationJobs.validation.duration': string
   'cv.verificationJobs.validation.environment': string
+  'cv.verificationJobs.validation.sensitivity': string
   'cv.verificationJobs.validation.service': string
   'cv.verificationJobs.validation.type': string
   'cv.verificationStatus': string

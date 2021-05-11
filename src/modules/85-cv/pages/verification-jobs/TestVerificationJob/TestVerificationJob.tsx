@@ -34,7 +34,8 @@ const TestVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
           service: Yup.string().trim().required(getString('cv.verificationJobs.validation.service')),
           baseline: Yup.string().trim().required(getString('cv.verificationJobs.validation.baseline')),
           environment: Yup.string().required(getString('cv.verificationJobs.validation.environment')),
-          duration: Yup.string().required(getString('cv.verificationJobs.validation.duration'))
+          duration: Yup.string().required(getString('cv.verificationJobs.validation.duration')),
+          sensitivity: Yup.string().required(getString('cv.verificationJobs.validation.sensitivity'))
         })}
         onSubmit={data => {
           onSubmit({ ...props.stepData, ...data })

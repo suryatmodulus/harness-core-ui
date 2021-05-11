@@ -32,7 +32,8 @@ const CanaryBlueGreenVerificationJob: React.FC<VerificationJobsDetailsProps> = p
         validationSchema={Yup.object().shape({
           service: Yup.string().trim().required(getString('validation.nameRequired')),
           environment: Yup.string().required(getString('cv.verificationJobs.validation.environment')),
-          duration: Yup.string().required(getString('cv.verificationJobs.validation.duration'))
+          duration: Yup.string().required(getString('cv.verificationJobs.validation.duration')),
+          sensitivity: Yup.string().required(getString('cv.verificationJobs.validation.sensitivity'))
         })}
         onSubmit={data => {
           onSubmit({ ...props.stepData, ...data })

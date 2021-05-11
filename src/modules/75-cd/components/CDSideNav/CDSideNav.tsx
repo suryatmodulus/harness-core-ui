@@ -9,6 +9,7 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
@@ -18,8 +19,9 @@ export default function CDSideNav(): React.ReactElement {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const module = 'cd'
+  const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
-  const { SERVICE_DASHBOARD_NG } = useFeatureFlags()
+  const { SERVICE_DASHBOARD_NG, GIT_SYNC_NG } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -56,6 +58,13 @@ export default function CDSideNav(): React.ReactElement {
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <AdminSelector path={routes.toCDAdmin(params)}>
             <AdminSelectorLink label="Resources" iconName="main-scope" to={routes.toResources({ ...params, module })} />
+            {GIT_SYNC_NG ? (
+              <AdminSelectorLink
+                label={getString('gitManagement')}
+                iconName="git-repo"
+                to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier })}
+              />
+            ) : null}
             <AdminSelectorLink
               label="Access Control"
               iconName="user"

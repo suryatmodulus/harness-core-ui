@@ -6,6 +6,11 @@
   margin: var(--spacing-xlarge);
 }
 
+.gitFilter {
+  height: 32px;
+  padding-left: var(--spacing-xlarge) !important;
+}
+
 .pipelineCard {
   width: 250px;
   box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);

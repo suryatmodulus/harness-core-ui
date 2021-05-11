@@ -56,6 +56,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -85,11 +87,13 @@ export interface CDPipelinesPageProps {
 }
 
 const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
+  const { isGitSyncEnabled } = useAppStore()
   const [initLoading, setInitLoading] = React.useState(true)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
+  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: '', branch: '' })
   const [error, setError] = useState<Error | null>(null)
   const history = useHistory()
   const { showError } = useToaster()
@@ -460,9 +464,29 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   useEffect(() => {
     cancel()
     setInitLoading(true)
-    fetchPipelines(defaultQueryParamsForPiplines, appliedFilter?.filterProperties)
+    fetchPipelines(
+      {
+        ...defaultQueryParamsForPiplines,
+        ...(!!gitFilter.repo && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch
+        })
+      },
+      appliedFilter?.filterProperties
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, accountId, projectIdentifier, orgIdentifier, appliedFilter?.filterProperties, module, searchParam, sort])
+  }, [
+    page,
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    appliedFilter?.filterProperties,
+    module,
+    searchParam,
+    sort,
+    gitFilter
+  ])
+
   return (
     <>
       <Page.Header
@@ -471,7 +495,12 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
+                  url: routes.toProjectOverview({
+                    orgIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    module
+                  }),
                   label: project?.name as string
                 },
                 { url: '#', label: getString('pipelines') }
@@ -497,6 +526,17 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               }
             }}
           />
+          {isGitSyncEnabled && (
+            <GitSyncStoreProvider>
+              <GitFilters
+                onChange={filter => {
+                  setGitFilter(filter)
+                  setPage(0)
+                }}
+                className={css.gitFilter}
+              />
+            </GitSyncStoreProvider>
+          )}
         </Layout.Horizontal>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
           <>

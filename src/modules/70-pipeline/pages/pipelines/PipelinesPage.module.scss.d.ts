@@ -3,6 +3,7 @@
 declare const styles: {
   readonly separator: string
   readonly table: string
+  readonly gitFilter: string
   readonly pipelineCard: string
   readonly pipelineNameSections: string
   readonly pipelineTitle: string

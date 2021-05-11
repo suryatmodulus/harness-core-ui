@@ -14,6 +14,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
 import css from '../PipelinesPage.module.scss'
 
@@ -253,6 +254,45 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
     </Layout.Horizontal>
   )
 }
+
+export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+  const data = row.original
+
+  return data.gitDetails ? (
+    <Layout.Horizontal style={{ alignItems: 'center' }} padding={{ right: 'medium' }}>
+      <Text
+        style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
+        color={Color.GREY_800}
+        margin={{ right: 'small' }}
+        lineClamp={1}
+        title={data.gitDetails.repoIdentifier}
+      >
+        {data.gitDetails.repoIdentifier}
+      </Text>
+      <Layout.Horizontal
+        border={{ color: Color.GREY_200 }}
+        spacing="xsmall"
+        style={{ borderRadius: '5px', alignItems: 'center' }}
+        padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
+        background={Color.GREY_100}
+      >
+        <Icon name="git-new-branch" size={11} />
+        <Text
+          style={{ wordWrap: 'break-word', maxWidth: '100px' }}
+          font={{ size: 'small' }}
+          color={Color.GREY_800}
+          title={data.gitDetails.branch}
+          lineClamp={1}
+        >
+          {data.gitDetails.branch}
+        </Text>
+      </Layout.Horizontal>
+    </Layout.Horizontal>
+  ) : (
+    <></>
+  )
+}
+
 const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const data = row.original
   const { getString } = useStrings()
@@ -308,33 +348,41 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   goToPipelineStudio
 }): JSX.Element => {
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
     () => [
       {
         Header: getString('common.pipeline').toUpperCase(),
         accessor: 'name',
-        width: '35%',
+        width: isGitSyncEnabled ? '30%' : '35%',
         Cell: RenderColumnPipeline
       },
       {
         Header: getString('activity').toUpperCase(),
         accessor: 'executionSummaryInfo',
-        width: '25%',
+        width: isGitSyncEnabled ? '20%' : '25%',
         Cell: RenderActivity,
         disableSortBy: true,
         goToPipelineDetail
       },
       {
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
+        accessor: 'gitDetails',
+        width: '20%',
+        Cell: RenderGitDetails,
+        disableSortBy: true
+      },
+      {
         Header: getString('lastExecutionTs').toUpperCase(),
         accessor: 'description',
-        width: '25%',
+        width: isGitSyncEnabled ? '20%' : '25%',
         Cell: RenderLastRun,
         disableSortBy: true
       },
       {
         Header: getString('runPipelineText').toUpperCase(),
         accessor: 'tags',
-        width: '10%',
+        width: isGitSyncEnabled ? '5%' : '10%',
         Cell: RenderRunPipeline,
         disableSortBy: true,
         refetchPipeline,
@@ -351,8 +399,13 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
         goToPipelineDetail
       }
     ],
-    [refetchPipeline, goToPipelineStudio]
+    [refetchPipeline, goToPipelineStudio, isGitSyncEnabled]
   )
+
+  if (!isGitSyncEnabled) {
+    columns.splice(2, 1)
+  }
+
   return (
     <Table<PipelineDTO>
       className={css.table}

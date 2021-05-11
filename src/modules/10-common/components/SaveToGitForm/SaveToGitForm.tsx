@@ -74,8 +74,8 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     name: resource.name,
     identifier: resource.identifier,
     repoIdentifier: resource.gitDetails?.repoIdentifier || '',
-    rootFolder: '',
-    filePath: '',
+    rootFolder: resource.gitDetails?.rootFolder || '',
+    filePath: resource.gitDetails?.filePath || '',
     isNewBranch: false,
     branch: resource.gitDetails?.branch || '',
     commitMsg: '',
@@ -240,10 +240,11 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       name="rootFolder"
                       label={getString('common.gitSync.rootFolderLabel')}
                       items={rootFolderSelectOptions}
+                      disabled={isEditing}
                     />
                   </Layout.Horizontal>
 
-                  <FormInput.Text name="filePath" label={getString('common.git.filePath')} />
+                  <FormInput.Text name="filePath" label={getString('common.git.filePath')} disabled={isEditing} />
                   <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
 
                   <Text

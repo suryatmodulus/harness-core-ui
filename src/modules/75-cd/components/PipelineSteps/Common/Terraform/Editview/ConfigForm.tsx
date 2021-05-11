@@ -24,7 +24,8 @@ import type { ConfigFileData, Connector } from '../TerraformInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 interface ConfigFormProps {
-  onSubmit: (values: any) => void
+  onClick: (values: any) => void
+  data?: any
   onHide: (values: any) => void
 }
 
@@ -41,28 +42,15 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }>()
-
   return (
     <Layout.Vertical padding={'huge'}>
-      <Formik<ConfigFileData>
-        onSubmit={props.onSubmit}
-        initialValues={{
-          spec: { configuration: { spec: {} } }
-        }}
-      >
+      <Formik<ConfigFileData> onSubmit={props.onClick} initialValues={props.data}>
         {(formik: FormikProps<ConfigFileData>) => {
           const connectorValue = formik.values.spec?.configuration?.spec?.configFiles?.store?.spec
             ?.connectorRef as Connector
 
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.Text
-                  inputGroup={{ type: 'text' }}
-                  label={getString('cd.configIdentifer')}
-                  name="configIdentifier"
-                />
-              </div>
               <FormMultiTypeConnectorField
                 label={
                   <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -193,13 +181,11 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
 
               <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                 <Button
-                  type="submit"
-                  text={getString('submit')}
+                  text={'add'}
                   intent={'primary'}
                   onClick={() => {
                     const data = formik.values
-                    console.log(data, 'data')
-                    props.onSubmit(data)
+                    props.onClick(data)
                   }}
                 />
                 <Button text={getString('cancel')} onClick={props.onHide} />

@@ -45,6 +45,11 @@ $top-offset: 110px;
   &.almostFullScreen {
     top: $top-offset;
     right: $right-bar-width;
+
+    &.fullScreen {
+      top: 0;
+      right: 0;
+    }
     overflow: initial;
     box-shadow: none;
 

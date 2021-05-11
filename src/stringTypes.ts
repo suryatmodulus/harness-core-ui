@@ -714,6 +714,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.clickHere': string
+  'pipeline.closeStepConfig': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.statusOption.all': string
@@ -901,6 +902,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.startTime': string
+  'pipeline.stepConfigHasChanges': string
   'pipeline.targets.title': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string

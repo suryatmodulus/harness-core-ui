@@ -267,7 +267,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -294,13 +294,13 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -316,7 +316,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                     data-testid="advancedTitle-details"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                       style="width: 90%; height: 120px;"
                     >
                       <div
@@ -371,13 +371,13 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                         </div>
                       </div>
                       <span
-                        class="bp3-popover-wrapper tooltip"
+                        class="bp3-popover-wrapper tooltip tooltipCls"
                       >
                         <span
                           class="bp3-popover-target"
                         >
                           <span
-                            class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                            class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                             icon="info-sign"
                             tabindex="0"
                           >
@@ -409,7 +409,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -438,7 +438,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -740,7 +740,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -758,7 +758,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -787,7 +787,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -1089,7 +1089,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1107,7 +1107,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -1136,7 +1136,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -1438,7 +1438,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1456,7 +1456,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -1485,7 +1485,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -1787,7 +1787,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1805,7 +1805,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -1834,7 +1834,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -2136,7 +2136,7 @@ exports[`Manifest Details tests submits with right payload 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -2154,7 +2154,7 @@ exports[`Manifest Details tests submits with right payload 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -2183,7 +2183,7 @@ exports[`Manifest Details tests submits with right payload 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -2485,7 +2485,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -2503,7 +2503,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -2532,7 +2532,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -2869,7 +2869,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -2887,7 +2887,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -2916,7 +2916,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -3218,7 +3218,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -3236,7 +3236,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -3265,7 +3265,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -3567,7 +3567,7 @@ exports[`Manifest Details tests when selected manifest is of type K8sManifest 1`
                 </div>
                 <span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addFileButton StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addFileButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -3594,13 +3594,13 @@ exports[`Manifest Details tests when selected manifest is of type K8sManifest 1`
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -3618,7 +3618,7 @@ exports[`Manifest Details tests when selected manifest is of type K8sManifest 1`
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -3647,7 +3647,7 @@ exports[`Manifest Details tests when selected manifest is of type K8sManifest 1`
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span

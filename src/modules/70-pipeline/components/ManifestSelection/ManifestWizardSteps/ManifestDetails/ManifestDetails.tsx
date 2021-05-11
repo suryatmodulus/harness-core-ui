@@ -28,9 +28,9 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestDetailDataType } from '../ManifestInterface'
-import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../Manifesthelper'
-import css from './ManifestWizardSteps.module.scss'
+import type { ManifestDetailDataType } from '../../ManifestInterface'
+import { gitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ManifestDetailsPropType {
@@ -307,7 +307,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     />
                   )}
                 </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <div className={cx(stepCss.formGroup)}>
                   {formik.values?.gitFetchType === gitFetchTypes[1].value && (
                     <FormInput.MultiTextInput
                       multiTextInputProps={{ expressions }}
@@ -366,7 +366,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 label={''}
                                 placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
                                 name={`paths[${index}].path`}
-                                style={{ width: '330px' }}
+                                style={{ width: formik.values?.paths?.length > 1 ? 312 : 370 }}
                                 multiTextInputProps={{
                                   expressions,
                                   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]

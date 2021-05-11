@@ -4,7 +4,7 @@
 }
 
 .breadCrumb {
-  background: var(--blue-100);
+  background: var(--white);
   border: 1px solid var(--grey-200);
   box-sizing: border-box;
   padding: 8px;
@@ -16,4 +16,8 @@
 
 .pageBody {
   position: relative;
+
+  .mainContainer {
+    padding-top: 36px !important;
+  }
 }

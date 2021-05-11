@@ -4,7 +4,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import { Scope } from '@common/interfaces/SecretsInterface'
-import ManifestDetails from '../ManifestWizardSteps/ManifestDetails'
+import ManifestDetails from '../ManifestDetails'
 
 const props = {
   stepName: 'Manifest details',

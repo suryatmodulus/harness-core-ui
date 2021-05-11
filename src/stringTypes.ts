@@ -1254,11 +1254,14 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.customDetails': string
   'ce.recommendation.detailsPage.howItWorks': string
   'ce.recommendation.detailsPage.idleCost': string
+  'ce.recommendation.detailsPage.limitPercentileLegendText': string
   'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
   'ce.recommendation.detailsPage.performanceOptimized': string
   'ce.recommendation.detailsPage.performanceOptimizedDetails': string
   'ce.recommendation.detailsPage.recommendationComputation': string
   'ce.recommendation.detailsPage.recommendedResources': string
+  'ce.recommendation.detailsPage.reqPercentileLegendText': string
+  'ce.recommendation.detailsPage.resetRecommendationText': string
   'ce.recommendation.detailsPage.resizeText': string
   'ce.recommendation.detailsPage.resourceChanges': string
   'ce.recommendation.detailsPage.timeChangeText': string

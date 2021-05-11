@@ -5,5 +5,6 @@ declare const styles: {
   readonly breadCrumb: string
   readonly savingsContainer: string
   readonly pageBody: string
+  readonly mainContainer: string
 }
 export default styles

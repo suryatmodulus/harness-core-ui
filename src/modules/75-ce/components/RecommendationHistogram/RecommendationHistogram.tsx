@@ -2,7 +2,7 @@ import { Container, Text } from '@wings-software/uicore'
 import React from 'react'
 import type { Point } from 'highcharts'
 
-import type { RecommendationItem, HistogramData } from '@ce/pages/recommendationDetails/RecommendationDetailsPage'
+import type { RecommendationItem, HistogramData } from '@ce/types'
 
 import {
   getCPUValueInReadableForm,
@@ -44,6 +44,7 @@ interface RecommendationChartProps {
   selectedRecommendation: string
   updateMemoryChart: (val: [number, number]) => void
   updateCPUChart: (reqVal: number) => void
+  reRenderChart: boolean
 }
 
 const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
@@ -161,7 +162,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
     <Container className={css.chartContainer}>
       {/* <label className={css.sampleText}>Number of Samples</label> */}
       <Container>
-        <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="blue200" color="blue500">
+        <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="primary1" color="primary5">
           {getString('delegate.delegateCPU')}
         </Text>
         <CEChart
@@ -323,7 +324,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
         />
       </Container>
       <Container>
-        <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="blue200" color="blue500">
+        <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="primary1" color="primary5">
           {getString('ce.recommendation.recommendationChart.memoryLabel')}
         </Text>
         <CEChart
@@ -591,5 +592,8 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
 }
 
 export default React.memo(RecommendationHistogram, (prevProps, nextProps) => {
-  return prevProps.selectedRecommendation === nextProps.selectedRecommendation
+  return (
+    prevProps.selectedRecommendation === nextProps.selectedRecommendation &&
+    prevProps.reRenderChart === nextProps.reRenderChart
+  )
 })

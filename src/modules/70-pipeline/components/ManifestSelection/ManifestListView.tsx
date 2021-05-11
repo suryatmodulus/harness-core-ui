@@ -54,7 +54,7 @@ import {
   manifestTypeText,
   manifestTypeLabels
 } from './Manifesthelper'
-import ManifestDetails from './ManifestWizardSteps/ManifestDetails'
+import ManifestDetails from './ManifestWizardSteps/ManifestDetails/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
 import type {
   ManifestStepInitData,

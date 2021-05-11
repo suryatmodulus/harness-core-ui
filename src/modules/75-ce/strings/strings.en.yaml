@@ -328,7 +328,7 @@ recommendation:
     performanceOptimized: 'Performance Optimized'
     resourceChanges: 'RESOURCE CHANGES TO BE MADE TO APPLY THE RECOMMENDATION'
     currentResources: 'Current limits/request for CPU/Memory'
-    recommendedResources: 'Cost Optimized limits/request for CPU/Memory'
+    recommendedResources: '{{recommendationType}} limits/request for CPU/Memory'
     timeChangeText: 'SAMPLES WHOSE RESOURCE REQUIREMENTS WERE MET IN'
     percentileOfReqAndLimit: 'Percentile of request and limit'
     resizeText: 'Resize from a to b'
@@ -339,6 +339,9 @@ recommendation:
     customDetails: 'The recommendations are computed by analyzing the past utilization of CPU and memory of your workload. The recommendations are computed by analyzing the past utilization of CPU and memory of your workload.'
     totalCost: 'TOTAL COST'
     idleCost: 'IDLE COST'
+    reqPercentileLegendText: 'Percentile of Samples whose request will be met'
+    limitPercentileLegendText: 'Percentile of Samples whose Limit will be met'
+    resetRecommendationText: 'Reset to default {{recommendationType}}'
   recommendationChart:
     cpuPlaceholder: 'CPU Usage(millicores)'
     noOfSamples: 'Number of samples'

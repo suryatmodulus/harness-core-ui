@@ -16,5 +16,6 @@ declare const styles: {
   readonly recommendations: string
   readonly selectedTab: string
   readonly recommendationTypeText: string
+  readonly legendContainer: string
 }
 export default styles

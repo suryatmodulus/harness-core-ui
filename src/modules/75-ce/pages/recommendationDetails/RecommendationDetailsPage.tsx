@@ -7,6 +7,7 @@ import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
+import type { RecommendationItem } from '@ce/types'
 import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
 import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
@@ -14,24 +15,20 @@ import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'serv
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
 import css from './RecommendationDetailsPage.module.scss'
 
+interface ResourceDetails {
+  cpu?: string
+  memory: string
+}
+interface ResourceObject {
+  limits: ResourceDetails
+  requests: ResourceDetails
+}
+interface ContainerRecommendaitons {
+  current: ResourceObject
+}
 interface RecommendationDetails {
   items: Array<RecommendationItem>
-}
-
-export interface HistogramData {
-  bucketWeights: Array<number>
-  firstBucketSize: number
-  growthRatio: number
-  maxBucket: number
-  numBuckets: number
-  precomputed: Array<number>
-  totalWeight: number
-  minBucket: number
-}
-export interface RecommendationItem {
-  containerName: string
-  cpuHistogram: HistogramData
-  memoryHistogram: HistogramData
+  containerRecommendations: Record<string, ContainerRecommendaitons>
 }
 
 const RecommendationHelperText = () => {
@@ -41,7 +38,7 @@ const RecommendationHelperText = () => {
     <Container padding="xlarge">
       <Layout.Vertical spacing="large">
         <Text font="medium">{getString('ce.recommendation.listPage.listTableHeaders.recommendationType')}</Text>
-        <Text color="blue500" font="medium">
+        <Text color="primary5" font="medium">
           {getString('ce.recommendation.detailsPage.resizeText')}
         </Text>
         <Text color="grey800" font="medium">
@@ -158,12 +155,20 @@ const RecommendationDetailsPage: React.FC = () => {
         />
         {recommendationStats ? <RecommendationSavingsComponent recommendationStats={recommendationStats} /> : null}
       </Container>
-      <Container padding="xlarge">
+      <Container padding="xlarge" className={css.mainContainer}>
         <Layout.Vertical spacing="xlarge">
           {recommendationItems.length ? (
             <Container className={css.detailsContainer}>
               {recommendationItems.map((item, index) => {
-                return <RecommendationDetails key={`${item.containerName}-${index}`} histogramData={item} />
+                const { containerName } = item
+                const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
+                return (
+                  <RecommendationDetails
+                    key={`${item.containerName}-${index}`}
+                    histogramData={item}
+                    currentResources={currentResources}
+                  />
+                )
               })}
               <RecommendationHelperText />
             </Container>

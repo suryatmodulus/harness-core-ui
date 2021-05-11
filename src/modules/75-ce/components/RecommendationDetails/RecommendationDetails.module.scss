@@ -1,4 +1,5 @@
 .mainContainer {
+  position: relative;
   .diffContainer {
     margin-top: 20px;
     height: 150px;
@@ -78,6 +79,9 @@
   .recommendationTypeContainer {
     display: flex;
     justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: -24px;
 
     .recommendations {
       background-color: var(--grey-200) !important;
@@ -92,7 +96,13 @@
   }
 
   .recommendationTypeText {
-    padding: var(--spacing-xsmall) var(--spacing-large) !important;
+    padding: var(--spacing-small) var(--spacing-xlarge) !important;
     cursor: pointer !important;
+  }
+
+  .legendContainer {
+    display: grid;
+    grid-template-columns: 1fr 20px 180px 20px 180px;
+    margin-top: var(--spacing-medium) !important;
   }
 }

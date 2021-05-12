@@ -8,7 +8,8 @@ import {
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  SelectOption
+  SelectOption,
+  ExpressionInput
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -27,18 +28,16 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-// import GitStore from './GitStore'
-// import BaseForm from './BaseForm'
-// import useConfigDialog from './useConfigDialog'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { TFMonaco } from './TFMonacoEditor'
 
 import TfVarFileList from './TFVarFileList'
-import { ConfigurationTypes, TFFormData, TerraformProps, TerraformStoreTypes } from '../TerraformInterfaces'
+import { ConfigurationTypes, TFFormData, TerraformProps } from '../TerraformInterfaces'
 import ConfigForm from './ConfigForm'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
@@ -236,16 +235,42 @@ export default function TerraformEditView(
                       />
                     </Accordion>
                     <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                    <div className={cx(stepCss.formGroup, stepCss.md)}>
-                      <FormInput.TextArea
+                    <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
+                      <MultiTypeFieldSelector
                         name="spec.configuration.spec.backendConfig.spec.content"
-                        label={getString('pipelineSteps.backendConfig')}
-                        onChange={ev => {
-                          formik.setFieldValue('spec.configuration.spec.backendConfig.type', TerraformStoreTypes.Inline)
-                          formik.setFieldValue('spec.configuration.spec.backendConfig.spec.content', ev.target.value)
+                        label={getString('script')}
+                        defaultValueToReset=""
+                        allowedTypes={[
+                          MultiTypeInputType.EXPRESSION,
+                          MultiTypeInputType.FIXED,
+                          MultiTypeInputType.RUNTIME
+                        ]}
+                        expressionRender={() => {
+                          return (
+                            <ExpressionInput
+                              value={formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content || ''}
+                              name="spec.configuration.spec.backendConfig.spec.content"
+                              onChange={value =>
+                                setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
+                              }
+                            />
+                          )
                         }}
-                        isOptional={true}
-                      />
+                      >
+                        <TFMonaco name="spec.configuration.spec.backendConfig.spec.content" formik={formik} />
+                      </MultiTypeFieldSelector>
+                      {getMultiTypeFromValue(formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content) ===
+                        MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          value={formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content as string}
+                          type="String"
+                          variableName="spec.configuration.spec.backendConfig.spec.content"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)}
+                        />
+                      )}
                     </div>
                     <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                     <div className={stepCss.formGroup}>

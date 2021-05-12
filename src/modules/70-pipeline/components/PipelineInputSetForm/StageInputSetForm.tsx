@@ -1,7 +1,7 @@
 import React from 'react'
 import { Label, NestedAccordionPanel, FormInput } from '@wings-software/uicore'
 import { connect } from 'formik'
-import { get, set, isEmpty } from 'lodash-es'
+import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
 import List from '@common/components/List/List'
 import type {
@@ -94,7 +94,19 @@ function ExecutionWrapperInputSetForm(props: {
                   if (!initialValues.step) {
                     initialValues.step = { identifier: originalStep.step?.identifier || '' }
                   }
-                  initialValues.step = { ...data, identifier: originalStep.step?.identifier || '' }
+
+                  const execObj = {
+                    ...data,
+                    spec: {
+                      ...pickBy(data.spec, identity)
+                    }
+                  }
+
+                  initialValues.step = {
+                    ...execObj,
+                    identifier: originalStep.step?.identifier || ''
+                  }
+
                   formik?.setValues(set(formik?.values, `${path}[${index}].step`, initialValues.step))
                 }
               }}

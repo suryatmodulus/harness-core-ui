@@ -10,25 +10,30 @@ import { findLeafToParentPath } from '../../utils/YamlUtils'
  * @param editor
  * @param shouldAddPlaceholder whether to add a placeholder at current position in editor during yaml->json conversion
  */
-const getYAMLFromEditor = (editor: any, shouldAddPlaceholder: boolean): string | null => {
-  const currentPositionInEditor = editor?.getPosition(),
-    textInCurrentEditorLine = editor?.getValue(currentPositionInEditor)?.trim(),
-    currentLineNumber = currentPositionInEditor?.lineNumber,
-    splitedText = textInCurrentEditorLine?.split('\n').slice(0, currentLineNumber),
-    currentLineContent = splitedText?.[currentLineNumber - 1]
-  const lengthOfCurrentText = textInCurrentEditorLine?.length
-  if (lengthOfCurrentText > 0) {
-    let textToInsert = ''
-    if (shouldAddPlaceholder) {
-      textToInsert = textInCurrentEditorLine[lengthOfCurrentText - 1] === ':' ? '' : ': ' + 'placeholder'
+const getYAMLFromEditor = (editor: any, shouldAddPlaceholder: boolean, cropToCursor = false): string | null => {
+  const currentPositionInEditor = editor?.getPosition()
+  if (currentPositionInEditor) {
+    const textInCurrentEditor = editor?.getValue()?.trim(),
+      currentLineNumber = currentPositionInEditor.lineNumber,
+      textInCurrentEditorArr = textInCurrentEditor?.split('\n'),
+      textFirstPartArr = textInCurrentEditorArr.slice(0, currentLineNumber),
+      textSecondPart = textInCurrentEditorArr.slice(currentLineNumber),
+      currentLineContent = textFirstPartArr?.[currentLineNumber - 1]
+    const lengthOfCurrentText = textInCurrentEditor?.length
+    if (lengthOfCurrentText > 0) {
+      let textToInsert = ''
+      if (shouldAddPlaceholder) {
+        textToInsert = textInCurrentEditor[lengthOfCurrentText - 1] === ':' ? '' : ': ' + 'placeholder'
+      }
+      textFirstPartArr[currentLineNumber - 1] = [
+        currentLineContent?.slice(0, currentPositionInEditor.column - 1),
+        textToInsert,
+        currentLineContent?.slice(currentPositionInEditor.column - 1)
+      ].join('')
+      editor.setPosition(currentPositionInEditor)
+      const secondPart = cropToCursor ? '' : '\n' + textSecondPart.join('\n')
+      return textFirstPartArr.join('\n') + secondPart
     }
-    splitedText[currentLineNumber - 1] = [
-      currentLineContent?.slice(0, currentPositionInEditor.column - 1),
-      textToInsert,
-      currentLineContent?.slice(currentPositionInEditor.column - 1)
-    ].join('')
-    editor.setPosition(currentPositionInEditor)
-    return splitedText.join('\n')
   }
   return null
 }
@@ -50,7 +55,7 @@ const getMetaDataForKeyboardEventProcessing = (
   editor: any,
   shouldAddPlaceholder: boolean = false
 ): Record<string, string | undefined> | undefined => {
-  const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
+  const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder, true)
   if (yamlInEditor) {
     const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
     const textInCurrentEditorLine = editor.getModel()?.getLineContent(editor.getPosition().lineNumber)

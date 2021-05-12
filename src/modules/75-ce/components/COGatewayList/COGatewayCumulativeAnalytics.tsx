@@ -5,7 +5,7 @@ import HighchartsReact from 'highcharts-react-official'
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { useCumulativeServiceSavings } from 'services/lw'
+import { useCumulativeServiceSavings, useTotalInstanceCount } from 'services/lw'
 import { geGaugeChartOptionsWithoutLabel, getDay } from './Utils'
 // import css from './COGatewayCumulativeAnalytics.module.scss'
 interface COGatewayCumulativeAnalyticsProps {
@@ -121,6 +121,11 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier // eslint-disable-line
   })
+  const { data: instancesManagedData, loading: instancesManagedLoading } = useTotalInstanceCount({
+    org_id: orgIdentifier, // eslint-disable-line
+    projectID: projectIdentifier,
+    account_id: '1' // eslint-disable-line
+  })
   return (
     <Container padding="small">
       <Layout.Vertical spacing="large">
@@ -228,17 +233,31 @@ const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> 
           <Layout.Vertical spacing="large" style={{ flex: 1 }}>
             <Heading level={2}>INSTANCES MANAGED</Heading>
             <Layout.Horizontal spacing="large">
-              <Heading level={1}>{props.activeServicesCount}</Heading>
+              {instancesManagedLoading ? (
+                <Icon name="spinner" size={24} color="blue500" />
+              ) : (
+                <Heading level={1}>
+                  {(instancesManagedData?.response?.running || 0) + (instancesManagedData?.response?.stopped || 0)}
+                </Heading>
+              )}
               <Text style={{ alignSelf: 'center' }}>Instances</Text>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount % 2}</Text>
+              {instancesManagedLoading ? (
+                <Icon name="spinner" size={24} color="blue500" />
+              ) : (
+                <Text style={{ alignSelf: 'center' }}>{instancesManagedData?.response?.running || 0}</Text>
+              )}
               <Tag intent={Intent.SUCCESS} minimal={true} style={{ borderRadius: '25px' }}>
                 RUNNING
               </Tag>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="large">
-              <Text style={{ alignSelf: 'center' }}>{props.activeServicesCount - (props.activeServicesCount % 2)}</Text>
+              {instancesManagedLoading ? (
+                <Icon name="spinner" size={24} color="blue500" />
+              ) : (
+                <Text style={{ alignSelf: 'center' }}>{instancesManagedData?.response?.stopped || 0}</Text>
+              )}
               <Tag intent={Intent.DANGER} minimal={true} style={{ borderRadius: '25px' }}>
                 STOPPED
               </Tag>

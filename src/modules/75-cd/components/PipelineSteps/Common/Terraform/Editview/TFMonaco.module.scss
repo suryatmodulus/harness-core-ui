@@ -1,0 +1,20 @@
+.monacoWrapper {
+  border: 1px solid var(--form-field-border);
+  border-radius: 4px;
+  padding: 1px;
+  min-height: 300px;
+  position: relative;
+
+  .expandBtn {
+    position: absolute;
+    right: 22px;
+    top: 6px;
+    z-index: 1;
+    padding: 0 !important;
+    height: auto !important;
+  }
+}
+
+.monacoDialog {
+  width: 80vw !important;
+}

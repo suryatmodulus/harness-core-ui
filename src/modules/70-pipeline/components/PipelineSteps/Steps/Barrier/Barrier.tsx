@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   IconName,
   Formik,
@@ -57,6 +57,19 @@ interface BarrierProps {
   }
 }
 
+const processBarrierFormData = (values: BarrierData): BarrierData => {
+  return {
+    ...values,
+    spec: {
+      ...values.spec,
+      barrierRef:
+        getMultiTypeFromValue(values.spec?.barrierRef as SelectOption) === MultiTypeInputType.FIXED
+          ? (values.spec?.barrierRef as SelectOption)?.value?.toString()
+          : values.spec?.barrierRef
+    }
+  }
+}
+
 function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<BarrierData>): React.ReactElement {
   const {
     state: { pipeline }
@@ -74,13 +87,35 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
     }))
   }
 
+  const processForFormValues = (values: BarrierData): BarrierData => {
+    return {
+      ...values,
+      spec: {
+        ...values.spec,
+        barrierRef:
+          getMultiTypeFromValue(values.spec?.barrierRef as SelectOption) === MultiTypeInputType.FIXED
+            ? barriers?.find(opt => opt.value === values.spec?.barrierRef)
+            : values.spec?.barrierRef
+      }
+    }
+  }
+
+  const [initialValuesFormik, setInitialValuesFormik] = useState<BarrierData>(processForFormValues(initialValues))
+
+  useEffect(() => {
+    if (initialValues.spec?.barrierRef) {
+      const updatedValues = processForFormValues(initialValues)
+      setInitialValuesFormik(updatedValues)
+    }
+  }, [initialValues.spec?.barrierRef])
+
   return (
     <>
       <Formik<BarrierData>
         onSubmit={(values: BarrierData) => {
-          onUpdate?.(values)
+          onUpdate?.(processBarrierFormData(values))
         }}
-        initialValues={{ ...initialValues }}
+        initialValues={{ ...initialValuesFormik }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
@@ -234,6 +269,10 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       delete errors.spec
     }
     return errors
+  }
+
+  processFormData(values: BarrierData): BarrierData {
+    return processBarrierFormData(values)
   }
 
   protected type = StepType.Barrier

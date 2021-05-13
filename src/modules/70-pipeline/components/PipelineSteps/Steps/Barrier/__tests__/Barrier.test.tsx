@@ -14,7 +14,7 @@ describe('Test Barrier Step', () => {
     const { container } = render(
       <Barrier
         type={StepType.Barrier}
-        initialValues={{ identifier: 'Test_A', type: StepType.Barrier }}
+        initialValues={{ identifier: 'Test_A', type: StepType.Barrier, spec: { barrierRef: 'bar1' } }}
         stepViewType={StepViewType.Edit}
       />
     )

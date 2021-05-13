@@ -39,3 +39,4 @@ addInline: Add Inline
 addRemote: Add Remote
 tfVarStore: Terraform Var Store
 varFileDetails: Var File Details
+fileIdentifier: File Id

@@ -21,5 +21,9 @@ declare const styles: {
   readonly squareCardContainer: string
   readonly manifestIcon: string
   readonly saveBtn: string
+  readonly tfVarStore: string
+  readonly formContainerStepOne: string
+  readonly tfRemoteForm: string
+  readonly modal: string
 }
 export default styles

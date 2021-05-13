@@ -28,12 +28,12 @@ import {
   AzureAccessPointCore
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
-import { useToaster } from '@common/exports'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { cleanupForHostName } from '../COGatewayList/Utils'
 import { Utils } from '../../common/Utils'
+import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
 import loadBalancerSvg from './images/loadbalancer.svg'
@@ -56,7 +56,6 @@ interface DNSLinkSetupProps {
 }
 
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
-  const { showWarning } = useToaster()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
@@ -134,6 +133,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   )
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
+  const [noHostedZoneFound, setNoHostedZoneFound] = useState<boolean>(false)
 
   const { data: accessPoints, loading: accessPointsLoading, refetch } = useListAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
@@ -212,10 +212,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     if (hostedZonesLoading) return
     if (hostedZones?.response?.length == 0) {
       if (props.gatewayDetails.customDomains?.length) {
-        showWarning(getString('ce.co.autoStoppingRule.setupAccess.customDomain.noHostedZones'))
+        setNoHostedZoneFound(true)
+        return
       }
       return
     }
+    setNoHostedZoneFound(false)
     const loadedhostedZones: SelectOption[] =
       hostedZones?.response?.map(r => {
         return {
@@ -551,6 +553,13 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                             props.setGatewayDetails(updatedGatewayDetails)
                           }}
                         />
+                        {noHostedZoneFound && formik.values.dnsProvider === 'route53' && (
+                          <TextWithToolTip
+                            key={`tooltip_${noHostedZoneFound}`}
+                            status={textWithToolTipStatus.ERROR}
+                            messageText={getString('ce.co.autoStoppingRule.setupAccess.customDomain.noHostedZones')}
+                          />
+                        )}
                       </Layout.Horizontal>
                       <Radio
                         value="others"

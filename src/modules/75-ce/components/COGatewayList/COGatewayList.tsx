@@ -132,6 +132,7 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
           status={textWithToolTipStatus.ERROR}
           messageText={combinedErrors[0].action}
           errors={combinedErrors}
+          showDetails
         />
       )}
     </>

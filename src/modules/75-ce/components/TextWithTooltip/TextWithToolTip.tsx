@@ -14,7 +14,7 @@ interface TextWithToolTipProps {
   status: textWithToolTipStatus
   messageText?: string
   showDetails?: boolean
-  errors: ServiceError[]
+  errors?: ServiceError[]
 }
 
 const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
@@ -34,16 +34,18 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
           <Text font={{ size: 'normal' }} color={Color.WHITE}>
             {'ERROR' + (props.messageText ? `: ${props.messageText}` : '')}
           </Text>
-          <Text
-            color={Color.BLUE_400}
-            onClick={e => {
-              e.stopPropagation()
-              openErrorModal(props.errors || [])
-            }}
-            className={css.viewDetails}
-          >
-            {getString('connectors.testConnectionStep.errorDetails')}
-          </Text>
+          {props.showDetails && (
+            <Text
+              color={Color.BLUE_400}
+              onClick={e => {
+                e.stopPropagation()
+                openErrorModal(props.errors || [])
+              }}
+              className={css.viewDetails}
+            >
+              {getString('connectors.testConnectionStep.errorDetails')}
+            </Text>
+          )}
         </Layout.Vertical>
       }
       tooltipProps={{ isDark: true, position: 'bottom' }}

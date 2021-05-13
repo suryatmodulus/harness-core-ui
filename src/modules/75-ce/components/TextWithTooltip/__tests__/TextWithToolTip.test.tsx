@@ -12,6 +12,7 @@ describe('Test ToolTip', () => {
           errors={[{ action: 'Mock Action', error: 'Mock Error' }]}
           status={textWithToolTipStatus.ERROR}
           messageText={'Mock Message Text'}
+          showDetails
         />
       </TestWrapper>
     )
@@ -25,6 +26,7 @@ describe('Test ToolTip', () => {
           errors={[{ action: 'Mock Action', error: 'Mock Error' }]}
           status={textWithToolTipStatus.ERROR}
           messageText={'Mock Message Text'}
+          showDetails
         />
       </TestWrapper>
     )

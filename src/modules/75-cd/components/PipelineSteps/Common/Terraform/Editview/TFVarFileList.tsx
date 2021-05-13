@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 
 import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
@@ -54,10 +55,9 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     isOpen: true,
     usePortal: true,
     autoFocus: true,
-    canEscapeKeyClose: false,
-    canOutsideClickClose: false,
+    canEscapeKeyClose: true,
+    canOutsideClickClose: true,
     enforceFocus: true,
-    isCloseButtonShown: true,
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
@@ -110,10 +110,13 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
             </Popover>
             {showRemoteWizard && (
               <Dialog
+                {...DIALOG_PROPS}
+                isOpen={true}
+                isCloseButtonShown
                 onClose={() => {
                   setShowRemoteWizard(false)
                 }}
-                {...DIALOG_PROPS}
+                className={cx(css.modal, Classes.DIALOG)}
               >
                 <div className={css.createTfWizard}>
                   <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>

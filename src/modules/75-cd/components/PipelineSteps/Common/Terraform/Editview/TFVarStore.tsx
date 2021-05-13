@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Color,
-  Container,
   Formik,
   getMultiTypeFromValue,
   Heading,
@@ -43,47 +42,47 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
   const { expressions } = useVariablesExpression()
 
   return (
-    <Container className={css.optionsViewContainer}>
+    <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
       <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
         Specify Terraform Var File Store
       </Heading>
-      <div className={css.headerContainer}>
-        <Layout.Horizontal spacing="large">
-          {allowedTypes.map(item => (
-            <div key={item} className={css.squareCardContainer}>
-              <Card
-                className={css.manifestIcon}
-                selected={item === selectedType}
-                onClick={() => {
-                  setSelectedType(item)
-                }}
-              >
-                <Icon name={tfVarIcons[item]} size={26} />
-              </Card>
-              <Text color={Color.BLACK_100}>{item}</Text>
-            </div>
-          ))}
-        </Layout.Horizontal>
-      </div>
-      {selectedType && (
-        <Formik
-          initialValues={{
-            varFile: {
-              store: {
-                spec: {
-                  connectorRef: ''
-                }
+
+      <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+        {allowedTypes.map(item => (
+          <div key={item} className={css.squareCardContainer}>
+            <Card
+              className={css.manifestIcon}
+              selected={item === selectedType}
+              onClick={() => {
+                setSelectedType(item)
+              }}
+            >
+              <Icon name={tfVarIcons[item]} size={26} />
+            </Card>
+            <Text color={Color.BLACK_100}>{item}</Text>
+          </div>
+        ))}
+      </Layout.Horizontal>
+
+      <Formik
+        initialValues={{
+          varFile: {
+            store: {
+              spec: {
+                connectorRef: ''
               }
             }
-          }}
-          enableReinitialize={true}
-          onSubmit={() => {
-            setSelectedType('')
-          }}
-        >
-          {formik => (
-            <Form>
-              <div>
+          }
+        }}
+        enableReinitialize={true}
+        onSubmit={() => {
+          setSelectedType('')
+        }}
+      >
+        {formik => (
+          <Form>
+            <div className={css.formContainerStepOne}>
+              {selectedType && (
                 <FormMultiTypeConnectorField
                   label={
                     <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -111,23 +110,24 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
                   style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
                 />
-              </div>
-            </Form>
-          )}
-        </Formik>
-      )}
-      <Layout.Horizontal>
-        <Button
-          intent="primary"
-          type="submit"
-          text={getString('continue')}
-          rightIcon="chevron-right"
-          onClick={() => {
-            nextStep?.()
-          }}
-          className={css.saveBtn}
-        />
-      </Layout.Horizontal>
-    </Container>
+              )}
+            </div>
+
+            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                onClick={() => {
+                  nextStep?.()
+                }}
+                className={css.saveBtn}
+              />
+            </Layout.Horizontal>
+          </Form>
+        )}
+      </Formik>
+    </Layout.Vertical>
   )
 }

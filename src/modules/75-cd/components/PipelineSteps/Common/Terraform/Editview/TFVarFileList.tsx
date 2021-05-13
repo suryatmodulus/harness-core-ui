@@ -1,14 +1,18 @@
 import React from 'react'
 
-import { Layout, Text, Button, Icon, FormInput, Formik } from '@wings-software/uicore'
-
+import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
+import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
+
 import { useStrings } from 'framework/strings'
 import type { InlineTerraformVarFileSpec, RemoteTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
 import { TerraformData, TerraformStoreTypes } from '../TerraformInterfaces'
+import { TFRemoteWizard } from './TFRemoteWizard'
+import { TFVarStore } from './TFVarStore'
 import css from './TerraformVarfile.module.scss'
-import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog } from '@blueprintjs/core'
+
+// import TFRemoteWizard from './TFRemoteWizard'
 
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
@@ -17,6 +21,7 @@ interface TfVarFileProps {
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
   const [showTfModal, setShowTfModal] = React.useState(false)
+  const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
 
   const remoteRender = (varFile: TerraformVarFileWrapper) => {
@@ -44,6 +49,24 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
       </Layout.Horizontal>
     )
   }
+
+  const DIALOG_PROPS: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: false,
+    canOutsideClickClose: false,
+    enforceFocus: true,
+    isCloseButtonShown: true,
+    style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+  }
+
+  const getTitle = () => (
+    <Layout.Vertical flex style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Icon name="remote" />
+      <Text color={Color.WHITE}>Remote File</Text>
+    </Layout.Vertical>
+  )
   return (
     <FieldArray
       name="spec.configuration.spec.varFiles"
@@ -76,6 +99,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   <MenuItem
                     text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
                     icon={<Icon name="remote" />}
+                    onClick={() => setShowRemoteWizard(true)}
                   />
                 </Menu>
               }
@@ -84,8 +108,31 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 {getString('pipelineSteps.addTerraformVarFile')}
               </Button>
             </Popover>
+            {showRemoteWizard && (
+              <Dialog
+                onClose={() => {
+                  setShowRemoteWizard(false)
+                }}
+                {...DIALOG_PROPS}
+              >
+                <div className={css.createTfWizard}>
+                  <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>
+                    <TFVarStore name={getString('cd.tfVarStore')} />
+                    <TFRemoteWizard name={getString('cd.varFileDetails')} />
+                  </StepWizard>
+                </div>
+              </Dialog>
+            )}
             {showTfModal && (
-              <Dialog isOpen={true} title="Add Inline Terraform Var File" isCloseButtonShown>
+              <Dialog
+                isOpen={true}
+                title="Add Inline Terraform Var File"
+                isCloseButtonShown
+                onClose={() => {
+                  setShowTfModal(false)
+                }}
+                className={Classes.DIALOG}
+              >
                 <Layout.Vertical padding="medium">
                   <Formik
                     initialValues={{ varFile: { type: TerraformStoreTypes.Inline, content: '' } }}
@@ -93,7 +140,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                       push(values)
                     }}
                   >
-                    {formik => {
+                    {formikProps => {
                       return (
                         <>
                           <FormInput.TextArea name="varFile.content" label={getString('pipelineSteps.content')} />
@@ -103,7 +150,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                               intent={'primary'}
                               text={getString('submit')}
                               onClick={() => {
-                                push(formik.values)
+                                push(formikProps.values)
                                 setShowTfModal(false)
                               }}
                             />

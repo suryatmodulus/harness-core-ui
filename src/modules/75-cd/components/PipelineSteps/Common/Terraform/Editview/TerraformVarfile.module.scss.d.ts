@@ -14,5 +14,12 @@ declare const styles: {
   readonly inputField: string
   readonly configBtn: string
   readonly tfMenu: string
+  readonly manifestWizard: string
+  readonly createTfWizard: string
+  readonly optionsViewContainer: string
+  readonly headerContainer: string
+  readonly squareCardContainer: string
+  readonly manifestIcon: string
+  readonly saveBtn: string
 }
 export default styles

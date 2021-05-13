@@ -120,7 +120,7 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
                 text={getString('continue')}
                 rightIcon="chevron-right"
                 onClick={() => {
-                  nextStep?.()
+                  nextStep?.(formik.values)
                 }}
                 className={css.saveBtn}
               />

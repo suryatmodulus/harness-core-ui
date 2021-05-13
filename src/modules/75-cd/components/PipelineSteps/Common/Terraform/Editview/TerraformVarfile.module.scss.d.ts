@@ -25,5 +25,6 @@ declare const styles: {
   readonly formContainerStepOne: string
   readonly tfRemoteForm: string
   readonly modal: string
+  readonly crossIcon: string
 }
 export default styles

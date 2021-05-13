@@ -17,13 +17,25 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import type { PathInterface } from '../TerraformInterfaces'
+import { PathInterface, TerraformStoreTypes } from '../TerraformInterfaces'
 import css from './TerraformVarfile.module.scss'
+import type { TerraformVarFileWrapper } from 'services/cd-ng'
+import { merge } from 'lodash-es'
 
-export const TFRemoteWizard: React.FC<StepProps<any>> = ({ previousStep }) => {
+interface TFRemoteProps {
+  onSubmitCallBack: (data: TerraformVarFileWrapper) => void
+}
+export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
+  previousStep,
+  prevStepData,
+  onSubmitCallBack
+}) => {
+  console.log(prevStepData, 'data')
+
   const { getString } = useStrings()
   const initialValues = {
     varFile: {
+      type: TerraformStoreTypes.Remote,
       store: {
         spec: {
           gitFetchType: '',
@@ -42,11 +54,18 @@ export const TFRemoteWizard: React.FC<StepProps<any>> = ({ previousStep }) => {
   ]
   return (
     <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
-      <Formik initialValues={initialValues} onSubmit={() => {}}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={values => {
+          const payload = merge(prevStepData, values)
+          onSubmitCallBack(payload)
+        }}
+      >
         {formik => {
           return (
             <Form>
               <div className={css.tfRemoteForm}>
+                <FormInput.Text name="varFile.identifier" label={getString('cd.fileIdentifier')} />
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select
                     items={gitFetchTypes}
@@ -145,7 +164,7 @@ export const TFRemoteWizard: React.FC<StepProps<any>> = ({ previousStep }) => {
                   text={getString('back')}
                   icon="chevron-left"
                   onClick={() => previousStep?.()}
-                  data-name="jiraBackButton"
+                  data-name="tf-remote-back-btn"
                 />
                 <Button type="submit" intent="primary" text={getString('submit')} rightIcon="chevron-right" />
               </Layout.Horizontal>

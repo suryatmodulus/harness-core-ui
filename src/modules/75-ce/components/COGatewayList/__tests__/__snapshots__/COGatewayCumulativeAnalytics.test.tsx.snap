@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test COGatewayCumulativeAnalytics Renders without errors 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+        level="2"
+        style="margin-left: 30px;"
+      >
+        SUMMARY OF RULES
+      </h2>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--background-white"
+        style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16); border-radius: 6px;"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+          style="flex: 1;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              SAVINGS PERCENTAGE
+            </p>
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              93
+              %
+            </h1>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <div />
+            </div>
+          </div>
+          <h2
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+            level="2"
+          >
+            ACTIVE RULES
+          </h2>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              2
+            </h1>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              Rules
+            </p>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          style="text-align: center; flex: 3;"
+        >
+          <h2
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+            level="2"
+          >
+            TOTAL SPEND VS SAVINGS
+          </h2>
+          <div />
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          style="flex: 1.5;"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-small"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-small"
+              style="border-radius: 4px; background-color: rgba(71, 213, 223, 0.05);"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="color: rgb(5, 170, 182);"
+                >
+                  TOTAL SAVINGS TILL DATE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                  style="color: rgb(5, 170, 182);"
+                >
+                  $
+                  883
+                </h1>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-small"
+              style="border-radius: 4px; background-color: rgba(124, 77, 211, 0.05);"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="color: rgb(89, 43, 170);"
+                >
+                  TOTAL SPEND TILL DATE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                  style="color: rgb(89, 43, 170);"
+                >
+                  $
+                  64
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          style="flex: 1;"
+        >
+          <h2
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+            level="2"
+          >
+            INSTANCES MANAGED
+          </h2>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <h1
+              class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+              level="1"
+            >
+              2
+            </h1>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              Instances
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              1
+            </p>
+            <span
+              class="Tag--main"
+            >
+              <span
+                class="bp3-tag bp3-intent-success bp3-minimal"
+                style="border-radius: 25px;"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  RUNNING
+                </span>
+              </span>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="align-self: center;"
+            >
+              1
+            </p>
+            <span
+              class="Tag--main"
+            >
+              <span
+                class="bp3-tag bp3-intent-danger bp3-minimal"
+                style="border-radius: 25px;"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  STOPPED
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

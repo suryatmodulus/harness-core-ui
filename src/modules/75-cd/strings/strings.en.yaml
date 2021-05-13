@@ -39,3 +39,5 @@ optionalConfig: Optional Configuration
 configIdentifer: Configuration Identifier
 addInline: Add Inline
 addRemote: Add Remote
+tfVarStore: Terraform Var Store
+varFileDetails: Var File Details

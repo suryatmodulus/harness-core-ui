@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 
 import {
@@ -16,7 +17,7 @@ import cx from 'classnames'
 // import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 
-import type { FormikProps } from 'formik'
+import { Form, FormikProps } from 'formik'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -44,13 +45,43 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   }>()
   return (
     <Layout.Vertical padding={'huge'}>
-      <Formik<ConfigFileData> onSubmit={props.onClick} initialValues={props.data}>
+      <Formik<ConfigFileData>
+        onSubmit={props.onClick}
+        initialValues={props.data}
+        validationSchema={Yup.object().shape({
+          spec: Yup.object().shape({
+            configuration: Yup.object().shape({
+              spec: Yup.object().shape({
+                configFiles: Yup.object().shape({
+                  store: Yup.object().shape({
+                    spec: Yup.object().shape({
+                      connectorRef: Yup.string().required(
+                        getString('pipelineSteps.build.create.connectorRequiredError')
+                      ),
+                      gitFetchType: Yup.string().required(getString('cd.gitFetchTypeRequired')),
+                      branch: Yup.string().when('gitFetchType', {
+                        is: 'Branch',
+                        then: Yup.string().trim().required(getString('validation.branchName'))
+                      }),
+                      commitId: Yup.string().when('gitFetchType', {
+                        is: 'Commit',
+                        then: Yup.string().trim().required(getString('validation.commitId'))
+                      }),
+                      folderPath: Yup.string().required(getString('pipeline.manifestType.folderPathRequired'))
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })}
+      >
         {(formik: FormikProps<ConfigFileData>) => {
           const connectorValue = formik.values.spec?.configuration?.spec?.configFiles?.store?.spec
             ?.connectorRef as Connector
 
           return (
-            <>
+            <Form>
               <FormMultiTypeConnectorField
                 label={
                   <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -68,8 +99,8 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   getMultiTypeFromValue(
                     formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
                   ) === MultiTypeInputType.RUNTIME
-                    ? 200
-                    : 260
+                    ? 260
+                    : 300
                 }
                 name="spec.configuration.spec.configFiles.store.spec.connectorRef"
                 placeholder={getString('select')}
@@ -180,17 +211,10 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
               )}
 
               <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                <Button
-                  text={'add'}
-                  intent={'primary'}
-                  onClick={() => {
-                    const data = formik.values
-                    props.onClick(data)
-                  }}
-                />
+                <Button text={getString('submit')} intent="primary" type="submit" />
                 <Button text={getString('cancel')} onClick={props.onHide} />
               </Layout.Horizontal>
-            </>
+            </Form>
           )
         }}
       </Formik>

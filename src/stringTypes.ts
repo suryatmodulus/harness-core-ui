@@ -1321,6 +1321,7 @@ export interface StringsMap {
   'cd.chooseProvisionerText': string
   'cd.configFilePlaceHolder': string
   'cd.configIdentifer': string
+  'cd.contentRequired': string
   'cd.continuous': string
   'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
@@ -1331,6 +1332,7 @@ export interface StringsMap {
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string
+  'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
   'cd.optionalConfig': string
@@ -1338,6 +1340,7 @@ export interface StringsMap {
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.specifyTfVarStore': string
   'cd.stepName': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string

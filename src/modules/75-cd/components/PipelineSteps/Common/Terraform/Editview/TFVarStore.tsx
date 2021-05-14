@@ -44,7 +44,7 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
       <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
-        Specify Terraform Var File Store
+        {getString('cd.specifyTfVarStore')}
       </Heading>
 
       <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>

@@ -1,9 +1,11 @@
 import React from 'react'
+import * as Yup from 'yup'
+
 import cx from 'classnames'
 
 import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
-import { FieldArray } from 'formik'
+import { FieldArray, Form } from 'formik'
 import type { FormikProps } from 'formik'
 
 import { useStrings } from 'framework/strings'
@@ -28,20 +30,36 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const remoteRender = (varFile: TerraformVarFileWrapper) => {
     const remoteVar = varFile?.varFile as any
     return (
-      <Layout.Horizontal className={css.path}>
-        {varFile?.varFile?.type === getString('remote') && <Icon name="remote" />}
-        <Text className={css.branch}>{remoteVar?.identifier}</Text>
-      </Layout.Horizontal>
+      <div className={css.configField}>
+        <Layout.Horizontal>
+          {varFile?.varFile?.type === getString('remote') && <Icon name="remote" />}
+          <Text className={css.branch}>{remoteVar?.identifier}</Text>
+        </Layout.Horizontal>
+        <Icon
+          name="edit"
+          onClick={() => {
+            setShowRemoteWizard(false)
+          }}
+        />
+      </div>
     )
   }
 
   const inlineRender = (varFile: TerraformVarFileWrapper) => {
     const inlineVar = varFile?.varFile as any
     return (
-      <Layout.Horizontal className={css.path}>
-        {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
-        <Text className={css.branch}>{inlineVar?.identifier}</Text>
-      </Layout.Horizontal>
+      <div className={css.configField}>
+        <Layout.Horizontal>
+          {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
+          <Text className={css.branch}>{inlineVar?.identifier}</Text>
+        </Layout.Horizontal>
+        <Icon
+          name="edit"
+          onClick={() => {
+            setShowTfModal(false)
+          }}
+        />
+      </div>
     )
   }
 
@@ -98,7 +116,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 </Menu>
               }
             >
-              <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file">
+              <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file" className={css.addTfVarFile}>
                 {getString('pipelineSteps.addTerraformVarFile')}
               </Button>
             </Popover>
@@ -151,24 +169,24 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     onSubmit={(values: any) => {
                       push(values)
                     }}
+                    validationSchema={Yup.object().shape({
+                      varFile: Yup.object().shape({
+                        identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+                        spec: Yup.object().shape({
+                          content: Yup.string().required(getString('cd.contentRequired'))
+                        })
+                      })
+                    })}
                   >
-                    {formikProps => {
+                    {() => {
                       return (
-                        <>
+                        <Form>
                           <FormInput.Text name="varFile.identifier" label={getString('cd.fileIdentifier')} />
                           <FormInput.TextArea name="varFile.spec.content" label={getString('pipelineSteps.content')} />
                           <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                            <Button
-                              type={'submit'}
-                              intent={'primary'}
-                              text={getString('submit')}
-                              onClick={() => {
-                                push(formikProps.values)
-                                setShowTfModal(false)
-                              }}
-                            />
+                            <Button type="submit" intent={'primary'} text={getString('submit')} />
                           </Layout.Horizontal>
-                        </>
+                        </Form>
                       )
                     }}
                   </Formik>

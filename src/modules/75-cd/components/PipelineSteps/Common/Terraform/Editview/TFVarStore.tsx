@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import * as Yup from 'yup'
+
 import {
   Button,
   Card,
@@ -31,7 +33,12 @@ const tfVarIcons: any = {
   Bitbucket: 'bitbucket'
 }
 
-export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
+interface TFVarStoreProps {
+  initialValues: any
+  isEditMode: boolean
+}
+
+export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextStep, initialValues, isEditMode }) => {
   const [selectedType, setSelectedType] = React.useState('')
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -40,7 +47,19 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
     accountId: string
   }>()
   const { expressions } = useVariablesExpression()
+  const iValues = {
+    varFile: {
+      store: {
+        spec: {
+          connectorRef: ''
+        }
+      }
+    }
+  }
 
+  React.useEffect(() => {
+    setSelectedType(initialValues?.varFile?.store?.spec?.connectorRef)
+  }, [isEditMode])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
       <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
@@ -65,19 +84,20 @@ export const TFVarStore: React.FC<StepProps<any>> = ({ nextStep }) => {
       </Layout.Horizontal>
 
       <Formik
-        initialValues={{
-          varFile: {
-            store: {
-              spec: {
-                connectorRef: ''
-              }
-            }
-          }
-        }}
+        initialValues={isEditMode ? initialValues : iValues}
         enableReinitialize={true}
         onSubmit={() => {
           setSelectedType('')
         }}
+        validationSchema={Yup.object().shape({
+          varFile: Yup.object().shape({
+            store: Yup.object().shape({
+              spec: Yup.object().shape({
+                connectorRef: Yup.string().required(getString('pipelineSteps.build.create.connectorRequiredError'))
+              })
+            })
+          })
+        })}
       >
         {formik => (
           <Form>

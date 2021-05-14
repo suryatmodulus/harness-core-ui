@@ -30,6 +30,7 @@ import {
   ResponseMessage
 } from 'services/cd-ng'
 
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
@@ -101,6 +102,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
+  const { GIT_SYNC_NG } = useFeatureFlags()
   const { isGitSyncEnabled } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector, loading: creating } = useCreateConnector({
@@ -175,7 +177,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       afterSuccessHandler(response)
     } catch (e) {
       if (
-        (e.data?.responseMessages as ResponseMessage[])?.findIndex(
+        GIT_SYNC_NG &&
+        ((e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
           (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
         ) !== -1
       ) {
@@ -210,9 +213,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       {updating ? (
         <PageSpinner
           message={
-            isSyncingToGitViaManager
-              ? getString('common.submittingRequest')
-              : getString('common.submittingRequestToGit')
+            GIT_SYNC_NG
+              ? isSyncingToGitViaManager
+                ? getString('common.submittingRequest')
+                : getString('common.submittingRequestToGit')
+              : getString('common.loading')
           }
         />
       ) : (

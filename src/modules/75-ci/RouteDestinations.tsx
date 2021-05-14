@@ -51,8 +51,7 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import TriggersWizardPage from '@pipeline/pages/triggers/TriggersWizardPage'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
-import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
-
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 
 import './components/PipelineSteps'
@@ -397,7 +396,11 @@ export default (
       sidebarProps={CISideNavProps}
       path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
-      <RunPipelinePage />
+      <PipelineDetails>
+        <CIPipelineStudio />
+
+        <RunPipelineModal />
+      </PipelineDetails>
     </RouteWithLayout>
     <RouteWithLayout
       exact

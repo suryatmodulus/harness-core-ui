@@ -83,7 +83,7 @@ const TEST_INPUT_SET_FORM_PATH = routes.toInputSetForm({
 
 describe('Render Forms - Snapshot Testing', () => {
   test('render Input Set Form view', async () => {
-    const { getAllByText, getByText, container } = render(
+    const { getByText, container } = render(
       <TestWrapper
         path={TEST_INPUT_SET_FORM_PATH}
         pathParams={{
@@ -109,13 +109,13 @@ describe('Render Forms - Snapshot Testing', () => {
       </TestWrapper>
     )
 
-    // Switch Mode
-    fireEvent.click(getByText('yaml'))
-    await waitFor(() => getAllByText('Yaml View'))
-    // Switch Mode
-    fireEvent.click(getByText('visual'))
-    const stages = container.querySelector('.header')
-    fireEvent.click(stages as Element)
+    // // Switch Mode
+    // fireEvent.click(getByText('yaml'))
+    // await waitFor(() => getAllByText('Yaml View'))
+    // // Switch Mode
+    // fireEvent.click(getByText('visual'))
+    // const stages = container.querySelector('.header')
+    // fireEvent.click(stages as Element)
     // Close Form
     fireEvent.click(getByText('cancel'))
     expect(container).toMatchSnapshot()
@@ -175,10 +175,10 @@ describe('Render Forms - Snapshot Testing', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')
-    act(() => {
-      fireEvent.click(stagePanel as Element)
-    })
+    // const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')
+    // act(() => {
+    //   fireEvent.click(stagePanel as Element)
+    // })
     const infraPanel = container.querySelector('[data-testid="Stage.asd.Infrastructure-summary"]')
     fireEvent.click(infraPanel as Element)
     expect(container).toMatchSnapshot('expanded')

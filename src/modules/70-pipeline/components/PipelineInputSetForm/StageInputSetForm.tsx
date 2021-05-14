@@ -240,68 +240,60 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
+        <div
           id={`Stage.${stageIdentifier}.Service`}
-          panelClassName={css.nestedAccordions}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="service" />
-            </div>
-          }
-          details={
-            <>
-              {deploymentStage?.serviceConfig?.serviceRef && (
-                <StepWidget<ServiceConfig>
-                  factory={factory}
-                  initialValues={deploymentStageInputSet?.serviceConfig || {}}
-                  template={deploymentStageTemplate?.serviceConfig || {}}
-                  type={StepType.DeployService}
-                  stepViewType={StepViewType.InputSet}
-                  path={`${path}.serviceConfig`}
-                  readonly={readonly}
-                  customStepProps={{ stageIdentifier }}
-                />
-              )}
-              {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
-                <StepWidget<ServiceSpec>
-                  factory={factory}
-                  initialValues={
-                    isPropagating && deploymentStageInputSet
-                      ? deploymentStageInputSet?.serviceConfig?.stageOverrides
-                      : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
+          className={cx(css.nopadLeft, css.accordionSummary)}
+          title={getString('service')}
+        >
+          <div className={css.nestedAccordions}>
+            {deploymentStage?.serviceConfig?.serviceRef && (
+              <StepWidget<ServiceConfig>
+                factory={factory}
+                initialValues={deploymentStageInputSet?.serviceConfig || {}}
+                template={deploymentStageTemplate?.serviceConfig || {}}
+                type={StepType.DeployService}
+                stepViewType={StepViewType.InputSet}
+                path={`${path}.serviceConfig`}
+                readonly={readonly}
+                customStepProps={{ stageIdentifier }}
+              />
+            )}
+            {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
+              <StepWidget<ServiceSpec>
+                factory={factory}
+                initialValues={
+                  isPropagating && deploymentStageInputSet
+                    ? deploymentStageInputSet?.serviceConfig?.stageOverrides
+                    : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
+                }
+                template={
+                  isPropagating && deploymentStageTemplate
+                    ? deploymentStageTemplate?.serviceConfig?.stageOverrides
+                    : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
+                }
+                type={StepType.K8sServiceSpec}
+                stepViewType={StepViewType.InputSet}
+                path={
+                  isPropagating
+                    ? `${path}.serviceConfig.stageOverrides`
+                    : `${path}.serviceConfig.serviceDefinition.spec`
+                }
+                readonly={readonly}
+                customStepProps={{ stageIdentifier }}
+                onUpdate={(data: any) => {
+                  if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
+                    deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
+                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                   }
-                  template={
-                    isPropagating && deploymentStageTemplate
-                      ? deploymentStageTemplate?.serviceConfig?.stageOverrides
-                      : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
+                  if (deploymentStageInputSet?.serviceConfig?.stageOverrides && isPropagating) {
+                    deploymentStageInputSet.serviceConfig.stageOverrides = data
+                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                   }
-                  type={StepType.K8sServiceSpec}
-                  stepViewType={StepViewType.InputSet}
-                  path={
-                    isPropagating
-                      ? `${path}.serviceConfig.stageOverrides`
-                      : `${path}.serviceConfig.serviceDefinition.spec`
-                  }
-                  readonly={readonly}
-                  customStepProps={{ stageIdentifier }}
-                  onUpdate={(data: any) => {
-                    if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
-                      deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
-                      formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
-                    }
-                    if (deploymentStageInputSet?.serviceConfig?.stageOverrides && isPropagating) {
-                      deploymentStageInputSet.serviceConfig.stageOverrides = data
-                      formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
-                    }
-                  }}
-                />
-              )}
-            </>
-          }
-        />
+                }}
+              />
+            )}
+          </div>
+        </div>
       )}
 
       {deploymentStageTemplate.infrastructure && (
@@ -370,84 +362,54 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         />
       )}
       {(deploymentStageTemplate as any).sharedPaths && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
+        <div
           id={`Stage.${stageIdentifier}.SharedPaths`}
-          panelClassName={css.nestedAccordions}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="pipelineSteps.build.stageSpecifications.sharedPaths" />
-            </div>
-          }
-          details={<List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} />}
-        />
+          className={cx(css.nopadLeft, css.accordionSummary)}
+          title={getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+        >
+          <div className={css.nestedAccordions}>
+            <List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} />
+          </div>
+        </div>
       )}
       {(deploymentStageTemplate as ServiceSpec).variables && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
+        <div
           id={`Stage.${stageIdentifier}.Variables`}
-          panelClassName={css.nestedAccordions}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="variablesText" />
-            </div>
-          }
-          details={<div>WIP</div>}
-        />
+          className={cx(css.nopadLeft, css.accordionSummary)}
+          title={getString('variablesText')}
+        >
+          <div className={css.nestedAccordions}>WIP</div>
+        </div>
       )}
       {deploymentStageTemplate.execution && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
+        <div
           id={`Stage.${stageIdentifier}.Execution`}
-          panelClassName={css.nestedAccordions}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="executionText" />
-            </div>
-          }
-          details={
-            <>
-              {deploymentStageTemplate.execution?.steps && (
-                <CollapseForm
-                  header={getString('executionText')}
-                  headerProps={{ font: { size: 'normal' } }}
-                  headerColor="var(--black)"
-                >
-                  <ExecutionWrapperInputSetForm
-                    stepsTemplate={deploymentStageTemplate.execution.steps}
-                    path={`${path}.execution.steps`}
-                    allValues={deploymentStage?.execution?.steps}
-                    values={deploymentStageInputSet?.execution?.steps}
-                    formik={formik}
-                    readonly={readonly}
-                  />
-                </CollapseForm>
-              )}
-              {deploymentStageTemplate.execution?.rollbackSteps && (
-                <CollapseForm
-                  header={getString('rollbackSteps')}
-                  headerProps={{ font: { size: 'normal' } }}
-                  headerColor="var(--black)"
-                >
-                  <ExecutionWrapperInputSetForm
-                    stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
-                    path={`${path}.execution.rollbackSteps`}
-                    allValues={deploymentStage?.execution?.rollbackSteps}
-                    values={deploymentStageInputSet?.execution?.rollbackSteps}
-                    formik={formik}
-                    readonly={readonly}
-                  />
-                </CollapseForm>
-              )}
-            </>
-          }
-        />
+          className={cx(css.nopadLeft, css.accordionSummary)}
+          title={getString('executionText')}
+        >
+          <div className={css.nestedAccordions}>
+            {deploymentStageTemplate.execution?.steps && (
+              <ExecutionWrapperInputSetForm
+                stepsTemplate={deploymentStageTemplate.execution.steps}
+                path={`${path}.execution.steps`}
+                allValues={deploymentStage?.execution?.steps}
+                values={deploymentStageInputSet?.execution?.steps}
+                formik={formik}
+                readonly={readonly}
+              />
+            )}
+            {deploymentStageTemplate.execution?.rollbackSteps && (
+              <ExecutionWrapperInputSetForm
+                stepsTemplate={deploymentStageTemplate.execution.rollbackSteps}
+                path={`${path}.execution.rollbackSteps`}
+                allValues={deploymentStage?.execution?.rollbackSteps}
+                values={deploymentStageInputSet?.execution?.rollbackSteps}
+                formik={formik}
+                readonly={readonly}
+              />
+            )}
+          </div>
+        </div>
       )}
     </>
   )

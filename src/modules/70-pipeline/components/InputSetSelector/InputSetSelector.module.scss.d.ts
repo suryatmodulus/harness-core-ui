@@ -6,6 +6,8 @@ declare const styles: {
   readonly placeholder: string
   readonly popoverContainer: string
   readonly search: string
+  readonly searchContainer: string
+  readonly loadingSearchContainer: string
   readonly checkbox: string
   readonly list: string
   readonly multiple: string
@@ -15,5 +17,6 @@ declare const styles: {
   readonly order: string
   readonly orderText: string
   readonly tag: string
+  readonly spinner: string
 }
 export default styles

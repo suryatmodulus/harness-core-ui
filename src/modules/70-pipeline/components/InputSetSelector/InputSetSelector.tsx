@@ -81,25 +81,13 @@ const RenderValue = React.memo(function RenderValue({
 })
 
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
-  width = 300,
   value,
   onChange,
   pipelineIdentifier
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
-  const [multiple, setMultiple] = React.useState(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
   const { getString } = useStrings()
-  React.useEffect(() => {
-    if (value) {
-      setSelectedInputSets(value)
-      if (value.length > 1) {
-        setMultiple(true)
-      } else {
-        setMultiple(false)
-      }
-    }
-  }, [value])
 
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
@@ -114,13 +102,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   })
 
   const { showError } = useToaster()
-
-  const onSelectHandler = React.useCallback(
-    (inputSet: InputSetSummaryResponse) => {
-      onChange?.([{ label: inputSet.name || '', value: inputSet.identifier || '', type: inputSet.inputSetType }])
-    },
-    [onChange]
-  )
 
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
     event.dataTransfer.setData('data', JSON.stringify(row))
@@ -187,26 +168,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     showError(error.message)
   }
   const inputSets = inputSetResponse?.data?.content
-
-  const singleSelectList =
-    inputSets &&
-    inputSets
-      .filter(set => (set.identifier || '').toLowerCase().indexOf(searchParam.toLowerCase()) > -1)
-      .map(inputSet => (
-        <li
-          className={cx(Classes.POPOVER_DISMISS, css.item)}
-          onClick={() => {
-            onSelectHandler(inputSet)
-          }}
-          key={inputSet.identifier}
-        >
-          <Icon
-            name={getIconByType(inputSet.inputSetType)}
-            color={inputSet.inputSetType === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
-          />
-          &nbsp;&nbsp;{inputSet.name}
-        </li>
-      ))
 
   const selectedMultipleList = selectedInputSets.map((selected, index) => (
     <li
@@ -300,73 +261,38 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         refetch()
       }}
       onClosing={() => {
-        if (multiple) {
-          if (selectedInputSets.length > 0) {
-            onChange?.(selectedInputSets)
-          } else {
-            onChange?.()
-          }
-        }
+        onChange?.(selectedInputSets)
       }}
     >
-      <Button minimal className={css.container} style={{ width }} rightIcon="caret-down">
-        {value ? (
+      <Button minimal className={css.container} style={{ width: '100%' }}>
+        {value && value.length > 0 ? (
           <RenderValue value={value} onChange={onChange} />
         ) : (
           <span className={css.placeholder}>{getString('inputSets.selectPlaceholder')}</span>
         )}
       </Button>
-      <Layout.Vertical spacing="small" padding="medium" className={css.popoverContainer}>
-        <Layout.Horizontal spacing="medium">
+      <Layout.Vertical spacing="small" className={css.popoverContainer}>
+        <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
           <TextInput
-            leftIcon="search"
             placeholder={getString('search')}
+            rightElement="chevron-down"
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearchParam(e.target.value.trim())
             }}
           />
-          <Checkbox
-            label={getString('inputSets.selectMultipleInputSets')}
-            checked={multiple}
-            className={css.checkbox}
-            onChange={checkbox => {
-              setMultiple(checkbox.currentTarget.checked)
-            }}
-          />
-        </Layout.Horizontal>
-        {multiple && (
-          <Layout.Horizontal
-            spacing="small"
-            background={Color.GREY_200}
-            flex={{ align: 'center-center' }}
-            padding="small"
-          >
-            <Icon name="info-sign" color={Color.PRIMARY_4}></Icon>
-            <Text font={{ size: 'small' }}>{getString('inputSets.helpTextForMultiSelect')}</Text>
-          </Layout.Horizontal>
-        )}
+        </div>
         {!inputSets ? (
-          <PageSpinner />
+          <PageSpinner className={css.spinner} />
         ) : (
-          <Layout.Vertical>
-            {multiple && (
-              <Layout.Horizontal padding="small" flex={{ distribution: 'space-between' }}>
-                <Text color={Color.BLACK}>{getString('inputSets.inputSetLabel')}</Text>
-                <Text color={Color.BLACK}>{getString('order')}</Text>
-              </Layout.Horizontal>
-            )}
+          <Layout.Vertical padding="medium">
             {inputSets && inputSets.length > 0 ? (
-              <ul className={cx(Classes.MENU, css.list, { [css.multiple]: multiple })}>
-                {!multiple ? (
-                  singleSelectList
-                ) : (
-                  <>
-                    {selectedMultipleList}
-                    {multipleInputSetList}
-                  </>
-                )}
+              <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
+                <>
+                  {selectedMultipleList}
+                  {multipleInputSetList}
+                </>
               </ul>
             ) : (
               <Layout.Horizontal

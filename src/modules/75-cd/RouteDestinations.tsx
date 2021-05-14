@@ -55,7 +55,6 @@ import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSet
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
-import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
@@ -77,6 +76,7 @@ import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -206,7 +206,11 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
-      <RunPipelinePage />
+      <PipelineDetails>
+        <CDPipelineStudio />
+
+        <RunPipelineModal />
+      </PipelineDetails>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

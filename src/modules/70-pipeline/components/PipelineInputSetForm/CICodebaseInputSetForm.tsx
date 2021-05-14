@@ -1,6 +1,6 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
-import { Card, FormInput, Color, Text } from '@wings-software/uicore'
+import { FormInput, Color, Text } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
@@ -36,7 +36,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   }
 
   return (
-    <Card>
+    <div>
       <FormInput.RadioGroup
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
@@ -60,7 +60,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           {getString('pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText')}
         </Text>
       )}
-    </Card>
+    </div>
   )
 }
 

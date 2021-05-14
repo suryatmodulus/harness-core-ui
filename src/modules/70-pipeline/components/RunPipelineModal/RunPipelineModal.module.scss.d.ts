@@ -8,7 +8,11 @@ declare const styles: {
   readonly editor: string
   readonly content: string
   readonly pipelineHeader: string
+  readonly radioGroup: string
+  readonly radio: string
+  readonly divider: string
   readonly footer: string
+  readonly errorsContent: string
   readonly inputsetGrid: string
   readonly treeSidebar: string
   readonly cardCard: string
@@ -16,5 +20,14 @@ declare const styles: {
   readonly errorHeader: string
   readonly preFlightCheckModal: string
   readonly runFormExecutionView: string
+  readonly modalCard: string
+  readonly bp3DialogHeader: string
+  readonly modalContent: string
+  readonly runModalHeader: string
+  readonly runModalSubHeading: string
+  readonly noPipelineInputSetForm: string
+  readonly helpSection: string
+  readonly helpIcon: string
+  readonly runModal: string
 }
 export default styles

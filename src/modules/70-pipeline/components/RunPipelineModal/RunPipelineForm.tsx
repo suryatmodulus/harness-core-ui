@@ -1,24 +1,21 @@
 import React, { useEffect, useRef } from 'react'
-import { Classes, ITreeNode, Tooltip, Intent, Dialog } from '@blueprintjs/core'
+import { Tooltip, Intent, Dialog } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
   Formik,
   FormikForm,
   Layout,
-  Popover,
   Text,
   NestedAccordionProvider,
-  useNestedAccordion,
   Accordion,
   Icon,
-  useModalHook
+  useModalHook,
+  FormInput
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
-import cx from 'classnames'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, isEqual, debounce } from 'lodash-es'
-import * as Yup from 'yup'
+import { pick, merge, isEmpty, debounce } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
@@ -31,27 +28,18 @@ import {
   useCreateInputSetForPipeline
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import { BasicInputSetForm, InputSetDTO } from '../InputSetForm/InputSetForm'
+import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
-import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
-import factory from '../PipelineSteps/PipelineStepFactory'
-import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
 
@@ -65,24 +53,6 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
   mockData?: ResponseJsonNode
 }
 
-enum SelectedView {
-  VISUAL = 'VISUAL',
-  YAML = 'YAML'
-}
-
-const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
-  fileName: `run-pipeline.yaml`,
-  entityType: 'Pipelines',
-  width: 620,
-  height: 360,
-  showSnippetSection: false,
-  yamlSanityConfig: {
-    removeEmptyString: false,
-    removeEmptyObject: false,
-    removeEmptyArray: false
-  }
-}
-
 function RunPipelineFormBasic({
   pipelineIdentifier,
   accountId,
@@ -94,14 +64,9 @@ function RunPipelineFormBasic({
   module,
   executionView
 }: RunPipelineFormProps): React.ReactElement {
-  const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
-  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
-  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
-  const [lastYaml, setLastYaml] = React.useState({})
   const [formErrors, setFormErrors] = React.useState<FormikErrors<InputSetDTO>>({})
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
@@ -116,7 +81,6 @@ function RunPipelineFormBasic({
     }
   }, [inputSetYAML])
 
-  const { openNestedPath } = useNestedAccordion()
   const { data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
@@ -179,6 +143,7 @@ function RunPipelineFormBasic({
         fetchData()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     template?.data?.inputSetTemplateYaml,
     selectedInputSets,
@@ -192,39 +157,11 @@ function RunPipelineFormBasic({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
   })
 
-  const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
+  const { loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
-  const handleModeSwitch = React.useCallback(
-    (view: SelectedView) => {
-      if (view === SelectedView.VISUAL) {
-        setCurrentPipeline(parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline })
-      }
-      setSelectedView(view)
-    },
-    [yamlHandler?.getLatestYaml]
-  )
-  React.useEffect(() => {
-    try {
-      if (yamlHandler) {
-        const Interval = window.setInterval(() => {
-          const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
-
-          if (!isEqual(lastYaml, parsedYaml)) {
-            setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
-            setLastYaml(parsedYaml)
-          }
-        }, POLL_INTERVAL)
-        return () => {
-          window.clearInterval(Interval)
-        }
-      }
-    } catch (e) {
-      // Ignore Error
-    }
-  }, [yamlHandler, lastYaml])
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const renderErrors = React.useCallback(() => {
     const errorList = getErrorsList(formErrors)
@@ -232,10 +169,10 @@ function RunPipelineFormBasic({
     if (!errorCount) {
       return null
     }
-    const errorString = `${errorCount} ${errorCount > 1 ? 'problems' : 'problem'} with Input Set`
+    const errorString = `Errors: ${errorCount}`
     return (
       <div className={css.errorHeader}>
-        <Accordion>
+        <Accordion className={css.errorsContent}>
           <Accordion.Panel
             id="errors"
             summary={
@@ -279,22 +216,6 @@ function RunPipelineFormBasic({
     )
   }, [])
 
-  const [canEdit] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.PIPELINE,
-        resourceIdentifier: pipelineIdentifier
-      },
-      permissions: [PermissionIdentifier.EDIT_PIPELINE]
-    },
-    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier]
-  )
-
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
       valuesPipelineRef.current = valuesPipeline
@@ -328,6 +249,7 @@ function RunPipelineFormBasic({
         showWarning(error?.data?.message || getString('runPipelineForm.runPipelineFailed'))
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       runPipeline,
       showWarning,
@@ -342,46 +264,27 @@ function RunPipelineFormBasic({
     ]
   )
 
-  React.useEffect(() => {
-    const parsedPipeline = parse(pipelineResponse?.data?.yamlPipeline || '')
-    parsedPipeline &&
-      updateNodes(
-        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, getString, {
-          hideNonRuntimeFields: true,
-          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
-        })
-      )
-  }, [pipelineResponse?.data?.yamlPipeline, template?.data?.inputSetTemplateYaml])
+  const [existingProvide, setExistingProvide] = React.useState('existing')
 
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate || runLoading) {
     return <PageSpinner />
   }
 
-  const handleSelectionChange = (id: string): void => {
-    setSelectedTreeNodeId(id)
-    openNestedPath(id)
-    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   const child = (
     <>
-      <Layout.Horizontal
-        className={css.pipelineHeader}
-        padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-        flex={{ distribution: 'space-between' }}
-      >
-        <Text font="medium">{getString('common.pipeline')}</Text>
-        {!executionView && pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-          <InputSetSelector
-            pipelineIdentifier={pipelineIdentifier}
-            onChange={setSelectedInputSets}
-            value={selectedInputSets}
-          />
-        )}
-      </Layout.Horizontal>
-
       <Formik
-        initialValues={currentPipeline?.pipeline ? clearRuntimeInput(currentPipeline.pipeline) : {}}
+        initialValues={
+          pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
+            ? currentPipeline?.pipeline
+              ? {
+                  ...clearRuntimeInput(currentPipeline.pipeline),
+                  existingProvideRadio: existingProvide
+                }
+              : { existingProvideRadio: existingProvide }
+            : currentPipeline?.pipeline
+            ? clearRuntimeInput(currentPipeline.pipeline)
+            : {}
+        }
         onSubmit={values => {
           handleRunPipeline(values as any)
         }}
@@ -402,165 +305,132 @@ function RunPipelineFormBasic({
           return errors
         }}
       >
-        {({ values, submitForm }) => {
+        {({ submitForm }) => {
           return (
             <>
-              <Layout.Horizontal
-                className={css.content}
-                padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-              >
-                {selectedView === SelectedView.VISUAL ? (
-                  <div className={css.inputsetGrid}>
-                    <div className={css.treeSidebar}>
-                      <StagesTree
-                        contents={nodes || {}}
-                        selectedId={selectedTreeNodeId}
-                        selectionChange={handleSelectionChange}
-                      />
-                    </div>
-                    <div>
-                      {renderErrors()}
-                      <FormikForm>
-                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+              {executionView ? null : (
+                <Layout.Vertical>
+                  <Layout.Horizontal className={css.runModalHeader}>
+                    <Text>Run Pipeline</Text>
+                    {renderErrors()}
+                  </Layout.Horizontal>
+                  <FormikForm>
+                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                      <>
+                        <Layout.Vertical
+                          className={css.pipelineHeader}
+                          padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
+                        >
+                          <div className={css.divider}>
+                            <Layout.Horizontal className={css.runModalSubHeading}>
+                              <FormInput.RadioGroup
+                                name="existingProvideRadio"
+                                label="Select an existing inputset or provide new set of values"
+                                items={[
+                                  { label: 'Use Existing Inputsets', value: 'existing' },
+                                  { label: 'Provide Values', value: 'provide' }
+                                ]}
+                                radioGroup={{ inline: true }}
+                                onChange={ev => {
+                                  setExistingProvide((ev.target as HTMLInputElement).value)
+                                }}
+                              />
+                              <span className={css.helpSection}>
+                                <Icon name="question" className={css.helpIcon} />
+                                <Text>What are Inputsets?</Text>
+                              </span>
+                            </Layout.Horizontal>
+                          </div>
+                          {!executionView &&
+                            pipeline &&
+                            currentPipeline &&
+                            template?.data?.inputSetTemplateYaml &&
+                            existingProvide === 'existing' && (
+                              <InputSetSelector
+                                pipelineIdentifier={pipelineIdentifier}
+                                onChange={setSelectedInputSets}
+                                value={selectedInputSets}
+                              />
+                            )}
+                        </Layout.Vertical>
+                        {(existingProvide === 'provide' || (selectedInputSets && selectedInputSets.length > 0)) && (
                           <PipelineInputSetForm
                             originalPipeline={pipeline}
                             template={parse(template.data.inputSetTemplateYaml).pipeline}
                             readonly={executionView}
                             path=""
                           />
-                        ) : (
-                          <Layout.Horizontal padding="medium" margin="medium">
-                            <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
-                          </Layout.Horizontal>
                         )}
-                      </FormikForm>
-                    </div>
-                  </div>
-                ) : (
-                  <div className={css.editor}>
-                    <YamlBuilderMemo
-                      {...yamlBuilderReadOnlyModeProps}
-                      existingJSON={{ pipeline: values }}
-                      bind={setYamlHandler}
-                      invocationMap={factory.getInvocationMap()}
-                      height="calc(100vh - 330px)"
-                      width="calc(100vw - 300px)"
-                      showSnippetSection={false}
-                      isEditModeSupported={canEdit}
-                    />
-                  </div>
-                )}
-              </Layout.Horizontal>
-              {executionView ? null : (
-                <Layout.Horizontal className={css.footer} padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }}>
-                  <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
-                    <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                      <RbacButton
-                        intent="primary"
-                        type="submit"
-                        icon="run-pipeline"
-                        text={getString('runPipeline')}
-                        onClick={event => {
-                          event.stopPropagation()
-                          submitForm()
-                        }}
-                        permission={{
-                          resource: {
-                            resourceIdentifier: pipeline?.identifier as string,
-                            resourceType: ResourceType.PIPELINE
-                          },
-                          permission: PermissionIdentifier.EXECUTE_PIPELINE
-                        }}
-                      />
-                      <Checkbox
-                        label={getString('pre-flight-check.skipCheckBtn')}
-                        checked={skipPreFlightCheck}
-                        onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
-                      />
-                      <Tooltip position="top" content={getString('featureNA')}>
-                        <Checkbox
-                          disabled
-                          label={getString('runPipelineForm.notifyOnlyMe')}
-                          checked={notifyOnlyMe}
-                          onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
-                        />
-                      </Tooltip>
-                    </Layout.Horizontal>
-                    <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                      {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
-                        <Popover
-                          content={
-                            <Layout.Vertical
-                              padding="medium"
-                              spacing="medium"
-                              className={Classes.POPOVER_DISMISS_OVERRIDE}
-                            >
-                              <Formik
-                                onSubmit={input => {
-                                  createInputSet(stringify({ inputSet: input }) as any)
-                                    .then(response => {
-                                      if (response.data?.errorResponse) {
-                                        showError(getString('inputSets.inputSetSavedError'))
-                                      } else {
-                                        showSuccess(getString('inputSets.inputSetSaved'))
-                                      }
-                                    })
-                                    .catch(e => {
-                                      showError(e?.data?.message || e?.message)
-                                    })
-                                }}
-                                validationSchema={Yup.object().shape({
-                                  name: Yup.string().trim().required(getString('inputSets.nameIsRequired'))
-                                })}
-                                initialValues={{ pipeline: values, name: '', identifier: '' } as InputSetDTO}
-                              >
-                                {({ submitForm: submitFormIs, values: formikValues }) => {
-                                  return (
-                                    <>
-                                      <BasicInputSetForm isEdit={false} values={formikValues} />
+                        {existingProvide === 'existing' && !(selectedInputSets && selectedInputSets.length > 0) && (
+                          <div className={css.noPipelineInputSetForm} />
+                        )}
+                      </>
+                    ) : (
+                      <Layout.Horizontal padding="medium" margin="medium">
+                        <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
+                      </Layout.Horizontal>
+                    )}
+                  </FormikForm>
 
-                                      <Layout.Horizontal
-                                        flex={{ distribution: 'space-between' }}
-                                        padding={{ top: 'medium' }}
-                                      >
-                                        <Button
-                                          intent="primary"
-                                          text={getString('save')}
-                                          onClick={event => {
-                                            event.stopPropagation()
-                                            submitFormIs()
-                                          }}
-                                        />
-                                        <Button className={Classes.POPOVER_DISMISS} text={getString('cancel')} />
-                                      </Layout.Horizontal>
-                                    </>
-                                  )
-                                }}
-                              </Formik>
-                            </Layout.Vertical>
-                          }
-                        >
-                          <Button
-                            minimal
-                            intent="primary"
-                            text={getString('inputSets.saveAsInputSet')}
-                            disabled={!canEdit}
+                  <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                    <div className={css.footer}>
+                      <Layout.Horizontal padding={{ left: 'xxlarge' }} style={{ width: '100%' }}>
+                        <Checkbox
+                          label={getString('pre-flight-check.skipCheckBtn')}
+                          checked={skipPreFlightCheck}
+                          onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                        />
+                        <Tooltip position="top" content={getString('featureNA')}>
+                          <Checkbox
+                            padding={{ left: 'xxlarge' }}
+                            disabled
+                            label={getString('runPipelineForm.notifyOnlyMe')}
+                            checked={notifyOnlyMe}
+                            onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
                           />
-                        </Popover>
-                      )}
-                      <Button
-                        text={getString('cancel')}
-                        onClick={() => {
-                          if (onClose) {
-                            onClose()
-                          } else {
-                            history.goBack()
-                          }
-                        }}
-                      />
-                    </Layout.Horizontal>
+                        </Tooltip>
+                      </Layout.Horizontal>
+                    </div>
                   </Layout.Horizontal>
-                </Layout.Horizontal>
+                  <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                    <div className={css.footer}>
+                      <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
+                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                          <RbacButton
+                            style={{ backgroundColor: 'var(--green-600' }}
+                            intent="primary"
+                            type="submit"
+                            text={getString('runPipeline')}
+                            onClick={event => {
+                              event.stopPropagation()
+                              submitForm()
+                            }}
+                            permission={{
+                              resource: {
+                                resourceIdentifier: pipeline?.identifier as string,
+                                resourceType: ResourceType.PIPELINE
+                              },
+                              permission: PermissionIdentifier.EXECUTE_PIPELINE
+                            }}
+                          />
+                        </Layout.Horizontal>
+                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                          <Button
+                            text={getString('cancel')}
+                            style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
+                            onClick={() => {
+                              if (onClose) {
+                                onClose()
+                              } else {
+                                history.goBack()
+                              }
+                            }}
+                          />
+                        </Layout.Horizontal>
+                      </Layout.Horizontal>
+                    </div>
+                  </Layout.Horizontal>
+                </Layout.Vertical>
               )}
             </>
           )
@@ -578,8 +448,6 @@ function RunPipelineFormBasic({
       pipelineIdentifier={pipelineIdentifier}
       projectIdentifier={projectIdentifier}
       module={module}
-      selectedView={selectedView}
-      handleModeSwitch={handleModeSwitch}
       pipeline={pipeline}
     >
       {child}
@@ -589,77 +457,14 @@ function RunPipelineFormBasic({
 
 export interface RunPipelineFormWrapperProps extends PipelineType<PipelinePathProps> {
   children: React.ReactNode
-  selectedView: SelectedView
-  handleModeSwitch(mode: SelectedView): void
   pipeline?: NgPipeline
 }
 
 export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): React.ReactElement {
-  const {
-    children,
-    orgIdentifier,
-    projectIdentifier,
-    accountId,
-    pipelineIdentifier,
-    module,
-    handleModeSwitch,
-    selectedView,
-    pipeline
-  } = props
-
-  const { selectedProject: project } = useAppStore()
-  const { getString } = useStrings()
+  const { children } = props
 
   return (
     <React.Fragment>
-      <PageHeader
-        title={
-          <>
-            <Layout.Vertical spacing="xsmall">
-              <Breadcrumbs
-                links={[
-                  {
-                    url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
-                    label: project?.name as string
-                  },
-                  {
-                    url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                    label: getString('pipelines')
-                  },
-                  {
-                    url: routes.toPipelineDetail({
-                      orgIdentifier,
-                      projectIdentifier,
-                      accountId,
-                      pipelineIdentifier,
-                      module
-                    }),
-                    label: pipeline?.name || ''
-                  },
-                  { url: '#', label: getString('runPipeline') }
-                ]}
-              />
-              <Layout.Horizontal>
-                <Text font="medium">{`${getString('runPipeline')}: ${pipeline?.name}`}</Text>
-                <div className={css.optionBtns}>
-                  <div
-                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                    onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                  >
-                    {getString('visual')}
-                  </div>
-                  <div
-                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                    onClick={() => handleModeSwitch(SelectedView.YAML)}
-                  >
-                    {getString('yaml')}
-                  </div>
-                </div>
-              </Layout.Horizontal>
-            </Layout.Vertical>
-          </>
-        }
-      />
       <PageBody className={css.runForm}>{children}</PageBody>
     </React.Fragment>
   )

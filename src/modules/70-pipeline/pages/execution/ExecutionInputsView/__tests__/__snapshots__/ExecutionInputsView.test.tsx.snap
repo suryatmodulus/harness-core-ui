@@ -9,58 +9,8 @@ exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
       class="runFormExecutionView"
     >
       <div
-        class="Layout--horizontal StyledProps--main pipelineHeader StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium"
-        >
-          common.pipeline
-        </p>
-      </div>
-      <div
         class="OverlaySpinner--overlaySpinner"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main content StyledProps--padding-bottom-xlarge StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
-        >
-          <div
-            class="inputsetGrid"
-          >
-            <div
-              class="treeSidebar"
-            >
-              <div
-                class="container"
-              >
-                <div
-                  class="bp3-tree"
-                >
-                  <ul
-                    class="bp3-tree-node-list bp3-tree-root"
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <form
-                class="FormikForm--main"
-              >
-                <div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--margin-medium"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      runPipelineForm.noRuntimeInput
-                    </p>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
 </div>

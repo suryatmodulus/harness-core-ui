@@ -54,6 +54,9 @@
 .configField {
   display: flex;
   justify-content: space-between;
+  width: 320px !important;
+  height: 32px;
+  border: 1px solid #e4e4eb;
 }
 
 .inputField {

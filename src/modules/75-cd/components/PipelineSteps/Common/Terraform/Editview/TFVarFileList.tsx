@@ -23,7 +23,20 @@ interface TfVarFileProps {
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
+  const inlineInitValues: TerraformVarFileWrapper = {
+    varFile: {
+      type: TerraformStoreTypes.Inline
+    }
+  }
+  const remoteInitialValues: TerraformVarFileWrapper = {
+    varFile: {
+      type: TerraformStoreTypes.Remote
+    }
+  }
   const [showTfModal, setShowTfModal] = React.useState(false)
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [selectedVar, setSelectedVar] = React.useState(inlineInitValues as TerraformVarFileWrapper)
+
   const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
 
@@ -38,7 +51,9 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         <Icon
           name="edit"
           onClick={() => {
-            setShowRemoteWizard(false)
+            setShowRemoteWizard(true)
+            setSelectedVar(varFile)
+            setIsEditMode(true)
           }}
         />
       </div>
@@ -56,7 +71,9 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         <Icon
           name="edit"
           onClick={() => {
-            setShowTfModal(false)
+            setShowTfModal(true)
+            setIsEditMode(true)
+            setSelectedVar(varFile)
           }}
         />
       </div>
@@ -76,9 +93,10 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const getTitle = () => (
     <Layout.Vertical flex style={{ justifyContent: 'center', alignItems: 'center' }}>
       <Icon name="remote" />
-      <Text color={Color.WHITE}>Remote File</Text>
+      <Text color={Color.WHITE}>{getString('pipelineSteps.remoteFile')}</Text>
     </Layout.Vertical>
   )
+
   return (
     <FieldArray
       name="spec.configuration.spec.varFiles"
@@ -105,7 +123,9 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   <MenuItem
                     text={<Text intent="primary">{getString('cd.addInline')} </Text>}
                     icon={<Icon name="Inline" />}
-                    onClick={() => setShowTfModal(true)}
+                    onClick={() => {
+                      setShowTfModal(true)
+                    }}
                   />
 
                   <MenuItem
@@ -132,13 +152,19 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
               >
                 <div className={css.createTfWizard}>
                   <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>
-                    <TFVarStore name={getString('cd.tfVarStore')} />
+                    <TFVarStore
+                      name={getString('cd.tfVarStore')}
+                      initialValues={isEditMode ? selectedVar : remoteInitialValues}
+                      isEditMode={isEditMode}
+                    />
                     <TFRemoteWizard
                       name={getString('cd.varFileDetails')}
                       onSubmitCallBack={(values: TerraformVarFileWrapper) => {
                         push(values)
                         setShowRemoteWizard(false)
                       }}
+                      isEditMode={isEditMode}
+                      // initialValues={remoteInitialValues}
                     />
                   </StepWizard>
                 </div>
@@ -165,9 +191,12 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
               >
                 <Layout.Vertical padding="medium">
                   <Formik
-                    initialValues={{ varFile: { type: TerraformStoreTypes.Inline, content: '' } }}
+                    initialValues={selectedVar}
                     onSubmit={(values: any) => {
-                      push(values)
+                      if (!isEditMode) {
+                        push(values)
+                        setShowTfModal(false)
+                      }
                     }}
                     validationSchema={Yup.object().shape({
                       varFile: Yup.object().shape({

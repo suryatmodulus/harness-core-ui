@@ -1,50 +1,102 @@
 import React from 'react'
+import * as Yup from 'yup'
 
-import { Layout, Text, Button, Icon } from '@wings-software/uicore'
+import cx from 'classnames'
 
-import { FieldArray } from 'formik'
+import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
+import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
+import { FieldArray, Form } from 'formik'
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/strings'
-import type { InlineTerraformVarFileSpec, RemoteTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
 
-import { TerraformStoreTypes, TFPlanFormData } from '../Common/Terraform/TerraformInterfaces'
-import TfVarFile from '../Common/Terraform/Editview/TfVarFile'
+import { useStrings } from 'framework/strings'
+import type { TerraformVarFileWrapper } from 'services/cd-ng'
+import { TerraformPlanData, TerraformStoreTypes } from '../Common/Terraform/TerraformInterfaces'
+import { TFRemoteWizard } from '../Common/Terraform/Editview/TFRemoteWizard'
+import { TFVarStore } from '../Common/Terraform/Editview/TFVarStore'
 import css from './TerraformVarfile.module.scss'
 
+// import TFRemoteWizard from './TFRemoteWizard'
+
 interface TfVarFileProps {
-  formik: FormikProps<TFPlanFormData>
+  formik: FormikProps<TerraformPlanData>
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
   const { formik } = props
+  const inlineInitValues: TerraformVarFileWrapper = {
+    varFile: {
+      type: TerraformStoreTypes.Inline
+    }
+  }
+  const remoteInitialValues: TerraformVarFileWrapper = {
+    varFile: {
+      type: TerraformStoreTypes.Remote
+    }
+  }
   const [showTfModal, setShowTfModal] = React.useState(false)
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [selectedVar, setSelectedVar] = React.useState(inlineInitValues as TerraformVarFileWrapper)
+
+  const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
 
   const remoteRender = (varFile: TerraformVarFileWrapper) => {
-    const remoteVarFile = varFile?.varFile as RemoteTerraformVarFileSpec
+    const remoteVar = varFile?.varFile as any
     return (
-      <>
-        <Text className={css.branch}>{remoteVarFile.store?.spec?.branch}</Text>
-        <Layout.Horizontal className={css.path}>
+      <div className={css.configField}>
+        <Layout.Horizontal>
           {varFile?.varFile?.type === getString('remote') && <Icon name="remote" />}
-          {varFile?.varFile?.type === getString('inline') && <Icon name="Inline" />}
-          {remoteVarFile?.store?.spec?.paths && remoteVarFile?.store?.spec?.paths?.[0].path && (
-            <Text>{remoteVarFile?.store?.spec?.paths?.[0].path}</Text>
-          )}
+          <Text className={css.branch}>{remoteVar?.identifier}</Text>
         </Layout.Horizontal>
-      </>
+        <Icon
+          name="edit"
+          onClick={() => {
+            setShowRemoteWizard(true)
+            setSelectedVar(varFile)
+            setIsEditMode(true)
+          }}
+        />
+      </div>
     )
   }
 
   const inlineRender = (varFile: TerraformVarFileWrapper) => {
-    const inlineVar = varFile?.varFile as InlineTerraformVarFileSpec
+    const inlineVar = varFile?.varFile as any
     return (
-      <Layout.Horizontal className={css.path}>
-        {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
-        <Text className={css.branch}>{inlineVar?.content}</Text>
-      </Layout.Horizontal>
+      <div className={css.configField}>
+        <Layout.Horizontal>
+          {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
+          <Text className={css.branch}>{inlineVar?.identifier}</Text>
+        </Layout.Horizontal>
+        <Icon
+          name="edit"
+          onClick={() => {
+            setShowTfModal(true)
+            setIsEditMode(true)
+            setSelectedVar(varFile)
+          }}
+        />
+      </div>
     )
   }
+
+  const DIALOG_PROPS: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: true,
+    canOutsideClickClose: true,
+    enforceFocus: true,
+    style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+  }
+
+  const getTitle = () => (
+    <Layout.Vertical flex style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Icon name="remote" />
+      <Text color={Color.WHITE}>{getString('pipelineSteps.remoteFile')}</Text>
+    </Layout.Vertical>
+  )
+
   return (
     <FieldArray
       name="spec.configuration.varFiles"
@@ -53,8 +105,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           <div>
             {formik?.values?.spec?.configuration?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
               return (
-                <div className={css.addMarginTop} key={i}>
-                  <Layout.Horizontal className={css.tfContainer}>
+                <div className={css.addMarginTop} key={`${varFile?.varFile?.spec?.type}`}>
+                  <Layout.Horizontal className={css.tfContainer} key={varFile?.varFile?.spec?.type}>
                     {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
                     {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
                     <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
@@ -62,28 +114,113 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 </div>
               )
             })}
-            <Button
-              icon="plus"
-              minimal
-              intent="primary"
-              data-testid="add-tfvar-file"
-              onClick={() => setShowTfModal(true)}
+            <Popover
+              interactionKind={PopoverInteractionKind.CLICK}
+              boundary="viewport"
+              popoverClassName={Classes.DARK}
+              content={
+                <Menu className={css.tfMenu}>
+                  <MenuItem
+                    text={<Text intent="primary">{getString('cd.addInline')} </Text>}
+                    icon={<Icon name="Inline" />}
+                    onClick={() => {
+                      setShowTfModal(true)
+                    }}
+                  />
+
+                  <MenuItem
+                    text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
+                    icon={<Icon name="remote" />}
+                    onClick={() => setShowRemoteWizard(true)}
+                  />
+                </Menu>
+              }
             >
-              {getString('pipelineSteps.addTerraformVarFile')}
-            </Button>
+              <Button icon="plus" minimal intent="primary" data-testid="add-tfvar-file" className={css.addTfVarFile}>
+                {getString('pipelineSteps.addTerraformVarFile')}
+              </Button>
+            </Popover>
+            {showRemoteWizard && (
+              <Dialog
+                {...DIALOG_PROPS}
+                isOpen={true}
+                isCloseButtonShown
+                onClose={() => {
+                  setShowRemoteWizard(false)
+                }}
+                className={cx(css.modal, Classes.DIALOG)}
+              >
+                <div className={css.createTfWizard}>
+                  <StepWizard title={getTitle()} initialStep={1} className={css.manifestWizard}>
+                    <TFVarStore
+                      name={getString('cd.tfVarStore')}
+                      initialValues={isEditMode ? selectedVar : remoteInitialValues}
+                      isEditMode={isEditMode}
+                    />
+                    <TFRemoteWizard
+                      name={getString('cd.varFileDetails')}
+                      onSubmitCallBack={(values: TerraformVarFileWrapper) => {
+                        push(values)
+                        setShowRemoteWizard(false)
+                      }}
+                      isEditMode={isEditMode}
+                      // initialValues={remoteInitialValues}
+                    />
+                  </StepWizard>
+                </div>
+                <Button
+                  minimal
+                  icon="cross"
+                  iconProps={{ size: 18 }}
+                  onClick={() => {
+                    setShowRemoteWizard(false)
+                  }}
+                  className={css.crossIcon}
+                />
+              </Dialog>
+            )}
             {showTfModal && (
-              <TfVarFile
-                onHide={() => {
-                  /* istanbul ignore next */
+              <Dialog
+                isOpen={true}
+                title="Add Inline Terraform Var File"
+                isCloseButtonShown
+                onClose={() => {
                   setShowTfModal(false)
                 }}
-                onSubmit={(values: any) => {
-                  /* istanbul ignore next */
-                  push(values)
-                  /* istanbul ignore next */
-                  setShowTfModal(false)
-                }}
-              />
+                className={Classes.DIALOG}
+              >
+                <Layout.Vertical padding="medium">
+                  <Formik
+                    initialValues={selectedVar}
+                    onSubmit={(values: any) => {
+                      if (!isEditMode) {
+                        push(values)
+                        setShowTfModal(false)
+                      }
+                    }}
+                    validationSchema={Yup.object().shape({
+                      varFile: Yup.object().shape({
+                        identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+                        spec: Yup.object().shape({
+                          content: Yup.string().required(getString('cd.contentRequired'))
+                        })
+                      })
+                    })}
+                  >
+                    {() => {
+                      return (
+                        <Form>
+                          <FormInput.Text name="varFile.identifier" label={getString('cd.fileIdentifier')} />
+                          <FormInput.TextArea name="varFile.spec.content" label={getString('pipelineSteps.content')} />
+                          <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
+                            <Button type="submit" intent={'primary'} text={getString('submit')} />
+                          </Layout.Horizontal>
+                        </Form>
+                      )
+                    }}
+                  </Formik>
+                </Layout.Vertical>
+              </Dialog>
             )}
           </div>
         )

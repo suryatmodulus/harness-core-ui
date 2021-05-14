@@ -12,16 +12,18 @@ import {
   Button,
   SelectOption
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
 import cx from 'classnames'
-// import * as Yup from 'yup'
-
 import { Form, FormikProps } from 'formik'
-import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
+import { useStrings } from 'framework/strings'
+
+// import * as Yup from 'yup'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import type { ConfigFileData, Connector } from '../TerraformInterfaces'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+
+import type { Connector, TFPlanConfig } from '../Common/Terraform/TerraformInterfaces'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ConfigFormProps {
@@ -45,30 +47,28 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   }>()
   return (
     <Layout.Vertical padding={'huge'}>
-      <Formik<ConfigFileData>
-        onSubmit={props.onClick}
+      <Formik<TFPlanConfig>
+        onSubmit={(values: any) => {
+          props.onClick(values)
+        }}
         initialValues={props.data}
         validationSchema={Yup.object().shape({
           spec: Yup.object().shape({
             configuration: Yup.object().shape({
-              spec: Yup.object().shape({
-                configFiles: Yup.object().shape({
-                  store: Yup.object().shape({
-                    spec: Yup.object().shape({
-                      connectorRef: Yup.string().required(
-                        getString('pipelineSteps.build.create.connectorRequiredError')
-                      ),
-                      gitFetchType: Yup.string().required(getString('cd.gitFetchTypeRequired')),
-                      branch: Yup.string().when('gitFetchType', {
-                        is: 'Branch',
-                        then: Yup.string().trim().required(getString('validation.branchName'))
-                      }),
-                      commitId: Yup.string().when('gitFetchType', {
-                        is: 'Commit',
-                        then: Yup.string().trim().required(getString('validation.commitId'))
-                      }),
-                      folderPath: Yup.string().required(getString('pipeline.manifestType.folderPathRequired'))
-                    })
+              configFiles: Yup.object().shape({
+                store: Yup.object().shape({
+                  spec: Yup.object().shape({
+                    connectorRef: Yup.string().required(getString('pipelineSteps.build.create.connectorRequiredError')),
+                    gitFetchType: Yup.string().required(getString('cd.gitFetchTypeRequired')),
+                    branch: Yup.string().when('gitFetchType', {
+                      is: 'Branch',
+                      then: Yup.string().trim().required(getString('validation.branchName'))
+                    }),
+                    commitId: Yup.string().when('gitFetchType', {
+                      is: 'CommitId',
+                      then: Yup.string().trim().required(getString('validation.commitId'))
+                    }),
+                    folderPath: Yup.string().required(getString('pipeline.manifestType.folderPathRequired'))
                   })
                 })
               })
@@ -76,10 +76,8 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
           })
         })}
       >
-        {(formik: FormikProps<ConfigFileData>) => {
-          const connectorValue = formik.values.spec?.configuration?.spec?.configFiles?.store?.spec
-            ?.connectorRef as Connector
-
+        {(formik: FormikProps<TFPlanConfig>) => {
+          const connectorValue = formik.values.spec?.configuration?.configFiles?.store?.spec?.connectorRef as Connector
           return (
             <Form>
               <FormMultiTypeConnectorField
@@ -96,13 +94,12 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 }
                 type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
                 width={
-                  getMultiTypeFromValue(
-                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                  ) === MultiTypeInputType.RUNTIME
+                  getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
+                  MultiTypeInputType.RUNTIME
                     ? 260
                     : 300
                 }
-                name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+                name="spec.configuration.configFiles.store.spec.connectorRef"
                 placeholder={getString('select')}
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
@@ -114,13 +111,13 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.Select
                   items={gitFetchTypes}
-                  name="spec.configuration.spec.configFiles.store.spec.gitFetchType"
+                  name="spec.configuration.configFiles.store.spec.gitFetchType"
                   label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                   placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
                 />
               </div>
 
-              {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
+              {formik.values?.spec?.configuration?.configFiles?.store?.spec?.gitFetchType ===
                 gitFetchTypes[0].value && (
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.MultiTextInput
@@ -129,46 +126,43 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     name="spec.configuration.spec.configFiles.store.spec.branch"
                     multiTextInputProps={{ expressions }}
                   />
-                  {getMultiTypeFromValue(formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
+                  {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
                     MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
                       style={{ alignSelf: 'center' }}
-                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch as string}
+                      value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch as string}
                       type="String"
                       variableName="configuration.spec.configFiles.store.spec.branch"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
-                      onChange={value =>
-                        formik.setFieldValue('configuration.spec.configFiles.store.spec.branch', value)
-                      }
+                      onChange={value => formik.setFieldValue('configuration.configFiles.store.spec.branch', value)}
                     />
                   )}
                 </div>
               )}
 
-              {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.gitFetchType ===
+              {formik.values?.spec?.configuration?.configFiles?.store?.spec?.gitFetchType ===
                 gitFetchTypes[1].value && (
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.MultiTextInput
                     label={getString('pipeline.manifestType.commitId')}
                     placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                    name="spec.configuration.spec.configFiles.store.spec.commitId"
+                    name="spec.configuration.configFiles.store.spec.commitId"
                     multiTextInputProps={{ expressions }}
                   />
-                  {getMultiTypeFromValue(
-                    formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId
-                  ) === MultiTypeInputType.RUNTIME && (
+                  {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
+                    MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
                       style={{ alignSelf: 'center' }}
-                      value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId as string}
+                      value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.commitId as string}
                       type="String"
-                      variableName="spec.configuration.spec.configFiles.store.spec.commitId"
+                      variableName="spec.configuration.configFiles.store.spec.commitId"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value =>
-                        formik.setFieldValue('spec.configuration.spec.configFiles.spec.store.spec.commitId', value)
+                        formik.setFieldValue('spec.configuration.configFiles.spec.store.spec.commitId', value)
                       }
                     />
                   )}
@@ -178,22 +172,24 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 <FormInput.MultiTextInput
                   label={getString('cd.folderPath')}
                   placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                  name="spec.configuration.spec.configFiles.store.spec.folderPath"
+                  name="spec.configuration.configFiles.store.spec.folderPath"
                   multiTextInputProps={{ expressions }}
                 />
-                {getMultiTypeFromValue(
-                  formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
-                ) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
+                  MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     style={{ alignSelf: 'center' }}
-                    value={formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath as string}
+                    value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath as string}
                     type="String"
-                    variableName="formik.values.spec?.configuration?.spec?.store.spec?.folderPath"
+                    variableName="formik.values.spec?.configuration?.configFiles?.store.spec?.folderPath"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value =>
-                      formik.setFieldValue('formik.values.spec?.configuration?.spec?.store.spec?.folderPath', value)
+                      formik.setFieldValue(
+                        'formik.values.spec?.configuration?.configFiles?.store.spec?.folderPath',
+                        value
+                      )
                     }
                   />
                 )}
@@ -203,7 +199,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.MultiTextInput
                     label={getString('pipelineSteps.repoName')}
-                    name="spec.configuration.spec.configFiles.store.spec.repoName"
+                    name="spec.configuration.configFiles.store.spec.repoName"
                     placeholder={getString('pipelineSteps.repoName')}
                     multiTextInputProps={{ expressions }}
                   />

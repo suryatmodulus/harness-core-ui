@@ -15,6 +15,7 @@ import type {
   TerraformApplyStepInfo,
   TerraformBackendConfig,
   TerraformDestroyStepInfo,
+  TerraformPlanExecutionData,
   TerraformPlanStepInfo,
   TerraformRollbackStepInfo,
   TerraformVarFileWrapper
@@ -127,6 +128,13 @@ export interface ConfigFileData {
     }
   }
 }
+
+export interface TFPlanConfig {
+  spec?: {
+    configuration?: TerraformPlanExecutionData
+  }
+}
+
 export interface Connector {
   label: string
   value: string

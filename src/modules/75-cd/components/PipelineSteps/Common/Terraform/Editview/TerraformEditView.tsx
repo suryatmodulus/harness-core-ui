@@ -75,10 +75,7 @@ export default function TerraformEditView(
     spec: Yup.object().shape({
       provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
       configuration: Yup.object().shape({
-        type: Yup.string().required(getString('pipelineSteps.configurationTypeRequired')),
-        spec: Yup.object().shape({
-          workspace: Yup.string().required('Workspace is required.')
-        })
+        type: Yup.string().required(getString('pipelineSteps.configurationTypeRequired'))
       })
     })
   })

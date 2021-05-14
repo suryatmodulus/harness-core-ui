@@ -26,5 +26,7 @@ declare const styles: {
   readonly tfRemoteForm: string
   readonly modal: string
   readonly crossIcon: string
+  readonly configPlaceHolder: string
+  readonly addTfVarFile: string
 }
 export default styles

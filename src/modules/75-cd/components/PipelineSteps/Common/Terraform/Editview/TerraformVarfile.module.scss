@@ -48,11 +48,11 @@
 }
 
 .addMarginTop {
-  margin-top: var(--spacing-small);
+  margin-top: var(--spacing-medium);
 }
 
 .addMarginBottom {
-  margin-bottom: var(--spacing-small);
+  margin-bottom: var(--spacing-medium);
 }
 
 .fieldBorder {
@@ -64,8 +64,12 @@
 .configField {
   display: flex;
   justify-content: space-between;
+  width: 320px !important;
+  height: 32px;
+  border: 1px solid #e4e4eb;
+  align-items: center;
+  padding: 10px;
 }
-
 .inputField {
   width: 80%;
 }
@@ -155,4 +159,13 @@
   position: absolute;
   right: var(--spacing-large);
   top: var(--spacing-large);
+}
+
+.configPlaceHolder {
+  color: #d9dae6 !important;
+}
+
+.addTfVarFile {
+  position: relative;
+  left: 20px;
 }

@@ -42,3 +42,6 @@ addRemote: Add Remote
 tfVarStore: Terraform Var Store
 varFileDetails: Var File Details
 fileIdentifier: File Id
+gitFetchTypeRequired: Git Fetch Type Required
+contentRequired: Content is required
+specifyTfVarStore: Specify Terraform Var File Store

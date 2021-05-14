@@ -116,6 +116,13 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
         groupContent={index => (
           <LogViewerAccordion key={memoizedData[index].id} {...memoizedData[index]} onSectionClick={onSectionClick} />
         )}
+        followOutput={(isAtBottom: boolean) => {
+          if (isAtBottom) {
+            return 'smooth'
+          } else {
+            return 'smooth'
+          }
+        }}
         itemContent={index =>
           flattenedRows.length > 0 && flattenedRows[index].raw.length > 0 ? (
             <div className={css.logViewer}>

@@ -16,6 +16,7 @@ import {
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import type { FormikContext } from 'formik'
+import { Link } from 'react-router-dom'
 import {
   GitSyncConfig,
   GitSyncEntityDTO,
@@ -26,6 +27,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import paths from '@common/RouteDefinitions'
 import { PageSpinner } from '../Page/PageSpinner'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './SaveToGitForm.module.scss'
@@ -181,19 +183,14 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     ) : null
   }
 
-  //   <Layout.Horizontal style={{ alignItems: 'center' }}>
-  //   <Avatar name={author} size="small" hoverCard={false} />
-  //   <Text font={{ size: 'small' }}>{author}</Text>
-  // </Layout.Horizontal>
-
   return loadingRepos ? (
     <PageSpinner />
   ) : (
-    <Container height={'inherit'} className={css.modalContainer} margin="small">
+    <Container height={'inherit'} className={css.modalContainer}>
       {currentUserInfo?.name && (
-        <Layout.Horizontal className={css.userInfo} flex={{ alignItems: 'center' }}>
+        <Layout.Horizontal className={css.userInfo} flex={{ alignItems: 'center' }} margin={{ top: 'xsmall' }}>
           <Avatar size="small" name={currentUserInfo?.name} backgroundColor={Color.PRIMARY_7} hoverCard={false} />
-          <Text>{`Using the Git credentials of ${currentUserInfo?.name}`}</Text>
+          <Text color={Color.GREY_700}>{getString('common.git.currentUserLabel', { user: currentUserInfo.name })}</Text>
         </Layout.Horizontal>
       )}
       <Text
@@ -205,8 +202,22 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
       >
         {getString('common.git.saveResourceLabel', { resource: props.resource.type })}
       </Text>
-
-      <Container>
+      {!currentUserInfo?.name && (
+        <Layout.Horizontal className={css.addUserContainer} spacing="small">
+          <Icon name="warning-sign" color={Color.ORANGE_700}></Icon>
+          <div>
+            <Text font={{ size: 'small' }} color={Color.BLACK}>
+              {getString('common.git.noUserLabel')}
+            </Text>
+            <Link to={paths.toUserProfile({ accountId })}>
+              <Text inline margin={{ top: 'xsmall' }} font={{ size: 'small', weight: 'bold' }} color={Color.PRIMARY_7}>
+                {getString('common.git.addUserCredentialLabel')}
+              </Text>
+            </Link>
+          </div>
+        </Layout.Horizontal>
+      )}
+      <Container className={css.modalBody}>
         <Formik<SaveToGitFormInterface>
           initialValues={defaultInitialFormData}
           validationSchema={Yup.object().shape({

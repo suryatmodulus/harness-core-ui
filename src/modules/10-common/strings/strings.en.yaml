@@ -163,6 +163,9 @@ git:
   installationId: 'GitHub Installation ID'
   applicationId: 'GitHub Application ID'
   privateKey: 'GitHub Private Key'
+  currentUserLabel: 'Using the Git credentials of {{user}}'
+  noUserLabel: 'We don’t have your git credentials for the selected folder. Please update the credentials in user profile.'
+  addUserCredentialLabel: Update in user profile
   saveResourceLabel: 'Save {{resource}} to Git'
   selectRepoLabel: Repository name
   filePath: File path

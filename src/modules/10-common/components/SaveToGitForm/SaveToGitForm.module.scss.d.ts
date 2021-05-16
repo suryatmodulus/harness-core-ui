@@ -4,6 +4,8 @@ declare const styles: {
   readonly modalContainer: string
   readonly userInfo: string
   readonly modalHeader: string
+  readonly addUserContainer: string
+  readonly modalBody: string
   readonly formBody: string
   readonly sectionHeader: string
   readonly branchInput: string

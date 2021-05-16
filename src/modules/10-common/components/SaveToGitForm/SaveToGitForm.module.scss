@@ -1,5 +1,5 @@
 .modalContainer {
-  padding: 0 var(--spacing-large) !important;
+  padding: 0 !important;
 
   .userInfo {
     position: absolute;
@@ -8,45 +8,55 @@
 
   .modalHeader {
     font-size: 20px !important;
+    padding: 0 var(--spacing-xlarge) !important;
   }
 
-  .formBody {
-    min-height: 480px;
+  .addUserContainer {
+    background: var(--orange-200) !important;
+    padding: var(--spacing-medium) var(--spacing-xlarge) !important;
+  }
 
-    [class*='txtNameContainer'] {
-      width: 48%;
-    }
+  .modalBody {
+    padding: var(--spacing-xlarge) !important;
 
-    .sectionHeader {
-      .branchInput {
-        width: 280px;
-        margin-top: var(--spacing-small);
+    .formBody {
+      min-height: 480px;
+
+      [class*='txtNameContainer'] {
+        width: 48%;
       }
-    }
 
-    .formRow {
-      display: flex;
+      .sectionHeader {
+        .branchInput {
+          width: 280px;
+          margin-top: var(--spacing-small);
+        }
+      }
+
+      .formRow {
+        display: flex;
+        :global {
+          .bp3-form-group {
+            width: 48%;
+          }
+        }
+      }
+
       :global {
-        .bp3-form-group {
-          width: 48%;
+        .bp3-form-content {
+          font-size: var(--font-size-normal);
+          color: var(--grey-500);
+
+          textarea {
+            max-height: 200px;
+            resize: vertical;
+          }
         }
       }
     }
 
-    :global {
-      .bp3-form-content {
-        font-size: var(--font-size-normal);
-        color: var(--grey-500);
-
-        textarea {
-          max-height: 200px;
-          resize: vertical;
-        }
-      }
+    .formButton {
+      padding: 0 var(--spacing-large) !important;
     }
-  }
-
-  .formButton {
-    padding: 0 var(--spacing-large) !important;
   }
 }

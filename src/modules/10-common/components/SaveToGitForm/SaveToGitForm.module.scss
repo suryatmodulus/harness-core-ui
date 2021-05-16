@@ -1,9 +1,13 @@
 .modalContainer {
   padding: 0 var(--spacing-large) !important;
 
+  .userInfo {
+    position: absolute;
+    right: var(--spacing-huge);
+  }
+
   .modalHeader {
     font-size: 20px !important;
-    border-bottom: thin solid var(--grey-300);
   }
 
   .formBody {
@@ -14,8 +18,6 @@
     }
 
     .sectionHeader {
-      border-bottom: thin solid var(--grey-300);
-
       .branchInput {
         width: 280px;
         margin-top: var(--spacing-small);

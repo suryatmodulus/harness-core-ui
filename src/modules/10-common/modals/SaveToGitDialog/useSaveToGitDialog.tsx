@@ -31,7 +31,7 @@ const useSaveToGitDialog = (props: UseSaveToGitDialogProps): UseSaveToGitDialogR
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 600,
+      width: 720,
       minHeight: 540,
       borderLeft: 0,
       paddingBottom: 0,
@@ -51,7 +51,7 @@ const useSaveToGitDialog = (props: UseSaveToGitDialogProps): UseSaveToGitDialogR
       hideModal()
     }
     return (
-      <Dialog {...modalProps}>
+      <Dialog className={css.gitDialog} {...modalProps}>
         <GitSyncStoreProvider>
           <SaveToGitForm
             accountId={accountId}

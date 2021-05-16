@@ -1,5 +1,8 @@
-.crossIcon {
-  position: absolute;
-  right: var(--spacing-xsmall);
-  padding: var(--spacing-xsmall) !important;
+.gitDialog {
+  padding-top: var(--spacing-small);
+  .crossIcon {
+    position: absolute;
+    right: var(--spacing-xsmall);
+    padding: var(--spacing-xsmall) !important;
+  }
 }

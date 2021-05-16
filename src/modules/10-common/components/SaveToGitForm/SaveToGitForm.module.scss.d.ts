@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly modalContainer: string
+  readonly userInfo: string
   readonly modalHeader: string
   readonly formBody: string
   readonly sectionHeader: string

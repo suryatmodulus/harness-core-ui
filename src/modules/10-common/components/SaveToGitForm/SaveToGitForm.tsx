@@ -10,7 +10,8 @@ import {
   Button,
   SelectOption,
   Radio,
-  Icon
+  Icon,
+  Avatar
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
@@ -24,6 +25,7 @@ import {
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '../Page/PageSpinner'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './SaveToGitForm.module.scss'
@@ -63,6 +65,7 @@ export interface SaveToGitFormInterface {
 const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier, isEditing = false, resource } = props
   const { getString } = useStrings()
+  const { currentUserInfo } = useAppStore()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const [rootFolderSelectOptions, setRootFolderSelectOptions] = React.useState<SelectOption[]>([])
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([])
@@ -178,16 +181,27 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     ) : null
   }
 
+  //   <Layout.Horizontal style={{ alignItems: 'center' }}>
+  //   <Avatar name={author} size="small" hoverCard={false} />
+  //   <Text font={{ size: 'small' }}>{author}</Text>
+  // </Layout.Horizontal>
+
   return loadingRepos ? (
     <PageSpinner />
   ) : (
-    <Container height={'inherit'} className={css.modalContainer} margin="large">
+    <Container height={'inherit'} className={css.modalContainer} margin="small">
+      {currentUserInfo?.name && (
+        <Layout.Horizontal className={css.userInfo} flex={{ alignItems: 'center' }}>
+          <Avatar size="small" name={currentUserInfo?.name} backgroundColor={Color.PRIMARY_7} hoverCard={false} />
+          <Text>{`Using the Git credentials of ${currentUserInfo?.name}`}</Text>
+        </Layout.Horizontal>
+      )}
       <Text
         className={css.modalHeader}
         font={{ weight: 'semi-bold' }}
         color={Color.GREY_800}
         padding={{ bottom: 'small' }}
-        margin={{ bottom: 'small' }}
+        margin={{ bottom: 'small', top: 'xlarge' }}
       >
         {getString('common.git.saveResourceLabel', { resource: props.resource.type })}
       </Text>

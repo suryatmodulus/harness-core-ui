@@ -5,11 +5,9 @@ import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import SaveToGitForm from '../SaveToGitForm'
 
 const createGitSynRepo = jest.fn()
-const fetchBranches = jest.fn(() => Promise.resolve([]))
 
 jest.mock('services/cd-ng', () => ({
-  usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
-  getListOfBranchesByGitConfigPromise: jest.fn().mockImplementation(() => fetchBranches())
+  usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo }))
 }))
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
@@ -36,7 +34,7 @@ describe('Save to git form', () => {
     await waitFor(() => {
       expect(getByText('common.git.saveResourceLabel')).toBeTruthy()
     })
-    expect(fetchBranches).toHaveBeenCalledTimes(1)
+
     // All required validation test
     await act(async () => {
       fireEvent.click(getByText('save'))
@@ -45,8 +43,7 @@ describe('Save to git form', () => {
     const newBranchRadioBtn = document.querySelector('[data-test="newBranchRadioBtn"]')
     act(() => {
       fireEvent.click(newBranchRadioBtn!)
-      expect(fetchBranches).toHaveBeenCalledTimes(1)
+      expect(container).toMatchSnapshot()
     })
-    expect(container).toMatchSnapshot()
   })
 })

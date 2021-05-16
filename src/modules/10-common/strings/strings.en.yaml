@@ -170,7 +170,7 @@ git:
   selectRepoLabel: Repository name
   filePath: File path
   commitMessage: Commit message
-  branchSelectHeader: SELECT A BRANCH TO COMMIT
+  branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
   newBranchCommitLabel: Commit to a new branch
   startPRLabel: Start a pull request

@@ -7,9 +7,9 @@ declare const styles: {
   readonly addUserContainer: string
   readonly modalBody: string
   readonly formBody: string
-  readonly sectionHeader: string
-  readonly branchInput: string
   readonly formRow: string
+  readonly branchSection: string
+  readonly branchInput: string
   readonly formButton: string
 }
 export default styles

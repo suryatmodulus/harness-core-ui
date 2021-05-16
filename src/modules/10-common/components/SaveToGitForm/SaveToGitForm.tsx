@@ -17,13 +17,7 @@ import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import type { FormikContext } from 'formik'
 import { Link } from 'react-router-dom'
-import {
-  GitSyncConfig,
-  GitSyncEntityDTO,
-  getListOfBranchesByGitConfigPromise,
-  GitSyncFolderConfigDTO,
-  EntityGitDetails
-} from 'services/cd-ng'
+import type { GitSyncConfig, GitSyncEntityDTO, GitSyncFolderConfigDTO, EntityGitDetails } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -65,15 +59,13 @@ export interface SaveToGitFormInterface {
 }
 
 const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier, isEditing = false, resource } = props
+  const { accountId, projectIdentifier, isEditing = false, resource } = props
   const { getString } = useStrings()
   const { currentUserInfo } = useAppStore()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const [rootFolderSelectOptions, setRootFolderSelectOptions] = React.useState<SelectOption[]>([])
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([])
-  const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [isNewBranch, setIsNewBranch] = React.useState(false)
-  const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
 
   const defaultInitialFormData: SaveToGitFormInterface = {
     name: resource.name,
@@ -90,33 +82,9 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
   const handleBranchTypeChange = (isNew: boolean, formik: FormikContext<SaveToGitFormInterface>): void => {
     if (isNewBranch !== isNew) {
       setIsNewBranch(isNew)
-      formik.setFieldValue('branch', '')
+      formik.setFieldValue('branch', `${resource.gitDetails?.branch}-patch`)
       formik.setFieldTouched('branch', false)
     }
-  }
-
-  const fetchBranches = (repoId: string): void => {
-    setLoadingBranchList(true)
-    getListOfBranchesByGitConfigPromise({
-      queryParams: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        yamlGitConfigIdentifier: repoId
-      }
-    }).then(response => {
-      setLoadingBranchList(false)
-      if (response.data?.length) {
-        setBranchSelectOptions(
-          response.data.map((branch: string) => {
-            return {
-              label: branch || '',
-              value: branch || ''
-            }
-          })
-        )
-      }
-    })
   }
 
   const getRootFolderSelectOptions = (folders: GitSyncFolderConfigDTO[] | undefined): SelectOption[] => {
@@ -137,7 +105,6 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         (repo: GitSyncConfig) => repo.identifier === defaultInitialFormData.repoIdentifier
       )
 
-      fetchBranches(defaultInitialFormData.repoIdentifier)
       setRepoSelectOptions(
         gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
           return {
@@ -157,30 +124,18 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gitSyncRepos, projectIdentifier])
 
-  const BranchSelect: React.FC<{ isNewSelected: boolean; isNewContainer: boolean }> = branchSelectProps => {
-    const { isNewSelected, isNewContainer } = branchSelectProps
-
-    return isNewSelected === isNewContainer ? (
-      <Container margin={{ left: 'huge' }}>
-        {isNewContainer ? (
-          <FormInput.Text className={css.branchInput} name="branch" label={getString('common.git.branchName')} />
-        ) : (
-          <FormInput.Select
-            name="branch"
-            className={css.branchInput}
-            items={branchSelectOptions}
-            disabled={loadingBranchList}
-            label={getString('common.git.branchName')}
-          />
-        )}
+  const CreatePR: React.FC = () => {
+    return (
+      <Container>
         <FormInput.CheckBox
-          margin={{ left: 'xlarge' }}
           name="createPr"
           disabled
           label={getString('common.git.startPRLabel')}
+          // margin={{ left: 'large', top: 'small' }}
         />
+        {/* Todo: enable and add target branch dropdown once PR support is added */}
       </Container>
-    ) : null
+    )
   }
 
   return loadingRepos ? (
@@ -248,22 +203,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       name="repoIdentifier"
                       label={getString('common.git.selectRepoLabel')}
                       items={repoSelectOptions}
-                      disabled={isEditing}
-                      onChange={(selected: SelectOption) => {
-                        formik.setFieldValue('branch', '')
-                        formik.setFieldValue('rootFolder', '')
-                        fetchBranches(selected.value as string)
-                        const selectedRepo = gitSyncRepos.find(
-                          (repo: GitSyncConfig) => repo.identifier === selected.value
-                        )
-
-                        const defaultRootFolder = selectedRepo?.gitSyncFolderConfigDTOs?.find(
-                          (folder: GitSyncFolderConfigDTO) => !!folder.isDefault
-                        )
-
-                        defaultRootFolder && formik.setFieldValue('rootFolder', defaultRootFolder.rootFolder)
-                        setRootFolderSelectOptions(getRootFolderSelectOptions(selectedRepo?.gitSyncFolderConfigDTOs))
-                      }}
+                      disabled
                     />
                     <FormInput.Select
                       name="rootFolder"
@@ -277,7 +217,6 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                   <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
 
                   <Text
-                    className={css.sectionHeader}
                     font={{ size: 'medium' }}
                     color={Color.GREY_600}
                     padding={{ bottom: 'small' }}
@@ -286,23 +225,32 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                     {getString('common.git.branchSelectHeader')}
                   </Text>
                   <Container
-                    className={css.sectionHeader}
+                    className={css.branchSection}
                     padding={{
                       top: 'small',
-                      bottom: isNewBranch ? 'small' : 'xSmall'
+                      bottom: 'xSmall'
                     }}
                   >
-                    <Radio large onClick={() => handleBranchTypeChange(false, formik)} checked={!isNewBranch}>
+                    <Radio large onChange={() => handleBranchTypeChange(false, formik)} checked={!isNewBranch}>
                       <Icon name="git-branch-existing"></Icon>
                       <Text margin={{ left: 'small' }} inline>
                         {getString('common.git.existingBranchCommitLabel')}
                       </Text>
+                      <Text
+                        margin={{ left: 'small' }}
+                        inline
+                        padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
+                        background={Color.PRIMARY_2}
+                        border={{ radius: 5 }}
+                      >
+                        {defaultInitialFormData.branch}
+                      </Text>
                     </Radio>
-                    <BranchSelect isNewSelected={isNewBranch} isNewContainer={false}></BranchSelect>
+                    {!isNewBranch && <CreatePR />}
                   </Container>
 
                   <Container
-                    className={css.sectionHeader}
+                    className={css.branchSection}
                     padding={{
                       top: 'small',
                       bottom: isNewBranch ? 'xSmall' : 'small'
@@ -311,7 +259,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                     <Radio
                       data-test="newBranchRadioBtn"
                       large
-                      onClick={() => handleBranchTypeChange(true, formik)}
+                      onChange={() => handleBranchTypeChange(true, formik)}
                       checked={isNewBranch}
                     >
                       <Icon name="git-new-branch" color={Color.GREY_700}></Icon>
@@ -319,7 +267,16 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                         {getString('common.git.newBranchCommitLabel')}
                       </Text>
                     </Radio>
-                    <BranchSelect isNewSelected={isNewBranch} isNewContainer={true}></BranchSelect>
+                    {isNewBranch && (
+                      <Container>
+                        <FormInput.Text
+                          className={css.branchInput}
+                          name="branch"
+                          label={getString('common.git.branchName')}
+                        />
+                        <CreatePR />
+                      </Container>
+                    )}
                   </Container>
                 </Container>
 

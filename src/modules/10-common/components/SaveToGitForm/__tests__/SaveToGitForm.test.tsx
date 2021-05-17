@@ -43,7 +43,7 @@ describe('Save to git form', () => {
     })
     expect(container).toMatchSnapshot()
     const newBranchRadioBtn = document.querySelector('[data-test="newBranchRadioBtn"]')
-    act(() => {
+    await waitFor(() => {
       fireEvent.click(newBranchRadioBtn!)
       expect(container).toMatchSnapshot()
     })

@@ -116,6 +116,8 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
         groupContent={index => (
           <LogViewerAccordion key={memoizedData[index].id} {...memoizedData[index]} onSectionClick={onSectionClick} />
         )}
+        overscan={5}
+        followOutput={() => 'auto'} // passing function scrolls to bottom
         itemContent={index =>
           flattenedRows.length > 0 && flattenedRows[index].raw.length > 0 ? (
             <div className={css.logViewer}>

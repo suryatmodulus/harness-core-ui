@@ -126,6 +126,11 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.HARNESSFOLDERLABEL
+              </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
               >
@@ -201,7 +206,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     class="bp3-label"
                     for="rootFolder"
                   >
-                    common.gitSync.rootFolderLabel
+                    common.gitSync.harnessFolderLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -292,6 +297,11 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--margin-top-large StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.COMMITDETAILSLABEL
+              </p>
               <div
                 class="bp3-form-group"
                 data-id="commitMsg-4"
@@ -428,7 +438,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
               </div>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
             >
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--intent-primary Button--with-current-color"
@@ -585,6 +595,11 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.HARNESSFOLDERLABEL
+              </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
               >
@@ -660,7 +675,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     class="bp3-label"
                     for="rootFolder"
                   >
-                    common.gitSync.rootFolderLabel
+                    common.gitSync.harnessFolderLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -751,6 +766,11 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small StyledProps--margin-top-large StyledProps--font-size-medium StyledProps--color StyledProps--color-grey400"
+              >
+                COMMON.GITSYNC.COMMITDETAILSLABEL
+              </p>
               <div
                 class="bp3-form-group"
                 data-id="commitMsg-4"
@@ -887,7 +907,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
               </div>
             </div>
             <div
-              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
             >
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--intent-primary Button--with-current-color"

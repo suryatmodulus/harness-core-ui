@@ -198,6 +198,9 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       inputGroupProps: { disabled: true }
                     }}
                   />
+                  <Text margin={{ bottom: 'small' }} font={{ size: 'medium' }} color={Color.GREY_400}>
+                    {getString('common.gitSync.harnessFolderLabel').toUpperCase()}
+                  </Text>
                   <Layout.Horizontal spacing="medium" className={css.formRow}>
                     <FormInput.Select
                       name="repoIdentifier"
@@ -207,13 +210,16 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                     />
                     <FormInput.Select
                       name="rootFolder"
-                      label={getString('common.gitSync.rootFolderLabel')}
+                      label={getString('common.gitSync.harnessFolderLabel')}
                       items={rootFolderSelectOptions}
                       disabled={isEditing}
                     />
                   </Layout.Horizontal>
 
                   <FormInput.Text name="filePath" label={getString('common.git.filePath')} disabled={isEditing} />
+                  <Text margin={{ bottom: 'small', top: 'large' }} font={{ size: 'medium' }} color={Color.GREY_400}>
+                    {getString('common.gitSync.commitDetailsLabel').toUpperCase()}
+                  </Text>
                   <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
 
                   <Text
@@ -280,7 +286,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                   </Container>
                 </Container>
 
-                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Layout.Horizontal padding={{ top: 'medium' }} spacing="medium">
                   <Button className={css.formButton} type="submit" intent="primary" text={getString('save')} />
                   <Button
                     className={css.formButton}

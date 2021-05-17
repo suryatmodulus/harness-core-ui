@@ -166,8 +166,10 @@ export interface StringsMap {
   'common.git.urlType': string
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
+  'common.gitSync.commitDetailsLabel': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
+  'common.gitSync.harnessFolderLabel': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string

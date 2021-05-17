@@ -123,6 +123,8 @@ repo_provider:
 gitSync:
   resourceLabel: '{{resource}} Name'
   rootFolderLabel: Root Folder
+  harnessFolderLabel: Harness Folder
+  commitDetailsLabel: Commit Details
   allRepositories: All Repositories
   defaultBranches: Default Branches
   repoDetails: Repo Details
@@ -172,7 +174,7 @@ git:
   commitMessage: Commit message
   branchSelectHeader: Select Branch to Commit
   existingBranchCommitLabel: Commit to an existing branch
-  newBranchCommitLabel: Commit to a new branch
+  newBranchCommitLabel: Commit to a new branch for this commit
   startPRLabel: Start a pull request
   validation:
     filePath: '{{$.common.git.filePath}} is required'

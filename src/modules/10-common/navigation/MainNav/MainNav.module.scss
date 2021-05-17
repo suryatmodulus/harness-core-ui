@@ -17,6 +17,10 @@
     &:hover {
       background: #082952;
     }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .navLink {

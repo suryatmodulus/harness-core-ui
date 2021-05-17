@@ -19,7 +19,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 
   const { currentUserInfo: user } = useAppStore()
 
@@ -99,26 +99,9 @@ export default function L1Nav(): React.ReactElement {
       </ul>
 
       <ul className={css.navList}>
-        {NG_DASHBOARDS && (
-          <li className={css.navItem}>
-            <Link className={css.navLink} activeClassName={css.active} to={paths.toCustomDasboard(params)}>
-              <Icon name="dashboard" size={20} />
-            </Link>
-          </li>
-        )}
         <li className={css.navItem}>
           <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
-            <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
-              <Avatar name={user.name} email={user.email} size="small" hoverCard={false} />
-              <Text
-                font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
-                color={Color.WHITE}
-                lineClamp={1}
-                className={css.userName}
-              >
-                {user.name}
-              </Text>
-            </Layout.Vertical>
+            <Avatar name={user.name} email={user.email} size="small" hoverCard={false} />
           </Link>
         </li>
       </ul>

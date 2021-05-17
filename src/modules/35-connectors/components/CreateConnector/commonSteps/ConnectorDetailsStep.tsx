@@ -151,7 +151,11 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
 
                   {isGitSyncEnabled && (
                     <GitSyncStoreProvider>
-                      <GitContextForm formikProps={formikProps} gitDetails={props.gitDetails} />
+                      <GitContextForm
+                        formikProps={formikProps}
+                        gitDetails={props.gitDetails}
+                        className={'gitDetailsContainer'}
+                      />
                     </GitSyncStoreProvider>
                   )}
                 </Container>

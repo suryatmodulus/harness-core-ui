@@ -7,7 +7,6 @@ import { GitSyncConfig, EntityGitDetails, useGetListOfBranchesWithStatus, GitBra
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import css from './GitContextForm.module.scss'
 
 export interface GitContextFormProps<T> {
   formikProps: FormikContext<T>
@@ -111,7 +110,7 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
     <Container
       border={{ top: true }}
       padding={{ top: 'medium', bottom: 'medium' }}
-      className={cx(css.gitContainer, gitContextFormProps.className)}
+      className={cx(gitContextFormProps.className)}
     >
       <Text margin={{ top: 'small', bottom: 'small' }}>
         {getString('common.gitSync.gitRepositoryDetails').toUpperCase()}

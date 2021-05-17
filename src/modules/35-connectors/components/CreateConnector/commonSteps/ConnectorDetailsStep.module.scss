@@ -18,5 +18,11 @@
     textarea {
       max-height: 200px;
     }
+
+    .gitDetailsContainer {
+      .bp3-popover-wrapper {
+        width: 56% !important;
+      }
+    }
   }
 }

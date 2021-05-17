@@ -185,6 +185,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         resetSelectedInstancesDetails()
       }
     }
+
     return <Button className={css.clearBtn} icon={'delete'} onClick={handleDeletion} />
   }
 

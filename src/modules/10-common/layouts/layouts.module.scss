@@ -7,7 +7,7 @@
 
 .main {
   display: grid;
-  grid-template-columns: 90px 180px 1fr;
+  grid-template-columns: 90px auto 1fr;
 
   &[data-layout='minimal'] {
     grid-template-columns: 90px 1fr;
@@ -16,4 +16,38 @@
   &[data-layout='empty'] {
     grid-template-columns: 1fr;
   }
+}
+
+.layout {
+  width: 180px;
+  height: 100%;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.layout.is-nav-closed {
+  width: 0px;
+  opacity: 0;
+}
+
+.closeButton {
+  position: absolute;
+  bottom: 10px;
+  z-index: 9;
+  background-color: var(--gray-200) !important;
+  width: 21px !important;
+  height: 35px !important;
+  border-top-left-radius: 18px !important;
+  border-bottom-left-radius: 18px !important;
+  border: none;
+}
+
+.openButton {
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  background-color: var(--gray-200);
+  width: 21px !important;
+  height: 35px !important;
+  opacity: 0.4;
 }

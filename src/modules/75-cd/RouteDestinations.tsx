@@ -154,7 +154,7 @@ const pipelineModuleParams: ModulePathParams = {
 
 export default (
   <>
-    <Route path={routes.toCD({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })} exact>
+    <Route path={routes.toCD({ ...accountPathProps })} exact>
       <RedirectToCDProject />
     </Route>
 

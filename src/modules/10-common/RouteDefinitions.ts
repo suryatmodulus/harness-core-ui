@@ -319,10 +319,7 @@ const routes = {
     }
   ),
   /********************************************************************************************************************/
-  toCD: (params: PipelineType<ProjectPathProps>): string =>
-    params.orgIdentifier && params.projectIdentifier
-      ? routes.toCDProject(params)
-      : routes.toCDDashboard(params as AccountPathProps),
+  toCD: withAccountId(() => `/cd`),
   toCDDashboard: withAccountId(() => `/cd`),
   toModuleHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home`),
   toModuleTrialHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home/trial`),

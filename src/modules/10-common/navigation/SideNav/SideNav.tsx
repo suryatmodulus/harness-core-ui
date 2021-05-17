@@ -8,6 +8,7 @@ export interface SideNavProps {
   subtitle?: string
   title?: string
   icon?: IconName
+  closeButton?: React.ReactElement
 }
 
 export default function SideNav(props: React.PropsWithChildren<SideNavProps>): ReactElement {
@@ -21,18 +22,21 @@ export default function SideNav(props: React.PropsWithChildren<SideNavProps>): R
           </div>
         ) : null}
         <div className={css.titleContainer}>
-          <Layout.Vertical>
-            {props.subtitle ? (
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {props.subtitle}
-              </Text>
-            ) : null}
-            {props.title ? (
-              <Text color={Color.WHITE} className={css.title}>
-                {props.title}
-              </Text>
-            ) : null}
-          </Layout.Vertical>
+          <Layout.Horizontal>
+            <Layout.Vertical>
+              {props.subtitle ? (
+                <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                  {props.subtitle}
+                </Text>
+              ) : null}
+              {props.title ? (
+                <Text color={Color.WHITE} className={css.title}>
+                  {props.title}
+                </Text>
+              ) : null}
+            </Layout.Vertical>
+            {props.closeButton}
+          </Layout.Horizontal>
         </div>
       </Container>
     </div>

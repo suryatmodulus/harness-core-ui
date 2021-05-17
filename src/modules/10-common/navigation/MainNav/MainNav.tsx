@@ -38,7 +38,7 @@ export default function L1Nav(): React.ReactElement {
         </li>
         {CDNG_ENABLED && (
           <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCD({ ...params, module: 'cd' })}>
+            <Link {...commonLinkProps} to={paths.toCD(params)}>
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="cd-main" size={30} />
                 <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>

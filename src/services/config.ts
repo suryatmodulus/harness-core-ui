@@ -3,7 +3,8 @@ import { mapKeys } from 'lodash-es'
 import qs from 'qs'
 
 export const getConfig = (str: string): string => {
-  return window.apiUrl ? `${window.apiUrl}/${str}` : window.location.pathname.replace('ng/', '') + str
+  // TODO: make this work for PR env, when namespacing is needed
+  return window.apiUrl ? `${window.apiUrl}/${str}` : '/' + str
 }
 export interface GetUsingFetchProps<
   _TData = any,

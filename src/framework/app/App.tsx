@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
@@ -145,7 +145,7 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   const strings = await languageLoader(lang)
 
   ReactDOM.render(
-    <HashRouter>
+    <BrowserRouter>
       <Switch>
         <Route
           path={[
@@ -161,7 +161,7 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
           <AppWithoutAuthentication strings={strings} />
         </Route>
       </Switch>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('react-root')
   )
 })()

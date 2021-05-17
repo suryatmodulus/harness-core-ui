@@ -24,6 +24,7 @@ const config = {
   mode: DEV ? 'development' : 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
@@ -31,6 +32,7 @@ const config = {
   devtool: DEV ? 'cheap-module-source-map' : false,
   devServer: {
     contentBase: false,
+    historyApiFallback: true,
     port: 8181,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),

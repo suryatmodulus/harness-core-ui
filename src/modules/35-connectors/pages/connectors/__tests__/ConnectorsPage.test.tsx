@@ -4,11 +4,13 @@ import { act } from 'react-dom/test-utils'
 import * as cdngServices from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
+import type { ResponseListString } from 'services/cd-ng'
 import ConnectorsPage from '../ConnectorsPage'
 
 import { connectorsData, catalogueData, statisticsMockData, filters } from './mockData'
 
 const fetchConnectors = () => Promise.resolve(connectorsData)
+const fetchBranches = jest.fn(() => Promise.resolve([] as ResponseListString))
 
 jest
   .spyOn(cdngServices, 'useGetConnectorStatistics')
@@ -21,6 +23,7 @@ jest.spyOn(cdngServices, 'useUpdateFilter').mockImplementation(() => ({ mutate: 
 jest.spyOn(cdngServices, 'useDeleteFilter').mockImplementation(() => ({ mutate: jest.fn() } as any))
 jest.spyOn(cdngServices, 'useGetTestConnectionResult').mockImplementation(() => Promise.resolve() as any)
 jest.spyOn(cdngServices, 'useDeleteConnector').mockImplementation(() => Promise.resolve() as any)
+jest.spyOn(cdngServices, 'getListOfBranchesByGitConfigPromise').mockImplementation(() => fetchBranches())
 
 describe('Connectors Page Test', () => {
   const props = {

@@ -24,7 +24,10 @@ jest.mock('services/cd-ng', () => ({
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
   useGetEnvironmentListForProject: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  getListOfBranchesByGitConfigPromise: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: [], refetch: jest.fn() }))
 }))
 
 jest.mock('@common/utils/dateUtils', () => ({

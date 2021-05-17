@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConditionalExecution matches snapshot when no data 1`] = `
+exports[`ConditionalExecutionToolTip matches snapshot 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-color-grey100 StyledProps--padding-right-xlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-small"
@@ -76,6 +76,23 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
         style="word-break: break-word; background: rgb(250, 251, 252);"
       >
         some JEXL condition
+      </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xsmall StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500"
+        >
+          pipeline.conditionalExecution.toolTip.resolvedVariables
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey900"
+          style="word-break: break-word;"
+        >
+          some expression
+           = 
+          some value
+        </p>
       </div>
     </div>
   </div>

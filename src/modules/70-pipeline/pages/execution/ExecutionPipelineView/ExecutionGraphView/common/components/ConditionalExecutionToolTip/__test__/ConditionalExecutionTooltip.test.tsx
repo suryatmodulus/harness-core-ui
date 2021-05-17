@@ -8,12 +8,17 @@ const getProps = (): ConditionalExecutionToolTipProps => ({
   mode: Modes.STAGE,
   data: {
     whenCondition: '<+OnPipelineSuccess> && (some JEXL condition)',
-    evaluatedCondition: true
+    expressions: [
+      {
+        expression: 'some expression',
+        expressionValue: 'some value'
+      }
+    ]
   }
 })
 
-describe('ConditionalExecution', () => {
-  test('matches snapshot when no data', () => {
+describe('ConditionalExecutionToolTip', () => {
+  test('matches snapshot', () => {
     const props = getProps()
     const { container } = render(
       <TestWrapper>

@@ -11,7 +11,6 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import {
   ResourceGroupDTO,
@@ -22,6 +21,7 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import css from './ResourceGroupModal.module.scss'
 interface ResourceGroupModalData {
   data?: ResourceGroupDTO
@@ -89,11 +89,8 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
             ...(editMode && data)
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(),
-            identifier: Yup.string().when('name', {
-              is: val => val?.length,
-              then: Yup.string().required().matches(regexIdentifier).notOneOf(illegalIdentifiers)
-            }),
+            name: NameSchema(),
+            identifier: IdentifierSchema(),
             color: Yup.string().trim().required()
           })}
           onSubmit={values => {

@@ -23,31 +23,36 @@ const processConditionData = (
 ): {
   status: PipelineOrStageStatus
   statusStringId: keyof StringsMap
-  condition: string | undefined
+  condition: string | null
 } => {
   const whenConditionInfo: string[] = whenCondition.split(' && ')
   const statusInfo: string = whenConditionInfo.shift()!.replace(/[^a-zA-Z]/g, '')
-  let condition
-  if (whenConditionInfo.length > 0) {
-    condition = whenConditionInfo.join(' && ').slice(1, -1)
-  }
   return {
     status: statusToStatusMapping[statusInfo],
     statusStringId: statusToStringIdMapping[statusInfo],
-    condition
+    condition: whenConditionInfo.length > 0 ? whenConditionInfo.join(' && ').slice(1, -1) : null
   }
 }
 
+export interface ResolvedVariableInterface {
+  fullExpression: string
+  trimmedExpression: string
+  expressionValue: string
+}
+
 const processResolvedVariables = (expressions: ExpressionBlock[] | undefined) => {
-  const resolvedVariablesStrings: string[] = []
+  const resolvedVariables: ResolvedVariableInterface[] = []
   expressions?.forEach(expression => {
-    const expressionStr: string = expression.expression || ''
+    const expressionStr: string | undefined = expression.expression
     if (!!expressionStr && !statusToStatusMapping[expressionStr]) {
-      const str: string = expressionStr.split('.').pop() + ' = ' + expression.expressionValue
-      resolvedVariablesStrings.push(str)
+      resolvedVariables.push({
+        fullExpression: expressionStr,
+        trimmedExpression: expressionStr.split('.').pop() || '',
+        expressionValue: expression.expressionValue || ''
+      })
     }
   })
-  return resolvedVariablesStrings
+  return resolvedVariables
 }
 
 export default function ConditionalExecutionTooltip(props: ConditionalExecutionToolTipProps): React.ReactElement {
@@ -57,7 +62,7 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
   } = props
   const { getString } = useStrings()
   const { status, statusStringId, condition } = processConditionData(whenCondition!)
-  const resolvedVariablesStrings = processResolvedVariables(expressions)
+  const resolvedVariables = processResolvedVariables(expressions)
 
   if (status === PipelineOrStageStatus.SUCCESS && !condition?.trim()) {
     return <></>
@@ -83,8 +88,8 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
         </Text>
         <Text
           padding={{
-            top: condition !== undefined ? 'xsmall' : 'none',
-            bottom: condition !== undefined ? 'xsmall' : 'none'
+            top: condition ? 'xsmall' : 'none',
+            bottom: condition ? 'xsmall' : 'none'
           }}
           font={{ size: 'xsmall' }}
           style={{ lineHeight: '16px' }}
@@ -120,15 +125,28 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
             {condition}
           </Container>
         )}
-        {resolvedVariablesStrings.length > 0 && (
+        {resolvedVariables.length > 0 && (
           <Layout.Vertical spacing={'xsmall'} padding={{ top: 'medium' }}>
             <Text padding={{ bottom: 'xsmall' }} font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_500}>
               {getString('pipeline.conditionalExecution.toolTip.resolvedVariables')}
             </Text>
-            {resolvedVariablesStrings.map(resolvedVariablesString => {
+            {resolvedVariables.map(resolvedVariable => {
               return (
-                <Text key={resolvedVariablesString} font={{ size: 'xsmall' }} lineClamp={1} color={Color.GREY_900}>
-                  {resolvedVariablesString}
+                <Text
+                  key={resolvedVariable.fullExpression}
+                  style={{ wordBreak: 'break-word' }}
+                  font={{ size: 'xsmall' }}
+                  color={Color.GREY_900}
+                >
+                  {resolvedVariable.fullExpression !== resolvedVariable.trimmedExpression ? (
+                    <Text font={{ size: 'xsmall' }} color={Color.GREY_900} tooltip={resolvedVariable.fullExpression}>
+                      {resolvedVariable.trimmedExpression}
+                    </Text>
+                  ) : (
+                    resolvedVariable.trimmedExpression
+                  )}
+                  {' = '}
+                  {resolvedVariable.expressionValue}
                 </Text>
               )
             })}

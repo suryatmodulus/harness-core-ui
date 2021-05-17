@@ -17,12 +17,12 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { Menu } from '@blueprintjs/core'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface UserGroupModalData {
@@ -133,11 +133,8 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
             ...userGroupData
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(),
-            identifier: Yup.string().when('name', {
-              is: val => val?.length,
-              then: Yup.string().required().matches(regexIdentifier).notOneOf(illegalIdentifiers)
-            })
+            name: NameSchema(),
+            identifier: IdentifierSchema()
           })}
           onSubmit={values => {
             modalErrorHandler?.hide()

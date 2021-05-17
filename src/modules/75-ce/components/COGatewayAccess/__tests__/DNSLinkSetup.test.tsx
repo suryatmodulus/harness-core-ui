@@ -2,6 +2,7 @@ import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { findByText, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { AccessPoint, AccessPointCore } from 'services/lw'
 import DNSLinkSetup from '../DNSLinkSetup'
 
 let mockAccessPointList = {
@@ -9,10 +10,11 @@ let mockAccessPointList = {
     {
       name: 'mock.com',
       id: 'mock.com',
+      host_name: 'mock.com',
       metadata: {
         albArn: 'mockalbARN'
       }
-    }
+    } as AccessPoint
   ]
 }
 let mockedHostedZonesData = {
@@ -39,10 +41,11 @@ const mockAccessPointResourceData = {
     {
       details: {
         albARN: 'mockalbARN',
-        name: 'mockALBname'
+        name: 'mockALBname',
+        id: 'mock.com'
       }
     }
-  ]
+  ] as AccessPointCore[]
 }
 
 jest.mock('services/lw', () => ({
@@ -150,24 +153,28 @@ describe('Use DNS for Setup', () => {
 
     const notUsingCustomDomain = container.querySelector('input[name="notUsingCustomDomain"]') as HTMLInputElement
     expect(notUsingCustomDomain).toBeDefined()
+
     const accessPointDropDown = container.querySelector('input[name="accessPoint"]') as HTMLInputElement
     const generatedHostName = await findByText(container, 'ce.co.dnsSetup.autoURL')
     expect(generatedHostName).toBeDefined()
     expect(accessPointDropDown).toBeDefined()
-    // const accessPointCaret = container
-    //   .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
-    //   ?.querySelector('[data-icon="caret-down"]')
-    await waitFor(() => {
-      fireEvent.focus(accessPointDropDown!)
-    })
-    // const apToSelect = await findByText(container, 'mock.com')
-    // expect(apToSelect).toBeDefined()
-    // act(() => {
-    //   fireEvent.focus(apToSelect)
-    // })
-    // expect(accessPointDropDown.value).toBe('mock.com')
-    // expect(generatedHostName.textContent).toBe('orgidentifier-mockname.mock.com')
 
+    // selecting resource
+    const accessPointCaret = container
+      .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+    await waitFor(() => {
+      fireEvent.click(accessPointCaret!)
+    })
+    const apToSelect = await findByText(container, 'mockALBname')
+    expect(apToSelect).toBeDefined()
+    act(() => {
+      fireEvent.click(apToSelect)
+    })
+    expect(accessPointDropDown.value).toBe('mockALBname')
+    expect(generatedHostName.textContent).toBe('orgidentifier-mockname.mock.com')
+
+    // adding custom url
     const customURL = container.querySelector('input[name="customURL"]') as HTMLInputElement
     expect(customURL).toBeDefined()
     expect(customURL.value).toBe('')
@@ -182,6 +189,7 @@ describe('Use DNS for Setup', () => {
     })
     expect(customURL.value).toBe(mockURL)
 
+    // mapping other/route53 domain
     const route53 = container.querySelector('input[name="route53RadioBtn"]') as HTMLInputElement
     expect(route53).toBeDefined()
     act(() => {
@@ -236,5 +244,59 @@ describe('Use DNS for Setup', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+})
+
+describe('Azure DNS setup', () => {
+  test('render azure dns setup page', async () => {
+    const azureProvider = {
+      name: 'Azure',
+      value: 'azure',
+      icon: 'service-azure'
+    }
+
+    mockAccessPointList = {
+      response: [
+        {
+          name: 'mock.com',
+          id: 'mock.com',
+          host_name: 'mock.com',
+          metadata: {
+            albArn: 'mockalbARN',
+            app_gateway_id: 'mock.com'
+          }
+        }
+      ]
+    }
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <DNSLinkSetup
+          gatewayDetails={{ ...initialGatewayDetails, provider: azureProvider }}
+          setGatewayDetails={jest.fn()}
+          setHelpTextSections={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+
+    const accessPointDropDown = container.querySelector('input[name="accessPoint"]') as HTMLInputElement
+    const generatedHostName = await findByText(container, 'ce.co.dnsSetup.autoURL')
+    expect(generatedHostName).toBeDefined()
+    expect(accessPointDropDown).toBeDefined()
+
+    // selecting resource
+    const accessPointCaret = container
+      .querySelector(`input[name="accessPoint"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+    await waitFor(() => {
+      fireEvent.click(accessPointCaret!)
+    })
+    const apToSelect = await findByText(container, 'mockALBname')
+    expect(apToSelect).toBeDefined()
+    act(() => {
+      fireEvent.click(apToSelect)
+    })
+    expect(accessPointDropDown.value).toBe('mockALBname')
+    expect(generatedHostName.textContent).toBe('orgidentifier-mockname.mock.com')
   })
 })

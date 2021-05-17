@@ -169,19 +169,17 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     )}.${val}`.toLocaleLowerCase()
   }
 
-  // useEffect(() => {
-  //   if (accessPoints?.response?.length == 0) {
-  //     return
-  //   }
-  //   const loaded: SelectOption[] =
-  //     accessPoints?.response?.map(r => {
-  //       return {
-  //         label: r.name as string,
-  //         value: r.id as string
-  //       }
-  //     }) || []
-  //   setAccessPointsList(loaded)
-  // }, [accessPoints?.response])
+  useEffect(() => {
+    if (accessPoints?.response?.length == 0) {
+      return
+    }
+    if (props.gatewayDetails.accessPointID) {
+      const targetAp = accessPoints?.response?.find(_ap => _ap.id === props.gatewayDetails.accessPointID)
+      if (targetAp) {
+        setAccessPoint(targetAp)
+      }
+    }
+  }, [accessPoints?.response])
 
   useEffect(() => {
     if (apCoresResponse?.response?.length == 0) {
@@ -199,14 +197,15 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         }
       }) || []
     setApCoreList(loaded)
-    if (!_isEmpty(accessPoint)) {
-      const albArn = accessPoint?.metadata?.albArn
-      const selectedResource = albArn && loaded.find(_item => _item.value === albArn)
-      if (selectedResource) {
-        setSelectedApCore(selectedResource)
-      }
-    }
   }, [apCoresResponse?.response])
+
+  useEffect(() => {
+    const albArn = accessPoint?.metadata?.albArn
+    const selectedResource = albArn && apCoreList.find(_item => _item.value === albArn)
+    if (selectedResource) {
+      setSelectedApCore(selectedResource)
+    }
+  }, [accessPoint, apCoreList])
 
   useEffect(() => {
     if (hostedZonesLoading) return

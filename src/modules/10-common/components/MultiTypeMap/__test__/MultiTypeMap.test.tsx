@@ -8,6 +8,7 @@ import MultiTypeMap from '../MultiTypeMap'
 
 interface TestProps {
   initialValues?: any
+  appearance?: 'default' | 'minimal'
 }
 
 const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
@@ -26,6 +27,11 @@ const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
 )
 
 describe('<MultiTypeMap /> tests', () => {
+  test('Renders ok with minimal UI', () => {
+    const { container } = render(<TestComponent initialValues={{ test: [] }} appearance={'minimal'} />)
+    expect(container).toMatchSnapshot()
+  })
+
   test('+ Add button should add a new field', async () => {
     const { container, getByTestId } = render(<TestComponent initialValues={{ test: [] }} />)
 

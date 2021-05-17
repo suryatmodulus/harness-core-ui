@@ -136,7 +136,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -1905,7 +1905,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -3674,7 +3674,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -5453,7 +5453,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -6518,7 +6518,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"

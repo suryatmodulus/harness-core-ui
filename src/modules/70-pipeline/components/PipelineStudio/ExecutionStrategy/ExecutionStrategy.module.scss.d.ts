@@ -12,5 +12,6 @@ declare const styles: {
   readonly previewContainer: string
   readonly info: string
   readonly image: string
+  readonly toggleVerify: string
 }
 export default styles

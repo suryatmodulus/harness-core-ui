@@ -12,11 +12,11 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 
 interface RoleModalData {
@@ -83,11 +83,8 @@ const RoleForm: React.FC<RoleModalData> = props => {
             ...roleData
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(),
-            identifier: Yup.string().when('name', {
-              is: val => val?.length,
-              then: Yup.string().required().matches(regexIdentifier).notOneOf(illegalIdentifiers)
-            })
+            name: NameSchema(),
+            identifier: IdentifierSchema()
           })}
           onSubmit={values => {
             modalErrorHandler?.hide()

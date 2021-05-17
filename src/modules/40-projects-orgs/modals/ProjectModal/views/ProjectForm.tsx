@@ -16,11 +16,11 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
+import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -82,17 +82,8 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
       }}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .trim()
-          .required(getString('validation.nameRequired'))
-          .matches(regexName, getString('formValidation.name')),
-        identifier: Yup.string().when('name', {
-          is: val => val?.length,
-          then: Yup.string()
-            .required(getString('validation.identifierRequired'))
-            .matches(regexIdentifier, getString('validation.validIdRegex'))
-            .notOneOf(illegalIdentifiers)
-        }),
+        name: NameSchema(),
+        identifier: IdentifierSchema(),
         orgIdentifier: Yup.string().required(getString('validation.orgValidation'))
       })}
       onSubmit={(values: AboutPageData) => {

@@ -3692,11 +3692,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.latestCommit': string
+  'execution.latest5Commits': string
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.latestNCommits': string
+  'execution.latestCommit': string
   /**
    * @deprecated migrate this string to module level file
    */

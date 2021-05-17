@@ -136,7 +136,7 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -921,7 +921,7 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                        class="MultiTypeInput--btn MultiTypeInput--RUNTIME multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -1822,7 +1822,7 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                       >
                         <span
                           class="bp3-icon StyledProps--main"

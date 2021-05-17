@@ -10,6 +10,7 @@ import {
   Container
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
+import type { GetDataError } from 'restful-react'
 import { debounce, pick } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import {
@@ -27,7 +28,8 @@ import {
   useDeleteFilter,
   ResponsePageFilterDTO,
   ResponseConnectorStatistics,
-  GetConnectorListV2QueryParams
+  GetConnectorListV2QueryParams,
+  Failure
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -99,7 +101,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const { showError } = useToaster()
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = useState<PageConnectorResponse | undefined>()
   const [isFetchingConnectors, setIsFetchingConnectors] = useState<boolean>(false)
-  const [errorWhileFetchingConnectors, setErrorWhileFetchingConnectors] = useState<Error>()
+  const [errorWhileFetchingConnectors, setErrorWhileFetchingConnectors] = useState<GetDataError<Failure | Error>>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
@@ -147,7 +149,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       needsRefinement = true
     ): Promise<void> => {
       setIsFetchingConnectors(true)
-
       const { connectorNames, connectorIdentifiers, description, types, connectivityStatuses, tags } = filter || {}
 
       const requestBodyPayload = Object.assign(
@@ -177,10 +178,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       } /* istanbul ignore next */ catch (e) {
         if (shouldShowError(e)) {
           showError(e.data?.message || e.message)
-          setErrorWhileFetchingConnectors(e)
-        } else if (e?.data?.code === 'ACCESS_DENIED') {
-          setErrorWhileFetchingConnectors(e?.data)
         }
+        setErrorWhileFetchingConnectors(e)
       }
       setIsFetchingConnectors(false)
     },
@@ -601,7 +600,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         </Layout.Horizontal>
 
         <Layout.Horizontal margin={{ left: 'small' }}>
-          <Container className={css.expandSearch} margin={{ right: 'small' }}>
+          <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="connectorSeachContainer">
             <ExpandingSearchInput
               placeholder={getString('search')}
               throttle={200}
@@ -633,7 +632,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         ) : /* istanbul ignore next */ errorWhileFetchingConnectors ? (
           <div style={{ paddingTop: '200px' }}>
             <PageError
-              message={errorWhileFetchingConnectors?.message}
+              message={(errorWhileFetchingConnectors?.data as Error)?.message || errorWhileFetchingConnectors?.message}
               onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
                 e.preventDefault()
                 e.stopPropagation()

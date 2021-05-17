@@ -9,7 +9,8 @@ import {
   Text,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Card
+  Card,
+  Accordion
 } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -398,6 +399,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         </div>
                         <MultiTypeMap
                           style={{ marginTop: 'var(--spacing-medium)' }}
+                          appearance="minimal"
                           name="annotations"
                           valueMultiTextInputProps={{ expressions }}
                           multiTypeFieldSelectorProps={{
@@ -413,6 +415,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         />
                         <MultiTypeMap
                           style={{ marginTop: 'var(--spacing-medium)' }}
+                          appearance="minimal"
                           name="labels"
                           valueMultiTextInputProps={{ expressions }}
                           multiTypeFieldSelectorProps={{
@@ -430,75 +433,92 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                     </Layout.Horizontal>
                   </Card>
                 ) : (
-                  <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                    <ConnectorReferenceField
-                      width={300}
-                      name="connectorRef"
-                      selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
-                      label={getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
-                      placeholder={loading ? getString('loading') : getString('select')}
-                      disabled={loading || isReadonly}
-                      accountIdentifier={accountId}
-                      projectIdentifier={projectIdentifier}
-                      orgIdentifier={orgIdentifier}
-                      onChange={(value, scope) => {
-                        setFieldValue('connectorRef', {
-                          label: value.name || '',
-                          value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-                          scope: scope
-                        })
-                      }}
-                    />
-                    <Text margin={{ bottom: 'xsmall' }}>
-                      {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                    </Text>
-                    <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                      <MultiTypeTextField
-                        label=""
-                        name={'namespace'}
-                        style={{ width: 300 }}
-                        multiTextInputProps={{
-                          multiTextInputProps: { expressions },
-                          disabled: isReadonly
+                  <>
+                    <Card disabled={isReadonly} className={cx(css.sectionCard)}>
+                      <ConnectorReferenceField
+                        width={300}
+                        name="connectorRef"
+                        selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
+                        label={getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
+                        placeholder={loading ? getString('loading') : getString('select')}
+                        disabled={loading || isReadonly}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        onChange={(value, scope) => {
+                          setFieldValue('connectorRef', {
+                            label: value.name || '',
+                            value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
+                            scope: scope
+                          })
                         }}
                       />
-                      {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formValues.namespace as string}
-                          type={
-                            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                              <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
-                            </Layout.Horizontal>
-                          }
-                          variableName={'namespace'}
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={value => setFieldValue('namespace', value)}
+                      <Text margin={{ bottom: 'xsmall' }}>
+                        {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                      </Text>
+                      <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                        <MultiTypeTextField
+                          label=""
+                          name={'namespace'}
+                          style={{ width: 300 }}
+                          multiTextInputProps={{
+                            multiTextInputProps: { expressions },
+                            disabled: isReadonly
+                          }}
                         />
-                      )}
-                    </div>
-                    <MultiTypeMap
-                      style={{ marginTop: 'var(--spacing-medium)' }}
-                      name="annotations"
-                      valueMultiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: getString('ci.annotations'),
-                        disableTypeSelection: true
-                      }}
-                      disabled={isReadonly}
-                    />
-                    <MultiTypeMap
-                      style={{ marginTop: 'var(--spacing-medium)' }}
-                      name="labels"
-                      valueMultiTextInputProps={{ expressions }}
-                      multiTypeFieldSelectorProps={{
-                        label: getString('ci.labels'),
-                        disableTypeSelection: true
-                      }}
-                      disabled={isReadonly}
-                    />
-                  </Card>
+                        {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formValues.namespace as string}
+                            type={
+                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
+                              </Layout.Horizontal>
+                            }
+                            variableName={'namespace'}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue('namespace', value)}
+                          />
+                        )}
+                      </div>
+                    </Card>
+                    <Accordion activeId={''}>
+                      <Accordion.Panel
+                        id="advanced"
+                        addDomId={true}
+                        summary={getString('advancedTitle')}
+                        details={
+                          <Card disabled={isReadonly} className={css.sectionCard}>
+                            <MultiTypeMap
+                              style={{ marginTop: 'var(--spacing-medium)' }}
+                              appearance={'minimal'}
+                              cardStyle={{ width: '50%' }}
+                              name="annotations"
+                              valueMultiTextInputProps={{ expressions }}
+                              multiTypeFieldSelectorProps={{
+                                label: <Text>{getString('ci.annotations')}</Text>,
+                                disableTypeSelection: true
+                              }}
+                              disabled={isReadonly}
+                            />
+                            <MultiTypeMap
+                              style={{ marginTop: 'var(--spacing-medium)' }}
+                              appearance={'minimal'}
+                              cardStyle={{ width: '50%' }}
+                              name="labels"
+                              valueMultiTextInputProps={{ expressions }}
+                              multiTypeFieldSelectorProps={{
+                                label: <Text>{getString('ci.labels')}</Text>,
+                                disableTypeSelection: true
+                              }}
+                              disabled={isReadonly}
+                            />
+                          </Card>
+                        }
+                      />
+                    </Accordion>
+                  </>
                 )}
               </FormikForm>
             </Layout.Vertical>

@@ -85,9 +85,6 @@ const BuildCommits: React.FC = () => {
                   )}
                 </div>
                 <Container flex>
-                  {/* @TODO: once response includes avatar reference,
-                   * we should pass it to Avatar component
-                   */}
                   <Avatar
                     className={css.avatar}
                     name={firstName}

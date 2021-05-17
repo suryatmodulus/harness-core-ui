@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor, queryByText, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import * as cdngServices from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
 import ConnectorsPage from '../ConnectorsPage'
@@ -9,19 +10,17 @@ import { connectorsData, catalogueData, statisticsMockData, filters } from './mo
 
 const fetchConnectors = () => Promise.resolve(connectorsData)
 
-jest.mock('services/cd-ng', () => ({
-  useGetConnectorStatistics: jest.fn().mockImplementation(() => Promise.resolve(statisticsMockData)),
-  useGetConnectorCatalogue: jest.fn().mockImplementation(() => Promise.resolve(catalogueData)),
-  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
-  useGetFilterList: jest.fn().mockImplementation(() => {
-    return { data: filters, loading: false }
-  }),
-  usePostFilter: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useUpdateFilter: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useDeleteFilter: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetTestConnectionResult: jest.fn().mockImplementation(() => Promise.resolve()),
-  useDeleteConnector: jest.fn().mockImplementation(() => Promise.resolve())
-}))
+jest
+  .spyOn(cdngServices, 'useGetConnectorStatistics')
+  .mockImplementation(() => ({ mutate: () => statisticsMockData } as any))
+jest.spyOn(cdngServices, 'useGetConnectorCatalogue').mockImplementation(() => ({ mutate: () => catalogueData } as any))
+jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: fetchConnectors } as any))
+jest.spyOn(cdngServices, 'useGetFilterList').mockImplementation(() => ({ data: filters, loading: false } as any))
+jest.spyOn(cdngServices, 'usePostFilter').mockImplementation(() => ({ mutate: jest.fn() } as any))
+jest.spyOn(cdngServices, 'useUpdateFilter').mockImplementation(() => ({ mutate: jest.fn() } as any))
+jest.spyOn(cdngServices, 'useDeleteFilter').mockImplementation(() => ({ mutate: jest.fn() } as any))
+jest.spyOn(cdngServices, 'useGetTestConnectionResult').mockImplementation(() => Promise.resolve() as any)
+jest.spyOn(cdngServices, 'useDeleteConnector').mockImplementation(() => Promise.resolve() as any)
 
 describe('Connectors Page Test', () => {
   const props = {
@@ -154,5 +153,21 @@ describe('Connectors Page Test', () => {
     const createViaYamlButton = container.querySelector('[data-test="createViaYamlButton"]')
     expect(newConnectorButton?.getAttribute('disabled')).toBe('')
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
+  })
+
+  test('should confirm that searching calls the api', async () => {
+    const getConnectorsListV2 = jest.fn()
+    jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
+    const { container } = setup()
+    const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
+    const searchIcon = searchContainer?.querySelector('span[icon="search"]')
+    const searchInput = searchContainer?.querySelector('input[placeholder="search"]')
+    expect(searchIcon).toBeTruthy()
+    expect(searchInput).toBeTruthy()
+    expect(searchInput?.nodeValue).toBe(null)
+    expect(getConnectorsListV2).toBeCalledTimes(1)
+    fireEvent.click(searchIcon!)
+    fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+    await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })

@@ -124,7 +124,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                       className={css.buildInfo}
                     />
                   </div>
-                  {showCommits ? <CommitsList commits={getCommits(ciBuildData)} /> : null}
+                  {showCommits ? <CommitsList author={ciBuildData.author} commits={getCommits(ciBuildData)} /> : null}
                 </>
               ) : null}
               {HAS_CD ? (

@@ -3,3 +3,7 @@
   // Prevent horizontal resizing since it is breaking UI
   resize: vertical;
 }
+
+.multi-btn {
+  height: auto !important;
+}

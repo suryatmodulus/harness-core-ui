@@ -116,7 +116,7 @@ export default function ExecutionStepInputOutputTab(props: ExecutionStepInputOut
 
   if (!Array.isArray(props.data) || props.data.length === 0) {
     return (
-      <div className={css.ioTab}>
+      <div className={css.ioTab} data-empty="true">
         {getString(props.mode === 'output' ? 'execution.iotab.noOutputText' : 'execution.iotab.noInputText')}
       </div>
     )

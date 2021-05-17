@@ -56,7 +56,7 @@
 .preview {
   padding-top: 60px;
   .previewContainer {
-    background: var(--blue-100);
+    background: #e9f7ff;
     height: 60vh;
     margin-top: var(--spacing-xxlarge);
     border-radius: 10px;
@@ -72,6 +72,9 @@
       img {
         width: 100%;
       }
+    }
+    .toggleVerify {
+      margin-left: 22px;
     }
   }
 }

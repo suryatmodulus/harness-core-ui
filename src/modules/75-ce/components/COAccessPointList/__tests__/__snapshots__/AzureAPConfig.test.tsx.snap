@@ -9,7 +9,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
       class="StyledProps--font StyledProps--font-h2 StyledProps--main configHeading"
       level="2"
     >
-      Create a new Application Load Balancer
+      Create a new Application Gateway
     </h2>
     <div>
       <div
@@ -186,7 +186,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
       class="StyledProps--font StyledProps--font-h2 StyledProps--main configHeading"
       level="2"
     >
-      Create a new Application Load Balancer
+      Create a new Application Gateway
     </h2>
     <div>
       <div

@@ -538,7 +538,7 @@ exports[`Http Step edit mode works 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME multiBtn"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
@@ -1418,7 +1418,7 @@ exports[`Http Step renders runtime inputs 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                              class="MultiTypeInput--btn MultiTypeInput--RUNTIME multiBtn"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
@@ -2059,7 +2059,7 @@ exports[`Http Step should render edit view as new step 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                              class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"

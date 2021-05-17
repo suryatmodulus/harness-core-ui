@@ -177,7 +177,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                   >
                     <span
                       class="bp3-icon StyledProps--main"
@@ -391,7 +391,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
+                    class="MultiTypeInput--btn MultiTypeInput--RUNTIME multiBtn"
                   >
                     <span
                       class="bp3-icon StyledProps--main"
@@ -593,7 +593,7 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                   class="bp3-popover-target"
                 >
                   <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
                   >
                     <span
                       class="bp3-icon StyledProps--main"

@@ -60,6 +60,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
       >
         <div
           class="StyledProps--font StyledProps--main expandSearch StyledProps--margin-right-small"
+          data-name="connectorSeachContainer"
         >
           <div
             class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
@@ -282,6 +283,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
       >
         <div
           class="StyledProps--font StyledProps--main expandSearch StyledProps--margin-right-small"
+          data-name="connectorSeachContainer"
         >
           <div
             class="bp3-input-group ui-search-box ExpandingSearchInput--main  "

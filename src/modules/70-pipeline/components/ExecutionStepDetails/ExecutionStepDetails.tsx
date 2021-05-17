@@ -30,7 +30,7 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   const { getString } = useStrings()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ExecutionPathProps>()
-  const { data: excutionNode, loading } = useGetExecutionNode({
+  const { data: executionNode, loading } = useGetExecutionNode({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -48,7 +48,9 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   const selectedStep = (retryStep ? allNodeMap[retryStep] : originalStep) || /* istanbul ignore next */ {}
   const isWaitingOnApproval = isExecutionWaitingForApproval(selectedStep.status)
   const isHarnessApprovalStep = isHarnessApproval(selectedStep.stepType)
-  const interruptHistories = reverse([...(originalStep.interruptHistories || [])])
+  const interruptHistories = reverse([...(originalStep.interruptHistories || [])]).filter(
+    ({ interruptConfig }) => interruptConfig.retryInterruptConfig
+  )
 
   function handleRefresh(): void {
     /* istanbul ignore else */
@@ -66,11 +68,11 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
   }
 
   React.useEffect(() => {
-    if (excutionNode?.data) {
-      addNewNodeToMap(excutionNode.data.uuid || /* istanbul ignore next */ '', excutionNode.data)
+    if (executionNode?.data) {
+      addNewNodeToMap(executionNode.data.uuid || /* istanbul ignore next */ '', executionNode.data)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [excutionNode?.data])
+  }, [executionNode?.data])
 
   return (
     <div className={css.main}>

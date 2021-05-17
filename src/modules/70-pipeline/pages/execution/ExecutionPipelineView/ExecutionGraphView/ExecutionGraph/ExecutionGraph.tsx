@@ -139,7 +139,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
   }): JSX.Element => {
     return (
       <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
-        {popoverData?.when && <ConditionalExecutionTooltip data={popoverData?.when} mode={Modes.STAGE} />}
+        {popoverData?.when && <ConditionalExecutionTooltip data={popoverData.when} mode={Modes.STAGE} />}
         {get(popoverData, 'data.module', '') === 'cd' && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />
         )}

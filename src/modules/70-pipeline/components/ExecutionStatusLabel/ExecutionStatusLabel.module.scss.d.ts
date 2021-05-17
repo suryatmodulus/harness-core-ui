@@ -10,8 +10,6 @@ declare const styles: {
   readonly approvalrejected: string
   readonly success: string
   readonly running: string
-  readonly starting: string
-  readonly aborting: string
   readonly waiting: string
   readonly approvalwaiting: string
   readonly interventionwaiting: string

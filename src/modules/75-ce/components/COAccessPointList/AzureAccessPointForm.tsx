@@ -33,8 +33,8 @@ interface AzureAccessPointFormProps {
 
 const SKUItems: SelectOption[] = [
   { label: 'SKU 1, Small', value: 'sku1_small' },
-  { label: 'SKU 2, Small', value: 'sku2_small' },
-  { label: 'SKU 3, Small', value: 'sku3_small' },
+  { label: 'SKU 1, Medium', value: 'sku1_medium' },
+  { label: 'SKU 1, Large', value: 'sku1_large' },
   { label: 'SKU2', value: 'sku2' }
 ]
 

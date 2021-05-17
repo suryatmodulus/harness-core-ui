@@ -45,6 +45,8 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
   reload?: () => Promise<void>
 }
 
+export type ErrorMessage = ConnectorValidationResult & { useErrorHandler?: boolean }
+
 const stopPropagation = (e: React.MouseEvent<Element, MouseEvent>) => e.stopPropagation()
 
 const linkRenderer = (value: string): JSX.Element =>
@@ -244,7 +246,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
   const [lastTestedAt, setLastTestedAt] = useState<number>()
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(data.status?.status)
 
-  const [errorMessage, setErrorMessage] = useState<ConnectorValidationResult>()
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage>()
   const { getString } = useStrings()
   const { branch, repoIdentifier } = data.gitDetails || {}
   const [stepDetails, setStepDetails] = useState<StepDetails>({
@@ -284,7 +286,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
               status: 'DONE'
             })
           } else {
-            setErrorMessage(result.data)
+            setErrorMessage({ ...result.data, useErrorHandler: false })
             setStepDetails({
               step: 1,
               intent: Intent.DANGER,
@@ -295,13 +297,14 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
         } catch (err) {
           setLastTestedAt(new Date().getTime())
           setStatus('FAILURE')
-          if (err?.data?.code === 'ACCESS_DENIED') {
+          if (err?.data?.responseMessages) {
             setErrorMessage({
               errorSummary: err?.data?.message,
-              errors: err?.data?.responseMessages || []
+              errors: err?.data?.responseMessages || [],
+              useErrorHandler: true
             })
           } else {
-            setErrorMessage(err.message)
+            setErrorMessage({ ...err.message, useErrorHandler: false })
           }
           setStepDetails({
             step: 1,
@@ -346,7 +349,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                             color={Color.BLUE_400}
                             onClick={e => {
                               e.stopPropagation()
-                              openErrorModal((errorMessage as ConnectorValidationResult) || data.status)
+                              openErrorModal((errorMessage as ErrorMessage) || data.status)
                             }}
                             className={css.viewDetails}
                           >

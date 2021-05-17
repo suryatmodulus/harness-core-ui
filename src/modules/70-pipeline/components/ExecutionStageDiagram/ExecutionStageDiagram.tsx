@@ -316,6 +316,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                 icon={selectedStage.icon?.name}
                 text={selectedStage.label}
                 rightIcon="caret-down"
+                minimal
               />
             </StageSelection>
             <ExecutionActions

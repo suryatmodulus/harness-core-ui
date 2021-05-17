@@ -11,11 +11,10 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler
 } from '@wings-software/uicore'
-import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'
-import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
+import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import css from './Steps.module.scss'
 
 interface OrganizationFormData {
@@ -39,7 +38,6 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
   disablePreview,
   enableEdit
 }) => {
-  const { getString } = useStrings()
   return (
     <Formik
       initialValues={{
@@ -51,17 +49,8 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
       }}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .trim()
-          .required(getString('validation.nameRequired'))
-          .matches(regexName, getString('formValidation.name')),
-        identifier: Yup.string().when('name', {
-          is: val => val?.length,
-          then: Yup.string()
-            .required(getString('validation.identifierRequired'))
-            .matches(regexIdentifier, getString('validation.validIdRegex'))
-            .notOneOf(illegalIdentifiers)
-        })
+        name: NameSchema(),
+        identifier: IdentifierSchema()
       })}
       onSubmit={(values: Organization) => {
         onComplete(values)

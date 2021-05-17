@@ -2,7 +2,7 @@ import React from 'react'
 import copy from 'copy-to-clipboard'
 import { Avatar, Color, Icon, Text } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
-import type { CIBuildCommit } from 'services/ci'
+import type { CIBuildCommit, CIBuildAuthor } from 'services/ci'
 import { useToaster } from '@common/exports'
 
 import css from './CommitsList.module.scss'
@@ -22,10 +22,11 @@ const AVATAR_COLORS = [
 
 export interface CommitsListProps {
   commits: CIBuildCommit[]
+  author?: CIBuildAuthor
 }
 
 export const CommitsList: React.FC<CommitsListProps> = props => {
-  const { commits } = props
+  const { commits, author } = props
 
   const commitsToShow = commits.slice(0, 5)
 
@@ -47,11 +48,7 @@ export const CommitsList: React.FC<CommitsListProps> = props => {
   return (
     <div className={css.commitsOuter} style={{ height: `${commitsHeight}px` }} onClick={killEvent}>
       <div className={css.commitsInner}>
-        <String
-          className={css.commitsHeader}
-          stringID="execution.latestNCommits"
-          vars={{ numberOfCommits: commitsToShow.length }}
-        />
+        <String className={css.commitsHeader} stringID="execution.latest5Commits" />
         <div className={css.commitsHolder}>
           {commitsToShow.map((commit, index) => (
             <div className={css.commitItem} key={commit.id}>
@@ -63,6 +60,7 @@ export const CommitsList: React.FC<CommitsListProps> = props => {
                 <Avatar
                   className={css.avatar}
                   name={commit.ownerName?.split(' ')[0]}
+                  src={author?.avatar}
                   size={'xsmall'}
                   backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
                 />

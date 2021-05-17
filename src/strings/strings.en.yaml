@@ -906,7 +906,7 @@ execution:
   pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
   pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
   latestCommit: 'Latest commit:'
-  latestNCommits: 'Last {{numberOfCommits}} commits:'
+  latest5Commits: 'Commits (up to 5):'
   prSymbol: '#'
   triggerType: # text for trigger types
     MANUAL: Manually

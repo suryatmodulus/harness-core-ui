@@ -201,92 +201,37 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="Accordion--accordion"
+              >
                 <div
-                  class="group withoutSpacing"
+                  class="Accordion--panel"
+                  data-open="false"
+                  data-testid="advanced-panel"
+                  id="advanced-panel"
                 >
                   <div
-                    class="bp3-form-group"
-                    data-id="annotations-2"
-                    style="flex-grow: 1; margin-bottom: 0px;"
+                    class="Accordion--summary"
+                    data-testid="advanced-summary"
                   >
-                    <label
-                      class="bp3-label"
-                      for="annotations"
-                    >
-                      <div
-                        class="formLabel"
-                      >
-                        ci.annotations
-                      </div>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="Accordion--chevron"
+                    />
+                    <div
+                      class="Accordion--label"
                     >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card"
-                        style="width: 100%;"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-annotations"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
-                      </div>
+                      advancedTitle
                     </div>
                   </div>
-                </div>
-                <div
-                  class="group withoutSpacing"
-                >
                   <div
-                    class="bp3-form-group"
-                    data-id="labels-3"
-                    style="flex-grow: 1; margin-bottom: 0px;"
+                    class="bp3-collapse Accordion--collapse"
                   >
-                    <label
-                      class="bp3-label"
-                      for="labels"
-                    >
-                      <div
-                        class="formLabel"
-                      >
-                        ci.labels
-                      </div>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card"
-                        style="width: 100%;"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-labels"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
-                      </div>
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>
@@ -503,92 +448,37 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="Accordion--accordion"
+              >
                 <div
-                  class="group withoutSpacing"
+                  class="Accordion--panel"
+                  data-open="false"
+                  data-testid="advanced-panel"
+                  id="advanced-panel"
                 >
                   <div
-                    class="bp3-form-group"
-                    data-id="annotations-2"
-                    style="flex-grow: 1; margin-bottom: 0px;"
+                    class="Accordion--summary"
+                    data-testid="advanced-summary"
                   >
-                    <label
-                      class="bp3-label"
-                      for="annotations"
-                    >
-                      <div
-                        class="formLabel"
-                      >
-                        ci.annotations
-                      </div>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="Accordion--chevron"
+                    />
+                    <div
+                      class="Accordion--label"
                     >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card"
-                        style="width: 100%;"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-annotations"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
-                      </div>
+                      advancedTitle
                     </div>
                   </div>
-                </div>
-                <div
-                  class="group withoutSpacing"
-                >
                   <div
-                    class="bp3-form-group"
-                    data-id="labels-3"
-                    style="flex-grow: 1; margin-bottom: 0px;"
+                    class="bp3-collapse Accordion--collapse"
                   >
-                    <label
-                      class="bp3-label"
-                      for="labels"
-                    >
-                      <div
-                        class="formLabel"
-                      >
-                        ci.labels
-                      </div>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card"
-                        style="width: 100%;"
-                      >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-labels"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
-                      </div>
-                    </div>
+                      aria-hidden="false"
+                      class="bp3-collapse-body"
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>

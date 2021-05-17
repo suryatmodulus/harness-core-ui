@@ -124,8 +124,8 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     <div className={css.loadBalancerDnsConfigDialog}>
       <Heading level={2} className={css.configHeading}>
         {createMode
-          ? 'Create a new Application Load Balancer'
-          : `The Load Balancer ${loadBalancer?.id || ''} requires additional Configuration`}
+          ? 'Create a new Application Gateway'
+          : `The Application gateway ${loadBalancer?.id || ''} requires additional Configuration`}
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (

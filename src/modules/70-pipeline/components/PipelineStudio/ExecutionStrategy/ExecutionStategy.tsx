@@ -179,6 +179,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
                 checked={isVerifyEnabled}
                 onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
                 defaultChecked={false}
+                className={css.toggleVerify}
                 margin={{ bottom: 'small' }}
               />
             </section>

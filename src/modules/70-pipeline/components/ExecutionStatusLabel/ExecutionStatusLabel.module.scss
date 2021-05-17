@@ -12,6 +12,7 @@
   display: inline-flex !important;
   justify-content: center;
   align-items: center;
+  letter-spacing: 0.5px;
 
   &.failed,
   &.aborted,
@@ -26,15 +27,16 @@
     --execution-status-color: var(--green-500);
   }
 
-  &.running,
-  &.starting,
-  &.aborting,
+  &.running {
+    --execution-status-color: var(--primary-7);
+  }
+
   &.waiting,
   &.approvalwaiting,
   &.interventionwaiting,
   &.pausing,
   &.paused {
-    --execution-status-color: rgba(62, 123, 250, 0.5);
+    --execution-status-color: var(--orange-500);
   }
 
   &.queued,

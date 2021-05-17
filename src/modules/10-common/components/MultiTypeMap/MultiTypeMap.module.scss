@@ -1,6 +1,19 @@
 .group {
   display: flex;
-
+  &.minimalCard {
+    :global {
+      .bp3-card {
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding: var(--spacing-small) 0;
+        .bp3-button[data-testid*='add'] {
+          padding: 5px 0;
+        }
+      }
+    }
+  }
   &:not(:first-child):not(.without-spacing) {
     margin-top: var(--spacing-medium);
   }

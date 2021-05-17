@@ -85,8 +85,7 @@ fetchMock.mockResolvedValue({
   headers: { get: () => 'application/json' }
 })
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('<ExecutionGraphView /> tests', () => {
+describe('<ExecutionGraphView /> tests', () => {
   const dateToString = jest.spyOn(Date.prototype, 'toLocaleString')
 
   beforeAll(() => {

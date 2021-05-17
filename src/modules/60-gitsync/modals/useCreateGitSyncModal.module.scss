@@ -3,3 +3,16 @@
   right: var(--spacing-large);
   top: var(--spacing-large);
 }
+
+.noPadding {
+  padding: 0 !important;
+}
+
+.icon {
+  > svg {
+    > path {
+      fill: var(--white);
+      transform: translateY(calc(-1 * var(--spacing-large)));
+    }
+  }
+}

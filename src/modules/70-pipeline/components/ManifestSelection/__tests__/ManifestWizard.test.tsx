@@ -20,8 +20,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={[]}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
@@ -54,8 +53,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
@@ -85,8 +83,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
@@ -117,8 +114,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',
-            secondStepName: 'Specify Manifest Store',
-            newConnector: 'New Connector'
+            secondStepName: 'Specify Manifest Store'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
@@ -147,7 +143,7 @@ describe('ManifestSelection tests', () => {
     const gitconnectorCard = container.getElementsByClassName('squareCard')[0]
     fireEvent.click(gitconnectorCard)
 
-    const newConnectorLabel = await findByText(container, 'New Connector')
+    const newConnectorLabel = await findByText(container, 'newLabel Git connector')
     expect(newConnectorLabel).toBeDefined()
     const newConnectorBtn = container.getElementsByClassName('addNewManifest')[0]
     expect(newConnectorBtn).toBeDefined()
@@ -186,8 +182,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',
-            secondStepName: 'Specify Manifest Store',
-            newConnector: 'New Connector'
+            secondStepName: 'Specify Manifest Store'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}
@@ -242,8 +237,7 @@ describe('ManifestSelection tests', () => {
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',
-            secondStepName: 'Specify Manifest Store',
-            newConnector: 'New Connector'
+            secondStepName: 'Specify Manifest Store'
           }}
           selectedManifest={'K8sManifest'}
           changeManifestType={jest.fn()}

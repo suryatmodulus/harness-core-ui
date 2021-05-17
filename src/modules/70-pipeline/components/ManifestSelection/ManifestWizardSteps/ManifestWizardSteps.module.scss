@@ -115,7 +115,6 @@
   width: 64px;
   height: 64px;
   padding: var(--spacing-small) 0;
-  margin-bottom: var(--spacing-small);
   display: flex !important;
   justify-content: center;
   align-items: center;
@@ -123,6 +122,11 @@
   [class*='cardIcon'] svg {
     margin: 0 !important;
   }
+}
+.sqaureCardTitle {
+  font-size: var(--font-size-small) !important;
+  margin-top: var(--spacing-small) !important;
+  text-align: center !important;
 }
 
 .disabled {
@@ -133,7 +137,6 @@
 
 .manifestIcon {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-  margin-bottom: var(--spacing-small);
 }
 
 .advancedStepOpen {

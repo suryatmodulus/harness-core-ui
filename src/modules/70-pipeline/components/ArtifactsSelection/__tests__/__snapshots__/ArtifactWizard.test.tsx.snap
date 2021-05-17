@@ -591,7 +591,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                   <span
                     class="bp3-button-text"
                   >
-                    new connector
+                    newLabel DockerRegistry connector
                   </span>
                 </button>
               </div>

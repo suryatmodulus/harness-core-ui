@@ -29,7 +29,6 @@ interface ArtifactConnectorProps {
   name?: string
   expressions: string[]
   stepName: string
-  newConnectorLabel: string
   isReadonly: boolean
   initialValues: ConnectorDataType
   connectorType: ConnectorInfoDTO['type']
@@ -46,12 +45,13 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     name,
     expressions,
     connectorType,
-    newConnectorLabel,
     isReadonly
   } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+
+  const newConnectorLabel = `${getString('newLabel')} ${connectorType} ${getString('connector')}`
 
   const [canCreate] = usePermission({
     resource: {

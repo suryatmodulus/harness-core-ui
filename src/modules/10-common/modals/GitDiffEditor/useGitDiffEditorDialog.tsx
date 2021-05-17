@@ -18,6 +18,7 @@ import { GitDiffEditor } from '@common/components/GitDiffEditor/GitDiffEditor'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { EntityGitDetails, useGetFileContent } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { sanitize } from '@common/utils/JSONUtils'
 
 import css from './useGitDiffEditorDialog.module.scss'
 
@@ -29,6 +30,11 @@ export interface UseGitDiffEditorDialogProps<T> {
 export interface UseGitDiffEditorDialogReturn<T> {
   openGitDiffDialog: (entity: T, gitDetails?: SaveToGitFormInterface, _modalProps?: IDialogProps) => void
   hideGitDiffDialog: () => void
+}
+
+const FORMATTING_OPTIONS = {
+  indent: 4,
+  sortMapEntries: (a: any, b: any) => (a.key < b.key ? 1 : a.key > b.key ? -1 : 0)
 }
 
 export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>): UseGitDiffEditorDialogReturn<T> {
@@ -70,7 +76,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     try {
       if (data?.data?.content) {
-        setRemoteVersion(stringify(parse(data.data.content), { indent: 4 }))
+        setRemoteVersion(stringify(parse(data.data.content), FORMATTING_OPTIONS))
       }
     } catch (e) {
       //ignore error
@@ -156,7 +162,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
         }
       })
       try {
-        setEntityAsYaml(stringify(_entity, { indent: 4 }))
+        setEntityAsYaml(stringify(sanitize(_entity), FORMATTING_OPTIONS))
       } catch (e) {
         //ignore error
       }

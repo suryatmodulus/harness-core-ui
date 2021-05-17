@@ -34,7 +34,7 @@ import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescripti
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import css from './GitSyncRepoForm.module.scss'
 
-interface GitSyncRepoFormProps {
+export interface GitSyncRepoFormProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -59,13 +59,13 @@ interface GitSyncFormInterface {
 }
 
 const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = props => {
-  const { accountId, projectIdentifier, orgIdentifier } = props
+  const { accountId, projectIdentifier, orgIdentifier, isNewUser } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
+  const { showSuccess, showError } = useToaster()
 
   const { mutate: createGitSyncRepo, loading: creatingGitSync } = usePostGitSync({
     queryParams: { accountIdentifier: accountId }
@@ -108,25 +108,29 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
         projectIdentifier,
         repoURL
       }
-    }).then(response => {
-      setLoadingBranchList(false)
-      setBranchSelectOptions(
-        response.data?.length
-          ? response.data.map((branch: string) => {
-              return {
-                label: branch || '',
-                value: branch || ''
-              }
-            })
-          : []
-      )
     })
+      .then(response => {
+        setLoadingBranchList(false)
+        setBranchSelectOptions(
+          response.data?.length
+            ? response.data.map((branch: string) => {
+                return {
+                  label: branch || '',
+                  value: branch || ''
+                }
+              })
+            : []
+        )
+      })
+      .catch(e => {
+        showError(e.data?.message || e.message)
+      })
   }, 1000) // Fetching branches after user input of repoUrl
 
   return (
     <Container height={'inherit'} className={css.modalContainer} margin="large">
-      <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.GREY_800}>
-        {getString('enableGitExperience')}
+      <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.BLACK}>
+        {isNewUser ? getString('gitsync.configureHarnessFolder') : getString('enableGitExperience')}
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
       <Layout.Horizontal>
@@ -159,7 +163,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 projectIdentifier: projectIdentifier,
                 orgIdentifier: orgIdentifier
               }
-
               if (props.isEditMode) {
                 // handleUpdate(data, formData) Edit of gitSync is not supported now
               } else {
@@ -170,10 +173,17 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
             {({ values: formValues, setFieldValue }) => (
               <FormikForm>
                 <Container className={css.formBody}>
-                  <Text font={{ size: 'medium', weight: 'semi-bold' }} margin={{ top: 'large', bottom: 'large' }}>
-                    {getString('selectGitProvider')}
-                  </Text>
-                  <Layout.Horizontal margin={{ bottom: 'large' }}>
+                  <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
+                    <Icon name="git-configure" size={18} />
+                    <Text
+                      font={{ size: 'medium', weight: 'semi-bold' }}
+                      margin={{ top: 'large', bottom: 'large' }}
+                      color={Color.BLACK}
+                    >
+                      {getString('selectGitProvider')}
+                    </Text>
+                  </Layout.Horizontal>
+                  <Layout.Horizontal margin={{ bottom: 'medium', left: 'xlarge' }}>
                     {gitCards.map((cardData: ConnectorCardInterface) => {
                       const isSelected = cardData.type === formValues.gitConnectorType
                       return (
@@ -212,72 +222,85 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       )
                     })}
                   </Layout.Horizontal>
-                  <Container className={css.formElm}>
-                    <NameId identifierProps={{ inputName: 'name' }} />
-                  </Container>
+                  <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
+                    <Icon name="folder-upload" size={18} />
+                    <Text
+                      font={{ size: 'medium', weight: 'semi-bold' }}
+                      margin={{ top: 'large', bottom: 'large' }}
+                      color={Color.BLACK}
+                    >
+                      {getString('gitsync.folderDetails')}
+                    </Text>
+                  </Layout.Horizontal>
+                  <Layout.Vertical padding={{ left: 'xlarge' }}>
+                    <Container className={css.formElm}>
+                      <NameId
+                        identifierProps={{ inputName: 'name' }}
+                        nameLabel={getString('common.git.selectRepoLabel')}
+                      />
+                    </Container>
 
-                  <ConnectorReferenceField
-                    name="gitConnector"
-                    width={350}
-                    type={connectorType}
-                    selected={formValues.gitConnector}
-                    label={getString('selectGitConnectorTypeLabel', { type: getConnectorDisplayName(connectorType) })}
-                    placeholder={getString('select')}
-                    accountIdentifier={accountId}
-                    projectIdentifier={projectIdentifier}
-                    orgIdentifier={orgIdentifier}
-                    onChange={(value, scope) => {
-                      setFieldValue('gitConnector', {
-                        label: value.name || '',
-                        value: getConnectorIdentifierWithScope(scope, value?.identifier),
-                        scope: scope,
-                        live: value?.status?.status === 'SUCCESS',
-                        connector: value
-                      })
-                      setFieldValue('repo', value?.spec?.url)
-
-                      if (value?.spec?.type === GitUrlType.REPO) {
-                        debounceFetchBranches(
-                          getConnectorIdentifierWithScope(
-                            getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
-                            value?.identifier
-                          ),
-                          value?.spec?.url
-                        )
-                      }
-                    }}
-                  />
-
-                  <Layout.Horizontal>
-                    <FormInput.Text
-                      name="repo"
-                      label={getString('repositoryUrlLabel')}
-                      disabled={formValues.gitConnector?.connector?.spec?.type === GitUrlType.REPO}
-                      onChange={e => {
-                        formValues.gitConnector?.connector.identifier &&
+                    <ConnectorReferenceField
+                      name="gitConnector"
+                      width={350}
+                      type={connectorType}
+                      selected={formValues.gitConnector}
+                      label={getString('selectGitConnectorTypeLabel', { type: getConnectorDisplayName(connectorType) })}
+                      placeholder={getString('select')}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      onChange={(value, scope) => {
+                        setFieldValue('gitConnector', {
+                          label: value.name || '',
+                          value: getConnectorIdentifierWithScope(scope, value?.identifier),
+                          scope: scope,
+                          live: value?.status?.status === 'SUCCESS',
+                          connector: value
+                        })
+                        setFieldValue('repo', value?.spec?.url)
+                        if (value?.spec?.type === GitUrlType.REPO) {
                           debounceFetchBranches(
                             getConnectorIdentifierWithScope(
                               getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
-                              formValues.gitConnector.connector.identifier
+                              formValues?.gitConnector?.connector?.identifier as string
                             ),
-
-                            (e.target as HTMLInputElement)?.value
+                            value?.spec?.url
                           )
+                        }
                       }}
                     />
-                    {/* Todo: Add repo test after behaviour is finalized */}
-                  </Layout.Horizontal>
 
-                  <FormInput.Text name="rootfolder" label={getString('gitsync.rootfolderLabel')} />
-                  <FormInput.Select
-                    name="branch"
-                    disabled={loadingBranchList}
-                    items={branchSelectOptions}
-                    label={getString('common.git.branchName')}
-                  />
+                    <Layout.Horizontal>
+                      <FormInput.Text
+                        name="repo"
+                        label={getString('repositoryUrlLabel')}
+                        disabled={formValues.gitConnector?.connector?.spec?.type === GitUrlType.REPO}
+                        onChange={e => {
+                          formValues.gitConnector?.connector.identifier &&
+                            debounceFetchBranches(
+                              getConnectorIdentifierWithScope(
+                                getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
+                                formValues?.gitConnector?.connector?.identifier
+                              ),
+                              (e.target as HTMLInputElement)?.value
+                            )
+                        }}
+                      />
+                      {/* Todo: Add repo test after behaviour is finalized */}
+                    </Layout.Horizontal>
+
+                    <FormInput.Text name="rootfolder" label={getString('gitsync.selectHarnessFolder')} />
+                    <FormInput.Select
+                      name="branch"
+                      disabled={loadingBranchList}
+                      items={branchSelectOptions}
+                      label={getString('gitsync.selectDefaultBranch')}
+                    />
+                  </Layout.Vertical>
                 </Container>
 
-                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Layout.Horizontal padding={{ top: 'small', left: 'xlarge' }} spacing="medium">
                   <Button
                     className={css.formButton}
                     type="submit"
@@ -297,15 +320,34 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
           </Formik>
         </Container>
         <Container width={'40%'}>
-          <Layout.Horizontal background={Color.GREY_200} padding="large" border={{ radius: 8 }}>
-            <Icon size={28} name="help"></Icon>
-            <Container>
-              <Text margin={{ bottom: 'small' }} font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
-                {getString('connecectorHelpHeader')}
-              </Text>
-              <Text> {getString('connecectorHelpText')}</Text>
-            </Container>
-          </Layout.Horizontal>
+          <Layout.Vertical background={Color.GREY_100} padding="xxlarge" className={css.helpText}>
+            <Layout.Horizontal padding={{ bottom: 'xxxlarge' }}>
+              <Icon size={28} name="help"></Icon>
+              <Container>
+                <Text
+                  margin={{ bottom: 'small' }}
+                  font={{ size: 'medium', weight: 'semi-bold' }}
+                  color={Color.GREY_700}
+                >
+                  {getString('gitsync.harnessFolderHeader')}
+                </Text>
+                <Text> {getString('gitsync.harnessFolderText')}</Text>
+              </Container>
+            </Layout.Horizontal>
+            <Layout.Horizontal>
+              <Icon size={28} name="help"></Icon>
+              <Container>
+                <Text
+                  margin={{ bottom: 'small' }}
+                  font={{ size: 'medium', weight: 'semi-bold' }}
+                  color={Color.GREY_700}
+                >
+                  {getString('connecectorHelpHeader')}
+                </Text>
+                <Text> {getString('connecectorHelpText')}</Text>
+              </Container>
+            </Layout.Horizontal>
+          </Layout.Vertical>
         </Container>
       </Layout.Horizontal>
     </Container>

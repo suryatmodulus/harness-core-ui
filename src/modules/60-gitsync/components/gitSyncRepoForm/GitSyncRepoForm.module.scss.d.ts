@@ -9,5 +9,6 @@ declare const styles: {
   readonly connectorTypeIcon: string
   readonly formElm: string
   readonly formButton: string
+  readonly helpText: string
 }
 export default styles

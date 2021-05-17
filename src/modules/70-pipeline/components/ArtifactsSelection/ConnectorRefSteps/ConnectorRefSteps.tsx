@@ -77,7 +77,6 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
         handleViewChange={() => handleViewChange(true)}
         initialValues={connectorData}
         connectorType={selectedArtifact}
-        newConnectorLabel={labels.newConnector}
       />
 
       {newConnectorView ? newConnectorSteps : null}

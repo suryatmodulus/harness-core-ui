@@ -67,26 +67,23 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
   const getRepoName = (): string => {
     let repoName = ''
     if (prevStepData?.connectorRef) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.connectorRef?.connector?.spec?.url
-      } else {
-        const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
-        if (connectorScope === Scope.ACCOUNT) {
-          if (
-            initialValues?.spec?.store.spec?.connectorRef ===
-            `account.${prevStepData?.connectorRef?.connector?.identifier}`
-          ) {
-            repoName = initialValues?.spec?.store.spec.repoName
-          } else {
-            repoName = ''
-          }
+      const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
+      if (connectorScope === Scope.ACCOUNT) {
+        if (
+          initialValues?.spec?.store.spec?.connectorRef ===
+          `account.${prevStepData?.connectorRef?.connector?.identifier}`
+        ) {
+          repoName = initialValues?.spec?.store.spec.repoName
         } else {
-          repoName =
-            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
-              ? initialValues?.spec?.store.spec.repoName
-              : ''
+          repoName = ''
         }
+      } else {
+        repoName =
+          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store.spec?.connectorRef
+            ? initialValues?.spec?.store.spec.repoName
+            : ''
       }
+
       return repoName
     }
 
@@ -226,15 +223,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
                 placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
-              {connectionType === GitRepoName.Repo && (
-                <div className={helmcss.halfWidth}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                  />
-                </div>
-              )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <GitRepositoryName

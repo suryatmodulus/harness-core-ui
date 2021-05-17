@@ -38,7 +38,6 @@ import css from './ManifestWizardSteps.module.scss'
 interface ManifestStorePropType {
   stepName: string
   expressions: string[]
-  newConnectorLabel: string
   isReadonly: boolean
   manifestStoreTypes: Array<ManifestStores>
   initialValues: ManifestStepInitData
@@ -56,13 +55,15 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   previousStep,
   expressions,
   prevStepData,
-  nextStep,
-  newConnectorLabel
+  nextStep
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
+  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorMap[selectedManifest]} ${getString(
+    'connector'
+  )}`
 
   const [canCreate] = usePermission({
     resource: {
@@ -120,10 +121,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
               <Icon name={ManifestIconByType[store]} size={26} />
             </Card>
             <Text
+              className={css.sqaureCardTitle}
               style={{
-                fontSize: '12px',
-                color: selectedManifest !== '' && selectedManifest !== store ? 'var(--grey-350)' : 'var(--grey-900)',
-                textAlign: 'center'
+                color: selectedManifest !== '' && selectedManifest !== store ? 'var(--grey-350)' : 'var(--grey-900)'
               }}
             >
               {getString(ManifestStoreTitle[store])}

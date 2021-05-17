@@ -13,12 +13,12 @@
         border-radius: 8px;
         padding: var(--spacing-small) !important;
         margin-bottom: var(--spacing-small);
-        width: 75px;
-        height: 75px;
+        width: 50px;
+        height: 50px;
       }
 
       .selectedCard {
-        background-color: var(--blue-300) !important;
+        background-color: var(--primary-2) !important;
         border: thin solid var(--primary-7) !important;
       }
 
@@ -27,8 +27,8 @@
 
         svg {
           margin: 0 auto var(--spacing-small) !important;
-          width: 45px;
-          height: 55px;
+          width: 30px;
+          height: 30px;
         }
       }
     }
@@ -48,4 +48,8 @@
   .formButton {
     padding: 0 var(--spacing-large) !important;
   }
+}
+
+.helpText {
+  border-radius: 8px;
 }

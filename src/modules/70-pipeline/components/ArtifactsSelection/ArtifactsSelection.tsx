@@ -427,8 +427,7 @@ export default function ArtifactsSelection({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: `${getString('select')} ${ENABLED_ARTIFACT_TYPES[selectedArtifact]} ${getString('repository')}`,
-      newConnector: `${getString('newLabel')} ${selectedArtifact} ${getString('connector')}`
+      secondStepName: `${getString('select')} ${ENABLED_ARTIFACT_TYPES[selectedArtifact]} ${getString('repository')}`
     }
   }
 

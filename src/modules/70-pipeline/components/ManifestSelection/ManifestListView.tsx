@@ -51,8 +51,7 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeLabels,
-  ManifestToConnectorLabelMap
+  manifestTypeLabels
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -291,8 +290,7 @@ const ManifestListView = ({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`,
-      newConnector: `${getString('newLabel')} ${ManifestToConnectorLabelMap[manifestStore]} ${getString('connector')}`
+      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`
     }
   }
 

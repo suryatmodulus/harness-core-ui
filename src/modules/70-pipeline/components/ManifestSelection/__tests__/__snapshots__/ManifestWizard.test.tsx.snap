@@ -266,8 +266,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 K8s Manifest
               </p>
@@ -295,8 +294,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Values YAML
               </p>
@@ -327,8 +325,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Helm Chart
               </p>
@@ -509,8 +506,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 K8s Manifest
               </p>
@@ -538,8 +534,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Values YAML
               </p>
@@ -570,8 +565,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Helm Chart
               </p>
@@ -773,8 +767,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 12px; text-align: center;"
+              class="StyledProps--font StyledProps--main sqaureCardTitle"
             >
               pipeline.manifestType.gitConnectorLabel
             </p>
@@ -801,8 +794,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 12px; text-align: center;"
+              class="StyledProps--font StyledProps--main sqaureCardTitle"
             >
               common.repo_provider.githubLabel
             </p>
@@ -854,8 +846,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 12px; text-align: center;"
+              class="StyledProps--font StyledProps--main sqaureCardTitle"
             >
               common.repo_provider.gitlabLabel
             </p>
@@ -924,8 +915,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 12px; text-align: center;"
+              class="StyledProps--font StyledProps--main sqaureCardTitle"
             >
               pipeline.manifestType.bitBucketLabel
             </p>
@@ -1051,7 +1041,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    New Connector
+                    newLabel Git connector
                   </span>
                 </button>
               </div>
@@ -1248,8 +1238,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 K8s Manifest
               </p>
@@ -1277,8 +1266,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Values YAML
               </p>
@@ -1309,8 +1297,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-                style="font-size: 12px; text-align: center;"
+                class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
                 Helm Chart
               </p>

@@ -11,3 +11,17 @@ repositoryPath: Repository Path
 entitiesByRepositories: 'Entities By repositories'
 seeMore: 'See more'
 seeLess: 'See less'
+connectToGitProvider: How do you want to connect to the Git Provider?
+connectThroughManagerLabel: Connect Through Manager
+connectThroughDelegateLabel: Connect Through Delegate
+connectThroughManager: Communication with the Git provider will be made through the Harness manager which will reduce the response time.
+connectThroughDelegate: Communication with the Git provider will be made through the delegate. This provides enhanced security but will result in slower response time.
+learnMore: Learn More about these settings
+configureHarnessFolder: Configure Harness Folder
+selectConnectivityMode: Select Connectivity Mode
+harnessFolderHeader: What is a Harness Folder?
+harnessFolderText: Harness folder allows to save the Harness configurations like pipelines, connectors, delegates, trigger, etc alongside with the code in your git repository.
+folderDetails: Folder Details
+selectHarnessFolder: Select Harness Folder
+selectDefaultBranch: Select Default Branch
+successfullySavedConnectivityMode: Successfully saved Connectivity Mode

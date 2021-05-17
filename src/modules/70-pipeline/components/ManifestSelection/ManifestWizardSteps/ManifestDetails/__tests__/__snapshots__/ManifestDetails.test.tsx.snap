@@ -2937,41 +2937,6 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
             </div>
           </div>
           <div
-            class="formGroup md"
-          >
-            <div
-              class="bp3-form-group bp3-disabled"
-              style="width: 370px;"
-            >
-              <label
-                class="bp3-label"
-                for="repoName"
-              >
-                pipelineSteps.build.create.repositoryNameLabel
-                 
-                <span
-                  class="bp3-text-muted"
-                />
-              </label>
-              <div
-                class="bp3-form-content"
-              >
-                <div
-                  class="bp3-input-group bp3-disabled"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    disabled=""
-                    name="repoName"
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
             class="bp3-form-group"
           >
             <label

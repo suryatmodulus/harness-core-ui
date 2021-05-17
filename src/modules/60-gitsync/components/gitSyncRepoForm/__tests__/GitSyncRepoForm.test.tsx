@@ -69,16 +69,16 @@ describe('Git Sync - repo tab', () => {
       expect(getByText('selectGitProvider')).toBeTruthy()
     })
     const gitHubCard = queryByAttribute('data-testid', container, 'Github-card')
-    const gitLabCard = queryByAttribute('data-testid', container, 'Gitlab-card')
+    // const gitLabCard = queryByAttribute('data-testid', container, 'Gitlab-card')
 
     expect(gitHubCard?.classList.contains('Card--interactive')).toBe(true)
     expect(gitHubCard?.classList.contains('Card--disabled')).toBe(false)
-    expect(gitLabCard?.classList.contains('Card--interactive')).toBe(false)
-    expect(gitLabCard?.classList.contains('Card--disabled')).toBe(true)
+    // expect(gitLabCard?.classList.contains('Card--interactive')).toBe(false)
+    // expect(gitLabCard?.classList.contains('Card--disabled')).toBe(true)
 
-    await act(async () => {
-      fireEvent.click(gitLabCard!)
-    })
+    // await act(async () => {
+    //   fireEvent.click(gitLabCard!)
+    // })
     //selected card should not change
     expect(container).toMatchSnapshot()
   })

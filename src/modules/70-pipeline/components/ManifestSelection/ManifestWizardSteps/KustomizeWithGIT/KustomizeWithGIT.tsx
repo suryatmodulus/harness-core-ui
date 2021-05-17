@@ -88,12 +88,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       }
       return repoName
     }
-
-    if (prevStepData?.identifier) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.url
-      }
-    }
     return repoName
   }
 
@@ -203,15 +197,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                 placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 className={helmcss.halfWidth}
               />
-              {connectionType === GitRepoName.Repo && (
-                <div className={helmcss.halfWidth}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                  />
-                </div>
-              )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
                 <GitRepositoryName

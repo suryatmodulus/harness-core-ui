@@ -1,0 +1,12 @@
+.btnWrapper {
+  margin-top: 300px;
+  .submitBtn {
+    color: var(--primary-7);
+  }
+}
+
+.selected {
+  background: rgba(220, 238, 255, 0.5);
+  mix-blend-mode: normal;
+  border: 1px solid var(--primary-6);
+}

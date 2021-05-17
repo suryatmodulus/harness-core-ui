@@ -85,7 +85,6 @@ gitExperienceNewUserText: Git Experience allows you to store the pipeline and ot
 primaryBranch: Primary branch
 selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
-configureHarnessFolder: 'Configure Harness Folder'
 lastTested: Last Tested
 lastUpdated: Last Updated
 lastConnectionSuccess: Last time connection is successful

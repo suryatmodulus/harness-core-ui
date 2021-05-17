@@ -63,5 +63,4 @@ export interface ImagePathProps {
 export interface ConnectorRefLabelType {
   firstStepName: string
   secondStepName: string
-  newConnector: string
 }

@@ -709,9 +709,19 @@ export interface StringsMap {
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
   'gitsync.addFolder': string
+  'gitsync.configureHarnessFolder': string
+  'gitsync.connectThroughDelegate': string
+  'gitsync.connectThroughDelegateLabel': string
+  'gitsync.connectThroughManager': string
+  'gitsync.connectThroughManagerLabel': string
+  'gitsync.connectToGitProvider': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
+  'gitsync.folderDetails': string
+  'gitsync.harnessFolderHeader': string
+  'gitsync.harnessFolderText': string
   'gitsync.label': string
+  'gitsync.learnMore': string
   'gitsync.markAsDefault': string
   'gitsync.moveFolder': string
   'gitsync.repositoryPath': string
@@ -720,7 +730,11 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
+  'gitsync.selectConnectivityMode': string
+  'gitsync.selectDefaultBranch': string
+  'gitsync.selectHarnessFolder': string
   'gitsync.successfullCreate': string
+  'gitsync.successfullySavedConnectivityMode': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
@@ -2689,10 +2703,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   configuration: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  configureHarnessFolder: string
   /**
    * @deprecated migrate this string to module level file
    */

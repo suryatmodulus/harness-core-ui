@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook, Button, StepWizard } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import type { GitSyncConfig } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import GitSyncRepoFormStep from '@gitsync/pages/steps/GitSyncRepoFormStep'
+import GitConnection from '@gitsync/components/GitConnection/GitConnection'
 import GitSyncRepoForm from '../components/gitSyncRepoForm/GitSyncRepoForm'
 import css from './useCreateGitSyncModal.module.scss'
 
@@ -23,14 +26,15 @@ export interface UseCreateGitSyncModalReturn {
 }
 
 const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitSyncModalReturn => {
+  const { getString } = useStrings()
   const [isEditMode, setIsEditMode] = useState(false)
   const [isNewUser, setIsNewUser] = useState(false)
   const [syncRepo, setSyncRepo] = useState<GitSyncConfig | void>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 1080,
-      minHeight: 540,
+      width: 1200,
+      minHeight: 720,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -48,7 +52,35 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
       props.onClose?.()
       hideModal()
     }
-    return (
+
+    return isNewUser ? (
+      <Dialog {...modalProps}>
+        <StepWizard
+          stepClassName={css.noPadding}
+          title={getString('enableGitExperience')}
+          icon="git-landing-page"
+          iconProps={{ size: 80, className: css.icon }}
+        >
+          <GitSyncRepoFormStep
+            name={getString('gitsync.configureHarnessFolder')}
+            accountId={accountId}
+            isEditMode={isEditMode}
+            isNewUser={isNewUser}
+            gitSyncRepoInfo={undefined}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            onClose={closeHandler}
+          />
+          <GitConnection
+            name={getString('gitsync.selectConnectivityMode')}
+            onSuccess={(data?: GitSyncConfig) => {
+              handleSuccess(data)
+            }}
+          />
+        </StepWizard>
+        <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />
+      </Dialog>
+    ) : (
       <Dialog {...modalProps}>
         <GitSyncRepoForm
           accountId={accountId}
@@ -66,7 +98,7 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
         <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />
       </Dialog>
     )
-  }, [isEditMode, syncRepo])
+  }, [isEditMode, syncRepo, isNewUser])
 
   return {
     openGitSyncModal: (

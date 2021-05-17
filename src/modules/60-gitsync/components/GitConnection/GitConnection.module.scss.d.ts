@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly crossIcon: string
-  readonly noPadding: string
-  readonly icon: string
+  readonly btnWrapper: string
+  readonly submitBtn: string
+  readonly selected: string
 }
 export default styles

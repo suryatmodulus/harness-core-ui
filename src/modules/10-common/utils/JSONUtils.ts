@@ -20,25 +20,21 @@ const sanitize = (obj: Record<string, any>, sanityConfig?: YamlSanityConfig): Re
     ...sanityConfig
   }
   for (const key in obj) {
-    if ((removeEmptyString && obj[key] === '') || obj[key] === null) {
+    if (obj[key] === null || obj[key] === undefined) {
       delete obj[key]
-    } else if (removeEmptyObject && Object.prototype.toString.call(obj[key]) === '[object Object]') {
-      if (Object.keys(obj[key]).length === 0) {
+    } else if (removeEmptyString && obj[key] === '') {
+      delete obj[key]
+    } else if (Object.prototype.toString.call(obj[key]) === '[object Object]') {
+      if (removeEmptyObject && Object.keys(obj[key]).length === 0) {
         delete obj[key]
       } else {
         sanitize(obj[key], sanityConfig)
       }
-    } else if (removeEmptyArray && Array.isArray(obj[key])) {
-      if (obj[key].length == 0) {
+    } else if (Array.isArray(obj[key])) {
+      if (removeEmptyArray && obj[key].length == 0) {
         delete obj[key]
       } else {
-        for (const _key in obj[key]) {
-          sanitize(obj[key][_key], sanityConfig)
-        }
-        obj[key] = obj[key].filter((value: any) => Object.keys(value).length !== 0)
-        if (removeEmptyArray && obj[key].length == 0) {
-          delete obj[key]
-        }
+        sanitize(obj[key], sanityConfig)
       }
     }
   }

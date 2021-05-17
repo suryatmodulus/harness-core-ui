@@ -22,6 +22,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ConnectorDataType } from '../ArtifactInterface'
+import { getArtifactTitleIdByType } from '../ArtifactHelper'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactConnectorProps {
@@ -92,8 +93,14 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
               <div className={css.connectorContainer}>
                 <FormMultiTypeConnectorField
                   name="connectorId"
-                  label={<Text style={{ marginBottom: 8 }}>{`${connectorType} ${getString('connector')}`}</Text>}
-                  placeholder={`${getString('select')} ${connectorType} ${getString('connector')}`}
+                  label={
+                    <Text style={{ marginBottom: 8 }}>{`${getString(
+                      getArtifactTitleIdByType(connectorType)
+                    )} ${getString('connector')}`}</Text>
+                  }
+                  placeholder={`${getString('select')} ${getString(
+                    getArtifactTitleIdByType(connectorType)
+                  )} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}

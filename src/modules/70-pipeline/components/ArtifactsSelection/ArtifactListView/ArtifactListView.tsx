@@ -4,8 +4,8 @@ import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
-import { CreationType, getArtifactIconByType } from '../ArtifactHelper'
-import type { ArtifactListViewProps } from '../ArtifactInterface'
+import { getArtifactIconByType } from '../ArtifactHelper'
+import type { ArtifactListViewProps, CreationType } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {

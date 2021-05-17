@@ -17,8 +17,7 @@ jest.mock('services/cd-ng', () => ({
   }
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Artifact ConnectorRefSteps tests', () => {
+describe('Artifact ConnectorRefSteps tests', () => {
   test(`renders without crashing`, () => {
     const { container } = render(
       <TestWrapper>
@@ -130,7 +129,7 @@ describe.skip('Artifact ConnectorRefSteps tests', () => {
     expect(continueButton).toBeDefined()
     fireEvent.click(continueButton)
 
-    const artifactRepoLabel = await findByText('DockerRegistry connector')
+    const artifactRepoLabel = await findByText('dockerRegistry connector')
     expect(artifactRepoLabel).toBeDefined()
     const newConnectorLabel = await findByText('newLabel DockerRegistry connector')
     expect(newConnectorLabel).toBeDefined()

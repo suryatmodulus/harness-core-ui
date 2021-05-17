@@ -3,8 +3,7 @@ import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
-
-export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
+import type { CreationType } from './ArtifactInterface'
 
 export const getArtifactIconByType = (type: string): IconName => {
   switch (type) {

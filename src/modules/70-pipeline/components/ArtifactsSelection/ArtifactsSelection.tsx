@@ -36,7 +36,7 @@ import type {
   CreationType,
   ImagePathProps
 } from './ArtifactInterface'
-import { ENABLED_ARTIFACT_TYPES, getArtifactIconByType } from './ArtifactHelper'
+import { ENABLED_ARTIFACT_TYPES, getArtifactIconByType, getArtifactTitleIdByType } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './ArtifactsSelection.module.scss'
 
@@ -427,7 +427,7 @@ export default function ArtifactsSelection({
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
-      secondStepName: `${getString('select')} ${ENABLED_ARTIFACT_TYPES[selectedArtifact]} ${getString('repository')}`
+      secondStepName: `${getString(getArtifactTitleIdByType(selectedArtifact))} ${getString('repository')}`
     }
   }
 

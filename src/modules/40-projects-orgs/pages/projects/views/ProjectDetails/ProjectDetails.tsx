@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
@@ -6,7 +6,6 @@ import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
 import ModuleEnableCard from '@projects-orgs/components/ModuleEnableCard/ModuleEnableCard'
@@ -29,7 +28,6 @@ const ProjectDetails: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { updateAppStore } = useAppStore()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const invitePermission = {
     resourceScope: {
@@ -78,10 +76,6 @@ const ProjectDetails: React.FC = () => {
   }
   const { openDialog } = useDeleteProjectDialog(projectData || { identifier: '', name: '' }, onDeleted)
   useDocumentTitle(getString('projectsText'))
-
-  useEffect(() => {
-    updateAppStore({ selectedProject: projectData })
-  }, [projectData])
 
   const getEnableModules = (): Required<Project>['modules'] => {
     const modulesPresent: Required<Project>['modules'] = []

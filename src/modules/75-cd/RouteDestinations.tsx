@@ -18,7 +18,6 @@ import {
   resourceGroupPathProps
 } from '@common/utils/routeUtils'
 import type {
-  AccountPathProps,
   PipelinePathProps,
   ExecutionPathProps,
   ProjectPathProps,
@@ -85,11 +84,6 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
-const RedirectToCDHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps>()
-  return <Redirect to={routes.toCDHome(params)} />
-}
-
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
   const { projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
@@ -98,13 +92,21 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
 }
 
 const RedirectToCDProject = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
+  const { accountId } = useParams<ProjectPathProps>()
   const { selectedProject } = useAppStore()
-
   if (selectedProject?.modules?.includes(ModuleName.CD)) {
-    return <Redirect to={routes.toCDProjectOverview(params)} />
+    return (
+      <Redirect
+        to={routes.toCDProjectOverview({
+          accountId,
+          orgIdentifier: selectedProject.orgIdentifier || '',
+          projectIdentifier: selectedProject.identifier,
+          module: 'cd'
+        })}
+      />
+    )
   } else {
-    return <Redirect to={routes.toCDHome(params)} />
+    return <Redirect to={routes.toCDHome({ accountId })} />
   }
 }
 
@@ -152,11 +154,7 @@ const pipelineModuleParams: ModulePathParams = {
 
 export default (
   <>
-    <Route path={routes.toCD({ ...accountPathProps })} exact>
-      <RedirectToCDHome />
-    </Route>
-
-    <Route path={routes.toCDProject({ ...accountPathProps, ...projectPathProps })} exact>
+    <Route path={routes.toCD({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })} exact>
       <RedirectToCDProject />
     </Route>
 
@@ -174,7 +172,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CDDashboardPageOrRedirect />
@@ -250,14 +248,14 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCreateConnectorFromYamlAtProjectLevel({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCreateConnectorFromYamlAtOrgLevel({ ...accountPathProps, ...orgPathProps })}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...orgPathProps })}
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>

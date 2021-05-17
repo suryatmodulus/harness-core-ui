@@ -9,6 +9,7 @@ export interface StringsMap {
   'common.accViewer': string
   'common.accessKey': string
   'common.accountName': string
+  'common.accountSetup': string
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
@@ -112,6 +113,7 @@ export interface StringsMap {
   'common.comments': string
   'common.confictOccured': string
   'common.createPipeline': string
+  'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -177,6 +179,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.message1': string
   'common.gitSync.unSynced.message2': string
   'common.gitSync.updateResource': string
+  'common.home': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
@@ -200,6 +203,7 @@ export interface StringsMap {
   'common.pipelineDetails': string
   'common.plusNumber': string
   'common.production': string
+  'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
   'common.purpose.cd.delivery': string

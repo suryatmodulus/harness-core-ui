@@ -516,7 +516,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
             <Breadcrumbs
               links={[
                 {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: project?.name as string
                 },
                 {

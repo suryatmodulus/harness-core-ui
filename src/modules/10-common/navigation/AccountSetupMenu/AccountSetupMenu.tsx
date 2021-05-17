@@ -15,10 +15,10 @@ const AccountSetupMenu: React.FC = () => {
   return (
     <NavExpandable title={getString('common.accountSetup')} route={routes.toSetup({ accountId })}>
       <Layout.Vertical spacing="small">
+        <SidebarLink exact label={getString('overview')} to={routes.toSetup({ accountId })} />
         {NG_AUTH_SETTINGS && (
           <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
         )}
-        <SidebarLink exact label={getString('overview')} to={routes.toSetup({ accountId })} />
         <SidebarLink label={getString('resources')} to={routes.toResources({ accountId })} />
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />

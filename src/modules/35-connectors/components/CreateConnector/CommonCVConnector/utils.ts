@@ -1,7 +1,7 @@
 import type { UseStringsReturn } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 
-export function dsconfigTypeToConnectorDetailsTitle(
+export function dsconfigTypetoResourcesConnectorDetailsTitle(
   type: ConnectorInfoDTO['type'],
   getString: UseStringsReturn['getString']
 ): string {

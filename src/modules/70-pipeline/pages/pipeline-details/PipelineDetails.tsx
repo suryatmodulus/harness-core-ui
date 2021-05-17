@@ -46,7 +46,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   const getBreadCrumbs = React.useCallback(
     () => [
       {
-        url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+        url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
         label: project?.name as string
       },
       {

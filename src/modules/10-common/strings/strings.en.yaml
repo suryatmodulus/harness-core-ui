@@ -1,4 +1,8 @@
 secrets: Secrets
+home: Home
+dashboards: Dashboards
+accountSetup: Account Setup
+projectSetup: Project Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'

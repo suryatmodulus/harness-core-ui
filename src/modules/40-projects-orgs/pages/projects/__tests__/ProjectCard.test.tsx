@@ -64,7 +64,9 @@ describe('Project Card Functionality Test', () => {
     const cdrow = queryByText('projectCard.cdRendererText')
     fireEvent.click(cdrow!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
+    expect(
+      getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview({ ...routeParams, module: 'cd' }))
+    ).toBeTruthy()
   }),
     test('Click on CV', async () => {
       const cvrow = queryByText('projectCard.cvRendererText')

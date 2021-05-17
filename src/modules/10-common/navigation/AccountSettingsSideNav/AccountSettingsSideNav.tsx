@@ -17,7 +17,7 @@ export default function AccountSettingsSideNav(): React.ReactElement {
       {NG_AUTH_SETTINGS && (
         <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
       )}
-      <SidebarLink exact label="Overview" to={routes.toAdmin({ accountId })} />
+      <SidebarLink exact label="Overview" to={routes.toSetup({ accountId })} />
       <SidebarLink label="Resources" to={routes.toResources({ accountId })} />
       {/* TODO: ENABLE WHEN READY */}
       {/* <SidebarLink label="Governance" to={routes.toGovernance({ accountId })} /> */}

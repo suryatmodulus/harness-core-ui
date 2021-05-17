@@ -28,13 +28,25 @@ import type {
 const CV_HOME = `/cv/home`
 
 const routes = {
-  toAdmin: withAccountId(() => '/admin'),
+  toHome: withAccountId(() => '/'),
+  toSetup: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path: ''
+      })
+    }
+  ),
   toUser: withAccountId(() => '/user'),
-  toAuthenticationSettings: withAccountId(() => '/admin/authentication'),
-  toAccountConfiguration: withAccountId(() => '/admin/authentication/configuration'),
-  toAccountActivityLog: withAccountId(() => '/admin/authentication/activity-log'),
-  toLogin: () => '/login',
-  toSignup: () => '/signup',
+  toAuthenticationSettings: withAccountId(() => '/setup/authentication'),
+  toAccountConfiguration: withAccountId(() => '/setup/authentication/configuration'),
+  toAccountActivityLog: withAccountId(() => '/setup/authentication/activity-log'),
+  toLogin: (): string => '/login',
+  toSignup: (): string => '/signup',
   toPurpose: withAccountId(() => '/purpose'),
   toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(
@@ -54,16 +66,21 @@ const routes = {
   toUserProfile: withAccountId(() => '/user/profile'),
   toUserPreferences: withAccountId(() => '/user/preferences'),
   // account resources
-  toCreateConnectorFromYaml: withAccountId(() => '/admin/create-connector-from-yaml'),
-  toCreateConnectorFromYamlAtOrgLevel: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/create-connector-from-yaml`
-  ),
-  toCreateConnectorFromYamlAtProjectLevel: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/create-connector-from-yaml`
+  toCreateConnectorFromYaml: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `/setup/create-connector-from-yaml`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toResourcesConnectorDetails: withAccountId(
-    ({ connectorId }: ConnectorPathProps) => `/admin/resources/connectors/${connectorId}`
+    ({ connectorId }: ConnectorPathProps) => `/setup/resources/connectors/${connectorId}`
   ),
   toResourcesConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -124,25 +141,25 @@ const routes = {
     }
   ),
   toResourcesDelegatesDetails: withAccountId(
-    ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}`
+    ({ delegateId }: DelegatePathProps) => `/setup/resources/delegates/${delegateId}`
   ),
   toResourcesDelegateConfigsDetails: withAccountId(
-    ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}`
+    ({ delegateConfigId }: DelegateConfigProps) => `/setup/resources/delegateconfigs/${delegateConfigId}`
   ),
   toResourcesEditDelegateConfigsDetails: withAccountId(
-    ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}/edit`
+    ({ delegateConfigId }: DelegateConfigProps) => `/setup/resources/delegateconfigs/${delegateConfigId}/edit`
   ),
   // org resources
   toOrgResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, connectorId }: OrgPathProps & ConnectorPathProps) =>
-      `/admin/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
+      `/setup/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
   ),
   toOrgResourcesDelegates: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/delegates`
+    ({ orgIdentifier }: OrgPathProps) => `/setup/organizations/${orgIdentifier}/resources/delegates`
   ),
   toOrgResourcesDelegateDetails: withAccountId(
     ({ orgIdentifier, delegateId }: OrgPathProps & DelegatePathProps) =>
-      `/admin/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
+      `/setup/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
   ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -281,11 +298,11 @@ const routes = {
       })
     }
   ),
-  toOrganizations: withAccountId(() => `/admin/organizations`),
-  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}`),
-  toGovernance: withAccountId(() => '/admin/governance'),
+  toOrganizations: withAccountId(() => `/setup/organizations`),
+  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/setup/organizations/${orgIdentifier}`),
+  toGovernance: withAccountId(() => '/setup/governance'),
   toOrgGovernance: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/governance/${orgIdentifier}`
+    ({ orgIdentifier }: OrgPathProps) => `/setup/organizations/governance/${orgIdentifier}`
   ),
   toGenericError: withAccountId(() => '/error'),
   toCreateSecretFromYaml: withAccountId(
@@ -302,21 +319,21 @@ const routes = {
     }
   ),
   /********************************************************************************************************************/
-  toCD: (params: Partial<ProjectPathProps>) =>
+  toCD: (params: PipelineType<ProjectPathProps>): string =>
     params.orgIdentifier && params.projectIdentifier
-      ? routes.toCDProject(params as ProjectPathProps)
+      ? routes.toCDProject(params)
       : routes.toCDDashboard(params as AccountPathProps),
   toCDDashboard: withAccountId(() => `/cd`),
   toModuleHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home`),
   toModuleTrialHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home/trial`),
   toCDHome: withAccountId(() => `/cd/home`),
   toCDProject: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toCDProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toDeployments: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -337,19 +354,19 @@ const routes = {
       connectorId,
       module
     }: ProjectPathProps & ConnectorPathProps & ModulePathParams) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/${connectorId}`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/${connectorId}`
   ),
   toCDAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCDResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, connectorId }: ProjectPathProps & ConnectorPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/${connectorId}`
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/${connectorId}`
   ),
   toCDResourcesSecretsListing: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets`
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/secrets`
   ),
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -477,15 +494,11 @@ const routes = {
   ),
   toCDTemplateLibrary: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/template-library`
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/template-library`
   ),
   toCDGovernance: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
-  ),
-  toCDAccessControl: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
+      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCDGeneralSettings: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -547,19 +560,19 @@ const routes = {
   ),
   toCIAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCIAdminBuildSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/build-settings`
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/build-settings`
   ),
   toCIAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCIAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
   ),
   //git-sync at project scope
   toGitSyncAdmin: withAccountId(
@@ -669,15 +682,15 @@ const routes = {
   ),
   toCFAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCFAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
   ),
   toCFAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCFOnboarding: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -688,7 +701,7 @@ const routes = {
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/detail`
   ),
   /********************************************************************************************************************/
-  toCV: (params: Partial<ProjectPathProps>) =>
+  toCV: (params: Partial<ProjectPathProps>): string =>
     params.orgIdentifier && params.projectIdentifier
       ? routes.toCVProject(params as ProjectPathProps)
       : routes.toCVDashboard(params as AccountPathProps),
@@ -736,7 +749,7 @@ const routes = {
   ),
   toCVActivitySourceSetup: withAccountId(
     ({ activitySource, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activitySource?: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/activity-source-setup/${activitySource}`
   ),
   toCVActivitySourceEditSetup: withAccountId(
     ({
@@ -745,7 +758,7 @@ const routes = {
       orgIdentifier,
       activitySourceId
     }: Partial<ProjectPathProps & { activitySource?: string; activitySourceId: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
   ),
   toCVActivityDashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
@@ -753,15 +766,15 @@ const routes = {
   ),
   toCVAdminActivitySources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/activity-sources`
   ),
   toCVAdminMonitoringSources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/monitoring-sources`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/monitoring-sources`
   ),
   toCVAdminVerificationJobs: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/verification-jobs`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/verification-jobs`
   ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
@@ -769,23 +782,23 @@ const routes = {
   ),
   toCVAdminGeneralSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/general-settings`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/general-settings`
   ),
   toCVAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCVAdminSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup`
   ),
   toCVAdminSetupMonitoringSource: withAccountId(
     ({ projectIdentifier, orgIdentifier, monitoringSource }: ProjectPathProps & { monitoringSource: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/monitoring-source/${monitoringSource}`
   ),
   toCVAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCVAdminSetupMonitoringSourceEdit: withAccountId(
     ({
@@ -794,47 +807,47 @@ const routes = {
       monitoringSource,
       identifier
     }: ProjectPathProps & { monitoringSource: string; identifier: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/monitoring-source/${monitoringSource}/${identifier}`
   ),
   toCVAdminSetupVerificationJob: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/verification-job`
   ),
   toCVAdminSetupVerificationJobEdit: withAccountId(
     ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/verification-job/verificationId/${verificationId}`
   ),
   toCVAdminResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
   ),
   toCVAdminAccessControl: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/access-control`
   ),
   toCVAdminNotifications: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/notifications`
   ),
   /********************************************************************************************************************/
   toProjectDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/details`
+      `/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
   ),
   toProjectResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors/:connectorId`
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/connectors/:connectorId`
   ),
   toProjectResourcesDelegatesDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier, delegateId }: ProjectPathProps & DelegatePathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegates/${delegateId}`
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/delegates/${delegateId}`
   ),
   toProjectResourcesDelegateConfigsDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier, delegateConfigId }: ProjectPathProps & DelegateConfigProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegateconfigs/${delegateConfigId}`
+      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/delegateconfigs/${delegateConfigId}`
   ),
   toProjects: withAccountId(() => '/projects'),
-  toProjectsGetStarted: withAccountId(() => '/projects/get-started'),
+  toProjectsGetStarted: withAccountId(() => '/get-started'),
   /********************************************************************************************************************/
   toCE: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
@@ -887,7 +900,7 @@ const routes = {
   /****************** Secret Usage************************************************************************************/
   toModuleAdminResourcesSecretDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier, secretId, module }: ProjectPathProps & SecretsPathProps & ModulePathParams) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/secrets/${secretId}`
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/secrets/${secretId}`
   ),
 
   toResourcesSecretDetailsOverview: withAccountId(

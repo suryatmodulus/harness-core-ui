@@ -8,11 +8,11 @@ import { accountPathProps, orgPathProps, withAccountId } from '@common/utils/rou
 import AdminPage from '@common/pages/AccountSettings/AdminPage'
 import Configuration from '@common/pages/AuthenticationSettings/Configuration/Configuration'
 import GovernancePage from '@common/pages/governance/GovernancePage'
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 import { PurposePage } from './pages/purpose/PurposePage'
+import HomeSideNav from './components/HomeSideNav/HomeSideNav'
 
 const RedirectToProjects = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
@@ -29,11 +29,9 @@ const RedirectToConfiguration = (): React.ReactElement => {
   return <Redirect to={routes.toAccountConfiguration(params)} />
 }
 
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings',
-  icon: 'nav-settings'
+const HomeSideNavProps: SidebarContext = {
+  navComponent: HomeSideNav,
+  icon: 'harness'
 }
 
 const justAccountPath = withAccountId(() => '/')
@@ -46,25 +44,21 @@ export default (
     <Route exact path={routes.toResources({ ...accountPathProps })}>
       <RedirectToResourcesHome />
     </Route>
-    <RouteWithLayout sidebarProps={AccountSettingsSideNavProps} path={routes.toAdmin({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSetup({ ...accountPathProps })} exact>
       <AdminPage />
     </RouteWithLayout>
-    <Route
-      sidebarProps={AccountSettingsSideNavProps}
-      path={routes.toAuthenticationSettings({ ...accountPathProps })}
-      exact
-    >
+    <Route sidebarProps={HomeSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
       <RedirectToConfiguration />
     </Route>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={routes.toAccountConfiguration({ ...accountPathProps })}
       exact
     >
       <Configuration />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
         routes.toGovernance({ ...accountPathProps }),
         routes.toOrgGovernance({ ...accountPathProps, ...orgPathProps })

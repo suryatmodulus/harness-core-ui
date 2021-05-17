@@ -64,7 +64,9 @@ describe('Context Menu test', () => {
     }),
     test('Go to CD ', async () => {
       fireEvent.click(getByText('projectContextMenuRenderer.gotoCD'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
+      expect(
+        getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview({ ...routeParams, module: 'cd' }))
+      ).toBeTruthy()
     }),
     test('Go to CE ', async () => {
       fireEvent.click(getByText('projectContextMenuRenderer.gotoCE'))

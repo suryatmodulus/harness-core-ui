@@ -284,13 +284,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   })
 
   const rerouteBasedOnContext = (): void => {
-    if (projectIdentifier && orgIdentifier) {
-      history.push(routes.toCreateConnectorFromYamlAtProjectLevel({ projectIdentifier, orgIdentifier, accountId }))
-    } else if (orgIdentifier) {
-      history.push(routes.toCreateConnectorFromYamlAtOrgLevel({ orgIdentifier, accountId }))
-    } else {
-      history.push(routes.toCreateConnectorFromYaml({ accountId }))
-    }
+    history.push(routes.toCreateConnectorFromYaml({ accountId, projectIdentifier, orgIdentifier }))
   }
 
   const [openDrawer, hideDrawer] = useModalHook(() => {

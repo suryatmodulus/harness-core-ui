@@ -64,7 +64,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       routes.toCDProjectOverview({
         orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
         projectIdentifier: project.identifier,
-        accountId
+        accountId,
+        module: 'cd'
       })
     )
   }

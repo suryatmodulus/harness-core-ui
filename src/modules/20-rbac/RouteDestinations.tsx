@@ -13,7 +13,6 @@ import {
   userPathProps
 } from '@common/utils/routeUtils'
 
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
@@ -26,13 +25,13 @@ import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
-import UserDetails from './pages/UserDetails/UserDetails'
-import { PermissionIdentifier } from './interfaces/PermissionIdentifier'
+import HomeSideNav from '@common/components/HomeSideNav/HomeSideNav'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings'
+const HomeSideNavProps: SidebarContext = {
+  navComponent: HomeSideNav,
+  icon: 'harness'
 }
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
@@ -96,7 +95,7 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 export default (
   <>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[routes.toAccessControl({ ...accountPathProps }), routes.toAccessControl({ ...orgPathProps })]}
       exact
     >
@@ -104,7 +103,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[routes.toUsers({ ...accountPathProps }), routes.toUsers({ ...orgPathProps })]}
       exact
     >
@@ -114,7 +113,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
         routes.toUserDetails({ ...accountPathProps, ...userPathProps }),
         routes.toUserDetails({ ...orgPathProps, ...userPathProps })
@@ -125,7 +124,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[routes.toUserGroups({ ...accountPathProps }), routes.toUserGroups({ ...orgPathProps })]}
       exact
     >
@@ -135,7 +134,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
         routes.toUserGroupDetails({ ...accountPathProps, ...userGroupPathProps }),
         routes.toUserGroupDetails({ ...orgPathProps, ...userGroupPathProps })
@@ -146,7 +145,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[routes.toResourceGroups({ ...accountPathProps }), routes.toResourceGroups({ ...orgPathProps })]}
       exact
     >
@@ -156,7 +155,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[routes.toRoles({ ...accountPathProps }), routes.toRoles({ ...orgPathProps })]}
       exact
     >
@@ -166,7 +165,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
         routes.toRoleDetails({ ...accountPathProps, ...rolePathProps }),
         routes.toRoleDetails({ ...orgPathProps, ...rolePathProps })
@@ -176,7 +175,7 @@ export default (
       <RoleDetails />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={[
         routes.toResourceGroupDetails({ ...accountPathProps, ...resourceGroupPathProps }),
         routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps })

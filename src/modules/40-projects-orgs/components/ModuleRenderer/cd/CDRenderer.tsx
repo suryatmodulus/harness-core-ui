@@ -26,7 +26,8 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
             routes.toCDProjectOverview({
               orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
               projectIdentifier: data.identifier,
-              accountId
+              accountId,
+              module: 'cd'
             })
           )
       }}

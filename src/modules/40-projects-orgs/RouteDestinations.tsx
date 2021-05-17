@@ -13,7 +13,6 @@ import {
   secretPathProps,
   userPathProps
 } from '@common/utils/routeUtils'
-import { MinimalLayout } from '@common/layouts'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
 import GetStartedProject from '@projects-orgs/pages/projects/views/GetStartedProject/GetStartedProject'
@@ -22,7 +21,6 @@ import ProjectDetails from '@projects-orgs/pages/projects/views/ProjectDetails/P
 import OrganizationsPage from '@projects-orgs/pages/organizations/OrganizationsPage'
 import OrganizationDetailsPage from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import ProjectDetailsSideNav from '@projects-orgs/components/ProjectsSideNav/ProjectsSideNav'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import AddProjectResourceModalBody from '@projects-orgs/components/ProjectResourceModalBody/ProjectResourceModalBody'
@@ -48,16 +46,15 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
-
-const AccountSettingsSideNavProps: SidebarContext = {
-  navComponent: AccountSettingsSideNav,
-  subtitle: 'ACCOUNT',
-  title: 'Settings',
-  icon: 'nav-settings'
-}
+import HomeSideNav from '@common/components/HomeSideNav/HomeSideNav'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
+  icon: 'harness'
+}
+
+const HomeSideNavProps: SidebarContext = {
+  navComponent: HomeSideNav,
   icon: 'harness'
 }
 
@@ -101,11 +98,11 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 
 export default (
   <>
-    <RouteWithLayout layout={MinimalLayout} path={routes.toProjects({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toProjects({ ...accountPathProps })} exact>
       <ProjectsPage />
     </RouteWithLayout>
 
-    <RouteWithLayout layout={MinimalLayout} path={routes.toProjectsGetStarted({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toProjectsGetStarted({ ...accountPathProps })} exact>
       <GetStartedProject />
     </RouteWithLayout>
 
@@ -176,16 +173,12 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
-      path={routes.toOrganizations({ ...accountPathProps })}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toOrganizations({ ...accountPathProps })} exact>
       <OrganizationsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={HomeSideNavProps}
       path={routes.toOrganizationDetails({ ...accountPathProps, ...orgPathProps })}
       exact
     >
@@ -225,7 +218,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={AccountSettingsSideNavProps}
+      sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toUserGroupDetails({ ...projectPathProps, ...userGroupPathProps })]}
       exact
     >

@@ -27,18 +27,18 @@ export default function L1Nav(): React.ReactElement {
     <nav className={css.main}>
       <ul className={css.navList}>
         <li className={css.navItem}>
-          <Link {...commonLinkProps} to={paths.toProjects(params)}>
+          <Link {...commonLinkProps} to={paths.toHome(params)}>
             <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
               <Icon name="harness" size={30} />
               <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                <String stringID="projectsText" />
+                <String stringID="common.home" />
               </Text>
             </Layout.Vertical>
           </Link>
         </li>
         {CDNG_ENABLED && (
           <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCD(params)}>
+            <Link {...commonLinkProps} to={paths.toCD({ ...params, module: 'cd' })}>
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="cd-main" size={30} />
                 <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
@@ -106,11 +106,6 @@ export default function L1Nav(): React.ReactElement {
             </Link>
           </li>
         )}
-        <li className={css.navItem}>
-          <Link className={css.navLink} activeClassName={css.active} to={paths.toAdmin(params)}>
-            <Icon name="nav-settings" size={20} />
-          </Link>
-        </li>
         <li className={css.navItem}>
           <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
             <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>

@@ -43,7 +43,8 @@ export const TriggerBreadcrumbs = ({
           url: routes.toCDProjectOverview({
             orgIdentifier,
             projectIdentifier,
-            accountId
+            accountId,
+            module
           }),
           label: project?.name as string
         },

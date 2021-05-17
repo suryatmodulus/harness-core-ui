@@ -210,7 +210,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('delegate.DelegateselectionLabel')}
       </Text>
-      {updating ? (
+      {creating || updating ? (
         <PageSpinner
           message={
             GIT_SYNC_NG

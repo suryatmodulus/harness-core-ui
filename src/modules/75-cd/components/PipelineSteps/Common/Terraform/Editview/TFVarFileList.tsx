@@ -5,7 +5,7 @@ import cx from 'classnames'
 
 import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
-import { FieldArray, Form } from 'formik'
+import { FieldArray, FieldArrayRenderProps, Form } from 'formik'
 import type { FormikProps } from 'formik'
 
 import { useStrings } from 'framework/strings'
@@ -97,21 +97,84 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     </Layout.Vertical>
   )
 
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+    event.dataTransfer.setData('data', index.toString())
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+
+  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+
+  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore else */
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
+      /* istanbul ignore else */
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      /* istanbul ignore else */
+      if (data) {
+        const index = parseInt(data, 10)
+        arrayHelpers.swap(index, droppedIndex)
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    []
+  )
+
   return (
     <FieldArray
       name="spec.configuration.spec.varFiles"
-      render={({ push, remove }) => {
+      render={arrayHelpers => {
         return (
           <div>
             {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
               return (
-                <div className={css.addMarginTop} key={`${varFile?.varFile?.spec?.type}`}>
-                  <Layout.Horizontal className={css.tfContainer} key={varFile?.varFile?.spec?.type}>
+                <Layout.Horizontal
+                  className={css.addMarginTop}
+                  key={`${varFile?.varFile?.spec?.type}`}
+                  flex={{ distribution: 'space-between' }}
+                  style={{ alignItems: 'end' }}
+                >
+                  <Layout.Horizontal
+                    spacing="medium"
+                    style={{ alignItems: 'baseline' }}
+                    className={css.tfContainer}
+                    key={varFile?.varFile?.spec?.type}
+                    draggable={true}
+                    onDragEnd={onDragEnd}
+                    onDragOver={onDragOver}
+                    onDragLeave={onDragLeave}
+                    onDragStart={event => {
+                      onDragStart(event, i)
+                    }}
+                    onDrop={event => onDrop(event, arrayHelpers, i)}
+                  >
+                    <Icon name="drag-handle-vertical" className={css.drag} />
                     {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
                     {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
-                    <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
+                    <Button
+                      minimal
+                      icon="trash"
+                      data-testid={`remove-tfvar-file-${i}`}
+                      onClick={() => arrayHelpers.remove(i)}
+                    />
                   </Layout.Horizontal>
-                </div>
+                </Layout.Horizontal>
               )
             })}
             <Popover
@@ -160,7 +223,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     <TFRemoteWizard
                       name={getString('cd.varFileDetails')}
                       onSubmitCallBack={(values: TerraformVarFileWrapper) => {
-                        push(values)
+                        arrayHelpers.push(values)
                         setShowRemoteWizard(false)
                       }}
                       isEditMode={isEditMode}
@@ -194,7 +257,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     initialValues={selectedVar}
                     onSubmit={(values: any) => {
                       if (!isEditMode) {
-                        push(values)
+                        arrayHelpers.push(values)
                         setShowTfModal(false)
                       }
                     }}

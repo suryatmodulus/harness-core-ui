@@ -31,6 +31,7 @@ import {
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ConnectorCardInterface, gitCards } from '@gitsync/common/gitSyncUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import css from './GitSyncRepoForm.module.scss'
 
 interface GitSyncRepoFormProps {
@@ -81,6 +82,10 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
   }
 
   const [connectorType, setConnectorType] = useState(defaultInitialFormData.gitConnectorType)
+
+  const getConnectorIdentifierWithScope = (scope: Scope, identifier: string): string => {
+    return scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${identifier}` : identifier
+  }
 
   const handleCreate = async (data: GitSyncConfig): Promise<void> => {
     try {
@@ -224,10 +229,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     onChange={(value, scope) => {
                       setFieldValue('gitConnector', {
                         label: value.name || '',
-                        value:
-                          scope === Scope.ORG || scope === Scope.ACCOUNT
-                            ? `${scope}.${value?.identifier}`
-                            : value?.identifier,
+                        value: getConnectorIdentifierWithScope(scope, value?.identifier),
                         scope: scope,
                         live: value?.status?.status === 'SUCCESS',
                         connector: value
@@ -235,7 +237,13 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       setFieldValue('repo', value?.spec?.url)
 
                       if (value?.spec?.type === GitUrlType.REPO) {
-                        debounceFetchBranches(value?.identifier, value?.spec?.url)
+                        debounceFetchBranches(
+                          getConnectorIdentifierWithScope(
+                            getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
+                            value?.identifier
+                          ),
+                          value?.spec?.url
+                        )
                       }
                     }}
                   />
@@ -248,7 +256,11 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       onChange={e => {
                         formValues.gitConnector?.connector.identifier &&
                           debounceFetchBranches(
-                            formValues.gitConnector.connector.identifier,
+                            getConnectorIdentifierWithScope(
+                              getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
+                              formValues.gitConnector.connector.identifier
+                            ),
+
                             (e.target as HTMLInputElement)?.value
                           )
                       }}

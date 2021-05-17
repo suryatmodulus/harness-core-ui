@@ -139,7 +139,7 @@ gitSync:
   unSynced:
     header: Sync the branch
     message1: 'Branch {{branch}} is currently not Synced.'
-    message2: 'Explanation text - What is syncing and why the branch needs to be sync. Do you want to Sync?'
+    message2: 'Syncing the branch may take a while. Do you want to continue?'
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'

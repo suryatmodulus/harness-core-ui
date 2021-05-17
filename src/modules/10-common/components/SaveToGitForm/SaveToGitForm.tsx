@@ -20,7 +20,6 @@ import { Link } from 'react-router-dom'
 import type { GitSyncConfig, GitSyncEntityDTO, GitSyncFolderConfigDTO, EntityGitDetails } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import paths from '@common/RouteDefinitions'
 import { PageSpinner } from '../Page/PageSpinner'
 import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
@@ -61,11 +60,11 @@ export interface SaveToGitFormInterface {
 const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props => {
   const { accountId, projectIdentifier, isEditing = false, resource } = props
   const { getString } = useStrings()
-  const { currentUserInfo } = useAppStore()
-  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
+  const { gitSyncRepos, loadingRepos, codeManagers } = useGitSyncStore()
   const [rootFolderSelectOptions, setRootFolderSelectOptions] = React.useState<SelectOption[]>([])
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([])
   const [isNewBranch, setIsNewBranch] = React.useState(false)
+  const [currentUserInfo, setCurrentUserInfo] = React.useState('')
 
   const defaultInitialFormData: SaveToGitFormInterface = {
     name: resource.name,
@@ -78,6 +77,12 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     commitMsg: getString('common.gitSync.updateResource', { resource: resource.name }),
     createPr: false
   }
+
+  useEffect(() => {
+    setCurrentUserInfo(
+      codeManagers[0]?.authentication?.spec?.spec?.username || codeManagers[0]?.authentication?.spec?.spec?.usernameRef
+    )
+  }, [codeManagers])
 
   const handleBranchTypeChange = (isNew: boolean, formik: FormikContext<SaveToGitFormInterface>): void => {
     if (isNewBranch !== isNew) {
@@ -142,10 +147,10 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     <PageSpinner />
   ) : (
     <Container height={'inherit'} className={css.modalContainer}>
-      {currentUserInfo?.name && (
+      {currentUserInfo && (
         <Layout.Horizontal className={css.userInfo} flex={{ alignItems: 'center' }} margin={{ top: 'xsmall' }}>
-          <Avatar size="small" name={currentUserInfo?.name} backgroundColor={Color.PRIMARY_7} hoverCard={false} />
-          <Text color={Color.GREY_700}>{getString('common.git.currentUserLabel', { user: currentUserInfo.name })}</Text>
+          <Avatar size="small" name={currentUserInfo} backgroundColor={Color.PRIMARY_7} hoverCard={false} />
+          <Text color={Color.GREY_700}>{getString('common.git.currentUserLabel', { user: currentUserInfo })}</Text>
         </Layout.Horizontal>
       )}
       <Text
@@ -157,7 +162,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
       >
         {getString('common.git.saveResourceLabel', { resource: props.resource.type })}
       </Text>
-      {!currentUserInfo?.name && (
+      {!currentUserInfo && (
         <Layout.Horizontal className={css.addUserContainer} spacing="small">
           <Icon name="warning-sign" color={Color.ORANGE_700}></Icon>
           <div>
@@ -288,7 +293,13 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                 </Container>
 
                 <Layout.Horizontal padding={{ top: 'medium' }} spacing="medium">
-                  <Button className={css.formButton} type="submit" intent="primary" text={getString('save')} />
+                  <Button
+                    className={css.formButton}
+                    type="submit"
+                    intent="primary"
+                    text={getString('save')}
+                    disabled={!currentUserInfo}
+                  />
                   <Button
                     className={css.formButton}
                     text={getString('cancel')}

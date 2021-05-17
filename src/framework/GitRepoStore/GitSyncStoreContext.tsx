@@ -2,12 +2,13 @@ import React, { useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { noop } from 'lodash-es'
-import { GitSyncConfig, useListGitSync } from 'services/cd-ng'
+import { GitSyncConfig, SourceCodeManagerDTO, useGetSourceCodeManagers, useListGitSync } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface GitSyncStoreProps {
   readonly gitSyncRepos: GitSyncConfig[]
+  readonly codeManagers: SourceCodeManagerDTO[]
   readonly loadingRepos: boolean
   updateStore(data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void
   refreshStore(): void
@@ -15,6 +16,7 @@ export interface GitSyncStoreProps {
 
 export const GitSyncStoreContext = React.createContext<GitSyncStoreProps>({
   gitSyncRepos: [],
+  codeManagers: [],
   loadingRepos: false,
   updateStore: noop,
   refreshStore: noop
@@ -35,9 +37,22 @@ export const GitSyncStoreProvider: React.FC = props => {
 
   const [storeData, setStoreData] = React.useState<Omit<GitSyncStoreProps, 'updateStore' | 'strings'>>({
     gitSyncRepos: [],
+    codeManagers: [],
     loadingRepos,
     refreshStore: refetch
   })
+
+  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
+
+  useEffect(() => {
+    if (!loadingCodeManagers) {
+      setStoreData(prevStateData => ({
+        ...prevStateData,
+        codeManagers: codeManagers?.data || []
+      }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingCodeManagers])
 
   useEffect(() => {
     if (!loadingRepos) {

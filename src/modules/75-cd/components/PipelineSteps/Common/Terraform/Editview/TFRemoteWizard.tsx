@@ -104,7 +104,6 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
               (item: PathInterface) => item.path
             ) as any
           }
-          console.log(data, 'data')
           onSubmitCallBack(data)
         }}
         validationSchema={Yup.object().shape({
@@ -132,7 +131,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             <Form>
               <div className={css.tfRemoteForm}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Text name="varFile.identifier" label={getString('cd.fileIdentifier')} />
+                  <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select

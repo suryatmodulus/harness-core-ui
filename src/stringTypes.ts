@@ -1415,6 +1415,7 @@ export interface StringsMap {
   'cd.addInline': string
   'cd.addRemote': string
   'cd.allowSimultaneousDeployments': string
+  'cd.backEndConfig': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
@@ -1426,7 +1427,6 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
-  'cd.fileIdentifier': string
   'cd.filePath': string
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string

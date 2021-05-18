@@ -255,7 +255,7 @@ function TerraformPlanWidget(
               <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
                 <MultiTypeFieldSelector
                   name="spec.configuration.backendConfig.spec.content"
-                  label={getString('script')}
+                  label={getString('cd.backEndConfig')}
                   defaultValueToReset=""
                   allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
                   expressionRender={() => {

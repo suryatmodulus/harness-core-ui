@@ -273,7 +273,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     {() => {
                       return (
                         <Form>
-                          <FormInput.Text name="varFile.identifier" label={getString('cd.fileIdentifier')} />
+                          <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                           <FormInput.TextArea name="varFile.spec.content" label={getString('pipelineSteps.content')} />
                           <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                             <Button type="submit" intent={'primary'} text={getString('submit')} />

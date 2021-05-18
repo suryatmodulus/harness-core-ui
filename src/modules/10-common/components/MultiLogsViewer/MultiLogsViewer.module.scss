@@ -166,16 +166,14 @@ $background: #09090b;
 }
 
 .logLineContent {
-  padding-left: 3.5rem;
   overflow-wrap: anywhere;
   flex: 1 1 15rem;
 }
 
 .logLineTimestamp {
-  min-width: 13rem;
-  padding-left: 2rem;
+  min-width: 16.5rem;
 }
 
 .logLineLevel {
-  min-width: 2rem;
+  min-width: 4rem;
 }

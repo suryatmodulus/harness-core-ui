@@ -20,7 +20,8 @@ function getCreateSectionsAction(statuses: LogViewerAccordionStatus[]): Action<A
         ],
         unitProgresses: statuses.map((status, i) => ({ unitName: `Unit ${i + 1}`, status })) as any
       },
-      selectedStep: 'SELECTED_STEP_1'
+      selectedStep: 'SELECTED_STEP_1',
+      selectedStage: 'SELECTED_STAGE_1'
     }
   }
 }
@@ -29,9 +30,15 @@ interface GetStateDataProps {
   status: LogViewerAccordionStatus
   unitStatus: LogViewerAccordionStatus
   selectedStep?: string
+  selectedStage?: string
 }
 
-function getStateData({ status, unitStatus, selectedStep = 'SELECTED_STEP_1' }: GetStateDataProps): State {
+function getStateData({
+  status,
+  unitStatus,
+  selectedStep = 'SELECTED_STEP_1',
+  selectedStage = 'SELECTED_STAGE_1'
+}: GetStateDataProps): State {
   return {
     units: ['Unit 1'],
     dataMap: {
@@ -46,7 +53,8 @@ function getStateData({ status, unitStatus, selectedStep = 'SELECTED_STEP_1' }: 
         formattedData: []
       }
     },
-    selectedStep
+    selectedStep,
+    selectedStage
   }
 }
 
@@ -59,7 +67,7 @@ describe('logs state reducer tests', () => {
     describe('CreateSections', () => {
       test('INIT', () => {
         const state = reducer(
-          { units: [], dataMap: {}, selectedStep: '' },
+          { units: [], dataMap: {}, selectedStep: '', selectedStage: '' },
           getCreateSectionsAction(['NOT_STARTED', 'NOT_STARTED', 'NOT_STARTED'])
         )
 
@@ -96,6 +104,7 @@ describe('logs state reducer tests', () => {
                 "unitStatus": "SUCCESS",
               },
             },
+            "selectedStage": "SELECTED_STAGE_1",
             "selectedStep": "SELECTED_STEP_1",
             "units": Array [
               "Unit 1",

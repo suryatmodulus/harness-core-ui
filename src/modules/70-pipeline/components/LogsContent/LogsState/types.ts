@@ -30,6 +30,7 @@ export interface LogSectionData {
 export interface CreateSectionsPayload {
   node: ExecutionNode
   selectedStep: string
+  selectedStage: string
 }
 
 export interface Action<T extends ActionType> {
@@ -45,6 +46,7 @@ export interface State {
   units: string[]
   dataMap: Record<string, LogSectionData>
   selectedStep: string
+  selectedStage: string
 }
 
 export interface ProgressMapValue extends Pick<UnitProgress, 'startTime' | 'endTime'> {

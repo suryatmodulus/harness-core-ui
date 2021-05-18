@@ -28,5 +28,8 @@ declare const styles: {
   readonly crossIcon: string
   readonly configPlaceHolder: string
   readonly addTfVarFile: string
+  readonly dragging: string
+  readonly dragOver: string
+  readonly drag: string
 }
 export default styles

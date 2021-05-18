@@ -331,7 +331,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
   const secretManager = values?.spec?.configuration?.secretManagerRef as any
-  return {
+  const payload = {
     ...values,
     spec: {
       ...values.spec,
@@ -366,4 +366,6 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
       }
     }
   }
+
+  return payload
 }

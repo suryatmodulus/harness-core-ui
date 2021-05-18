@@ -65,6 +65,10 @@ import { TFMonaco } from '../Common/Terraform/Editview/TFMonacoEditor'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TerraformVarfile.module.scss'
 
+const setInitialValues = (data: TFPlanFormData): TFPlanFormData => {
+  return data
+}
+
 function TerraformPlanWidget(
   props: TerraformPlanProps,
   formikRef: StepFormikFowardRef<TFPlanFormData>
@@ -90,13 +94,14 @@ function TerraformPlanWidget(
     canOutsideClickClose: true,
     style: { width: 1000 }
   }
+
   const [showModal, setShowModal] = React.useState(false)
   return (
     <Formik<TFPlanFormData>
       onSubmit={values => {
         onUpdate?.(values)
       }}
-      initialValues={initialValues}
+      initialValues={setInitialValues(initialValues)}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
@@ -117,7 +122,7 @@ function TerraformPlanWidget(
           <>
             <>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+                <FormInput.InputWithIdentifier inputLabel={getString('cd.stepName')} isIdentifierEditable={isNewStep} />
               </div>
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>

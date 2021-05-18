@@ -79,11 +79,19 @@ export default function TerraformEditView(
       })
     })
   })
-
-  const configurationTypes: SelectOption[] = [
-    { label: getString('inline'), value: ConfigurationTypes.Inline },
-    { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
-  ]
+  let configurationTypes: SelectOption[]
+  if (stepType === StepType.TerraformApply) {
+    configurationTypes = [
+      { label: getString('inline'), value: ConfigurationTypes.Inline },
+      { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan }
+    ]
+  } else {
+    configurationTypes = [
+      { label: getString('inline'), value: ConfigurationTypes.Inline },
+      { label: getString('pipelineSteps.configTypes.fromPlan'), value: ConfigurationTypes.InheritFromPlan },
+      { label: getString('pipelineSteps.configTypes.fromApply'), value: ConfigurationTypes.InheritFromApply }
+    ]
+  }
 
   const [showModal, setShowModal] = React.useState(false)
 
@@ -230,9 +238,10 @@ export default function TerraformEditView(
                           <ExpressionInput
                             value={formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content || ''}
                             name="spec.configuration.spec.backendConfig.spec.content"
-                            onChange={value =>
+                            onChange={value => {
+                              setFieldValue('spec.configuration.spec.backendConfig.type', 'Inline')
                               setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
-                            }
+                            }}
                           />
                         )
                       }}

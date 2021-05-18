@@ -44,6 +44,8 @@ import {
 } from 'services/cd-ng'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
@@ -410,9 +412,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           ? artifacts?.primary?.spec?.region
           : initialValues.artifacts?.primary?.spec?.region
     }
-    if (connectorType === 'Dockerhub') {
+    if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       return !imagePath?.length || !connectorRef?.length
-    } else if (connectorType === 'Ecr') {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Aws) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
       return !imagePath?.length || !connectorRef?.length || !registryHostname?.length

@@ -12,11 +12,12 @@ import type { Action, ActionType, LogSectionData, State, ProgressMapValue } from
 const NON_MUTATE_STATES: LogViewerAccordionStatus[] = ['LOADING', 'QUEUED']
 
 export function createSections(state: State, action: Action<ActionType.CreateSections>): State {
-  const { node, selectedStep } = action.payload
+  const { node, selectedStep, selectedStage } = action.payload
 
-  if (!node) return state
+  if (!node) return { units: [], selectedStage, selectedStep, dataMap: {} }
 
-  const isSameStep = selectedStep === state.selectedStep
+  const isSameStage = selectedStage === state.selectedStage
+  const isSameStep = isSameStage && selectedStep === state.selectedStep
 
   /**
    * task object must always be picked from the first entry
@@ -116,5 +117,5 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
     set(dataMap[key], 'isOpen', true)
   }
 
-  return { units, dataMap, selectedStep }
+  return { units, dataMap, selectedStep, selectedStage }
 }

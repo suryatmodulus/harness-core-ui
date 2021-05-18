@@ -163,7 +163,12 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage } = props
   const requestQueue = React.useRef(new PQueue())
   const { accountId } = useParams<ExecutionPathProps>()
-  const [state, dispatch] = React.useReducer<LogsReducer>(reducer, { units: [], dataMap: {}, selectedStep: '' })
+  const [state, dispatch] = React.useReducer<LogsReducer>(reducer, {
+    units: [],
+    dataMap: {},
+    selectedStep: '',
+    selectedStage: ''
+  })
   const {
     pipelineStagesMap,
     selectedStageId,
@@ -296,7 +301,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
       type: ActionType.CreateSections,
       payload: {
         node: selectedStep,
-        selectedStep: selectedStepId
+        selectedStep: selectedStepId,
+        selectedStage: selectedStageId
       }
     })
   }, [

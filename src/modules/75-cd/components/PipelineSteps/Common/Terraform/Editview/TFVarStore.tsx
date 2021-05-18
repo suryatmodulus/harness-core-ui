@@ -19,6 +19,7 @@ import {
 import { Form } from 'formik'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
@@ -143,6 +144,12 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                   nextStep?.(formik.values)
                 }}
                 className={css.saveBtn}
+                disabled={
+                  !selectedType ||
+                  (getMultiTypeFromValue(formik.values.varFile?.store?.spec?.connectorRef) ===
+                    MultiTypeInputType.FIXED &&
+                    !(formik.values.varFile?.store?.spec?.connectorRef as ConnectorSelectedValue)?.connector)
+                }
               />
             </Layout.Horizontal>
           </Form>

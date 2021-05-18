@@ -123,7 +123,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   <FormInput.MultiTextInput
                     label={getString('pipelineSteps.deploy.inputSet.branch')}
                     placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                    name="spec.configuration.spec.configFiles.store.spec.branch"
+                    name="spec.configuration.configFiles.store.spec.branch"
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.branch) ===

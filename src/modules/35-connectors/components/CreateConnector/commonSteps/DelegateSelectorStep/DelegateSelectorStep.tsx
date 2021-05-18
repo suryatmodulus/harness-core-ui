@@ -210,10 +210,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('delegate.DelegateselectionLabel')}
       </Text>
+      <ModalErrorHandler bind={setModalErrorHandler} />
       {updating ? (
         <PageSpinner
           message={
-            GIT_SYNC_NG
+            isGitSyncEnabled
               ? isSyncingToGitViaManager
                 ? getString('common.submittingRequest')
                 : getString('common.submittingRequestToGit')
@@ -273,7 +274,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           }}
         >
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
             <DelegateSelector
               mode={mode}
               setMode={setMode}

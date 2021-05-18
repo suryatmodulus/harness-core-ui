@@ -29,10 +29,10 @@ const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
         title={
           <Layout.Horizontal spacing="small" className={css.alignCenter}>
             <Text color={Color.BLACK} font={{ size: 'medium' }}>
-              <String stringID="userProfile.switchAccount" />
+              <String stringID="common.switchAccount" />
             </Text>
             <ExpandingSearchInput
-              placeholder={getString('userProfile.switchAccountSearch')}
+              placeholder={getString('common.switchAccountSearch')}
               defaultValue={searchString}
               onChange={str => setSearchString(str.trim())}
             />

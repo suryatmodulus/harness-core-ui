@@ -668,7 +668,7 @@ exports[`User Profile Page User Profile 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  userProfile.switchAccount
+                  common.switchAccount
                 </span>
               </button>
             </p>

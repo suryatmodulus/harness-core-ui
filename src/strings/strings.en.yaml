@@ -1021,7 +1021,6 @@ pipelineSteps:
   labelsInfo: Use Labels to add metadata to the Docker image
   regionPlaceholder: us-east-1
   regionInfo: AWS Region
-  accountLabel: Account ID
   accountInfo: AWS Account ID
   reportPathsLabel: Report Paths
   reportPathsInfo: Each path should lead to file(s) that stores results in the JUnit XML format.  Regex is supported.

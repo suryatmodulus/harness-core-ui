@@ -69,7 +69,7 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           name={`${isEmpty(path) ? '' : `${path}.`}spec.account`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.accountLabel')}
+              {getString('common.accountId')}
               <Button
                 icon="question"
                 minimal

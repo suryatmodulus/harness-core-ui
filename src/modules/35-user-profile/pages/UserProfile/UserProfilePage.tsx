@@ -9,7 +9,7 @@ import { useGetAuthenticationSettings } from 'services/cd-ng'
 import type { UsernamePasswordSettings } from 'services/cd-ng'
 import { Page } from '@common/components'
 import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentication/TwoFactorAuthentication'
-import useSwitchAccountModal from '@user-profile/modals/SwitchAccount/useSwitchAccountModal'
+import useSwitchAccountModal from '@common/modals/SwitchAccount/useSwitchAccountModal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
@@ -94,7 +94,7 @@ const UserProfilePage: React.FC = () => {
                     font={{ weight: 'semi-bold' }}
                     className={css.button}
                   >
-                    {getString('userProfile.switchAccount')}
+                    {getString('common.switchAccount')}
                   </Button>
                 </Text>
               </Layout.Vertical>

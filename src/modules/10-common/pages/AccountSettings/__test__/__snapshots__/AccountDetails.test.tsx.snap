@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDetails AccountDetails page 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      common.accountOverview
+    </h2>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    <div
+      class="StyledProps--font StyledProps--main container StyledProps--margin-xlarge StyledProps--padding-xlarge"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-bottom-xlarge"
+      >
+        common.accountDetails
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main minWidth StyledProps--color StyledProps--color-grey600"
+        >
+          common.accountName
+        </p>
+        <button
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main zeroPadding StyledProps--intent-primary StyledProps--padding-left-none Button--with-current-color Button--without-shadow"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            common.addAccountName
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main minWidth"
+        >
+          common.accountId
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          102684
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main minWidth"
+        >
+          common.harnessClusterHostingAccount
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Prod 1
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      >
+        <p
+          class="StyledProps--font StyledProps--main minWidth"
+        >
+          common.defaultVersion
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+        >
+          Harness Next Generation 
+        </p>
+        <button
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-none Button--with-current-color Button--without-shadow"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            change
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

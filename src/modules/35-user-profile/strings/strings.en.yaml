@@ -1,13 +1,6 @@
 mysourceCodeManagers: My Source Code Managers
 basicInformation: Basic Information
 changePassword: Change Password
-switchAccount: Switch Account
-setAsDefault: Set as Default
-switchAccountSearch: Search by Account Name
-headerAccountName: '{{ $.common.accountName }}'
-headerCompanyName: Company Name
-headerAccountEdition: Account Edition
-headerDefaultAccount: Default Account
 passwordReqs: 'Password must meet the requirements.'
 passwordMatch: 'Passwords must match.'
 currentPassword: 'Current Password'
@@ -18,7 +11,6 @@ passwordChangedSuccessfully: Password changed successfully
 yourCurrentPasswordIncorrect: Your current password is incorrect
 newPasswordShouldMeetTheRequirements: New password should meet the password strength requirements
 newPasswordShouldNotBeCurrentPassword: New password should not be same as current password
-changeDefaultAccountTitle: 'Change Default Account'
 changeDefaultAccountMessage: Are you sure you want to set your default account to '{{ name }}'?
 twofactorAuth: Two-Factor Authentication
 qrCode: QR Code

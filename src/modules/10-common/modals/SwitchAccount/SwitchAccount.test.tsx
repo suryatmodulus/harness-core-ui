@@ -22,7 +22,7 @@ describe('Switch Account', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('userProfile.switchAccount')).toBeDefined())
+    await waitFor(() => expect(getByText('common.switchAccount')).toBeDefined())
     const container = findDialogContainer()
     expect(container).toMatchSnapshot()
   })

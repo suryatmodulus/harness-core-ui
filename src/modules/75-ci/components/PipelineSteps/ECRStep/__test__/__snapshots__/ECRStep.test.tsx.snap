@@ -373,7 +373,7 @@ exports[`ECR Step Edit View edit mode works 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              pipelineSteps.accountLabel
+              common.accountId
               <span
                 class="bp3-popover-wrapper"
               >
@@ -2923,7 +2923,7 @@ exports[`ECR Step Edit View renders runtime inputs 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              pipelineSteps.accountLabel
+              common.accountId
               <span
                 class="bp3-popover-wrapper"
               >
@@ -4858,7 +4858,7 @@ exports[`ECR Step Edit View should render properly 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              pipelineSteps.accountLabel
+              common.accountId
               <span
                 class="bp3-popover-wrapper"
               >
@@ -6703,7 +6703,7 @@ exports[`ECR Step InputSet View should render all fields 1`] = `
               class="StyledProps--font StyledProps--main"
               style="display: flex; align-items: center;"
             >
-              pipelineSteps.accountLabel
+              common.accountId
               <span
                 class="bp3-popover-wrapper"
               >

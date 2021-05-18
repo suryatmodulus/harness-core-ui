@@ -105,7 +105,7 @@ export const editViewValidateFieldsConfig = [
   {
     name: 'spec.account',
     type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.accountLabel',
+    label: 'common.accountId',
     isRequired: true
   },
   {
@@ -165,7 +165,7 @@ export const inputSetViewValidateFieldsConfig = [
   {
     name: 'spec.account',
     type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.accountLabel',
+    label: 'common.accountId',
     isRequired: true
   },
   {

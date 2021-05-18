@@ -312,3 +312,24 @@ filters:
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
 in: in
+switchAccount: Switch Account
+switchAccountSearch: Search by Account Name
+accountOverview: Account Overview
+accountDetails: Account Details
+addAccountName: Add Account Name
+accountId: Account ID
+harnessClusterHostingAccount: Harness Cluster hosting account
+defaultVersion: Default Version
+selectDefaultVersion: Select the default version to launch after Sign-in
+harnessFirstGeneration: Harness First Generation
+harnessFirstGenerationDescription: Self-Service platform that enables engineers to deploy on-demand without scripts. Setup and easily manage automated canary deployments, GitOps, Self service deployments and get cost visibility.
+supportedModals: Supported Modules
+harnessNextGeneration: Harness Next Generation
+harnessNextGenerationDescription: Take your software delivery processes to the next level using our Harness modules. Next Generation simplifies the experience with simpler UI Architecture and shared resources across projects.
+changeDefaultAccountTitle: Change Default Account
+changeDefaultAccountMessage: Are you sure you want to set your default account to '{{ name }}'?
+setAsDefault: Set as Default
+headerAccountName: '{{ $.common.accountName }}'
+headerCompanyName: Company Name
+headerAccountEdition: Account Edition
+headerDefaultAccount: Default Account

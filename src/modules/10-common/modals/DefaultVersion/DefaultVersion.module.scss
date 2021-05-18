@@ -1,0 +1,25 @@
+.dialog {
+  border-radius: 4px;
+  width: 916px;
+}
+
+.cardContainer {
+  display: grid;
+  grid-gap: var(--spacing-xxlarge);
+  grid-template-columns: repeat(2, 1fr);
+
+  .card {
+    padding: var(--spacing-xxlarge);
+    box-shadow: var(--card-shadow);
+
+    .tag {
+      background-color: red;
+      color: white;
+      font-size: x-small;
+    }
+
+    .cardText {
+      line-height: var(--spacing-xlarge) !important;
+    }
+  }
+}

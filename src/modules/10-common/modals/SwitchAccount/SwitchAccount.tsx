@@ -71,8 +71,8 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     const { openDialog } = useConfirmationDialog({
       cancelButtonText: getString('cancel'),
       confirmButtonText: getString('continue'),
-      titleText: getString('userProfile.changeDefaultAccountTitle'),
-      contentText: getString('userProfile.changeDefaultAccountMessage', { name: account.accountName }),
+      titleText: getString('common.changeDefaultAccountTitle'),
+      contentText: getString('common.changeDefaultAccountMessage', { name: account.accountName }),
       onCloseDialog: isConfirmed => {
         if (isConfirmed) {
           handleSetDefault()
@@ -86,7 +86,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     ) : (
       <Button
         small
-        text={getString('userProfile.setAsDefault')}
+        text={getString('common.setAsDefault')}
         onClick={openDialog}
         data-test-id={`set-default-account-${account.accountName}`}
       />
@@ -109,28 +109,28 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
   const columns: Column<Account>[] = useMemo(
     () => [
       {
-        Header: getString('userProfile.headerAccountName'),
+        Header: getString('common.headerAccountName'),
         accessor: row => row.accountName,
         id: 'name',
         width: '30%',
         Cell: RenderColumnAccountName
       },
       {
-        Header: getString('userProfile.headerCompanyName'),
+        Header: getString('common.headerCompanyName'),
         accessor: row => row.companyName,
         id: 'companyName',
         width: '30%',
         Cell: RenderColumnCompanyName
       },
       {
-        Header: getString('userProfile.headerAccountEdition'),
+        Header: getString('common.headerAccountEdition'),
         accessor: row => row.licenseInfo?.accountType,
         id: 'accountType',
         width: '20%',
         Cell: RenderColumnAccountEdition
       },
       {
-        Header: getString('userProfile.headerDefaultAccount'),
+        Header: getString('common.headerDefaultAccount'),
         accessor: row => row.defaults,
         id: 'defaultAccount',
         width: '20%',

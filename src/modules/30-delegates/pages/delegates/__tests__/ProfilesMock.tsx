@@ -5,6 +5,27 @@ export default {
     response: [
       {
         accountId: 'TEST_ACCOUNTID',
+        uuid: 'profile1',
+        name: 'profile 1',
+        description: 'The primary profile for the account',
+        primary: false,
+        approvalRequired: true,
+        startupScript: 'test this',
+        createdBy: {
+          uuid: 'person1',
+          name: 'Admin',
+          email: 'adm@harn.io'
+        },
+        lastUpdatedBy: {
+          uuid: 'person1',
+          name: 'Admin',
+          email: 'adm@harn.io'
+        },
+        lastUpdatedAt: moment(),
+        scopingRules: []
+      },
+      {
+        accountId: 'TEST_ACCOUNTID',
         uuid: 'profile2',
         name: 'Primary',
         description: 'The primary profile for the account',

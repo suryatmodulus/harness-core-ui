@@ -111,6 +111,18 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 multiTypeProps={{ expressions }}
               />
 
+              {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
+                connectorValue?.connector?.spec?.type === 'Account') && (
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormInput.MultiTextInput
+                    label={getString('pipelineSteps.repoName')}
+                    name="spec.configuration.spec.configFiles.store.spec.repoName"
+                    placeholder={getString('pipelineSteps.repoName')}
+                    multiTextInputProps={{ expressions }}
+                  />
+                </div>
+              )}
+
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.Select
                   items={gitFetchTypes}
@@ -198,20 +210,14 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   />
                 )}
               </div>
-              {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
-                connectorValue?.connector?.spec?.type === 'Account') && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.repoName')}
-                    name="spec.configuration.spec.configFiles.store.spec.repoName"
-                    placeholder={getString('pipelineSteps.repoName')}
-                    multiTextInputProps={{ expressions }}
-                  />
-                </div>
-              )}
 
               <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                <Button text={getString('submit')} intent="primary" type="submit" />
+                <Button
+                  text={getString('submit')}
+                  intent="primary"
+                  type="submit"
+                  disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
+                />
                 <Button text={getString('cancel')} onClick={props.onHide} />
               </Layout.Horizontal>
             </Form>

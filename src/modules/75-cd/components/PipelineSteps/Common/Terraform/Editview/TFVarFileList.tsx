@@ -36,16 +36,16 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const [showTfModal, setShowTfModal] = React.useState(false)
   const [isEditMode, setIsEditMode] = React.useState(false)
   const [selectedVar, setSelectedVar] = React.useState(inlineInitValues as TerraformVarFileWrapper)
-
+  const [selectedVarIndex, setSelectedVarIndex] = React.useState<number>(-1)
   const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
 
-  const remoteRender = (varFile: TerraformVarFileWrapper) => {
+  const remoteRender = (varFile: TerraformVarFileWrapper, index: number) => {
     const remoteVar = varFile?.varFile as any
     return (
       <div className={css.configField}>
         <Layout.Horizontal>
-          {varFile?.varFile?.type === getString('remote') && <Icon name="remote" />}
+          {varFile?.varFile?.type === getString('remote') && <Icon name="remote" className={css.iconPosition} />}
           <Text className={css.branch}>{remoteVar?.identifier}</Text>
         </Layout.Horizontal>
         <Icon
@@ -53,6 +53,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           onClick={() => {
             setShowRemoteWizard(true)
             setSelectedVar(varFile)
+            setSelectedVarIndex(index)
             setIsEditMode(true)
           }}
         />
@@ -60,12 +61,12 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     )
   }
 
-  const inlineRender = (varFile: TerraformVarFileWrapper) => {
+  const inlineRender = (varFile: TerraformVarFileWrapper, index: number) => {
     const inlineVar = varFile?.varFile as any
     return (
       <div className={css.configField}>
         <Layout.Horizontal>
-          {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
+          {inlineVar?.type === getString('inline') && <Icon name="Inline" className={css.iconPosition} />}
           <Text className={css.branch}>{inlineVar?.identifier}</Text>
         </Layout.Horizontal>
         <Icon
@@ -73,6 +74,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
           onClick={() => {
             setShowTfModal(true)
             setIsEditMode(true)
+            setSelectedVarIndex(index)
             setSelectedVar(varFile)
           }}
         />
@@ -165,8 +167,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     onDrop={event => onDrop(event, arrayHelpers, i)}
                   >
                     <Icon name="drag-handle-vertical" className={css.drag} />
-                    {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
-                    {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
+                    {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile, i)}
+                    {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile, i)}
                     <Button
                       minimal
                       icon="trash"
@@ -223,7 +225,11 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     <TFRemoteWizard
                       name={getString('cd.varFileDetails')}
                       onSubmitCallBack={(values: TerraformVarFileWrapper) => {
-                        arrayHelpers.push(values)
+                        if (isEditMode) {
+                          arrayHelpers.replace(selectedVarIndex, values)
+                        } else {
+                          arrayHelpers.push(values)
+                        }
                         setShowRemoteWizard(false)
                       }}
                       isEditMode={isEditMode}
@@ -258,8 +264,10 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     onSubmit={(values: any) => {
                       if (!isEditMode) {
                         arrayHelpers.push(values)
-                        setShowTfModal(false)
+                      } else {
+                        arrayHelpers.replace(selectedVarIndex, values)
                       }
+                      setShowTfModal(false)
                     }}
                     validationSchema={Yup.object().shape({
                       varFile: Yup.object().shape({

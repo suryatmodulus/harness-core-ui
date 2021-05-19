@@ -31,5 +31,7 @@ declare const styles: {
   readonly dragging: string
   readonly dragOver: string
   readonly drag: string
+  readonly iconPosition: string
+  readonly configLabel: string
 }
 export default styles

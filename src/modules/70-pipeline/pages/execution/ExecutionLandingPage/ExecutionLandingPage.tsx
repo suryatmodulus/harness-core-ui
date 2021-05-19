@@ -86,6 +86,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     offsetY: 0,
     zoom: 100
   })
+  const selectedStage = isEmpty(queryParams.stage || autoSelectedStageId)
 
   const { data, refetch, loading, error } = useGetExecutionDetail({
     planExecutionId: executionIdentifier,
@@ -93,12 +94,13 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
-      stageNodeId: isEmpty(queryParams.stage || autoSelectedStageId)
-        ? undefined
-        : queryParams.stage || autoSelectedStageId
+      stageNodeId: selectedStage ? undefined : queryParams.stage || autoSelectedStageId
     },
     debounce: 500
   })
+  if (selectedStage && data?.data?.executionGraph) {
+    data.data.executionGraph = {}
+  }
 
   const { selectedProject } = useAppStore()
   const project = selectedProject

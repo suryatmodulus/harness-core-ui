@@ -115,6 +115,120 @@ exports[`Delegates Configurations Page render data 1`] = `
                 level="2"
                 style="font-size: 16px; font-weight: 500; color: rgb(34, 34, 42);"
               >
+                profile 1
+              </h2>
+              <span
+                style="flex-grow: 1;"
+              />
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="transform: translate(12px, -10px);"
+              >
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      style="transform: rotate(90deg);"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-more StyledProps--main"
+                        icon="more"
+                      >
+                        <svg
+                          data-icon="more"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            more
+                          </desc>
+                          <path
+                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              style="flex-grow: 1;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                The primary profile for the account
+              </p>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="display: inline-flex; flex-wrap: wrap;"
+              />
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
+              style="border-top: 1px solid #D9DAE6;"
+            >
+              <span
+                style="flex-grow: 1;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+              style="justify-content: space-between;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                style="font-size: 8px; color: rgb(107, 109, 133); letter-spacing: 0.285714px; font-weight: 500;"
+              >
+                <div>
+                  delegates.usedBy
+                </div>
+                <div>
+                   
+                  delegate.delegates
+                </div>
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                style="font-size: 8px; color: rgb(107, 109, 133); letter-spacing: 0.285714px; font-weight: 500;"
+              >
+                <div>
+                  delegates.lastUpdated
+                </div>
+                <div>
+                  0
+                   
+                  minutes
+                   ago
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card delegateProfileElements Card--interactive"
+          tabindex="0"
+        >
+          <div
+            style="width: 250px; height: 200px; border-radius: 5px; display: flex; flex-direction: column;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <h2
+                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-medium"
+                level="2"
+                style="font-size: 16px; font-weight: 500; color: rgb(34, 34, 42);"
+              >
                 Primary
               </h2>
               <span
@@ -348,6 +462,120 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
       <div
         class="delegateProfilesContainer"
       >
+        <div
+          class="bp3-card bp3-interactive bp3-elevation-2 Card--card delegateProfileElements Card--interactive"
+          tabindex="0"
+        >
+          <div
+            style="width: 250px; height: 200px; border-radius: 5px; display: flex; flex-direction: column;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <h2
+                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--padding-bottom-medium"
+                level="2"
+                style="font-size: 16px; font-weight: 500; color: rgb(34, 34, 42);"
+              >
+                profile 1
+              </h2>
+              <span
+                style="flex-grow: 1;"
+              />
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="transform: translate(12px, -10px);"
+              >
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      style="transform: rotate(90deg);"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-more StyledProps--main"
+                        icon="more"
+                      >
+                        <svg
+                          data-icon="more"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            more
+                          </desc>
+                          <path
+                            d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              style="flex-grow: 1;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                The primary profile for the account
+              </p>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="display: inline-flex; flex-wrap: wrap;"
+              />
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
+              style="border-top: 1px solid #D9DAE6;"
+            >
+              <span
+                style="flex-grow: 1;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+              style="justify-content: space-between;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                style="font-size: 8px; color: rgb(107, 109, 133); letter-spacing: 0.285714px; font-weight: 500;"
+              >
+                <div>
+                  delegates.usedBy
+                </div>
+                <div>
+                   
+                  delegate.delegates
+                </div>
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+                style="font-size: 8px; color: rgb(107, 109, 133); letter-spacing: 0.285714px; font-weight: 500;"
+              >
+                <div>
+                  delegates.lastUpdated
+                </div>
+                <div>
+                  0
+                   
+                  minutes
+                   ago
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
         <div
           class="bp3-card bp3-interactive bp3-elevation-2 Card--card delegateProfileElements Card--interactive"
           tabindex="0"

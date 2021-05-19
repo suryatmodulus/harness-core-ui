@@ -14,13 +14,14 @@ import {
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
-import { debounce, get, set } from 'lodash-es'
+import { cloneDeep, debounce, get, set } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
+import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
+import type { ServiceConfig, StageElementConfig } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -95,14 +96,15 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     },
     isReadonly,
     getStageFromPipeline,
-    updatePipeline
+    updateStage
   } = React.useContext(PipelineContext)
 
-  const debounceUpdatePipeline = React.useCallback(
-    debounce((pipelineData: NgPipeline) => {
-      return updatePipeline(pipelineData)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceUpdateStage = React.useCallback(
+    debounce((stage: StageElementConfig) => {
+      return updateStage(stage)
     }, 500),
-    [updatePipeline]
+    [updateStage]
   )
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
@@ -135,13 +137,15 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   React.useEffect(() => {
     if (stage?.stage) {
-      if (!stage.stage.spec) {
-        stage.stage.spec = {}
+      const newState = cloneDeep(stage)
+
+      if (!newState.stage.spec) {
+        newState.stage.spec = {}
       }
       if (
-        !stage.stage.spec.serviceConfig?.serviceDefinition &&
+        !newState.stage.spec.serviceConfig?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !newState.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
         setDefaultServiceSchema()
         setSelectedPropagatedState({ label: '', value: '' })
@@ -149,10 +153,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       } else if (
         setupModeType === setupMode.PROPAGATE &&
         stageIndex > 0 &&
-        !stage.stage.spec.serviceConfig?.serviceDefinition &&
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !newState.stage.spec.serviceConfig?.serviceDefinition &&
+        !newState.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
-        stage.stage.spec = {
+        newState.stage.spec = {
           serviceConfig: {
             useFromStage: {
               stage: null
@@ -160,7 +164,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             stageOverrides: {}
           }
         }
-        debounceUpdatePipeline(pipeline)
+
+        debounceUpdateStage(newState.stage)
 
         setSetupMode(setupMode.PROPAGATE)
       }
@@ -168,7 +173,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }, [setupModeType, stageIndex, stage?.stage])
 
   const setDefaultServiceSchema = (): Promise<void> => {
-    stage.stage.spec = {
+    const newStage = {
       ...stage.stage.spec,
       serviceConfig: {
         serviceRef: '',
@@ -189,11 +194,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       }
     }
 
-    return debounceUpdatePipeline(pipeline)
+    return debounceUpdateStage(newStage.stage)
   }
 
   const setStageOverrideSchema = (): Promise<void> => {
-    stage.stage.spec = {
+    const newStage = {
       ...stage.stage.spec,
       serviceConfig: {
         ...stage?.stage?.spec.serviceConfig,
@@ -210,10 +215,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     if (stage.stage.spec?.serviceConfig.serviceDefinition) {
       delete stage.stage.spec?.serviceConfig.serviceDefinition
     }
-    return debounceUpdatePipeline(pipeline)
+    return debounceUpdateStage(newStage)
   }
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const _isChecked = (event.target as HTMLInputElement).checked
     setCheckedItems({
       ...checkedItems,
@@ -228,16 +233,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }
   React.useEffect(() => {
+    const newState = cloneDeep(stage)
+
     if (
-      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-      !stage?.stage?.spec.serviceConfig?.useFromStage
+      !newState?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
+      !newState?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
-      debounceUpdatePipeline(pipeline)
+      set(newState, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      updateStage(newState as StageElementConfig)
     }
-    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition', {})
-      debounceUpdatePipeline(pipeline)
+    if (!newState?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
+      set(newState, 'stage.spec.serviceConfig.serviceDefinition', {})
+      updateStage(newState as StageElementConfig)
     }
     let hasStageOfSameType = false
     const currentStageType = stage?.stage?.type
@@ -287,7 +294,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             })
             setConfigVisibility(false)
           }
-          debounceUpdatePipeline(pipeline)
+          // debounceUpdatePipeline(pipeline)
         }
       }
       if (stageOverrides) {
@@ -310,20 +317,22 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stage?.stage?.spec])
   const selectPropagatedStep = (item: SelectOption): void => {
+    const newStage = cloneDeep(stage)
     if (item && item.value) {
-      set(stage as any, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+      set(newStage, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
 
       setSelectedPropagatedState({
         label: `Stage [${item.value as string}] - Service`,
         value: item.value
       })
-      if (stage?.stage?.spec?.serviceConfig?.serviceDefinition) {
-        delete stage.stage.spec.serviceConfig.serviceDefinition
+      if (newStage?.stage?.spec?.serviceConfig?.serviceDefinition) {
+        delete newStage.stage.spec.serviceConfig.serviceDefinition
       }
-      if (stage?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
-        delete stage.stage.spec.serviceConfig.serviceRef
+      if (newStage?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
+        delete newStage.stage.spec.serviceConfig.serviceRef
       }
-      updatePipeline(pipeline)
+
+      updateStage(newStage as StageElementConfig)
     }
   }
   const initWithServiceDefinition = (): void => {
@@ -397,16 +406,24 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   readonly={isReadonly}
                   initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
                   onUpdate={(value: ServiceConfig) => {
-                    const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
-                    if (value.service) {
-                      serviceObj.service = value.service
-                      delete serviceObj.serviceRef
-                    } else if (value.serviceRef) {
-                      const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
-                      serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
-                      delete serviceObj.service
-                    }
-                    debounceUpdatePipeline(pipeline)
+                    const newStage = produce(stage, draft => {
+                      if (value.service) {
+                        set(draft, 'stage.spec.serviceConfig.service', value.service)
+                      } else if (value.serviceRef) {
+                        const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
+                        set(
+                          draft,
+                          'stage.spec.serviceConfig.serviceRef',
+                          selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
+                        )
+
+                        if (draft?.stage?.spec?.serviceConfig?.service) {
+                          delete draft.stage.spec.serviceConfig.service
+                        }
+                      }
+                    })
+
+                    debounceUpdateStage(newStage.stage)
                   }}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
@@ -430,8 +447,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       <Card
                         disabled={!type.enabled}
                         interactive={true}
-                        selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
+                        selected={type.name === getString('serviceDeploymentTypes.kubernetes')}
+                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes')}
                         className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
                       >
                         <Icon name={type.icon as IconName} size={26} height={26} />

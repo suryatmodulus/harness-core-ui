@@ -3,7 +3,7 @@ import { Redirect, useParams } from 'react-router'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps, secretPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
 
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
@@ -46,47 +46,33 @@ const RedirectToSecretDetailHome = () => {
     ProjectPathProps & SecretsPathProps & ModulePathParams
   >()
   return (
-    <Redirect
-      to={routes.toResourcesSecretDetailsOverview({ accountId, projectIdentifier, orgIdentifier, secretId, module })}
-    />
+    <Redirect to={routes.toSecretDetailsOverview({ accountId, projectIdentifier, orgIdentifier, secretId, module })} />
   )
 }
 
 export default (
   <>
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toResourcesSecrets({ ...accountPathProps }), routes.toResourcesSecrets({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSecrets({ ...accountPathProps })} exact>
       <ResourcesPage>
         <SecretsPage />
       </ResourcesPage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesSecretDetails({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetails({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      path={routes.toSecretDetails({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <RedirectToSecretDetailHome />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetailsOverview({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      path={routes.toSecretDetailsOverview({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <SecretDetailsHomePage>
@@ -95,14 +81,10 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps }),
-        routes.toResourcesSecretDetailsReferences({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...secretPathProps
-        })
-      ]}
+      path={routes.toSecretDetailsReferences({
+        ...accountPathProps,
+        ...secretPathProps
+      })}
       exact
     >
       <SecretDetailsHomePage>
@@ -111,10 +93,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toCreateSecretFromYaml({ ...accountPathProps }),
-        routes.toCreateSecretFromYaml({ ...accountPathProps, ...orgPathProps })
-      ]}
+      path={routes.toCreateSecretFromYaml({ ...accountPathProps })}
       exact
     >
       <CreateSecretFromYamlPage />

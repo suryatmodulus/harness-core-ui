@@ -256,7 +256,7 @@ export const DelegateListing: React.FC = () => {
           className={css.delegateTable}
           onRowClick={item => {
             history.push(
-              routes.toResourcesDelegatesDetails({
+              routes.toDelegatesDetails({
                 accountId,
                 delegateId: item.uuid as string
               })

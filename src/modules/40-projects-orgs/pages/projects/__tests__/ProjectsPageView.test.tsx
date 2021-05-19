@@ -220,7 +220,7 @@ describe('Project Page List', () => {
       })
       expect(
         getByTestId('location').innerHTML.endsWith(
-          routes.toProjectsGetStarted({
+          routes.toGetStarted({
             accountId: 'testAcc'
           })
         )

@@ -163,7 +163,7 @@ export const getScopeBasedRoute = ({
   } else if (orgIdentifier && projectIdentifier) {
     return `/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/${path}`
   } else if (orgIdentifier) {
-    return `/admin/organizations/${orgIdentifier}/${path}`
+    return `/home/organizations/${orgIdentifier}/${path}`
   }
-  return `/setup/${path}`
+  return `/home/setup/${path}`
 }

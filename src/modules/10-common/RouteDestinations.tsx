@@ -14,14 +14,14 @@ import GenericErrorPage from './pages/GenericError/GenericErrorPage'
 import { PurposePage } from './pages/purpose/PurposePage'
 import HomeSideNav from './components/HomeSideNav/HomeSideNav'
 
-const RedirectToProjects = (): React.ReactElement => {
+const RedirectToHome = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
-  return <Redirect to={routes.toProjects({ accountId })} />
+  return <Redirect to={routes.toGetStarted({ accountId })} />
 }
 
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
+  return <Redirect to={routes.toConnectors(params)} />
 }
 
 const RedirectToConfiguration = (): React.ReactElement => {
@@ -38,8 +38,8 @@ const justAccountPath = withAccountId(() => '/')
 
 export default (
   <>
-    <Route exact path={justAccountPath({ ...accountPathProps })}>
-      <RedirectToProjects />
+    <Route exact path={[justAccountPath({ ...accountPathProps }), routes.toHome({ ...accountPathProps })]}>
+      <RedirectToHome />
     </Route>
     <Route exact path={routes.toResources({ ...accountPathProps })}>
       <RedirectToResourcesHome />
@@ -61,7 +61,7 @@ export default (
       sidebarProps={HomeSideNavProps}
       path={[
         routes.toGovernance({ ...accountPathProps }),
-        routes.toOrgGovernance({ ...accountPathProps, ...orgPathProps })
+        routes.toGovernance({ ...accountPathProps, ...orgPathProps })
       ]}
       exact
     >

@@ -29,11 +29,11 @@ const getProjectUrl = ({ accountId, projectIdentifier, orgIdentifier, module }: 
   return routes.toProjectDetails({ accountId, orgIdentifier, projectIdentifier })
 }
 const getConnectorsUrl = ({ accountId, orgIdentifier, projectIdentifier, module }: OptionalIdentifiers): string => {
-  return routes.toResourcesConnectors({ accountId, orgIdentifier, projectIdentifier, module })
+  return routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module })
 }
 
 const getSecretsUrl = ({ accountId, orgIdentifier, projectIdentifier, module }: OptionalIdentifiers): string => {
-  return routes.toResourcesSecrets({ accountId, orgIdentifier, projectIdentifier, module })
+  return routes.toSecrets({ accountId, orgIdentifier, projectIdentifier, module })
 }
 
 const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props) => {
@@ -116,7 +116,7 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesSecretDetailsOverview({
+                to={routes.toSecretDetailsOverview({
                   accountId,
                   projectIdentifier,
                   orgIdentifier,
@@ -130,7 +130,7 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesSecretDetailsReferences({
+                to={routes.toSecretDetailsReferences({
                   accountId,
                   projectIdentifier,
                   orgIdentifier,

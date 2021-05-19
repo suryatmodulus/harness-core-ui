@@ -6,7 +6,6 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
 import {
   accountPathProps,
-  orgPathProps,
   rolePathProps,
   resourceGroupPathProps,
   userGroupPathProps,
@@ -24,7 +23,7 @@ import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import HomeSideNav from '@common/components/HomeSideNav/HomeSideNav'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -88,25 +87,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
-  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
-  return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />
+  const { accountId } = useParams<AccountPathProps>()
+  return <Redirect to={routes.toUsers({ accountId })} />
 }
 
 export default (
   <>
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toAccessControl({ ...accountPathProps }), routes.toAccessControl({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toAccessControl({ ...accountPathProps })} exact>
       <RedirectToAccessControlHome />
     </RouteWithLayout>
 
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toUsers({ ...accountPathProps }), routes.toUsers({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toUsers({ ...accountPathProps })} exact>
       <AccessControlPage>
         <UsersPage />
       </AccessControlPage>
@@ -114,20 +105,13 @@ export default (
 
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toUserDetails({ ...accountPathProps, ...userPathProps }),
-        routes.toUserDetails({ ...orgPathProps, ...userPathProps })
-      ]}
+      path={routes.toUserDetails({ ...accountPathProps, ...userPathProps })}
       exact
     >
       <UserDetails />
     </RouteWithLayout>
 
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toUserGroups({ ...accountPathProps }), routes.toUserGroups({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toUserGroups({ ...accountPathProps })} exact>
       <AccessControlPage>
         <UserGroups />
       </AccessControlPage>
@@ -135,30 +119,19 @@ export default (
 
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toUserGroupDetails({ ...accountPathProps, ...userGroupPathProps }),
-        routes.toUserGroupDetails({ ...orgPathProps, ...userGroupPathProps })
-      ]}
+      path={routes.toUserGroupDetails({ ...accountPathProps, ...userGroupPathProps })}
       exact
     >
       <UserGroupDetails />
     </RouteWithLayout>
 
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toResourceGroups({ ...accountPathProps }), routes.toResourceGroups({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toResourceGroups({ ...accountPathProps })} exact>
       <AccessControlPage>
         <ResourceGroups />
       </AccessControlPage>
     </RouteWithLayout>
 
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[routes.toRoles({ ...accountPathProps }), routes.toRoles({ ...orgPathProps })]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toRoles({ ...accountPathProps })} exact>
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
@@ -166,20 +139,14 @@ export default (
 
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toRoleDetails({ ...accountPathProps, ...rolePathProps }),
-        routes.toRoleDetails({ ...orgPathProps, ...rolePathProps })
-      ]}
+      path={routes.toRoleDetails({ ...accountPathProps, ...rolePathProps })}
       exact
     >
       <RoleDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourceGroupDetails({ ...accountPathProps, ...resourceGroupPathProps }),
-        routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps })
-      ]}
+      path={routes.toResourceGroupDetails({ ...accountPathProps, ...resourceGroupPathProps })}
       exact
     >
       <ResourceGroupDetails />

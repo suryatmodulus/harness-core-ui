@@ -28,7 +28,8 @@ import type {
 const CV_HOME = `/cv/home`
 
 const routes = {
-  toHome: withAccountId(() => '/'),
+  toHome: withAccountId(() => '/home'),
+  toGenericError: withAccountId(() => '/error'),
   toSetup: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       return getScopeBasedRoute({
@@ -42,13 +43,12 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
-  toAuthenticationSettings: withAccountId(() => '/setup/authentication'),
-  toAccountConfiguration: withAccountId(() => '/setup/authentication/configuration'),
-  toAccountActivityLog: withAccountId(() => '/setup/authentication/activity-log'),
+  toAuthenticationSettings: withAccountId(() => '/home/setup/authentication'),
+  toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
+  toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),
   toLogin: (): string => '/login',
   toSignup: (): string => '/signup',
   toPurpose: withAccountId(() => '/purpose'),
-  toSettings: withAccountId(() => '/settings'),
   toResources: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources`
@@ -68,7 +68,7 @@ const routes = {
   // account resources
   toCreateConnectorFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `/setup/create-connector-from-yaml`
+      const path = `/create-connector-from-yaml`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -79,10 +79,7 @@ const routes = {
       })
     }
   ),
-  toResourcesConnectorDetails: withAccountId(
-    ({ connectorId }: ConnectorPathProps) => `/setup/resources/connectors/${connectorId}`
-  ),
-  toResourcesConnectors: withAccountId(
+  toConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/connectors`
       return getScopeBasedRoute({
@@ -95,7 +92,25 @@ const routes = {
       })
     }
   ),
-  toResourcesSecrets: withAccountId(
+  toConnectorDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      connectorId,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & ConnectorPathProps>) => {
+      const path = `resources/connectors/${connectorId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toSecrets: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/secrets`
       return getScopeBasedRoute({
@@ -109,7 +124,7 @@ const routes = {
     }
   ),
 
-  toResourcesSecretDetails: withAccountId(
+  toSecretDetails: withAccountId(
     ({
       orgIdentifier,
       projectIdentifier,
@@ -127,7 +142,7 @@ const routes = {
       })
     }
   ),
-  toResourcesDelegates: withAccountId(
+  toDelegates: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/delegates`
       return getScopeBasedRoute({
@@ -140,26 +155,59 @@ const routes = {
       })
     }
   ),
-  toResourcesDelegatesDetails: withAccountId(
-    ({ delegateId }: DelegatePathProps) => `/setup/resources/delegates/${delegateId}`
+  toDelegatesDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      delegateId,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
+      const path = `resources/delegates/${delegateId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
-  toResourcesDelegateConfigsDetails: withAccountId(
-    ({ delegateConfigId }: DelegateConfigProps) => `/setup/resources/delegateconfigs/${delegateConfigId}`
+  toDelegateConfigsDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      delegateConfigId,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
+      const path = `resources/delegateconfigs/${delegateConfigId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
-  toResourcesEditDelegateConfigsDetails: withAccountId(
-    ({ delegateConfigId }: DelegateConfigProps) => `/setup/resources/delegateconfigs/${delegateConfigId}/edit`
-  ),
-  // org resources
-  toOrgResourcesConnectorDetails: withAccountId(
-    ({ orgIdentifier, connectorId }: OrgPathProps & ConnectorPathProps) =>
-      `/setup/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
-  ),
-  toOrgResourcesDelegates: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/setup/organizations/${orgIdentifier}/resources/delegates`
-  ),
-  toOrgResourcesDelegateDetails: withAccountId(
-    ({ orgIdentifier, delegateId }: OrgPathProps & DelegatePathProps) =>
-      `/setup/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
+  toEditDelegateConfigsDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      delegateConfigId,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
+      const path = `resources/delegateconfigs/${delegateConfigId}/edit`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -298,13 +346,21 @@ const routes = {
       })
     }
   ),
-  toOrganizations: withAccountId(() => `/setup/organizations`),
-  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/setup/organizations/${orgIdentifier}`),
-  toGovernance: withAccountId(() => '/setup/governance'),
-  toOrgGovernance: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/setup/organizations/governance/${orgIdentifier}`
+  toOrganizations: withAccountId(() => `/home/setup/organizations`),
+  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}`),
+  toGovernance: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `governance`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
-  toGenericError: withAccountId(() => '/error'),
   toCreateSecretFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/create-secret-from-yaml`
@@ -318,6 +374,43 @@ const routes = {
       })
     }
   ),
+  toSecretDetailsOverview: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      secretId
+    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
+      const path = `resources/secrets/${secretId}/overview`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toSecretDetailsReferences: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      secretId
+    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
+      const path = `resources/secrets/${secretId}/references`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+
   /********************************************************************************************************************/
   toCD: withAccountId(() => `/cd`),
   toCDDashboard: withAccountId(() => `/cd`),
@@ -343,27 +436,6 @@ const routes = {
   toPipelineStudio: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/`
-  ),
-  toProjectAdminResourcesConnectorDetails: withAccountId(
-    ({
-      projectIdentifier,
-      orgIdentifier,
-      connectorId,
-      module
-    }: ProjectPathProps & ConnectorPathProps & ModulePathParams) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/${connectorId}`
-  ),
-  toCDAdmin: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
-  ),
-  toCDResourcesConnectorDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, connectorId }: ProjectPathProps & ConnectorPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/${connectorId}`
-  ),
-  toCDResourcesSecretsListing: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/secrets`
   ),
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -493,17 +565,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/template-library`
   ),
-  toCDGovernance: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
-  ),
   toCDGeneralSettings: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
 
   /********************************************************************************************************************/
-  toCI: (params: Partial<ProjectPathProps>) =>
+  toCI: (params: Partial<ProjectPathProps>): string =>
     params.orgIdentifier && params.projectIdentifier
       ? routes.toCIProject(params as ProjectPathProps)
       : routes.toCIDashboard(params as AccountPathProps),
@@ -566,10 +634,6 @@ const routes = {
   toCIAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
-  ),
-  toCIAdminResourcesConnectorDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
   ),
   //git-sync at project scope
   toGitSyncAdmin: withAccountId(
@@ -680,10 +744,6 @@ const routes = {
   toCFAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
-  ),
-  toCFAdminResourcesConnectorDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
   ),
   toCFAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
@@ -814,10 +874,6 @@ const routes = {
     ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/setup/verification-job/verificationId/${verificationId}`
   ),
-  toCVAdminResourcesConnectorDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/connectors/:connectorId`
-  ),
   toCVAdminAccessControl: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/access-control`
@@ -829,22 +885,10 @@ const routes = {
   /********************************************************************************************************************/
   toProjectDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
+      `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
   ),
-  toProjectResourcesConnectorDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/connectors/:connectorId`
-  ),
-  toProjectResourcesDelegatesDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, delegateId }: ProjectPathProps & DelegatePathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/delegates/${delegateId}`
-  ),
-  toProjectResourcesDelegateConfigsDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, delegateConfigId }: ProjectPathProps & DelegateConfigProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/setup/resources/delegateconfigs/${delegateConfigId}`
-  ),
-  toProjects: withAccountId(() => '/projects'),
-  toProjectsGetStarted: withAccountId(() => '/get-started'),
+  toProjects: withAccountId(() => '/home/projects'),
+  toGetStarted: withAccountId(() => '/home/get-started'),
   /********************************************************************************************************************/
   toCE: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
@@ -892,50 +936,9 @@ const routes = {
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/dashboards'),
   toCustomDasboardHome: withAccountId(() => '/dashboards/home'),
-  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`),
+  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)
 
   /****************** Secret Usage************************************************************************************/
-  toModuleAdminResourcesSecretDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, secretId, module }: ProjectPathProps & SecretsPathProps & ModulePathParams) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/resources/secrets/${secretId}`
-  ),
-
-  toResourcesSecretDetailsOverview: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      module,
-      secretId
-    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
-      const path = `resources/secrets/${secretId}/overview`
-      return getScopeBasedRoute({
-        scope: {
-          orgIdentifier,
-          projectIdentifier,
-          module
-        },
-        path
-      })
-    }
-  ),
-  toResourcesSecretDetailsReferences: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      module,
-      secretId
-    }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
-      const path = `resources/secrets/${secretId}/references`
-      return getScopeBasedRoute({
-        scope: {
-          orgIdentifier,
-          projectIdentifier,
-          module
-        },
-        path
-      })
-    }
-  )
 }
 
 export default routes

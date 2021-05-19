@@ -19,7 +19,8 @@ const AccountSetupMenu: React.FC = () => {
         {NG_AUTH_SETTINGS && (
           <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
         )}
-        <SidebarLink label={getString('resources')} to={routes.toResources({ accountId })} />
+        <SidebarLink label={getString('connectorsLabel')} to={routes.toConnectors({ accountId })} />
+        <SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ accountId })} />
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
         ) : null}

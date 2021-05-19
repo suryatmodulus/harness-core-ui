@@ -10,7 +10,7 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { ProjectPathProps, ConnectorPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
@@ -25,7 +25,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { getString } = useStrings()
   const [activeCategory, setActiveCategory] = React.useState(0)
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams<
-    ProjectPathProps & ConnectorPathProps
+    PipelineType<ProjectPathProps & ConnectorPathProps>
   >()
   const { pathname } = useLocation()
   const { loading, data, refetch, error } = useGetConnector({
@@ -37,6 +37,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     },
     mock: props.mockData
   })
+
   const connectorName = data?.data?.connector?.name
   useDocumentTitle([connectorName || '', getString('connectorsLabel')])
 

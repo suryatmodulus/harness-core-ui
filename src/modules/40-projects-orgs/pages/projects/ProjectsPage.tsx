@@ -99,7 +99,7 @@ const ProjectsListPage: React.FC = () => {
     <Container className={css.projectsPage}>
       <Page.Header
         title={i18n.projects}
-        content={<Link to={routes.toProjectsGetStarted({ accountId })}>{i18n.getNewProjectStarted}</Link>}
+        content={<Link to={routes.toGetStarted({ accountId })}>{i18n.getNewProjectStarted}</Link>}
       />
       <Layout.Horizontal spacing="large" className={css.header}>
         <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />

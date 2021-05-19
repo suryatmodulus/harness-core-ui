@@ -21,8 +21,7 @@
 .layout {
   width: 180px;
   height: 100%;
-  -webkit-transition: all 1s ease;
-  transition: all 1s ease;
+  transition: all 0.3s ease;
 }
 
 .layout.is-nav-closed {

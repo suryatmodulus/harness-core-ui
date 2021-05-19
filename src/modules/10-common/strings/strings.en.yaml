@@ -1,5 +1,6 @@
 secrets: Secrets
 home: Home
+welcome: Welcome
 dashboards: Dashboards
 accountSetup: Account Setup
 projectSetup: Project Setup

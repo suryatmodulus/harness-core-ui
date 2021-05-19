@@ -28,14 +28,11 @@ import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getInvocationPathsForSecrets } from '../connectors/utils/ConnectorUtils'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    accountId: string
-    projectIdentifier: string
-    orgIdentifier: string
-  }>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const history = useHistory()
   const { showSuccess, showError } = useToaster()
@@ -50,13 +47,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   }
 
   const rerouteBasedOnContext = (connectorId: string): void => {
-    if (projectIdentifier && orgIdentifier) {
-      history.push(routes.toCDResourcesConnectorDetails({ projectIdentifier, orgIdentifier, connectorId, accountId }))
-    } else if (orgIdentifier) {
-      history.push(routes.toOrgResourcesConnectorDetails({ orgIdentifier, connectorId, accountId }))
-    } else {
-      history.push(routes.toResourcesConnectorDetails({ connectorId, accountId }))
-    }
+    history.push(routes.toConnectorDetails({ connectorId, accountId, orgIdentifier, projectIdentifier, module }))
   }
 
   const handleCreate = async (): Promise<void> => {

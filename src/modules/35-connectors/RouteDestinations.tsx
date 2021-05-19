@@ -4,7 +4,7 @@ import { Route, useParams, Redirect } from 'react-router-dom'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps, connectorPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, connectorPathProps } from '@common/utils/routeUtils'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
@@ -20,7 +20,7 @@ import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/
 const RedirectToOrgResourcesHome = (): React.ReactElement => {
   const params = useParams<OrgPathProps>()
 
-  return <Redirect to={routes.toResourcesConnectors(params)} />
+  return <Redirect to={routes.toConnectors(params)} />
 }
 
 const HomeSideNavProps: SidebarContext = {
@@ -44,31 +44,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
 
 export default (
   <>
-    <Route exact path={routes.toResources({ ...accountPathProps, ...orgPathProps })}>
+    <Route exact path={routes.toResources({ ...accountPathProps })}>
       <RedirectToOrgResourcesHome />
     </Route>
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesConnectors({ ...accountPathProps }),
-        routes.toResourcesConnectors({ ...accountPathProps, ...orgPathProps })
-      ]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toConnectors({ ...accountPathProps })} exact>
       <ResourcesPage>
         <ConnectorsPage />
       </ResourcesPage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesConnectorDetails({ ...accountPathProps, ...connectorPathProps }),
-        routes.toOrgResourcesConnectorDetails({
-          ...accountPathProps,
-          ...orgPathProps,
-          ...connectorPathProps
-        })
-      ]}
+      path={routes.toConnectorDetails({ ...accountPathProps, ...connectorPathProps })}
       exact
     >
       <ConnectorDetailsPage />

@@ -16,7 +16,8 @@ const ProjectSetupMenu: React.FC = () => {
   return (
     <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
       <Layout.Vertical spacing="small">
-        <SidebarLink label={getString('resources')} to={routes.toResources(params)} />
+        <SidebarLink label={getString('connectorsLabel')} to={routes.toConnectors(params)} />
+        <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
         ) : null}

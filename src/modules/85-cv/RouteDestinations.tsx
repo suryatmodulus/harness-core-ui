@@ -61,7 +61,7 @@ const RedirectToCVProject = (): React.ReactElement => {
 
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & ModulePathParams>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
+  return <Redirect to={routes.toConnectors(params)} />
 }
 
 const CVSideNavProps: SidebarContext = {
@@ -234,7 +234,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
       <ResourcesPage>
         <ConnectorsPage />
@@ -244,7 +244,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
       <ResourcesPage>
         <SecretsPage />
@@ -254,10 +254,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...cvModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -266,7 +267,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -278,7 +279,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -292,7 +293,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,

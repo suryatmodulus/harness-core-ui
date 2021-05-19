@@ -48,7 +48,7 @@ describe('Secret Details', () => {
   test('Text Secret', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.text.data as any} refetch={jest.fn()} />
@@ -67,7 +67,7 @@ describe('Secret Details', () => {
   test('File Secret', () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.file.data as any} refetch={jest.fn()} />
@@ -78,7 +78,7 @@ describe('Secret Details', () => {
   test('SSH Secret with Key', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.sshKey.data as any} refetch={jest.fn()} />
@@ -89,7 +89,7 @@ describe('Secret Details', () => {
   test('SSH Secret with Key YAML', async () => {
     const { container } = render(
       <TestWrapper
-        path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
+        path={routes.toSecretDetailsOverview({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
         <SecretDetails secretData={mockData.sshKey.data as any} refetch={jest.fn()} />

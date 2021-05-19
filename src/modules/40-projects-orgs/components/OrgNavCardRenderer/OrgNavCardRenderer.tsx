@@ -28,7 +28,7 @@ const OrgNavCardRenderer: React.FC = () => {
       //   icon: 'resources-icon',
       //   title: getString('governance'),
       //   description: getString('orgDetails.governanceDescription'),
-      //   route: routes.toOrgGovernance({ orgIdentifier, accountId })
+      //   route: routes.toGovernance({ orgIdentifier, accountId })
       // },
       {
         icon: 'resources-icon',

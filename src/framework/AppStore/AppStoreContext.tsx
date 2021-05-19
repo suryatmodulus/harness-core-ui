@@ -133,7 +133,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   ): void {
     setState(prevState => ({
       ...prevState,
-      selectedProject: data.selectedProject || prevState?.selectedProject,
+      selectedProject: data.selectedProject,
       isGitSyncEnabled: data.isGitSyncEnabled || prevState?.isGitSyncEnabled,
       currentUserInfo: data.currentUserInfo || prevState?.currentUserInfo
     }))

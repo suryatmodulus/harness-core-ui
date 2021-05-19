@@ -11,6 +11,7 @@ import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelect
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 
 export default function CVSideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
@@ -77,11 +78,6 @@ export default function CVSideNav(): React.ReactElement {
               })}
             />
             <AdminSelectorLink
-              label={getString('resources')}
-              iconName="main-scope"
-              to={routes.toResources({ projectIdentifier, orgIdentifier, accountId, module: 'cv' })}
-            />
-            <AdminSelectorLink
               label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
               iconName="square"
               to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
@@ -97,6 +93,7 @@ export default function CVSideNav(): React.ReactElement {
               to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
             />
           </AdminSelector>
+          <ProjectSetupMenu />
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

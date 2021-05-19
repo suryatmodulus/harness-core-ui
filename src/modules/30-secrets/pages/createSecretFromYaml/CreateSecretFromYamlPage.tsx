@@ -48,7 +48,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
         await createSecret(yamlData as any)
         showSuccess(getString('createSecretYAML.secretCreated'))
         history.push(
-          routes.toResourcesSecretDetails({
+          routes.toSecretDetails({
             secretId: jsonData['identifier'],
             accountId,
             orgIdentifier,

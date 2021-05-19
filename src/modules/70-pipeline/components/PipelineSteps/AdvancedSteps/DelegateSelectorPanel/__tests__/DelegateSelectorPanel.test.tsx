@@ -17,7 +17,7 @@ jest.mock('services/portal', () => ({
 const params = {
   accountId: 'testAcc'
 }
-const TEST_PATH = routes.toResourcesDelegates({
+const TEST_PATH = routes.toDelegates({
   ...accountPathProps
 })
 

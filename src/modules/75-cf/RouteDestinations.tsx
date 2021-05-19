@@ -90,7 +90,7 @@ const RedirectToCFProject = (): React.ReactElement => {
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & ModulePathParams>()
 
-  return <Redirect to={routes.toResourcesConnectors(params)} />
+  return <Redirect to={routes.toConnectors(params)} />
 }
 
 const RedirectToExecutionPipeline = (): React.ReactElement => {
@@ -103,6 +103,10 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
   return <Redirect to={routes.toPipelineStudio(params)} />
+}
+
+const cfModuleParams: ModulePathParams = {
+  module: ':module(cf)'
 }
 
 const CFSideNavProps: SidebarContext = {
@@ -397,10 +401,11 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toCFAdminResourcesConnectorDetails({
+      path={routes.toConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...connectorPathProps
+        ...connectorPathProps,
+        ...cfModuleParams
       })}
     >
       <ConnectorDetailsPage />
@@ -409,7 +414,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetails({
+      path={routes.toSecretDetails({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -421,7 +426,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({
+      path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,
@@ -435,7 +440,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CFSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({
+      path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...projectPathProps,
         ...secretPathProps,

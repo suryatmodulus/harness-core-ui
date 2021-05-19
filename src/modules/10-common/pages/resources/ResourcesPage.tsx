@@ -25,7 +25,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesConnectors({ accountId, orgIdentifier, projectIdentifier, module })}
+                to={routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('connectorsLabel')}
               </NavLink>
@@ -33,7 +33,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesSecrets({ accountId, orgIdentifier, projectIdentifier, module })}
+                to={routes.toSecrets({ accountId, orgIdentifier, projectIdentifier, module })}
               >
                 {getString('common.secrets')}
               </NavLink>
@@ -42,7 +42,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                 <NavLink
                   className={css.tags}
                   activeClassName={css.activeTag}
-                  to={routes.toResourcesDelegates({ accountId, orgIdentifier, projectIdentifier, module })}
+                  to={routes.toDelegates({ accountId, orgIdentifier, projectIdentifier, module })}
                 >
                   {getString('delegate.delegates')}
                 </NavLink>

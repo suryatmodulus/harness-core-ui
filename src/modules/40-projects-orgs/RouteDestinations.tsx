@@ -11,7 +11,8 @@ import {
   rolePathProps,
   userGroupPathProps,
   secretPathProps,
-  userPathProps
+  userPathProps,
+  connectorPathProps
 } from '@common/utils/routeUtils'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
@@ -25,6 +26,7 @@ import ProjectDetailsSideNav from '@projects-orgs/components/ProjectsSideNav/Pro
 import RbacFactory from '@rbac/factories/RbacFactory'
 import AddProjectResourceModalBody from '@projects-orgs/components/ProjectResourceModalBody/ProjectResourceModalBody'
 import OrgResourceModalBody from '@projects-orgs/components/OrgResourceModalBody/OrgResourceModalBody'
+import OrgsSideNav from '@projects-orgs/components/OrgSideNav/OrgSideNav'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
@@ -47,9 +49,16 @@ import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import HomeSideNav from '@common/components/HomeSideNav/HomeSideNav'
+import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
+  icon: 'harness'
+}
+
+const OrgsSideNavProps: SidebarContext = {
+  navComponent: OrgsSideNav,
   icon: 'harness'
 }
 
@@ -87,7 +96,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
 })
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<ProjectPathProps>()
-  return <Redirect to={routes.toResourcesConnectors(params)} />
+  return <Redirect to={routes.toConnectors(params)} />
 }
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -102,7 +111,7 @@ export default (
       <ProjectsPage />
     </RouteWithLayout>
 
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toProjectsGetStarted({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toGetStarted({ ...accountPathProps })} exact>
       <GetStartedProject />
     </RouteWithLayout>
 
@@ -120,7 +129,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesConnectors({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toConnectors({ ...projectPathProps })}
       exact
     >
       <ResourcesPage>
@@ -130,7 +139,7 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesSecrets({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <ResourcesPage>
@@ -140,24 +149,26 @@ export default (
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toProjectResourcesConnectorDetails({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toConnectorDetails({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <ResourcesPage>
-        <ConnectorDetailsPage />
-      </ResourcesPage>
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toConnectorDetails({ ...orgPathProps })} exact>
+      <ConnectorDetailsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesSecretDetails({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
+      path={routes.toSecretDetails({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
       exact
     >
       <RedirectToSecretDetailHome />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesSecretDetailsOverview({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
+      path={routes.toSecretDetailsOverview({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
       exact
     >
       <SecretDetailsHomePage>
@@ -166,19 +177,142 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
+      path={routes.toSecretDetailsReferences({ ...accountPathProps, ...projectPathProps, ...secretPathProps })}
       exact
     >
       <SecretDetailsHomePage>
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
+
     <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toOrganizations({ ...accountPathProps })} exact>
       <OrganizationsPage />
     </RouteWithLayout>
 
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toConnectors({ ...orgPathProps })} exact>
+      <ResourcesPage>
+        <ConnectorsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toConnectorDetails({ ...orgPathProps, ...connectorPathProps })}
+      exact
+    >
+      <ConnectorDetailsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toCreateConnectorFromYaml({ ...orgPathProps })} exact>
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toSecrets({ ...orgPathProps })} exact>
+      <ResourcesPage>
+        <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toSecretDetails({
+        ...orgPathProps,
+        ...secretPathProps
+      })}
+      exact
+    >
+      <RedirectToSecretDetailHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toSecretDetailsOverview({
+        ...orgPathProps,
+        ...secretPathProps
+      })}
+      exact
+    >
+      <SecretDetailsHomePage>
+        <SecretDetails />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toSecretDetailsReferences({
+        ...orgPathProps,
+        ...secretPathProps
+      })}
+      exact
+    >
+      <SecretDetailsHomePage>
+        <SecretReferences />
+      </SecretDetailsHomePage>
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toCreateSecretFromYaml({ ...orgPathProps })} exact>
+      <CreateSecretFromYamlPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toAccessControl({ ...orgPathProps })]} exact>
+      <RedirectToAccessControlHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toUsers({ ...orgPathProps })]} exact>
+      <AccessControlPage>
+        <UsersPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={[routes.toUserDetails({ ...orgPathProps, ...userPathProps })]}
+      exact
+    >
+      <UserDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toUserGroups({ ...orgPathProps })]} exact>
+      <AccessControlPage>
+        <UserGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={[routes.toUserGroupDetails({ ...orgPathProps, ...userGroupPathProps })]}
+      exact
+    >
+      <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toResourceGroups({ ...orgPathProps })]} exact>
+      <AccessControlPage>
+        <ResourceGroups />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toRoles({ ...orgPathProps })]} exact>
+      <AccessControlPage>
+        <Roles />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={[routes.toRoleDetails({ ...orgPathProps, ...rolePathProps })]}
+      exact
+    >
+      <RoleDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={[routes.toResourceGroupDetails({ ...orgPathProps, ...resourceGroupPathProps })]}
+      exact
+    >
+      <ResourceGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
       path={routes.toOrganizationDetails({ ...accountPathProps, ...orgPathProps })}
       exact
     >

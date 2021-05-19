@@ -44,14 +44,14 @@ export default function DelegateProfileDetails(): JSX.Element {
     },
     {
       title: getString('delegate.delegates'),
-      url: routes.toResourcesDelegates({
+      url: routes.toDelegates({
         accountId
       })
     },
     {
       title: getString('delegate.delegatesConfigurations'),
       url:
-        routes.toResourcesDelegates({
+        routes.toDelegates({
           accountId
         }) + `?tab=${DelegateTab.CONFIGURATIONS}`
     }

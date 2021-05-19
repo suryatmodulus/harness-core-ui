@@ -19,10 +19,7 @@ export default (
   <>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toResourcesDelegates({ ...accountPathProps }),
-        routes.toOrgResourcesDelegates({ ...accountPathProps, ...orgPathProps })
-      ]}
+      path={[routes.toDelegates({ ...accountPathProps }), routes.toDelegates({ ...accountPathProps, ...orgPathProps })]}
       exact
     >
       <ResourcesPage>
@@ -33,8 +30,8 @@ export default (
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
       path={[
-        routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
-        routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps })
+        routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
+        routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps })
       ]}
     >
       <DelegateDetails />
@@ -42,8 +39,8 @@ export default (
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
       path={[
-        routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
-        routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })
+        routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
+        routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })
       ]}
     >
       <DelegateProfileDetails />

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
 import { String } from 'framework/strings'
@@ -29,8 +29,9 @@ import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErr
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import routes from '@common/RouteDefinitions'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -504,11 +505,11 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
 
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
+  const params = useParams<PipelineType<ProjectPathProps>>()
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
-  const { pathname } = useLocation()
   const columns: CustomColumn<ConnectorResponse>[] = useMemo(
     () => [
       {
@@ -577,7 +578,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       columns={columns}
       data={listData}
       onRowClick={connector => {
-        history.push(`${pathname}/${connector.connector?.identifier}`)
+        history.push(routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier }))
       }}
       pagination={{
         itemCount: data?.totalItems || 0,

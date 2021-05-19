@@ -89,7 +89,11 @@ export default function DelegateConfigurations(): JSX.Element {
               refetch()
             }
           } catch (e) {
-            showError(e.message)
+            if ((profile?.numberOfDelegates || 0) > 0) {
+              showError(getString('delegates.deleteUsingProfileError'))
+            } else {
+              showError(e.message)
+            }
           }
         }
       }

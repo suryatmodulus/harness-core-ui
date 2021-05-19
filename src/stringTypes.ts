@@ -420,6 +420,7 @@ export interface StringsMap {
   'delegates.delegatePermissions.specificNamespaceTitle': string
   'delegates.delegatePermissions.title': string
   'delegates.delegateSizeUpTo': string
+  'delegates.deleteUsingProfileError': string
   'delegates.downloadYAMLFile': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string

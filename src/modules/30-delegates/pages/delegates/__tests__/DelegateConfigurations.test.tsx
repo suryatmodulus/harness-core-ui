@@ -21,7 +21,9 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('@common/exports', () => ({
   TimeAgo: jest.fn().mockImplementation(() => <div />),
-  useConfirmationDialog: jest.fn().mockImplementation(() => ({ openDialog: jest.fn() }))
+  useConfirmationDialog: jest
+    .fn()
+    .mockImplementation(({ onCloseDialog }) => ({ openDialog: () => onCloseDialog(true) }))
 }))
 
 describe('Delegates Configurations Page', () => {
@@ -86,6 +88,21 @@ describe('Delegates Configurations Test Click', () => {
     const deleteOption = queryAllByAttribute('data-icon', document.body, 'cross')[0]
     act(() => {
       fireEvent.click(deleteOption)
+    })
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('render component go to details click', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
+        <DelegateConfigurations />
+      </TestWrapper>
+    )
+
+    const profileElement = container.getElementsByClassName('delegateProfileElements')[0]
+    act(() => {
+      fireEvent.click(profileElement!)
     })
 
     expect(container).toMatchSnapshot()

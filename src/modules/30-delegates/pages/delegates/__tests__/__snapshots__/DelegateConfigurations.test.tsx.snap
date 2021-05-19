@@ -1044,3 +1044,18 @@ exports[`Delegates Configurations Test Click render component edit click 1`] = `
   </div>
 </div>
 `;
+
+exports[`Delegates Configurations Test Click render component go to details click 1`] = `
+<div>
+  <div>
+    <h1>
+      Not Found
+    </h1>
+    <div
+      data-testid="location"
+    >
+      /account/dummy/admin/resources/delegateconfigs/profile1
+    </div>
+  </div>
+</div>
+`;

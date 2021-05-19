@@ -10,8 +10,8 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 
 import type {
-  NGVariable,
   StepElementConfig,
+  StringNGVariable,
   TerraformApplyStepInfo,
   TerraformBackendConfig,
   TerraformDestroyStepInfo,
@@ -246,11 +246,11 @@ export interface TfVar {
 export const onSubmitTerraformData = (values: any): TFFormData => {
   if (values?.spec?.configuration?.type === 'Inline') {
     const envVars = values.spec?.configuration?.spec?.environmentVariables
-    const envMap: NGVariable[] = []
+    const envMap: StringNGVariable[] = []
     if (Array.isArray(envVars)) {
       envVars.forEach(mapValue => {
         if (mapValue.value) {
-          envMap.push({ name: mapValue.key, description: mapValue.value })
+          envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
         }
       })
     }
@@ -336,11 +336,11 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
 export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   const envVars = values.spec?.configuration?.environmentVariables
-  const envMap: NGVariable[] = []
+  const envMap: StringNGVariable[] = []
   if (Array.isArray(envVars)) {
     envVars.forEach(mapValue => {
       if (mapValue.value) {
-        envMap.push({ name: mapValue.key, description: mapValue.value })
+        envMap.push({ name: mapValue.key, value: mapValue.value, type: 'String' })
       }
     })
   }
@@ -380,7 +380,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   }
 
   if (values?.spec?.configuration?.varFiles?.length) {
-    configObject['varFiles'] = values?.spec?.configuration?.spec?.varFiles
+    configObject['varFiles'] = values?.spec?.configuration?.varFiles
   }
   if (connectorValue) {
     configObject['configFiles'] = {

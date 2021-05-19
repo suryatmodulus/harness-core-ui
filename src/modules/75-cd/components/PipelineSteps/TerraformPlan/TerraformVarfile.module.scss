@@ -181,3 +181,15 @@
 .drag {
   cursor: move;
 }
+
+.iconPosition {
+  position: relative;
+  top: 2px;
+  right: 5px;
+}
+
+.configLabel {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--grey-900) !important;
+}

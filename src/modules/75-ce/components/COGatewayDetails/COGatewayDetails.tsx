@@ -12,7 +12,9 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { Utils } from '@ce/common/Utils'
 import css from './COGatewayDetails.module.scss'
+
 interface COGatewayDetailsProps {
   previousTab: () => void
   gatewayDetails: GatewayDetails
@@ -38,36 +40,38 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier // eslint-disable-line
   })
-  const randomString = (): string => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-  }
+
   const tagKey = 'lightwingRule'
-  const tagValue = randomString()
   const { mutate: assignFilterTags } = useAttachTags({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    account_id: accountId, // eslint-disable-line
-    queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      tagKey,
-      tagValue
-    }
+    account_id: accountId // eslint-disable-line
   })
 
-  const setInstancesFilterTags = async () => {
+  const setInstancesFilterTags = async (tagValue: string) => {
     const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
-    await assignFilterTags({
-      Text: `id = [${instanceIDs}]` // eslint-disable-line
-    })
+    await assignFilterTags(
+      {
+        Text: `id = [${instanceIDs}]` // eslint-disable-line
+      },
+      {
+        queryParams: {
+          cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+          tagKey,
+          tagValue
+        }
+      }
+    )
   }
 
   const onSave = async (): Promise<void> => {
+    const tagValue = Utils.randomString()
     try {
       setSaveInProgress(true)
       const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
       const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
       if (hasInstances) {
-        await setInstancesFilterTags()
+        await setInstancesFilterTags(tagValue)
         routing.instance = {
           filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
         }

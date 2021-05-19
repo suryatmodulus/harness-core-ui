@@ -1,10 +1,11 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
+import { fireEvent, getAllByText, getByText, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import COGatewayDetails from '../COGatewayDetails'
 
 const accessDetails = {
-  dnsLink: { selected: true },
+  dnsLink: { selected: false },
   ssh: { selected: false },
   rdp: { selected: false },
   backgroundTasks: { selected: false },
@@ -17,26 +18,49 @@ const testparams = { accountId: 'accountId', orgIdentifier: 'orgIdentifier', pro
 const initialGatewayDetails = {
   name: 'mockname',
   cloudAccount: {
-    id: '',
-    name: ''
+    id: 'caId',
+    name: 'caName'
   },
   idleTimeMins: 15,
-  fullfilment: '',
+  fullfilment: 'ondemand',
   filter: '',
   kind: 'instance',
   orgID: 'orgIdentifier',
   projectID: 'projectIdentifier',
   accountID: 'accountId',
-  hostName: '',
+  hostName: 'hostname.lw.in',
   customDomains: [],
   matchAllSubdomains: false,
   disabled: false,
   routing: {
     instance: {
-      filterText: ''
+      filterText: '[tags]\nlwrule = "rnein1fdx1xrpze20zzgn"'
     },
     lb: '',
-    ports: []
+    ports: [
+      {
+        id: 'id1',
+        protocol: 'http',
+        target_protocol: 'http',
+        port: 80,
+        target_port: 80,
+        server_name: '',
+        action: 'forward',
+        redirect_url: '',
+        routing_rules: []
+      },
+      {
+        id: 'id2',
+        protocol: 'https',
+        target_protocol: 'https',
+        port: 443,
+        target_port: 443,
+        server_name: '',
+        action: 'forward',
+        redirect_url: '',
+        routing_rules: []
+      }
+    ]
   },
   healthCheck: {
     protocol: 'http',
@@ -67,12 +91,47 @@ const initialGatewayDetails = {
       vpc: 'vpc-4e233426'
     }
   ],
-  accessPointID: '',
+  accessPointID: 'mock.com',
   metadata: {
     security_groups: [], // eslint-disable-line
-    access_details: accessDetails // eslint-disable-line
+    access_details: accessDetails, // eslint-disable-line
+    cloud_provider_details: { name: 'cpName' },
+    target_group_details: {
+      '80': 'tg',
+      '443': 'tg'
+    }
   },
   deps: []
+}
+
+const mockAccessPointList = {
+  response: [
+    {
+      name: 'mock.com',
+      id: 'mock.com',
+      metadata: {
+        albArn: 'mockalbARN'
+      }
+    }
+  ]
+}
+const mockedHostedZonesData = {
+  data: {
+    response: [{ id: 'route53mock.com', name: 'route53mock.com' }]
+  },
+  loading: false,
+  refetch: jest.fn(() => Promise.resolve({ data: { response: [{ id: 'route53mock.com', name: 'route53mock.com' }] } }))
+}
+
+const mockAccessPointResourceData = {
+  response: [
+    {
+      details: {
+        albARN: 'mockalbARN',
+        name: 'mockALBname'
+      }
+    }
+  ]
 }
 
 jest.mock('services/lw', () => ({
@@ -94,6 +153,20 @@ jest.mock('services/lw', () => ({
   useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(),
     loading: false
+  })),
+  useListAccessPoints: jest.fn().mockImplementation(() => ({
+    data: mockAccessPointList,
+    loading: false,
+    refetch: jest.fn(() => mockAccessPointList)
+  })),
+  useAllHostedZones: jest.fn().mockImplementation(() => mockedHostedZonesData),
+  useAccessPointResources: jest.fn().mockImplementation(() => ({
+    data: mockAccessPointResourceData,
+    loading: false,
+    refetch: jest.fn(() => mockAccessPointResourceData)
+  })),
+  useCreateAccessPoint: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn()
   }))
 }))
 
@@ -108,6 +181,88 @@ describe('Test GatewayDetails', () => {
         />
       </TestWrapper>
     )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders setup access screen', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayDetails
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          previousTab={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    const nextBtn = getByText(container, 'next')
+    expect(nextBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(nextBtn)
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('renders setup access screen and move to previous step', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayDetails
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          previousTab={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    const nextBtn = getByText(container, 'next')
+    expect(nextBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(nextBtn)
+    })
+    expect(container).toMatchSnapshot()
+
+    const prevBtn = getByText(container, 'Previous')
+    expect(prevBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(prevBtn)
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  // TODO: review the test after
+  test('renders review screen', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayDetails
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          previousTab={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    const nextBtn = getByText(container, 'next')
+    expect(nextBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(nextBtn)
+    })
+
+    const dnsCheckBox = container.querySelector('#DNSLink')
+    expect(dnsCheckBox).toBeDefined()
+    act(() => {
+      fireEvent.click(dnsCheckBox!)
+    })
+
+    const reviewTab = getByText(container, '3. review')
+    act(() => {
+      fireEvent.click(reviewTab)
+    })
+
+    expect(container).toMatchSnapshot()
+
+    const editBtn = getAllByText(container, 'EDIT')[0]
+    expect(editBtn).toBeDefined()
+    act(() => {
+      fireEvent.click(editBtn)
+    })
+
     expect(container).toMatchSnapshot()
   })
 })

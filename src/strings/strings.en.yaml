@@ -778,7 +778,6 @@ delegate:
   delegateNameRequired: 'Delegate Name is Required.'
   delegateSizeRequired: 'Delegate Size is Required.'
   delegateConfigRequired: 'Delegate Configuration is Required.'
-  replicaText: 'Runs upto concurrent tasks Replicas='
   configNameRequired: 'Delegate Configuration name is Required.'
   successfullyUpdatedConfig: 'Successfully Updated Delegate Configuration'
   totalMem: 'Total Mem'
@@ -821,15 +820,12 @@ delegate:
     a pipeline'
   LastHeartBeat: 'Last HeartBeat'
   delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
-  downloadScript: 'Download Script'
   kubernetes:
     prerequisites: 'Kubernetes Prerequisites'
     prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart'
     prerequisites_info2: 'If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: '
     prerequisites_info3: 'Your Kubernetes cluster has unallocated resources required to run the Harness Delegate workload'
-    prerequisites_worload1: 'Small (runs upto 250 concurrent tasks) - 1GB memory, 0.25 CPU, 1GB disk'
-    prerequisites_worload2: 'Medium (runs upto 1000 concurrent tasks) - 4GB, 1 CPU, 10GB disk'
-    prerequisites_worload3: 'Large (runs upto 5000 concurrent tasks) - 16GB, 4 CPU, 25GB disk'
+    prerequisites_worload: '{{label}} - {{ram}}GB memory, {{cpu}}CPU'
     permissions_title: 'You will need the following Kubernetes permissions to install the delegate:'
     permissions_info1: 'Permission to create namespace (For the Harness Delegate namespace)'
     permissions_info2: 'Permission to create statefulsets (For the Harness Delegate Pod to be created)'
@@ -842,7 +838,7 @@ delegate:
     applyYAMLTitle: ' Apply YAML and verify connection'
     description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
     description2: 'Run the following command to apply the Harness delegate to your Kubernetes Cluster'
-    checkDelegateInstalled: Checking if the delegate is installed. It might take 1-2 minutes for the installation.
+    checkDelegateInstalled: Checking if the delegate is installed. It might take several minutes for the installation.
     heartbeatReceived: Heartbeat received
     delegateInitialized: Delegate initialized
     delegateInstalled: Delegate Installed Successfully
@@ -857,7 +853,7 @@ delegate:
     permissionError: 'Permission Error'
     crashloopError: 'Crashloop BackOff'
     pullError: 'ErrorImage Pull'
-    harnessErrorValidation: 'Do you see an error "Failed to connect to Harness Sass? or Manager?"'
+    harnessErrorValidation: 'Do you see an error "Failed to connect to Harness SaaS? or Manager?"'
     contactHarness: 'Contact Harness Support'
     tabs:
       commonProblems:
@@ -897,6 +893,7 @@ delegate:
   Scope: 'Scope'
   ScopeDescription: 'Limit the delegate to perform tasks related to the following environments'
   Init_Script: 'Initialization Script'
+  instancesCount: '({{count}} of {{total}} instances)'
   deleteDelegate: 'Delete Delegate'
   questionDeleteDelegate: 'Are you sure you want to delete this Delegate?'
   deleteDelegateConfiguration: 'Delete Delegate Configuration'

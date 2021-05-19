@@ -3,6 +3,9 @@ allowpaths:
   - '/selection-logs/v2.get'
   - '/setup/delegates/status.get'
   - '/setup/delegates/status2.get'
+  - '/setup/delegates/v2.get'
+  - '/setup/delegates/v2/{delegateGroupId}.get'
+  - '/setup/delegates/groups/{delegateGroupId}.delete'
   - '/setup/delegates/downloadUrl.get'
   - '/delegate-profiles.get'
   - '/delegate-profiles/v2.get'
@@ -35,6 +38,9 @@ operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
   /setup/delegates/status2.get: getDelegatesStatusV2
+  /setup/delegates/v2.get: getDelegateGroupsV2
+  /setup/delegates/v2/{delegateGroupId}.get: getDelegateGroupFromIdV2
+  /setup/delegates/groups/{delegateGroupId}.delete: deleteDelegateGroup
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
   /delegate-profiles/v2/{delegateProfileId}: updateDelegateConfiguration
   /delegate-profiles.get: getDelegateProfiles

@@ -1,0 +1,23 @@
+.scriptTextarea {
+  width: 100%;
+  resize: vertical;
+  margin-top: var(--spacing-small);
+  min-height: 200px;
+  max-height: 400px;
+  border-color: var(--grey-400);
+  padding: var(--spacing-medium);
+  font-family: var(--font-family-mono);
+}
+
+.stepContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  height: 600px;
+}
+
+.configWizardNameComponent {
+  p {
+    display: none;
+  }
+}

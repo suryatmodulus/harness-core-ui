@@ -11492,6 +11492,108 @@
         }
       }
     },
+    "/setup/delegates/v2": {
+      "get": {
+        "tags": ["setupdelegatesv2"],
+        "operationId": "list",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateGroupListing"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/v2/{delegateGroupId}": {
+      "get": {
+        "tags": ["setupdelegatesv2"],
+        "operationId": "getDelegateGroupFromIdV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "delegateGroupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateGroupDetails"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/groups/{delegateGroupId}": {
+      "delete": {
+        "tags": ["setupdelegates"],
+        "operationId": "deleteDelegateGroup",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "delegateGroupId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "forceDelete",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseVoid"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/validateDelegateName": {
       "get": {
         "tags": ["setupdelegates"],
@@ -11647,8 +11749,8 @@
 
     "/delegates-verification/heartbeat": {
       "get": {
-        "tags": ["delegatesverification"],
-        "operationId": "heartbeat",
+        "tags": ["delegates-verification"],
+        "operationId": "getDelegatesHeartbeatDetails",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -11669,17 +11771,16 @@
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestVerificationResponse"
+              "$ref": "#/definitions/RestResponseDelegateHeartbeatDetails"
             }
           }
         }
       }
     },
-
     "/delegates-verification/initialized": {
       "get": {
-        "tags": ["delegatesverification"],
-        "operationId": "initialization",
+        "tags": ["delegates-verification"],
+        "operationId": "getDelegatesInitializationDetails",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -11700,7 +11801,7 @@
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestInitializationResponse"
+              "$ref": "#/definitions/RestResponseListDelegateInitializationDetails"
             }
           }
         }
@@ -12259,7 +12360,7 @@
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestDelegateSizeResponse"
+              "$ref": "#/definitions/RestResponseListDelegateSizeDetails"
             }
           }
         }
@@ -12268,7 +12369,7 @@
     "/setup/delegates/validate-kubernetes-yaml": {
       "post": {
         "tags": ["setupdelegates"],
-        "operationId": "validate-kubernetes-yaml",
+        "operationId": "validateKubernetesYaml",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -12282,7 +12383,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/KubDelegateYaml"
+              "$ref": "#/definitions/DelegateSetupDetails"
             }
           }
         ],
@@ -12291,7 +12392,7 @@
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestResponseKubDelegateYaml"
+              "$ref": "#/definitions/RestResponseDelegateSetupDetails"
             }
           }
         }
@@ -12300,7 +12401,7 @@
     "/setup/delegates/generate-kubernetes-yaml": {
       "post": {
         "tags": ["setupdelegates"],
-        "operationId": "generate-kubernetes-yaml",
+        "operationId": "generateKubernetesYaml",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -12320,16 +12421,19 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/KubDelegateYaml"
+              "$ref": "#/definitions/DelegateSetupDetails"
             }
           }
         ],
         "responses": {
+          "default": {
+            "description": "successful operation"
+          },
           "200": {
             "description": "successful operation",
             "headers": {},
             "schema": {
-              "$ref": "#/definitions/RestResponseKubDownload"
+              "$ref": "#/definitions/RestResponseDelegateSetupDetails"
             }
           }
         }
@@ -65784,6 +65888,81 @@
         }
       }
     },
+    "DelegateInsightsDetails": {
+      "type": "object",
+      "properties": {
+        "insights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateInsightsBarDetails"
+          }
+        }
+      }
+    },
+    "PairDelegateInsightsTypeLong": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "key": {
+          "type": "string",
+          "enum": ["SUCCESSFUL", "FAILED", "IN_PROGRESS", "PERPETUAL_TASK_ASSIGNED"]
+        },
+        "left": {
+          "type": "string",
+          "enum": ["SUCCESSFUL", "FAILED", "IN_PROGRESS", "PERPETUAL_TASK_ASSIGNED"]
+        },
+        "right": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DelegateInsightsBarDetails": {
+      "type": "object",
+      "properties": {
+        "timeStamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "counts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PairDelegateInsightsTypeLong"
+          }
+        }
+      }
+    },
+    "DelegateSizeDetails": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "enum": ["EXTRA_SMALL", "LAPTOP", "SMALL", "MEDIUM", "LARGE"]
+        },
+        "label": {
+          "type": "string"
+        },
+        "taskLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "replicas": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ram": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cpu": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
     "RestResponseDelegate": {
       "type": "object",
       "properties": {
@@ -65963,6 +66142,26 @@
         },
         "location": {
           "type": "string"
+        }
+      }
+    },
+    "RestResponseDelegateGroupListing": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DelegateGroupListing"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
         }
       }
     },
@@ -67100,6 +67299,29 @@
         }
       }
     },
+    "RestResponseListDelegateSizeDetails": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateSizeDetails"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "DelegateScopes": {
       "type": "object",
       "properties": {
@@ -67113,6 +67335,149 @@
           "type": "array",
           "items": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "DelegateGroupDetails": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "string"
+        },
+        "delegateType": {
+          "type": "string"
+        },
+        "groupName": {
+          "type": "string"
+        },
+        "groupHostName": {
+          "type": "string"
+        },
+        "delegateDescription": {
+          "type": "string"
+        },
+        "delegateConfigurationId": {
+          "type": "string"
+        },
+        "sizeDetails": {
+          "$ref": "#/definitions/DelegateSizeDetails"
+        },
+        "groupImplicitSelectors": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["PROFILE_NAME", "DELEGATE_NAME", "HOST_NAME", "GROUP_NAME", "PROFILE_SELECTORS"]
+          }
+        },
+        "delegateInsightsDetails": {
+          "$ref": "#/definitions/DelegateInsightsDetails"
+        },
+        "lastHeartBeat": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "activelyConnected": {
+          "type": "boolean"
+        },
+        "delegateInstanceDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateInner"
+          }
+        }
+      }
+    },
+    "DelegateSetupDetails": {
+      "type": "object",
+      "required": ["delegateConfigurationId", "name", "size"],
+      "properties": {
+        "sessionIdentifier": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "enum": ["EXTRA_SMALL", "LAPTOP", "SMALL", "MEDIUM", "LARGE"]
+        },
+        "delegateConfigurationId": {
+          "type": "string"
+        },
+        "k8sConfigDetails": {
+          "$ref": "#/definitions/K8sConfigDetails"
+        }
+      }
+    },
+    "K8sConfigDetails": {
+      "type": "object",
+      "properties": {
+        "k8sPermissionType": {
+          "type": "string",
+          "enum": ["CLUSTER_ADMIN", "CLUSTER_VIEWER", "NAMESPACE_ADMIN"]
+        },
+        "namespace": {
+          "type": "string"
+        }
+      }
+    },
+    "RestResponseDelegateGroupDetails": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DelegateGroupDetails"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "DelegateGroupListing": {
+      "type": "object",
+      "properties": {
+        "delegateGroupDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateGroupDetails"
+          }
+        }
+      }
+    },
+    "RestResponseDelegateSetupDetails": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DelegateSetupDetails"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
@@ -67310,6 +67675,83 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/TaskSelectorMap"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "DelegateHeartbeatDetails": {
+      "type": "object",
+      "properties": {
+        "numberOfRegisteredDelegates": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfConnectedDelegates": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RestResponseDelegateHeartbeatDetails": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DelegateHeartbeatDetails"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "DelegateInitializationDetails": {
+      "type": "object",
+      "properties": {
+        "delegateId": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "initialized": {
+          "type": "boolean"
+        },
+        "profileError": {
+          "type": "boolean"
+        },
+        "profileExecutedAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "RestResponseListDelegateInitializationDetails": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DelegateInitializationDetails"
           }
         },
         "responseMessages": {

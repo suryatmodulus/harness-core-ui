@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { StepProps, Layout, Icon, Text, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
-import { useHeartbeat } from 'services/portal'
+import { useGetDelegatesHeartbeatDetails } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 import { POLL_INTERVAL, TIME_OUT } from '@delegates/constants'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -21,12 +21,11 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
   const [showError, setShowError] = React.useState(false)
   const [isHeartBeatVerified, setVerifyHeartBeat] = React.useState(false)
   const [isDelegateInitialized, setIsDelegateInitialised] = React.useState(false)
-  const { data, loading, refetch: verifyHeartBeat } = useHeartbeat({
+  const { data, loading, refetch: verifyHeartBeat } = useGetDelegatesHeartbeatDetails({
     queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },
     debounce: 200
   })
 
-  const timeout = props?.prevStepData?.replicas ? TIME_OUT * props?.prevStepData?.replicas : TIME_OUT
   React.useEffect(() => {
     if (
       !loading &&
@@ -35,11 +34,11 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
       !showSuccess
     ) {
       const timerId = window.setTimeout(() => {
-        counter = counter + 1
+        counter += POLL_INTERVAL
         verifyHeartBeat()
       }, POLL_INTERVAL)
 
-      if (counter * 60 * 1000 === timeout) {
+      if (counter >= TIME_OUT * (props?.prevStepData?.replicas || 1)) {
         window.clearTimeout(timerId)
         setVerifyHeartBeat(true)
         setShowError(true)
@@ -64,6 +63,9 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
       </Layout.Horizontal>
     )
   }
+  const connectedDelegates = data?.resource?.numberOfConnectedDelegates || 0
+  const totalReplicas = props?.prevStepData?.replicas || 0
+  const iconColor = connectedDelegates < totalReplicas ? Color.YELLOW_500 : Color.GREEN_500
   return (
     <Layout.Vertical spacing="xxlarge">
       <Layout.Horizontal padding="large">
@@ -72,10 +74,9 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
       </Layout.Horizontal>
       <Layout.Vertical padding="large">
         <Layout.Horizontal spacing="medium" className={css.checkItemsWrapper}>
-          <Icon size={10} color={Color.GREEN_500} name="command-artifact-check" className={css.checkIcon} />
+          <Icon size={10} color={iconColor} name="command-artifact-check" className={css.checkIcon} />
           <Text font={{ weight: 'bold' }}>
-            {getString('delegate.successVerification.heartbeatReceived')}({data?.resource?.numberOfConnectedDelegates}/
-            {props?.prevStepData?.replicas})
+            {getString('delegate.successVerification.heartbeatReceived')}({connectedDelegates}/{totalReplicas})
           </Text>
         </Layout.Horizontal>
         {isHeartBeatVerified && (

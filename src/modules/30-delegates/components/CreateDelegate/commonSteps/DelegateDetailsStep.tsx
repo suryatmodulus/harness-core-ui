@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import { Layout, StepProps, Button, Color, Text, Container, Link } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { DelegateSizeDetails, useGetDelegateSizes } from 'services/portal'
 import type { DelegateInfoDTO, DelegateConfigDTO } from '@delegates/DelegateInterface'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import Delegates4Ways from '../../Delegates4Ways/Delegates4Ways'
 import harnessDelegate from './images/harness-delegate.svg'
 import css from './DelegateDetailsStep.module.scss'
@@ -23,7 +26,12 @@ export interface CardData {
 
 const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetailsStepProps> = props => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
   const [selectedCard, setSelectedCard] = useState<CardData | undefined>()
+  const { data: delegateSizes } = useGetDelegateSizes({
+    queryParams: { accountId }
+  })
+  const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource || []
   const handleOnSelect = (value: CardData): void => {
     /* istanbul ignore next */
     setSelectedCard(value)
@@ -76,21 +84,16 @@ const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetails
             </Container>
             <Text className={css.preReqContent}>{getString('delegate.kubernetes.prerequisites_info3')}</Text>
             <Container>
-              <Layout.Horizontal>
-                <Text inline className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                  {getString('delegate.kubernetes.prerequisites_worload1')}
-                </Text>
-              </Layout.Horizontal>
-              <Layout.Horizontal>
-                <Text inline className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                  {getString('delegate.kubernetes.prerequisites_worload2')}
-                </Text>
-              </Layout.Horizontal>
-              <Layout.Horizontal>
-                <Text className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
-                  {getString('delegate.kubernetes.prerequisites_worload3')}
-                </Text>
-              </Layout.Horizontal>
+              {delegateSizeMappings.map(size => (
+                <Layout.Horizontal key={size.label}>
+                  <Text inline className={css.preReqContent} icon="arrow-right" iconProps={{ size: 8 }}>
+                    {getString('delegate.kubernetes.prerequisites_worload', {
+                      ...size,
+                      ram: (Number(size.ram) / 1000).toFixed(1)
+                    })}
+                  </Text>
+                </Layout.Horizontal>
+              ))}
             </Container>
             <Text className={css.preReqContent}>{getString('delegate.kubernetes.permissions_title')}</Text>
             <Container>

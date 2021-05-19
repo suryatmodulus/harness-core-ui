@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Delegate Wizard render data 1`] = `
+<div>
+  <div
+    class="StepWizard--main delegateConfigWizard StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        Delegate Configuration
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          delegates.newDelegateConfigWizard.scriptTitle
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          delegate.Scope
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="Layout--vertical StyledProps--main stepContainer StyledProps--padding-xxlarge"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="min-height: 350px;"
+              >
+                <h2
+                  class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-xxlarge"
+                  level="2"
+                >
+                  delegates.newDelegateConfigWizard.overviewTitle
+                </h2>
+                <div
+                  class="StyledProps--font StyledProps--main main configWizardNameComponent"
+                >
+                  <div
+                    class="InputWithIdentifier--txtNameContainer TextInput--main"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ID
+                        :
+                      </p>
+                      <span
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          >
+                            <span
+                              class="bp3-editable-text-content"
+                              style="height: 1px; line-height: 1px; min-width: 0;"
+                            />
+                          </div>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        name
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px; font-weight: normal;"
+                    >
+                      optionalField
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        data-testid="description-edit"
+                        icon="edit"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <label
+                      class="Label--main"
+                      style="font-size: 13px; font-weight: normal;"
+                    >
+                      optionalField
+                      <span
+                        class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                        data-name="edit"
+                        data-testid="tags-edit"
+                        icon="edit"
+                      >
+                        <svg
+                          data-icon="edit"
+                          height="12"
+                          viewBox="0 0 16 16"
+                          width="12"
+                        >
+                          <desc>
+                            edit
+                          </desc>
+                          <path
+                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    saveAndContinue
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

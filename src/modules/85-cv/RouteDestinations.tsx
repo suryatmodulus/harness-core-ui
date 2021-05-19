@@ -9,7 +9,9 @@ import {
   projectPathProps,
   connectorPathProps,
   secretPathProps,
-  verificationPathProps
+  verificationPathProps,
+  delegatePathProps,
+  delegateConfigProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -27,6 +29,9 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
+import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
+import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -80,7 +85,6 @@ export default (
     <Route path={routes.toCV({ ...accountPathProps })} exact>
       <RedirectToCVHome />
     </Route>
-
     <RouteWithLayout exact sidebarProps={CVSideNavProps} path={routes.toCVHome({ ...accountPathProps })}>
       <CVHomePage />
     </RouteWithLayout>
@@ -96,7 +100,6 @@ export default (
     <Route path={routes.toCVProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCVProject />
     </Route>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -104,7 +107,6 @@ export default (
     >
       <CVDashboardPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -150,7 +152,6 @@ export default (
     >
       <ActivitySourceSetup />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -230,7 +231,6 @@ export default (
     >
       <RedirectToResourcesHome />
     </Route>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -240,7 +240,6 @@ export default (
         <ConnectorsPage />
       </ResourcesPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -254,6 +253,39 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
+      path={routes.toResourcesDelegates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <ResourcesPage>
+        <DelegatesPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toResourcesDelegatesDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegatePathProps,
+        ...cvModuleParams
+      })}
+    >
+      <DelegateDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toResourcesDelegateConfigsDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegateConfigProps,
+        ...cvModuleParams
+      })}
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
       path={routes.toCVAdminResourcesConnectorDetails({
         ...accountPathProps,
         ...projectPathProps,
@@ -262,7 +294,6 @@ export default (
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

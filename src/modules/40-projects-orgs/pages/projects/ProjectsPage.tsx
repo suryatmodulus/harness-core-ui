@@ -9,13 +9,12 @@ import { useParams } from 'react-router-dom'
 import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
-import { useQueryParams } from '@common/hooks'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -30,8 +29,7 @@ const allOrgsSelectOption: SelectOption = {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
-  const { accountId } = useParams<AccountPathProps>()
-  const { orgId } = useQueryParams<{ orgId: string }>()
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)
@@ -49,7 +47,7 @@ const ProjectsListPage: React.FC = () => {
   const organizations: SelectOption[] = [
     allOrgsSelectOption,
     ...(orgsData?.data?.content?.map(org => {
-      org.organization.identifier === orgId
+      org.organization.identifier === orgIdentifier
         ? (orgFilter = {
             label: org.organization.name,
             value: org.organization.identifier

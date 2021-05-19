@@ -38,7 +38,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                 {getString('common.secrets')}
               </NavLink>
 
-              {CDNG_ENABLED && NG_SHOW_DELEGATE && !(projectIdentifier || orgIdentifier) ? (
+              {CDNG_ENABLED && NG_SHOW_DELEGATE ? (
                 <NavLink
                   className={css.tags}
                   activeClassName={css.activeTag}

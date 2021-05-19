@@ -1,7 +1,3 @@
-.footer {
-  margin-bottom: 20px !important;
-}
-
 .delegateSizeWrapper {
   margin-bottom: var(--spacing-small) !important;
   :global {
@@ -37,7 +33,7 @@
     .bp3-card {
       width: 119px;
       height: 177px;
-      padding: 15px;
+      padding: 20px 7px;
     }
   }
 }
@@ -55,7 +51,7 @@
   flex-direction: row;
   align-items: center;
   color: orange;
-  width: 70%;
+  width: 75%;
   margin-left: 130px !important;
   margin-top: 5px !important;
 }
@@ -63,7 +59,7 @@
 .workloadSeparator:before,
 .workloadSeparator:after {
   content: '';
-  width: 13%;
+  width: 25%;
   border-bottom: 1px solid orange;
 }
 
@@ -78,7 +74,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 177px;
+  height: 100%;
 }
 
 .cardDetails {
@@ -98,7 +94,11 @@
 .replicaText {
   font-size: 10px !important;
   letter-spacing: 0.233333px;
-  color: #9293ab !important;
+}
+.uptoText {
+  font-size: 10px !important;
+  letter-spacing: 0.233333px;
+  margin-bottom: var(--spacing-small);
 }
 .footerHeader {
   font-weight: 500 !important;
@@ -180,4 +180,44 @@
 
 .cardWrapper:not(:first-child) {
   margin-right: var(--spacing-small);
+}
+
+.rightPanel {
+  width: 50% !important;
+  overflow-y: auto;
+  border-left: 1px solid var(--grey-300);
+  padding-left: var(--spacing-xxxlarge) !important;
+}
+
+.permissionsTitle {
+  margin-bottom: var(--spacing-medium);
+  font-weight: 400;
+  font-size: var(--font-size-normal);
+  color: var(--black);
+}
+
+.permissionSelect {
+  margin-top: var(--spacing-medium);
+}
+
+.permissionSelectTitle {
+  font-size: var(--font-size-normal);
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: var(--spacing-small);
+}
+
+.namespace {
+  margin-top: var(--spacing-medium);
+}
+
+.profileSelectorsItemsContainer {
+  margin-top: var(--spacing-small);
+  > span {
+    margin-right: var(--spacing-small);
+  }
+}
+
+.textCenter {
+  text-align: center;
 }

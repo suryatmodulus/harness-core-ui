@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button, Container, FlexExpander, Text, useToggle } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { Delegate, DelegateProfile } from 'services/portal'
+import type { DelegateGroupDetails, DelegateProfile } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import css from './DelegateDetails.module.scss'
 
 interface DelegateAdvancedProps {
-  delegate: Delegate
+  delegate: DelegateGroupDetails
   delegateProfile: DelegateProfile
 }
 
@@ -15,6 +15,9 @@ export const DelegateAdvanced: React.FC<DelegateAdvancedProps> = ({ delegate, de
   const [expanded, toggleExpanded] = useToggle(true)
   const { getString } = useStrings()
 
+  const tags = Object.entries(delegate?.groupImplicitSelectors || {})
+    .filter(tag => tag[1] !== 'PROFILE_SELECTORS')
+    .map(tag => tag[0])
   return (
     <SectionContainer style={{ paddingTop: 'var(--spacing-large)' }}>
       <Container flex>
@@ -40,7 +43,7 @@ export const DelegateAdvanced: React.FC<DelegateAdvancedProps> = ({ delegate, de
             <Text font="small" color="#4F4F4F" style={{ lineHeight: '16px', padding: 'var(--spacing-small) 0' }}>
               {getString('delegate.delegateSpecificTags')}
             </Text>
-            <TagsViewer tags={delegate?.tags} />
+            <TagsViewer tags={tags} />
             {!!delegateProfile?.selectors?.length && (
               <Text font="small" color="#4F4F4F" style={{ lineHeight: '16px', padding: 'var(--spacing-small) 0' }}>
                 {getString('delegate.tagsFromDelegateConfig')}

@@ -124,10 +124,53 @@ const routes = {
     }
   ),
   toResourcesDelegatesDetails: withAccountId(
-    ({ delegateId }: DelegatePathProps) => `/admin/resources/delegates/${delegateId}`
+    ({
+      delegateId,
+      orgIdentifier,
+      projectIdentifier,
+      module
+    }: Partial<DelegatePathProps & ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates/${delegateId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toResourcesDelegateConfigs: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegateconfigs`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toResourcesDelegateConfigsDetails: withAccountId(
-    ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}`
+    ({
+      delegateConfigId,
+      orgIdentifier,
+      projectIdentifier,
+      module
+    }: Partial<DelegateConfigProps & ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegateconfigs/${delegateConfigId}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
   ),
   toResourcesEditDelegateConfigsDetails: withAccountId(
     ({ delegateConfigId }: DelegateConfigProps) => `/admin/resources/delegateconfigs/${delegateConfigId}/edit`
@@ -136,13 +179,6 @@ const routes = {
   toOrgResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, connectorId }: OrgPathProps & ConnectorPathProps) =>
       `/admin/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
-  ),
-  toOrgResourcesDelegates: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/delegates`
-  ),
-  toOrgResourcesDelegateDetails: withAccountId(
-    ({ orgIdentifier, delegateId }: OrgPathProps & DelegatePathProps) =>
-      `/admin/organizations/${orgIdentifier}/resources/delegates/${delegateId}`
   ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -819,14 +855,6 @@ const routes = {
   toProjectResourcesConnectorDetails: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/connectors/:connectorId`
-  ),
-  toProjectResourcesDelegatesDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, delegateId }: ProjectPathProps & DelegatePathProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegates/${delegateId}`
-  ),
-  toProjectResourcesDelegateConfigsDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, delegateConfigId }: ProjectPathProps & DelegateConfigProps) =>
-      `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/resources/delegateconfigs/${delegateConfigId}`
   ),
   toProjects: withAccountId(() => '/projects'),
   toProjectsGetStarted: withAccountId(() => '/projects/get-started'),

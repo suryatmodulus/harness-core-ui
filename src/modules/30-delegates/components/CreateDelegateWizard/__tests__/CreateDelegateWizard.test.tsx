@@ -6,6 +6,23 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div>yamlDiv</div>
   return ComponentToMock
 })
+jest.mock('services/portal', () => ({
+  useGetDelegateSizes: jest.fn().mockImplementation(() => {
+    return {
+      data: [
+        {
+          size: 'MEDIUM',
+          label: 'medium',
+          ram: '16',
+          cpu: '4'
+        }
+      ],
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
+  })
+}))
 describe('Create Delegate Wizard', () => {
   test('render data', () => {
     const { container } = render(

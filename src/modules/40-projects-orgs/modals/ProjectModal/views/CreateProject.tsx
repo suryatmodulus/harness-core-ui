@@ -7,8 +7,7 @@ import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useQueryParams } from '@common/hooks'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -21,10 +20,9 @@ interface CreateModalData {
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const { nextStep, onSuccess, modules, module } = props
-  const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
-  const { orgId: orgIdentifier } = useQueryParams<{ orgId: string }>()
   const { showSuccess } = useToaster()
   const { mutate: createProject, loading: saving } = usePostProject({
     queryParams: {

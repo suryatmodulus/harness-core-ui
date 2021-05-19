@@ -99,83 +99,318 @@ exports[`Create K8s Delegate render data 1`] = `
                   class="StyledProps--font StyledProps--main delegateForm"
                 >
                   <div
-                    class="formGroup"
+                    class="Layout--horizontal StyledProps--main"
+                    style="height: 500px;"
                   >
                     <div
-                      class="StyledProps--font StyledProps--main main"
+                      class="Layout--vertical StyledProps--main"
+                      style="width: 50%;"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main connectorFormNameWrapper"
+                        class="formGroup"
                       >
                         <div
-                          class="StyledProps--font StyledProps--main connectorFormNameElm"
+                          class="StyledProps--font StyledProps--main main"
                         >
                           <div
-                            class="InputWithIdentifier--txtNameContainer TextInput--main"
+                            class="StyledProps--font StyledProps--main connectorFormNameWrapper"
                           >
                             <div
-                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                              class="StyledProps--font StyledProps--main connectorFormNameElm"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
+                              <div
+                                class="bp3-form-group"
+                                data-id="name-0"
                               >
-                                ID
-                                :
-                              </p>
-                              <span
-                                class="bp3-popover-wrapper"
-                              >
-                                <span
-                                  class="bp3-popover-target"
+                                <label
+                                  class="bp3-label"
+                                  for="name"
+                                >
+                                  delegate.delegateName
+                                   
+                                  <span
+                                    class="bp3-text-muted"
+                                  />
+                                </label>
+                                <div
+                                  class="bp3-form-content"
                                 >
                                   <div
-                                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                                    tabindex="0"
+                                    class="bp3-input-group"
                                   >
-                                    <span
-                                      class="bp3-editable-text-content"
-                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="name"
+                                      type="text"
+                                      value=""
                                     />
                                   </div>
-                                </span>
-                              </span>
-                              <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main"
-                                icon="edit"
-                                style="vertical-align: middle;"
-                              >
-                                <svg
-                                  data-icon="edit"
-                                  height="12"
-                                  viewBox="0 0 16 16"
-                                  width="12"
-                                >
-                                  <desc>
-                                    edit
-                                  </desc>
-                                  <path
-                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
+                                </div>
+                              </div>
                             </div>
                             <div
-                              class="bp3-form-group"
-                              data-id="name-0"
+                              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+                              style="justify-content: center;"
                             >
-                              <label
-                                class="bp3-label"
-                                for="name"
+                              <p
+                                class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                               >
-                                Name
-                                 
-                                <span
-                                  class="bp3-text-muted"
-                                />
-                              </label>
+                                + Description
+                              </p>
+                            </div>
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main connectorFormElm"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class="Layout--vertical StyledProps--main delegateSizeField"
+                      >
+                        <label
+                          class="delegateSizeLabel"
+                        >
+                          delegate.delegateSize
+                        </label>
+                        <div
+                          class="formGroup"
+                        >
+                          <div
+                            class="grid delegateSizeWrapper"
+                          >
+                            <div
+                              class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                              data-index="0"
+                              tabindex="0"
+                            >
                               <div
-                                class="bp3-form-content"
+                                class="StyledProps--font StyledProps--main cardWrapper"
+                              >
+                                <div
+                                  class="undefined sizeTag"
+                                >
+                                  Extra Small
+                                </div>
+                                <div
+                                  class="Layout--vertical StyledProps--main textCenter"
+                                >
+                                  <div
+                                    class="uptoText"
+                                  >
+                                    delegates.delegateSizeUpTo
+                                  </div>
+                                  <p
+                                    class="StyledProps--font StyledProps--main replicaText"
+                                  >
+                                    delegates.replicaText
+                                    1
+                                     
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main footer"
+                                >
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                       
+                                      DELEGATE.TOTALMEM
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                      delegates.totalMemUnit
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                      DELEGATE.TOTALCPU
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                              data-index="1"
+                              tabindex="0"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main cardWrapper"
+                              >
+                                <div
+                                  class="small sizeTag"
+                                >
+                                  Small
+                                </div>
+                                <div
+                                  class="Layout--vertical StyledProps--main textCenter"
+                                >
+                                  <div
+                                    class="uptoText"
+                                  >
+                                    delegates.delegateSizeUpTo
+                                  </div>
+                                  <p
+                                    class="StyledProps--font StyledProps--main replicaText"
+                                  >
+                                    delegates.replicaText
+                                    1
+                                     
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main footer"
+                                >
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                       
+                                      DELEGATE.TOTALMEM
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                      delegates.totalMemUnit
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                      DELEGATE.TOTALCPU
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                              data-index="2"
+                              tabindex="0"
+                            >
+                              <div
+                                class="StyledProps--font StyledProps--main cardWrapper"
+                              >
+                                <div
+                                  class="large sizeTag"
+                                >
+                                  Large
+                                </div>
+                                <div
+                                  class="Layout--vertical StyledProps--main textCenter"
+                                >
+                                  <div
+                                    class="uptoText"
+                                  >
+                                    delegates.delegateSizeUpTo
+                                  </div>
+                                  <p
+                                    class="StyledProps--font StyledProps--main replicaText"
+                                  >
+                                    delegates.replicaText
+                                    1
+                                     
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main footer"
+                                >
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                       
+                                      DELEGATE.TOTALMEM
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                      delegates.totalMemUnit
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="Layout--vertical StyledProps--main textCenter"
+                                  >
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerHeader"
+                                    >
+                                      DELEGATE.TOTALCPU
+                                    </p>
+                                    <p
+                                      class="StyledProps--font StyledProps--main footerContent"
+                                    >
+                                      0.5
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main workloadSeparator"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange500"
+                          >
+                            delegate.productionWorkloads
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="formGroup profileSelect"
+                      >
+                        <div
+                          class="bp3-form-group"
+                          data-id="delegateConfigurationId-1"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="delegateConfigurationId"
+                          >
+                            delegate.delegateConfigurations
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select--main bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
                               >
                                 <div
                                   class="bp3-input-group"
@@ -183,47 +418,57 @@ exports[`Create K8s Delegate render data 1`] = `
                                   <input
                                     autocomplete="off"
                                     class="bp3-input"
-                                    name="name"
+                                    name="delegateConfigurationId"
+                                    placeholder="Search..."
+                                    style="padding-right: 0px;"
                                     type="text"
                                     value=""
                                   />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                          style="justify-content: center;"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
-                          >
-                            + Description
-                          </p>
-                        </div>
+                      </div>
+                      
+                    </div>
+                    <div
+                      class="Layout--vertical StyledProps--main rightPanel"
+                    >
+                      <div
+                        class="permissionsTitle"
+                      >
+                        delegates.delegatePermissions.title
                       </div>
                       <div
-                        class="StyledProps--font StyledProps--main connectorFormElm"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    class="Layout--vertical StyledProps--main delegateSizeField"
-                  >
-                    <label
-                      class="delegateSizeLabel"
-                    >
-                      delegate.delegateSize
-                    </label>
-                    <div
-                      class="formGroup"
-                    >
-                      <div
-                        class="grid delegateSizeWrapper"
+                        class=""
+                        style="display: flex; flex-direction: column;"
                       >
                         <div
-                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card permissionSelect Card--selected Card--interactive"
                           data-index="0"
                           tabindex="0"
                         >
@@ -254,146 +499,97 @@ exports[`Create K8s Delegate render data 1`] = `
                             </span>
                           </span>
                           <div
-                            class="StyledProps--font StyledProps--main cardWrapper"
+                            class="StyledProps--font StyledProps--main"
                           >
                             <div
-                              class="extraSmall sizeTag"
+                              class="permissionSelectTitle"
                             >
-                              Extra Small
+                              delegates.delegatePermissions.clusterWriteTitle
                             </div>
-                            <div
-                              class="Layout--vertical StyledProps--main"
+                            <p
+                              class="StyledProps--font StyledProps--main"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main StyledProps--color"
-                                style="font-size: 16px; text-align: center;"
-                              >
-                                500
-                              </p>
-                              <p
-                                class="StyledProps--font StyledProps--main replicaText"
-                              >
-                                delegate.replicaText
-                                1
-                                 
-                              </p>
-                            </div>
-                            <div
-                              class="StyledProps--font StyledProps--main footer"
-                            >
-                              <div
-                                class="Layout--vertical StyledProps--main"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main footerHeader"
-                                >
-                                   
-                                  delegate.totalMem
-                                </p>
-                                <p
-                                  class="StyledProps--font StyledProps--main footerContent"
-                                >
-                                  50
-                                   
-                                </p>
-                              </div>
-                              <div
-                                class="Layout--vertical StyledProps--main"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main footerHeader"
-                                >
-                                  delegate.totalCpu
-                                </p>
-                                <p
-                                  class="StyledProps--font StyledProps--main footerContent"
-                                >
-                                  0.5
-                                </p>
-                              </div>
-                            </div>
+                              delegates.delegatePermissions.clusterWriteContent
+                            </p>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main workloadSeparator"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange500"
-                      >
-                        delegate.productionWorkloads
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="formGroup profileSelect"
-                  >
-                    <div
-                      class="bp3-form-group"
-                      data-id="delegateConfigurationId-1"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="delegateConfigurationId"
-                      >
-                        delegate.delegateConfigurations
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
                         <div
-                          class="bp3-popover-wrapper Select--main bp3-fill"
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card permissionSelect Card--interactive"
+                          data-index="1"
+                          tabindex="0"
                         >
                           <div
-                            class="bp3-popover-target"
+                            class="StyledProps--font StyledProps--main"
                           >
                             <div
-                              class="bp3-input-group"
+                              class="permissionSelectTitle"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="delegateConfigurationId"
-                                placeholder="Search..."
-                                style="padding-right: 0px;"
-                                type="text"
-                                value=""
-                              />
-                              <span
-                                class="bp3-input-action"
+                              delegates.delegatePermissions.clusterReadTitle
+                            </div>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              delegates.delegatePermissions.clusterReadContent
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card permissionSelect Card--interactive"
+                          data-index="2"
+                          tabindex="0"
+                        >
+                          <div
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            <div
+                              class="permissionSelectTitle"
+                            >
+                              delegates.delegatePermissions.specificNamespaceTitle
+                            </div>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              delegates.delegatePermissions.specificNamespaceContent
+                            </p>
+                            <div
+                              class="namespace"
+                            >
+                              <div
+                                class="bp3-form-group"
+                                data-id="k8sConfigDetails.namespace-2"
                               >
-                                <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                <label
+                                  class="bp3-label"
+                                  for="k8sConfigDetails.namespace"
                                 >
-                                  <svg
-                                    data-icon="caret-down"
-                                    height="14"
-                                    viewBox="0 0 16 16"
-                                    width="14"
+                                  common.namespace
+                                   
+                                  <span
+                                    class="bp3-text-muted"
+                                  />
+                                </label>
+                                <div
+                                  class="bp3-form-content"
+                                >
+                                  <div
+                                    class="bp3-input-group"
                                   >
-                                    <desc>
-                                      caret-down
-                                    </desc>
-                                    <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                      fill-rule="evenodd"
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="k8sConfigDetails.namespace"
+                                      type="text"
+                                      value=""
                                     />
-                                  </svg>
-                                </span>
-                              </span>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main formFooter"

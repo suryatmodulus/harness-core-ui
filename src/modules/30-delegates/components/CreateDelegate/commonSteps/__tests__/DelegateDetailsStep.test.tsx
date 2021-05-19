@@ -4,6 +4,25 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { DelegateTypes } from '@delegates/constants'
 import DelegateDetailsStep from '../DelegateDetailsStep'
 
+jest.mock('services/portal', () => ({
+  useGetDelegateSizes: jest.fn().mockImplementation(() => {
+    return {
+      data: {
+        resource: [
+          {
+            size: 'MEDIUM',
+            label: 'medium',
+            ram: '16',
+            cpu: '4'
+          }
+        ]
+      },
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
+  })
+}))
 describe('Delgate Details StepWizard', () => {
   test('render DelegateDetailsStep', () => {
     const { container } = render(

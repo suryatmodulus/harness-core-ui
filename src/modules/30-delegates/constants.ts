@@ -36,7 +36,7 @@ export enum TroubleShootingTypes {
 }
 
 export enum DelegateSize {
-  EXTRA_SMALL = 'EXTRA_SMALL',
+  LAPTOP = 'LAPTOP',
   SMALL = 'SMALL',
   MEDIUM = 'MEDIUM',
   LARGE = 'LARGE'

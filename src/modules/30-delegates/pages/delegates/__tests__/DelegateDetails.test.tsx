@@ -2,17 +2,39 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegateDetails from '../DelegateDetails'
-import Delegatemock from './Delegatemock.json'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateFromId: jest.fn().mockImplementation(args => {
+  useGetDelegateGroupFromIdV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
-    return { data: Delegatemock, refetch: jest.fn(), error: null, loading: false }
+    return {
+      data: {
+        groupId: 'dsadsadsad22',
+        delegateType: 'ECS',
+        groupName: 'delegate-1',
+        groupHostName: '',
+        delegateDescription: '',
+        delegateConfigurationId: null,
+        sizeDetails: null,
+        groupImplicitSelectors: {},
+        delegateInsightsDetails: [],
+        lastHeartBeat: 1616541640941,
+        activelyConnected: true,
+        delegateInstanceDetails: []
+      },
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
   }),
-  useGetDelegateConfigFromId: jest.fn().mockImplementation(args => {
+  useGetV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
-    return []
+    return {
+      loading: false,
+      error: null,
+      data: {},
+      refetch: jest.fn()
+    }
   })
 }))
 

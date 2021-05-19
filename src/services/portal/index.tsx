@@ -4,6 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
+export const SPEC_VERSION = '7.8'
 export interface ImportStatus {
   collectionName?: string
   imported?: number
@@ -8673,6 +8674,31 @@ export interface DelegateScope {
   valid?: boolean
 }
 
+export interface DelegateInsightsDetails {
+  insights?: DelegateInsightsBarDetails[]
+}
+
+export interface PairDelegateInsightsTypeLong {
+  value?: number
+  key?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
+  left?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
+  right?: number
+}
+
+export interface DelegateInsightsBarDetails {
+  timeStamp?: number
+  counts?: PairDelegateInsightsTypeLong[]
+}
+
+export interface DelegateSizeDetails {
+  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  label?: string
+  taskLimit?: number
+  replicas?: number
+  ram?: number
+  cpu?: number
+}
+
 export interface RestResponseDelegate {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -8739,6 +8765,14 @@ export interface DelegateConnectionHeartbeat {
   delegateConnectionId?: string
   version?: string
   location?: string
+}
+
+export interface RestResponseDelegateGroupListing {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateGroupListing
+  responseMessages?: ResponseMessage[]
 }
 
 export interface DelegateResponseData {
@@ -9169,9 +9203,70 @@ export interface Rule {
   message?: string
 }
 
+export interface RestResponseListDelegateSizeDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSizeDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface DelegateScopes {
   includeScopeIds?: string[]
   excludeScopeIds?: string[]
+}
+
+export interface DelegateGroupDetails {
+  groupId?: string
+  delegateType?: string
+  groupName?: string
+  groupHostName?: string
+  delegateDescription?: string
+  delegateConfigurationId?: string
+  sizeDetails?: DelegateSizeDetails
+  groupImplicitSelectors?: {
+    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
+  }
+  delegateInsightsDetails?: DelegateInsightsDetails
+  lastHeartBeat?: number
+  activelyConnected?: boolean
+  delegateInstanceDetails?: DelegateInner[]
+}
+
+export interface DelegateSetupDetails {
+  sessionIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  name: string
+  description?: string
+  size: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  delegateConfigurationId: string
+  k8sConfigDetails?: K8sConfigDetails
+}
+
+export interface K8sConfigDetails {
+  k8sPermissionType?: 'CLUSTER_ADMIN' | 'CLUSTER_VIEWER' | 'NAMESPACE_ADMIN'
+  namespace?: string
+}
+
+export interface RestResponseDelegateGroupDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateGroupDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DelegateGroupListing {
+  delegateGroupDetails?: DelegateGroupDetails[]
+}
+
+export interface RestResponseDelegateSetupDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSetupDetails
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponsePageResponseDelegate {
@@ -9284,6 +9379,35 @@ export interface RestResponseListTaskSelectorMap {
     [key: string]: { [key: string]: any }
   }
   resource?: TaskSelectorMap[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DelegateHeartbeatDetails {
+  numberOfRegisteredDelegates?: number
+  numberOfConnectedDelegates?: number
+}
+
+export interface RestResponseDelegateHeartbeatDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateHeartbeatDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DelegateInitializationDetails {
+  delegateId?: string
+  hostname?: string
+  initialized?: boolean
+  profileError?: boolean
+  profileExecutedAt?: number
+}
+
+export interface RestResponseListDelegateInitializationDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateInitializationDetails[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -11033,14 +11157,6 @@ export interface RestResponseLogoutResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseModuleLicense {
   id: string
   accountIdentifier: string
@@ -11057,6 +11173,15 @@ export interface RestResponseModuleLicense {
   numberOfUsers?: number
   updateChannels?: string[]
 }
+
+export interface RestResponseUser {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: User
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseModuleLicenseInfo {
   status: string
   data?: RestResponseModuleLicense
@@ -18461,8 +18586,6 @@ export type EcsServiceSpecificationRequestBody = EcsServiceSpecification
 
 export type DelegateRequestBody = Delegate
 
-export type KubDelegateYamlRequestBody = KubDelegateYaml
-
 export type LdapSettingsRequestBody = LdapSettings
 
 export type CVFeedbackRecordRequestBody = CVFeedbackRecord
@@ -18504,6 +18627,8 @@ export type SaveApiCallLogsBodyRequestBody = string[]
 export type DelegateProfileRequestBody = DelegateProfile
 
 export type DelegateScopeRequestBody = DelegateScope
+
+export type DelegateSetupDetailsRequestBody = DelegateSetupDetails
 
 export type CloneMetadataRequestBody = CloneMetadata
 
@@ -18594,7 +18719,7 @@ export type GetDelegatesProps = Omit<
 
 export const GetDelegates = (props: GetDelegatesProps) => (
   <Get<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>
-    path="/setup/delegates"
+    path={`/setup/delegates`}
     base={getConfig('api')}
     {...props}
   />
@@ -18623,7 +18748,7 @@ export type GetSelectionLogsV2Props = Omit<
 
 export const GetSelectionLogsV2 = (props: GetSelectionLogsV2Props) => (
   <Get<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>
-    path="/selection-logs/v2"
+    path={`/selection-logs/v2`}
     base={getConfig('api')}
     {...props}
   />
@@ -18651,7 +18776,7 @@ export type GetDelegatesStatusProps = Omit<
 
 export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
   <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>
-    path="/setup/delegates/status"
+    path={`/setup/delegates/status`}
     base={getConfig('api')}
     {...props}
   />
@@ -18679,7 +18804,7 @@ export type GetDelegatesStatusV2Props = Omit<
 
 export const GetDelegatesStatusV2 = (props: GetDelegatesStatusV2Props) => (
   <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>
-    path="/setup/delegates/status2"
+    path={`/setup/delegates/status2`}
     base={getConfig('api')}
     {...props}
   />
@@ -18696,6 +18821,122 @@ export const useGetDelegatesStatusV2 = (props: UseGetDelegatesStatusV2Props) =>
     ...props
   })
 
+export interface GetDelegateGroupsV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegateGroupsV2Props = Omit<
+  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateGroupsV2 = (props: GetDelegateGroupsV2Props) => (
+  <Get<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>
+    path={`/setup/delegates/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupsV2Props = Omit<
+  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateGroupsV2 = (props: UseGetDelegateGroupsV2Props) =>
+  useGet<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>(`/setup/delegates/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateGroupFromIdV2QueryParams {
+  accountId?: string
+}
+
+export interface GetDelegateGroupFromIdV2PathParams {
+  delegateGroupId: string
+}
+
+export type GetDelegateGroupFromIdV2Props = Omit<
+  GetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupFromIdV2PathParams
+
+export const GetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: GetDelegateGroupFromIdV2Props) => (
+  <Get<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >
+    path={`/setup/delegates/v2/${delegateGroupId}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupFromIdV2Props = Omit<
+  UseGetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupFromIdV2PathParams
+
+export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGetDelegateGroupFromIdV2Props) =>
+  useGet<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >((paramsInPath: GetDelegateGroupFromIdV2PathParams) => `/setup/delegates/v2/${paramsInPath.delegateGroupId}`, {
+    base: getConfig('api'),
+    pathParams: { delegateGroupId },
+    ...props
+  })
+
+export interface DeleteDelegateGroupQueryParams {
+  accountId?: string
+  forceDelete?: boolean
+}
+
+export type DeleteDelegateGroupProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateGroup = (props: DeleteDelegateGroupProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>
+    verb="DELETE"
+    path={`/setup/delegates/groups`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateGroupProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateGroup = (props: UseDeleteDelegateGroupProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>(
+    'DELETE',
+    `/setup/delegates/groups`,
+    { base: getConfig('api'), ...props }
+  )
+
 export interface GetDelegatesDownloadUrlQueryParams {
   accountId?: string
 }
@@ -18707,7 +18948,7 @@ export type GetDelegatesDownloadUrlProps = Omit<
 
 export const GetDelegatesDownloadUrl = (props: GetDelegatesDownloadUrlProps) => (
   <Get<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>
-    path="/setup/delegates/downloadUrl"
+    path={`/setup/delegates/downloadUrl`}
     base={getConfig('api')}
     {...props}
   />
@@ -18739,7 +18980,7 @@ export type GetDelegateProfilesProps = Omit<
 
 export const GetDelegateProfiles = (props: GetDelegateProfilesProps) => (
   <Get<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>
-    path="/delegate-profiles"
+    path={`/delegate-profiles`}
     base={getConfig('api')}
     {...props}
   />
@@ -18771,7 +19012,7 @@ export type GetDelegateProfilesV2Props = Omit<
 
 export const GetDelegateProfilesV2 = (props: GetDelegateProfilesV2Props) => (
   <Get<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>
-    path="/delegate-profiles/v2"
+    path={`/delegate-profiles/v2`}
     base={getConfig('api')}
     {...props}
   />
@@ -18804,7 +19045,7 @@ export type GetDelegateConfigFromIdProps = Omit<
 
 export const GetDelegateConfigFromId = ({ delegateProfileId, ...props }: GetDelegateConfigFromIdProps) => (
   <Get<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>
-    path="/delegate-profiles/${delegateProfileId}"
+    path={`/delegate-profiles/${delegateProfileId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -18838,7 +19079,7 @@ export type GetKubernetesDelegateNamesProps = Omit<
 
 export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProps) => (
   <Get<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>
-    path="/setup/delegates/kubernetes-delegates"
+    path={`/setup/delegates/kubernetes-delegates`}
     base={getConfig('api')}
     {...props}
   />
@@ -18858,7 +19099,7 @@ export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNam
 export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
 
 export const GetUser = (props: GetUserProps) => (
-  <Get<RestResponseUser, unknown, void, void> path="/users/user" base={getConfig('api')} {...props} />
+  <Get<RestResponseUser, unknown, void, void> path={`/users/user`} base={getConfig('api')} {...props} />
 )
 
 export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, void>, 'path'>
@@ -18879,7 +19120,7 @@ export type SetDefaultAccountForCurrentUserProps = Omit<
 export const SetDefaultAccountForCurrentUser = ({ accountId, ...props }: SetDefaultAccountForCurrentUserProps) => (
   <Mutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>
     verb="PUT"
-    path="/users/set-default-account/${accountId}"
+    path={`/users/set-default-account/${accountId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -18897,6 +19138,31 @@ export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseS
     (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
+
+export type TrialSignupProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const TrialSignup = (props: TrialSignupProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>
+    verb="POST"
+    path={`/users/new-trial`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseTrialSignupProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useTrialSignup = (props: UseTrialSignupProps) =>
+  useMutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>('POST', `/users/new-trial`, {
+    base: getConfig('api'),
+    ...props
+  })
 
 export type UseSignupUserProps = Omit<
   UseMutateProps<RestResponseUserInfo, unknown, void, SignupUserRequestBody, void>,
@@ -18966,7 +19232,7 @@ export type Logout1Props = Omit<MutateProps<RestResponse, unknown, void, void, L
 export const Logout1 = ({ userId, ...props }: Logout1Props) => (
   <Mutate<RestResponse, unknown, void, void, Logout1PathParams>
     verb="POST"
-    path="/users/${userId}/logout"
+    path={`/users/${userId}/logout`}
     base={getConfig('api')}
     {...props}
   />
@@ -18988,7 +19254,7 @@ export const useLogout1 = ({ userId, ...props }: UseLogout1Props) =>
 export type RefreshTokenProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
 
 export const RefreshToken = (props: RefreshTokenProps) => (
-  <Get<RestResponseString, unknown, void, void> path="/users/refresh-token" base={getConfig('api')} {...props} />
+  <Get<RestResponseString, unknown, void, void> path={`/users/refresh-token`} base={getConfig('api')} {...props} />
 )
 
 export type UseRefreshTokenProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
@@ -19007,7 +19273,7 @@ export type GetDelegateTagsProps = Omit<
 
 export const GetDelegateTags = (props: GetDelegateTagsProps) => (
   <Get<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>
-    path="/setup/delegates/delegate-tags"
+    path={`/setup/delegates/delegate-tags`}
     base={getConfig('api')}
     {...props}
   />
@@ -19043,7 +19309,7 @@ export type GetListApplicationsProps = Omit<
 
 export const GetListApplications = (props: GetListApplicationsProps) => (
   <Get<RestResponsePageResponseApplication, unknown, GetListApplicationsQueryParams, void>
-    path="/apps"
+    path={`/apps`}
     base={getConfig('api')}
     {...props}
   />
@@ -19072,7 +19338,7 @@ export type SaveProps = Omit<
 export const Save = (props: SaveProps) => (
   <Mutate<RestResponseApplication, unknown, SaveQueryParams, Application, void>
     verb="POST"
-    path="/apps"
+    path={`/apps`}
     base={getConfig('api')}
     {...props}
   />
@@ -19107,7 +19373,7 @@ export type GetListServicesProps = Omit<
 
 export const GetListServices = (props: GetListServicesProps) => (
   <Get<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>
-    path="/services"
+    path={`/services`}
     base={getConfig('api')}
     {...props}
   />
@@ -19136,7 +19402,7 @@ export type Save14Props = Omit<
 export const Save14 = (props: Save14Props) => (
   <Mutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>
     verb="POST"
-    path="/services"
+    path={`/services`}
     base={getConfig('api')}
     {...props}
   />
@@ -19171,7 +19437,7 @@ export type GetListEnvironmentsProps = Omit<
 
 export const GetListEnvironments = (props: GetListEnvironmentsProps) => (
   <Get<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>
-    path="/environments"
+    path={`/environments`}
     base={getConfig('api')}
     {...props}
   />
@@ -19200,7 +19466,7 @@ export type Save6Props = Omit<
 export const Save6 = (props: Save6Props) => (
   <Mutate<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>
     verb="POST"
-    path="/environments"
+    path={`/environments`}
     base={getConfig('api')}
     {...props}
   />
@@ -19233,7 +19499,7 @@ export type GetDelegateFromIdProps = Omit<
 
 export const GetDelegateFromId = ({ delegateId, ...props }: GetDelegateFromIdProps) => (
   <Get<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>
-    path="/setup/delegates/${delegateId}"
+    path={`/setup/delegates/${delegateId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -19263,7 +19529,7 @@ export type DeleteDelegateProps = Omit<
 export const DeleteDelegate = (props: DeleteDelegateProps) => (
   <Mutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>
     verb="DELETE"
-    path="/setup/delegates"
+    path={`/setup/delegates`}
     base={getConfig('api')}
     {...props}
   />
@@ -19292,7 +19558,7 @@ export type GetFeatureFlagsProps = Omit<
 
 export const GetFeatureFlags = ({ accountId, ...props }: GetFeatureFlagsProps) => (
   <Get<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>
-    path="/users/feature-flags/${accountId}"
+    path={`/users/feature-flags/${accountId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -19326,7 +19592,7 @@ export type GetV2Props = Omit<
 
 export const GetV2 = ({ delegateProfileId, ...props }: GetV2Props) => (
   <Get<RestResponseDelegateProfileDetails, unknown, GetV2QueryParams, GetV2PathParams>
-    path="/delegate-profiles/v2/${delegateProfileId}"
+    path={`/delegate-profiles/v2/${delegateProfileId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -19373,7 +19639,7 @@ export const UpdateV2 = ({ delegateProfileId, ...props }: UpdateV2Props) => (
     UpdateV2PathParams
   >
     verb="PUT"
-    path="/delegate-profiles/v2/${delegateProfileId}"
+    path={`/delegate-profiles/v2/${delegateProfileId}`}
     base={getConfig('api')}
     {...props}
   />
@@ -19416,7 +19682,7 @@ export type DeleteDelegateProfileProps = Omit<
 export const DeleteDelegateProfile = (props: DeleteDelegateProfileProps) => (
   <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>
     verb="DELETE"
-    path="/delegate-profiles/v2"
+    path={`/delegate-profiles/v2`}
     base={getConfig('api')}
     {...props}
   />
@@ -19445,7 +19711,7 @@ export type GetDelegateSelectorsProps = Omit<
 
 export const GetDelegateSelectors = (props: GetDelegateSelectorsProps) => (
   <Get<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>
-    path="/setup/delegates/delegate-selectors"
+    path={`/setup/delegates/delegate-selectors`}
     base={getConfig('api')}
     {...props}
   />
@@ -19467,28 +19733,28 @@ export interface GetDelegateSizesQueryParams {
 }
 
 export type GetDelegateSizesProps = Omit<
-  GetProps<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>,
+  GetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
   'path'
 >
 
 export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
-  <Get<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>
-    path="/setup/delegates/delegate-sizes"
+  <Get<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>
+    path={`/setup/delegates/delegate-sizes`}
     base={getConfig('api')}
     {...props}
   />
 )
 
 export type UseGetDelegateSizesProps = Omit<
-  UseGetProps<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>,
+  UseGetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
   'path'
 >
 
 export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
-  useGet<RestDelegateSizeResponse, unknown, GetDelegateSizesQueryParams, void>(`/setup/delegates/delegate-sizes`, {
-    base: getConfig('api'),
-    ...props
-  })
+  useGet<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>(
+    `/setup/delegates/delegate-sizes`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface ValidateKubernetesYamlQueryParams {
   accountId?: string
@@ -19496,19 +19762,25 @@ export interface ValidateKubernetesYamlQueryParams {
 
 export type ValidateKubernetesYamlProps = Omit<
   MutateProps<
-    RestResponseKubDelegateYaml,
+    RestResponseDelegateSetupDetails,
     unknown,
     ValidateKubernetesYamlQueryParams,
-    KubDelegateYamlRequestBody,
+    DelegateSetupDetailsRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 export const ValidateKubernetesYaml = (props: ValidateKubernetesYamlProps) => (
-  <Mutate<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>
+  <Mutate<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >
     verb="POST"
-    path="/setup/delegates/validate-kubernetes-yaml"
+    path={`/setup/delegates/validate-kubernetes-yaml`}
     base={getConfig('api')}
     {...props}
   />
@@ -19516,21 +19788,23 @@ export const ValidateKubernetesYaml = (props: ValidateKubernetesYamlProps) => (
 
 export type UseValidateKubernetesYamlProps = Omit<
   UseMutateProps<
-    RestResponseKubDelegateYaml,
+    RestResponseDelegateSetupDetails,
     unknown,
     ValidateKubernetesYamlQueryParams,
-    KubDelegateYamlRequestBody,
+    DelegateSetupDetailsRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 export const useValidateKubernetesYaml = (props: UseValidateKubernetesYamlProps) =>
-  useMutate<RestResponseKubDelegateYaml, unknown, ValidateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>(
-    'POST',
-    `/setup/delegates/validate-kubernetes-yaml`,
-    { base: getConfig('api'), ...props }
-  )
+  useMutate<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >('POST', `/setup/delegates/validate-kubernetes-yaml`, { base: getConfig('api'), ...props })
 
 export interface GenerateKubernetesYamlQueryParams {
   accountId?: string
@@ -19538,82 +19812,113 @@ export interface GenerateKubernetesYamlQueryParams {
 }
 
 export type GenerateKubernetesYamlProps = Omit<
-  MutateProps<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>,
+  MutateProps<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
 export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
-  <Mutate<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>
+  <Mutate<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >
     verb="POST"
-    path="/setup/delegates/generate-kubernetes-yaml"
+    path={`/setup/delegates/generate-kubernetes-yaml`}
     base={getConfig('api')}
     {...props}
   />
 )
 
 export type UseGenerateKubernetesYamlProps = Omit<
-  UseMutateProps<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>,
+  UseMutateProps<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
 export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps) =>
-  useMutate<RestResponseKubDownload, unknown, GenerateKubernetesYamlQueryParams, KubDelegateYamlRequestBody, void>(
-    'POST',
-    `/setup/delegates/generate-kubernetes-yaml`,
+  useMutate<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >('POST', `/setup/delegates/generate-kubernetes-yaml`, { base: getConfig('api'), ...props })
+
+export interface GetDelegatesHeartbeatDetailsQueryParams {
+  accountId?: string
+  sessionId?: string
+}
+
+export type GetDelegatesHeartbeatDetailsProps = Omit<
+  GetProps<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsQueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesHeartbeatDetails = (props: GetDelegatesHeartbeatDetailsProps) => (
+  <Get<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsQueryParams, void>
+    path={`/delegates-verification/heartbeat`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesHeartbeatDetailsProps = Omit<
+  UseGetProps<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesHeartbeatDetails = (props: UseGetDelegatesHeartbeatDetailsProps) =>
+  useGet<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsQueryParams, void>(
+    `/delegates-verification/heartbeat`,
     { base: getConfig('api'), ...props }
   )
 
-export interface HeartbeatQueryParams {
+export interface GetDelegatesInitializationDetailsQueryParams {
   accountId?: string
   sessionId?: string
 }
 
-export type HeartbeatProps = Omit<GetProps<RestVerificationResponse, unknown, HeartbeatQueryParams, void>, 'path'>
+export type GetDelegatesInitializationDetailsProps = Omit<
+  GetProps<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsQueryParams, void>,
+  'path'
+>
 
-export const Heartbeat = (props: HeartbeatProps) => (
-  <Get<RestVerificationResponse, unknown, HeartbeatQueryParams, void>
-    path="/delegates-verification/heartbeat"
+export const GetDelegatesInitializationDetails = (props: GetDelegatesInitializationDetailsProps) => (
+  <Get<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsQueryParams, void>
+    path={`/delegates-verification/initialized`}
     base={getConfig('api')}
     {...props}
   />
 )
 
-export type UseHeartbeatProps = Omit<UseGetProps<RestVerificationResponse, unknown, HeartbeatQueryParams, void>, 'path'>
-
-export const useHeartbeat = (props: UseHeartbeatProps) =>
-  useGet<RestVerificationResponse, unknown, HeartbeatQueryParams, void>(`/delegates-verification/heartbeat`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface InitializationQueryParams {
-  accountId?: string
-  sessionId?: string
-}
-
-export type InitializationProps = Omit<
-  GetProps<RestInitializationResponse, unknown, InitializationQueryParams, void>,
+export type UseGetDelegatesInitializationDetailsProps = Omit<
+  UseGetProps<
+    RestResponseListDelegateInitializationDetails,
+    unknown,
+    GetDelegatesInitializationDetailsQueryParams,
+    void
+  >,
   'path'
 >
 
-export const Initialization = (props: InitializationProps) => (
-  <Get<RestInitializationResponse, unknown, InitializationQueryParams, void>
-    path="/delegates-verification/initialized"
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseInitializationProps = Omit<
-  UseGetProps<RestInitializationResponse, unknown, InitializationQueryParams, void>,
-  'path'
->
-
-export const useInitialization = (props: UseInitializationProps) =>
-  useGet<RestInitializationResponse, unknown, InitializationQueryParams, void>(`/delegates-verification/initialized`, {
-    base: getConfig('api'),
-    ...props
-  })
+export const useGetDelegatesInitializationDetails = (props: UseGetDelegatesInitializationDetailsProps) =>
+  useGet<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsQueryParams, void>(
+    `/delegates-verification/initialized`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface ListAwsRegionsQueryParams {
   accountId?: string
@@ -19626,7 +19931,7 @@ export type ListAwsRegionsProps = Omit<
 
 export const ListAwsRegions = (props: ListAwsRegionsProps) => (
   <Get<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>
-    path="/awshelper/aws-regions"
+    path={`/awshelper/aws-regions`}
     base={getConfig('api')}
     {...props}
   />

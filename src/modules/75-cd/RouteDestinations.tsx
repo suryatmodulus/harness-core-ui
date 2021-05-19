@@ -15,7 +15,9 @@ import {
   inputSetFormPathProps,
   orgPathProps,
   rolePathProps,
-  resourceGroupPathProps
+  resourceGroupPathProps,
+  delegatePathProps,
+  delegateConfigProps
 } from '@common/utils/routeUtils'
 import type {
   AccountPathProps,
@@ -37,6 +39,9 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
+import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
+import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
@@ -320,6 +325,41 @@ export default (
       <SecretDetailsHomePage>
         <SecretReferences />
       </SecretDetailsHomePage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toResourcesDelegates({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegatesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toResourcesDelegatesDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegatePathProps,
+        ...connectorPathProps
+      })}
+    >
+      <DelegateDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toResourcesDelegateConfigsDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegateConfigProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegateProfileDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

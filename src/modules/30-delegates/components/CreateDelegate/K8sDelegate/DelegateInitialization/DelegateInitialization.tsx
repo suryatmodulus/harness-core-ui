@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { StepProps, Layout, Icon, Text, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useInitialization } from 'services/portal'
+import { useGetDelegatesInitializationDetails } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 
 import { POLL_INTERVAL, TIME_OUT } from '@delegates/constants'
@@ -21,7 +21,7 @@ interface DelegateInitProps {
 const DelegateInitialization: React.FC<StepProps<StepK8Data> & DelegateInitProps> = props => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
-  const { data: initData, loading: initLoading, refetch: verifyInitialization } = useInitialization({
+  const { data: initData, loading: initLoading, refetch: verifyInitialization } = useGetDelegatesInitializationDetails({
     queryParams: { accountId, sessionId: props?.prevStepData?.delegateYaml?.sessionIdentifier },
     lazy: true,
     debounce: 200

@@ -62,7 +62,7 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerif
               <Text style={{ marginRight: '24px' }} font="small">
                 {getString('delegate.verifyDelegateYamlCmnd')}
               </Text>
-              <CopyToClipboard content={getString('delegate.verifyDelegateYamlCmnd')} />
+              <CopyToClipboard content={getString('delegate.verifyDelegateYamlCmnd').slice(2)} />
             </Container>
             {/* <Container
               intent="primary"

@@ -3,7 +3,13 @@ import React from 'react'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, orgPathProps, delegateConfigProps, delegatePathProps } from '@common/utils/routeUtils'
+import {
+  accountPathProps,
+  orgPathProps,
+  delegateConfigProps,
+  delegatePathProps,
+  projectPathProps
+} from '@common/utils/routeUtils'
 import AccountSettingsSideNav from '@common/navigation/AccountSettingsSideNav/AccountSettingsSideNav'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
@@ -23,7 +29,8 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourcesDelegates({ ...accountPathProps }),
-        routes.toOrgResourcesDelegates({ ...accountPathProps, ...orgPathProps })
+        routes.toResourcesDelegates({ ...orgPathProps }),
+        routes.toResourcesDelegates({ ...projectPathProps })
       ]}
       exact
     >
@@ -36,7 +43,8 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
-        routes.toResourcesDelegatesDetails({ ...accountPathProps, ...delegatePathProps })
+        routes.toResourcesDelegatesDetails({ ...orgPathProps, ...delegatePathProps }),
+        routes.toResourcesDelegatesDetails({ ...projectPathProps, ...delegatePathProps })
       ]}
     >
       <DelegateDetails />
@@ -45,7 +53,11 @@ export default (
       sidebarProps={AccountSettingsSideNavProps}
       path={[
         routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
-        routes.toResourcesDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })
+        routes.toResourcesDelegateConfigsDetails({ ...orgPathProps, ...delegateConfigProps }),
+        routes.toResourcesDelegateConfigsDetails({
+          ...projectPathProps,
+          ...delegateConfigProps
+        })
       ]}
     >
       <DelegateProfileDetails />

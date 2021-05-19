@@ -1,4 +1,4 @@
-import type { KubDelegateYaml } from 'services/portal'
+import type { DelegateSetupDetails } from 'services/portal'
 
 export interface DelegateInfoDTO {
   name: string
@@ -10,15 +10,6 @@ export interface DelegateInfoDTO {
     [key: string]: string
   }
   type: 'K8sCluster'
-}
-
-export interface DelegateYaml {
-  name?: string
-  identifier?: string
-  description?: string
-  delegateConfigurationId?: string
-  size?: string
-  sessionIdentifier?: string
 }
 
 export interface DelegateConfigDTO {
@@ -39,6 +30,6 @@ export interface DelegateProfile {
 }
 
 export interface StepK8Data {
-  delegateYaml: KubDelegateYaml | undefined
+  delegateYaml: DelegateSetupDetails | undefined
   replicas: number | undefined
 }

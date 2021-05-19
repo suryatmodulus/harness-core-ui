@@ -5,8 +5,10 @@ import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import {
   accountPathProps,
+  delegatePathProps,
   orgPathProps,
   projectPathProps,
+  delegateConfigProps,
   resourceGroupPathProps,
   rolePathProps,
   userGroupPathProps,
@@ -31,6 +33,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
+import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -48,6 +52,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
+import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -138,6 +143,40 @@ export default (
     >
       <ResourcesPage>
         <SecretsPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toResourcesDelegatesDetails({ ...projectPathProps, ...delegatePathProps })}
+      exact
+    >
+      <ResourcesPage>
+        <DelegateDetails />
+      </ResourcesPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toResourcesDelegates({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <ResourcesPage>
+        <DelegatesPage />
+      </ResourcesPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toResourcesDelegateConfigsDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <ResourcesPage>
+        <DelegateProfileDetails />
       </ResourcesPage>
     </RouteWithLayout>
 

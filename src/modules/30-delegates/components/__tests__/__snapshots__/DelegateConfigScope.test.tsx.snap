@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create Common Problems Tab render data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+    style="height: 100%;"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
+      level="2"
+    >
+      delegate.Scope
+    </h2>
+    <h3
+      class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
+      level="3"
+    >
+      delegates.newDelegateConfigWizard.scopeSubtitle
+    </h3>
+    <div
+      class="Layout--horizontal StyledProps--main envContainer StyledProps--padding-left-xxlarge StyledProps--padding-top-large StyledProps--padding-bottom-xxlarge"
+    >
+      <label
+        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox envCheckbox StyledProps--main"
+      >
+        <input
+          checked=""
+          type="checkbox"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        delegates.newDelegateConfigWizard.nonprodEnv
+      </label>
+      <div
+        class="bp3-popover-wrapper MultiSelect--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <div
+              class="bp3-input bp3-tag-input bp3-disabled bp3-multi-select"
+            >
+              <div
+                class="bp3-tag-input-values"
+              >
+                <input
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  disabled=""
+                  placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main envContainer StyledProps--padding-left-xxlarge StyledProps--padding-top-large StyledProps--padding-bottom-xxlarge"
+    >
+      <label
+        class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox envCheckbox StyledProps--main"
+      >
+        <input
+          checked=""
+          type="checkbox"
+        />
+        <span
+          class="bp3-control-indicator"
+        />
+        delegates.newDelegateConfigWizard.prodEnv
+      </label>
+      <div
+        class="bp3-popover-wrapper MultiSelect--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <div
+              class="bp3-input bp3-tag-input bp3-disabled bp3-multi-select"
+            >
+              <div
+                class="bp3-tag-input-values"
+              >
+                <input
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  disabled=""
+                  placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

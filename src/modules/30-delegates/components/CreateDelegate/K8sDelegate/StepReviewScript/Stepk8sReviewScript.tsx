@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text, Link, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { KubDelegateYaml } from 'services/portal'
+import type { DelegateSetupDetails } from 'services/portal'
 import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { useGenerateKubernetesYaml } from 'services/portal'
@@ -18,9 +18,9 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
   const linkRef = React.useRef<HTMLAnchorElement>(null)
   const [generatedYaml, setGeneratedYaml] = React.useState({})
 
-  const onGenYaml = async () => {
+  const onGenYaml = async (): Promise<void> => {
     const data = props?.prevStepData?.delegateYaml
-    const response = await downloadYaml(data as KubDelegateYaml)
+    const response = await downloadYaml(data as DelegateSetupDetails)
     setGeneratedYaml(response)
   }
 
@@ -28,9 +28,9 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
     onGenYaml()
   }, [])
 
-  const onDownload = (data: KubDelegateYaml | undefined) => {
-    downloadYaml(data as KubDelegateYaml)
-      .then(response => {
+  const onDownload = (data: DelegateSetupDetails | undefined): void => {
+    downloadYaml(data as DelegateSetupDetails)
+      .then((response: any) => {
         return new Response(response)
       })
       .then(response => response.blob())
@@ -56,6 +56,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
               entityType="Delegates"
               fileName={`harness-delegate.yaml`}
               isReadOnlyMode={true}
+              isEditModeSupported={false}
               existingJSON={generatedYaml}
               showSnippetSection={false}
               width="568px"
@@ -66,7 +67,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
           <Layout.Horizontal padding="small">
             <Button
               icon="arrow-down"
-              text={getString('delegate.downloadScript')}
+              text={getString('delegates.downloadYAMLFile')}
               className={css.downloadButton}
               onClick={() => {
                 onDownload(props?.prevStepData?.delegateYaml)
@@ -101,7 +102,12 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
           <Layout.Horizontal padding="small">
             <Text lineClamp={3} width={514} font="small">
               {getString('delegate.reviewScript.descriptionProxySettings')}
-              <Link href="https:app.harness.io:443" color={Color.GREY_800} font={{ size: 'normal' }}>
+              <Link
+                href="https://docs.harness.io/article/pfim3oig7o-configure-delegate-proxy-settings"
+                color={Color.GREY_800}
+                font={{ size: 'normal' }}
+                target="_blank"
+              >
                 More info
               </Link>
             </Text>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Text, FlexExpander } from '@wings-software/uicore'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
-import type { Delegate, DelegateProfile } from 'services/portal'
+import type { DelegateGroupDetails, DelegateProfile } from 'services/portal'
 import { useStrings } from 'framework/strings'
 import {
   SectionContainer,
@@ -10,7 +10,7 @@ import {
 } from '@delegates/components/SectionContainer/SectionContainer'
 
 interface DelegateOverviewProps {
-  delegate: Delegate
+  delegate: DelegateGroupDetails
   delegateProfile: DelegateProfile
 }
 
@@ -24,7 +24,7 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
       <Container flex style={{ borderBottom: '0.5px solid #dce0e7' }}>
         <SectionLabelValuePair
           label={getString('delegate.hostName')}
-          value={delegate.hostName}
+          value={delegate.groupHostName}
           style={{ borderBottom: 'none' }}
         />
 
@@ -46,7 +46,7 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
         />
       </Container>
 
-      <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.delegateName} />
+      <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.groupName} />
 
       <SectionLabelValuePair
         label={getString('delegate.delegateConfiguration')}
@@ -57,7 +57,9 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
         }
       />
 
-      {delegate.description && <SectionLabelValuePair label={getString('description')} value={delegate.description} />}
+      {delegate.delegateDescription && (
+        <SectionLabelValuePair label={getString('description')} value={delegate.delegateDescription} />
+      )}
     </SectionContainer>
   )
 }

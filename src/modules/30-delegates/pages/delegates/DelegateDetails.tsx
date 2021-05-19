@@ -1,10 +1,17 @@
 import React from 'react'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, FlexExpander } from '@wings-software/uicore'
 import { Page } from '@common/exports'
+import routes from '@common/RouteDefinitions'
+import type {
+  ProjectPathProps,
+  ModulePathParams,
+  DelegatePathProps,
+  AccountPathProps
+} from '@common/interfaces/RouteInterfaces'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateFromId, useGetDelegateConfigFromId } from 'services/portal'
+import { useGetDelegateGroupFromIdV2, useGetV2, DelegateProfile } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -13,48 +20,60 @@ import { DelegateAdvanced } from './DelegateAdvanced'
 import css from './DelegateDetails.module.scss'
 
 export default function DelegateDetails(): JSX.Element {
-  const { delegateId, accountId } = useParams<Record<string, string>>()
-  const { pathname } = useLocation()
+  const { delegateId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
+    Partial<ProjectPathProps & ModulePathParams> & DelegatePathProps & AccountPathProps
+  >()
   const { getString } = useStrings()
-  const { data } = useGetDelegateFromId({
-    delegateId,
+  const { data } = useGetDelegateGroupFromIdV2({
+    delegateGroupId: delegateId,
     queryParams: { accountId }
   })
 
   const delegate = data?.resource
 
-  const { loading, error, data: profileResponse, refetch } = useGetDelegateConfigFromId({
-    delegateProfileId: delegate?.delegateProfileId || '',
+  const { loading, error, data: profileResponse, refetch } = useGetV2({
+    delegateProfileId: delegate?.delegateConfigurationId || '',
     queryParams: { accountId }
   })
 
-  const delegateProfile = profileResponse?.resource
+  const delegateProfile = profileResponse?.resource as DelegateProfile
   const icon: IconName = delegateTypeToIcon(delegate?.delegateType as string)
+
   const renderTitle = (): React.ReactNode => {
     return (
       <Layout.Vertical spacing="small">
         <Layout.Horizontal spacing="small">
           <Link
             style={{ color: '#0092E4', fontSize: '12px' }}
-            to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}
+            to={routes.toResources({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              module
+            })}
           >
             {getString('resources')}
           </Link>
           <span>/</span>
           <Link
             style={{ color: '#0092E4', fontSize: '12px' }}
-            to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}
+            to={routes.toResourcesDelegates({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              module
+            })}
           >
             {getString('delegate.delegates')}
           </Link>
           <span>/</span>
         </Layout.Horizontal>
         <Text style={{ fontSize: '20px', color: 'var(--black)' }} icon={icon} iconProps={{ size: 21 }}>
-          {delegate?.delegateName}
+          {delegate?.groupName}
         </Text>
-        <Text color={Color.GREY_400}>{delegate?.hostName}</Text>
+        <Text color={Color.GREY_400}>{delegate?.groupHostName}</Text>
         <Container>
-          <TagsViewer tags={delegate?.tags} style={{ background: '#CDF4FE' }} />
+          <TagsViewer tags={Object.keys(delegate?.groupImplicitSelectors || {})} style={{ background: '#CDF4FE' }} />
         </Container>
       </Layout.Vertical>
     )
@@ -79,6 +98,8 @@ export default function DelegateDetails(): JSX.Element {
   if (error) {
     return <Page.Error message={error.message} onClick={() => refetch()} />
   }
+
+  const size = delegate?.sizeDetails
 
   return (
     <>
@@ -124,65 +145,22 @@ export default function DelegateDetails(): JSX.Element {
                     fontWeight: 600
                   }}
                 >
-                  {getString('delegate.delegateSizeLarge')}
+                  {size?.label}
                 </Text>
               </Container>
-              <Container flex style={{ marginTop: 'var(--spacing-large)' }}>
-                <Container width="50%">
-                  <Text
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: 500,
-                      color: '#383946',
-                      textAlign: 'center',
-                      paddingBottom: 'var(--spacing-small)'
-                    }}
-                  >
-                    5000
-                  </Text>
-                  <Text
-                    style={{
-                      color: '#9293AB',
-                      textAlign: 'center'
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: 105,
-                        display: 'inline-block'
-                      }}
-                    >
-                      {getString('delegate.delegateSizeUpto')}
+              <Container flex style={{ marginTop: 'var(--spacing-xxlarge)' }}>
+                <Layout.Horizontal style={{ flexGrow: 1, flexBasis: 0, justifyContent: 'space-around' }}>
+                  <Text className={css.delegateMachineSpec}>
+                    {getString('delegate.delegateMEM')}{' '}
+                    <span>
+                      {(Number(size?.ram) / 1000).toFixed(1)}
+                      <span>GB</span>
                     </span>
                   </Text>
-                </Container>
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '1px',
-                    height: '63px',
-                    background: '#D9DAE6'
-                  }}
-                ></span>
-                <Container width="calc(50% - 1px)" style={{ padding: '20px 0px 0px 38px' }}>
-                  <Layout.Horizontal style={{ flexGrow: 1, flexBasis: 0 }}>
-                    <Text className={css.delegateMachineSpec}>
-                      {getString('delegate.delegateMEM')}{' '}
-                      <span>
-                        16<span>GB</span>
-                      </span>
-                    </Text>
-                    <Text className={css.delegateMachineSpec}>
-                      {getString('delegate.delegateCPU')} <span>4</span>
-                    </Text>
-                    <Text className={css.delegateMachineSpec}>
-                      {getString('delegate.delegateDISK')}{' '}
-                      <span>
-                        15<span>GB</span>
-                      </span>
-                    </Text>
-                  </Layout.Horizontal>
-                </Container>
+                  <Text className={css.delegateMachineSpec}>
+                    {getString('delegate.delegateCPU')} <span>{size?.cpu}</span>
+                  </Text>
+                </Layout.Horizontal>
               </Container>
             </SectionContainer>
           </Layout.Horizontal>

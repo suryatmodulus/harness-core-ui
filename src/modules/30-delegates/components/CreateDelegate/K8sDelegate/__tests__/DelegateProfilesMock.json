@@ -1,0 +1,22 @@
+{
+  "resource": {
+    "response": [
+      {
+        "name": "Profile Name 1",
+        "uuid": "esrty45678dfjgkhj"
+      },
+      {
+        "name": "",
+        "uuid": "e23e33fdgkhj"
+      },
+      {
+        "name": "Profile Name 3",
+        "uuid": ""
+      },
+      {
+        "name": "",
+        "uuid": ""
+      }
+    ]
+  }
+}

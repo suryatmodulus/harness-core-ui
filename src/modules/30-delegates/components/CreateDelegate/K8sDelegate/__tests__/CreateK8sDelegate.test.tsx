@@ -22,6 +22,12 @@ jest.mock('services/portal', () => ({
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+jest.mock('services/cd-ng', () => ({
+  useListDelegateProfilesNg: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
 describe('Create K8s Delegate', () => {
   test('render data', () => {
     const onBack = jest.fn()

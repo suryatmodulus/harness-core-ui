@@ -13,7 +13,7 @@ exports[`Delegates Details Page render data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/resources/delegates/delegateId"
+          href="/account/dummy/admin/resources"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           resources
@@ -22,7 +22,7 @@ exports[`Delegates Details Page render data 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/resources/delegates/delegateId"
+          href="/account/dummy/admin/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegates
@@ -36,99 +36,35 @@ exports[`Delegates Details Page render data 1`] = `
         style="font-size: 20px; display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-          data-icon="service-ecs"
+          class="bp3-icon bp3-icon-cube StyledProps--main StyledProps--padding-right-xsmall"
+          icon="cube"
         >
           <svg
+            data-icon="cube"
             height="21"
-            viewBox="0 0 14 14"
+            viewBox="0 0 20 20"
             width="21"
           >
+            <desc>
+              cube
+            </desc>
             <path
-              d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
-              fill="#9d5025"
+              d="M1.953 4.481l7.41-4.02c.394-.215.88-.215 1.275 0l7.409 4.02L10 9.22 1.953 4.48zm-.817.68L9.5 10.085v9.281a1.316 1.316 0 01-.138-.064l-7.714-4.186A1.211 1.211 0 011 14.057v-8.35c0-.193.048-.38.136-.547zm17.728 0c.088.166.136.353.136.546v8.35c0 .438-.247.842-.648 1.06l-7.714 4.186c-.045.024-.091.046-.138.064v-9.281l8.364-4.926z"
+              fill-rule="evenodd"
             />
-            <path
-              d="M2.6 1.3L.9.9V13l1.7-.5z"
-              fill="#f58536"
-            />
-            <path
-              d="M1.7 13.5l.9.5 1.7-7.8L2.6 0l-.9.5zM7.9 4L9 3.8l1.1 3.1L9 10.4l-1.1-.2z"
-              fill="#9d5025"
-            />
-            <g
-              fill="#f58536"
-            >
-              <path
-                d="M4.3.5L2.6 0v14l1.7-.5z"
-              />
-              <path
-                d="M10.2 3.9L2.6 2.4V0l7.6 2.3zM10.4 10.1l-7.8 1.6V14l7.8-2.4z"
-              />
-              <path
-                d="M9 12l1.2-.4V2.4L9 2z"
-              />
-            </g>
-            <path
-              d="M14 8.2L10.7 8l-1.1.1 3.3 3z"
-              fill="#6b3a19"
-            />
-            <path
-              d="M9.4 8.2l3.4.2v2.7l-3.4-.6z"
-              fill="#9d5025"
-            />
-            <path
-              d="M6.3 8.3L9.7 12l1.7-3.6-3.5-.2z"
-              fill="#6b3a19"
-            />
-            <path
-              d="M6.3 8.4l3.4.3v3.4l-3.4-.9zM9.6 5.8l4.4-.1-1.1-2.8-3.3.6z"
-              fill="#9d5025"
-            />
-            <path
-              d="M6.3 5.6l5.1-.1-1.7-3.6-3.4.9z"
-              fill="#9d5025"
-            />
-            <path
-              d="M6.3 5.7l3.4-.4 1.7.2-3.5.3zM14 5.8l-3.3.2-1.1-.1 3.3-.3z"
-              fill="#fbbf93"
-            />
-            <g
-              fill="#f58536"
-            >
-              <path
-                d="M12.8 8.3l1.2-.1v2.5l-1.2.4zM11.4 8.5l-1.7.2v3.4l1.7-.5zM12.8 5.7l1.2.1V3.3l-1.2-.4zM11.4 5.5l-1.7-.2V1.9l1.7.5z"
-              />
-            </g>
           </svg>
         </span>
-        delegate-1
       </p>
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-      >
-        D
-      </p>
+      />
       <div
         class="StyledProps--font StyledProps--main"
       >
         <div
           class="StyledProps--font StyledProps--main"
           style="display: inline-flex; flex-wrap: wrap;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: inline-block; background: rgb(205, 244, 254); border-radius: 4px; font-size: 10px;"
-          >
-            test-selectorA
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: inline-block; background: rgb(205, 244, 254); border-radius: 4px; font-size: 10px;"
-          >
-            test-selectorB
-          </p>
-        </div>
+        />
       </div>
     </div>
   </div>
@@ -163,79 +99,34 @@ exports[`Delegates Details Page render data 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
               style="background: rgb(207, 180, 255); border-radius: 10px; color: rgb(77, 11, 143); text-align: center; padding: 3px 34px; font-weight: 600;"
-            >
-              delegate.delegateSizeLarge
-            </p>
+            />
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-              style="width: 50%;"
+              class="Layout--horizontal StyledProps--main"
+              style="flex-grow: 1; flex-basis: 0px; justify-content: space-around;"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 16px; font-weight: 500; color: rgb(56, 57, 70); text-align: center;"
+                class="StyledProps--font StyledProps--main delegateMachineSpec"
               >
-                5000
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="color: rgb(146, 147, 171); text-align: center;"
-              >
-                <span
-                  style="width: 105px; display: inline-block;"
-                >
-                  delegate.delegateSizeUpto
+                delegate.delegateMEM
+                 
+                <span>
+                  NaN
+                  <span>
+                    GB
+                  </span>
                 </span>
               </p>
-            </div>
-            <span
-              style="display: inline-block; width: 1px; height: 63px; background: rgb(217, 218, 230);"
-            />
-            <div
-              class="StyledProps--font StyledProps--main"
-              style="padding: 20px 0px 0px 38px; width: calc(50% - 1px);"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main"
-                style="flex-grow: 1; flex-basis: 0px;"
+              <p
+                class="StyledProps--font StyledProps--main delegateMachineSpec"
               >
-                <p
-                  class="StyledProps--font StyledProps--main delegateMachineSpec"
-                >
-                  delegate.delegateMEM
-                   
-                  <span>
-                    16
-                    <span>
-                      GB
-                    </span>
-                  </span>
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main delegateMachineSpec"
-                >
-                  delegate.delegateCPU
-                   
-                  <span>
-                    4
-                  </span>
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main delegateMachineSpec"
-                >
-                  delegate.delegateDISK
-                   
-                  <span>
-                    15
-                    <span>
-                      GB
-                    </span>
-                  </span>
-                </p>
-              </div>
+                delegate.delegateCPU
+                 
+                <span />
+              </p>
             </div>
           </div>
         </div>

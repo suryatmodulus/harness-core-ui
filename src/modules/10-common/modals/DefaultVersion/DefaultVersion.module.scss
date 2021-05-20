@@ -9,7 +9,7 @@
   grid-template-columns: repeat(2, 1fr);
 
   .card {
-    padding: var(--spacing-xxlarge);
+    padding: var(--spacing-xxlarge) !important ;
     box-shadow: var(--card-shadow);
 
     .tag {

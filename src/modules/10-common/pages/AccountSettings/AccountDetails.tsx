@@ -14,7 +14,7 @@ interface FormValues {
 
 const AccountDetails: React.FC = () => {
   const { getString } = useStrings()
-  const [accountName, setAccountName] = React.useState('')
+  const [accountName, setAccountName] = React.useState('Harness')
   const [updateAccountName, setUpdateAccountName] = React.useState(false)
 
   const { openDefaultVersionModal } = useDefaultVersionModal({ onSuccess: noop })
@@ -55,7 +55,7 @@ const AccountDetails: React.FC = () => {
                   </FormikForm>
                 )}
               </Formik>
-            ) : accountName ? (
+            ) : (
               <React.Fragment>
                 <Text color={Color.GREY_800}>{accountName}</Text>
                 <Button
@@ -72,15 +72,6 @@ const AccountDetails: React.FC = () => {
                   onClick={openSwitchAccountModal}
                 />
               </React.Fragment>
-            ) : (
-              <Button
-                minimal
-                intent="primary"
-                padding={{ left: 'none' }}
-                text={getString('common.addAccountName')}
-                className={css.zeroPadding}
-                onClick={() => setUpdateAccountName(true)}
-              />
             )}
           </Layout.Horizontal>
 

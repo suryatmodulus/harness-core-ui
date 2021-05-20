@@ -48,7 +48,7 @@ describe('Delegates Configurations Page', () => {
       fireEvent.click(addBtn)
     })
 
-    expect(container).toMatchSnapshot()
+    expect(document.body.innerHTML).toContain('delegates.newDelegateConfigWizard.overviewTitle')
   })
 })
 
@@ -70,11 +70,13 @@ describe('Delegates Configurations Test Click', () => {
       fireEvent.click(editOption)
     })
 
-    expect(container).toMatchSnapshot()
+    expect(container.querySelector('[data-testid="location"]')?.innerHTML).toEqual(
+      '/account/dummy/admin/resources/delegateconfigs/profile1/edit'
+    )
   })
 
   test('render component delete click', () => {
-    const { container } = render(
+    render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
         <DelegateConfigurations />
       </TestWrapper>
@@ -90,7 +92,7 @@ describe('Delegates Configurations Test Click', () => {
       fireEvent.click(deleteOption)
     })
 
-    expect(container).toMatchSnapshot()
+    expect(document.body.innerHTML).toContain('delete')
   })
 
   test('render component go to details click', () => {
@@ -105,6 +107,8 @@ describe('Delegates Configurations Test Click', () => {
       fireEvent.click(profileElement!)
     })
 
-    expect(container).toMatchSnapshot()
+    expect(container.querySelector('[data-testid="location"]')?.innerHTML).toEqual(
+      '/account/dummy/admin/resources/delegateconfigs/profile1'
+    )
   })
 })

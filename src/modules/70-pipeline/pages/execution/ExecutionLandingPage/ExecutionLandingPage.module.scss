@@ -120,5 +120,6 @@
     height: calc(100vh - #{$header-height + $details-height + $tabs-height});
     display: flex;
     flex-direction: column;
+    overflow: scroll;
   }
 }

@@ -353,15 +353,17 @@ function RunPipelineFormBasic({
         {({ submitForm }) => {
           return (
             <>
-              {executionView ? null : (
-                <Layout.Vertical>
+              <Layout.Vertical>
+                {!executionView && (
                   <Layout.Horizontal className={css.runModalHeader}>
                     <Text>Run Pipeline</Text>
                     {renderErrors()}
                   </Layout.Horizontal>
-                  <FormikForm>
-                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
-                      <>
+                )}
+                <FormikForm>
+                  {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                    <>
+                      {!executionView && (
                         <Layout.Vertical
                           className={css.pipelineHeader}
                           padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
@@ -386,6 +388,7 @@ function RunPipelineFormBasic({
                               </span>
                             </Layout.Horizontal>
                           </div>
+
                           {!executionView &&
                             pipeline &&
                             currentPipeline &&
@@ -398,86 +401,92 @@ function RunPipelineFormBasic({
                               />
                             )}
                         </Layout.Vertical>
-                        {(existingProvide === 'provide' || (selectedInputSets && selectedInputSets.length > 0)) && (
-                          <PipelineInputSetForm
-                            originalPipeline={pipeline}
-                            template={parse(template.data.inputSetTemplateYaml).pipeline}
-                            readonly={executionView}
-                            path=""
-                          />
-                        )}
-                        {existingProvide === 'existing' && !(selectedInputSets && selectedInputSets.length > 0) && (
-                          <div className={css.noPipelineInputSetForm} />
-                        )}
-                      </>
-                    ) : (
-                      <Layout.Horizontal padding="medium" margin="medium">
-                        <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
-                      </Layout.Horizontal>
-                    )}
-                  </FormikForm>
-
-                  <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
-                    <div className={css.footer}>
-                      <Layout.Horizontal padding={{ left: 'xxlarge' }} style={{ width: '100%' }}>
-                        <Checkbox
-                          label={getString('pre-flight-check.skipCheckBtn')}
-                          checked={skipPreFlightCheck}
-                          onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                      )}
+                      {(existingProvide === 'provide' ||
+                        (selectedInputSets && selectedInputSets.length > 0) ||
+                        executionView) && (
+                        <PipelineInputSetForm
+                          originalPipeline={pipeline}
+                          template={parse(template.data.inputSetTemplateYaml).pipeline}
+                          readonly={executionView}
+                          path=""
                         />
-                        <Tooltip position="top" content={getString('featureNA')}>
+                      )}
+                      {existingProvide === 'existing' && !(selectedInputSets && selectedInputSets.length > 0) && (
+                        <div className={css.noPipelineInputSetForm} />
+                      )}
+                    </>
+                  ) : (
+                    <Layout.Horizontal padding="medium" margin="medium">
+                      <Text>{getString('runPipelineForm.noRuntimeInput')}</Text>
+                    </Layout.Horizontal>
+                  )}
+                </FormikForm>
+
+                {executionView ? null : (
+                  <>
+                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                      <div className={css.footer}>
+                        <Layout.Horizontal padding={{ left: 'xxlarge' }} style={{ width: '100%' }}>
                           <Checkbox
-                            padding={{ left: 'xxlarge' }}
-                            disabled
-                            label={getString('runPipelineForm.notifyOnlyMe')}
-                            checked={notifyOnlyMe}
-                            onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                            label={getString('pre-flight-check.skipCheckBtn')}
+                            checked={skipPreFlightCheck}
+                            onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
                           />
-                        </Tooltip>
-                      </Layout.Horizontal>
-                    </div>
-                  </Layout.Horizontal>
-                  <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
-                    <div className={css.footer}>
-                      <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
-                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                          <RbacButton
-                            style={{ backgroundColor: 'var(--green-600' }}
-                            intent="primary"
-                            type="submit"
-                            text={getString('runPipeline')}
-                            onClick={event => {
-                              event.stopPropagation()
-                              submitForm()
-                            }}
-                            permission={{
-                              resource: {
-                                resourceIdentifier: pipeline?.identifier as string,
-                                resourceType: ResourceType.PIPELINE
-                              },
-                              permission: PermissionIdentifier.EXECUTE_PIPELINE
-                            }}
-                          />
+                          <Tooltip position="top" content={getString('featureNA')}>
+                            <Checkbox
+                              padding={{ left: 'xxlarge' }}
+                              disabled
+                              label={getString('runPipelineForm.notifyOnlyMe')}
+                              checked={notifyOnlyMe}
+                              onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                            />
+                          </Tooltip>
                         </Layout.Horizontal>
-                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                          <Button
-                            id="cancel-runpipeline"
-                            text={getString('cancel')}
-                            style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
-                            onClick={() => {
-                              if (onClose) {
-                                onClose()
-                              } else {
-                                history.goBack()
-                              }
-                            }}
-                          />
+                      </div>
+                    </Layout.Horizontal>
+                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                      <div className={css.footer}>
+                        <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
+                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                            <RbacButton
+                              style={{ backgroundColor: 'var(--green-600' }}
+                              intent="primary"
+                              type="submit"
+                              text={getString('runPipeline')}
+                              onClick={event => {
+                                event.stopPropagation()
+                                submitForm()
+                              }}
+                              permission={{
+                                resource: {
+                                  resourceIdentifier: pipeline?.identifier as string,
+                                  resourceType: ResourceType.PIPELINE
+                                },
+                                permission: PermissionIdentifier.EXECUTE_PIPELINE
+                              }}
+                            />
+                          </Layout.Horizontal>
+                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                            <Button
+                              id="cancel-runpipeline"
+                              text={getString('cancel')}
+                              style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
+                              onClick={() => {
+                                if (onClose) {
+                                  onClose()
+                                } else {
+                                  history.goBack()
+                                }
+                              }}
+                            />
+                          </Layout.Horizontal>
                         </Layout.Horizontal>
-                      </Layout.Horizontal>
-                    </div>
-                  </Layout.Horizontal>
-                </Layout.Vertical>
-              )}
+                      </div>
+                    </Layout.Horizontal>
+                  </>
+                )}
+              </Layout.Vertical>
             </>
           )
         }}

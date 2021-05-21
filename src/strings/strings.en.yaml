@@ -993,7 +993,7 @@ pipelineSteps:
   configurationTypeRequired: 'Configuration Type is required.'
   configurationType: 'Configuration Type'
   remoteFile: 'Remote File'
-  addTFVarFileLabel: 'Add TF Var file'
+  addTFVarFileLabel: 'Add File Path'
   commandRequired: 'Command is required.'
   paths: 'Paths'
   deleteNamespace: 'Delete namespace'

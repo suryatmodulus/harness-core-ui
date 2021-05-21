@@ -238,7 +238,10 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
         ...initialValues.spec,
         shell: 'Bash',
         onDelegate: initialValues.spec?.onDelegate ? 'delegate' : 'targethost',
-
+        source: {
+          type: 'Inline',
+          ...(initialValues?.spec?.source || {})
+        },
         environmentVariables: Array.isArray(initialValues.spec?.environmentVariables)
           ? initialValues.spec?.environmentVariables.map(variable => ({
               ...variable,

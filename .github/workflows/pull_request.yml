@@ -14,8 +14,6 @@ jobs:
 
       - name: Set Up Node
         uses: actions/setup-node@v1
-        with:
-          node-version: '13.8'
 
       - name: Set up GitHub Package Registry token
         run: |

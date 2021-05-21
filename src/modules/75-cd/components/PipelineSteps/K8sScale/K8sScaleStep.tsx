@@ -109,7 +109,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     readonly={readonly}
                   />
                   {(getMultiTypeFromValue(
-                    (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
+                    (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as string
                   ) === MultiTypeInputType.RUNTIME ||
                     getMultiTypeFromValue(
                       (values?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage

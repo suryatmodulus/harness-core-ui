@@ -10,6 +10,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 
 import type {
+  InlineTerraformVarFileSpec,
   StepElementConfig,
   StringNGVariable,
   TerraformApplyStepInfo,
@@ -445,4 +446,10 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   }
 
   return payload
+}
+export interface InlineVar {
+  varFile: {
+    identifier: string
+    spec: InlineTerraformVarFileSpec
+  }
 }

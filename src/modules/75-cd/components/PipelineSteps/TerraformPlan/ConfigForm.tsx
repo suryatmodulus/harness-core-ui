@@ -117,6 +117,19 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     placeholder={getString('pipelineSteps.repoName')}
                     multiTextInputProps={{ expressions }}
                   />
+                  {getMultiTypeFromValue(formik.values?.spec?.configuration?.configFiles?.store?.spec?.repoName) ===
+                    MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      style={{ alignSelf: 'center' }}
+                      value={formik.values?.spec?.configuration?.configFiles?.store?.spec?.repoName as string}
+                      type="String"
+                      variableName="configuration.configFiles.store.spec.repoName"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('configuration.configFiles.store.spec.repoName', value)}
+                    />
+                  )}
                 </div>
               )}
 

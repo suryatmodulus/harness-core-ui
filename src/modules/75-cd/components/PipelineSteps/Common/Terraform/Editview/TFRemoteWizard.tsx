@@ -44,10 +44,10 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
           spec: {
             store: {
               spec: {
-                gitFetchType: prevStepData?.varFile?.store?.spec?.gitFetchType,
-                branch: prevStepData?.varFile?.store?.spec?.branch,
-                commitId: prevStepData?.varFile?.store?.spec?.commitId,
-                paths: (prevStepData?.varFile?.store?.spec?.paths || []).map((item: string) => ({
+                gitFetchType: prevStepData?.varFile?.spec?.store?.spec?.gitFetchType,
+                branch: prevStepData?.varFile?.spec?.store?.spec?.branch,
+                commitId: prevStepData?.varFile?.spec?.store?.spec?.commitId,
+                paths: (prevStepData?.varFile?.spec?.store?.spec?.paths || []).map((item: string) => ({
                   path: item,
                   id: uuid()
                 }))
@@ -77,6 +77,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
     { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
     { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
   ]
+
   return (
     <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
       <Formik

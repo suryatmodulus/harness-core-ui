@@ -59,7 +59,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
   }
 
   React.useEffect(() => {
-    setSelectedType(initialValues?.varFile?.store?.spec?.connectorRef)
+    setSelectedType(initialValues?.varFile?.spec?.store?.spec?.connectorRef)
   }, [isEditMode])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
@@ -123,7 +123,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                       ? 200
                       : 260
                   }
-                  name="varFile.store.spec.connectorRef"
+                  name="varFile.spec.store.spec.connectorRef"
                   placeholder={getString('select')}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -146,9 +146,9 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                 className={css.saveBtn}
                 disabled={
                   !selectedType ||
-                  (getMultiTypeFromValue(formik.values.varFile?.store?.spec?.connectorRef) ===
+                  (getMultiTypeFromValue(formik.values.varFile?.spec?.store?.spec?.connectorRef) ===
                     MultiTypeInputType.FIXED &&
-                    !(formik.values.varFile?.store?.spec?.connectorRef as ConnectorSelectedValue)?.connector)
+                    !(formik.values.varFile?.spec?.store?.spec?.connectorRef as ConnectorSelectedValue)?.connector)
                 }
               />
             </Layout.Horizontal>

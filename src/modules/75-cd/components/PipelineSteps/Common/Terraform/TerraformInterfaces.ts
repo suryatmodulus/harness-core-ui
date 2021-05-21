@@ -54,6 +54,30 @@ export interface TerraformPlanProps {
   stepType?: string
 }
 
+export interface RemoteVar {
+  varFile: {
+    identifier?: string
+    spec?: {
+      store?: {
+        spec?: {
+          gitFetchType?: string
+          branch?: string
+          commitId?: string
+          connectorRef?: {
+            label: string
+            value: string
+            scope: Scope
+            live: boolean
+            connector: { type: string; spec: { val: string } }
+          }
+          paths?: PathInterface[]
+          content?: string
+        }
+      }
+    }
+  }
+}
+
 export interface TerraformPlanVariableStepProps {
   initialValues: TFPlanFormData
   originalData: TFPlanFormData

@@ -3,22 +3,47 @@ import * as Yup from 'yup'
 
 import cx from 'classnames'
 
-import { Layout, Text, Button, Icon, FormInput, Formik, StepWizard, Color } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Button,
+  Icon,
+  FormInput,
+  Formik,
+  StepWizard,
+  Color,
+  MultiTypeInputType,
+  ExpressionInput,
+  getMultiTypeFromValue
+} from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps, Form } from 'formik'
 import type { FormikProps } from 'formik'
 
 import { useStrings } from 'framework/strings'
-import type { TerraformVarFileWrapper } from 'services/cd-ng'
-import { TerraformData, TerraformStoreTypes } from '../TerraformInterfaces'
+import type { InlineTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+
+import { RemoteVar, TerraformData, TerraformStoreTypes } from '../TerraformInterfaces'
 import { TFRemoteWizard } from './TFRemoteWizard'
 import { TFVarStore } from './TFVarStore'
+
 import css from './TerraformVarfile.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 // import TFRemoteWizard from './TFRemoteWizard'
 
 interface TfVarFileProps {
   formik: FormikProps<TerraformData>
+}
+
+interface InlineVar {
+  varFile: {
+    identifier: string
+    spec: InlineTerraformVarFileSpec
+  }
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
@@ -33,9 +58,11 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
       type: TerraformStoreTypes.Remote
     }
   }
+  const { expressions } = useVariablesExpression()
+
   const [showTfModal, setShowTfModal] = React.useState(false)
   const [isEditMode, setIsEditMode] = React.useState(false)
-  const [selectedVar, setSelectedVar] = React.useState(inlineInitValues as TerraformVarFileWrapper)
+  const [selectedVar, setSelectedVar] = React.useState(inlineInitValues as any)
   const [selectedVarIndex, setSelectedVarIndex] = React.useState<number>(-1)
   const [showRemoteWizard, setShowRemoteWizard] = React.useState(false)
   const { getString } = useStrings()
@@ -224,7 +251,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     />
                     <TFRemoteWizard
                       name={getString('cd.varFileDetails')}
-                      onSubmitCallBack={(values: TerraformVarFileWrapper) => {
+                      onSubmitCallBack={(values: RemoteVar) => {
                         if (isEditMode) {
                           arrayHelpers.replace(selectedVarIndex, values)
                         } else {
@@ -259,7 +286,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                 className={Classes.DIALOG}
               >
                 <Layout.Vertical padding="medium">
-                  <Formik
+                  <Formik<InlineVar>
                     initialValues={selectedVar}
                     onSubmit={(values: any) => {
                       if (!isEditMode) {
@@ -278,11 +305,63 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                       })
                     })}
                   >
-                    {() => {
+                    {formikProps => {
                       return (
                         <Form>
-                          <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
-                          <FormInput.TextArea name="varFile.spec.content" label={getString('pipelineSteps.content')} />
+                          <div className={stepCss.formGroup}>
+                            <FormInput.MultiTextInput
+                              name="varFile.identifier"
+                              label={getString('identifier')}
+                              multiTextInputProps={{ expressions }}
+                            />
+                            {getMultiTypeFromValue(formikProps.values.varFile?.identifier) ===
+                              MultiTypeInputType.RUNTIME && (
+                              <ConfigureOptions
+                                value={formikProps.values.varFile?.identifier as string}
+                                type="String"
+                                variableName="varFile.identifier"
+                                showRequiredField={false}
+                                showDefaultField={false}
+                                showAdvanced={true}
+                                onChange={value => formikProps.setFieldValue('varFile.identifier', value)}
+                              />
+                            )}
+                          </div>
+                          <div className={stepCss.formGroup}>
+                            <MultiTypeFieldSelector
+                              name="varFile.spec.content"
+                              label={getString('pipelineSteps.content')}
+                              defaultValueToReset=""
+                              allowedTypes={[
+                                MultiTypeInputType.EXPRESSION,
+                                MultiTypeInputType.FIXED,
+                                MultiTypeInputType.RUNTIME
+                              ]}
+                              expressionRender={() => {
+                                return (
+                                  <ExpressionInput
+                                    value={formikProps.values?.varFile?.spec?.content}
+                                    name="varFile.spec.content"
+                                    onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                                  />
+                                )
+                              }}
+                            >
+                              <FormInput.TextArea name="varFile.spec.content" />
+                            </MultiTypeFieldSelector>
+                            {getMultiTypeFromValue(formikProps.values.varFile?.spec?.content) ===
+                              MultiTypeInputType.RUNTIME && (
+                              <ConfigureOptions
+                                value={formikProps.values.varFile?.spec?.content as string}
+                                type="String"
+                                variableName="varFile.spec.content"
+                                showRequiredField={false}
+                                showDefaultField={false}
+                                showAdvanced={true}
+                                onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                              />
+                            )}
+                          </div>
                           <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
                             <Button type="submit" intent={'primary'} text={getString('submit')} />
                           </Layout.Horizontal>

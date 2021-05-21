@@ -159,6 +159,7 @@ function TerraformPlanWidget(
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
                   label={getString('pipelineSteps.provisionerIdentifier')}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -170,28 +171,6 @@ function TerraformPlanWidget(
                     showAdvanced={true}
                     onChange={value => {
                       setFieldValue('spec.provisionerIdentifier', value)
-                    }}
-                  />
-                )}
-              </div>
-
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.MultiTextInput
-                  name="spec.configuration.workspace"
-                  label={getString('pipelineSteps.workspace')}
-                  multiTextInputProps={{ expressions }}
-                />
-                {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values?.spec?.configuration?.workspace as string}
-                    type="String"
-                    variableName="spec.configuration.workspace"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      /* istanbul ignore else */
-                      formik.setFieldValue('values.spec.configuration.workspace', value)
                     }}
                   />
                 )}
@@ -253,6 +232,29 @@ function TerraformPlanWidget(
                     summary={getString('cd.optionalConfig')}
                     details={
                       <>
+                        <div className={cx(stepCss.formGroup, stepCss.md)}>
+                          <FormInput.MultiTextInput
+                            name="spec.configuration.workspace"
+                            label={getString('pipelineSteps.workspace')}
+                            multiTextInputProps={{ expressions }}
+                          />
+                          {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
+                            MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={formik.values?.spec?.configuration?.workspace as string}
+                              type="String"
+                              variableName="spec.configuration.workspace"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => {
+                                /* istanbul ignore else */
+                                formik.setFieldValue('values.spec.configuration.workspace', value)
+                              }}
+                            />
+                          )}
+                        </div>
+                        <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <TfVarFileList formik={formik} />
                         <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
@@ -296,6 +298,7 @@ function TerraformPlanWidget(
                         <div className={cx(stepCss.formGroup, css.addMarginTop)}>
                           <MultiTypeList
                             name="spec.configuration.targets"
+                            multiTextInputProps={{ expressions }}
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -310,6 +313,7 @@ function TerraformPlanWidget(
                         <div className={cx(stepCss.formGroup, css.addMarginTop)}>
                           <MultiTypeMap
                             name="spec.configuration.environmentVariables"
+                            valueMultiTextInputProps={{ expressions }}
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center' }}>

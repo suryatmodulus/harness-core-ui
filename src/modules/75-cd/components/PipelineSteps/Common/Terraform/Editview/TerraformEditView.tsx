@@ -162,6 +162,7 @@ export default function TerraformEditView(
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
                   label={getString('pipelineSteps.provisionerIdentifier')}
+                  multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -278,6 +279,7 @@ export default function TerraformEditView(
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div className={cx(stepCss.formGroup, css.addMarginTop)}>
                               <MultiTypeList
+                                multiTextInputProps={{ expressions }}
                                 name="spec.configuration.spec.targets"
                                 multiTypeFieldSelectorProps={{
                                   label: (
@@ -292,6 +294,7 @@ export default function TerraformEditView(
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div className={cx(stepCss.formGroup, css.addMarginTop)}>
                               <MultiTypeMap
+                                valueMultiTextInputProps={{ expressions }}
                                 name="spec.configuration.spec.environmentVariables"
                                 multiTypeFieldSelectorProps={{
                                   label: (

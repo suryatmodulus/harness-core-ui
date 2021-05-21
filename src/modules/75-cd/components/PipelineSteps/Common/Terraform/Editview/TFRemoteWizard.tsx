@@ -12,21 +12,21 @@ import React from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
-
+import { merge } from 'lodash-es'
 import { FieldArray, Form } from 'formik'
 
 import { useStrings } from 'framework/strings'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import { PathInterface, TerraformStoreTypes } from '../TerraformInterfaces'
+
+import { PathInterface, RemoteVar, TerraformStoreTypes } from '../TerraformInterfaces'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+
 import css from './TerraformVarfile.module.scss'
-import type { TerraformVarFileWrapper } from 'services/cd-ng'
-import { merge } from 'lodash-es'
 
 interface TFRemoteProps {
-  onSubmitCallBack: (data: TerraformVarFileWrapper) => void
+  onSubmitCallBack: (data: RemoteVar) => void
   isEditMode: boolean
 }
 export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
@@ -36,21 +36,22 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   isEditMode
 }) => {
   const { getString } = useStrings()
-  console.log(prevStepData, 'data')
   const initialValues = isEditMode
     ? {
         varFile: {
           identifier: prevStepData?.varFile?.identifier,
           type: TerraformStoreTypes.Remote,
-          store: {
-            spec: {
-              gitFetchType: prevStepData?.varFile?.store?.spec?.gitFetchType,
-              branch: prevStepData?.varFile?.store?.spec?.branch,
-              commitId: prevStepData?.varFile?.store?.spec?.commitId,
-              paths: (prevStepData?.varFile?.store?.spec?.paths || []).map((item: string) => ({
-                path: item,
-                id: uuid()
-              }))
+          spec: {
+            store: {
+              spec: {
+                gitFetchType: prevStepData?.varFile?.store?.spec?.gitFetchType,
+                branch: prevStepData?.varFile?.store?.spec?.branch,
+                commitId: prevStepData?.varFile?.store?.spec?.commitId,
+                paths: (prevStepData?.varFile?.store?.spec?.paths || []).map((item: string) => ({
+                  path: item,
+                  id: uuid()
+                }))
+              }
             }
           }
         }
@@ -58,12 +59,14 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
     : {
         varFile: {
           type: TerraformStoreTypes.Remote,
-          store: {
-            spec: {
-              gitFetchType: '',
-              branch: '',
-              commitId: '',
-              paths: []
+          spec: {
+            store: {
+              spec: {
+                gitFetchType: '',
+                branch: '',
+                commitId: '',
+                paths: []
+              }
             }
           }
         }
@@ -85,22 +88,29 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             varFile: {
               type: payload.varFile.type,
               identifier: payload.varFile.identifier,
-              store: {
-                ...payload.varFile.store,
-                type: payload?.varFile?.store?.spec?.connectorRef?.connector?.type,
-                spec: {
-                  ...payload.varFile.store?.spec,
-                  connectorRef: payload?.varFile?.store?.spec?.connectorRef
-                    ? getMultiTypeFromValue(payload?.varFile?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
-                      ? payload?.varFile?.store?.spec?.connectorRef
-                      : payload?.varFile?.store?.spec?.connectorRef?.value
-                    : ''
+              spec: {
+                store: {
+                  type: payload?.varFile?.spec?.store?.spec?.connectorRef?.connector?.type,
+                  spec: {
+                    ...payload.varFile.spec?.store?.spec,
+                    connectorRef: payload?.varFile?.spec?.store?.spec?.connectorRef
+                      ? getMultiTypeFromValue(payload?.varFile?.spec?.store?.spec?.connectorRef) ===
+                        MultiTypeInputType.RUNTIME
+                        ? payload?.varFile?.spec?.store?.spec?.connectorRef
+                        : payload?.varFile?.spec?.store?.spec?.connectorRef?.value
+                      : ''
+                  }
                 }
               }
             }
           }
-          if (payload.varFile.store?.spec?.paths?.length) {
-            data.varFile.store.spec['paths'] = payload.varFile.store?.spec?.paths?.map(
+          if (payload.varFile.spec?.store?.spec?.gitFetchType === gitFetchTypes[0].value) {
+            delete data?.varFile?.spec?.store?.spec?.commitId
+          } else if (payload.varFile.spec?.store?.spec?.gitFetchType === gitFetchTypes[1].value) {
+            delete data?.varFile?.spec?.store?.spec?.branch
+          }
+          if (payload.varFile.spec?.store?.spec?.paths?.length) {
+            data.varFile.spec.store.spec['paths'] = payload.varFile.spec?.store?.spec?.paths?.map(
               (item: PathInterface) => item.path
             ) as any
           }
@@ -109,18 +119,20 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
         validationSchema={Yup.object().shape({
           varFile: Yup.object().shape({
             identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
-            store: Yup.object().shape({
-              spec: Yup.object().shape({
-                gitFetchType: Yup.string().required(getString('cd.gitFetchTypeRequired')),
-                branch: Yup.string().when('gitFetchType', {
-                  is: 'Branch',
-                  then: Yup.string().trim().required(getString('validation.branchName'))
-                }),
-                commitId: Yup.string().when('gitFetchType', {
-                  is: 'Commit',
-                  then: Yup.string().trim().required(getString('validation.commitId'))
-                }),
-                paths: Yup.string().required(getString('cd.pathCannotBeEmpty'))
+            spec: Yup.object().shape({
+              store: Yup.object().shape({
+                spec: Yup.object().shape({
+                  gitFetchType: Yup.string().required(getString('cd.gitFetchTypeRequired')),
+                  branch: Yup.string().when('gitFetchType', {
+                    is: 'Branch',
+                    then: Yup.string().trim().required(getString('validation.branchName'))
+                  }),
+                  commitId: Yup.string().when('gitFetchType', {
+                    is: 'Commit',
+                    then: Yup.string().trim().required(getString('validation.commitId'))
+                  }),
+                  paths: Yup.string().required(getString('cd.pathCannotBeEmpty'))
+                })
               })
             })
           })
@@ -131,85 +143,106 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             <Form>
               <div className={css.tfRemoteForm}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
+                  <FormInput.MultiTextInput
+                    name="varFile.identifier"
+                    label={getString('identifier')}
+                    multiTextInputProps={{ expressions }}
+                  />
+                  {getMultiTypeFromValue(formik.values.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={formik.values.varFile?.identifier as string}
+                      type="String"
+                      variableName="varFile.identifier"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('varFile.identifier', value)}
+                    />
+                  )}
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select
                     items={gitFetchTypes}
-                    name="varFile.store.spec.gitFetchType"
+                    name="varFile.spec.store.spec.gitFetchType"
                     label={getString('pipeline.manifestType.gitFetchTypeLabel')}
                     placeholder={getString('pipeline.manifestType.gitFetchTypeLabel')}
                   />
                 </div>
-                {formik.values?.varFile?.store?.spec?.gitFetchType === gitFetchTypes[0].value && (
+                {formik.values?.varFile?.spec?.store?.spec?.gitFetchType === gitFetchTypes[0].value && (
                   <div className={cx(stepCss.formGroup, stepCss.md)}>
                     <FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                      name="varFile.store.spec.branch"
+                      name="varFile.spec.store.spec.branch"
                       multiTextInputProps={{ expressions }}
                     />
-                    {getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.branch) ===
+                    {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.branch) ===
                       MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
                         style={{ alignSelf: 'center' }}
-                        value={formik.values?.varFile?.store?.spec?.branch as string}
+                        value={formik.values?.varFile?.spec?.store?.spec?.branch as string}
                         type="String"
-                        variableName="varFile.store.spec.branch"
+                        variableName="varFile.spec.store.spec.branch"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
-                        onChange={value => formik.setFieldValue('varFile.store.spec.branch', value)}
+                        onChange={value => formik.setFieldValue('varFile.spec.store.spec.branch', value)}
                       />
                     )}
                   </div>
                 )}
 
-                {formik.values?.varFile?.store?.spec?.gitFetchType === gitFetchTypes[1].value && (
+                {formik.values?.varFile?.spec?.store?.spec?.gitFetchType === gitFetchTypes[1].value && (
                   <div className={cx(stepCss.formGroup, stepCss.md)}>
                     <FormInput.MultiTextInput
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                      name="varFile.store.spec.commitId"
+                      name="varFile.spec.store.spec.commitId"
                       multiTextInputProps={{ expressions }}
                     />
-                    {getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.commitId) ===
+                    {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.commitId) ===
                       MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
                         style={{ alignSelf: 'center' }}
-                        value={formik.values?.varFile?.store?.spec?.commitId as string}
+                        value={formik.values?.varFile?.spec?.store?.spec?.commitId as string}
                         type="String"
-                        variableName="varFile.store.spec.commitId"
+                        variableName="varFile.spec.store.spec.commitId"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
-                        onChange={value => formik.setFieldValue('varFile.store.spec.commitId', value)}
+                        onChange={value => formik.setFieldValue('varFile.spec.store.spec.commitId', value)}
                       />
                     )}
                   </div>
                 )}
                 <MultiTypeFieldSelector
-                  name="varFile.store.spec.paths"
+                  name="varFile.spec.store.spec.paths"
                   label={getString('filePaths')}
                   style={{ width: '200' }}
                   disableTypeSelection
                 >
                   <FieldArray
-                    name="varFile.store.spec.paths"
+                    name="varFile.spec.store.spec.paths"
                     render={({ push, remove }) => {
                       return (
                         <div>
-                          {(formik.values?.varFile?.store?.spec?.paths || []).map((path: PathInterface, i: number) => (
-                            <div key={`${path}-${i}`} className={css.pathRow}>
-                              <FormInput.MultiTextInput name={`varFile.store.spec.paths[${i}].path`} label="" />
-                              <Button
-                                minimal
-                                icon="trash"
-                                data-testid={`remove-header-${i}`}
-                                onClick={() => remove(i)}
-                              />
-                            </div>
-                          ))}
+                          {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
+                            (path: PathInterface, i: number) => (
+                              <div key={`${path}-${i}`} className={css.pathRow}>
+                                <FormInput.MultiTextInput
+                                  name={`varFile.spec.store.spec.paths[${i}].path`}
+                                  label=""
+                                  multiTextInputProps={{ expressions }}
+                                />
+                                <Button
+                                  minimal
+                                  icon="trash"
+                                  data-testid={`remove-header-${i}`}
+                                  onClick={() => remove(i)}
+                                />
+                              </div>
+                            )
+                          )}
                           <Button
                             icon="plus"
                             minimal

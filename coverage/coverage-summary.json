@@ -1,3 +1,0 @@
-{"total": {"lines":{"total":86,"covered":57,"skipped":0,"pct":66.28},"statements":{"total":86,"covered":57,"skipped":0,"pct":66.28},"functions":{"total":15,"covered":7,"skipped":0,"pct":46.67},"branches":{"total":110,"covered":31,"skipped":0,"pct":28.18}}
-,"/Users/vivek.bansal/Projects/Harness/nextgenui/src/modules/75-cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShell.tsx": {"lines":{"total":86,"covered":57,"skipped":0,"pct":66.28},"functions":{"total":15,"covered":7,"skipped":0,"pct":46.67},"statements":{"total":86,"covered":57,"skipped":0,"pct":66.28},"branches":{"total":110,"covered":31,"skipped":0,"pct":28.18}}
-}
